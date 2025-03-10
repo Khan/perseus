@@ -1,5 +1,26 @@
 # @khanacademy/kas
 
+## 0.5.0
+
+### Minor Changes
+
+-   [#2202](https://github.com/Khan/perseus/pull/2202) [`c7f6f63c8`](https://github.com/Khan/perseus/commit/c7f6f63c845566d99dae6df604426e5fb14a7e85) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Tooling:
+
+    -   Switching to `pnpm`.
+
+### Patch Changes
+
+-   [#2259](https://github.com/Khan/perseus/pull/2259) [`a90cf7901`](https://github.com/Khan/perseus/commit/a90cf790159fefbee41437f20ac9a403a06f148f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor change to how each package embeds it's package version in itself (slightly larger bundle size)
+
+*   [#2266](https://github.com/Khan/perseus/pull/2266) [`20a08315b`](https://github.com/Khan/perseus/commit/20a08315b288244357b8a2526f87c2c5014f2fa6) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: KAS handling functions around plain numbers
+
+## 0.4.16
+
+### Patch Changes
+
+-   Updated dependencies [[`e63f83d0d`](https://github.com/Khan/perseus/commit/e63f83d0d89fd5b8e7aee3ab7248bcb19ec9be8a), [`e187c6b67`](https://github.com/Khan/perseus/commit/e187c6b67cb4d83e42907527acfe6562346e92d8), [`62ed407b8`](https://github.com/Khan/perseus/commit/62ed407b8647472f955467b8ce64261182bb8b59), [`cbd5a6528`](https://github.com/Khan/perseus/commit/cbd5a652818554aa368bcddb0381d4716bc7a8ba)]:
+    -   @khanacademy/perseus-core@3.7.0
+
 ## 0.4.15
 
 ### Patch Changes

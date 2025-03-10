@@ -27,6 +27,8 @@
  *      the new format _as well as_ the old format.
  */
 
+import type {KeypadKey} from "./keypad";
+
 // TODO(FEI-4010): Remove `Perseus` prefix for all types here
 
 export type Coord = [x: number, y: number];
@@ -318,7 +320,7 @@ export type WidgetOptions<Type extends string, Options> = {
     options: Options;
     // Only used by interactive child widgets (line, point, etc) to identify the components
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    key?: number;
+    key?: number | null;
     // The version of the widget data spec.  Used to differentiate between newer and older content data.
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     version?: Version;
@@ -414,8 +416,7 @@ export type PerseusImageBackground = {
     // The scale of the image
     // NOTE: perseus_data.go says this is required, but nullable, even though
     // it isn't necessary at all.
-    // Yikes, production data as this as both a number (1) and string ("1")
-    scale?: number | string;
+    scale?: number;
     // The bottom offset of the image
     // NOTE: perseus_data.go says this is required, but nullable, even though
     // it isn't necessary at all.
@@ -515,6 +516,10 @@ export type PerseusExpressionWidgetOptions = {
     functions: ReadonlyArray<string>;
     // Use x for rendering multiplication instead of a center dot.
     times: boolean;
+    // What extra keys need to be displayed on the keypad so that the
+    // question can be answerable without a keyboard (ie mobile)
+    // TODO: this is really ReadonlyArray<Key>
+    extraKeys?: ReadonlyArray<KeypadKey>;
     // visible label associated with the MathQuill field
     visibleLabel?: string;
     // aria label for screen readers attached to MathQuill field
@@ -873,9 +878,20 @@ export type LockedFunctionType = {
     type: "function";
     color: LockedFigureColor;
     strokeStyle: LockedLineStyle;
-    equation: string; // This is the user-defined equation (as it was typed)
+    /**
+     * This is the user-defined equation (as it was typed)
+     */
+    equation: string;
+    /**
+     * The independent variable of this function
+     */
     directionalAxis: "x" | "y";
-    domain?: [min: number | null, max: number | null];
+    /**
+     * The minimum and maximum values along the `directionalAxis` at which
+     * this function should be graphed. Values of -Infinity and Infinity are
+     * allowed. Note that infinite values are serialized as `null` in JSON.
+     */
+    domain: [min: number, max: number];
     labels?: LockedLabelType[];
     ariaLabel?: string;
 };
@@ -1182,15 +1198,15 @@ export type MathFormat =
     | "pi";
 
 export type PerseusNumericInputAnswerForm = {
-    simplify:
-        | "required"
-        | "correct"
-        | "enforced"
-        | "optional"
-        | null
-        | undefined;
+    simplify: PerseusNumericInputSimplify | null | undefined;
     name: MathFormat;
 };
+
+export type PerseusNumericInputSimplify =
+    | "required"
+    | "correct"
+    | "enforced"
+    | "optional";
 
 export type PerseusNumericInputWidgetOptions = {
     // A list of all the possible correct and incorrect answers
@@ -1206,9 +1222,6 @@ export type PerseusNumericInputWidgetOptions = {
     rightAlign?: boolean;
     // Always false.  Not used for this widget
     static: boolean;
-    // Used by examples, maybe not used and should be removed in the future
-    // see TODO in numeric-input
-    answerForms?: ReadonlyArray<PerseusNumericInputAnswerForm>;
 };
 
 export type PerseusNumericInputAnswer = {
@@ -1228,7 +1241,7 @@ export type PerseusNumericInputAnswer = {
     // NOTE: perseus_data.go says this is non-nullable even though we handle null values.
     maxError: number | null | undefined;
     // Unsimplified answers are Ungraded, Accepted, or Wrong. Options: "required", "correct", or "enforced"
-    simplify: string | null | undefined;
+    simplify: PerseusNumericInputSimplify | null | undefined;
 };
 
 export type PerseusNumberLineWidgetOptions = {
@@ -1344,6 +1357,9 @@ export type PerseusRadioWidgetOptions = {
     // If multipleSelect is enabled, Specify the number expected to be correct.
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     countChoices?: boolean;
+    // How many of the choices are correct, which is conditionally used to tell
+    // learners ahead of time how many options they'll need.
+    numCorrect?: number;
     // Randomize the order of the options or keep them as defined
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     randomize?: boolean;

@@ -162,7 +162,14 @@ export type PerseusStrings = {
         centerX: string;
         centerY: string;
     }) => string;
-    srCircleRadiusPoint: ({
+    srCircleRadiusPointRight: ({
+        radiusPointX,
+        radiusPointY,
+    }: {
+        radiusPointX: string;
+        radiusPointY: string;
+    }) => string;
+    srCircleRadiusPointLeft: ({
         radiusPointX,
         radiusPointY,
     }: {
@@ -228,7 +235,6 @@ export type PerseusStrings = {
     }) => string;
     srAngleStartingSide: ({x, y}: {x: string; y: string}) => string;
     srAngleEndingSide: ({x, y}: {x: string; y: string}) => string;
-    srAngleVertex: ({x, y}: {x: string; y: string}) => string;
     srAngleVertexWithAngleMeasure: ({
         x,
         y,
@@ -358,6 +364,21 @@ export type PerseusStrings = {
         x: string;
         y: string;
     }): string;
+    srLinearSystemGrabHandle({
+        lineNumber,
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }: {
+        lineNumber: number;
+        point1X: string;
+        point1Y: string;
+        point2X: string;
+        point2Y: string;
+    }): string;
+    srLinearSystemIntersection({x, y}: {x: string; y: string}): string;
+    srLinearSystemParallel: string;
     srRayGraph: string;
     srRayPoints: ({
         point1X,
@@ -460,7 +481,9 @@ export type PerseusStrings = {
     srUnlimitedPolygonEmpty: string;
     srSinusoidGraph: string;
     srSinusoidRootPoint: ({x, y}: {x: string; y: string}) => string;
-    srSinusoidPeakPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidMaxPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidMinPoint: ({x, y}: {x: string; y: string}) => string;
+    srSinusoidFlatPoint: ({x, y}: {x: string; y: string}) => string;
     srSinusoidDescription: ({
         minValue,
         maxValue,
@@ -676,8 +699,10 @@ export const strings = {
     srCircleGraph: "A circle on a coordinate plane.",
     srCircleShape:
         "Circle. The center point is at %(centerX)s comma %(centerY)s.",
-    srCircleRadiusPoint:
-        "Radius point at %(radiusPointX)s comma %(radiusPointY)s.",
+    srCircleRadiusPointRight:
+        "Right radius endpoint at %(radiusPointX)s comma %(radiusPointY)s.",
+    srCircleRadiusPointLeft:
+        "Left radius endpoint at %(radiusPointX)s comma %(radiusPointY)s.",
     srCircleRadius: "Circle radius is %(radius)s.",
     srCircleOuterPoints:
         "Points on the circle at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, %(point3X)s comma %(point3Y)s, %(point4X)s comma %(point4Y)s.",
@@ -695,12 +720,11 @@ export const strings = {
     srLinearGraphBothIntercepts:
         "The line crosses the X-axis at %(xIntercept)s comma 0 and the Y-axis at 0 comma %(yIntercept)s.",
     srLinearGraphOriginIntercept:
-        "The line crosses the x and y axes at the graph's origin.",
+        "The line crosses the X and Y axes at the graph's origin.",
     srLinearGrabHandle:
-        "Line from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
+        "Line going through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s.",
     srAngleStartingSide: "Point 3, starting side at %(x)s comma %(y)s.",
     srAngleEndingSide: "Point 2, ending side at %(x)s comma %(y)s.",
-    srAngleVertex: "Point 1, vertex at %(x)s comma %(y)s.",
     srAngleVertexWithAngleMeasure:
         "Point 1, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees.",
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
@@ -727,6 +751,11 @@ export const strings = {
         "Line %(lineNumber)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
     srLinearSystemPoint:
         "Point %(pointSequence)s on line %(lineNumber)s at %(x)s comma %(y)s.",
+    srLinearSystemGrabHandle:
+        "Line %(lineNumber)s going through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s.",
+    srLinearSystemIntersection:
+        "Line 1 and line 2 intersect at point %(x)s comma %(y)s.",
+    srLinearSystemParallel: "Line 1 and line 2 are parallel.",
     srRayGraph: "A ray on a coordinate plane.",
     srRayPoints:
         "The endpoint is at %(point1X)s comma %(point1Y)s and the ray goes through point %(point2X)s comma %(point2Y)s.",
@@ -768,7 +797,9 @@ export const strings = {
     srUnlimitedPolygonEmpty: "An empty coordinate plane.",
     srSinusoidGraph: "A sinusoid function on a coordinate plane.",
     srSinusoidRootPoint: "Midline intersection at %(x)s comma %(y)s.",
-    srSinusoidPeakPoint: "Extremum point at %(x)s comma %(y)s.",
+    srSinusoidMaxPoint: "Maximum point at %(x)s comma %(y)s.",
+    srSinusoidMinPoint: "Minimum point at %(x)s comma %(y)s.",
+    srSinusoidFlatPoint: "Line through point at %(x)s comma %(y)s.",
     srSinusoidDescription:
         "The graph shows a wave with a minimum value of %(minValue)s and a maximum value of %(maxValue)s. The wave completes a full cycle from %(cycleStart)s to %(cycleEnd)s.",
     srSinusoidInteractiveElements:
@@ -955,8 +986,10 @@ export const mockStrings: PerseusStrings = {
     srCircleGraph: "A circle on a coordinate plane.",
     srCircleShape: ({centerX, centerY}) =>
         `Circle. The center point is at ${centerX} comma ${centerY}.`,
-    srCircleRadiusPoint: ({radiusPointX, radiusPointY}) =>
-        `Radius point at ${radiusPointX} comma ${radiusPointY}.`,
+    srCircleRadiusPointRight: ({radiusPointX, radiusPointY}) =>
+        `Right radius endpoint at ${radiusPointX} comma ${radiusPointY}.`,
+    srCircleRadiusPointLeft: ({radiusPointX, radiusPointY}) =>
+        `Left radius endpoint at ${radiusPointX} comma ${radiusPointY}.`,
     srCircleRadius: ({radius}) => `Circle radius is ${radius}.`,
     srCircleOuterPoints: ({
         point1X,
@@ -983,13 +1016,12 @@ export const mockStrings: PerseusStrings = {
     srLinearGraphBothIntercepts: ({xIntercept, yIntercept}) =>
         `The line crosses the X-axis at ${xIntercept} comma 0 and the Y-axis at 0 comma ${yIntercept}.`,
     srLinearGraphOriginIntercept:
-        "The line crosses the x and y axes at the graph's origin.",
+        "The line crosses the X and Y axes at the graph's origin.",
     srLinearGrabHandle: ({point1X, point1Y, point2X, point2Y}) =>
-        `Line from ${point1X} comma ${point1Y} to ${point2X} comma ${point2Y}.`,
+        `Line going through point ${point1X} comma ${point1Y} and point ${point2X} comma ${point2Y}.`,
     srAngleStartingSide: ({x, y}) =>
         `Point 3, starting side at ${x} comma ${y}.`,
     srAngleEndingSide: ({x, y}) => `Point 2, ending side at ${x} comma ${y}.`,
-    srAngleVertex: ({x, y}) => `Point 1, vertex at ${x} comma ${y}.`,
     srAngleVertexWithAngleMeasure: ({x, y, angleMeasure}) =>
         `Point 1, vertex at ${x} comma ${y}. Angle ${angleMeasure} degrees.`,
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
@@ -1042,6 +1074,17 @@ export const mockStrings: PerseusStrings = {
         `Line ${lineNumber} has two points, point 1 at ${point1X} comma ${point1Y} and point 2 at ${point2X} comma ${point2Y}.`,
     srLinearSystemPoint: ({lineNumber, pointSequence, x, y}) =>
         `Point ${pointSequence} on line ${lineNumber} at ${x} comma ${y}.`,
+    srLinearSystemGrabHandle: ({
+        lineNumber,
+        point1X,
+        point1Y,
+        point2X,
+        point2Y,
+    }) =>
+        `Line ${lineNumber} going through point ${point1X} comma ${point1Y} and point ${point2X} comma ${point2Y}.`,
+    srLinearSystemIntersection: ({x, y}) =>
+        `Line 1 and line 2 intersect at point ${x} comma ${y}.`,
+    srLinearSystemParallel: "Line 1 and line 2 are parallel.",
     srRayGraph: "A ray on a coordinate plane.",
     srRayPoints: ({point1X, point1Y, point2X, point2Y}) =>
         `The endpoint is at ${point1X} comma ${point1Y} and the ray goes through point ${point2X} comma ${point2Y}.`,
@@ -1094,7 +1137,9 @@ export const mockStrings: PerseusStrings = {
     srUnlimitedPolygonEmpty: "An empty coordinate plane.",
     srSinusoidGraph: "A sinusoid function on a coordinate plane.",
     srSinusoidRootPoint: ({x, y}) => `Midline intersection at ${x} comma ${y}.`,
-    srSinusoidPeakPoint: ({x, y}) => `Extremum point at ${x} comma ${y}.`,
+    srSinusoidMaxPoint: ({x, y}) => `Maximum point at ${x} comma ${y}.`,
+    srSinusoidMinPoint: ({x, y}) => `Minimum point at ${x} comma ${y}.`,
+    srSinusoidFlatPoint: ({x, y}) => `Line through point at ${x} comma ${y}.`,
     srSinusoidDescription: ({minValue, maxValue, cycleStart, cycleEnd}) =>
         `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${cycleStart} to ${cycleEnd}.`,
     srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>

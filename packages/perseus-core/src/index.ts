@@ -1,19 +1,21 @@
 export type {PerseusAnalyticsEvent, AnalyticsEventHandlerFn} from "./analytics";
 export type {
     KEScore,
-    KeypadContextRendererInterface,
     RendererInterface,
     MarkerType,
     InteractiveMarkerType,
     Relationship,
     Alignment,
 } from "./types";
+export type {
+    KeypadKey,
+    KeypadConfiguration,
+    KeypadContextRendererInterface,
+} from "./keypad";
 export type {ErrorKind} from "./error/errors";
 export type {FunctionTypeMappingKeys} from "./utils/grapher-util";
 export type {Coords} from "./utils/grapher-types";
 
-// Careful, `version.ts` uses this function so it _must_ be imported above it
-export {addLibraryVersionToPerseusDebug} from "./utils/add-library-version-to-perseus-debug";
 export {default as getMatrixSize} from "./utils/get-matrix-size";
 export {default as getDecimalSeparator} from "./utils/get-decimal-separator";
 export {approximateEqual, approximateDeepEqual} from "./utils/equality";
@@ -61,6 +63,7 @@ export {default as explanationLogic} from "./widgets/explanation";
 export type {ExplanationDefaultWidgetOptions} from "./widgets/explanation";
 export {default as expressionLogic} from "./widgets/expression";
 export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
+export {default as deriveExtraKeys} from "./widgets/expression/derive-extra-keys";
 export {default as gradedGroupLogic} from "./widgets/graded-group";
 export type {GradedGroupDefaultWidgetOptions} from "./widgets/graded-group";
 export {default as gradedGroupSetLogic} from "./widgets/graded-group-set";
@@ -107,6 +110,7 @@ export {default as pythonProgramLogic} from "./widgets/python-program";
 export type {PythonProgramDefaultWidgetOptions} from "./widgets/python-program";
 export {default as radioLogic} from "./widgets/radio";
 export type {RadioDefaultWidgetOptions} from "./widgets/radio";
+export {usesNumCorrect} from "./widgets/radio/radio-util";
 export {default as sorterLogic} from "./widgets/sorter";
 export type {SorterDefaultWidgetOptions} from "./widgets/sorter";
 export {default as tableLogic} from "./widgets/table";
@@ -129,14 +133,20 @@ export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/ordere
 export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
 export {default as getCSProgramPublicWidgetOptions} from "./widgets/cs-program/cs-program-util";
 export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
+export type {ExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
 export {default as getGrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
-export {default as getInteractiveGraphPublicWidgetOptions} from "./widgets/interactive-graph/interactive-graph-util";
+export {
+    default as getInteractiveGraphPublicWidgetOptions,
+    type InteractiveGraphPublicWidgetOptions,
+} from "./widgets/interactive-graph/interactive-graph-util";
 export {default as getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
 export {default as getSorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
 export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
+export type {DropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";
 export {default as getNumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
 export {default as getRadioPublicWidgetOptions} from "./widgets/radio/radio-util";
+export {deriveNumCorrect} from "./widgets/radio/radio-upgrade";
 export {default as getTablePublicWidgetOptions} from "./widgets/table/table-util";
 export {default as getIFramePublicWidgetOptions} from "./widgets/iframe/iframe-util";
 export {default as getMatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";

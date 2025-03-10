@@ -1247,6 +1247,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "grayH",
                 strokeStyle: "solid",
                 directionalAxis: "x",
+                domain: [-Infinity, Infinity],
             },
         ]);
     });
@@ -1301,6 +1302,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "grayH",
                 strokeStyle: "solid",
                 directionalAxis: "x",
+                domain: [-Infinity, Infinity],
                 labels: [
                     {
                         type: "label",

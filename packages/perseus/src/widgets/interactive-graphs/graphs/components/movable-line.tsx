@@ -25,7 +25,6 @@ type Props = {
     };
     // Extra graph information to be read by screen readers
     ariaDescribedBy?: string;
-    color?: string;
     /* Extends the line to the edge of the graph with an arrow */
     extend?: {
         start: boolean;
@@ -40,11 +39,12 @@ export const MovableLine = (props: Props) => {
         points: [start, end],
         ariaLabels,
         ariaDescribedBy,
-        color,
         extend,
         onMoveLine = () => {},
         onMovePoint = () => {},
     } = props;
+
+    const {snapStep} = useGraphConfig();
 
     // Aria live states for (0) point 1, (1) point 2, and (2) grab handle.
     // When moving an element, set its aria live to "polite" and the others
@@ -74,11 +74,15 @@ export const MovableLine = (props: Props) => {
             ariaLive: ariaLives[0],
             point: start,
             sequenceNumber: 1,
-            color,
             onMove: (p) => {
                 setAriaLives(["polite", "off", "off"]);
                 onMovePoint(0, p);
             },
+            constrain: getMovableLineKeyboardConstraint(
+                [start, end],
+                snapStep,
+                0,
+            ),
         });
     const {visiblePoint: visiblePoint2, focusableHandle: focusableHandle2} =
         useControlPoint({
@@ -87,11 +91,15 @@ export const MovableLine = (props: Props) => {
             ariaLive: ariaLives[1],
             point: end,
             sequenceNumber: 2,
-            color,
             onMove: (p) => {
                 setAriaLives(["off", "polite", "off"]);
                 onMovePoint(1, p);
             },
+            constrain: getMovableLineKeyboardConstraint(
+                [start, end],
+                snapStep,
+                1,
+            ),
         });
 
     const line = (
@@ -101,7 +109,6 @@ export const MovableLine = (props: Props) => {
             ariaLive={ariaLives[2]}
             start={start}
             end={end}
-            stroke={color}
             extend={extend}
             onMove={(delta) => {
                 setAriaLives(["off", "off", "polite"]);
@@ -121,8 +128,6 @@ export const MovableLine = (props: Props) => {
     );
 };
 
-const defaultStroke = "var(--movable-line-stroke-color)";
-
 type LineProps = {
     start: vec.Vector2;
     end: vec.Vector2;
@@ -136,21 +141,12 @@ type LineProps = {
               start: boolean;
               end: boolean;
           };
-    stroke?: string | undefined;
     onMove: (delta: vec.Vector2) => unknown;
 };
 
 const Line = (props: LineProps) => {
-    const {
-        start,
-        end,
-        ariaLabel,
-        ariaDescribedBy,
-        ariaLive,
-        extend,
-        stroke = defaultStroke,
-        onMove,
-    } = props;
+    const {start, end, ariaLabel, ariaDescribedBy, ariaLive, extend, onMove} =
+        props;
 
     const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
     const {
@@ -158,6 +154,7 @@ const Line = (props: LineProps) => {
         graphDimensionsInPixels,
         snapStep,
         disableKeyboardInteraction,
+        interactiveColor,
     } = useGraphConfig();
 
     let startExtend: vec.Vector2 | undefined = undefined;
@@ -223,7 +220,7 @@ const Line = (props: LineProps) => {
                     start={startPtPx}
                     end={endPtPx}
                     style={{
-                        stroke,
+                        stroke: interactiveColor,
                         strokeWidth: "var(--movable-line-stroke-weight)",
                     }}
                     className={dragging ? "movable-dragging" : ""}
@@ -233,11 +230,69 @@ const Line = (props: LineProps) => {
 
             {/* Draw extension vectors outside of movable area */}
             {startExtend && (
-                <Vector tail={start} tip={startExtend} color={stroke} />
+                <Vector
+                    tail={start}
+                    tip={startExtend}
+                    testId="movable-line__vector"
+                />
             )}
-            {endExtend && <Vector tail={end} tip={endExtend} color={stroke} />}
+            {endExtend && (
+                <Vector
+                    tail={end}
+                    tip={endExtend}
+                    testId="movable-line__vector"
+                />
+            )}
         </>
     );
+};
+
+export const getMovableLineKeyboardConstraint = (
+    line: [vec.Vector2, vec.Vector2],
+    snapStep: vec.Vector2,
+    pointIndex: number,
+): {
+    up: vec.Vector2;
+    down: vec.Vector2;
+    left: vec.Vector2;
+    right: vec.Vector2;
+} => {
+    // Separate the two points into their own variables, and determine which point is being moved
+    const coordToBeMoved = line[pointIndex];
+    const otherPoint = line[1 - pointIndex];
+
+    // Create a helper function that moves the point and then checks
+    // if it overlaps with the other point in the line after the move.
+    const movePointWithConstraint = (
+        moveFunc: (coord: vec.Vector2) => vec.Vector2,
+    ): vec.Vector2 => {
+        // Move the point
+        let movedCoord = moveFunc(coordToBeMoved);
+        // If the moved point overlaps with the other point in the line,
+        // move the point again.
+        if (vec.dist(movedCoord, otherPoint) === 0) {
+            movedCoord = moveFunc(movedCoord);
+        }
+        return movedCoord;
+    };
+
+    // Check if the new point will overlap the other point.
+    // If it will, we need to snap the point to the left or right an additional
+    // snapStep to avoid overlap.
+    return {
+        up: movePointWithConstraint((coord) =>
+            vec.add(coord, [0, snapStep[1]]),
+        ),
+        down: movePointWithConstraint((coord) =>
+            vec.sub(coord, [0, snapStep[1]]),
+        ),
+        left: movePointWithConstraint((coord) =>
+            vec.sub(coord, [snapStep[0], 0]),
+        ),
+        right: movePointWithConstraint((coord) =>
+            vec.add(coord, [snapStep[0], 0]),
+        ),
+    };
 };
 
 export function trimRange(

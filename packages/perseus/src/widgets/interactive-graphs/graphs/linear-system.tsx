@@ -1,3 +1,4 @@
+import {geometry} from "@khanacademy/kmath";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
@@ -39,6 +40,15 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
 
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
+    const intersectionId = `${id}-intersection`;
+
+    const intersectionPoint = geometry.getLineIntersection(lines[0], lines[1]);
+    const intersectionDescription = intersectionPoint
+        ? strings.srLinearSystemIntersection({
+              x: srFormatNumber(intersectionPoint[0], locale),
+              y: srFormatNumber(intersectionPoint[1], locale),
+          })
+        : strings.srLinearSystemParallel;
 
     const linesAriaInfo = lines.map((line, i) => {
         return {
@@ -60,20 +70,21 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
             slopeDescription: getSlopeStringForLine(line, strings),
         };
     });
+    const individualLineDescriptions = linesAriaInfo
+        .map(
+            ({
+                pointsDescriptionId,
+                interceptDescriptionId,
+                slopeDescriptionId,
+            }) =>
+                `${pointsDescriptionId} ${interceptDescriptionId} ${slopeDescriptionId}`,
+        )
+        .join(" ");
 
     return (
         <g
             aria-label={strings.srLinearSystemGraph}
-            aria-describedby={linesAriaInfo
-                .map(
-                    ({
-                        pointsDescriptionId,
-                        interceptDescriptionId,
-                        slopeDescriptionId,
-                    }) =>
-                        `${pointsDescriptionId} ${interceptDescriptionId} ${slopeDescriptionId}`,
-                )
-                .join(" ")}
+            aria-describedby={`${individualLineDescriptions} ${intersectionId}`}
         >
             {lines?.map((line, i) => (
                 <MovableLine
@@ -92,9 +103,15 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                             x: srFormatNumber(line[1][0], locale),
                             y: srFormatNumber(line[1][1], locale),
                         }),
-                        grabHandleAriaLabel: `${linesAriaInfo[i].interceptDescription} ${linesAriaInfo[i].slopeDescription}`,
+                        grabHandleAriaLabel: strings.srLinearSystemGrabHandle({
+                            lineNumber: i + 1,
+                            point1X: srFormatNumber(line[0][0], locale),
+                            point1Y: srFormatNumber(line[0][1], locale),
+                            point2X: srFormatNumber(line[1][0], locale),
+                            point2Y: srFormatNumber(line[1][1], locale),
+                        }),
                     }}
-                    ariaDescribedBy={`${linesAriaInfo[i].interceptDescriptionId} ${linesAriaInfo[i].slopeDescriptionId}`}
+                    ariaDescribedBy={`${linesAriaInfo[i].interceptDescriptionId} ${linesAriaInfo[i].slopeDescriptionId} ${intersectionId}`}
                     onMoveLine={(delta: vec.Vector2) => {
                         dispatch(actions.linearSystem.moveLine(i, delta));
                     }}
@@ -114,7 +131,6 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                             ),
                         )
                     }
-                    color="var(--movable-line-stroke-color)"
                 />
             ))}
             {linesAriaInfo.map(
@@ -151,6 +167,9 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                     </>
                 ),
             )}
+            <g id={intersectionId} style={a11y.srOnly}>
+                {intersectionDescription}
+            </g>
         </g>
     );
 };

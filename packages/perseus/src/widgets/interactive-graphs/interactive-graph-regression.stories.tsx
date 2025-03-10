@@ -1,3 +1,4 @@
+import {splitPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ApiOptions} from "../../perseus-api";
@@ -247,13 +248,22 @@ export const MafsWithLockedLine: Story = {
 
 export const MafsWithProtractor: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder().withProtractor().build(),
+        question: interactiveGraphQuestionBuilder()
+            .withAngle()
+            .withProtractor()
+            .build(),
     },
 };
 
 export const MafsWithPiTicks: Story = {
     args: {
         question: sinusoidWithPiTicks,
+    },
+};
+
+export const MafsWithAnswerlessData: Story = {
+    args: {
+        question: splitPerseusItem(interactiveGraphQuestionBuilder().build()),
     },
 };
 

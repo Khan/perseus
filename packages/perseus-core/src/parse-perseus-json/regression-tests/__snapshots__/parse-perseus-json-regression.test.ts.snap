@@ -1,9 +1,445 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-randomizeItems.json 1`] = `
+exports[`parseAndMigratePerseusArticle given image-with-id-0.json returns the same result as before 1`] = `
+[
+  {
+    "content": "## Key Points
+
+* The Production Possibilities Frontier (PPF) is a graph that shows all the different combinations of output of two goods that can be produced using available resources and technology. The PPF captures the concepts of scarcity, choice, and tradeoffs.
+* The shape of the PPF depends on whether there are increasing, decreasing, or constant costs.
+* Points that lie on the PPF illustrate combinations of output that are **productively efficient**. We cannot determine which points are **allocatively efficient** without knowing preferences.
+* The slope of the PPF indicates the opportunity cost of producing one good versus the other good, and the opportunity cost can be compared to the opportunity costs of another producer to determine comparative advantage.
+
+",
+    "images": {},
+    "widgets": {},
+  },
+  {
+    "content": "
+## The Production Possibilities Frontier and Social Choices
+
+
+Just as individuals cannot have everything they want and must instead make choices, society as a whole cannot have everything it might want, either. This section of the chapter will explain the constraints faced by society, using a model called the **production possibilities frontier (PPF)**. There are more similarities than differences between individual choice and social choice. As you read this section, focus on the similarities.
+
+Because society has limited resources (e.g., labor, land, capital, raw materials) at any point in time, there is a limit to the quantities of goods and services it can produce. Suppose a society desires two products, healthcare and education. This situation is illustrated by the production possibilities frontier in this graph.
+
+[[☃ image 0]]
+
+In the graph, healthcare is shown on the vertical axis and education is shown on the horizontal axis. If the society were to allocate all of its resources to healthcare, it could produce at point A. But it would not have any resources to produce education. If it were to allocate all of its resources to education, it could produce at point F. Alternatively, the society could choose to produce any combination of healthcare and education shown on the production possibilities frontier. In effect, the production possibilities frontier plays the same role for society as the budget constraint plays for Alphonso. Society can choose any combination of the two goods on or inside the PPF. But it does not have enough resources to produce outside the PPF.
+
+Most important, the production possibilities frontier clearly shows the tradeoff between healthcare and education. Suppose society has chosen to operate at point B, and it is considering producing more education. Because the PPF is downward sloping from left to right, the only way society can obtain more education is by giving up some healthcare. That is the tradeoff society faces. Suppose it considers moving from point B to point C. What would the opportunity cost be for the additional education? The opportunity cost would be the healthcare society has to give up. Just as with Alphonso’s budget constraint, the opportunity cost is shown by the **slope** of the production possibilities frontier. By now you might be saying, “Hey, this PPF is sounding like the budget constraint.” If so, read the following Clear It Up feature.
+
+
+
+[[☃ explanation 1]]",
+    "images": {},
+    "widgets": {
+      "explanation 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "explanation": "There are two major differences between a budget constraint and a production possibilities frontier. The first is the fact that the budget constraint is a straight line. This is because its slope is given by the relative prices of the two goods. In contrast, the PPF has a curved shape because of the law of the diminishing returns. The second is the absence of specific numbers on the axes of the PPF. There are no specific numbers because we do not know the exact amount of resources this imaginary economy has, nor do we know how many resources it takes to produce healthcare and how many resources it takes to produce education. If this were a real-world example, that data would be available. An additional reason for the lack of numbers is that there is no single way to measure levels of education and healthcare. However, when you think of improvements in education, you can think of accomplishments like more years of school completed, fewer high-school dropouts, and higher scores on standardized tests. When you think of improvements in healthcare, you can think of longer life expectancies, lower levels of infant mortality, and fewer outbreaks of disease.
+
+Whether or not we have specific numbers, conceptually we can measure the opportunity cost of additional education as society moves from point B to point C on the PPF. The additional education is measured by the horizontal distance between B and C. The foregone healthcare is given by the vertical distance between B and C. The slope of the PPF between B and C is (approximately) the vertical distance (the “rise”) over the horizontal distance (the “run”). This is the opportunity cost of additional education.
+",
+          "hidePrompt": "Hide explanation",
+          "showPrompt": "The PPF looks a bit like a budget constraint. How is it different?",
+          "static": false,
+          "widgets": {},
+        },
+        "static": false,
+        "type": "explanation",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "image 0": {
+        "alignment": "block",
+        "graded": false,
+        "options": {
+          "alt": " The graph shows that a society has limited resources and often must prioritize where to invest. On this graph, the y-axis is ʺHealthcare,ʺ and the x-axis is ʺEducation.ʺ",
+          "backgroundImage": {
+            "height": 281,
+            "url": "https://ka-perseus-images.s3.amazonaws.com/b2878eeb774f29340e8f1255b2c86f3a6ca01169.jpg",
+            "width": 390,
+          },
+          "box": [
+            390,
+            281,
+          ],
+          "caption": "This production possibilities frontier shows a tradeoff between devoting social resources to healthcare and devoting them to education. At A all resources go to healthcare and at B, most go to healthcare. At D most resources go to education, and at F, all go to education.",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "A Healthcare vs. Education Production Possibilities Frontier ",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+  {
+    "content": "
+## The Shape of the PPF and the Law of Diminishing Returns
+
+
+The budget constraints presented earlier in this chapter, showing individual choices about what quantities of goods to consume, were all straight lines. The reason for these straight lines was that the slope of the budget constraint was determined by the relative prices of the two goods in the **consumption budget constraint**. However, the production possibilities frontier for healthcare and education was drawn as a curved line. Why does the PPF have a different shape?
+
+To understand why the PPF is curved, start by considering point A at the top left-hand side of the PPF. At point A, all available resources are devoted to healthcare and no resources are left for education. This situation would be extreme and even ridiculous. For example, children are seeing a doctor every day, whether they are sick or not, but not attending school. People are having cosmetic surgery on every part of their bodies, but no high school or college education exists. Now imagine that some of these resources are diverted from healthcare to education, so that the economy is at point B instead of point A. Diverting some resources away from A to B causes relatively little reduction in health because the last few marginal dollars going into healthcare services are not producing much additional gain in health. However, putting those marginal dollars into education, which is completely without resources at point A, can produce relatively large gains. For this reason, the shape of the PPF from A to B is relatively flat, representing a relatively small drop-off in health and a relatively large gain in education.
+
+Now consider the other end, at the lower right, of the production possibilities frontier. Imagine that society starts at choice D, which is devoting nearly all resources to education and very few to healthcare, and moves to point F, which is devoting *all* spending to education and none to healthcare. For the sake of concreteness, you can imagine that in the movement from D to F, the last few doctors must become high school science teachers, the last few nurses must become school librarians rather than dispensers of vaccinations, and the last few emergency rooms are turned into kindergartens. The gains to education from adding these last few resources to education are very small. However, the opportunity cost lost to health will be fairly large, and thus the slope of the PPF between D and F is steep, showing a large drop in health for only a small gain in education.
+
+The lesson is not that society is likely to make an extreme choice like devoting no resources to education at point A or no resources to health at point F. Instead, the lesson is that the gains from committing additional marginal resources to education depend on how much is already being spent. If on the one hand, very few resources are currently committed to education, then an increase in resources used can bring relatively large gains. On the other hand, if a large number of resources are already committed to education, then committing additional resources will bring relatively smaller gains.
+
+This pattern is common enough that it has been given a name: the **law of diminishing returns**, which holds that as additional increments of resources are added to a certain purpose, the marginal benefit from those additional increments will decline. When government spends a certain amount more on reducing crime, for example, the original gains in reducing crime could be relatively large. But additional increases typically cause relatively smaller reductions in crime, and paying for enough police and security to reduce crime to nothing at all would be tremendously expensive.
+
+The curvature of the production possibilities frontier shows that as additional resources are added to education, moving from left to right along the horizontal axis, the original gains are fairly large, but gradually diminish. Similarly, as additional resources are added to healthcare, moving from bottom to top on the vertical axis, the original gains are fairly large, but again gradually diminish. In this way, the law of diminishing returns produces the outward-bending shape of the production possibilities frontier.
+",
+    "images": {},
+    "widgets": {},
+  },
+  {
+    "content": "## Productive Efficiency and Allocative Efficiency
+
+The study of economics does not presume to tell a society what choice it *should* make along its production possibilities frontier. In a market-oriented economy, the choice will involve a mixture of decisions by individuals, firms, and government. However, economics can point out that some choices are unambiguously better than others. This observation is based on the concept of efficiency. In everyday usage, efficiency refers to lack of waste. An inefficient machine operates at high **cost**, while an efficient machine operates at lower cost, because it is not wasting energy or materials. An inefficient organization operates with long delays and high costs, while an efficient organization meets schedules, is focused, and performs within budget.
+
+The production possibilities frontier can illustrate two kinds of efficiency: productive efficiency and allocative efficiency. The following graph illustrates these ideas using a production possibilities frontier between healthcare and education.
+
+[[☃ image 0]]
+
+**Productive efficiency** means that, given the available inputs and technology, it is impossible to produce more of one good without decreasing the quantity that is produced of another good. All choices on the PPF in this graph, including A, B, C, D, and F, display productive efficiency. As a firm moves from any one of these choices to any other, either healthcare increases and education decreases or vice versa. However, any choice inside the production possibilities frontier is productively inefficient and wasteful because it is possible to produce more of one good, the other good, or some combination of both goods.
+
+For example, point R is productively inefficient because it is possible at choice C to have more of both goods: education on the horizontal axis is higher at point C than point R (E2 is greater than E1), and healthcare on the vertical axis is also higher at point C than point R (H2 is great than H1).
+
+The particular mix of goods and services being produced—that is, the specific combination of healthcare and education chosen along the production possibilities frontier—can be shown as a ray (line) from the origin to a specific point on the PPF. Output mixes that had more healthcare (and less education) would have a steeper ray, while those with more education (and less healthcare) would have a flatter ray.
+
+**Allocative efficiency** means that the particular mix of goods a society produces represents the combination that society most desires. How to determine what a society desires can be a controversial question, and is usually discussed in political science, sociology, and philosophy classes as well as in economics. At its most basic, allocative efficiency means producers supply the quantity of each product that consumers demand. Only one of the productively efficient choices will be the allocatively efficient choice for society as a whole.
+",
+    "images": {},
+    "widgets": {
+      "image 0": {
+        "alignment": "block",
+        "graded": false,
+        "options": {
+          "alt": "The graph shows that when a greater quantity of one good increases, the quantity of other goods will decrease. Point R on the graph represents the good that drops in quantity as a result of greater efficiency in producing other goods.",
+          "backgroundImage": {
+            "height": 313,
+            "url": "https://ka-perseus-images.s3.amazonaws.com/7c3d237373df9fac19cc61fda5d7f0f369a1a249.jpg",
+            "width": 390,
+          },
+          "box": [
+            390,
+            313,
+          ],
+          "caption": "Productive efficiency means it is impossible to produce more of one good without decreasing the quantity that is produced of another good. Thus, all choices along a given PPF like B, C, and D display productive efficiency, but R does not. Allocative efficiency means that the particular mix of goods being produced—that is, the specific choice along the production possibilities frontier—represents the allocation that society most desires.",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "Productive and Allocative Efficiency ",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+  {
+    "content": "## Why Society Must Choose
+
+Every economy faces two situations in which it may be able to expand consumption of all goods. In the first case, a society may discover that it has been using its resources inefficiently, in which case by improving efficiency and producing on the production possibilities frontier, it can have more of all goods (or at least more of some and less of none). In the second case, as resources grow over a period of years (e.g., more labor and more capital), the economy grows. As it does, the production possibilities frontier for a society will shift outward and society will be able to afford more of all goods.
+
+But improvements in productive efficiency take time to discover and implement, and economic growth happens only gradually. So, a society must choose between tradeoffs in the present. For government, this process often involves trying to identify where additional spending could do the most good and where reductions in spending would do the least harm. At the individual and **firm** level, the **market economy** coordinates a process in which firms seek to produce goods and services in the quantity, quality, and price that people want. But for both the government and the market economy in the short term, increases in production of one good typically mean offsetting decreases somewhere else in the economy.
+",
+    "images": {},
+    "widgets": {},
+  },
+  {
+    "content": "## The PPF and Comparative Advantage 
+
+While every society must choose how much of each good it should produce, it does not need to produce every single good it consumes. Often how much of a good a country decides to produce depends on how expensive it is to produce it versus buying it from a different country. As we saw earlier, the curvature of a country’s PPF gives us information about the tradeoff between devoting resources to producing one good versus another. In particular, its slope gives the opportunity cost of producing one more unit of the good in the x-axis in terms of the other good (in the y-axis). Countries tend to have different opportunity costs of producing a specific good, either because of different climates, geography, technology or skills. 
+
+Suppose two countries, the US and Brazil, need to decide how much they will produce of two crops: sugar cane and wheat. Due to its climatic conditions, Brazil can produce a lot of sugar cane per acre but not much wheat. Conversely, the U.S. can produce a lot of wheat per acre, but not much sugar cane.  Clearly, Brazil has a lower opportunity cost of producing sugar cane (in terms of wheat) than the U.S. The reverse is also true; the U.S. has a lower opportunity cost of producing wheat than Brazil. This can be illustrated by the PPFs of the two countries in the following graphs.
+ 
+[[☃ image 0]]
+
+When a country can produce a good at a lower opportunity cost than another country, we say that this country has a **comparative advantage** in that good. In our example, Brazil has a comparative advantage in sugar cane and the U.S. has a comparative advantage in wheat. One can easily see this with a simple observation of the extreme production points in the PPFs of the two countries. If Brazil devoted all of its resources to producing wheat, it would be producing at point A. However, if it had devoted all of its resources to producing sugar cane instead, it would be producing a much larger amount, at point B. By moving from point A to point B Brazil would give up a relatively small quantity in wheat production to obtain a large production in sugar cane.  The opposite is true for the U.S. If the U.S. moved from point A to B and produced only sugar cane, this would result in a large opportunity cost in terms of foregone wheat production. 
+
+The slope of the PPF gives the opportunity cost of producing an additional unit of wheat. While the slope is not constant throughout the PPFs, it is quite apparent that the PPF in Brazil is much steeper than in the U.S., and therefore the opportunity cost of wheat is generally higher in Brazil. Countries’ differences in comparative advantage determine which goods they will choose to produce and trade. When countries engage in trade, they specialize in the production of the goods that they have a comparative advantage in, and trade part of that production for goods they do not have a comparative advantage in. With trade, goods are produced where the opportunity cost is lowest, so total production increases, benefiting both trading parties. ",
+    "images": {},
+    "widgets": {
+      "image 0": {
+        "alignment": "block",
+        "graded": false,
+        "options": {
+          "alt": "This graph shows two images. Both images have y-axes labeled “Sugar Cane” and x-axes labeled “Wheat.” In image (a), Brazil’s Sugar Cane production is nearly double the production of its wheat. In image (b), the U.S.’s Sugar Cane production is nearly half the production of its wheat.",
+          "backgroundImage": {
+            "height": 401,
+            "url": "https://ka-perseus-images.s3.amazonaws.com/bf1cfa2bebf4b2210ea398fbb45c2c53e38a7c1b.jpg",
+            "width": 780,
+          },
+          "box": [
+            780,
+            401,
+          ],
+          "caption": "The U.S. PPF is flatter than the Brazil PPF implying that the opportunity cost of wheat in term of sugar cane is lower in the U.S. than in Brazil. Conversely, the opportunity cost of sugar cane is lower in Brazil. The U.S. has comparative advantage in wheat and Brazil has comparative advantage in sugar cane.",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "Production Possibility Frontier for the U.S. and Brazil ",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+  {
+    "content": "## Key Concepts and Summary
+
+A production possibilities frontier defines the set of choices society faces for the combinations of goods and services it can produce given the resources available. The shape of the PPF is typically curved outward, rather than straight. Choices outside the PPF are unattainable and choices inside the PPF are wasteful. Over time, a growing economy will tend to shift the PPF outwards.
+
+The law of diminishing returns holds that as increments of additional resources are devoted to producing something, the marginal increase in output will become smaller and smaller. All choices along a production possibilities frontier display productive efficiency; that is, it is impossible to use society’s resources to produce more of one good without decreasing production of the other good. The specific choice along a production possibilities frontier that reflects the mix of goods society prefers is the choice with allocative efficiency. The curvature of the PPF is likely to differ by country, which results in different countries having comparative advantage in different goods. Total production can increase if countries specialize in the goods they have comparative advantage in and trade some of their production for the remaining goods. ",
+    "images": {},
+    "widgets": {},
+  },
+  {
+    "content": "## Self-Check Questions
+
+Refer to this graph:
+
+[[☃ image 1]]
+
+Suppose there is an improvement in medical technology that enables more healthcare to be provided with the same amount of resources. How would this affect the production possibilities curve and, in particular, how would it affect the opportunity cost of education?
+
+[[☃ explanation 0]]
+
+Could a nation be producing in a way that is allocatively efficient, but productively inefficient?
+
+[[☃ explanation 1]]
+
+What are the similarities between a consumer’s budget constraint and society’s production possibilities frontier, not just graphically but analytically?
+
+[[☃ explanation 2]]",
+    "images": {},
+    "widgets": {
+      "explanation 0": {
+        "alignment": "default",
+        "graded": false,
+        "options": {
+          "explanation": "
+Because of the improvement in technology, the vertical intercept of the PPF would be at a higher level of healthcare. In other words, the PPF would rotate clockwise around the horizontal intercept. This would make the PPF steeper, corresponding to an increase in the opportunity cost of education, since resources devoted to education would now mean forgoing a greater quantity of healthcare.
+",
+          "hidePrompt": "Hide Solution",
+          "showPrompt": "Show Solution",
+          "static": false,
+          "widgets": {},
+        },
+        "static": false,
+        "type": "explanation",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "explanation 1": {
+        "alignment": "default",
+        "graded": false,
+        "options": {
+          "explanation": "
+No. Allocative efficiency requires productive efficiency, because it pertains to choices along the production possibilities frontier.
+",
+          "hidePrompt": "Hide Solution",
+          "showPrompt": "Show Solution",
+          "static": false,
+          "widgets": {},
+        },
+        "static": false,
+        "type": "explanation",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "explanation 2": {
+        "alignment": "default",
+        "graded": false,
+        "options": {
+          "explanation": "
+Both the budget constraint and the PPF show the constraint that each operates under. Both show a tradeoff between having more of one good but less of the other. Both show the opportunity cost graphically as the slope of the constraint (budget or PPF).
+",
+          "hidePrompt": "Hide Solution",
+          "showPrompt": "Show Solution",
+          "static": false,
+          "widgets": {},
+        },
+        "static": false,
+        "type": "explanation",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "image 1": {
+        "alignment": "block",
+        "graded": false,
+        "options": {
+          "alt": "The graph shows that when a greater quantity of one good increases, the quantity of other goods will decrease. Point R on the graph represents the good that drops in quantity as a result of greater efficiency in producing other goods.",
+          "backgroundImage": {
+            "height": 313,
+            "url": "https://ka-perseus-images.s3.amazonaws.com/7c3d237373df9fac19cc61fda5d7f0f369a1a249.jpg",
+            "width": 390,
+          },
+          "box": [
+            390,
+            313,
+          ],
+          "caption": "Productive efficiency means it is impossible to produce more of one good without decreasing the quantity that is produced of another good. Thus, all choices along a given PPF like B, C, and D display productive efficiency, but R does not. Allocative efficiency means that the particular mix of goods being produced—that is, the specific choice along the production possibilities frontier—represents the allocation that society most desires.",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "Productive and Allocative Efficiency ",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+  {
+    "content": "
+## Review Questions
+
+What is comparative advantage?
+  
+What does a production possibilities frontier illustrate?
+
+Why is a production possibilities frontier typically drawn as a curve, rather than a straight line?
+
+Explain why societies cannot make a choice above their production possibilities frontier and should not make a choice below it.
+
+What are diminishing marginal returns?
+
+What is productive efficiency? What is allocative efficiency?",
+    "images": {},
+    "widgets": {},
+  },
+  {
+    "content": "## Critical Thinking Questions
+
+During the Second World War, Germany’s factories were decimated. It also suffered many human casualties, both soldiers and civilians. How did the war affect Germany’s production possibilities curve?
+
+It is clear that productive inefficiency is a waste since resources are being used in a way that produces less goods and services than a nation is capable of. Why is allocative inefficiency also wasteful?",
+    "images": {},
+    "widgets": {},
+  },
+  {
+    "content": "## Glossary
+
+**allocative efficiency**: when the mix of goods being produced represents the mix that society most desires.  
+
+**comparative advantage**: when a country can produce a good at a lower cost in terms of other goods; or, when a country has a lower opportunity cost of production  
+
+**law of diminishing returns**: as additional increments of resources are added to producing a good or service, the marginal benefit from those additional increments will decline  
+
+**production possibilities frontier (PPF)**: a diagram that shows the productively efficient combinations of two products that an economy can produce given the resources it has available.
+
+**productive efficiency**: when it is impossible to produce more of one good (or service) without decreasing the quantity produced of another good (or service)",
+    "images": {},
+    "widgets": {},
+  },
+  {
+    "content": "
+[[☃ explanation 0]]",
+    "images": {},
+    "widgets": {
+      "explanation 0": {
+        "alignment": "default",
+        "graded": false,
+        "options": {
+          "explanation": "## Attribution
+
+This article is a modified derivative of [The Production Possibilities Frontier and Social Choices](http://cnx.org/content/m48607/latest/) by OpenStaxCollege ([CC BY 4.0](http://creativecommons.org/licenses/by/4.0/))
+
+The modified article is licensed under a [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.",
+          "hidePrompt": "Hide attribution",
+          "showPrompt": "Attribution",
+          "static": false,
+          "widgets": {},
+        },
+        "static": false,
+        "type": "explanation",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+]
+`;
+
+exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -55,10 +491,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-static.json 1`] = `
+exports[`parseAndMigratePerseusItem given categorizer-missing-static.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -99,12 +543,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-missing-
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-with-null-value.json 1`] = `
+exports[`parseAndMigratePerseusItem given categorizer-with-null-value.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -165,11 +613,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/categorizer-with-nul
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-missing-static.json 1`] = `
+exports[`parseAndMigratePerseusItem given cs-program-missing-static.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -244,9 +699,19 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-missing-s
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-with-null-width.json 1`] = `
+exports[`parseAndMigratePerseusItem given cs-program-with-null-width.json returns the same result as before 1`] = `
 {
-  "answerArea": {},
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
   "hints": [],
   "question": {
     "content": "[[☃ cs-program 1]]",
@@ -270,12 +735,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/cs-program-with-null
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/definition-missing-static.json 1`] = `
+exports[`parseAndMigratePerseusItem given definition-missing-static.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -344,10 +813,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/definition-missing-s
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-placeholder.json 1`] = `
+exports[`parseAndMigratePerseusItem given dropdown-missing-placeholder.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -403,10 +880,18 @@ $\\qquad(x-x)$ [[☃ dropdown 1]] $0$
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-version.json 1`] = `
+exports[`parseAndMigratePerseusItem given dropdown-missing-version.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -446,11 +931,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/dropdown-missing-ver
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/explanation-missing-widgets-map.json 1`] = `
+exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -534,12 +1026,16 @@ $r =  $ [[☃ numeric-input 1]] ",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/expression-answerForm-missing-form.json 1`] = `
+exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -569,21 +1065,27 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-answerFor
               "value": "j<14",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "basic relations",
             "advanced relations",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "j",
           ],
           "functions": [
             "f",
             "g",
           ],
           "times": false,
+          "visibleLabel": undefined,
         },
         "static": false,
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -592,10 +1094,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-answerFor
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/expression-missing-buttonSets.json 1`] = `
+exports[`parseAndMigratePerseusItem given expression-missing-buttonSets.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -630,6 +1140,12 @@ $y=$ [[☃ expression 1]]",
             "logarithms",
           ],
           "buttonsVisible": undefined,
+          "extraKeys": [
+            "a",
+            "b",
+            "c",
+            "x",
+          ],
           "functions": [
             "f",
             "g",
@@ -640,7 +1156,7 @@ $y=$ [[☃ expression 1]]",
         },
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -649,11 +1165,18 @@ $y=$ [[☃ expression 1]]",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/expression-option-missing-value.json 1`] = `
+exports[`parseAndMigratePerseusItem given expression-option-missing-value.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -673,8 +1196,13 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-option-mi
         "graded": true,
         "options": {
           "answerForms": [],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "PI",
           ],
           "functions": [
             "f",
@@ -682,10 +1210,11 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-option-mi
             "h",
           ],
           "times": false,
+          "visibleLabel": undefined,
         },
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -694,10 +1223,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/expression-option-mi
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/expression-with-null-answer-key.json 1`] = `
+exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -815,9 +1352,14 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
               "value": "sqrt(3)*3",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "PI",
           ],
           "functions": [
             "f",
@@ -825,10 +1367,11 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
             "h",
           ],
           "times": false,
+          "visibleLabel": undefined,
         },
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -844,9 +1387,14 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
               "value": "3",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "PI",
           ],
           "functions": [
             "f",
@@ -854,10 +1402,11 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
             "h",
           ],
           "times": false,
+          "visibleLabel": undefined,
         },
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -873,9 +1422,14 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
               "value": "pi/6",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "PI",
           ],
           "functions": [
             "f",
@@ -883,10 +1437,11 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
             "h",
           ],
           "times": false,
+          "visibleLabel": undefined,
         },
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -909,9 +1464,14 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
               "value": "1/2",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "prealgebra",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "PI",
           ],
           "functions": [
             "f",
@@ -919,10 +1479,11 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
             "h",
           ],
           "times": false,
+          "visibleLabel": undefined,
         },
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -931,7 +1492,7 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/expression-with-scientific-notation.json 1`] = `
+exports[`parseAndMigratePerseusItem given expression-with-scientific-notation.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": true,
@@ -1082,10 +1643,15 @@ more explanation",
               "value": "5.78\\times10^{19}",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "prealgebra",
             "scientific",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "PI",
           ],
           "functions": [
             "f",
@@ -1093,11 +1659,12 @@ more explanation",
             "h",
           ],
           "times": true,
+          "visibleLabel": undefined,
         },
         "static": false,
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -1142,12 +1709,16 @@ more explanation",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/graded-group-with-false-hint.json 1`] = `
+exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -1254,13 +1825,14 @@ The other entries of $\\text{H}$ can be found similarly.
                   "displayCount": null,
                   "hasNoneOfTheAbove": false,
                   "multipleSelect": false,
+                  "numCorrect": 1,
                   "onePerLine": true,
                   "randomize": true,
                 },
                 "static": false,
                 "type": "radio",
                 "version": {
-                  "major": 1,
+                  "major": 2,
                   "minor": 0,
                 },
               },
@@ -1337,10 +1909,18 @@ $ \\text{H}=\\left[\\begin{array}{rr}4 & -1 \\\\ 4 & 0\\end{array}\\right]$ ",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/grapher-with-null-coords.json 1`] = `
+exports[`parseAndMigratePerseusItem given grapher-with-null-coords.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -1430,12 +2010,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/grapher-with-null-co
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/hint-missing-images.json 1`] = `
+exports[`parseAndMigratePerseusItem given hint-missing-images.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -1721,10 +2305,109 @@ In case you would like a fuller experience, here is a taste of a skill you can l
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-allowFullScreen.json 1`] = `
+exports[`parseAndMigratePerseusItem given hint-with-null-replace.json returns the same result as before 1`] = `
+{
+  "_multi": null,
+  "answer": null,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "crwdns3438995:0$944544$crwdnd3438995:0$10$crwdnd3438995:0$10$crwdne3438995:0",
+      "images": {},
+      "metadata": null,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns3439031:0$10$crwdnd3439031:0$0$crwdne3439031:0",
+      "images": {},
+      "metadata": null,
+      "replace": undefined,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns3439065:0$944544$crwdnd3439065:0$4$crwdnd3439065:0$944544$crwdnd3439065:0$10$crwdne3439065:0",
+      "images": {},
+      "metadata": null,
+      "replace": undefined,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "crwdns3439028:0{944544}crwdnd3439028:0$10$crwdne3439028:0",
+    "images": {},
+    "metadata": null,
+    "replace": null,
+    "widgets": {
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "choices": [
+            {
+              "clue": "",
+              "content": "crwdns2693864:0crwdne2693864:0",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+            {
+              "clue": "",
+              "content": "crwdns2693863:0crwdne2693863:0",
+              "correct": true,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "noneOfTheAbove": false,
+          "onePerLine": true,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -1814,9 +2497,19 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-allow
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-settings.json 1`] = `
+exports[`parseAndMigratePerseusItem given iframe-missing-settings.json returns the same result as before 1`] = `
 {
-  "answerArea": {},
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
   "hints": [],
   "question": {
     "content": "[[☃ iframe 1]]",
@@ -1838,11 +2531,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-setti
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-static.json 1`] = `
+exports[`parseAndMigratePerseusItem given iframe-missing-static.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -1887,10 +2587,308 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/iframe-missing-stati
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-boolean-value.json 1`] = `
+exports[`parseAndMigratePerseusItem given image-with-null-dimensions.json returns the same result as before 1`] = `
+{
+  "_multi": null,
+  "answer": null,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "crwdns7184011:0{x}crwdnd7184011:0{y}crwdnd7184011:0{x}crwdnd7184011:0{horizontal}crwdnd7184011:0{y}crwdnd7184011:0{vertical}crwdne7184011:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns7188017:0{origin}crwdnd7188017:0{left}crwdne7188017:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {
+        "image 2": {
+          "alignment": "block",
+          "graded": true,
+          "id": null,
+          "key": null,
+          "options": {
+            "alt": "crwdns8172348:0crwdne8172348:0",
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 325,
+              "left": undefined,
+              "scale": undefined,
+              "top": 0,
+              "url": "crwdns7182513:0crwdne7182513:0",
+              "width": 325,
+            },
+            "box": [
+              325,
+              325,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": false,
+            "title": "",
+          },
+          "static": false,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "crwdns7237627:0{horizontal}crwdnd7237627:0{x}crwdnd7237627:0$B$crwdnd7237627:0{4}crwdnd7237627:0{left}crwdnd7237627:0{x}crwdnd7237627:0{-4}crwdnd7237627:0{-4}crwdnd7237627:0{y}crwdne7237627:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {
+        "image 1": {
+          "alignment": "block",
+          "graded": true,
+          "id": null,
+          "key": null,
+          "options": {
+            "alt": "crwdns8172402:0crwdne8172402:0",
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 325,
+              "left": undefined,
+              "scale": undefined,
+              "top": 0,
+              "url": "crwdns7182255:0crwdne7182255:0",
+              "width": 325,
+            },
+            "box": [
+              325,
+              325,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": false,
+            "title": "",
+          },
+          "static": false,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "crwdns7192457:0{vertical}crwdnd7192457:0{y}crwdnd7192457:0$B$crwdnd7192457:0{on}crwdnd7192457:0$x$crwdnd7192457:0$x$crwdnd7192457:0{y}crwdnd7192457:0{0}crwdnd7192457:0{-4}crwdnd7192457:0{0}crwdne7192457:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {
+        "image 1": {
+          "alignment": "block",
+          "graded": true,
+          "id": null,
+          "key": null,
+          "options": {
+            "alt": "crwdns8172402:0crwdne8172402:0",
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 325,
+              "left": undefined,
+              "scale": undefined,
+              "top": 0,
+              "url": "crwdns7182255:0crwdne7182255:0",
+              "width": 325,
+            },
+            "box": [
+              325,
+              325,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": false,
+            "title": "",
+          },
+          "static": false,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "crwdns7192819:0$B$crwdne7192819:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "crwdns7183087:0$B$crwdnd7183087:0$B$crwdne7183087:0",
+    "images": {},
+    "metadata": null,
+    "replace": null,
+    "widgets": {
+      "image 2": {
+        "alignment": "block",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "alt": "crwdns8172264:0crwdne8172264:0",
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": 325,
+            "left": undefined,
+            "scale": undefined,
+            "top": 0,
+            "url": "crwdns7191255:0crwdne7191255:0",
+            "width": 325,
+          },
+          "box": [
+            325,
+            325,
+          ],
+          "caption": "",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "choices": [
+            {
+              "clue": "",
+              "content": "crwdns7184273:0crwdne7184273:0",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+            {
+              "clue": "",
+              "content": "crwdns3077510:0crwdne3077510:0",
+              "correct": true,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+            {
+              "clue": "",
+              "content": "crwdns4204212:0crwdne4204212:0",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+            {
+              "clue": "",
+              "content": "crwdns4204218:0crwdne4204218:0",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "noneOfTheAbove": false,
+          "onePerLine": false,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -1994,14 +2992,15 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-bo
           ],
           "deselectEnabled": false,
           "displayCount": null,
+          "hasNoneOfTheAbove": false,
           "multipleSelect": false,
-          "noneOfTheAbove": false,
+          "numCorrect": 1,
           "onePerLine": true,
           "randomize": false,
         },
         "type": "radio",
         "version": {
-          "major": 0,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -2010,10 +3009,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/input-number-with-bo
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-missing-constraints.json 1`] = `
+exports[`parseAndMigratePerseusItem given interaction-element-missing-constraints.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -2207,9 +3214,19 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interaction-element-missing-key.json 1`] = `
+exports[`parseAndMigratePerseusItem given interaction-element-missing-key.json returns the same result as before 1`] = `
 {
-  "answerArea": {},
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
   "hints": [],
   "question": {
     "content": "# Functions introduction
@@ -2703,11 +3720,18 @@ Next, we'll look at some other representations of functions!",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-backgroundImage-with-empty-string-coordinates.json 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with-empty-string-coordinates.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -2841,9 +3865,105 @@ $3$ | $8$
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-locked-line-missing-showPoint1.json 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with-null-domain-element.json returns the same result as before 1`] = `
 {
-  "answerArea": {},
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "[[☃ interactive-graph 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "coords": null,
+            "type": "linear",
+          },
+          "graph": {
+            "type": "linear",
+          },
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": [
+            {
+              "color": "grayH",
+              "directionalAxis": "x",
+              "domain": [
+                -Infinity,
+                Infinity,
+              ],
+              "equation": "x^2",
+              "strokeStyle": "solid",
+              "type": "function",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+          "valid": true,
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-line-missing-showPoint1.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
   "hints": [],
   "question": {
     "content": "Custom Axis Labels:
@@ -3593,12 +4713,16 @@ Locked figures:
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-missing-graph.json 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -3850,12 +4974,13 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
           "displayCount": null,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
+          "numCorrect": 1,
           "randomize": false,
         },
         "static": false,
         "type": "radio",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -3864,7 +4989,7 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-missing-gridStep.json 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4084,10 +5209,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-mi
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-missing-labels.json 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -4179,10 +5312,18 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-polygon-with-exact-match.json 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-match.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -4322,12 +5463,16 @@ Draw the rhombus in the first quadrant.
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-with-string-backgroundImage-left.json 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgroundImage-left.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -4443,12 +5588,13 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-wi
           "displayCount": null,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
+          "numCorrect": 1,
           "randomize": false,
         },
         "static": false,
         "type": "radio",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -4457,7 +5603,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/interactive-graph-wi
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/label-image-missing-static.json 1`] = `
+exports[`parseAndMigratePerseusItem given label-image-missing-static.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -4614,10 +5760,18 @@ Non-renewable source can be exhausted with continuous use",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/lights-puzzle.json 1`] = `
+exports[`parseAndMigratePerseusItem given lights-puzzle.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -4655,10 +5809,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/lights-puzzle.json 1
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-version.json 1`] = `
+exports[`parseAndMigratePerseusItem given matrix-missing-version.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -4756,12 +5918,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-missing-versi
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-with-nulls-in-answer.json 1`] = `
+exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -4821,12 +5987,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-with-nulls-in
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/matrix-with-string-answer-element.json 1`] = `
+exports[`parseAndMigratePerseusItem given matrix-with-string-answer-element.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": true,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -5086,10 +6256,18 @@ $\\left[\\begin{array}{c}
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-image.json 1`] = `
+exports[`parseAndMigratePerseusItem given measurer-missing-image.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -5180,10 +6358,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-ima
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-static.json 1`] = `
+exports[`parseAndMigratePerseusItem given measurer-missing-static.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -5223,12 +6409,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/measurer-missing-sta
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-snapDivisions.json 1`] = `
+exports[`parseAndMigratePerseusItem given number-line-missing-snapDivisions.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -5383,10 +6573,15 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
               "value": "1.2c+3\\ge13.5",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
             "basic relations",
             "advanced relations",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "c",
           ],
           "functions": [
             "f",
@@ -5394,11 +6589,12 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
             "h",
           ],
           "times": false,
+          "visibleLabel": undefined,
         },
         "static": false,
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -5443,10 +6639,18 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-static.json 1`] = `
+exports[`parseAndMigratePerseusItem given number-line-missing-static.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -5497,10 +6701,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-missing-
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-empty-strings-in-label-range.json 1`] = `
+exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-label-range.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -5600,14 +6812,15 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-emp
           ],
           "deselectEnabled": false,
           "displayCount": null,
+          "hasNoneOfTheAbove": false,
           "multipleSelect": true,
-          "noneOfTheAbove": false,
+          "numCorrect": 1,
           "onePerLine": true,
           "randomize": true,
         },
         "type": "radio",
         "version": {
-          "major": 0,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -5616,10 +6829,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-emp
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/number-line-with-null-correctX.json 1`] = `
+exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -5710,10 +6931,18 @@ $=(31-31) -8$",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer-with-null-value.json 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -5755,10 +6984,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer-with-simplify-true.json 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-true.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -5790,7 +7027,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
             {
               "maxError": 0,
               "message": "",
-              "simplify": "true",
+              "simplify": "required",
               "status": "correct",
               "strict": false,
               "value": 1.125,
@@ -5812,7 +7049,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-answer-without-value.json 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
@@ -5880,21 +7117,26 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
               "value": "\\frac{8}{27}",
             },
           ],
+          "ariaLabel": undefined,
           "buttonSets": [
             "basic",
+          ],
+          "buttonsVisible": undefined,
+          "extraKeys": [
+            "PI",
           ],
           "functions": [
             "f",
             "g",
             "h",
           ],
-          "static": false,
           "times": false,
+          "visibleLabel": undefined,
         },
         "static": false,
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -5934,10 +7176,18 @@ $\\dfrac{2}{3}\\times \\dfrac{2}{3}\\times\\dfrac{2}{3}=\\boxed{\\dfrac{8}{27}}$
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missing-coefficient.json 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-missing-coefficient.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -5983,10 +7233,18 @@ What is the radius of the mattress when it is rolled up into a cylinder.
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missing-labelText.json 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -6009,6 +7267,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
               "basic",
             ],
             "buttonsVisible": "never",
+            "extraKeys": [
+              "PI",
+            ],
             "functions": [
               "f",
               "g",
@@ -6019,7 +7280,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
           },
           "type": "expression",
           "version": {
-            "major": 1,
+            "major": 2,
             "minor": 0,
           },
         },
@@ -6078,6 +7339,9 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
               "basic",
             ],
             "buttonsVisible": undefined,
+            "extraKeys": [
+              "PI",
+            ],
             "functions": [
               "f",
               "g",
@@ -6088,7 +7352,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-missin
           },
           "type": "expression",
           "version": {
-            "major": 1,
+            "major": 2,
             "minor": 0,
           },
         },
@@ -6198,6 +7462,9 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
             "basic",
           ],
           "buttonsVisible": "never",
+          "extraKeys": [
+            "PI",
+          ],
           "functions": [
             "f",
             "g",
@@ -6208,7 +7475,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
         },
         "type": "expression",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -6257,12 +7524,406 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-with-simplify-false.json 1`] = `
+exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.json returns the same result as before 1`] = `
+{
+  "_multi": null,
+  "answer": null,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "crwdns6520515:0{y}crwdnd6520515:0$x$crwdnd6520515:0$y$crwdnd6520515:0:-:crwdne6520515:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns7005730:0{x}crwdnd7005730:0{2}crwdnd7005730:0{y}crwdnd7005730:0{6}crwdne7005730:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {
+        "image 1": {
+          "alignment": "block",
+          "graded": true,
+          "id": null,
+          "key": null,
+          "options": {
+            "alt": "crwdns7006580:0crwdne7006580:0",
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 275,
+              "left": undefined,
+              "scale": undefined,
+              "top": 0,
+              "url": "crwdns6995774:0crwdne6995774:0",
+              "width": 275,
+            },
+            "box": [
+              275,
+              275,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": false,
+            "title": "",
+          },
+          "static": false,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "crwdns7006926:0{x}crwdnd7006926:0{3}crwdnd7006926:0{y}crwdnd7006926:0{4}crwdne7006926:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {
+        "image 1": {
+          "alignment": "block",
+          "graded": true,
+          "id": null,
+          "key": null,
+          "options": {
+            "alt": "crwdns6998968:0crwdne6998968:0",
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 275,
+              "left": undefined,
+              "scale": undefined,
+              "top": 0,
+              "url": "crwdns7002052:0crwdne7002052:0",
+              "width": 275,
+            },
+            "box": [
+              275,
+              275,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": false,
+            "title": "",
+          },
+          "static": false,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "crwdns7004342:0{x}crwdnd7004342:0{4}crwdnd7004342:0{y}crwdnd7004342:0{2}crwdne7004342:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {
+        "image 1": {
+          "alignment": "block",
+          "graded": true,
+          "id": null,
+          "key": null,
+          "options": {
+            "alt": "crwdns6996978:0crwdne6996978:0",
+            "backgroundImage": {
+              "bottom": undefined,
+              "height": 275,
+              "left": undefined,
+              "scale": undefined,
+              "top": 0,
+              "url": "crwdns7003786:0crwdne7003786:0",
+              "width": 275,
+            },
+            "box": [
+              275,
+              275,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": false,
+            "title": "",
+          },
+          "static": false,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "crwdns6520827:0$x$crwdnd6520827:0$y$crwdnd6520827:0:-:crwdnd6520827:0{6}crwdnd6520827:0{4}crwdnd6520827:0{2}crwdnd6520827:0$3$crwdne6520827:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns6520744:0$x$crwdnd6520744:0$2$crwdnd6520744:0$2$crwdnd6520744:0$y$crwdnd6520744:0$x$crwdnd6520744:0$y$crwdnd6520744:0:-:crwdnd6520744:0:-:crwdnd6520744:0{2}crwdnd6520744:0{2}crwdnd6520744:0{6}crwdnd6520744:0{3}crwdnd6520744:0{3}crwdnd6520744:0{8}crwdnd6520744:0{4}crwdnd6520744:0{4}crwdnd6520744:0{10}crwdne6520744:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns6520679:0$x$crwdnd6520679:0$2$crwdnd6520679:0$10$crwdnd6520679:0$y$crwdnd6520679:0$x$crwdnd6520679:0$y$crwdnd6520679:0:-:crwdnd6520679:0:-:crwdnd6520679:0{2}crwdnd6520679:0{2}crwdnd6520679:0{6}crwdnd6520679:0{3}crwdnd6520679:0{3}crwdnd6520679:0{4}crwdnd6520679:0{4}crwdnd6520679:0{4}crwdnd6520679:0{2}crwdne6520679:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "crwdns6521230:0$x$crwdnd6521230:0$y$crwdnd6521230:0:-:crwdnd6521230:0$2$crwdnd6521230:0$6$crwdnd6521230:0$3$crwdnd6521230:0$4$crwdnd6521230:0$4$crwdnd6521230:0$2$crwdnd6521230:0$x$crwdnd6521230:0$y$crwdnd6521230:0$x$crwdnd6521230:0$2$crwdnd6521230:0$10$crwdnd6521230:0$y$crwdne6521230:0",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "crwdns6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdnd6996888:0:-:crwdnd6996888:0$2$crwdnd6996888:0$3$crwdnd6996888:0$4$crwdnd6996888:0$x$crwdnd6996888:0$y$crwdne6996888:0",
+    "images": {},
+    "metadata": null,
+    "replace": null,
+    "widgets": {
+      "image 1": {
+        "alignment": "block",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "alt": "crwdns6998746:0crwdne6998746:0",
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": 275,
+            "left": undefined,
+            "scale": undefined,
+            "top": 0,
+            "url": "crwdns7006740:0crwdne7006740:0",
+            "width": 275,
+          },
+          "box": [
+            275,
+            275,
+          ],
+          "caption": "",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "answers": [
+            {
+              "answerForms": undefined,
+              "maxError": null,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 6,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "multipleNumberInput": false,
+          "rightAlign": false,
+          "size": "normal",
+          "static": false,
+        },
+        "static": false,
+        "type": "numeric-input",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "numeric-input 2": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "answers": [
+            {
+              "answerForms": undefined,
+              "maxError": null,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 4,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "multipleNumberInput": false,
+          "rightAlign": false,
+          "size": "normal",
+          "static": false,
+        },
+        "static": false,
+        "type": "numeric-input",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "numeric-input 3": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "answers": [
+            {
+              "answerForms": undefined,
+              "maxError": null,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 2,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "multipleNumberInput": false,
+          "rightAlign": false,
+          "size": "normal",
+          "static": false,
+        },
+        "static": false,
+        "type": "numeric-input",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "choices": [
+            {
+              "clue": "",
+              "content": "crwdns6520529:0$x$crwdnd6520529:0$2$crwdnd6520529:0$2$crwdnd6520529:0$y$crwdne6520529:0",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+            {
+              "clue": "",
+              "content": "crwdns6520777:0$x$crwdnd6520777:0$2$crwdnd6520777:0$10$crwdnd6520777:0$y$crwdne6520777:0",
+              "correct": true,
+              "isNoneOfTheAbove": false,
+              "widgets": {},
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "noneOfTheAbove": false,
+          "onePerLine": false,
+          "randomize": true,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 1,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -6293,7 +7954,7 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-with-s
             {
               "maxError": 0,
               "message": "",
-              "simplify": "false",
+              "simplify": "optional",
               "status": "correct",
               "strict": false,
               "value": 2.6,
@@ -6318,12 +7979,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/numeric-input-with-s
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missing-images.json 1`] = `
+exports[`parseAndMigratePerseusItem given orderer-option-missing-images.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -6579,8 +8244,13 @@ How can we decompose $\\dfrac38$?
                       "value": "\\frac{1}{8}+\\frac{1}{8}+\\frac{1}{8}",
                     },
                   ],
+                  "ariaLabel": undefined,
                   "buttonSets": [
                     "basic",
+                  ],
+                  "buttonsVisible": undefined,
+                  "extraKeys": [
+                    "PI",
                   ],
                   "functions": [
                     "f",
@@ -6588,11 +8258,12 @@ How can we decompose $\\dfrac38$?
                     "h",
                   ],
                   "times": true,
+                  "visibleLabel": undefined,
                 },
                 "static": false,
                 "type": "expression",
                 "version": {
-                  "major": 1,
+                  "major": 2,
                   "minor": 0,
                 },
               },
@@ -6892,13 +8563,14 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                   "displayCount": null,
                   "hasNoneOfTheAbove": false,
                   "multipleSelect": false,
+                  "numCorrect": 1,
                   "onePerLine": true,
                   "randomize": false,
                 },
                 "static": false,
                 "type": "radio",
                 "version": {
-                  "major": 1,
+                  "major": 2,
                   "minor": 0,
                 },
               },
@@ -6938,8 +8610,13 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                       "value": "\\frac{1}{3}+\\frac{1}{3}+\\frac{1}{3}+\\frac{1}{3}+\\frac{1}{3}",
                     },
                   ],
+                  "ariaLabel": undefined,
                   "buttonSets": [
                     "basic",
+                  ],
+                  "buttonsVisible": undefined,
+                  "extraKeys": [
+                    "PI",
                   ],
                   "functions": [
                     "f",
@@ -6947,11 +8624,12 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                     "h",
                   ],
                   "times": false,
+                  "visibleLabel": undefined,
                 },
                 "static": false,
                 "type": "expression",
                 "version": {
-                  "major": 1,
+                  "major": 2,
                   "minor": 0,
                 },
               },
@@ -7083,10 +8761,18 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missing-widgets.json 1`] = `
+exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -7180,14 +8866,15 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missi
           ],
           "deselectEnabled": false,
           "displayCount": null,
+          "hasNoneOfTheAbove": false,
           "multipleSelect": false,
-          "noneOfTheAbove": false,
+          "numCorrect": 1,
           "onePerLine": true,
           "randomize": false,
         },
         "type": "radio",
         "version": {
-          "major": 0,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -7196,10 +8883,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-option-missi
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-invalid-height.json 1`] = `
+exports[`parseAndMigratePerseusItem given orderer-with-invalid-height.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -7268,12 +8963,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-invalid
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/orderer-with-undefined-options.json 1`] = `
+exports[`parseAndMigratePerseusItem given orderer-with-undefined-options.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -7432,12 +9131,13 @@ A free body diagram of the **box** is shown below.
           "displayCount": null,
           "hasNoneOfTheAbove": false,
           "multipleSelect": true,
+          "numCorrect": 4,
           "randomize": true,
         },
         "static": false,
         "type": "radio",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -7465,10 +9165,18 @@ A free body diagram of the **box** is shown below.
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/passage-missing-footnotes-and-title.json 1`] = `
+exports[`parseAndMigratePerseusItem given passage-missing-footnotes-and-title.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -7515,10 +9223,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/passage-missing-foot
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/passage-ref-missing-summaryText.json 1`] = `
+exports[`parseAndMigratePerseusItem given passage-ref-missing-summaryText.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -7667,14 +9383,15 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
             },
           ],
           "displayCount": null,
+          "hasNoneOfTheAbove": false,
           "multipleSelect": false,
-          "noneOfTheAbove": false,
+          "numCorrect": 1,
           "onePerLine": true,
           "randomize": false,
         },
         "type": "radio",
         "version": {
-          "major": 0,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -7690,14 +9407,15 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
             },
           ],
           "displayCount": null,
+          "hasNoneOfTheAbove": false,
           "multipleSelect": false,
-          "noneOfTheAbove": false,
+          "numCorrect": 0,
           "onePerLine": true,
           "randomize": false,
         },
         "type": "radio",
         "version": {
-          "major": 0,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -7735,10 +9453,18 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-missing-scaleY-and-snapsPerLine.json 1`] = `
+exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLine.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -7842,10 +9568,18 @@ $\\green5 - \\red3= \\purple{2}$",
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefined-plotDimensions.json 1`] = `
+exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [
     {
@@ -7930,14 +9664,15 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefin
           ],
           "deselectEnabled": false,
           "displayCount": null,
+          "hasNoneOfTheAbove": false,
           "multipleSelect": false,
-          "noneOfTheAbove": false,
+          "numCorrect": 1,
           "onePerLine": true,
           "randomize": true,
         },
         "type": "radio",
         "version": {
-          "major": 0,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -7946,9 +9681,19 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/plotter-with-undefin
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/question-missing-content.json 1`] = `
+exports[`parseAndMigratePerseusItem given question-missing-content.json returns the same result as before 1`] = `
 {
-  "answerArea": {},
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
   "hints": [],
   "question": {
     "content": "",
@@ -7958,10 +9703,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/question-missing-con
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing-content.json 1`] = `
+exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -8007,14 +9760,15 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
                 ],
                 "deselectEnabled": false,
                 "displayCount": null,
+                "hasNoneOfTheAbove": false,
                 "multipleSelect": false,
-                "noneOfTheAbove": false,
+                "numCorrect": 0,
                 "onePerLine": true,
                 "randomize": false,
               },
               "type": "radio",
               "version": {
-                "major": 0,
+                "major": 2,
                 "minor": 0,
               },
             },
@@ -8053,14 +9807,15 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
                 ],
                 "deselectEnabled": false,
                 "displayCount": null,
+                "hasNoneOfTheAbove": false,
                 "multipleSelect": false,
-                "noneOfTheAbove": false,
+                "numCorrect": 0,
                 "onePerLine": true,
                 "randomize": false,
               },
               "type": "radio",
               "version": {
-                "major": 0,
+                "major": 2,
                 "minor": 0,
               },
             },
@@ -8099,14 +9854,15 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
                 ],
                 "deselectEnabled": false,
                 "displayCount": null,
+                "hasNoneOfTheAbove": false,
                 "multipleSelect": false,
-                "noneOfTheAbove": false,
+                "numCorrect": 0,
                 "onePerLine": true,
                 "randomize": false,
               },
               "type": "radio",
               "version": {
-                "major": 0,
+                "major": 2,
                 "minor": 0,
               },
             },
@@ -8145,14 +9901,15 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
                 ],
                 "deselectEnabled": false,
                 "displayCount": null,
+                "hasNoneOfTheAbove": false,
                 "multipleSelect": false,
-                "noneOfTheAbove": false,
+                "numCorrect": 0,
                 "onePerLine": true,
                 "randomize": false,
               },
               "type": "radio",
               "version": {
-                "major": 0,
+                "major": 2,
                 "minor": 0,
               },
             },
@@ -8169,12 +9926,16 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/radio-choice-missing
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/radio-missing-noneOfTheAbove.json 1`] = `
+exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
     "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
     "periodicTable": false,
+    "periodicTableWithKey": false,
     "tTable": false,
     "zTable": false,
   },
@@ -8214,6 +9975,196 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
           "displayCount": null,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
+          "numCorrect": 1,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 2,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given radio-with-null-widgets.json returns the same result as before 1`] = `
+{
+  "_multi": null,
+  "answer": null,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "
+[[☃ image 1]]
+
+##A history of conformity in American schools
+
+*By Heather M. Meston*
+
+___
+
+1. Ever wondered why you sit in rows of desks, stand in silent lines, or follow dozens of other rules during the school day? American public schools are often accused of teaching *conformity.* But what is conformity? It’s when people think and act the same. And, in fact, teaching conformity was a huge part of why American public schools were created! 
+
+###The Prussian Model of Education comes to the United States
+
+2. Where did the idea that schools should teach conformity come from?
+
+3. Prussia, it turns out. No, not Russia: Prussia, which today is Germany. After France defeated Prussia in 1807, Prussian leaders blamed the loss on their soldiers. They thought the soldiers were doing too much independent thinking and not enough following orders. So, to eliminate this independence, they imposed required schooling. They designed schools to teach values like duty, obedience, and love of their country, as well as math and reading. The government used taxes to pay for all Prussian children to go to school through 8th grade.
+
+4. 	In the United States, schools did exist prior to the 1800s, but they often cost money and were open mostly only to White boys. Then in 1843, Horace Mann, often called the Father of American Education, traveled to Prussia to study their schools. He was very impressed by Prussian schools. So, he began fighting for the United States to align its schools with Prussia’s. 
+
+5.	Mann called his free, required schools “common schools.” He wanted them to focus on both academics and values, like the Prussian schools. The arrival of large populations of immigrants from Southern and Eastern Europe further shaped the idea that schools should teach values. Common schools were viewed as a way to make immigrants “more American.” Schools would teach immigrants English, democratic values like voting, and how to be productive workers. Common schools became one way to make sure that all people conformed to morals that American leaders valued.
+
+###Who gets to be “normal” in schools today?
+
+6. 	Today, many American public schools still expect students to learn the same skills, at the same time, in the same ways. They also often teach certain kinds of values, like being quiet and following directions. But studies show that this focus on conformity can cause particular problems for certain students, such as those with disabilities or those who don’t speak English as their first language.
+
+7. 	Take, for example, students with Attention Deficit Hyperactivity Disorder, or ADHD. People with ADHD can have incredible talents: many of them have high levels of energy, creativity, and hyperfocus. Hyperfocus is when a person can tune out distractions and focus on one task for a long time. These talents can help people with ADHD do amazing things. Walt Disney, Leonardo Da Vinci, and Albert Einstein are all believed to have had ADHD. The creativity, energy, and hyperfocus they brought to their passions helped them achieve their extraordinary levels of success 
+	
+8. Yet, despite these talents, students with ADHD often struggle in school. They may have trouble conforming to school rules. Sitting for long periods of time can be hard for all students, but particularly for students with ADHD. Students with ADHD may also find it hard to have to learn the same material at the same speed as everyone else. Researchers have shown that students with ADHD learn best in schools that focus on movement, choice, and creativity. In schools like these, students with ADHD can often be very successful. However, because of standardized tests, required lessons, and rules that teachers have to follow, it can be hard for schools to create these kinds of experiences for students.
+
+
+[[☃ explanation 1]]=====
+**Based on the text, which of the following statements is likely true?**
+
+
+[[☃ radio 1]]
+
+
+
+
+",
+    "images": {},
+    "metadata": null,
+    "replace": null,
+    "widgets": {
+      "explanation 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "explanation": "Public domain image provided by the Boston Public Library",
+          "hidePrompt": "Hide attribution",
+          "showPrompt": "Attribution",
+          "static": false,
+          "widgets": {},
+        },
+        "static": false,
+        "type": "explanation",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "image 1": {
+        "alignment": "block",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "alt": "A class in 1895",
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": 782,
+            "left": undefined,
+            "scale": undefined,
+            "top": 0,
+            "url": "https://cdn.kastatic.org/ka-content-images/2cd757f8be2af8caa65c5e9c2c8e491f38a504a4.jpg",
+            "width": 1024,
+          },
+          "box": [
+            1024,
+            782,
+          ],
+          "caption": "",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "choices": [
+            {
+              "clue": "**This statement **is** likely true, making it the best choice.** The text first explains how the idea of conformity in schools came from Prussia. Then, the text points out how “today, many American public schools still expect students to learn the same skills, at the same time, in the same ways.” From this, you can infer that the Prussian model continues to influence American public schools today. ",
+              "content": "The Prussian Model of Education continues to influence how many American public schools are run today.
+",
+              "correct": true,
+              "isNoneOfTheAbove": false,
+              "widgets": undefined,
+            },
+            {
+              "clue": "This statement isn’t likely true. After explaining how the idea of conformity in schools came from Prussia, the text points out how “today, many American public schools still expect students to learn the same skills, at the same time, in the same ways.” So, you can infer that the Prussian focus on conformity still influences American public schools.
+",
+              "content": "The Prussian Model of Education has little influence on the way that American public schools are run today.
+",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": undefined,
+            },
+            {
+              "clue": "This statement isn’t likely true. The text discusses how American schools focus on conformity, and points out how “studies show that this focus on conformity can cause particular problems for certain students.” But the text doesn’t mention many people fighting to eliminate schools’ focus on conformity.
+",
+              "content": "There have been many people fighting to eliminate the focus on conformity in American public schools.
+",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": undefined,
+            },
+            {
+              "clue": "This statement isn’t likely true. The text doesn’t mention people fighting to impose new rules. 
+",
+              "content": "There have been many people fighting to impose new rules within the American public school system.",
+              "correct": false,
+              "isNoneOfTheAbove": false,
+              "widgets": undefined,
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "displayCount": null,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "noneOfTheAbove": false,
+          "onePerLine": false,
           "randomize": false,
         },
         "static": false,
@@ -8228,10 +10179,18 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/simulator-widget.json 1`] = `
+exports[`parseAndMigratePerseusItem given simulator-widget.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -8281,10 +10240,18 @@ exports[`parseAndTypecheckPerseusItem correctly parses data/simulator-widget.jso
 }
 `;
 
-exports[`parseAndTypecheckPerseusItem correctly parses data/transformer-widget.json 1`] = `
+exports[`parseAndMigratePerseusItem given transformer-widget.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {

@@ -36,7 +36,7 @@ describe("scoreNumericInput", () => {
                     value: 1,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -60,7 +60,7 @@ describe("scoreNumericInput", () => {
                     value: 1,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -149,7 +149,7 @@ describe("scoreNumericInput", () => {
                     value: 1,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "optional",
                     strict: true,
                     message: "",
                 },
@@ -173,7 +173,7 @@ describe("scoreNumericInput", () => {
                     value: 1,
                     status: "correct",
                     maxError: 0.2,
-                    simplify: "",
+                    simplify: "optional",
                     strict: true,
                     message: "",
                 },
@@ -197,7 +197,7 @@ describe("scoreNumericInput", () => {
                     value: 1,
                     status: "correct",
                     maxError: 0.2,
-                    simplify: "",
+                    simplify: "optional",
                     strict: true,
                     message: "",
                 },
@@ -214,6 +214,81 @@ describe("scoreNumericInput", () => {
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
+    it("rejects a strict improper with whole number answer", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 3,
+                    status: "correct",
+                    maxError: 0.2,
+                    simplify: "optional",
+                    strict: true,
+                    answerForms: ["improper"],
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const userInput = {
+            currentValue: "3",
+        } as const;
+
+        const score = scoreNumericInput(userInput, rubric);
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("accepts a strict improper answer with tex answer", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 3,
+                    status: "correct",
+                    maxError: 0.2,
+                    simplify: "optional",
+                    strict: true,
+                    answerForms: ["improper"],
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const userInput = {
+            currentValue: "\\frac{9}{3}",
+        } as const;
+
+        const score = scoreNumericInput(userInput, rubric);
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("accepts a strict improper answer with simple text answer", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 3,
+                    status: "correct",
+                    maxError: 0.2,
+                    simplify: "optional",
+                    strict: true,
+                    answerForms: ["improper"],
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const userInput = {
+            currentValue: "9/3",
+        } as const;
+
+        const score = scoreNumericInput(userInput, rubric);
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
     it("respects the order of answer options when scoring", () => {
         // Arrange
         const rubric: PerseusNumericInputRubric = {
@@ -223,7 +298,7 @@ describe("scoreNumericInput", () => {
                     value: 4,
                     status: "wrong",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -232,7 +307,7 @@ describe("scoreNumericInput", () => {
                     value: 10,
                     status: "correct",
                     maxError: 10,
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -267,7 +342,7 @@ describe("scoreNumericInput", () => {
                     value: 1,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -275,7 +350,7 @@ describe("scoreNumericInput", () => {
                     value: -1,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -313,7 +388,7 @@ describe("scoreNumericInput", () => {
                     // This answer is missing its value field.
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -322,7 +397,7 @@ describe("scoreNumericInput", () => {
                     value: 0.5,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -346,7 +421,7 @@ describe("scoreNumericInput", () => {
                     value: null,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -355,7 +430,7 @@ describe("scoreNumericInput", () => {
                     value: 0.5,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -375,7 +450,7 @@ describe("scoreNumericInput", () => {
                     value: 0.2,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -398,7 +473,7 @@ describe("scoreNumericInput", () => {
                     value: 1.2,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -421,7 +496,7 @@ describe("scoreNumericInput", () => {
                     value: 1.1,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },
@@ -441,7 +516,7 @@ describe("scoreNumericInput", () => {
                     value: 0.9,
                     status: "correct",
                     maxError: 0,
-                    simplify: "",
+                    simplify: "optional",
                     strict: false,
                     message: "",
                 },

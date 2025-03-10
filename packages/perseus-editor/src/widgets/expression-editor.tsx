@@ -2,6 +2,7 @@ import * as KAS from "@khanacademy/kas";
 import {components, Expression} from "@khanacademy/perseus";
 import {
     PerseusExpressionAnswerFormConsidered,
+    deriveExtraKeys,
     expressionLogic,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
@@ -86,34 +87,26 @@ class ExpressionEditor extends React.Component<Props, State> {
         };
     }
 
-    serialize: () => any = () => {
-        const formSerializables = [
-            "value",
-            "form",
-            "simplify",
-            "considered",
-            // it's a little weird to serialize the react key, but saves some
-            // effort reconstructing them when this item is loaded later.
-            "key",
-        ];
-        const serializables = [
-            "answerForms",
-            "buttonSets",
-            "functions",
-            "times",
-            "visibleLabel",
-            "ariaLabel",
-        ];
+    serialize(): PerseusExpressionWidgetOptions {
+        const {
+            answerForms,
+            buttonSets,
+            functions,
+            times,
+            visibleLabel,
+            ariaLabel,
+        } = this.props;
 
-        const answerForms = this.state.answerForms.map((form) => {
-            return _(form).pick(formSerializables);
-        });
-
-        return lens(this.props)
-            .set(["answerForms"], answerForms)
-            .mod([], (props) => _(props).pick(serializables))
-            .freeze();
-    };
+        return {
+            answerForms,
+            buttonSets,
+            functions,
+            times,
+            visibleLabel,
+            ariaLabel,
+            extraKeys: deriveExtraKeys(this.props),
+        };
+    }
 
     getSaveWarnings: () => any = () => {
         const issues: Array<any | string> = [];
@@ -194,16 +187,44 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     // This function is designed to update the answerForm property
     // with new data. This function should not be used to update any
-    // other properties within ExpressionEditor.
+    // other properties within ExpressionEditor except extraKeys
+    // which is derived from answerForms
     updateAnswerForm(i: number, props: AnswerForm) {
         const answerForms = lens(this.state.answerForms)
             .merge([i], props)
             .freeze();
 
+        // deriveExtraKeys defaults to using the `extraKeys` it was given
+        // which in most case is what we want, but is not what we want
+        // in the editing experience because we should recalculate them
+        // when answers change
+        //const {extraKeys: _, ...restProps} = this.props;
+
+        // const extraKeys = deriveExtraKeys({
+        //     ...restProps,
+        //     answerForms,
+        // });
+        //this.change({answerForms, extraKeys});
         this.setState({
             answerForms: answerForms,
         });
     }
+
+    handleReorder: (components: any) => void = (components) => {
+        const answerForms = components.map((component) => {
+            const form = _(component.props).pick(
+                "considered",
+                "form",
+                "simplify",
+                "value",
+            );
+            // @ts-expect-error - TS2339 - Property 'key' does not exist on type 'Pick<any, "form" | "value" | "simplify" | "considered">'.
+            form.key = component.key;
+            return form;
+        });
+
+        this.change({answerForms});
+    };
 
     // called when the selected buttonset changes
     handleButtonSet: (changingName: string) => void = (changingName) => {

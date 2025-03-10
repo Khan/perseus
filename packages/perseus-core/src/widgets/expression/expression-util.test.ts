@@ -20,6 +20,7 @@ describe("getExpressionPublicWidgetOptions", () => {
             visibleLabel: "the visible label",
             ariaLabel: "the aria label",
             buttonsVisible: "always",
+            extraKeys: ["i"],
         };
 
         // Act
@@ -33,6 +34,7 @@ describe("getExpressionPublicWidgetOptions", () => {
             buttonsVisible: "always",
             visibleLabel: "the visible label",
             ariaLabel: "the aria label",
+            extraKeys: ["i"],
         });
     });
 });

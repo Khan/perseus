@@ -1,5 +1,56 @@
 # @khanacademy/perseus-core
 
+## 5.0.0
+
+### Major Changes
+
+-   [#2233](https://github.com/Khan/perseus/pull/2233) [`a0aee41b6`](https://github.com/Khan/perseus/commit/a0aee41b69d4288ef165416cea293100d037ce5f) Thanks [@handeyeco](https://github.com/handeyeco)! - RadioWidget v2 in support of answerless Radio
+
+*   [#2226](https://github.com/Khan/perseus/pull/2226) [`909148cdc`](https://github.com/Khan/perseus/commit/909148cdccabb3f0a2156587ea1e870bae910f8d) Thanks [@handeyeco](https://github.com/handeyeco)! - Answerless Expression: Expression can render and is interactive with answerless data
+
+## 4.0.0
+
+### Major Changes
+
+-   [#2261](https://github.com/Khan/perseus/pull/2261) [`5de2e740b`](https://github.com/Khan/perseus/commit/5de2e740b35d69fc0059af5dbb74bd894986e124) Thanks [@handeyeco](https://github.com/handeyeco)! - Make NumericInput interactive without answer data
+
+### Minor Changes
+
+-   [#2202](https://github.com/Khan/perseus/pull/2202) [`c7f6f63c8`](https://github.com/Khan/perseus/commit/c7f6f63c845566d99dae6df604426e5fb14a7e85) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Tooling:
+
+    -   Switching to `pnpm`.
+
+*   [#2209](https://github.com/Khan/perseus/pull/2209) [`c0149a1b9`](https://github.com/Khan/perseus/commit/c0149a1b9f9d917f0f9b98dd6d61414e9bb7d895) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Refactoring Numeric Input helper functions to remove underscore, improve documentation, and add tests.
+
+### Patch Changes
+
+-   [#2269](https://github.com/Khan/perseus/pull/2269) [`90034a875`](https://github.com/Khan/perseus/commit/90034a8754ab735ec84d959916b62a69d39efc2a) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: Allow null values when parsing the domain of a locked function on an Interactive Graph widget, converting them to +/-Infinity. Note that Infinity is serialized to JSON as `null`, so this preserves the existing persisted data format.
+
+*   [#2255](https://github.com/Khan/perseus/pull/2255) [`b71154170`](https://github.com/Khan/perseus/commit/b711541701ec10ccb506d0f9cbafac4a1c7c4cc1) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fix for Marathi language support in getDecimalSeparator
+
+-   [#2259](https://github.com/Khan/perseus/pull/2259) [`a90cf7901`](https://github.com/Khan/perseus/commit/a90cf790159fefbee41437f20ac9a403a06f148f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor change to how each package embeds it's package version in itself (slightly larger bundle size)
+
+*   [#2254](https://github.com/Khan/perseus/pull/2254) [`56b4ee61b`](https://github.com/Khan/perseus/commit/56b4ee61b064603fdbeb4577851fe142d881e245) Thanks [@benchristel](https://github.com/benchristel)! - Internal: test that Interactive Graph widgets can render with answerless data
+
+-   [#2267](https://github.com/Khan/perseus/pull/2267) [`381842745`](https://github.com/Khan/perseus/commit/3818427456a2ffca56481adbdafa01fee40e83c0) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: Convert null to undefined in the `replace` field of hints.
+
+    This fixes a parser error observed in production. `replace` is null in some assessment
+    items.
+
+*   [#2231](https://github.com/Khan/perseus/pull/2231) [`08409c6c9`](https://github.com/Khan/perseus/commit/08409c6c9eea1d19212d332acb056c5ef4971419) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests for answerless Dropdown support
+
+## 3.7.0
+
+### Minor Changes
+
+-   [#2246](https://github.com/Khan/perseus/pull/2246) [`e63f83d0d`](https://github.com/Khan/perseus/commit/e63f83d0d89fd5b8e7aee3ab7248bcb19ec9be8a) Thanks [@benchristel](https://github.com/benchristel)! - Update `parseAndMigratePerseusItem` and `parseAndMigratePerseusArticle` to accept legacy data formats observed in production
+
+*   [#2242](https://github.com/Khan/perseus/pull/2242) [`e187c6b67`](https://github.com/Khan/perseus/commit/e187c6b67cb4d83e42907527acfe6562346e92d8) Thanks [@benchristel](https://github.com/benchristel)! - Deprecate the `metadata` field in renderer, hint, and Group widget data schemas.
+
+-   [#2215](https://github.com/Khan/perseus/pull/2215) [`62ed407b8`](https://github.com/Khan/perseus/commit/62ed407b8647472f955467b8ce64261182bb8b59) Thanks [@Myranae](https://github.com/Myranae)! - Update Sorter's public widget option function to use Math.random and shuffle
+
+*   [#2156](https://github.com/Khan/perseus/pull/2156) [`cbd5a6528`](https://github.com/Khan/perseus/commit/cbd5a652818554aa368bcddb0381d4716bc7a8ba) Thanks [@Myranae](https://github.com/Myranae)! - Implement a widget export function to filter out rubric data from widget options for the Matcher widget
+
 ## 3.6.0
 
 ### Minor Changes

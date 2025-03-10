@@ -1,10 +1,10 @@
-import {color} from "@khanacademy/wonder-blocks-tokens";
-import {Plot} from "mafs";
+import {Plot, vec} from "mafs";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
 import a11y from "../../../util/a11y";
 import {actions} from "../reducer/interactive-graph-action";
+import useGraphConfig from "../reducer/use-graph-config";
 
 import {MovablePoint} from "./components/movable-point";
 import {srFormatNumber} from "./screenreader-text";
@@ -43,7 +43,8 @@ type QuadraticGraphProps = MafsGraphProps<QuadraticGraphState>;
 function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;
 
-    const {coords} = graphState;
+    const {coords, snapStep} = graphState;
+    const {interactiveColor} = useGraphConfig();
 
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
@@ -81,7 +82,16 @@ function QuadraticGraph(props: QuadraticGraphProps) {
             aria-label={srQuadraticGraph}
             aria-describedby={`${quadraticDirectionId} ${quadraticVertexId} ${quadraticInterceptsId}`}
         >
-            <Plot.OfX y={y} color={color.blue} />
+            <Plot.OfX
+                y={y}
+                color={interactiveColor}
+                svgPathProps={{
+                    // Use aria-hidden to hide the line from screen readers
+                    // so it doesn't read as "image" with no context.
+                    // This is okay because the graph has its own aria-label.
+                    "aria-hidden": true,
+                }}
+            />
             {coords.map((coord, i) => {
                 const srQuadraticPoint = getQuadraticPointString(
                     i + 1,
@@ -100,6 +110,11 @@ function QuadraticGraph(props: QuadraticGraphProps) {
                         ariaLabel={`${srQuadraticPoint}${srVertex}`}
                         point={coord}
                         sequenceNumber={i + 1}
+                        constrain={getQuadraticKeyboardConstraint(
+                            coords,
+                            snapStep,
+                            i,
+                        )}
                         onMove={(destination) =>
                             dispatch(
                                 actions.quadratic.movePoint(i, destination),
@@ -242,3 +257,76 @@ export function describeQuadraticGraph(
         srQuadraticInteractiveElements,
     };
 }
+
+export const getQuadraticKeyboardConstraint = (
+    coords: ReadonlyArray<Coord>,
+    snapStep: vec.Vector2,
+    pointMoved: number,
+): {
+    up: vec.Vector2;
+    down: vec.Vector2;
+    left: vec.Vector2;
+    right: vec.Vector2;
+} => {
+    // Make newCoords mutable
+    const newCoords: QuadraticCoords = [coords[0], coords[1], coords[2]];
+
+    // Get the point that is being moved
+    const coordToBeMoved = newCoords[pointMoved];
+
+    // Create a function to validate and adjust the movement of the point
+    const movePointWithConstraint = (
+        moveFunc: (coord: Coord) => Coord,
+    ): Coord => {
+        // Move the point the desired direction
+        let movedCoord = moveFunc(coordToBeMoved);
+        newCoords[pointMoved] = movedCoord;
+
+        // If these new coordinates are valid, return the moved coord
+        if (areCoordsValid(newCoords)) {
+            return movedCoord;
+        }
+
+        // If the new coordinates are invalid, we need to move the point an additional
+        // snapStep to avoid creating an invalid quadratic graph.
+        movedCoord = moveFunc(movedCoord);
+        newCoords[pointMoved] = movedCoord;
+
+        // If these updated coordinates are valid now, we can return the new coordinates.
+        if (areCoordsValid(newCoords)) {
+            return movedCoord;
+        }
+
+        // Otherwise, if the new coordinates are still invalid, we need to move the point one final snapStep.
+        // This is to support the edge case where all of the points are each exactly one snapStep away
+        // from each other.
+        // Eg. When coords = [[0, 0], [1, 0], [2, 0]], snapStep = [1, 1], and we're moving coords[0] to the right.
+        return moveFunc(movedCoord);
+    };
+
+    return {
+        up: vec.add(coordToBeMoved, [0, snapStep[1]]),
+        down: vec.sub(coordToBeMoved, [0, snapStep[1]]),
+        // For horizontal movement, we need to ensure that the points are not on the same vertical line.
+        left: movePointWithConstraint((coord) =>
+            vec.sub(coord, [snapStep[0], 0]),
+        ),
+        right: movePointWithConstraint((coord) =>
+            vec.add(coord, [snapStep[0], 0]),
+        ),
+    };
+};
+
+const areCoordsValid = (coords: QuadraticCoords): boolean => {
+    const p1 = coords[0];
+    const p2 = coords[1];
+    const p3 = coords[2];
+
+    // If any of the points share the same x-coordinate,
+    // we are unable to calculate the coefficients, and the graph is invalid.
+    if (p1[0] === p2[0] || p2[0] === p3[0] || p1[0] === p3[0]) {
+        return false;
+    }
+
+    return true;
+};

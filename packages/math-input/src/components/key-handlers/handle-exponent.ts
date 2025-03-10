@@ -1,15 +1,15 @@
 import {MathFieldActionType} from "../../types";
 import {mathQuillInstance} from "../input/mathquill-instance";
 
-import type Key from "../../data/keys";
 import type {MathFieldInterface} from "../input/mathquill-types";
+import type {KeypadKey} from "@khanacademy/perseus-core";
 
 const ArithmeticOperators = ["+", "-", "\\cdot", "\\times", "\\div"];
 const EqualityOperators = ["=", "\\neq", "<", "\\leq", ">", "\\geq"];
 
 export default function handleExponent(
     mathField: MathFieldInterface,
-    key: Key,
+    key: KeypadKey,
 ) {
     const cursor = mathField.cursor();
     // If there's an invalid operator preceding the cursor (anything that

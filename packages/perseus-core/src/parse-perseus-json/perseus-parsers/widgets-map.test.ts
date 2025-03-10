@@ -37,9 +37,10 @@ describe("parseWidgetsMap", () => {
         );
     });
 
-    it("rejects a widget ID numbered 0", () => {
-        // Widget IDs with 0 currently cause a full-page crash when the
-        // exercise is rendered in webapp!
+    it("accepts a widget ID numbered 0", () => {
+        // Widget IDs with 0 cause a full-page crash when an exercise is
+        // rendered in webapp! However, they do not cause a crash in in
+        // articles, so we allow them.
 
         const widgetsMap: unknown = {
             "radio 0": {
@@ -54,9 +55,17 @@ describe("parseWidgetsMap", () => {
 
         const result = parse(widgetsMap, parseWidgetsMap);
         expect(result).toEqual(
-            failure(
-                `At (root)["radio 0"]["(widget ID)"][1] -- expected a string representing a positive integer, but got "0"`,
-            ),
+            success({
+                "radio 0": {
+                    type: "radio",
+                    version: {major: 2, minor: 0},
+                    options: {
+                        choices: [],
+                        hasNoneOfTheAbove: false,
+                        numCorrect: 0,
+                    },
+                },
+            }),
         );
     });
 
@@ -187,8 +196,9 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "expression 1": {
                 type: "expression",
-                version: {major: 1, minor: 0},
+                version: {major: 2, minor: 0},
                 options: {
+                    extraKeys: ["PI"],
                     answerForms: [],
                     buttonSets: [],
                     functions: [],
@@ -675,9 +685,10 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "radio 1": {
                 type: "radio",
-                version: {major: 0, minor: 0},
+                version: {major: 2, minor: 0},
                 options: {
                     choices: [],
+                    numCorrect: 0,
                     noneOfTheAbove: false,
                 },
             },

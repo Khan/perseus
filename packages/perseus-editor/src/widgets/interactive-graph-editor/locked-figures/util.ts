@@ -89,6 +89,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 color: DEFAULT_COLOR,
                 strokeStyle: "solid",
                 equation: "x^2",
+                domain: [-Infinity, Infinity],
                 directionalAxis: "x",
             };
         case "label":

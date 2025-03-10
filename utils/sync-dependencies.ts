@@ -6,17 +6,22 @@
  * the webapp host application.
  */
 
-import {execSync} from "child_process";
-import * as fs from "fs";
+import fs from "node:fs";
+
+import yaml from "yaml";
 
 function printHelp() {
     console.log("--- Package Dependency Sync ---");
 
     console.log(`
-    This tool synchronizes all dev and peer dependencies found in any
-    package.json file in this repo to match the versions listed in the provided
-    package.json file. Typically, this would be the package.json file from the
-    hosting web application (ie. webapp).
+    This tool synchronizes all dev and peer dependencies of all Perseus
+    packages. These dependencies are managed as a unit within a pnpm catalog
+    (http://pnpm.io/catalogs). See the 'pnpm-workspace.yaml' file in this repo.
+
+    This tool expects to be provided with a path to a package.json that defines
+    the version of each of Perseus' peer and dev dependencies. Typically, this
+    would be the package.json file from the hosting web application
+    (ie. webapp).
 `);
     console.log("usage: sync-dependencies <package.json>");
 }
@@ -28,6 +33,10 @@ const RestrictedPackageVersions = [
     // identical to 'react-dom' with just a few patches for webpack and we
     // don't use webpack.
     /hot-loader\/react-dom/,
+    // Our pnpm workspace can't reference itself (I don't think)
+    // TODO(LEMS-2903): figure out a way to sync peer deps that are
+    // set to "workspace:*" in Webapp's package.json
+    /workspace/,
 ];
 
 // Package names that we don't want to sync in
@@ -41,32 +50,26 @@ function filterUnusableTargetVersions(
     packagesInThisRepo: ReadonlyArray<string>,
 ): Record<string, string> {
     return Object.fromEntries(
-        Object.entries(targetVersions).filter(
-            ([pkgName, pkgVersion]) =>
-                // Eliminate packages who's version we don't/can't use.
-                !RestrictedPackageVersions.some((r) => r.test(pkgVersion)) &&
-                // Eliminate packages that we don't want to sync in.
-                !RestrictedPackageNames.some((name) => name === pkgName) &&
-                // Eliminate any packages within this repo - they're managed by
-                // our `changeset` tooling.
-                !packagesInThisRepo.some((name) => name === pkgName),
-        ),
+        Object.entries(targetVersions).filter(([pkgName, pkgVersion]) => {
+            // Eliminate packages who's version we don't/can't use.
+            if (RestrictedPackageVersions.some((r) => r.test(pkgVersion))) {
+                return false;
+            }
+
+            // Eliminate packages that we don't want to sync in.
+            if (RestrictedPackageNames.includes(pkgName)) {
+                return false;
+            }
+
+            // Eliminate any packages within this repo - they're managed by
+            // our `changeset` tooling.
+            if (!packagesInThisRepo.includes(pkgName)) {
+                return false;
+            }
+
+            return true;
+        }),
     );
-}
-
-function syncPackageDependencies(
-    targetVersions: Record<string, string>,
-    deps?: Record<string, string>,
-) {
-    if (deps == null) {
-        return;
-    }
-
-    for (const pkgName of Object.keys(deps)) {
-        if (pkgName in targetVersions) {
-            deps[pkgName] = targetVersions[pkgName];
-        }
-    }
 }
 
 function main(argv: string[]) {
@@ -79,36 +82,29 @@ function main(argv: string[]) {
         process.exit(1);
     }
 
-    const packageJsonsInRepo = execSync(
-        `git ls-files | grep -F "package.json" | grep -F -v "vendor/"`,
-    )
-        .toString()
-        .split("\n")
-        .map((line) => line.trim())
-        .filter(Boolean);
-
-    const packageNamesInRepo = packageJsonsInRepo.map(
-        (f) => JSON.parse(fs.readFileSync(f).toString()).name,
+    const workspace = yaml.parse(
+        fs.readFileSync("pnpm-workspace.yaml", "utf-8"),
     );
+    const packageNamesInRepo = Object.keys(workspace.catalog);
 
     const targetVersions = filterUnusableTargetVersions(
         JSON.parse(fs.readFileSync(args[0]).toString()).dependencies,
         packageNamesInRepo,
     );
 
-    for (const f of packageJsonsInRepo) {
-        console.log(`  --> ${f}`);
-        const pkg = JSON.parse(fs.readFileSync(f).toString());
-
-        syncPackageDependencies(targetVersions, pkg.peerDependencies);
-        syncPackageDependencies(targetVersions, pkg.devDependencies);
-        syncPackageDependencies(targetVersions, pkg.dependencies);
-
-        // NOTE: We have to manually make sure there's a newline at end of file!
-        fs.writeFileSync(f, JSON.stringify(pkg, undefined, 4) + "\n", {
-            encoding: "utf-8",
-        });
+    for (const pkgName of packageNamesInRepo) {
+        if (pkgName in targetVersions) {
+            workspace.catalog[pkgName] = targetVersions[pkgName];
+        }
     }
+
+    fs.writeFileSync(
+        "pnpm-workspace.yaml",
+        yaml.stringify(workspace, {indent: 4}),
+        {
+            encoding: "utf-8",
+        },
+    );
 }
 
 main(process.argv);
