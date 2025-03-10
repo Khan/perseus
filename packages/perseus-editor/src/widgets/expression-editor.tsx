@@ -179,13 +179,13 @@ class ExpressionEditor extends React.Component<Props, State> {
     };
 
     handleRemoveForm: (answerKey: number) => void = (i) => {
-        console.log(`index deleted: ${i}`);
+        //console.log(`index deleted: ${i}`);
         const answerForms = this.state.answerForms.slice();
         answerForms.splice(i, 1);
         const updatedAnswerForms = answerForms.map((form, index) => ({
             ...form,
         }));
-        console.log(updatedAnswerForms);
+        //console.log(updatedAnswerForms);
 
         this.setState({
             answerForms: updatedAnswerForms,
@@ -284,7 +284,7 @@ class ExpressionEditor extends React.Component<Props, State> {
             simplify,
         };
 
-        console.log(`index ${index} simplified: ${simplify}`);
+        //console.log(`index ${index} simplified: ${simplify}`);
 
         this.updateAnswerForm(index, answerForm);
     }
