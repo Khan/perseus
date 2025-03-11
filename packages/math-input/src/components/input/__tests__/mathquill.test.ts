@@ -302,6 +302,18 @@ describe("MathQuill", () => {
             expect(mathField.getContent()).toEqual("\\left(\\right)");
         });
 
+        it("should not select or delete the entire expression on backspace from outside (MOB-5576)", () => {
+            const expr = "\\left(35x+5\\right)";
+            mathField.setContent(expr);
+            // "Delete" the right parens (it still exists until the parens are fully empty)
+            mathField.pressKey("BACKSPACE");
+            expect(mathField.isSelected()).toBeFalsy();
+
+            // Delete the first element within the parens
+            mathField.pressKey("BACKSPACE");
+            expect(mathField.getContent()).toEqual("\\left(35x+\\right)");
+        });
+
         // TODO(kevinb) fix this behavior so that we delete the exponent too
         it.skip("should not delete squared exponents", () => {
             mathField.setContent("35x^{2}");
