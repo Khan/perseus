@@ -282,8 +282,12 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         //   a keyboard event is "keydown" type.
         //   In react without WonderBlocks, "enter" or "space" keydown events
         //   are also "click" events, differentiated by "detail".
-        if (e.type === "click") {
+        if (e?.type === "click") {
             this.focus();
+        }
+
+        if (key === "DISMISS") {
+            this.closeKeypad();
         }
     };
 
@@ -340,6 +344,8 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         onBlur={() => this.blur()}
                     />
                     <Popover
+                        opened={this.state.keypadOpen}
+                        dismissEnabled
                         rootBoundary="document"
                         aria-label={this.context.strings.mathInputTitle}
                         aria-describedby={`popover-content-${popoverContentUniqueId}`}
@@ -373,8 +379,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                 </PopoverContentCore>
                             </>
                         )}
-                        dismissEnabled
-                        opened={this.state.keypadOpen}
                     >
                         {this.props.buttonsVisible === "never" ? (
                             <MathInputIcon
