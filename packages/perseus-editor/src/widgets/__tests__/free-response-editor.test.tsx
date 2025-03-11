@@ -54,7 +54,7 @@ describe("free-response editor", () => {
                 scoringCriteria={[{text: ""}]}
             />,
         );
-        await userEvent.type(screen.getByTestId("criterion-input-0"), "2");
+        await userEvent.type(screen.getByLabelText("Criterion 1"), "2");
 
         // Assert
         expect(onChangeMock).toBeCalledWith({
@@ -197,7 +197,9 @@ describe("free-response editor", () => {
                 onChange={onChangeMock}
             />,
         );
-        await userEvent.click(screen.getByTestId("criterion-delete-button-0"));
+        await userEvent.click(
+            screen.getByRole("button", {name: /Delete criterion 1/i}),
+        );
 
         // Assert
         expect(onChangeMock).toBeCalledWith({

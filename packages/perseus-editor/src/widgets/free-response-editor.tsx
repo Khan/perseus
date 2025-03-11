@@ -130,7 +130,7 @@ const CriterionEditor = function (props: {
     return (
         <View style={styles.criterionContainer}>
             <textarea
-                data-testid={`criterion-input-${props.index}`}
+                aria-label={`Criterion ${props.index + 1}`}
                 onChange={(e) =>
                     props.onChange(props.index, {
                         text: e.target.value,
@@ -140,8 +140,8 @@ const CriterionEditor = function (props: {
             />
             <View style={styles.deleteButtonContainer}>
                 <Button
+                    aria-label={`Delete criterion ${props.index + 1}`}
                     color="destructive"
-                    data-testid={`criterion-delete-button-${props.index}`}
                     disabled={isOnlyCriterion}
                     kind="tertiary"
                     onClick={() => props.onDelete(props.index)}
