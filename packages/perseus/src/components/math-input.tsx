@@ -341,9 +341,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                     />
                     <Popover
                         rootBoundary="document"
-                        opened={this.state.keypadOpen}
-                        onClose={() => this.closeKeypad()}
-                        dismissEnabled
                         aria-label={this.context.strings.mathInputTitle}
                         aria-describedby={`popover-content-${popoverContentUniqueId}`}
                         content={() => (
@@ -355,7 +352,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                     {this.context.strings.mathInputDescription}
                                 </HeadingMedium>
                                 <PopoverContentCore
-                                    closeButtonVisible
                                     style={styles.popoverContent}
                                 >
                                     <DesktopKeypad
@@ -372,10 +368,13 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                             mapButtonSets(
                                                 this.props?.buttonSets,
                                             ))}
+                                        showDismiss
                                     />
                                 </PopoverContentCore>
                             </>
                         )}
+                        dismissEnabled
+                        opened={this.state.keypadOpen}
                     >
                         {this.props.buttonsVisible === "never" ? (
                             <MathInputIcon
@@ -554,7 +553,6 @@ const styles = StyleSheet.create({
     },
     popoverContent: {
         padding: 0,
-        paddingBottom: spacing.xxSmall_6,
         maxWidth: "initial",
     },
 });
