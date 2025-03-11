@@ -2,7 +2,6 @@ import * as React from "react";
 
 import FreeResponseEditor from "../free-response-editor";
 
-import type {PerseusFreeResponseWidgetOptions} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {Meta, StoryObj} from "@storybook/react";
 
@@ -46,15 +45,15 @@ export const ThreeCriteria: Story = {
     },
 };
 
+type State = Partial<PropsFor<typeof FreeResponseEditor>>;
+
 const WithState = () => {
-    const [state, setState] = React.useState<
-        Partial<PropsFor<typeof FreeResponseEditor>>
-    >({
-        question: "What is is the truth?",
+    const [state, setState] = React.useState<State>({
+        question: "What is the truth?",
         scoringCriteria: [{text: ""}],
     });
 
-    const onChange = (options: Partial<PerseusFreeResponseWidgetOptions>) => {
+    const onChange = (options: State) => {
         setState({...state, ...options});
     };
 

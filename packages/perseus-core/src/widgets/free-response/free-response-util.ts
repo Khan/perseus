@@ -2,7 +2,7 @@ import type {PerseusFreeResponseWidgetOptions} from "@khanacademy/perseus-core";
 
 /**
  * For details on the individual options, see the
- * PerseusFreeResponseWidgetOptions type
+ * {@link PerseusFreeResponseWidgetOptions} type
  */
 export type FreeResponsePublicWidgetOptions = {
     question: PerseusFreeResponseWidgetOptions["question"];
