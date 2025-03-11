@@ -169,7 +169,7 @@ describe("free-response editor", () => {
         });
     });
 
-    it("prevents deleting the only criterion", async () => {
+    it("prevents deleting the only criterion by hiding the delete button", async () => {
         // Arrange
         const onChangeMock = jest.fn();
 
@@ -180,7 +180,10 @@ describe("free-response editor", () => {
                 onChange={onChangeMock}
             />,
         );
-        await userEvent.click(screen.getByRole("button", {name: /Delete/i}));
+
+        expect(
+            screen.queryByRole("button", {name: /Delete/i}),
+        ).not.toBeInTheDocument();
 
         // Assert
         expect(onChangeMock).not.toBeCalled();

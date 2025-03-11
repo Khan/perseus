@@ -138,19 +138,22 @@ const CriterionEditor = function (props: {
                 }
                 value={props.criterion.text}
             />
-            <View style={styles.deleteButtonContainer}>
-                <Button
-                    aria-label={`Delete criterion ${props.index + 1}`}
-                    color="destructive"
-                    disabled={isOnlyCriterion}
-                    kind="tertiary"
-                    onClick={() => props.onDelete(props.index)}
-                    size="small"
-                    startIcon={trashIcon}
-                >
-                    Delete
-                </Button>
-            </View>
+
+            {!isOnlyCriterion && (
+                <View style={styles.deleteButtonContainer}>
+                    <Button
+                        aria-label={`Delete criterion ${props.index + 1}`}
+                        color="destructive"
+                        disabled={isOnlyCriterion}
+                        kind="tertiary"
+                        onClick={() => props.onDelete(props.index)}
+                        size="small"
+                        startIcon={trashIcon}
+                    >
+                        Delete
+                    </Button>
+                </View>
+            )}
         </View>
     );
 };
