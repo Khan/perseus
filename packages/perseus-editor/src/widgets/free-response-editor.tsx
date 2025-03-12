@@ -26,8 +26,8 @@ class FreeResponseEditor extends React.Component<Props> {
 
     serialize(): PerseusFreeResponseWidgetOptions {
         return {
-            question: this.props.question,
             placeholder: this.props.placeholder,
+            question: this.props.question,
             scoringCriteria: this.props.scoringCriteria,
         };
     }

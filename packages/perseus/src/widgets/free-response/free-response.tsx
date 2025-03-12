@@ -16,7 +16,7 @@ import type {PerseusFreeResponseUserInput} from "@khanacademy/perseus-score";
 
 type RenderProps = Pick<
     PerseusFreeResponseWidgetOptions,
-    "question" | "placeholder"
+    "placeholder" | "question"
 >;
 type Props = WidgetProps<RenderProps>;
 

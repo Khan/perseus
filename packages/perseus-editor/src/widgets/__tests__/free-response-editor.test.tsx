@@ -103,8 +103,8 @@ describe("free-response editor", () => {
         render(
             <FreeResponseEditor
                 ref={ref}
-                question="test-question"
                 placeholder=""
+                question="test-question"
                 onChange={() => {}}
             />,
         );

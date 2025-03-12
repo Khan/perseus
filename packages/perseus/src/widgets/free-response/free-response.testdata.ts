@@ -11,8 +11,8 @@ export function getFreeResponseItemData(): PerseusRenderer {
                 static: false,
                 type: "free-response",
                 options: {
-                    question: "test-question",
                     placeholder: "test-placeholder",
+                    question: "test-question",
                     scoringCriteria: [
                         {
                             text: "test-criterion",

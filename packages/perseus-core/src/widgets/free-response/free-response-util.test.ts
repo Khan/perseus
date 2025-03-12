@@ -6,8 +6,8 @@ describe("getFreeResponsePublicWidgetOptions", () => {
     it("should return the correct public options without any answer data", () => {
         // Arrange
         const options: PerseusFreeResponseWidgetOptions = {
-            question: "What is the wind speed velocity of an unladen swallow?",
             placeholder: "Please provide response here",
+            question: "What is the wind speed velocity of an unladen swallow?",
             scoringCriteria: [
                 {
                     text: "Depends on whether it's an African or European swallow",
@@ -20,8 +20,8 @@ describe("getFreeResponsePublicWidgetOptions", () => {
 
         // Assert
         expect(publicWidgetOptions).toEqual({
-            question: "What is the wind speed velocity of an unladen swallow?",
             placeholder: "Please provide response here",
+            question: "What is the wind speed velocity of an unladen swallow?",
         });
     });
 });
