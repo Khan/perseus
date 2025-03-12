@@ -70,7 +70,7 @@ export type MafsGraphProps = {
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
     labels: ReadonlyArray<string>;
-    labelLocation: InteractiveGraphProps["labelLocation"];
+    labelLocation?: InteractiveGraphProps["labelLocation"];
     fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
     fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     state: InteractiveGraphState;
