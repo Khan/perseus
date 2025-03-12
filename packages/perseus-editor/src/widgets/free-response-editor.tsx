@@ -70,13 +70,15 @@ class FreeResponseEditor extends React.Component<Props> {
     };
 
     renderCriteriaList = () => {
+        const isDeletable = this.props.scoringCriteria.length > 1;
+
         return this.props.scoringCriteria.map((criterion, index) => {
             return (
                 <CriterionEditor
                     criterion={criterion}
                     index={index}
+                    isDeletable={isDeletable}
                     key={index}
-                    numCriteria={this.props.scoringCriteria.length}
                     onChange={this.handleUpdateCriterion}
                     onDelete={this.handleDeleteCriterion}
                 />
@@ -117,7 +119,7 @@ class FreeResponseEditor extends React.Component<Props> {
 
 const CriterionEditor = function (props: {
     index: number;
-    numCriteria: number;
+    isDeletable: boolean;
     criterion: PerseusFreeResponseWidgetScoringCriterion;
     onChange: (
         index: number,
@@ -125,8 +127,6 @@ const CriterionEditor = function (props: {
     ) => void;
     onDelete: (index: number) => void;
 }): React.ReactNode {
-    const isOnlyCriterion = props.numCriteria <= 1;
-
     return (
         <View style={styles.criterionContainer}>
             <textarea
@@ -139,12 +139,12 @@ const CriterionEditor = function (props: {
                 value={props.criterion.text}
             />
 
-            {!isOnlyCriterion && (
+            {props.isDeletable && (
                 <View style={styles.deleteButtonContainer}>
                     <Button
                         aria-label={`Delete criterion ${props.index + 1}`}
                         color="destructive"
-                        disabled={isOnlyCriterion}
+                        disabled={!props.isDeletable}
                         kind="tertiary"
                         onClick={() => props.onDelete(props.index)}
                         size="small"
