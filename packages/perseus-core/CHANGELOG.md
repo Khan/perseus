@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 5.1.0
+
+### Minor Changes
+
+-   [#2293](https://github.com/Khan/perseus/pull/2293) [`91e30c02c`](https://github.com/Khan/perseus/commit/91e30c02c15ddc7c811b658bdb052172739a690a) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Deprecate usage of PerseusErrorOccurred event logging in favor of PerseusErrorOccurredTI events.
+
 ## 5.0.0
 
 ### Major Changes
