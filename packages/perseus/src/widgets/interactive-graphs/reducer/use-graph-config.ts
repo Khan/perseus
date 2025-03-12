@@ -14,7 +14,7 @@ export type GraphConfig = {
     width: number; // in graph units
     height: number; // in graph units
     labels: readonly string[];
-    labelLocation: "onAxis" | "alongEdge";
+    labelLocation?: "onAxis" | "alongEdge";
     disableKeyboardInteraction?: boolean;
     interactiveColor?: string;
 };
