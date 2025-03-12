@@ -97,6 +97,22 @@ export const getLabelTransform = (
 /* Calculate the position of the main axis labels based on the labelLocation
  * and the ranges of the graph. Exported for testing purposes.
  */
+// This function clamps the label position to ensure that the labels do not go too far
+// outside the graph bounds. This is only required when the labelLocations are set to "onAxis".
+export const clampLabelPosition = (
+    labelPosition: vec.Vector2,
+    graphInfo: GraphDimensions,
+): vec.Vector2 => {
+    const x = Math.max(
+        Math.min(labelPosition[X], graphInfo.width + fontSize * 1.25), // The maximum x value is the width of the graph + 2 font sizes
+        -fontSize * 1.5, // The minimum x value is -1.5 font sizes
+    );
+    const y = Math.max(
+        Math.min(labelPosition[Y], graphInfo.height + fontSize * 1.25), // The maximum y value is the height of the graph + 1.25 font sizes
+        -fontSize * 2, // The minimum y value is -2 font sizes
+    );
+    return [x, y];
+};
 export const getLabelPosition = (
     graphInfo: GraphDimensions,
     labelLocation: GraphConfig["labelLocation"],
@@ -144,10 +160,11 @@ export const getLabelPosition = (
     const yLabelInitial: vec.Vector2 = [0, graphInfo.range[Y][MAX]];
     const yLabelOffset: vec.Vector2 = [0, -fontSize * 2]; // Move the y-axis label up by 2 font sizes
 
-    const xLabel = pointToPixel(xLabelInitial, graphInfo);
-    const yLabel = vec.add(
-        pointToPixel(yLabelInitial, graphInfo),
-        yLabelOffset,
-    );
+    let xLabel = pointToPixel(xLabelInitial, graphInfo);
+    let yLabel = vec.add(pointToPixel(yLabelInitial, graphInfo), yLabelOffset);
+
+    // Clamp the label positions to ensure that the labels do not go too far outside of the graph bounds.
+    xLabel = clampLabelPosition(xLabel, graphInfo);
+    yLabel = clampLabelPosition(yLabel, graphInfo);
     return [xLabel, yLabel];
 };
