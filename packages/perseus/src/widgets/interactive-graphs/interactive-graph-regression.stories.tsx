@@ -158,6 +158,12 @@ export const MafsWithYAxisOffRight: Story = {
     },
 };
 
+export const MafsWithYAxisOffFarRight: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder().withXRange(-20, -6).build(),
+    },
+};
+
 export const MafsWithXAxisAtBottom: Story = {
     args: {
         question: interactiveGraphQuestionBuilder().withYRange(0, 20).build(),
