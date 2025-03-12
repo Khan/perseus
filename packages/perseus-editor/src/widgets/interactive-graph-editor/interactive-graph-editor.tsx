@@ -75,7 +75,7 @@ export type Props = {
      * - "onAxis": Labels are positioned on the axis at the right (x) and top (y) of the graph.
      * - "alongEdge": Labels are centered along the bottom (x) and left (y) edges of the graph.
      */
-    labelLocation: "onAxis" | "alongEdge";
+    labelLocation?: "onAxis" | "alongEdge";
     /**
      * The range of the graph in the x and y directions.
      */
