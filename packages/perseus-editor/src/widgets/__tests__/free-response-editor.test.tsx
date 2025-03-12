@@ -43,6 +43,24 @@ describe("free-response editor", () => {
         expect(onChangeMock).toBeCalledWith({question: "2"});
     });
 
+    it("calls onChange when the placeholder is changed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        // Act
+        render(
+            <FreeResponseEditor
+                placeholder="test-placeholder"
+                onChange={onChangeMock}
+            />,
+        );
+
+        await userEvent.type(screen.getByLabelText("Placeholder"), "2");
+
+        // Assert
+        expect(onChangeMock).toBeCalledWith({placeholder: "test-placeholder2"});
+    });
+
     it("calls onChange when a criterion is changed", async () => {
         // Arrange
         const onChangeMock = jest.fn();
@@ -75,6 +93,24 @@ describe("free-response editor", () => {
         expect(ref.current?.getSaveWarnings()).toEqual([
             "The question is empty",
         ]);
+    });
+
+    it("does not return a warning when the placeholder is empty", async () => {
+        // Arrange
+        const ref = React.createRef<FreeResponseEditor>();
+
+        // Act
+        render(
+            <FreeResponseEditor
+                ref={ref}
+                question="test-question"
+                placeholder=""
+                onChange={() => {}}
+            />,
+        );
+
+        // Assert
+        expect(ref.current?.getSaveWarnings()).toEqual([]);
     });
 
     it("serializes the question value", async () => {

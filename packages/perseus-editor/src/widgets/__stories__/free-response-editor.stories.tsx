@@ -49,7 +49,8 @@ type State = Partial<PropsFor<typeof FreeResponseEditor>>;
 
 const WithState = () => {
     const [state, setState] = React.useState<State>({
-        question: "What is the truth?",
+        question: "What is is the truth?",
+        placeholder: "Enter your answer here",
         scoringCriteria: [{text: ""}],
     });
 
