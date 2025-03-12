@@ -211,6 +211,20 @@ export const MafsWithLabelsAlongEdge: Story = {
     },
 };
 
+export const MafsWithLabelsAlongEdgeJustOverLeft: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withXRange(-1, 10)
+            .withYRange(-1, 10)
+            .withAxisLabels(
+                "Video Game Hours per Week",
+                "Reaction Time (milliseconds)",
+            )
+            .withLabelLocation("alongEdge")
+            .build(),
+    },
+};
+
 export const MafsWithLabelsAlongEdgeZoomed: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()

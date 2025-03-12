@@ -32,17 +32,17 @@ export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
 
     const [xAxisLabelText, yAxisLabelText] = labels;
 
-    // If the labels are rotated, we need to move the x-axis label
-    // further left in order to center it on the x-axis.
+    // If the labels are rotated, we need to center the
+    // x-axis label along the bottom of the graph.
     const xLabelTransform =
-        labelLocation === "alongEdge"
-            ? "translate(-50%, -50%)"
-            : "translate(7px, -50%)";
+        labelLocation === "onAxis"
+            ? "translate(7px, -50%)"
+            : "translate(-50%, -50%)";
 
     const yLabelTransform =
-        labelLocation === "alongEdge"
-            ? "translate(-50%, 0px) rotate(-90deg)"
-            : "translate(-50%, 0px)";
+        labelLocation === "onAxis"
+            ? "translate(-50%, 0px)"
+            : "translate(-50%, 0px) rotate(-90deg)";
 
     const {TeX} = getDependencies();
 
@@ -91,7 +91,7 @@ export const getLabelPosition = (
                 : [0, fontSize]; // Move the label down by 1 font size if the y-axis min is negative
         const yAxisLabelOffset: [number, number] =
             graphInfo.range[X][MIN] >= 0
-                ? [-fontSize * 3, -fontSize] // Move the label left by 3.5 font sizes if the x-axis min is positive
+                ? [-fontSize * 3, -fontSize] // Move the label left by 3 font sizes if the x-axis min is positive
                 : [-fontSize, -fontSize]; // Move the label left by 1 font size if the x-axis min is negative
 
         // Calculate the location of the labels to be halfway between the min and max values of the axes

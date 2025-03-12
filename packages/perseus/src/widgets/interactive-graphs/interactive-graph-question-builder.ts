@@ -57,7 +57,7 @@ class InteractiveGraphQuestionBuilder {
     };
     private gridStep: vec.Vector2 = [1, 1];
     private labels: [string, string] = ["$x$", "$y$"];
-    private labelLocation: "onAxis" | "alongEdge" = "onAxis";
+    private labelLocation: AxisLabelLocation = "onAxis";
     private markings: MarkingsType = "graph";
     private xRange: Interval = [-10, 10];
     private yRange: Interval = [-10, 10];

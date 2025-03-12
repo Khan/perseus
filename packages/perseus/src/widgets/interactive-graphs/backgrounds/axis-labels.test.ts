@@ -51,7 +51,7 @@ describe("getLabelPosition", () => {
         const labelLocation = "alongEdge";
         const expected = [
             [200, 400 + fontSize], // X Label at [Horizontal center of the graph, 1x fontSize below the bottom edge]
-            [-14, 200 - fontSize], // Y label at [1x fontSize to the left of the left edge, vertical center of the graph]
+            [-fontSize, 200 - fontSize], // Y label at [1x fontSize to the left of the left edge, vertical center of the graph]
         ];
 
         expect(getLabelPosition(graphInfo, labelLocation)).toEqual(expected);
@@ -62,6 +62,25 @@ describe("getLabelPosition", () => {
             range: [
                 [5, 10],
                 [5, 10],
+            ],
+            width: 400,
+            height: 400,
+        };
+        const labelLocation = "alongEdge";
+        const expected = [
+            [200, 400 + 3 * fontSize], // X Label at [Horizontal center of the graph, 3x fontSize below the bottom edge]
+            [-3 * fontSize, 200 - fontSize], // Y label at [3x fontSize to the left of the left edge, vertical center of the graph]
+        ];
+
+        expect(getLabelPosition(graphInfo, labelLocation)).toEqual(expected);
+    });
+
+    it("should return the correct position for labels set to alongEdge with min ranges at 0", () => {
+        // Should result in same position as the wholly positive range test
+        const graphInfo: GraphDimensions = {
+            range: [
+                [0, 10],
+                [0, 10],
             ],
             width: 400,
             height: 400,

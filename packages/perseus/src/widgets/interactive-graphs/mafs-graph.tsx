@@ -166,7 +166,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 width,
                 height,
                 labels,
-                labelLocation: labelLocation || "onAxis",
+                labelLocation,
                 disableKeyboardInteraction: disableInteraction,
                 // If the graph is read-only or static, we want to make it
                 // visually clear that the graph is no longer interactive.

@@ -20,6 +20,7 @@ import Heading from "../../../components/heading";
 import LabeledRow from "../locked-figures/labeled-row";
 
 import type {
+    AxisLabelLocation,
     MarkingsType,
     PerseusImageBackground,
 } from "@khanacademy/perseus-core";
@@ -53,8 +54,9 @@ type Props = {
      * Specifies the location of the labels on the graph.  default: "onAxis".
      * - "onAxis": Labels are positioned on the axis at the right (x) and top (y) of the graph.
      * - "alongEdge": Labels are centered along the bottom (x) and left (y) edges of the graph.
+     *    The y label is rotated. Typically used when the range min is near 0 with longer labels.
      */
-    labelLocation: "onAxis" | "alongEdge";
+    labelLocation: AxisLabelLocation;
     /**
      * The range of the graph.
      */
@@ -105,7 +107,7 @@ type Props = {
 type State = {
     isExpanded: boolean;
     labelsTextbox: ReadonlyArray<string>;
-    labelLocation: "onAxis" | "alongEdge";
+    labelLocation: AxisLabelLocation;
     gridStepTextbox: [x: number, y: number];
     snapStepTextbox: [x: number, y: number];
     stepTextbox: [x: number, y: number];

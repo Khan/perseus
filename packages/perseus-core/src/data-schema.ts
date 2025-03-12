@@ -739,6 +739,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      * Specifies the location of the labels on the graph.  default: "onAxis".
      * - "onAxis": Labels are positioned on the axis at the right (x) and top (y) of the graph.
      * - "alongEdge": Labels are centered along the bottom (x) and left (y) edges of the graph.
+     *    The y label is rotated. Typically used when the range min is near 0 with longer labels.
      */
     labelLocation?: AxisLabelLocation;
     // Whether to show the Protractor tool overlayed on top of the graph

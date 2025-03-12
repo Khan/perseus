@@ -14,6 +14,7 @@ import {
     type PerseusGraphType,
     type MarkingsType,
     type InteractiveGraphDefaultWidgetOptions,
+    type AxisLabelLocation,
     interactiveGraphLogic,
 } from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
@@ -74,8 +75,9 @@ export type Props = {
      * Specifies the location of the labels on the graph.  default: "onAxis".
      * - "onAxis": Labels are positioned on the axis at the right (x) and top (y) of the graph.
      * - "alongEdge": Labels are centered along the bottom (x) and left (y) edges of the graph.
+     *    The y label is rotated. Typically used when the range min is near 0 with longer labels.
      */
-    labelLocation?: "onAxis" | "alongEdge";
+    labelLocation?: AxisLabelLocation;
     /**
      * The range of the graph in the x and y directions.
      */
