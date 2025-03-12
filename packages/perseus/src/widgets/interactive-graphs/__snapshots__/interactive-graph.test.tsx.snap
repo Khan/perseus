@@ -37,7 +37,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                 </span>
                 <span
                   aria-label="Y-axis"
-                  style="position: absolute; left: 200px; top: -24px; font-size: 14px; transform: translate(-50%, 0px);"
+                  style="position: absolute; left: 200px; top: -28px; font-size: 14px; transform: translate(-50%, 0px);"
                 >
                   <span
                     class="mock-TeX"

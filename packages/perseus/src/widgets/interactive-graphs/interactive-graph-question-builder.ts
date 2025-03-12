@@ -3,6 +3,7 @@ import {vec} from "mafs";
 import type {SnapTo} from "./types";
 import type {Coord} from "../../interactive2/types";
 import type {
+    AxisLabelLocation,
     CollinearTuple,
     LockedEllipseType,
     LockedFigure,
@@ -56,6 +57,7 @@ class InteractiveGraphQuestionBuilder {
     };
     private gridStep: vec.Vector2 = [1, 1];
     private labels: [string, string] = ["$x$", "$y$"];
+    private labelLocation: AxisLabelLocation = "onAxis";
     private markings: MarkingsType = "graph";
     private xRange: Interval = [-10, 10];
     private yRange: Interval = [-10, 10];
@@ -84,6 +86,7 @@ class InteractiveGraphQuestionBuilder {
                         graph: this.interactiveFigureConfig.graph(),
                         gridStep: this.gridStep,
                         labels: this.labels,
+                        labelLocation: this.labelLocation,
                         markings: this.markings,
                         range: [this.xRange, this.yRange],
                         showProtractor: this.showProtractor,
@@ -147,6 +150,13 @@ class InteractiveGraphQuestionBuilder {
 
     withAxisLabels(x: string, y: string): InteractiveGraphQuestionBuilder {
         this.labels = [x, y];
+        return this;
+    }
+
+    withLabelLocation(
+        labelLocation: AxisLabelLocation,
+    ): InteractiveGraphQuestionBuilder {
+        this.labelLocation = labelLocation;
         return this;
     }
 
