@@ -4,11 +4,11 @@ import KeyConfigs from "../../../data/key-configs";
 import {useMathInputI18n} from "../../i18n-context";
 import {KeypadButton} from "../keypad-button";
 
-import type Key from "../../../data/keys";
 import type {ClickKeyCallback} from "../../../types";
+import type {KeypadKey} from "@khanacademy/perseus-core";
 
 type Props = {
-    extraKeys: ReadonlyArray<Key>;
+    extraKeys: ReadonlyArray<KeypadKey>;
     onClickKey: ClickKeyCallback;
 };
 

@@ -70,8 +70,8 @@ const LockedFunctionSettings = (props: Props) => {
     // This variable is used when specifying the values of the input fields.
     const getDomainStringValues = (domain): [string, string] => {
         return [
-            domain && Number.isFinite(domain[0]) ? domain[0].toString() : "",
-            domain && Number.isFinite(domain[1]) ? domain[1].toString() : "",
+            Number.isFinite(domain[0]) ? domain[0].toString() : "",
+            Number.isFinite(domain[1]) ? domain[1].toString() : "",
         ];
     };
 
@@ -97,15 +97,8 @@ const LockedFunctionSettings = (props: Props) => {
 
         // Add the domain/range constraints to the aria label
         // if they are not the default values.
-        const domainMin =
-            domain && Number.isFinite(domain[0]) ? domain[0] : "-Infinity";
-        const domainMax =
-            domain && Number.isFinite(domain[1]) ? domain[1] : "Infinity";
-        if (
-            domain &&
-            (Number.isFinite(domain[0]) || Number.isFinite(domain[1]))
-        ) {
-            str += `, domain from ${domainMin} to ${domainMax}`;
+        if (Number.isFinite(domain[0]) || Number.isFinite(domain[1])) {
+            str += `, domain from ${domain[0]} to ${domain[1]}`;
         }
 
         const functionAppearance = generateLockedFigureAppearanceDescription(
@@ -134,9 +127,7 @@ const LockedFunctionSettings = (props: Props) => {
         const newDomainEntries: [string, string] = [...domainEntries];
         newDomainEntries[limitIndex] = newValueString;
         setDomainEntries(newDomainEntries);
-        const newDomain: [min: number | null, max: number | null] = domain
-            ? [...domain]
-            : [-Infinity, Infinity];
+        const newDomain: [min: number, max: number] = [...domain];
 
         let newValue = parseFloat(newValueString);
         if (newValueString === "" && limitIndex === 0) {

@@ -131,7 +131,6 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                             ),
                         )
                     }
-                    color="var(--movable-line-stroke-color)"
                 />
             ))}
             {linesAriaInfo.map(

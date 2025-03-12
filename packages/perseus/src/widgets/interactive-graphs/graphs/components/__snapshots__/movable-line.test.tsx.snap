@@ -31,6 +31,7 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
         tabindex="0"
       >
         <line
+          aria-hidden="true"
           style="stroke: transparent; stroke-width: 44;"
           x1="0"
           x2="0"
@@ -38,6 +39,7 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
           y2="0"
         />
         <line
+          aria-hidden="true"
           class="movable-line-focus-outline"
           x1="0"
           x2="0"
@@ -45,6 +47,7 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
           y2="0"
         />
         <line
+          aria-hidden="true"
           class="movable-line-focus-outline-gap"
           x1="0"
           x2="0"
@@ -52,9 +55,10 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
           y2="0"
         />
         <line
+          aria-hidden="true"
           class=""
           data-testid="movable-line__line"
-          style="stroke: var(--movable-line-stroke-color); stroke-width: var(--movable-line-stroke-weight);"
+          style="stroke: var(--mafs-blue); stroke-width: var(--movable-line-stroke-weight);"
           x1="0"
           x2="0"
           y1="0"
@@ -70,9 +74,10 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
         tabindex="0"
       />
       <g
+        aria-hidden="true"
         class="movable-point"
         data-testid="movable-point"
-        style="--movable-point-color: #1865f2;"
+        style="--movable-point-color: var(--mafs-blue);"
       >
         <circle
           class="movable-point-hitbox"
@@ -100,13 +105,14 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
           cx="0"
           cy="0"
           data-testid="movable-point__center"
-          style="fill: #1865f2;"
+          style="fill: var(--mafs-blue);"
         />
       </g>
       <g
+        aria-hidden="true"
         class="movable-point"
         data-testid="movable-point"
-        style="--movable-point-color: #1865f2;"
+        style="--movable-point-color: var(--mafs-blue);"
       >
         <circle
           class="movable-point-hitbox"
@@ -134,7 +140,7 @@ exports[`Rendering Does NOT render extensions of line when option is disabled 1`
           cx="0"
           cy="0"
           data-testid="movable-point__center"
-          style="fill: #1865f2;"
+          style="fill: var(--mafs-blue);"
         />
       </g>
     </svg>
@@ -173,6 +179,7 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
         tabindex="0"
       >
         <line
+          aria-hidden="true"
           style="stroke: transparent; stroke-width: 44;"
           x1="0"
           x2="0"
@@ -180,6 +187,7 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
           y2="0"
         />
         <line
+          aria-hidden="true"
           class="movable-line-focus-outline"
           x1="0"
           x2="0"
@@ -187,6 +195,7 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
           y2="0"
         />
         <line
+          aria-hidden="true"
           class="movable-line-focus-outline-gap"
           x1="0"
           x2="0"
@@ -194,9 +203,10 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
           y2="0"
         />
         <line
+          aria-hidden="true"
           class=""
           data-testid="movable-line__line"
-          style="stroke: var(--movable-line-stroke-color); stroke-width: var(--movable-line-stroke-weight);"
+          style="stroke: var(--mafs-blue); stroke-width: var(--movable-line-stroke-weight);"
           x1="0"
           x2="0"
           y1="0"
@@ -212,9 +222,10 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
         tabindex="0"
       />
       <g
+        aria-hidden="true"
         class="movable-point"
         data-testid="movable-point"
-        style="--movable-point-color: #1865f2;"
+        style="--movable-point-color: var(--mafs-blue);"
       >
         <circle
           class="movable-point-hitbox"
@@ -242,13 +253,14 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
           cx="0"
           cy="0"
           data-testid="movable-point__center"
-          style="fill: #1865f2;"
+          style="fill: var(--mafs-blue);"
         />
       </g>
       <g
+        aria-hidden="true"
         class="movable-point"
         data-testid="movable-point"
-        style="--movable-point-color: #1865f2;"
+        style="--movable-point-color: var(--mafs-blue);"
       >
         <circle
           class="movable-point-hitbox"
@@ -276,7 +288,7 @@ exports[`Rendering Does NOT render extensions of line when option is not provide
           cx="0"
           cy="0"
           data-testid="movable-point__center"
-          style="fill: #1865f2;"
+          style="fill: var(--mafs-blue);"
         />
       </g>
     </svg>
@@ -315,6 +327,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
         tabindex="0"
       >
         <line
+          aria-hidden="true"
           style="stroke: transparent; stroke-width: 44;"
           x1="0"
           x2="0"
@@ -322,6 +335,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
           y2="0"
         />
         <line
+          aria-hidden="true"
           class="movable-line-focus-outline"
           x1="0"
           x2="0"
@@ -329,6 +343,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
           y2="0"
         />
         <line
+          aria-hidden="true"
           class="movable-line-focus-outline-gap"
           x1="0"
           x2="0"
@@ -336,9 +351,10 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
           y2="0"
         />
         <line
+          aria-hidden="true"
           class=""
           data-testid="movable-line__line"
-          style="stroke: var(--movable-line-stroke-color); stroke-width: var(--movable-line-stroke-weight);"
+          style="stroke: var(--mafs-blue); stroke-width: var(--movable-line-stroke-weight);"
           x1="0"
           x2="0"
           y1="0"
@@ -346,15 +362,18 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
         />
       </g>
       <g
-        style="stroke: var(--movable-line-stroke-color); stroke-width: 2;"
+        data-testid="movable-line__vector"
+        style="stroke: var(--mafs-blue); stroke-width: 2;"
       >
         <line
+          aria-hidden="true"
           x1="0"
           x2="0"
           y1="0"
           y2="0"
         />
         <g
+          aria-hidden="true"
           class="interactive-graph-arrowhead"
           transform="translate(0 0) rotate(0)"
         >
@@ -367,21 +386,24 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2px"
-              style="stroke: var(--movable-line-stroke-color);"
+              style="stroke: var(--mafs-blue);"
             />
           </g>
         </g>
       </g>
       <g
-        style="stroke: var(--movable-line-stroke-color); stroke-width: 2;"
+        data-testid="movable-line__vector"
+        style="stroke: var(--mafs-blue); stroke-width: 2;"
       >
         <line
+          aria-hidden="true"
           x1="0"
           x2="0"
           y1="0"
           y2="0"
         />
         <g
+          aria-hidden="true"
           class="interactive-graph-arrowhead"
           transform="translate(0 0) rotate(0)"
         >
@@ -394,7 +416,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
               stroke-linecap="round"
               stroke-linejoin="round"
               stroke-width="2px"
-              style="stroke: var(--movable-line-stroke-color);"
+              style="stroke: var(--mafs-blue);"
             />
           </g>
         </g>
@@ -408,9 +430,10 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
         tabindex="0"
       />
       <g
+        aria-hidden="true"
         class="movable-point"
         data-testid="movable-point"
-        style="--movable-point-color: #1865f2;"
+        style="--movable-point-color: var(--mafs-blue);"
       >
         <circle
           class="movable-point-hitbox"
@@ -438,13 +461,14 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
           cx="0"
           cy="0"
           data-testid="movable-point__center"
-          style="fill: #1865f2;"
+          style="fill: var(--mafs-blue);"
         />
       </g>
       <g
+        aria-hidden="true"
         class="movable-point"
         data-testid="movable-point"
-        style="--movable-point-color: #1865f2;"
+        style="--movable-point-color: var(--mafs-blue);"
       >
         <circle
           class="movable-point-hitbox"
@@ -472,7 +496,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
           cx="0"
           cy="0"
           data-testid="movable-point__center"
-          style="fill: #1865f2;"
+          style="fill: var(--mafs-blue);"
         />
       </g>
     </svg>

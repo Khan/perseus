@@ -302,62 +302,16 @@ describe("MathQuill", () => {
             expect(mathField.getContent()).toEqual("\\left(\\right)");
         });
 
-        it("should select an expression when deleting from outside (1)", () => {
+        it("should not select or delete the entire expression on backspace from outside (MOB-5576)", () => {
             const expr = "\\left(35x+5\\right)";
             mathField.setContent(expr);
+            // "Delete" the right parens (it still exists until the parens are fully empty)
             mathField.pressKey("BACKSPACE");
-            expect(mathField.isSelected()).toBeTruthy();
-            expect(mathField.getContent()).toEqual(expr);
-        });
+            expect(mathField.isSelected()).toBeFalsy();
 
-        it("should select an expression when deleting from outside (2)", () => {
-            const expr = "1+\\left(35x+5\\right)";
-            mathField.setContent(expr);
+            // Delete the first element within the parens
             mathField.pressKey("BACKSPACE");
-            const selection = mathField.getSelection();
-            const left = selection.ends[MQ.L][MQ.L];
-            const right = selection.ends[MQ.R][MQ.R];
-
-            expect(left.ctrlSeq).toEqual("+");
-            expect(right).toEqual(END_OF_EXPR);
-            expect(mathField.getContent()).toEqual(expr);
-        });
-
-        it("should select an expression when deleting from outside (3)", () => {
-            const expr = "1+\\left(35x+5\\right)-1";
-            mathField.setContent(expr);
-            mathField.pressKey("LEFT");
-            mathField.pressKey("LEFT");
-            mathField.pressKey("BACKSPACE");
-            const selection = mathField.getSelection();
-            const left = selection.ends[MQ.L][MQ.L];
-            const right = selection.ends[MQ.R][MQ.R];
-
-            expect(left.ctrlSeq).toEqual("+");
-            expect(right.ctrlSeq).toEqual("-");
-            expect(mathField.getContent()).toEqual(expr);
-        });
-
-        it("should select an expression when deleting from outside (4)", () => {
-            const expr = "\\left(35x+5\\right)-1";
-            mathField.setContent(expr);
-            mathField.pressKey("LEFT");
-            mathField.pressKey("LEFT");
-            mathField.pressKey("BACKSPACE");
-            const selection = mathField.getSelection();
-            const left = selection.ends[MQ.L][MQ.L];
-            const right = selection.ends[MQ.R][MQ.R];
-
-            expect(left).toEqual(END_OF_EXPR);
-            expect(right.ctrlSeq).toEqual("-");
-            expect(mathField.getContent()).toEqual(expr);
-        });
-
-        it("should select an expression when deleting from outside", () => {
-            mathField.setContent("\\left(35x+5\\right)");
-            mathField.pressKey("BACKSPACE");
-            expect(mathField.isSelected()).toBeTruthy();
-            expect(mathField.getContent()).toEqual("\\left(35x+5\\right)");
+            expect(mathField.getContent()).toEqual("\\left(35x+\\right)");
         });
 
         // TODO(kevinb) fix this behavior so that we delete the exponent too
@@ -506,57 +460,6 @@ describe("MathQuill", () => {
             mathField.pressKey("RIGHT");
             mathField.pressKey("BACKSPACE");
             expect(mathField.isSelected()).toBeTruthy();
-            expect(mathField.getContent()).toEqual(expr);
-        });
-
-        it("should select log when outside full log at tail (1)", () => {
-            const expr = "\\log\\left(35x\\right)";
-            mathField.setContent(expr);
-            mathField.pressKey("BACKSPACE");
-            expect(mathField.isSelected()).toBeTruthy();
-            expect(mathField.getContent()).toEqual(expr);
-        });
-
-        it("should select log when outside full log at tail (2)", () => {
-            const expr = "1+\\log\\left(35x\\right)";
-            mathField.setContent(expr);
-            mathField.pressKey("BACKSPACE");
-            const selection = mathField.getSelection();
-            const left = selection.ends[MQ.L][MQ.L];
-            const right = selection.ends[MQ.R][MQ.R];
-
-            expect(left.ctrlSeq).toEqual("+");
-            expect(right).toEqual(END_OF_EXPR);
-            expect(mathField.getContent()).toEqual(expr);
-        });
-
-        it("should select log when outside full log at tail (3)", () => {
-            const expr = "1+\\log\\left(35x\\right)-1";
-            mathField.setContent(expr);
-            mathField.pressKey("LEFT");
-            mathField.pressKey("LEFT");
-            mathField.pressKey("BACKSPACE");
-            const selection = mathField.getSelection();
-            const left = selection.ends[MQ.L][MQ.L];
-            const right = selection.ends[MQ.R][MQ.R];
-
-            expect(left.ctrlSeq).toEqual("+");
-            expect(right.ctrlSeq).toEqual("-");
-            expect(mathField.getContent()).toEqual(expr);
-        });
-
-        it("should select log when outside full log at tail (4)", () => {
-            const expr = "\\log\\left(35x\\right)-1";
-            mathField.setContent(expr);
-            mathField.pressKey("LEFT");
-            mathField.pressKey("LEFT");
-            mathField.pressKey("BACKSPACE");
-            const selection = mathField.getSelection();
-            const left = selection.ends[MQ.L][MQ.L];
-            const right = selection.ends[MQ.R][MQ.R];
-
-            expect(left).toEqual(END_OF_EXPR);
-            expect(right.ctrlSeq).toEqual("-");
             expect(mathField.getContent()).toEqual(expr);
         });
 

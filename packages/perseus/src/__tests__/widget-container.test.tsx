@@ -123,17 +123,7 @@ describe("widget-container", () => {
         );
 
         // Assert
-        expect(onAnalyticsEventSpy).toHaveBeenNthCalledWith(1, {
-            type: "perseus:widget-rendering-error",
-            payload: {
-                widgetSubType: "null",
-                widgetType: "mock-widget",
-                widgetId: "mock-widget 1",
-                message: "MockWidget failed to render",
-                userAgent: "userAgent",
-            },
-        });
-        expect(onAnalyticsEventSpy).toHaveBeenNthCalledWith(2, {
+        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
             type: "perseus:widget-rendering-error:ti",
             payload: {
                 widgetSubType: "null",

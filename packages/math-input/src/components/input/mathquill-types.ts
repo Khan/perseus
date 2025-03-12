@@ -1,4 +1,4 @@
-import type Key from "../../data/keys";
+import type {KeypadKey} from "@khanacademy/perseus-core";
 import type MathQuill from "mathquill";
 
 export type MathQuillInterface = MathQuill.v3.API;
@@ -17,7 +17,7 @@ export type MathFieldInterface = MathQuill.v3.EditableMathQuill & {
 
 export type MathFieldUpdaterCallback = (
     mathField: MathFieldInterface,
-    key: Key,
+    key: KeypadKey,
 ) => void;
 
 /**

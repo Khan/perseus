@@ -121,6 +121,7 @@ class TextInput extends React.Component<Props> {
                 aria-describedby={this.props["aria-describedby"]}
                 onChange={(value) => this.props.onChange(value)}
                 placeholder={placeholder}
+                testId={"input-with-examples"}
                 onFocus={onFocus}
                 onBlur={onBlur}
                 onKeyDown={onKeyDown}
