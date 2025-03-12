@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 23.0.1
+
+### Patch Changes
+
+-   [#2292](https://github.com/Khan/perseus/pull/2292) [`59b932619`](https://github.com/Khan/perseus/commit/59b93261916bb3583ee84396693d84fe796aa5d4) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that keypad backspaces don't delete entire parentheses nodes at once.
+
+-   Updated dependencies [[`91e30c02c`](https://github.com/Khan/perseus/commit/91e30c02c15ddc7c811b658bdb052172739a690a)]:
+    -   @khanacademy/perseus-core@5.1.0
+    -   @khanacademy/keypad-context@1.1.2
+
 ## 23.0.0
 
 ### Major Changes
