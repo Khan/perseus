@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 5.2.0
+
+### Minor Changes
+
+-   [#2284](https://github.com/Khan/perseus/pull/2284) [`0d5ab0b2e`](https://github.com/Khan/perseus/commit/0d5ab0b2e5d079b8ac805077a2abad6bc5b2132d) Thanks [@nishasy](https://github.com/nishasy)! - Add new labelLocation value for Interactive Graphs
+
 ## 5.1.0
 
 ### Minor Changes
