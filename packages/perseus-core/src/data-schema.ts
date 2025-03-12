@@ -1686,8 +1686,20 @@ export type PerseusPythonProgramWidgetOptions = {
     height: number;
 };
 
+// This is an object instead of just a string because we think we'll want to add more
+// fields in the future, like a weight, which would allow us to give partial credit
+// and weight each criterion separately.
+export type PerseusFreeResponseWidgetScoringCriterion = {
+    // An English-language description of how to score the response for this criterion.
+    text: string;
+};
+
 export type PerseusFreeResponseWidgetOptions = {
+    // The question text that will be displayed to the user.
     question: string;
+    // A list of scoring criteria for the free response question. This is a list
+    // of things the answer should contain to be considered correct.
+    scoringCriteria: ReadonlyArray<PerseusFreeResponseWidgetScoringCriterion>;
 };
 
 export type PerseusIFrameWidgetOptions = {
