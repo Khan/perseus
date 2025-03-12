@@ -1,5 +1,6 @@
 import {vec} from "mafs";
 
+import type {SnapTo} from "./types";
 import type {Coord} from "../../interactive2/types";
 import type {
     CollinearTuple,
@@ -24,7 +25,7 @@ export type LockedFunctionOptions = {
     color?: LockedFigureColor;
     strokeStyle?: LockedLineStyle;
     directionalAxis?: "x" | "y";
-    domain?: [min: number | null, max: number | null];
+    domain?: [min: number, max: number];
     labels?: LockedFigureLabelOptions[];
     ariaLabel?: string;
 };
@@ -64,7 +65,7 @@ class InteractiveGraphQuestionBuilder {
     private interactiveFigureConfig: InteractiveFigureConfig =
         new SegmentGraphConfig();
     private lockedFigures: LockedFigure[] = [];
-    private snapTo: "grid" | "angles" | "sides" = "grid";
+    private snapTo: SnapTo = "grid";
     private staticMode: boolean = false;
 
     build(): PerseusRenderer {
@@ -246,7 +247,7 @@ class InteractiveGraphQuestionBuilder {
     }
 
     withPolygon(
-        snapTo?: "grid" | "angles" | "sides",
+        snapTo?: SnapTo,
         options?: {
             match?: "similar" | "congruent" | "approx";
             numSides?: number | "unlimited";
@@ -450,6 +451,7 @@ class InteractiveGraphQuestionBuilder {
             color: "grayH",
             strokeStyle: "solid",
             directionalAxis: "x",
+            domain: [-Infinity, Infinity],
             ...options,
             labels: options?.labels?.map(
                 (label) =>
@@ -733,7 +735,7 @@ class SinusoidGraphConfig implements InteractiveFigureConfig {
 }
 
 class PolygonGraphConfig implements InteractiveFigureConfig {
-    private snapTo: "grid" | "angles" | "sides";
+    private snapTo: SnapTo;
     private match?: "similar" | "congruent" | "approx";
     private numSides: number | "unlimited";
     private showAngles: boolean;
@@ -742,7 +744,7 @@ class PolygonGraphConfig implements InteractiveFigureConfig {
     private startCoords?: Coord[];
 
     constructor(
-        snapTo?: "grid" | "angles" | "sides",
+        snapTo?: SnapTo,
         options?: {
             match?: "similar" | "congruent" | "approx";
             numSides?: number | "unlimited";

@@ -26,9 +26,10 @@ import {debounce} from "../util/debounce";
 
 import {PerseusI18nContext} from "./i18n-context";
 
-import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
+import type {MathFieldInterface} from "@khanacademy/math-input";
 import type {
     AnalyticsEventHandlerFn,
+    KeypadKey,
     LegacyButtonSets,
 } from "@khanacademy/perseus-core";
 
@@ -62,7 +63,7 @@ type Props = {
     onFocus?: () => void;
     onBlur?: () => void;
     hasError?: boolean;
-    extraKeys?: ReadonlyArray<Keys>;
+    extraKeys?: ReadonlyArray<KeypadKey>;
     /**
      * Whether to show the keypad buttons.
      * The strings now misleading, but we keep them for backwards compatibility.
@@ -262,7 +263,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
     // input is still focused
     blur: () => void = () => this.setState({focused: false});
 
-    handleKeypadPress: (key: Keys, e: any) => void = (key, e) => {
+    handleKeypadPress: (key: KeypadKey, e: any) => void = (key, e) => {
         const {locale} = this.context;
         const translator = getKeyTranslator(locale, this.context.strings)[key];
         const mathField = this.mathField();

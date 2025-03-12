@@ -510,6 +510,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                                 numSides:
                                                     parsePointCount(newValue),
                                                 coords: null,
+                                                startCoords: undefined,
                                                 // reset the snap for UNLIMITED, which
                                                 // only supports "grid"
                                                 // From: D6578

@@ -4,11 +4,13 @@ import {vec} from "mafs";
 import * as React from "react";
 
 import {segmentsIntersect} from "../../math";
+import useGraphConfig from "../../reducer/use-graph-config";
 import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../utils";
 
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
 import {TextLabel} from "./text-label";
 
+import type {SnapTo} from "../../types";
 import type {CollinearTuple} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
@@ -21,7 +23,7 @@ interface PolygonAngleProps {
     polygonLines: readonly CollinearTuple[];
     range: [Interval, Interval];
     showAngles: boolean;
-    snapTo: "grid" | "angles" | "sides";
+    snapTo: SnapTo;
 }
 
 export const PolygonAngle = ({
@@ -44,8 +46,17 @@ export const PolygonAngle = ({
     const b = vec.dist(centerPoint, endPoints[1]);
     const c = vec.dist(endPoints[0], endPoints[1]);
 
+    let lawOfCosinesRadicand = (a ** 2 + b ** 2 - c ** 2) / (2 * a * b);
+
+    // If the equation results in a number greater than 1 or less than -1.
+    // Correct to ensure a valid angle.
+    // This ensures we are not producing NaN results from Math.acos.
+    if (lawOfCosinesRadicand < -1 || lawOfCosinesRadicand > 1) {
+        lawOfCosinesRadicand = Math.round(lawOfCosinesRadicand);
+    }
+
     // Law of cosines
-    const angle = Math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b));
+    const angle = Math.acos(lawOfCosinesRadicand);
 
     const y1 = centerY + ((startY - centerY) / a) * radius;
     const x2 = centerX + ((endX - centerX) / b) * radius;
@@ -111,7 +122,7 @@ export const PolygonAngle = ({
                 </filter>
             </defs>
 
-            {!isOutside && isRightAngle(angle) ? (
+            {!isOutside && isRightPolygonAngle(angle) ? (
                 <RightAngleSquare
                     start={[x1, y1]}
                     vertex={[x2, y2]}
@@ -221,6 +232,12 @@ export const Angle = ({
         radius,
     );
 
+    // Determine the color style for the arc when interactive vs disabled
+    const {disableKeyboardInteraction} = useGraphConfig();
+    const arcClassName = disableKeyboardInteraction
+        ? "angle-arc-static"
+        : "angle-arc-interactive";
+
     return (
         <>
             <defs>
@@ -241,10 +258,10 @@ export const Angle = ({
                     start={[x1, y1]}
                     vertex={[x2, y2]}
                     end={[x3, y3]}
-                    className={"arc-right-angle"}
+                    className={arcClassName}
                 />
             ) : (
-                <Arc arc={arc} className={"angle-arc"} />
+                <Arc arc={arc} className={arcClassName} />
             )}
             {showAngles && (
                 <TextLabel x={textX} y={textY} color={color.blue}>
@@ -272,10 +289,16 @@ const RightAngleSquare = ({
 }) => (
     <MafsCssTransformWrapper>
         <path
+            // Use aria-hidden to hide the line from screen readers
+            // so it doesn't read as "image" with no context.
+            // The elements using this should have their own aria-labels,
+            // so this is okay.
+            aria-hidden={true}
             d={`M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`}
             strokeWidth={0.02}
             fill="none"
             className={className}
+            data-testid="angle-indicators__right-angle"
         />
     </MafsCssTransformWrapper>
 );
@@ -286,10 +309,16 @@ const Arc = ({arc, className}: {arc: string; className?: string}) => {
     return (
         <MafsCssTransformWrapper>
             <path
+                // Use aria-hidden to hide the line from screen readers
+                // so it doesn't read as "image" with no context.
+                // The elements using this should have their own aria-labels,
+                // so this is okay.
+                aria-hidden={true}
                 d={arc}
                 strokeWidth={0.02}
                 fill="none"
                 className={className}
+                data-testid="angle-indicators__arc"
             />
         </MafsCssTransformWrapper>
     );

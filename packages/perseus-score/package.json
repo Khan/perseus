@@ -3,7 +3,7 @@
     "description": "Perseus score",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "2.2.2",
+    "version": "2.3.2",
     "publishConfig": {
         "access": "public"
     },
@@ -30,12 +30,12 @@
         "@khanacademy/perseus-core": "workspace:*"
     },
     "devDependencies": {
-        "jquery":"catalog:",
-        "underscore":"catalog:"
+        "jquery": "catalog:",
+        "underscore": "catalog:"
     },
     "peerDependencies": {
-        "jquery":"catalog:",
-        "underscore":"catalog:"
+        "jquery": "catalog:",
+        "underscore": "catalog:"
     },
     "keywords": []
 }

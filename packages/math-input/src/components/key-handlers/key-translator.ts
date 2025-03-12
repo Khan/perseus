@@ -7,11 +7,11 @@ import handleArrow from "./handle-arrow";
 import handleExponent from "./handle-exponent";
 import handleJumpOut from "./handle-jump-out";
 
-import type Key from "../../data/keys";
 import type {
     MathFieldInterface,
     MathFieldUpdaterCallback,
 } from "../input/mathquill-types";
+import type {KeypadKey} from "@khanacademy/perseus-core";
 
 function buildGenericCallback(
     str: string,
@@ -75,7 +75,7 @@ type KeyTranslatorStrings = {
 export const getKeyTranslator = (
     locale: string,
     strings: KeyTranslatorStrings,
-): Record<Key, MathFieldUpdaterCallback> => ({
+): Record<KeypadKey, MathFieldUpdaterCallback> => ({
     EXP: handleExponent,
     EXP_2: handleExponent,
     EXP_3: handleExponent,

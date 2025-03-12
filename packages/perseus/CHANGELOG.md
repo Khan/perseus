@@ -1,5 +1,136 @@
 # @khanacademy/perseus
 
+## 56.2.0
+
+### Minor Changes
+
+-   [#2293](https://github.com/Khan/perseus/pull/2293) [`91e30c02c`](https://github.com/Khan/perseus/commit/91e30c02c15ddc7c811b658bdb052172739a690a) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Deprecate usage of PerseusErrorOccurred event logging in favor of PerseusErrorOccurredTI events.
+
+### Patch Changes
+
+-   [#2294](https://github.com/Khan/perseus/pull/2294) [`254fa3605`](https://github.com/Khan/perseus/commit/254fa360518ffd78cd26a0fb47fec2d53d9db948) Thanks [@nishasy](https://github.com/nishasy)! - [Polygon] Show right angle markers when showAngles is on
+
+-   Updated dependencies [[`91e30c02c`](https://github.com/Khan/perseus/commit/91e30c02c15ddc7c811b658bdb052172739a690a), [`59b932619`](https://github.com/Khan/perseus/commit/59b93261916bb3583ee84396693d84fe796aa5d4)]:
+    -   @khanacademy/perseus-core@5.1.0
+    -   @khanacademy/math-input@23.0.1
+    -   @khanacademy/keypad-context@1.1.2
+    -   @khanacademy/kmath@0.4.2
+    -   @khanacademy/perseus-linter@1.3.2
+    -   @khanacademy/perseus-score@2.3.2
+
+## 56.1.0
+
+### Minor Changes
+
+-   [#2288](https://github.com/Khan/perseus/pull/2288) [`7ef0dae77`](https://github.com/Khan/perseus/commit/7ef0dae779e5c8aaed6b21e86cba5baee8c0be86) Thanks [@nishasy](https://github.com/nishasy)! - Mark Interactive Graph Widget as accessible. (Content authors are no longer blocked from checking/unchecking the "Requires screen or mouse?" checkbox.)
+
+### Patch Changes
+
+-   [#2291](https://github.com/Khan/perseus/pull/2291) [`e87914dcd`](https://github.com/Khan/perseus/commit/e87914dcd2fc83b30053adbe064945d46ddb11e4) Thanks [@handeyeco](https://github.com/handeyeco)! - Update snapshots as a result of bumping Wonder Blocks
+
+*   [#2283](https://github.com/Khan/perseus/pull/2283) [`0438f6331`](https://github.com/Khan/perseus/commit/0438f6331c06e026f815d4087f76fe77acafa312) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bugfix to ensure that the Interactive Graph Editor updates the Polygon start coords if the number of sides change.
+
+-   [#2287](https://github.com/Khan/perseus/pull/2287) [`9b4c1942e`](https://github.com/Khan/perseus/commit/9b4c1942eeaadf6d3a201f516574c4597dfcbb3c) Thanks [@nishasy](https://github.com/nishasy)! - [LX] Make static graphs' interactive elements visually disabled
+
+*   [#2282](https://github.com/Khan/perseus/pull/2282) [`5226f43a9`](https://github.com/Khan/perseus/commit/5226f43a9785e2c7acb52b76e15f58384d313a34) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that dragging a point also moves the focus for Interactive Graph
+
+-   [#2281](https://github.com/Khan/perseus/pull/2281) [`015aace83`](https://github.com/Khan/perseus/commit/015aace83f6b125b8d02fa7f01dde47f071c44e9) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Improving the angle snapping behavior for keyboard users in polygon examples.
+
+*   [#2277](https://github.com/Khan/perseus/pull/2277) [`88e4e905d`](https://github.com/Khan/perseus/commit/88e4e905d2a94134fd2390a55360281a29229fb5) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Hide individual visual components of interactive graph elements
+
+## 56.0.0
+
+### Major Changes
+
+-   [#2233](https://github.com/Khan/perseus/pull/2233) [`a0aee41b6`](https://github.com/Khan/perseus/commit/a0aee41b69d4288ef165416cea293100d037ce5f) Thanks [@handeyeco](https://github.com/handeyeco)! - RadioWidget v2 in support of answerless Radio
+
+### Patch Changes
+
+-   [#2279](https://github.com/Khan/perseus/pull/2279) [`e02cc4109`](https://github.com/Khan/perseus/commit/e02cc4109a98d8d04054d7f4aae7931089facdda) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Tweak strings for Segment and Angle graphs
+
+*   [#2270](https://github.com/Khan/perseus/pull/2270) [`941343ee3`](https://github.com/Khan/perseus/commit/941343ee3e3e88c2c4babb3040bfb2a73c64bf66) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing side snapping within polygons to be keyboard accessible.
+
+-   [#2226](https://github.com/Khan/perseus/pull/2226) [`909148cdc`](https://github.com/Khan/perseus/commit/909148cdccabb3f0a2156587ea1e870bae910f8d) Thanks [@handeyeco](https://github.com/handeyeco)! - Answerless Expression: Expression can render and is interactive with answerless data
+
+-   Updated dependencies [[`a0aee41b6`](https://github.com/Khan/perseus/commit/a0aee41b69d4288ef165416cea293100d037ce5f), [`909148cdc`](https://github.com/Khan/perseus/commit/909148cdccabb3f0a2156587ea1e870bae910f8d)]:
+    -   @khanacademy/perseus-core@5.0.0
+    -   @khanacademy/math-input@23.0.0
+    -   @khanacademy/keypad-context@1.1.1
+    -   @khanacademy/kmath@0.4.1
+    -   @khanacademy/perseus-linter@1.3.1
+    -   @khanacademy/perseus-score@2.3.1
+
+## 55.0.1
+
+### Patch Changes
+
+-   [#2275](https://github.com/Khan/perseus/pull/2275) [`ad8681004`](https://github.com/Khan/perseus/commit/ad8681004338004a8204983a4192f2c141e691d8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure we can still identify numeric inputs
+
+## 55.0.0
+
+### Major Changes
+
+-   [#2261](https://github.com/Khan/perseus/pull/2261) [`5de2e740b`](https://github.com/Khan/perseus/commit/5de2e740b35d69fc0059af5dbb74bd894986e124) Thanks [@handeyeco](https://github.com/handeyeco)! - Make NumericInput interactive without answer data
+
+### Minor Changes
+
+-   [#2202](https://github.com/Khan/perseus/pull/2202) [`c7f6f63c8`](https://github.com/Khan/perseus/commit/c7f6f63c845566d99dae6df604426e5fb14a7e85) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Tooling:
+
+    -   Switching to `pnpm`.
+
+*   [#2209](https://github.com/Khan/perseus/pull/2209) [`bd8a3b9d5`](https://github.com/Khan/perseus/commit/bd8a3b9d59ddbe71417d4c6b821503ab79c20830) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Update Input with Examples to use Wonderblocks Tooltip
+
+-   [#2209](https://github.com/Khan/perseus/pull/2209) [`d1d5a8247`](https://github.com/Khan/perseus/commit/d1d5a824766c6924249b00549128e8c57a960e77) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Modernization and Migration of InputWithExamples to NumericInput folder
+
+*   [#2209](https://github.com/Khan/perseus/pull/2209) [`c0149a1b9`](https://github.com/Khan/perseus/commit/c0149a1b9f9d917f0f9b98dd6d61414e9bb7d895) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Refactoring Numeric Input helper functions to remove underscore, improve documentation, and add tests.
+
+-   [#2264](https://github.com/Khan/perseus/pull/2264) [`4eb9fe04a`](https://github.com/Khan/perseus/commit/4eb9fe04ab490799225569c9c64b84a1da92a5df) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that keyboard users can move points across invalid locations for all graphs.
+
+*   [#2209](https://github.com/Khan/perseus/pull/2209) [`d1b655095`](https://github.com/Khan/perseus/commit/d1b65509552a64d95766dc6252215842e758d7f8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Refactoring Numeric Input to move UI-logic to functional component.
+
+### Patch Changes
+
+-   [#2263](https://github.com/Khan/perseus/pull/2263) [`4dde99856`](https://github.com/Khan/perseus/commit/4dde998569bceb6931619777fb6f8ba6e7d17cea) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Update protractor to new SVG
+
+*   [#2209](https://github.com/Khan/perseus/pull/2209) [`4a75e6d42`](https://github.com/Khan/perseus/commit/4a75e6d42eeb4a819c6b52b5c9d5ad6f04e04c2a) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing changes that did not migrate automatically while rebasing feature branch.
+
+-   [#2209](https://github.com/Khan/perseus/pull/2209) [`e797a6a25`](https://github.com/Khan/perseus/commit/e797a6a2509326920ba28b14f128a54fcdd065b9) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Update aria label for whe ncontent creators do not provide one
+
+*   [#2252](https://github.com/Khan/perseus/pull/2252) [`e7ad604af`](https://github.com/Khan/perseus/commit/e7ad604afce45feab7d268582ec6db41d6ab5e06) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Update Linear System strings
+
+-   [#2209](https://github.com/Khan/perseus/pull/2209) [`913551712`](https://github.com/Khan/perseus/commit/913551712b2ee90ace89ac2df8ed6b60c135fe28) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure Numeric Input Tooltips display under the input.
+
+*   [#2251](https://github.com/Khan/perseus/pull/2251) [`e5d17bbf2`](https://github.com/Khan/perseus/commit/e5d17bbf2bb14441dcfd5f412d0826e3a78078f2) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Update Linear strings
+
+-   [#2259](https://github.com/Khan/perseus/pull/2259) [`a90cf7901`](https://github.com/Khan/perseus/commit/a90cf790159fefbee41437f20ac9a403a06f148f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor change to how each package embeds it's package version in itself (slightly larger bundle size)
+
+*   [#2268](https://github.com/Khan/perseus/pull/2268) [`9d01457fc`](https://github.com/Khan/perseus/commit/9d01457fcb882ce3df555e3c7f733f94b02d0b6c) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Minor dev improvements for Numeric Input after Refactor changes.
+
+-   [#2254](https://github.com/Khan/perseus/pull/2254) [`56b4ee61b`](https://github.com/Khan/perseus/commit/56b4ee61b064603fdbeb4577851fe142d881e245) Thanks [@benchristel](https://github.com/benchristel)! - Internal: test that Interactive Graph widgets can render with answerless data
+
+*   [#2253](https://github.com/Khan/perseus/pull/2253) [`24e2b4e45`](https://github.com/Khan/perseus/commit/24e2b4e45af4a7ef7657f99be5d1b07516d2ee0f) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Update sinusoid strings
+
+-   [#2209](https://github.com/Khan/perseus/pull/2209) [`926d42c99`](https://github.com/Khan/perseus/commit/926d42c990903583b36c4e9c5a72a2c80c85ac16) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fix to ensure that Numeric Examples only show for correct answers.
+
+*   [#2231](https://github.com/Khan/perseus/pull/2231) [`08409c6c9`](https://github.com/Khan/perseus/commit/08409c6c9eea1d19212d332acb056c5ef4971419) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests for answerless Dropdown support
+
+-   [#2209](https://github.com/Khan/perseus/pull/2209) [`b9f5f97a8`](https://github.com/Khan/perseus/commit/b9f5f97a8a1bf9c0509c84e829dce7a8c7a9d2da) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Cleanup of Numeric Input stories
+
+*   [#2250](https://github.com/Khan/perseus/pull/2250) [`f6795c2e4`](https://github.com/Khan/perseus/commit/f6795c2e4b7fd639bb2df3fb9f123adb65659fb8) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Update Circle strings
+
+-   [#2241](https://github.com/Khan/perseus/pull/2241) [`a0c897d74`](https://github.com/Khan/perseus/commit/a0c897d7406318e5492466a244b8d436b62d354d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Update tests and fix snapshots from feature branch rebase
+
+-   Updated dependencies [[`90034a875`](https://github.com/Khan/perseus/commit/90034a8754ab735ec84d959916b62a69d39efc2a), [`dcf9017d9`](https://github.com/Khan/perseus/commit/dcf9017d9917e0f877677b010a905e477081b15f), [`e7ad604af`](https://github.com/Khan/perseus/commit/e7ad604afce45feab7d268582ec6db41d6ab5e06), [`c7f6f63c8`](https://github.com/Khan/perseus/commit/c7f6f63c845566d99dae6df604426e5fb14a7e85), [`b71154170`](https://github.com/Khan/perseus/commit/b711541701ec10ccb506d0f9cbafac4a1c7c4cc1), [`a90cf7901`](https://github.com/Khan/perseus/commit/a90cf790159fefbee41437f20ac9a403a06f148f), [`e797a6a25`](https://github.com/Khan/perseus/commit/e797a6a2509326920ba28b14f128a54fcdd065b9), [`9d01457fc`](https://github.com/Khan/perseus/commit/9d01457fcb882ce3df555e3c7f733f94b02d0b6c), [`56b4ee61b`](https://github.com/Khan/perseus/commit/56b4ee61b064603fdbeb4577851fe142d881e245), [`da01542f2`](https://github.com/Khan/perseus/commit/da01542f2f9676f6d99fa930244ab6b21830a2f2), [`5de2e740b`](https://github.com/Khan/perseus/commit/5de2e740b35d69fc0059af5dbb74bd894986e124), [`458d3ed60`](https://github.com/Khan/perseus/commit/458d3ed600be91dd75a30a80bfac1fbd87c60bcd), [`ee91b7063`](https://github.com/Khan/perseus/commit/ee91b7063982530274e3cc736b3e78ad9fae43cf), [`20a08315b`](https://github.com/Khan/perseus/commit/20a08315b288244357b8a2526f87c2c5014f2fa6), [`d1d5a8247`](https://github.com/Khan/perseus/commit/d1d5a824766c6924249b00549128e8c57a960e77), [`381842745`](https://github.com/Khan/perseus/commit/3818427456a2ffca56481adbdafa01fee40e83c0), [`c0149a1b9`](https://github.com/Khan/perseus/commit/c0149a1b9f9d917f0f9b98dd6d61414e9bb7d895), [`08409c6c9`](https://github.com/Khan/perseus/commit/08409c6c9eea1d19212d332acb056c5ef4971419), [`d1b655095`](https://github.com/Khan/perseus/commit/d1b65509552a64d95766dc6252215842e758d7f8)]:
+    -   @khanacademy/perseus-core@4.0.0
+    -   @khanacademy/perseus-score@2.3.0
+    -   @khanacademy/kmath@0.4.0
+    -   @khanacademy/kas@0.5.0
+    -   @khanacademy/keypad-context@1.1.0
+    -   @khanacademy/math-input@22.3.0
+    -   @khanacademy/perseus-linter@1.3.0
+    -   @khanacademy/pure-markdown@0.4.0
+    -   @khanacademy/simple-markdown@0.14.0
+
 ## 54.1.0
 
 ### Minor Changes

@@ -1,5 +1,10 @@
 import {it, describe, beforeEach} from "@jest/globals";
-import {KeypadType} from "@khanacademy/math-input";
+import {
+    type PerseusItem,
+    type PerseusExpressionWidgetOptions,
+    type PerseusRenderer,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -9,12 +14,11 @@ import {
     testDependenciesV2,
 } from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import ExpressionWidgetExport, {
-    keypadConfigurationForProps,
-} from "./expression";
+import ExpressionWidgetExport from "./expression";
 import {
     expressionItem2,
     expressionItem3,
@@ -22,11 +26,6 @@ import {
     expressionItemWithLabels,
 } from "./expression.testdata";
 
-import type {KeypadConfiguration} from "@khanacademy/math-input";
-import type {
-    PerseusItem,
-    PerseusExpressionWidgetOptions,
-} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
@@ -550,78 +549,177 @@ describe("Expression Widget", function () {
             ).toBeNull();
         });
     });
-});
 
-describe("Keypad configuration", () => {
-    it("should handle basic button set", async () => {
-        // Arrange
-        const widgetOptions: PerseusExpressionWidgetOptions = {
-            answerForms: [],
-            buttonSets: ["basic"],
-            times: false,
-            functions: [],
-        };
-
-        const expected: KeypadConfiguration = {
-            keypadType: KeypadType.EXPRESSION,
-            times: false,
-            extraKeys: ["PI"],
-        };
-
-        // Act
-        const result = keypadConfigurationForProps(widgetOptions);
-
-        // Assert
-        expect(result).toEqual(expected);
-    });
-
-    it("should handle basic+div button set", async () => {
-        // Arrange
-        // Act
-        // Assert
-        expect(
-            keypadConfigurationForProps({
-                answerForms: [],
-                buttonSets: ["basic+div"],
+    describe("transform", () => {
+        it("can transform widget options into render props", () => {
+            const widgetOptions: PerseusExpressionWidgetOptions = {
+                answerForms: [
+                    {
+                        considered: "correct",
+                        form: true,
+                        simplify: false,
+                        value: "16+88i",
+                    },
+                ],
+                buttonSets: [],
                 times: false,
                 functions: [],
-            }),
-        ).toEqual({
-            keypadType: KeypadType.EXPRESSION,
-            times: false,
-            extraKeys: ["PI"],
-        });
-    });
+                buttonsVisible: "never",
+                visibleLabel: "Test visible label",
+                ariaLabel: "Test aria label",
+                extraKeys: ["i"],
+            };
 
-    it("should return expression keypad configuration by default", async () => {
-        // Arrange
-        // Act
-        const result = keypadConfigurationForProps({
-            answerForms: [],
-            buttonSets: [],
-            times: false,
-            functions: [],
-        });
-
-        // Assert
-        expect(result.keypadType).toEqual(KeypadType.EXPRESSION);
-    });
-
-    it("should handle scientific button set", async () => {
-        // Arrange
-        // Act
-        // Assert
-        expect(
-            keypadConfigurationForProps({
-                answerForms: [],
-                buttonSets: ["scientific"],
+            const expected = {
+                keypadConfiguration: {
+                    keypadType: "EXPRESSION",
+                    extraKeys: ["i"],
+                    times: false,
+                },
                 times: false,
                 functions: [],
-            }),
-        ).toEqual({
-            keypadType: KeypadType.EXPRESSION,
-            times: false,
-            extraKeys: ["PI"],
+                buttonSets: [],
+                buttonsVisible: "never",
+                visibleLabel: "Test visible label",
+                ariaLabel: "Test aria label",
+            };
+
+            const result = ExpressionWidgetExport.transform(widgetOptions);
+
+            expect(result).toEqual(expected);
         });
+
+        it("should return expression keypad configuration by default", async () => {
+            // Arrange
+            // Act
+            const result = ExpressionWidgetExport.transform({
+                answerForms: [],
+                buttonSets: [],
+                times: false,
+                functions: [],
+            });
+
+            // Assert
+            expect(result.keypadConfiguration.keypadType).toEqual("EXPRESSION");
+        });
+
+        it("should forward extraKeys if present", async () => {
+            // Arrange
+            // Act
+            const result = ExpressionWidgetExport.transform({
+                buttonSets: [],
+                times: false,
+                functions: [],
+                extraKeys: ["i"],
+            });
+
+            // Assert
+            expect(result.keypadConfiguration.extraKeys).toEqual(["i"]);
+        });
+
+        it("should prioritize extraKeys over answerForms", async () => {
+            // Arrange
+            // Act
+            const result = ExpressionWidgetExport.transform({
+                answerForms: [
+                    {
+                        considered: "correct",
+                        form: true,
+                        simplify: false,
+                        value: "16+88i",
+                    },
+                ],
+                buttonSets: [],
+                times: false,
+                functions: [],
+                extraKeys: ["x"],
+            });
+
+            // Assert
+            expect(result.keypadConfiguration.extraKeys).toEqual(["x"]);
+        });
+    });
+
+    describe("interactive: full vs answerless", () => {
+        beforeAll(() => {
+            registerAllWidgetsForTesting();
+        });
+
+        let userEvent: UserEvent;
+        beforeEach(() => {
+            userEvent = userEventLib.setup({
+                advanceTimers: jest.advanceTimersByTime,
+            });
+
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+
+            // Mocked for loading graphie in svg-image
+            global.fetch = jest.fn(() =>
+                Promise.resolve({
+                    text: () => "",
+                    ok: true,
+                }),
+            ) as jest.Mock;
+        });
+
+        function getFullItem(): PerseusRenderer {
+            return {
+                content: "[[☃ expression 1]]",
+                images: {},
+                widgets: {
+                    "expression 1": {
+                        type: "expression",
+                        version: {major: 2, minor: 0},
+                        options: {
+                            answerForms: [
+                                {
+                                    considered: "correct",
+                                    form: true,
+                                    simplify: false,
+                                    value: "1i",
+                                },
+                            ],
+                            buttonSets: [],
+                            times: false,
+                            functions: [],
+                            extraKeys: ["i"],
+                        },
+                    },
+                },
+            };
+        }
+
+        function getSplitItem(): PerseusRenderer {
+            return splitPerseusItem(getFullItem());
+        }
+
+        it.each([
+            {optionsMode: "answerful", renderItem: getFullItem()},
+            {optionsMode: "answerless", renderItem: getSplitItem()},
+        ])(
+            "is interactive with widget options: $optionsMode",
+            async ({renderItem}) => {
+                // Act
+                const {renderer} = renderQuestion(renderItem);
+
+                await userEvent.click(
+                    screen.getByRole("button", {name: "open math keypad"}),
+                );
+                await userEvent.click(screen.getByRole("button", {name: "1"}));
+                await userEvent.click(
+                    screen.getByRole("tab", {name: "Extras"}),
+                );
+                await userEvent.click(screen.getByRole("button", {name: "i"}));
+                act(() => jest.runOnlyPendingTimers());
+
+                const userInput = renderer.getUserInputMap();
+                const score = scorePerseusItem(getFullItem(), userInput, "en");
+
+                // Assert
+                expect(score).toHaveBeenAnsweredCorrectly();
+            },
+        );
     });
 });
