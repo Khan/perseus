@@ -545,6 +545,10 @@ describe("scoreNumericInput", () => {
         }),
     };
 
+    // NOTE(benchristel): "accepted" is not a valid value for `simplify`
+    // according to our types, but it appears in production data. The tests
+    // for "accepted" characterize the current behavior as of 2025-03-13.
+    // Note that "accepted" is treated the same as "required".
     it.each`
         simplify      | answer | userInput | expected
         ${"enforced"} | ${0.5} | ${"2/4"}  | ${"incorrect"}
@@ -556,6 +560,9 @@ describe("scoreNumericInput", () => {
         ${"required"} | ${0.5} | ${"2/4"}  | ${"invalid"}
         ${"required"} | ${0.5} | ${"1/2"}  | ${"correct"}
         ${"required"} | ${0.5} | ${"2/3"}  | ${"incorrect"}
+        ${"accepted"} | ${0.5} | ${"2/4"}  | ${"invalid"}
+        ${"accepted"} | ${0.5} | ${"1/2"}  | ${"correct"}
+        ${"accepted"} | ${0.5} | ${"2/3"}  | ${"incorrect"}
     `(
         "with simplify: $simplify, marks $userInput $expected for $answer",
         ({simplify, answer, userInput, expected}) => {
