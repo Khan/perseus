@@ -13,6 +13,7 @@ describe("freeResponseWidget", () => {
             },
             graded: false,
             options: {
+                placeholder: "test-placeholder",
                 question: "What is your favorite color?",
                 scoringCriteria: [
                     {
@@ -31,6 +32,7 @@ describe("freeResponseWidget", () => {
                 },
                 graded: false,
                 options: {
+                    placeholder: "test-placeholder",
                     question: "What is your favorite color?",
                     scoringCriteria: [
                         {

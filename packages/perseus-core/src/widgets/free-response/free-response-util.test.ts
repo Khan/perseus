@@ -6,6 +6,7 @@ describe("getFreeResponsePublicWidgetOptions", () => {
     it("should return the correct public options without any answer data", () => {
         // Arrange
         const options: PerseusFreeResponseWidgetOptions = {
+            placeholder: "Please provide response here",
             question: "What is the wind speed velocity of an unladen swallow?",
             scoringCriteria: [
                 {
@@ -19,6 +20,7 @@ describe("getFreeResponsePublicWidgetOptions", () => {
 
         // Assert
         expect(publicWidgetOptions).toEqual({
+            placeholder: "Please provide response here",
             question: "What is the wind speed velocity of an unladen swallow?",
         });
     });

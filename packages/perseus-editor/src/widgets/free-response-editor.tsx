@@ -26,6 +26,7 @@ class FreeResponseEditor extends React.Component<Props> {
 
     serialize(): PerseusFreeResponseWidgetOptions {
         return {
+            placeholder: this.props.placeholder,
             question: this.props.question,
             scoringCriteria: this.props.scoringCriteria,
         };
@@ -89,12 +90,21 @@ class FreeResponseEditor extends React.Component<Props> {
     render(): React.ReactNode {
         return (
             <View>
-                <label className={css(styles.questionContainer)}>
+                <label className={css(styles.textOptionWithLabelContainer)}>
                     <HeadingSmall>Question</HeadingSmall>
                     <textarea
                         value={this.props.question}
                         onChange={(e) =>
                             this.props.onChange({question: e.target.value})
+                        }
+                    />
+                </label>
+                <label className={css(styles.textOptionWithLabelContainer)}>
+                    <HeadingSmall>Placeholder</HeadingSmall>
+                    <textarea
+                        value={this.props.placeholder}
+                        onChange={(e) =>
+                            this.props.onChange({placeholder: e.target.value})
                         }
                     />
                 </label>
@@ -159,12 +169,6 @@ const CriterionEditor = function (props: {
 };
 
 const styles = StyleSheet.create({
-    questionContainer: {
-        display: "flex",
-        flexDirection: "column",
-        gap: spacing.xSmall_8,
-        paddingBottom: spacing.medium_16,
-    },
     criteriaList: {
         gap: spacing.small_12,
     },
@@ -180,6 +184,12 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent: "flex-end",
+    },
+    textOptionWithLabelContainer: {
+        display: "flex",
+        flexDirection: "column",
+        gap: spacing.xSmall_8,
+        paddingBottom: spacing.medium_16,
     },
 });
 

@@ -14,7 +14,10 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PerseusFreeResponseWidgetOptions} from "@khanacademy/perseus-core";
 import type {PerseusFreeResponseUserInput} from "@khanacademy/perseus-score";
 
-type RenderProps = Pick<PerseusFreeResponseWidgetOptions, "question">;
+type RenderProps = Pick<
+    PerseusFreeResponseWidgetOptions,
+    "placeholder" | "question"
+>;
 type Props = WidgetProps<RenderProps>;
 
 type State = {
@@ -50,6 +53,7 @@ export class FreeResponse
                     <textarea
                         value={this.state.currentValue}
                         onChange={this.handleChange}
+                        placeholder={this.props.placeholder}
                     />
                 </label>
             </View>
