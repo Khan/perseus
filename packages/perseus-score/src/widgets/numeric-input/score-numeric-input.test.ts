@@ -528,6 +528,249 @@ describe("scoreNumericInput", () => {
 
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
+
+    it("marks unsimplified fractions incorrect when 'simplify' is 'enforced'", () => {
+        // Arrange
+        const rubric: PerseusNumericInputRubric = {
+            coefficient: false,
+            answers: [
+                {
+                    value: 0.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "enforced",
+                    strict: false,
+                    message: "",
+                },
+            ],
+        };
+
+        const userInput = {
+            currentValue: "2/4",
+        };
+
+        // Act
+        const score = scoreNumericInput(userInput, rubric);
+
+        // Assert
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("marks simplified fractions correct when 'simplify' is 'enforced'", () => {
+        // Arrange
+        const rubric: PerseusNumericInputRubric = {
+            coefficient: false,
+            answers: [
+                {
+                    value: 0.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "enforced",
+                    strict: false,
+                    message: "",
+                },
+            ],
+        };
+
+        const userInput = {
+            currentValue: "1/2",
+        };
+
+        // Act
+        const score = scoreNumericInput(userInput, rubric);
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("marks wrong fractions incorrect when 'simplify' is 'enforced'", () => {
+        // Arrange
+        const rubric: PerseusNumericInputRubric = {
+            coefficient: false,
+            answers: [
+                {
+                    value: 0.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "enforced",
+                    strict: false,
+                    message: "",
+                },
+            ],
+        };
+
+        const userInput = {
+            currentValue: "1/3",
+        };
+
+        // Act
+        const score = scoreNumericInput(userInput, rubric);
+
+        // Assert
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("marks unsimplified fractions correct when 'simplify' is 'optional'", () => {
+        // Arrange
+        const rubric: PerseusNumericInputRubric = {
+            coefficient: false,
+            answers: [
+                {
+                    value: 0.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+        };
+
+        const userInput = {
+            currentValue: "2/4",
+        };
+
+        // Act
+        const score = scoreNumericInput(userInput, rubric);
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("marks simplified fractions correct when 'simplify' is 'optional'", () => {
+        // Arrange
+        const rubric: PerseusNumericInputRubric = {
+            coefficient: false,
+            answers: [
+                {
+                    value: 0.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+        };
+
+        const userInput = {
+            currentValue: "1/2",
+        };
+
+        // Act
+        const score = scoreNumericInput(userInput, rubric);
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("marks wrong fractions incorrect when 'simplify' is 'optional'", () => {
+        // Arrange
+        const rubric: PerseusNumericInputRubric = {
+            coefficient: false,
+            answers: [
+                {
+                    value: 0.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+        };
+
+        const userInput = {
+            currentValue: "1/3",
+        };
+
+        // Act
+        const score = scoreNumericInput(userInput, rubric);
+
+        // Assert
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("rejects unsimplified fractions as invalid when 'simplify' is 'required'", () => {
+        // Arrange
+        const rubric: PerseusNumericInputRubric = {
+            coefficient: false,
+            answers: [
+                {
+                    value: 0.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "required",
+                    strict: false,
+                    message: "",
+                },
+            ],
+        };
+
+        const userInput = {
+            currentValue: "2/4",
+        };
+
+        // Act
+        const score = scoreNumericInput(userInput, rubric);
+
+        // Assert
+        expect(score).toHaveInvalidInput();
+    });
+
+    it("marks simplified fractions correct when 'simplify' is 'required'", () => {
+        // Arrange
+        const rubric: PerseusNumericInputRubric = {
+            coefficient: false,
+            answers: [
+                {
+                    value: 0.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "required",
+                    strict: false,
+                    message: "",
+                },
+            ],
+        };
+
+        const userInput = {
+            currentValue: "1/2",
+        };
+
+        // Act
+        const score = scoreNumericInput(userInput, rubric);
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("marks wrong fractions incorrect when 'simplify' is 'required'", () => {
+        // Arrange
+        const rubric: PerseusNumericInputRubric = {
+            coefficient: false,
+            answers: [
+                {
+                    value: 0.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "required",
+                    strict: false,
+                    message: "",
+                },
+            ],
+        };
+
+        const userInput = {
+            currentValue: "1/3",
+        };
+
+        // Act
+        const score = scoreNumericInput(userInput, rubric);
+
+        // Assert
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
 });
 
 describe("maybeParsePercentInput utility function", () => {
