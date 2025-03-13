@@ -17,3 +17,13 @@ cypress/
 **/*.jpg
 **/*.png
 **/*.svg
+
+**/types/*.d.ts
+**/*.test.ts
+**/*.test.tsx
+**/wallaby.js
+packages/pure-markdown/.eslintrc.js
+packages/simple-markdown/.eslintrc.js
+utils/shared/add-library-version-to-perseus-debug.ts
+**/*.cypress.ts
+**/*.cypress.tsx

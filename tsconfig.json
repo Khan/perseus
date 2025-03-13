@@ -8,7 +8,12 @@
         "cypress.config.ts",
         "config/cypress/**",
         "**/*.cypress.ts",
-        "**/*.cypress.tsx"
+        "**/*.cypress.tsx",
+        "**/types/*.d.ts",
+        "**/*.test.ts",
+        "**/wallaby.js",
+        "**/packages/pure-markdown/**",
+        "**/packages/simple-markdown/**"
     ],
     "extends": "./tsconfig-common.json",
     "compilerOptions": {

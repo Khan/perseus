@@ -62,6 +62,17 @@ module.exports = {
             configFile: path.join(__dirname, "./config/build/babel.config.js"),
         },
     },
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+        project: [
+            './tsconfig.json',
+            './packages/*/tsconfig.json',
+            './packages/tsconfig-shared.json'
+        ],
+        tsconfigRootDir: __dirname,
+        ecmaVersion: 2020,
+        sourceType: 'module',
+    },
     plugins: [
         "@babel",
         "cypress",
@@ -194,6 +205,7 @@ module.exports = {
         },
     ],
     rules: {
+        '@typescript-eslint/strict-boolean-expressions': 'error',
         "max-lines": "off",
         "new-cap": "off",
         "no-invalid-this": "off",
