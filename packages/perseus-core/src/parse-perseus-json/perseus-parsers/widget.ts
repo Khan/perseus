@@ -45,7 +45,7 @@ export function parseWidgetWithVersion<
         graded: optional(boolean),
         alignment: optional(string),
         options: parseOptions,
-        key: optional(number),
+        key: optional(nullable(number)),
         version: parseVersion,
     });
 }

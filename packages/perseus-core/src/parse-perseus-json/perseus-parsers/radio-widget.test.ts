@@ -78,4 +78,21 @@ describe("parseRadioWidget", () => {
             ),
         );
     });
+
+    it("allows a null key", () => {
+        const widget = {
+            type: "radio",
+            key: null,
+            graded: true,
+            version: {
+                major: 2,
+                minor: 0,
+            },
+            options: {
+                choices: [],
+            },
+        };
+
+        expect(parse(widget, parseRadioWidget)).toEqual(success(widget));
+    });
 });
