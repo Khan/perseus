@@ -39,4 +39,3 @@ cypress.config.ts
 packages/keypad-context/src/shared-utils/add-library-version-to-perseus-debug.ts
 packages/perseus-editor/src/katex-mhchem/*.js
 packages/perseus/src/jquery.mobile.vmouse.js
-**/*.less

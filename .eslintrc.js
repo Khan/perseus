@@ -69,9 +69,6 @@ module.exports = {
             './packages/*/tsconfig.json',
             './packages/tsconfig-shared.json'
         ],
-        tsconfigRootDir: __dirname,
-        ecmaVersion: 2020,
-        sourceType: 'module',
     },
     plugins: [
         "@babel",
@@ -145,14 +142,7 @@ module.exports = {
         Empty: false,
         SpreadType: false,
     },
-    ignorePatterns: ['**/*.less'],
     overrides: [
-        {
-            files: ['**/*.less'],
-            rules: {
-                'lesshint/lesshint': 'off'
-            },
-        },
         {
             files: [
                 "*.cypress.tsx",
