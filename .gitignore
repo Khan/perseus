@@ -10,3 +10,6 @@ storybook-static
 *.tsbuildinfo
 /cypress/
 .idea
+
+**/*.less
+packages/**/less/
