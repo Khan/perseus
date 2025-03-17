@@ -147,6 +147,12 @@ module.exports = {
     },
     overrides: [
         {
+            files: ['**/*.less'],
+            rules: {
+                'lesshint/lesshint': 'off'
+            },
+        },
+        {
             files: [
                 "*.cypress.tsx",
                 "*.cypress.ts",

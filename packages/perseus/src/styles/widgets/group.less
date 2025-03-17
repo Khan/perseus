@@ -1,0 +1,19 @@
+.framework-perseus {
+    .perseus-group {
+        position: relative;
+
+        // We don't want group text to be centered, so we
+        // set the group width to 100% so that a centered
+        // group is the same as an uncentered group, and
+        // its text still ends up all on the left.
+        width: 100%;
+
+        .group-icon {
+            font-size: 14px;
+            position: absolute;
+            top: 50%;
+            top: ~"calc(50% - 7px)";
+            margin-left: -20px;
+        }
+    }
+}
