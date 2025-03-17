@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable react/no-unsafe */
 import Button from "@khanacademy/wonder-blocks-button";
 import Clickable from "@khanacademy/wonder-blocks-clickable";

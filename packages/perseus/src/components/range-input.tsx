@@ -33,6 +33,7 @@ class RangeInput extends React.Component<any> {
 
     render(): React.ReactNode {
         const value = this.props.value;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const checkValidity = this.props.checkValidity || truth;
 
         return (

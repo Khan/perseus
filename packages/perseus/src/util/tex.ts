@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {KhanMath} from "@khanacademy/kmath";
 import $ from "jquery";
 import * as React from "react";

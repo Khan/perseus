@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
 import {angles, geometry} from "@khanacademy/kmath";
 import {

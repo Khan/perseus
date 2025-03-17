@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 // Notes about MathQuill
 //
 // MathQuill's stores its layout as nested linked lists.  Each node in the

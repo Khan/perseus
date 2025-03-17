@@ -234,6 +234,7 @@ export const Angle = ({
 
     // Determine the color style for the arc when interactive vs disabled
     const {disableKeyboardInteraction} = useGraphConfig();
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const arcClassName = disableKeyboardInteraction
         ? "angle-arc-static"
         : "angle-arc-interactive";

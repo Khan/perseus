@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /**
  * The Option is an item to be used in the Select components and the

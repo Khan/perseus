@@ -52,6 +52,7 @@ function ContentPreview({
     return (
         <View
             className={`framework-perseus ${className}`}
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             style={[styles.container, !seamless ? styles.gutter : undefined]}
         >
             <StatefulKeypadContextProvider>

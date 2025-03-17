@@ -78,6 +78,7 @@ class GradedGroupAnswerBar extends React.Component<Props> {
                     {message}
                     <Button
                         disabled={
+                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                             apiOptions.readOnly || answerBarState !== "ACTIVE"
                         }
                         onClick={onCheckAnswer}

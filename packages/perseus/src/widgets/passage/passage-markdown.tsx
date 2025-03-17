@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 import * as React from "react";
 import _ from "underscore";

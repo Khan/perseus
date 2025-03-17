@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable react/forbid-prop-types, react/no-unsafe */
 /**
  * Used in the editors for the Grapher and Interaction widgets.

@@ -57,6 +57,7 @@ export default class SimpleKeypadInput extends React.Component<any> {
                 ref={this.inputRef}
                 keypadElement={keypadElement}
                 onFocus={() => {
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     if (keypadElement) {
                         keypadElement.configure(
                             {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import Rule from "../rule";
 
 // Normally we have one rule per file. But since our selector class

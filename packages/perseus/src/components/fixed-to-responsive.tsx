@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /**
  * A wrapper for a component that would otherwise have a fixed width and
  * height, that magically makes it reponsive while preserving its aspect ratio.

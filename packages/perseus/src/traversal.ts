@@ -95,6 +95,7 @@ const traverseRenderer = function (
     }
 
     const newWidgets = mapObject(
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         rendererOptions.widgets || {},
         function (widgetInfo, widgetId) {
             // Widgets without info or a type are empty widgets, and

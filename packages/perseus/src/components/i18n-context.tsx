@@ -23,6 +23,7 @@ export const mockPerseusI18nContext = {
 // @ts-expect-error - TS2322 - Type 'Context<{ strings: {}; locale: string; }>' is not assignable to type 'Context<I18nContextType>'.
 export const PerseusI18nContext: React.Context<I18nContextType> =
     React.createContext(
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         process.env.NODE_ENV === "test" || process.env.STORYBOOK
             ? mockPerseusI18nContext
             : // We want to return null here, not an empty object, so that we

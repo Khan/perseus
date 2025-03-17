@@ -18,6 +18,7 @@ function validateNumberLine(
         userInput.numDivisions < divisionRange[0];
 
     // TODO: I don't think isTickCrtl is a thing anymore
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (userInput.isTickCrtl && outsideAllowedRange) {
         return {
             type: "invalid",

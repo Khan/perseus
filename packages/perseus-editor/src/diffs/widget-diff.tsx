@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {components} from "@khanacademy/perseus";
 import classNames from "classnames";
 import PropTypes from "prop-types";

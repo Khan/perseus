@@ -184,6 +184,7 @@ const Line = (props: LineProps) => {
         <>
             <g
                 ref={line}
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 tabIndex={disableKeyboardInteraction ? -1 : 0}
                 aria-label={ariaLabel}
                 aria-describedby={ariaDescribedBy}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /**
  * Displays the given content in an iframe, isolating it from the parent page
  *

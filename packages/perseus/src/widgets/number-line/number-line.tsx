@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
 import * as React from "react";
 import ReactDOM from "react-dom";

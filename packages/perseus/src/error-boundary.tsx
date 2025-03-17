@@ -37,6 +37,7 @@ class ErrorBoundary extends React.Component<Props, State> {
                 cause: error,
                 loggedMetadata: {
                     componentStack:
+                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         !!info && "componentStack" in info
                             ? info.componentStack
                             : "componentStack not provided",

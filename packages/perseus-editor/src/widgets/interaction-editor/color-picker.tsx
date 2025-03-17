@@ -41,6 +41,7 @@ class ColorPicker extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const colors = this.props.lightColors ? LIGHT_COLORS : COLORS;
         return (
             <ButtonGroup

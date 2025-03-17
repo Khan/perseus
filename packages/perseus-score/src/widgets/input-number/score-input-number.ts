@@ -56,6 +56,7 @@ function scoreInputNumber(
     const stringValue = `${rubric.value}`;
     const val = KhanAnswerTypes.number.createValidatorFunctional(stringValue, {
         simplify: rubric.simplify,
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         inexact: rubric.inexact || undefined,
         maxError: rubric.maxError,
         forms: inputNumberAnswerTypes[rubric.answerType].forms,

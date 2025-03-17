@@ -32,6 +32,7 @@ const LockedLine = (props: Props) => {
     } = props;
     const [point1, point2] = points;
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const hasAria = !!ariaLabel;
 
     let line;

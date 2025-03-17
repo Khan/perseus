@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {components} from "@khanacademy/perseus";
 import {addStyle, View} from "@khanacademy/wonder-blocks-core";
 import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";

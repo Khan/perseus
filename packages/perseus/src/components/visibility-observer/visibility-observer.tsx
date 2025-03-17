@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /**
  * This is a wrapper component for the visibility-observer.js utility which
  * abstracts the native or polyfilled IntersectionObserver utility.  The

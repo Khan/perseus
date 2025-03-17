@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import ErrorCodes from "../../error-codes";
 
 import type {

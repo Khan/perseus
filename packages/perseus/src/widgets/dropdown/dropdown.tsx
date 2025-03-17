@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {SingleSelect, OptionItem} from "@khanacademy/wonder-blocks-dropdown";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /**
  * Vector Utils
  * A vector is an array of numbers e.g. [0, 3, 4].

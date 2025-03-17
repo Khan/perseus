@@ -40,6 +40,7 @@ function scoreTable(
                     simplify: true,
                 });
                 const result = validator(cellSupplied);
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (result.message) {
                     message = result.message;
                 }

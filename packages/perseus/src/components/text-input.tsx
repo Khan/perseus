@@ -42,6 +42,7 @@ class TextInput extends React.Component<Props> {
 
     constructor(props: Props) {
         super(props);
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (props.id) {
             this.id = props.id;
         } else {
@@ -107,6 +108,7 @@ class TextInput extends React.Component<Props> {
 
         // Some of our content was saved with empty strings as the label text,
         // and we don't want to render an empty aria-label attribute.
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const ariaLabel = labelText || undefined;
 
         return (

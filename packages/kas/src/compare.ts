@@ -55,6 +55,7 @@ export const compare = function (
     }
 
     // Syntactic check
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (optionsWithDefaults.form && !expr1.sameForm(expr2)) {
         return {
             equal: false,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /**
  * The Rule class represents a Perseus lint rule. A Rule instance has a check()
  * method that takes the same (node, state, content) arguments that a

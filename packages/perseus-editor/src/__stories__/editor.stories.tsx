@@ -105,6 +105,7 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                             onChange={
                                 ((props: Partial<PerseusRenderer>) => {
                                     action("onChange")(props);
+                                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                     if (props.content) {
                                         setContent(props.content);
                                     } else if (props.widgets) {

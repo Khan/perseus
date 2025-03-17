@@ -4,6 +4,7 @@ export function srFormatNumber(
     maximumFractionDigits?: number,
 ): string {
     const piBasedNumber = getPiMultiple(a);
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (piBasedNumber) {
         return piBasedNumber;
     }

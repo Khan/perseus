@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /**
  * An article editor. Articles are long-form pieces of content, composed of

@@ -152,6 +152,7 @@ function MovableCircle(props: {
             aria-live="polite"
             ref={draggableRef}
             role="button"
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             tabIndex={disableKeyboardInteraction ? -1 : 0}
             className={`movable-circle ${dragging ? "movable-circle--dragging" : ""}`}
             onFocus={() => setFocused(true)}

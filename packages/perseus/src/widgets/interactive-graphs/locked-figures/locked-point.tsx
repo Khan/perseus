@@ -10,6 +10,7 @@ const LockedPoint = (props: LockedPointType) => {
     const {color, coord, filled, ariaLabel} = props;
     const [x, y] = coord;
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const hasAria = !!ariaLabel;
 
     return (

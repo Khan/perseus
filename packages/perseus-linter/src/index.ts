@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import Rule from "./rule";
 import AllRules from "./rules/all-rules";
 import TreeTransformer from "./tree-transformer";

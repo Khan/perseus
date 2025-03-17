@@ -204,6 +204,7 @@ export default {
                     : "decimal";
 
             let answerString = KhanMath.toNumericString(answer.value!, format);
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (answer.maxError) {
                 answerString +=
                     " \u00B1 " +

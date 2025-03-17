@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /**
  * LockedFiguresSection is a section of the InteractiveGraphEditor that allows
  * the user to add and remove locked figures from the graph. It includes

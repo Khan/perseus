@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /**
  * Render the Mafs graph with the specified background and graph elements.
  *

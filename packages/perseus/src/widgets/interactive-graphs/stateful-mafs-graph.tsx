@@ -132,6 +132,7 @@ export const StatefulMafsGraph = React.forwardRef<
 
     // If the graph is static, it always displays the correct answer. This is
     // standard behavior for Perseus widgets (e.g. compare the Radio widget).
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (props.static && props.correct) {
         return (
             <MafsGraph

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /**
  * TreeTransformer is a class for traversing and transforming trees.  Create a
  * TreeTransformer by passing the root node of the tree to the

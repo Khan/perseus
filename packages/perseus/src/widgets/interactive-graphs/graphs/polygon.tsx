@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {angles} from "@khanacademy/kmath";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Polygon, Polyline, vec} from "mafs";

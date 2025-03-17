@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import * as React from "react";
 
 type InlineIconProps = {

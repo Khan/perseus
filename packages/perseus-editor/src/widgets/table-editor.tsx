@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {components, TableWidget, Util} from "@khanacademy/perseus";
 import {
     tableLogic,

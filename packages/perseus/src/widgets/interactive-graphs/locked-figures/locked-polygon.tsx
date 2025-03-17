@@ -12,7 +12,7 @@ import type {LockedPolygonType} from "@khanacademy/perseus-core";
 
 const LockedPolygon = (props: LockedPolygonType) => {
     const {points, color, showVertices, fillStyle, strokeStyle} = props;
-
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const hasAria = !!props.ariaLabel;
 
     return (

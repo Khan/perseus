@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {radioLogic, random, shuffle} from "@khanacademy/perseus-core";
 import _ from "underscore";
 

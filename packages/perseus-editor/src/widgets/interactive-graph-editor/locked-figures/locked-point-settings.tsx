@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /**
  * LockedPointSettings is a component that allows the user to edit the
  * settings of specifically a locked point on the graph.

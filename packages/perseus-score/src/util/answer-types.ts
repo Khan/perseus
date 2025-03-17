@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable no-useless-escape */
 import * as KAS from "@khanacademy/kas";
 import {KhanMath} from "@khanacademy/kmath";

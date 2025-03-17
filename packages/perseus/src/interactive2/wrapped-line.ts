@@ -34,7 +34,7 @@ class WrappedLine extends WrappedDrawing {
         );
         this.wrapper = fixedLine.wrapper;
         this.visibleShape = fixedLine.visibleShape;
-
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (options.interactiveKindForTesting) {
             this.wrapper.setAttribute(
                 "data-interactive-kind-for-testing",
@@ -52,6 +52,7 @@ class WrappedLine extends WrappedDrawing {
         );
 
         // Add to appropriate graphie layer
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (options.mouselayer) {
             // Disable browser handling of all panning and zooming gestures on the
             // movable wrapper so that when moved the browser does not scroll page

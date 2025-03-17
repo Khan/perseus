@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {inputNumberAnswerTypes} from "@khanacademy/perseus-score";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";

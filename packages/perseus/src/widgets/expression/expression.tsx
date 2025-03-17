@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import * as KAS from "@khanacademy/kas";
 import {KeypadInput} from "@khanacademy/math-input";
 import {getDecimalSeparator, expressionLogic} from "@khanacademy/perseus-core";

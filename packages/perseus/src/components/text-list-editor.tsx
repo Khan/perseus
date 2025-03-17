@@ -8,6 +8,7 @@ import _ from "underscore";
 
 const textWidthCache: Record<string, any> = {};
 function getTextWidth(text: any) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!textWidthCache[text]) {
         // Hacky way to guess the width of an input box
         const $test = $("<span>").text(text).appendTo("body");

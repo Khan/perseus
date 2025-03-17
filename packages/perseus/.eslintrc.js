@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
 /* eslint-disable import/no-commonjs */
 const path = require("path");
 

@@ -10,7 +10,7 @@ import * as React from "react";
 const LockedEllipse = (props: LockedEllipseType) => {
     const {center, radius, angle, color, fillStyle, strokeStyle, ariaLabel} =
         props;
-
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const hasAria = !!ariaLabel;
 
     return (

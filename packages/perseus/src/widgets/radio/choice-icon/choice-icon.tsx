@@ -43,6 +43,7 @@ function ChoiceInner(props: ChoiceInnerProps) {
     if (!showCorrectness) {
         return <span>{letter}</span>;
     }
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (correct) {
         return (
             <InlineIcon

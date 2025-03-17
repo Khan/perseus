@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";

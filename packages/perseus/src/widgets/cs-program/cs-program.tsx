@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /**
  * This widget is for embedding Khan Academy CS programs.
  */

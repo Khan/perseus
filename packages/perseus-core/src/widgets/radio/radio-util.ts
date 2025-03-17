@@ -56,6 +56,7 @@ export function usesNumCorrect(
     countChoices: PerseusRadioWidgetOptions["countChoices"],
     numCorrect: PerseusRadioWidgetOptions["numCorrect"],
 ) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return multipleSelect && countChoices && numCorrect;
 }
 
@@ -70,6 +71,7 @@ function getRadioPublicWidgetOptions(
 
     return {
         ...options,
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         numCorrect: usesNumCorrect(multipleSelect, countChoices, numCorrect)
             ? numCorrect
             : undefined,

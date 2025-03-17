@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import _ from "underscore";
 

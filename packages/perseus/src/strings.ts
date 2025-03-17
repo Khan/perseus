@@ -1176,9 +1176,10 @@ export function mapErrorToString(
     // the translated Perseus strings
     translatedStrings: PerseusStrings,
 ) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!err) {
         return err;
     }
-
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return translatedStrings[errorToString[err]] || err;
 }

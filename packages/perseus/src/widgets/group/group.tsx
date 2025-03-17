@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";

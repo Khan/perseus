@@ -11,6 +11,7 @@ export default Rule.makeRule({
         // If no URL is provided, an infinite spinner will be shown in articles
         // overlaying the page where the image should be. This prevents the page
         // from fully loading. As a result, we check for URLS with all images.
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!url || !url.trim()) {
             return "Images should have a URL";
         }

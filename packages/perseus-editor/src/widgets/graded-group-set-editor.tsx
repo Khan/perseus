@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable react/forbid-prop-types, react/no-unsafe */
 import {ApiOptions, Changeable} from "@khanacademy/perseus";
 import {gradedGroupSetLogic} from "@khanacademy/perseus-core";

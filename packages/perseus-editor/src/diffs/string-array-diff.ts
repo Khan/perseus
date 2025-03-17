@@ -3,9 +3,11 @@ import jsdiff from "jsdiff";
 import _ from "underscore";
 
 const statusFor = function (chunk: any) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (chunk.added) {
         return "added";
     }
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (chunk.removed) {
         return "removed";
     }

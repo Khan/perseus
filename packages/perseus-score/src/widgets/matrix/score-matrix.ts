@@ -36,6 +36,7 @@ function scoreMatrix(
                     },
                 );
                 const result = validator(supplied[row][col]);
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (result.message) {
                     // @ts-expect-error - TS2322 - Type 'string' is not assignable to type 'null'.
                     message = result.message;

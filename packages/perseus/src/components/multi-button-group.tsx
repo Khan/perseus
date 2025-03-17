@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 

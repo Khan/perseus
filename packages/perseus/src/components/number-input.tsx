@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import classNames from "classnames";

@@ -12,6 +12,7 @@ import * as Widgets from "./widgets";
 // violating widget types discovered in this item.
 function traverseRenderer(itemData, widgets: Array<any>) {
     traverse(itemData, null, function (info) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (info.type && !Widgets.isAccessible(info)) {
             widgets.push(info.type);
         }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import categorizerWidgetLogic from "./categorizer";
 import csProgramWidgetLogic from "./cs-program";
 import definitionWidgetLogic from "./definition";

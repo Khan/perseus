@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {object, pipeParsers} from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";

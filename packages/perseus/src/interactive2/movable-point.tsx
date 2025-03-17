@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /**
  * Creates and adds a point to the graph that can be dragged around.
  * It allows constraints on its movement and draws when moves happen.

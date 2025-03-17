@@ -94,6 +94,7 @@ export function Flipbook() {
 
     useEffect(() => {
         const localStorageQuestions =
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             localStorage.getItem(LS_QUESTIONS_KEY) || "";
         dispatch(loadQuestionsFromStorage(localStorageQuestions));
     }, []);

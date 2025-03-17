@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @babel/no-invalid-this */
 /* eslint-disable react/no-unsafe */
 import * as React from "react";

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import PropTypes from "prop-types";
 import * as React from "react";
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /**
  * An article renderer. Articles are long-form pieces of content,
  * composed of multiple (Renderer) sections concatenated together.

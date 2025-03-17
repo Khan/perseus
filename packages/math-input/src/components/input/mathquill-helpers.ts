@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {MathFieldActionType} from "../../types";
 
 import {CursorContext} from "./cursor-contexts";

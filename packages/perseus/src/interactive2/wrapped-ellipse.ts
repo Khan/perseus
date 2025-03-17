@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {vector as kvector} from "@khanacademy/kmath";
 import _ from "underscore";
 

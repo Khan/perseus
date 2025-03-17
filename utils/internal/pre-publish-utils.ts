@@ -11,7 +11,9 @@ const checkPublishConfig = ({
     let returnCode = true;
 
     // first check if is marked as public and there's access to publish the current package
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!publishConfig || (!isPrivate && publishConfig.access !== "public")) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const requiredAccessType = isPrivate ? "restricted" : "public";
 
         console.error(
@@ -21,6 +23,7 @@ const checkPublishConfig = ({
     }
 
     // also check if is marked as private and there's restricted access defined
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (isPrivate && publishConfig.access !== "restricted") {
         console.error(
             `ERROR: ${name} is marked as private but there is a "publishConfig": {"access": "public"} section already defined. Please change it to "access": "restricted" or remove "private": true to make the package public.`,
@@ -30,7 +33,9 @@ const checkPublishConfig = ({
 
     // check that we are running our pre-publish check for this package
     if (
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         !scripts.prepublishOnly ||
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         !scripts.prepublishOnly.includes("utils/package-pre-publish-check.sh")
     ) {
         console.error(
@@ -75,6 +80,7 @@ const checkSource = (pkgJson): boolean =>
     checkField(pkgJson, "source", ["src/index.js", "src/index.ts"]);
 
 const checkPrivate = (pkgJson): boolean => {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (pkgJson.private) {
         console.warn(
             `${pkgJson.name} is private and won't be published to NPM.`,

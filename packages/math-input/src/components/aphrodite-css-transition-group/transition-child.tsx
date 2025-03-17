@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {withActionScheduler} from "@khanacademy/wonder-blocks-timing";
 import * as React from "react";
 import ReactDOM from "react-dom";

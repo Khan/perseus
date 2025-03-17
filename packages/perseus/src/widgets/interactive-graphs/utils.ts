@@ -29,6 +29,7 @@ export const normalizePoints = <A extends Coord[]>(
             // maps over [x, y]
             coords.map((coord, i) => {
                 const axisRange = range[i];
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (noSnap) {
                     return axisRange[MIN] + size(axisRange) * coord;
                 }

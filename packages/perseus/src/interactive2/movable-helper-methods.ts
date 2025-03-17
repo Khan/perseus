@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @babel/no-invalid-this */
 /**
  * MovableThing convenience methods

@@ -15,6 +15,7 @@ const Footer = (): React.ReactElement => {
                 {({setKeypadElement, renderer}) => (
                     <MobileKeypad
                         onElementMounted={setKeypadElement}
+                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         onDismiss={() => renderer && renderer.blur()}
                         style={styles.keypad}
                         onAnalyticsEvent={async (e) => {

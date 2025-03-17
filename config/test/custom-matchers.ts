@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 // Ok here we are
 
 import type {PerseusScore} from "../../packages/perseus-score/src/validation.types";

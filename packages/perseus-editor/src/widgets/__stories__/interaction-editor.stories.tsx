@@ -18,10 +18,11 @@ export const Default = (args: StoryArgs): React.ReactElement => {
     const [graph, setGraph] = useState();
 
     function handleChange(next) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (next.graph) {
             setGraph(next.graph);
         }
-
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (next.elements) {
             setElements(next.elements);
         }

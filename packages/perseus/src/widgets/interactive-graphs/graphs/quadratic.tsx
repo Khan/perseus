@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {Plot, vec} from "mafs";
 import * as React from "react";
 

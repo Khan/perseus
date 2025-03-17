@@ -13,6 +13,7 @@ function scoreNumberLine(
     const range = rubric.range;
     const start = rubric.initialX != null ? rubric.initialX : range[0];
     const startRel = rubric.isInequality ? "ge" : "eq";
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const correctRel = rubric.correctRel || "eq";
     const correctPos = knumber.equal(
         userInput.numLinePosition,

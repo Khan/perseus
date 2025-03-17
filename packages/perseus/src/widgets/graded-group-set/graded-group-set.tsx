@@ -199,7 +199,7 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
         }
 
         const currentGroup = this.props.gradedGroups[this.state.currentGroup];
-
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!currentGroup) {
             return <span>No current group...</span>;
         }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {point as kpoint} from "@khanacademy/kmath";
 import {GrapherUtil} from "@khanacademy/perseus-core";
 import * as React from "react";

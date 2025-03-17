@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import ReactDOM from "react-dom";

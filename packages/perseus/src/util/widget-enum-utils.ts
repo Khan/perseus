@@ -129,7 +129,7 @@ const widgetNameToEnum: Record<WidgetName, WidgetEnum> = {
 
 export function convertWidgetNameToEnum(name: string): WidgetEnum {
     const widgetEnum = widgetNameToEnum[name];
-
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!widgetEnum) {
         throw new Error(`Unknown widget name: ${name}`);
     }

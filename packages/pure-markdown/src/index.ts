@@ -38,6 +38,7 @@ const mathMatcher = (source: any, state: any, isBlock: boolean) => {
 
     // When looking for blocks, skip over leading spaces
     if (isBlock) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (state.inline) {
             return null;
         }
@@ -149,6 +150,7 @@ export const pureMarkdownRules = {
         order: -1,
         match: (source: any, state: any, prevCapture: any): any => {
             // Only match on the just-in-place translation site
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (state.isJipt) {
                 return crowdinJiptMatcher(source, state, prevCapture);
             }

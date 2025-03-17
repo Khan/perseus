@@ -85,6 +85,7 @@ const Basic = ({keypadElement, setKeypadElement}) => {
 
             <MobileKeypad
                 onElementMounted={(node) => {
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     if (node) {
                         setKeypadElement(node);
                     }

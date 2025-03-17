@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {angles} from "@khanacademy/kmath";
 import {vec} from "mafs";
 import * as React from "react";

@@ -22,6 +22,7 @@ export const addLibraryVersionToPerseusDebug = (
         globalThis.__perseus_debug__ = globalThis.__perseus_debug__ ?? {};
 
         const existingVersionEntry = globalThis.__perseus_debug__[libraryName];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (existingVersionEntry) {
             // If we already have an entry and it doesn't match the registered
             // version, we morph the entry into an array and log a warning.

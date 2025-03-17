@@ -160,6 +160,7 @@ class InputNumberEditor extends React.Component<Props> {
                         Max error:{" "}
                         <input
                             type="text"
+                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                             disabled={!this.props.inexact}
                             defaultValue={this.props.maxError}
                             aria-label="Max error"

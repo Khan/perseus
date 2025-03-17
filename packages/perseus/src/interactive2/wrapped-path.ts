@@ -29,6 +29,7 @@ class WrappedPath extends WrappedDrawing {
         this.visibleShape = fixedPath.visibleShape;
 
         // Add to appropriate graphie layer
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (options.mouselayer) {
             // Disable browser handling of all panning and zooming gestures on the
             // movable wrapper so that when moved the browser does not scroll page

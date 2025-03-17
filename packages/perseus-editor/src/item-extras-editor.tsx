@@ -197,6 +197,7 @@ const ItemExtraCheckbox = (props: {
     onChange: (newCheckedState: boolean) => void;
     indent?: boolean;
 }) => (
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     <View style={[styles.checkbox, props.indent ? styles.indented : undefined]}>
         <Checkbox
             label={

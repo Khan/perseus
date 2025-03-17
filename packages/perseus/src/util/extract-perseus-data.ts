@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {keys} from "@khanacademy/wonder-stuff-core";
 
 import {

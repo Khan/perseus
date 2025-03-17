@@ -58,6 +58,7 @@ class HighlightTooltip extends React.PureComponent<Props> {
         //     but let's catch that case and bail out.
         // TODO(mdr): Instead, we should somehow walk back the range until we
         //     find an appropriate position for the tooltip. Sounds tricky!
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!focusRect) {
             Log.log(
                 "[Highlighting] Known bug: Could not determine the focus " +

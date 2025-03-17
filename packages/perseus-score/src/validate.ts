@@ -18,6 +18,7 @@ export function emptyWidgetsFunctional(
 ): ReadonlyArray<string> {
     return widgetIds.filter((id) => {
         const widget = widgets[id];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!widget || widget.static === true) {
             // Static widgets shouldn't count as empty
             return false;

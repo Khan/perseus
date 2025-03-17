@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable react/no-unsafe */
 import {components} from "@khanacademy/perseus";
 import classNames from "classnames";

@@ -27,6 +27,7 @@ export const scrollIntoView = (containerNode, keypadNode) => {
 
     const desiredMarginPx = 16;
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (keypadNode) {
         // NOTE(charlie): We can't use the bounding rect of the keypad,
         // as it is likely in the process of animating in. Instead, to

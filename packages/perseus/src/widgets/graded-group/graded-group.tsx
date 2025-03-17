@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import Button from "@khanacademy/wonder-blocks-button";

@@ -90,6 +90,7 @@ function TabbarItem(props: TabItemProps): React.ReactElement {
 
     useEffect(() => {
         let timeout;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (role === "tab" && focus) {
             /**
              * When tabs are within a WonderBlocks Popover component, the
@@ -118,6 +119,7 @@ function TabbarItem(props: TabItemProps): React.ReactElement {
             aria-label={itemType}
             style={styles.clickable}
             aria-selected={itemState === "active"}
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             tabIndex={role === "button" ? 0 : focus ? 0 : -1}
             role={role}
             ref={tabRef}

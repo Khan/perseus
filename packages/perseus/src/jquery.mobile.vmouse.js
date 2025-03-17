@@ -437,7 +437,7 @@ import $ from "jquery";
 
                 // teardown may be called when an element was
                 // removed from the DOM. If this is the case,
-                // jQuery core may have already stripped the element
+                // jQuery core may have already stripped the elementzz
                 // of any data bindings so we need to check it before
                 // using it.
                 if (bindings) {

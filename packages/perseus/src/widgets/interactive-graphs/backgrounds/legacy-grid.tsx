@@ -19,6 +19,7 @@ interface Props {
  */
 export const LegacyGrid = ({box, backgroundImage}: Props) => {
     const {url, width, height} = backgroundImage ?? {};
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (url && typeof url === "string") {
         const scale = box[X] / interactiveSizes.defaultBoxSize;
         return (

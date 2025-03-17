@@ -17,7 +17,6 @@ cypress/
 **/*.jpg
 **/*.png
 **/*.svg
-
 **/types/*.d.ts
 **/*.test.ts
 **/*.test.tsx
@@ -27,3 +26,17 @@ packages/simple-markdown/.eslintrc.js
 utils/shared/add-library-version-to-perseus-debug.ts
 **/*.cypress.ts
 **/*.cypress.tsx
+*.config.js
+babel.config.js
+**/babel.config.js
+jest.config.js
+**/jest.config.js
+.eslintrc.js
+babel.config.js
+jest.config.js
+config/**/*.js
+cypress.config.ts
+packages/keypad-context/src/shared-utils/add-library-version-to-perseus-debug.ts
+packages/perseus-editor/src/katex-mhchem/*.js
+packages/perseus/src/jquery.mobile.vmouse.js
+**/*.less

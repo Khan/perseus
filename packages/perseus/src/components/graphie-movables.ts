@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import _ from "underscore";
 
 import {getDependencies} from "../dependencies";

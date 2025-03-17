@@ -98,6 +98,7 @@ class PairsEditor extends React.Component<any> {
         pairs[pairIndex] = pair;
 
         const lastPair = pairs[pairs.length - 1];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (lastPair.name && lastPair.value) {
             pairs.push({name: "", value: ""});
         }

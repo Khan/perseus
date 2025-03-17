@@ -37,6 +37,7 @@ class DragListener {
                 const touch = evt.changedTouches[i];
                 const initialTouchLocation =
                     touchLocationsById[touch.identifier];
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (initialTouchLocation) {
                     const touchLocation = [touch.clientX, touch.clientY];
                     const dx = touchLocation[0] - initialTouchLocation[0];

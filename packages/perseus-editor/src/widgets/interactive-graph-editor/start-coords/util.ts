@@ -169,6 +169,7 @@ export const shouldShowStartCoordsUI = (
     // We don't show the start coords UI for static graphs, since
     // the coords shown for this are determined by the coords on the
     // "correct" graph. The start coords would not be used here.
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (isStatic) {
         return false;
     }

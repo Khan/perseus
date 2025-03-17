@@ -183,6 +183,7 @@ export class Categorizer
                                                                 styles.radioSpan,
                                                                 selected &&
                                                                     styles.checkedRadioSpan,
+                                                                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                                                 this.props
                                                                     .static &&
                                                                     selected &&

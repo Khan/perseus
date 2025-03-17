@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import _ from "underscore";
 

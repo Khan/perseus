@@ -18,7 +18,7 @@ export const widgetOptionsUpgrades = {
     },
     "1": (v0props: any): PerseusRadioWidgetOptions => {
         const {noneOfTheAbove, ...rest} = v0props;
-
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (noneOfTheAbove) {
             throw new Error(
                 "radio widget v0 no longer supports auto noneOfTheAbove",

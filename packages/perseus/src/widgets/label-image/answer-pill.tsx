@@ -73,6 +73,7 @@ export const AnswerPill = (props: {
                         styles.pill,
                         correct && styles.correct,
                         incorrect && styles.incorrect,
+                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         (focused || hovered) && BringToFront,
                     ]}
                 >

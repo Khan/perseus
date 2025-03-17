@@ -9,6 +9,7 @@ const LockedVector = (props: LockedVectorType) => {
     const {color, points, ariaLabel} = props;
     const [tail, tip] = points;
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const hasAria = !!ariaLabel;
 
     return (

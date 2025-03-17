@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable prettier/prettier */
 /* eslint-disable import/order */
 /* TODO: fix these lint errors (http://eslint.org/docs/rules): */

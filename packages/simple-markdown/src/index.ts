@@ -380,8 +380,10 @@ var parserFor = function (
                 currRule = rules[currRuleType];
             } while (
                 // keep looping while we're still within the ruleList
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 currRule &&
                 // if we don't have a match yet, continue
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 (!capture ||
                     // or if we have a match, but the next rule is
                     // at the same order, and has a quality measurement
@@ -405,6 +407,7 @@ var parserFor = function (
                 );
             }
             // @ts-expect-error - TS2339 - Property 'index' does not exist on type 'never'.
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (capture.index) {
                 // If present and non-zero, i.e. a non-^ regexp result:
                 throw new Error(
@@ -451,6 +454,7 @@ var parserFor = function (
         state?: State | null,
     ): Array<SingleASTNode> {
         latestState = populateInitialState(state, defaultState);
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!latestState.inline && !latestState.disableAutoBlockNewlines) {
             source = source + "\n\n";
         }
@@ -473,6 +477,7 @@ var inlineRegex = function (regex: RegExp): MatchFunction {
         state: State,
         prevCapture: string,
     ): Capture | null | undefined {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (state.inline) {
             return regex.exec(source);
         } else {
@@ -488,6 +493,7 @@ var inlineRegex = function (regex: RegExp): MatchFunction {
 // Creates a match function for a block scoped element from a regex
 var blockRegex = function (regex: RegExp): MatchFunction {
     var match: MatchFunction = function (source, state) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (state.inline) {
             return null;
         } else {
@@ -509,7 +515,9 @@ var anyScopeRegex = function (regex: RegExp): MatchFunction {
 
 var TYPE_SYMBOL =
     (typeof Symbol === "function" &&
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         Symbol.for &&
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         Symbol.for("react.element")) ||
     0xeac7;
 
@@ -554,6 +562,7 @@ var htmlTag = function (
         // Removes falsey attributes
         if (
             Object.prototype.hasOwnProperty.call(attributes, attr) &&
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             attribute
         ) {
             attributeString +=
@@ -562,7 +571,7 @@ var htmlTag = function (
     }
 
     var unclosedTag = "<" + tagName + attributeString + ">";
-
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (isClosed) {
         return unclosedTag + content + "</" + tagName + ">";
     } else {
@@ -630,6 +639,7 @@ var parseInline = function (
     content: string,
     state: State,
 ): ASTNode {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     var isCurrentlyInline = state.inline || false;
     state.inline = true;
     var result = parse(content, state);
@@ -642,6 +652,7 @@ var parseBlock = function (
     content: string,
     state: State,
 ): ASTNode {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     var isCurrentlyInline = state.inline || false;
     state.inline = false;
     var result = parse(content + "\n\n", state);
@@ -870,6 +881,7 @@ var parseRef = function (
     // state). If the def for this reflink/refimage has
     // already been seen, we can use its target/source
     // and title here:
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (state._defs && state._defs[ref]) {
         var def = state._defs[ref];
         // `refNode` can be a link or an image. Both use
@@ -884,7 +896,9 @@ var parseRef = function (
     // we find the def, we can modify this link/image AST
     // node :).
     // I'm sorry.
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     state._refs = state._refs || {};
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     state._refs[ref] = state._refs[ref] || [];
     state._refs[ref].push(refNode);
 
@@ -1008,6 +1022,7 @@ var defaultRules: DefaultRules = {
             };
         },
         react: function (node, output, state) {
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             var className = node.lang
                 ? "markdown-code-" + node.lang
                 : undefined;
@@ -1020,6 +1035,7 @@ var defaultRules: DefaultRules = {
             });
         },
         html: function (node, output, state) {
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             var className = node.lang
                 ? "markdown-code-" + node.lang
                 : undefined;
@@ -1077,8 +1093,9 @@ var defaultRules: DefaultRules = {
             var prevCaptureStr =
                 state.prevCapture == null ? "" : state.prevCapture[0];
             var isStartOfLineCapture = LIST_LOOKBEHIND_R.exec(prevCaptureStr);
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             var isListBlock = state._list || !state.inline;
-
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (isStartOfLineCapture && isListBlock) {
                 source = isStartOfLineCapture[1] + source;
                 return LIST_R.exec(source);
@@ -1169,6 +1186,7 @@ var defaultRules: DefaultRules = {
             };
         },
         react: function (node, output, state) {
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             var ListWrapper = node.ordered ? "ol" : "ul";
 
             return reactElement(ListWrapper, state.key, {
@@ -1186,7 +1204,7 @@ var defaultRules: DefaultRules = {
                     return htmlTag("li", output(item, state));
                 })
                 .join("");
-
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             var listTag = node.ordered ? "ol" : "ul";
             var attributes = {
                 start: node.start,
@@ -1214,6 +1232,7 @@ var defaultRules: DefaultRules = {
             // that list of reflinks for this def, and modify those AST nodes
             // with our newly found information now.
             // Sorry :(.
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (state._refs && state._refs[def]) {
                 // `refNode` can be a link or an image
                 state._refs[def].forEach(function (refNode: RefNode) {
@@ -1227,6 +1246,7 @@ var defaultRules: DefaultRules = {
             // this def yet, we add our def to the table of known defs, so
             // that future reflinks can modify themselves appropriately with
             // this information.
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             state._defs = state._defs || {};
             state._defs[def] = {
                 target: target,
@@ -1384,6 +1404,7 @@ var defaultRules: DefaultRules = {
     tableSeparator: {
         order: currOrder++,
         match: function (source, state) {
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (!state.inTable) {
                 return null;
             }
@@ -1728,6 +1749,7 @@ var ruleOutput = function <Rule>(
     rules: OutputRules<Rule>,
     property: keyof Rule,
 ) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!property && typeof console !== "undefined") {
         console.warn(
             "simple-markdown ruleOutput should take 'react' or " +
@@ -1808,6 +1830,7 @@ var outputFor = function <Rule>(
     property: keyof Rule,
     defaultState: State | null = {},
 ) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!property) {
         throw new Error(
             "simple-markdown: outputFor: `property` must be " +
@@ -1823,6 +1846,7 @@ var outputFor = function <Rule>(
     // Tricks to convince tsc that this var is not null:
     // @ts-expect-error - TS2538 - Type 'symbol' cannot be used as an index type.
     var arrayRuleCheck = arrayRule[property];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!arrayRuleCheck) {
         throw new Error(
             "simple-markdown: outputFor: to join nodes of type `" +

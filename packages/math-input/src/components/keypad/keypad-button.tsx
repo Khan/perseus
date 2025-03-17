@@ -29,6 +29,7 @@ export const KeypadButton = ({
     secondary,
     action,
 }: KeypadButtonProps): React.ReactElement => {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const tintColor = secondary ? "#F6F6F7" : action ? "#DBDCDD" : undefined;
 
     return (

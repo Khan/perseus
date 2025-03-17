@@ -22,6 +22,7 @@ const LockedFunction = (props: LockedFunctionType) => {
         domain,
     };
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const hasAria = !!props.ariaLabel;
 
     useEffect(() => {

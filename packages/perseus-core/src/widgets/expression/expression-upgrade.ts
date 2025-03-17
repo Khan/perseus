@@ -14,6 +14,7 @@ export const widgetOptionsUpgrades = {
             visibleLabel: v1options.visibleLabel,
             ariaLabel: v1options.ariaLabel,
             answerForms: v1options.answerForms,
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             extraKeys: v1options.extraKeys || deriveExtraKeys(v1options),
         };
     },

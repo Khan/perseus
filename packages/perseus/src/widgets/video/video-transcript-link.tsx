@@ -55,6 +55,7 @@ const VideoTranscriptLink = (props: Props): React.ReactElement => {
                     <Link
                         href={
                             "/transcript/" +
+                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                             (video?.contentId || "videoNotFound")
                         }
                         target="_blank"

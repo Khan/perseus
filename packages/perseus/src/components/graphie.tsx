@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {approximateDeepEqual, Errors} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";

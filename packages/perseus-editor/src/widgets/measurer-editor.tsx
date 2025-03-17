@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
 import {measurerLogic} from "@khanacademy/perseus-core";

@@ -35,6 +35,7 @@ const objectEntry = function (before: any, after: any, key) {
     const keys = _.union(beforeKeys, afterKeys);
 
     const children = _.map(keys, function (key) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         return performDiff((before || {})[key], (after || {})[key], key);
     });
 

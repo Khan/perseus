@@ -4,6 +4,7 @@ export const debounce = <T extends unknown[]>(
 ): ((...args: T) => void) => {
     let timer: number | null = null;
     return (...args: T) => {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (timer) {
             clearTimeout(timer);
         }

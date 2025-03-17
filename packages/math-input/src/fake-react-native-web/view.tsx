@@ -67,6 +67,7 @@ class View extends React.Component<Props> {
                     ? this.props.style
                     : [this.props.style]),
             ) +
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             (this.props.extraClassName ? ` ${this.props.extraClassName}` : "");
 
         return (
