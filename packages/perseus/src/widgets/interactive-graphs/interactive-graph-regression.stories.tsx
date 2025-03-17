@@ -1,4 +1,5 @@
 import {splitPerseusItem} from "@khanacademy/perseus-core";
+import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import {ApiOptions} from "../../perseus-api";
@@ -19,6 +20,13 @@ const meta: Meta<typeof MafsQuestionRenderer> = {
     parameters: {
         chromatic: {disableSnapshot: false},
     },
+    decorators: (Story) => (
+        // Add margin so we can look at individual story canvases for
+        // graphs that have axis ticks off the graph.
+        <View style={{marginInlineStart: 32}}>
+            <Story />
+        </View>
+    ),
 };
 export default meta;
 
@@ -186,6 +194,50 @@ export const MafsWithXAxisAtTop: Story = {
 export const MafsWithXAxisOffTop: Story = {
     args: {
         question: interactiveGraphQuestionBuilder().withYRange(-20, -1).build(),
+    },
+};
+
+export const MafsWithLabelsAlongEdge: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withXRange(0, 10)
+            .withYRange(0, 10)
+            .withAxisLabels(
+                "Video Game Hours per Week",
+                "Reaction Time (milliseconds)",
+            )
+            .withLabelLocation("alongEdge")
+            .build(),
+    },
+};
+
+export const MafsWithLabelsAlongEdgeJustOverLeft: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withXRange(-1, 10)
+            .withYRange(-1, 10)
+            .withAxisLabels(
+                "Video Game Hours per Week",
+                "Reaction Time (milliseconds)",
+            )
+            .withLabelLocation("alongEdge")
+            .build(),
+    },
+};
+
+export const MafsWithLabelsAlongEdgeZoomed: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withXRange(0, 0.5)
+            .withYRange(0, 0.5)
+            .withTickStep(0.1, 0.1)
+            .withGridStep(0.1, 0.1)
+            .withAxisLabels(
+                "Video Game Hours per Week",
+                "Reaction Time (milliseconds)",
+            )
+            .withLabelLocation("alongEdge")
+            .build(),
     },
 };
 
