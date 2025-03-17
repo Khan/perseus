@@ -145,6 +145,7 @@ module.exports = {
         Empty: false,
         SpreadType: false,
     },
+    ignorePatterns: ['**/*.less'],
     overrides: [
         {
             files: ['**/*.less'],
