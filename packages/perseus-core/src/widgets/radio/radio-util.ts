@@ -67,6 +67,13 @@ function getRadioPublicWidgetOptions(
     options: PerseusRadioWidgetOptions,
 ): RadioPublicWidgetOptions {
     const {numCorrect, choices, multipleSelect, countChoices} = options;
+    // eslint-disable-next-line no-console -- TODO: remove console.log
+    console.log("parser choices", choices);
+    // eslint-disable-next-line no-console -- TODO: remove console.log
+    console.log(
+        "parser choices after map",
+        choices.map(getRadioChoicePublicData),
+    );
 
     return {
         ...options,

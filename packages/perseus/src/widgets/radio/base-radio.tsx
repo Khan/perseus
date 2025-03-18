@@ -252,6 +252,8 @@ const BaseRadio = function ({
     );
 
     const responsiveClassName = css(styles.responsiveFieldset);
+    // eslint-disable-next-line no-console -- TODO: remove console.log
+    console.log("choices before passing in to Choice: ", choices);
     const fieldset = (
         <fieldset
             className={`perseus-widget-radio-fieldset ${responsiveClassName}`}
