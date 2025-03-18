@@ -314,6 +314,7 @@ export default class Rule {
                 context,
             );
 
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (!error) {
                 return null; // No lint; we're done
             }
@@ -397,6 +398,7 @@ ${e.stack}`,
     static makePattern(
         pattern?: RegExp | string | null,
     ): RegExp | null | undefined {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!pattern) {
             return null;
         }

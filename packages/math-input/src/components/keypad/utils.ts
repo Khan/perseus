@@ -14,7 +14,7 @@ export function getCursorContextConfig(
     strings: MathInputStrings,
     cursorContext?: (typeof CursorContext)[keyof typeof CursorContext],
 ) {
-    if (!cursorContext) {
+    if (cursorContext == null) {
         return null;
     }
 

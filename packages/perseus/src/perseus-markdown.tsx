@@ -360,7 +360,7 @@ const getContent = (ast: any) => {
         .filter((object) => object != null && _.has(object, "type"))
         .value();
 
-    if (!children.length) {
+    if (children.length === 0) {
         return [];
     }
     const nestedContent = getContent(children);

@@ -101,6 +101,7 @@ class MathWrapper {
         const cursor = this.getCursor();
         const translator = this.mobileKeyTranslator[key];
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (translator) {
             translator(this.mathField, key);
         }
@@ -133,8 +134,10 @@ class MathWrapper {
      *                         should be placed
      */
     setCursorPosition(x: number, y: number, hitNode: HTMLElement) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const el = hitNode || document.elementFromPoint(x, y);
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (el) {
             const cursor = this.getCursor();
 

@@ -269,6 +269,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         const mathField = this.mathField();
 
         if (mathField) {
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (translator) {
                 translator(mathField, key);
             }

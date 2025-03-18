@@ -378,7 +378,7 @@ abstract class Expr {
         // the other Expr can have more variables than this one
         // this lets you multiply equations by other variables
         var same = function (array1, array2) {
-            return !_.difference(array1, array2).length;
+            return _.difference(array1, array2).length === 0;
         };
 
         var lower = function (array) {
@@ -434,7 +434,7 @@ abstract class Expr {
             this.getVars(/* excludeFunc */ false),
             other.getVars(/* excludeFunc */ false),
         );
-        if (!varAndFuncList.length && !this.has(Unit) && !other.has(Unit)) {
+        if ((varAndFuncList.length === 0) && !this.has(Unit) && !other.has(Unit)) {
             return equalNumbers(this.eval(), other.eval());
         }
 
@@ -918,8 +918,11 @@ export class Mul extends Seq {
             }
         });
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         var inverses = terms.inverse || [];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         var numbers: Num[] = (terms.number as Num[]) || [];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         var others = terms.other || [];
 
         var negatives = "";
@@ -999,7 +1002,7 @@ export class Mul extends Seq {
             numerator = tex ? tex : "1";
         }
 
-        if (!inverses.length) {
+        if (inverses.length === 0) {
             return negatives + numerator;
         } else {
             var denominator = new Mul(_.invoke(inverses, "asDivide"))
@@ -1166,8 +1169,11 @@ export class Mul extends Seq {
                 return "expr";
             }
         });
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         let trigs = (groupedPairs.trig as [Trig, Expr][]) || [];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         let logs = (groupedPairs.log as [Log, Expr][]) || [];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const exprs = groupedPairs.expr || [];
 
         if (trigs.length > 1) {
@@ -1271,7 +1277,7 @@ export class Mul extends Seq {
         // `partition` splits the terms into two Seqs - one containing
         // only Nums and the all non-Num nodes.
         var numbers = partitioned[0].terms as Num[];
-        var fold = numbers.length && _.all(numbers, (num) => num.n > 0);
+        var fold = (numbers.length > 0) && _.all(numbers, (num) => num.n > 0);
 
         if (fold) {
             // e.g. - x*2*3 -> x*-2*3
@@ -2620,7 +2626,7 @@ export class Abs extends Expr {
                 _.invoke(terms.number, "abs"),
             );
 
-            if (terms.other.length) {
+            if (terms.other.length > 0) {
                 positives.push(new Abs(new Mul(terms.other).flatten()));
             }
 
@@ -2773,12 +2779,12 @@ export class Eq extends Expr {
 
         const terms = factored.terms;
 
-        const hasVar = (term: Expr) => !!term.getVars().length;
+        const hasVar = (term: Expr) => !(term.getVars().length === 0);
         const isOne = (term: Expr) => term.equals(NumOne);
 
         const [adds, others] = partition(terms, isAdd);
 
-        if (adds.length && this.isEquality()) {
+        if ((adds.length > 0) && this.isEquality()) {
             // keep only Adds
             // e.g. 2xy(z+1)(=0) -> z+1(=0)
             return new Mul(adds).flatten();
@@ -2786,7 +2792,7 @@ export class Eq extends Expr {
 
         let denominator = others;
 
-        if (!adds.length) {
+        if (adds.length === 0) {
             // if no Adds, keep all variable terms to preserve meaning
             // e.g. 42xyz(=0) -> xyz(=0)
             denominator = _.reject(denominator, hasVar);

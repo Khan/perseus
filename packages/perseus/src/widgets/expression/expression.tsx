@@ -148,6 +148,7 @@ export class Expression
         // HACK: imperatively add an ID onto the Mathquill input
         // (which in mobile is a span; desktop a textarea)
         // in order to associate a visual label with it
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this.refs.input) {
             const isMobile = this.props.apiOptions.customKeypad;
             const container = ReactDOM.findDOMNode(this.refs.input);
@@ -209,6 +210,7 @@ export class Expression
     ) => {
         // TODO(jack): Disable icu for content creators here, or
         // make it so that solution answers with ','s or '.'s work
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const options = _.pick(props || this.props, "functions");
         _.extend(options, {
             decimal_separator: getDecimalSeparator(this.context.locale),
@@ -475,6 +477,7 @@ export default {
     getOneCorrectAnswerFromRubric(
         rubric: PerseusExpressionRubric,
     ): string | null | undefined {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const correctAnswers = (rubric.answerForms || []).filter(
             (answerForm) => answerForm.considered === "correct",
         );

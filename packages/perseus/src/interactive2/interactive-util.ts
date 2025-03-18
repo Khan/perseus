@@ -137,6 +137,7 @@ const InteractiveUtil = {
     getPrefixedTransform: function (): string | null | undefined {
         // Cache result to avoid re-computation
         // @ts-expect-error - TS2322 - Type 'string | null | undefined' is not assignable to type 'null'.
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         prefixedTransform = prefixedTransform || computePrefixedTransform();
         return prefixedTransform;
     },

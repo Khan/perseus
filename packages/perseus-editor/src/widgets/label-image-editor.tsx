@@ -68,7 +68,7 @@ class LabelImageEditor extends React.Component<Props> {
 
         // Automatically reveal their dropdowns as a prompt to the content
         // creator to select answers and set the ARIA label.
-        if (newIndices.length && this._questionMarkers) {
+        if (newIndices.length > 0 && this._questionMarkers) {
             this._questionMarkers.openDropdownForMarkerIndices(newIndices);
         }
     }
@@ -88,14 +88,14 @@ class LabelImageEditor extends React.Component<Props> {
             warnings.push("Question image has no alt text");
         }
 
-        if (!markers.length) {
+        if (markers.length === 0) {
             warnings.push("Question has no markers, to label answers on image");
         } else {
             let numNoAnswers = 0;
             let numNoLabels = 0;
 
             for (const marker of markers) {
-                if (!marker.answers.length) {
+                if (marker.answers.length === 0) {
                     numNoAnswers++;
                 }
 
@@ -104,6 +104,7 @@ class LabelImageEditor extends React.Component<Props> {
                 }
             }
 
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (numNoAnswers) {
                 warnings.push(
                     `Question has ${numNoAnswers} markers with no ` +
@@ -111,6 +112,7 @@ class LabelImageEditor extends React.Component<Props> {
                 );
             }
 
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (numNoLabels) {
                 warnings.push(
                     `Question has ${numNoLabels} markers with no ` +
@@ -193,6 +195,7 @@ class LabelImageEditor extends React.Component<Props> {
 
                 <div className={css(styles.smallSpacer)} />
 
+                {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                 {imageSelected && (
                     <FormWrappedTextField
                         placeholder="Alt text (for screen readers)"
@@ -206,6 +209,7 @@ class LabelImageEditor extends React.Component<Props> {
 
                 <QuestionMarkers
                     choices={choices}
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     imageUrl={imageSelected ? imageUrl : ""}
                     imageWidth={imageWidth}
                     imageHeight={imageHeight}

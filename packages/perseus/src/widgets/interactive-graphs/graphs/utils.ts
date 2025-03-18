@@ -259,6 +259,7 @@ export function getAngleFromPoints(points: Coord[], i: number) {
     const point = points.at(i);
     const pt1 = points.at(i - 1);
     const pt2 = points[(i + 1) % points.length];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!point || !pt1 || !pt2) {
         return null;
     }

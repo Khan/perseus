@@ -129,6 +129,7 @@ class HighlightSetRenderer extends React.PureComponent<Props, State> {
         return highlightKeys.find((key) => {
             const highlightRenderer = this._highlightRenderers[key];
             return (
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 highlightRenderer &&
                 highlightRenderer.isHovered(mouseClientPosition)
             );

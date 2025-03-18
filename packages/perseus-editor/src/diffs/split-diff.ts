@@ -21,7 +21,7 @@ const splitDiff = function (diffEntries: any): any {
         });
     });
 
-    if (currentLine.length) {
+    if (currentLine.length > 0) {
         // @ts-expect-error - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'never'.
         lines.push(currentLine);
     }

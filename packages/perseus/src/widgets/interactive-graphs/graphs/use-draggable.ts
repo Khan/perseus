@@ -113,6 +113,7 @@ export function useDraggable(args: Params): DragState {
                     -yDownDirection[Y],
                 ] as vec.Vector2;
 
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 const span = Math.abs(direction[X]) ? xSpan : ySpan;
 
                 let divisions = 50;

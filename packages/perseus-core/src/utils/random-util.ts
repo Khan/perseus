@@ -35,7 +35,7 @@ export function shuffle<T>(
 
     // Handle edge cases (input array is empty or uniform)
     if (
-        !shuffled.length ||
+        shuffled.length === 0 ||
         _.all(shuffled, function (value) {
             return _.isEqual(value, shuffled[0]);
         })

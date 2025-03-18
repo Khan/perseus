@@ -137,7 +137,7 @@ export function runLinter(
         // If the node we are currently at is a table, and there was lint
         // inside the table, then we want to add that lint here
         if (node.type === "table") {
-            if (tableWarnings.length) {
+            if (tableWarnings.length > 0) {
                 nodeWarnings.push(...tableWarnings);
             }
 
@@ -158,7 +158,7 @@ export function runLinter(
         // If we are inside a table and there were any warnings on
         // this node, then we need to save the warnings for display
         // on the table itself
-        if (insideTable && nodeWarnings.length) {
+        if (insideTable && nodeWarnings.length > 0) {
             // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
             tableWarnings.push(...nodeWarnings);
         }
@@ -176,7 +176,7 @@ export function runLinter(
         // Note that even if we're inside a table, we still reparent the
         // linty node so that it can be highlighted. We just make a note
         // of whether this lint is inside a table or not.
-        if (nodeWarnings.length) {
+        if (nodeWarnings.length > 0) {
             nodeWarnings.sort((a, b) => {
                 return a.severity - b.severity;
             });

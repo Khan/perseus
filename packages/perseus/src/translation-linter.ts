@@ -108,7 +108,7 @@ export default class TranslationLinter {
     ) {
         // These lint errors do not have position data associated with
         // them, so we just plop them at the top.
-        if (translationLintErrors.length) {
+        if (translationLintErrors.length > 0) {
             const errorText = translationLintErrors.join("\n\n");
             parsedMarkdown.unshift({
                 content: {

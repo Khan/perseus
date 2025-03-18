@@ -161,6 +161,7 @@ class ImageLoader extends React.Component<Props, State> {
                 return this.renderImg();
 
             case Status.FAILED:
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (this.props.children) {
                     return this.props.children;
                 }

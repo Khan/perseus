@@ -438,7 +438,7 @@ export class LabelImage
 
         this.handleMarkerChange(index, {
             ...markers[index],
-            selected: selected.length ? selected : undefined,
+            selected: selected.length > 0 ? selected : undefined,
         });
     }
     // TODO(LEMS-2723): Investigate if possible to change this to not require answers

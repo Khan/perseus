@@ -47,6 +47,7 @@ const KhanMath = {
         a = Math.abs(a);
         b = Math.abs(b);
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         while (b) {
             mod = a % b;
             a = b;
@@ -77,9 +78,11 @@ const KhanMath = {
             return false;
         }
         if (n < 101) {
-            return !!$.grep(KhanMath.primes, function (p, i) {
-                return Math.abs(p - n) <= 0.5;
-            }).length;
+            return !(
+                $.grep(KhanMath.primes, function (p, i) {
+                    return Math.abs(p - n) <= 0.5;
+                }).length === 0
+            );
         }
         if (n <= 1 || (n > 2 && n % 2 === 0)) {
             return false;
@@ -270,6 +273,7 @@ const KhanMath = {
                 const integer = (numerator - modulus) / denominator;
                 return (
                     sign +
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     (integer ? integer + " " : "") +
                     modulus +
                     "/" +

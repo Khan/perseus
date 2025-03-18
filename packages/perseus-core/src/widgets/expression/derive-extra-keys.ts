@@ -71,7 +71,7 @@ function deriveExtraKeys(
     ).sort() as ReadonlyArray<KeypadKey>;
 
     const extraKeys = [...extraVariables, ...extraConstants];
-    if (!extraKeys.length) {
+    if (extraKeys.length === 0) {
         return defaultKeys;
     }
 

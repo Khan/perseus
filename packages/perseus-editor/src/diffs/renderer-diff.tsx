@@ -104,7 +104,7 @@ class RendererDiff extends React.Component<Props> {
             after.content.includes(widget),
         );
 
-        if (beforeWidgets.length || afterWidgets.length) {
+        if (beforeWidgets.length > 0 || afterWidgets.length > 0) {
             const widgets = _.union(beforeWidgets, afterWidgets);
             widgetsDiff = widgets.map((widget) => (
                 <WidgetDiff
