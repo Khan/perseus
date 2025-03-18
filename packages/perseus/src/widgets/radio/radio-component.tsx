@@ -388,6 +388,14 @@ class Radio extends React.Component<Props> implements Widget {
             }));
         }
 
+        // eslint-disable-next-line no-console
+        console.log("choices in radio-component", choices);
+        // eslint-disable-next-line no-console
+        console.log(
+            "reviewModeRubric.choices in radio-component",
+            this.props.reviewModeRubric?.choices,
+        );
+
         const choicesProp: ReadonlyArray<ChoiceType> = choices.map(
             (choice, i) => {
                 const content =
