@@ -70,11 +70,15 @@ const _choiceTransform = (
     };
 
     // Add meta-information to choices
+
     const choices: ReadonlyArray<RadioChoiceWithMetadata> =
         widgetOptions.choices.map((choice, i): RadioChoiceWithMetadata => {
+            // eslint-disable-next-line no-console
+            console.log("choice top level", choice);
             return {
                 ...choice,
                 originalIndex: i,
+                correct: Boolean(choice.correct),
             };
         });
 
