@@ -53,8 +53,6 @@ export const RendererWithDebugUI = ({
         ? splitPerseusItem(question)
         : question;
 
-    console.log(renderedQuestion);
-
     return (
         <SplitView
             rendererTitle={
