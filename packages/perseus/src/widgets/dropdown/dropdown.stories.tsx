@@ -41,3 +41,7 @@ export const DropdownWithEmptyPlaceholder = (
 ): React.ReactElement => {
     return <RendererWithDebugUI question={dropdownWithEmptyPlaceholder} />;
 };
+
+export const DropdownWithNoAnswers = (args: StoryArgs): React.ReactElement => {
+    return <RendererWithDebugUI question={basicDropdown} answerless={true} />;
+};
