@@ -70,6 +70,7 @@ export type MafsGraphProps = {
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
     labels: ReadonlyArray<string>;
+    labelLocation?: InteractiveGraphProps["labelLocation"];
     fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
     fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     state: InteractiveGraphState;
@@ -83,6 +84,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
         state,
         dispatch,
         labels,
+        labelLocation,
         readOnly,
         fullGraphAriaLabel,
         fullGraphAriaDescription,
@@ -164,6 +166,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 width,
                 height,
                 labels,
+                labelLocation,
                 disableKeyboardInteraction: disableInteraction,
                 // If the graph is read-only or static, we want to make it
                 // visually clear that the graph is no longer interactive.

@@ -118,39 +118,6 @@ function handleBackspaceInLogIndex(
     }
 }
 
-function handleBackspaceOutsideParens(cursor: MathQuill.Cursor) {
-    // In this case the node with '\\left(' for its ctrlSeq
-    // is the parent of the expression contained within the
-    // parentheses.
-    //
-    // Handle selecting an expression before deleting:
-    // (x+1)| => |(x+1)|
-    // \log(x+1)| => |\log(x+1)|
-
-    const leftNode = cursor[mathQuillInstance.L];
-    const rightNode = cursor[mathQuillInstance.R];
-    const command = maybeFindCommandBeforeParens(leftNode);
-
-    if (command && command.startNode) {
-        // There's a command before the parens so we select it as well as
-        // the parens.
-        cursor.insLeftOf(command.startNode);
-        cursor.startSelection();
-        if (rightNode === MathFieldActionType.MQ_END) {
-            cursor.insAtRightEnd(cursor.parent);
-        } else {
-            cursor.insLeftOf(rightNode);
-        }
-        cursor.select();
-        cursor.endSelection();
-    } else {
-        cursor.startSelection();
-        cursor.insLeftOf(leftNode); // left of \\left(
-        cursor.select();
-        cursor.endSelection();
-    }
-}
-
 function handleBackspaceInsideParens(
     mathField: MathFieldInterface,
     cursor: MathQuill.Cursor,
@@ -248,8 +215,6 @@ function handleBackspace(mathField: MathFieldInterface) {
             selectNode(leftNode, cursor);
         } else if (isNthRootIndex(parent)) {
             handleBackspaceInRootIndex(mathField, cursor);
-        } else if (leftNode.ctrlSeq === "\\left(") {
-            handleBackspaceOutsideParens(cursor);
         } else if (grandparent.ctrlSeq === "\\left(") {
             handleBackspaceInsideParens(mathField, cursor);
         } else if (isInsideLogIndex(cursor)) {
