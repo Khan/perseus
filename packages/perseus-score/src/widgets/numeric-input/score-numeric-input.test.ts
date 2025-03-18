@@ -545,10 +545,20 @@ describe("scoreNumericInput", () => {
         }),
     };
 
-    // NOTE(benchristel): "accepted" is not a valid value for `simplify`
-    // according to our types, but it appears in production data. The tests
-    // for "accepted" characterize the current behavior as of 2025-03-13.
-    // Note that "accepted" is treated the same as "required".
+    // Tests for the "simplify" widget option:
+    //
+    // - simplify: "enforced" means unsimplified fractions are marked incorrect.
+    // - simplify: "required" means unsimplified fractions are returned as
+    //   invalid, and the learner can try again.
+    // - simplify: "optional" means unsimplified fractions are accepted as
+    //   correct.
+    //
+    // NOTE(benchristel): "accepted", "correct", booleans, undefined, and null
+    // are treated the same as "required". They are not valid values for
+    // `simplify` according to our types, but they appear in production data.
+    // The tests for these values characterize the current behavior as of
+    // 2025-03-18. Note that "accepted", "correct", booleans, undefined, and
+    // null are treated the same as "required".
     it.each`
         simplify      | answer | userInput | expected
         ${"enforced"} | ${0.5} | ${"2/4"}  | ${"incorrect"}
@@ -563,6 +573,21 @@ describe("scoreNumericInput", () => {
         ${"accepted"} | ${0.5} | ${"2/4"}  | ${"invalid"}
         ${"accepted"} | ${0.5} | ${"1/2"}  | ${"correct"}
         ${"accepted"} | ${0.5} | ${"2/3"}  | ${"incorrect"}
+        ${"correct"}  | ${0.5} | ${"2/4"}  | ${"invalid"}
+        ${"correct"}  | ${0.5} | ${"1/2"}  | ${"correct"}
+        ${"correct"}  | ${0.5} | ${"2/3"}  | ${"incorrect"}
+        ${undefined}  | ${0.5} | ${"2/4"}  | ${"invalid"}
+        ${undefined}  | ${0.5} | ${"1/2"}  | ${"correct"}
+        ${undefined}  | ${0.5} | ${"2/3"}  | ${"incorrect"}
+        ${null}       | ${0.5} | ${"2/4"}  | ${"invalid"}
+        ${null}       | ${0.5} | ${"1/2"}  | ${"correct"}
+        ${null}       | ${0.5} | ${"2/3"}  | ${"incorrect"}
+        ${false}      | ${0.5} | ${"2/4"}  | ${"invalid"}
+        ${false}      | ${0.5} | ${"1/2"}  | ${"correct"}
+        ${false}      | ${0.5} | ${"2/3"}  | ${"incorrect"}
+        ${true}       | ${0.5} | ${"2/4"}  | ${"invalid"}
+        ${true}       | ${0.5} | ${"1/2"}  | ${"correct"}
+        ${true}       | ${0.5} | ${"2/3"}  | ${"incorrect"}
     `(
         "with simplify: $simplify, marks $userInput $expected for $answer",
         ({simplify, answer, userInput, expected}) => {
