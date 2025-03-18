@@ -9,6 +9,7 @@ import deviceMobile from "@phosphor-icons/core/regular/device-mobile.svg";
 import * as React from "react";
 import ReactJson from "react-json-view";
 
+import {splitPerseusItem} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import {Renderer, usePerseusI18n} from "../packages/perseus/src/index";
@@ -21,6 +22,7 @@ import type {ComponentProps} from "react";
 
 type Props = {
     question: PerseusRenderer;
+    answerless?: boolean;
 } & Partial<
     Omit<
         ComponentProps<typeof Renderer>,
@@ -32,6 +34,7 @@ export const RendererWithDebugUI = ({
     question,
     apiOptions,
     reviewMode = false,
+    answerless = false,
     ...rest
 }: Props): React.ReactElement => {
     registerAllWidgetsForTesting();
@@ -45,6 +48,12 @@ export const RendererWithDebugUI = ({
         isMobile,
         customKeypad: isMobile, // Use the mobile keypad for mobile
     };
+
+    const renderedQuestion: PerseusRenderer = answerless
+        ? splitPerseusItem(question)
+        : question;
+
+    console.log(renderedQuestion);
 
     return (
         <SplitView
@@ -72,13 +81,14 @@ export const RendererWithDebugUI = ({
                         <Renderer
                             // @ts-expect-error - TS2322 - Type 'MutableRefObject<Renderer | null | undefined>' is not assignable to type 'LegacyRef<Renderer> | undefined'.
                             ref={ref}
-                            content={question.content}
+                            content={renderedQuestion.content}
                             images={question.images}
                             widgets={question.widgets}
                             problemNum={0}
                             apiOptions={controlledAPIOptions}
                             reviewMode={reviewMode}
                             strings={strings}
+                            answerless={answerless}
                             {...rest}
                         />
                     </View>
