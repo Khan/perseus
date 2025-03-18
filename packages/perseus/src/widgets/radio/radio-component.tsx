@@ -447,7 +447,8 @@ class Radio extends React.Component<Props> implements Widget {
                 };
             },
         );
-
+        // eslint-disable-next-line no-console
+        console.log("choicesProp in radio-component", choicesProp);
         return (
             <BaseRadio
                 labelWrap={true}
