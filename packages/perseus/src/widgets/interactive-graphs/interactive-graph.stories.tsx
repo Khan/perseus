@@ -27,6 +27,7 @@ import {
     staticGraphQuestionWithAnotherWidget,
     segmentWithLockedLabels,
     unlimitedPolygonQuestion,
+    unlimitedPolygonWithCorrectAnswerQuestion,
 } from "./interactive-graph.testdata";
 
 const defaultApiOptions = ApiOptions.defaults;
@@ -210,7 +211,7 @@ export const UnlimitedPolygonWithoutAnswers = (
     args: StoryArgs,
 ): React.ReactElement => (
     <RendererWithDebugUI
-        question={unlimitedPolygonQuestion}
+        question={unlimitedPolygonWithCorrectAnswerQuestion}
         answerless={true}
     />
 );
