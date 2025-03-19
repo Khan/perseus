@@ -81,9 +81,9 @@ export const RendererWithDebugUI = ({
                         <Renderer
                             // @ts-expect-error - TS2322 - Type 'MutableRefObject<Renderer | null | undefined>' is not assignable to type 'LegacyRef<Renderer> | undefined'.
                             ref={ref}
-                            content={renderedQuestion.content}
+                            content={question.content}
                             images={question.images}
-                            widgets={question.widgets}
+                            widgets={renderedQuestion.widgets}
                             problemNum={0}
                             apiOptions={controlledAPIOptions}
                             reviewMode={reviewMode}
