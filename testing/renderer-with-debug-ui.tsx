@@ -46,8 +46,6 @@ export const RendererWithDebugUI = ({
         customKeypad: isMobile, // Use the mobile keypad for mobile
     };
 
-    console.log("question", question);
-
     return (
         <SplitView
             rendererTitle={
