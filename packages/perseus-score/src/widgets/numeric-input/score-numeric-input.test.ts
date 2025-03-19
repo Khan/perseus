@@ -529,22 +529,6 @@ describe("scoreNumericInput", () => {
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
-    const answerMatchers = {
-        incorrect: expect.objectContaining({
-            type: "points",
-            earned: 0,
-        }),
-
-        correct: expect.objectContaining({
-            type: "points",
-            earned: 1,
-        }),
-
-        invalid: expect.objectContaining({
-            type: "invalid",
-        }),
-    };
-
     // Tests for the "simplify" widget option:
     //
     // - simplify: "enforced" means unsimplified fractions are marked incorrect.
@@ -559,44 +543,43 @@ describe("scoreNumericInput", () => {
     // The tests for these values characterize the current behavior as of
     // 2025-03-18. Note that "accepted", "correct", booleans, undefined, and
     // null are treated the same as "required".
-    it.each`
-        simplify      | answer | userInput | expected
-        ${"enforced"} | ${0.5} | ${"2/4"}  | ${"incorrect"}
-        ${"enforced"} | ${0.5} | ${"1/2"}  | ${"correct"}
-        ${"enforced"} | ${0.5} | ${"2/3"}  | ${"incorrect"}
-        ${"optional"} | ${0.5} | ${"2/4"}  | ${"correct"}
-        ${"optional"} | ${0.5} | ${"1/2"}  | ${"correct"}
-        ${"optional"} | ${0.5} | ${"2/3"}  | ${"incorrect"}
-        ${"required"} | ${0.5} | ${"2/4"}  | ${"invalid"}
-        ${"required"} | ${0.5} | ${"1/2"}  | ${"correct"}
-        ${"required"} | ${0.5} | ${"2/3"}  | ${"incorrect"}
-        ${"accepted"} | ${0.5} | ${"2/4"}  | ${"invalid"}
-        ${"accepted"} | ${0.5} | ${"1/2"}  | ${"correct"}
-        ${"accepted"} | ${0.5} | ${"2/3"}  | ${"incorrect"}
-        ${"correct"}  | ${0.5} | ${"2/4"}  | ${"invalid"}
-        ${"correct"}  | ${0.5} | ${"1/2"}  | ${"correct"}
-        ${"correct"}  | ${0.5} | ${"2/3"}  | ${"incorrect"}
-        ${undefined}  | ${0.5} | ${"2/4"}  | ${"invalid"}
-        ${undefined}  | ${0.5} | ${"1/2"}  | ${"correct"}
-        ${undefined}  | ${0.5} | ${"2/3"}  | ${"incorrect"}
-        ${null}       | ${0.5} | ${"2/4"}  | ${"invalid"}
-        ${null}       | ${0.5} | ${"1/2"}  | ${"correct"}
-        ${null}       | ${0.5} | ${"2/3"}  | ${"incorrect"}
-        ${false}      | ${0.5} | ${"2/4"}  | ${"invalid"}
-        ${false}      | ${0.5} | ${"1/2"}  | ${"correct"}
-        ${false}      | ${0.5} | ${"2/3"}  | ${"incorrect"}
-        ${true}       | ${0.5} | ${"2/4"}  | ${"invalid"}
-        ${true}       | ${0.5} | ${"1/2"}  | ${"correct"}
-        ${true}       | ${0.5} | ${"2/3"}  | ${"incorrect"}
-    `(
-        "with simplify: $simplify, marks $userInput $expected for $answer",
-        ({simplify, answer, userInput, expected}) => {
+    describe.each`
+        simplify      | unsimplifiedFractionScore
+        ${"enforced"} | ${"incorrect"}
+        ${"optional"} | ${"correct"}
+        ${"required"} | ${"invalid"}
+        ${"accepted"} | ${"invalid"}
+        ${"correct"}  | ${"invalid"}
+        ${undefined}  | ${"invalid"}
+        ${null}       | ${"invalid"}
+        ${false}      | ${"invalid"}
+        ${true}       | ${"invalid"}
+    `("with simplify: $simplify", ({simplify, unsimplifiedFractionScore}) => {
+        it(`marks unsimplified fractions ${unsimplifiedFractionScore}`, () => {
+            const answerMatchers = {
+                incorrect: expect.objectContaining({
+                    type: "points",
+                    earned: 0,
+                }),
+
+                correct: expect.objectContaining({
+                    type: "points",
+                    earned: 1,
+                }),
+
+                invalid: expect.objectContaining({
+                    type: "invalid",
+                }),
+            };
+
+            const expected = answerMatchers[unsimplifiedFractionScore];
+
             // Arrange
             const rubric: PerseusNumericInputRubric = {
                 coefficient: false,
                 answers: [
                     {
-                        value: answer,
+                        value: 0.5,
                         status: "correct",
                         maxError: 0,
                         simplify,
@@ -607,12 +590,58 @@ describe("scoreNumericInput", () => {
             };
 
             // Act
-            const score = scoreNumericInput({currentValue: userInput}, rubric);
+            const score = scoreNumericInput({currentValue: "2/4"}, rubric);
 
             // Assert
-            expect(score).toEqual(answerMatchers[expected]);
-        },
-    );
+            expect(score).toEqual(expected);
+        });
+
+        it("marks a simplified fraction correct", () => {
+            // Arrange
+            const rubric: PerseusNumericInputRubric = {
+                coefficient: false,
+                answers: [
+                    {
+                        value: 0.5,
+                        status: "correct",
+                        maxError: 0,
+                        simplify,
+                        strict: false,
+                        message: "",
+                    },
+                ],
+            };
+
+            // Act
+            const score = scoreNumericInput({currentValue: "1/2"}, rubric);
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        });
+
+        it("marks an incorrect fraction incorrect", () => {
+            // Arrange
+            const rubric: PerseusNumericInputRubric = {
+                coefficient: false,
+                answers: [
+                    {
+                        value: 0.5,
+                        status: "correct",
+                        maxError: 0,
+                        simplify,
+                        strict: false,
+                        message: "",
+                    },
+                ],
+            };
+
+            // Act
+            const score = scoreNumericInput({currentValue: "2/3"}, rubric);
+
+            // Assert
+            expect(score).toHaveBeenAnsweredIncorrectly();
+        });
+    });
 });
 
 describe("maybeParsePercentInput utility function", () => {
