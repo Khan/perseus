@@ -32,7 +32,7 @@ const parseMathFormat = enumeration(
     "pi",
 );
 
-const parseSimplify = pipeParsers(
+export const parseSimplify = pipeParsers(
     union(constant(null))
         .or(constant(undefined))
         .or(boolean)
