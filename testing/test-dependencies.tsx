@@ -36,16 +36,7 @@ export const testDependencies: PerseusDependencies = {
         addComponent: (renderer) => -1,
         removeComponentAtIndex: (index) => {},
     },
-    // The KaTeX used in the 'should replace deprecated alignment tags in inline
-    // math' test uses the `align` environment. This results in `array` nodes in
-    // the parsed KaTeX node tree. When the Tex component tries to build an a11y
-    // string for it, KaTeX throws an error because render-a11y-string.js doesn't
-    // support `array` nodes. It then logs the error it to the server. However,
-    // there is throttling code in the logKaTeXError() function which only reports
-    // the error 1% of the time... so this causes _very_ rare test failures.
-    // Mocking this here so that we don't fail because of this issue.
-    logKaTeXError: (expression: string, error: Error): Promise<any> =>
-        Promise.resolve({}),
+
     TeX: ({children}: {children: React.ReactNode}) => {
         return <span className="mock-TeX">{children}</span>;
     },
