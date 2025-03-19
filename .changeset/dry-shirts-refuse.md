@@ -3,4 +3,4 @@
 "@khanacademy/perseus": patch
 ---
 
-[LEMS-2880] Bugfix the close button focus outline on hover in keypad and other style issues
+Fix expression widget styling issues. Close button focus outline is now visible, backspace button styling is now consistent with other buttons, and adjusted the popover padding.
