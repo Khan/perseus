@@ -18,7 +18,7 @@ type AddAnswerProps = {
 };
 
 type AnswerProps = {
-    // The answer string, can be plain text or a KaTeX expression.
+    // The answer string, can be plain text or a TeX expression.
     answer: string;
     // Callback for when an answer is changed.
     onChange: (answer: string) => void;
