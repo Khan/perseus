@@ -103,13 +103,24 @@ export const clampLabelPosition = (
     labelPosition: vec.Vector2,
     graphInfo: GraphDimensions,
 ): vec.Vector2 => {
+    // Clamp the label position to ensure that the labels do not go too far outside of the graph bounds.
+    // Unfortuantely, this logic is a little complex as we have to account for both the positive and negative
+    // ranges of the graph, and the variable position of the axis tick labels.
     const x = Math.max(
-        Math.min(labelPosition[X], graphInfo.width + fontSize * 1.25), // The maximum x value is the width of the graph + 2 font sizes
-        -fontSize * 1.5, // The minimum x value is -1.5 font sizes
+        // The maximum x value is the width of the graph + 1.25 font sizes, which aligns the label with the axis ticks
+        // when the x-axis is out of bounds to the right of the graph.
+        Math.min(labelPosition[X], graphInfo.width + fontSize * 1.25),
+        // The minimum x value is -1.5 font sizes, as this aligns the label with the axis ticks
+        // when the y-axis is out of bounds to the left of the graph.
+        -fontSize * 1.5,
     );
     const y = Math.max(
-        Math.min(labelPosition[Y], graphInfo.height + fontSize * 1.25), // The maximum y value is the height of the graph + 1.25 font sizes
-        -fontSize * 2, // The minimum y value is -2 font sizes
+        // The maximum y value is the height of the graph + 1.25 font sizes, which aligns the label with the axis ticks
+        // when the y-axis is out of bounds below the graph.
+        Math.min(labelPosition[Y], graphInfo.height + fontSize * 1.25),
+        // The minimum y value is -2 font sizes, which aligns the label with the axis ticks
+        // when the y-axis is out of bounds above the graph.
+        -fontSize * 2,
     );
     return [x, y];
 };
@@ -166,5 +177,6 @@ export const getLabelPosition = (
     // Clamp the label positions to ensure that the labels do not go too far outside of the graph bounds.
     xLabel = clampLabelPosition(xLabel, graphInfo);
     yLabel = clampLabelPosition(yLabel, graphInfo);
+
     return [xLabel, yLabel];
 };
