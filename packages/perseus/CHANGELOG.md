@@ -1,5 +1,91 @@
 # @khanacademy/perseus
 
+## 57.0.0
+
+### Major Changes
+
+-   [#2303](https://github.com/Khan/perseus/pull/2303) [`5e7a6084c`](https://github.com/Khan/perseus/commit/5e7a6084ca141db5c908da2c4b2ffd959e7c5683) Thanks [@benchristel](https://github.com/benchristel)! - Drop support for using KaTeX as a math renderer. You may encounter styling issues or TeX syntax errors if you try to implement `PerseusDependencies.TeX` using KaTeX.
+
+### Minor Changes
+
+-   [#2284](https://github.com/Khan/perseus/pull/2284) [`0d5ab0b2e`](https://github.com/Khan/perseus/commit/0d5ab0b2e5d079b8ac805077a2abad6bc5b2132d) Thanks [@nishasy](https://github.com/nishasy)! - Add new labelLocation value for Interactive Graphs
+
+*   [#875](https://github.com/Khan/perseus/pull/875) [`9737eb497`](https://github.com/Khan/perseus/commit/9737eb497861dd2283eb24e39eb9771a07391aa5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove deprecated khan-exercise.css
+
+-   [#2305](https://github.com/Khan/perseus/pull/2305) [`af6d89007`](https://github.com/Khan/perseus/commit/af6d890076adb186c6ba237a2d766b99e3eb75ff) Thanks [@Myranae](https://github.com/Myranae)! - Add a story for Dropdown that uses answerless data
+
+### Patch Changes
+
+-   [#2307](https://github.com/Khan/perseus/pull/2307) [`dd7b13a78`](https://github.com/Khan/perseus/commit/dd7b13a7881738e2a85d253f25b04243caf2b9a4) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Revert SSS temporarily for Radio to ensure Multiselect + Random answer correctness is accurate
+
+-   Updated dependencies [[`0d5ab0b2e`](https://github.com/Khan/perseus/commit/0d5ab0b2e5d079b8ac805077a2abad6bc5b2132d), [`fea65eaf1`](https://github.com/Khan/perseus/commit/fea65eaf12918e7e1b1e893bea80549e69313ce2)]:
+    -   @khanacademy/perseus-core@5.2.0
+    -   @khanacademy/keypad-context@1.1.3
+    -   @khanacademy/kmath@0.4.3
+    -   @khanacademy/math-input@23.0.2
+    -   @khanacademy/perseus-linter@1.3.3
+    -   @khanacademy/perseus-score@2.3.3
+
+## 56.2.0
+
+### Minor Changes
+
+-   [#2293](https://github.com/Khan/perseus/pull/2293) [`91e30c02c`](https://github.com/Khan/perseus/commit/91e30c02c15ddc7c811b658bdb052172739a690a) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Deprecate usage of PerseusErrorOccurred event logging in favor of PerseusErrorOccurredTI events.
+
+### Patch Changes
+
+-   [#2294](https://github.com/Khan/perseus/pull/2294) [`254fa3605`](https://github.com/Khan/perseus/commit/254fa360518ffd78cd26a0fb47fec2d53d9db948) Thanks [@nishasy](https://github.com/nishasy)! - [Polygon] Show right angle markers when showAngles is on
+
+-   Updated dependencies [[`91e30c02c`](https://github.com/Khan/perseus/commit/91e30c02c15ddc7c811b658bdb052172739a690a), [`59b932619`](https://github.com/Khan/perseus/commit/59b93261916bb3583ee84396693d84fe796aa5d4)]:
+    -   @khanacademy/perseus-core@5.1.0
+    -   @khanacademy/math-input@23.0.1
+    -   @khanacademy/keypad-context@1.1.2
+    -   @khanacademy/kmath@0.4.2
+    -   @khanacademy/perseus-linter@1.3.2
+    -   @khanacademy/perseus-score@2.3.2
+
+## 56.1.0
+
+### Minor Changes
+
+-   [#2288](https://github.com/Khan/perseus/pull/2288) [`7ef0dae77`](https://github.com/Khan/perseus/commit/7ef0dae779e5c8aaed6b21e86cba5baee8c0be86) Thanks [@nishasy](https://github.com/nishasy)! - Mark Interactive Graph Widget as accessible. (Content authors are no longer blocked from checking/unchecking the "Requires screen or mouse?" checkbox.)
+
+### Patch Changes
+
+-   [#2291](https://github.com/Khan/perseus/pull/2291) [`e87914dcd`](https://github.com/Khan/perseus/commit/e87914dcd2fc83b30053adbe064945d46ddb11e4) Thanks [@handeyeco](https://github.com/handeyeco)! - Update snapshots as a result of bumping Wonder Blocks
+
+*   [#2283](https://github.com/Khan/perseus/pull/2283) [`0438f6331`](https://github.com/Khan/perseus/commit/0438f6331c06e026f815d4087f76fe77acafa312) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bugfix to ensure that the Interactive Graph Editor updates the Polygon start coords if the number of sides change.
+
+-   [#2287](https://github.com/Khan/perseus/pull/2287) [`9b4c1942e`](https://github.com/Khan/perseus/commit/9b4c1942eeaadf6d3a201f516574c4597dfcbb3c) Thanks [@nishasy](https://github.com/nishasy)! - [LX] Make static graphs' interactive elements visually disabled
+
+*   [#2282](https://github.com/Khan/perseus/pull/2282) [`5226f43a9`](https://github.com/Khan/perseus/commit/5226f43a9785e2c7acb52b76e15f58384d313a34) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that dragging a point also moves the focus for Interactive Graph
+
+-   [#2281](https://github.com/Khan/perseus/pull/2281) [`015aace83`](https://github.com/Khan/perseus/commit/015aace83f6b125b8d02fa7f01dde47f071c44e9) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Improving the angle snapping behavior for keyboard users in polygon examples.
+
+*   [#2277](https://github.com/Khan/perseus/pull/2277) [`88e4e905d`](https://github.com/Khan/perseus/commit/88e4e905d2a94134fd2390a55360281a29229fb5) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Hide individual visual components of interactive graph elements
+
+## 56.0.0
+
+### Major Changes
+
+-   [#2233](https://github.com/Khan/perseus/pull/2233) [`a0aee41b6`](https://github.com/Khan/perseus/commit/a0aee41b69d4288ef165416cea293100d037ce5f) Thanks [@handeyeco](https://github.com/handeyeco)! - RadioWidget v2 in support of answerless Radio
+
+### Patch Changes
+
+-   [#2279](https://github.com/Khan/perseus/pull/2279) [`e02cc4109`](https://github.com/Khan/perseus/commit/e02cc4109a98d8d04054d7f4aae7931089facdda) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Tweak strings for Segment and Angle graphs
+
+*   [#2270](https://github.com/Khan/perseus/pull/2270) [`941343ee3`](https://github.com/Khan/perseus/commit/941343ee3e3e88c2c4babb3040bfb2a73c64bf66) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Fixing side snapping within polygons to be keyboard accessible.
+
+-   [#2226](https://github.com/Khan/perseus/pull/2226) [`909148cdc`](https://github.com/Khan/perseus/commit/909148cdccabb3f0a2156587ea1e870bae910f8d) Thanks [@handeyeco](https://github.com/handeyeco)! - Answerless Expression: Expression can render and is interactive with answerless data
+
+-   Updated dependencies [[`a0aee41b6`](https://github.com/Khan/perseus/commit/a0aee41b69d4288ef165416cea293100d037ce5f), [`909148cdc`](https://github.com/Khan/perseus/commit/909148cdccabb3f0a2156587ea1e870bae910f8d)]:
+    -   @khanacademy/perseus-core@5.0.0
+    -   @khanacademy/math-input@23.0.0
+    -   @khanacademy/keypad-context@1.1.1
+    -   @khanacademy/kmath@0.4.1
+    -   @khanacademy/perseus-linter@1.3.1
+    -   @khanacademy/perseus-score@2.3.1
+
 ## 55.0.1
 
 ### Patch Changes

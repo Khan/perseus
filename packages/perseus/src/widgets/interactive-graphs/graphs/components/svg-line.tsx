@@ -17,6 +17,11 @@ export function SVGLine(props: Props) {
     const {start, end, style, className, testId} = props;
     return (
         <line
+            // Use aria-hidden to hide the line from screen readers
+            // so it doesn't read as "image" with no context.
+            // The elements using this should have their own aria-labels,
+            // so this is okay.
+            aria-hidden={true}
             x1={start[X]}
             y1={start[Y]}
             x2={end[X]}

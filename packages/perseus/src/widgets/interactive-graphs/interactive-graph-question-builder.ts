@@ -1,7 +1,9 @@
 import {vec} from "mafs";
 
+import type {SnapTo} from "./types";
 import type {Coord} from "../../interactive2/types";
 import type {
+    AxisLabelLocation,
     CollinearTuple,
     LockedEllipseType,
     LockedFigure,
@@ -55,6 +57,7 @@ class InteractiveGraphQuestionBuilder {
     };
     private gridStep: vec.Vector2 = [1, 1];
     private labels: [string, string] = ["$x$", "$y$"];
+    private labelLocation: AxisLabelLocation = "onAxis";
     private markings: MarkingsType = "graph";
     private xRange: Interval = [-10, 10];
     private yRange: Interval = [-10, 10];
@@ -64,7 +67,7 @@ class InteractiveGraphQuestionBuilder {
     private interactiveFigureConfig: InteractiveFigureConfig =
         new SegmentGraphConfig();
     private lockedFigures: LockedFigure[] = [];
-    private snapTo: "grid" | "angles" | "sides" = "grid";
+    private snapTo: SnapTo = "grid";
     private staticMode: boolean = false;
 
     build(): PerseusRenderer {
@@ -83,6 +86,7 @@ class InteractiveGraphQuestionBuilder {
                         graph: this.interactiveFigureConfig.graph(),
                         gridStep: this.gridStep,
                         labels: this.labels,
+                        labelLocation: this.labelLocation,
                         markings: this.markings,
                         range: [this.xRange, this.yRange],
                         showProtractor: this.showProtractor,
@@ -146,6 +150,13 @@ class InteractiveGraphQuestionBuilder {
 
     withAxisLabels(x: string, y: string): InteractiveGraphQuestionBuilder {
         this.labels = [x, y];
+        return this;
+    }
+
+    withLabelLocation(
+        labelLocation: AxisLabelLocation,
+    ): InteractiveGraphQuestionBuilder {
+        this.labelLocation = labelLocation;
         return this;
     }
 
@@ -246,7 +257,7 @@ class InteractiveGraphQuestionBuilder {
     }
 
     withPolygon(
-        snapTo?: "grid" | "angles" | "sides",
+        snapTo?: SnapTo,
         options?: {
             match?: "similar" | "congruent" | "approx";
             numSides?: number | "unlimited";
@@ -734,7 +745,7 @@ class SinusoidGraphConfig implements InteractiveFigureConfig {
 }
 
 class PolygonGraphConfig implements InteractiveFigureConfig {
-    private snapTo: "grid" | "angles" | "sides";
+    private snapTo: SnapTo;
     private match?: "similar" | "congruent" | "approx";
     private numSides: number | "unlimited";
     private showAngles: boolean;
@@ -743,7 +754,7 @@ class PolygonGraphConfig implements InteractiveFigureConfig {
     private startCoords?: Coord[];
 
     constructor(
-        snapTo?: "grid" | "angles" | "sides",
+        snapTo?: SnapTo,
         options?: {
             match?: "similar" | "congruent" | "approx";
             numSides?: number | "unlimited";

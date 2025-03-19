@@ -5,7 +5,7 @@ import {
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
-import {KeypadInput, KeypadType, MobileKeypad} from "./index";
+import {KeypadInput, MobileKeypad} from "./index";
 
 export default {
     title: "math-input/Full Mobile MathInput",
@@ -37,9 +37,7 @@ const Basic = ({keypadElement, setKeypadElement}) => {
     React.useEffect(() => {
         keypadElement?.configure(
             {
-                keypadType: expression
-                    ? KeypadType.EXPRESSION
-                    : KeypadType.FRACTION,
+                keypadType: expression ? "EXPRESSION" : "FRACTION",
                 extraKeys: expression ? ["x", "y", "PI", "THETA"] : [],
                 times: times,
             },
