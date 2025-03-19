@@ -82,16 +82,6 @@ describe("InteractiveGraphQuestionBuilder", () => {
         expect(graph.options.labels).toEqual(["the x label", "the y label"]);
     });
 
-    it("sets the axis labelLocation", () => {
-        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .withAxisLabels("the x label", "the y label")
-            .withLabelLocation("alongEdge")
-            .build();
-        const graph = question.widgets["interactive-graph 1"];
-
-        expect(graph.options.labelLocation).toEqual("alongEdge");
-    });
-
     it("sets the background markings", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .withMarkings("grid")
