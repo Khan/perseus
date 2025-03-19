@@ -181,47 +181,48 @@ export const StaticGraphWithAnotherWidget = (
 // "quadratic"
 
 export const AngleWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={splitPerseusItem(angleQuestion)} />
+    <RendererWithDebugUI question={angleQuestion} answerless={true} />
 );
 
 export const CircleWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={splitPerseusItem(circleQuestion)} />
+    <RendererWithDebugUI question={circleQuestion} answerless={true} />
 );
 
 export const LinearWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={splitPerseusItem(linearQuestion)} />
+    <RendererWithDebugUI question={linearQuestion} answerless={true} />
 );
 
 export const LinearSystemWithoutAnswers = (
     args: StoryArgs,
 ): React.ReactElement => (
-    <RendererWithDebugUI question={splitPerseusItem(linearSystemQuestion)} />
+    <RendererWithDebugUI question={linearSystemQuestion} answerless={true} />
 );
 
 export const PointWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={splitPerseusItem(pointQuestion)} />
+    <RendererWithDebugUI question={pointQuestion} answerless={true} />
 );
 
 export const PolygonWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={splitPerseusItem(polygonQuestion)} />
+    <RendererWithDebugUI question={polygonQuestion} answerless={true} />
 );
 
 export const UnlimitedPolygonWithoutAnswers = (
     args: StoryArgs,
 ): React.ReactElement => (
     <RendererWithDebugUI
-        question={splitPerseusItem(unlimitedPolygonQuestion)}
+        question={unlimitedPolygonQuestion}
+        answerless={true}
     />
 );
 
 export const RayWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={splitPerseusItem(rayQuestion)} />
+    <RendererWithDebugUI question={rayQuestion} answerless={true} />
 );
 
 export const SegmentWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={splitPerseusItem(segmentQuestion)} />
+    <RendererWithDebugUI question={segmentQuestion} answerless={true} />
 );
 
 export const SinusoidWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={splitPerseusItem(sinusoidQuestion)} />
+    <RendererWithDebugUI question={sinusoidQuestion} answerless={true} />
 );

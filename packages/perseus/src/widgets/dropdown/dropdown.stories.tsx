@@ -44,5 +44,5 @@ export const DropdownWithEmptyPlaceholder = (
 };
 
 export const DropdownWithNoAnswers = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={splitPerseusItem(basicDropdown)} />;
+    return <RendererWithDebugUI question={basicDropdown} answerless={true} />;
 };
