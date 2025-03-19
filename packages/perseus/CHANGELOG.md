@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 57.0.1
+
+### Patch Changes
+
+-   [#2309](https://github.com/Khan/perseus/pull/2309) [`7be7a42d6`](https://github.com/Khan/perseus/commit/7be7a42d6c86c5aa45e0419162c2a6f2c0426fc8) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Update graph elements so their aria-describedby is read in non-Chrome browsers
+
+*   [#2257](https://github.com/Khan/perseus/pull/2257) [`1e67022c9`](https://github.com/Khan/perseus/commit/1e67022c9782c78b5beb59bb750014b52741d337) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Allow using control + shift + arrow keys for NVDA
+
 ## 57.0.0
 
 ### Major Changes
