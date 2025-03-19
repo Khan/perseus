@@ -323,3 +323,22 @@ CoefficientExample.parameters = {
         },
     },
 };
+
+export const Answerless = (
+    args: PerseusNumericInputWidgetOptions,
+): React.ReactElement => {
+    const question = updateWidgetOptions(
+        defaultQuestion,
+        "numeric-input 1",
+        args,
+    );
+    return <RendererWithDebugUI question={question} answerless={true} />;
+};
+Answerless.args = defaultQuestion.widgets["numeric-input 1"].options;
+Answerless.parameters = {
+    docs: {
+        description: {
+            story: "The answerless Numeric Input widget.",
+        },
+    },
+};
