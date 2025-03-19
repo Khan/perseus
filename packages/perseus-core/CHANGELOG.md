@@ -1,5 +1,15 @@
 # @khanacademy/perseus-core
 
+## 5.2.0
+
+### Minor Changes
+
+-   [#2284](https://github.com/Khan/perseus/pull/2284) [`0d5ab0b2e`](https://github.com/Khan/perseus/commit/0d5ab0b2e5d079b8ac805077a2abad6bc5b2132d) Thanks [@nishasy](https://github.com/nishasy)! - Add new labelLocation value for Interactive Graphs
+
+### Patch Changes
+
+-   [#2300](https://github.com/Khan/perseus/pull/2300) [`fea65eaf1`](https://github.com/Khan/perseus/commit/fea65eaf12918e7e1b1e893bea80549e69313ce2) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: allow the 'key' field of Radio widgets to be null when parsing Perseus JSON
+
 ## 5.1.0
 
 ### Minor Changes
