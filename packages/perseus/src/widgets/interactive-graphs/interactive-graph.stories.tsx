@@ -1,3 +1,4 @@
+import {splitPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {Flipbook} from "../../../../../dev/flipbook";
@@ -178,3 +179,49 @@ export const StaticGraphWithAnotherWidget = (
 // TODO(jeremy): As of Jan 2022 there are no peresus items in production that
 // use the "quadratic" graph type.
 // "quadratic"
+
+export const AngleWithoutAnswers = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI question={splitPerseusItem(angleQuestion)} />
+);
+
+export const CircleWithoutAnswers = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI question={splitPerseusItem(circleQuestion)} />
+);
+
+export const LinearWithoutAnswers = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI question={splitPerseusItem(linearQuestion)} />
+);
+
+export const LinearSystemWithoutAnswers = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <RendererWithDebugUI question={splitPerseusItem(linearSystemQuestion)} />
+);
+
+export const PointWithoutAnswers = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI question={splitPerseusItem(pointQuestion)} />
+);
+
+export const PolygonWithoutAnswers = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI question={splitPerseusItem(polygonQuestion)} />
+);
+
+export const UnlimitedPolygonWithoutAnswers = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <RendererWithDebugUI
+        question={splitPerseusItem(unlimitedPolygonQuestion)}
+    />
+);
+
+export const RayWithoutAnswers = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI question={splitPerseusItem(rayQuestion)} />
+);
+
+export const SegmentWithoutAnswers = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI question={splitPerseusItem(segmentQuestion)} />
+);
+
+export const SinusoidWithoutAnswers = (args: StoryArgs): React.ReactElement => (
+    <RendererWithDebugUI question={splitPerseusItem(sinusoidQuestion)} />
+);
