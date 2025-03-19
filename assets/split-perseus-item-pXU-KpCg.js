@@ -1,1 +1,0 @@
-import{_ as r}from"./underscore-885MUNGo.js";import{q as d}from"./random-util-9WQRKwFZ.js";import{g as c}from"./util-ghoLYzZ7.js";function f(s){const i=r.clone(s),e=i.widgets??{},n=c(e),o={};for(const[g,t]of Object.entries(n)){const p=d(t.type);o[g]={...t,options:p(t.options)}}return{...i,widgets:o}}export{f as s};
