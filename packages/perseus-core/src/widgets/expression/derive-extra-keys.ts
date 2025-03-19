@@ -71,7 +71,8 @@ function deriveExtraKeys(
     ).sort() as ReadonlyArray<KeypadKey>;
 
     const extraKeys = [...extraVariables, ...extraConstants];
-    if (extraKeys.length === 0) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!extraKeys.length) {
         return defaultKeys;
     }
 

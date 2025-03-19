@@ -445,10 +445,8 @@ class SvgImage extends React.Component<Props, State> {
         // is tricky because web+graphie doesn't support labels on non-graphie
         // images.
         let extraGraphie;
-        if (
-            this.props.extraGraphie &&
-            this.props.extraGraphie.labels.length > 0
-        ) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        if (this.props.extraGraphie && this.props.extraGraphie.labels.length) {
             extraGraphie = (
                 <Graphie
                     box={this.props.extraGraphie.box}

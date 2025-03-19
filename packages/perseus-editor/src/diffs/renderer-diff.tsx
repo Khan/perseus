@@ -104,7 +104,8 @@ class RendererDiff extends React.Component<Props> {
             after.content.includes(widget),
         );
 
-        if (beforeWidgets.length > 0 || afterWidgets.length > 0) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        if (beforeWidgets.length || afterWidgets.length) {
             const widgets = _.union(beforeWidgets, afterWidgets);
             widgetsDiff = widgets.map((widget) => (
                 <WidgetDiff

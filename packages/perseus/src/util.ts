@@ -95,31 +95,33 @@ const snowman = "\u2603";
  * Drop this custom split thing.
  */
 // In IE8, split doesn't work right. Implement it ourselves.
-const split: (str: string, r: RegExp) => ReadonlyArray<string> =
-    "x".split(/(.)/g).length > 0
-        ? function (str: string, r) {
-              return str.split(r);
-          }
-        : function (str: string, r: RegExp) {
-              // Based on Steven Levithan's MIT-licensed split, available at
-              // http://blog.stevenlevithan.com/archives/cross-browser-split
-              const output = [];
-              let lastIndex = (r.lastIndex = 0);
-              let match;
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+const split: (str: string, r: RegExp) => ReadonlyArray<string> = "x".split(
+    /(.)/g,
+).length
+    ? function (str: string, r) {
+          return str.split(r);
+      }
+    : function (str: string, r: RegExp) {
+          // Based on Steven Levithan's MIT-licensed split, available at
+          // http://blog.stevenlevithan.com/archives/cross-browser-split
+          const output = [];
+          let lastIndex = (r.lastIndex = 0);
+          let match;
 
-              while ((match = r.exec(str))) {
-                  const m = match;
-                  // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
-                  output.push(str.slice(lastIndex, m.index));
-                  // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                  output.push(...m.slice(1));
-                  lastIndex = m.index + m[0].length;
-              }
-
+          while ((match = r.exec(str))) {
+              const m = match;
               // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
-              output.push(str.slice(lastIndex));
-              return output;
-          };
+              output.push(str.slice(lastIndex, m.index));
+              // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+              output.push(...m.slice(1));
+              lastIndex = m.index + m[0].length;
+          }
+
+          // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
+          output.push(str.slice(lastIndex));
+          return output;
+      };
 
 /**
  * Return the first valid interpretation of 'text' as a number, in the form

@@ -108,7 +108,8 @@ export default class TranslationLinter {
     ) {
         // These lint errors do not have position data associated with
         // them, so we just plop them at the top.
-        if (translationLintErrors.length > 0) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        if (translationLintErrors.length) {
             const errorText = translationLintErrors.join("\n\n");
             parsedMarkdown.unshift({
                 content: {

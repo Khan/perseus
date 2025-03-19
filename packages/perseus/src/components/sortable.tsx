@@ -533,7 +533,8 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     componentDidUpdate() {
         // Measure items if their dimensions have been reset
         if (
-            this.state.items.length > 0 &&
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+            this.state.items.length &&
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             !this.state.items[0].width &&
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions

@@ -21,7 +21,8 @@ const splitDiff = function (diffEntries: any): any {
         });
     });
 
-    if (currentLine.length > 0) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (currentLine.length) {
         // @ts-expect-error - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'never'.
         lines.push(currentLine);
     }

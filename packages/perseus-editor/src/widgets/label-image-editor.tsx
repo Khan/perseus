@@ -68,7 +68,8 @@ class LabelImageEditor extends React.Component<Props> {
 
         // Automatically reveal their dropdowns as a prompt to the content
         // creator to select answers and set the ARIA label.
-        if (newIndices.length > 0 && this._questionMarkers) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        if (newIndices.length && this._questionMarkers) {
             this._questionMarkers.openDropdownForMarkerIndices(newIndices);
         }
     }
@@ -88,14 +89,16 @@ class LabelImageEditor extends React.Component<Props> {
             warnings.push("Question image has no alt text");
         }
 
-        if (markers.length === 0) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        if (!markers.length) {
             warnings.push("Question has no markers, to label answers on image");
         } else {
             let numNoAnswers = 0;
             let numNoLabels = 0;
 
             for (const marker of markers) {
-                if (marker.answers.length === 0) {
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                if (!marker.answers.length) {
                     numNoAnswers++;
                 }
 

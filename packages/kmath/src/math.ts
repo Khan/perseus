@@ -78,11 +78,10 @@ const KhanMath = {
             return false;
         }
         if (n < 101) {
-            return !(
-                $.grep(KhanMath.primes, function (p, i) {
-                    return Math.abs(p - n) <= 0.5;
-                }).length === 0
-            );
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+            return !!$.grep(KhanMath.primes, function (p, i) {
+                return Math.abs(p - n) <= 0.5;
+            }).length;
         }
         if (n <= 1 || (n > 2 && n % 2 === 0)) {
             return false;

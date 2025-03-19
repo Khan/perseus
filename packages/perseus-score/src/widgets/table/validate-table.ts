@@ -14,7 +14,8 @@ function validateTable(userInput: PerseusTableUserInput): ValidationResult {
         });
     });
 
-    if (hasEmptyCell || supplied.length === 0) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (hasEmptyCell || !supplied.length) {
         return {
             type: "invalid",
             message: null,

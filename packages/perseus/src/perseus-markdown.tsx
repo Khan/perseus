@@ -360,7 +360,8 @@ const getContent = (ast: any) => {
         .filter((object) => object != null && _.has(object, "type"))
         .value();
 
-    if (children.length === 0) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!children.length) {
         return [];
     }
     const nestedContent = getContent(children);
