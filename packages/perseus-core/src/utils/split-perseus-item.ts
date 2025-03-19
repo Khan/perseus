@@ -5,6 +5,10 @@ import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
 import type {PerseusRenderer} from "../data-schema";
 
+/**
+ * Upgrades widget options and removes answerful data for all the widgets in a
+ * Perseus item.
+ */
 export default function splitPerseusItem(
     originalItem: PerseusRenderer,
 ): PerseusRenderer {
