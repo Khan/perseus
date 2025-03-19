@@ -236,19 +236,13 @@ const KhanAnswerTypes = {
                 // A proper fraction
                 proper: function (text) {
                     const transformed = fractionTransformer(text);
-                    return transformed.reduce(
-                        (
-                            acc: ReadonlyArray<TransformedFraction>,
-                            curr: TransformedFraction,
-                        ) => {
-                            // All fractions that are less than 1
-                            if (Math.abs(curr.value) < 1) {
-                                return [...acc, curr];
-                            }
-                            return acc;
-                        },
-                        [],
-                    );
+                    return transformed.flatMap((o: TransformedFraction) => {
+                        // All fractions that are less than 1
+                        if (Math.abs(o.value) < 1) {
+                            return [o];
+                        }
+                        return [];
+                    });
                 },
 
                 // an improper fraction
@@ -265,19 +259,13 @@ const KhanAnswerTypes = {
                     }
 
                     const transformed = fractionTransformer(text);
-                    return transformed.reduce(
-                        (
-                            acc: ReadonlyArray<TransformedFraction>,
-                            curr: TransformedFraction,
-                        ) => {
-                            // All fractions that are greater than 1
-                            if (Math.abs(curr.value) >= 1) {
-                                return [...acc, curr];
-                            }
-                            return acc;
-                        },
-                        [],
-                    );
+                    return transformed.flatMap((o: TransformedFraction) => {
+                        // All fractions that are greater than 1
+                        if (Math.abs(o.value) >= 1) {
+                            return [o];
+                        }
+                        return [];
+                    });
                 },
 
                 // pi-like numbers
