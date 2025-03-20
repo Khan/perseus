@@ -771,11 +771,7 @@ class Editor extends React.Component<Props, State> {
                 "data 4 | data 5 | data 6\n" +
                 "data 7 | data 8 | data 9";
         } else if (templateType === "alignment") {
-            // eslint-disable-next-line prettier/prettier
-            template =
-                "$\\begin{align} \n" +
-                "\\\\\\\\\n" +
-                "\\end{align}$";
+            template = "$\\begin{align} \n" + "\\\\\\\\\n" + "\\end{align}$";
         } else if (templateType === "piecewise") {
             template =
                 "$f(x) = \\begin{cases}\n" +
