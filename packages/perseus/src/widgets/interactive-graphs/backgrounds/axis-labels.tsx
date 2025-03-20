@@ -32,17 +32,8 @@ export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
 
     const [xAxisLabelText, yAxisLabelText] = labels;
 
-    // If the labels are rotated, we need to center the
-    // x-axis label along the bottom of the graph.
-    const xLabelTransform =
-        labelLocation === "onAxis"
-            ? "translate(7px, -50%)"
-            : "translate(-50%, -50%)";
-
-    const yLabelTransform =
-        labelLocation === "onAxis"
-            ? "translate(-50%, 0px)"
-            : "translate(-50%, 0px) rotate(-90deg)";
+    // Get the transform for the labels
+    const {xLabelTransform, yLabelTransform} = getLabelTransform(labelLocation);
 
     const {TeX} = getDependencies();
 
@@ -75,6 +66,23 @@ export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
         </>
     );
 }
+
+export const getLabelTransform = (
+    labelLocation: GraphConfig["labelLocation"],
+): {xLabelTransform: string; yLabelTransform: string} => {
+    // onAxis is the default label location
+    const isOnAxis = labelLocation === undefined || labelLocation === "onAxis";
+
+    const xLabelTransform = isOnAxis
+        ? "translate(7px, -50%)"
+        : "translate(-50%, -50%)";
+
+    const yLabelTransform = isOnAxis
+        ? "translate(-50%, 0px)"
+        : "translate(-50%, 0px) rotate(-90deg)";
+
+    return {xLabelTransform, yLabelTransform};
+};
 
 export const getLabelPosition = (
     graphInfo: GraphDimensions,
