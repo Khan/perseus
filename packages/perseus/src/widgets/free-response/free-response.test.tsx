@@ -66,6 +66,17 @@ describe("free-response widget", () => {
         ).toBeVisible();
     });
 
+    it("should render the placeholder text", () => {
+        // Arrange
+        // Act
+        renderQuestion(getFreeResponseItemData(), {});
+
+        // Assert
+        expect(
+            screen.getByRole("textbox", {name: "test-question"}),
+        ).toHaveAttribute("placeholder", "test-placeholder");
+    });
+
     it("should return the correct user input", async () => {
         // Arrange
         const {renderer} = renderQuestion(getFreeResponseItemData());

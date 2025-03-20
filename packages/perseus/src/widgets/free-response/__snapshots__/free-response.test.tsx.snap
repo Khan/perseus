@@ -22,7 +22,9 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
               class="labelAndTextarea_1o27vzy"
             >
               test-question
-              <textarea />
+              <textarea
+                placeholder="test-placeholder"
+              />
             </label>
           </div>
         </div>
@@ -54,7 +56,9 @@ exports[`free-response widget should snapshot: first render 1`] = `
               class="labelAndTextarea_1o27vzy"
             >
               test-question
-              <textarea />
+              <textarea
+                placeholder="test-placeholder"
+              />
             </label>
           </div>
         </div>
