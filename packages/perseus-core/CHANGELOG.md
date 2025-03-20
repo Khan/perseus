@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 5.3.0
+
+### Minor Changes
+
+-   [#2314](https://github.com/Khan/perseus/pull/2314) [`48bc498f8`](https://github.com/Khan/perseus/commit/48bc498f88f98e817ea426924cbc0b016e5802b9) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Revert labelLocation
+
 ## 5.2.0
 
 ### Minor Changes
