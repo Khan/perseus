@@ -67,6 +67,9 @@ export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
     );
 }
 
+/* Get the transform for the labels based on the labelLocation
+ *  Exported for testing purposes.
+ */
 export const getLabelTransform = (
     labelLocation: GraphConfig["labelLocation"],
 ): {xLabelTransform: string; yLabelTransform: string} => {
@@ -84,6 +87,9 @@ export const getLabelTransform = (
     return {xLabelTransform, yLabelTransform};
 };
 
+/* Calculate the position of the main axis labels based on the labelLocation
+ * and the ranges of the graph. Exported for testing purposes.
+ */
 export const getLabelPosition = (
     graphInfo: GraphDimensions,
     labelLocation: GraphConfig["labelLocation"],
