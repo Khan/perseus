@@ -835,7 +835,7 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_wps3dh"
+                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
@@ -1891,7 +1891,7 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_wps3dh"
+                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
                 >
                   <svg
                     fill="none"
