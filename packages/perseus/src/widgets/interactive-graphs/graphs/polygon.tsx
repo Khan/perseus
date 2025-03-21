@@ -1,4 +1,5 @@
 import {angles} from "@khanacademy/kmath";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Polygon, Polyline, vec} from "mafs";
 import * as React from "react";
 
@@ -6,14 +7,19 @@ import {
     usePerseusI18n,
     type I18nContextType,
 } from "../../../components/i18n-context";
-import a11y from "../../../util/a11y";
 import {snap} from "../math";
+import {isInBound} from "../math/box";
 import {actions} from "../reducer/interactive-graph-action";
+import {
+    calculateAngleSnap,
+    calculateSideSnap,
+} from "../reducer/interactive-graph-reducer";
 import useGraphConfig from "../reducer/use-graph-config";
-import {TARGET_SIZE} from "../utils";
+import {bound, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
+import SRDescInSVG from "./components/sr-description-within-svg";
 import {TextLabel} from "./components/text-label";
 import {srFormatNumber} from "./screenreader-text";
 import {useDraggable} from "./use-draggable";
@@ -25,6 +31,7 @@ import {
     getSideLengthsFromPoints,
 } from "./utils";
 
+import type {KeyboardMovementConstraint} from "./use-draggable";
 import type {Coord} from "../../../interactive2/types";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
@@ -34,8 +41,10 @@ import type {
     InteractiveGraphProps,
     MafsGraphProps,
     PolygonGraphState,
+    SnapTo,
 } from "../types";
 import type {CollinearTuple} from "@khanacademy/perseus-core";
+import type {Interval} from "mafs";
 
 const {convertRadiansToDegrees} = angles;
 
@@ -65,7 +74,6 @@ type StatefulProps = MafsGraphProps<PolygonGraphState> & {
     top: number;
     dragging: boolean;
     points: Coord[];
-    constrain: (p: any) => any;
     hovered: boolean;
     setHovered: React.Dispatch<React.SetStateAction<boolean>>;
     focusVisible: boolean;
@@ -96,9 +104,8 @@ const PolygonGraph = (props: Props) => {
 
     // Logic to build the dragging experience. Primarily used by Limited Polygon.
     const dragReferencePoint = points[0];
-    const constrain = ["angles", "sides"].includes(snapTo)
-        ? (p) => p
-        : (p) => snap(snapStep, p);
+    const constrain: KeyboardMovementConstraint =
+        getKeyboardMovementConstraintForPolygon(snapStep, snapTo);
 
     const {dragging} = useDraggable({
         gestureTarget: polygonRef,
@@ -148,7 +155,6 @@ const PolygonGraph = (props: Props) => {
         top,
         dragging,
         points,
-        constrain,
         hovered,
         setHovered,
         focusVisible,
@@ -174,15 +180,15 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         lastMoveTimeRef,
         dragging,
         points,
-        constrain,
     } = statefulProps;
     const {
         showAngles,
         showSides,
         range,
         snapTo = "grid",
+        snapStep,
     } = statefulProps.graphState;
-    const {disableKeyboardInteraction} = graphConfig;
+    const {disableKeyboardInteraction, interactiveColor} = graphConfig;
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
     const pointsOffArray = Array(points.length).fill("off");
@@ -221,12 +227,16 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
         >
             <Polygon
                 points={[...points]}
-                color="var(--movable-line-stroke-color)"
+                color={interactiveColor}
                 svgPolygonProps={{
                     strokeWidth: focusVisible
                         ? "var(--movable-line-stroke-weight-active)"
                         : "var(--movable-line-stroke-weight)",
                     style: {fill: "transparent"},
+                    // Use aria-hidden to hide the line from screen readers
+                    // so it doesn't read as "image" with no context.
+                    // This is okay because the graph has its own aria-label.
+                    "aria-hidden": true,
                 }}
             />
             {points.map((point, i) => {
@@ -326,7 +336,13 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         <MovablePoint
                             ariaDescribedBy={`${angleId} ${side1Id} ${side2Id}`}
                             ariaLive={ariaLives[i + 1]}
-                            constrain={constrain}
+                            constrain={getKeyboardMovementConstraintForPoint(
+                                points,
+                                i,
+                                range,
+                                snapStep,
+                                snapTo,
+                            )}
                             point={point}
                             sequenceNumber={i + 1}
                             onMove={(destination: vec.Vector2) => {
@@ -356,7 +372,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             }}
                         />
                         {angleDegree && (
-                            <g id={angleId}>
+                            <SRDescInSVG id={angleId}>
                                 {Number.isInteger(angleDegree)
                                     ? strings.srPolygonPointAngle({
                                           angle: angleDegree,
@@ -368,36 +384,36 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                                               1,
                                           ),
                                       })}
-                            </g>
+                            </SRDescInSVG>
                         )}
-                        <g id={side1Id}>
+                        <SRDescInSVG id={side1Id}>
                             {getPolygonSideString(
                                 side1Length,
                                 point1Index,
                                 strings,
                                 locale,
                             )}
-                        </g>
-                        <g id={side2Id}>
+                        </SRDescInSVG>
+                        <SRDescInSVG id={side2Id}>
                             {getPolygonSideString(
                                 side2Length,
                                 point2Index,
                                 strings,
                                 locale,
                             )}
-                        </g>
+                        </SRDescInSVG>
                     </g>
                 );
             })}
             {/* Hidden elements to provide the descriptions for the
                 `aria-describedby` properties */}
-            <g id={polygonPointsNumId} style={a11y.srOnly}>
+            <SRDescInSVG id={polygonPointsNumId}>
                 {srPolygonGraphPointsNum}
-            </g>
+            </SRDescInSVG>
             {srPolygonGraphPoints && (
-                <g id={polygonPointsId} style={a11y.srOnly}>
+                <SRDescInSVG id={polygonPointsId}>
                     {srPolygonGraphPoints}
-                </g>
+                </SRDescInSVG>
             )}
         </g>
     );
@@ -407,6 +423,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const {dispatch, graphConfig, left, top, pointsRef, points} = statefulProps;
     const {coords, closedPolygon} = statefulProps.graphState;
     const {strings, locale} = usePerseusI18n();
+    const {interactiveColor} = useGraphConfig();
 
     const id = React.useId();
     const polygonPointsNumId = id + "-points-num";
@@ -449,16 +466,24 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
         >
             <Polyline
                 points={[...points]}
-                color="var(--movable-line-stroke-color)"
+                color={interactiveColor}
                 svgPolylineProps={{
                     strokeWidth: "var(--movable-line-stroke-weight)",
                     style: {fill: "transparent"},
+                    // Use aria-hidden to hide the line from screen readers
+                    // so it doesn't read as "image" with no context.
+                    // This is okay because the graph has its own aria-label.
+                    "aria-hidden": true,
                 }}
             />
             {/* This rect is here to grab clicks so that new points can be added */}
             {/* It's important because it stops mouse events from propogating
                 when dragging a points around */}
             <rect
+                // Use aria-hidden to hide the line from screen readers
+                // so it doesn't read as "image" with no context.
+                // This is okay because the graph has its own aria-label.
+                aria-hidden={true}
                 style={{
                     fill: "rgba(0,0,0,0)",
                     cursor: "crosshair",
@@ -541,7 +566,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             }}
                         />
                         {angleDegree && (
-                            <g id={angleId}>
+                            <SRDescInSVG id={angleId}>
                                 {Number.isInteger(angleDegree)
                                     ? strings.srPolygonPointAngle({
                                           angle: angleDegree,
@@ -553,10 +578,10 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                                               1,
                                           ),
                                       })}
-                            </g>
+                            </SRDescInSVG>
                         )}
                         {sidesArray.map(({pointIndex, sideLength}, j) => (
-                            <g
+                            <SRDescInSVG
                                 key={`${id}-point-${i}-side-${j}`}
                                 id={`${id}-point-${i}-side-${j}`}
                             >
@@ -566,7 +591,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                                     strings,
                                     locale,
                                 )}
-                            </g>
+                            </SRDescInSVG>
                         ))}
                     </g>
                 );
@@ -574,14 +599,14 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
             {/* Hidden elements to provide the descriptions for the
                 `aria-describedby` properties */}
             {coords.length > 0 && (
-                <g id={polygonPointsNumId} style={a11y.srOnly}>
+                <SRDescInSVG id={polygonPointsNumId}>
                     {srPolygonGraphPointsNum}
-                </g>
+                </SRDescInSVG>
             )}
             {srPolygonGraphPoints && (
-                <g id={polygonPointsId} style={a11y.srOnly}>
+                <SRDescInSVG id={polygonPointsId}>
                     {srPolygonGraphPoints}
-                </g>
+                </SRDescInSVG>
             )}
         </g>
     );
@@ -681,5 +706,158 @@ function describePolygonGraph(
         srPolygonGraphPoints,
         srPolygonElementsNum,
         srPolygonInteractiveElements,
+    };
+}
+
+function getKeyboardMovementConstraintForPoint(
+    points: ReadonlyArray<Coord>,
+    index: number,
+    range: [Interval, Interval],
+    snapStep: vec.Vector2,
+    snapTo: SnapTo,
+): KeyboardMovementConstraint {
+    switch (snapTo) {
+        case "grid":
+            return (p) => snap(snapStep, p);
+        case "sides":
+            return getSideSnapConstraint(points, index, range);
+        case "angles":
+            return getAngleSnapConstraint(points, index, range);
+        default:
+            throw new UnreachableCaseError(snapTo);
+    }
+}
+
+function getKeyboardMovementConstraintForPolygon(
+    snapStep: vec.Vector2,
+    snapTo: SnapTo,
+): KeyboardMovementConstraint {
+    switch (snapTo) {
+        case "grid":
+            return (p) => snap(snapStep, p);
+        case "sides":
+        case "angles":
+            return (p) => p;
+        default:
+            throw new UnreachableCaseError(snapTo);
+    }
+}
+
+export function getSideSnapConstraint(
+    points: ReadonlyArray<Coord>,
+    index: number,
+    range: [Interval, Interval],
+): {
+    up: vec.Vector2;
+    down: vec.Vector2;
+    left: vec.Vector2;
+    right: vec.Vector2;
+} {
+    // Make newPoints mutable.
+    const newPoints = [...points];
+
+    // Get the point that is being moved.
+    const pointToBeMoved = newPoints[index];
+
+    // Create a helper function that moves the point and then checks
+    // whether it needs to keep trying to find a point for keyboard users.
+    const movePointWithConstraint = (
+        moveFunc: (coord: vec.Vector2) => vec.Vector2,
+    ): vec.Vector2 => {
+        // The direction the user is attempting to move the point in.
+        let destinationAttempt: Coord = moveFunc(pointToBeMoved);
+        // The new point we're moving to.
+        let newPoint = pointToBeMoved;
+
+        // Move the point and keep trying until we are at the boarder
+        // of the graph.
+        while (
+            newPoint[0] === pointToBeMoved[0] &&
+            newPoint[1] === pointToBeMoved[1] &&
+            isInBound({range, point: destinationAttempt})
+        ) {
+            newPoint = calculateSideSnap(
+                destinationAttempt,
+                range,
+                newPoints,
+                index,
+                pointToBeMoved,
+            );
+
+            // Increment the destinationAttempt.
+            // For every time it does not work increment the direction for x and y.
+            destinationAttempt = moveFunc(destinationAttempt);
+        }
+        return newPoint;
+    };
+
+    // For each direction look for the next movable point one whole integer away.
+    return {
+        up: movePointWithConstraint((coord) => vec.add(coord, [0, 1])),
+        down: movePointWithConstraint((coord) => vec.sub(coord, [0, 1])),
+        left: movePointWithConstraint((coord) => vec.sub(coord, [1, 0])),
+        right: movePointWithConstraint((coord) => vec.add(coord, [1, 0])),
+    };
+}
+
+export function getAngleSnapConstraint(
+    points: ReadonlyArray<Coord>,
+    index: number,
+    range: [Interval, Interval],
+): {
+    up: vec.Vector2;
+    down: vec.Vector2;
+    left: vec.Vector2;
+    right: vec.Vector2;
+} {
+    // Make newPoints mutable.
+    const newPoints = [...points];
+
+    // Get the point that is being moved.
+    const pointToBeMoved = newPoints[index];
+
+    // Create a helper function that moves the point to a valid location
+    // for angle snapping.
+    const movePointWithConstraint = (
+        moveFunc: (coord: vec.Vector2) => vec.Vector2,
+    ): vec.Vector2 => {
+        // The direction the user is attempting to move the point in.
+        let destinationAttempt: Coord = bound({
+            snapStep: [0, 0],
+            range,
+            point: moveFunc(pointToBeMoved),
+        });
+        // The new point we're moving to.
+        let newPoint = pointToBeMoved;
+
+        // Move the point and keep trying until we are at the boarder
+        // of the graph.
+        while (
+            newPoint[0] === pointToBeMoved[0] &&
+            newPoint[1] === pointToBeMoved[1] &&
+            isInBound({range, point: destinationAttempt})
+        ) {
+            newPoint = calculateAngleSnap(
+                destinationAttempt,
+                range,
+                newPoints,
+                index,
+                pointToBeMoved,
+            );
+
+            // Increment the destinationAttempt.
+            // For every time it does not work increment the direction for x and y.
+            destinationAttempt = moveFunc(destinationAttempt);
+        }
+        return newPoint;
+    };
+
+    // For each direction look for the next movable point by a small step to increase changes
+    // of finding the next angle value.
+    return {
+        up: movePointWithConstraint((coord) => vec.add(coord, [0, 0.1])),
+        down: movePointWithConstraint((coord) => vec.sub(coord, [0, 0.1])),
+        left: movePointWithConstraint((coord) => vec.sub(coord, [0.1, 0])),
+        right: movePointWithConstraint((coord) => vec.add(coord, [0.1, 0])),
     };
 }

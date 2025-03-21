@@ -1,4 +1,8 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+import {
+    usesNumCorrect,
+    type PerseusRadioWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -18,7 +22,6 @@ import ChoiceNoneAbove from "./choice-none-above";
 
 import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
-import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
 import type {StyleDeclaration} from "aphrodite";
 
 const {captureScratchpadTouchStart} = Util;
@@ -79,7 +82,9 @@ function getInstructionsText(
     strings: PerseusStrings,
 ): string {
     if (multipleSelect) {
-        if (countChoices) {
+        // using usesNumCorrect to make sure this logic stays in sync
+        // with getRadioPublicWidgetOptions logic
+        if (usesNumCorrect(multipleSelect, !!countChoices, numCorrect)) {
             return strings.chooseNumAnswers({
                 numCorrect: String(numCorrect),
             });

@@ -7,8 +7,8 @@ import {
 } from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
 
-import type Key from "../../data/keys";
 import type {MathFieldInterface} from "../input/mathquill-types";
+import type {KeypadKey} from "@khanacademy/perseus-core";
 
 const KeysForJumpContext = {
     [CursorContext.IN_PARENS]: "JUMP_OUT_PARENTHESES",
@@ -22,7 +22,7 @@ const KeysForJumpContext = {
 /**
  * Advances the cursor to the next logical position.
  */
-function handleJumpOut(mathField: MathFieldInterface, key: Key): void {
+function handleJumpOut(mathField: MathFieldInterface, key: KeypadKey): void {
     const cursor = mathField.cursor();
     const context = getCursorContext(mathField);
 

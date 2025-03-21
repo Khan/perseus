@@ -89,4 +89,103 @@ describe("getRadioPublicWidgetOptions", () => {
             noneOfTheAbove: false,
         });
     });
+
+    it("should include numCorrect if it's going to be used", () => {
+        // Arrange
+        const options: PerseusRadioWidgetOptions = {
+            choices: [
+                {
+                    content: "1 Incorrect",
+                    correct: false,
+                    widgets: {},
+                },
+                {
+                    content: "2 Incorrect",
+                    correct: true,
+                    widgets: {},
+                },
+                {
+                    content: "3 Correct",
+                    correct: true,
+                    widgets: {},
+                },
+            ],
+            numCorrect: 2,
+            countChoices: true,
+            multipleSelect: true,
+        };
+
+        // Act
+        const publicWidgetOptions = getRadioPublicWidgetOptions(options);
+
+        // Assert
+        expect(publicWidgetOptions).toEqual({
+            choices: [
+                {
+                    content: "1 Incorrect",
+                    widgets: {},
+                },
+                {
+                    content: "2 Incorrect",
+                    widgets: {},
+                },
+                {
+                    content: "3 Correct",
+                    widgets: {},
+                },
+            ],
+            numCorrect: 2,
+            countChoices: true,
+            multipleSelect: true,
+        });
+    });
+
+    it("should exclude numCorrect if it's not going to be used", () => {
+        // Arrange
+        const options: PerseusRadioWidgetOptions = {
+            choices: [
+                {
+                    content: "1 Incorrect",
+                    correct: false,
+                    widgets: {},
+                },
+                {
+                    content: "2 Incorrect",
+                    correct: true,
+                    widgets: {},
+                },
+                {
+                    content: "3 Correct",
+                    correct: true,
+                    widgets: {},
+                },
+            ],
+            numCorrect: 2,
+            countChoices: false,
+            multipleSelect: true,
+        };
+
+        // Act
+        const publicWidgetOptions = getRadioPublicWidgetOptions(options);
+
+        // Assert
+        expect(publicWidgetOptions).toEqual({
+            choices: [
+                {
+                    content: "1 Incorrect",
+                    widgets: {},
+                },
+                {
+                    content: "2 Incorrect",
+                    widgets: {},
+                },
+                {
+                    content: "3 Correct",
+                    widgets: {},
+                },
+            ],
+            countChoices: false,
+            multipleSelect: true,
+        });
+    });
 });

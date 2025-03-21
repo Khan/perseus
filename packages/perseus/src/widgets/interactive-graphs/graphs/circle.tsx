@@ -3,7 +3,6 @@ import * as React from "react";
 import {useRef} from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
-import a11y from "../../../util/a11y";
 import {snap, X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
@@ -11,6 +10,7 @@ import useGraphConfig from "../reducer/use-graph-config";
 
 import Hairlines from "./components/hairlines";
 import {MovablePoint} from "./components/movable-point";
+import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
 import {useDraggable} from "./use-draggable";
 import {
@@ -110,12 +110,8 @@ export function CircleGraph(props: CircleGraphProps) {
             />
             {/* Hidden elements to provide the descriptions for the
                 circle and radius point's `aria-describedby` properties. */}
-            <g id={radiusId} style={a11y.srOnly}>
-                {srCircleRadius}
-            </g>
-            <g id={outerPointsId} style={a11y.srOnly}>
-                {srCircleOuterPoints}
-            </g>
+            <SRDescInSVG id={radiusId}>{srCircleRadius}</SRDescInSVG>
+            <SRDescInSVG id={outerPointsId}>{srCircleOuterPoints}</SRDescInSVG>
         </g>
     );
 }
@@ -129,7 +125,8 @@ function MovableCircle(props: {
     onMove: (newCenter: vec.Vector2) => unknown;
 }) {
     const {id, ariaLabel, ariaDescribedBy, center, radius, onMove} = props;
-    const {snapStep, disableKeyboardInteraction} = useGraphConfig();
+    const {snapStep, disableKeyboardInteraction, interactiveColor} =
+        useGraphConfig();
     const [focused, setFocused] = React.useState(false);
 
     const draggableRef = useRef<SVGGElement>(null);
@@ -170,6 +167,8 @@ function MovableCircle(props: {
                 cy={centerPx[Y]}
                 rx={radiiPx[X]}
                 ry={radiiPx[Y]}
+                stroke={interactiveColor}
+                data-testid="movable-circle__circle"
             />
             <DragHandle center={center} dragging={dragging} focused={focused} />
         </g>
@@ -186,7 +185,7 @@ function DragHandle(props: {
     const {center, dragging, focused} = props;
 
     const [centerPx] = useTransformVectorsToPixels(center);
-    const {markings} = useGraphConfig();
+    const {markings, interactiveColor} = useGraphConfig();
 
     const cornerRadius = Math.min(...dragHandleDimensions) / 2;
     const topLeft = vec.sub(centerPx, vec.scale(dragHandleDimensions, 0.5));
@@ -204,6 +203,8 @@ function DragHandle(props: {
                 height={dragHandleDimensions[Y]}
                 rx={cornerRadius}
                 ry={cornerRadius}
+                fill={interactiveColor}
+                data-testid="movable-circle__handle"
             />
             {dragHandleDotPositions.map((offsetPx) => {
                 const [xPx, yPx] = vec.add(offsetPx, centerPx);

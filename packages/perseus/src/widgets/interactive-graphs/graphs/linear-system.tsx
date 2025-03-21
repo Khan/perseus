@@ -2,10 +2,10 @@ import {geometry} from "@khanacademy/kmath";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
-import a11y from "../../../util/a11y";
 import {actions} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
+import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
 import {getInterceptStringForLine, getSlopeStringForLine} from "./utils";
 
@@ -131,46 +131,36 @@ const LinearSystemGraph = (props: LinearSystemGraphProps) => {
                             ),
                         )
                     }
-                    color="var(--movable-line-stroke-color)"
                 />
             ))}
             {linesAriaInfo.map(
-                ({
-                    pointsDescriptionId,
-                    interceptDescriptionId,
-                    slopeDescriptionId,
-                    pointsDescription,
-                    interceptDescription,
-                    slopeDescription,
-                }) => (
-                    <>
-                        <g
-                            key={pointsDescriptionId}
-                            id={pointsDescriptionId}
-                            style={a11y.srOnly}
-                        >
+                (
+                    {
+                        pointsDescriptionId,
+                        interceptDescriptionId,
+                        slopeDescriptionId,
+                        pointsDescription,
+                        interceptDescription,
+                        slopeDescription,
+                    },
+                    i,
+                ) => (
+                    <span key={`line-descriptions-${i}`}>
+                        <SRDescInSVG id={pointsDescriptionId}>
                             {pointsDescription}
-                        </g>
-                        <g
-                            key={interceptDescriptionId}
-                            id={interceptDescriptionId}
-                            style={a11y.srOnly}
-                        >
+                        </SRDescInSVG>
+                        <SRDescInSVG id={interceptDescriptionId}>
                             {interceptDescription}
-                        </g>
-                        <g
-                            key={slopeDescriptionId}
-                            id={slopeDescriptionId}
-                            style={a11y.srOnly}
-                        >
+                        </SRDescInSVG>
+                        <SRDescInSVG id={slopeDescriptionId}>
                             {slopeDescription}
-                        </g>
-                    </>
+                        </SRDescInSVG>
+                    </span>
                 ),
             )}
-            <g id={intersectionId} style={a11y.srOnly}>
+            <SRDescInSVG id={intersectionId}>
                 {intersectionDescription}
-            </g>
+            </SRDescInSVG>
         </g>
     );
 };

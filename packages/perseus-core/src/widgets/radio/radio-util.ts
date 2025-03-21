@@ -11,6 +11,7 @@ type RadioPublicWidgetOptions = {
     choices: ReadonlyArray<RadioChoicePublicData>;
     hasNoneOfTheAbove?: PerseusRadioWidgetOptions["hasNoneOfTheAbove"];
     countChoices?: PerseusRadioWidgetOptions["countChoices"];
+    numCorrect?: PerseusRadioWidgetOptions["numCorrect"];
     randomize?: PerseusRadioWidgetOptions["randomize"];
     multipleSelect?: PerseusRadioWidgetOptions["multipleSelect"];
     deselectEnabled?: PerseusRadioWidgetOptions["deselectEnabled"];
@@ -43,15 +44,36 @@ function getRadioChoicePublicData(
 }
 
 /**
+ * Shared functionality to determine if numCorrect is used, because:
+ *
+ * 1. numCorrect is conditionally used for rendering pre-scoring
+ * 2. numCorrect also exposes information about answers
+ *
+ * So only include/use numCorrect when we know it's useful.
+ */
+export function usesNumCorrect(
+    multipleSelect: PerseusRadioWidgetOptions["multipleSelect"],
+    countChoices: PerseusRadioWidgetOptions["countChoices"],
+    numCorrect: PerseusRadioWidgetOptions["numCorrect"],
+) {
+    return multipleSelect && countChoices && numCorrect;
+}
+
+/**
  * Given a PerseusRadioWidgetOptions object, return a new object with only
  * the public options that should be exposed to the client.
  */
 function getRadioPublicWidgetOptions(
     options: PerseusRadioWidgetOptions,
 ): RadioPublicWidgetOptions {
+    const {numCorrect, choices, multipleSelect, countChoices} = options;
+
     return {
         ...options,
-        choices: options.choices.map(getRadioChoicePublicData),
+        numCorrect: usesNumCorrect(multipleSelect, countChoices, numCorrect)
+            ? numCorrect
+            : undefined,
+        choices: choices.map(getRadioChoicePublicData),
     };
 }
 

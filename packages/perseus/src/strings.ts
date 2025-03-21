@@ -235,7 +235,6 @@ export type PerseusStrings = {
     }) => string;
     srAngleStartingSide: ({x, y}: {x: string; y: string}) => string;
     srAngleEndingSide: ({x, y}: {x: string; y: string}) => string;
-    srAngleVertex: ({x, y}: {x: string; y: string}) => string;
     srAngleVertexWithAngleMeasure: ({
         x,
         y,
@@ -691,9 +690,9 @@ export const strings = {
     // been finalized. Remove this comment after the tickets have been
     // created.
     srGraphInstructions:
-        "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.",
+        "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.",
     srUnlimitedGraphInstructions:
-        "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
+        "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
     xAxis: "X-axis",
     yAxis: "Y-axis",
     srPointAtCoordinates: "Point %(num)s at %(x)s comma %(y)s.",
@@ -726,7 +725,6 @@ export const strings = {
         "Line going through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s.",
     srAngleStartingSide: "Point 3, starting side at %(x)s comma %(y)s.",
     srAngleEndingSide: "Point 2, ending side at %(x)s comma %(y)s.",
-    srAngleVertex: "Point 1, vertex at %(x)s comma %(y)s.",
     srAngleVertexWithAngleMeasure:
         "Point 1, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees.",
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",
@@ -972,9 +970,9 @@ export const mockStrings: PerseusStrings = {
 
     // The following strings are used for interactive graph SR descriptions.
     srGraphInstructions:
-        "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.",
+        "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.",
     srUnlimitedGraphInstructions:
-        "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
+        "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
     xAxis: "X-axis",
     yAxis: "Y-axis",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
@@ -1024,7 +1022,6 @@ export const mockStrings: PerseusStrings = {
     srAngleStartingSide: ({x, y}) =>
         `Point 3, starting side at ${x} comma ${y}.`,
     srAngleEndingSide: ({x, y}) => `Point 2, ending side at ${x} comma ${y}.`,
-    srAngleVertex: ({x, y}) => `Point 1, vertex at ${x} comma ${y}.`,
     srAngleVertexWithAngleMeasure: ({x, y, angleMeasure}) =>
         `Point 1, vertex at ${x} comma ${y}. Angle ${angleMeasure} degrees.`,
     srAngleGraphAriaLabel: "An angle on a coordinate plane.",

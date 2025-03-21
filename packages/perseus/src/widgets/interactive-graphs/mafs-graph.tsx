@@ -70,6 +70,7 @@ export type MafsGraphProps = {
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
     labels: ReadonlyArray<string>;
+    labelLocation?: InteractiveGraphProps["labelLocation"];
     fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
     fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     state: InteractiveGraphState;
@@ -83,6 +84,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
         state,
         dispatch,
         labels,
+        labelLocation,
         readOnly,
         fullGraphAriaLabel,
         fullGraphAriaDescription,
@@ -149,6 +151,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
         markings: props.markings,
     });
 
+    const disableInteraction = readOnly || !!props.static;
+
     return (
         <GraphConfigContext.Provider
             value={{
@@ -162,7 +166,15 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 width,
                 height,
                 labels,
-                disableKeyboardInteraction: readOnly || !!props.static,
+                labelLocation,
+                disableKeyboardInteraction: disableInteraction,
+                // If the graph is read-only or static, we want to make it
+                // visually clear that the graph is no longer interactive.
+                // We do this by changing the color of the interactive elements
+                // to a static gray color rather than our standard blue.
+                interactiveColor: disableInteraction
+                    ? "var(--static-gray)"
+                    : "var(--mafs-blue)",
             }}
         >
             <View className="mafs-graph-container">

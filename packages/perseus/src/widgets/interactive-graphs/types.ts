@@ -89,7 +89,7 @@ export interface PolygonGraphState extends InteractiveGraphStateCommon {
     type: "polygon";
     showAngles: boolean;
     showSides: boolean;
-    snapTo: "grid" | "angles" | "sides";
+    snapTo: SnapTo;
     coords: Coord[];
     numSides?: number | "unlimited";
     focusedPointIndex: number | null;
@@ -138,3 +138,5 @@ export type GraphDimensions = {
 };
 
 export type AriaLive = "off" | "assertive" | "polite" | undefined;
+
+export type SnapTo = "grid" | "angles" | "sides";

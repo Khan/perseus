@@ -1,36 +1,38 @@
-/* eslint-disable jsx-a11y/anchor-is-valid, react/forbid-prop-types */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import {
     components,
-    ApiOptions,
     BaseRadio,
     Changeable,
     iconTrash,
 } from "@khanacademy/perseus";
-import {
-    radioLogic,
-    type RadioDefaultWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
 import {iconPlus} from "../../styles/icon-paths";
 
+import type {APIOptions} from "@khanacademy/perseus";
+import type {
+    PerseusRadioWidgetOptions,
+    PerseusRadioChoice,
+    RadioDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
+
 const {InlineIcon} = components;
 
-class ChoiceEditor extends React.Component<any> {
-    static propTypes = {
-        apiOptions: ApiOptions.propTypes,
+type Contentful = {content?: string};
+type ChoiceEditorProps = {
+    apiOptions: APIOptions;
+    choice: PerseusRadioChoice;
+    showDelete: boolean;
+    onClueChange: (newProps: Contentful) => void;
+    onContentChange: (newProps: Contentful) => void;
+    onDelete: () => void;
+};
 
-        choice: PropTypes.object,
-        showDelete: PropTypes.bool,
-        onClueChange: PropTypes.func,
-        onContentChange: PropTypes.func,
-        onDelete: PropTypes.func,
-    };
-
+class ChoiceEditor extends React.Component<ChoiceEditorProps> {
     render(): React.ReactNode {
         const checkedClass = this.props.choice.correct
             ? "correct"
@@ -96,31 +98,19 @@ class ChoiceEditor extends React.Component<any> {
     }
 }
 
-class RadioEditor extends React.Component<any> {
-    static propTypes = {
-        ...Changeable.propTypes,
-        apiOptions: ApiOptions.propTypes,
-        choices: PropTypes.arrayOf(
-            PropTypes.shape({
-                content: PropTypes.string,
-                clue: PropTypes.string,
-                correct: PropTypes.bool,
-            }),
-        ),
-        displayCount: PropTypes.number,
-        randomize: PropTypes.bool,
-        hasNoneOfTheAbove: PropTypes.bool,
-        multipleSelect: PropTypes.bool,
-        countChoices: PropTypes.bool,
+type RadioEditorProps = {
+    apiOptions: APIOptions;
+    countChoices: boolean;
+    choices: ReadonlyArray<PerseusRadioChoice>;
+    displayCount: number;
+    randomize: boolean;
+    hasNoneOfTheAbove: boolean;
+    multipleSelect: boolean;
+    deselectEnabled: boolean;
+    static: boolean;
+} & Changeable.ChangeableProps;
 
-        // TODO(kevinb): DEPRECATED: This is be used to force deselectEnabled
-        // behavior on mobile but not on desktop.  When enabled, the user can
-        // deselect a radio input by tapping on it again.
-        deselectEnabled: PropTypes.bool,
-
-        static: PropTypes.bool,
-    };
-
+class RadioEditor extends React.Component<RadioEditorProps> {
     static widgetName = "radio" as const;
 
     static defaultProps: RadioDefaultWidgetOptions =
@@ -168,17 +158,27 @@ class RadioEditor extends React.Component<any> {
     };
 
     onChange: (arg1: any) => void = ({checked}) => {
-        const choices = _.map(this.props.choices, (choice, i) => {
-            return _.extend({}, choice, {
+        const choices = this.props.choices.map((choice, i) => {
+            return {
+                ...choice,
                 correct: checked[i],
                 content:
                     choice.isNoneOfTheAbove && !checked[i]
                         ? ""
                         : choice.content,
-            });
+            };
         });
 
-        this.props.onChange({choices: choices});
+        this.props.onChange({
+            choices: choices,
+            numCorrect: deriveNumCorrect({
+                ...this.props,
+                choices,
+                // When deriving numCorrect, we don't want to pass the current value,
+                // as it has changed.
+                numCorrect: undefined,
+            }),
+        });
     };
 
     onContentChange: (arg1: any, arg2: any) => void = (
@@ -192,7 +192,7 @@ class RadioEditor extends React.Component<any> {
         this.props.onChange({choices: choices});
     };
 
-    onClueChange: (arg1: any, arg2: any) => void = (choiceIndex, newClue) => {
+    onClueChange(choiceIndex: number, newClue: string): void {
         const choices = this.props.choices.slice();
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
             clue: newClue,
@@ -201,7 +201,7 @@ class RadioEditor extends React.Component<any> {
             delete choices[choiceIndex].clue;
         }
         this.props.onChange({choices: choices});
-    };
+    }
 
     onDelete: (arg1: number) => void = (choiceIndex) => {
         const choices = this.props.choices.slice();
@@ -220,7 +220,10 @@ class RadioEditor extends React.Component<any> {
         e.preventDefault();
 
         const choices = this.props.choices.slice();
-        const newChoice = {isNoneOfTheAbove: noneOfTheAbove} as const;
+        const newChoice: PerseusRadioChoice = {
+            isNoneOfTheAbove: noneOfTheAbove,
+            content: "",
+        };
         const addIndex =
             choices.length - (this.props.hasNoneOfTheAbove ? 1 : 0);
 
@@ -260,18 +263,33 @@ class RadioEditor extends React.Component<any> {
         return [];
     };
 
-    serialize: () => any = () => {
-        return _.pick(
-            this.props,
-            "choices",
-            "randomize",
-            "multipleSelect",
-            "countChoices",
-            "displayCount",
-            "hasNoneOfTheAbove",
-            "deselectEnabled",
-        );
-    };
+    serialize(): PerseusRadioWidgetOptions {
+        const {
+            choices,
+            randomize,
+            multipleSelect,
+            countChoices,
+            displayCount,
+            hasNoneOfTheAbove,
+            deselectEnabled,
+        } = this.props;
+
+        return {
+            choices,
+            randomize,
+            multipleSelect,
+            countChoices,
+            displayCount,
+            hasNoneOfTheAbove,
+            deselectEnabled,
+            numCorrect: deriveNumCorrect({
+                ...this.props,
+                // When deriving numCorrect, we don't want to pass the current value,
+                // as it has changed.
+                numCorrect: undefined,
+            }),
+        };
+    }
 
     render(): React.ReactNode {
         const numCorrect = _.reduce(
@@ -346,7 +364,7 @@ class RadioEditor extends React.Component<any> {
                                     apiOptions={this.props.apiOptions}
                                     choice={choice}
                                     onContentChange={(newProps) => {
-                                        if ("content" in newProps) {
+                                        if (newProps.content != null) {
                                             this.onContentChange(
                                                 i,
                                                 newProps.content,
@@ -354,7 +372,7 @@ class RadioEditor extends React.Component<any> {
                                         }
                                     }}
                                     onClueChange={(newProps) => {
-                                        if ("content" in newProps) {
+                                        if (newProps.content != null) {
                                             this.onClueChange(
                                                 i,
                                                 newProps.content,
@@ -367,7 +385,7 @@ class RadioEditor extends React.Component<any> {
                             ),
                             isNoneOfTheAbove: choice.isNoneOfTheAbove,
                             checked: choice.correct,
-                        };
+                        } as any;
                     }, this)}
                     onChange={this.onChange}
                 />
