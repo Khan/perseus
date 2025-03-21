@@ -103,7 +103,7 @@ export const ServerItemRendererWithDebugUI = ({
                     <KEScoreUI score={state} />
                 </>
             }
-            jsonObject={item}
+            jsonObject={renderedItem}
         />
     );
 };
