@@ -1,7 +1,6 @@
 import {
     ItemExtras,
     type PerseusExpressionWidgetOptions,
-    type Version,
     type PerseusItem,
     type PerseusAnswerArea,
     expressionLogic,
@@ -9,7 +8,7 @@ import {
 
 const createItemJson = (
     widgetOptions: PerseusExpressionWidgetOptions,
-    widgetVersion: Version = expressionLogic.version as Version,
+    widgetVersion = expressionLogic.version,
 ): PerseusItem => {
     return {
         question: {
