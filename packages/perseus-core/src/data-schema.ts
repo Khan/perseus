@@ -1206,15 +1206,19 @@ export type MathFormat =
     | "pi";
 
 export type PerseusNumericInputAnswerForm = {
-    simplify: PerseusNumericInputSimplify | null | undefined;
+    simplify: PerseusNumericInputSimplify;
     name: MathFormat;
 };
 
-export type PerseusNumericInputSimplify =
-    | "required"
-    | "correct"
-    | "enforced"
-    | "optional";
+/**
+ * Determines how unsimplified fractions are scored.
+ *
+ * - "required" means unsimplified fractions are considered invalid input, and
+ *   the learner can try again.
+ * - "enforced" means unsimplified fractions are marked incorrect.
+ * - "optional" means unsimplified fractions are accepted.
+ */
+export type PerseusNumericInputSimplify = "required" | "enforced" | "optional";
 
 export type PerseusNumericInputWidgetOptions = {
     // A list of all the possible correct and incorrect answers
@@ -1249,7 +1253,7 @@ export type PerseusNumericInputAnswer = {
     // NOTE: perseus_data.go says this is non-nullable even though we handle null values.
     maxError: number | null | undefined;
     // Unsimplified answers are Ungraded, Accepted, or Wrong. Options: "required", "correct", or "enforced"
-    simplify: PerseusNumericInputSimplify | null | undefined;
+    simplify: PerseusNumericInputSimplify;
 };
 
 export type PerseusNumberLineWidgetOptions = {

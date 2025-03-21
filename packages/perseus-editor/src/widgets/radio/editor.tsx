@@ -174,6 +174,9 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             numCorrect: deriveNumCorrect({
                 ...this.props,
                 choices,
+                // When deriving numCorrect, we don't want to pass the current value,
+                // as it has changed.
+                numCorrect: undefined,
             }),
         });
     };
@@ -279,7 +282,12 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             displayCount,
             hasNoneOfTheAbove,
             deselectEnabled,
-            numCorrect: deriveNumCorrect(this.props),
+            numCorrect: deriveNumCorrect({
+                ...this.props,
+                // When deriving numCorrect, we don't want to pass the current value,
+                // as it has changed.
+                numCorrect: undefined,
+            }),
         };
     }
 
