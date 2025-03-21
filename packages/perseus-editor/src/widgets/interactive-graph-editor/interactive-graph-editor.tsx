@@ -215,8 +215,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
         // eslint-disable-next-line react/no-string-refs
         const graph = this.refs.graph;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (graph) {
             // @ts-expect-error TS2339 Property 'getUserInput' does not exist on type 'ReactInstance'. Property 'getUserInput' does not exist on type 'Component<any, {}, any>'.
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             const correct = graph && graph.getUserInput();
             _.extend(json, {
                 graph: {
@@ -281,6 +283,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
         let equationString;
 
         const gridStep =
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             this.props.gridStep ||
             Util.getGridStep(
                 this.props.range,
@@ -288,6 +291,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 interactiveSizes.defaultBoxSize,
             );
         const snapStep =
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             this.props.snapStep || Util.snapStepFromGridStep(gridStep);
 
         const sizeClass = containerSizeClass.SMALL;
@@ -506,6 +510,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     <SingleSelect
                                         key="polygon-select"
                                         selectedValue={
+                                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                             this.props.correct?.numSides
                                                 ? `${this.props.correct.numSides}`
                                                 : "3"

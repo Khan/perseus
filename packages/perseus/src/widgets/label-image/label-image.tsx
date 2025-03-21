@@ -438,6 +438,7 @@ export class LabelImage
 
         this.handleMarkerChange(index, {
             ...markers[index],
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             selected: selected.length ? selected : undefined,
         });
     }

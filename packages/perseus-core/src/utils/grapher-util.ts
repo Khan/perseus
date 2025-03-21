@@ -429,6 +429,7 @@ const Exponential: ExponentialType = _.extend({}, PlotDefaults, {
     },
 
     getEquationString: function (coords: Coords, asymptote: Coords) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!asymptote) {
             return null;
         }
@@ -536,6 +537,7 @@ const Logarithm: LogarithmType = _.extend({}, PlotDefaults, {
     },
 
     getEquationString: function (coords: Coords, asymptote: Coords) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!asymptote) {
             return null;
         }

@@ -311,6 +311,7 @@ export class TraversalState {
 
         // If we're at the root of the tree or if the parent is an
         // object instead of an array, then there are no siblings.
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!siblings || !Array.isArray(siblings)) {
             return null;
         }
@@ -332,6 +333,7 @@ export class TraversalState {
 
         // If we're at the root of the tree or if the parent is an
         // object instead of an array, then there are no siblings.
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!siblings || !Array.isArray(siblings)) {
             return null;
         }
@@ -351,6 +353,7 @@ export class TraversalState {
      */
     removeNextSibling(): TreeNode | null | undefined {
         const siblings = this._containers.top();
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (siblings && Array.isArray(siblings)) {
             // top index is a number because top container is an array
             const index = this._indexes.top() as number;
@@ -374,6 +377,7 @@ export class TraversalState {
      */
     replace(...replacements: ReadonlyArray<TreeNode>): void {
         const parent = this._containers.top();
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!parent) {
             throw new PerseusError(
                 "Can't replace the root of the tree",
@@ -478,6 +482,7 @@ export class TraversalState {
         // this._containers.top()[this.indexes.top()] === this._currentNode
         //
         while (
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             this._containers.size() &&
             this._containers.top()[this._indexes.top()] !== this._currentNode
         ) {
@@ -572,6 +577,7 @@ class Stack<T> {
      * the two arrays are the same.
      */
     equals(that: Stack<T>): boolean {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!that || !that.stack || that.stack.length !== this.stack.length) {
             return false;
         }

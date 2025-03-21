@@ -142,6 +142,7 @@ class CSProgram extends React.Component<Props> implements Widget {
         }
 
         // Turn array of [{name: "", value: ""}] into object
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this.props.settings) {
             const settings: Record<string, any> = {};
             _.each(this.props.settings, function (setting) {

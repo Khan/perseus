@@ -8,6 +8,7 @@ function getMatrixSize(matrix: ReadonlyArray<ReadonlyArray<number>>) {
     _(matrix).each((matrixRow, row) => {
         let rowWidth = 0;
         _(matrixRow).each((matrixCol, col) => {
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (matrixCol != null && matrixCol.toString().length) {
                 rowWidth = col + 1;
             }

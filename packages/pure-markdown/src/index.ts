@@ -86,6 +86,7 @@ const mathMatcher = (source: any, state: any, isBlock: boolean) => {
             // capture[1] is the first "paren" match, which is the
             //   content of the math here, as if we wrote the regex
             //   /\$([^\$]*)\$/
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (endIndex) {
                 return [
                     source.substring(0, endIndex),

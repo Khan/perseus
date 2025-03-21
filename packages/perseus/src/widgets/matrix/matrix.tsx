@@ -264,6 +264,7 @@ class Matrix extends React.Component<Props, State> implements Widget {
             enterTheMatrix = 0;
         }
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (nextPath) {
             // Prevent the cursor from jumping again inside the next input
             e.preventDefault();
@@ -303,6 +304,7 @@ class Matrix extends React.Component<Props, State> implements Widget {
         cb,
     ) => {
         const answers = this.props.answers.map((answer) => [...answer]);
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!answers[row]) {
             answers[row] = [];
         }
@@ -397,6 +399,7 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                         ref: getRefForPath(
                                             getInputPath(row, col),
                                         ),
+                                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                         value: rowVals ? rowVals[col] : null,
                                         style: {
                                             height: INPUT_HEIGHT,

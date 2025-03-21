@@ -67,6 +67,7 @@ export const RenderArticle = (
             </StatefulKeypadContextProvider>
         </RenderStateRoot>,
     );
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!renderer) {
         throw new Error(`Failed to render!`);
     }

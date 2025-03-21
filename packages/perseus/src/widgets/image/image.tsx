@@ -251,6 +251,7 @@ export default {
     // has a background but no alt text, it is not accessible
     accessible: (widgetOptions: PerseusImageWidgetOptions): boolean => {
         const bgImage = widgetOptions.backgroundImage;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         return !(bgImage && bgImage.url && !widgetOptions.alt);
     },
     displayName: "Image",

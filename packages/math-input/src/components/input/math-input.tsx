@@ -496,6 +496,7 @@ class MathInput extends React.Component<Props, State> {
                     // @ts-expect-error - TS2345 - Argument of type 'Element | null' is not assignable to parameter of type 'HTMLElement | null'.
                     leafElements.push(element);
 
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     counts[id] = (counts[id] || 0) + 1;
                     elementsById[id] = element;
                 } else {

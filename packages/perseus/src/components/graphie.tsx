@@ -306,6 +306,7 @@ class Graphie extends React.Component<Props> {
             renderChildren(child);
 
             const prevMovable = oldMovables[key];
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (!prevMovable) {
                 // We're creating a new child
                 child.add(graphie);

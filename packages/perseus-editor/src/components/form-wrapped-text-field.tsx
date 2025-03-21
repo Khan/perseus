@@ -126,14 +126,17 @@ class FormWrappedTextField extends React.Component<PropsWithForwardRef, State> {
         const extraStyles: any = {};
         const spanStyle = [styles.input, styles.container];
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (width) {
             extraStyles.width = width;
         }
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (grow) {
             extraStyles.flexGrow = grow === true ? 1 : grow;
         }
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (shrink || shrink === 0) {
             extraStyles.flexShrink = shrink === true ? 0 : shrink;
         }

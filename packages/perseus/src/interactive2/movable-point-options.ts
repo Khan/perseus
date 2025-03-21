@@ -182,11 +182,13 @@ const constraints = {
                 paddingPx,
             ]);
 
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (snap) {
                 lower = kpoint.ceilTo(lower, snap);
                 upper = kpoint.floorTo(upper, snap);
             }
 
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (!!options && !!options.onOutOfBounds) {
                 if (
                     coord[0] > upper[0] ||

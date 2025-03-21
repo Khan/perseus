@@ -32,6 +32,7 @@ function predicateCallback(q: PerseusRenderer) {
         }
 
         // Make sure the interactive-graph has the data we're comparing
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!widget?.options?.gridStep || !widget?.options.step) {
             continue;
         }

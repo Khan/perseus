@@ -125,6 +125,7 @@ export class PhetSimulation
 
     async showLocaleWarning(url: URL): Promise<boolean> {
         // Do not show a locale warning on an invalid URL
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!url) {
             return false;
         }

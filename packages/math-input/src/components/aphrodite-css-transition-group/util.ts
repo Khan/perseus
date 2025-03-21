@@ -7,6 +7,7 @@ import type {CSSProperties} from "aphrodite";
 function flatten(list?: StyleType): ReadonlyArray<CSSProperties> {
     const result: Array<CSSProperties> = [];
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!list) {
         return result;
     }
@@ -28,6 +29,7 @@ export function processStyleType(style?: StyleType): {
     const stylesheetStyles: Array<CSSProperties> = [];
     const inlineStyles: Array<CSSProperties> = [];
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!style) {
         return {
             style: {},

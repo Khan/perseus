@@ -10,6 +10,7 @@ const location = (): Location => {
      * We cache the result to ensure that on subsequent requests we always get
      * the first URL that was used to initially render the page.
      */
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!_cachedClientLocation) {
         // eslint-disable-next-line no-restricted-syntax
         _cachedClientLocation = window.location;

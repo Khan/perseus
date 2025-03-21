@@ -21,6 +21,7 @@ const findAndFocusElement = (component?: Element | null) => {
         ReactDOM.findDOMNode(component);
     const button = DOMNode as HTMLInputElement;
     // @ts-expect-error - TS2774 - This condition will always return true since this function is always defined. Did you mean to call it instead?
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (button.focus) {
         focusWithChromeStickyFocusBugWorkaround(button);
     }
@@ -171,6 +172,7 @@ class OptionGroup extends React.Component<{
     focusedElement: Element;
 
     componentDidMount() {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this.focusedElement) {
             findAndFocusElement(this.focusedElement);
         }

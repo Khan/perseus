@@ -192,6 +192,44 @@ module.exports = {
                 "@typescript-eslint/no-unused-expressions": "off",
             },
         },
+        {
+            files: ["*.ts", "*.tsx"],
+            parser: "@typescript-eslint/parser",
+            parserOptions: {
+                project: [
+                    "tsconfig.json",
+                    "packages/*/tsconfig.json",
+                    "packages/tsconfig-shared.json",
+                ],
+            },
+            rules: {
+                "@typescript-eslint/strict-boolean-expressions": [
+                    "error",
+                    {
+                        allowNumber: false, // Prevents using numbers as booleans (if (0))
+                        allowAny: true, // Allow any type to bypass the rule
+                        allowNullableBoolean: true, // Allow nullable booleans in conditionals (e.g., `null` or `undefined`)
+                        allowNullableString: true,
+                        allowNullableNumber: true,
+                    },
+                ],
+            },
+        },
+        {
+            files: [
+                "*.test.ts",
+                "*.d.ts",
+                "**/*.cypress.ts",
+                "add-library-version-to-perseus-debug.ts",
+                "cypress.config.ts",
+            ],
+            parserOptions: {
+                project: null, // Skip type-checking for test and declaration files
+            },
+            rules: {
+                "@typescript-eslint/strict-boolean-expressions": "off",
+            },
+        },
     ],
     rules: {
         "max-lines": "off",

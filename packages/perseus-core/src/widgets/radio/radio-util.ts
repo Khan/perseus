@@ -70,6 +70,7 @@ function getRadioPublicWidgetOptions(
 
     return {
         ...options,
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         numCorrect: usesNumCorrect(multipleSelect, countChoices, numCorrect)
             ? numCorrect
             : undefined,

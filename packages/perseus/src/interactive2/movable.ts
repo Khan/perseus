@@ -115,6 +115,7 @@ export class Movable<Options extends Record<string, any>> {
         // the invisible shape in front of the point that gets mouse events
         if (state.mouseTarget && !prevState.mouseTarget) {
             let $mouseTarget;
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (state.mouseTarget.getMouseTarget) {
                 $mouseTarget = $(state.mouseTarget.getMouseTarget());
             } else {
@@ -170,6 +171,7 @@ export class Movable<Options extends Record<string, any>> {
 
         if (state.mouseTarget && state.cursor !== undefined) {
             let $mouseTarget;
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (state.mouseTarget.getMouseTarget) {
                 $mouseTarget = $(state.mouseTarget.getMouseTarget());
             } else {
@@ -177,6 +179,7 @@ export class Movable<Options extends Record<string, any>> {
             }
 
             // "" removes the css cursor if state.cursor is null
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             $mouseTarget.css("cursor", state.cursor || "");
         }
 
@@ -352,12 +355,14 @@ export class Movable<Options extends Record<string, any>> {
      *   (state, prevState)]
      */
     listen(eventName: string, id: string, func: () => unknown) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         this._listenerMap = this._listenerMap || {};
 
         // If there's an existing handler, replace it by using its index in
         // `this.state[eventName]`; otherwise, add this handler to the end
         const key = getKey(eventName, id);
         const index = (this._listenerMap[key] =
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             this._listenerMap[key] || this.state[eventName].length);
         this.state[eventName][index] = func;
     }
@@ -369,6 +374,7 @@ export class Movable<Options extends Record<string, any>> {
      * If the given id has not been registered already, this is a no-op
      */
     unlisten(eventName: string, id: string) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         this._listenerMap = this._listenerMap || {};
 
         const key = getKey(eventName, id);

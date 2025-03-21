@@ -275,6 +275,7 @@ function scoreInteractiveGraph(
             let match;
             if (rubric.correct.match === "congruent") {
                 const angles = _.map([guess, correct], function (coords) {
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     if (!coords) {
                         return false;
                     }

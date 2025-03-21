@@ -14,6 +14,7 @@ export function getCursorContextConfig(
     strings: MathInputStrings,
     cursorContext?: (typeof CursorContext)[keyof typeof CursorContext],
 ) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!cursorContext) {
         return null;
     }

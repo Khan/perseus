@@ -95,6 +95,7 @@ const snowman = "\u2603";
  * Drop this custom split thing.
  */
 // In IE8, split doesn't work right. Implement it ourselves.
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
 const split: (str: string, r: RegExp) => ReadonlyArray<string> = "x".split(
     /(.)/g,
 ).length

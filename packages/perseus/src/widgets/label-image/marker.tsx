@@ -44,6 +44,7 @@ function shouldReduceMotion(): boolean {
         return true;
     }
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return !mediaQuery || mediaQuery.matches;
 }
 

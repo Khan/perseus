@@ -97,6 +97,7 @@ class VisibilityObserver extends React.Component<Props> {
 
     registerVisibilityObserver() {
         const {rootMargin} = this.props;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!this._node) {
             return;
         }
@@ -111,6 +112,7 @@ class VisibilityObserver extends React.Component<Props> {
     }
 
     unregisterVisibilityObserver() {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this._observer) {
             this._observer.disconnect();
         }

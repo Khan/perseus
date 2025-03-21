@@ -100,6 +100,7 @@ class MultiButtonGroup extends React.Component<Props> {
                     )}
                     onClick={() => this.toggleSelect(button.value)}
                 >
+                    {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                     {button.content || "" + button.value}
                 </button>
             );

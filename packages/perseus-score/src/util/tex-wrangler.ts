@@ -127,6 +127,7 @@ function walkTex(
         currentIndex = secondParsedExpression.endpoint + 1;
 
         // Add expressions to running total of parsed expressions
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (parsedString.length) {
             parsedString += " ";
         }

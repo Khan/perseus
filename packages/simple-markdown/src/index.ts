@@ -380,8 +380,10 @@ var parserFor = function (
                 currRule = rules[currRuleType];
             } while (
                 // keep looping while we're still within the ruleList
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 currRule &&
                 // if we don't have a match yet, continue
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 (!capture ||
                     // or if we have a match, but the next rule is
                     // at the same order, and has a quality measurement
@@ -509,7 +511,9 @@ var anyScopeRegex = function (regex: RegExp): MatchFunction {
 
 var TYPE_SYMBOL =
     (typeof Symbol === "function" &&
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         Symbol.for &&
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         Symbol.for("react.element")) ||
     0xeac7;
 
@@ -554,6 +558,7 @@ var htmlTag = function (
         // Removes falsey attributes
         if (
             Object.prototype.hasOwnProperty.call(attributes, attr) &&
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             attribute
         ) {
             attributeString +=
@@ -1728,6 +1733,7 @@ var ruleOutput = function <Rule>(
     rules: OutputRules<Rule>,
     property: keyof Rule,
 ) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!property && typeof console !== "undefined") {
         console.warn(
             "simple-markdown ruleOutput should take 'react' or " +
@@ -1808,6 +1814,7 @@ var outputFor = function <Rule>(
     property: keyof Rule,
     defaultState: State | null = {},
 ) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!property) {
         throw new Error(
             "simple-markdown: outputFor: `property` must be " +

@@ -189,6 +189,7 @@ class Radio extends React.Component<Props> implements Widget {
     // adding hints when editing.
     // See: https://github.com/Khan/perseus/blame/e18582b4b69959270b90e237ef1813899711ddfa/src/widgets/radio.js#L169
     focus(choiceIndex?: number | null): boolean {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this.focusFunction) {
             return this.focusFunction(choiceIndex);
         }

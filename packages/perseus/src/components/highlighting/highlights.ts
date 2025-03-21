@@ -162,6 +162,7 @@ export function deserializeHighlight(
     const {firstWordIndex, lastWordIndex} = serializedHighlight.range;
 
     const firstWord = wordRanges[firstWordIndex];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!firstWord) {
         throw new PerseusError(
             `first word index ${firstWord} is out of bounds: ` +
@@ -172,6 +173,7 @@ export function deserializeHighlight(
     }
 
     const lastWord = wordRanges[lastWordIndex];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!lastWord) {
         throw new PerseusError(
             `last word index ${lastWord} is out of bounds: ` +
