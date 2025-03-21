@@ -1,4 +1,11 @@
-import {any, array, number, object, optional} from "../general-purpose-parsers";
+import {
+    any,
+    array,
+    nullable,
+    number,
+    object,
+    optional,
+} from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseHint} from "./hint";
@@ -13,10 +20,12 @@ export const parsePerseusItem: Parser<PerseusItem> = object({
     hints: defaulted(array(parseHint), () => []),
     answerArea: parsePerseusAnswerArea,
     itemDataVersion: optional(
-        object({
-            major: number,
-            minor: number,
-        }),
+        nullable(
+            object({
+                major: number,
+                minor: number,
+            }),
+        ),
     ),
     // Deprecated field
     answer: any,
