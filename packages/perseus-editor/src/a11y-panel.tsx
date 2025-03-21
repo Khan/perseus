@@ -94,6 +94,13 @@ const AccessibilityPanel = () => {
         }
     };
 
+    const executeAxeCore = () => {
+        console.log("Executing axe-core...");
+        const code = document.getElementById("axe-core-code").value;
+        console.log(`   Code:\n`, code);
+        eval(code);
+    };
+
     const runAxeCoreOnUpdate = () => {
         // eslint-disable-next-line no-console
         console.log(`\nrunAxeCoreOnUpdate`);
@@ -114,7 +121,7 @@ const AccessibilityPanel = () => {
             axeIsInstalled = true;
         } else {
             injectAxeCore();
-            setInterval(runAxeCore, 1500);
+            // setInterval(runAxeCore, 1500);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -155,7 +162,28 @@ const AccessibilityPanel = () => {
                         onClick={togglePanel}
                         style={buttonStyle}
                     />
-                    <span>Accessibility</span>
+                    <button onClick={executeAxeCore}>Accessibility</button>
+                    <input
+                        type={"hidden"}
+                        id="axe-core-code"
+                        value={`
+                        const iFrameAxe = document.querySelector("iframe").contentWindow.axe;
+                        console.log("   iFrame: ", document.querySelector("iframe"));
+                        console.log("   Content Window: ", document.querySelector("iframe").contentWindow);
+                        console.log("   iFrame Axe: ", iFrameAxe);
+                        const options = ${!!document.getElementById("storybook-root")}
+                            ? ${JSON.stringify(axeCoreStorybookOptions)}
+                            : ${JSON.stringify(axeCoreEditorOptions)};
+                        axeCore.configure({reporter: "v2"});
+                        axeCore.run(options).then(
+                            (results) => {
+                                console.log(\`   Accessibility Results: \`, results);
+                            },
+                            (error) => {
+                                console.log(\`   Error: \`, error);
+                            },
+                        );`}
+                    />
                 </div>
                 {issuesCount}
                 <PhosphorIcon icon={icon} size="medium" color={iconColor} />
