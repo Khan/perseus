@@ -5,6 +5,8 @@
         "rootDir": "src"
     },
     "references": [
-        {"path": "../shared-inline/tsconfig-build.json"}
+        /* Add in-repo pacakge references here, like this:
+           {"path": "../path/to/package/tsconfig-build.json"}
+        */
     ]
 }

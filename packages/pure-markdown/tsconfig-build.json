@@ -5,6 +5,7 @@
         "rootDir": "src",
     },
     "references": [
+        {"path": "../shared-inline/tsconfig-build.json"},
         {"path": "../simple-markdown/tsconfig-build.json"},
     ]
 }

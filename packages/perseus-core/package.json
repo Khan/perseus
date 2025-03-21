@@ -29,6 +29,8 @@
     },
     "devDependencies": {
         "@khanacademy/wonder-stuff-core": "catalog:",
+        "perseus-build-settings": "workspace:*",
+        "@khanacademy/perseus-shared-inlined": "workspace:*",
         "underscore": "catalog:"
     },
     "peerDependencies": {

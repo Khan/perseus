@@ -29,6 +29,7 @@
     },
     "devDependencies": {
         "perseus-build-settings": "workspace:*",
+        "@khanacademy/perseus-shared-inlined": "workspace:*",
         "jquery": "catalog:",
         "underscore": "catalog:"
     },

@@ -1,4 +1,4 @@
-import {addLibraryVersionToPerseusDebug} from "./add-library-version-to-perseus-debug";
+import {addLibraryVersionToPerseusDebug} from "../add-library-version-to-perseus-debug";
 
 describe("add-library-version-to-perseus-debug", () => {
     beforeEach(() => {

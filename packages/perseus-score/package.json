@@ -27,7 +27,9 @@
     "dependencies": {
         "@khanacademy/kas": "workspace:*",
         "@khanacademy/kmath": "workspace:*",
-        "@khanacademy/perseus-core": "workspace:*"
+        "@khanacademy/perseus-core": "workspace:*",
+        "perseus-build-settings": "workspace:*",
+        "@khanacademy/perseus-shared-inlined": "workspace:*"
     },
     "devDependencies": {
         "jquery": "catalog:",

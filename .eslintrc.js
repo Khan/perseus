@@ -59,7 +59,7 @@ module.exports = {
     ],
     parserOptions: {
         babelOptions: {
-            configFile: path.join(__dirname, "./config/build/babel.config.js"),
+            configFile: path.join(__dirname, "./config/build/babel.config.mjs"),
         },
     },
     plugins: [

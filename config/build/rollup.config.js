@@ -8,7 +8,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import ancesdir from "ancesdir";
-import autoExternal from "rollup-plugin-auto-external";
+import autoExternals from "rollup-plugin-auto-external";
 import filesize from "rollup-plugin-filesize";
 import styles from "rollup-plugin-styles";
 
@@ -170,7 +170,7 @@ const createConfig = (
                 browser: platform === "browser",
                 extensions,
             }),
-            autoExternal({
+            autoExternals({
                 packagePath: makePackageBasedPath(name, "./package.json"),
             }),
             // TODO(FEI-4557): Figure out how to make this plugin work so that

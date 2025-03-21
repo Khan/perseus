@@ -70,6 +70,7 @@
         "classnames": "catalog:",
         "jquery": "catalog:",
         "perseus-build-settings": "workspace:*",
+        "@khanacademy/perseus-shared-inlined": "workspace:*",
         "prop-types": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",

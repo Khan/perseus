@@ -1,0 +1,28 @@
+{
+    "name": "@khanacademy/perseus-shared-inlined",
+    "description": "Utilities shared across all packages, but bundled (inlined) into each package at build time (ie. this is not a package that we publish!)",
+    "author": "Khan Academy",
+    "license": "MIT",
+    "version": "0.0.1",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/shared-inlined"
+    },
+    "bugs": {
+        "url": "https://github.com/Khan/perseus/issues"
+    },
+    "module": "dist/es/index.js",
+    "main": "dist/index.js",
+    "source": "src/index.ts",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "dependencies": {
+    },
+    "devDependencies": {
+        "perseus-build-settings": "workspace:*"
+    }
+}

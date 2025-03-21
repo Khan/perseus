@@ -82,6 +82,7 @@
         "jquery": "catalog:",
         "lodash.debounce": "^4.0.8",
         "perseus-build-settings": "workspace:*",
+        "@khanacademy/perseus-shared-inlined": "workspace:*",
         "prop-types": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",

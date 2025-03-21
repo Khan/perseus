@@ -27,7 +27,10 @@
     "dependencies": {
         "@khanacademy/simple-markdown": "workspace:*"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "perseus-build-settings": "workspace:*",
+        "@khanacademy/perseus-shared-inlined": "workspace:*"
+    },
     "peerDependencies": {},
     "keywords": []
 }
