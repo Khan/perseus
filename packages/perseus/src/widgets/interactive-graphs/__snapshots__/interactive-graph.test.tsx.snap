@@ -26,9 +26,13 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
               >
                 <span
-                  aria-label="X-axis"
                   style="position: absolute; left: 400px; top: 200px; font-size: 14px; transform: translate(7px, -50%);"
                 >
+                  <span
+                    class="srOnly_19bpjuy"
+                  >
+                    X-axis
+                  </span>
                   <span
                     class="mock-TeX"
                   >
@@ -36,9 +40,13 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                   </span>
                 </span>
                 <span
-                  aria-label="Y-axis"
                   style="position: absolute; left: 200px; top: -28px; font-size: 14px; transform: translate(-50%, 0px);"
                 >
+                  <span
+                    class="srOnly_19bpjuy"
+                  >
+                    Y-axis
+                  </span>
                   <span
                     class="mock-TeX"
                   >

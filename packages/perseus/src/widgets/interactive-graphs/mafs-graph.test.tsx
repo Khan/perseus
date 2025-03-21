@@ -195,8 +195,8 @@ describe("MafsGraph", () => {
 
         render(<MafsGraph {...basePropsWithTexLabels} />);
 
-        const xAxisLabel = screen.getByLabelText("X-axis");
-        const yAxisLabel = screen.getByLabelText("Y-axis");
+        const xAxisLabel = screen.getByText("X-axis");
+        const yAxisLabel = screen.getByText("Y-axis");
 
         expect(xAxisLabel).toBeInTheDocument();
         expect(yAxisLabel).toBeInTheDocument();
