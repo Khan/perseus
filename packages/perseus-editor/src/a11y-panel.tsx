@@ -95,8 +95,12 @@ const AccessibilityPanel = () => {
     };
 
     const executeAxeCore = () => {
+        // eslint-disable-next-line no-console
         console.log("Executing axe-core...");
-        const code = document.getElementById("axe-core-code").value;
+        const code: string = (
+            document.getElementById("axe-core-code") as HTMLInputElement
+        ).value;
+        // eslint-disable-next-line no-console
         console.log(`   Code:\n`, code);
         eval(code);
     };
