@@ -54,7 +54,6 @@
         "uuid": "^10.0.0"
     },
     "devDependencies": {
-        "perseus-shared-inlined": "workspace:*",
         "@khanacademy/wonder-blocks-banner": "catalog:",
         "@khanacademy/wonder-blocks-button": "catalog:",
         "@khanacademy/wonder-blocks-clickable": "catalog:",
@@ -83,6 +82,7 @@
         "jquery": "catalog:",
         "lodash.debounce": "^4.0.8",
         "perseus-build-settings": "workspace:*",
+        "perseus-shared-inlined": "workspace:*",
         "prop-types": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",
