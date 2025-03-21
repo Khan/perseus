@@ -1,4 +1,3 @@
-import {color} from "@khanacademy/wonder-blocks-tokens";
 import {Plot, vec} from "mafs";
 import * as React from "react";
 
@@ -8,8 +7,10 @@ import {
 } from "../../../components/i18n-context";
 import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
+import useGraphConfig from "../reducer/use-graph-config";
 
 import {MovablePoint} from "./components/movable-point";
+import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
 
 import type {
@@ -36,6 +37,7 @@ type SinusoidGraphProps = MafsGraphProps<SinusoidGraphState>;
 
 function SinusoidGraph(props: SinusoidGraphProps) {
     const {dispatch, graphState} = props;
+    const {interactiveColor} = useGraphConfig();
     const i18n = usePerseusI18n();
     const id = React.useId();
     const descriptionId = id + "-description";
@@ -78,7 +80,7 @@ function SinusoidGraph(props: SinusoidGraphProps) {
         >
             <Plot.OfX
                 y={(x) => computeSine(x, coeffRef.current)}
-                color={color.blue}
+                color={interactiveColor}
                 svgPathProps={{
                     // Use aria-hidden to hide the line from screen readers
                     // so it doesn't read as "image" with no context.
@@ -104,7 +106,9 @@ function SinusoidGraph(props: SinusoidGraphProps) {
                     }
                 />
             ))}
-            <g id={descriptionId}>{srSinusoidDescription}</g>
+            <SRDescInSVG id={descriptionId}>
+                {srSinusoidDescription}
+            </SRDescInSVG>
         </g>
     );
 }

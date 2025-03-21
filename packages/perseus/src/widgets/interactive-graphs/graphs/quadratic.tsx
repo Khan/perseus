@@ -1,12 +1,12 @@
-import {color} from "@khanacademy/wonder-blocks-tokens";
 import {Plot, vec} from "mafs";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
-import a11y from "../../../util/a11y";
 import {actions} from "../reducer/interactive-graph-action";
+import useGraphConfig from "../reducer/use-graph-config";
 
 import {MovablePoint} from "./components/movable-point";
+import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
 import {
     getQuadraticPointString,
@@ -44,6 +44,7 @@ function QuadraticGraph(props: QuadraticGraphProps) {
     const {dispatch, graphState} = props;
 
     const {coords, snapStep} = graphState;
+    const {interactiveColor} = useGraphConfig();
 
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
@@ -83,7 +84,7 @@ function QuadraticGraph(props: QuadraticGraphProps) {
         >
             <Plot.OfX
                 y={y}
-                color={color.blue}
+                color={interactiveColor}
                 svgPathProps={{
                     // Use aria-hidden to hide the line from screen readers
                     // so it doesn't read as "image" with no context.
@@ -125,20 +126,20 @@ function QuadraticGraph(props: QuadraticGraphProps) {
             {/* Hidden elements to provide the descriptions for the
                 `aria-describedby` properties */}
             {srQuadraticDirection && (
-                <g id={quadraticDirectionId} style={a11y.srOnly}>
+                <SRDescInSVG id={quadraticDirectionId}>
                     {srQuadraticDirection}
-                </g>
+                </SRDescInSVG>
             )}
             {srQuadraticVertex && (
-                <g id={quadraticVertexId} style={a11y.srOnly}>
+                <SRDescInSVG id={quadraticVertexId}>
                     {srQuadraticVertex}
-                </g>
+                </SRDescInSVG>
             )}
-            <g id={quadraticInterceptsId} style={a11y.srOnly}>
+            <SRDescInSVG id={quadraticInterceptsId}>
                 {srQuadraticXIntercepts
                     ? `${srQuadraticXIntercepts} ${srQuadraticYIntercept}`
                     : `${srQuadraticYIntercept}`}
-            </g>
+            </SRDescInSVG>
         </g>
     );
 }
