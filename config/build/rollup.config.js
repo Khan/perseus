@@ -8,8 +8,12 @@ import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import ancesdir from "ancesdir";
-import autoExternals from "rollup-plugin-auto-external";
+// We use v5 of this package because that is the last version that supported
+// CommonJS (see https://github.com/Septh/rollup-plugin-node-externals/releases/tag/v6.0.0)
+// Once we switch this config to ESM (switching the extension to .mjs), we can
+// look at upgrading to the latest version.
 import filesize from "rollup-plugin-filesize";
+import nodeExternals from "rollup-plugin-node-externals-v5";
 import styles from "rollup-plugin-styles";
 
 const createBabelPlugins = require("./create-babel-plugins");
@@ -137,7 +141,7 @@ const createConfig = (
             alias({
                 // We don't use pnpm's workspace:* feature for these because
                 // then they are marked as external and not bundled (by the
-                // autoExternals() plugin). For now, this works!
+                // nodeExternals() plugin). For now, this works!
                 entries: {
                     hubble: path.join(rootDir, "vendor", "hubble"),
                     jsdiff: path.join(rootDir, "vendor", "jsdiff"),
@@ -170,8 +174,15 @@ const createConfig = (
                 browser: platform === "browser",
                 extensions,
             }),
-            autoExternals({
+            nodeExternals({
                 packagePath: makePackageBasedPath(name, "./package.json"),
+                // This setting is very counter-intuitive. It _excludes_
+                // packages from being marked as external. aka. It forces this
+                // list of packages to be bundled!
+                // We force-bundling this package as we don't publish it and
+                // it's a workaround for the fact that we don't have a small,
+                // no-dependency package.
+                exclude: ["perseus-shared-inlined"],
             }),
             // TODO(FEI-4557): Figure out how to make this plugin work so that
             // @khanacademy/perseus-editor works in webapp.  If we enable this

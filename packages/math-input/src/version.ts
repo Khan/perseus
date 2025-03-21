@@ -2,7 +2,7 @@
 // version number during the release build.
 // In dev, you'll never see the version number.
 
-import {addLibraryVersionToPerseusDebug} from "@khanacademy/perseus-shared-inlined";
+import {addLibraryVersionToPerseusDebug} from "perseus-shared-inlined";
 
 const libName = "@khanacademy/math-input";
 export const libVersion = "__lib_version__";

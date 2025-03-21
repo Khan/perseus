@@ -1,5 +1,5 @@
 {
-    "name": "@khanacademy/perseus-shared-inlined",
+    "name": "perseus-shared-inlined",
     "description": "Utilities shared across all packages, but bundled (inlined) into each package at build time (ie. this is not a package that we publish!)",
     "author": "Khan Academy",
     "license": "MIT",

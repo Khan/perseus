@@ -30,7 +30,7 @@
     "devDependencies": {
         "@khanacademy/pure-markdown": "workspace:*",
         "perseus-build-settings": "workspace:*",
-        "@khanacademy/perseus-shared-inlined": "workspace:*",
+        "perseus-shared-inlined": "workspace:*",
         "prop-types": "catalog:"
     },
     "peerDependencies": {

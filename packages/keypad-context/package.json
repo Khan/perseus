@@ -28,8 +28,8 @@
         "@khanacademy/perseus-core": "workspace:*"
     },
     "devDependencies": {
+        "perseus-shared-inlined": "workspace:*",
         "perseus-build-settings": "workspace:*",
-        "@khanacademy/perseus-shared-inlined": "workspace:*",
         "react": "catalog:"
     },
     "peerDependencies": {
