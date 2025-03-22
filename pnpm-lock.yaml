@@ -822,6 +822,9 @@ importers:
       '@khanacademy/pure-markdown':
         specifier: workspace:*
         version: link:../pure-markdown
+      axe-core:
+        specifier: ^4.10.2
+        version: 4.10.2
       katex:
         specifier: 0.11.1
         version: 0.11.1
