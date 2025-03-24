@@ -3,6 +3,7 @@ import * as React from "react";
 
 import {Flipbook} from "../../../../../dev/flipbook";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import {ApiOptions} from "../../perseus-api";
 
 import {
@@ -28,6 +29,16 @@ import {
     segmentWithLockedLabels,
     unlimitedPolygonQuestion,
     unlimitedPolygonWithCorrectAnswerQuestion,
+    angleItem,
+    circleItem,
+    linearItem,
+    linearSystemItem,
+    pointItem,
+    polygonItem,
+    unlimitedPolygonWithCorrectAnswerItem,
+    rayItem,
+    segmentItem,
+    sinusoidItem,
 } from "./interactive-graph.testdata";
 
 const defaultApiOptions = ApiOptions.defaults;
@@ -181,49 +192,50 @@ export const StaticGraphWithAnotherWidget = (
 // use the "quadratic" graph type.
 // "quadratic"
 
-export const AngleWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={angleQuestion} answerless={true} />
+export const AnswerlessAngle = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI item={angleItem} startAnswerless={true} />
 );
 
-export const CircleWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={circleQuestion} answerless={true} />
+export const AnswerlessCircle = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI item={circleItem} startAnswerless={true} />
 );
 
-export const LinearWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={linearQuestion} answerless={true} />
+export const AnswerlessLinear = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI item={linearItem} startAnswerless={true} />
 );
 
-export const LinearSystemWithoutAnswers = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <RendererWithDebugUI question={linearSystemQuestion} answerless={true} />
-);
-
-export const PointWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={pointQuestion} answerless={true} />
-);
-
-export const PolygonWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={polygonQuestion} answerless={true} />
-);
-
-export const UnlimitedPolygonWithoutAnswers = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <RendererWithDebugUI
-        question={unlimitedPolygonWithCorrectAnswerQuestion}
-        answerless={true}
+export const AnswerlessLinearSystem = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI
+        item={linearSystemItem}
+        startAnswerless={true}
     />
 );
 
-export const RayWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={rayQuestion} answerless={true} />
+export const AnswerlessPoint = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI item={pointItem} startAnswerless={true} />
 );
 
-export const SegmentWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={segmentQuestion} answerless={true} />
+export const AnswerlessPolygon = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI item={polygonItem} startAnswerless={true} />
 );
 
-export const SinusoidWithoutAnswers = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={sinusoidQuestion} answerless={true} />
+export const AnswerlessUnlimitedPolygon = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <ServerItemRendererWithDebugUI
+        item={unlimitedPolygonWithCorrectAnswerItem}
+        startAnswerless={true}
+    />
+);
+
+export const AnswerlessRay = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI item={rayItem} startAnswerless={true} />
+);
+
+export const AnswerlessSegment = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI item={segmentItem} startAnswerless={true} />
+);
+
+export const AnswerlessSinusoid = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI item={sinusoidItem} startAnswerless={true} />
 );
