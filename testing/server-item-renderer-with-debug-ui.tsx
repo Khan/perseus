@@ -15,7 +15,7 @@ import * as Perseus from "../packages/perseus/src/index";
 import {keScoreFromPerseusScore} from "../packages/perseus/src/util/scoring";
 
 import KEScoreUI from "./ke-score-ui";
-import SideBySide from "./split-view";
+import SplitView from "./split-view";
 import {storybookDependenciesV2} from "./test-dependencies";
 
 import type {APIOptions} from "../packages/perseus/src/types";
@@ -25,17 +25,21 @@ type Props = {
     item: PerseusItem;
     apiOptions?: APIOptions;
     keypadElement?: KeypadAPI | null | undefined;
-    answerless?: boolean;
+    // Temporary measure testing rendering with answerless data;
+    // only exists until all widgets are renderable with answerless data
+    startAnswerless?: boolean;
 };
 
 export const ServerItemRendererWithDebugUI = ({
     item,
     apiOptions,
     keypadElement,
-    answerless = false,
+    startAnswerless = false,
 }: Props): React.ReactElement => {
     const ref = React.useRef<Perseus.ServerItemRendererComponent>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
+    const [useAnswerless, setUseAnswerless] =
+        React.useState<boolean>(startAnswerless);
     const options = apiOptions || Object.freeze({});
 
     const getKeScore = () => {
@@ -58,7 +62,7 @@ export const ServerItemRendererWithDebugUI = ({
         );
     };
 
-    const renderedQuestion: PerseusRenderer = answerless
+    const renderedQuestion: PerseusRenderer = useAnswerless
         ? splitPerseusItem(item.question)
         : item.question;
 
@@ -68,7 +72,7 @@ export const ServerItemRendererWithDebugUI = ({
     };
 
     return (
-        <SideBySide
+        <SplitView
             rendererTitle="Renderer"
             renderer={
                 <>
@@ -83,6 +87,7 @@ export const ServerItemRendererWithDebugUI = ({
                     <View style={{flexDirection: "row", alignItems: "center"}}>
                         <Button
                             onClick={() => {
+                                setUseAnswerless(false);
                                 if (!ref.current) {
                                     return;
                                 }
@@ -94,6 +99,7 @@ export const ServerItemRendererWithDebugUI = ({
                         <Strut size={8} />
                         <Button
                             onClick={() => {
+                                setUseAnswerless(false);
                                 ref.current?.showRationalesForCurrentlySelectedChoices();
                             }}
                         >
