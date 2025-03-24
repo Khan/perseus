@@ -50,6 +50,7 @@ export default {
         <ServerItemRendererWithDebugUI
             item={applyStoryArgs(args)}
             apiOptions={buildApiOptions(args)}
+            startAnswerless={args.startAnswerless}
         />
     ),
 } satisfies Meta<StoryArgs>;
@@ -99,21 +100,21 @@ export const MultiSelect = {
     },
 };
 
-export const SingleSelectWithoutAnswers = {
+export const AnswerlessSingleSelect = {
     args: {
         item: radioItem,
         startAnswerless: true,
     },
 };
 
-export const MultiSelectSimpleWithoutAnswers = {
+export const AnswerlessMultiSelectSimple = {
     args: {
         item: itemWithMultiChoiceQuestionSimple,
         startAnswerless: true,
     },
 };
 
-export const MultiSelectWithoutAnswers = {
+export const AnswerlessMultiSelect = {
     args: {
         item: itemWithMultiChoiceQuestion,
         startAnswerless: true,
