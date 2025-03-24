@@ -1,4 +1,3 @@
-import {splitPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {Flipbook} from "../../../../../dev/flipbook";
@@ -28,7 +27,6 @@ import {
     staticGraphQuestionWithAnotherWidget,
     segmentWithLockedLabels,
     unlimitedPolygonQuestion,
-    unlimitedPolygonWithCorrectAnswerQuestion,
     angleItem,
     circleItem,
     linearItem,

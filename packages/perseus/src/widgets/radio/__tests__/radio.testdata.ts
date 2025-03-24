@@ -5,7 +5,6 @@ import type {
     RadioWidget,
     PassageWidget,
     PerseusItem,
-    PerseusRadioWidgetOptions,
     PerseusAnswerArea,
 } from "@khanacademy/perseus-core";
 
