@@ -2,9 +2,36 @@ import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-buil
 
 import type {LockedFunctionOptions} from "./interactive-graph-question-builder";
 import type {Coord} from "../../interactive2/types";
-import type {PerseusRenderer, RadioWidget} from "@khanacademy/perseus-core";
+import type {
+    PerseusItem,
+    PerseusRenderer,
+    RadioWidget,
+} from "@khanacademy/perseus-core";
 
 // Data for the interactive graph widget
+
+const createInteractiveGraphItem = (question: PerseusRenderer): PerseusItem => {
+    return {
+        question: question,
+        answer: null,
+        itemDataVersion: {
+            major: 0,
+            minor: 1,
+        },
+        hints: [],
+        answerArea: {
+            calculator: false,
+            chi2Table: false,
+            financialCalculatorMonthlyPayment: false,
+            financialCalculatorTotalAmount: false,
+            financialCalculatorTimeToPayOff: false,
+            periodicTable: false,
+            periodicTableWithKey: false,
+            tTable: false,
+            zTable: false,
+        },
+    };
+};
 
 export const angleQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
     .withContent(
@@ -29,6 +56,8 @@ export const angleQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
     })
     .build();
 
+export const angleItem: PerseusItem = createInteractiveGraphItem(angleQuestion);
+
 export const angleQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withAngle().build();
 
@@ -47,6 +76,9 @@ export const circleQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
     .withCircle({center: [-2, -4], radius: 2})
     .build();
 
+export const circleItem: PerseusItem =
+    createInteractiveGraphItem(circleQuestion);
+
 export const circleQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withCircle().build();
 
@@ -58,6 +90,9 @@ export const linearQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
         ],
     })
     .build();
+
+export const linearItem: PerseusItem =
+    createInteractiveGraphItem(linearQuestion);
 
 export const linearQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withLinear().build();
@@ -77,6 +112,9 @@ export const linearSystemQuestion: PerseusRenderer =
             ],
         })
         .build();
+
+export const linearSystemItem: PerseusItem =
+    createInteractiveGraphItem(linearSystemQuestion);
 
 export const linearSystemQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withLinearSystem().build();
@@ -104,6 +142,8 @@ export const pointQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
         ],
     })
     .build();
+
+export const pointItem: PerseusItem = createInteractiveGraphItem(pointQuestion);
 
 export const pointQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withPoints(1).build();
@@ -165,6 +205,9 @@ export const polygonQuestion: PerseusRenderer =
         })
         .build();
 
+export const polygonItem: PerseusItem =
+    createInteractiveGraphItem(polygonQuestion);
+
 export const unlimitedPolygonQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withContent(
@@ -208,6 +251,9 @@ export const unlimitedPolygonWithCorrectAnswerQuestion: PerseusRenderer =
             ],
         })
         .build();
+
+export const unlimitedPolygonWithCorrectAnswerItem: PerseusItem =
+    createInteractiveGraphItem(unlimitedPolygonWithCorrectAnswerQuestion);
 
 export const polygonWithAnglesQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
@@ -343,6 +389,8 @@ export const rayQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
     })
     .build();
 
+export const rayItem: PerseusItem = createInteractiveGraphItem(rayQuestion);
+
 export const rayQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withRay().build();
 
@@ -362,6 +410,9 @@ export const segmentQuestion: PerseusRenderer =
             ],
         })
         .build();
+
+export const segmentItem: PerseusItem =
+    createInteractiveGraphItem(segmentQuestion);
 
 export const segmentQuestionDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder()
@@ -533,6 +584,9 @@ export const sinusoidQuestion: PerseusRenderer =
             ],
         })
         .build();
+
+export const sinusoidItem: PerseusItem =
+    createInteractiveGraphItem(sinusoidQuestion);
 
 export const sinusoidMinimalQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder().withSinusoid().build();
