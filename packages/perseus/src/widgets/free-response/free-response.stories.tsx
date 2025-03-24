@@ -12,6 +12,7 @@ type Story = StoryObj<typeof FreeResponse>;
 
 export const Primary: Story = {
     args: {
+        placeholder: "Enter your answer here",
         question: "What is the theme of the essay?",
     },
 };

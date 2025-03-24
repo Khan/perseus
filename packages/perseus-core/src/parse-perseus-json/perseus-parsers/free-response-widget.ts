@@ -8,6 +8,7 @@ import type {Parser} from "../parser-types";
 export const parseFreeResponseWidget: Parser<FreeResponseWidget> = parseWidget(
     constant("free-response"),
     object({
+        placeholder: string,
         question: string,
         scoringCriteria: array(
             object({

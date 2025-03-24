@@ -5,6 +5,7 @@ import type {PerseusFreeResponseWidgetOptions} from "@khanacademy/perseus-core";
  * {@link PerseusFreeResponseWidgetOptions} type
  */
 export type FreeResponsePublicWidgetOptions = {
+    placeholder: PerseusFreeResponseWidgetOptions["placeholder"];
     question: PerseusFreeResponseWidgetOptions["question"];
 };
 
@@ -16,6 +17,7 @@ function getFreeResponsePublicWidgetOptions(
     options: PerseusFreeResponseWidgetOptions,
 ): FreeResponsePublicWidgetOptions {
     return {
+        placeholder: options.placeholder,
         question: options.question,
     };
 }
