@@ -1,4 +1,27 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
+
+const createDropdownItem = (dropdownQuestion: PerseusRenderer): PerseusItem => {
+    return {
+        question: dropdownQuestion,
+        answer: null,
+        itemDataVersion: {
+            major: 0,
+            minor: 1,
+        },
+        hints: [],
+        answerArea: {
+            calculator: false,
+            chi2Table: false,
+            financialCalculatorMonthlyPayment: false,
+            financialCalculatorTotalAmount: false,
+            financialCalculatorTimeToPayOff: false,
+            periodicTable: false,
+            periodicTableWithKey: false,
+            tTable: false,
+            zTable: false,
+        },
+    };
+};
 
 export const basicDropdown: PerseusRenderer = {
     content:
@@ -32,7 +55,9 @@ export const basicDropdown: PerseusRenderer = {
     },
 };
 
-export const dropdownWithMath: PerseusRenderer = {
+export const basicDropdownItem: PerseusItem = createDropdownItem(basicDropdown);
+
+export const dropdownWithMathItem: PerseusItem = createDropdownItem({
     content: "If x equals 4, then [[☃ dropdown 1]] equals $10$.",
     images: {},
     widgets: {
@@ -61,9 +86,9 @@ export const dropdownWithMath: PerseusRenderer = {
             },
         },
     },
-};
+});
 
-export const dropdownWithVisibleLabel: PerseusRenderer = {
+export const dropdownWithVisibleLabelItem: PerseusItem = createDropdownItem({
     content: "[[☃ dropdown 1]]",
     images: {},
     widgets: {
@@ -120,96 +145,99 @@ export const dropdownWithVisibleLabel: PerseusRenderer = {
             },
         },
     },
-};
+});
 
-export const inlineDropdownWithVisibleLabel: PerseusRenderer = {
-    content:
-        "The dropdown widget is often used inline. This is how it would look in an article with the new visible label:\n\nLorem ipsum odor amet, consectetuer adipiscing elit. Mus curae sollicitudin penatibus, mattis suscipit habitant tincidunt mauris. Vitae curae dolor gravida vehicula adipiscing vulputate penatibus. [[☃ dropdown 1]] Ultricies mollis taciti vel, penatibus dapibus interdum pharetra. Ultricies sollicitudin facilisi vehicula dapibus ligula maecenas libero ligula. Lobortis luctus accumsan rhoncus posuere sapien mi habitant fusce. Per ultrices ac mus ligula habitant pulvinar aliquam dui lacus.\n\nAnother use case is that it can be used in tables:\n\nheader 1 | header 2 \n- | -\ndata 1 | [[☃ dropdown 2]]\ndata 4 | data 5\ndata 7 | data 8",
-    images: {},
-    widgets: {
-        "dropdown 1": {
-            type: "dropdown",
-            alignment: "default",
-            static: false,
-            graded: true,
-            options: {
+export const inlineDropdownWithVisibleLabelItem: PerseusItem =
+    createDropdownItem({
+        content:
+            "The dropdown widget is often used inline. This is how it would look in an article with the new visible label:\n\nLorem ipsum odor amet, consectetuer adipiscing elit. Mus curae sollicitudin penatibus, mattis suscipit habitant tincidunt mauris. Vitae curae dolor gravida vehicula adipiscing vulputate penatibus. [[☃ dropdown 1]] Ultricies mollis taciti vel, penatibus dapibus interdum pharetra. Ultricies sollicitudin facilisi vehicula dapibus ligula maecenas libero ligula. Lobortis luctus accumsan rhoncus posuere sapien mi habitant fusce. Per ultrices ac mus ligula habitant pulvinar aliquam dui lacus.\n\nAnother use case is that it can be used in tables:\n\nheader 1 | header 2 \n- | -\ndata 1 | [[☃ dropdown 2]]\ndata 4 | data 5\ndata 7 | data 8",
+        images: {},
+        widgets: {
+            "dropdown 1": {
+                type: "dropdown",
+                alignment: "default",
                 static: false,
-                placeholder: "Choose an answer",
-                choices: [
-                    {
-                        content: "True",
-                        correct: true,
-                    },
-                    {
-                        content: "False",
-                        correct: false,
-                    },
-                ],
-                visibleLabel: "Test label",
-                ariaLabel: "Test ARIA label",
+                graded: true,
+                options: {
+                    static: false,
+                    placeholder: "Choose an answer",
+                    choices: [
+                        {
+                            content: "True",
+                            correct: true,
+                        },
+                        {
+                            content: "False",
+                            correct: false,
+                        },
+                    ],
+                    visibleLabel: "Test label",
+                    ariaLabel: "Test ARIA label",
+                },
+                version: {
+                    major: 0,
+                    minor: 0,
+                },
             },
-            version: {
-                major: 0,
-                minor: 0,
+            "dropdown 2": {
+                type: "dropdown",
+                alignment: "default",
+                static: false,
+                graded: true,
+                options: {
+                    static: false,
+                    placeholder: "",
+                    choices: [
+                        {
+                            content: "True",
+                            correct: true,
+                        },
+                        {
+                            content: "False",
+                            correct: false,
+                        },
+                    ],
+                    visibleLabel: "Test label",
+                    ariaLabel: "Test ARIA label",
+                },
+                version: {
+                    major: 0,
+                    minor: 0,
+                },
             },
         },
-        "dropdown 2": {
-            type: "dropdown",
-            alignment: "default",
-            static: false,
-            graded: true,
-            options: {
+    });
+
+export const dropdownWithEmptyPlaceholderItem: PerseusItem = createDropdownItem(
+    {
+        content:
+            "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",
+        images: {},
+        widgets: {
+            "dropdown 1": {
+                type: "dropdown",
+                alignment: "default",
                 static: false,
-                placeholder: "",
-                choices: [
-                    {
-                        content: "True",
-                        correct: true,
-                    },
-                    {
-                        content: "False",
-                        correct: false,
-                    },
-                ],
-                visibleLabel: "Test label",
-                ariaLabel: "Test ARIA label",
-            },
-            version: {
-                major: 0,
-                minor: 0,
+                graded: true,
+                options: {
+                    static: false,
+                    placeholder: "",
+                    choices: [
+                        {
+                            content: "greater than or equal to",
+                            correct: false,
+                        },
+                        {
+                            content: "less than or equal to",
+                            correct: true,
+                        },
+                    ],
+                },
+                version: {
+                    major: 0,
+                    minor: 0,
+                },
             },
         },
     },
-};
-
-export const dropdownWithEmptyPlaceholder: PerseusRenderer = {
-    content:
-        "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",
-    images: {},
-    widgets: {
-        "dropdown 1": {
-            type: "dropdown",
-            alignment: "default",
-            static: false,
-            graded: true,
-            options: {
-                static: false,
-                placeholder: "",
-                choices: [
-                    {
-                        content: "greater than or equal to",
-                        correct: false,
-                    },
-                    {
-                        content: "less than or equal to",
-                        correct: true,
-                    },
-                ],
-            },
-            version: {
-                major: 0,
-                minor: 0,
-            },
-        },
-    },
-};
+);
