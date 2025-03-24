@@ -11,6 +11,7 @@ export function getFreeResponseItemData(): PerseusRenderer {
                 static: false,
                 type: "free-response",
                 options: {
+                    placeholder: "test-placeholder",
                     question: "test-question",
                     scoringCriteria: [
                         {

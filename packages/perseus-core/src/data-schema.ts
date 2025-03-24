@@ -1695,6 +1695,8 @@ export type PerseusFreeResponseWidgetScoringCriterion = {
 };
 
 export type PerseusFreeResponseWidgetOptions = {
+    // The placeholder text that will be displayed to the user in the text input field.
+    placeholder: string;
     // The question text that will be displayed to the user.
     question: string;
     // A list of scoring criteria for the free response question. This is a list

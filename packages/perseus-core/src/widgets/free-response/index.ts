@@ -5,12 +5,12 @@ import type {WidgetLogic} from "../logic-export.types";
 
 export type FreeResponseDefaultWidgetOptions = Pick<
     PerseusFreeResponseWidgetOptions,
-    "question" | "scoringCriteria"
+    "placeholder" | "question" | "scoringCriteria"
 >;
 
 const defaultWidgetOptions: FreeResponseDefaultWidgetOptions = {
+    placeholder: "Please provide response here",
     question: "",
-
     // Always display one criterion, since the user will always have to input
     // at least one.
     scoringCriteria: [
