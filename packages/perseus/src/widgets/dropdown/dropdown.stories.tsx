@@ -1,14 +1,13 @@
-import {splitPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
 import {
-    basicDropdown,
-    dropdownWithEmptyPlaceholder,
-    dropdownWithMath,
-    dropdownWithVisibleLabel,
-    inlineDropdownWithVisibleLabel,
+    basicDropdownItem,
+    dropdownWithEmptyPlaceholderItem,
+    dropdownWithMathItem,
+    dropdownWithVisibleLabelItem,
+    inlineDropdownWithVisibleLabelItem,
 } from "./dropdown.testdata";
 
 export default {
@@ -18,31 +17,92 @@ export default {
 type StoryArgs = Record<any, any>;
 
 export const BasicDropdown = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={basicDropdown} />;
+    return <ServerItemRendererWithDebugUI item={basicDropdownItem} />;
 };
 
 export const DropdownWithMath = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={dropdownWithMath} />;
+    return <ServerItemRendererWithDebugUI item={dropdownWithMathItem} />;
 };
 
 export const DropdownWithVisibleLabel = (
     args: StoryArgs,
 ): React.ReactElement => {
-    return <RendererWithDebugUI question={dropdownWithVisibleLabel} />;
+    return (
+        <ServerItemRendererWithDebugUI item={dropdownWithVisibleLabelItem} />
+    );
 };
 
 export const InlineDropdownWithVisibleLabel = (
     args: StoryArgs,
 ): React.ReactElement => {
-    return <RendererWithDebugUI question={inlineDropdownWithVisibleLabel} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={inlineDropdownWithVisibleLabelItem}
+        />
+    );
 };
 
 export const DropdownWithEmptyPlaceholder = (
     args: StoryArgs,
 ): React.ReactElement => {
-    return <RendererWithDebugUI question={dropdownWithEmptyPlaceholder} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={dropdownWithEmptyPlaceholderItem}
+        />
+    );
 };
 
-export const DropdownWithNoAnswers = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={basicDropdown} answerless={true} />;
+export const AnswerlessBasicDropdown = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return (
+        <ServerItemRendererWithDebugUI
+            item={basicDropdownItem}
+            startAnswerless={true}
+        />
+    );
+};
+
+export const AnswerlessDropdownWithMath = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return (
+        <ServerItemRendererWithDebugUI
+            item={dropdownWithMathItem}
+            startAnswerless={true}
+        />
+    );
+};
+
+export const AnswerlessDropdownWithVisibleLabel = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return (
+        <ServerItemRendererWithDebugUI
+            item={dropdownWithVisibleLabelItem}
+            startAnswerless={true}
+        />
+    );
+};
+
+export const AnswerlessInlineDropdownWithVisibleLabel = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return (
+        <ServerItemRendererWithDebugUI
+            item={inlineDropdownWithVisibleLabelItem}
+            startAnswerless={true}
+        />
+    );
+};
+
+export const AnswerlessDropdownWithEmptyPlaceholder = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return (
+        <ServerItemRendererWithDebugUI
+            item={dropdownWithEmptyPlaceholderItem}
+            startAnswerless={true}
+        />
+    );
 };
