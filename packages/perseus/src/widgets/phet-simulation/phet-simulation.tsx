@@ -200,7 +200,9 @@ export class PhetSimulation
                     <IconButton
                         icon={cornersOutIcon}
                         onClick={() => {
-                            this.iframeRef.current?.requestFullscreen();
+                            if (this.iframeRef.current) {
+                                openFullscreen(this.iframeRef.current);
+                            }
                         }}
                         kind={"secondary"}
                         aria-label={"Fullscreen"}
@@ -215,6 +217,28 @@ export class PhetSimulation
         );
     }
 }
+
+// Unfortunately, the fullscreen API is not standardized across browsers, and
+// Safari continually changes their implementation across versions. This extension
+// and function are necessary to ensure that the fullscreen button works on all
+// browsers.
+interface HTMLElement {
+    webkitRequestFullscreen?: () => Promise<void>;
+    webkitEnterFullscreen?: () => void;
+    msRequestFullscreen?: () => Promise<void>;
+    requestFullscreen?: () => Promise<void>;
+}
+const openFullscreen = (element: HTMLElement) => {
+    if (element.requestFullscreen) {
+        element.requestFullscreen(); // Most browsers
+    } else if (element.webkitEnterFullscreen) {
+        element.webkitEnterFullscreen(); // Newer versions of Safari
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen(); // Older versions of Safari
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen(); // IE 11
+    }
+};
 
 // Setting URL to null will display an error message in the iframe
 export const makeSafeUrl = (urlString: string, locale: string): URL | null => {
