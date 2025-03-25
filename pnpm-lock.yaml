@@ -543,10 +543,11 @@ importers:
         version: 1.2.5
 
   packages/kas:
-    devDependencies:
+    dependencies:
       '@khanacademy/perseus-utils':
         specifier: workspace:*
         version: link:../perseus-utils
+    devDependencies:
       jison:
         specifier: 0.4.15
         version: 0.4.15
@@ -578,10 +579,10 @@ importers:
       '@khanacademy/perseus-core':
         specifier: workspace:*
         version: link:../perseus-core
-    devDependencies:
       '@khanacademy/perseus-utils':
         specifier: workspace:*
         version: link:../perseus-utils
+    devDependencies:
       jquery:
         specifier: 'catalog:'
         version: 2.2.4
@@ -679,6 +680,9 @@ importers:
       '@khanacademy/perseus-score':
         specifier: workspace:*
         version: link:../perseus-score
+      '@khanacademy/perseus-utils':
+        specifier: workspace:*
+        version: link:../perseus-utils
       '@khanacademy/pure-markdown':
         specifier: workspace:*
         version: link:../pure-markdown
@@ -695,9 +699,6 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
     devDependencies:
-      '@khanacademy/perseus-utils':
-        specifier: workspace:*
-        version: link:../perseus-utils
       '@khanacademy/wonder-blocks-banner':
         specifier: 'catalog:'
         version: 4.1.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
@@ -803,10 +804,10 @@ importers:
       '@khanacademy/kas':
         specifier: workspace:*
         version: link:../kas
-    devDependencies:
       '@khanacademy/perseus-utils':
         specifier: workspace:*
         version: link:../perseus-utils
+    devDependencies:
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
         version: 1.5.4
@@ -843,6 +844,9 @@ importers:
       '@khanacademy/perseus-score':
         specifier: workspace:*
         version: link:../perseus-score
+      '@khanacademy/perseus-utils':
+        specifier: workspace:*
+        version: link:../perseus-utils
       '@khanacademy/pure-markdown':
         specifier: workspace:*
         version: link:../pure-markdown
@@ -856,9 +860,6 @@ importers:
       '@khanacademy/mathjax-renderer':
         specifier: 'catalog:'
         version: 2.1.1(@khanacademy/wonder-blocks-i18n@2.0.2(react@18.3.1))
-      '@khanacademy/perseus-utils':
-        specifier: workspace:*
-        version: link:../perseus-utils
       '@khanacademy/wonder-blocks-accordion':
         specifier: 'catalog:'
         version: 3.1.2(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
@@ -943,10 +944,10 @@ importers:
       '@khanacademy/perseus-core':
         specifier: workspace:*
         version: link:../perseus-core
-    devDependencies:
       '@khanacademy/perseus-utils':
         specifier: workspace:*
         version: link:../perseus-utils
+    devDependencies:
       '@khanacademy/pure-markdown':
         specifier: workspace:*
         version: link:../pure-markdown
@@ -990,19 +991,22 @@ importers:
 
   packages/pure-markdown:
     dependencies:
+      '@khanacademy/perseus-utils':
+        specifier: workspace:*
+        version: link:../perseus-utils
       '@khanacademy/simple-markdown':
         specifier: workspace:*
         version: link:../simple-markdown
     devDependencies:
-      '@khanacademy/perseus-utils':
-        specifier: workspace:*
-        version: link:../perseus-utils
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
 
   packages/simple-markdown:
     dependencies:
+      '@khanacademy/perseus-utils':
+        specifier: workspace:*
+        version: link:../perseus-utils
       react:
         specifier: 'catalog:'
         version: 18.3.1
@@ -1010,9 +1014,6 @@ importers:
         specifier: 'catalog:'
         version: 18.3.1(react@18.3.1)
     devDependencies:
-      '@khanacademy/perseus-utils':
-        specifier: workspace:*
-        version: link:../perseus-utils
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
