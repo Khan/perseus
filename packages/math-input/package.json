@@ -42,11 +42,11 @@
     "dependencies": {
         "@khanacademy/keypad-context": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*",
+        "@khanacademy/perseus-utils": "workspace:*",
         "mathquill": "https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz"
     },
     "devDependencies": {
         "@khanacademy/mathjax-renderer": "catalog:",
-        "@khanacademy/perseus-utils": "workspace:*",
         "@khanacademy/wonder-blocks-clickable": "catalog:",
         "@khanacademy/wonder-blocks-core": "catalog:",
         "@khanacademy/wonder-blocks-popover": "catalog:",
