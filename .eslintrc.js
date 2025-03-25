@@ -214,21 +214,16 @@ module.exports = {
                     },
                 ],
             },
-        },
-        {
-            files: [
-                "*.test.ts",
+            excludedFiles: [
                 "*.d.ts",
-                "**/*.cypress.ts",
-                "add-library-version-to-perseus-debug.ts",
                 "cypress.config.ts",
+                "**/add-library-version-to-perseus-debug.ts",
+                "**/add-library-version-to-perseus-debug.test.ts",
+                "packages/math-input/src/components/keypad/__tests__/keypad-v2.cypress.ts",
+                "packages/perseus/src/widgets/explanation/explanation.cypress.ts",
+                "packages/perseus/src/widgets/grapher/grapher.cypress.ts",
+                "packages/perseus/src/widgets/image/image.cypress.ts",
             ],
-            parserOptions: {
-                project: null, // Skip type-checking for test and declaration files
-            },
-            rules: {
-                "@typescript-eslint/strict-boolean-expressions": "off",
-            },
         },
     ],
     rules: {

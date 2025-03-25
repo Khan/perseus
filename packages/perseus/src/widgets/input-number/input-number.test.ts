@@ -244,6 +244,7 @@ describe("input-number", function () {
             maxError: 0.1,
             answerType: "number",
         } as const;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!transform) {
             throw new Error("transform not defined");
         }
