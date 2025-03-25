@@ -1,6 +1,7 @@
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
 import {NumericInput} from "./numeric-input.class";
 import {
@@ -15,6 +16,7 @@ import {
 } from "./numeric-input.testdata";
 
 import type {
+    PerseusItem,
     PerseusNumericInputWidgetOptions,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -180,6 +182,29 @@ const updateWidgetOptions = (
     };
 };
 
+const createNumericInputItem = (question: PerseusRenderer): PerseusItem => {
+    return {
+        question,
+        answer: null,
+        itemDataVersion: {
+            major: 0,
+            minor: 1,
+        },
+        hints: [],
+        answerArea: {
+            calculator: false,
+            chi2Table: false,
+            financialCalculatorMonthlyPayment: false,
+            financialCalculatorTotalAmount: false,
+            financialCalculatorTimeToPayOff: false,
+            periodicTable: false,
+            periodicTableWithKey: false,
+            tTable: false,
+            zTable: false,
+        },
+    };
+};
+
 export const Default = (
     args: PerseusNumericInputWidgetOptions,
 ): React.ReactElement => {
@@ -332,7 +357,12 @@ export const Answerless = (
         "numeric-input 1",
         args,
     );
-    return <RendererWithDebugUI question={question} answerless={true} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={createNumericInputItem(question)}
+            startAnswerless={true}
+        />
+    );
 };
 Answerless.args = defaultQuestion.widgets["numeric-input 1"].options;
 Answerless.parameters = {
