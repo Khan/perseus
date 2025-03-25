@@ -57,7 +57,7 @@
         "jquery": "catalog:",
         "katex": "0.11.1",
         "perseus-build-settings": "workspace:*",
-        "perseus-shared-inlined": "workspace:*",
+        "@khanacademy/perseus-utils": "workspace:*",
         "prop-types": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",

@@ -9,7 +9,7 @@
 "@khanacademy/perseus-editor": patch
 "@khanacademy/perseus-linter": patch
 "@khanacademy/perseus-score": patch
-"perseus-shared-inlined": patch
+"@khanacademy/perseus-utils": patch
 "@khanacademy/pure-markdown": patch
 "@khanacademy/simple-markdown": patch
 ---

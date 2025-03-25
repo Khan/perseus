@@ -29,7 +29,7 @@
     "devDependencies": {
         "jison": "0.4.15",
         "perseus-build-settings": "workspace:*",
-        "perseus-shared-inlined": "workspace:*",
+        "@khanacademy/perseus-utils": "workspace:*",
         "underscore": "catalog:"
     },
     "peerDependencies": {

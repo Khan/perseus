@@ -22,7 +22,7 @@
         {"path": "../perseus-linter/tsconfig-build.json"},
         {"path": "../perseus-score/tsconfig-build.json"},
         {"path": "../pure-markdown/tsconfig-build.json"},
-        {"path": "../shared-inline/tsconfig-build.json"},
+        {"path": "../perseus-utils/tsconfig-build.json"},
         {"path": "../simple-markdown/tsconfig-build.json"},
     ]
 }

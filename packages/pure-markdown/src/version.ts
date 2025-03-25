@@ -2,7 +2,7 @@
 // version number during the release build.
 // In dev, you'll never see the version number.
 
-import {addLibraryVersionToPerseusDebug} from "perseus-shared-inlined";
+import {addLibraryVersionToPerseusDebug} from "@khanacademy/perseus-utils";
 
 const libName = "@khanacademy/pure-markdown";
 export const libVersion = "__lib_version__";
