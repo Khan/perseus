@@ -201,7 +201,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             interactiveElementsDescriptionId,
                         isUnlimitedGraphState(state) &&
                             unlimitedGraphKeyboardPromptId,
-                        state.type !== "none" && instructionsId,
+                        state.type !== "none" &&
+                            !disableInteraction &&
+                            instructionsId,
                     )}
                     ref={graphRef}
                     tabIndex={0}
