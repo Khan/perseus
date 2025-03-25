@@ -6,7 +6,7 @@
     },
     "references": [
         {"path": "../perseus-core/tsconfig-build.json"},
+        {"path": "../perseus-utils/tsconfig-build.json"},
         {"path": "../pure-markdown/tsconfig-build.json"},
-        {"path": "../perseus-utils/tsconfig-build.json"}
     ]
 }
