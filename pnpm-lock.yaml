@@ -601,6 +601,9 @@ importers:
       '@khanacademy/perseus-core':
         specifier: workspace:*
         version: link:../perseus-core
+      '@khanacademy/perseus-utils':
+        specifier: workspace:*
+        version: link:../perseus-utils
       mathquill:
         specifier: https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz
         version: https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz
@@ -608,9 +611,6 @@ importers:
       '@khanacademy/mathjax-renderer':
         specifier: 'catalog:'
         version: 2.1.1(@khanacademy/wonder-blocks-i18n@2.0.2(react@18.3.1))
-      '@khanacademy/perseus-utils':
-        specifier: workspace:*
-        version: link:../perseus-utils
       '@khanacademy/wonder-blocks-clickable':
         specifier: 'catalog:'
         version: 6.1.2(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
