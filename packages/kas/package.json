@@ -25,11 +25,12 @@
         "prepublishOnly": "../../utils/package-pre-publish-check.sh",
         "gen:parsers": "node src/parser-generator.ts"
     },
-    "dependencies": {},
+    "dependencies": {
+        "@khanacademy/perseus-utils": "workspace:*"
+    },
     "devDependencies": {
         "jison": "0.4.15",
         "perseus-build-settings": "workspace:*",
-        "@khanacademy/perseus-utils": "workspace:*",
         "underscore": "catalog:"
     },
     "peerDependencies": {

@@ -24,10 +24,11 @@
     "scripts": {
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
-    "dependencies": {},
-    "devDependencies": {
-        "perseus-build-settings": "workspace:*",
+    "dependencies": {
         "@khanacademy/perseus-utils": "workspace:*"
+    },
+    "devDependencies": {
+        "perseus-build-settings": "workspace:*"
     },
     "peerDependencies": {
         "react": "catalog:",

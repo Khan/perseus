@@ -42,6 +42,7 @@
         "@khanacademy/perseus": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*",
         "@khanacademy/perseus-score": "workspace:*",
+        "@khanacademy/perseus-utils": "workspace:*",
         "@khanacademy/pure-markdown": "workspace:*",
         "katex": "0.11.1",
         "mafs": "^0.19.0"
@@ -70,7 +71,6 @@
         "classnames": "catalog:",
         "jquery": "catalog:",
         "perseus-build-settings": "workspace:*",
-        "@khanacademy/perseus-utils": "workspace:*",
         "prop-types": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",

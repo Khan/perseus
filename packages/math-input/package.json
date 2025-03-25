@@ -46,6 +46,7 @@
     },
     "devDependencies": {
         "@khanacademy/mathjax-renderer": "catalog:",
+        "@khanacademy/perseus-utils": "workspace:*",
         "@khanacademy/wonder-blocks-clickable": "catalog:",
         "@khanacademy/wonder-blocks-core": "catalog:",
         "@khanacademy/wonder-blocks-popover": "catalog:",
@@ -57,7 +58,6 @@
         "jquery": "catalog:",
         "katex": "0.11.1",
         "perseus-build-settings": "workspace:*",
-        "@khanacademy/perseus-utils": "workspace:*",
         "prop-types": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",

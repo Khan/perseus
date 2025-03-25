@@ -25,11 +25,11 @@
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
-        "@khanacademy/perseus-core": "workspace:*"
+        "@khanacademy/perseus-core": "workspace:*",
+        "@khanacademy/perseus-utils": "workspace:*"
     },
     "devDependencies": {
         "perseus-build-settings": "workspace:*",
-        "@khanacademy/perseus-utils": "workspace:*",
         "jquery": "catalog:",
         "underscore": "catalog:"
     },
