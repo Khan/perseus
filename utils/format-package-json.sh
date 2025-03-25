@@ -25,7 +25,6 @@ for dir in ./packages/*; do
     jq --indent 4 ". | {
         name: .name,
         description: .description,
-        keywords: (.keywords // []),
         author: \"Khan Academy\",
         license: \"MIT\",
         version: .version,
@@ -44,8 +43,9 @@ for dir in ./packages/*; do
         source: .source,
         scripts: (.scripts // {}),
         dependencies: (.dependencies // {}),
-        devDependencies: (.devDependencies // {}),
-        peerDependencies: (.peerDependencies // {})
+        devDependencies: .devDependencies,
+        peerDependencies: .peerDependencies,
+        keywords: (.keywords // [])
     }" "$dir/package.json" > "$dir/package.out.json"
     mv "$dir/package.out.json" "$dir/package.json"
 done
