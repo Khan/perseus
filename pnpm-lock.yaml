@@ -417,7 +417,7 @@ importers:
         specifier: ^1.8.10
         version: 1.8.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       rollup:
-        specifier: ^2.79.2
+        specifier: ^2.70.2
         version: 2.79.2
       rollup-plugin-auto-external:
         specifier: ^2.0.0
