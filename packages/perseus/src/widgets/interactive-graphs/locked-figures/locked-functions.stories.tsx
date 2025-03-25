@@ -2,7 +2,10 @@ import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
 import {ApiOptions} from "../../../perseus-api";
-import {segmentWithLockedFunction} from "../interactive-graph.testdata";
+import {
+    segmentWithLockedFunction,
+    segmentWithLockedFunctionAndAsymmetricRange,
+} from "../interactive-graph.testdata";
 
 export default {
     title: "Perseus/Widgets/Interactive Graph/Locked Functions",
@@ -33,6 +36,17 @@ export const FunctionOfY = (args: StoryArgs): React.ReactElement => (
     <RendererWithDebugUI
         {...defaultApiOptions}
         question={segmentWithLockedFunction("y^2", {
+            directionalAxis: "y",
+        })}
+    />
+);
+
+export const FunctionOfYAsymmetricRange = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <RendererWithDebugUI
+        {...defaultApiOptions}
+        question={segmentWithLockedFunctionAndAsymmetricRange("y/2", {
             directionalAxis: "y",
         })}
     />
