@@ -1,7 +1,7 @@
 import type {
     PerseusLabelImageMarker,
     PerseusLabelImageWidgetOptions,
-} from "@khanacademy/perseus-core";
+} from "../../data-schema";
 
 /**
  * For details on the individual options, see the

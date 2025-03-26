@@ -5,10 +5,9 @@ import {act, cleanup, render, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import * as Perseus from "@khanacademy/perseus";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
 import {traverse} from "../../traversal";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -148,7 +147,7 @@ describe("group widget", () => {
 
         render(
             <RenderStateRoot>
-                <Perseus.Renderer
+                <Renderer
                     content={question1.content}
                     images={question1.images}
                     widgets={question1.widgets}
