@@ -103,7 +103,7 @@ export default function SharedKeys(props: Props) {
                 keyConfig={Keys.BACKSPACE}
                 onClickKey={onClickKey}
                 coord={[5, 3]}
-                action
+                secondary
             />
         </>
     );
