@@ -7,7 +7,7 @@ import {
     getSideLengthsFromPoints,
 } from "./utils";
 
-import type {Coord} from "@khanacademy/perseus";
+import type {Coord} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 
 const {convertRadiansToDegrees} = angles;

@@ -197,7 +197,6 @@ module.exports = {
         "max-lines": "off",
         "new-cap": "off",
         "no-invalid-this": "off",
-        "@typescript-eslint/no-this-alias": "off",
         "no-unused-expressions": "off",
         "no-restricted-imports": [
             "error",
@@ -388,6 +387,13 @@ module.exports = {
          * typescript
          */
         "@typescript-eslint/no-empty-function": "off",
-        "@typescript-eslint/consistent-type-imports": "error",
+        "@typescript-eslint/no-this-alias": "off",
+        "@typescript-eslint/consistent-type-imports": [
+            "error",
+            {
+                prefer: "type-imports",
+                fixStyle: "separate-type-imports",
+            },
+        ],
     },
 };

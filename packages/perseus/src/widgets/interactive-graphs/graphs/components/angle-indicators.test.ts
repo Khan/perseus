@@ -2,8 +2,7 @@ import {angles} from "@khanacademy/kmath";
 
 import {shouldDrawArcOutside} from "./angle-indicators";
 
-import type {Coord} from "@khanacademy/perseus";
-import type {CollinearTuple} from "@khanacademy/perseus-core";
+import type {Coord, CollinearTuple} from "@khanacademy/perseus-core";
 import type {vec, Interval} from "mafs";
 
 const {getClockwiseAngle} = angles;

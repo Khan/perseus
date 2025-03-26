@@ -137,7 +137,7 @@ const createConfig = (
             alias({
                 // We don't use pnpm's workspace:* feature for these because
                 // then they are marked as external and not bundled (by the
-                // autoExternals() plugin). For now, this works!
+                // autoExternal() plugin). For now, this works!
                 entries: {
                     hubble: path.join(rootDir, "vendor", "hubble"),
                     jsdiff: path.join(rootDir, "vendor", "jsdiff"),
