@@ -1,6 +1,6 @@
 // NOTE(Tamara): ServerItemRenderWithDebugUI does not work with the same props
 // and therefore the same StoryArgs/Controls as RendererWithDebugUI, so another
-// file was created for the answerless stories.
+// file was created for the answerless stories to preserve Controls functionality.
 
 import * as React from "react";
 
