@@ -973,9 +973,6 @@ importers:
         specifier: workspace:*
         version: link:../perseus-utils
     devDependencies:
-      jquery:
-        specifier: 'catalog:'
-        version: 2.2.4
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
