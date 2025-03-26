@@ -866,6 +866,17 @@ export const segmentWithLockedFunction = (
         .build();
 };
 
+export const segmentWithLockedFunctionAndAsymmetricRange = (
+    equation: string = "x^2",
+    options?: LockedFunctionOptions,
+): PerseusRenderer => {
+    return interactiveGraphQuestionBuilder()
+        .withXRange(-5, 5)
+        .withYRange(-10, 10)
+        .addLockedFunction(equation, options)
+        .build();
+};
+
 export const segmentWithLockedLabels: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .addLockedLabel("small $\\frac{1}{2}$", [-6, 2], {
