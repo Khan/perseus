@@ -9,8 +9,7 @@ import {
     choicesWithImagesItem,
     multiChoiceQuestionItem,
     multiChoiceQuestionSimpleItem,
-    questionAndPassageItem,
-    radioItem,
+    questionWithPassageItem,
 } from "../__tests__/radio.testdata";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -29,7 +28,7 @@ export default {
     title: "Perseus/Widgets/Radio/AnswerlessRadio",
     args: {
         static: false,
-        item: questionAndPassageItem,
+        item: questionWithPassageItem,
         startAnswerless: false,
     } satisfies StoryArgs,
     render: (args: StoryArgs) => (
@@ -64,7 +63,7 @@ const applyStoryArgs = (args: StoryArgs): PerseusItem => {
 
 export const AnswerlessSingleSelect = {
     args: {
-        item: radioItem,
+        item: questionWithPassageItem,
         startAnswerless: true,
     },
 };

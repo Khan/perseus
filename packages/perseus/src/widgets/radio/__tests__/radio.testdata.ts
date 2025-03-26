@@ -147,7 +147,7 @@ export const questionWithPassage: PerseusRenderer = {
     },
 };
 
-export const questionAndPassageItem: PerseusItem =
+export const questionWithPassageItem: PerseusItem =
     createRadioItem(questionWithPassage);
 
 export const choicesWithImages: PerseusRenderer = {
@@ -446,46 +446,4 @@ export const shuffledNoneQuestion: PerseusRenderer = {
             alignment: "default",
         } as RadioWidget,
     },
-};
-
-export const radioItem: PerseusItem = {
-    question: {
-        content: "[[☃ radio 1]]",
-        images: {},
-        widgets: {
-            "radio 1": {
-                type: "radio",
-                graded: true,
-                options: {
-                    choices: [
-                        {
-                            content: "Incorrect",
-                            correct: false,
-                            clue: "Rationale for incorrect",
-                        },
-                        {
-                            content: "Correct",
-                            correct: true,
-                            clue: "Rationale for correct",
-                        },
-                        {
-                            content: "Also incorrect",
-                            correct: false,
-                            clue: "Rationale for second incorrect",
-                        },
-                    ],
-                },
-                version: radioLogic.version,
-            },
-        },
-    },
-    answer: null,
-    answerArea: Object.fromEntries(
-        ItemExtras.map((extra) => [extra, false]),
-    ) as PerseusAnswerArea,
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
-    hints: [],
 };
