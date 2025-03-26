@@ -106,7 +106,7 @@ describe("MovablePoint", () => {
             expect(Tooltip).not.toHaveBeenCalled();
         });
 
-        it("Defaults to a 'blue' background if no color value is provided", () => {
+        it("Defaults to a 'blue' background by default", () => {
             useGraphConfigMock.mockReturnValue(graphConfigContextWithTooltips);
             render(
                 <Mafs width={200} height={200}>
@@ -115,7 +115,6 @@ describe("MovablePoint", () => {
                         sequenceNumber={1}
                         onMove={() => {}}
                     />
-                    ,
                 </Mafs>,
             );
             // @ts-expect-error // TS2339: Property mock does not exist on type typeof Tooltip
@@ -124,27 +123,11 @@ describe("MovablePoint", () => {
             );
         });
 
-        it("Uses the color NAME of the hexadecimal color passed to the point for the background", () => {
-            useGraphConfigMock.mockReturnValue(graphConfigContextWithTooltips);
-            render(
-                <Mafs width={200} height={200}>
-                    <MovablePoint
-                        point={[0, 0]}
-                        sequenceNumber={1}
-                        color="#9059ff"
-                        onMove={() => {}}
-                    />
-                    ,
-                </Mafs>,
-            );
-            // @ts-expect-error // TS2339: Property mock does not exist on type typeof Tooltip
-            expect(Tooltip.mock.calls[0][0]).toEqual(
-                expect.objectContaining({backgroundColor: "purple"}),
-            );
-        });
-
-        it("Defaults to a 'blue' background if the color value provided doesn't match WB colors", () => {
-            useGraphConfigMock.mockReturnValue(graphConfigContextWithTooltips);
+        it("Uses 'fadedOffBlack64' background when the point is disabled", () => {
+            useGraphConfigMock.mockReturnValue({
+                ...graphConfigContextWithTooltips,
+                disableKeyboardInteraction: true,
+            });
             render(
                 <Mafs width={200} height={200}>
                     <MovablePoint
@@ -153,12 +136,11 @@ describe("MovablePoint", () => {
                         color="#f00"
                         onMove={() => {}}
                     />
-                    ,
                 </Mafs>,
             );
             // @ts-expect-error // TS2339: Property mock does not exist on type typeof Tooltip
             expect(Tooltip.mock.calls[0][0]).toEqual(
-                expect.objectContaining({backgroundColor: "blue"}),
+                expect.objectContaining({backgroundColor: "fadedOffBlack64"}),
             );
         });
     });

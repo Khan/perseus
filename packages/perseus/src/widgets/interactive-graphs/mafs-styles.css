@@ -34,7 +34,6 @@
     --movable-point-hover-expansion: 2px;
     --movable-point-focus-ring-offset: 2px;
 
-    --movable-line-stroke-color: var(--mafs-blue);
     --movable-line-stroke-weight: 2px;
     --movable-line-stroke-weight-active: 4px;
     overflow: visible !important;
