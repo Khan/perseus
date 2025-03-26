@@ -1,28 +1,24 @@
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
 import {
-    questionAndPassageItem,
-    choicesAndImagesItem,
-    multiChoiceQuestionItem,
-    multiChoiceQuestionSimpleItem,
-    radioItem,
+    choicesAndImages,
+    multiChoiceQuestion,
+    multiChoiceQuestionSimple,
+    questionAndPassage,
 } from "../__tests__/radio.testdata";
 
-import type {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
 import type {APIOptions} from "@khanacademy/perseus";
-import type {PerseusItem} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react";
 
 type StoryArgs = {
     // Story Option
-    item: PerseusItem;
+    question: PerseusRenderer;
     // Radio Options
     static: boolean;
     // API Options
     crossOutEnabled: boolean;
-    // Renderer Options
-    startAnswerless: boolean;
 } & Pick<
     React.ComponentProps<typeof RendererWithDebugUI>,
     "reviewMode" | "showSolutions"
@@ -35,8 +31,7 @@ export default {
         crossOutEnabled: false,
         reviewMode: false,
         showSolutions: "none",
-        item: questionAndPassageItem,
-        startAnswerless: false,
+        question: questionAndPassage,
     } satisfies StoryArgs,
     argTypes: {
         showSolutions: {
@@ -47,29 +42,26 @@ export default {
         },
     },
     render: (args: StoryArgs) => (
-        <ServerItemRendererWithDebugUI
-            item={applyStoryArgs(args)}
+        <RendererWithDebugUI
+            question={applyStoryArgs(args)}
             apiOptions={buildApiOptions(args)}
-            startAnswerless={args.startAnswerless}
+            reviewMode={args.reviewMode}
+            showSolutions={args.showSolutions}
         />
     ),
 } satisfies Meta<StoryArgs>;
 
-const applyStoryArgs = (args: StoryArgs): PerseusItem => {
-    const storyItem = {
-        ...args.item,
-        question: {
-            ...args.item.question,
-            widgets: {},
-        },
-    };
-    for (const [widgetId, widget] of Object.entries(
-        args.item.question.widgets,
-    )) {
-        storyItem.question.widgets[widgetId] = {...widget, static: args.static};
+const applyStoryArgs = (args: StoryArgs): PerseusRenderer => {
+    const q = {
+        ...args.question,
+        widgets: {},
+    } as const;
+
+    for (const [widgetId, widget] of Object.entries(args.question.widgets)) {
+        q.widgets[widgetId] = {...widget, static: args.static};
     }
 
-    return storyItem;
+    return q;
 };
 
 const buildApiOptions = (args: StoryArgs): APIOptions => ({
@@ -78,50 +70,24 @@ const buildApiOptions = (args: StoryArgs): APIOptions => ({
 
 export const SingleSelect = {
     args: {
-        item: questionAndPassageItem,
+        question: questionAndPassage,
     },
 };
 
 export const SelectWithImages = {
     args: {
-        item: choicesAndImagesItem,
+        question: choicesAndImages,
     },
 };
 
 export const MultiSelectSimple = {
     args: {
-        item: multiChoiceQuestionSimpleItem,
+        question: multiChoiceQuestionSimple,
     },
 };
 
 export const MultiSelect = {
     args: {
-        item: multiChoiceQuestionItem,
-    },
-};
-
-// NOTE(Tamara): The answerless radio stories currently lose the user's input
-// upon switching to answerless data initially. It will remember the user's
-// input after clicking the Check button a second time.
-// TODO(LEMS-2948): After investigating a solution, confirm this issue is fixed
-
-export const AnswerlessSingleSelect = {
-    args: {
-        item: radioItem,
-        startAnswerless: true,
-    },
-};
-
-export const AnswerlessMultiSelectSimple = {
-    args: {
-        item: multiChoiceQuestionSimpleItem,
-        startAnswerless: true,
-    },
-};
-
-export const AnswerlessMultiSelect = {
-    args: {
-        item: multiChoiceQuestionItem,
-        startAnswerless: true,
+        question: multiChoiceQuestion,
     },
 };
