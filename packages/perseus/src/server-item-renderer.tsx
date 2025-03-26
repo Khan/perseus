@@ -460,8 +460,6 @@ export class ServerItemRenderer
             />
         );
 
-        console.log("item question sent to renderer", this.props.item.question);
-
         return (
             <DependenciesContext.Provider value={this.props.dependencies}>
                 <div>
