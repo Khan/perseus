@@ -2,28 +2,24 @@ import fs from "fs";
 import path from "path";
 import {mergeConfig} from "vite";
 import istanbul from "vite-plugin-istanbul";
+import fg from "fast-glob";
 
 import {defineConfig} from "cypress";
 import viteConfig from "../../vite.config";
 
 const aliases = {};
-fs.readdirSync(path.join(__dirname, "../../packages")).forEach((name) => {
-    if (name.startsWith(".")) {
-        return;
-    }
-    const stat = fs.statSync(path.join(__dirname, "../../packages", name));
-    if (stat.isFile()) {
-        return;
-    }
-    const pkgPath = path.join("../../packages", name, "package.json");
-    const pkgJson = require(pkgPath);
-    aliases["@khanacademy/" + name] = path.join(
-        __dirname,
-        "../../packages",
-        name,
-        pkgJson.source,
-    );
-});
+
+fg.globSync(path.join(__dirname, "../../packages/*/package.json")).forEach(
+    (pkgPath) => {
+        const pkgJson = require(pkgPath);
+        const packageDirName = pkgJson.name.replace(/^@khanacademy\//, "");
+        aliases[pkgJson.name] = path.join(
+            path.dirname(pkgPath),
+            packageDirName,
+            pkgJson.exports["."].source,
+        );
+    },
+);
 fs.readdirSync(path.join(__dirname, "../../vendor")).forEach((name) => {
     aliases[name] = path.join(__dirname, "../../vendor", name);
 });

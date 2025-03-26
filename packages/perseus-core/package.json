@@ -15,19 +15,14 @@
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
     },
-    "module": "dist/es/index.js",
-    "main": "dist/index.js",
-    "source": "src/index.ts",
     "exports": {
         ".": {
-            "import": "./dist/es/index.js",
-            "require": "./dist/index.js",
+            "import": "./dist/index.js",
             "types": "./dist/index.d.ts",
             "source": "./src/index.ts"
         },
         "./item-splitting": {
-            "import": "./dist/es/index.item-splitting.js",
-            "require": "./dist/index.item-splitting.js",
+            "import": "./dist/index.item-splitting.js",
             "types": "./dist/index.item-splitting.d.ts",
             "source": "./src/index.item-splitting.ts"
         }
