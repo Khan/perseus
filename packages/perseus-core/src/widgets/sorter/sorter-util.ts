@@ -1,6 +1,6 @@
-import {shuffle} from "@khanacademy/perseus-core";
+import {shuffle} from "../../utils/random-util";
 
-import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusSorterWidgetOptions} from "../../data-schema";
 
 /**
  * For details on the individual options, see the

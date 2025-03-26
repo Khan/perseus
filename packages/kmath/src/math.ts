@@ -1,7 +1,7 @@
 import $ from "jquery";
 import _ from "underscore";
 
-import {number as knumber} from "@khanacademy/kmath";
+import * as knumber from "./number";
 
 import type {MathFormat} from "@khanacademy/perseus-core";
 
