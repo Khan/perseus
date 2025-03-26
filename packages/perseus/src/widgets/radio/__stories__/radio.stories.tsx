@@ -2,10 +2,10 @@ import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {
-    itemWithQuestionAndPassage,
-    itemWithChoicesAndImages,
-    itemWithMultiChoiceQuestion,
-    itemWithMultiChoiceQuestionSimple,
+    questionAndPassageItem,
+    choicesAndImagesItem,
+    multiChoiceQuestionItem,
+    multiChoiceQuestionSimpleItem,
     radioItem,
 } from "../__tests__/radio.testdata";
 
@@ -35,7 +35,7 @@ export default {
         crossOutEnabled: false,
         reviewMode: false,
         showSolutions: "none",
-        item: itemWithQuestionAndPassage,
+        item: questionAndPassageItem,
         startAnswerless: false,
     } satisfies StoryArgs,
     argTypes: {
@@ -78,25 +78,25 @@ const buildApiOptions = (args: StoryArgs): APIOptions => ({
 
 export const SingleSelect = {
     args: {
-        item: itemWithQuestionAndPassage,
+        item: questionAndPassageItem,
     },
 };
 
 export const SelectWithImages = {
     args: {
-        item: itemWithChoicesAndImages,
+        item: choicesAndImagesItem,
     },
 };
 
 export const MultiSelectSimple = {
     args: {
-        item: itemWithMultiChoiceQuestionSimple,
+        item: multiChoiceQuestionSimpleItem,
     },
 };
 
 export const MultiSelect = {
     args: {
-        item: itemWithMultiChoiceQuestion,
+        item: multiChoiceQuestionItem,
     },
 };
 
@@ -114,14 +114,14 @@ export const AnswerlessSingleSelect = {
 
 export const AnswerlessMultiSelectSimple = {
     args: {
-        item: itemWithMultiChoiceQuestionSimple,
+        item: multiChoiceQuestionSimpleItem,
         startAnswerless: true,
     },
 };
 
 export const AnswerlessMultiSelect = {
     args: {
-        item: itemWithMultiChoiceQuestion,
+        item: multiChoiceQuestionItem,
         startAnswerless: true,
     },
 };
