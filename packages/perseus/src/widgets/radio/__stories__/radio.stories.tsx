@@ -9,8 +9,6 @@ import {
     radioItem,
 } from "../__tests__/radio.testdata";
 
-import type {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
-import type {APIOptions} from "@khanacademy/perseus";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react";
 
@@ -23,33 +21,19 @@ type StoryArgs = {
     crossOutEnabled: boolean;
     // Renderer Options
     startAnswerless: boolean;
-} & Pick<
-    React.ComponentProps<typeof RendererWithDebugUI>,
-    "reviewMode" | "showSolutions"
->;
+};
 
 export default {
     title: "Perseus/Widgets/Radio",
     args: {
         static: false,
         crossOutEnabled: false,
-        reviewMode: false,
-        showSolutions: "none",
         item: itemWithQuestionAndPassage,
         startAnswerless: false,
     } satisfies StoryArgs,
-    argTypes: {
-        showSolutions: {
-            options: ["none", "all", "selected"],
-            control: {
-                type: "select",
-            },
-        },
-    },
     render: (args: StoryArgs) => (
         <ServerItemRendererWithDebugUI
             item={applyStoryArgs(args)}
-            apiOptions={buildApiOptions(args)}
             startAnswerless={args.startAnswerless}
         />
     ),
@@ -71,10 +55,6 @@ const applyStoryArgs = (args: StoryArgs): PerseusItem => {
 
     return storyItem;
 };
-
-const buildApiOptions = (args: StoryArgs): APIOptions => ({
-    crossOutEnabled: args.crossOutEnabled,
-});
 
 export const SingleSelect = {
     args: {
