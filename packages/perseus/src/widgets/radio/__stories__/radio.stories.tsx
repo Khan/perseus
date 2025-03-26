@@ -100,6 +100,11 @@ export const MultiSelect = {
     },
 };
 
+// NOTE(Tamara): The answerless radio stories currently lose the user's input
+// upon switching to answerless data initially. It will remember the user's
+// input after clicking the Check button a second time.
+// TODO(LEMS-2948): After investigating a solution, confirm this issue is fixed
+
 export const AnswerlessSingleSelect = {
     args: {
         item: radioItem,
