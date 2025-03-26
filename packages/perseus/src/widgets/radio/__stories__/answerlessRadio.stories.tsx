@@ -6,6 +6,7 @@ import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {
+    choicesWithImagesItem,
     multiChoiceQuestionItem,
     multiChoiceQuestionSimpleItem,
     questionAndPassageItem,
@@ -64,6 +65,13 @@ const applyStoryArgs = (args: StoryArgs): PerseusItem => {
 export const AnswerlessSingleSelect = {
     args: {
         item: radioItem,
+        startAnswerless: true,
+    },
+};
+
+export const SelectWithImages = {
+    args: {
+        item: choicesWithImagesItem,
         startAnswerless: true,
     },
 };

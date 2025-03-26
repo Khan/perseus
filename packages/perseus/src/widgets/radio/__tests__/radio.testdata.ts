@@ -229,6 +229,9 @@ export const choicesWithImages: PerseusRenderer = {
     },
 };
 
+export const choicesWithImagesItem: PerseusItem =
+    createRadioItem(choicesWithImages);
+
 export const choicesAndImagesItem: PerseusItem =
     createRadioItem(choicesWithImages);
 
