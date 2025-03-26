@@ -1,4 +1,4 @@
-import type {PerseusTableWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusTableWidgetOptions} from "../../data-schema";
 
 type TablePublicWidgetOptions = Pick<
     PerseusTableWidgetOptions,

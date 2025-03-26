@@ -1,6 +1,6 @@
 import getTablePublicWidgetOptions from "./table-util";
 
-import type {PerseusTableWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusTableWidgetOptions} from "../../data-schema";
 
 describe("getTablePublicWidgetOptions", () => {
     it("removes the answers", () => {
