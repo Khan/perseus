@@ -1,5 +1,17 @@
 # @khanacademy/perseus-score
 
+## 2.3.6
+
+### Patch Changes
+
+-   [#2278](https://github.com/Khan/perseus/pull/2278) [`c170c1d3c`](https://github.com/Khan/perseus/commit/c170c1d3c59e67e382d132aa7058260f876121fc) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove jQuery as a dependency of perseus-score
+
+*   [#2272](https://github.com/Khan/perseus/pull/2272) [`335940746`](https://github.com/Khan/perseus/commit/3359407467fe5d36b4c5600da29c4ce623a2ef28) Thanks [@handeyeco](https://github.com/handeyeco)! - Add comments to external-facing functions
+
+*   Updated dependencies [[`1b5f51415`](https://github.com/Khan/perseus/commit/1b5f514159c25fd0eb760cb6d20cab62a813cca4), [`4c0b317c3`](https://github.com/Khan/perseus/commit/4c0b317c357ac06277a58e5d6ae83dc4dfa04189), [`335940746`](https://github.com/Khan/perseus/commit/3359407467fe5d36b4c5600da29c4ce623a2ef28)]:
+    -   @khanacademy/perseus-core@5.4.1
+    -   @khanacademy/kmath@0.4.6
+
 ## 2.3.5
 
 ### Patch Changes

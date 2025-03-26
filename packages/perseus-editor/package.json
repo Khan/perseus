@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "18.2.0",
+    "version": "18.2.1",
     "publishConfig": {
         "access": "public"
     },
@@ -42,6 +42,7 @@
         "@khanacademy/perseus": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*",
         "@khanacademy/perseus-score": "workspace:*",
+        "@khanacademy/perseus-utils": "workspace:*",
         "@khanacademy/pure-markdown": "workspace:*",
         "axe-core": "^4.10.2",
         "katex": "0.11.1",

@@ -1,6 +1,6 @@
 import validateCategorizer from "./validate-categorizer";
 
-import type {PerseusCategorizerValidationData} from "@khanacademy/perseus-score";
+import type {PerseusCategorizerValidationData} from "../../validation.types";
 
 describe("validateCategorizer", () => {
     it("tells the learner its not complete if not selected", () => {

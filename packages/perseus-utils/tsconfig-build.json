@@ -1,0 +1,12 @@
+{
+    "extends": "../tsconfig-shared.json",
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": "src"
+    },
+    "references": [
+        /* Add in-repo pacakge references here, like this:
+           {"path": "../path/to/package/tsconfig-build.json"}
+        */
+    ]
+}

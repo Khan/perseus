@@ -1,4 +1,4 @@
-import type {PerseusDropdownWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusDropdownWidgetOptions} from "../../data-schema";
 
 /**
  * For details on the individual options, see the

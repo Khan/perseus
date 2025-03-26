@@ -1,4 +1,4 @@
-import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusExpressionWidgetOptions} from "../../data-schema";
 
 /**
  * For details on the individual options, see the

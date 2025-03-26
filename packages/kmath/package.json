@@ -3,7 +3,7 @@
     "description": "Khan Academy's Javascript Numeric Math Utilities",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.4.5",
+    "version": "0.4.6",
     "publishConfig": {
         "access": "public"
     },
@@ -25,11 +25,12 @@
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
-        "@khanacademy/perseus-core": "workspace:*"
+        "@khanacademy/perseus-core": "workspace:*",
+        "@khanacademy/perseus-utils": "workspace:*"
     },
     "devDependencies": {
-        "perseus-build-settings": "workspace:*",
         "jquery": "catalog:",
+        "perseus-build-settings": "workspace:*",
         "underscore": "catalog:"
     },
     "peerDependencies": {

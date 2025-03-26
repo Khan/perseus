@@ -3,7 +3,7 @@
     "description": "Shared Perseus infrastructure",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "5.4.0",
+    "version": "5.4.1",
     "publishConfig": {
         "access": "public"
     },
@@ -25,10 +25,12 @@
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
-        "@khanacademy/kas": "workspace:*"
+        "@khanacademy/kas": "workspace:*",
+        "@khanacademy/perseus-utils": "workspace:*"
     },
     "devDependencies": {
         "@khanacademy/wonder-stuff-core": "catalog:",
+        "perseus-build-settings": "workspace:*",
         "underscore": "catalog:"
     },
     "peerDependencies": {
