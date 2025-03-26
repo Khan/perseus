@@ -390,7 +390,10 @@ module.exports = {
         "@typescript-eslint/no-this-alias": "off",
         "@typescript-eslint/consistent-type-imports": [
             "error",
-            {prefer: "type-imports"},
+            {
+                prefer: "type-imports",
+                fixStyle: "separate-type-imports",
+            },
         ],
     },
 };
