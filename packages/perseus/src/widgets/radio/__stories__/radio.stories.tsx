@@ -2,13 +2,13 @@ import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
 import {
-    choicesAndImages,
+    questionWithPassage,
+    choicesWithImages,
     multiChoiceQuestion,
     multiChoiceQuestionSimple,
-    questionAndPassage,
 } from "../__tests__/radio.testdata";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {APIOptions} from "../../../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react";
 
@@ -31,7 +31,7 @@ export default {
         crossOutEnabled: false,
         reviewMode: false,
         showSolutions: "none",
-        question: questionAndPassage,
+        question: questionWithPassage,
     } satisfies StoryArgs,
     argTypes: {
         showSolutions: {
@@ -70,13 +70,13 @@ const buildApiOptions = (args: StoryArgs): APIOptions => ({
 
 export const SingleSelect = {
     args: {
-        question: questionAndPassage,
+        question: questionWithPassage,
     },
 };
 
 export const SelectWithImages = {
     args: {
-        question: choicesAndImages,
+        question: choicesWithImages,
     },
 };
 

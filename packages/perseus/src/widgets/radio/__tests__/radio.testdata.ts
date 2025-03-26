@@ -82,7 +82,7 @@ export const questionAndAnswer: [
     ReadonlyArray<number>,
 ] = [question, 2, [0, 1, 3]];
 
-export const questionAndPassage: PerseusRenderer = {
+export const questionWithPassage: PerseusRenderer = {
     content:
         "Read the following passage:\n\n[[\u2603 passage 1]]\n\nWhich of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
     images: {},
@@ -148,9 +148,9 @@ export const questionAndPassage: PerseusRenderer = {
 };
 
 export const questionAndPassageItem: PerseusItem =
-    createRadioItem(questionAndPassage);
+    createRadioItem(questionWithPassage);
 
-export const choicesAndImages: PerseusRenderer = {
+export const choicesWithImages: PerseusRenderer = {
     content:
         "The following options have images. All but one of them should be on their own line. [[☃ radio 1]]",
     images: {},
@@ -230,7 +230,7 @@ export const choicesAndImages: PerseusRenderer = {
 };
 
 export const choicesAndImagesItem: PerseusItem =
-    createRadioItem(choicesAndImages);
+    createRadioItem(choicesWithImages);
 
 export const multiChoiceQuestion: PerseusRenderer = {
     content:
