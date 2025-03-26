@@ -1,4 +1,4 @@
-import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusCategorizerWidgetOptions} from "../../data-schema";
 
 /**
  * For details on the individual options, see the

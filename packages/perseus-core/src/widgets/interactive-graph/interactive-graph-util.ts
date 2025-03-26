@@ -1,4 +1,4 @@
-import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusInteractiveGraphWidgetOptions} from "../../data-schema";
 
 export type InteractiveGraphPublicWidgetOptions = Pick<
     PerseusInteractiveGraphWidgetOptions,
