@@ -69,7 +69,7 @@ export const AnswerlessSingleSelect = {
     },
 };
 
-export const SelectWithImages = {
+export const AnswerlessSelectWithImages = {
     args: {
         item: choicesWithImagesItem,
         startAnswerless: true,
