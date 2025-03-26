@@ -28,11 +28,11 @@
         "@khanacademy/kas": "workspace:*",
         "@khanacademy/kmath": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*",
-        "@khanacademy/perseus-utils": "workspace:*",
-        "perseus-build-settings": "workspace:*"
+        "@khanacademy/perseus-utils": "workspace:*"
     },
     "devDependencies": {
         "jquery": "catalog:",
+        "perseus-build-settings": "workspace:*",
         "underscore": "catalog:"
     },
     "peerDependencies": {

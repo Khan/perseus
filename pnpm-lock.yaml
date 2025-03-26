@@ -563,10 +563,10 @@ importers:
       '@khanacademy/perseus-core':
         specifier: workspace:*
         version: link:../perseus-core
-    devDependencies:
       '@khanacademy/perseus-utils':
         specifier: workspace:*
         version: link:../perseus-utils
+    devDependencies:
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
@@ -972,13 +972,13 @@ importers:
       '@khanacademy/perseus-utils':
         specifier: workspace:*
         version: link:../perseus-utils
-      perseus-build-settings:
-        specifier: workspace:*
-        version: link:../../config/build
     devDependencies:
       jquery:
         specifier: 'catalog:'
         version: 2.2.4
+      perseus-build-settings:
+        specifier: workspace:*
+        version: link:../../config/build
       underscore:
         specifier: 'catalog:'
         version: 1.6.0

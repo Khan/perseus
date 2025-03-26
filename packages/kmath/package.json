@@ -29,8 +29,8 @@
         "@khanacademy/perseus-utils": "workspace:*"
     },
     "devDependencies": {
-        "perseus-build-settings": "workspace:*",
         "jquery": "catalog:",
+        "perseus-build-settings": "workspace:*",
         "underscore": "catalog:"
     },
     "peerDependencies": {
