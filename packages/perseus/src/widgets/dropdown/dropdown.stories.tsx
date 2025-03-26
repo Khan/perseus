@@ -1,12 +1,18 @@
 import * as React from "react";
 
+import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
 import {
+    basicDropdown,
     basicDropdownItem,
+    dropdownWithEmptyPlaceholder,
     dropdownWithEmptyPlaceholderItem,
+    dropdownWithMath,
     dropdownWithMathItem,
+    dropdownWithVisibleLabel,
     dropdownWithVisibleLabelItem,
+    inlineDropdownWithVisibleLabel,
     inlineDropdownWithVisibleLabelItem,
 } from "./dropdown.testdata";
 
@@ -17,39 +23,29 @@ export default {
 type StoryArgs = Record<any, any>;
 
 export const BasicDropdown = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={basicDropdownItem} />;
+    return <RendererWithDebugUI question={basicDropdown} />;
 };
 
 export const DropdownWithMath = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={dropdownWithMathItem} />;
+    return <RendererWithDebugUI question={dropdownWithMath} />;
 };
 
 export const DropdownWithVisibleLabel = (
     args: StoryArgs,
 ): React.ReactElement => {
-    return (
-        <ServerItemRendererWithDebugUI item={dropdownWithVisibleLabelItem} />
-    );
+    return <RendererWithDebugUI question={dropdownWithVisibleLabel} />;
 };
 
 export const InlineDropdownWithVisibleLabel = (
     args: StoryArgs,
 ): React.ReactElement => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={inlineDropdownWithVisibleLabelItem}
-        />
-    );
+    return <RendererWithDebugUI question={inlineDropdownWithVisibleLabel} />;
 };
 
 export const DropdownWithEmptyPlaceholder = (
     args: StoryArgs,
 ): React.ReactElement => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={dropdownWithEmptyPlaceholderItem}
-        />
-    );
+    return <RendererWithDebugUI question={dropdownWithEmptyPlaceholder} />;
 };
 
 export const AnswerlessBasicDropdown = (
