@@ -1118,7 +1118,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                 id="instructions-:r2:"
                 tabindex="-1"
               >
-                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.
+                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
               </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -1299,21 +1299,30 @@ exports[`Interactive Graph question Should render predictably: after interaction
                                 style="fill: var(--mafs-blue);"
                               />
                             </g>
-                            <g
-                              id=":r3:-angle-0"
-                            >
-                              Angle approximately equal to 63.4 degrees.
-                            </g>
-                            <g
-                              id=":r3:-point-0-side-1"
-                            >
-                              A line segment, length equal to 2 units, connects to point 3.
-                            </g>
-                            <g
-                              id=":r3:-point-0-side-2"
-                            >
-                              A line segment, length approximately equal to 2.2 units, connects to point 2.
-                            </g>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-angle-0"
+                              >
+                                Angle approximately equal to 63.4 degrees.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-point-0-side-1"
+                              >
+                                A line segment, length equal to 2 units, connects to point 3.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-point-0-side-2"
+                              >
+                                A line segment, length approximately equal to 2.2 units, connects to point 2.
+                              </span>
+                            </foreignobject>
                           </g>
                           <g>
                             <g
@@ -1360,21 +1369,30 @@ exports[`Interactive Graph question Should render predictably: after interaction
                                 style="fill: var(--mafs-blue);"
                               />
                             </g>
-                            <g
-                              id=":r3:-angle-1"
-                            >
-                              Angle approximately equal to 53.1 degrees.
-                            </g>
-                            <g
-                              id=":r3:-point-1-side-1"
-                            >
-                              A line segment, length approximately equal to 2.2 units, connects to point 1.
-                            </g>
-                            <g
-                              id=":r3:-point-1-side-2"
-                            >
-                              A line segment, length approximately equal to 2.2 units, connects to point 3.
-                            </g>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-angle-1"
+                              >
+                                Angle approximately equal to 53.1 degrees.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-point-1-side-1"
+                              >
+                                A line segment, length approximately equal to 2.2 units, connects to point 1.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-point-1-side-2"
+                              >
+                                A line segment, length approximately equal to 2.2 units, connects to point 3.
+                              </span>
+                            </foreignobject>
                           </g>
                           <g>
                             <g
@@ -1421,27 +1439,39 @@ exports[`Interactive Graph question Should render predictably: after interaction
                                 style="fill: var(--mafs-blue);"
                               />
                             </g>
-                            <g
-                              id=":r3:-angle-2"
-                            >
-                              Angle approximately equal to 63.4 degrees.
-                            </g>
-                            <g
-                              id=":r3:-point-2-side-1"
-                            >
-                              A line segment, length approximately equal to 2.2 units, connects to point 2.
-                            </g>
-                            <g
-                              id=":r3:-point-2-side-2"
-                            >
-                              A line segment, length equal to 2 units, connects to point 1.
-                            </g>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-angle-2"
+                              >
+                                Angle approximately equal to 63.4 degrees.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-point-2-side-1"
+                              >
+                                A line segment, length approximately equal to 2.2 units, connects to point 2.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-point-2-side-2"
+                              >
+                                A line segment, length equal to 2 units, connects to point 1.
+                              </span>
+                            </foreignobject>
                           </g>
-                          <g
-                            id=":r3:-points-num"
-                          >
-                            The polygon has 3 points.
-                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r3:-points-num"
+                            >
+                              The polygon has 3 points.
+                            </span>
+                          </foreignobject>
                         </g>
                       </svg>
                     </svg>
@@ -1529,7 +1559,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                 id="instructions-:ra:"
                 tabindex="-1"
               >
-                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.
+                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
               </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -1700,21 +1730,30 @@ exports[`Interactive Graph question Should render predictably: after interaction
                                 style="fill: var(--mafs-blue);"
                               />
                             </g>
-                            <g
-                              id=":rb:-angle-0"
-                            >
-                              Angle approximately equal to 59 degrees.
-                            </g>
-                            <g
-                              id=":rb:-point-0-side-1"
-                            >
-                              A line segment, length equal to 6 units, connects to point 3.
-                            </g>
-                            <g
-                              id=":rb:-point-0-side-2"
-                            >
-                              A line segment, length approximately equal to 5.8 units, connects to point 2.
-                            </g>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-angle-0"
+                              >
+                                Angle approximately equal to 59 degrees.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-point-0-side-1"
+                              >
+                                A line segment, length equal to 6 units, connects to point 3.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-point-0-side-2"
+                              >
+                                A line segment, length approximately equal to 5.8 units, connects to point 2.
+                              </span>
+                            </foreignobject>
                           </g>
                           <g>
                             <g
@@ -1761,21 +1800,30 @@ exports[`Interactive Graph question Should render predictably: after interaction
                                 style="fill: var(--mafs-blue);"
                               />
                             </g>
-                            <g
-                              id=":rb:-angle-1"
-                            >
-                              Angle approximately equal to 61.9 degrees.
-                            </g>
-                            <g
-                              id=":rb:-point-1-side-1"
-                            >
-                              A line segment, length approximately equal to 5.8 units, connects to point 1.
-                            </g>
-                            <g
-                              id=":rb:-point-1-side-2"
-                            >
-                              A line segment, length approximately equal to 5.8 units, connects to point 3.
-                            </g>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-angle-1"
+                              >
+                                Angle approximately equal to 61.9 degrees.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-point-1-side-1"
+                              >
+                                A line segment, length approximately equal to 5.8 units, connects to point 1.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-point-1-side-2"
+                              >
+                                A line segment, length approximately equal to 5.8 units, connects to point 3.
+                              </span>
+                            </foreignobject>
                           </g>
                           <g>
                             <g
@@ -1822,27 +1870,39 @@ exports[`Interactive Graph question Should render predictably: after interaction
                                 style="fill: var(--mafs-blue);"
                               />
                             </g>
-                            <g
-                              id=":rb:-angle-2"
-                            >
-                              Angle approximately equal to 59 degrees.
-                            </g>
-                            <g
-                              id=":rb:-point-2-side-1"
-                            >
-                              A line segment, length approximately equal to 5.8 units, connects to point 2.
-                            </g>
-                            <g
-                              id=":rb:-point-2-side-2"
-                            >
-                              A line segment, length equal to 6 units, connects to point 1.
-                            </g>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-angle-2"
+                              >
+                                Angle approximately equal to 59 degrees.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-point-2-side-1"
+                              >
+                                A line segment, length approximately equal to 5.8 units, connects to point 2.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-point-2-side-2"
+                              >
+                                A line segment, length equal to 6 units, connects to point 1.
+                              </span>
+                            </foreignobject>
                           </g>
-                          <g
-                            id=":rb:-points-num"
-                          >
-                            The polygon has 3 points.
-                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rb:-points-num"
+                            >
+                              The polygon has 3 points.
+                            </span>
+                          </foreignobject>
                         </g>
                       </svg>
                     </svg>
@@ -1946,7 +2006,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                 id="instructions-:rh:"
                 tabindex="-1"
               >
-                Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
+                Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
               </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -2198,7 +2258,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                 id="instructions-:rm:"
                 tabindex="-1"
               >
-                Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
+                Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
               </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -2442,7 +2502,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                 id="instructions-:r2:"
                 tabindex="-1"
               >
-                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.
+                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
               </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -2623,21 +2683,30 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                                 style="fill: var(--mafs-blue);"
                               />
                             </g>
-                            <g
-                              id=":r3:-angle-0"
-                            >
-                              Angle approximately equal to 63.4 degrees.
-                            </g>
-                            <g
-                              id=":r3:-point-0-side-1"
-                            >
-                              A line segment, length equal to 2 units, connects to point 3.
-                            </g>
-                            <g
-                              id=":r3:-point-0-side-2"
-                            >
-                              A line segment, length approximately equal to 2.2 units, connects to point 2.
-                            </g>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-angle-0"
+                              >
+                                Angle approximately equal to 63.4 degrees.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-point-0-side-1"
+                              >
+                                A line segment, length equal to 2 units, connects to point 3.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-point-0-side-2"
+                              >
+                                A line segment, length approximately equal to 2.2 units, connects to point 2.
+                              </span>
+                            </foreignobject>
                           </g>
                           <g>
                             <g
@@ -2684,21 +2753,30 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                                 style="fill: var(--mafs-blue);"
                               />
                             </g>
-                            <g
-                              id=":r3:-angle-1"
-                            >
-                              Angle approximately equal to 53.1 degrees.
-                            </g>
-                            <g
-                              id=":r3:-point-1-side-1"
-                            >
-                              A line segment, length approximately equal to 2.2 units, connects to point 1.
-                            </g>
-                            <g
-                              id=":r3:-point-1-side-2"
-                            >
-                              A line segment, length approximately equal to 2.2 units, connects to point 3.
-                            </g>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-angle-1"
+                              >
+                                Angle approximately equal to 53.1 degrees.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-point-1-side-1"
+                              >
+                                A line segment, length approximately equal to 2.2 units, connects to point 1.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-point-1-side-2"
+                              >
+                                A line segment, length approximately equal to 2.2 units, connects to point 3.
+                              </span>
+                            </foreignobject>
                           </g>
                           <g>
                             <g
@@ -2745,27 +2823,39 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                                 style="fill: var(--mafs-blue);"
                               />
                             </g>
-                            <g
-                              id=":r3:-angle-2"
-                            >
-                              Angle approximately equal to 63.4 degrees.
-                            </g>
-                            <g
-                              id=":r3:-point-2-side-1"
-                            >
-                              A line segment, length approximately equal to 2.2 units, connects to point 2.
-                            </g>
-                            <g
-                              id=":r3:-point-2-side-2"
-                            >
-                              A line segment, length equal to 2 units, connects to point 1.
-                            </g>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-angle-2"
+                              >
+                                Angle approximately equal to 63.4 degrees.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-point-2-side-1"
+                              >
+                                A line segment, length approximately equal to 2.2 units, connects to point 2.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":r3:-point-2-side-2"
+                              >
+                                A line segment, length equal to 2 units, connects to point 1.
+                              </span>
+                            </foreignobject>
                           </g>
-                          <g
-                            id=":r3:-points-num"
-                          >
-                            The polygon has 3 points.
-                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":r3:-points-num"
+                            >
+                              The polygon has 3 points.
+                            </span>
+                          </foreignobject>
                         </g>
                       </svg>
                     </svg>
@@ -2853,7 +2943,7 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                 id="instructions-:ra:"
                 tabindex="-1"
               >
-                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.
+                Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
               </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -3024,21 +3114,30 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                                 style="fill: var(--mafs-blue);"
                               />
                             </g>
-                            <g
-                              id=":rb:-angle-0"
-                            >
-                              Angle approximately equal to 59 degrees.
-                            </g>
-                            <g
-                              id=":rb:-point-0-side-1"
-                            >
-                              A line segment, length equal to 6 units, connects to point 3.
-                            </g>
-                            <g
-                              id=":rb:-point-0-side-2"
-                            >
-                              A line segment, length approximately equal to 5.8 units, connects to point 2.
-                            </g>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-angle-0"
+                              >
+                                Angle approximately equal to 59 degrees.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-point-0-side-1"
+                              >
+                                A line segment, length equal to 6 units, connects to point 3.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-point-0-side-2"
+                              >
+                                A line segment, length approximately equal to 5.8 units, connects to point 2.
+                              </span>
+                            </foreignobject>
                           </g>
                           <g>
                             <g
@@ -3085,21 +3184,30 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                                 style="fill: var(--mafs-blue);"
                               />
                             </g>
-                            <g
-                              id=":rb:-angle-1"
-                            >
-                              Angle approximately equal to 61.9 degrees.
-                            </g>
-                            <g
-                              id=":rb:-point-1-side-1"
-                            >
-                              A line segment, length approximately equal to 5.8 units, connects to point 1.
-                            </g>
-                            <g
-                              id=":rb:-point-1-side-2"
-                            >
-                              A line segment, length approximately equal to 5.8 units, connects to point 3.
-                            </g>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-angle-1"
+                              >
+                                Angle approximately equal to 61.9 degrees.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-point-1-side-1"
+                              >
+                                A line segment, length approximately equal to 5.8 units, connects to point 1.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-point-1-side-2"
+                              >
+                                A line segment, length approximately equal to 5.8 units, connects to point 3.
+                              </span>
+                            </foreignobject>
                           </g>
                           <g>
                             <g
@@ -3146,27 +3254,39 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                                 style="fill: var(--mafs-blue);"
                               />
                             </g>
-                            <g
-                              id=":rb:-angle-2"
-                            >
-                              Angle approximately equal to 59 degrees.
-                            </g>
-                            <g
-                              id=":rb:-point-2-side-1"
-                            >
-                              A line segment, length approximately equal to 5.8 units, connects to point 2.
-                            </g>
-                            <g
-                              id=":rb:-point-2-side-2"
-                            >
-                              A line segment, length equal to 6 units, connects to point 1.
-                            </g>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-angle-2"
+                              >
+                                Angle approximately equal to 59 degrees.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-point-2-side-1"
+                              >
+                                A line segment, length approximately equal to 5.8 units, connects to point 2.
+                              </span>
+                            </foreignobject>
+                            <foreignobject>
+                              <span
+                                aria-hidden="true"
+                                id=":rb:-point-2-side-2"
+                              >
+                                A line segment, length equal to 6 units, connects to point 1.
+                              </span>
+                            </foreignobject>
                           </g>
-                          <g
-                            id=":rb:-points-num"
-                          >
-                            The polygon has 3 points.
-                          </g>
+                          <foreignobject>
+                            <span
+                              aria-hidden="true"
+                              id=":rb:-points-num"
+                            >
+                              The polygon has 3 points.
+                            </span>
+                          </foreignobject>
                         </g>
                       </svg>
                     </svg>
@@ -3270,7 +3390,7 @@ exports[`Interactive Graph question Should render predictably: first render 3`] 
                 id="instructions-:rh:"
                 tabindex="-1"
               >
-                Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
+                Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
               </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
@@ -3522,7 +3642,7 @@ exports[`Interactive Graph question Should render predictably: first render 4`] 
                 id="instructions-:rm:"
                 tabindex="-1"
               >
-                Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
+                Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
               </div>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"

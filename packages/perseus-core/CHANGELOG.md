@@ -1,5 +1,27 @@
 # @khanacademy/perseus-core
 
+## 5.4.1
+
+### Patch Changes
+
+-   [#2308](https://github.com/Khan/perseus/pull/2308) [`1b5f51415`](https://github.com/Khan/perseus/commit/1b5f514159c25fd0eb760cb6d20cab62a813cca4) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug in numeric input scoring where `simplify` value of `false` led to incorrect scoring logic being applied
+
+*   [#2319](https://github.com/Khan/perseus/pull/2319) [`4c0b317c3`](https://github.com/Khan/perseus/commit/4c0b317c357ac06277a58e5d6ae83dc4dfa04189) Thanks [@benchristel](https://github.com/benchristel)! - Internal: unskip regression tests for Perseus JSON parser and update snapshots
+
+-   [#2272](https://github.com/Khan/perseus/pull/2272) [`335940746`](https://github.com/Khan/perseus/commit/3359407467fe5d36b4c5600da29c4ce623a2ef28) Thanks [@handeyeco](https://github.com/handeyeco)! - Add comments to external-facing functions
+
+## 5.4.0
+
+### Minor Changes
+
+-   [#2316](https://github.com/Khan/perseus/pull/2316) [`3c8ff9936`](https://github.com/Khan/perseus/commit/3c8ff993615a7224a18250f4a7e96a55ab5c724d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add new labelLocation value for Interactive Graphs
+
+## 5.3.0
+
+### Minor Changes
+
+-   [#2314](https://github.com/Khan/perseus/pull/2314) [`48bc498f8`](https://github.com/Khan/perseus/commit/48bc498f88f98e817ea426924cbc0b016e5802b9) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Revert labelLocation
+
 ## 5.2.0
 
 ### Minor Changes

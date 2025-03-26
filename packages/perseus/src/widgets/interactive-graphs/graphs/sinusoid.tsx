@@ -10,6 +10,7 @@ import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import {MovablePoint} from "./components/movable-point";
+import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
 
 import type {
@@ -105,7 +106,9 @@ function SinusoidGraph(props: SinusoidGraphProps) {
                     }
                 />
             ))}
-            <g id={descriptionId}>{srSinusoidDescription}</g>
+            <SRDescInSVG id={descriptionId}>
+                {srSinusoidDescription}
+            </SRDescInSVG>
         </g>
     );
 }
