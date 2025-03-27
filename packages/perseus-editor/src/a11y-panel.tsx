@@ -166,28 +166,29 @@ const AccessibilityPanel = () => {
                         onClick={togglePanel}
                         style={buttonStyle}
                     />
-                    <button onClick={executeAxeCore}>Accessibility</button>
-                    <input
-                        type={"hidden"}
-                        id="axe-core-code"
-                        value={`
-                        const iFrameAxe = document.querySelector("iframe").contentWindow.axe;
-                        console.log("   iFrame: ", document.querySelector("iframe"));
-                        console.log("   Content Window: ", document.querySelector("iframe").contentWindow);
-                        console.log("   iFrame Axe: ", iFrameAxe);
-                        const options = ${!!document.getElementById("storybook-root")}
-                            ? ${JSON.stringify(axeCoreStorybookOptions)}
-                            : ${JSON.stringify(axeCoreEditorOptions)};
-                        axeCore.configure({reporter: "v2"});
-                        axeCore.run(options).then(
-                            (results) => {
-                                console.log(\`   Accessibility Results: \`, results);
-                            },
-                            (error) => {
-                                console.log(\`   Error: \`, error);
-                            },
-                        );`}
-                    />
+                    <span>Issues</span>
+                    {/*<button onClick={executeAxeCore}>Accessibility</button>*/}
+                    {/*<input*/}
+                    {/*    type={"hidden"}*/}
+                    {/*    id="axe-core-code"*/}
+                    {/*    value={`*/}
+                    {/*    const iFrameAxe = document.querySelector("iframe").contentWindow.axe;*/}
+                    {/*    console.log("   iFrame: ", document.querySelector("iframe"));*/}
+                    {/*    console.log("   Content Window: ", document.querySelector("iframe").contentWindow);*/}
+                    {/*    console.log("   iFrame Axe: ", iFrameAxe);*/}
+                    {/*    const options = ${!!document.getElementById("storybook-root")}*/}
+                    {/*        ? ${JSON.stringify(axeCoreStorybookOptions)}*/}
+                    {/*        : ${JSON.stringify(axeCoreEditorOptions)};*/}
+                    {/*    axeCore.configure({reporter: "v2"});*/}
+                    {/*    axeCore.run(options).then(*/}
+                    {/*        (results) => {*/}
+                    {/*            console.log(\`   Accessibility Results: \`, results);*/}
+                    {/*        },*/}
+                    {/*        (error) => {*/}
+                    {/*            console.log(\`   Error: \`, error);*/}
+                    {/*        },*/}
+                    {/*    );`}*/}
+                    {/*/>*/}
                 </div>
                 {issuesCount}
                 <PhosphorIcon icon={icon} size="medium" color={iconColor} />
