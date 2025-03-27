@@ -166,7 +166,7 @@ const getPackageInfo = (pkgName) => {
     }
 
     for (const exportConfig of Object.values(pkgJson.exports)) {
-        if (exportConfig.import) {
+        if (exportConfig.default) {
             configs.push({
                 name: pkgName,
                 fullName: pkgJson.name,
@@ -174,7 +174,7 @@ const getPackageInfo = (pkgName) => {
                 format: "esm",
                 platform: "browser",
                 inputFile: exportConfig.source,
-                file: exportConfig.import,
+                file: exportConfig.default,
             });
         }
     }

@@ -85,7 +85,7 @@ export const checkExports = (pkgJson): boolean => {
     }
 
     return ![
-        checkExport(pkgJson, "import", "./dist/index.js"),
+        checkExport(pkgJson, "default", "./dist/index.js"),
         checkExport(pkgJson, "types", "./dist/index.d.ts"),
         checkExport(pkgJson, "source", "./src/index.ts"),
     ].some(isFalsey);
