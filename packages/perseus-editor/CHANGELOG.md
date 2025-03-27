@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 18.2.3
+
+### Patch Changes
+
+-   [#2310](https://github.com/Khan/perseus/pull/2310) [`23189ca3d`](https://github.com/Khan/perseus/commit/23189ca3dfaab3b26fbe49855930ae8cfd8b4475) Thanks [@tatianasnook](https://github.com/tatianasnook)! - Modified the 'Aligned equations' template content to change the current format as requested in the ticket. Added // eslint-disable-next-line prettier/prettier to preserve the formatting.
+
 ## 18.2.2
 
 ### Patch Changes
