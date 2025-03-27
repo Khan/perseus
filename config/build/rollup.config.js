@@ -204,7 +204,9 @@ const getPackageInfo = (pkgName) => {
     const configs = [];
 
     if (!pkgJson.exports) {
-        console.log(pkgName);
+        throw new Error(
+            `${pkgName} does not define the required 'exports' field.`,
+        );
     }
 
     for (const exportConfig of Object.values(pkgJson.exports)) {
