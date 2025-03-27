@@ -190,18 +190,6 @@ describe("MafsGraph", () => {
         expect(screen.getByText("\\text{5/6}")).toBeInTheDocument();
     });
 
-    it("includes aria-labels for the axes labels", () => {
-        const basePropsWithTexLabels = {...baseMafsProps};
-
-        render(<MafsGraph {...basePropsWithTexLabels} />);
-
-        const xAxisLabel = screen.getByText("X-axis");
-        const yAxisLabel = screen.getByText("Y-axis");
-
-        expect(xAxisLabel).toBeInTheDocument();
-        expect(yAxisLabel).toBeInTheDocument();
-    });
-
     it("renders ARIA labels for each point (segment)", () => {
         const state: InteractiveGraphState = {
             type: "segment",

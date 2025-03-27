@@ -1,9 +1,7 @@
-import {addStyle} from "@khanacademy/wonder-blocks-core";
 import {vec} from "mafs";
 import React from "react";
 
 import {getDependencies} from "../../../dependencies";
-import a11y from "../../../util/a11y";
 import {pointToPixel} from "../graphs/use-transform";
 import {MAX, MIN, X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
@@ -16,11 +14,8 @@ import type {GraphDimensions} from "../types";
 // Exported for testing purposes
 export const fontSize = 14;
 
-const StyledSpan = addStyle("span");
-
 export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
     const {range, labels, width, height, labelLocation} = useGraphConfig();
-    const {strings} = i18n;
 
     const graphInfo: GraphDimensions = {
         range,
@@ -44,6 +39,11 @@ export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
     return (
         <>
             <span
+                // Reading the axis labels by themselves is mostly unhelpful
+                // for screen reader users, so we should hide them to avoid
+                // confusion. Instead, the axis labels should be included as
+                // part of the graph description by content authors.
+                aria-hidden={true}
                 style={{
                     position: "absolute",
                     left: xAxisLabelLocation[X],
@@ -52,10 +52,14 @@ export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
                     transform: xLabelTransform,
                 }}
             >
-                <StyledSpan style={a11y.srOnly}>{strings.xAxis}</StyledSpan>
                 <TeX>{replaceOutsideTeX(xAxisLabelText)}</TeX>
             </span>
             <span
+                // Reading the axis labels by themselves is mostly unhelpful
+                // for screen reader users, so we should hide them to avoid
+                // confusion. Instead, the axis labels should be included as
+                // part of the graph description by content authors.
+                aria-hidden={true}
                 style={{
                     position: "absolute",
                     left: yAxisLabelLocation[X],
@@ -64,7 +68,6 @@ export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
                     transform: yLabelTransform,
                 }}
             >
-                <StyledSpan style={a11y.srOnly}>{strings.yAxis}</StyledSpan>
                 <TeX>{replaceOutsideTeX(yAxisLabelText)}</TeX>
             </span>
         </>
