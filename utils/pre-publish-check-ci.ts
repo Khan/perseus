@@ -10,12 +10,9 @@ import {
     checkPrivate,
     checkExports,
     checkPublishConfig,
+    isFalsey,
 } from "./internal/pre-publish-utils";
 import {verifyCatalogHashes} from "./internal/verify-catalog-hashes";
-
-function isFalsey(value: unknown): boolean {
-    return !value;
-}
 
 const pkgPaths = fg.globSync(
     path.join(__dirname, "..", "packages", "*", "package.json"),

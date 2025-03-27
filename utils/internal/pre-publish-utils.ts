@@ -6,6 +6,10 @@ const error = (message: string) => {
     console.error(`ERROR: ${message}`);
 };
 
+export function isFalsey(value: unknown): boolean {
+    return !value;
+}
+
 export const checkPublishConfig = ({
     name,
     publishConfig,
@@ -80,9 +84,9 @@ export const checkExports = (pkgJson): boolean => {
         return false;
     }
 
-    const hasTranspiled = checkExport(pkgJson, "import", "./dist/index.js");
-    const hasTypes = checkExport(pkgJson, "types", "./dist/index.d.ts");
-    const hasSrc = checkExport(pkgJson, "source", "./src/index.ts");
-
-    return hasTranspiled && hasTypes && hasSrc;
+    return ![
+        checkExport(pkgJson, "import", "./dist/index.js"),
+        checkExport(pkgJson, "types", "./dist/index.d.ts"),
+        checkExport(pkgJson, "source", "./src/index.ts"),
+    ].some(isFalsey);
 };
