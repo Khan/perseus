@@ -1,26 +1,29 @@
+import {generateTestPerseusItem} from "@khanacademy/perseus";
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {
     questionWithPassage,
     choicesWithImages,
-    multiChoiceQuestion,
     multiChoiceQuestionSimple,
+    multiChoiceQuestion,
 } from "../__tests__/radio.testdata";
 
-import type {APIOptions} from "../../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {APIOptions} from "@khanacademy/perseus";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react";
 
 type StoryArgs = {
     // Story Option
-    question: PerseusRenderer;
+    item: PerseusItem;
     // Radio Options
     static: boolean;
     // API Options
     crossOutEnabled: boolean;
+    // Renderer Options
+    startAnswerless: boolean;
 } & Pick<
-    React.ComponentProps<typeof RendererWithDebugUI>,
+    React.ComponentProps<typeof ServerItemRendererWithDebugUI>,
     "reviewMode" | "showSolutions"
 >;
 
@@ -31,7 +34,10 @@ export default {
         crossOutEnabled: false,
         reviewMode: false,
         showSolutions: "none",
-        question: questionWithPassage,
+        item: generateTestPerseusItem({
+            question: questionWithPassage,
+        }),
+        startAnswerless: false,
     } satisfies StoryArgs,
     argTypes: {
         showSolutions: {
@@ -42,26 +48,31 @@ export default {
         },
     },
     render: (args: StoryArgs) => (
-        <RendererWithDebugUI
-            question={applyStoryArgs(args)}
+        <ServerItemRendererWithDebugUI
+            item={applyStoryArgs(args)}
             apiOptions={buildApiOptions(args)}
             reviewMode={args.reviewMode}
             showSolutions={args.showSolutions}
+            startAnswerless={args.startAnswerless}
         />
     ),
 } satisfies Meta<StoryArgs>;
 
-const applyStoryArgs = (args: StoryArgs): PerseusRenderer => {
-    const q = {
-        ...args.question,
-        widgets: {},
-    } as const;
-
-    for (const [widgetId, widget] of Object.entries(args.question.widgets)) {
-        q.widgets[widgetId] = {...widget, static: args.static};
+const applyStoryArgs = (args: StoryArgs): PerseusItem => {
+    const storyItem = {
+        ...args.item,
+        question: {
+            ...args.item.question,
+            widgets: {},
+        },
+    };
+    for (const [widgetId, widget] of Object.entries(
+        args.item.question.widgets,
+    )) {
+        storyItem.question.widgets[widgetId] = {...widget, static: args.static};
     }
 
-    return q;
+    return storyItem;
 };
 
 const buildApiOptions = (args: StoryArgs): APIOptions => ({
@@ -70,24 +81,55 @@ const buildApiOptions = (args: StoryArgs): APIOptions => ({
 
 export const SingleSelect = {
     args: {
-        question: questionWithPassage,
+        item: generateTestPerseusItem({
+            question: questionWithPassage,
+        }),
     },
 };
 
 export const SelectWithImages = {
     args: {
-        question: choicesWithImages,
+        item: generateTestPerseusItem({
+            question: choicesWithImages,
+        }),
     },
 };
 
 export const MultiSelectSimple = {
     args: {
-        question: multiChoiceQuestionSimple,
+        item: generateTestPerseusItem({
+            question: multiChoiceQuestionSimple,
+        }),
     },
 };
 
 export const MultiSelect = {
     args: {
-        question: multiChoiceQuestion,
+        item: generateTestPerseusItem({
+            question: multiChoiceQuestion,
+        }),
+    },
+};
+
+// NOTE(Tamara): The answerless radio stories currently lose the user's input
+// upon switching to answerless data initially. It will remember the user's
+// input after clicking the Check button a second time.
+// TODO(LEMS-2948): After investigating a solution, confirm this issue is fixed
+
+export const AnswerlessSingleSelect = {
+    args: {
+        item: generateTestPerseusItem({
+            question: questionWithPassage,
+        }),
+        startAnswerless: true,
+    },
+};
+
+export const AnswerlessMultiSelect = {
+    args: {
+        item: generateTestPerseusItem({
+            question: multiChoiceQuestion,
+        }),
+        startAnswerless: true,
     },
 };
