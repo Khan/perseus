@@ -20,9 +20,9 @@
     },
     "exports": {
         ".": {
-            "import": "./dist/index.js",
+            "source": "./src/index.ts",
             "types": "./dist/index.d.ts",
-            "source": "./src/index.ts"
+            "default": "./dist/index.js"
         },
         "./styles.css": "./dist/index.css"
     },

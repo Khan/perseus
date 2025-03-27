@@ -20,14 +20,14 @@
     },
     "exports": {
         ".": {
-            "import": "./dist/index.js",
+            "source": "./src/index.ts",
             "types": "./dist/index.d.ts",
-            "source": "./src/index.ts"
+            "default": "./dist/index.js"
         },
         "./item-splitting": {
-            "import": "./dist/index.item-splitting.js",
+            "source": "./src/index.item-splitting.ts",
             "types": "./dist/index.item-splitting.d.ts",
-            "source": "./src/index.item-splitting.ts"
+            "default": "./dist/index.item-splitting.js"
         }
     },
     "files": [
