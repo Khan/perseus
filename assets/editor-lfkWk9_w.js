@@ -961,9 +961,9 @@ header 1 | header 2 | header 3
 - | - | -
 data 1 | data 2 | data 3
 data 4 | data 5 | data 6
-data 7 | data 8 | data 9`;else if(g==="alignment")C=`$\\begin{align} x+5 &= 30 \\\\
-x+5-5 &= 30-5 \\\\
-x &= 25 \\end{align}$`;else if(g==="piecewise")C=`$f(x) = \\begin{cases}
+data 7 | data 8 | data 9`;else if(g==="alignment")C=`$\\begin{align} 
+\\\\\\\\
+\\end{align}$`;else if(g==="piecewise")C=`$f(x) = \\begin{cases}
 7 & \\text{if }x=1 \\\\
 f(x-1)+5 & \\text{if }x > 1
 \\end{cases}$`;else if(g==="allWidgets")C=An().map(R=>`[[${He.snowman} ${R} 1]]`).join(`
