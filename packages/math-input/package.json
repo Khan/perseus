@@ -20,14 +20,14 @@
     },
     "exports": {
         ".": {
-            "import": "./dist/index.js",
+            "source": "./src/index.ts",
             "types": "./dist/index.d.ts",
-            "source": "./src/index.ts"
+            "default": "./dist/index.js"
         },
         "./strings": {
-            "import": "./dist/strings.js",
+            "source": "./src/strings.ts",
             "types": "./dist/strings.d.ts",
-            "source": "./src/strings.ts"
+            "default": "./dist/strings.js"
         },
         "./styles.css": "./dist/index.css"
     },
