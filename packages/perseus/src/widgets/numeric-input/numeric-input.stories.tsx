@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-import {createPerseusItem} from "../__testutils__/test-data-util";
+import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {NumericInput} from "./numeric-input.class";
 import {
@@ -336,7 +336,9 @@ export const Answerless = (
     );
     return (
         <ServerItemRendererWithDebugUI
-            item={createPerseusItem(question)}
+            item={generateTestPerseusItem({
+                question,
+            })}
             startAnswerless={true}
         />
     );
