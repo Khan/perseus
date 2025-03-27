@@ -12,23 +12,26 @@ import {
     checkPublishConfig,
 } from "./internal/pre-publish-utils";
 
+function isFalsey(value: unknown): boolean {
+    return !value;
+}
+
 const pkgPaths = fg.globSync(
     path.join(__dirname, "..", "packages", "*", "package.json"),
 );
 
-let allPassed = true;
-for (const pkgPath of pkgPaths) {
+const results = pkgPaths.flatMap((pkgPath) => {
     const pkgJson = require(path.relative(__dirname, pkgPath));
 
     // allPassed is at the end of the chain because of short-circuiting
-    allPassed =
-        checkPrivate(pkgJson) &&
-        checkPublishConfig(pkgJson) &&
-        checkExports(pkgJson) &&
-        allPassed;
-}
+    return [
+        checkPrivate(pkgJson),
+        checkPublishConfig(pkgJson),
+        checkExports(pkgJson),
+    ];
+});
 
 // Exit only after we've processed all the packages.
-if (!allPassed) {
+if (!results.some(isFalsey)) {
     process.exit(1);
 }
