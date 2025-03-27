@@ -214,16 +214,7 @@ module.exports = {
                     },
                 ],
             },
-            excludedFiles: [
-                "*.d.ts",
-                "cypress.config.ts",
-                "**/add-library-version-to-perseus-debug.ts",
-                "**/add-library-version-to-perseus-debug.test.ts",
-                "packages/math-input/src/components/keypad/__tests__/keypad-v2.cypress.ts",
-                "packages/perseus/src/widgets/explanation/explanation.cypress.ts",
-                "packages/perseus/src/widgets/grapher/grapher.cypress.ts",
-                "packages/perseus/src/widgets/image/image.cypress.ts",
-            ],
+            excludedFiles: ["*.d.ts", "*.config.ts", "**/*.cypress.ts"],
         },
     ],
     rules: {
