@@ -11,5 +11,14 @@ module.exports = {
                 includeTypes: true,
             },
         ],
+        // To avoid circular dependencies,
+        // we only allow imports from specific Perseus packages.
+        // This is overly strict to prevent accidental interdependencies,
+        // so feel free to update if you know what you're doing.
+        "no-restricted-imports": [
+            "error",
+            "@khanacademy/perseus",
+            "@khanacademy/perseus-editor",
+        ],
     },
 };
