@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable import/no-commonjs */
+const path = require("node:path");
+
 const fg = require("fast-glob");
-const path = require("path");
 
 const pkgAliases = fg
     .globSync(path.join(__dirname, "packages/*/package.json"))
     .map((pkgJsonPath) => {
         const pkgJson = require(pkgJsonPath);
-        const packageDirName = path.basename(path.dirname(pkgJsonPaths));
+        const packageDirName = path.basename(path.dirname(pkgJsonPath));
         return [
             pkgJson.name,
             `./packages/${packageDirName}/${pkgJson.exports["."].source.slice(2)}`,
@@ -18,7 +19,7 @@ const vendorAliases = fg
     .globSync(path.join(__dirname, "vendor/*/package.json"))
     .map((pkgJsonPath) => {
         const pkgJson = require(pkgJsonPath);
-        const packageDirName = path.basename(path.dirname(pkgJsonPaths));
+        const packageDirName = path.basename(path.dirname(pkgJsonPath));
         return [pkgJson.name, `./vendor/${packageDirName}/${pkgJson.main}`];
     });
 
