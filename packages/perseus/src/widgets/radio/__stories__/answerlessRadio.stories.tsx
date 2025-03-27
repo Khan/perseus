@@ -5,11 +5,10 @@
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {generateTestPerseusItem} from "../../../util/test-utils";
 import {
-    choicesWithImagesItem,
-    multiChoiceQuestionItem,
-    multiChoiceQuestionSimpleItem,
-    questionWithPassageItem,
+    multiChoiceQuestion,
+    questionWithPassage,
 } from "../__tests__/radio.testdata";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -28,7 +27,9 @@ export default {
     title: "Perseus/Widgets/Radio/AnswerlessRadio",
     args: {
         static: false,
-        item: questionWithPassageItem,
+        item: generateTestPerseusItem({
+            question: questionWithPassage,
+        }),
         startAnswerless: false,
     } satisfies StoryArgs,
     render: (args: StoryArgs) => (
@@ -63,28 +64,18 @@ const applyStoryArgs = (args: StoryArgs): PerseusItem => {
 
 export const AnswerlessSingleSelect = {
     args: {
-        item: questionWithPassageItem,
-        startAnswerless: true,
-    },
-};
-
-export const AnswerlessSelectWithImages = {
-    args: {
-        item: choicesWithImagesItem,
-        startAnswerless: true,
-    },
-};
-
-export const AnswerlessMultiSelectSimple = {
-    args: {
-        item: multiChoiceQuestionSimpleItem,
+        item: generateTestPerseusItem({
+            question: questionWithPassage,
+        }),
         startAnswerless: true,
     },
 };
 
 export const AnswerlessMultiSelect = {
     args: {
-        item: multiChoiceQuestionItem,
+        item: generateTestPerseusItem({
+            question: multiChoiceQuestion,
+        }),
         startAnswerless: true,
     },
 };
