@@ -17,7 +17,6 @@ import {
 } from "./numeric-input.testdata";
 
 import type {
-    PerseusItem,
     PerseusNumericInputWidgetOptions,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
