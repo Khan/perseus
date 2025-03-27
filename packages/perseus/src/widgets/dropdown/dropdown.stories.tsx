@@ -2,18 +2,14 @@ import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
+import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {
     basicDropdown,
-    basicDropdownItem,
     dropdownWithEmptyPlaceholder,
-    dropdownWithEmptyPlaceholderItem,
     dropdownWithMath,
-    dropdownWithMathItem,
     dropdownWithVisibleLabel,
-    dropdownWithVisibleLabelItem,
     inlineDropdownWithVisibleLabel,
-    inlineDropdownWithVisibleLabelItem,
 } from "./dropdown.testdata";
 
 export default {
@@ -53,51 +49,9 @@ export const AnswerlessBasicDropdown = (
 ): React.ReactElement => {
     return (
         <ServerItemRendererWithDebugUI
-            item={basicDropdownItem}
-            startAnswerless={true}
-        />
-    );
-};
-
-export const AnswerlessDropdownWithMath = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={dropdownWithMathItem}
-            startAnswerless={true}
-        />
-    );
-};
-
-export const AnswerlessDropdownWithVisibleLabel = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={dropdownWithVisibleLabelItem}
-            startAnswerless={true}
-        />
-    );
-};
-
-export const AnswerlessInlineDropdownWithVisibleLabel = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={inlineDropdownWithVisibleLabelItem}
-            startAnswerless={true}
-        />
-    );
-};
-
-export const AnswerlessDropdownWithEmptyPlaceholder = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={dropdownWithEmptyPlaceholderItem}
+            item={generateTestPerseusItem({
+                question: basicDropdown,
+            })}
             startAnswerless={true}
         />
     );

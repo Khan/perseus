@@ -1,6 +1,4 @@
-import {createPerseusItem} from "../__testutils__/test-data-util";
-
-import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const basicDropdown: PerseusRenderer = {
     content:
@@ -34,8 +32,6 @@ export const basicDropdown: PerseusRenderer = {
     },
 };
 
-export const basicDropdownItem: PerseusItem = createPerseusItem(basicDropdown);
-
 export const dropdownWithMath: PerseusRenderer = {
     content: "If x equals 4, then [[☃ dropdown 1]] equals $10$.",
     images: {},
@@ -66,9 +62,6 @@ export const dropdownWithMath: PerseusRenderer = {
         },
     },
 };
-
-export const dropdownWithMathItem: PerseusItem =
-    createPerseusItem(dropdownWithMath);
 
 export const dropdownWithVisibleLabel: PerseusRenderer = {
     content: "[[☃ dropdown 1]]",
@@ -128,10 +121,6 @@ export const dropdownWithVisibleLabel: PerseusRenderer = {
         },
     },
 };
-
-export const dropdownWithVisibleLabelItem: PerseusItem = createPerseusItem(
-    dropdownWithVisibleLabel,
-);
 
 export const inlineDropdownWithVisibleLabel: PerseusRenderer = {
     content:
@@ -193,9 +182,6 @@ export const inlineDropdownWithVisibleLabel: PerseusRenderer = {
     },
 };
 
-export const inlineDropdownWithVisibleLabelItem: PerseusItem =
-    createPerseusItem(inlineDropdownWithVisibleLabel);
-
 export const dropdownWithEmptyPlaceholder: PerseusRenderer = {
     content:
         "The total number of boxes the forklift can carry is [[☃ dropdown 1]] $60$.",
@@ -227,7 +213,3 @@ export const dropdownWithEmptyPlaceholder: PerseusRenderer = {
         },
     },
 };
-
-export const dropdownWithEmptyPlaceholderItem: PerseusItem = createPerseusItem(
-    dropdownWithEmptyPlaceholder,
-);
