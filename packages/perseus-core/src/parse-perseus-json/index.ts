@@ -1,12 +1,11 @@
+import type {PerseusArticle, PerseusItem} from "../data-schema";
 import {isRealJSONParse} from "../utils/is-real-json-parse";
-
 import {parse} from "./parse";
 import {parsePerseusArticle as migrateAndTypecheckPerseusArticle} from "./perseus-parsers/perseus-article";
 import {parsePerseusItem as migrateAndTypecheckPerseusItem} from "./perseus-parsers/perseus-item";
-import {failure, isFailure} from "./result";
 
 import type {Result} from "./result";
-import type {PerseusItem, PerseusArticle} from "../data-schema";
+import {failure, isFailure} from "./result";
 
 /**
  * Helper to parse PerseusItem JSON

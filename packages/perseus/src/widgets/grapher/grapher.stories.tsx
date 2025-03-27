@@ -4,10 +4,10 @@ import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui
 
 import {
     absoluteValueQuestion,
-    multipleAvailableTypesQuestion,
     exponentialQuestion,
     linearQuestion,
     logarithmQuestion,
+    multipleAvailableTypesQuestion,
     quadraticQuestion,
     sinusoidQuestion,
 } from "./grapher.testdata";

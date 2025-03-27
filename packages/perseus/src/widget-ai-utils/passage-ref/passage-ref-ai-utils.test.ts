@@ -1,10 +1,7 @@
-import {act} from "@testing-library/react";
-
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-
-import {getPromptJSON} from "./passage-ref-ai-utils";
-
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {act} from "@testing-library/react";
+import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {getPromptJSON} from "./passage-ref-ai-utils";
 
 const question1: PerseusRenderer = {
     content:

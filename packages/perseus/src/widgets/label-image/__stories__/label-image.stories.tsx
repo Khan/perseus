@@ -1,16 +1,15 @@
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import * as React from "react";
-
 import {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
-import {
-    textQuestion,
-    mathQuestion,
-    numberline,
-    longTextFromArticle,
-    mixedContentQuestion,
-} from "../__tests__/label-image.testdata";
 
 import type {APIOptions} from "../../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    longTextFromArticle,
+    mathQuestion,
+    mixedContentQuestion,
+    numberline,
+    textQuestion,
+} from "../__tests__/label-image.testdata";
 
 const applyStoryArgs = (
     question: PerseusRenderer,

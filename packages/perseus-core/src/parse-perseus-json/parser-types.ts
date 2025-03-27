@@ -1,4 +1,4 @@
-import type {Success, Failure, Result} from "./result";
+import type {Failure, Result, Success} from "./result";
 
 export type Parser<T> = (rawVal: unknown, ctx: ParseContext) => ParseResult<T>;
 

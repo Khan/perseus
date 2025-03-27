@@ -1,15 +1,12 @@
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusCategorizerUserInput} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-
 import {getPromptJSON} from "./categorizer-ai-utils";
-
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {PerseusCategorizerUserInput} from "@khanacademy/perseus-score";
-import type {UserEvent} from "@testing-library/user-event";
 
 const randomizedQuestion: PerseusRenderer = {
     content:

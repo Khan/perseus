@@ -1,9 +1,8 @@
-import scoreOrderer from "./score-orderer";
-
 import type {
     PerseusOrdererRubric,
     PerseusOrdererUserInput,
 } from "../../validation.types";
+import scoreOrderer from "./score-orderer";
 
 function generateOrdererRubric(): PerseusOrdererRubric {
     return {

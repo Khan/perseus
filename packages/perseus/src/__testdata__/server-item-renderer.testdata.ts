@@ -1,11 +1,11 @@
 import {
+    type ExpressionWidget,
     ItemExtras,
     type LabelImageWidget,
-    type PerseusItem,
-    type PerseusAnswerArea,
-    type ExpressionWidget,
-    type RadioWidget,
     type NumericInputWidget,
+    type PerseusAnswerArea,
+    type PerseusItem,
+    type RadioWidget,
 } from "@khanacademy/perseus-core";
 
 import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";

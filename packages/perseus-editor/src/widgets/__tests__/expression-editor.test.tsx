@@ -1,13 +1,11 @@
 import {Dependencies} from "@khanacademy/perseus";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {act, render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import ExpressionEditor from "../expression-editor";
-
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("expression-editor", () => {
     let userEvent: UserEvent;

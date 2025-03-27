@@ -1,11 +1,9 @@
+import type {vec} from "mafs";
 import * as React from "react";
-
-import {useControlPoint} from "./use-control-point";
-
-import type {CSSCursor} from "./css-cursor";
 import type {AriaLive} from "../../types";
 import type {KeyboardMovementConstraint} from "../use-draggable";
-import type {vec} from "mafs";
+import type {CSSCursor} from "./css-cursor";
+import {useControlPoint} from "./use-control-point";
 
 type Props = {
     point: vec.Vector2;

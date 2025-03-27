@@ -1,9 +1,9 @@
 import {
+    expressionLogic,
     ItemExtras,
+    type PerseusAnswerArea,
     type PerseusExpressionWidgetOptions,
     type PerseusItem,
-    type PerseusAnswerArea,
-    expressionLogic,
 } from "@khanacademy/perseus-core";
 
 const createItemJson = (

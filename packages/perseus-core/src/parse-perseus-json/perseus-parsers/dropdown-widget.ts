@@ -1,17 +1,15 @@
+import type {DropdownWidget} from "../../data-schema";
 import {
     array,
     boolean,
     constant,
     object,
-    string,
     optional,
+    string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-
-import {parseWidget} from "./widget";
-
-import type {DropdownWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
+import {parseWidget} from "./widget";
 
 export const parseDropdownWidget: Parser<DropdownWidget> = parseWidget(
     constant("dropdown"),

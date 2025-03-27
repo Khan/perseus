@@ -4,10 +4,8 @@ import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useEffect, useRef} from "react";
-
-import IconAsset from "./icons";
-
 import type {KeypadPageType} from "../../types";
+import IconAsset from "./icons";
 
 const styles = StyleSheet.create({
     base: {

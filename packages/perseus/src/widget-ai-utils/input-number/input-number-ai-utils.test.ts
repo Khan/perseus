@@ -1,16 +1,13 @@
-import {screen} from "@testing-library/react";
-import {userEvent as userEventLib} from "@testing-library/user-event";
-
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-
-import {getPromptJSON} from "./input-number-ai-utils";
-
 import type {
     InputNumberWidget,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import type {PerseusInputNumberUserInput} from "@khanacademy/perseus-score";
+import {screen} from "@testing-library/react";
 import type {UserEvent} from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
+import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {getPromptJSON} from "./input-number-ai-utils";
 
 const question: PerseusRenderer = {
     content:

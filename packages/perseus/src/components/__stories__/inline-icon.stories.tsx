@@ -1,6 +1,5 @@
-import InlineIcon from "../inline-icon";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import InlineIcon from "../inline-icon";
 
 const meta: Meta = {
     title: "Perseus/Components/Inline Icon",

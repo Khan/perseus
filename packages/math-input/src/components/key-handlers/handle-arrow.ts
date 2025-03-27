@@ -1,13 +1,12 @@
+import type {KeypadKey} from "@khanacademy/perseus-core";
+import type MathQuill from "mathquill";
 import {MathFieldActionType} from "../../types";
 import {
     maybeFindCommand,
     maybeFindCommandBeforeParens,
 } from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
-
 import type {MathFieldInterface} from "../input/mathquill-types";
-import type {KeypadKey} from "@khanacademy/perseus-core";
-import type MathQuill from "mathquill";
 
 function handleLeftArrow(
     mathField: MathFieldInterface,

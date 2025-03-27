@@ -8,11 +8,11 @@ import {
     type LockedFigureType,
     type LockedFunctionType,
     type LockedLabelType,
+    type LockedLineStyle,
     type LockedLineType,
     type LockedPointType,
     type LockedPolygonType,
     type LockedVectorType,
-    type LockedLineStyle,
 } from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 

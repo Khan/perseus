@@ -1,6 +1,5 @@
-import {findIntersectionOfRays, segmentsIntersect} from "./geometry";
-
 import type {Segment} from "./geometry";
+import {findIntersectionOfRays, segmentsIntersect} from "./geometry";
 
 describe("segmentsIntersect", () => {
     it("returns false when segments have zero length", () => {

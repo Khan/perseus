@@ -1,15 +1,12 @@
 import {render, screen} from "@testing-library/react";
+import type {vec} from "mafs";
 import * as React from "react";
-
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {MafsGraph} from "../mafs-graph";
-import {getBaseMafsGraphPropsForTests} from "../utils";
-
-import {getAngleSideConstraint} from "./angle";
-
 import type {InteractiveGraphState} from "../types";
-import type {vec} from "mafs";
+import {getBaseMafsGraphPropsForTests} from "../utils";
+import {getAngleSideConstraint} from "./angle";
 
 const baseMafsProps = getBaseMafsGraphPropsForTests();
 const baseAngleState: InteractiveGraphState = {

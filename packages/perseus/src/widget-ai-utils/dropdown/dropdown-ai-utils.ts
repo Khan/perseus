@@ -1,6 +1,6 @@
-import type dropdown from "../../widgets/dropdown/dropdown";
 import type {PerseusDropdownUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
+import type dropdown from "../../widgets/dropdown/dropdown";
 
 export type DropdownPromptJSON = {
     type: "dropdown";

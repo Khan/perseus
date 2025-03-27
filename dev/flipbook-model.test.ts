@@ -1,16 +1,15 @@
+import type {FlipbookModel} from "./flipbook-model";
 import {
-    selectCurrentQuestion,
     flipbookModelReducer,
-    next,
-    previous,
-    setQuestions,
-    selectQuestions,
-    removeCurrentQuestion,
     jumpToQuestion,
     loadQuestionsFromStorage,
+    next,
+    previous,
+    removeCurrentQuestion,
+    selectCurrentQuestion,
+    selectQuestions,
+    setQuestions,
 } from "./flipbook-model";
-
-import type {FlipbookModel} from "./flipbook-model";
 
 describe("flipbookModelReducer", () => {
     it("returns the current state for an unknown action", () => {

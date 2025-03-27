@@ -1,6 +1,5 @@
-import {seededRNG, shuffle} from "../../utils/random-util";
-
 import type {PerseusMatcherWidgetOptions} from "../../data-schema";
+import {seededRNG, shuffle} from "../../utils/random-util";
 
 // TODO(LEMS-2841): Should be able to remove once getPublicWidgetOptions is hooked up
 type MatcherInfo = {

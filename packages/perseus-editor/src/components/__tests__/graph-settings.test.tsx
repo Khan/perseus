@@ -1,12 +1,10 @@
 import {Dependencies, Util} from "@khanacademy/perseus";
-import {render, screen, waitFor, fireEvent} from "@testing-library/react";
+import {fireEvent, render, screen, waitFor} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import GraphSettings from "../graph-settings";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
 

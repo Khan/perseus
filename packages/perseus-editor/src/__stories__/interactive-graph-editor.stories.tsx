@@ -1,3 +1,9 @@
+import type {DeviceType} from "@khanacademy/perseus";
+import type {
+    Hint,
+    PerseusAnswerArea,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -5,9 +11,6 @@ import {Body, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {action} from "@storybook/addon-actions";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
-import {EditorPage} from "..";
-import {interactiveGraphQuestionBuilder} from "../../../perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
 import {
     angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
@@ -18,23 +21,17 @@ import {
     polygonWithStartingCoordsQuestion,
     quadraticWithStartingCoordsQuestion,
     rayWithStartingCoordsQuestion,
+    segmentsWithStartingCoordsQuestion,
     segmentWithLockedFigures,
     segmentWithStartingCoordsQuestion,
-    segmentsWithStartingCoordsQuestion,
     sinusoidMinimalQuestion,
     sinusoidWithStartingCoordsAndPiTicksQuestion,
     unlimitedPolygonWithCorrectAnswerQuestion,
 } from "../../../perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
+import {interactiveGraphQuestionBuilder} from "../../../perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
+import {EditorPage} from "..";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
-
 import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
-
-import type {DeviceType} from "@khanacademy/perseus";
-import type {
-    Hint,
-    PerseusAnswerArea,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
 
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 

@@ -1,11 +1,15 @@
+import type {
+    AnalyticsEventHandlerFn,
+    KeypadKey,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useEffect} from "react";
-
+import type {ClickKeyCallback, KeypadPageType} from "../../types";
+import type {CursorContext} from "../input/cursor-contexts";
 import Tabbar from "../tabbar";
-
 import ExtrasPage from "./keypad-pages/extras-page";
 import FractionsPage from "./keypad-pages/fractions-page";
 import GeometryPage from "./keypad-pages/geometry-page";
@@ -14,13 +18,6 @@ import OperatorsPage from "./keypad-pages/operators-page";
 import NavigationPad from "./navigation-pad";
 import SharedKeys from "./shared-keys";
 import {expandedViewThreshold} from "./utils";
-
-import type {ClickKeyCallback, KeypadPageType} from "../../types";
-import type {CursorContext} from "../input/cursor-contexts";
-import type {
-    AnalyticsEventHandlerFn,
-    KeypadKey,
-} from "@khanacademy/perseus-core";
 
 type Props = {
     extraKeys?: ReadonlyArray<KeypadKey>;

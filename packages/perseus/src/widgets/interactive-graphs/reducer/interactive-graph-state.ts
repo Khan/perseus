@@ -1,5 +1,5 @@
-import type {CircleGraphState, InteractiveGraphState} from "../types";
 import type {PerseusGraphType} from "@khanacademy/perseus-core";
+import type {CircleGraphState, InteractiveGraphState} from "../types";
 
 export function getGradableGraph(
     state: InteractiveGraphState,

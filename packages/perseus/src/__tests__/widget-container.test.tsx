@@ -6,11 +6,10 @@ import {
     testDependenciesV2,
 } from "../../../../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
+import type {PerseusDependenciesV2, WidgetExports} from "../types";
 import WidgetContainer from "../widget-container";
 import {registerWidget} from "../widgets";
 import PassageWidget from "../widgets/passage";
-
-import type {PerseusDependenciesV2, WidgetExports} from "../types";
 
 const MockWidgetComponent = ({
     text,

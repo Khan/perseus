@@ -1,20 +1,17 @@
 import {
-    splitPerseusItem,
     type PerseusRenderer,
+    splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
-
 import {basicDropdown} from "./dropdown.testdata";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("Dropdown widget", () => {
     let userEvent: UserEvent;

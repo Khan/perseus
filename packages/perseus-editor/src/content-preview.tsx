@@ -4,20 +4,18 @@ import {
 } from "@khanacademy/keypad-context";
 import {MobileKeypad} from "@khanacademy/math-input";
 import {
-    Renderer,
-    usePerseusI18n,
     type APIOptions,
     type DeviceType,
+    Renderer,
+    usePerseusI18n,
 } from "@khanacademy/perseus";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
 import {lintGutterWidth} from "./styles/constants";
-
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 /**
  * The `ContentPreview` component provides a simple preview system for Perseus

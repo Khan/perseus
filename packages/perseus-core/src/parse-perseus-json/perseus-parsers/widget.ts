@@ -1,3 +1,4 @@
+import type {WidgetOptions} from "../../data-schema";
 import {
     boolean,
     nullable,
@@ -6,8 +7,6 @@ import {
     optional,
     string,
 } from "../general-purpose-parsers";
-
-import type {WidgetOptions} from "../../data-schema";
 import type {Parser} from "../parser-types";
 
 export function parseWidget<Type extends string, Options>(

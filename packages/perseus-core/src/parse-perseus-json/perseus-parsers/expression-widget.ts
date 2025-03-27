@@ -1,3 +1,7 @@
+import type {
+    ExpressionWidget,
+    PerseusExpressionAnswerForm,
+} from "../../data-schema";
 import {KeypadKeys} from "../../keypad";
 import deriveExtraKeys from "../../widgets/expression/derive-extra-keys";
 import {
@@ -14,16 +18,10 @@ import {
 } from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-
+import type {ParsedValue, Parser} from "../parser-types";
 import {parseLegacyButtonSets} from "./legacy-button-sets";
 import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
-
-import type {
-    ExpressionWidget,
-    PerseusExpressionAnswerForm,
-} from "../../data-schema";
-import type {ParsedValue, Parser} from "../parser-types";
 
 const stringOrNumberOrNullOrUndefined = union(string)
     .or(number)

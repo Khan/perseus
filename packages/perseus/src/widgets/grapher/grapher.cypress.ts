@@ -8,9 +8,9 @@ import {
     exponentialQuestion,
     linearQuestion,
     logarithmQuestion,
+    multipleAvailableTypesQuestion,
     quadraticQuestion,
     sinusoidQuestion,
-    multipleAvailableTypesQuestion,
 } from "./grapher.testdata";
 
 // NOTE(jeremy): Careful. This selector _excludes_ other `.graphie` elements

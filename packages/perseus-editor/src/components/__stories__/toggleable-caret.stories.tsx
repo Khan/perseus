@@ -1,9 +1,7 @@
 import {SchedulePolicy, useInterval} from "@khanacademy/wonder-blocks-timing";
+import type {Meta, StoryObj} from "@storybook/react";
 import * as React from "react";
-
 import ToggleableCaret from "../toggleable-caret";
-
-import type {StoryObj, Meta} from "@storybook/react";
 
 type Story = StoryObj<typeof ToggleableCaret>;
 

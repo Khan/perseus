@@ -1,20 +1,17 @@
-import {StyleSheet} from "aphrodite";
-import * as React from "react";
-import ReactDOM from "react-dom";
-
-import {View} from "../../fake-react-native-web/index";
-import AphroditeCssTransitionGroup from "../aphrodite-css-transition-group";
-
-import Keypad from "./keypad";
-import {expandedViewThreshold} from "./utils";
-
-import type {Cursor, KeyHandler, KeypadAPI} from "../../types";
 import type {
     AnalyticsEventHandlerFn,
     KeypadConfiguration,
     KeypadKey,
 } from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import {StyleSheet} from "aphrodite";
+import * as React from "react";
+import ReactDOM from "react-dom";
+import {View} from "../../fake-react-native-web/index";
+import type {Cursor, KeyHandler, KeypadAPI} from "../../types";
+import AphroditeCssTransitionGroup from "../aphrodite-css-transition-group";
+import Keypad from "./keypad";
+import {expandedViewThreshold} from "./utils";
 
 const AnimationDurationInMS = 200;
 

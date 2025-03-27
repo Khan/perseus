@@ -1,8 +1,6 @@
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-
-import {getPromptJSON} from "./image-ai-utils";
-
 import type {ImageWidget} from "@khanacademy/perseus-core";
+import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {getPromptJSON} from "./image-ai-utils";
 
 const question = {
     content:

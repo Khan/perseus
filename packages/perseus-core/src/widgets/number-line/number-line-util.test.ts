@@ -1,6 +1,5 @@
-import getNumberLinePublicWidgetOptions from "./number-line-util";
-
 import type {PerseusNumberLineWidgetOptions} from "../../data-schema";
+import getNumberLinePublicWidgetOptions from "./number-line-util";
 
 describe("getNumberLinePublicWidgetOptions", () => {
     it("removes correctX and correctRel", () => {

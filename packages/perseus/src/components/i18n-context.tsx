@@ -5,10 +5,8 @@
  */
 import * as React from "react";
 import {useContext} from "react";
-
-import {mockStrings} from "../strings";
-
 import type {PerseusStrings} from "../strings";
+import {mockStrings} from "../strings";
 
 export type I18nContextType = {
     strings: PerseusStrings;

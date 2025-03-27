@@ -1,6 +1,6 @@
 import type {
-    PerseusLabelImageUserInput,
     PerseusLabelImageRubric,
+    PerseusLabelImageUserInput,
     PerseusScore,
 } from "../../validation.types";
 

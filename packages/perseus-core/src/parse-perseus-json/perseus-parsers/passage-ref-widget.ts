@@ -1,15 +1,13 @@
+import type {PassageRefWidget} from "../../data-schema";
 import {
     constant,
-    object,
-    string,
     number,
+    object,
     optional,
+    string,
 } from "../general-purpose-parsers";
-
-import {parseWidget} from "./widget";
-
-import type {PassageRefWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
+import {parseWidget} from "./widget";
 
 export const parsePassageRefWidget: Parser<PassageRefWidget> = parseWidget(
     constant("passage-ref"),

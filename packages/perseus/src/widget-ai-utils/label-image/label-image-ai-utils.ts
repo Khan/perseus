@@ -1,6 +1,6 @@
-import type labelImage from "../../widgets/label-image/label-image";
 import type {PerseusLabelImageUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
+import type labelImage from "../../widgets/label-image/label-image";
 
 type BaseMarker = {
     label: string;

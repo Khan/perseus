@@ -1,10 +1,7 @@
-import * as React from "react";
-
-import InteractiveGraphSettings from "../../widgets/interactive-graph-editor/components/interactive-graph-settings";
-
-import InteractiveGraphSettingsArgTypes from "./interactive-graph-settings.argtypes";
-
 import type {StoryObj} from "@storybook/react";
+import * as React from "react";
+import InteractiveGraphSettings from "../../widgets/interactive-graph-editor/components/interactive-graph-settings";
+import InteractiveGraphSettingsArgTypes from "./interactive-graph-settings.argtypes";
 
 export default {
     title: "PerseusEditor/Components/Interactive Graph Settings",

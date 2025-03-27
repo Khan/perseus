@@ -1,6 +1,6 @@
 import type {
-    PerseusRenderer,
     NumericInputWidget,
+    PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
 // Used for testing the NumericInput widget.

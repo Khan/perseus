@@ -12,7 +12,7 @@
  * new set of serialized highlights, which you can then persist and send back
  * down to this component. Easy peasy!
  */
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {
@@ -21,15 +21,14 @@ import {
     deserializeHighlight,
     serializeHighlight,
 } from "./highlights";
-import HighlightingUI from "./ui/highlighting-ui";
-import WordIndexer from "./word-indexer";
-
 import type {
     DOMHighlight,
     DOMHighlightSet,
-    SerializedHighlightSet,
     DOMRange,
+    SerializedHighlightSet,
 } from "./types";
+import HighlightingUI from "./ui/highlighting-ui";
+import WordIndexer from "./word-indexer";
 
 type Props = {
     // The highlightable content itself. Highlights will be defined relative to

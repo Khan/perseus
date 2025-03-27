@@ -1,6 +1,6 @@
 import {
-    StatefulKeypadContextProvider,
     KeypadContext,
+    StatefulKeypadContextProvider,
 } from "@khanacademy/keypad-context";
 import {action} from "@storybook/addon-actions";
 import * as React from "react";

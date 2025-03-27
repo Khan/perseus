@@ -1,35 +1,33 @@
+import type {KeypadAPI} from "@khanacademy/math-input";
+import type {PerseusItem} from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {within, render, screen, act} from "@testing-library/react";
+import {act, render, screen, within} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import {
     testDependencies,
     testDependenciesV2,
 } from "../../../../testing/test-dependencies";
 import {
-    itemWithNumericInput,
     itemWithLintingError,
+    itemWithMockWidget,
+    itemWithNumericInput,
     itemWithRadioAndExpressionWidgets,
     itemWithTwoMockWidgets,
-    itemWithMockWidget,
 } from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
 import WrappedServerItemRenderer, {
     ServerItemRenderer,
 } from "../server-item-renderer";
+import type {APIOptions} from "../types";
 import {registerWidget} from "../widgets";
 import {MockWidget} from "../widgets/mock-widgets";
 import MockAssetLoadingWidgetExport, {
     mockedAssetItem,
 } from "../widgets/mock-widgets/mock-asset-loading-widget";
-
-import type {APIOptions} from "../types";
 import type {MockAssetLoadingWidget} from "../widgets/mock-widgets/mock-asset-loading-widget";
-import type {KeypadAPI} from "@khanacademy/math-input";
-import type {PerseusItem} from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
-import type {UserEvent} from "@testing-library/user-event";
 
 // This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
 // the ServerItemRenderer instead of Renderer

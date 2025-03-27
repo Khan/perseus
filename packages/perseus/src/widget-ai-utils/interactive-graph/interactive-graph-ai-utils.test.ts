@@ -1,5 +1,5 @@
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-
 import {ApiOptions} from "../../perseus-api";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import {
@@ -14,10 +14,7 @@ import {
     segmentQuestion,
     sinusoidQuestion,
 } from "../../widgets/interactive-graphs/interactive-graph.testdata";
-
 import {getPromptJSON} from "./interactive-graph-ai-utils";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 const apiOptions = ApiOptions.defaults;
 

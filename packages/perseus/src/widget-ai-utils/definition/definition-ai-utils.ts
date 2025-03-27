@@ -1,5 +1,5 @@
-import type definition from "../../widgets/definition/definition";
 import type React from "react";
+import type definition from "../../widgets/definition/definition";
 
 export type DefinitionPromptJSON = {
     type: "definition";

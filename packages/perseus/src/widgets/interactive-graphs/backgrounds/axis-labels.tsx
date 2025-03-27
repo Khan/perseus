@@ -1,15 +1,13 @@
 import {vec} from "mafs";
 import React from "react";
-
+import type {I18nContextType} from "../../../components/i18n-context";
 import {getDependencies} from "../../../dependencies";
 import {pointToPixel} from "../graphs/use-transform";
 import {MAX, MIN, X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
-import {replaceOutsideTeX} from "../utils";
-
-import type {I18nContextType} from "../../../components/i18n-context";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {GraphDimensions} from "../types";
+import {replaceOutsideTeX} from "../utils";
 
 // Exported for testing purposes
 export const fontSize = 14;

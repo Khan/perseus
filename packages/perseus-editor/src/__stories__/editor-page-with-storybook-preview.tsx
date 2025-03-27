@@ -1,4 +1,4 @@
-import {Renderer, type APIOptions, type DeviceType} from "@khanacademy/perseus";
+import {type APIOptions, type DeviceType, Renderer} from "@khanacademy/perseus";
 import {
     type Hint,
     type PerseusAnswerArea,

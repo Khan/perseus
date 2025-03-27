@@ -1,15 +1,12 @@
+import type {LockedFunctionType} from "@khanacademy/perseus-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
-
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {MafsGraph} from "../mafs-graph";
-import {getBaseMafsGraphPropsForTests} from "../utils";
-
-import * as Utils from "./utils";
-
 import type {NoneGraphState} from "../types";
-import type {LockedFunctionType} from "@khanacademy/perseus-core";
+import {getBaseMafsGraphPropsForTests} from "../utils";
+import * as Utils from "./utils";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseLockedFunctionProps = {

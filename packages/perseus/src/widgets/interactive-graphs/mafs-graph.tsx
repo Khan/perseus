@@ -13,12 +13,13 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {useOnMountEffect, View} from "@khanacademy/wonder-blocks-core";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
+import type {vec} from "mafs";
 import {Mafs} from "mafs";
 import * as React from "react";
-
+import type {I18nContextType} from "../../components/i18n-context";
 import {usePerseusI18n} from "../../components/i18n-context";
 import {useDependencies} from "../../dependencies";
-
+import type {PerseusStrings} from "../../strings";
 import AxisArrows from "./backgrounds/axis-arrows";
 import AxisLabels from "./backgrounds/axis-labels";
 import {AxisTicks} from "./backgrounds/axis-ticks";
@@ -40,21 +41,18 @@ import {renderSinusoidGraph} from "./graphs/sinusoid";
 import {getArrayWithoutDuplicates} from "./graphs/utils";
 import {MIN, X, Y} from "./math";
 import {Protractor} from "./protractor";
-import {actions} from "./reducer/interactive-graph-action";
-import {GraphConfigContext} from "./reducer/use-graph-config";
-import {isUnlimitedGraphState, REMOVE_BUTTON_ID} from "./utils";
 
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
+import {actions} from "./reducer/interactive-graph-action";
+import {GraphConfigContext} from "./reducer/use-graph-config";
 import type {
-    InteractiveGraphState,
+    InteractiveGraphElementSuite,
     InteractiveGraphProps,
+    InteractiveGraphState,
     PointGraphState,
     PolygonGraphState,
-    InteractiveGraphElementSuite,
 } from "./types";
-import type {I18nContextType} from "../../components/i18n-context";
-import type {PerseusStrings} from "../../strings";
-import type {vec} from "mafs";
+import {isUnlimitedGraphState, REMOVE_BUTTON_ID} from "./utils";
 
 import "mafs/core.css";
 import "./mafs-styles.css";

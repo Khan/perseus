@@ -1,6 +1,5 @@
-import getSorterPublicWidgetOptions from "./sorter-util";
-
 import type {PerseusSorterWidgetOptions} from "../../data-schema";
+import getSorterPublicWidgetOptions from "./sorter-util";
 
 describe("getSorterPublicWidgetOptions", () => {
     it("should return options without any answer data due to the shuffled state of the correct field", () => {

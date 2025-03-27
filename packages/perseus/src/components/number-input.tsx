@@ -1,16 +1,13 @@
-import {number as knumber, KhanMath} from "@khanacademy/kmath";
+import {KhanMath, number as knumber} from "@khanacademy/kmath";
+import type {MathFormat} from "@khanacademy/perseus-core";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
-
 import Util from "../util";
 import {isPiMultiple} from "../util/math-utils";
-
 import {PerseusI18nContext} from "./i18n-context";
-
-import type {MathFormat} from "@khanacademy/perseus-core";
 
 const {firstNumericalParse, captureScratchpadTouchStart} = Util;
 const toNumericString = KhanMath.toNumericString;

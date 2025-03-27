@@ -1,5 +1,5 @@
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
 import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
-
 import type {
     AngleGraphState,
     CircleGraphState,
@@ -14,7 +14,6 @@ import type {
     SegmentGraphState,
     SinusoidGraphState,
 } from "./types";
-import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
 const commonGraphState: InteractiveGraphStateCommon = {
     hasBeenInteractedWith: true,

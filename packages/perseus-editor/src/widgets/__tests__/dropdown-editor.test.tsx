@@ -1,12 +1,10 @@
 import {Dependencies} from "@khanacademy/perseus";
 import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import DropdownEditor from "../dropdown-editor";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("dropdown-editor", () => {
     let userEvent: UserEvent;

@@ -22,18 +22,16 @@
 //       produced that parse error.
 
 import {createHash} from "crypto";
+import type {Dirent} from "fs";
 import * as fs from "fs/promises";
 import {join} from "path";
-
 import {ErrorTrackingParseContext} from "../error-tracking-parse-context";
 import {isObject} from "../general-purpose-parsers";
 import {formatPath} from "../object-path";
+import type {Mismatch} from "../parser-types";
 import {parsePerseusItem} from "../perseus-parsers/perseus-item";
 import {parsePerseusRenderer} from "../perseus-parsers/perseus-renderer";
 import {isSuccess} from "../result";
-
-import type {Mismatch} from "../parser-types";
-import type {Dirent} from "fs";
 
 async function main() {
     // process.argv.slice(2) is a common NodeJS idiom. The first two args are

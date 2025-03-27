@@ -1,5 +1,3 @@
-import type {CursorContext} from "./components/input/cursor-contexts";
-import type {KeyType} from "./enums";
 import type {
     KeypadConfiguration,
     KeypadContextRendererInterface,
@@ -7,6 +5,8 @@ import type {
 } from "@khanacademy/perseus-core";
 import type * as React from "react";
 import type ReactDOM from "react-dom";
+import type {CursorContext} from "./components/input/cursor-contexts";
+import type {KeyType} from "./enums";
 
 export enum MathFieldActionType {
     WRITE = "write",

@@ -1,6 +1,5 @@
-import {StyleSheet} from "aphrodite";
-
 import type {StyleDeclaration} from "aphrodite";
+import {StyleSheet} from "aphrodite";
 
 const CHOICE_ICON_SIZE = 24;
 

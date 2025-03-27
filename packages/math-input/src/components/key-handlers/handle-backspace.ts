@@ -1,18 +1,17 @@
+import type MathQuill from "mathquill";
 import {MathFieldActionType} from "../../types";
 import {
     isFraction,
-    isSquareRoot,
+    isInsideEmptyNode,
+    isInsideLogIndex,
     isNthRoot,
     isNthRootIndex,
-    isInsideLogIndex,
-    isInsideEmptyNode,
-    selectNode,
+    isSquareRoot,
     maybeFindCommandBeforeParens,
+    selectNode,
 } from "../input/mathquill-helpers";
 import {mathQuillInstance} from "../input/mathquill-instance";
-
 import type {MathFieldInterface} from "../input/mathquill-types";
-import type MathQuill from "mathquill";
 
 function handleBackspaceInNthRoot(
     mathField: MathFieldInterface,

@@ -3,11 +3,16 @@
  * Used in the editor for the InteractiveGraph widget.
  */
 import {
+    Changeable,
     components,
     interactiveSizes,
-    Changeable,
     Util,
 } from "@khanacademy/perseus";
+import type {
+    AxisLabelLocation,
+    MarkingsType,
+    PerseusImageBackground,
+} from "@khanacademy/perseus-core";
 import Banner from "@khanacademy/wonder-blocks-banner";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -15,15 +20,8 @@ import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
-
 import Heading from "../../../components/heading";
 import LabeledRow from "../locked-figures/labeled-row";
-
-import type {
-    AxisLabelLocation,
-    MarkingsType,
-    PerseusImageBackground,
-} from "@khanacademy/perseus-core";
 
 type ChangeFn = typeof Changeable.change;
 

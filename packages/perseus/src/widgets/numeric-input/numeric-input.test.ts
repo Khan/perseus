@@ -1,34 +1,31 @@
 import {
-    splitPerseusItem,
     type PerseusNumericInputWidgetOptions,
     type PerseusRenderer,
+    splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {
-    scorePerseusItem,
     type PerseusNumericInputRubric,
+    scorePerseusItem,
 } from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
-
 import NumericInputWidgetExport from "./numeric-input.class";
 import {
-    question1AndAnswer,
-    multipleAnswers,
-    percentageProblem,
-    multipleAnswersWithDecimals,
-    question1,
-    duplicatedAnswers,
-    withCoefficient,
     correctAndWrongAnswers,
+    duplicatedAnswers,
+    multipleAnswers,
+    multipleAnswersWithDecimals,
+    percentageProblem,
+    question1,
+    question1AndAnswer,
+    withCoefficient,
 } from "./numeric-input.testdata";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {
     const [question, correct, incorrect] = question1AndAnswer;

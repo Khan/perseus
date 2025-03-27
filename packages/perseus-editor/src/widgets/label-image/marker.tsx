@@ -7,14 +7,12 @@
  * the dropdown component.
  */
 
-import {StyleSheet, css} from "aphrodite";
+import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
-
 import Option, {OptionGroup} from "../../components/dropdown-option";
 import FormWrappedTextField from "../../components/form-wrapped-text-field";
 import {gray17, gray85, gray98} from "../../styles/global-colors";
-
-import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = PerseusLabelImageWidgetOptions["markers"][number] & {
     // The list of possible answer choices.

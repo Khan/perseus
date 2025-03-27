@@ -1,13 +1,11 @@
+import type {CollinearTuple} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
-
-import type {CollinearTuple} from "@khanacademy/perseus-core";
 
 type Props = {
     startCoords: CollinearTuple;

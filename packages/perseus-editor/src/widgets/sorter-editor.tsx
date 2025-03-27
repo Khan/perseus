@@ -2,8 +2,8 @@
 /* eslint-disable react/forbid-prop-types */
 import {components} from "@khanacademy/perseus";
 import {
-    sorterLogic,
     type SorterDefaultWidgetOptions,
+    sorterLogic,
 } from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import PropTypes from "prop-types";

@@ -3,10 +3,8 @@ import * as React from "react";
 
 import KeyConfigs from "../../data/key-configs";
 import {mockStrings} from "../../strings";
-
-import {KeypadButton} from "./keypad-button";
-
 import type {KeypadButtonProps} from "./keypad-button";
+import {KeypadButton} from "./keypad-button";
 
 const keyConfigs = KeyConfigs(mockStrings);
 

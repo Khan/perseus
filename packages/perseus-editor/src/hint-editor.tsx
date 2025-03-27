@@ -4,10 +4,18 @@
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews
  */
+
+import type {
+    APIOptions,
+    ChangeHandler,
+    DeviceType,
+    ImageDict,
+    ImageUploader,
+} from "@khanacademy/perseus";
 import {components, iconTrash} from "@khanacademy/perseus";
+import type {Hint, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
-
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
@@ -16,15 +24,6 @@ import {
     iconCircleArrowUp,
     iconPlus,
 } from "./styles/icon-paths";
-
-import type {
-    APIOptions,
-    ImageDict,
-    ChangeHandler,
-    DeviceType,
-    ImageUploader,
-} from "@khanacademy/perseus";
-import type {Hint, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
 const {InfoTip, InlineIcon} = components;
 

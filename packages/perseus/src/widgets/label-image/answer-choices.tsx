@@ -1,18 +1,17 @@
 /**
  * Enables single or multiple answers selection using WonderBlocks dropdowns.
  */
+
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {
     MultiSelect,
-    SingleSelect,
     OptionItem,
+    SingleSelect,
 } from "@khanacademy/wonder-blocks-dropdown";
 import * as React from "react";
 import _ from "underscore";
-
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
-
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type AnswerType = {
     // The answer string, can be plain text or a TeX expression.

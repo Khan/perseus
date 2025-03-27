@@ -1,6 +1,6 @@
-import type numericInput from "../../widgets/numeric-input/numeric-input.class";
 import type {PerseusNumericInputUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
+import type numericInput from "../../widgets/numeric-input/numeric-input.class";
 
 export type NumericInputPromptJSON = {
     type: "numeric-input";

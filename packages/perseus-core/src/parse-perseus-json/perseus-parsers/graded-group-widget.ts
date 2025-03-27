@@ -1,3 +1,4 @@
+import type {GradedGroupWidget} from "../../data-schema";
 import {
     boolean,
     constant,
@@ -12,13 +13,10 @@ import {
 } from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-
+import type {Parser} from "../parser-types";
 import {parsePerseusRenderer} from "./perseus-renderer";
 import {parseWidget} from "./widget";
 import {parseWidgetsMap} from "./widgets-map";
-
-import type {GradedGroupWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
 
 const falseToNull = pipeParsers(constant(false)).then(
     convert(() => null),

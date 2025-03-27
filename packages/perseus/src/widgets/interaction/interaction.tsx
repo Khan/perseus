@@ -2,21 +2,19 @@
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe */
 import * as KAS from "@khanacademy/kas";
 import {vector as kvector} from "@khanacademy/kmath";
-import * as React from "react";
-import _ from "underscore";
-
-import Graphie from "../../components/graphie";
-import * as Changeable from "../../mixins/changeable";
-import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/interaction/interaction-ai-utils";
-
-import type {Coord} from "../../interactive2/types";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     PerseusInteractionElement,
     PerseusInteractionWidgetOptions,
 } from "@khanacademy/perseus-core";
+import * as React from "react";
+import _ from "underscore";
+import Graphie from "../../components/graphie";
+import type {Coord} from "../../interactive2/types";
+import * as Changeable from "../../mixins/changeable";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import Util from "../../util";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/interaction/interaction-ai-utils";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 // @ts-expect-error - TS2339 - Property 'Label' does not exist on type 'typeof Graphie'.
 const Label = Graphie.Label;

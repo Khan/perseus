@@ -1,8 +1,6 @@
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-
-import {getPromptJSON} from "./grapher-ai-utils";
-
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {getPromptJSON} from "./grapher-ai-utils";
 
 const question: PerseusRenderer = {
     content: "**Graph $5x+3y=15$.**\n\n[[☃ grapher 1]]",

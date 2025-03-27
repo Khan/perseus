@@ -1,11 +1,12 @@
-import {describe, beforeEach, it} from "@jest/globals";
+import {beforeEach, describe, it} from "@jest/globals";
+import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
 import {act, render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
-
 import {testDependencies} from "../../../../testing/test-dependencies";
 import * as Dependencies from "../dependencies";
 import {ClassNames} from "../perseus-api";
@@ -15,14 +16,10 @@ import {scorePerseusItemTesting} from "../util/test-utils";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import {MockWidget} from "../widgets/mock-widgets";
-
 import imageItem from "./test-items/image-item";
 import mockWidget1Item from "./test-items/mock-widget-1-item";
 import mockWidget2Item from "./test-items/mock-widget-2-item";
 import tableItem from "./test-items/table-item";
-
-import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
-import type {UserEvent} from "@testing-library/user-event";
 
 const itemWidget = mockWidget1Item;
 

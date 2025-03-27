@@ -1,12 +1,11 @@
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useState} from "react";
 
-import TabbarItem from "./item";
-
 import type {KeypadPageType} from "../../types";
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
+import TabbarItem from "./item";
 
 const styles = StyleSheet.create({
     tabbar: {

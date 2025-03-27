@@ -1,5 +1,5 @@
-import type {SineCoefficient} from "./geometry";
 import type {Coord} from "@khanacademy/perseus-core";
+import type {SineCoefficient} from "./geometry";
 
 export type NamedSineCoefficient = {
     amplitude: number;

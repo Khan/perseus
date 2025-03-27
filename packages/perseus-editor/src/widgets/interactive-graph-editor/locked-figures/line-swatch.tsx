@@ -1,9 +1,9 @@
 import {
-    lockedFigureColors,
     type LockedFigureColor,
+    lockedFigureColors,
 } from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 

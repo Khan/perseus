@@ -1,14 +1,21 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+
+import type {MathFieldInterface} from "@khanacademy/math-input";
 import {
-    DesktopKeypad,
-    getKeyTranslator,
-    createMathField,
-    mathQuillInstance,
     CursorContext,
-    getCursorContext,
     convertDotToTimesByLocale,
+    createMathField,
+    DesktopKeypad,
+    getCursorContext,
+    getKeyTranslator,
     MathInputI18nContext,
+    mathQuillInstance,
 } from "@khanacademy/math-input";
+import type {
+    AnalyticsEventHandlerFn,
+    KeypadKey,
+    LegacyButtonSets,
+} from "@khanacademy/perseus-core";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
@@ -20,18 +27,9 @@ import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
 import {v4 as uuid} from "uuid";
-
 import a11y from "../util/a11y";
 import {debounce} from "../util/debounce";
-
 import {PerseusI18nContext} from "./i18n-context";
-
-import type {MathFieldInterface} from "@khanacademy/math-input";
-import type {
-    AnalyticsEventHandlerFn,
-    KeypadKey,
-    LegacyButtonSets,
-} from "@khanacademy/perseus-core";
 
 type ButtonsVisibleType = "always" | "never" | "focused";
 

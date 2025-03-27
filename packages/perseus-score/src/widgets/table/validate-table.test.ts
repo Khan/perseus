@@ -1,6 +1,5 @@
-import validateTable from "./validate-table";
-
 import type {PerseusTableUserInput} from "../../validation.types";
+import validateTable from "./validate-table";
 
 describe("tableValidator", () => {
     it("is invalid if there is an empty cell", () => {

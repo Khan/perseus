@@ -1,3 +1,4 @@
+import type {SorterWidget} from "../../data-schema";
 import {
     array,
     boolean,
@@ -6,11 +7,8 @@ import {
     object,
     string,
 } from "../general-purpose-parsers";
-
-import {parseWidget} from "./widget";
-
-import type {SorterWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
+import {parseWidget} from "./widget";
 
 export const parseSorterWidget: Parser<SorterWidget> = parseWidget(
     constant("sorter"),

@@ -1,6 +1,5 @@
-import getPlotterPublicWidgetOptions from "./plotter-util";
-
 import type {PerseusPlotterWidgetOptions} from "../../data-schema";
+import getPlotterPublicWidgetOptions from "./plotter-util";
 
 describe("getPlotterPublicWidgetOptions", () => {
     it("should return the correct public options without any answer data", () => {

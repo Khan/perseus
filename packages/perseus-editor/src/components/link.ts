@@ -4,10 +4,10 @@
  * This is useful for wrapping many child components in a link and making sure
  * that "link" styles don't get applied to all you content.
  */
-import {StyleSheet, css} from "aphrodite";
-import * as React from "react";
 
 import type {CSSProperties} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
+import * as React from "react";
 
 // TODO(diedra): This is terrible! If we don't have a href for a link, it should
 // be a button instead. We just need to make sure we override the default browser

@@ -7,11 +7,11 @@
  * - mobile keypad usages
  * - Perseus Renderers (Server/Item/Article)
  */
-import * as React from "react";
-import {useState, useMemo} from "react";
 
-import type {KeypadContextType} from "./types";
 import type {KeypadContextRendererInterface} from "@khanacademy/perseus-core";
+import * as React from "react";
+import {useMemo, useState} from "react";
+import type {KeypadContextType} from "./types";
 
 // @ts-expect-error - TS2322 - Type 'Context<{ setKeypadElement: (keypadElement: HTMLElement | null | undefined) => void; keypadElement: null; setRenderer: (renderer: RendererInterface | null | undefined) => void; renderer: null; setScrollableElement: (scrollableElement: HTMLElement | ... 1 more ... | undefined) => void; scrollableElement: null; }>' is not assignable to type 'Context<KeypadContext>'.
 export const KeypadContext: React.Context<KeypadContextType> =

@@ -1,11 +1,8 @@
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
-
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-
 import {question1, question2, question3} from "./__tests__/passage.testdata";
-
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export default {
     title: "Perseus/Widgets/Passage",

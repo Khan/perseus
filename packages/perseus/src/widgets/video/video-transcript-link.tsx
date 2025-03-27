@@ -2,7 +2,7 @@
  * This is a component that adds a link to the transcript for embedded videos in articles.
  */
 
-import {View, Text} from "@khanacademy/wonder-blocks-core";
+import {Text, View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Link from "@khanacademy/wonder-blocks-link";
 import {StyleSheet} from "aphrodite";

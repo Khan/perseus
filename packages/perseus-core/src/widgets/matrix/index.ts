@@ -1,7 +1,6 @@
-import getMatrixPublicWidgetOptions from "./matrix-util";
-
 import type {PerseusMatrixWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import getMatrixPublicWidgetOptions from "./matrix-util";
 
 export type MatrixDefaultWidgetOptions = Pick<
     PerseusMatrixWidgetOptions,

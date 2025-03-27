@@ -7,11 +7,9 @@ import {
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 import {parse} from "../parse";
-import {failure, success} from "../result";
-
-import {versionedWidgetOptions} from "./versioned-widget-options";
-
 import type {Parser} from "../parser-types";
+import {failure, success} from "../result";
+import {versionedWidgetOptions} from "./versioned-widget-options";
 
 describe("versionedWidgetOptions parser", () => {
     type OptionsV0 = {

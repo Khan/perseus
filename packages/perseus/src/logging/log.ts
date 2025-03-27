@@ -1,7 +1,6 @@
-import {getDependencies} from "../dependencies";
-
 import type {ErrorKind} from "@khanacademy/perseus-core";
 import type {Metadata} from "@khanacademy/wonder-stuff-core";
+import {getDependencies} from "../dependencies";
 
 // TODO(LP-11481): Change the primary API we use for logging in Perseus to use
 // getDependencies() internally... simplify usage to just using a "singleton"

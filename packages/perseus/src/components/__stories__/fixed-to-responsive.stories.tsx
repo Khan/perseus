@@ -1,9 +1,7 @@
+import type {Meta, StoryObj} from "@storybook/react";
 import * as React from "react";
-
 import {getDependencies} from "../../dependencies";
 import FixedToResponsive from "../fixed-to-responsive";
-
-import type {Meta, StoryObj} from "@storybook/react";
 
 type StoryArgs = StoryObj<FixedToResponsive>;
 

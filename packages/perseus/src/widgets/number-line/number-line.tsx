@@ -1,23 +1,21 @@
-import {number as knumber, KhanMath} from "@khanacademy/kmath";
+import {KhanMath, number as knumber} from "@khanacademy/kmath";
+import type {Relationship} from "@khanacademy/perseus-core";
+import type {PerseusNumberLineUserInput} from "@khanacademy/perseus-score";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
-
 import Graphie from "../../components/graphie";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import NumberInput from "../../components/number-input";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import InteractiveUtil from "../../interactive2/interactive-util";
 import * as Changeable from "../../mixins/changeable";
-import {ApiOptions} from "../../perseus-api";
-import KhanColors from "../../util/colors";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
-
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
+import {ApiOptions} from "../../perseus-api";
+import type {APIOptions, FocusPath, Widget, WidgetExports} from "../../types";
+import KhanColors from "../../util/colors";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
-import type {Relationship} from "@khanacademy/perseus-core";
-import type {PerseusNumberLineUserInput} from "@khanacademy/perseus-score";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;

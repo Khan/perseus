@@ -1,15 +1,12 @@
-import {describe, beforeEach, it} from "@jest/globals";
+import {beforeEach, describe, it} from "@jest/globals";
 import {act, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {renderQuestion} from "../__testutils__/renderQuestion";
-
-import {question1} from "./graded-group.testdata";
-
 import type {APIOptions} from "../../types";
-import type {UserEvent} from "@testing-library/user-event";
+import {renderQuestion} from "../__testutils__/renderQuestion";
+import {question1} from "./graded-group.testdata";
 
 const checkAnswer = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,

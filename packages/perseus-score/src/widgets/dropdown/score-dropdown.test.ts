@@ -1,9 +1,8 @@
-import scoreDropdown from "./score-dropdown";
-
 import type {
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
 } from "../../validation.types";
+import scoreDropdown from "./score-dropdown";
 
 describe("scoreDropdown", () => {
     it("returns 0 points for incorrect answer", () => {

@@ -1,6 +1,5 @@
-import {getPromptJSON} from "./prompt-utils";
-
 import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
+import {getPromptJSON} from "./prompt-utils";
 
 describe("InputNumber getPromptJSON", () => {
     it("it returns JSON with the expected format and fields", () => {

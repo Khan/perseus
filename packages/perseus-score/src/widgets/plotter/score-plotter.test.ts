@@ -1,9 +1,8 @@
-import scorePlotter from "./score-plotter";
-
 import type {
     PerseusPlotterRubric,
     PerseusPlotterUserInput,
 } from "../../validation.types";
+import scorePlotter from "./score-plotter";
 
 describe("scorePlotter", () => {
     it("can be answered correctly", () => {

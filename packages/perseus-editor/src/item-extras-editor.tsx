@@ -1,12 +1,11 @@
 import {components} from "@khanacademy/perseus";
+import type {PerseusAnswerArea} from "@khanacademy/perseus-core";
 import {ItemExtras} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
-import type {PerseusAnswerArea} from "@khanacademy/perseus-core";
 
 const {InfoTip} = components;
 

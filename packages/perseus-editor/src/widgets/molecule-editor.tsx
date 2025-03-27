@@ -1,4 +1,4 @@
-import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {Changeable, components, EditorJsonify} from "@khanacademy/perseus";
 import PropTypes from "prop-types";
 import * as React from "react";
 

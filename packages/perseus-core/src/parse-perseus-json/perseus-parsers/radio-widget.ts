@@ -1,3 +1,4 @@
+import type {RadioWidget} from "../../data-schema";
 import {deriveNumCorrect} from "../../widgets/radio/radio-upgrade";
 import {
     any,
@@ -10,13 +11,10 @@ import {
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-
+import type {ParsedValue, Parser} from "../parser-types";
 import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
 import {parseWidgetsMap} from "./widgets-map";
-
-import type {RadioWidget} from "../../data-schema";
-import type {ParsedValue, Parser} from "../parser-types";
 
 const version2 = optional(object({major: constant(2), minor: number}));
 const parseRadioWidgetV2: Parser<RadioWidget> = parseWidgetWithVersion(

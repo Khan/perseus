@@ -4,18 +4,17 @@
  */
 import {KhanMath} from "@khanacademy/kmath";
 import {
-    components,
-    interactiveSizes,
     Changeable,
+    components,
     Dependencies,
+    interactiveSizes,
     Util,
 } from "@khanacademy/perseus";
+import type {Coords, MarkingsType} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
-
-import type {Coords, MarkingsType} from "@khanacademy/perseus-core";
 
 const {ButtonGroup, InfoTip, RangeInput} = components;
 

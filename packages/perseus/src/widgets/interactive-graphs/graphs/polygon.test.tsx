@@ -1,21 +1,18 @@
 import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Mafs, Polygon} from "mafs";
 import React from "react";
-
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {MafsGraph} from "../mafs-graph";
+import type {InteractiveGraphState, PolygonGraphState} from "../types";
 import {getBaseMafsGraphPropsForTests} from "../utils";
-
 import {
     getAngleSnapConstraint,
     getSideSnapConstraint,
     hasFocusVisible,
 } from "./polygon";
-
-import type {InteractiveGraphState, PolygonGraphState} from "../types";
-import type {UserEvent} from "@testing-library/user-event";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseLimitedPolygonState: InteractiveGraphState = {

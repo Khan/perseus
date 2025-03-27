@@ -1,9 +1,9 @@
 import {
     getWidgetIdsFromContentByType,
+    type PerseusGraphType,
     type PerseusItem,
     type PerseusWidget,
     type PerseusWidgetsMap,
-    type PerseusGraphType,
 } from "@khanacademy/perseus-core";
 
 /**

@@ -1,3 +1,4 @@
+import type {MatrixWidget} from "../../data-schema";
 import {
     array,
     boolean,
@@ -11,11 +12,8 @@ import {
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 import {stringToNumber} from "../general-purpose-parsers/string-to-number";
-
-import {parseWidget} from "./widget";
-
-import type {MatrixWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
+import {parseWidget} from "./widget";
 
 const numberOrString = union(number).or(string).parser;
 const numeric = pipeParsers(defaulted(numberOrString, () => NaN)).then(

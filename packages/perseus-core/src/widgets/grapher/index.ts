@@ -1,7 +1,6 @@
-import getGrapherPublicWidgetOptions from "./grapher-util";
-
 import type {PerseusGrapherWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import getGrapherPublicWidgetOptions from "./grapher-util";
 
 export type GrapherDefaultWidgetOptions = Pick<
     PerseusGrapherWidgetOptions,

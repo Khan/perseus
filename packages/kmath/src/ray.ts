@@ -6,9 +6,8 @@
  */
 
 import * as kpoint from "./point";
-import * as kvector from "./vector";
-
 import type {Point} from "./point";
+import * as kvector from "./vector";
 
 export type Ray = [Point, Point];
 

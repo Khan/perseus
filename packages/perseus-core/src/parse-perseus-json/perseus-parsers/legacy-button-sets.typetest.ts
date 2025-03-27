@@ -1,8 +1,7 @@
-import {summon} from "../general-purpose-parsers/test-helpers";
-
-import type {parseLegacyButtonSet} from "./legacy-button-sets";
 import type {LegacyButtonSets} from "../../data-schema";
+import {summon} from "../general-purpose-parsers/test-helpers";
 import type {ParsedValue} from "../parser-types";
+import type {parseLegacyButtonSet} from "./legacy-button-sets";
 
 type ParsedButtonSet = ParsedValue<typeof parseLegacyButtonSet>;
 

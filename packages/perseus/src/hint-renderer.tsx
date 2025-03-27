@@ -1,11 +1,11 @@
 import * as PerseusLinter from "@khanacademy/perseus-linter";
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import classnames from "classnames";
 import * as React from "react";
 
 import {PerseusI18nContext} from "./components/i18n-context";
 import Renderer from "./renderer";
-import {baseUnitPx, hintBorderWidth, kaGreen, gray97} from "./styles/constants";
+import {baseUnitPx, gray97, hintBorderWidth, kaGreen} from "./styles/constants";
 import mediaQueries from "./styles/media-queries";
 
 import type {SharedRendererProps} from "./types";

@@ -1,12 +1,10 @@
 import {useDrag} from "@use-gesture/react";
 import {useTransformContext, vec} from "mafs";
 import * as React from "react";
+import type {RefObject} from "react";
 import invariant from "tiny-invariant";
-
 import {X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
-
-import type {RefObject} from "react";
 
 /**
  * Code in this file is derived from

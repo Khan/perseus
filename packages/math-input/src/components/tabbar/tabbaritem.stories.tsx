@@ -1,6 +1,5 @@
-import TabbarItem from "./item";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import TabbarItem from "./item";
 
 type Story = StoryObj<typeof TabbarItem>;
 

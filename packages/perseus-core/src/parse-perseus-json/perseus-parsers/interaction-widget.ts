@@ -1,3 +1,7 @@
+import type {
+    InteractionWidget,
+    PerseusInteractionElement,
+} from "../../data-schema";
 import {
     array,
     boolean,
@@ -14,15 +18,9 @@ import {
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
-
+import type {Parser} from "../parser-types";
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
-
-import type {
-    InteractionWidget,
-    PerseusInteractionElement,
-} from "../../data-schema";
-import type {Parser} from "../parser-types";
 
 const pairOfNumbers = pair(number, number);
 const stringOrEmpty = defaulted(string, () => "");

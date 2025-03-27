@@ -1,11 +1,14 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+
+import type {APIOptions} from "@khanacademy/perseus";
 import {
     components,
-    Widgets,
-    WIDGET_PROP_DENYLIST,
     iconChevronDown,
     iconTrash,
+    WIDGET_PROP_DENYLIST,
+    Widgets,
 } from "@khanacademy/perseus";
+import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
 import {
     CoreWidgetRegistry,
     upgradeWidgetInfoToLatestVersion,
@@ -17,13 +20,9 @@ import * as React from "react";
 import {useId} from "react";
 import _ from "underscore";
 
-import {iconChevronRight} from "../styles/icon-paths";
-
-import SectionControlButton from "./section-control-button";
-
 import type Editor from "../editor";
-import type {APIOptions} from "@khanacademy/perseus";
-import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
+import {iconChevronRight} from "../styles/icon-paths";
+import SectionControlButton from "./section-control-button";
 
 const {InlineIcon} = components;
 

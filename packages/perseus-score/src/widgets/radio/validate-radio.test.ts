@@ -1,6 +1,5 @@
-import validateRadio from "./validate-radio";
-
 import type {PerseusRadioUserInput} from "../../validation.types";
+import validateRadio from "./validate-radio";
 
 describe("validateRadio", () => {
     it("is invalid when no options are selected", () => {

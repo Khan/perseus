@@ -1,26 +1,23 @@
+import type {NamedSineCoefficient} from "@khanacademy/kmath";
+import type {Coord} from "@khanacademy/perseus-core";
 import {Plot, vec} from "mafs";
 import * as React from "react";
-
 import {
-    usePerseusI18n,
     type I18nContextType,
+    usePerseusI18n,
 } from "../../../components/i18n-context";
 import {X, Y} from "../math/coordinates";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-
+import type {
+    Dispatch,
+    InteractiveGraphElementSuite,
+    MafsGraphProps,
+    SinusoidGraphState,
+} from "../types";
 import {MovablePoint} from "./components/movable-point";
 import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
-
-import type {
-    SinusoidGraphState,
-    MafsGraphProps,
-    Dispatch,
-    InteractiveGraphElementSuite,
-} from "../types";
-import type {NamedSineCoefficient} from "@khanacademy/kmath";
-import type {Coord} from "@khanacademy/perseus-core";
 
 export function renderSinusoidGraph(
     state: SinusoidGraphState,

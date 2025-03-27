@@ -4,11 +4,9 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
+import type {FocusPath, Widget, WidgetExports} from "../../types";
 import {toAbsoluteUrl} from "../../util/url-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/python-program/python-ai-utils";
-
-import type {FocusPath, Widget, WidgetExports} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 function getUrlFromProgramID(programID: any) {

@@ -1,17 +1,15 @@
 import {angles} from "@khanacademy/kmath";
+import type {LockedLineType} from "@khanacademy/perseus-core";
 import {lockedFigureColors} from "@khanacademy/perseus-core";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {Point, Line, vec} from "mafs";
+import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
+import type {Interval} from "mafs";
+import {Line, Point, vec} from "mafs";
 import * as React from "react";
-
 import {Arrowhead} from "../graphs/components/arrowhead";
 import {Vector} from "../graphs/components/vector";
 import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {getIntersectionOfRayWithBox} from "../graphs/utils";
 import {X, Y} from "../math";
-
-import type {LockedLineType} from "@khanacademy/perseus-core";
-import type {Interval} from "mafs";
 
 const {calculateAngleInDegrees} = angles;
 

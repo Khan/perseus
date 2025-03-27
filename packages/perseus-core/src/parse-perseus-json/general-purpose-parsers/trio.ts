@@ -1,6 +1,5 @@
-import {isFailure} from "../result";
-
 import type {Parser} from "../parser-types";
+import {isFailure} from "../result";
 
 export function trio<A, B, C>(
     parseA: Parser<A>,

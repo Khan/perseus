@@ -1,6 +1,5 @@
-import * as Result from "../result";
-
 import type {ParseContext, Parser} from "../parser-types";
+import * as Result from "../result";
 
 export function array<T>(elementParser: Parser<T>): Parser<T[]> {
     return (rawValue: unknown, ctx: ParseContext) => {

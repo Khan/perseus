@@ -1,50 +1,47 @@
 import {
     number as knumber,
-    vector as kvector,
     point as kpoint,
+    vector as kvector,
 } from "@khanacademy/kmath";
+import type {
+    MarkingsType,
+    PerseusGrapherWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {GrapherUtil} from "@khanacademy/perseus-core";
+import type {
+    PerseusGrapherRubric,
+    PerseusGrapherUserInput,
+} from "@khanacademy/perseus-score";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import _ from "underscore";
-
 import ButtonGroup from "../../components/button-group";
 import Graphie from "../../components/graphie";
 import SvgImage from "../../components/svg-image";
 import Interactive2 from "../../interactive2";
+import type {Coord, Line} from "../../interactive2/types";
 import WrappedLine from "../../interactive2/wrapped-line";
 import * as Changeable from "../../mixins/changeable";
+import type {ChangeableProps} from "../../mixins/changeable";
 import {interactiveSizes} from "../../styles/constants";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import Util from "../../util";
+import type {GridDimensions} from "../../util";
 import KhanColors from "../../util/colors";
 import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
+import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
 /* Graphie and relevant components. */
 /* Mixins. */
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
-
 import {
-    DEFAULT_GRAPHER_PROPS,
     chooseType,
+    DEFAULT_GRAPHER_PROPS,
     defaultPlotProps,
     getGridAndSnapSteps,
     maybePointsFromNormalized,
     movableTypeToComponent,
     typeToButton,
 } from "./util";
-
-import type {Coord, Line} from "../../interactive2/types";
-import type {ChangeableProps} from "../../mixins/changeable";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {GridDimensions} from "../../util";
-import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
-import type {
-    MarkingsType,
-    PerseusGrapherWidgetOptions,
-} from "@khanacademy/perseus-core";
-import type {
-    PerseusGrapherRubric,
-    PerseusGrapherUserInput,
-} from "@khanacademy/perseus-score";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;

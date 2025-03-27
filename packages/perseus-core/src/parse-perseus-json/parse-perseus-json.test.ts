@@ -1,11 +1,9 @@
 import {jest} from "@jest/globals";
-
-import {assertFailure, assertSuccess, success} from "./result";
-
 import {
-    parseAndMigratePerseusItem,
     parseAndMigratePerseusArticle,
+    parseAndMigratePerseusItem,
 } from "./index";
+import {assertFailure, assertSuccess, success} from "./result";
 
 describe("parseAndMigratePerseusItem", () => {
     it("should parse JSON", () => {

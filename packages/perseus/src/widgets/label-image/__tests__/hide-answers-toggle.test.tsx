@@ -1,12 +1,10 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import {mockStrings} from "../../../strings";
 import {HideAnswersToggle} from "../hide-answers-toggle";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 const labelText = mockStrings.hideAnswersToggleLabel;
 

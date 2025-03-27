@@ -14,14 +14,12 @@
  */
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {Log} from "../../../logging/log";
-
-import {getRelativeRect} from "./util";
-
 import type {Rect} from "./types";
+import {getRelativeRect} from "./util";
 
 type Props = {
     label: string;

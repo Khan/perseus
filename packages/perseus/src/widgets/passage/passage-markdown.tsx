@@ -1,15 +1,13 @@
 import SimpleMarkdown from "@khanacademy/simple-markdown";
-import * as React from "react";
-import _ from "underscore";
-
-import {usePerseusI18n} from "../../components/i18n-context";
-
 import type {
     Capture,
     Parser,
     SingleASTNode,
     State,
 } from "@khanacademy/simple-markdown";
+import * as React from "react";
+import _ from "underscore";
+import {usePerseusI18n} from "../../components/i18n-context";
 
 export type ParseState = State & {
     currentRef: number[];

@@ -10,16 +10,14 @@
  *     we should add a hook to allow the parent to `forceUpdate` the
  *     `HighlightRenderer`.
  */
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
-
+import type {DOMHighlight, Position, Rect, ZIndexes} from "./types";
 import {
     getClientRectsForTextInRange,
     getRelativePosition,
     getRelativeRect,
 } from "./util";
-
-import type {DOMHighlight, Position, Rect, ZIndexes} from "./types";
 
 type Props = {
     // The DOMHighlight to render.

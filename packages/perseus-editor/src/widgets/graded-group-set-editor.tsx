@@ -1,13 +1,11 @@
 /* eslint-disable react/forbid-prop-types, react/no-unsafe */
 import {ApiOptions, Changeable} from "@khanacademy/perseus";
+import type {GradedGroupSetDefaultWidgetOptions} from "@khanacademy/perseus-core";
 import {gradedGroupSetLogic} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
-
 import GradedGroupEditor from "./graded-group-editor";
-
-import type {GradedGroupSetDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = any;
 

@@ -1,16 +1,14 @@
+import type {ParsedValue} from "@khanacademy/perseus";
 import {components, PerseusI18nContext, Util} from "@khanacademy/perseus";
+import type {
+    InputNumberDefaultWidgetOptions,
+    PerseusInputNumberWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {inputNumberLogic} from "@khanacademy/perseus-core";
 import {inputNumberAnswerTypes} from "@khanacademy/perseus-score";
 import * as React from "react";
 import _ from "underscore";
-
 import BlurInput from "../components/blur-input";
-
-import type {ParsedValue} from "@khanacademy/perseus";
-import type {
-    PerseusInputNumberWidgetOptions,
-    InputNumberDefaultWidgetOptions,
-} from "@khanacademy/perseus-core";
 
 const {InfoTip} = components;
 

@@ -1,6 +1,5 @@
-import {isSuccess} from "../result";
-
 import type {Parser} from "../parser-types";
+import {isSuccess} from "../result";
 
 export function union<T>(parseBranch: Parser<T>): UnionBuilder<T> {
     return new UnionBuilder(parseBranch);

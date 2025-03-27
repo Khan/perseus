@@ -1,7 +1,6 @@
+import type {Changeable} from "@khanacademy/perseus";
 import {components} from "@khanacademy/perseus";
 import * as React from "react";
-
-import type {Changeable} from "@khanacademy/perseus";
 
 type Props = {
     value?: string;

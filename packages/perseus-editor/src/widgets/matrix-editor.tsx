@@ -1,17 +1,15 @@
 import {
-    components,
     Changeable,
+    components,
     EditorJsonify,
     MatrixWidget,
 } from "@khanacademy/perseus";
+import type {MatrixDefaultWidgetOptions} from "@khanacademy/perseus-core";
 import {getMatrixSize, matrixLogic} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
-
 import Editor from "../editor";
-
-import type {MatrixDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {RangeInput} = components;
 const Matrix = MatrixWidget.widget;

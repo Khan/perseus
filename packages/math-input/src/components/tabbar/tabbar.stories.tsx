@@ -1,9 +1,8 @@
+import type {Meta, StoryObj} from "@storybook/react";
 import * as React from "react";
 
-import Tabbar from "./tabbar";
-
 import type {KeypadPageType} from "../../types";
-import type {Meta, StoryObj} from "@storybook/react";
+import Tabbar from "./tabbar";
 
 type Story = StoryObj<typeof Tabbar>;
 

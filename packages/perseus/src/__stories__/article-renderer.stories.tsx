@@ -4,11 +4,11 @@ import React from "react";
 
 import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
 import {
-    singleSectionArticle,
-    multiSectionArticle,
-    passageArticle,
     articleSectionWithExpression,
+    multiSectionArticle,
     multiSectionArticleWithExpression,
+    passageArticle,
+    singleSectionArticle,
 } from "../__testdata__/article-renderer.testdata";
 import ArticleRenderer from "../article-renderer";
 import TestKeypadContextWrapper from "../widgets/__shared__/test-keypad-context-wrapper";

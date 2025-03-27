@@ -57,17 +57,15 @@ import _ from "underscore";
 import InlineIcon from "../components/inline-icon";
 import {iconTrash} from "../icon-paths";
 import KhanColors from "../util/colors";
+import type {Graphie} from "../util/graphie";
 // eslint-disable-next-line import/no-deprecated
 import reactRender from "../util/react-render";
 import Tex from "../util/tex";
-
 import InteractiveUtil from "./interactive-util";
-import MovablePointOptions from "./movable-point-options";
-import WrappedEllipse from "./wrapped-ellipse";
-
 import type {Movable} from "./movable";
+import MovablePointOptions from "./movable-point-options";
 import type {Constraint, ConstraintCallbacks, Coord} from "./types";
-import type {Graphie} from "../util/graphie";
+import WrappedEllipse from "./wrapped-ellipse";
 
 const assert = InteractiveUtil.assert;
 const normalizeOptions = InteractiveUtil.normalizeOptions;

@@ -1,6 +1,5 @@
-import {deriveNumCorrect, widgetOptionsUpgrades} from "./radio-upgrade";
-
 import type {PerseusRadioWidgetOptions} from "../../data-schema";
+import {deriveNumCorrect, widgetOptionsUpgrades} from "./radio-upgrade";
 
 describe("widgetOptionsUpgrades", () => {
     it("can upgrade from v0 to v1", () => {

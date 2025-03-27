@@ -1,14 +1,12 @@
+import type {Coord} from "@khanacademy/perseus";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
 import ScrolllessNumberTextField from "./scrollless-number-text-field";
-
-import type {Coord} from "@khanacademy/perseus";
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     coord: [number, number];

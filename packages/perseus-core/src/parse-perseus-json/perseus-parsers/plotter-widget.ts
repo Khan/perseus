@@ -1,20 +1,18 @@
+import type {PlotterWidget} from "../../data-schema";
 import {plotterPlotTypes} from "../../data-schema";
 import {
-    constant,
-    object,
-    string,
     array,
-    number,
-    optional,
-    nullable,
+    constant,
     enumeration,
+    nullable,
+    number,
+    object,
+    optional,
+    string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-
-import {parseWidget} from "./widget";
-
-import type {PlotterWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
+import {parseWidget} from "./widget";
 
 export const parsePlotterWidget: Parser<PlotterWidget> = parseWidget(
     constant("plotter"),

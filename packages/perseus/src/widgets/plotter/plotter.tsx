@@ -1,24 +1,22 @@
 /* eslint-disable react/no-unsafe */
 import {KhanMath} from "@khanacademy/kmath";
-import $ from "jquery";
-import * as React from "react";
-import ReactDOM from "react-dom";
-import _ from "underscore";
-
-import {PerseusI18nContext} from "../../components/i18n-context";
-import Interactive2 from "../../interactive2";
-import WrappedLine from "../../interactive2/wrapped-line";
-import KhanColors from "../../util/colors";
-import GraphUtils from "../../util/graph-utils";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
-
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 import type {
     PerseusPlotterRubric,
     PerseusPlotterUserInput,
 } from "@khanacademy/perseus-score";
+import $ from "jquery";
+import * as React from "react";
+import ReactDOM from "react-dom";
+import _ from "underscore";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import Interactive2 from "../../interactive2";
+import WrappedLine from "../../interactive2/wrapped-line";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import KhanColors from "../../util/colors";
+import GraphUtils from "../../util/graph-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plotter-ai-utils";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 

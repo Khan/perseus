@@ -1,12 +1,12 @@
-import {
-    normalizePoints,
-    normalizeCoords,
-    replaceOutsideTeX,
-    mathOnlyParser,
-} from "./utils";
+import type {GraphRange} from "@khanacademy/perseus-core";
 
 import type {Coord} from "../../interactive2/types";
-import type {GraphRange} from "@khanacademy/perseus-core";
+import {
+    mathOnlyParser,
+    normalizeCoords,
+    normalizePoints,
+    replaceOutsideTeX,
+} from "./utils";
 
 describe("normalizePoints", () => {
     test("should normalize coordinates with snapping", () => {

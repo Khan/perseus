@@ -1,10 +1,9 @@
 import {AccordionSection} from "@khanacademy/wonder-blocks-accordion";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
     animated?: boolean;

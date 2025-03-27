@@ -1,5 +1,5 @@
-import type passageRef from "../../widgets/passage-ref/passage-ref";
 import type React from "react";
+import type passageRef from "../../widgets/passage-ref/passage-ref";
 
 export type PassageRefPromptJSON = {
     type: "passage-ref";

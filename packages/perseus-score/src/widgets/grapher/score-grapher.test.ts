@@ -1,10 +1,10 @@
-import scoreGrapher from "./score-grapher";
+import type {Coord} from "@khanacademy/perseus-core";
 
 import type {
     PerseusGrapherRubric,
     PerseusGrapherUserInput,
 } from "../../validation.types";
-import type {Coord} from "@khanacademy/perseus-core";
+import scoreGrapher from "./score-grapher";
 
 describe("scoreGrapher", () => {
     it("is incorrect when user input type doesn't match scoring data type", () => {

@@ -1,6 +1,5 @@
-import * as React from "react";
-
 import type {CSSProperties} from "aphrodite";
+import * as React from "react";
 
 type Props = {
     value: string;

@@ -8,11 +8,9 @@
  */
 import * as React from "react";
 import ReactDOM from "react-dom";
-
+import type {VisibilityObserver as IVisibilityObserver} from "./create-visibility-observer";
 import {createVisibilityObserver} from "./create-visibility-observer";
 import {getScrollParent} from "./get-scroll-parent";
-
-import type {VisibilityObserver as IVisibilityObserver} from "./create-visibility-observer";
 
 export type ScrollVisibility =
     | "hidden-above"

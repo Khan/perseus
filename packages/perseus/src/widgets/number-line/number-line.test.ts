@@ -2,12 +2,10 @@ import {act} from "@testing-library/react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import type {APIOptions} from "../../types";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
-
 import {question1} from "./number-line.testdata";
-
-import type {APIOptions} from "../../types";
 
 describe("number-line widget", () => {
     beforeEach(() => {

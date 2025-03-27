@@ -4,11 +4,11 @@
  * multiple (Renderer) sections concatenated together.
  */
 
-import {components, ApiOptions, iconTrash} from "@khanacademy/perseus";
+import type {APIOptions, Changeable, ImageUploader} from "@khanacademy/perseus";
+import {ApiOptions, components, iconTrash} from "@khanacademy/perseus";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
-
 import DeviceFramer from "./components/device-framer";
 import JsonEditor from "./components/json-editor";
 import SectionControlButton from "./components/section-control-button";
@@ -19,8 +19,6 @@ import {
     iconCircleArrowUp,
     iconPlus,
 } from "./styles/icon-paths";
-
-import type {APIOptions, Changeable, ImageUploader} from "@khanacademy/perseus";
 
 const {HUD, InlineIcon} = components;
 

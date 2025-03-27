@@ -1,6 +1,6 @@
-import type orderer from "../../widgets/orderer/orderer";
 import type {PerseusOrdererUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
+import type orderer from "../../widgets/orderer/orderer";
 
 export type OrdererPromptJSON = {
     type: "orderer";

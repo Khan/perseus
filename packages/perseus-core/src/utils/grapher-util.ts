@@ -1,18 +1,16 @@
 import _ from "underscore";
-
+import type {Coord} from "../data-schema";
 import {approximateDeepEqual} from "./equality";
-
 import type {
+    AbsoluteValueType,
+    Coords,
+    ExponentialType,
     LinearType,
+    LogarithmType,
     QuadraticType,
     SinusoidType,
     TangentType,
-    ExponentialType,
-    LogarithmType,
-    AbsoluteValueType,
-    Coords,
 } from "./grapher-types";
-import type {Coord} from "../data-schema";
 
 export const MOVABLES = {
     PLOT: "PLOT",
@@ -628,14 +626,21 @@ export type FunctionTypeMappingKeys = keyof typeof functionTypeMapping;
 
 type ConditionalGraderType<T extends FunctionTypeMappingKeys> =
     // biome-ignore
-    T extends "linear" ? LinearType
-    : T extends "quadratic" ? QuadraticType
-    : T extends "sinusoid" ? SinusoidType
-    : T extends "tangent" ? TangentType
-    : T extends "exponential" ? ExponentialType
-    : T extends "logarithm" ? LogarithmType
-    : T extends "absolute_value" ? AbsoluteValueType
-    : never;
+    T extends "linear"
+        ? LinearType
+        : T extends "quadratic"
+          ? QuadraticType
+          : T extends "sinusoid"
+            ? SinusoidType
+            : T extends "tangent"
+              ? TangentType
+              : T extends "exponential"
+                ? ExponentialType
+                : T extends "logarithm"
+                  ? LogarithmType
+                  : T extends "absolute_value"
+                    ? AbsoluteValueType
+                    : never;
 
 export function functionForType<T extends FunctionTypeMappingKeys>(
     type: T,

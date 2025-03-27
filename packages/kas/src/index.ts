@@ -1,4 +1,4 @@
-export {libVersion} from "./version";
+export {compare} from "./compare";
 
 export * from "./nodes";
-export {compare} from "./compare";
+export {libVersion} from "./version";

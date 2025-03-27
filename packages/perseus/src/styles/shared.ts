@@ -1,9 +1,7 @@
+import type {StyleDeclaration} from "aphrodite";
 import {StyleSheet} from "aphrodite";
-
 import * as constants from "./constants";
 import mediaQueries from "./media-queries";
-
-import type {StyleDeclaration} from "aphrodite";
 
 const {radioBorderColor, checkedColor, circleSize, radioMarginWidth} =
     constants;

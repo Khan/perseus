@@ -1,8 +1,8 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {components, EditorJsonify, iconTrash} from "@khanacademy/perseus";
 import {
-    dropdownLogic,
     type DropdownDefaultWidgetOptions,
+    dropdownLogic,
 } from "@khanacademy/perseus-core";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";

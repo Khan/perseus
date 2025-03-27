@@ -4,6 +4,8 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
+
+import type {LockedLabelType, LockedPointType} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -12,25 +14,21 @@ import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
-
 import ColorSelect from "./color-select";
 import ColorSwatch from "./color-swatch";
 import LabeledSwitch from "./labeled-switch";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
+import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
-    generateSpokenMathDetails,
     generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
     getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
-
-import type {LockedFigureSettingsMovementType} from "./locked-figure-settings-actions";
-import type {LockedLabelType, LockedPointType} from "@khanacademy/perseus-core";
 
 export type Props = LockedPointType & {
     /**

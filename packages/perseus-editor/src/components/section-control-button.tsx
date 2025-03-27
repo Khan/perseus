@@ -1,10 +1,9 @@
 import {components} from "@khanacademy/perseus";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {InlineIcon} = components;
 

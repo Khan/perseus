@@ -1,17 +1,15 @@
-import {View} from "@khanacademy/wonder-blocks-core";
-import {TextField} from "@khanacademy/wonder-blocks-form";
-import {StyleSheet} from "aphrodite";
-import * as React from "react";
-
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
-
-import type {MockWidgetOptions} from "./mock-widget-types";
-import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
-import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 import type {
     PerseusMockWidgetRubric,
     PerseusMockWidgetUserInput,
 } from "@khanacademy/perseus-score";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {TextField} from "@khanacademy/wonder-blocks-form";
+import {StyleSheet} from "aphrodite";
+import * as React from "react";
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
+import type {MockWidgetOptions} from "./mock-widget-types";
 
 type ExternalProps = WidgetProps<MockWidgetOptions, PerseusMockWidgetRubric>;
 

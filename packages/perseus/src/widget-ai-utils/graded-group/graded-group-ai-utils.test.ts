@@ -1,16 +1,13 @@
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import {act, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-
-import {getPromptJSON} from "./graded-group-ai-utils";
-
 import type {CategorizerPromptJSON} from "../categorizer/categorizer-ai-utils";
 import type {ImagePromptJSON} from "../image/image-ai-utils";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {UserEvent} from "@testing-library/user-event";
+import {getPromptJSON} from "./graded-group-ai-utils";
 
 const question: PerseusRenderer = {
     content: "---\n\n##Check your understanding!\n\n[[☃ graded-group 1]]\n\n",

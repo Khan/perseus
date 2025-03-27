@@ -1,8 +1,6 @@
-import * as React from "react";
-
-import ZoomableTex from "../zoomable-tex";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import * as React from "react";
+import ZoomableTex from "../zoomable-tex";
 
 const meta: Meta = {
     title: "Perseus/Components/Zoomable Tex",

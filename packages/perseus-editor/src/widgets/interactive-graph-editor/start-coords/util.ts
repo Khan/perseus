@@ -2,18 +2,17 @@ import {angles, vector as kvector} from "@khanacademy/kmath";
 import {
     getAngleCoords,
     getCircleCoords,
-    getLineCoords,
     getLinearSystemCoords,
+    getLineCoords,
     getPointCoords,
     getPolygonCoords,
     getQuadraticCoords,
     getSegmentCoords,
     getSinusoidCoords,
 } from "@khanacademy/perseus";
+import type {Coord, PerseusGraphType, Range} from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
-
 import type {StartCoords} from "./types";
-import type {Range, PerseusGraphType, Coord} from "@khanacademy/perseus-core";
 
 const {getClockwiseAngle} = angles;
 

@@ -1,19 +1,16 @@
+import type {Range, Size} from "@khanacademy/perseus-core";
 import {approximateDeepEqual, Errors} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
-
 import InteractiveUtil from "../interactive2/interactive-util";
+import type {Coord} from "../interactive2/types";
 import {Log} from "../logging/log";
 import Util from "../util";
 import GraphUtils from "../util/graph-utils";
 import {Graphie as GraphieDrawingContext} from "../util/graphie";
-
 import GraphieClasses from "./graphie-classes";
 import Movables from "./graphie-movables";
-
-import type {Coord} from "../interactive2/types";
-import type {Range, Size} from "@khanacademy/perseus-core";
 
 const GraphieMovable = GraphieClasses.GraphieMovable;
 

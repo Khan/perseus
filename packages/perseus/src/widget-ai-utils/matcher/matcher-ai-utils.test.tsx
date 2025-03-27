@@ -1,14 +1,11 @@
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusMatcherUserInput} from "@khanacademy/perseus-score";
 import {screen, within} from "@testing-library/react";
 import * as React from "react";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-
 import {getPromptJSON} from "./matcher-ai-utils";
-
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {PerseusMatcherUserInput} from "@khanacademy/perseus-score";
 
 const question1: PerseusRenderer = {
     content:

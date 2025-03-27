@@ -1,16 +1,13 @@
 // This defines a version of PerseusDependencies that is suitable for use in tests.
 // It should not make network requests, for example.
 import * as React from "react";
-
-import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
-
-import {TestMathjax} from "./test-mathjax";
-
 import type {ILogger} from "../packages/perseus/src/logging/log";
 import type {
     PerseusDependencies,
     PerseusDependenciesV2,
 } from "../packages/perseus/src/types";
+import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
+import {TestMathjax} from "./test-mathjax";
 
 registerAllWidgetsForTesting();
 

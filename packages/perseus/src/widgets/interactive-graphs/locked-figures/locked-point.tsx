@@ -1,8 +1,8 @@
 import {
-    lockedFigureColors,
     type LockedPointType,
+    lockedFigureColors,
 } from "@khanacademy/perseus-core";
-import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {Point} from "mafs";
 import * as React from "react";
 

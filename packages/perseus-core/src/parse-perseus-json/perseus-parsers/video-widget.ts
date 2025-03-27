@@ -1,15 +1,13 @@
+import type {VideoWidget} from "../../data-schema";
 import {
+    boolean,
     constant,
     object,
-    string,
-    boolean,
     optional,
+    string,
 } from "../general-purpose-parsers";
-
-import {parseWidget} from "./widget";
-
-import type {VideoWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
+import {parseWidget} from "./widget";
 
 export const parseVideoWidget: Parser<VideoWidget> = parseWidget(
     constant("video"),

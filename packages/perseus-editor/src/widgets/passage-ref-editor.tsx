@@ -1,10 +1,9 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {Changeable, components, EditorJsonify} from "@khanacademy/perseus";
+import type {PassageRefDefaultWidgetOptions} from "@khanacademy/perseus-core";
 import {passageRefLogic} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";
-
-import type {PassageRefDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 const {InfoTip, NumberInput, TextInput} = components;
 

@@ -1,17 +1,14 @@
 import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import * as Dependencies from "../../../dependencies";
 import {MafsGraph} from "../mafs-graph";
-import {getBaseMafsGraphPropsForTests} from "../utils";
-
-import {getLinearSystemGraphDescription} from "./linear-system";
-
 import type {InteractiveGraphState} from "../types";
-import type {UserEvent} from "@testing-library/user-event";
+import {getBaseMafsGraphPropsForTests} from "../utils";
+import {getLinearSystemGraphDescription} from "./linear-system";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseLinearSystemState: InteractiveGraphState = {

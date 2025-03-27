@@ -5,11 +5,9 @@
  * two sets of generated classnames will not match.)
  */
 
-import * as React from "react";
-
-import InfoTipBase from "./info-tip-base";
-
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import * as React from "react";
+import InfoTipBase from "./info-tip-base";
 
 type Props = PropsFor<typeof InfoTipBase>;
 

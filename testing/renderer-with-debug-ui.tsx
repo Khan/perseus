@@ -1,4 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
@@ -7,17 +10,11 @@ import Switch from "@khanacademy/wonder-blocks-switch";
 import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import deviceMobile from "@phosphor-icons/core/regular/device-mobile.svg";
 import * as React from "react";
+import type {ComponentProps} from "react";
 import ReactJson from "react-json-view";
-
-import {scorePerseusItem} from "@khanacademy/perseus-score";
-
 import {Renderer, usePerseusI18n} from "../packages/perseus/src/index";
 import {registerAllWidgetsForTesting} from "../packages/perseus/src/util/register-all-widgets-for-testing";
-
 import SplitView from "./split-view";
-
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {ComponentProps} from "react";
 
 type Props = {
     question: PerseusRenderer;

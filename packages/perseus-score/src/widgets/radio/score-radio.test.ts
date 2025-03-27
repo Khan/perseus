@@ -1,9 +1,8 @@
-import scoreRadio from "./score-radio";
-
 import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
 } from "../../validation.types";
+import scoreRadio from "./score-radio";
 
 describe("scoreRadio", () => {
     it("is invalid when number selected does not match number correct", () => {

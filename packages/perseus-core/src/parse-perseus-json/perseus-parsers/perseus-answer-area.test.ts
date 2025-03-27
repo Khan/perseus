@@ -1,9 +1,7 @@
+import type {PerseusAnswerArea} from "../../data-schema";
 import {ctx} from "../general-purpose-parsers/test-helpers";
 import {success} from "../result";
-
 import {parsePerseusAnswerArea} from "./perseus-answer-area";
-
-import type {PerseusAnswerArea} from "../../data-schema";
 
 describe("parsePerseusAnswerArea", () => {
     const allFalse: PerseusAnswerArea = {

@@ -1,8 +1,6 @@
-import * as React from "react";
-
-import Zoomable from "../zoomable";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import * as React from "react";
+import Zoomable from "../zoomable";
 
 type Bounds = {
     width: number;

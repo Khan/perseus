@@ -1,6 +1,5 @@
-import SvgImage from "../svg-image";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import SvgImage from "../svg-image";
 
 const meta: Meta = {
     title: "Perseus/Components/SVG Image",

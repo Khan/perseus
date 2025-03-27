@@ -1,12 +1,18 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+
+import type {PerseusGradedGroupWidgetOptions} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import type {
+    PerseusGradedGroupRubric,
+    PerseusScore,
+} from "@khanacademy/perseus-score";
 import Button from "@khanacademy/wonder-blocks-button";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {color} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
-
 import {PerseusI18nContext} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
 import {iconOk, iconRemove} from "../../icon-paths";
@@ -17,16 +23,10 @@ import {mapErrorToString} from "../../strings";
 import {
     gray68,
     gray76,
-    phoneMargin,
     negativePhoneMargin,
+    phoneMargin,
     tableBackgroundAccent,
 } from "../../styles/constants";
-import a11y from "../../util/a11y";
-import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
-
-import GradedGroupAnswerBar from "./graded-group-answer-bar";
-
-import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
 import type {
     FocusPath,
     TrackingGradedGroupExtraArguments,
@@ -34,13 +34,11 @@ import type {
     WidgetExports,
     WidgetProps,
 } from "../../types";
+import a11y from "../../util/a11y";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
-import type {PerseusGradedGroupWidgetOptions} from "@khanacademy/perseus-core";
-import type {
-    PerseusGradedGroupRubric,
-    PerseusScore,
-} from "@khanacademy/perseus-score";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
+import GradedGroupAnswerBar from "./graded-group-answer-bar";
+import type {ANSWER_BAR_STATES} from "./graded-group-answer-bar";
 
 const GRADING_STATUSES = {
     ungraded: "ungraded" as const,

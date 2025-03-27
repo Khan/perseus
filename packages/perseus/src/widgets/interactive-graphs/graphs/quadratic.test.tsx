@@ -1,20 +1,17 @@
 import {render, screen} from "@testing-library/react";
+import type {vec} from "mafs";
 import * as React from "react";
-
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import {mockPerseusI18nContext} from "../../../components/i18n-context";
 import * as Dependencies from "../../../dependencies";
 import {MafsGraph} from "../mafs-graph";
+import type {InteractiveGraphState, QuadraticGraphState} from "../types";
 import {getBaseMafsGraphPropsForTests} from "../utils";
-
 import {
     describeQuadraticGraph,
     getQuadraticCoefficients,
     getQuadraticKeyboardConstraint,
 } from "./quadratic";
-
-import type {QuadraticGraphState, InteractiveGraphState} from "../types";
-import type {vec} from "mafs";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseQuadraticState: InteractiveGraphState = {

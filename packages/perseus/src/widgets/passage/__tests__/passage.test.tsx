@@ -1,4 +1,4 @@
-import {it, describe, beforeEach} from "@jest/globals";
+import {beforeEach, describe, it} from "@jest/globals";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, render, screen} from "@testing-library/react";
 import React from "react";
@@ -6,12 +6,10 @@ import React from "react";
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
+import type {APIOptions} from "../../../types";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import PassageWidgetExport, {LineHeightMeasurer} from "../passage";
-
 import {question1, question2} from "./passage.testdata";
-
-import type {APIOptions} from "../../../types";
 
 function renderPassage(
     overwrite:

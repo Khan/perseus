@@ -4,22 +4,20 @@
  */
 
 import {
-    components,
     Changeable,
+    components,
     Dependencies,
     EditorJsonify,
     Log,
 } from "@khanacademy/perseus";
+import type {CSProgramDefaultWidgetOptions} from "@khanacademy/perseus-core";
 import {csProgramLogic, Errors} from "@khanacademy/perseus-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import $ from "jquery";
 import PropTypes from "prop-types";
 import * as React from "react";
 import _ from "underscore";
-
 import BlurInput from "../components/blur-input";
-
-import type {CSProgramDefaultWidgetOptions} from "@khanacademy/perseus-core";
 
 type ChangeFn = typeof Changeable.change;
 

@@ -1,21 +1,18 @@
 import * as React from "react";
-
-import {actions} from "../reducer/interactive-graph-action";
-import useGraphConfig from "../reducer/use-graph-config";
-
-import {MovablePoint} from "./components/movable-point";
-import {srFormatNumber} from "./screenreader-text";
-import {useTransformVectorsToPixels, pixelsToVectors} from "./use-transform";
-
 import type {I18nContextType} from "../../../components/i18n-context";
 import type {PerseusStrings} from "../../../strings";
+import {actions} from "../reducer/interactive-graph-action";
+import useGraphConfig from "../reducer/use-graph-config";
 import type {GraphConfig} from "../reducer/use-graph-config";
 import type {
-    PointGraphState,
-    MafsGraphProps,
     Dispatch,
     InteractiveGraphElementSuite,
+    MafsGraphProps,
+    PointGraphState,
 } from "../types";
+import {MovablePoint} from "./components/movable-point";
+import {srFormatNumber} from "./screenreader-text";
+import {pixelsToVectors, useTransformVectorsToPixels} from "./use-transform";
 
 export function renderPointGraph(
     state: PointGraphState,

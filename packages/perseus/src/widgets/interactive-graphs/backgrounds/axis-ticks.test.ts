@@ -1,11 +1,10 @@
+import type {Interval} from "mafs";
 import {
-    generateTickLocations,
-    shouldShowLabel,
     countSignificantDecimals,
     divideByAndShowPi,
+    generateTickLocations,
+    shouldShowLabel,
 } from "./axis-ticks";
-
-import type {Interval} from "mafs";
 
 describe("generateTickLocations", () => {
     it("should generate ticks from the origin", () => {

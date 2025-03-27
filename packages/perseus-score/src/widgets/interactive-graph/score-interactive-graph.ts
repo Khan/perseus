@@ -1,22 +1,21 @@
 import {
-    number as knumber,
-    geometry,
     angles,
     coefficients,
+    geometry,
+    number as knumber,
 } from "@khanacademy/kmath";
+import type {Coord} from "@khanacademy/perseus-core";
 import {
     approximateDeepEqual,
     approximateEqual,
     deepClone,
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
-
 import type {
-    PerseusInteractiveGraphUserInput,
     PerseusInteractiveGraphRubric,
+    PerseusInteractiveGraphUserInput,
     PerseusScore,
 } from "../../validation.types";
-import type {Coord} from "@khanacademy/perseus-core";
 
 const {collinear, canonicalSineCoefficients, similar, clockwise} = geometry;
 const {getClockwiseAngle} = angles;

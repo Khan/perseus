@@ -1,6 +1,6 @@
 import {
-    components,
     Changeable,
+    components,
     Dependencies,
     EditorJsonify,
     KhanColors,

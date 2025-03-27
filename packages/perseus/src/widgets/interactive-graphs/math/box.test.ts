@@ -1,7 +1,7 @@
-import {inset, isInBound} from "./box";
+import type {Interval} from "@khanacademy/perseus-core";
 
 import type {Box} from "./box";
-import type {Interval} from "@khanacademy/perseus-core";
+import {inset, isInBound} from "./box";
 
 describe("inset", () => {
     it("does nothing given amount [0, 0]", () => {

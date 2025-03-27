@@ -1,13 +1,10 @@
 import {act, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
-
 import {article1} from "./graded-group-set.testdata";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("graded group widget", () => {
     let userEvent: UserEvent;

@@ -1,5 +1,8 @@
 import scoreNoop from "../util/score-noop";
-
+import type {
+    WidgetScorerFunction,
+    WidgetValidatorFunction,
+} from "../validation.types";
 import scoreCategorizer from "./categorizer/score-categorizer";
 import validateCategorizer from "./categorizer/validate-categorizer";
 import scoreCSProgram from "./cs-program/score-cs-program";
@@ -32,11 +35,6 @@ import scoreSorter from "./sorter/score-sorter";
 import validateSorter from "./sorter/validate-sorter";
 import scoreTable from "./table/score-table";
 import validateTable from "./table/validate-table";
-
-import type {
-    WidgetScorerFunction,
-    WidgetValidatorFunction,
-} from "../validation.types";
 
 const widgets = {};
 

@@ -2,8 +2,8 @@
  * Controlled list of answer choices, handles adding and removing answers.
  */
 
-import {components, bodyXsmallBold} from "@khanacademy/perseus";
-import {StyleSheet, css} from "aphrodite";
+import {bodyXsmallBold, components} from "@khanacademy/perseus";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import FormWrappedTextField from "../../components/form-wrapped-text-field";

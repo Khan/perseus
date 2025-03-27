@@ -1,8 +1,6 @@
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-
-import {getPromptJSON} from "./iframe-ai-utils";
-
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {getPromptJSON} from "./iframe-ai-utils";
 
 const question1: PerseusRenderer = {
     content: "Try matching the target image\n[[\u2603 iframe 1]]\n",

@@ -1,13 +1,11 @@
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import {screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-
 import {registerWidget} from "../../widgets";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import MockWidgetExport from "../../widgets/mock-widgets/mock-widget";
-
 import type {MockWidget} from "../../widgets/mock-widgets/mock-widget-types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {UserEvent} from "@testing-library/user-event";
 
 const question: PerseusRenderer = {
     content:

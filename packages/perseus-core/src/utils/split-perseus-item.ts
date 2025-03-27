@@ -1,9 +1,7 @@
 import _ from "underscore";
-
+import type {PerseusRenderer} from "../data-schema";
 import {getPublicWidgetOptionsFunction} from "../widgets/core-widget-registry";
 import {getUpgradedWidgetOptions} from "../widgets/upgrade";
-
-import type {PerseusRenderer} from "../data-schema";
 
 /**
  * Return a copy of a Perseus item with rubric data removed (ie answers)

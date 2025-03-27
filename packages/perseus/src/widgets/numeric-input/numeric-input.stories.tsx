@@ -1,7 +1,10 @@
+import type {
+    PerseusNumericInputWidgetOptions,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
+import type {Meta} from "@storybook/react";
 import * as React from "react";
-
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-
 import {NumericInput} from "./numeric-input.class";
 import {
     decimalProblem,
@@ -13,12 +16,6 @@ import {
     properProblem,
     withCoefficient,
 } from "./numeric-input.testdata";
-
-import type {
-    PerseusNumericInputWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
-import type {Meta} from "@storybook/react";
 
 // We're using this format as storybook was not able to infer the type of the options.
 // It also gives us a lovely hover view of the JSON structure.

@@ -1,6 +1,5 @@
-import getMatcherPublicWidgetOptions from "./matcher-util";
-
 import type {PerseusMatcherWidgetOptions} from "../../data-schema";
+import getMatcherPublicWidgetOptions from "./matcher-util";
 
 describe("getMatcherPublicWidgetOptions", () => {
     it("should return a shuffled right array when order doesn't matter to remove the correct order information", () => {

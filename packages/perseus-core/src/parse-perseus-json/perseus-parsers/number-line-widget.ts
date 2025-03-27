@@ -1,22 +1,20 @@
+import type {NumberLineWidget} from "../../data-schema";
 import {
-    constant,
-    object,
     array,
-    number,
-    string,
     boolean,
-    optional,
+    constant,
     nullable,
+    number,
+    object,
+    optional,
     pipeParsers,
+    string,
     union,
 } from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
-
-import {parseWidget} from "./widget";
-
-import type {NumberLineWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
+import {parseWidget} from "./widget";
 
 const emptyStringToNull = pipeParsers(constant("")).then(
     convert(() => null),

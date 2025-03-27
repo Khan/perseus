@@ -1,8 +1,6 @@
-import {mockStrings} from "../../strings";
-
-import {generateExamples, shouldShowExamples, unionAnswerForms} from "./utils";
-
 import type {PerseusNumericInputAnswerForm} from "@khanacademy/perseus-core";
+import {mockStrings} from "../../strings";
+import {generateExamples, shouldShowExamples, unionAnswerForms} from "./utils";
 
 describe("generateExamples", () => {
     it("returns an array of examples", () => {

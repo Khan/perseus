@@ -1,6 +1,6 @@
-import type categorizer from "../../widgets/categorizer/categorizer";
 import type {PerseusCategorizerUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
+import type categorizer from "../../widgets/categorizer/categorizer";
 
 export type CategorizerPromptJSON = {
     type: "categorizer";

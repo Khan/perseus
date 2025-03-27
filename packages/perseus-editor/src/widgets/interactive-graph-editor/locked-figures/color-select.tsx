@@ -1,4 +1,6 @@
+import type {LockedFigureColor} from "@khanacademy/perseus-core";
 import {lockedFigureColors} from "@khanacademy/perseus-core";
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -6,11 +8,7 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
 import ColorSwatch from "./color-swatch";
-
-import type {LockedFigureColor} from "@khanacademy/perseus-core";
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const possibleColors = Object.keys(lockedFigureColors) as LockedFigureColor[];
 

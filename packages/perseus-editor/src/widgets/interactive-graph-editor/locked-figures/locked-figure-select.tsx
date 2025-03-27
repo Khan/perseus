@@ -5,13 +5,13 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
-import {View} from "@khanacademy/wonder-blocks-core";
-import {ActionItem, ActionMenu} from "@khanacademy/wonder-blocks-dropdown";
-import {spacing, color} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet} from "aphrodite";
-import * as React from "react";
 
 import type {LockedFigureType} from "@khanacademy/perseus-core";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {ActionItem, ActionMenu} from "@khanacademy/wonder-blocks-dropdown";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {StyleSheet} from "aphrodite";
+import * as React from "react";
 
 type Props = {
     id: string;

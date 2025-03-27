@@ -1,10 +1,8 @@
+import type {GroupWidget} from "../../data-schema";
 import {constant} from "../general-purpose-parsers";
-
+import type {Parser} from "../parser-types";
 import {parsePerseusRenderer} from "./perseus-renderer";
 import {parseWidget} from "./widget";
-
-import type {GroupWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
 
 export const parseGroupWidget: Parser<GroupWidget> = parseWidget(
     constant("group"),

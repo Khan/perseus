@@ -1,7 +1,7 @@
-import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {Changeable, components, EditorJsonify} from "@khanacademy/perseus";
 import {
-    videoLogic,
     type VideoDefaultWidgetOptions,
+    videoLogic,
 } from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import * as React from "react";

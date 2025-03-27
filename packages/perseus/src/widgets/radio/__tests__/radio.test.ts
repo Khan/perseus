@@ -1,28 +1,25 @@
-import {describe, beforeEach, it} from "@jest/globals";
+import {beforeEach, describe, it} from "@jest/globals";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import {
-    scoreRadio,
     type PerseusRadioUserInput,
+    scoreRadio,
 } from "@khanacademy/perseus-score";
-import {act, screen, fireEvent, waitFor} from "@testing-library/react";
+import {act, fireEvent, screen, waitFor} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-
 import {clone} from "../../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
+import type {APIOptions} from "../../../types";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 import PassageWidget from "../../passage";
-
 import {
-    questionAndAnswer,
     multiChoiceQuestionAndAnswer,
-    shuffledQuestion,
+    questionAndAnswer,
     shuffledNoneQuestion,
+    shuffledQuestion,
 } from "./radio.testdata";
-
-import type {APIOptions} from "../../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (
     userEvent: ReturnType<(typeof userEventLib)["setup"]>,

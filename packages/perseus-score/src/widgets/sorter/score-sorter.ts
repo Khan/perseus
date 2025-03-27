@@ -2,9 +2,9 @@ import {approximateDeepEqual} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import type {
+    PerseusScore,
     PerseusSorterRubric,
     PerseusSorterUserInput,
-    PerseusScore,
 } from "../../validation.types";
 
 function scoreSorter(

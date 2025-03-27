@@ -12,9 +12,9 @@ import {
     waitFor,
     within,
 } from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import {
     testDependencies,
     testDependenciesV2,
@@ -22,11 +22,8 @@ import {
 import * as Dependencies from "../../dependencies";
 import WrappedServerItemRenderer from "../../server-item-renderer";
 import {registerWidget} from "../../widgets";
-
 import ExpressionExport from "./expression";
 import {expressionItem2} from "./expression.testdata";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 const MQ = mathQuillInstance;
 

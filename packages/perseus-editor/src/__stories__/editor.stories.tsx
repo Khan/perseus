@@ -1,15 +1,13 @@
 /* eslint-disable react/prop-types */
 import {ApiOptions} from "@khanacademy/perseus";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
-
-import {Editor} from "..";
 import SplitView from "../../../../testing/split-view";
+import {Editor} from "..";
 import {question1} from "../__testdata__/numeric-input.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
-
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 

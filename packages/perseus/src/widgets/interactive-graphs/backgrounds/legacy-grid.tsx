@@ -1,12 +1,10 @@
+import type {PerseusImageBackground} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
-
 import AssetContext from "../../../asset-context";
 import {SvgImage} from "../../../components";
 import {interactiveSizes} from "../../../styles/constants";
 import {X} from "../math";
-
-import type {PerseusImageBackground} from "@khanacademy/perseus-core";
 
 interface Props {
     box: [number, number];

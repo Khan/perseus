@@ -1,10 +1,8 @@
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-
-import {UNLIMITED, parsePointCount} from "../../../util/points";
-
 import type {PointValue} from "../../../util/points";
+import {parsePointCount, UNLIMITED} from "../../../util/points";
 
 const GraphPointsCountSelector = ({
     numPoints = 1,

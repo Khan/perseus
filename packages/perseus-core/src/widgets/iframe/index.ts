@@ -1,7 +1,6 @@
-import getIFramePublicWidgetOptions from "./iframe-util";
-
 import type {PerseusIFrameWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import getIFramePublicWidgetOptions from "./iframe-util";
 
 export type IFrameDefaultWidgetOptions = Pick<
     PerseusIFrameWidgetOptions,

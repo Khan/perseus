@@ -1,12 +1,10 @@
+import type {PerseusWidget, Version} from "@khanacademy/perseus-core";
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import type * as React from "react";
 import _ from "underscore";
-
 import {Log} from "./logging/log";
-
 import type {PerseusStrings} from "./strings";
 import type {Tracking, WidgetExports, WidgetTransform} from "./types";
-import type {PerseusWidget, Version} from "@khanacademy/perseus-core";
-import type * as React from "react";
 
 const DEFAULT_TRACKING = "";
 const DEFAULT_LINTABLE = false;

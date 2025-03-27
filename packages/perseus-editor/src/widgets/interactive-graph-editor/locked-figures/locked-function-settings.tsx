@@ -4,6 +4,12 @@
  *
  * Used in the interactive graph editor's locked figures section.
  */
+
+import type {
+    LockedFigureColor,
+    LockedFunctionType,
+    LockedLabelType,
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
@@ -15,16 +21,15 @@ import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import copyIcon from "@phosphor-icons/core/assets/regular/copy.svg";
 import autoPasteIcon from "@phosphor-icons/core/assets/regular/note-pencil.svg";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useEffect, useId, useState} from "react";
-
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
-
 import ColorSelect from "./color-select";
 import LineStrokeSelect from "./line-stroke-select";
 import LineSwatch from "./line-swatch";
 import LockedFigureAria from "./locked-figure-aria";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import examples from "./locked-function-examples";
 import LockedLabelSettings from "./locked-label-settings";
@@ -33,13 +38,6 @@ import {
     getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
-
-import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
-import type {
-    LockedFigureColor,
-    LockedFunctionType,
-    LockedLabelType,
-} from "@khanacademy/perseus-core";
 
 export type Props = LockedFunctionType &
     LockedFigureSettingsCommonProps & {

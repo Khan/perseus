@@ -8,11 +8,9 @@ import {Mafs} from "mafs";
 import React from "react";
 
 import * as ReducerGraphConfig from "../../reducer/use-graph-config";
-import * as UseDraggableModule from "../use-draggable";
-
-import {MovablePoint} from "./movable-point";
-
 import type {GraphConfig} from "../../reducer/use-graph-config";
+import * as UseDraggableModule from "../use-draggable";
+import {MovablePoint} from "./movable-point";
 
 jest.mock("@khanacademy/wonder-blocks-tooltip", () => {
     const originalModule = jest.requireActual(

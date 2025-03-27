@@ -1,10 +1,8 @@
+import type {PerseusGraphType} from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import invariant from "tiny-invariant";
-
 import {getRadius} from "./reducer/interactive-graph-state";
-
 import type {InteractiveGraphState} from "./types";
-import type {PerseusGraphType} from "@khanacademy/perseus-core";
 
 // Converts the state of a StatefulMafsGraph back to the format used to
 // represent graph state in the widget JSON.

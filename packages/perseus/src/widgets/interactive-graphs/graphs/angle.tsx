@@ -1,13 +1,20 @@
 import {angles} from "@khanacademy/kmath";
+import type {CollinearTuple} from "@khanacademy/perseus-core";
 import {vec} from "mafs";
 import * as React from "react";
-
+import type {I18nContextType} from "../../../components/i18n-context";
 import {usePerseusI18n} from "../../../components/i18n-context";
 import {X, Y} from "../math";
+import type {Segment} from "../math/geometry";
 import {findIntersectionOfRays} from "../math/geometry";
 import {actions} from "../reducer/interactive-graph-action";
 import useGraphConfig from "../reducer/use-graph-config";
-
+import type {
+    AngleGraphState,
+    Dispatch,
+    InteractiveGraphElementSuite,
+    MafsGraphProps,
+} from "../types";
 import {Angle} from "./components/angle-indicators";
 import {trimRange} from "./components/movable-line";
 import {MovablePoint} from "./components/movable-point";
@@ -17,16 +24,6 @@ import {Vector} from "./components/vector";
 import {srFormatNumber} from "./screenreader-text";
 import {useTransformVectorsToPixels} from "./use-transform";
 import {getIntersectionOfRayWithBox} from "./utils";
-
-import type {I18nContextType} from "../../../components/i18n-context";
-import type {Segment} from "../math/geometry";
-import type {
-    AngleGraphState,
-    Dispatch,
-    InteractiveGraphElementSuite,
-    MafsGraphProps,
-} from "../types";
-import type {CollinearTuple} from "@khanacademy/perseus-core";
 
 const {calculateAngleInDegrees, getClockwiseAngle, polar} = angles;
 

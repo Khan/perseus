@@ -5,6 +5,13 @@
  * Used in the interactive graph editor's locked figures section.
  */
 import {vector as kvector} from "@khanacademy/kmath";
+import type {
+    Coord,
+    LockedFigure,
+    LockedFigureColor,
+    LockedLabelType,
+    LockedVectorType,
+} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -14,13 +21,12 @@ import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import {vec} from "mafs";
 import * as React from "react";
-
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
-
 import ColorSelect from "./color-select";
 import LineSwatch from "./line-swatch";
 import LockedFigureAria from "./locked-figure-aria";
+import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
 import {
@@ -29,15 +35,6 @@ import {
     getDefaultFigureForType,
     joinLabelsAsSpokenMath,
 } from "./util";
-
-import type {LockedFigureSettingsCommonProps} from "./locked-figure-settings";
-import type {
-    Coord,
-    LockedFigure,
-    LockedFigureColor,
-    LockedLabelType,
-    LockedVectorType,
-} from "@khanacademy/perseus-core";
 
 const lengthErrorMessage = "The vector cannot have length 0.";
 

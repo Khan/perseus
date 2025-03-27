@@ -2,23 +2,21 @@
  * This widget is for embedding Khan Academy CS programs.
  */
 
-import {StyleSheet, css} from "aphrodite";
+import type {PerseusCSProgramWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusCSProgramUserInput} from "@khanacademy/perseus-score";
+import {css, StyleSheet} from "aphrodite";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
-
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import {articleMaxWidthInPx} from "../../styles/constants";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import Util from "../../util";
 import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/cs-program-ai-utils";
-
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
-import type {PerseusCSProgramWidgetOptions} from "@khanacademy/perseus-core";
-import type {PerseusCSProgramUserInput} from "@khanacademy/perseus-score";
 
 const {updateQueryString} = Util;
 

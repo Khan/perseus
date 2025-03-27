@@ -1,8 +1,6 @@
-import * as React from "react";
-
-import {AnswerPill} from "../answer-pill";
-
 import type {Meta} from "@storybook/react";
+import * as React from "react";
+import {AnswerPill} from "../answer-pill";
 
 const story: Meta<React.ComponentProps<typeof AnswerPill>> = {
     title: "Perseus/Widgets/Label Image/Answer Pill",

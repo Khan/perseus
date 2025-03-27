@@ -1,6 +1,5 @@
-import scoreNumericInput, {maybeParsePercentInput} from "./score-numeric-input";
-
 import type {PerseusNumericInputRubric} from "../../validation.types";
+import scoreNumericInput, {maybeParsePercentInput} from "./score-numeric-input";
 
 describe("scoreNumericInput", () => {
     it("is correct when input is empty but answer is 1 and coefficient: true", () => {

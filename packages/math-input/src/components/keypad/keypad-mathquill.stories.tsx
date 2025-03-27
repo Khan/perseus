@@ -1,15 +1,14 @@
+import type {KeypadKey} from "@khanacademy/perseus-core";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
-
 import {mockStrings} from "../../strings";
 import {CursorContext} from "../input/cursor-contexts";
 import {getCursorContext} from "../input/mathquill-helpers";
 import {createMathField} from "../input/mathquill-instance";
-import {getKeyTranslator} from "../key-handlers/key-translator";
 
 import type {MathFieldInterface} from "../input/mathquill-types";
-import type {KeypadKey} from "@khanacademy/perseus-core";
+import {getKeyTranslator} from "../key-handlers/key-translator";
 
 import Keypad from "./index";
 

@@ -1,6 +1,5 @@
-import {widgetOptionsUpgrades} from "./expression-upgrade";
-
 import type {PerseusExpressionWidgetOptions} from "../../data-schema";
+import {widgetOptionsUpgrades} from "./expression-upgrade";
 
 describe("widgetOptionsUpgrades", () => {
     it("can upgrade from v0 to v1", () => {

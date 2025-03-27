@@ -1,16 +1,15 @@
-import {
-    generateLockedFigureAppearanceDescription,
-    generateSpokenMathDetails,
-    getDefaultFigureForType,
-    joinLabelsAsSpokenMath,
-} from "./util";
-
 import type {
     LockedFigureColor,
     LockedFigureFillType,
     LockedLabelType,
     LockedLineStyle,
 } from "@khanacademy/perseus-core";
+import {
+    generateLockedFigureAppearanceDescription,
+    generateSpokenMathDetails,
+    getDefaultFigureForType,
+    joinLabelsAsSpokenMath,
+} from "./util";
 
 describe("getDefaultFigureForType", () => {
     test("should return a point with default values", () => {

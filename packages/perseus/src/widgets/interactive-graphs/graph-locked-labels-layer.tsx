@@ -1,8 +1,6 @@
-import * as React from "react";
-
-import LockedLabel from "./locked-figures/locked-label";
-
 import type {LockedFigure} from "@khanacademy/perseus-core";
+import * as React from "react";
+import LockedLabel from "./locked-figures/locked-label";
 
 type Props = {
     lockedFigures: ReadonlyArray<LockedFigure>;

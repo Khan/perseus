@@ -1,4 +1,5 @@
 import {vector as kvector} from "@khanacademy/kmath";
+import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
 import {
     components,
     containerSizeClass,
@@ -8,15 +9,16 @@ import {
     Util,
 } from "@khanacademy/perseus";
 import {
+    type AxisLabelLocation,
+    type InteractiveGraphDefaultWidgetOptions,
+    interactiveGraphLogic,
     type LockedFigure,
+    type MarkingsType,
+    type PerseusGraphType,
     type PerseusImageBackground,
     type PerseusInteractiveGraphWidgetOptions,
-    type PerseusGraphType,
-    type MarkingsType,
-    type InteractiveGraphDefaultWidgetOptions,
-    type AxisLabelLocation,
-    interactiveGraphLogic,
 } from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
@@ -27,9 +29,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import invariant from "tiny-invariant";
 import _ from "underscore";
-
 import {parsePointCount} from "../../util/points";
-
 import GraphPointsCountSelector from "./components/graph-points-count-selector";
 import GraphTypeSelector from "./components/graph-type-selector";
 import {InteractiveGraphCorrectAnswer} from "./components/interactive-graph-correct-answer";
@@ -41,9 +41,6 @@ import LabeledRow from "./locked-figures/labeled-row";
 import LockedFiguresSection from "./locked-figures/locked-figures-section";
 import StartCoordsSettings from "./start-coords/start-coords-settings";
 import {getStartCoords, shouldShowStartCoordsUI} from "./start-coords/util";
-
-import type {APIOptionsWithDefaults} from "@khanacademy/perseus";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip} = components;
 const InteractiveGraph = InteractiveGraphWidget.widget;

@@ -1,8 +1,6 @@
 import {INITIAL_VIEWPORTS} from "@storybook/addon-viewport";
-
-import Keypad from "./components/keypad";
-
 import type {StoryObj} from "@storybook/react";
+import Keypad from "./components/keypad";
 
 const opsPage = "Operators Page";
 const numsPage = "Numbers Page";

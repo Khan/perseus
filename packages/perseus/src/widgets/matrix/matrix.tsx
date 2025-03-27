@@ -4,12 +4,16 @@ import {
     type PerseusMatrixWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import type {
+    PerseusMatrixRubric,
+    PerseusMatrixUserInput,
+} from "@khanacademy/perseus-score";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
-
 import {PerseusI18nContext} from "../../components/i18n-context";
 import NumberInput from "../../components/number-input";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
@@ -17,16 +21,11 @@ import TextInput from "../../components/text-input";
 import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
-import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import Util from "../../util";
 import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
-import type {
-    PerseusMatrixRubric,
-    PerseusMatrixUserInput,
-} from "@khanacademy/perseus-score";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
 const {assert} = InteractiveUtil;
 const {stringArrayOfSize} = Util;

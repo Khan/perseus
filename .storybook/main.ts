@@ -1,7 +1,6 @@
-import viteConfig from "../vite.config";
-import {mergeConfig} from "vite";
-
 import type {StorybookConfig} from "@storybook/react-vite";
+import {mergeConfig} from "vite";
+import viteConfig from "../vite.config";
 
 // This is a temporary plugin option to mimic what is in PROD in regard to cascade layers.
 // Perseus LESS files are wrapped in the 'shared' layer in Webapp.

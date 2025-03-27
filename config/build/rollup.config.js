@@ -1,6 +1,4 @@
 /* eslint-disable import/no-commonjs */
-import fs from "fs";
-import path from "path";
 
 import alias from "@rollup/plugin-alias";
 import {babel} from "@rollup/plugin-babel";
@@ -8,6 +6,8 @@ import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import ancesdir from "ancesdir";
+import fs from "fs";
+import path from "path";
 import autoExternal from "rollup-plugin-auto-external";
 import filesize from "rollup-plugin-filesize";
 import styles from "rollup-plugin-styles";

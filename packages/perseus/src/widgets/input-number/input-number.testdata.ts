@@ -1,6 +1,6 @@
 import type {
-    PerseusRenderer,
     InputNumberWidget,
+    PerseusRenderer,
 } from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {

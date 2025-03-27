@@ -1,27 +1,24 @@
 import {KhanMath} from "@khanacademy/kmath";
-import {linterContextDefault} from "@khanacademy/perseus-linter";
-import * as React from "react";
-
-import {ApiOptions} from "../../perseus-api";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
-
-import {NumericInputComponent} from "./numeric-input";
-import {unionAnswerForms} from "./utils";
-
-import type InputWithExamples from "./input-with-examples";
-import type SimpleKeypadInput from "../../components/simple-keypad-input";
-import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
-import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 import type {
-    PerseusNumericInputWidgetOptions,
-    PerseusNumericInputAnswerForm,
     MathFormat,
+    PerseusNumericInputAnswerForm,
+    PerseusNumericInputWidgetOptions,
 } from "@khanacademy/perseus-core";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import type {
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
 } from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import * as React from "react";
+import type SimpleKeypadInput from "../../components/simple-keypad-input";
+import {ApiOptions} from "../../perseus-api";
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
+import type InputWithExamples from "./input-with-examples";
+import {NumericInputComponent} from "./numeric-input";
+import {unionAnswerForms} from "./utils";
 
 type ExternalProps = WidgetProps<
     PerseusNumericInputWidgetOptions,

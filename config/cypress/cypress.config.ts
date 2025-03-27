@@ -1,9 +1,8 @@
+import {defineConfig} from "cypress";
 import fs from "fs";
 import path from "path";
 import {mergeConfig} from "vite";
 import istanbul from "vite-plugin-istanbul";
-
-import {defineConfig} from "cypress";
 import viteConfig from "../../vite.config";
 
 const aliases = {};

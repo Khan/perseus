@@ -1,8 +1,6 @@
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-
-import {getPromptJSON} from "./phet-simulation-ai-utils";
-
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {getPromptJSON} from "./phet-simulation-ai-utils";
 
 const question1: PerseusRenderer = {
     content:

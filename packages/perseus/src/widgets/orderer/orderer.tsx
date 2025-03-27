@@ -1,26 +1,25 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable @babel/no-invalid-this, react/no-unsafe */
-import {Errors} from "@khanacademy/perseus-core";
-import {linterContextDefault} from "@khanacademy/perseus-linter";
-import $ from "jquery";
-import * as React from "react";
-import ReactDOM from "react-dom";
-import _ from "underscore";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
-import {Log} from "../../logging/log";
-import Renderer from "../../renderer";
-import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
-
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
+import {Errors} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import {linterContextDefault} from "@khanacademy/perseus-linter";
 import type {
     PerseusOrdererRubric,
     PerseusOrdererUserInput,
 } from "@khanacademy/perseus-score";
+import $ from "jquery";
+import * as React from "react";
+import ReactDOM from "react-dom";
+import _ from "underscore";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import {Log} from "../../logging/log";
+import Renderer from "../../renderer";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import Util from "../../util";
+import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 
 type PlaceholderCardProps = {
     width: number | null | undefined;

@@ -1,12 +1,10 @@
 import {act, render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import Keys from "../../../data/key-configs";
 import {mockStrings} from "../../../strings";
 import {KeypadButton} from "../keypad-button";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("<KeypadButton />", () => {
     let userEvent: UserEvent;

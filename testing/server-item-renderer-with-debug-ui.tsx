@@ -1,25 +1,21 @@
-import Button from "@khanacademy/wonder-blocks-button";
-import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import * as React from "react";
-
+import type {KeypadAPI} from "@khanacademy/math-input";
 import {
-    type PerseusItem,
     type KEScore,
+    type PerseusItem,
     type PerseusRenderer,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
-
+import Button from "@khanacademy/wonder-blocks-button";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import * as React from "react";
 import * as Perseus from "../packages/perseus/src/index";
+import type {APIOptions} from "../packages/perseus/src/types";
 import {keScoreFromPerseusScore} from "../packages/perseus/src/util/scoring";
-
 import KEScoreUI from "./ke-score-ui";
 import SideBySide from "./split-view";
 import {storybookDependenciesV2} from "./test-dependencies";
-
-import type {APIOptions} from "../packages/perseus/src/types";
-import type {KeypadAPI} from "@khanacademy/math-input";
 
 type Props = {
     item: PerseusItem;

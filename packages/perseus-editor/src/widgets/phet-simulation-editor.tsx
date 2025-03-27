@@ -1,9 +1,9 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {makeSafeUrl} from "@khanacademy/perseus";
 import {
-    phetSimulationLogic,
     type PerseusPhetSimulationWidgetOptions,
     type PhetSimulationDefaultWidgetOptions,
+    phetSimulationLogic,
 } from "@khanacademy/perseus-core";
 import {LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";

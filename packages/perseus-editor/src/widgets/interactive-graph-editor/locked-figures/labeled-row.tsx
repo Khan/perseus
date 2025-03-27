@@ -1,10 +1,9 @@
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
-
-import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 // Renders the given children in a View laid out horizontally.
 const LabeledRow = (props: {

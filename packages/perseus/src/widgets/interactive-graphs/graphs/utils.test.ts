@@ -1,14 +1,12 @@
 import {angles} from "@khanacademy/kmath";
-
-import {
-    getIntersectionOfRayWithBox,
-    getArrayWithoutDuplicates,
-    getAngleFromPoints,
-    getSideLengthsFromPoints,
-} from "./utils";
-
 import type {Coord} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
+import {
+    getAngleFromPoints,
+    getArrayWithoutDuplicates,
+    getIntersectionOfRayWithBox,
+    getSideLengthsFromPoints,
+} from "./utils";
 
 const {convertRadiansToDegrees} = angles;
 

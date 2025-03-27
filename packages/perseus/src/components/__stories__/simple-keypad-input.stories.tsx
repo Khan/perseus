@@ -1,8 +1,6 @@
 import {action} from "@storybook/addon-actions";
-
-import SimpleKeypadInput from "../simple-keypad-input";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import SimpleKeypadInput from "../simple-keypad-input";
 
 const meta: Meta = {
     title: "Perseus/Components/Simple Keypad Input",

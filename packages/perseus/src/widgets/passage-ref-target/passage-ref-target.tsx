@@ -1,15 +1,14 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+
+import type {PerseusPassageRefTargetWidgetOptions} from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import _ from "underscore";
-
 import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
-
-import type {APIOptions, WidgetExports, Widget} from "../../types";
-import type {PerseusPassageRefTargetWidgetOptions} from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {APIOptions, Widget, WidgetExports} from "../../types";
 
 type Props = Changeable.ChangeableProps & {
     apiOptions: APIOptions;

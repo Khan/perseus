@@ -1,12 +1,9 @@
-import {screen} from "@testing-library/react";
-
-import {ApiOptions} from "../../perseus-api";
-import {renderQuestion} from "../__testutils__/renderQuestion";
-
-import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
-
-import type {APIOptions} from "../../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {screen} from "@testing-library/react";
+import {ApiOptions} from "../../perseus-api";
+import type {APIOptions} from "../../types";
+import {renderQuestion} from "../__testutils__/renderQuestion";
+import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 
 const blankOptions: APIOptions = Object.freeze(ApiOptions.defaults);
 

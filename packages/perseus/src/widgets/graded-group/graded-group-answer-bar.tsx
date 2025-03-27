@@ -8,11 +8,12 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
 import {iconStar, iconTryAgain} from "../../icon-paths";
-import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
+import {negativePhoneMargin, phoneMargin} from "../../styles/constants";
 
 import type {APIOptions} from "../../types";
 
-export type ANSWER_BAR_STATES = // Initial state before the question is answerable.  The user must complete
+export type ANSWER_BAR_STATES =
+    // Initial state before the question is answerable.  The user must complete
     // each of the widgets before the answer bar becomes visible.
     // The 'Check' button is active whenever the question is answerable or any
     // of the input widgets have been modified after getting the answer wrong.

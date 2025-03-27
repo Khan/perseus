@@ -1,28 +1,26 @@
+import type {Hint} from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
-import {StyleSheet, css} from "aphrodite";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import {css, StyleSheet} from "aphrodite";
 import classnames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
-
 import {PerseusI18nContext} from "./components/i18n-context";
 import HintRenderer from "./hint-renderer";
 import {ApiOptions} from "./perseus-api";
+import type Renderer from "./renderer";
 import {
     baseUnitPx,
+    gray17,
+    gray85,
     hintBorderWidth,
     kaGreen,
-    gray85,
-    gray17,
 } from "./styles/constants";
 import mediaQueries from "./styles/media-queries";
 import sharedStyles from "./styles/shared";
-import Util from "./util";
-
-import type Renderer from "./renderer";
 import type {APIOptionsWithDefaults} from "./types";
-import type {Hint} from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import Util from "./util";
 
 type Props = PropsFor<typeof Renderer> & {
     className?: string;

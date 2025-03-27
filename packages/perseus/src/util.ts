@@ -1,11 +1,9 @@
-import {KhanAnswerTypes} from "@khanacademy/perseus-score";
-import _ from "underscore";
-
-import * as GraphieUtil from "./util.graphie";
-
-import type {PerseusStrings} from "./strings";
 import type {Range} from "@khanacademy/perseus-core";
+import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import type * as React from "react";
+import _ from "underscore";
+import type {PerseusStrings} from "./strings";
+import * as GraphieUtil from "./util.graphie";
 
 type WordPosition = {
     start: number;

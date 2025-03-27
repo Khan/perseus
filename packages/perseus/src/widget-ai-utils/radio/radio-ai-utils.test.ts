@@ -1,15 +1,12 @@
+import type {PerseusRenderer, RadioWidget} from "@khanacademy/perseus-core";
+import type {PerseusRadioUserInput} from "@khanacademy/perseus-score";
 import {screen, within} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-
 import {getPromptJSON} from "./radio-ai-utils";
-
-import type {PerseusRenderer, RadioWidget} from "@khanacademy/perseus-core";
-import type {PerseusRadioUserInput} from "@khanacademy/perseus-score";
-import type {UserEvent} from "@testing-library/user-event";
 
 const shuffledQuestion: PerseusRenderer = {
     content: "[[\u2603 radio 1]]",

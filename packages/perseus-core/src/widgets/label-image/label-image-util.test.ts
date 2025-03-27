@@ -1,6 +1,5 @@
-import getLabelImagePublicWidgetOptions from "./label-image-util";
-
 import type {PerseusLabelImageWidgetOptions} from "../../data-schema";
+import getLabelImagePublicWidgetOptions from "./label-image-util";
 
 describe("getLabelImagePublicWidgetOptions", () => {
     it("removes private fields", () => {

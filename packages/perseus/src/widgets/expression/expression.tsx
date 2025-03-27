@@ -1,7 +1,18 @@
 import * as KAS from "@khanacademy/kas";
 import {KeypadInput} from "@khanacademy/math-input";
-import {getDecimalSeparator, expressionLogic} from "@khanacademy/perseus-core";
+import type {
+    ExpressionPublicWidgetOptions,
+    KeypadConfiguration,
+    KeypadKey,
+    PerseusExpressionWidgetOptions,
+} from "@khanacademy/perseus-core";
+import {expressionLogic, getDecimalSeparator} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import type {
+    PerseusExpressionRubric,
+    PerseusExpressionUserInput,
+} from "@khanacademy/perseus-score";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
@@ -10,29 +21,16 @@ import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
-
 import {PerseusI18nContext} from "../../components/i18n-context";
 import MathInput from "../../components/math-input";
+import type {DependenciesContext} from "../../dependencies";
 import {useDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import a11y from "../../util/a11y";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
-
-import type {DependenciesContext} from "../../dependencies";
-import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
-import type {
-    PerseusExpressionWidgetOptions,
-    ExpressionPublicWidgetOptions,
-    KeypadConfiguration,
-    KeypadKey,
-} from "@khanacademy/perseus-core";
-import type {
-    PerseusExpressionRubric,
-    PerseusExpressionUserInput,
-} from "@khanacademy/perseus-score";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
 type InputPath = ReadonlyArray<string>;
 

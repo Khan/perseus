@@ -1,15 +1,12 @@
 import {act, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
 import {renderQuestion} from "../__testutils__/renderQuestion";
-
 import ExplanationWidgetExports from "./explanation";
 import {question1} from "./explanation.testdata";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("Explanation", function () {
     let userEvent: UserEvent;

@@ -1,10 +1,8 @@
-import {screen, render} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import LockedFigureSettingsActions from "../../widgets/interactive-graph-editor/locked-figures/locked-figure-settings-actions";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("LockedFigureSettingsActions", () => {
     let userEvent: UserEvent;

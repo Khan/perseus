@@ -1,9 +1,8 @@
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
-import {getPromptJSON} from "./video-ai-utils";
-
 import type {UnsupportedWidgetPromptJSON} from "../unsupported-widget";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {getPromptJSON} from "./video-ai-utils";
 
 export const question: PerseusRenderer = {
     content:

@@ -1,6 +1,7 @@
 /* eslint monorepo/no-internal-import: "off", monorepo/no-relative-import: "off", import/no-relative-packages: "off" */
 import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -15,13 +16,18 @@ import graphIcon from "@phosphor-icons/core/regular/graph.svg";
 import imageIcon from "@phosphor-icons/core/regular/image.svg";
 import * as React from "react";
 import {useEffect, useMemo, useReducer, useRef, useState} from "react";
-
+import type {APIOptions} from "../packages/perseus/src";
 import {Renderer} from "../packages/perseus/src";
 import {SvgImage} from "../packages/perseus/src/components";
 import {mockStrings} from "../packages/perseus/src/strings";
 import {isCorrect} from "../packages/perseus/src/util/scoring";
+import type {
+    InteractiveGraphWidget,
+    PerseusRenderer,
+    PerseusWidget,
+} from "../packages/perseus-core/src/data-schema";
 import {scorePerseusItem} from "../packages/perseus-score/src";
-
+import type {PerseusScore} from "../packages/perseus-score/src/validation.types";
 import {EditableControlledInput} from "./editable-controlled-input";
 import {
     flipbookModelReducer,
@@ -37,15 +43,6 @@ import {
     setQuestions,
 } from "./flipbook-model";
 import {Header} from "./header";
-
-import type {APIOptions} from "../packages/perseus/src";
-import type {
-    InteractiveGraphWidget,
-    PerseusRenderer,
-    PerseusWidget,
-} from "../packages/perseus-core/src/data-schema";
-import type {PerseusScore} from "../packages/perseus-score/src/validation.types";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
 

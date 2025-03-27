@@ -1,24 +1,22 @@
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render} from "@testing-library/react";
 import * as React from "react";
-
 import {
-    testDependenciesV2,
     testDependencies,
+    testDependenciesV2,
     // eslint-disable-next-line import/no-relative-packages
 } from "../../../../../testing/test-dependencies";
 import {
     DependenciesContext,
-    useDependencies,
     setDependencies,
+    useDependencies,
 } from "../../dependencies";
 import * as Perseus from "../../index";
 import {mockStrings} from "../../strings";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
-
 import type {APIOptions} from "../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 type RenderResult = ReturnType<typeof render>;
 

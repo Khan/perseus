@@ -1,16 +1,13 @@
 import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import keyConfigs from "../../../data/key-configs";
 import {mockStrings} from "../../../strings";
 import {MathInputI18nContextProvider} from "../../i18n-context";
 import {CursorContext} from "../../input/cursor-contexts";
 import Keypad from "../index";
-
 import {getTestDataTabs} from "./test-data-tabs";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 const contextToKeyAria = {
     [CursorContext.IN_PARENS]:

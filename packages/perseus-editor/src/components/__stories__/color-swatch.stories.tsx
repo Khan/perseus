@@ -1,9 +1,7 @@
+import type {Meta} from "@storybook/react";
 import * as React from "react";
-
 import ColorSwatch from "../../widgets/interactive-graph-editor/locked-figures/color-swatch";
 import {getDefaultFigureForType} from "../../widgets/interactive-graph-editor/locked-figures/util";
-
-import type {Meta} from "@storybook/react";
 
 export default {
     title: "PerseusEditor/Components/Color Swatch",

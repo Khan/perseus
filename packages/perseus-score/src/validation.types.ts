@@ -31,18 +31,18 @@
 
 import type {
     GrapherAnswerTypes,
+    MakeWidgetMap,
     PerseusDropdownChoice,
     PerseusExpressionAnswerForm,
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
+    PerseusGraphCorrectType,
     PerseusGraphType,
     PerseusGroupWidgetOptions,
     PerseusMatrixWidgetAnswers,
     PerseusNumericInputAnswer,
     PerseusOrdererWidgetOptions,
     PerseusRadioChoice,
-    PerseusGraphCorrectType,
-    MakeWidgetMap,
     Relationship,
 } from "@khanacademy/perseus-core";
 

@@ -1,13 +1,11 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {screen, render} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
+import type {UserEvent} from "@testing-library/user-event";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
-
 import InteractiveGraphSRTree, {
     getAccessibilityAttributes,
 } from "./interactive-graph-sr-tree";
-
-import type {UserEvent} from "@testing-library/user-event";
 
 describe("InteractiveGraphSRTree", () => {
     let userEvent: UserEvent;

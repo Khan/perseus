@@ -2,7 +2,7 @@
 /* Component for rendering a letter icon in a library radio choice */
 
 import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";

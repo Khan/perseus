@@ -1,11 +1,9 @@
-import {vec} from "mafs";
-
-import {srFormatNumber} from "./screenreader-text";
-
-import type {PerseusStrings} from "../../../strings";
-import type {PairOfPoints} from "../types";
 import type {Coord} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
+import {vec} from "mafs";
+import type {PerseusStrings} from "../../../strings";
+import type {PairOfPoints} from "../types";
+import {srFormatNumber} from "./screenreader-text";
 
 /**
  * Given a ray and a rectangular box, find the point where the ray intersects

@@ -1,7 +1,7 @@
-import type grapher from "../../widgets/grapher/grapher";
 import type {GrapherAnswerTypes} from "@khanacademy/perseus-core";
 import type {PerseusGrapherUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
+import type grapher from "../../widgets/grapher/grapher";
 
 export type GrapherPromptJSON = {
     type: "grapher";

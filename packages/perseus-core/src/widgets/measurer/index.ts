@@ -1,10 +1,9 @@
+import type {WidgetLogic} from "../logic-export.types";
 import {
     currentVersion,
     defaultWidgetOptions,
     widgetOptionsUpgrades,
 } from "./measurer-upgrade";
-
-import type {WidgetLogic} from "../logic-export.types";
 
 export type {MeasurerDefaultWidgetOptions} from "./measurer-upgrade";
 

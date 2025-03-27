@@ -4,11 +4,10 @@ import * as React from "react";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {wait} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
+import type {APIOptions} from "../../types";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 import {question1} from "../__testdata__/sorter.testdata";
-
-import type {APIOptions} from "../../types";
 
 describe("sorter widget", () => {
     beforeEach(() => {

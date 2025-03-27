@@ -1,14 +1,11 @@
 import {KeypadContext} from "@khanacademy/keypad-context";
+import type {KeypadConfiguration, PerseusItem} from "@khanacademy/perseus-core";
 import {action} from "@storybook/addon-actions";
 import * as React from "react";
-
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import TestKeypadContextWrapper from "../__shared__/test-keypad-context-wrapper";
-
 import expressionExport from "./expression";
 import {expressionItem2, expressionItem3} from "./expression.testdata";
-
-import type {KeypadConfiguration, PerseusItem} from "@khanacademy/perseus-core";
 
 type StoryArgs = {
     customKeypad: boolean;

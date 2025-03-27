@@ -2,11 +2,9 @@
  * A component that displays its contents inside a device frame.
  */
 
-import * as React from "react";
-
-import {lintGutterWidth, perseusFrameBorderWidth} from "../styles/constants";
-
 import type {DeviceType} from "@khanacademy/perseus";
+import * as React from "react";
+import {lintGutterWidth, perseusFrameBorderWidth} from "../styles/constants";
 
 const SCREEN_SIZES = {
     phone: {

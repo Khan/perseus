@@ -1,9 +1,14 @@
 import * as KAS from "@khanacademy/kas";
-import {components, Changeable, Expression} from "@khanacademy/perseus";
+import {Changeable, components, Expression} from "@khanacademy/perseus";
+import type {
+    ExpressionDefaultWidgetOptions,
+    LegacyButtonSets,
+    PerseusExpressionWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {
-    PerseusExpressionAnswerFormConsidered,
     deriveExtraKeys,
     expressionLogic,
+    PerseusExpressionAnswerFormConsidered,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
@@ -19,14 +24,7 @@ import {css, StyleSheet} from "aphrodite";
 import lens from "hubble";
 import * as React from "react";
 import _ from "underscore";
-
 import SortableArea from "../components/sortable";
-
-import type {
-    PerseusExpressionWidgetOptions,
-    LegacyButtonSets,
-    ExpressionDefaultWidgetOptions,
-} from "@khanacademy/perseus-core";
 
 type ChangeFn = typeof Changeable.change;
 

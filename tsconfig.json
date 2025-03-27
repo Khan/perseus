@@ -21,7 +21,9 @@
             "@khanacademy/kmath": ["./packages/kmath/src"],
             "@khanacademy/keypad-context": ["./packages/keypad-context/src"],
             "@khanacademy/math-input": ["./packages/math-input/src"],
-            "@khanacademy/math-input/strings": ["./packages/math-input/src/strings"],
+            "@khanacademy/math-input/strings": [
+                "./packages/math-input/src/strings"
+            ],
             "@khanacademy/perseus": ["./packages/perseus/src"],
             "@khanacademy/perseus/strings": ["./packages/perseus/src/strings"],
             "@khanacademy/perseus-*": ["./packages/perseus-*/src"],

@@ -1,14 +1,12 @@
-import {StyleSheet, css} from "aphrodite";
-import * as React from "react";
-
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-import ExpressionEditor from "../expression-editor";
-
 import type {APIOptions} from "@khanacademy/perseus";
 import type {
-    PerseusRenderer,
     PerseusExpressionWidgetOptions,
+    PerseusRenderer,
 } from "@khanacademy/perseus-core";
+import {css, StyleSheet} from "aphrodite";
+import * as React from "react";
+import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import ExpressionEditor from "../expression-editor";
 
 type StoryArgs = Record<any, any>;
 

@@ -1,7 +1,6 @@
-import getNumericInputPublicWidgetOptions from "./numeric-input-util";
-
 import type {PerseusNumericInputWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import getNumericInputPublicWidgetOptions from "./numeric-input-util";
 
 export type NumericInputDefaultWidgetOptions = Pick<
     PerseusNumericInputWidgetOptions,

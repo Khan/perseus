@@ -1,13 +1,10 @@
-import * as React from "react";
-
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
-
-import {question1, question2, question3} from "./input-number.testdata";
-
 import type {
-    PerseusRenderer,
     PerseusInputNumberWidgetOptions,
+    PerseusRenderer,
 } from "@khanacademy/perseus-core";
+import * as React from "react";
+import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {question1, question2, question3} from "./input-number.testdata";
 
 export default {
     title: "Perseus/Widgets/InputNumber",

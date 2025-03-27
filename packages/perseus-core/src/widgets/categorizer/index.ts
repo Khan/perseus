@@ -1,7 +1,6 @@
-import getCategorizerPublicWidgetOptions from "./categorizer-util";
-
 import type {PerseusCategorizerWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
+import getCategorizerPublicWidgetOptions from "./categorizer-util";
 
 export type CategorizerDefaultWidgetOptions = Pick<
     PerseusCategorizerWidgetOptions,

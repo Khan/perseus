@@ -1,17 +1,27 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
+
+import type {KeypadAPI} from "@khanacademy/math-input";
+import type {
+    PerseusRenderer,
+    PerseusWidget,
+    PerseusWidgetOptions,
+    PerseusWidgetsMap,
+    ShowSolutions,
+} from "@khanacademy/perseus-core";
 import {
     Errors,
-    PerseusError,
     getUpgradedWidgetOptions,
     mapObject,
+    PerseusError,
 } from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import {
     emptyWidgetsFunctional,
     flattenScores,
-    scoreWidgetsFunctional,
     type PerseusScore,
+    scoreWidgetsFunctional,
     type UserInputArray,
     type UserInputMap,
 } from "@khanacademy/perseus-score";
@@ -21,7 +31,6 @@ import $ from "jquery";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
-
 import AssetContext from "./asset-context";
 import {PerseusI18nContext} from "./components/i18n-context";
 import SvgImage from "./components/svg-image";
@@ -29,6 +38,7 @@ import TeX from "./components/tex";
 import Zoomable from "./components/zoomable";
 import ZoomableTeX from "./components/zoomable-tex";
 import {DefinitionProvider} from "./definition-context";
+import type {DependenciesContext} from "./dependencies";
 import {getDependencies} from "./dependencies";
 import ErrorBoundary from "./error-boundary";
 import InteractionTracker from "./interaction-tracker";
@@ -37,14 +47,8 @@ import {Log} from "./logging/log";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
-import TranslationLinter from "./translation-linter";
-import Util from "./util";
-import preprocessTex from "./util/tex-preprocess";
-import WidgetContainer from "./widget-container";
-import * as Widgets from "./widgets";
-
-import type {DependenciesContext} from "./dependencies";
 import type {PerseusStrings} from "./strings";
+import TranslationLinter from "./translation-linter";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
@@ -54,19 +58,14 @@ import type {
     Widget,
     WidgetProps,
 } from "./types";
+import Util from "./util";
+import preprocessTex from "./util/tex-preprocess";
 import type {
     GetPromptJSONInterface,
     RendererPromptJSON,
 } from "./widget-ai-utils/prompt-types";
-import type {KeypadAPI} from "@khanacademy/math-input";
-import type {
-    PerseusRenderer,
-    PerseusWidget,
-    PerseusWidgetOptions,
-    PerseusWidgetsMap,
-    ShowSolutions,
-} from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import WidgetContainer from "./widget-container";
+import * as Widgets from "./widgets";
 
 import "./styles/perseus-renderer.less";
 

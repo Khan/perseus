@@ -1,7 +1,6 @@
-import {failure, success} from "./result";
-
-import type {ParseContext, Mismatch, PathSegment} from "./parser-types";
+import type {Mismatch, ParseContext, PathSegment} from "./parser-types";
 import type {Failure, Success} from "./result";
+import {failure, success} from "./result";
 
 export class ErrorTrackingParseContext implements ParseContext {
     constructor(private readonly path: PathSegment[]) {}

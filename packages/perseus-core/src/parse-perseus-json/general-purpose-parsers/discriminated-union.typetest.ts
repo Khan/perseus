@@ -1,9 +1,8 @@
+import type {Parser} from "../parser-types";
 import {constant} from "./constant";
 import {discriminatedUnionOn} from "./discriminated-union";
 import {number} from "./number";
 import {object} from "./object";
-
-import type {Parser} from "../parser-types";
 
 type Figure =
     | {shape: "circle"; radius: number}

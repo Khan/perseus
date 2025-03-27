@@ -1,10 +1,10 @@
-import validateMockWidget from "./validate-mock-widget";
+import type {PerseusScore} from "../../validation.types";
 
 import type {
     PerseusMockWidgetRubric,
     PerseusMockWidgetUserInput,
 } from "./mock-widget-validation.types";
-import type {PerseusScore} from "../../validation.types";
+import validateMockWidget from "./validate-mock-widget";
 
 function scoreMockWidget(
     userInput: PerseusMockWidgetUserInput,

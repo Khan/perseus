@@ -1,19 +1,17 @@
+import type {Meta, StoryObj} from "@storybook/react";
 import * as React from "react";
 import {useState} from "react";
-
 import {ServerItemRendererWithDebugUI} from "../../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
 import {
-    itemWithNumericInput,
-    itemWithLintingError,
-    labelImageItem,
     itemWithImages,
+    itemWithLintingError,
     itemWithMultipleNumericInputs,
+    itemWithNumericInput,
     itemWithRadioAndExpressionWidgets,
+    labelImageItem,
 } from "../__testdata__/server-item-renderer.testdata";
 import {ServerItemRenderer} from "../server-item-renderer";
-
-import type {StoryObj, Meta} from "@storybook/react";
 
 type StoryArgs = StoryObj<ServerItemRenderer>;
 

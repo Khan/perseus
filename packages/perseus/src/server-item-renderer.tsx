@@ -1,6 +1,17 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+
+import type {KeypadAPI} from "@khanacademy/math-input";
+import type {
+    KEScore,
+    KeypadContextRendererInterface,
+    PerseusItem,
+    RendererInterface,
+    ShowSolutions,
+} from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
-import {StyleSheet, css} from "aphrodite";
+import type {UserInputArray, UserInputMap} from "@khanacademy/perseus-score";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import {css, StyleSheet} from "aphrodite";
 /**
  * The main item (aka Exercise) renderer in Perseus. This component renders its
  * question renderer and hints renderer using standard React practices (an
@@ -11,7 +22,6 @@ import {StyleSheet, css} from "aphrodite";
  */
 import * as React from "react";
 import _ from "underscore";
-
 import AssetContext from "./asset-context";
 import {PerseusI18nContext} from "./components/i18n-context";
 import {DependenciesContext} from "./dependencies";
@@ -19,27 +29,16 @@ import HintsRenderer from "./hints-renderer";
 import LoadingContext from "./loading-context";
 import {ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
-import Util from "./util";
-
 import type {
     FocusPath,
     PerseusDependenciesV2,
     SharedRendererProps,
 } from "./types";
+import Util from "./util";
 import type {
     GetPromptJSONInterface,
     RendererPromptJSON,
 } from "./widget-ai-utils/prompt-types";
-import type {KeypadAPI} from "@khanacademy/math-input";
-import type {
-    PerseusItem,
-    ShowSolutions,
-    KeypadContextRendererInterface,
-    RendererInterface,
-    KEScore,
-} from "@khanacademy/perseus-core";
-import type {UserInputArray, UserInputMap} from "@khanacademy/perseus-score";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type OwnProps = {
     hintsVisible?: number;

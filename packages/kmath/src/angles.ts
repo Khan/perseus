@@ -1,8 +1,7 @@
 // This file contains helper functions for working with angles.
 
-import {clockwise} from "./geometry";
-
 import type {Coord} from "@khanacademy/perseus-core";
+import {clockwise} from "./geometry";
 
 export function convertDegreesToRadians(degrees: number): number {
     return (degrees / 180) * Math.PI;

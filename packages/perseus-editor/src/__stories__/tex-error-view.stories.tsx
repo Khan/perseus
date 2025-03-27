@@ -1,6 +1,5 @@
-import TexErrorView from "../tex-error-view";
-
 import type {Meta, StoryObj} from "@storybook/react";
+import TexErrorView from "../tex-error-view";
 
 const meta: Meta<typeof TexErrorView> = {
     component: TexErrorView,

@@ -1,7 +1,6 @@
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 import {useState} from "react";
-
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type Props = Omit<PropsFor<"input">, "value" | "onInput"> & {
     value: string;

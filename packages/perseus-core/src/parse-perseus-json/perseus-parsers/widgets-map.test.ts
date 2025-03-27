@@ -1,10 +1,8 @@
+import type {PerseusWidgetsMap} from "../../data-schema";
 import {anyFailure} from "../general-purpose-parsers/test-helpers";
 import {parse} from "../parse";
 import {failure, success} from "../result";
-
 import {parseWidgetsMap} from "./widgets-map";
-
-import type {PerseusWidgetsMap} from "../../data-schema";
 
 describe("parseWidgetsMap", () => {
     it("rejects null", () => {

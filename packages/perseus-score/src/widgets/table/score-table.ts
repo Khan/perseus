@@ -1,13 +1,11 @@
 import KhanAnswerTypes from "../../util/answer-types";
-
-import {filterNonEmpty} from "./utils";
-import validateTable from "./validate-table";
-
 import type {
-    PerseusTableRubric,
     PerseusScore,
+    PerseusTableRubric,
     PerseusTableUserInput,
 } from "../../validation.types";
+import {filterNonEmpty} from "./utils";
+import validateTable from "./validate-table";
 
 function scoreTable(
     userInput: PerseusTableUserInput,

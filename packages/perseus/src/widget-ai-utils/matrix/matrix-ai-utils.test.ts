@@ -1,12 +1,9 @@
-import {screen} from "@testing-library/react";
-import {userEvent as userEventLib} from "@testing-library/user-event";
-
-import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
-
-import {getPromptJSON} from "./matrix-ai-utils";
-
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {screen} from "@testing-library/react";
 import type {UserEvent} from "@testing-library/user-event";
+import {userEvent as userEventLib} from "@testing-library/user-event";
+import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
+import {getPromptJSON} from "./matrix-ai-utils";
 
 const question: PerseusRenderer = {
     content:
