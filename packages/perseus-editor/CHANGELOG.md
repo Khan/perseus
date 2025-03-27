@@ -1,5 +1,23 @@
 # @khanacademy/perseus-editor
 
+## 18.2.2
+
+### Patch Changes
+
+-   [#2322](https://github.com/Khan/perseus/pull/2322) [`4bd882b43`](https://github.com/Khan/perseus/commit/4bd882b43b15d9d3d5ca850f5148eba57c7dca59) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change how version injection code is shared/bundled
+
+-   Updated dependencies [[`7b76274f0`](https://github.com/Khan/perseus/commit/7b76274f0bd362d0f2df3e45f47ecc3545ecfdd0), [`11a3b8b24`](https://github.com/Khan/perseus/commit/11a3b8b24aa05fa9774bbb8ef1c73a249f368a9e), [`5b6e9df5b`](https://github.com/Khan/perseus/commit/5b6e9df5b6bcacf7646475ff7884415b815f68c5), [`2e26c0872`](https://github.com/Khan/perseus/commit/2e26c087224d620c3a8babcbfe4832e75b5e0269), [`7a60db8e8`](https://github.com/Khan/perseus/commit/7a60db8e8d61119930dda0a80118c4b99b183a60), [`ca06cb806`](https://github.com/Khan/perseus/commit/ca06cb80686b8b414766d9b1d91a48fa4b71994c), [`4bd882b43`](https://github.com/Khan/perseus/commit/4bd882b43b15d9d3d5ca850f5148eba57c7dca59)]:
+    -   @khanacademy/math-input@23.0.6
+    -   @khanacademy/perseus@57.2.2
+    -   @khanacademy/kmath@0.4.7
+    -   @khanacademy/perseus-core@5.4.2
+    -   @khanacademy/perseus-score@2.3.7
+    -   @khanacademy/kas@0.5.1
+    -   @khanacademy/keypad-context@1.1.7
+    -   @khanacademy/perseus-linter@1.3.7
+    -   @khanacademy/perseus-utils@0.0.2
+    -   @khanacademy/pure-markdown@0.4.1
+
 ## 18.2.1
 
 ### Patch Changes

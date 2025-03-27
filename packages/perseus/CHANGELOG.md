@@ -1,5 +1,33 @@
 # @khanacademy/perseus
 
+## 57.2.2
+
+### Patch Changes
+
+-   [#2296](https://github.com/Khan/perseus/pull/2296) [`7b76274f0`](https://github.com/Khan/perseus/commit/7b76274f0bd362d0f2df3e45f47ecc3545ecfdd0) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix expression widget styling issues. Close button focus outline is now visible, backspace button styling is now consistent with other buttons, and adjusted the popover padding.
+
+*   [#2301](https://github.com/Khan/perseus/pull/2301) [`11a3b8b24`](https://github.com/Khan/perseus/commit/11a3b8b24aa05fa9774bbb8ef1c73a249f368a9e) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix number line input outline to meet accessible contrast standards
+
+-   [#2328](https://github.com/Khan/perseus/pull/2328) [`5b6e9df5b`](https://github.com/Khan/perseus/commit/5b6e9df5b6bcacf7646475ff7884415b815f68c5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix import of internal items to use relative paths instead of the package name
+
+*   [#2326](https://github.com/Khan/perseus/pull/2326) [`2e26c0872`](https://github.com/Khan/perseus/commit/2e26c087224d620c3a8babcbfe4832e75b5e0269) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Remove instructions for static graphs, mark interactive elements as disabled
+
+-   [#2324](https://github.com/Khan/perseus/pull/2324) [`7a60db8e8`](https://github.com/Khan/perseus/commit/7a60db8e8d61119930dda0a80118c4b99b183a60) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Adding roles to the Image Widget to help improve A11Y.
+
+*   [#2322](https://github.com/Khan/perseus/pull/2322) [`4bd882b43`](https://github.com/Khan/perseus/commit/4bd882b43b15d9d3d5ca850f5148eba57c7dca59) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change how version injection code is shared/bundled
+
+*   Updated dependencies [[`7b76274f0`](https://github.com/Khan/perseus/commit/7b76274f0bd362d0f2df3e45f47ecc3545ecfdd0), [`5b6e9df5b`](https://github.com/Khan/perseus/commit/5b6e9df5b6bcacf7646475ff7884415b815f68c5), [`ca06cb806`](https://github.com/Khan/perseus/commit/ca06cb80686b8b414766d9b1d91a48fa4b71994c), [`4bd882b43`](https://github.com/Khan/perseus/commit/4bd882b43b15d9d3d5ca850f5148eba57c7dca59)]:
+    -   @khanacademy/math-input@23.0.6
+    -   @khanacademy/kmath@0.4.7
+    -   @khanacademy/perseus-core@5.4.2
+    -   @khanacademy/perseus-score@2.3.7
+    -   @khanacademy/kas@0.5.1
+    -   @khanacademy/keypad-context@1.1.7
+    -   @khanacademy/perseus-linter@1.3.7
+    -   @khanacademy/perseus-utils@0.0.2
+    -   @khanacademy/pure-markdown@0.4.1
+    -   @khanacademy/simple-markdown@0.14.1
+
 ## 57.2.1
 
 ### Patch Changes

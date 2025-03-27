@@ -99,10 +99,12 @@ export const ImageWithZoom = (args: StoryArgs): React.ReactElement => {
         },
     } as const;
     return (
-        <RendererWithDebugUI
-            question={questionWithCaptionAndArgs}
-            apiOptions={apiOptions}
-        />
+        <div style={{width: "50%", margin: "0 auto"}}>
+            <RendererWithDebugUI
+                question={questionWithCaptionAndArgs}
+                apiOptions={apiOptions}
+            />
+        </div>
     );
 };
 

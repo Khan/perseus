@@ -77,7 +77,7 @@ export function V2KeypadWithMathquill() {
                 content={
                     <PopoverContentCore
                         style={{
-                            padding: 10,
+                            padding: 0,
                             maxWidth: "initial",
                         }}
                     >

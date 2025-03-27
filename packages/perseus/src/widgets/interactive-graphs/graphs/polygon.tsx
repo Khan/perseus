@@ -311,6 +311,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         ? `${srPolygonElementsNum} ${srPolygonGraphPoints}`
                         : srPolygonElementsNum,
                     "aria-live": ariaLives[0],
+                    "aria-disabled": disableKeyboardInteraction,
                 }}
             />
             {points.map((point, i) => {
