@@ -31,6 +31,41 @@ describe("free-response editor", () => {
         expect(screen.getByDisplayValue("test-question")).toBeInTheDocument();
     });
 
+    it("calls onChange when the allow unlimited characters is changed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        // Act
+        render(
+            <FreeResponseEditor
+                allowUnlimitedCharacters={false}
+                onChange={onChangeMock}
+            />,
+        );
+
+        await userEvent.click(
+            screen.getByRole("checkbox", {name: /Allow unlimited characters/i}),
+        );
+
+        // Assert
+        expect(onChangeMock).toBeCalledWith({allowUnlimitedCharacters: true});
+    });
+
+    it("calls onChange when the character limit is changed", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        // Act
+        render(
+            <FreeResponseEditor characterLimit={0} onChange={onChangeMock} />,
+        );
+
+        await userEvent.type(screen.getByLabelText(/Character limit/), "1");
+
+        // Assert
+        expect(onChangeMock).toBeCalledWith({characterLimit: 1});
+    });
+
     it("calls onChange when the question is changed", async () => {
         // Arrange
         const onChangeMock = jest.fn();

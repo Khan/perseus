@@ -55,6 +55,60 @@ describe("free-response widget", () => {
         expect(container).toMatchSnapshot("first mobile render");
     });
 
+    it("should render the character limit when not allowing unlimited characters", () => {
+        // Arrange
+        const data = getFreeResponseItemData();
+        data.widgets["free-response 1"].options.allowUnlimitedCharacters =
+            false;
+
+        // Act
+        renderQuestion(data, {});
+
+        // Assert
+        expect(screen.queryByText(/Character/)).toBeVisible();
+    });
+
+    it("should not render the character limit when allowing unlimited characters", () => {
+        // Arrange
+        const data = getFreeResponseItemData();
+        data.widgets["free-response 1"].options.allowUnlimitedCharacters = true;
+
+        // Act
+        renderQuestion(data, {});
+
+        // Assert
+        expect(screen.queryByText(/Character/)).not.toBeInTheDocument();
+    });
+
+    it("should ignore newline characters when rendering the character limit", async () => {
+        // Arrange
+        const data = getFreeResponseItemData();
+        data.widgets["free-response 1"].options.characterLimit = 10;
+
+        // Act
+        renderQuestion(data, {});
+
+        await userEvent.type(
+            screen.getByRole("textbox", {name: "test-question"}),
+            "a\nb",
+        );
+
+        // Assert
+        expect(screen.queryByText(/2 \/ 10 Character/)).toBeVisible();
+    });
+
+    it("should not render the character limit when it is not set", () => {
+        // Arrange
+        const data = getFreeResponseItemData();
+        data.widgets["free-response 1"].options.characterLimit = 0;
+
+        // Act
+        renderQuestion(data, {});
+
+        // Assert
+        expect(screen.queryByText(/Characters/)).not.toBeInTheDocument();
+    });
+
     it("should render the question text", () => {
         // Arrange
         // Act
