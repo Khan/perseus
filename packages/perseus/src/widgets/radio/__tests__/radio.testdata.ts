@@ -1,34 +1,11 @@
+import {createPerseusItem} from "../../__testutils__/test-data-util";
+
 import type {
     PerseusRenderer,
     RadioWidget,
     PassageWidget,
     PerseusItem,
 } from "@khanacademy/perseus-core";
-
-export const createRadioItem = (
-    radioQuestion: PerseusRenderer,
-): PerseusItem => {
-    return {
-        question: radioQuestion,
-        answer: null,
-        itemDataVersion: {
-            major: 0,
-            minor: 1,
-        },
-        hints: [],
-        answerArea: {
-            calculator: false,
-            chi2Table: false,
-            financialCalculatorMonthlyPayment: false,
-            financialCalculatorTotalAmount: false,
-            financialCalculatorTimeToPayOff: false,
-            periodicTable: false,
-            periodicTableWithKey: false,
-            tTable: false,
-            zTable: false,
-        },
-    };
-};
 
 export const question: PerseusRenderer = {
     content:
@@ -153,7 +130,7 @@ export const questionWithPassage: PerseusRenderer = {
 };
 
 export const questionWithPassageItem: PerseusItem =
-    createRadioItem(questionWithPassage);
+    createPerseusItem(questionWithPassage);
 
 export const choicesWithImages: PerseusRenderer = {
     content:
@@ -235,7 +212,7 @@ export const choicesWithImages: PerseusRenderer = {
 };
 
 export const choicesWithImagesItem: PerseusItem =
-    createRadioItem(choicesWithImages);
+    createPerseusItem(choicesWithImages);
 
 export const multiChoiceQuestion: PerseusRenderer = {
     content:
@@ -284,7 +261,7 @@ export const multiChoiceQuestion: PerseusRenderer = {
 };
 
 export const multiChoiceQuestionItem: PerseusItem =
-    createRadioItem(multiChoiceQuestion);
+    createPerseusItem(multiChoiceQuestion);
 
 export const multiChoiceQuestionSimple: PerseusRenderer = {
     content: "What are some ways to say hello?\n\n[[\u2603 radio 1]]",
@@ -338,7 +315,7 @@ export const multiChoiceQuestionSimple: PerseusRenderer = {
     },
 };
 
-export const multiChoiceQuestionSimpleItem: PerseusItem = createRadioItem(
+export const multiChoiceQuestionSimpleItem: PerseusItem = createPerseusItem(
     multiChoiceQuestionSimple,
 );
 

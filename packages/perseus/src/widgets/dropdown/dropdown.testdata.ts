@@ -1,27 +1,6 @@
-import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
+import {createPerseusItem} from "../__testutils__/test-data-util";
 
-const createDropdownItem = (dropdownQuestion: PerseusRenderer): PerseusItem => {
-    return {
-        question: dropdownQuestion,
-        answer: null,
-        itemDataVersion: {
-            major: 0,
-            minor: 1,
-        },
-        hints: [],
-        answerArea: {
-            calculator: false,
-            chi2Table: false,
-            financialCalculatorMonthlyPayment: false,
-            financialCalculatorTotalAmount: false,
-            financialCalculatorTimeToPayOff: false,
-            periodicTable: false,
-            periodicTableWithKey: false,
-            tTable: false,
-            zTable: false,
-        },
-    };
-};
+import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const basicDropdown: PerseusRenderer = {
     content:
@@ -55,7 +34,7 @@ export const basicDropdown: PerseusRenderer = {
     },
 };
 
-export const basicDropdownItem: PerseusItem = createDropdownItem(basicDropdown);
+export const basicDropdownItem: PerseusItem = createPerseusItem(basicDropdown);
 
 export const dropdownWithMath: PerseusRenderer = {
     content: "If x equals 4, then [[☃ dropdown 1]] equals $10$.",
@@ -89,7 +68,7 @@ export const dropdownWithMath: PerseusRenderer = {
 };
 
 export const dropdownWithMathItem: PerseusItem =
-    createDropdownItem(dropdownWithMath);
+    createPerseusItem(dropdownWithMath);
 
 export const dropdownWithVisibleLabel: PerseusRenderer = {
     content: "[[☃ dropdown 1]]",
@@ -150,7 +129,7 @@ export const dropdownWithVisibleLabel: PerseusRenderer = {
     },
 };
 
-export const dropdownWithVisibleLabelItem: PerseusItem = createDropdownItem(
+export const dropdownWithVisibleLabelItem: PerseusItem = createPerseusItem(
     dropdownWithVisibleLabel,
 );
 
@@ -215,7 +194,7 @@ export const inlineDropdownWithVisibleLabel: PerseusRenderer = {
 };
 
 export const inlineDropdownWithVisibleLabelItem: PerseusItem =
-    createDropdownItem(inlineDropdownWithVisibleLabel);
+    createPerseusItem(inlineDropdownWithVisibleLabel);
 
 export const dropdownWithEmptyPlaceholder: PerseusRenderer = {
     content:
@@ -249,6 +228,6 @@ export const dropdownWithEmptyPlaceholder: PerseusRenderer = {
     },
 };
 
-export const dropdownWithEmptyPlaceholderItem: PerseusItem = createDropdownItem(
+export const dropdownWithEmptyPlaceholderItem: PerseusItem = createPerseusItem(
     dropdownWithEmptyPlaceholder,
 );
