@@ -10,11 +10,8 @@ import {
     checkPrivate,
     checkExports,
     checkPublishConfig,
+    isFalsey,
 } from "./internal/pre-publish-utils";
-
-function isFalsey(value: unknown): boolean {
-    return !value;
-}
 
 const pkgPaths = fg.globSync(
     path.join(__dirname, "..", "packages", "*", "package.json"),
@@ -32,6 +29,6 @@ const results = pkgPaths.flatMap((pkgPath) => {
 });
 
 // Exit only after we've processed all the packages.
-if (!results.some(isFalsey)) {
+if (results.some(isFalsey)) {
     process.exit(1);
 }
