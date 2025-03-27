@@ -198,8 +198,6 @@ module.exports = {
             parserOptions: {
                 project: [
                     "tsconfig.json",
-                    "packages/*/tsconfig.json",
-                    "packages/tsconfig-shared.json",
                 ],
             },
             rules: {
