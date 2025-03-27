@@ -133,11 +133,12 @@ class FreeResponseEditor extends React.Component<Props> {
                             type="number"
                             min={1}
                             value={this.props.characterLimit}
-                            onChange={(e) =>
+                            onChange={(e) => {
+                                const val = parseInt(e.target.value);
                                 this.props.onChange({
-                                    characterLimit: parseInt(e.target.value),
-                                })
-                            }
+                                    characterLimit: Math.max(1, val),
+                                });
+                            }}
                         />
                     </label>
                 )}
