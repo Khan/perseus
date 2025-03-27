@@ -4,6 +4,7 @@ import {Flipbook} from "../../../../../dev/flipbook";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import {ApiOptions} from "../../perseus-api";
+import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {
     angleQuestion,
@@ -27,16 +28,6 @@ import {
     staticGraphQuestionWithAnotherWidget,
     segmentWithLockedLabels,
     unlimitedPolygonQuestion,
-    angleItem,
-    circleItem,
-    linearItem,
-    linearSystemItem,
-    pointItem,
-    polygonItem,
-    unlimitedPolygonWithCorrectAnswerItem,
-    rayItem,
-    segmentItem,
-    sinusoidItem,
 } from "./interactive-graph.testdata";
 
 const defaultApiOptions = ApiOptions.defaults;
@@ -191,49 +182,93 @@ export const StaticGraphWithAnotherWidget = (
 // "quadratic"
 
 export const AnswerlessAngle = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI item={angleItem} startAnswerless={true} />
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: angleQuestion,
+        })}
+        startAnswerless={true}
+    />
 );
 
 export const AnswerlessCircle = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI item={circleItem} startAnswerless={true} />
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: circleQuestion,
+        })}
+        startAnswerless={true}
+    />
 );
 
 export const AnswerlessLinear = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI item={linearItem} startAnswerless={true} />
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: linearQuestion,
+        })}
+        startAnswerless={true}
+    />
 );
 
 export const AnswerlessLinearSystem = (args: StoryArgs): React.ReactElement => (
     <ServerItemRendererWithDebugUI
-        item={linearSystemItem}
+        item={generateTestPerseusItem({
+            question: linearSystemQuestion,
+        })}
         startAnswerless={true}
     />
 );
 
 export const AnswerlessPoint = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI item={pointItem} startAnswerless={true} />
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: pointQuestion,
+        })}
+        startAnswerless={true}
+    />
 );
 
 export const AnswerlessPolygon = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI item={polygonItem} startAnswerless={true} />
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: polygonQuestion,
+        })}
+        startAnswerless={true}
+    />
 );
 
 export const AnswerlessUnlimitedPolygon = (
     args: StoryArgs,
 ): React.ReactElement => (
     <ServerItemRendererWithDebugUI
-        item={unlimitedPolygonWithCorrectAnswerItem}
+        item={generateTestPerseusItem({
+            question: unlimitedPolygonQuestion,
+        })}
         startAnswerless={true}
     />
 );
 
 export const AnswerlessRay = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI item={rayItem} startAnswerless={true} />
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: rayQuestion,
+        })}
+        startAnswerless={true}
+    />
 );
 
 export const AnswerlessSegment = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI item={segmentItem} startAnswerless={true} />
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: segmentQuestion,
+        })}
+        startAnswerless={true}
+    />
 );
 
 export const AnswerlessSinusoid = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI item={sinusoidItem} startAnswerless={true} />
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: sinusoidQuestion,
+        })}
+        startAnswerless={true}
+    />
 );
