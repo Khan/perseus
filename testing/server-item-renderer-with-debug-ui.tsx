@@ -8,6 +8,7 @@ import {
     type KEScore,
     type PerseusRenderer,
     splitPerseusItem,
+    type ShowSolutions,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 
@@ -28,13 +29,17 @@ type Props = {
     // Temporary measure testing rendering with answerless data;
     // only exists until all widgets are renderable with answerless data
     startAnswerless?: boolean;
+    reviewMode?: boolean | null | undefined;
+    showSolutions?: ShowSolutions;
 };
 
 export const ServerItemRendererWithDebugUI = ({
     item,
     apiOptions,
     keypadElement,
+    reviewMode = false,
     startAnswerless = false,
+    ...rest
 }: Props): React.ReactElement => {
     const ref = React.useRef<Perseus.ServerItemRendererComponent>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
@@ -83,6 +88,8 @@ export const ServerItemRendererWithDebugUI = ({
                         item={renderedItem}
                         dependencies={storybookDependenciesV2}
                         keypadElement={keypadElement}
+                        reviewMode={reviewMode}
+                        {...rest}
                     />
                     <View style={{flexDirection: "row", alignItems: "center"}}>
                         <Button

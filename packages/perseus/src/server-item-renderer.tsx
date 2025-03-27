@@ -46,7 +46,7 @@ type OwnProps = {
     item: PerseusItem;
     score?: KEScore | null;
     problemNum?: number;
-    reviewMode?: boolean;
+    reviewMode?: boolean | null | undefined;
     keypadElement?: KeypadAPI | null | undefined;
     dependencies: PerseusDependenciesV2;
     showSolutions?: ShowSolutions;
