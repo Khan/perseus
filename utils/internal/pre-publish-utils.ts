@@ -80,13 +80,9 @@ export const checkExports = (pkgJson): boolean => {
         return false;
     }
 
-    let returnValue = true;
-    returnValue =
-        checkExport(pkgJson, "import", "./dist/index.js") && returnValue;
-    returnValue =
-        checkExport(pkgJson, "types", "./dist/index.d.ts") && returnValue;
-    returnValue =
-        checkExport(pkgJson, "source", "./src/index.ts") && returnValue;
+    const hasTranspiled = checkExport(pkgJson, "import", "./dist/index.js");
+    const hasTypes = checkExport(pkgJson, "types", "./dist/index.d.ts");
+    const hasSrc = checkExport(pkgJson, "source", "./src/index.ts");
 
-    return returnValue;
+    return hasTranspiled && hasTypes && hasSrc;
 };
