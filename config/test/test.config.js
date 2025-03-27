@@ -16,7 +16,7 @@ const vendorMap = fg
         const packageDirName = path.basename(path.dirname(pkgJsonPath));
         return {
             ...map,
-            [pkgJson.name]: `<rootDir>/vendor/${packageDirName}/${pkgJson.main}`,
+            [`^${pkgJson.name}$`]: `<rootDir>/vendor/${packageDirName}/${pkgJson.main}`,
         };
     }, {});
 
@@ -29,7 +29,7 @@ const pkgMap = fg
             ...map,
             // NOTE(kevinb): we use the 'source' field here so that we can run our
             // tests without having to compile all of the packages first.
-            [pkgJson.name]: `<rootDir>/packages/${packageDirName}/${pkgJson.exports["."].source.slice(2)}`,
+            [`^${pkgJson.name}$`]: `<rootDir>/packages/${packageDirName}/${pkgJson.exports["."].source.slice(2)}`,
         };
     }, {});
 
