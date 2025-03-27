@@ -2,7 +2,6 @@ import type {
     PerseusRenderer,
     RadioWidget,
     PassageWidget,
-    PerseusItem,
 } from "@khanacademy/perseus-core";
 
 export const question: PerseusRenderer = {
