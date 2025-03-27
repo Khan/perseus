@@ -1,7 +1,7 @@
 import type {
     PerseusNumericInputAnswer,
     PerseusNumericInputWidgetOptions,
-} from "@khanacademy/perseus-core";
+} from "../../data-schema";
 
 type NumericInputAnswerPublicData = Pick<
     PerseusNumericInputAnswer,

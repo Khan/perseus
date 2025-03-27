@@ -2381,13 +2381,14 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.json returns th
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
           "noneOfTheAbove": false,
+          "numCorrect": 1,
           "onePerLine": true,
           "randomize": false,
         },
         "static": false,
         "type": "radio",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -2862,13 +2863,14 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.json return
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
           "noneOfTheAbove": false,
+          "numCorrect": 1,
           "onePerLine": false,
           "randomize": false,
         },
         "static": false,
         "type": "radio",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },
@@ -5603,6 +5605,178 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
 }
 `;
 
+exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.json returns the same result as before 1`] = `
+{
+  "_multi": null,
+  "answer": null,
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "itemDataVersion": null,
+  "question": {
+    "content": "
+ [[☃ image 1]]
+
+##A shot after all
+
+*By Heather M. Meston*
+
+___
+
+1. I peered through the neglected bushes crowning the hill overlooking the field, a vicious debate raging in my mind.
+
+2. *To go or not to go?*
+
+3. *To try or not to try?*
+
+4. I winced as Marcus Fitzwilliam barreled into a blocking sled, 300 pounds of foam padding and metal. The sled flew back six feet.
+
+5. *I can’t compete with that,* I thought. I barely weighed a hundred pounds in snow boots. It would take a miracle for me to move that thing an inch.
+
+6. *Stop it, Jamila,* commanded my braver side. *You don’t need to be big to be a quarterback, just fast and smart. Marcus may be big, but his bad knee makes him slow.* My eyes drifted to a sleek form running sprints across the field. *Now, Hiro, on the other hand…he’s fast. Gotta watch out for him.*
+
+7. Before I could stop myself, I shoved through the bushes, my head held high even as my heart trembled.
+
+8. Donny, who’d lost two teeth playing last year, was the first to spy me. He completely missed the left-handed pass Raj sent his way, drawing Coach Franklin’s irritation. But before Coach could begin lecturing, Raj interrupted him to point out the intruder on the field.
+
+9. Me.
+
+10. Coach looked startled for a moment, then came to his senses. “Jamila! You looking for cheerleading tryouts? In the gym.”
+
+11. I thought of all the hours my brother Malik had spent practicing with me. I couldn’t disappoint him. “No, I’m here to try out. Er…that is…for football, I mean. For quarterback.” Smooth. So smooth.
+
+12. Raj laughed, Marcus grinned, and Coach’s mouth twisted like I'd just force-fed him a lemon 
+
+13. “Well, you see,” he started, “It’s just that girls aren’t allowed on the football team. Too dangerous, you know.”
+
+14. *But it's not too dangerous for boys? What’s wrong with people?*
+
+15. “Actually, sir, that’s not true. There’s nothing saying we can’t play.” I pulled out my copy of the school handbook. “See?” I said. “The only qualifications are that a player must have at least a C average and that the coach and a doctor must declare the player physically fit. I have straight As, and here’s my doctor’s note.”
+
+16. He grimaced, and then his face lit up. “Well, I don’t declare you physically fit. So that’s that.” He folded his arms across his chest with a satisfied grin.
+
+17. “Why?” I asked.
+
+18. “Girls are too delicate for football. I don't care how good your brother was. You'll snap like a twig out there. Sorry.”
+
+19. I’d come prepared with a second printout. Silently, I handed the paper to Coach. It contained only 37 words.
+
+20. “What in the name of the [[☃ definition 1]] is this?” he asked.
+
+21. “A copy of Title 9, sir. It’s a policy stating that any school that receives money from the government–which ours does–can’t discriminate on the basis of gender. So, I think your reasoning might be invalid. Can we get on with tryouts now?”
+
+22. His face contorted with rage, then confusion, and finally resignation as he pointed towards the center line. “You wanna be quarterback? Show me you can get past these three–” he pointed to Marcus, Raj, and Hiro, “and get the ball to the end zone.” He tossed me a ball.
+
+23. I gulped. I’d expected we’d start slow, maybe with some sprints. 
+
+24. *You’ve got this,* I coached myself as I walked toward the center line. *You’re ready. Even Malik said so.* 
+
+25. When I arrived at the center line and saw the three boys between me and the end zone, a sense of calm settled over me. Strategy flooded my mind as I thought of everything I’d observed from the bushes. Marcus, on the right, was big but slow. Raj, in the center, had a tendency to cover the left side of his area. Hiro, on the left, was the biggest threat–he was fast and clever, and, as he smirked at me, I knew immediately what my best play would be.
+
+26. As Coach blew his whistle, I raced hard towards the left, ignoring the obvious opening on the right side of the field. No one who knew him ever tried to get past Hiro, so that’s exactly what I would do. I barely saw Hiro’s smirk change into a look of surprise as I approached him, sliding under his outstretched arms. I leapt into the end zone with a whoop of delight. 
+
+27. Coach looked reluctantly impressed when I trotted back to him. “Well, that wasn’t half-bad. I think we might give you a shot after all.”
+
+[[☃ explanation 1]]
+
+
+=====",
+    "images": {},
+    "metadata": null,
+    "replace": null,
+    "widgets": {
+      "definition 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "definition": "A trophy awarded each year to the top college football player in the United States",
+          "static": false,
+          "togglePrompt": "Heisman Trophy",
+        },
+        "static": false,
+        "type": "definition",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "explanation 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "explanation": "Image source: Image provided by Chidi Young under a [Canva license](https://www.canva.com/policies/content-license-agreement/).",
+          "hidePrompt": "Hide attribution",
+          "showPrompt": "Attribution",
+          "static": false,
+          "widgets": {},
+        },
+        "static": false,
+        "type": "explanation",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "image 1": {
+        "alignment": "block",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "alt": "",
+          "backgroundImage": {
+            "bottom": undefined,
+            "height": 600,
+            "left": undefined,
+            "scale": undefined,
+            "top": 0,
+            "url": "https://cdn.kastatic.org/ka-content-images/339d80b3e1b39872e391c232a0edacdff0b0b66d.png",
+            "width": 380,
+          },
+          "box": [
+            380,
+            600,
+          ],
+          "caption": "",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given label-image-missing-static.json returns the same result as before 1`] = `
 {
   "answerArea": {
@@ -7899,13 +8073,229 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.js
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
           "noneOfTheAbove": false,
+          "numCorrect": 1,
           "onePerLine": false,
           "randomize": true,
         },
         "static": false,
         "type": "radio",
         "version": {
-          "major": 1,
+          "major": 2,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": true,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "### The strategy
+
+- Model the situation as a right triangle.
+
+- Determine the appropriate trigonometric ratio in order to find the missing side.
+
+- Form an equation and solve for the missing side.
+
+- Calculate the final result and round.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "### Modeling as a right triangle
+
+This situation can be modeled by the following right triangle. The hypotenuse is $2.1\\text{ km}$ and the angle on the right is $37^\\circ$. We are asked to find the distance between the skydiving center and Stella's landing point, which is the base of the triangle.
+
+
+
+[[☃ image 1]]
+
+### Determining the appropriate trigonometric ratio
+
+We are given the measure of an angle and the length of the $\\purpleC{\\text{hypotenuse}}$. We are asked to find the side $\\maroonC{\\text{adjacent}}$ to the given angle. The appropriate trigonometric ratio is therefore the $\\Large\\text{cosine}$.
+",
+      "images": {},
+      "replace": false,
+      "widgets": {
+        "image 1": {
+          "alignment": "block",
+          "graded": true,
+          "options": {
+            "alt": "A right triangle where the base is unknown. The angle on the right side of the base is thirty-seven degrees. The angle on the left side of the base is the right angle. The hypotenuse is two point one.",
+            "backgroundImage": {
+              "height": 252,
+              "url": "web+graphie://cdn.kastatic.org/ka-perseus-graphie/5b2b177fc0ba3ba56c75d2e21329191582aeb5bc",
+              "width": 300,
+            },
+            "box": [
+              300,
+              252,
+            ],
+            "caption": "",
+            "labels": [],
+            "range": [
+              [
+                0,
+                10,
+              ],
+              [
+                0,
+                10,
+              ],
+            ],
+            "static": false,
+            "title": "",
+          },
+          "static": false,
+          "type": "image",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "### Forming an equation and solving
+
+Denoting the missing side by $x$, we obtain the equation $\\cos(37^\\circ)=\\dfrac{x}{2.1}$.
+
+Solving the equation, we get $x=2.1\\cdot\\cos(37^\\circ)$.
+
+Evaluating this result in the calculator and rounding to the nearest hundredth, we get $x=1.68\\text{ km}$.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "### Summary
+
+Stella landed $1.68$ kilometers from the skydiving center.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "itemDataVersion": {
+    "major": 0,
+    "minor": 1,
+  },
+  "question": {
+    "content": "Stella's friends got her a skydiving lesson for her birthday. Her helicopter took off from the skydiving center, ascending in an angle of $37^\\circ$, and traveled a distance of $2.1$ kilometers before she fell in a straight line perpendicular to the ground.
+ 
+**How far from the skydiving center did Stella land?** 
+*Round your final answer to the nearest hundredth.*
+
+[[☃ numeric-input 1]] kilometers
+ 
+
+
+[[☃ image 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "image 1": {
+        "alignment": "block",
+        "graded": true,
+        "options": {
+          "alt": "A rectangle that represents the ground. A point is on the top of the rectangle. A helicopter is above the ground with a person parachuting beneath it. The distance from the helicopter to the point is two point one kilometers and is the hypotenuse. The inside angle from the point to the helicopter is thirty-seven degrees.",
+          "backgroundImage": {
+            "height": 270,
+            "url": "https://cdn.kastatic.org/ka-perseus-graphie/532e339d4d95f9cf6423e66bdc70dd06f1143a97.png",
+            "width": 300,
+          },
+          "box": [
+            300,
+            270,
+          ],
+          "caption": "",
+          "labels": [],
+          "range": [
+            [
+              0,
+              10,
+            ],
+            [
+              0,
+              10,
+            ],
+          ],
+          "static": false,
+          "title": "",
+        },
+        "static": false,
+        "type": "image",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "answers": [
+            {
+              "maxError": 0.01,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 1.68,
+            },
+            {
+              "maxError": 0.2,
+              "message": "You probably solved correctly but your answer is not precise enough. Try rounding only at the last step of your solution.",
+              "simplify": "required",
+              "status": "ungraded",
+              "strict": false,
+              "value": 1.68,
+            },
+            {
+              "maxError": 0.5,
+              "message": "You probably used radians instead of degrees. Make sure your calculator is set to degrees.",
+              "simplify": "required",
+              "status": "ungraded",
+              "strict": false,
+              "value": 1.61,
+            },
+            {
+              "maxError": 0.1,
+              "message": "This is the height of Stella's fall. We asked for the distance from her landing point to the skydiving center.",
+              "simplify": "required",
+              "status": "wrong",
+              "strict": false,
+              "value": 1.2,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "multipleNumberInput": false,
+          "rightAlign": false,
+          "size": "normal",
+          "static": false,
+        },
+        "static": false,
+        "type": "numeric-input",
+        "version": {
+          "major": 0,
           "minor": 0,
         },
       },
@@ -7954,7 +8344,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.json
             {
               "maxError": 0,
               "message": "",
-              "simplify": "optional",
+              "simplify": "required",
               "status": "correct",
               "strict": false,
               "value": 2.6,
@@ -10164,13 +10554,14 @@ ___
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
           "noneOfTheAbove": false,
+          "numCorrect": 1,
           "onePerLine": false,
           "randomize": false,
         },
         "static": false,
         "type": "radio",
         "version": {
-          "major": 1,
+          "major": 2,
           "minor": 0,
         },
       },

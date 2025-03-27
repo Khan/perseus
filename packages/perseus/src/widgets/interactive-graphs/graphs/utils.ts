@@ -4,7 +4,7 @@ import {srFormatNumber} from "./screenreader-text";
 
 import type {PerseusStrings} from "../../../strings";
 import type {PairOfPoints} from "../types";
-import type {Coord} from "@khanacademy/perseus";
+import type {Coord} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 /**

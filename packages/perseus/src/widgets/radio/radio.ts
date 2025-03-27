@@ -76,6 +76,7 @@ const _choiceTransform = (
             return {
                 ...choice,
                 originalIndex: i,
+                correct: Boolean(choice.correct),
             };
         });
 

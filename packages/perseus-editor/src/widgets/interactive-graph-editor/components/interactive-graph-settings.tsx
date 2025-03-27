@@ -20,6 +20,7 @@ import Heading from "../../../components/heading";
 import LabeledRow from "../locked-figures/labeled-row";
 
 import type {
+    AxisLabelLocation,
     MarkingsType,
     PerseusImageBackground,
 } from "@khanacademy/perseus-core";
@@ -49,6 +50,13 @@ type Props = {
      * The labels for the x and y axes.
      */
     labels: ReadonlyArray<string>;
+    /**
+     * Specifies the location of the labels on the graph.  default: "onAxis".
+     * - "onAxis": Labels are positioned on the axis at the right (x) and top (y) of the graph.
+     * - "alongEdge": Labels are centered along the bottom (x) and left (y) edges of the graph.
+     *    The y label is rotated. Typically used when the range min is near 0 with longer labels.
+     */
+    labelLocation: AxisLabelLocation;
     /**
      * The range of the graph.
      */
@@ -99,6 +107,7 @@ type Props = {
 type State = {
     isExpanded: boolean;
     labelsTextbox: ReadonlyArray<string>;
+    labelLocation: AxisLabelLocation;
     gridStepTextbox: [x: number, y: number];
     snapStepTextbox: [x: number, y: number];
     stepTextbox: [x: number, y: number];
@@ -116,6 +125,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     static stateFromProps(props: Props) {
         return {
             labelsTextbox: props.labels,
+            labelLocation: props.labelLocation,
             gridStepTextbox: props.gridStep,
             snapStepTextbox: props.snapStep,
             stepTextbox: props.step,
@@ -140,6 +150,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             interactiveSizes.defaultBoxSizeSmall,
         ],
         labels: ["$x$", "$y$"],
+        labelLocation: "onAxis",
         range: [
             [-10, 10],
             [-10, 10],
@@ -165,6 +176,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     UNSAFE_componentWillReceiveProps(nextProps) {
         if (
             !_.isEqual(this.props.labels, nextProps.labels) ||
+            !_.isEqual(this.props.labelLocation, nextProps.labelLocation) ||
             !_.isEqual(this.props.gridStep, nextProps.gridStep) ||
             !_.isEqual(this.props.snapStep, nextProps.snapStep) ||
             !_.isEqual(this.props.step, nextProps.step) ||
@@ -399,6 +411,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
 
     changeGraph = () => {
         const labels = this.state.labelsTextbox;
+        const labelLocation = this.state.labelLocation;
         const range = _.map(this.state.rangeTextbox, function (range) {
             return _.map(range, Number);
         });
@@ -425,6 +438,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             this.change({
                 valid: true,
                 labels: labels,
+                labelLocation: labelLocation,
                 range: range,
                 step: step,
                 gridStep: gridStep,
@@ -452,6 +466,26 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                 {this.state.isExpanded && (
                     <View>
                         <div className="graph-settings">
+                            <div className="perseus-widget-row">
+                                <LabeledRow label="Label Location">
+                                    <ButtonGroup
+                                        value={this.props.labelLocation}
+                                        allowEmpty={false}
+                                        buttons={[
+                                            {
+                                                value: "onAxis",
+                                                content: "On Axis",
+                                            },
+                                            {
+                                                value: "alongEdge",
+                                                content: "Along Graph Edge",
+                                            },
+                                        ]}
+                                        onChange={this.change("labelLocation")}
+                                    />
+                                </LabeledRow>
+                            </div>
+
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">
                                     <LabeledRow label="x Label">

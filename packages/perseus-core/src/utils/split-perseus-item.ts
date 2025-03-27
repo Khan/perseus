@@ -5,6 +5,11 @@ import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
 import type {PerseusRenderer} from "../data-schema";
 
+/**
+ * Return a copy of a Perseus item with rubric data removed (ie answers)
+ *
+ * @param originalItem - the original, full Perseus item (which includes the rubric - aka answer data)
+ */
 export default function splitPerseusItem(
     originalItem: PerseusRenderer,
 ): PerseusRenderer {

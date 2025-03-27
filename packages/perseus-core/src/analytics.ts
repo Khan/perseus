@@ -16,17 +16,6 @@ export type PerseusAnalyticsEvent =
           type: "perseus:expression-focused";
           payload: null;
       }
-    // TODO(LEMS-2826): Remove this error type in LEMS-2826
-    | {
-          type: "perseus:widget-rendering-error";
-          payload: {
-              widgetSubType: string;
-              widgetType: string;
-              widgetId: string;
-              message: string;
-              userAgent: string;
-          };
-      }
     | {
           type: "perseus:widget-rendering-error:ti";
           payload: {

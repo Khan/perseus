@@ -1,4 +1,4 @@
-import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusPlotterWidgetOptions} from "../../data-schema";
 
 /**
  * For details on the individual options, see the

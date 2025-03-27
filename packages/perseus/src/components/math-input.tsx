@@ -283,8 +283,12 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         //   a keyboard event is "keydown" type.
         //   In react without WonderBlocks, "enter" or "space" keydown events
         //   are also "click" events, differentiated by "detail".
-        if (e.type === "click") {
+        if (e?.type === "click") {
             this.focus();
+        }
+
+        if (key === "DISMISS") {
+            this.closeKeypad();
         }
     };
 
@@ -341,10 +345,9 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         onBlur={() => this.blur()}
                     />
                     <Popover
-                        rootBoundary="document"
                         opened={this.state.keypadOpen}
-                        onClose={() => this.closeKeypad()}
                         dismissEnabled
+                        rootBoundary="document"
                         aria-label={this.context.strings.mathInputTitle}
                         aria-describedby={`popover-content-${popoverContentUniqueId}`}
                         content={() => (
@@ -356,7 +359,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                     {this.context.strings.mathInputDescription}
                                 </HeadingMedium>
                                 <PopoverContentCore
-                                    closeButtonVisible
                                     style={styles.popoverContent}
                                 >
                                     <DesktopKeypad
@@ -373,6 +375,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                             mapButtonSets(
                                                 this.props?.buttonSets,
                                             ))}
+                                        showDismiss
                                     />
                                 </PopoverContentCore>
                             </>
@@ -555,7 +558,6 @@ const styles = StyleSheet.create({
     },
     popoverContent: {
         padding: 0,
-        paddingBottom: spacing.xxSmall_6,
         maxWidth: "initial",
     },
 });

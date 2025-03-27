@@ -7,7 +7,6 @@ import {
     usePerseusI18n,
     type I18nContextType,
 } from "../../../components/i18n-context";
-import a11y from "../../../util/a11y";
 import {snap} from "../math";
 import {isInBound} from "../math/box";
 import {actions} from "../reducer/interactive-graph-action";
@@ -20,6 +19,7 @@ import {bound, TARGET_SIZE} from "../utils";
 
 import {PolygonAngle} from "./components/angle-indicators";
 import {MovablePoint} from "./components/movable-point";
+import SRDescInSVG from "./components/sr-description-within-svg";
 import {TextLabel} from "./components/text-label";
 import {srFormatNumber} from "./screenreader-text";
 import {useDraggable} from "./use-draggable";
@@ -312,6 +312,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         ? `${srPolygonElementsNum} ${srPolygonGraphPoints}`
                         : srPolygonElementsNum,
                     "aria-live": ariaLives[0],
+                    "aria-disabled": disableKeyboardInteraction,
                 }}
             />
             {points.map((point, i) => {
@@ -373,7 +374,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             }}
                         />
                         {angleDegree && (
-                            <g id={angleId}>
+                            <SRDescInSVG id={angleId}>
                                 {Number.isInteger(angleDegree)
                                     ? strings.srPolygonPointAngle({
                                           angle: angleDegree,
@@ -385,36 +386,36 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                                               1,
                                           ),
                                       })}
-                            </g>
+                            </SRDescInSVG>
                         )}
-                        <g id={side1Id}>
+                        <SRDescInSVG id={side1Id}>
                             {getPolygonSideString(
                                 side1Length,
                                 point1Index,
                                 strings,
                                 locale,
                             )}
-                        </g>
-                        <g id={side2Id}>
+                        </SRDescInSVG>
+                        <SRDescInSVG id={side2Id}>
                             {getPolygonSideString(
                                 side2Length,
                                 point2Index,
                                 strings,
                                 locale,
                             )}
-                        </g>
+                        </SRDescInSVG>
                     </g>
                 );
             })}
             {/* Hidden elements to provide the descriptions for the
                 `aria-describedby` properties */}
-            <g id={polygonPointsNumId} style={a11y.srOnly}>
+            <SRDescInSVG id={polygonPointsNumId}>
                 {srPolygonGraphPointsNum}
-            </g>
+            </SRDescInSVG>
             {srPolygonGraphPoints && (
-                <g id={polygonPointsId} style={a11y.srOnly}>
+                <SRDescInSVG id={polygonPointsId}>
                     {srPolygonGraphPoints}
-                </g>
+                </SRDescInSVG>
             )}
         </g>
     );
@@ -567,7 +568,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                             }}
                         />
                         {angleDegree && (
-                            <g id={angleId}>
+                            <SRDescInSVG id={angleId}>
                                 {Number.isInteger(angleDegree)
                                     ? strings.srPolygonPointAngle({
                                           angle: angleDegree,
@@ -579,10 +580,10 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                                               1,
                                           ),
                                       })}
-                            </g>
+                            </SRDescInSVG>
                         )}
                         {sidesArray.map(({pointIndex, sideLength}, j) => (
-                            <g
+                            <SRDescInSVG
                                 key={`${id}-point-${i}-side-${j}`}
                                 id={`${id}-point-${i}-side-${j}`}
                             >
@@ -592,7 +593,7 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                                     strings,
                                     locale,
                                 )}
-                            </g>
+                            </SRDescInSVG>
                         ))}
                     </g>
                 );
@@ -600,14 +601,14 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
             {/* Hidden elements to provide the descriptions for the
                 `aria-describedby` properties */}
             {coords.length > 0 && (
-                <g id={polygonPointsNumId} style={a11y.srOnly}>
+                <SRDescInSVG id={polygonPointsNumId}>
                     {srPolygonGraphPointsNum}
-                </g>
+                </SRDescInSVG>
             )}
             {srPolygonGraphPoints && (
-                <g id={polygonPointsId} style={a11y.srOnly}>
+                <SRDescInSVG id={polygonPointsId}>
                     {srPolygonGraphPoints}
-                </g>
+                </SRDescInSVG>
             )}
         </g>
     );

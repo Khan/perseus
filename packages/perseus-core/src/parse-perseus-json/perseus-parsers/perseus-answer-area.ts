@@ -2,7 +2,7 @@ import {object, pipeParsers} from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
-import type {PerseusAnswerArea} from "@khanacademy/perseus-core";
+import type {PerseusAnswerArea} from "../../data-schema";
 
 export const parsePerseusAnswerArea = pipeParsers(
     defaulted(object({}), () => ({})),

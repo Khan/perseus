@@ -1,10 +1,10 @@
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
-import a11y from "../../../util/a11y";
 import {actions} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
+import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
 
 import type {I18nContextType} from "../../../components/i18n-context";
@@ -74,9 +74,7 @@ const RayGraph = (props: Props) => {
             />
             {/* Hidden elements to provide the descriptions for the
                 `aria-describedby` properties. */}
-            <g id={pointsDescriptionId} style={a11y.srOnly}>
-                {srRayPoints}
-            </g>
+            <SRDescInSVG id={pointsDescriptionId}>{srRayPoints}</SRDescInSVG>
         </g>
     );
 };

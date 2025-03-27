@@ -1,3 +1,4 @@
+import {splitPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
@@ -40,4 +41,8 @@ export const DropdownWithEmptyPlaceholder = (
     args: StoryArgs,
 ): React.ReactElement => {
     return <RendererWithDebugUI question={dropdownWithEmptyPlaceholder} />;
+};
+
+export const DropdownWithNoAnswers = (args: StoryArgs): React.ReactElement => {
+    return <RendererWithDebugUI question={splitPerseusItem(basicDropdown)} />;
 };

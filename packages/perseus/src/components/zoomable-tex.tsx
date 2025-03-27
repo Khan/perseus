@@ -22,9 +22,7 @@ const computeMathBounds = (
     parentNode: HTMLElement,
     parentBounds: {width: number; height: number},
 ) => {
-    const textElement =
-        parentNode.querySelector(".katex-html") ||
-        parentNode.querySelector(".MathJax");
+    const textElement = parentNode.querySelector(".MathJax");
     const textBounds = {
         // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element'.
         width: textElement.offsetWidth,

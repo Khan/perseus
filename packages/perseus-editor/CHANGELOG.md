@@ -1,5 +1,113 @@
 # @khanacademy/perseus-editor
 
+## 18.2.2
+
+### Patch Changes
+
+-   [#2322](https://github.com/Khan/perseus/pull/2322) [`4bd882b43`](https://github.com/Khan/perseus/commit/4bd882b43b15d9d3d5ca850f5148eba57c7dca59) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change how version injection code is shared/bundled
+
+-   Updated dependencies [[`7b76274f0`](https://github.com/Khan/perseus/commit/7b76274f0bd362d0f2df3e45f47ecc3545ecfdd0), [`11a3b8b24`](https://github.com/Khan/perseus/commit/11a3b8b24aa05fa9774bbb8ef1c73a249f368a9e), [`5b6e9df5b`](https://github.com/Khan/perseus/commit/5b6e9df5b6bcacf7646475ff7884415b815f68c5), [`2e26c0872`](https://github.com/Khan/perseus/commit/2e26c087224d620c3a8babcbfe4832e75b5e0269), [`7a60db8e8`](https://github.com/Khan/perseus/commit/7a60db8e8d61119930dda0a80118c4b99b183a60), [`ca06cb806`](https://github.com/Khan/perseus/commit/ca06cb80686b8b414766d9b1d91a48fa4b71994c), [`4bd882b43`](https://github.com/Khan/perseus/commit/4bd882b43b15d9d3d5ca850f5148eba57c7dca59)]:
+    -   @khanacademy/math-input@23.0.6
+    -   @khanacademy/perseus@57.2.2
+    -   @khanacademy/kmath@0.4.7
+    -   @khanacademy/perseus-core@5.4.2
+    -   @khanacademy/perseus-score@2.3.7
+    -   @khanacademy/kas@0.5.1
+    -   @khanacademy/keypad-context@1.1.7
+    -   @khanacademy/perseus-linter@1.3.7
+    -   @khanacademy/perseus-utils@0.0.2
+    -   @khanacademy/pure-markdown@0.4.1
+
+## 18.2.1
+
+### Patch Changes
+
+-   Updated dependencies [[`1b5f51415`](https://github.com/Khan/perseus/commit/1b5f514159c25fd0eb760cb6d20cab62a813cca4), [`c170c1d3c`](https://github.com/Khan/perseus/commit/c170c1d3c59e67e382d132aa7058260f876121fc), [`87420d7d3`](https://github.com/Khan/perseus/commit/87420d7d3aa1285a29c9f0c94fcead9ec4ae657d), [`4c0b317c3`](https://github.com/Khan/perseus/commit/4c0b317c357ac06277a58e5d6ae83dc4dfa04189), [`335940746`](https://github.com/Khan/perseus/commit/3359407467fe5d36b4c5600da29c4ce623a2ef28), [`3b0b1c700`](https://github.com/Khan/perseus/commit/3b0b1c70006d2574004141bffbafbbfcd528e76f)]:
+    -   @khanacademy/perseus-core@5.4.1
+    -   @khanacademy/perseus-score@2.3.6
+    -   @khanacademy/perseus@57.2.1
+    -   @khanacademy/keypad-context@1.1.6
+    -   @khanacademy/kmath@0.4.6
+    -   @khanacademy/math-input@23.0.5
+    -   @khanacademy/perseus-linter@1.3.6
+
+## 18.2.0
+
+### Minor Changes
+
+-   [#2316](https://github.com/Khan/perseus/pull/2316) [`3c8ff9936`](https://github.com/Khan/perseus/commit/3c8ff993615a7224a18250f4a7e96a55ab5c724d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add new labelLocation value for Interactive Graphs
+
+### Patch Changes
+
+-   [#2317](https://github.com/Khan/perseus/pull/2317) [`8043df235`](https://github.com/Khan/perseus/commit/8043df235640fbbb863a2c468183f9783a8cc109) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bugfix to ensure numCorrect is calculated correctly while in Radio Editor
+
+-   Updated dependencies [[`3c8ff9936`](https://github.com/Khan/perseus/commit/3c8ff993615a7224a18250f4a7e96a55ab5c724d)]:
+    -   @khanacademy/perseus@57.2.0
+    -   @khanacademy/perseus-core@5.4.0
+    -   @khanacademy/keypad-context@1.1.5
+    -   @khanacademy/kmath@0.4.5
+    -   @khanacademy/math-input@23.0.4
+    -   @khanacademy/perseus-linter@1.3.5
+    -   @khanacademy/perseus-score@2.3.5
+
+## 18.1.0
+
+### Minor Changes
+
+-   [#2314](https://github.com/Khan/perseus/pull/2314) [`48bc498f8`](https://github.com/Khan/perseus/commit/48bc498f88f98e817ea426924cbc0b016e5802b9) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Revert labelLocation
+
+### Patch Changes
+
+-   Updated dependencies [[`48bc498f8`](https://github.com/Khan/perseus/commit/48bc498f88f98e817ea426924cbc0b016e5802b9)]:
+    -   @khanacademy/perseus@57.1.0
+    -   @khanacademy/perseus-core@5.3.0
+    -   @khanacademy/keypad-context@1.1.4
+    -   @khanacademy/kmath@0.4.4
+    -   @khanacademy/math-input@23.0.3
+    -   @khanacademy/perseus-linter@1.3.4
+    -   @khanacademy/perseus-score@2.3.4
+
+## 18.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`7be7a42d6`](https://github.com/Khan/perseus/commit/7be7a42d6c86c5aa45e0419162c2a6f2c0426fc8), [`1e67022c9`](https://github.com/Khan/perseus/commit/1e67022c9782c78b5beb59bb750014b52741d337)]:
+    -   @khanacademy/perseus@57.0.1
+
+## 18.0.0
+
+### Major Changes
+
+-   [#2303](https://github.com/Khan/perseus/pull/2303) [`5e7a6084c`](https://github.com/Khan/perseus/commit/5e7a6084ca141db5c908da2c4b2ffd959e7c5683) Thanks [@benchristel](https://github.com/benchristel)! - Drop support for using KaTeX as a math renderer. You may encounter styling issues or TeX syntax errors if you try to implement `PerseusDependencies.TeX` using KaTeX.
+
+### Minor Changes
+
+-   [#2284](https://github.com/Khan/perseus/pull/2284) [`0d5ab0b2e`](https://github.com/Khan/perseus/commit/0d5ab0b2e5d079b8ac805077a2abad6bc5b2132d) Thanks [@nishasy](https://github.com/nishasy)! - Add new labelLocation value for Interactive Graphs
+
+### Patch Changes
+
+-   Updated dependencies [[`0d5ab0b2e`](https://github.com/Khan/perseus/commit/0d5ab0b2e5d079b8ac805077a2abad6bc5b2132d), [`fea65eaf1`](https://github.com/Khan/perseus/commit/fea65eaf12918e7e1b1e893bea80549e69313ce2), [`9737eb497`](https://github.com/Khan/perseus/commit/9737eb497861dd2283eb24e39eb9771a07391aa5), [`dd7b13a78`](https://github.com/Khan/perseus/commit/dd7b13a7881738e2a85d253f25b04243caf2b9a4), [`af6d89007`](https://github.com/Khan/perseus/commit/af6d890076adb186c6ba237a2d766b99e3eb75ff), [`5e7a6084c`](https://github.com/Khan/perseus/commit/5e7a6084ca141db5c908da2c4b2ffd959e7c5683)]:
+    -   @khanacademy/perseus@57.0.0
+    -   @khanacademy/perseus-core@5.2.0
+    -   @khanacademy/keypad-context@1.1.3
+    -   @khanacademy/kmath@0.4.3
+    -   @khanacademy/math-input@23.0.2
+    -   @khanacademy/perseus-linter@1.3.3
+    -   @khanacademy/perseus-score@2.3.3
+
+## 17.9.2
+
+### Patch Changes
+
+-   Updated dependencies [[`91e30c02c`](https://github.com/Khan/perseus/commit/91e30c02c15ddc7c811b658bdb052172739a690a), [`254fa3605`](https://github.com/Khan/perseus/commit/254fa360518ffd78cd26a0fb47fec2d53d9db948), [`59b932619`](https://github.com/Khan/perseus/commit/59b93261916bb3583ee84396693d84fe796aa5d4)]:
+    -   @khanacademy/perseus@56.2.0
+    -   @khanacademy/perseus-core@5.1.0
+    -   @khanacademy/math-input@23.0.1
+    -   @khanacademy/keypad-context@1.1.2
+    -   @khanacademy/kmath@0.4.2
+    -   @khanacademy/perseus-linter@1.3.2
+    -   @khanacademy/perseus-score@2.3.2
+
 ## 17.9.1
 
 ### Patch Changes
