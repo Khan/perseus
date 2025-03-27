@@ -13,36 +13,38 @@ import {
 } from "./internal/pre-publish-utils";
 import {verifyCatalogHashes} from "./internal/verify-catalog-hashes";
 
+function isFalsey(value: unknown): boolean {
+    return !value;
+}
+
 const pkgPaths = fg.globSync(
     path.join(__dirname, "..", "packages", "*", "package.json"),
 );
 
-let allPassed = true;
-for (const pkgPath of pkgPaths) {
+const results = pkgPaths.flatMap((pkgPath) => {
     // eslint-disable-next-line @typescript-eslint/no-require-imports
     const pkgJson = require(pkgPath);
-
-    allPassed =
-        checkPrivate(pkgJson) &&
-        checkPublishConfig(pkgJson) &&
-        checkExports(pkgJson) &&
-        allPassed;
-}
+    return [
+        checkPrivate(pkgJson),
+        checkPublishConfig(pkgJson),
+        checkExports(pkgJson),
+    ];
+});
 
 // Verify catalog hashes are up-to-date
 console.log("\n🔍 Verifying catalog hashes...");
 const catalogHashResult = verifyCatalogHashes();
-if (!catalogHashResult.success) {
+const catalogOk = catalogHashResult.success;
+if (!catalogOk) {
     console.error("\n❌ Catalog hash verification failed:\n");
     for (const err of catalogHashResult.errors) {
         console.error(`  - ${err}`);
     }
     console.error("\nTo fix, run: pnpm update-catalog-hashes\n");
-    allPassed = false;
 } else {
     console.log("✅ All catalog hashes are up-to-date");
 }
 
-if (!allPassed) {
+if (results.some(isFalsey) || !catalogOk) {
     process.exit(1);
 }
