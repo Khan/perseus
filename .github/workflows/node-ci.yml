@@ -130,10 +130,9 @@ jobs:
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
                   files: >
-                    jest.config.js, test.config.js, config/test/,
-                    package.json, pnpm-lock.yaml,
-                    babel.config.js, config/build/babel.config.js
-
+                      jest.config.js, test.config.js, config/test/,
+                      package.json, pnpm-lock.yaml,
+                      babel.config.js, config/build/babel.config.js
 
             - name: Jest
               uses: Khan/actions@full-or-limited-v0
