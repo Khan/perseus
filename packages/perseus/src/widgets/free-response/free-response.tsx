@@ -70,11 +70,10 @@ export class FreeResponse
             return null;
         }
 
-        const counts = {
+        const characterCountText = this.context.strings.characterCount({
             used: this.characterCount(),
             num: this.props.characterLimit,
-        };
-        const characterLimitText = this.context.strings.characterCount(counts);
+        });
 
         return (
             <View>
@@ -93,7 +92,7 @@ export class FreeResponse
                         />
                     )}
 
-                    {characterLimitText}
+                    {characterCountText}
                 </Text>
             </View>
         );
