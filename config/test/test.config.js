@@ -1,10 +1,9 @@
 /* eslint-disable import/no-commonjs */
 /**
- * This is the main jest config.  It runs tests using the default
- * test environment: jest-environment-node.
+ * This is the main jest config.
  */
-const fs = require("fs");
-const path = require("path");
+const fs = require("node:fs");
+const path = require("node:path");
 
 const ancesdir = require("ancesdir");
 const fg = require("fast-glob");
@@ -13,25 +12,24 @@ const root = ancesdir(__dirname);
 const vendorMap = fg
     .globSync(path.join(root, "vendor/*/package.json"))
     .reduce((map, pkgJsonPath) => {
-        const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath).toString());
+        const pkgJson = require(pkgJsonPath);
+        const packageDirName = path.basename(path.dirname(pkgJsonPath));
         return {
             ...map,
-            [`^${pkgJson.name}$`]: `<rootDir>/vendor/${pkgJson.name}/${pkgJson.main}`,
+            [pkgJson.name]: `<rootDir>/vendor/${packageDirName}/${pkgJson.main}`,
         };
     }, {});
 
 const pkgMap = fg
     .globSync(path.join(root, "packages/*/package.json"))
     .reduce((map, pkgJsonPath) => {
-        const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath).toString());
+        const pkgJson = require(pkgJsonPath);
+        const packageDirName = path.basename(path.dirname(pkgJsonPath));
         return {
             ...map,
             // NOTE(kevinb): we use the 'source' field here so that we can run our
             // tests without having to compile all of the packages first.
-            // NOTE(jeremy): We use strip the leading "@khanacademy/" namespace
-            // from all package names because our local directory structure
-            // doesn't include that. So "@khanacademy/perseus" becomes "perseus"
-            [`^${pkgJson.name}$`]: `<rootDir>/packages/${pkgJson.name.replace(/^@khanacademy\//, "")}/${pkgJson.source}`,
+            [pkgJson.name]: `<rootDir>/packages/${packageDirName}/${pkgJson.exports["."].source.slice(2)}`,
         };
     }, {});
 

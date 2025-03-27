@@ -1,20 +1,25 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 /* eslint-disable import/no-commonjs */
-const fs = require("fs");
+const fg = require("fast-glob");
 const path = require("path");
 
-const pkgNames = fs
-    .readdirSync(path.join(__dirname, "packages"))
-    .filter((name) => name !== ".DS_Store");
+const pkgAliases = fg
+    .globSync(path.join(__dirname, "packages/*/package.json"))
+    .map((pkgJsonPath) => {
+        const pkgJson = require(pkgJsonPath);
+        const packageDirName = path.basename(path.dirname(pkgJsonPaths));
+        return [
+            pkgJson.name,
+            `./packages/${packageDirName}/${pkgJson.exports["."].source.slice(2)}`,
+        ];
+    });
 
-const pkgAliases = pkgNames.map((pkgName) => {
-    return [`@khanacademy/${pkgName}`, `./packages/${pkgName}/src/index.js`];
-});
-
-const vendorAliases = fs
-    .readdirSync(path.join(__dirname, "vendor"))
-    .map((name) => {
-        return [name, `./vendor/${name}`];
+const vendorAliases = fg
+    .globSync(path.join(__dirname, "vendor/*/package.json"))
+    .map((pkgJsonPath) => {
+        const pkgJson = require(pkgJsonPath);
+        const packageDirName = path.basename(path.dirname(pkgJsonPaths));
+        return [pkgJson.name, `./vendor/${packageDirName}/${pkgJson.main}`];
     });
 
 const allAliases = [...pkgAliases, ...vendorAliases];
