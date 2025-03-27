@@ -297,6 +297,7 @@ export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
             backgroundImage: optional(parsePerseusImageBackground),
             markings: enumeration("graph", "grid", "none"),
             labels: optional(array(string)),
+            labelLocation: enumeration("onAxis", "alongEdge"),
             showProtractor: boolean,
             showRuler: optional(boolean),
             showTooltips: optional(boolean),
