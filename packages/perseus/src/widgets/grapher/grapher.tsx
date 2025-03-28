@@ -155,11 +155,8 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         const dashed = {
             strokeDasharray: "- ",
         } as const;
-        /* eslint-disable no-console */
-        console.log("rendering asymptote", asymptote);
+        const showAsymptote = asymptote?.length > 0;
 
-        const showAsymptote = asymptote && asymptote.length > 0;
-        console.log("showAsymptote", showAsymptote);
         return (
             showAsymptote && (
                 <MovableLine
@@ -202,7 +199,6 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     normalStyle={dashed}
                     highlightStyle={dashed}
                 >
-                    {console.log("WE SHOULD NOT BE HERE 2")}
                     {_.map(asymptote, (coord, i) => (
                         <MovablePoint
                             key={`asymptoteCoord-${i}`}
@@ -649,7 +645,6 @@ const propTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
 const staticTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
     editorProps,
 ) => {
-    console.log("staticTransform editorProps", editorProps);
     const returnProps = {
         ...propTransform(editorProps),
         // Don't display graph type choices if we're in static mode
@@ -658,7 +653,6 @@ const staticTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
         plot: editorProps.correct,
     };
 
-    console.log("returnProps", returnProps);
     return returnProps;
 };
 

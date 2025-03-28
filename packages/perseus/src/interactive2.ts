@@ -13,8 +13,6 @@ const Interactive2 = {
     MovableLine: MovableLine,
     addMovableLine: function (graphie: any, options: any): any {
         const movable = new Movable(graphie, {});
-        /* eslint-disable no-console */
-        console.log("Interactive 2 addMovableLine", graphie, movable, options);
         return new MovableLine(graphie, movable, options);
     },
     MovablePolygon: MovablePolygon,

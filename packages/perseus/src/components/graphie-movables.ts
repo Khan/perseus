@@ -93,8 +93,6 @@ const MovableLine: any = GraphieClasses.createClass({
         // Add MovablePoint children
         const points = _.pluck(this.props.children, "point");
 
-        /* eslint-disable no-console */
-        console.log("MovableLine add", this.props, points);
         const props = _.extend({}, this.props, {
             points: points,
         });
