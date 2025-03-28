@@ -1,5 +1,5 @@
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {mockStrings} from "../../strings";
@@ -79,6 +79,7 @@ export function V2KeypadWithMathquill() {
                     <PopoverContentCore
                         style={{
                             padding: 0,
+                            paddingBottom: spacing.xxSmall_6,
                             maxWidth: "initial",
                         }}
                     >
