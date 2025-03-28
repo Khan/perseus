@@ -19,6 +19,7 @@ export const getPromptJSON = (
     renderProps: React.ComponentProps<typeof radio.widget>,
     userInput: PerseusRadioUserInput,
 ): RadioPromptJSON => {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const choices = renderProps.choices || [];
 
     const options = choices.map((choice) => {

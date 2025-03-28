@@ -197,6 +197,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     aria-label={fullGraphAriaLabel}
                     aria-describedby={describedByIds(
                         fullGraphAriaDescription && descriptionId,
+                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         interactiveElementsDescription &&
                             interactiveElementsDescriptionId,
                         isUnlimitedGraphState(state) &&
@@ -223,6 +224,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             {fullGraphAriaDescription}
                         </View>
                     )}
+                    {/*
+                      eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                    */}
                     {interactiveElementsDescription && (
                         <View
                             id={interactiveElementsDescriptionId}

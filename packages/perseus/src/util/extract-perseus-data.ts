@@ -33,6 +33,7 @@ function getAnswersFromWidgets(
     keys(widgets).forEach((widgetID) => {
         const widget = widgets[widgetID];
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!widget.options) {
             return;
         }
@@ -42,6 +43,7 @@ function getAnswersFromWidgets(
                 const radio = widget;
                 const options = radio.options;
                 // Answer is the content of the correct choice
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (options?.choices?.length) {
                     for (const choice of options.choices) {
                         if (choice?.correct) {
@@ -55,8 +57,11 @@ function getAnswersFromWidgets(
                 // e.g. ['item 1: category 1', 'item 2: category 2']
                 const categorizer = widget;
                 if (
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     categorizer.options?.categories &&
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     categorizer.options?.items &&
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     categorizer.options?.values
                 ) {
                     const categories = categorizer.options?.categories;
@@ -73,6 +78,7 @@ function getAnswersFromWidgets(
             case "dropdown":
                 // Answer is the content of correct dropdown option
                 const dropdown = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (dropdown.options?.choices) {
                     for (const choice of dropdown.options.choices) {
                         if (choice.correct) {
@@ -84,6 +90,7 @@ function getAnswersFromWidgets(
             case "numeric-input":
                 // Answer is the numeric value cast to a string
                 const numericInput = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (numericInput.options?.answers) {
                     for (const ans of numericInput.options.answers) {
                         if (ans.status === "correct" && ans.value != null) {
@@ -95,6 +102,7 @@ function getAnswersFromWidgets(
             case "input-number":
                 // Answer is the correct value
                 const inputNumber = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (inputNumber.options?.value) {
                     answers.push(inputNumber.options.value.toString());
                 }
@@ -103,6 +111,7 @@ function getAnswersFromWidgets(
                 // Answer is a list of potential correct expressions,
                 // since there can be multiple correct forms of the expression
                 const expression = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (expression.options?.answerForms) {
                     answers.push(
                         ...expression.options.answerForms.map(
@@ -117,6 +126,7 @@ function getAnswersFromWidgets(
                 // call this function to get the nested answers from the
                 // group's widgets
                 const gradedGroup = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (gradedGroup.options?.widgets) {
                     answers.push(
                         ...getAnswersFromWidgets(gradedGroup.options.widgets),
@@ -129,7 +139,9 @@ function getAnswersFromWidgets(
                 // Tennis: 30}'
                 const plotter = widget;
                 if (
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     plotter.options?.categories &&
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     plotter.options?.correct &&
                     plotter.options.categories.length ===
                         plotter.options.correct.length
@@ -165,6 +177,7 @@ function getAnswersFromWidgets(
                 // in the correct order on newlines
                 // E.g. 'item 1\nitem 2\nitem 3'
                 const orderer = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (orderer.options?.correctOptions) {
                     answers.push(
                         joinOptionContents(orderer.options.correctOptions),
@@ -176,6 +189,7 @@ function getAnswersFromWidgets(
                 // separated by commas
                 // E.g. 'item 1, item 2, item 3'
                 const sorter = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (sorter.options?.correct) {
                     answers.push(sorter.options.correct.join(", "));
                 }
@@ -184,6 +198,7 @@ function getAnswersFromWidgets(
                 // Answer is a list of labels, their positions, and their answer
                 // E.g. '{label: "label 1", position: {x: 0.5, y: 0.5}, answer: "answer 1"}'
                 const labelImage = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (labelImage.options?.markers) {
                     answers.push(
                         ...labelImage.options.markers.map(
@@ -207,6 +222,7 @@ function getAnswersFromWidgets(
                 // Answer is a list of rows representing the matrix
                 // E.g. '[[1, 2], [3, 4]]'
                 const matrix = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (matrix.options?.answers) {
                     answers.push(`[${matrix.options.answers.join("], [")}]`);
                 }
@@ -215,6 +231,7 @@ function getAnswersFromWidgets(
                 // Answer is a table of the left and right items
                 // E.g. '| Left | Right |\n| --- | --- |\n| left item 1 | right item 1 |\n| left item 2 | right item 2 |'
                 const matcher = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (matcher.options?.left && matcher.options?.right) {
                     const {left, right} = matcher.options;
                     const [leftHeader, rightHeader] = matcher.options.labels;
@@ -275,6 +292,7 @@ function injectWidgets(
     if (!content) {
         return "";
     }
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!widgets) {
         return content;
     }
@@ -284,6 +302,7 @@ function injectWidgets(
     keys(widgets).forEach((widgetID) => {
         const widget = widgets[widgetID];
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!widget.options) {
             return;
         }
@@ -300,6 +319,7 @@ function injectWidgets(
                     | PerseusRadioWidgetOptions
                     | null
                     | undefined;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (radio.options?.choices?.length) {
                     let radioContext = joinOptionContents(
                         radioProps
@@ -382,6 +402,7 @@ function injectWidgets(
                 // '[[☃ Group 1]]' -> 'Nested question\n[[☃ Radio 1]]'
                 //      -> 'Nested question\noption 1\noption 2\noption 3'
                 const group = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (group.options?.widgets && group.options.content) {
                     context = context.replace(
                         `[[☃ ${widgetID}]]`,
@@ -397,11 +418,13 @@ function injectWidgets(
                 // '[[☃ Graded Group Set 1]]'
                 //      -> 'Nested question 1\noption 1\noption 2\noption 3\nNested question 2\noption 1\noption 2\noption 3'
                 const gradedGroup = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (gradedGroup.options?.gradedGroups) {
                     const gradedGroups = gradedGroup.options.gradedGroups;
 
                     const gradedGroupsContent = gradedGroups.reduce(
                         (acc, group) => {
+                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                             if (group.widgets && group.content) {
                                 acc +=
                                     injectWidgets(
@@ -430,7 +453,9 @@ function injectWidgets(
                 // '''
                 const categorizer = widget;
                 if (
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     categorizer.options?.categories &&
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     categorizer.options.items
                 ) {
                     const categories = categorizer.options.categories;
@@ -447,6 +472,7 @@ function injectWidgets(
                 // Replace dropdown with the dropdown options
                 // '[[☃ Dropdown 1]]' -> '[option 1 | option 2 | option 3]'
                 const dropdown = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (dropdown.options?.choices) {
                     const choices = dropdown.options.choices.map(
                         (choice) => choice.content,
@@ -474,6 +500,7 @@ function injectWidgets(
                 // Replace orderer with the orderer options
                 // '[[☃ Orderer 1]]' -> 'option 1\noption 2\noption 3'
                 const orderer = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (orderer.options?.options) {
                     context = context.replace(
                         `[[☃ ${widgetID}]]`,
@@ -486,6 +513,7 @@ function injectWidgets(
                 // NOTE(chase): These are already in the correct order
                 // '[[☃ Sorter 1]]' -> '[option 1 | option 2 | option 3]'
                 const sorter = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (sorter.options?.correct) {
                     const choices = sorter.options.correct;
                     context = context.replace(
@@ -540,6 +568,7 @@ function injectWidgets(
                 // Replace matcher with a table representing the left and right columns
                 // '[[☃ Matcher 1]]' -> '| Left Column | Right Column |\n| --- | --- |\n| option 1 | option 2 |\n| option 3 | option 4 |'
                 const matcher = widget;
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (matcher.options?.left && matcher.options?.right) {
                     const {left, right} = matcher.options;
                     const [leftHeader, rightHeader] = matcher.options.labels;
@@ -587,6 +616,7 @@ function injectWidgets(
  * @returns a stringified list of {widgetId, imageUrl} for imgs that don't have alt text
  */
 function getImagesWithoutAltData(perseusRenderer: PerseusRenderer): string {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!perseusRenderer.widgets) {
         return "";
     }
@@ -594,6 +624,7 @@ function getImagesWithoutAltData(perseusRenderer: PerseusRenderer): string {
     const imgsWithoutAltData: {imgUrl: string; widgetId: string}[] = [];
 
     Object.entries(perseusRenderer.widgets).forEach(([widgetId, widget]) => {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!widget.options) {
             return;
         }

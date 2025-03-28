@@ -247,6 +247,7 @@ export function getCursorContext(
 
     // If that didn't work, check if the parent or grandparent is a special
     // context, so that we can jump outwards.
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (isParens(cursor.parent && cursor.parent.parent)) {
         return CursorContext.IN_PARENS;
     } else if (isNumerator(cursor.parent)) {

@@ -192,6 +192,26 @@ module.exports = {
                 "@typescript-eslint/no-unused-expressions": "off",
             },
         },
+        {
+            files: ["*.ts", "*.tsx"],
+            parser: "@typescript-eslint/parser",
+            parserOptions: {
+                project: ["tsconfig.json"],
+            },
+            rules: {
+                "@typescript-eslint/strict-boolean-expressions": [
+                    "error",
+                    {
+                        allowNumber: false, // Prevents using numbers as booleans (if (0))
+                        allowAny: true, // Allow any type to bypass the rule
+                        allowNullableBoolean: true, // Allow nullable booleans in conditionals (e.g., `null` or `undefined`)
+                        allowNullableString: true,
+                        allowNullableNumber: true,
+                    },
+                ],
+            },
+            excludedFiles: ["*.d.ts", "*.config.ts", "**/*.cypress.ts"],
+        },
     ],
     rules: {
         "max-lines": "off",
