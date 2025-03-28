@@ -55,6 +55,12 @@ const createOutputConfig = (pkgName, format, targetFile) => ({
     sourcemap: true,
     format,
 
+    // These two settings are to keep the builds as similar to pre-Rollup v4 as
+    // possible until we get rid of CJS builds.
+    // See: https://rollupjs.org/migration/#changed-defaults
+    esModule: true,
+    interop: "compat",
+
     // Governs names of CSS files (for assets from CSS use `hash` option for
     // url handler).
     // Note: using value below will put `.css` files near js,
