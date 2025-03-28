@@ -152,10 +152,10 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         const model = this.props.model;
         const graph = this.props.graph;
         const asymptote = this._asymptote();
+        const showAsymptote = asymptote?.length > 0;
         const dashed = {
             strokeDasharray: "- ",
         } as const;
-        const showAsymptote = asymptote?.length > 0;
 
         return (
             showAsymptote && (
@@ -166,7 +166,6 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                         const newAsymptote = _.map(this._asymptote(), (coord) =>
                             kvector.add(coord, delta),
                         );
-
                         this.props.onChange({
                             asymptote: newAsymptote,
                         });
@@ -645,15 +644,13 @@ const propTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
 const staticTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
     editorProps,
 ) => {
-    const returnProps = {
+    return {
         ...propTransform(editorProps),
         // Don't display graph type choices if we're in static mode
         availableTypes: [editorProps.correct.type],
         // Display the same graph marked as correct in the widget editor.
         plot: editorProps.correct,
     };
-
-    return returnProps;
 };
 
 export default {

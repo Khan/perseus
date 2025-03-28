@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-logging
+Fix Grapher Widget so that static graphs without asymptotes load correctly.

@@ -92,7 +92,6 @@ const MovableLine: any = GraphieClasses.createClass({
     add: function (graphie) {
         // Add MovablePoint children
         const points = _.pluck(this.props.children, "point");
-
         const props = _.extend({}, this.props, {
             points: points,
         });
