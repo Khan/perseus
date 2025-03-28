@@ -132,10 +132,7 @@ const createConfig = (
                         // the correct place (the dist/ folder)
                         assetsPath: path.join(
                             rootDir,
-                            path.join(
-                                path.dirname(outputFile),
-                                "assets",
-                            ),
+                            path.join(path.dirname(outputFile), "assets"),
                         ),
                     }),
                 ],

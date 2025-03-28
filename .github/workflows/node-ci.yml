@@ -129,7 +129,7 @@ jobs:
               name: Files that would trigger a full jest run
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
-                  files: >
+                  files: >-
                       jest.config.js, test.config.js, config/test/,
                       package.json, pnpm-lock.yaml,
                       babel.config.js, config/build/babel.config.js
