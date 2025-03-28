@@ -568,6 +568,8 @@ const AbsoluteValue: AbsoluteValueType = _.extend({}, PlotDefaults, {
     getCoefficients: function (
         coords: Coords,
     ): ReadonlyArray<number> | undefined {
+        /* eslint-disable no-console */
+        console.log("coords in getCoefficients", coords);
         const p1 = coords[0];
         const p2 = coords[1];
 

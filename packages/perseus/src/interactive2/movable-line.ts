@@ -38,6 +38,9 @@ const MovableLine = function (graphie: any, movable: any, options: any) {
     assert(graphie != null);
     assert(options != null);
 
+    /* eslint-disable no-console */
+    console.log("MovableLine options", options);
+
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
     _.extend(this, {
         graphie: graphie,
@@ -251,6 +254,8 @@ _.extend(MovableLine.prototype, {
     },
 
     point: function (index) {
+        /* eslint-disable no-console */
+        console.log("this.state.points", this.state.points);
         return this.state.points[index];
     },
 

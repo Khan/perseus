@@ -1002,6 +1002,11 @@ _.extend(GraphUtils.Graphie.prototype, {
     //         defined using smartPoints
     //
     addMovableLineSegment: function (options: any) {
+        // Please tell me we don't go from 1 to 2
+        console.log(
+            "Yes we're in interactive1 and it makes Third sad",
+            options,
+        );
         const lineSegment = $.extend(
             {
                 graph: this,
