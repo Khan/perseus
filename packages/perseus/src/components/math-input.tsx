@@ -558,6 +558,7 @@ const styles = StyleSheet.create({
     },
     popoverContent: {
         padding: 0,
+        paddingBottom: spacing.xxSmall_6,
         maxWidth: "initial",
     },
 });
