@@ -17,7 +17,7 @@ import {getBaseMafsGraphPropsForTests} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
-import type {PerseusDependenciesV2} from "@khanacademy/perseus";
+import type {PerseusDependenciesV2} from "../../types";
 import type {GraphRange} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 

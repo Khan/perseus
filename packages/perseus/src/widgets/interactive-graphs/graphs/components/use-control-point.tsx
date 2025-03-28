@@ -53,7 +53,6 @@ export function useControlPoint(params: Params): Return {
         ariaDescribedBy,
         ariaLabel,
         ariaLive = "polite",
-        color,
         constrain = (p) => snap(snapStep, p),
         cursor,
         forwardedRef = noop,
@@ -118,6 +117,7 @@ export function useControlPoint(params: Params): Return {
             aria-describedby={ariaDescribedBy}
             aria-label={pointAriaLabel}
             aria-live={ariaLive}
+            aria-disabled={disableKeyboardInteraction}
             onFocus={(event) => {
                 onFocus(event);
                 setFocused(true);
@@ -138,7 +138,6 @@ export function useControlPoint(params: Params): Return {
             point={point}
             dragging={dragging}
             focused={focused}
-            color={color}
             ref={visiblePointRef}
             showFocusRing={focused}
         />

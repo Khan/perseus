@@ -1,4 +1,4 @@
-import {getRadioPublicWidgetOptions} from "@khanacademy/perseus-core";
+import getRadioPublicWidgetOptions from "./radio-util";
 
 import type {PerseusRadioWidgetOptions} from "../../data-schema";
 

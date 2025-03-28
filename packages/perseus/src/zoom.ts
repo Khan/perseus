@@ -370,6 +370,7 @@ Zoom.prototype.zoomImage = function () {
     img.src = this._targetImage.src;
     img.alt = this._targetImage.alt;
     img.tabIndex = 0;
+    img.role = "button";
 
     this.$zoomedImage = $zoomedImage;
 };

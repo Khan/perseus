@@ -188,6 +188,7 @@ const Line = (props: LineProps) => {
                 aria-label={ariaLabel}
                 aria-describedby={ariaDescribedBy}
                 aria-live={ariaLive}
+                aria-disabled={disableKeyboardInteraction}
                 className="movable-line"
                 data-testid="movable-line"
                 style={{cursor: dragging ? "grabbing" : "grab"}}

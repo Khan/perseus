@@ -1,5 +1,18 @@
 # @khanacademy/math-input
 
+## 23.0.6
+
+### Patch Changes
+
+-   [#2296](https://github.com/Khan/perseus/pull/2296) [`7b76274f0`](https://github.com/Khan/perseus/commit/7b76274f0bd362d0f2df3e45f47ecc3545ecfdd0) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix expression widget styling issues. Close button focus outline is now visible, backspace button styling is now consistent with other buttons, and adjusted the popover padding.
+
+*   [#2322](https://github.com/Khan/perseus/pull/2322) [`4bd882b43`](https://github.com/Khan/perseus/commit/4bd882b43b15d9d3d5ca850f5148eba57c7dca59) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change how version injection code is shared/bundled
+
+*   Updated dependencies [[`5b6e9df5b`](https://github.com/Khan/perseus/commit/5b6e9df5b6bcacf7646475ff7884415b815f68c5), [`ca06cb806`](https://github.com/Khan/perseus/commit/ca06cb80686b8b414766d9b1d91a48fa4b71994c), [`4bd882b43`](https://github.com/Khan/perseus/commit/4bd882b43b15d9d3d5ca850f5148eba57c7dca59)]:
+    -   @khanacademy/perseus-core@5.4.2
+    -   @khanacademy/keypad-context@1.1.7
+    -   @khanacademy/perseus-utils@0.0.2
+
 ## 23.0.5
 
 ### Patch Changes

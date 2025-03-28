@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "57.2.1",
+    "version": "57.2.2",
     "publishConfig": {
         "access": "public"
     },
@@ -47,6 +47,7 @@
         "@khanacademy/perseus-core": "workspace:*",
         "@khanacademy/perseus-linter": "workspace:*",
         "@khanacademy/perseus-score": "workspace:*",
+        "@khanacademy/perseus-utils": "workspace:*",
         "@khanacademy/pure-markdown": "workspace:*",
         "@khanacademy/simple-markdown": "workspace:*",
         "@use-gesture/react": "^10.2.27",

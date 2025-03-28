@@ -10,6 +10,19 @@ import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 const blankOptions: APIOptions = Object.freeze(ApiOptions.defaults);
 
+const unbuiltQuestions = {
+    point: interactiveGraphQuestionBuilder().withPoints(1),
+    segment: interactiveGraphQuestionBuilder().withSegments({numSegments: 1}),
+    linear: interactiveGraphQuestionBuilder().withLinear(),
+    linearSystem: interactiveGraphQuestionBuilder().withLinearSystem(),
+    ray: interactiveGraphQuestionBuilder().withRay(),
+    circle: interactiveGraphQuestionBuilder().withCircle(),
+    quadratic: interactiveGraphQuestionBuilder().withQuadratic(),
+    sinusoid: interactiveGraphQuestionBuilder().withSinusoid(),
+    polygon: interactiveGraphQuestionBuilder().withPolygon(),
+    angle: interactiveGraphQuestionBuilder().withAngle(),
+};
+
 describe.each`
     type             | staticMode | expectedColor
     ${"Interactive"} | ${false}   | ${"var(--mafs-blue)"}
@@ -313,4 +326,48 @@ describe.each`
         }
         expect(rightAngle).toBeInTheDocument();
     });
+
+    // expectedNumOfElements:
+    // point - 1 point
+    // segment, linear, ray - 2 points + grab handle
+    // linear system - 2 lines with 2 points and 1 grab handle each
+    // circle - 1 center point + 1 radius point
+    // quadratic - 3 points
+    // sinusoid - 2 points
+    // polygon - 3 points + overall polygon
+    // angle - 3 points
+    test.each`
+        graphType         | expectedNumOfElements
+        ${"point"}        | ${1}
+        ${"segment"}      | ${3}
+        ${"linear"}       | ${3}
+        ${"linearSystem"} | ${6}
+        ${"ray"}          | ${3}
+        ${"circle"}       | ${2}
+        ${"quadratic"}    | ${3}
+        ${"sinusoid"}     | ${2}
+        ${"polygon"}      | ${4}
+        ${"angle"}        | ${3}
+    `(
+        "$graphType graph's interactive elements have expected aria-disabled",
+        ({graphType, expectedNumOfElements}) => {
+            // Arrange
+            const question = unbuiltQuestions[graphType]
+                .withStaticMode(staticMode)
+                .build();
+
+            // Act
+            renderQuestion(question, blankOptions);
+            const interactiveElements = screen.getAllByRole("button");
+
+            // Assert
+            expect(interactiveElements).toHaveLength(expectedNumOfElements);
+            for (const element of interactiveElements) {
+                expect(element).toHaveAttribute(
+                    "aria-disabled",
+                    `${staticMode}`, // aria-disabled is a string
+                );
+            }
+        },
+    );
 });
