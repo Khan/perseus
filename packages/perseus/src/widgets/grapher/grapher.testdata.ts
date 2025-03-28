@@ -2,7 +2,7 @@ import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const absoluteValueQuestion: PerseusRenderer = {
     content:
-        "The graph of the function $g(x)=-|x|$ is shown on the grid below.\n\n**Graph the function $h(x)=-|x+2|+3$ in the interactive graph. **\n\n[[☃ grapher 1]]\n",
+        "The graph of the function $h(x)=2|x|$ is shown on the grid below.\n\n**Graph the function $f(x)=2|x-8|+1$ in the interactive graph. **\n\n[[☃ grapher 1]]\n",
     images: {
         "web+graphie://ka-perseus-graphie.s3.amazonaws.com/ec054de491d5cfb3ef71c06d34bf2fb7ca7feb86":
             {
@@ -14,14 +14,14 @@ export const absoluteValueQuestion: PerseusRenderer = {
         "grapher 1": {
             type: "grapher",
             alignment: "default",
-            static: true,
+            static: false,
             graded: true,
             options: {
                 correct: {
                     type: "absolute_value",
                     coords: [
-                        [-2, 3],
-                        [1, 0],
+                        [8, 1],
+                        [7, 3],
                     ],
                 },
                 availableTypes: ["absolute_value"],
@@ -37,14 +37,13 @@ export const absoluteValueQuestion: PerseusRenderer = {
                     snapStep: [1, 1],
                     valid: true,
                     backgroundImage: {
-                        url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/afe07e9646262eac3c611186b7314c8bf65af027",
+                        url: "web+graphie://ka-perseus-graphie.s3.amazonaws.com/6fb60e5bad041fe69d3485d52b87030ddcc17ac8",
                         width: 400,
                         height: 400,
                     },
                     markings: "none",
                     rulerLabel: "",
                     rulerTicks: 10,
-                    showTooltips: false,
                     showProtractor: false,
                     showRuler: false,
                 },
