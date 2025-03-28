@@ -66,6 +66,7 @@ class ItemDiff extends React.Component<Props> {
             <div className="framework-perseus">
                 {question}
                 {extras}
+                {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                 {hints && <div className="diff-separator" />}
                 {hints}
             </div>

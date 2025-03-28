@@ -197,11 +197,14 @@ export const MafsGraph = (props: MafsGraphProps) => {
                     aria-label={fullGraphAriaLabel}
                     aria-describedby={describedByIds(
                         fullGraphAriaDescription && descriptionId,
+                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         interactiveElementsDescription &&
                             interactiveElementsDescriptionId,
                         isUnlimitedGraphState(state) &&
                             unlimitedGraphKeyboardPromptId,
-                        state.type !== "none" && instructionsId,
+                        state.type !== "none" &&
+                            !disableInteraction &&
+                            instructionsId,
                     )}
                     ref={graphRef}
                     tabIndex={0}
@@ -221,6 +224,9 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             {fullGraphAriaDescription}
                         </View>
                     )}
+                    {/*
+                      eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                    */}
                     {interactiveElementsDescription && (
                         <View
                             id={interactiveElementsDescriptionId}

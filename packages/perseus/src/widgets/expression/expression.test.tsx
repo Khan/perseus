@@ -87,6 +87,7 @@ const assertInvalid = async (
 ) => {
     jest.useFakeTimers();
     const {renderer} = renderQuestion(itemData.question);
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (input.length) {
         await userEvent.type(screen.getByRole("textbox"), input);
     }

@@ -16,7 +16,6 @@ export const fontSize = 14;
 
 export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
     const {range, labels, width, height, labelLocation} = useGraphConfig();
-    const {strings} = i18n;
 
     const graphInfo: GraphDimensions = {
         range,
@@ -40,7 +39,11 @@ export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
     return (
         <>
             <span
-                aria-label={strings.xAxis}
+                // Reading the axis labels by themselves is mostly unhelpful
+                // for screen reader users, so we should hide them to avoid
+                // confusion. Instead, the axis labels should be included as
+                // part of the graph description by content authors.
+                aria-hidden={true}
                 style={{
                     position: "absolute",
                     left: xAxisLabelLocation[X],
@@ -52,7 +55,11 @@ export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
                 <TeX>{replaceOutsideTeX(xAxisLabelText)}</TeX>
             </span>
             <span
-                aria-label={strings.yAxis}
+                // Reading the axis labels by themselves is mostly unhelpful
+                // for screen reader users, so we should hide them to avoid
+                // confusion. Instead, the axis labels should be included as
+                // part of the graph description by content authors.
+                aria-hidden={true}
                 style={{
                     position: "absolute",
                     left: yAxisLabelLocation[X],

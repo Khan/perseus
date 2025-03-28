@@ -3,7 +3,7 @@
     "description": "Miscellaneous utilities used by the Khan Academy Perseus ecosystem",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "publishConfig": {
         "access": "public"
     },
@@ -31,8 +31,7 @@
     "scripts": {
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
-    "dependencies": {
-    },
+    "dependencies": {},
     "devDependencies": {
         "perseus-build-settings": "workspace:*"
     }

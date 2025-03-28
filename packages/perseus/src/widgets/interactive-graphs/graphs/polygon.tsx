@@ -242,6 +242,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
             {points.map((point, i) => {
                 const pt1 = points.at(i - 1);
                 const pt2 = points[(i + 1) % points.length];
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (!pt1 || !pt2) {
                     return null;
                 }
@@ -311,6 +312,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         ? `${srPolygonElementsNum} ${srPolygonGraphPoints}`
                         : srPolygonElementsNum,
                     "aria-live": ariaLives[0],
+                    "aria-disabled": disableKeyboardInteraction,
                 }}
             />
             {points.map((point, i) => {

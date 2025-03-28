@@ -139,6 +139,7 @@ export const Interactive = () => {
                         }}
                     />
                 </label>
+                {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                 {content && (
                     <div>
                         <button onClick={extractItemData}>
@@ -158,6 +159,7 @@ export const Interactive = () => {
                 }}
             >
                 {parsingError && <p>There was a problem parsing the JSON</p>}
+                {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                 {content && (
                     <>
                         {debug ? (

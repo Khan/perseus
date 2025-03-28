@@ -2853,6 +2853,7 @@ _.extend(GraphUtils.Graphie.prototype, {
             };
 
             const styles = _.map([0, 1], function (isHighlight) {
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 const baseStyle = isHighlight
                     ? options.highlightStyle
                     : options.normalStyle;
@@ -2869,6 +2870,7 @@ _.extend(GraphUtils.Graphie.prototype, {
 
             const getStyle = function (isRight: number | boolean) {
                 if (isFlipped) {
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     isRight = !isRight;
                 }
                 return styles[+isHighlight()][+isRight];

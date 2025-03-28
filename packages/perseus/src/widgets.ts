@@ -46,6 +46,7 @@ export const replaceWidget = (name: string, replacementName: string) => {
     // If the replacement widget isn't found, we need to throw. Otherwise after
     // removing the deprecated widget, we'll have data asking for a widget type
     // that doesn't exist at all.
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!substituteWidget) {
         const errorMsg = `Failed to replace ${name} with ${replacementName}`;
         throw new PerseusError(errorMsg, Errors.Internal);
@@ -86,6 +87,7 @@ export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
 export const replaceEditor = (name: string, replacementName: string) => {
     const substituteEditor = editors[replacementName];
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!substituteEditor && Log) {
         const errorMsg = `Failed to replace editor ${name} with ${replacementName}`;
         Log.error(errorMsg, Errors.Internal);
@@ -136,6 +138,7 @@ export const getTransform = (
 
 export const getVersion = (name: string): Version | undefined => {
     const widgetInfo = widgets[name];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (widgetInfo) {
         return widgets[name].version || {major: 0, minor: 0};
     }
@@ -215,6 +218,7 @@ export const traverseChildWidgets = (
         );
     }
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!widgetInfo || !widgetInfo.type || !widgets[widgetInfo.type]) {
         return widgetInfo;
     }
@@ -222,6 +226,7 @@ export const traverseChildWidgets = (
     const widgetExports = widgets[widgetInfo.type];
     const props = widgetInfo.options;
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (widgetExports.traverseChildWidgets && props) {
         const newProps = widgetExports.traverseChildWidgets(
             props,
@@ -243,6 +248,7 @@ export const traverseChildWidgets = (
  */
 export const supportsStaticMode = (type: string): boolean => {
     const widgetInfo = widgets[type];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return widgetInfo && widgetInfo.staticTransform != null;
 };
 
@@ -254,6 +260,7 @@ export const getStaticTransform = (
     type: string,
 ): WidgetTransform | null | undefined => {
     const widgetInfo = widgets[type];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return widgetInfo && widgetInfo.staticTransform;
 };
 
@@ -264,6 +271,7 @@ export const getStaticTransform = (
  */
 export const getTracking = (type: string): Tracking => {
     const widgetExport = widgets[type];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return (widgetExport && widgetExport.tracking) || DEFAULT_TRACKING;
 };
 
@@ -273,5 +281,6 @@ export const getTracking = (type: string): Tracking => {
  */
 export const isLintable = (type: string): boolean => {
     const widgetExports = widgets[type];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return (widgetExports && widgetExports.isLintable) || DEFAULT_LINTABLE;
 };

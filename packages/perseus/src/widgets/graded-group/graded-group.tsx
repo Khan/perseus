@@ -325,6 +325,7 @@ export class GradedGroup
                     linterContext={this.props.linterContext}
                     strings={this.context.strings}
                 />
+                {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                 {!apiOptions.isMobile && icon && (
                     <div className="group-icon">{icon}</div>
                 )}

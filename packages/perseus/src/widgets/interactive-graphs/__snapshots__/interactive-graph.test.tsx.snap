@@ -26,7 +26,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                 class="default_xu2jcg-o_O-inlineStyles_16155wj"
               >
                 <span
-                  aria-label="X-axis"
+                  aria-hidden="true"
                   style="position: absolute; left: 400px; top: 200px; font-size: 14px; transform: translate(7px, -50%);"
                 >
                   <span
@@ -36,7 +36,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                   </span>
                 </span>
                 <span
-                  aria-label="Y-axis"
+                  aria-hidden="true"
                   style="position: absolute; left: 200px; top: -28px; font-size: 14px; transform: translate(-50%, 0px);"
                 >
                   <span
@@ -1243,6 +1243,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                             2
                           </text>
                           <polygon
+                            aria-disabled="false"
                             aria-label="A polygon with 3 points."
                             aria-live="off"
                             class="movable-polygon"
@@ -1257,6 +1258,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                           <g>
                             <g
                               aria-describedby=":r3:-angle-0 :r3:-point-0-side-1 :r3:-point-0-side-2"
+                              aria-disabled="false"
                               aria-label="Point 1 at 3.5 comma 2."
                               aria-live="off"
                               class="movable-point__focusable-handle"
@@ -1327,6 +1329,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                           <g>
                             <g
                               aria-describedby=":r3:-angle-1 :r3:-point-1-side-1 :r3:-point-1-side-2"
+                              aria-disabled="false"
                               aria-label="Point 2 at 2.5 comma 4."
                               aria-live="off"
                               class="movable-point__focusable-handle"
@@ -1397,6 +1400,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                           <g>
                             <g
                               aria-describedby=":r3:-angle-2 :r3:-point-2-side-1 :r3:-point-2-side-2"
+                              aria-disabled="false"
                               aria-label="Point 3 at 1.5 comma 2."
                               aria-live="off"
                               class="movable-point__focusable-handle"
@@ -1674,6 +1678,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                             style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
                           />
                           <polygon
+                            aria-disabled="false"
                             aria-label="A polygon with 3 points."
                             aria-live="off"
                             class="movable-polygon"
@@ -1688,6 +1693,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                           <g>
                             <g
                               aria-describedby=":rb:-angle-0 :rb:-point-0-side-1 :rb:-point-0-side-2"
+                              aria-disabled="false"
                               aria-label="Point 1 at 3 comma -2."
                               aria-live="off"
                               class="movable-point__focusable-handle"
@@ -1758,6 +1764,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                           <g>
                             <g
                               aria-describedby=":rb:-angle-1 :rb:-point-1-side-1 :rb:-point-1-side-2"
+                              aria-disabled="false"
                               aria-label="Point 2 at 0 comma 3."
                               aria-live="off"
                               class="movable-point__focusable-handle"
@@ -1828,6 +1835,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                           <g>
                             <g
                               aria-describedby=":rb:-angle-2 :rb:-point-2-side-1 :rb:-point-2-side-2"
+                              aria-disabled="false"
                               aria-label="Point 3 at -3 comma -2."
                               aria-live="off"
                               class="movable-point__focusable-handle"
@@ -2627,6 +2635,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                             2
                           </text>
                           <polygon
+                            aria-disabled="false"
                             aria-label="A polygon with 3 points."
                             aria-live="off"
                             class="movable-polygon"
@@ -2641,6 +2650,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                           <g>
                             <g
                               aria-describedby=":r3:-angle-0 :r3:-point-0-side-1 :r3:-point-0-side-2"
+                              aria-disabled="false"
                               aria-label="Point 1 at 3.5 comma 2."
                               aria-live="off"
                               class="movable-point__focusable-handle"
@@ -2711,6 +2721,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                           <g>
                             <g
                               aria-describedby=":r3:-angle-1 :r3:-point-1-side-1 :r3:-point-1-side-2"
+                              aria-disabled="false"
                               aria-label="Point 2 at 2.5 comma 4."
                               aria-live="off"
                               class="movable-point__focusable-handle"
@@ -2781,6 +2792,7 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                           <g>
                             <g
                               aria-describedby=":r3:-angle-2 :r3:-point-2-side-1 :r3:-point-2-side-2"
+                              aria-disabled="false"
                               aria-label="Point 3 at 1.5 comma 2."
                               aria-live="off"
                               class="movable-point__focusable-handle"
@@ -3058,6 +3070,7 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                             style="fill: transparent; fill-opacity: 0.15; stroke: var(--mafs-blue); stroke-opacity: 1; vector-effect: non-scaling-stroke; transform: var(--mafs-view-transform);"
                           />
                           <polygon
+                            aria-disabled="false"
                             aria-label="A polygon with 3 points."
                             aria-live="off"
                             class="movable-polygon"
@@ -3072,6 +3085,7 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                           <g>
                             <g
                               aria-describedby=":rb:-angle-0 :rb:-point-0-side-1 :rb:-point-0-side-2"
+                              aria-disabled="false"
                               aria-label="Point 1 at 3 comma -2."
                               aria-live="off"
                               class="movable-point__focusable-handle"
@@ -3142,6 +3156,7 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                           <g>
                             <g
                               aria-describedby=":rb:-angle-1 :rb:-point-1-side-1 :rb:-point-1-side-2"
+                              aria-disabled="false"
                               aria-label="Point 2 at 0 comma 3."
                               aria-live="off"
                               class="movable-point__focusable-handle"
@@ -3212,6 +3227,7 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                           <g>
                             <g
                               aria-describedby=":rb:-angle-2 :rb:-point-2-side-1 :rb:-point-2-side-2"
+                              aria-disabled="false"
                               aria-label="Point 3 at -3 comma -2."
                               aria-live="off"
                               class="movable-point__focusable-handle"

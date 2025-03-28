@@ -116,6 +116,7 @@ export default class ArticleEditor extends React.Component<Props, State> {
                 paths: this.props.contentPaths,
             },
             // @ts-expect-error - TS2339 - Property 'getSaveWarnings' does not exist on type 'ReactInstance'.
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             legacyPerseusLint: editor ? editor.getSaveWarnings() : [],
         };
     }

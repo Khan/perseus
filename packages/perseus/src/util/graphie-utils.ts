@@ -89,6 +89,7 @@ function getUrlHash(url: string) {
     if (match == null) {
         throw new PerseusError("not a valid URL", Errors.InvalidInput);
     }
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return match && match[1];
 }
 

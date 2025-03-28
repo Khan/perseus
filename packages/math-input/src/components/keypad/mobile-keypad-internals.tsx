@@ -140,6 +140,7 @@ class MobileKeypadInternals
         // callback into `configureKeypad`. However, implementing this properly
         // would require middleware, etc., so we just hack it on with
         // `setTimeout` for now.
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         setTimeout(() => cb && cb());
     };
 

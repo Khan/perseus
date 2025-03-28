@@ -142,11 +142,18 @@ class ImageLoader extends React.Component<Props, State> {
         }
         const staticUrl = getDependencies().staticUrl;
 
+        // If the image is interactive, it should have a role of "button"
+        // to indicate that it is interactive.
+        const imageRole = imgProps.onClick !== null ? "button" : "img";
+
         return (
-            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
+            // (LEMS-2871) NOTE: This image IS interactive if it requires zooming, and LevelAccess specifically requested
+            // that the role and tabIndex be set here. When users interact with the image on mobile, it will zoom in.
+            // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
             <img
                 // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- TODO(LEMS-2871): Address a11y error
                 tabIndex={0}
+                role={imageRole}
                 src={staticUrl(src)}
                 onKeyUp={onKeyUp}
                 onKeyDown={onKeyDown}
@@ -161,6 +168,7 @@ class ImageLoader extends React.Component<Props, State> {
                 return this.renderImg();
 
             case Status.FAILED:
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (this.props.children) {
                     return this.props.children;
                 }

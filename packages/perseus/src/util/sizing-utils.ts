@@ -20,6 +20,7 @@ export type SizeClass =
     (typeof containerSizeClass)[keyof typeof containerSizeClass];
 
 export const getClassFromWidth = (width: number): SizeClass => {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!width) {
         return containerSizeClass.MEDIUM;
     }
