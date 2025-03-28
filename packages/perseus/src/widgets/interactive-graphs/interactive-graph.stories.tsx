@@ -2,7 +2,9 @@ import * as React from "react";
 
 import {Flipbook} from "../../../../../dev/flipbook";
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import {ApiOptions} from "../../perseus-api";
+import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {
     angleQuestion,
@@ -178,3 +180,95 @@ export const StaticGraphWithAnotherWidget = (
 // TODO(jeremy): As of Jan 2022 there are no peresus items in production that
 // use the "quadratic" graph type.
 // "quadratic"
+
+export const AnswerlessAngle = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: angleQuestion,
+        })}
+        startAnswerless={true}
+    />
+);
+
+export const AnswerlessCircle = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: circleQuestion,
+        })}
+        startAnswerless={true}
+    />
+);
+
+export const AnswerlessLinear = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: linearQuestion,
+        })}
+        startAnswerless={true}
+    />
+);
+
+export const AnswerlessLinearSystem = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: linearSystemQuestion,
+        })}
+        startAnswerless={true}
+    />
+);
+
+export const AnswerlessPoint = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: pointQuestion,
+        })}
+        startAnswerless={true}
+    />
+);
+
+export const AnswerlessPolygon = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: polygonQuestion,
+        })}
+        startAnswerless={true}
+    />
+);
+
+export const AnswerlessUnlimitedPolygon = (
+    args: StoryArgs,
+): React.ReactElement => (
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: unlimitedPolygonQuestion,
+        })}
+        startAnswerless={true}
+    />
+);
+
+export const AnswerlessRay = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: rayQuestion,
+        })}
+        startAnswerless={true}
+    />
+);
+
+export const AnswerlessSegment = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: segmentQuestion,
+        })}
+        startAnswerless={true}
+    />
+);
+
+export const AnswerlessSinusoid = (args: StoryArgs): React.ReactElement => (
+    <ServerItemRendererWithDebugUI
+        item={generateTestPerseusItem({
+            question: sinusoidQuestion,
+        })}
+        startAnswerless={true}
+    />
+);
