@@ -255,6 +255,7 @@ _.extend(MovableLine.prototype, {
     },
 
     coord: function (index) {
+        /* eslint-disable no-console */
         console.log("coord in movable-line", index);
         console.log("the point index", this.point(index));
         console.log("the coord", this.point(index).coord());

@@ -155,6 +155,8 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         const dashed = {
             strokeDasharray: "- ",
         } as const;
+        /* eslint-disable no-console */
+        console.log("rendering asymptote", asymptote);
         return (
             asymptote && (
                 <MovableLine
