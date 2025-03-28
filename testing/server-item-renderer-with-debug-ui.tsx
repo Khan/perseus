@@ -29,7 +29,7 @@ type Props = {
     // Temporary measure testing rendering with answerless data;
     // only exists until all widgets are renderable with answerless data
     startAnswerless?: boolean;
-    reviewMode?: boolean | null | undefined;
+    reviewMode?: boolean;
     showSolutions?: ShowSolutions;
 };
 
