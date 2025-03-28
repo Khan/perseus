@@ -1675,6 +1675,10 @@ export type PerseusFreeResponseWidgetScoringCriterion = {
 };
 
 export type PerseusFreeResponseWidgetOptions = {
+    // Whether to allow the user to enter an unlimited number of characters.
+    allowUnlimitedCharacters: boolean;
+    // The maximum number of characters that the user can enter.
+    characterLimit: number;
     // The placeholder text that will be displayed to the user in the text input field.
     placeholder: string;
     // The question text that will be displayed to the user.

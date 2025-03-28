@@ -5,6 +5,8 @@ import type {PerseusFreeResponseWidgetOptions} from "@khanacademy/perseus-core";
  * {@link PerseusFreeResponseWidgetOptions} type
  */
 export type FreeResponsePublicWidgetOptions = {
+    allowUnlimitedCharacters: PerseusFreeResponseWidgetOptions["allowUnlimitedCharacters"];
+    characterLimit: PerseusFreeResponseWidgetOptions["characterLimit"];
     placeholder: PerseusFreeResponseWidgetOptions["placeholder"];
     question: PerseusFreeResponseWidgetOptions["question"];
 };
@@ -17,6 +19,8 @@ function getFreeResponsePublicWidgetOptions(
     options: PerseusFreeResponseWidgetOptions,
 ): FreeResponsePublicWidgetOptions {
     return {
+        allowUnlimitedCharacters: options.allowUnlimitedCharacters,
+        characterLimit: options.characterLimit,
         placeholder: options.placeholder,
         question: options.question,
     };
