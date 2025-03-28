@@ -1,19 +1,38 @@
 /* eslint-disable import/no-commonjs */
-const createBabelPlugins = require("./create-babel-plugins");
-const createBabelPresets = require("./create-babel-presets");
-
-// This config is used for Jest and Cypress here in this repository, only.
 module.exports = {
     assumptions: {
         constantReexports: true,
     },
-    presets: createBabelPresets({
-        platform: "browser",
-        format: "cjs",
-    }),
-    plugins: createBabelPlugins({
-        platform: "browser",
-        format: "cjs",
-        coverage: process.env["BABEL_COVERAGE"],
-    }),
+    presets: [
+        [
+            "@babel/preset-typescript",
+            {
+                // NOTE(john): We need this so that we can handle the declare
+                // fields inside React classes.
+                allowDeclareFields: true,
+            },
+        ],
+        [
+            "@babel/preset-env",
+            {
+                targets: {esmodules: true},
+                bugfixes: true,
+                loose: true,
+            },
+        ],
+        "@babel/preset-react",
+    ],
+    plugins: [
+        // NOTE(john): We need this so that we can handle the declare fields
+        // inside React classes.
+        ["@babel/plugin-transform-typescript", {allowDeclareFields: true}],
+        [
+            "@babel/plugin-transform-runtime",
+            {
+                corejs: false,
+                helpers: true,
+                regenerator: false,
+            },
+        ],
+    ],
 };

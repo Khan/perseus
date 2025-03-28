@@ -1,41 +1,34 @@
 /* eslint-disable import/no-commonjs */
 /**
- * This is the main jest config.  It runs tests using the default
- * test environment: jest-environment-node.
+ * This is the main jest config.
  */
-const fs = require("fs");
-const path = require("path");
+const path = require("node:path");
 
 const ancesdir = require("ancesdir");
+const fg = require("fast-glob");
 
 const root = ancesdir(__dirname);
-const vendorMap = fs
-    .readdirSync(path.join(root, "vendor"))
-    .reduce((map, name) => {
-        const pkgJson = JSON.parse(
-            fs.readFileSync(path.join(root, "vendor", name, "package.json")),
-        );
+const vendorMap = fg
+    .globSync(path.join(root, "vendor/*/package.json"))
+    .reduce((map, pkgJsonPath) => {
+        const pkgJson = require(pkgJsonPath);
+        const packageDirName = path.basename(path.dirname(pkgJsonPath));
         return {
             ...map,
-            [`^${name}$`]: `<rootDir>/vendor/${name}/${pkgJson.main}`,
+            [`^${pkgJson.name}$`]: `<rootDir>/vendor/${packageDirName}/${pkgJson.main}`,
         };
     }, {});
 
-const pkgMap = fs
-    .readdirSync(path.join(root, "packages"))
-    .filter((name) => {
-        const stat = fs.statSync(path.join(root, "packages", name));
-        return stat.isDirectory();
-    })
-    .reduce((map, name) => {
-        const pkgJson = JSON.parse(
-            fs.readFileSync(path.join(root, "packages", name, "package.json")),
-        );
+const pkgMap = fg
+    .globSync(path.join(root, "packages/*/package.json"))
+    .reduce((map, pkgJsonPath) => {
+        const pkgJson = require(pkgJsonPath);
+        const packageDirName = path.basename(path.dirname(pkgJsonPath));
         return {
             ...map,
             // NOTE(kevinb): we use the 'source' field here so that we can run our
             // tests without having to compile all of the packages first.
-            [`^@khanacademy/${name}$`]: `<rootDir>/packages/${name}/${pkgJson.source}`,
+            [`^${pkgJson.name}$`]: `<rootDir>/packages/${packageDirName}/${pkgJson.exports["."].source.slice(2)}`,
         };
     }, {});
 

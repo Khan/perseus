@@ -8,33 +8,27 @@ import fg from "fast-glob";
 
 import {
     checkPrivate,
-    checkEntrypoints,
-    checkSource,
+    checkExports,
     checkPublishConfig,
+    isFalsey,
 } from "./internal/pre-publish-utils";
 
-// eslint-disable-next-line promise/catch-or-return
-fg(path.join(__dirname, "..", "packages", "*", "package.json")).then(
-    (pkgPaths) => {
-        let allPassed = true;
-        // eslint-disable-next-line promise/always-return
-        for (const pkgPath of pkgPaths) {
-            // eslint-disable-next-line @typescript-eslint/no-require-imports
-            const pkgJson = require(path.relative(__dirname, pkgPath));
-
-            if (
-                !checkPrivate(pkgJson) &&
-                !checkPublishConfig(pkgJson) &&
-                !checkEntrypoints(pkgJson) &&
-                !checkSource(pkgJson)
-            ) {
-                allPassed = false;
-            }
-        }
-
-        // Exit only after we've processed all the packages.
-        if (!allPassed) {
-            process.exit(1);
-        }
-    },
+const pkgPaths = fg.globSync(
+    path.join(__dirname, "..", "packages", "*", "package.json"),
 );
+
+const results = pkgPaths.flatMap((pkgPath) => {
+    const pkgJson = require(path.relative(__dirname, pkgPath));
+
+    // allPassed is at the end of the chain because of short-circuiting
+    return [
+        checkPrivate(pkgJson),
+        checkPublishConfig(pkgJson),
+        checkExports(pkgJson),
+    ];
+});
+
+// Exit only after we've processed all the packages.
+if (results.some(isFalsey)) {
+    process.exit(1);
+}
