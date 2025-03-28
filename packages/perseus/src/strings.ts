@@ -4,6 +4,8 @@ import type {ErrorCodes} from "@khanacademy/perseus-score";
  * The translated strings that are used to render Perseus.
  */
 export type PerseusStrings = {
+    // `num` is a special variable name that is used to determine the plurality
+    // of the translated string.
     characterCount: ({used, num}: {used: number; num: number}) => string;
     closeKeypad: string;
     openKeypad: string;
@@ -517,6 +519,8 @@ export type PerseusStrings = {
  * !! Note: Ensure that all escape sequences are double-escaped. (e.g. `\\text` -> `\\\\text`)
  */
 export const strings = {
+    // `num` is a special variable name that is used to determine the plurality
+    // of the translated string.
     characterCount: {
         one: "%(used)s / %(num)s Character",
         other: "%(used)s / %(num)s Characters",
