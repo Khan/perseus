@@ -157,6 +157,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         } as const;
         /* eslint-disable no-console */
         console.log("rendering asymptote", asymptote);
+        console.log("is asymptote falsy?", Boolean(asymptote));
         return (
             asymptote && (
                 <MovableLine
@@ -198,6 +199,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     normalStyle={dashed}
                     highlightStyle={dashed}
                 >
+                    {console.log("WE SHOULD NOT BE HERE")}
                     {_.map(asymptote, (coord, i) => (
                         <MovablePoint
                             key={`asymptoteCoord-${i}`}
@@ -644,13 +646,17 @@ const propTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
 const staticTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
     editorProps,
 ) => {
-    return {
+    console.log("staticTransform editorProps", editorProps);
+    const returnProps = {
         ...propTransform(editorProps),
         // Don't display graph type choices if we're in static mode
         availableTypes: [editorProps.correct.type],
         // Display the same graph marked as correct in the widget editor.
         plot: editorProps.correct,
     };
+
+    console.log("returnProps", returnProps);
+    return returnProps;
 };
 
 export default {
