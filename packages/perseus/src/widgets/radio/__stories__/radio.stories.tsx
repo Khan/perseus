@@ -9,7 +9,7 @@ import {
     multiChoiceQuestion,
 } from "../__tests__/radio.testdata";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react";
 
