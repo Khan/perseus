@@ -67,7 +67,16 @@ export const ServerItemRendererWithDebugUI = ({
         );
     };
 
-    const renderedQuestion: PerseusRenderer = useAnswerless
+    // `reviewMode` and `showSolutions` require answerful data by definition,
+    // so only use answerless data if those are not enabled. Also updates the
+    // startAnswerless toggle so it actually switches between answerless and answerful.
+    const shouldUseAnswerless =
+        useAnswerless &&
+        !reviewMode &&
+        (showSolutions === "none" || !showSolutions) &&
+        startAnswerless;
+
+    const renderedQuestion: PerseusRenderer = shouldUseAnswerless
         ? splitPerseusItem(item.question)
         : item.question;
 
