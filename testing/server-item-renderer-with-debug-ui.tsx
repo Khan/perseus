@@ -43,7 +43,7 @@ export const ServerItemRendererWithDebugUI = ({
 }: Props): React.ReactElement => {
     const ref = React.useRef<Perseus.ServerItemRendererComponent>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
-    const [useAnswerless, setUseAnswerless] =
+    const [answerless, setAnswerless] =
         React.useState<boolean>(startAnswerless);
     const options = apiOptions || Object.freeze({});
 
@@ -71,10 +71,9 @@ export const ServerItemRendererWithDebugUI = ({
     // so only use answerless data if those are not enabled. Also updates the
     // startAnswerless toggle so it actually switches between answerless and answerful.
     const shouldUseAnswerless =
-        useAnswerless &&
+        answerless &&
         !reviewMode &&
-        (showSolutions === "none" || !showSolutions) &&
-        startAnswerless;
+        (showSolutions === "none" || !showSolutions);
 
     const renderedQuestion: PerseusRenderer = shouldUseAnswerless
         ? splitPerseusItem(item.question)
@@ -103,7 +102,7 @@ export const ServerItemRendererWithDebugUI = ({
                     <View style={{flexDirection: "row", alignItems: "center"}}>
                         <Button
                             onClick={() => {
-                                setUseAnswerless(false);
+                                setAnswerless(false);
                                 if (!ref.current) {
                                     return;
                                 }
@@ -115,7 +114,7 @@ export const ServerItemRendererWithDebugUI = ({
                         <Strut size={8} />
                         <Button
                             onClick={() => {
-                                setUseAnswerless(false);
+                                setAnswerless(false);
                                 ref.current?.showRationalesForCurrentlySelectedChoices();
                             }}
                         >
