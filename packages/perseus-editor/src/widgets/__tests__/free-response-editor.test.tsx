@@ -51,7 +51,7 @@ describe("free-response editor", () => {
         expect(onChangeMock).toBeCalledWith({allowUnlimitedCharacters: true});
     });
 
-    it("calls onChange when the character limit is changed", async () => {
+    it("calls onChange when the character limit is changed to a number", async () => {
         // Arrange
         const onChangeMock = jest.fn();
 
@@ -64,6 +64,21 @@ describe("free-response editor", () => {
 
         // Assert
         expect(onChangeMock).toBeCalledWith({characterLimit: 1});
+    });
+
+    it("does not call onChange when the character limit is changed to a non-number", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+
+        // Act
+        render(
+            <FreeResponseEditor characterLimit={5} onChange={onChangeMock} />,
+        );
+
+        await userEvent.type(screen.getByLabelText(/Character limit/), "e");
+
+        // Assert
+        expect(onChangeMock).not.toBeCalled();
     });
 
     it("calls onChange when the question is changed", async () => {

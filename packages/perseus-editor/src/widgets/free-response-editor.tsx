@@ -14,6 +14,7 @@ import type {
     FreeResponseDefaultWidgetOptions,
     PerseusFreeResponseWidgetScoringCriterion,
 } from "@khanacademy/perseus-core";
+import type {ChangeEventHandler} from "react";
 
 type Props = PerseusFreeResponseWidgetOptions & {
     onChange: (options: Partial<PerseusFreeResponseWidgetOptions>) => void;
@@ -42,6 +43,15 @@ class FreeResponseEditor extends React.Component<Props> {
         }
         return warnings;
     }
+
+    handleUpdateCharacterLimit: ChangeEventHandler<HTMLInputElement> = (e) => {
+        const val = parseInt(e.target.value);
+        if (isNaN(val)) {
+            return;
+        }
+
+        this.props.onChange({characterLimit: Math.max(1, val)});
+    };
 
     handleUpdateCriterion = (
         index: number,
@@ -133,12 +143,7 @@ class FreeResponseEditor extends React.Component<Props> {
                             type="number"
                             min={1}
                             value={this.props.characterLimit}
-                            onChange={(e) => {
-                                const val = parseInt(e.target.value);
-                                this.props.onChange({
-                                    characterLimit: Math.max(1, val),
-                                });
-                            }}
+                            onChange={this.handleUpdateCharacterLimit}
                         />
                     </label>
                 )}

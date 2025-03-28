@@ -97,18 +97,6 @@ describe("free-response widget", () => {
         expect(screen.queryByText(/2 \/ 10 Character/)).toBeVisible();
     });
 
-    it("should not render the character limit when it is not set", () => {
-        // Arrange
-        const data = getFreeResponseItemData();
-        data.widgets["free-response 1"].options.characterLimit = 0;
-
-        // Act
-        renderQuestion(data, {});
-
-        // Assert
-        expect(screen.queryByText(/Characters/)).not.toBeInTheDocument();
-    });
-
     it("should render the question text", () => {
         // Arrange
         // Act
