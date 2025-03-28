@@ -1,5 +1,25 @@
 # @khanacademy/perseus-editor
 
+## 19.0.0
+
+### Major Changes
+
+-   [#2331](https://github.com/Khan/perseus/pull/2331) [`c2e33e522`](https://github.com/Khan/perseus/commit/c2e33e52291d6379799754e27c5d33b02ff4b1fa) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove CJS output from package (package is now ESM only)
+
+### Patch Changes
+
+-   Updated dependencies [[`87b129dbf`](https://github.com/Khan/perseus/commit/87b129dbf47c807b2be1fab7a18fa2e4a7984529), [`745b6337c`](https://github.com/Khan/perseus/commit/745b6337cad2aa6bbc16efaf2b66e6aef227e6db), [`c2e33e522`](https://github.com/Khan/perseus/commit/c2e33e52291d6379799754e27c5d33b02ff4b1fa), [`3bfa609b9`](https://github.com/Khan/perseus/commit/3bfa609b9131c477b16fdd00f32f52b638357e7b)]:
+    -   @khanacademy/perseus@58.0.0
+    -   @khanacademy/kas@1.0.0
+    -   @khanacademy/keypad-context@2.0.0
+    -   @khanacademy/kmath@1.0.0
+    -   @khanacademy/math-input@24.0.0
+    -   @khanacademy/perseus-core@6.0.0
+    -   @khanacademy/perseus-linter@2.0.0
+    -   @khanacademy/perseus-score@3.0.0
+    -   @khanacademy/perseus-utils@1.0.0
+    -   @khanacademy/pure-markdown@1.0.0
+
 ## 18.2.3
 
 ### Patch Changes

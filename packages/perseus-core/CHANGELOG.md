@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 6.0.0
+
+### Major Changes
+
+-   [#2331](https://github.com/Khan/perseus/pull/2331) [`c2e33e522`](https://github.com/Khan/perseus/commit/c2e33e52291d6379799754e27c5d33b02ff4b1fa) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove CJS output from package (package is now ESM only)
+
+### Patch Changes
+
+-   Updated dependencies [[`c2e33e522`](https://github.com/Khan/perseus/commit/c2e33e52291d6379799754e27c5d33b02ff4b1fa)]:
+    -   @khanacademy/kas@1.0.0
+    -   @khanacademy/perseus-utils@1.0.0
+
 ## 5.4.2
 
 ### Patch Changes
