@@ -31,7 +31,6 @@ const pkgMap = fg
             [`^${pkgJson.name}$`]: `<rootDir>/packages/${packageDirName}/${pkgJson.exports["."].source.slice(2)}`,
         };
     }, {});
-console.log(pkgMap);
 
 /** @type {import('jest').Config} */
 module.exports = {
