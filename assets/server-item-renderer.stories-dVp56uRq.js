@@ -51,9 +51,9 @@ _should be left-aligned in hints_
 
 ![Some building](https://ka-perseus-images.s3.amazonaws.com/84c9521c5f9ec8c6d2a06435e48295817db54b65.jpeg)
 
-`,images:{"https://ka-perseus-images.s3.amazonaws.com/84c9521c5f9ec8c6d2a06435e48295817db54b65.jpeg":{width:450/2,height:288/2}},widgets:{}}],answerArea:null,itemDataVersion:{major:0,minor:0},answer:null},Vt={title:"Perseus/Renderers/Server Item Renderer"},s=a=>e.createElement(i,{item:F}),m=a=>e.createElement(i,{item:X}),l=a=>e.createElement(i,{item:te}),c=a=>e.createElement(B,{problemNum:0,item:ee,dependencies:P,linterContext:{contentType:"",highlightLint:!0,paths:[],stack:[]}}),d=a=>e.createElement(i,{item:K,apiOptions:{interactionCallback:r=>{console.log(r)}}}),p=a=>e.createElement(i,{item:Q,apiOptions:{interactionCallback:r=>{console.log(r)}}}),g=()=>{const[a,r]=e.useState(""),[u,G]=e.useState(!0);function h(n){var w,I,v,S,C,y;const t=JSON.parse(n),f=((v=(I=(w=t==null?void 0:t.data)==null?void 0:w.assessmentItem)==null?void 0:I.item)==null?void 0:v.itemData)||((C=(S=t==null?void 0:t.assessmentItem)==null?void 0:S.item)==null?void 0:C.itemData)||((y=t==null?void 0:t.item)==null?void 0:y.itemData)||(t==null?void 0:t.itemData);if(f)return JSON.parse(f);if(t.question&&t.hints)return t}function Y(){const n=h(a);r(JSON.stringify(n,null,2))}let o=null,b=!1;try{a&&(o=h(a))}catch(n){b=!0,console.error(n)}return e.createElement("div",null,e.createElement("div",{style:{padding:"2rem"}},e.createElement("label",null,"Dump Perseus data here",e.createElement("textarea",{value:a,onChange:n=>r(n.target.value),style:{display:"block",width:"100%",height:"20rem"}})),o&&e.createElement("div",null,e.createElement("button",{onClick:Y},"Extract item data"),e.createElement("button",{onClick:()=>G(!u)},u?"Use ServerItemRenderer":"Use ServerItemRendererWithDebugUI"))),e.createElement("div",{style:{padding:"2rem"}},b&&e.createElement("p",null,"There was a problem parsing the JSON"),o&&e.createElement(e.Fragment,null,u?e.createElement(i,{item:o}):e.createElement(B,{problemNum:0,item:o,dependencies:P,linterContext:{contentType:"",highlightLint:!0,paths:[],stack:[]}}))))};s.__docgenInfo={description:"",methods:[],displayName:"NumericInputItem"};m.__docgenInfo={description:"",methods:[],displayName:"LabelImageItem"};l.__docgenInfo={description:"",methods:[],displayName:"ImageExamplesItem"};c.__docgenInfo={description:"",methods:[],displayName:"WithLintingError"};d.__docgenInfo={description:"",methods:[],displayName:"NumericInputWithInteractionCallback"};p.__docgenInfo={description:"",methods:[],displayName:"MultiWidgetWithInteractionCallback"};g.__docgenInfo={description:"",methods:[],displayName:"Interactive"};var k,E,A;s.parameters={...s.parameters,docs:{...(k=s.parameters)==null?void 0:k.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+`,images:{"https://ka-perseus-images.s3.amazonaws.com/84c9521c5f9ec8c6d2a06435e48295817db54b65.jpeg":{width:450/2,height:288/2}},widgets:{}}],answerArea:null,itemDataVersion:{major:0,minor:0},answer:null},Vt={title:"Perseus/Renderers/Server Item Renderer"},s=a=>e.createElement(i,{item:F}),m=a=>e.createElement(i,{item:X}),l=a=>e.createElement(i,{item:te}),c=a=>e.createElement(B,{problemNum:0,item:ee,dependencies:P,linterContext:{contentType:"",highlightLint:!0,paths:[],stack:[]}}),p=a=>e.createElement(i,{item:K,apiOptions:{interactionCallback:r=>{console.log(r)}}}),d=a=>e.createElement(i,{item:Q,apiOptions:{interactionCallback:r=>{console.log(r)}}}),g=()=>{const[a,r]=e.useState(""),[u,G]=e.useState(!0);function h(n){var w,I,v,S,y,C;const t=JSON.parse(n),f=((v=(I=(w=t==null?void 0:t.data)==null?void 0:w.assessmentItem)==null?void 0:I.item)==null?void 0:v.itemData)||((y=(S=t==null?void 0:t.assessmentItem)==null?void 0:S.item)==null?void 0:y.itemData)||((C=t==null?void 0:t.item)==null?void 0:C.itemData)||(t==null?void 0:t.itemData);if(f)return JSON.parse(f);if(t.question&&t.hints)return t}function Y(){const n=h(a);r(JSON.stringify(n,null,2))}let o=null,b=!1;try{a&&(o=h(a))}catch(n){b=!0,console.error(n)}return e.createElement("div",null,e.createElement("div",{style:{padding:"2rem"}},e.createElement("label",null,"Dump Perseus data here",e.createElement("textarea",{value:a,onChange:n=>r(n.target.value),style:{display:"block",width:"100%",height:"20rem"}})),o&&e.createElement("div",null,e.createElement("button",{onClick:Y},"Extract item data"),e.createElement("button",{onClick:()=>G(!u)},u?"Use ServerItemRenderer":"Use ServerItemRendererWithDebugUI"))),e.createElement("div",{style:{padding:"2rem"}},b&&e.createElement("p",null,"There was a problem parsing the JSON"),o&&e.createElement(e.Fragment,null,u?e.createElement(i,{item:o}):e.createElement(B,{problemNum:0,item:o,dependencies:P,linterContext:{contentType:"",highlightLint:!0,paths:[],stack:[]}}))))};s.__docgenInfo={description:"",methods:[],displayName:"NumericInputItem"};m.__docgenInfo={description:"",methods:[],displayName:"LabelImageItem"};l.__docgenInfo={description:"",methods:[],displayName:"ImageExamplesItem"};c.__docgenInfo={description:"",methods:[],displayName:"WithLintingError"};p.__docgenInfo={description:"",methods:[],displayName:"NumericInputWithInteractionCallback"};d.__docgenInfo={description:"",methods:[],displayName:"MultiWidgetWithInteractionCallback"};g.__docgenInfo={description:"",methods:[],displayName:"Interactive"};var k,E,x;s.parameters={...s.parameters,docs:{...(k=s.parameters)==null?void 0:k.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
   return <ServerItemRendererWithDebugUI item={itemWithNumericInput} />;
-}`,...(A=(E=s.parameters)==null?void 0:E.docs)==null?void 0:A.source}}};var x,D,N;m.parameters={...m.parameters,docs:{...(x=m.parameters)==null?void 0:x.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+}`,...(x=(E=s.parameters)==null?void 0:E.docs)==null?void 0:x.source}}};var A,D,N;m.parameters={...m.parameters,docs:{...(A=m.parameters)==null?void 0:A.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
   return <ServerItemRendererWithDebugUI item={labelImageItem} />;
 }`,...(N=(D=m.parameters)==null?void 0:D.docs)==null?void 0:N.source}}};var W,R,T;l.parameters={...l.parameters,docs:{...(W=l.parameters)==null?void 0:W.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
   return <ServerItemRendererWithDebugUI item={itemWithImages} />;
@@ -64,7 +64,7 @@ _should be left-aligned in hints_
     paths: [],
     stack: []
   }} />;
-}`,...(L=(_=c.parameters)==null?void 0:_.docs)==null?void 0:L.source}}};var $,z,M;d.parameters={...d.parameters,docs:{...($=d.parameters)==null?void 0:$.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+}`,...(L=(_=c.parameters)==null?void 0:_.docs)==null?void 0:L.source}}};var $,z,M;p.parameters={...p.parameters,docs:{...($=p.parameters)==null?void 0:$.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
   return <ServerItemRendererWithDebugUI item={itemWithMultipleNumericInputs} apiOptions={{
     interactionCallback: data => {
       // We are logging the interaction callback data to the console
@@ -72,7 +72,7 @@ _should be left-aligned in hints_
       console.log(data);
     }
   }} />;
-}`,...(M=(z=d.parameters)==null?void 0:z.docs)==null?void 0:M.source}}};var O,H,J;p.parameters={...p.parameters,docs:{...(O=p.parameters)==null?void 0:O.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+}`,...(M=(z=p.parameters)==null?void 0:z.docs)==null?void 0:M.source}}};var O,H,J;d.parameters={...d.parameters,docs:{...(O=d.parameters)==null?void 0:O.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
   return <ServerItemRendererWithDebugUI item={itemWithRadioAndExpressionWidgets} apiOptions={{
     interactionCallback: data => {
       // We are logging the interaction callback data to the console
@@ -80,7 +80,7 @@ _should be left-aligned in hints_
       console.log(data);
     }
   }} />;
-}`,...(J=(H=p.parameters)==null?void 0:H.docs)==null?void 0:J.source}}};var U,V,q;g.parameters={...g.parameters,docs:{...(U=g.parameters)==null?void 0:U.docs,source:{originalSource:`() => {
+}`,...(J=(H=d.parameters)==null?void 0:H.docs)==null?void 0:J.source}}};var U,V,q;g.parameters={...g.parameters,docs:{...(U=g.parameters)==null?void 0:U.docs,source:{originalSource:`() => {
   const [value, setValue] = useState("");
   const [debug, setDebug] = useState(true);
   function findItemData(input) {
@@ -119,6 +119,7 @@ _should be left-aligned in hints_
           height: "20rem"
         }} />
                 </label>
+                {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                 {content && <div>
                         <button onClick={extractItemData}>
                             Extract item data
@@ -132,6 +133,7 @@ _should be left-aligned in hints_
       padding: "2rem"
     }}>
                 {parsingError && <p>There was a problem parsing the JSON</p>}
+                {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                 {content && <>
                         {debug ? <ServerItemRendererWithDebugUI item={content} /> : <ServerItemRenderer problemNum={0} item={content} dependencies={storybookDependenciesV2} linterContext={{
           contentType: "",
@@ -142,4 +144,4 @@ _should be left-aligned in hints_
                     </>}
             </div>
         </div>;
-}`,...(q=(V=g.parameters)==null?void 0:V.docs)==null?void 0:q.source}}};const qt=["NumericInputItem","LabelImageItem","ImageExamplesItem","WithLintingError","NumericInputWithInteractionCallback","MultiWidgetWithInteractionCallback","Interactive"];export{l as ImageExamplesItem,g as Interactive,m as LabelImageItem,p as MultiWidgetWithInteractionCallback,s as NumericInputItem,d as NumericInputWithInteractionCallback,c as WithLintingError,qt as __namedExportsOrder,Vt as default};
+}`,...(q=(V=g.parameters)==null?void 0:V.docs)==null?void 0:q.source}}};const qt=["NumericInputItem","LabelImageItem","ImageExamplesItem","WithLintingError","NumericInputWithInteractionCallback","MultiWidgetWithInteractionCallback","Interactive"];export{l as ImageExamplesItem,g as Interactive,m as LabelImageItem,d as MultiWidgetWithInteractionCallback,s as NumericInputItem,p as NumericInputWithInteractionCallback,c as WithLintingError,qt as __namedExportsOrder,Vt as default};
