@@ -1,1 +1,0 @@
-import{r as t}from"./index-6oxdNXpR.js";const e=({children:r})=>t.createElement("div",{className:"perseus-diff"},r),p=e;e.__docgenInfo={description:"",methods:[],displayName:"Wrapper",props:{children:{required:!0,tsType:{name:"ReactReactNode",raw:"React.ReactNode"},description:""}}};export{p as W};
