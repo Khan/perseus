@@ -255,6 +255,9 @@ _.extend(MovableLine.prototype, {
     },
 
     coord: function (index) {
+        console.log("coord in movable-line", index);
+        console.log("the point index", this.point(index));
+        console.log("the coord", this.point(index).coord());
         return this.point(index).coord();
     },
 
