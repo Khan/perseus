@@ -157,9 +157,11 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         } as const;
         /* eslint-disable no-console */
         console.log("rendering asymptote", asymptote);
-        console.log("is asymptote falsy?", Boolean(asymptote));
+
+        const showAsymptote = asymptote && asymptote.length > 0;
+        console.log("showAsymptote", showAsymptote);
         return (
-            asymptote.length > 0 && (
+            showAsymptote && (
                 <MovableLine
                     onMove={(newCoord, oldCoord) => {
                         // Calculate and apply displacement
