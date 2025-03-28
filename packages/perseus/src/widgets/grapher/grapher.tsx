@@ -159,7 +159,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         console.log("rendering asymptote", asymptote);
         console.log("is asymptote falsy?", Boolean(asymptote));
         return (
-            asymptote && (
+            asymptote.length > 0 && (
                 <MovableLine
                     onMove={(newCoord, oldCoord) => {
                         // Calculate and apply displacement
@@ -167,6 +167,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                         const newAsymptote = _.map(this._asymptote(), (coord) =>
                             kvector.add(coord, delta),
                         );
+
                         this.props.onChange({
                             asymptote: newAsymptote,
                         });
@@ -199,7 +200,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     normalStyle={dashed}
                     highlightStyle={dashed}
                 >
-                    {console.log("WE SHOULD NOT BE HERE")}
+                    {console.log("WE SHOULD NOT BE HERE 2")}
                     {_.map(asymptote, (coord, i) => (
                         <MovablePoint
                             key={`asymptoteCoord-${i}`}
