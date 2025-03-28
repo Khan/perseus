@@ -31,13 +31,14 @@ export default {
     title: "Perseus/Widgets/Radio",
     args: {
         static: false,
+        // Requires a page refresh for toggling this to affect the story
+        startAnswerless: false,
         crossOutEnabled: false,
         reviewMode: false,
         showSolutions: "none",
         item: generateTestPerseusItem({
             question: questionWithPassage,
         }),
-        startAnswerless: false,
     } satisfies StoryArgs,
     argTypes: {
         showSolutions: {

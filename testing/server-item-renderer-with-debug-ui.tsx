@@ -39,7 +39,7 @@ export const ServerItemRendererWithDebugUI = ({
     keypadElement,
     reviewMode = false,
     startAnswerless = false,
-    ...rest
+    showSolutions,
 }: Props): React.ReactElement => {
     const ref = React.useRef<Perseus.ServerItemRendererComponent>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
@@ -89,7 +89,7 @@ export const ServerItemRendererWithDebugUI = ({
                         dependencies={storybookDependenciesV2}
                         keypadElement={keypadElement}
                         reviewMode={reviewMode}
-                        {...rest}
+                        showSolutions={showSolutions}
                     />
                     <View style={{flexDirection: "row", alignItems: "center"}}>
                         <Button
