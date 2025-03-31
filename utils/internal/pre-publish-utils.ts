@@ -2,15 +2,7 @@
  * Pre-publish utilities to verify that our publish will go smoothly.
  */
 
-const error = (message: string) => {
-    console.error(`ERROR: ${message}`);
-};
-
-export function isFalsey(value: unknown): boolean {
-    return !value;
-}
-
-export const checkPublishConfig = ({
+const checkPublishConfig = ({
     name,
     publishConfig,
     private: isPrivate,
@@ -22,16 +14,16 @@ export const checkPublishConfig = ({
     if (!publishConfig || (!isPrivate && publishConfig.access !== "public")) {
         const requiredAccessType = isPrivate ? "restricted" : "public";
 
-        error(
-            `${name} is missing a "publishConfig": {"access": "${requiredAccessType}"} section.`,
+        console.error(
+            `ERROR: ${name} is missing a "publishConfig": {"access": "${requiredAccessType}"} section.`,
         );
         returnCode = false;
     }
 
     // also check if is marked as private and there's restricted access defined
     if (isPrivate && publishConfig.access !== "restricted") {
-        error(
-            `${name} is marked as private but there is a "publishConfig": {"access": "public"} section already defined. Please change it to "access": "restricted" or remove "private": true to make the package public.`,
+        console.error(
+            `ERROR: ${name} is marked as private but there is a "publishConfig": {"access": "public"} section already defined. Please change it to "access": "restricted" or remove "private": true to make the package public.`,
         );
         returnCode = false;
     }
@@ -41,52 +33,58 @@ export const checkPublishConfig = ({
         !scripts.prepublishOnly ||
         !scripts.prepublishOnly.includes("utils/package-pre-publish-check.sh")
     ) {
-        error(
-            `${name} must have a "prepublishOnly" script that runs "utils/package-pre-publish-check.sh".`,
+        console.error(
+            `ERROR: ${name} must have a "prepublishOnly" script that runs "utils/package-pre-publish-check.sh".`,
         );
         returnCode = false;
     }
-
     return returnCode;
 };
 
-const checkExport = ({name, exports}, exportField, value): boolean => {
-    if (exports["."][exportField] !== value) {
-        error(
-            `${name} must include exports["."]["${exportField}"] set to ${JSON.stringify(value)}.\n    (eg. "exports": { ".": { "${exportField}": "${value}" } })`,
+const checkField = (pkgJson, field, value): boolean => {
+    let returnCode = true;
+    if (Array.isArray(value)) {
+        if (!value.includes(pkgJson[field])) {
+            console.error(
+                `ERROR: ${
+                    pkgJson.name
+                } must have a "${field}" set to one of ${value
+                    .map((value) => JSON.stringify(value))
+                    .join(", ")}.`,
+            );
+            returnCode = false;
+        }
+    } else if (pkgJson[field] !== value) {
+        console.error(
+            `ERROR: ${
+                pkgJson.name
+            } must have a "${field}" set to ${JSON.stringify(value)}.`,
         );
-        return false;
+        returnCode = false;
     }
-
-    return true;
+    return returnCode;
 };
 
-export const checkPrivate = (pkgJson): boolean => {
+const checkMain = (pkgJson): boolean =>
+    checkField(pkgJson, "main", "dist/index.js");
+
+const checkModule = (pkgJson): boolean =>
+    checkField(pkgJson, "module", "dist/es/index.js");
+
+const checkSource = (pkgJson): boolean =>
+    checkField(pkgJson, "source", ["src/index.js", "src/index.ts"]);
+
+const checkPrivate = (pkgJson): boolean => {
     if (pkgJson.private) {
         console.warn(
             `${pkgJson.name} is private and won't be published to NPM.`,
         );
-        return false;
+        return true;
     }
-    return true;
+    return false;
 };
 
-export const checkExports = (pkgJson): boolean => {
-    if (pkgJson.exports == null) {
-        error(`${pkgJson.name} must have a "exports" field.`);
-        return false;
-    }
+const checkEntrypoints = (pkgJson): boolean =>
+    checkModule(pkgJson) && checkMain(pkgJson);
 
-    if (pkgJson.exports["."] == null) {
-        error(
-            `${pkgJson.name} must have an "exports" field named "." (eg. "exports": { ".": {...} }).`,
-        );
-        return false;
-    }
-
-    return ![
-        checkExport(pkgJson, "default", "./dist/index.js"),
-        checkExport(pkgJson, "types", "./dist/index.d.ts"),
-        checkExport(pkgJson, "source", "./src/index.ts"),
-    ].some(isFalsey);
-};
+export {checkPublishConfig, checkEntrypoints, checkSource, checkPrivate};
