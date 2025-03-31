@@ -5,7 +5,6 @@ import {
     Changeable,
     EditorJsonify,
     Util,
-    PerseusI18nContext,
 } from "@khanacademy/perseus";
 import {
     numericInputLogic,
@@ -76,9 +75,6 @@ type State = {
 };
 
 class NumericInputEditor extends React.Component<Props, State> {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
-
     static widgetName = "numeric-input";
     static displayName = "NumericInputEditor";
 
@@ -625,7 +621,6 @@ class NumericInputEditor extends React.Component<Props, State> {
                                         this.updateAnswer(i, {
                                             value: firstNumericalParse(
                                                 newValue,
-                                                this.context.strings,
                                             ),
                                             answerForms: forms,
                                         });
@@ -634,7 +629,6 @@ class NumericInputEditor extends React.Component<Props, State> {
                                         this.updateAnswer(i, {
                                             value: firstNumericalParse(
                                                 newValue,
-                                                this.context.strings,
                                             ),
                                         });
                                     }}
