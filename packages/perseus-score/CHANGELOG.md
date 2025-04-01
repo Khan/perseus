@@ -1,5 +1,11 @@
 # @khanacademy/perseus-score
 
+## 4.0.1
+
+### Patch Changes
+
+-   [#2341](https://github.com/Khan/perseus/pull/2341) [`05d3c998d`](https://github.com/Khan/perseus/commit/05d3c998d3f01b1f33ea6213bda8dd02cf5c25a6) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: each vs forEach in answer-types causing issues with fractions in the editor
+
 ## 4.0.0
 
 ### Major Changes
