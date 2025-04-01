@@ -605,8 +605,8 @@ importers:
         specifier: workspace:*
         version: link:../perseus-utils
       mathquill:
-        specifier: https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz
-        version: https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz
+        specifier: file:../../vendor/mathquill-v1.0.0.tgz
+        version: file:vendor/mathquill-v1.0.0.tgz
     devDependencies:
       '@khanacademy/mathjax-renderer':
         specifier: 'catalog:'
@@ -6540,8 +6540,8 @@ packages:
   mathjax-full@3.2.2:
     resolution: {integrity: sha512-+LfG9Fik+OuI8SLwsiR02IVdjcnRCy5MufYLi0C3TdMT56L/pjB0alMVGgoWJF8pN9Rc7FESycZB9BMNWIid5w==}
 
-  mathquill@https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz:
-    resolution: {tarball: https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz}
+  mathquill@file:vendor/mathquill-v1.0.0.tgz:
+    resolution: {integrity: sha512-HeTowTawjHuZRzQpiLndF4vLMO0JQFuygWi6Sd4bjseUBLfnxh0qtP8wgl8wUHQRsY0vAC+GuurY1gEsJlsRAw==, tarball: file:vendor/mathquill-v1.0.0.tgz}
     version: 0.10.1
 
   mdn-data@2.0.14:
@@ -15878,7 +15878,7 @@ snapshots:
       mj-context-menu: 0.6.1
       speech-rule-engine: 4.0.7
 
-  mathquill@https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz: {}
+  mathquill@file:vendor/mathquill-v1.0.0.tgz: {}
 
   mdn-data@2.0.14: {}
 
