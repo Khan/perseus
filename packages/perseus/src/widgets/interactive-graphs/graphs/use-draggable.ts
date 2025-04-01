@@ -104,6 +104,7 @@ export function useDraggable(args: Params): DragState {
                 const {
                     direction: yDownDirection,
                     altKey,
+                    ctrlKey,
                     metaKey,
                     shiftKey,
                 } = state;
@@ -113,13 +114,14 @@ export function useDraggable(args: Params): DragState {
                     -yDownDirection[Y],
                 ] as vec.Vector2;
 
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 const span = Math.abs(direction[X]) ? xSpan : ySpan;
 
                 let divisions = 50;
                 if (altKey || metaKey) {
                     divisions = 200;
                 }
-                if (shiftKey) {
+                if (shiftKey && !ctrlKey) {
                     divisions = 10;
                 }
 

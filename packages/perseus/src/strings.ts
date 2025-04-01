@@ -136,8 +136,6 @@ export type PerseusStrings = {
     // The following strings are used for interactive graph SR descriptions.
     srGraphInstructions: string;
     srUnlimitedGraphInstructions: string;
-    xAxis: string;
-    yAxis: string;
     addPoint: string;
     removePoint: string;
     graphKeyboardPrompt: string;
@@ -690,11 +688,9 @@ export const strings = {
     // been finalized. Remove this comment after the tickets have been
     // created.
     srGraphInstructions:
-        "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.",
+        "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.",
     srUnlimitedGraphInstructions:
-        "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
-    xAxis: "X-axis",
-    yAxis: "Y-axis",
+        "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
     srPointAtCoordinates: "Point %(num)s at %(x)s comma %(y)s.",
     srCircleGraph: "A circle on a coordinate plane.",
     srCircleShape:
@@ -970,11 +966,9 @@ export const mockStrings: PerseusStrings = {
 
     // The following strings are used for interactive graph SR descriptions.
     srGraphInstructions:
-        "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.",
+        "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.",
     srUnlimitedGraphInstructions:
-        "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
-    xAxis: "X-axis",
-    yAxis: "Y-axis",
+        "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
     addPoint: "Add Point",
     removePoint: "Remove Point",

@@ -1,7 +1,7 @@
 import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
-} from "@khanacademy/perseus-core";
+} from "../../data-schema";
 
 /**
  * For details on the individual options, see the
@@ -70,6 +70,7 @@ function getRadioPublicWidgetOptions(
 
     return {
         ...options,
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         numCorrect: usesNumCorrect(multipleSelect, countChoices, numCorrect)
             ? numCorrect
             : undefined,

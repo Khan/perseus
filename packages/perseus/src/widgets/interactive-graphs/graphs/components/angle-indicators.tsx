@@ -122,7 +122,7 @@ export const PolygonAngle = ({
                 </filter>
             </defs>
 
-            {!isOutside && isRightAngle(angle) ? (
+            {!isOutside && isRightPolygonAngle(angle) ? (
                 <RightAngleSquare
                     start={[x1, y1]}
                     vertex={[x2, y2]}

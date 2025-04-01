@@ -152,11 +152,13 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         const model = this.props.model;
         const graph = this.props.graph;
         const asymptote = this._asymptote();
+        const showAsymptote = asymptote?.length > 0;
         const dashed = {
             strokeDasharray: "- ",
         } as const;
+
         return (
-            asymptote && (
+            showAsymptote && (
                 <MovableLine
                     onMove={(newCoord, oldCoord) => {
                         // Calculate and apply displacement

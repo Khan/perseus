@@ -1,0 +1,32 @@
+{
+    "name": "@khanacademy/perseus-utils",
+    "description": "Miscellaneous utilities used by the Khan Academy Perseus ecosystem",
+    "author": "Khan Academy",
+    "license": "MIT",
+    "version": "2.0.0",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Khan/perseus.git",
+        "directory": "packages/perseus-utils"
+    },
+    "bugs": {
+        "url": "https://github.com/Khan/perseus/issues"
+    },
+    "module": "dist/es/index.js",
+    "main": "dist/index.js",
+    "source": "src/index.ts",
+    "types": "dist/index.d.ts",
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "prepublishOnly": "../../utils/package-pre-publish-check.sh"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "perseus-build-settings": "workspace:*"
+    }
+}

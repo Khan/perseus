@@ -44,6 +44,7 @@ const _choiceTransform = (
         });
 
         // Place the "None of the above" options last
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (noneOfTheAbove) {
             newChoices.push(noneOfTheAbove);
         }
@@ -75,6 +76,7 @@ const _choiceTransform = (
             return {
                 ...choice,
                 originalIndex: i,
+                correct: Boolean(choice.correct),
             };
         });
 

@@ -11,12 +11,12 @@ import {
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import type {Coord} from "@khanacademy/perseus-core";
 import type {
+    PerseusInteractiveGraphUserInput,
     PerseusInteractiveGraphRubric,
     PerseusScore,
-    PerseusInteractiveGraphUserInput,
-} from "@khanacademy/perseus-score";
+} from "../../validation.types";
+import type {Coord} from "@khanacademy/perseus-core";
 
 const {collinear, canonicalSineCoefficients, similar, clockwise} = geometry;
 const {getClockwiseAngle} = angles;
@@ -275,6 +275,7 @@ function scoreInteractiveGraph(
             let match;
             if (rubric.correct.match === "congruent") {
                 const angles = _.map([guess, correct], function (coords) {
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     if (!coords) {
                         return false;
                     }

@@ -150,9 +150,7 @@ class ItemEditor extends React.Component<Props> {
                         />
                     </div>
 
-                    <div className="perseus-editor-right-cell">
-                        <div id="answer_area" />
-                    </div>
+                    <div className="perseus-editor-right-cell" />
                 </div>
             </div>
         );

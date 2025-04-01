@@ -3,7 +3,6 @@ import * as React from "react";
 import {useRef} from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
-import a11y from "../../../util/a11y";
 import {snap, X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 import {getRadius} from "../reducer/interactive-graph-state";
@@ -11,6 +10,7 @@ import useGraphConfig from "../reducer/use-graph-config";
 
 import Hairlines from "./components/hairlines";
 import {MovablePoint} from "./components/movable-point";
+import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
 import {useDraggable} from "./use-draggable";
 import {
@@ -110,12 +110,8 @@ export function CircleGraph(props: CircleGraphProps) {
             />
             {/* Hidden elements to provide the descriptions for the
                 circle and radius point's `aria-describedby` properties. */}
-            <g id={radiusId} style={a11y.srOnly}>
-                {srCircleRadius}
-            </g>
-            <g id={outerPointsId} style={a11y.srOnly}>
-                {srCircleOuterPoints}
-            </g>
+            <SRDescInSVG id={radiusId}>{srCircleRadius}</SRDescInSVG>
+            <SRDescInSVG id={outerPointsId}>{srCircleOuterPoints}</SRDescInSVG>
         </g>
     );
 }
@@ -150,6 +146,7 @@ function MovableCircle(props: {
             aria-label={ariaLabel}
             aria-describedby={ariaDescribedBy}
             aria-live="polite"
+            aria-disabled={disableKeyboardInteraction}
             ref={draggableRef}
             role="button"
             tabIndex={disableKeyboardInteraction ? -1 : 0}

@@ -3,6 +3,7 @@
  */
 
 // Polyfill scrollTo if it doesn't exist
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
 if (typeof HTMLElement !== "undefined" && !HTMLElement.prototype.scrollTo) {
     // @ts-expect-error - TS2322 - Type '(left: number, top: any) => void' is not assignable to type '{ (options?: ScrollToOptions | undefined): void; (x: number, y: number): void; }'.
     HTMLElement.prototype.scrollTo = function (left, top: any) {

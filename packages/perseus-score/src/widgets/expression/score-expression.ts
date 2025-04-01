@@ -86,8 +86,10 @@ function scoreExpression(
     let matchMessage: string | undefined;
     let allEmpty = true;
     let firstUngradedResult: Score | undefined;
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     for (const answerForm of rubric.answerForms || []) {
         const validator = createValidator(answerForm);
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!validator) {
             continue;
         }

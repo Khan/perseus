@@ -3,7 +3,7 @@
     "description": "Javascript markdown parsing, made simple",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "0.14.0",
+    "version": "2.0.0",
     "publishConfig": {
         "access": "public"
     },
@@ -24,7 +24,9 @@
     "scripts": {
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
-    "dependencies": {},
+    "dependencies": {
+        "@khanacademy/perseus-utils": "workspace:*"
+    },
     "devDependencies": {
         "perseus-build-settings": "workspace:*"
     },

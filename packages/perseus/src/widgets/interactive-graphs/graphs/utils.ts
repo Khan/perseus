@@ -4,7 +4,7 @@ import {srFormatNumber} from "./screenreader-text";
 
 import type {PerseusStrings} from "../../../strings";
 import type {PairOfPoints} from "../types";
-import type {Coord} from "@khanacademy/perseus";
+import type {Coord} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 /**
@@ -259,6 +259,7 @@ export function getAngleFromPoints(points: Coord[], i: number) {
     const point = points.at(i);
     const pt1 = points.at(i - 1);
     const pt2 = points[(i + 1) % points.length];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!point || !pt1 || !pt2) {
         return null;
     }

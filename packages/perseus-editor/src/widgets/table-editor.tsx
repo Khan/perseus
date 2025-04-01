@@ -37,7 +37,9 @@ class TableEditor extends React.Component<Props> {
         numRawRows,
         numRawColumns,
     ) => {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         let rows = +numRawRows || 0;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         let columns = +numRawColumns || 0;
         rows = Math.min(Math.max(1, rows), 30);
         columns = Math.min(Math.max(1, columns), 6);

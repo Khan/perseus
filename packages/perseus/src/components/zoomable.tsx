@@ -93,6 +93,7 @@ class Zoomable extends React.Component<Props, State> {
 
     componentWillUnmount() {
         window.removeEventListener("resize", this.reset);
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this._observer) {
             this._observer.disconnect();
         }
@@ -143,6 +144,7 @@ class Zoomable extends React.Component<Props, State> {
             // eslint-disable-next-line no-restricted-syntax
             setTimeout(() => this.measureAndScaleChildToFit(false), 0);
 
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (window.MutationObserver) {
                 this._observer = new MutationObserver(
                     (mutations: Array<MutationRecord>) => {

@@ -1,10 +1,9 @@
 import {render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import {Dependencies} from "@khanacademy/perseus";
-
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import {mockPerseusI18nContext} from "../../../components/i18n-context";
+import * as Dependencies from "../../../dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
