@@ -75,8 +75,7 @@ export const ServerItemRendererWithDebugUI = ({
     const shouldUseAnswerless =
         answerless &&
         !reviewMode &&
-        (showSolutions === "none" || !showSolutions) &&
-        startAnswerless;
+        (showSolutions === "none" || !showSolutions);
 
     const renderedQuestion: PerseusRenderer = shouldUseAnswerless
         ? splitPerseusItem(item.question)
