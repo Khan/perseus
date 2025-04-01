@@ -75,6 +75,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
     };
 
     state: State = {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         values: this.props.starting || [1],
 
         // The measured rendered height of category strings. Used to calculate
@@ -240,6 +241,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
                 ...Object.values(self.state.categoryHeights),
             );
 
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (maxCategoryHeight) {
                 // Account for bottom label position, height.
                 let offsetY = 25;

@@ -229,6 +229,7 @@ class SvgImage extends React.Component<Props, State> {
 
     loadResources() {
         loadGraphie(this.props.src, (data, localized) => {
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (this._isMounted && data.labels && data.range) {
                 const labelsRendered: LabelsRenderedMap = {};
                 data.labels.forEach((label) => {
@@ -369,6 +370,7 @@ class SvgImage extends React.Component<Props, State> {
             return null;
         }
         // parseFloat() ignores trailing non-numerical characters.
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         return parseFloat(value) || null;
     }
 
@@ -443,6 +445,7 @@ class SvgImage extends React.Component<Props, State> {
         // is tricky because web+graphie doesn't support labels on non-graphie
         // images.
         let extraGraphie;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this.props.extraGraphie && this.props.extraGraphie.labels.length) {
             extraGraphie = (
                 <Graphie
@@ -463,6 +466,7 @@ class SvgImage extends React.Component<Props, State> {
                 ? defaultPreloader
                 : this.props.preloader;
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const preloader = preloaderBaseFunc
             ? () => preloaderBaseFunc(dimensions)
             : null;
@@ -471,6 +475,7 @@ class SvgImage extends React.Component<Props, State> {
         if (!Util.isLabeledSVG(imageSrc)) {
             if (responsive) {
                 const wrapperClasses = classNames({
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     zoomable: (width || 0) > ZOOMABLE_THRESHOLD,
                     "svg-image": true,
                 });

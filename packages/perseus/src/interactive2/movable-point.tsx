@@ -600,12 +600,14 @@ export class MovablePoint {
      */
     // TODO(benchristel): listen() is duplicated in movable.ts
     listen(eventName: string, id: string, func: () => unknown) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         this._listenerMap = this._listenerMap || {};
 
         // If there's an existing handler, replace it by using its index in
         // `this.state[eventName]`; otherwise, add this handler to the end
         const key = getKey(eventName, id);
         const index = (this._listenerMap[key] =
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             this._listenerMap[key] || this.state[eventName].length);
         this.state[eventName][index] = func;
     }
@@ -619,6 +621,7 @@ export class MovablePoint {
     // TODO(benchristel): I don't think unlisten is used. Delete it?
     // TODO(benchristel): unlisten is duplicated in movable.ts
     unlisten(eventName, id) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         this._listenerMap = this._listenerMap || {};
 
         const key = getKey(eventName, id);
@@ -695,6 +698,7 @@ export class MovablePoint {
     remove() {
         this.state.added = false;
         this._fireEvent(this.state.remove);
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this.movable) {
             this.movable.remove();
         }
@@ -769,6 +773,7 @@ export class MovablePoint {
     // Change z-order to back
     toBack() {
         this.movable.toBack();
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this.state.visibleShape) {
             this.state.visibleShape.toBack();
         }
@@ -776,6 +781,7 @@ export class MovablePoint {
 
     // Change z-order to front
     toFront() {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this.state.visibleShape) {
             this.state.visibleShape.toFront();
         }

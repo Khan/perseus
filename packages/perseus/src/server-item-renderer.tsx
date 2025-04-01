@@ -216,6 +216,7 @@ export class ServerItemRenderer
                 const keypadDomNode: HTMLElement =
                     keypadElement?.getDOMNode() as HTMLElement;
                 const keypadHeight =
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     keypadDomNode && didFocusInput
                         ? keypadDomNode.getBoundingClientRect().height
                         : 0;

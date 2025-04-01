@@ -85,6 +85,7 @@ describe("moveOptionToIndex", () => {
             />,
         );
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!sortable) {
             throw new Error("Failed to render");
         }
@@ -108,6 +109,7 @@ describe("moveOptionToIndex", () => {
             />,
         );
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!sortable) {
             throw new Error("Failed to render");
         }
@@ -129,6 +131,7 @@ describe("moveOptionToIndex", () => {
             />,
         );
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!sortable) {
             throw new Error("Failed to render");
         }
@@ -150,6 +153,7 @@ describe("moveOptionToIndex", () => {
             />,
         );
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!sortable) {
             throw new Error("Failed to render");
         }

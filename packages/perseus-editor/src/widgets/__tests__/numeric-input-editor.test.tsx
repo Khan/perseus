@@ -2,6 +2,7 @@ import {Dependencies} from "@khanacademy/perseus";
 import {render, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
+import {useState} from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import NumericInputEditor from "../numeric-input-editor";
@@ -136,6 +137,31 @@ describe("numeric-input-editor", () => {
             expect.objectContaining({labelText: "a"}),
             undefined,
         );
+    });
+
+    it("regression LEMS-2962: should be possible to have a fraction answer", async () => {
+        function StatefulNumericInputEditor() {
+            const [props, setProps] = useState({});
+
+            function mergeProps(newProps) {
+                setProps({
+                    ...props,
+                    ...newProps,
+                });
+            }
+
+            return <NumericInputEditor onChange={mergeProps} {...props} />;
+        }
+
+        render(<StatefulNumericInputEditor />);
+
+        const input = screen.getByRole("textbox", {
+            name: "User input:",
+        });
+
+        await userEvent.type(input, "6/8");
+
+        expect(screen.getByText("Correct answer: 3/4")).toBeInTheDocument();
     });
 
     it("should be possible to set unsimplified answers to ungraded", async () => {

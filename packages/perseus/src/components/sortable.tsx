@@ -200,6 +200,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
             this.unbindMouseMoveUp();
         }
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this.animationFrameRequest) {
             // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
             // eslint-disable-next-line no-restricted-syntax
@@ -532,8 +533,11 @@ class Sortable extends React.Component<SortableProps, SortableState> {
     componentDidUpdate() {
         // Measure items if their dimensions have been reset
         if (
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             this.state.items.length &&
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             !this.state.items[0].width &&
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             !this.state.items[0].height
         ) {
             // Measure on the next frame to allow items size to settle.
@@ -656,6 +660,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         const $sortable = $(ReactDOM.findDOMNode(this));
         const items = _.clone(this.state.items);
         const item = _.findWhere(this.state.items, {key: key});
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const margin = this.props.margin || 0;
         // @ts-expect-error - TS2345 - Argument of type 'SortableItem | undefined' is not assignable to parameter of type 'SortableItem'.
         const currentIndex = _.indexOf(items, item);

@@ -563,50 +563,69 @@ const KhanAnswerTypes = {
                     guess: guess,
                 };
 
-                // iterate over all the acceptable forms, and if one of the
-                // answers is correct, return true
-                acceptableForms.forEach((form) => {
-                    const transformed = forms[form](guess);
-                    for (let j = 0, l = transformed.length; j < l; j++) {
-                        const val = transformed[j].value;
-                        const exact = transformed[j].exact;
-                        const piApprox = transformed[j].piApprox;
-                        // If a string was returned, and it exactly matches,
-                        // return true
-                        if (predicate(val, options.maxError)) {
-                            // If the exact correct number was returned,
+                // Iterate over all the acceptable forms
+                // and exit if one of the answers is correct.
+                //
+                // HACK: This function is a bug fix from LEMS-2962;
+                // after a transition from jQuery's `each` to JS's `forEach`
+                // we realized this code was banking on the ability to:
+                //   1. exit early from nested loops (can be tricky outside of functions)
+                //   2. mutate external variables (score)
+                // Could probably be refactored to be a pure function that
+                // returns a score, but this code is poorly tested and prone to break.
+                const findCorrectAnswer = () => {
+                    // WARNING: Don't use `forEach` without additional refactoring
+                    // because code needs to be able to exit early
+                    for (const form of acceptableForms) {
+                        const transformed = forms[form](guess);
+                        for (let j = 0, l = transformed.length; j < l; j++) {
+                            const val = transformed[j].value;
+                            const exact = transformed[j].exact;
+                            const piApprox = transformed[j].piApprox;
+                            // If a string was returned, and it exactly matches,
                             // return true
-                            if (exact || options.simplify === "optional") {
-                                score.correct = true;
-                                score.message = options.message || null;
-                                // If the answer is correct, don't say it's
-                                // empty. This happens, for example, with the
-                                // coefficient type where guess === "" but is
-                                // interpreted as "1" which is correct.
-                                score.empty = false;
-                            } else if (form === "percent") {
-                                // Otherwise, an error was returned
+                            if (predicate(val, options.maxError)) {
+                                // If the exact correct number was returned,
+                                // return true
+                                if (exact || options.simplify === "optional") {
+                                    score.correct = true;
+                                    score.message = options.message || null;
+                                    // If the answer is correct, don't say it's
+                                    // empty. This happens, for example, with the
+                                    // coefficient type where guess === "" but is
+                                    // interpreted as "1" which is correct.
+                                    score.empty = false;
+                                } else if (form === "percent") {
+                                    // Otherwise, an error was returned
+                                    score.empty = true;
+                                    score.message =
+                                        ErrorCodes.MISSING_PERCENT_ERROR;
+                                } else {
+                                    if (options.simplify !== "enforced") {
+                                        score.empty = true;
+                                    }
+                                    score.message =
+                                        ErrorCodes.NEEDS_TO_BE_SIMPLIFIED_ERROR;
+                                }
+                                // HACK: The return false below stops the looping of the
+                                // callback since predicate check succeeded.
+                                // No more forms to look to verify the user guess.
+                                return false;
+                            }
+                            if (
+                                piApprox &&
+                                predicate(val, Math.abs(val * 0.001))
+                            ) {
                                 score.empty = true;
                                 score.message =
-                                    ErrorCodes.MISSING_PERCENT_ERROR;
-                            } else {
-                                if (options.simplify !== "enforced") {
-                                    score.empty = true;
-                                }
-                                score.message =
-                                    ErrorCodes.NEEDS_TO_BE_SIMPLIFIED_ERROR;
+                                    ErrorCodes.APPROXIMATED_PI_ERROR;
                             }
-                            // The return false below stops the looping of the
-                            // callback since predicate check  succeeded.
-                            // No more forms to look to verify the user guess.
-                            return false;
-                        }
-                        if (piApprox && predicate(val, Math.abs(val * 0.001))) {
-                            score.empty = true;
-                            score.message = ErrorCodes.APPROXIMATED_PI_ERROR;
                         }
                     }
-                });
+                };
+
+                // mutates `score`
+                findCorrectAnswer();
 
                 if (score.correct === false) {
                     let interpretedGuess = false;

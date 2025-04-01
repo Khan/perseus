@@ -1,5 +1,11 @@
 # perseus-build-settings
 
+## 0.6.0
+
+### Minor Changes
+
+-   [#2327](https://github.com/Khan/perseus/pull/2327) [`7d1e7b0eb`](https://github.com/Khan/perseus/commit/7d1e7b0eb98bdea51066190d092d2339a4efbf93) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate Rollup to v4
+
 ## 0.5.1
 
 ### Patch Changes

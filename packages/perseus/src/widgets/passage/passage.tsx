@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 import $ from "jquery";
@@ -276,6 +277,7 @@ export class Passage
     _getStartRefLineNumber(referenceNumber: number): number | null | undefined {
         const refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
         const ref = this.refs[refRef];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!ref) {
             return null;
         }
@@ -303,6 +305,7 @@ export class Passage
     _getEndRefLineNumber(referenceNumber: number): number | null | undefined {
         const refRef = PassageMarkdown.END_REF_PREFIX + referenceNumber;
         const ref = this.refs[refRef];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!ref) {
             return null;
         }
@@ -348,6 +351,7 @@ export class Passage
     _getRefContent(referenceNumber: number): string | null | undefined {
         const refRef = PassageMarkdown.START_REF_PREFIX + referenceNumber;
         const ref = this.refs[refRef];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!ref) {
             return null;
         }

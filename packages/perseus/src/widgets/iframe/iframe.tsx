@@ -113,6 +113,7 @@ class Iframe extends React.Component<Props> implements Widget {
         let url = this.props.url;
 
         // If the URL doesnt start with http, it must be a program ID
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (url && url.length && url.indexOf("http") !== 0) {
             url =
                 "https://www.khanacademy.org/computer-programming/program/" +

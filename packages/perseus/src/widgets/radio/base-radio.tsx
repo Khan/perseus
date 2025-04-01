@@ -84,6 +84,7 @@ function getInstructionsText(
     if (multipleSelect) {
         // using usesNumCorrect to make sure this logic stays in sync
         // with getRadioPublicWidgetOptions logic
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (usesNumCorrect(multipleSelect, !!countChoices, numCorrect)) {
             return strings.chooseNumAnswers({
                 numCorrect: String(numCorrect),
@@ -132,6 +133,7 @@ const BaseRadio = function ({
             apiOptions.canScrollPage &&
             isLastUsedWidget &&
             reviewModeRubric &&
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             !prevReviewModeRubric.current
         ) {
             const checkedIndex = choices.findIndex((c) => c.checked);
@@ -301,6 +303,7 @@ const BaseRadio = function ({
 
                     const nextChoice = choices[i + 1];
                     const nextChoiceHighlighted =
+                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         !!nextChoice && nextChoice.highlighted;
 
                     const aphroditeClassName = (checked: boolean) => {
