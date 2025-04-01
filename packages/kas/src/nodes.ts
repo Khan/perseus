@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable prettier/prettier */
 /* eslint-disable import/order */
 /* TODO: fix these lint errors (http://eslint.org/docs/rules): */
@@ -159,7 +160,7 @@ abstract class Expr {
     eval(vars: Vars = {}, options?: ParseOptions): number {
         throw new Error(
             "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
+                // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 this.print(),
         );
     }
@@ -170,7 +171,7 @@ abstract class Expr {
     codegen(): string {
         throw new Error(
             "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
+                // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 this.print(),
         );
     }
@@ -557,7 +558,7 @@ abstract class Expr {
     isPositive(): boolean {
         throw new Error(
             "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
+                // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 this.print(),
         );
     }
@@ -593,7 +594,7 @@ abstract class Expr {
     abs(): Expr {
         throw new Error(
             "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
+                // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 this.print(),
         );
     }

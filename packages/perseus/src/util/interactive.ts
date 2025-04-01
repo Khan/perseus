@@ -1,4 +1,5 @@
-/* eslint-disable @babel/no-invalid-this */
+/* eslint-disable max-lines */
+/* eslint-disable @typescript-eslint/no-invalid-this */
 /**
  * Interactive graphie utilities.
  *

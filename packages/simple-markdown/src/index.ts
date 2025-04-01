@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable prefer-spread, no-regex-spaces, guard-for-in, no-console, no-var */
 /**
  * Simple-Markdown
