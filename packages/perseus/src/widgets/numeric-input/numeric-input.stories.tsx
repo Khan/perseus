@@ -1,6 +1,8 @@
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
+import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {NumericInput} from "./numeric-input.class";
 import {
@@ -320,6 +322,32 @@ CoefficientExample.parameters = {
     docs: {
         description: {
             story: "When Numeric Input is set to coefficient mode, it allows the student to use - for -1 and an empty string to mean 1.",
+        },
+    },
+};
+
+export const Answerless = (
+    args: PerseusNumericInputWidgetOptions,
+): React.ReactElement => {
+    const question = updateWidgetOptions(
+        defaultQuestion,
+        "numeric-input 1",
+        args,
+    );
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question,
+            })}
+            startAnswerless={true}
+        />
+    );
+};
+Answerless.args = defaultQuestion.widgets["numeric-input 1"].options;
+Answerless.parameters = {
+    docs: {
+        description: {
+            story: "The answerless Numeric Input widget.",
         },
     },
 };
