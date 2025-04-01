@@ -357,13 +357,6 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
             <div
               class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
             >
-              <span
-                aria-atomic="true"
-                aria-live="polite"
-                aria-relevant="additions text"
-                class="srOnly_19bpjuy"
-                data-testid="dropdown-live-region"
-              />
               <button
                 aria-controls=":r4:"
                 aria-disabled="false"
@@ -396,7 +389,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_wnyn4t-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-icon_v892o5-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
@@ -449,13 +442,6 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
             <div
               class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
             >
-              <span
-                aria-atomic="true"
-                aria-live="polite"
-                aria-relevant="additions text"
-                class="srOnly_19bpjuy"
-                data-testid="dropdown-live-region"
-              />
               <button
                 aria-controls=":r7:"
                 aria-disabled="false"
@@ -488,7 +474,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_wnyn4t-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-icon_v892o5-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
@@ -541,13 +527,6 @@ exports[`renderer snapshots initial render: initial render 1`] = `
             <div
               class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
             >
-              <span
-                aria-atomic="true"
-                aria-live="polite"
-                aria-relevant="additions text"
-                class="srOnly_19bpjuy"
-                data-testid="dropdown-live-region"
-              />
               <button
                 aria-controls=":r1:"
                 aria-disabled="false"
@@ -580,7 +559,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_wnyn4t-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-icon_v892o5-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
@@ -635,7 +614,7 @@ exports[`renderer snapshots renders a placeholder for a deprecated widget: depre
               >
                 <span
                   aria-label="info"
-                  class="svg_1q6jc65-o_O-icon_1521uiv-o_O-icon_gcwxx2-o_O-inlineStyles_94g682"
+                  class="svg_1q6jc65-o_O-icon_1521uiv-o_O-icon_l3ypny-o_O-inlineStyles_94g682"
                   data-testid="banner-kind-icon"
                   role="img"
                 />
