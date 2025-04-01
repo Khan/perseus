@@ -566,13 +566,16 @@ const KhanAnswerTypes = {
                 // Iterate over all the acceptable forms
                 // and exit if one of the answers is correct.
                 //
-                // HACK: The anonomous function is a bug fix from LEMS-2962;
+                // HACK: This function is a bug fix from LEMS-2962;
                 // after a transition from jQuery's `each` to JS's `forEach`
-                // we realized this code was banking on the ability to exit early
-                // from nested loops which is tricky to do outside of a function.
-                (function () {
+                // we realized this code was banking on the ability to:
+                //   1. exit early from nested loops (can be tricky outside of functions)
+                //   2. mutate external variables (score)
+                // Could probably be refactored to be a pure function that
+                // returns a score, but this code is poorly tested and prone to break.
+                const findCorrectAnswer = () => {
                     // WARNING: Don't use `forEach` without additional refactoring
-                    // code needs to be able to exit early
+                    // because code needs to be able to exit early
                     for (const form of acceptableForms) {
                         const transformed = forms[form](guess);
                         for (let j = 0, l = transformed.length; j < l; j++) {
@@ -619,7 +622,10 @@ const KhanAnswerTypes = {
                             }
                         }
                     }
-                })();
+                };
+
+                // mutates `score`
+                findCorrectAnswer();
 
                 if (score.correct === false) {
                     let interpretedGuess = false;
