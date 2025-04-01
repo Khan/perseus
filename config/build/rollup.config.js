@@ -162,6 +162,7 @@ const createConfig = (
             swc({
                 swc: {
                     swcrc: true,
+                    minify: true,
                 },
                 exclude: "node_modules/**",
             }),
