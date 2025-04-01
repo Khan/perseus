@@ -70,8 +70,7 @@ export const ServerItemRendererWithDebugUI = ({
     // `reviewMode` and `showSolutions` require answerful data by definition,
     // so only use answerless data if those are not enabled. Also makes the
     // startAnswerless toggle actually switch between answerless and answerful
-    // data for stories starting with answerless data. Stories starting with
-    // answerful data will need a page refresh to see updated data.
+    // data, though a page refresh is needed to see the change.
     const shouldUseAnswerless =
         answerless &&
         !reviewMode &&
