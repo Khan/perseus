@@ -1,4 +1,4 @@
-import {components, PerseusI18nContext, Util} from "@khanacademy/perseus";
+import {components, Util} from "@khanacademy/perseus";
 import {inputNumberLogic} from "@khanacademy/perseus-core";
 import {inputNumberAnswerTypes} from "@khanacademy/perseus-score";
 import * as React from "react";
@@ -34,9 +34,6 @@ type Props = {
 };
 
 class InputNumberEditor extends React.Component<Props> {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
-
     static widgetName = "input-number" as const;
 
     static defaultProps: InputNumberDefaultWidgetOptions =
@@ -45,7 +42,7 @@ class InputNumberEditor extends React.Component<Props> {
     input = React.createRef<BlurInput>();
 
     handleAnswerChange: (arg1: string) => void = (str) => {
-        const value = Util.firstNumericalParse(str, this.context.strings) || 0;
+        const value = Util.firstNumericalParse(str) || 0;
         this.props.onChange({value: value});
     };
 
@@ -166,10 +163,8 @@ class InputNumberEditor extends React.Component<Props> {
                             onBlur={(e) => {
                                 const ans =
                                     "" +
-                                    (Util.firstNumericalParse(
-                                        e.target.value,
-                                        this.context.strings,
-                                    ) || 0);
+                                    (Util.firstNumericalParse(e.target.value) ||
+                                        0);
                                 e.target.value = ans;
                                 this.props.onChange({maxError: ans});
                             }}
