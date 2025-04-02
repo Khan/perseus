@@ -1,0 +1,45 @@
+import{B as o}from"./index-CYrfVekP.js";import{V as n}from"./index-CskvhqFA.js";import{P as w}from"./index-CIHqsnLr.js";import{S as b}from"./index-B-CZbs2J.js";import{S as E}from"./all-widgets-Ca9adxvK.js";import{H as m}from"./index-CbNKSLRm.js";import{r as e}from"./index-C6mWTJJr.js";import{S as k,R as l}from"./split-view-BZlP60yI.js";import"./core-widget-registry-2tCIH_GM.js";import{s as P}from"./util-Cjm22Ttl.js";import"./underscore-U-AHniOr.js";import"./jquery-CkHB0_Mt.js";import"./phet-simulation-DOXsIrrc.js";import"./dependencies-BsVPGK1s.js";import"./perseus-api-DmwU2RjF.js";import"./server-item-renderer-CQq1KA-1.js";import"./article-renderer-XuVFlMX9.js";import"./hints-renderer-Bgu9Wu6L.js";import{R as I}from"./renderer-Doy-sv_3.js";import"./base-radio-kaSH4GDV.js";import"./button-group-q129tbVV.js";import"./svg-image-fTqFFTIk.js";import"./hud--52rQRjV.js";import"./icon-90vA-eeT.js";import"./index-BMj1EjxY.js";import"./inline-icon-olZqfQoG.js";import"./math-input-BAdTcF3v.js";import"./multi-button-group-CGE8ZIlq.js";import"./number-input-CDxfqmZD.js";import"./range-input-pvBjtf5m.js";import"./text-input-DZHbtyPE.js";import"./text-list-editor-Rb8EP659.js";import{u as v}from"./i18n-context-glBZFVwC.js";import{r as R}from"./register-all-widgets-for-testing-CYkfVclR.js";import"./index-Dd-cahjY.js";const T=""+new URL("device-mobile-CjXpfYRi.svg",import.meta.url).href,S=({question:t,apiOptions:d,reviewMode:c=!1,...u})=>{R();const r=e.useRef(null),[s,p]=e.useState(null),[i,g]=e.useState(!1),{strings:h}=v(),y={...d,isMobile:i,customKeypad:i};return e.createElement(k,{rendererTitle:e.createElement(n,{style:{flexDirection:"row",alignItems:"center",width:"100%"}},"Widget",e.createElement(n,{style:{marginLeft:"auto"}},e.createElement(E,{icon:e.createElement(w,{icon:T}),checked:i,onChange:g}))),renderer:e.createElement(n,null,e.createElement(n,{className:i?"perseus-mobile":""},e.createElement(I,{ref:r,content:t.content,images:t.images,widgets:t.widgets,problemNum:0,apiOptions:y,reviewMode:c,strings:h,...u})),e.createElement(n,{style:{flexDirection:"row",alignItems:"center"}},e.createElement(o,{onClick:()=>{if(!r.current)return;const a=r.current.getUserInputMap(),f=P(t,r.current.getUserInputMap(),"en");p([a,f])}},"Check"),e.createElement(b,{size:8}),e.createElement(o,{onClick:()=>{var a;(a=r.current)==null||a.showRationalesForCurrentlySelectedChoices()}},"Show Rationales")),s!=null&&e.createElement(e.Fragment,null,e.createElement(m,{style:{marginTop:"10px"}},"Guess"),e.createElement(l,{quotesOnKeys:!1,enableClipboard:!1,src:s[0]}),e.createElement(m,{style:{marginTop:"10px"}},"Score"),e.createElement(l,{quotesOnKeys:!1,enableClipboard:!1,src:s[1]}))),jsonObject:t})};S.__docgenInfo={description:"",methods:[],displayName:"RendererWithDebugUI",props:{question:{required:!0,tsType:{name:"signature",type:"object",raw:`{
+    /**
+     * Translatable Markdown content to be rendered.  May include references to
+     * widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
+     * For each image found in this content, there can be an entry in the
+     * \`images\` dict (below) with the key being the image's url which defines
+     * additional attributes for the image.
+     */
+    content: string;
+    /**
+     * A dictionary of {[widgetName]: Widget} to be referenced from the content
+     * field.
+     */
+    widgets: PerseusWidgetsMap;
+    /**
+     * Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
+     * are keys that represent other content in the system.  Not rendered to
+     * the user. NOTE: perseus_data.go says this is required even though it
+     * isn't necessary.
+     * @deprecated
+     */
+    metadata?: any;
+    /**
+     * A dictionary of {[imageUrl]: PerseusImageDetail}.
+     */
+    images: {
+        [imageUrl: string]: PerseusImageDetail;
+    };
+}`,signature:{properties:[{key:"content",value:{name:"string",required:!0},description:`Translatable Markdown content to be rendered.  May include references to
+widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
+For each image found in this content, there can be an entry in the
+\`images\` dict (below) with the key being the image's url which defines
+additional attributes for the image.`},{key:"widgets",value:{name:"signature",type:"object",raw:"{\n    [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];\n}",signature:{properties:[{key:{name:"PerseusWidgetTypes",required:!0},value:{name:"PerseusWidgetTypes[Property]",raw:"TRegistry[Property]"}}]},required:!0},description:`A dictionary of {[widgetName]: Widget} to be referenced from the content
+field.`},{key:"metadata",value:{name:"any",required:!1},description:`Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
+are keys that represent other content in the system.  Not rendered to
+the user. NOTE: perseus_data.go says this is required even though it
+isn't necessary.
+@deprecated`},{key:"images",value:{name:"signature",type:"object",raw:`{
+    [imageUrl: string]: PerseusImageDetail;
+}`,signature:{properties:[{key:{name:"string"},value:{name:"signature",type:"object",raw:`{
+    // The width of the image
+    width: number;
+    // the height of the image
+    height: number;
+}`,signature:{properties:[{key:"width",value:{name:"number",required:!0}},{key:"height",value:{name:"number",required:!0}}]},required:!0}}]},required:!0},description:"A dictionary of {[imageUrl]: PerseusImageDetail}."}]}},description:""},reviewMode:{defaultValue:{value:"false",computed:!1},required:!1}}};export{S as R};
