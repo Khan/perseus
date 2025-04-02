@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "58.0.0",
+    "version": "59.0.1",
     "publishConfig": {
         "access": "public"
     },
@@ -15,19 +15,21 @@
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
     },
-    "engines": {
-        "node": ">=18"
-    },
+    "module": "dist/es/index.js",
+    "main": "dist/index.js",
+    "source": "src/index.ts",
     "exports": {
         ".": {
-            "source": "./src/index.ts",
+            "import": "./dist/es/index.js",
+            "require": "./dist/index.js",
             "types": "./dist/index.d.ts",
-            "default": "./dist/index.js"
+            "source": "./src/index.ts"
         },
         "./strings": {
-            "source": "./src/strings.ts",
+            "import": "./dist/es/strings.js",
+            "require": "./dist/strings.js",
             "types": "./dist/strings.d.ts",
-            "default": "./dist/strings.js"
+            "source": "./src/strings.ts"
         },
         "./styles.css": "./dist/index.css"
     },

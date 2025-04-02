@@ -1,5 +1,17 @@
 # @khanacademy/kmath
 
+## 2.0.0
+
+### Major Changes
+
+-   [#2339](https://github.com/Khan/perseus/pull/2339) [`ef5fea555`](https://github.com/Khan/perseus/commit/ef5fea5551230f49af5b31705e84b23493f76883) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Revert move to ESM-only packages (package again ships with CJS and ESM builds)
+
+### Patch Changes
+
+-   Updated dependencies [[`ef5fea555`](https://github.com/Khan/perseus/commit/ef5fea5551230f49af5b31705e84b23493f76883)]:
+    -   @khanacademy/perseus-core@7.0.0
+    -   @khanacademy/perseus-utils@2.0.0
+
 ## 1.0.0
 
 ### Major Changes

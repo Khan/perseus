@@ -1,8 +1,10 @@
 /* eslint-disable import/no-commonjs */
 /**
- * This is the main jest config.
+ * This is the main jest config.  It runs tests using the default
+ * test environment: jest-environment-node.
  */
-const path = require("node:path");
+const fs = require("fs");
+const path = require("path");
 
 const ancesdir = require("ancesdir");
 const fg = require("fast-glob");
@@ -11,26 +13,29 @@ const root = ancesdir(__dirname);
 const vendorMap = fg
     .globSync(path.join(root, "vendor/*/package.json"))
     .reduce((map, pkgJsonPath) => {
-        const pkgJson = require(pkgJsonPath);
-        const packageDirName = path.basename(path.dirname(pkgJsonPath));
+        const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath).toString());
         return {
             ...map,
-            [`^${pkgJson.name}$`]: `<rootDir>/vendor/${packageDirName}/${pkgJson.main}`,
+            [`^${pkgJson.name}$`]: `<rootDir>/vendor/${pkgJson.name}/${pkgJson.main}`,
         };
     }, {});
 
 const pkgMap = fg
     .globSync(path.join(root, "packages/*/package.json"))
     .reduce((map, pkgJsonPath) => {
-        const pkgJson = require(pkgJsonPath);
-        const packageDirName = path.basename(path.dirname(pkgJsonPath));
+        const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath).toString());
         return {
             ...map,
             // NOTE(kevinb): we use the 'source' field here so that we can run our
             // tests without having to compile all of the packages first.
-            [`^${pkgJson.name}$`]: `<rootDir>/packages/${packageDirName}/${pkgJson.exports["."].source.slice(2)}`,
+            // NOTE(jeremy): We use strip the leading "@khanacademy/" namespace
+            // from all package names because our local directory structure
+            // doesn't include that. So "@khanacademy/perseus" becomes "perseus"
+            [`^${pkgJson.name}$`]: `<rootDir>/packages/${pkgJson.name.replace(/^@khanacademy\//, "")}/${pkgJson.source}`,
         };
     }, {});
+
+console.log(pkgMap);
 
 /** @type {import('jest').Config} */
 module.exports = {

@@ -8,6 +8,7 @@ import {
     type KEScore,
     type PerseusRenderer,
     splitPerseusItem,
+    type ShowSolutions,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 
@@ -15,7 +16,7 @@ import * as Perseus from "../packages/perseus/src/index";
 import {keScoreFromPerseusScore} from "../packages/perseus/src/util/scoring";
 
 import KEScoreUI from "./ke-score-ui";
-import SideBySide from "./split-view";
+import SplitView from "./split-view";
 import {storybookDependenciesV2} from "./test-dependencies";
 
 import type {APIOptions} from "../packages/perseus/src/types";
@@ -25,17 +26,25 @@ type Props = {
     item: PerseusItem;
     apiOptions?: APIOptions;
     keypadElement?: KeypadAPI | null | undefined;
-    answerless?: boolean;
+    // Temporary measure testing rendering with answerless data;
+    // only exists until all widgets are renderable with answerless data
+    startAnswerless?: boolean;
+    reviewMode?: boolean;
+    showSolutions?: ShowSolutions;
 };
 
 export const ServerItemRendererWithDebugUI = ({
     item,
     apiOptions,
     keypadElement,
-    answerless = false,
+    reviewMode = false,
+    startAnswerless = false,
+    showSolutions,
 }: Props): React.ReactElement => {
     const ref = React.useRef<Perseus.ServerItemRendererComponent>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
+    const [answerless, setAnswerless] =
+        React.useState<boolean>(startAnswerless);
     const options = apiOptions || Object.freeze({});
 
     const getKeScore = () => {
@@ -58,7 +67,16 @@ export const ServerItemRendererWithDebugUI = ({
         );
     };
 
-    const renderedQuestion: PerseusRenderer = answerless
+    // `reviewMode` and `showSolutions` require answerful data by definition,
+    // so only use answerless data if those are not enabled. Also makes the
+    // startAnswerless toggle actually switch between answerless and answerful
+    // data, though a page refresh is needed to see the change.
+    const shouldUseAnswerless =
+        answerless &&
+        !reviewMode &&
+        (showSolutions === "none" || !showSolutions);
+
+    const renderedQuestion: PerseusRenderer = shouldUseAnswerless
         ? splitPerseusItem(item.question)
         : item.question;
 
@@ -68,7 +86,7 @@ export const ServerItemRendererWithDebugUI = ({
     };
 
     return (
-        <SideBySide
+        <SplitView
             rendererTitle="Renderer"
             renderer={
                 <>
@@ -79,10 +97,13 @@ export const ServerItemRendererWithDebugUI = ({
                         item={renderedItem}
                         dependencies={storybookDependenciesV2}
                         keypadElement={keypadElement}
+                        reviewMode={reviewMode}
+                        showSolutions={showSolutions}
                     />
                     <View style={{flexDirection: "row", alignItems: "center"}}>
                         <Button
                             onClick={() => {
+                                setAnswerless(false);
                                 if (!ref.current) {
                                     return;
                                 }
@@ -94,6 +115,7 @@ export const ServerItemRendererWithDebugUI = ({
                         <Strut size={8} />
                         <Button
                             onClick={() => {
+                                setAnswerless(false);
                                 ref.current?.showRationalesForCurrentlySelectedChoices();
                             }}
                         >

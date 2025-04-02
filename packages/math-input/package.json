@@ -3,7 +3,7 @@
     "description": "Khan Academy's new expression editor for the mobile web.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "24.0.0",
+    "version": "25.0.0",
     "publishConfig": {
         "access": "public"
     },
@@ -15,19 +15,21 @@
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
     },
-    "engines": {
-        "node": ">=18"
-    },
+    "module": "dist/es/index.js",
+    "main": "dist/index.js",
+    "source": "src/index.ts",
     "exports": {
         ".": {
-            "source": "./src/index.ts",
+            "import": "./dist/es/index.js",
+            "require": "./dist/index.js",
             "types": "./dist/index.d.ts",
-            "default": "./dist/index.js"
+            "source": "./src/index.ts"
         },
         "./strings": {
-            "source": "./src/strings.ts",
+            "import": "./dist/es/strings.js",
+            "require": "./dist/strings.js",
             "types": "./dist/strings.d.ts",
-            "default": "./dist/strings.js"
+            "source": "./src/strings.ts"
         },
         "./styles.css": "./dist/index.css"
     },
@@ -41,7 +43,7 @@
         "@khanacademy/keypad-context": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*",
         "@khanacademy/perseus-utils": "workspace:*",
-        "mathquill": "https://github.com/Khan/mathquill/releases/download/v1.0.0/mathquill-v1.0.0.tgz"
+        "mathquill": "file:../../vendor/mathquill-v1.0.0.tgz"
     },
     "devDependencies": {
         "@khanacademy/mathjax-renderer": "catalog:",

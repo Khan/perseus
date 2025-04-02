@@ -3,7 +3,7 @@
     "description": "Miscellaneous utilities used by the Khan Academy Perseus ecosystem",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "1.0.0",
+    "version": "2.0.0",
     "publishConfig": {
         "access": "public"
     },
@@ -15,16 +15,10 @@
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
     },
-    "engines": {
-        "node": ">=18"
-    },
-    "exports": {
-        ".": {
-            "source": "./src/index.ts",
-            "types": "./dist/index.d.ts",
-            "default": "./dist/index.js"
-        }
-    },
+    "module": "dist/es/index.js",
+    "main": "dist/index.js",
+    "source": "src/index.ts",
+    "types": "dist/index.d.ts",
     "files": [
         "dist"
     ],

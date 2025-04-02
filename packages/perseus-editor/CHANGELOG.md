@@ -1,5 +1,35 @@
 # @khanacademy/perseus-editor
 
+## 20.0.1
+
+### Patch Changes
+
+-   [#2341](https://github.com/Khan/perseus/pull/2341) [`05d3c998d`](https://github.com/Khan/perseus/commit/05d3c998d3f01b1f33ea6213bda8dd02cf5c25a6) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: each vs forEach in answer-types causing issues with fractions in the editor
+
+-   Updated dependencies [[`05d3c998d`](https://github.com/Khan/perseus/commit/05d3c998d3f01b1f33ea6213bda8dd02cf5c25a6)]:
+    -   @khanacademy/perseus@59.0.1
+    -   @khanacademy/perseus-score@4.0.1
+
+## 20.0.0
+
+### Major Changes
+
+-   [#2339](https://github.com/Khan/perseus/pull/2339) [`ef5fea555`](https://github.com/Khan/perseus/commit/ef5fea5551230f49af5b31705e84b23493f76883) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Revert move to ESM-only packages (package again ships with CJS and ESM builds)
+
+### Patch Changes
+
+-   Updated dependencies [[`ef5fea555`](https://github.com/Khan/perseus/commit/ef5fea5551230f49af5b31705e84b23493f76883)]:
+    -   @khanacademy/kas@2.0.0
+    -   @khanacademy/keypad-context@3.0.0
+    -   @khanacademy/kmath@2.0.0
+    -   @khanacademy/math-input@25.0.0
+    -   @khanacademy/perseus@59.0.0
+    -   @khanacademy/perseus-core@7.0.0
+    -   @khanacademy/perseus-linter@3.0.0
+    -   @khanacademy/perseus-score@4.0.0
+    -   @khanacademy/perseus-utils@2.0.0
+    -   @khanacademy/pure-markdown@2.0.0
+
 ## 19.0.0
 
 ### Major Changes

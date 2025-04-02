@@ -3,7 +3,7 @@
     "description": "Perseus score",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "3.0.0",
+    "version": "4.0.1",
     "publishConfig": {
         "access": "public"
     },
@@ -15,16 +15,9 @@
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
     },
-    "engines": {
-        "node": ">=18"
-    },
-    "exports": {
-        ".": {
-            "source": "./src/index.ts",
-            "types": "./dist/index.d.ts",
-            "default": "./dist/index.js"
-        }
-    },
+    "module": "dist/es/index.js",
+    "main": "dist/index.js",
+    "source": "src/index.ts",
     "files": [
         "dist"
     ],
