@@ -29,12 +29,11 @@ jest.mock("./util", () => ({
         mockedJoinLabelsAsSpokenMathForTests(input),
 }));
 
-const exampleEquationsMock = {
-    foo: ["bar", "zot"],
-};
 jest.mock("./locked-function-examples", () => ({
     __esModule: true,
-    default: exampleEquationsMock,
+    default: {
+        foo: ["bar", "zot"],
+    },
 }));
 
 describe("Locked Function Settings", () => {
