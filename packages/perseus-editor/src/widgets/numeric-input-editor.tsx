@@ -5,7 +5,6 @@ import {
     Changeable,
     EditorJsonify,
     Util,
-    PerseusI18nContext,
 } from "@khanacademy/perseus";
 import {
     numericInputLogic,
@@ -76,9 +75,6 @@ type State = {
 };
 
 class NumericInputEditor extends React.Component<Props, State> {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
-
     static widgetName = "numeric-input";
     static displayName = "NumericInputEditor";
 
@@ -590,55 +586,56 @@ class NumericInputEditor extends React.Component<Props, State> {
                                     (answer.maxError ? " with-max-error" : "")
                                 }
                             >
-                                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
-                                <label>User input:</label>
-                                <NumberInput
-                                    value={answer.value}
-                                    className="numeric-input-value"
-                                    placeholder="answer"
-                                    format={_.last(answer.answerForms || [])}
-                                    onFormatChange={(newValue, format) => {
-                                        // NOTE(charlie): The mobile web expression
-                                        // editor relies on this automatic answer
-                                        // form resolution for determining when to
-                                        // show the Pi symbol. If we get rid of it,
-                                        // we should also disable Pi for
-                                        // NumericInput and require problems that
-                                        // use Pi to build on Expression.
-                                        // Alternatively, we could store answers
-                                        // as plaintext and parse them to determine
-                                        // whether or not to reveal Pi on the
-                                        // keypad (right now, answers are stored as
-                                        // resolved values, like '0.125' rather
-                                        // than '1/8').
-                                        let forms;
-                                        if (format === "pi") {
-                                            forms = ["pi"];
-                                        } else if (format === "mixed") {
-                                            forms = ["proper", "mixed"];
-                                        } else if (
-                                            format === "proper" ||
-                                            format === "improper"
-                                        ) {
-                                            forms = ["proper", "improper"];
-                                        }
-                                        this.updateAnswer(i, {
-                                            value: firstNumericalParse(
-                                                newValue,
-                                                this.context.strings,
-                                            ),
-                                            answerForms: forms,
-                                        });
-                                    }}
-                                    onChange={(newValue) => {
-                                        this.updateAnswer(i, {
-                                            value: firstNumericalParse(
-                                                newValue,
-                                                this.context.strings,
-                                            ),
-                                        });
-                                    }}
-                                />
+                                <label>
+                                    User input:
+                                    <NumberInput
+                                        value={answer.value}
+                                        className="numeric-input-value"
+                                        placeholder="answer"
+                                        format={_.last(
+                                            answer.answerForms || [],
+                                        )}
+                                        onFormatChange={(newValue, format) => {
+                                            // NOTE(charlie): The mobile web expression
+                                            // editor relies on this automatic answer
+                                            // form resolution for determining when to
+                                            // show the Pi symbol. If we get rid of it,
+                                            // we should also disable Pi for
+                                            // NumericInput and require problems that
+                                            // use Pi to build on Expression.
+                                            // Alternatively, we could store answers
+                                            // as plaintext and parse them to determine
+                                            // whether or not to reveal Pi on the
+                                            // keypad (right now, answers are stored as
+                                            // resolved values, like '0.125' rather
+                                            // than '1/8').
+                                            let forms;
+                                            if (format === "pi") {
+                                                forms = ["pi"];
+                                            } else if (format === "mixed") {
+                                                forms = ["proper", "mixed"];
+                                            } else if (
+                                                format === "proper" ||
+                                                format === "improper"
+                                            ) {
+                                                forms = ["proper", "improper"];
+                                            }
+                                            this.updateAnswer(i, {
+                                                value: firstNumericalParse(
+                                                    newValue,
+                                                ),
+                                                answerForms: forms,
+                                            });
+                                        }}
+                                        onChange={(newValue) => {
+                                            this.updateAnswer(i, {
+                                                value: firstNumericalParse(
+                                                    newValue,
+                                                ),
+                                            });
+                                        }}
+                                    />
+                                </label>
                                 <span className="max-error-plusmn">
                                     &plusmn;
                                 </span>

@@ -1,7 +1,8 @@
-import {splitPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
+import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {
     basicDropdown,
@@ -43,6 +44,15 @@ export const DropdownWithEmptyPlaceholder = (
     return <RendererWithDebugUI question={dropdownWithEmptyPlaceholder} />;
 };
 
-export const DropdownWithNoAnswers = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={splitPerseusItem(basicDropdown)} />;
+export const AnswerlessBasicDropdown = (
+    args: StoryArgs,
+): React.ReactElement => {
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question: basicDropdown,
+            })}
+            startAnswerless={true}
+        />
+    );
 };
