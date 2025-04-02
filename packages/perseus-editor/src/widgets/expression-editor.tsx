@@ -20,8 +20,6 @@ import lens from "hubble";
 import * as React from "react";
 import _ from "underscore";
 
-import SortableArea from "../components/sortable";
-
 import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
@@ -51,37 +49,6 @@ const buttonSetsList: LegacyButtonSets = [
     "basic relations",
     "advanced relations",
 ];
-
-const parseAnswerKey = ({key}: AnswerForm): number => {
-    // We don't throw here because there is data stored in some
-    // exercises/articles where the answer forms don't have a key. If we throw,
-    // it blocks content editors from loading the page at all.
-    // TODO(Jeremy): find a way to handle these answer forms that are missing
-    // keys more gracefully.
-    return Number.parseInt(key ?? "");
-};
-
-// Pick a key that isn't currently used by an answer in answerForms
-const _makeNewKey = (answerForms: ReadonlyArray<AnswerForm>) => {
-    // first note all the currently used keys in an array, used like a map :3
-    // note that this automatically updates the array's length property to
-    // be one past the largest key.
-    const usedKeys: Array<boolean> = [];
-    answerForms.forEach((ans) => {
-        usedKeys[parseAnswerKey(ans)] = true;
-    });
-
-    // then scan through the array to find the first unused (undefined) key
-    for (let i = 0; i < usedKeys.length; i++) {
-        if (!usedKeys[i]) {
-            return i;
-        }
-    }
-
-    // if we didn't find a key, make one bigger than all the other keys,
-    // since that's how the length property is defined to work on arrays
-    return usedKeys.length;
-};
 
 type State = {
     // this is to help the "functions" input feel natural
@@ -172,7 +139,9 @@ class ExpressionEditor extends React.Component<Props, State> {
     };
 
     _newEmptyAnswerForm: () => any = () => {
-        const newKey = _makeNewKey(this.props.answerForms);
+        // Need to use a better random function here.
+        const newKey = `answer_${Math.round(Math.random() * 1000)}`; //React.useId();
+
         return {
             considered: "correct",
             form: false,
@@ -193,12 +162,12 @@ class ExpressionEditor extends React.Component<Props, State> {
     };
 
     handleRemoveForm: (answerKey: number) => void = (i) => {
-        const answerForms = this.props.answerForms.slice();
-        answerForms.splice(i, 1);
-        const updatedAnswerForms = answerForms.map((form, index) => ({
-            ...form,
-            key: `${index}`,
-        }));
+        console.log(`index deleted: ${i}`);
+        const updatedAnswerForms = this.props.answerForms.slice();
+        updatedAnswerForms.splice(i, 1);
+
+        console.log(updatedAnswerForms);
+
         this.change({answerForms: updatedAnswerForms});
     };
 
@@ -206,9 +175,9 @@ class ExpressionEditor extends React.Component<Props, State> {
     // with new data. This function should not be used to update any
     // other properties within ExpressionEditor except extraKeys
     // which is derived from answerForms
-    updateAnswerForm(i: number, props: AnswerForm) {
+    updateAnswerForm(index: number, props: AnswerForm) {
         const answerForms = lens(this.props.answerForms)
-            .merge([i], props)
+            .merge([index], props)
             .freeze();
 
         // deriveExtraKeys defaults to using the `extraKeys` it was given
@@ -292,37 +261,34 @@ class ExpressionEditor extends React.Component<Props, State> {
         this.props.onChange(newProps);
     };
 
-    changeSimplify(key: number, simplify: boolean) {
+    changeSimplify(index: number, simplify: boolean) {
         const answerForm: AnswerForm = {
-            ...this.props.answerForms[key],
-            key: `${key}`,
+            ...this.props.answerForms[index],
             simplify,
         };
 
-        this.updateAnswerForm(key, answerForm);
+        this.updateAnswerForm(index, answerForm);
     }
 
-    changeForm(key: number, form: boolean) {
+    changeForm(index: number, form: boolean) {
         const answerForm: AnswerForm = {
-            ...this.props.answerForms[key],
+            ...this.props.answerForms[index],
             form,
-            key: `${key}`,
         };
 
-        this.updateAnswerForm(key, answerForm);
+        this.updateAnswerForm(index, answerForm);
     }
 
     changeConsidered(
-        key: number,
+        index: number,
         considered: (typeof PerseusExpressionAnswerFormConsidered)[number],
     ) {
         const answerForm: AnswerForm = {
-            ...this.props.answerForms[key],
-            key: `${key}`,
+            ...this.props.answerForms[index],
             considered,
         };
 
-        this.updateAnswerForm(key, answerForm);
+        this.updateAnswerForm(index, answerForm);
     }
 
     changeTimes(times: boolean) {
@@ -330,22 +296,19 @@ class ExpressionEditor extends React.Component<Props, State> {
     }
 
     changeExpressionWidget: (
-        key: number,
+        index: number,
         props: React.ComponentProps<typeof Expression>,
-    ) => void = (key, props) => {
+    ) => void = (index, props) => {
         const answerForm: AnswerForm = {
-            ...this.props.answerForms[key],
-            key: `${key}`,
+            ...this.props.answerForms[index],
             value: props.value,
         };
-        this.updateAnswerForm(key, answerForm);
+        this.updateAnswerForm(index, answerForm);
     };
 
     render(): React.ReactNode {
         const answerOptions: React.JSX.Element[] = this.props.answerForms.map(
             (ans: AnswerForm, index: number) => {
-                const key = parseAnswerKey(ans);
-
                 const expressionProps: Partial<
                     React.ComponentProps<typeof Expression>
                 > = {
@@ -360,7 +323,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     // @ts-expect-error: Type '(props: React.ComponentProps<typeof Expression>) => void' is not assignable to type 'ChangeHandler'. Types of parameters 'props' and 'arg1' are incompatible.
                     onChange: (
                         props: React.ComponentProps<typeof Expression>,
-                    ) => this.changeExpressionWidget(key, props),
+                    ) => this.changeExpressionWidget(index, props),
                     trackInteraction: () => {},
                     widgetId: this.props.widgetId + "-" + ans.key,
                     visibleLabel: this.props.visibleLabel,
@@ -370,29 +333,21 @@ class ExpressionEditor extends React.Component<Props, State> {
                 return (
                     <AnswerOption
                         key={ans.key}
-                        draggable={true}
                         considered={ans.considered}
                         expressionProps={expressionProps}
                         form={ans.form}
                         simplify={ans.simplify}
                         onDelete={() => this.handleRemoveForm(index)}
                         onChangeSimplify={(simplify) =>
-                            this.changeSimplify(key, simplify)
+                            this.changeSimplify(index, simplify)
                         }
-                        onChangeForm={(form) => this.changeForm(key, form)}
+                        onChangeForm={(form) => this.changeForm(index, form)}
                         onChangeConsidered={(considered) =>
-                            this.changeConsidered(key, considered)
+                            this.changeConsidered(index, considered)
                         }
                     />
                 );
             },
-        );
-
-        const sortable = (
-            <SortableArea
-                components={answerOptions}
-                onReorder={this.handleReorder}
-            />
         );
 
         // checkboxes to choose which sets of input buttons are shown
@@ -510,7 +465,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     bottom
                 </p>
 
-                {sortable}
+                {answerOptions}
 
                 <div>
                     <Button size="small" onClick={this.newAnswer}>
@@ -535,7 +490,6 @@ type AnswerOptionProps = {
 
     // Must the answer have the same form as this answer.
     form: boolean;
-    draggable: boolean;
 
     // Must the answer be simplified.
     simplify: boolean;
@@ -576,7 +530,6 @@ class AnswerOption extends React.Component<
     };
 
     toggleConsidered = () => {
-        // Update findNextIn to have stronger typing.
         const newVal = findNextIn<
             (typeof PerseusExpressionAnswerFormConsidered)[number]
         >(PerseusExpressionAnswerFormConsidered, this.props.considered);
@@ -618,8 +571,6 @@ class AnswerOption extends React.Component<
 
         return (
             <div className={css(styles.answerOption)}>
-                <div className={css(styles.answerHandle)} />
-
                 <div className={css(styles.answerBody)}>
                     <div>
                         <button
@@ -690,15 +641,6 @@ const styles = StyleSheet.create({
         border: "1px solid #ddd",
         borderRadius: "3px",
         display: "flex",
-    },
-    answerHandle: {
-        // textured draggy handle
-        background:
-            "url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxAGAgYYmwGrIIiDjrELjpo5aiZeMwF+yNnOs5KSvgAAAABJRU5ErkJggg==) no-repeat 50% 50%",
-        borderRight: "1px solid #ddd",
-        cursor: "move",
-        width: "20px",
-        minWidth: "20px",
     },
     answerStatus: {
         border: "none",
