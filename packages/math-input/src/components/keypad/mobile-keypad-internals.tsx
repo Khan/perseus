@@ -3,7 +3,7 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 import {View} from "../../fake-react-native-web/index";
-import AphroditeCssTransitionGroup from "../aphrodite-css-transition-group";
+// import AphroditeCssTransitionGroup from "../aphrodite-css-transition-group";
 
 import Keypad from "./keypad";
 import {expandedViewThreshold} from "./utils";
@@ -16,7 +16,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
-const AnimationDurationInMS = 200;
+// const AnimationDurationInMS = 200;
 
 type Props = {
     onElementMounted?: (arg1: any) => void;
@@ -181,50 +181,69 @@ class MobileKeypadInternals
 
         return (
             <View style={containerStyle} forwardRef={this._containerRef}>
-                <AphroditeCssTransitionGroup
-                    transitionEnterTimeout={AnimationDurationInMS}
-                    transitionLeaveTimeout={AnimationDurationInMS}
-                    transitionStyle={{
-                        enter: {
-                            transform: "translate3d(0, 100%, 0)",
-                            transition: `${AnimationDurationInMS}ms ease-out`,
-                        },
-                        enterActive: {
-                            transform: "translate3d(0, 0, 0)",
-                        },
-                        leave: {
-                            transform: "translate3d(0, 0, 0)",
-                            transition: `${AnimationDurationInMS}ms ease-out`,
-                        },
-                        leaveActive: {
-                            transform: "translate3d(0, 100%, 0)",
-                        },
-                    }}
-                >
-                    {keypadActive ? (
-                        <Keypad
-                            onAnalyticsEvent={this.props.onAnalyticsEvent}
-                            extraKeys={keypadConfig?.extraKeys}
-                            onClickKey={(key) => this._handleClickKey(key)}
-                            cursorContext={cursor?.context}
-                            fractionsOnly={!isExpression}
-                            convertDotToTimes={convertDotToTimes}
-                            divisionKey={isExpression}
-                            trigonometry={isExpression}
-                            preAlgebra={isExpression}
-                            logarithms={isExpression}
-                            basicRelations={isExpression}
-                            advancedRelations={isExpression}
-                            expandedView={
-                                containerWidth > expandedViewThreshold
-                            }
-                            showDismiss
-                            scientific={
-                                isExpression && keypadConfig?.scientific
-                            }
-                        />
-                    ) : null}
-                </AphroditeCssTransitionGroup>
+                {keypadActive ? (
+                    <Keypad
+                        onAnalyticsEvent={this.props.onAnalyticsEvent}
+                        extraKeys={keypadConfig?.extraKeys}
+                        onClickKey={(key) => this._handleClickKey(key)}
+                        cursorContext={cursor?.context}
+                        fractionsOnly={!isExpression}
+                        convertDotToTimes={convertDotToTimes}
+                        divisionKey={isExpression}
+                        trigonometry={isExpression}
+                        preAlgebra={isExpression}
+                        logarithms={isExpression}
+                        basicRelations={isExpression}
+                        advancedRelations={isExpression}
+                        expandedView={containerWidth > expandedViewThreshold}
+                        showDismiss
+                        scientific={isExpression && keypadConfig?.scientific}
+                    />
+                ) : null}
+                {/*<AphroditeCssTransitionGroup*/}
+                {/*    transitionEnterTimeout={AnimationDurationInMS}*/}
+                {/*    transitionLeaveTimeout={AnimationDurationInMS}*/}
+                {/*    transitionStyle={{*/}
+                {/*        enter: {*/}
+                {/*            transform: "translate3d(0, 100%, 0)",*/}
+                {/*            transition: `${AnimationDurationInMS}ms ease-out`,*/}
+                {/*        },*/}
+                {/*        enterActive: {*/}
+                {/*            transform: "translate3d(0, 0, 0)",*/}
+                {/*        },*/}
+                {/*        leave: {*/}
+                {/*            transform: "translate3d(0, 0, 0)",*/}
+                {/*            transition: `${AnimationDurationInMS}ms ease-out`,*/}
+                {/*        },*/}
+                {/*        leaveActive: {*/}
+                {/*            transform: "translate3d(0, 100%, 0)",*/}
+                {/*        },*/}
+                {/*    }}*/}
+                {/*>*/}
+                {/*    {keypadActive ? (*/}
+                {/*        <Keypad*/}
+                {/*            onAnalyticsEvent={this.props.onAnalyticsEvent}*/}
+                {/*            extraKeys={keypadConfig?.extraKeys}*/}
+                {/*            onClickKey={(key) => this._handleClickKey(key)}*/}
+                {/*            cursorContext={cursor?.context}*/}
+                {/*            fractionsOnly={!isExpression}*/}
+                {/*            convertDotToTimes={convertDotToTimes}*/}
+                {/*            divisionKey={isExpression}*/}
+                {/*            trigonometry={isExpression}*/}
+                {/*            preAlgebra={isExpression}*/}
+                {/*            logarithms={isExpression}*/}
+                {/*            basicRelations={isExpression}*/}
+                {/*            advancedRelations={isExpression}*/}
+                {/*            expandedView={*/}
+                {/*                containerWidth > expandedViewThreshold*/}
+                {/*            }*/}
+                {/*            showDismiss*/}
+                {/*            scientific={*/}
+                {/*                isExpression && keypadConfig?.scientific*/}
+                {/*            }*/}
+                {/*        />*/}
+                {/*    ) : null}*/}
+                {/*</AphroditeCssTransitionGroup>*/}
             </View>
         );
     }
