@@ -166,7 +166,7 @@ const createConfig = (
                 },
                 exclude: "node_modules/**",
             }),
-            // This must come after babel() since this plugin doesn't know how
+            // This must come after swc() since this plugin doesn't know how
             // to deal with TypeScript types.
             commonjs(),
             resolve({
