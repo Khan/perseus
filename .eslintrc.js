@@ -57,13 +57,8 @@ module.exports = {
         // This config includes rules from @testing-library/jest-dom as well
         "plugin:testing-library/react",
     ],
-    parserOptions: {
-        babelOptions: {
-            configFile: path.join(__dirname, "./config/build/babel.config.js"),
-        },
-    },
+    parser: "@typescript-eslint/parser",
     plugins: [
-        "@babel",
         "cypress",
         "disable",
         "import",
@@ -214,10 +209,9 @@ module.exports = {
         },
     ],
     rules: {
-        "max-lines": "off",
         "new-cap": "off",
-        "no-invalid-this": "off",
-        "no-unused-expressions": "off",
+        "no-invalid-this": "off", // @typescript-eslint/no-invalid-this supersedes it
+        "no-unused-expressions": "off", // @typescript-eslint/no-unused-expression supersedes it
         "no-restricted-imports": [
             "error",
             "@khanacademy/wonder-blocks-color",
@@ -225,14 +219,6 @@ module.exports = {
         ],
         "object-curly-spacing": "off",
         semi: "off",
-
-        /**
-         * @babel
-         */
-        // "@babel/new-cap": "error",
-        "@babel/no-invalid-this": "error",
-        "@babel/object-curly-spacing": "error",
-        "@babel/semi": "error",
 
         /**
          * jest
@@ -407,6 +393,7 @@ module.exports = {
          * typescript
          */
         "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-invalid-this": "error",
         "@typescript-eslint/no-this-alias": "off",
         "@typescript-eslint/consistent-type-imports": [
             "error",

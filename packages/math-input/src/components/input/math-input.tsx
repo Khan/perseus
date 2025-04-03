@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {KeypadContext} from "@khanacademy/keypad-context";
 import {color} from "@khanacademy/wonder-blocks-tokens";
