@@ -1,6 +1,7 @@
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {generateTestPerseusItem} from "../../../util/test-utils";
 import {
     textQuestion,
     mathQuestion,
@@ -9,7 +10,6 @@ import {
     mixedContentQuestion,
 } from "../__tests__/label-image.testdata";
 
-import type {APIOptions} from "../../../types";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 const applyStoryArgs = (
@@ -39,7 +39,6 @@ const applyStoryArgs = (
 };
 
 type StoryArgs = {
-    isMobile: boolean;
     preferredPopoverDirection: string;
 };
 
@@ -49,14 +48,11 @@ type ImageStory = {
 };
 
 export const LabelWidgetWithText = (args: StoryArgs): React.ReactElement => {
-    const apiOptions: APIOptions = {
-        isMobile: args.isMobile,
-    };
-
     return (
-        <RendererWithDebugUI
-            question={applyStoryArgs(textQuestion, args)}
-            apiOptions={apiOptions}
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question: applyStoryArgs(textQuestion, args),
+            })}
         />
     );
 };
@@ -64,53 +60,41 @@ export const LabelWidgetWithText = (args: StoryArgs): React.ReactElement => {
 export const LabelWidgetWithLongText = (
     args: StoryArgs,
 ): React.ReactElement => {
-    const apiOptions: APIOptions = {
-        isMobile: args.isMobile,
-    };
-
     return (
-        <RendererWithDebugUI
-            question={applyStoryArgs(longTextFromArticle, args)}
-            apiOptions={apiOptions}
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question: applyStoryArgs(longTextFromArticle, args),
+            })}
         />
     );
 };
 
 export const LabelWidgetWithMath = (args: StoryArgs): React.ReactElement => {
-    const apiOptions: APIOptions = {
-        isMobile: args.isMobile,
-    };
-
     return (
-        <RendererWithDebugUI
-            question={applyStoryArgs(mathQuestion, args)}
-            apiOptions={apiOptions}
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question: applyStoryArgs(mathQuestion, args),
+            })}
         />
     );
 };
 
 export const LabelImageNumberline = (args: StoryArgs): React.ReactElement => {
-    const apiOptions: APIOptions = {
-        isMobile: args.isMobile,
-    };
-
     return (
-        <RendererWithDebugUI
-            question={applyStoryArgs(numberline, args)}
-            apiOptions={apiOptions}
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question: applyStoryArgs(numberline, args),
+            })}
         />
     );
 };
 
 export const LabelImageMixedContent = (args: StoryArgs): React.ReactElement => {
-    const apiOptions: APIOptions = {
-        isMobile: args.isMobile,
-    };
-
     return (
-        <RendererWithDebugUI
-            question={applyStoryArgs(mixedContentQuestion, args)}
-            apiOptions={apiOptions}
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question: applyStoryArgs(mixedContentQuestion, args),
+            })}
         />
     );
 };
@@ -118,7 +102,6 @@ export const LabelImageMixedContent = (args: StoryArgs): React.ReactElement => {
 export default {
     title: "Perseus/Widgets/Label Image",
     args: {
-        isMobile: false,
         preferredPopoverDirection: "NONE",
     },
     argTypes: {

@@ -1,6 +1,9 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
+import Switch from "@khanacademy/wonder-blocks-switch";
+import deviceMobile from "@phosphor-icons/core/regular/device-mobile.svg";
 import * as React from "react";
 
 import {
@@ -12,7 +15,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 
-import * as Perseus from "../packages/perseus/src/index";
+import {ServerItemRenderer} from "../packages/perseus/src/server-item-renderer";
 import {keScoreFromPerseusScore} from "../packages/perseus/src/util/scoring";
 
 import KEScoreUI from "./ke-score-ui";
@@ -35,17 +38,25 @@ type Props = {
 
 export const ServerItemRendererWithDebugUI = ({
     item,
-    apiOptions,
+    apiOptions = Object.freeze({}),
     keypadElement,
     reviewMode = false,
     startAnswerless = false,
     showSolutions,
 }: Props): React.ReactElement => {
-    const ref = React.useRef<Perseus.ServerItemRendererComponent>(null);
+    const ref = React.useRef<ServerItemRenderer>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
+    const [isMobile, setIsMobile] = React.useState(
+        apiOptions.isMobile ?? false,
+    );
+    const [hintsVisible, setHintsVisible] = React.useState(0);
     const [answerless, setAnswerless] =
         React.useState<boolean>(startAnswerless);
-    const options = apiOptions || Object.freeze({});
+    const options = {
+        ...apiOptions,
+        isMobile,
+        customKeypad: isMobile, // Use the mobile keypad for mobile
+    };
 
     const getKeScore = () => {
         const renderer = ref.current;
@@ -87,19 +98,40 @@ export const ServerItemRendererWithDebugUI = ({
 
     return (
         <SplitView
-            rendererTitle="Renderer"
+            rendererTitle={
+                <View
+                    style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        width: "100%",
+                    }}
+                >
+                    Widget
+                    <View style={{marginLeft: "auto"}}>
+                        <Switch
+                            icon={<PhosphorIcon icon={deviceMobile} />}
+                            checked={isMobile}
+                            onChange={setIsMobile}
+                        />
+                    </View>
+                </View>
+            }
             renderer={
                 <>
-                    <Perseus.ServerItemRenderer
-                        ref={ref}
-                        problemNum={0}
-                        apiOptions={options}
-                        item={renderedItem}
-                        dependencies={storybookDependenciesV2}
-                        keypadElement={keypadElement}
-                        reviewMode={reviewMode}
-                        showSolutions={showSolutions}
-                    />
+                    <View className={isMobile ? "perseus-mobile" : ""}>
+                        <ServerItemRenderer
+                            ref={ref}
+                            problemNum={0}
+                            score={state}
+                            apiOptions={options}
+                            item={renderedItem}
+                            dependencies={storybookDependenciesV2}
+                            keypadElement={keypadElement}
+                            reviewMode={reviewMode}
+                            showSolutions={showSolutions}
+                            hintsVisible={hintsVisible}
+                        />
+                    </View>
                     <View style={{flexDirection: "row", alignItems: "center"}}>
                         <Button
                             onClick={() => {
@@ -120,6 +152,17 @@ export const ServerItemRendererWithDebugUI = ({
                             }}
                         >
                             Show Rationales
+                        </Button>
+                        <Strut size={8} />
+                        <Button
+                            disabled={hintsVisible >= item.hints.length}
+                            onClick={() => {
+                                setHintsVisible(hintsVisible + 1);
+                            }}
+                        >
+                            {hintsVisible >= item.hints.length
+                                ? "No hints left"
+                                : `Take Hint ${hintsVisible + 1}`}
                         </Button>
                     </View>
                     <KEScoreUI score={state} />

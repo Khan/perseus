@@ -1,6 +1,5 @@
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import {generateTestPerseusItem} from "../../util/test-utils";
 
@@ -190,7 +189,11 @@ export const Default = (
         "numeric-input 1",
         args,
     );
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 Default.args = defaultQuestion.widgets["numeric-input 1"].options;
 Default.parameters = {
@@ -209,7 +212,11 @@ export const IntegerExample = (
         "numeric-input 1",
         args,
     );
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 IntegerExample.args = integerProblem.widgets["numeric-input 1"].options;
 IntegerExample.parameters = {
@@ -228,7 +235,11 @@ export const DecimalExample = (
         "numeric-input 1",
         args,
     );
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 DecimalExample.args = decimalProblem.widgets["numeric-input 1"].options;
 DecimalExample.parameters = {
@@ -247,7 +258,11 @@ export const ImproperExample = (
         "numeric-input 1",
         args,
     );
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 ImproperExample.args = improperProblem.widgets["numeric-input 1"].options;
 ImproperExample.parameters = {
@@ -266,7 +281,11 @@ export const ProperExample = (
         "numeric-input 1",
         args,
     );
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 ProperExample.args = properProblem.widgets["numeric-input 1"].options;
 ProperExample.parameters = {
@@ -281,7 +300,11 @@ export const MixedExample = (
     args: PerseusNumericInputWidgetOptions,
 ): React.ReactElement => {
     const question = updateWidgetOptions(mixedProblem, "numeric-input 1", args);
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 MixedExample.args = mixedProblem.widgets["numeric-input 1"].options;
 MixedExample.parameters = {
@@ -296,7 +319,11 @@ export const PiExample = (
     args: PerseusNumericInputWidgetOptions,
 ): React.ReactElement => {
     const question = updateWidgetOptions(piProblem, "numeric-input 1", args);
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 PiExample.args = piProblem.widgets["numeric-input 1"].options;
 PiExample.parameters = {
@@ -315,7 +342,11 @@ export const CoefficientExample = (
         "numeric-input 1",
         args,
     );
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 CoefficientExample.args = withCoefficient.widgets["numeric-input 1"].options;
 CoefficientExample.parameters = {

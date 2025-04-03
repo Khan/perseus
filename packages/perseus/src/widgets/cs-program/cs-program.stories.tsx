@@ -1,6 +1,7 @@
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
+import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {question1} from "./cs-program.testdata";
 
@@ -11,5 +12,9 @@ export default {
 type StoryArgs = Record<any, any>;
 
 export const Question1 = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={question1} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question: question1})}
+        />
+    );
 };

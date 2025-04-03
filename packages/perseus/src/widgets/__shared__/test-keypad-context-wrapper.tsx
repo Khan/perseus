@@ -15,7 +15,7 @@ const Footer = (): React.ReactElement => {
                 {({setKeypadElement, renderer}) => (
                     <MobileKeypad
                         onElementMounted={setKeypadElement}
-                        onDismiss={() => renderer && renderer.blur()}
+                        onDismiss={() => renderer?.blur()}
                         style={styles.keypad}
                         onAnalyticsEvent={async (e) => {
                             action("onAnalyticsEvent")(e);
@@ -45,6 +45,7 @@ export default TestKeypadContextWrapper;
 const styles = StyleSheet.create({
     keypad: {
         position: "absolute",
+        bottom: 0,
         // The keypad itself needs to respond to events even though
         // we've set its container to pointer-events: none;
         pointerEvents: "all",
@@ -61,6 +62,6 @@ const styles = StyleSheet.create({
         pointerEvents: "none",
         // NOTE: in webapp we normally get this from problemProgress
         // from the exercise state store.
-        height: 240,
+        height: 255,
     },
 });

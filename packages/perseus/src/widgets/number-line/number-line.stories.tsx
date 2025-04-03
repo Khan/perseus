@@ -1,52 +1,46 @@
 import {KeypadContext} from "@khanacademy/keypad-context";
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
+import {generateTestPerseusItem} from "../../util/test-utils";
 import TestKeypadContextWrapper from "../__shared__/test-keypad-context-wrapper";
 
 import {question1, question2} from "./number-line.testdata";
 
-import type {PerseusItem} from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react";
 
-export default {
+const meta: Meta = {
     title: "Perseus/Widgets/Number Line",
+    component: ServerItemRendererWithDebugUI,
+};
+export default meta;
+
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+
+export const Question1: Story = {
+    args: {
+        item: generateTestPerseusItem({question: question1}),
+    },
 };
 
-type StoryArgs = Record<any, any>;
-
-export const Question1 = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={question1} />;
+export const ShowTickController: Story = {
+    args: {
+        item: generateTestPerseusItem({question: question2}),
+    },
 };
 
-export const ShowTickController = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={question2} />;
-};
-
-export const ShowTickControllerMobile = (
-    args: StoryArgs,
-): React.ReactElement => {
+export const ShowTickControllerMobile = (): React.ReactNode => {
     return (
         <TestKeypadContextWrapper>
             <KeypadContext.Consumer>
                 {({keypadElement}) => {
                     return (
                         <ServerItemRendererWithDebugUI
-                            item={
-                                {
-                                    question: question2,
-                                    answer: null,
-                                    answerArea: null,
-                                    itemDataVersion: {
-                                        major: 0,
-                                        minor: 1,
-                                    },
-                                    hints: [],
-                                } satisfies PerseusItem
-                            }
+                            item={generateTestPerseusItem({
+                                question: question2,
+                            })}
                             apiOptions={{
                                 isMobile: true,
-                                customKeypad: true,
                             }}
                             keypadElement={keypadElement}
                         />
@@ -57,11 +51,8 @@ export const ShowTickControllerMobile = (
     );
 };
 
-export const Question2 = (args: StoryArgs): React.ReactElement => {
-    return (
-        <RendererWithDebugUI
-            apiOptions={{isMobile: true, customKeypad: true}}
-            question={question2}
-        />
-    );
+export const Question2: Story = {
+    args: {
+        item: generateTestPerseusItem({question: question2}),
+    },
 };
