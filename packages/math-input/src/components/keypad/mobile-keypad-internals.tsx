@@ -193,7 +193,7 @@ class MobileKeypadInternals
                             transform: "translate3d(0, 100%, 0)",
                         },
                         leave: {
-                            transform: "translate3d(0, 100%, 0)",
+                            transform: "translate3d(0, 0, 0)",
                             transition: `${AnimationDurationInMS}ms ease-out`,
                         },
                         leaveActive: {
