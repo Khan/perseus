@@ -1,0 +1,27 @@
+import{j as a}from"./jsx-runtime-BT65X5dW.js";import{r as E}from"./index-C6mWTJJr.js";import{L as p}from"./locked-vector-settings-Da3If8SU.js";import{g as k}from"./util-C4TpJtrk.js";import"./_commonjsHelpers-BosuxZz1.js";import"./util-CfzqFt4k.js";import"./core-widget-registry-2eRuEUfZ.js";import"./underscore-U-AHniOr.js";import"./perseus-error-CSETqePQ.js";import"./jquery-CkHB0_Mt.js";import"./get-decimal-separator-B2cicA45.js";import"./index-CYrfVekP.js";import"./index-CskvhqFA.js";import"./no-important-DlFk8a1I.js";import"./index-DN4d7MfU.js";import"./tiny-invariant-CopsF_GD.js";import"./index-C9RM_t1w.js";import"./index-CbNKSLRm.js";import"./index-CQ5XbMj6.js";import"./index-CfqIx-dS.js";import"./index-CIHqsnLr.js";import"./index-B-CZbs2J.js";import"./locked-figure-aria-DX9AaqiJ.js";import"./all-widgets-Bml3Xsqb.js";import"./prop-types-DU6aMTXt.js";import"./mobile-keypad-DFoeLE4Y.js";import"./index-B1Gws05u.js";import"./index-3H81sEQ1.js";import"./index-BzwLglMS.js";import"./assertThisInitialized-B9jnkVVz.js";import"./tabbar-BmTZy4vx.js";import"./item-DEo0REHz.js";import"./button-assets-qUGjw7KS.js";import"./keypad-button-D1iDSTcu.js";import"./operators-page-C0OAgvtK.js";import"./navigation-pad-Bc2f4g4G.js";import"./key-translator-CtlI53Cl.js";import"./index-CrGd2QqM.js";import"./renderer-DnhW87FU.js";import"./index-D7h-teXI.js";import"./zoomable-tex-Dy-nElJT.js";import"./tex-BONImhZG.js";import"./dependencies-BsVPGK1s.js";import"./zoomable-C_CCSKDG.js";import"./i18n-context-3AkWzTTj.js";import"./svg-image-9gRPvOod.js";import"./fixed-to-responsive-CTsII9Xx.js";import"./constants-BIpV3g0K.js";import"./client-CAS5PaPY.js";import"./inline-icon-AJRwMA4Z.js";import"./icon-paths-C3bPmxpL.js";import"./image-loader-CdkY-jNs.js";import"./perseus-api-Ty_QvlNi.js";import"./stub-tag-editor-B8lH250S.js";import"./text-list-editor-HcP7oGoC.js";import"./lint-D0FI20JF.js";import"./index-LbDnW-cL.js";import"./index-gKND8Itv.js";import"./Popper-Bj3TCzZA.js";import"./math-input-Cx3Nq8BR.js";import"./index-CCUx4bp6.js";import"./simple-keypad-input-1R0khRCc.js";import"./input-with-examples-WnHorsOL.js";import"./text-input-sKoOaXZH.js";import"./index-CieYLtDP.js";import"./base-radio-Lq31BfxU.js";import"./media-queries-D4w_O5TS.js";import"./choice-D9-CDHmz.js";import"./icon-BfyZ3piz.js";import"./choice-icon-vWqj_I_B.js";import"./focus-ring-CuRoZzyy.js";import"./option-status-CibXZAsW.js";import"./choice-none-above-DyvWsXxe.js";import"./shared-Dtpp87RV.js";import"./phet-simulation-Bf9VVn_f.js";import"./index-BRgWRRgj.js";import"./answer-choices-BLw65nLN.js";import"./index-Dy7GuG9o.js";import"./button-group-CrIfrEdw.js";import"./index-Dd-cahjY.js";import"./hud-CP_ly967.js";import"./index-D75qsWGa.js";import"./multi-button-group-U6RQwTwG.js";import"./number-input-DRyiTmoO.js";import"./range-input-BRhuxdZq.js";import"./marker-BQSEMhtb.js";import"./answer-pill-B0SThEfW.js";import"./sortable-BPGVCo8B.js";import"./video-transcript-link-C0e3jsHe.js";import"./server-item-renderer-B58-tAJS.js";import"./hints-renderer-gqxYhAO9.js";import"./article-renderer-qpM876TX.js";import"./components-Df20Qgck.js";import"./locked-label-settings-CjKYWIYs.js";import"./scrollless-number-text-field-BqR5S4dr.js";import"./trash-bold-DBNoVsQP.js";import"./color-select-rN_KefsT.js";import"./line-swatch-TOd9NY3a.js";const Pt={title:"PerseusEditor/Components/Locked Vector Settings",component:p},r=i=>a.jsx(p,{...i}),d={...k("vector"),onChangeProps:()=>{},onMove:()=>{},onRemove:()=>{}};r.args=d;const e={render:function(){const[t,s]=E.useState(d),m=n=>{s({...t,...n})};return a.jsx(p,{...t,expanded:!0,onChangeProps:m})}},o={render:function(){const[t,s]=E.useState(d),m=n=>{s({...t,...n})};return a.jsx(p,{...t,points:[[0,0],[0,0]],expanded:!0,onChangeProps:m})}};r.__docgenInfo={description:"",methods:[],displayName:"Default"};var c,u,l;r.parameters={...r.parameters,docs:{...(c=r.parameters)==null?void 0:c.docs,source:{originalSource:`(args): React.ReactElement => {
+  return <LockedVectorSettings {...args} />;
+}`,...(l=(u=r.parameters)==null?void 0:u.docs)==null?void 0:l.source}}};var P,g,h;e.parameters={...e.parameters,docs:{...(P=e.parameters)==null?void 0:P.docs,source:{originalSource:`{
+  render: function Render() {
+    const [props, setProps] = React.useState(defaultProps);
+    const handlePropsUpdate = newProps => {
+      setProps({
+        ...props,
+        ...newProps
+      });
+    };
+    return <LockedVectorSettings {...props} expanded={true} onChangeProps={handlePropsUpdate} />;
+  }
+}`,...(h=(g=e.parameters)==null?void 0:g.docs)==null?void 0:h.source}}};var f,x,S,R,v;o.parameters={...o.parameters,docs:{...(f=o.parameters)==null?void 0:f.docs,source:{originalSource:`{
+  render: function Render() {
+    const [props, setProps] = React.useState(defaultProps);
+    const handlePropsUpdate = newProps => {
+      setProps({
+        ...props,
+        ...newProps
+      });
+    };
+    return <LockedVectorSettings {...props} points={[[0, 0], [0, 0]]} expanded={true} onChangeProps={handlePropsUpdate} />;
+  }
+}`,...(S=(x=o.parameters)==null?void 0:x.docs)==null?void 0:S.source},description:{story:`If the two points defining the vector are the same, the vector is invalid
+as that would give it a length of 0. An error message is displayed
+in this case.`,...(v=(R=o.parameters)==null?void 0:R.docs)==null?void 0:v.description}}};const gt=["Default","Expanded","WithInvalidPoints"];export{r as Default,e as Expanded,o as WithInvalidPoints,gt as __namedExportsOrder,Pt as default};
