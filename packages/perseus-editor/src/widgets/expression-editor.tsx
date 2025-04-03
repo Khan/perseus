@@ -497,10 +497,6 @@ class AnswerOption extends React.Component<
 > {
     state = {deleteFocused: false};
 
-    // change: ChangeFn = (...args) => {
-    //     return Changeable.change.apply(this, args);
-    // };
-
     handleImSure = () => {
         this.props.onDelete();
         this.handleCancelDelete();
