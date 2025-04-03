@@ -230,9 +230,6 @@ importers:
       '@swc/core':
         specifier: 1.11.13
         version: 1.11.13(@swc/helpers@0.5.15)
-      '@swc/helpers':
-        specifier: ^0.5.15
-        version: 0.5.15
       '@swc/jest':
         specifier: ^0.2.37
         version: 0.2.37(@swc/core@1.11.13(@swc/helpers@0.5.15))
@@ -11705,6 +11702,7 @@ snapshots:
   '@swc/helpers@0.5.15':
     dependencies:
       tslib: 2.8.1
+    optional: true
 
   '@swc/jest@0.2.37(@swc/core@1.11.13(@swc/helpers@0.5.15))':
     dependencies:

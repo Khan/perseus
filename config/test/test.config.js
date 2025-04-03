@@ -39,10 +39,12 @@ const pkgMap = fg
 // into module.exports. This will make it so that we can mock exports
 // correctly.
 const swcrc = JSON.parse(fs.readFileSync(path.join(root, ".swcrc"), "utf8"));
-(((swcrc.jsc ??= {}).experimental ??= {}).plugins ??= []).push([
-    "swc_mut_cjs_exports",
-    {},
-]);
+// Check it out - Nullish coalescing _assignment_!
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment
+swcrc.jsc ??= {};
+swcrc.jsc.experimental ??= {};
+swcrc.jsc.experimental.plugins ??= [];
+swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);
 
 /** @type {import('jest').Config} */
 module.exports = {
