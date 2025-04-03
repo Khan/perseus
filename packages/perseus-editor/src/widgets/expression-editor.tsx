@@ -1,5 +1,5 @@
 import * as KAS from "@khanacademy/kas";
-import {components, Changeable, Expression} from "@khanacademy/perseus";
+import {components, Expression} from "@khanacademy/perseus";
 import {
     PerseusExpressionAnswerFormConsidered,
     deriveExtraKeys,
@@ -25,8 +25,6 @@ import type {
     LegacyButtonSets,
     ExpressionDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
-
-type ChangeFn = typeof Changeable.change;
 
 const {InfoTip} = components;
 
@@ -69,10 +67,6 @@ class ExpressionEditor extends React.Component<Props, State> {
             functionsInternal: this.props.functions.join(" "),
         };
     }
-
-    change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
 
     serialize(): PerseusExpressionWidgetOptions {
         const {
@@ -159,17 +153,13 @@ class ExpressionEditor extends React.Component<Props, State> {
     newAnswer: () => void = () => {
         const answerForms = this.props.answerForms.slice();
         answerForms.push(this._newEmptyAnswerForm());
-        this.change({answerForms});
+        this.props.onChange({answerForms});
     };
 
     handleRemoveForm: (answerKey: number) => void = (i) => {
-        console.log(`index deleted: ${i}`);
         const updatedAnswerForms = this.props.answerForms.slice();
         updatedAnswerForms.splice(i, 1);
-
-        console.log(updatedAnswerForms);
-
-        this.change({answerForms: updatedAnswerForms});
+        this.props.onChange({answerForms: updatedAnswerForms});
     };
 
     // This function is designed to update the answerForm property
@@ -191,7 +181,7 @@ class ExpressionEditor extends React.Component<Props, State> {
             ...restProps,
             answerForms,
         });
-        this.change({answerForms, extraKeys});
+        this.props.onChange({answerForms, extraKeys});
     }
 
     // called when the selected buttonset changes
@@ -228,7 +218,7 @@ class ExpressionEditor extends React.Component<Props, State> {
             .filter((set) => set !== remove)
             .concat(keep);
 
-        this.change("buttonSets", buttonSets);
+        this.props.onChange("buttonSets", buttonSets);
     };
 
     // called when the correct answer changes
@@ -287,7 +277,7 @@ class ExpressionEditor extends React.Component<Props, State> {
     }
 
     changeTimes(times: boolean) {
-        this.change({times: times});
+        this.props.onChange({times: times});
     }
 
     changeExpressionWidget: (
@@ -379,7 +369,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     <LabeledTextField
                         label="Visible label"
                         value={this.props.visibleLabel || ""}
-                        onChange={this.change("visibleLabel")}
+                        onChange={this.handleVisibleLabel}
                     />
                     <InfoTip>
                         <p>
@@ -395,7 +385,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                     <LabeledTextField
                         label="Aria label"
                         value={this.props.ariaLabel || ""}
-                        onChange={this.change("ariaLabel")}
+                        onChange={this.handleAriaLabel}
                     />
                     <InfoTip>
                         <p>
@@ -507,9 +497,9 @@ class AnswerOption extends React.Component<
 > {
     state = {deleteFocused: false};
 
-    change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
+    // change: ChangeFn = (...args) => {
+    //     return Changeable.change.apply(this, args);
+    // };
 
     handleImSure = () => {
         this.props.onDelete();
