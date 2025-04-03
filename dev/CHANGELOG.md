@@ -1,5 +1,16 @@
 # @khanacademy/perseus-dev-ui
 
+## 5.4.0
+
+### Minor Changes
+
+-   [#2345](https://github.com/Khan/perseus/pull/2345) [`f0f02c7fa`](https://github.com/Khan/perseus/commit/f0f02c7fadfc1a26a6b43208385b423b09761387) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change to use SWC for Storybook
+
+### Patch Changes
+
+-   Updated dependencies [[`fd3a520c9`](https://github.com/Khan/perseus/commit/fd3a520c93410ae9b2af801714a289f1722e8e8e)]:
+    -   @khanacademy/math-input@25.0.1
+
 ## 5.3.9
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 25.0.1
+
+### Patch Changes
+
+-   [#2337](https://github.com/Khan/perseus/pull/2337) [`fd3a520c9`](https://github.com/Khan/perseus/commit/fd3a520c93410ae9b2af801714a289f1722e8e8e) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix MathInput bottom padding to make it consistent with our styling
+
 ## 25.0.0
 
 ### Major Changes
