@@ -1,5 +1,20 @@
 # @khanacademy/perseus
 
+## 59.1.0
+
+### Minor Changes
+
+-   [#2329](https://github.com/Khan/perseus/pull/2329) [`e03cfbbdd`](https://github.com/Khan/perseus/commit/e03cfbbddf33922959c0a984d13b5e304fa66375) Thanks [@Myranae](https://github.com/Myranae)! - Update and add stories where Dropdown, Interactive Graph, Numeric Input, Expression, and Radio widgets render using answerless data
+
+### Patch Changes
+
+-   [#2337](https://github.com/Khan/perseus/pull/2337) [`fd3a520c9`](https://github.com/Khan/perseus/commit/fd3a520c93410ae9b2af801714a289f1722e8e8e) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix MathInput bottom padding to make it consistent with our styling
+
+*   [#2344](https://github.com/Khan/perseus/pull/2344) [`140fe6563`](https://github.com/Khan/perseus/commit/140fe6563dd885c92a424b9bae81acb6a8a39582) Thanks [@marcysutton](https://github.com/marcysutton)! - Remove unnecessary bolted-on role=combobox from Dropdown widget that is already part of WB Dropdown
+
+*   Updated dependencies [[`fd3a520c9`](https://github.com/Khan/perseus/commit/fd3a520c93410ae9b2af801714a289f1722e8e8e)]:
+    -   @khanacademy/math-input@25.0.1
+
 ## 59.0.1
 
 ### Patch Changes
