@@ -84,6 +84,7 @@ export const Article = (): React.ReactNode => {
     return (
         <ArticleRenderer
             json={article}
+            useNewStyles
             dependencies={storybookDependenciesV2}
         />
     );
