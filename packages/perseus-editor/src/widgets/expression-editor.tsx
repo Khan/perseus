@@ -33,8 +33,9 @@ const {InfoTip} = components;
 type Props = {
     widgetId?: any;
     value?: string;
-} & Omit<PerseusExpressionWidgetOptions, "buttonsVisible"> &
-    Changeable.ChangeableProps;
+    // Need to add correct type.
+    onChange?: any;
+} & Omit<PerseusExpressionWidgetOptions, "buttonsVisible">;
 
 // types for iterables
 type AnswerForm = PerseusExpressionWidgetOptions["answerForms"][number];
@@ -193,22 +194,6 @@ class ExpressionEditor extends React.Component<Props, State> {
         this.change({answerForms, extraKeys});
     }
 
-    handleReorder: (components: any) => void = (components) => {
-        const answerForms = components.map((component) => {
-            const form = _(component.props).pick(
-                "considered",
-                "form",
-                "simplify",
-                "value",
-            );
-            // @ts-expect-error - TS2339 - Property 'key' does not exist on type 'Pick<any, "form" | "value" | "simplify" | "considered">'.
-            form.key = component.key;
-            return form;
-        });
-
-        this.change({answerForms});
-    };
-
     // called when the selected buttonset changes
     handleButtonSet: (changingName: string) => void = (changingName) => {
         const buttonSetNames = buttonSetsList;
@@ -259,6 +244,16 @@ class ExpressionEditor extends React.Component<Props, State> {
         const newProps: Record<string, any> = {};
         newProps.functions = value.split(/[ ,]+/).filter(isTruthy);
         this.props.onChange(newProps);
+    };
+
+    // called when the visible labels change
+    handleVisibleLabel: (visibleLabel: string) => void = (visibleLabel) => {
+        this.props.onChange({visibleLabel});
+    };
+
+    // called when the aria label change
+    handleAriaLabel: (ariaLabel: string) => void = (ariaLabel) => {
+        this.props.onChange({ariaLabel});
     };
 
     changeSimplify(index: number, simplify: boolean) {
