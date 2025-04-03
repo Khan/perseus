@@ -77,15 +77,9 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
-            {
-                answerForms: [],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: true,
-            },
-            undefined,
-        );
+        expect(onChangeMock).toBeCalledWith({
+            times: true,
+        });
     });
 
     it("should be possible to change function variables", async () => {
@@ -121,15 +115,9 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
-            {
-                answerForms: [],
-                buttonSets: ["basic+div"],
-                functions: ["f", "g", "h"],
-                times: false,
-            },
-            undefined,
-        );
+        expect(onChangeMock).toBeCalledWith({
+            buttonSets: ["basic+div"],
+        });
     });
 
     it("should toggle trig checkbox", async () => {
@@ -246,23 +234,17 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
-            {
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: false,
-                        key: "0",
-                        simplify: false,
-                        value: "",
-                    },
-                ],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: false,
-            },
-            undefined,
-        );
+        expect(onChangeMock).toBeCalledWith({
+            answerForms: [
+                {
+                    considered: "correct",
+                    form: false,
+                    key: "0", // Update key.
+                    simplify: false,
+                    value: "",
+                },
+            ],
+        });
     });
 
     it("should be possible to update answer", async () => {
@@ -297,24 +279,18 @@ describe("expression-editor", () => {
         );
         act(() => jest.runOnlyPendingTimers());
 
-        expect(onChangeMock).toBeCalledWith(
-            {
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: false,
-                        key: "0",
-                        simplify: false,
-                        value: "9",
-                    },
-                ],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: false,
-                extraKeys: ["PI"],
-            },
-            undefined,
-        );
+        expect(onChangeMock).toBeCalledWith({
+            answerForms: [
+                {
+                    considered: "correct",
+                    form: false,
+                    key: "0",
+                    simplify: false,
+                    value: "9",
+                },
+            ],
+            extraKeys: ["PI"],
+        });
     });
 
     it("should be possible to toggle same form", async () => {
@@ -342,24 +318,18 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
-            {
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: true,
-                        key: "0",
-                        simplify: false,
-                        value: "",
-                    },
-                ],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: false,
-                extraKeys: ["PI"],
-            },
-            undefined,
-        );
+        expect(onChangeMock).toBeCalledWith({
+            answerForms: [
+                {
+                    considered: "correct",
+                    form: true,
+                    key: "0",
+                    simplify: false,
+                    value: "",
+                },
+            ],
+            extraKeys: ["PI"],
+        });
     });
 
     it("should be possible to toggle expanded and simplified", async () => {
@@ -387,24 +357,18 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
-            {
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: false,
-                        key: "0",
-                        simplify: true,
-                        value: "",
-                    },
-                ],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: false,
-                extraKeys: ["PI"],
-            },
-            undefined,
-        );
+        expect(onChangeMock).toBeCalledWith({
+            answerForms: [
+                {
+                    considered: "correct",
+                    form: false,
+                    key: "0",
+                    simplify: true,
+                    value: "",
+                },
+            ],
+            extraKeys: ["PI"],
+        });
     });
 
     it("should be possible to delete answer", async () => {
@@ -438,15 +402,9 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
-            {
-                answerForms: [],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: false,
-            },
-            undefined,
-        );
+        expect(onChangeMock).toBeCalledWith({
+            answerForms: [],
+        });
     });
 
     it("serializes", () => {

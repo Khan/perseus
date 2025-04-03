@@ -218,7 +218,7 @@ class ExpressionEditor extends React.Component<Props, State> {
             .filter((set) => set !== remove)
             .concat(keep);
 
-        this.props.onChange("buttonSets", buttonSets);
+        this.props.onChange({buttonSets});
     };
 
     // called when the correct answer changes
