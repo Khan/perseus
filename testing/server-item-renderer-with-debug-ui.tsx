@@ -15,7 +15,7 @@ import {
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 
-import * as Perseus from "../packages/perseus/src/index";
+import {ServerItemRenderer} from "../packages/perseus/src/server-item-renderer";
 import {keScoreFromPerseusScore} from "../packages/perseus/src/util/scoring";
 
 import KEScoreUI from "./ke-score-ui";
@@ -44,9 +44,11 @@ export const ServerItemRendererWithDebugUI = ({
     startAnswerless = false,
     showSolutions,
 }: Props): React.ReactElement => {
-    const ref = React.useRef<Perseus.ServerItemRendererComponent>(null);
+    const ref = React.useRef<ServerItemRenderer>(null);
     const [state, setState] = React.useState<KEScore | null | undefined>(null);
-    const [isMobile, setIsMobile] = React.useState(false);
+    const [isMobile, setIsMobile] = React.useState(
+        apiOptions.isMobile ?? false,
+    );
     const [hintsVisible, setHintsVisible] = React.useState(0);
     const [answerless, setAnswerless] =
         React.useState<boolean>(startAnswerless);
@@ -117,9 +119,10 @@ export const ServerItemRendererWithDebugUI = ({
             renderer={
                 <>
                     <View className={isMobile ? "perseus-mobile" : ""}>
-                        <Perseus.ServerItemRenderer
+                        <ServerItemRenderer
                             ref={ref}
                             problemNum={0}
+                            score={state}
                             apiOptions={options}
                             item={renderedItem}
                             dependencies={storybookDependenciesV2}

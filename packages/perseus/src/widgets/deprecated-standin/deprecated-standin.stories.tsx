@@ -1,10 +1,15 @@
-import * as React from "react";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
+import {generateTestPerseusItem} from "../../util/test-utils";
 
-import {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
+import type {Meta, StoryObj} from "@storybook/react";
 
-export default {
+const meta: Meta = {
     title: "Perseus/Widgets/Deprecated Standin",
+    component: ServerItemRendererWithDebugUI,
 };
+export default meta;
+
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
 const question1 = {
     content:
@@ -23,8 +28,8 @@ const question1 = {
     },
 } as const;
 
-type StoryArgs = Record<any, any>;
-
-export const Question1 = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={question1} />;
+export const Question1: Story = {
+    args: {
+        item: generateTestPerseusItem({question: question1}),
+    },
 };

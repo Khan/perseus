@@ -1,38 +1,21 @@
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import {storybookDependenciesV2} from "../../../../../testing/test-dependencies";
 import ArticleRenderer from "../../article-renderer";
+import {generateTestPerseusItem} from "../../util/test-utils";
 
-export default {
+import type {Meta, StoryObj} from "@storybook/react";
+
+const meta: Meta = {
     title: "Perseus/Widgets/Definition",
+    component: ServerItemRendererWithDebugUI,
 };
+export default meta;
 
-const question1 = {
-    content:
-        "Read the excerpt and answer the question below. \n\nThe Governor and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with [[\u2603 definition 1]], upon these conditions.",
-    images: {},
-    widgets: {
-        "definition 1": {
-            graded: true,
-            version: {
-                major: 0,
-                minor: 0,
-            },
-            static: false,
-            type: "definition",
-            options: {
-                definition:
-                    "A Native American people in Connecticut; white settlers in New England, the Pequots, and their respective allies were at war from 1636-1638.",
-                togglePrompt: "the Pequots",
-                static: false,
-            },
-            alignment: "default",
-        },
-    },
-} as const;
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
-const question2 = {
+const question = {
     content:
         "Read the excerpt and answer the question below. \n\nThe [[\u2603 definition 2]] and Council of the Massachusetts had much conference many days; and at last . . . . concluded a peace and friendship with [[\u2603 definition 1]], upon these conditions.",
     images: {},
@@ -93,21 +76,14 @@ const article = {
     },
 } as const;
 
-type StoryArgs = Record<any, any>;
-
-export const Question1 = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={question1} />;
+export const Exercise: Story = {
+    args: {item: generateTestPerseusItem({question})},
 };
 
-export const MultipleDefinitions = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={question2} />;
-};
-
-export const ArticleDefintion = (args: StoryArgs): React.ReactElement => {
+export const Article = (): React.ReactNode => {
     return (
         <ArticleRenderer
             json={article}
-            useNewStyles
             dependencies={storybookDependenciesV2}
         />
     );

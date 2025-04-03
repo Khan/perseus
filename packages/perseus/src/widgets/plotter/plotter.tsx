@@ -51,12 +51,13 @@ export class Plotter extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
+    _isMounted = false;
     // @ts-expect-error - TS2564 - Property 'shouldSetupGraphie' has no initializer and is not definitely assigned in the constructor.
     shouldSetupGraphie: boolean;
-    _isMounted = false;
+    graphieDiv = React.createRef<HTMLDivElement>();
+    graphie: any;
     horizHairline: any;
     hairlineRange: any;
-    graphie: any;
 
     static defaultProps: DefaultProps = {
         type: "bar",
@@ -148,11 +149,9 @@ export class Plotter extends React.Component<Props, State> implements Widget {
     setupGraphie: (arg1: any) => void = (prevState) => {
         const self = this;
         self.shouldSetupGraphie = false;
-        const graphieDiv = ReactDOM.findDOMNode(self.refs.graphieDiv);
-        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
-        $(graphieDiv).empty();
+        $(this.graphieDiv.current!).empty();
         // @ts-expect-error - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLElement'.
-        const graphie = GraphUtils.createGraphie(graphieDiv);
+        const graphie = GraphUtils.createGraphie(this.graphieDiv.current);
 
         // TODO(jakesandlund): It's not the react way to hang
         // something off the component object, but since graphie
@@ -309,6 +308,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
                         opacity: isMobile ? 1 : 0.3,
                     },
                     function () {
+                        console.log("drawing line", [0, y], [c.dimX, y]);
                         graphie.line([0, y], [c.dimX, y]);
                     },
                 );
@@ -1159,8 +1159,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         return (
             <div
                 className={"perseus-widget-plotter graphie"}
-                // eslint-disable-next-line react/no-string-refs
-                ref="graphieDiv"
+                ref={this.graphieDiv}
                 style={style}
             />
         );

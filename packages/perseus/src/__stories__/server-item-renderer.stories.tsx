@@ -13,26 +13,32 @@ import {
 } from "../__testdata__/server-item-renderer.testdata";
 import {ServerItemRenderer} from "../server-item-renderer";
 
-import type {StoryObj, Meta} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react";
 
-type StoryArgs = StoryObj<ServerItemRenderer>;
-
-type Story = Meta<ServerItemRenderer>;
-
-export default {
+const meta: Meta = {
     title: "Perseus/Renderers/Server Item Renderer",
-} as Story;
+    component: ServerItemRendererWithDebugUI,
+};
+export default meta;
 
-export const NumericInputItem = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={itemWithNumericInput} />;
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+
+export const NumericInputItem: Story = {
+    args: {
+        item: itemWithNumericInput,
+    },
 };
 
-export const LabelImageItem = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={labelImageItem} />;
+export const LabelImageItem: Story = {
+    args: {
+        item: labelImageItem,
+    },
 };
 
-export const ImageExamplesItem = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={itemWithImages} />;
+export const ImageExamplesItem: Story = {
+    args: {
+        item: itemWithImages,
+    },
 };
 
 export const WithLintingError = (args: StoryArgs): React.ReactElement => {

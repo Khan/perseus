@@ -1,5 +1,6 @@
 import {KeypadContext} from "@khanacademy/keypad-context";
 import {action} from "@storybook/addon-actions";
+// biome-ignore lint/style/useImportType: <explanation>
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
@@ -41,8 +42,6 @@ const WrappedKeypadContext = ({
                             item={item}
                             startAnswerless={startAnswerless}
                             keypadElement={keypadElement}
-                            // Hardcoding the V2 Keypad to true as the Storybook Args
-                            // were not working.
                             apiOptions={{
                                 isMobile: isMobile,
                                 customKeypad: customKeypad,

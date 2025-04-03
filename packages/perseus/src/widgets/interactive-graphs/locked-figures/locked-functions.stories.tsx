@@ -1,129 +1,141 @@
-import * as React from "react";
-
-import {RendererWithDebugUI} from "../../../../../../testing/renderer-with-debug-ui";
-import {ApiOptions} from "../../../perseus-api";
+import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {generateTestPerseusItem} from "../../../util/test-utils";
 import {
     segmentWithLockedFunction,
     segmentWithLockedFunctionAndAsymmetricRange,
 } from "../interactive-graph.testdata";
 
-export default {
+import type {Meta, StoryObj} from "@storybook/react";
+
+const meta: Meta = {
     title: "Perseus/Widgets/Interactive Graph/Locked Functions",
+    component: ServerItemRendererWithDebugUI,
+};
+export default meta;
+
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+
+export const DefaultSettings: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedFunction(),
+        }),
+    },
 };
 
-const defaultApiOptions = ApiOptions.defaults;
+export const StyledSettings: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedFunction("x^2", {
+                color: "green",
+                strokeStyle: "dashed",
+            }),
+        }),
+    },
+};
 
-type StoryArgs = Record<any, any>;
+export const FunctionOfY: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedFunction("y^2", {
+                directionalAxis: "y",
+            }),
+        }),
+    },
+};
 
-export const DefaultSettings = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        {...defaultApiOptions}
-        question={segmentWithLockedFunction()}
-    />
-);
+export const FunctionOfYAsymmetricRange: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedFunctionAndAsymmetricRange("y/2", {
+                directionalAxis: "y",
+            }),
+        }),
+    },
+};
 
-export const StyledSettings = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        {...defaultApiOptions}
-        question={segmentWithLockedFunction("x^2", {
-            color: "green",
-            strokeStyle: "dashed",
-        })}
-    />
-);
+export const DomainRestrictedMin: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedFunction("sin(x)", {
+                domain: [-5, Infinity],
+            }),
+        }),
+    },
+};
 
-export const FunctionOfY = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        {...defaultApiOptions}
-        question={segmentWithLockedFunction("y^2", {
-            directionalAxis: "y",
-        })}
-    />
-);
+export const DomainRestrictedMax: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedFunction("sin(x)", {
+                domain: [-Infinity, 5],
+            }),
+        }),
+    },
+};
 
-export const FunctionOfYAsymmetricRange = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <RendererWithDebugUI
-        {...defaultApiOptions}
-        question={segmentWithLockedFunctionAndAsymmetricRange("y/2", {
-            directionalAxis: "y",
-        })}
-    />
-);
+export const DomainRestrictedBoth: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedFunction("sin(x)", {
+                domain: [-5, 5],
+            }),
+        }),
+    },
+};
 
-export const DomainRestrictedMin = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        {...defaultApiOptions}
-        question={segmentWithLockedFunction("sin(x)", {
-            domain: [-5, Infinity],
-        })}
-    />
-);
+export const Quadratic: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedFunction("x^2 + 2x + 3"),
+        }),
+    },
+};
 
-export const DomainRestrictedMax = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        {...defaultApiOptions}
-        question={segmentWithLockedFunction("sin(x)", {
-            domain: [-Infinity, 5],
-        })}
-    />
-);
+export const QubicPolynomial: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedFunction("(1/3)x^3 - 2x^2 + 3x - 4"),
+        }),
+    },
+};
 
-export const DomainRestrictedBoth = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        {...defaultApiOptions}
-        question={segmentWithLockedFunction("sin(x)", {
-            domain: [-5, 5],
-        })}
-    />
-);
+export const Tangent: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedFunction("tan(x)"),
+        }),
+    },
+};
 
-export const Quadratic = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        {...defaultApiOptions}
-        question={segmentWithLockedFunction("x^2 + 2x + 3")}
-    />
-);
+export const ArcTangent: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedFunction("arctan(x)"),
+        }),
+    },
+};
 
-export const QubicPolynomial = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        {...defaultApiOptions}
-        question={segmentWithLockedFunction("(1/3)x^3 - 2x^2 + 3x - 4")}
-    />
-);
+export const Logarithmic: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedFunction("log(x)"),
+        }),
+    },
+};
 
-export const Tangent = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        {...defaultApiOptions}
-        question={segmentWithLockedFunction("tan(x)")}
-    />
-);
+export const Exponent: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedFunction("e^x"),
+        }),
+    },
+};
 
-export const ArcTangent = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        {...defaultApiOptions}
-        question={segmentWithLockedFunction("arctan(x)")}
-    />
-);
-
-export const Logarithmic = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        {...defaultApiOptions}
-        question={segmentWithLockedFunction("log(x)")}
-    />
-);
-
-export const Exponent = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        {...defaultApiOptions}
-        question={segmentWithLockedFunction("e^x")}
-    />
-);
-
-export const AbsoluteValue = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        {...defaultApiOptions}
-        question={segmentWithLockedFunction("abs(x)")}
-    />
-);
+export const AbsoluteValue: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedFunction("abs(x)"),
+        }),
+    },
+};
