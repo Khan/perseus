@@ -187,13 +187,12 @@ class MobileKeypadInternals
                     transitionStyle={{
                         enter: {
                             transform: "translate3d(0, 0, 0)",
-                            transition: `${AnimationDurationInMS}ms ease-in`,
                         },
                         enterActive: {
                             transition: `${AnimationDurationInMS}ms ease-in`,
                         },
                         leave: {
-                            transition: `${AnimationDurationInMS}ms ease-out`,
+                            transform: "translate3d(0, 0, 0)",
                         },
                         leaveActive: {
                             transition: `${AnimationDurationInMS}ms ease-out`,
