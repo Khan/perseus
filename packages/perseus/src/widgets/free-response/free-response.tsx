@@ -58,12 +58,12 @@ export class FreeResponse
         this.setState({currentValue: newValue});
     };
 
-    isOverLimit = () => {
+    isOverLimit() {
         return (
             !this.props.allowUnlimitedCharacters &&
             this.characterCount() > this.props.characterLimit
         );
-    };
+    }
 
     renderCharacterCount(): React.ReactNode {
         if (this.props.allowUnlimitedCharacters) {
