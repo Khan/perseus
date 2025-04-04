@@ -42,24 +42,24 @@ const AccessibilityPanel = () => {
     let warningShown = false;
 
     const injectAxeCore = () => {
-        const iFrame = document.querySelector("iframe");
-        // @ts-expect-error TS2339: Property 'axe' does not exist on type 'Window'
-        if (iFrame?.contentWindow && !iFrame.contentWindow.axe) {
-            // eslint-disable-next-line no-console
-            console.log(`      Axe-Core missing from iFrame. Adding it now...`);
-            // @ts-expect-error TS2339: Property 'eval' does not exist on type 'Window'
-            iFrame.contentWindow?.eval(
-                `import('https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js')`,
-            );
-            warningShown = false;
-        } else if (!warningShown) {
-            // eslint-disable-next-line no-console
-            console.warn(
-                `Unable to locate preview iframe element. Accessibility test not attempted.`,
-            );
-            warningShown = true;
-        }
-        // @ts-expect-error TS2339: Property 'axe' does not exist on type 'Window'
+        // const iFrame = document.querySelector("iframe");
+        // // @ts-expect-error TS2339: Property 'axe' does not exist on type 'Window'
+        // if (iFrame?.contentWindow && !iFrame.contentWindow.axe) {
+        //     // eslint-disable-next-line no-console
+        //     console.log(`      Axe-Core missing from iFrame. Adding it now...`);
+        //     // @ts-expect-error TS2339: Property 'eval' does not exist on type 'Window'
+        //     iFrame.contentWindow?.eval(
+        //         `import('https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js')`,
+        //     );
+        //     warningShown = false;
+        // } else if (!warningShown) {
+        //     // eslint-disable-next-line no-console
+        //     console.warn(
+        //         `Unable to locate preview iframe element. Accessibility test not attempted.`,
+        //     );
+        //     warningShown = true;
+        // }
+        // // @ts-expect-error TS2339: Property 'axe' does not exist on type 'Window'
         axeIsInstalled = iFrame?.contentWindow && iFrame.contentWindow.axe;
     };
 
@@ -179,12 +179,12 @@ const AccessibilityPanel = () => {
                         console.log("   iFrame: ", document.querySelector("iframe"));
                         console.log("   Content Window: ", document.querySelector("iframe").contentWindow);
                         console.log("   iFrame Axe: ", iFrameAxe);
-                        const options = iFrameAxe
+                        const options = useIFrameAxe
                             ? "#page-container"
                             : ${JSON.stringify(axeCoreEditorOptions)};
-                        const axeCore = useIFrameAxe : iFrameAxe ? window.axe;
+                        const axeCore = useIFrameAxe ? iFrameAxe : window.axe;
                         axeCore.configure({reporter: "v2"});
-                        console.log("Element: ",document.querySelector("iframe").contendDocument.getElementById("page-container"));
+                        console.log("Element: ",document.querySelector("iframe").contentDocument.getElementById("page-container"));
                         axeCore.run(options).then(
                             (results) => {
                                 console.log(\`   Accessibility Results: \`, results);

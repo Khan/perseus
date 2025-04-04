@@ -140,6 +140,21 @@ class IframeContentRenderer extends React.Component<Props> {
         frame.style.width = "100%";
         frame.style.height = "100%";
         frame.src = this.props.url;
+        frame.onload = () => {
+            console.log("Iframe loaded");
+            const iframeDoc = frame.contentDocument || frame.contentWindow?.document;
+            if (iframeDoc) {
+                console.log("Adding axe-core script to iframe");
+                const axeCoreScriptElement = iframeDoc.createElement("script");
+                axeCoreScriptElement.src = "https://unpkg.com/axe-core@4.10.3/axe.js";
+                iframeDoc.body.appendChild(axeCoreScriptElement);
+            } else {
+                console.log("Unable to access iframe document");
+            }
+            setTimeout(() => {
+                console.log("Axe-core in iFrame: ", frame.contentWindow?.axe);
+            }, 1000);
+        };
 
         if (this.props.datasetKey) {
             // If the user has specified a data-* attribute to place on the
