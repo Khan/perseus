@@ -39,10 +39,10 @@ const AccessibilityPanel = () => {
     let timeoutId = setTimeout(() => {});
     let isInStorybook = false;
     let axeIsInstalled = false;
-    let warningShown = false;
+    // let warningShown = false;
 
     const injectAxeCore = () => {
-        // const iFrame = document.querySelector("iframe");
+        const iFrame = document.querySelector("iframe");
         // // @ts-expect-error TS2339: Property 'axe' does not exist on type 'Window'
         // if (iFrame?.contentWindow && !iFrame.contentWindow.axe) {
         //     // eslint-disable-next-line no-console
@@ -97,9 +97,12 @@ const AccessibilityPanel = () => {
     const executeAxeCore = () => {
         // eslint-disable-next-line no-console
         console.log("Executing axe-core...");
-        const code: string | null = prompt("Code to execute: ", (
-            document.getElementById("axe-core-code") as HTMLInputElement
-        ).value);
+        // eslint-disable-next-line no-alert
+        const code: string | null = prompt(
+            "Code to execute: ",
+            (document.getElementById("axe-core-code") as HTMLInputElement)
+                .value,
+        );
         if (code) {
             // eslint-disable-next-line no-console
             console.log(`   Code:\n`, code);
@@ -334,6 +337,7 @@ const ShowMe = ({issue}: {issue: axe.Result}) => {
         </div>
     );
 
+    // eslint-disable-next-line
     return issueBoundary ? showMeToggle : showMeUnavailable;
 };
 

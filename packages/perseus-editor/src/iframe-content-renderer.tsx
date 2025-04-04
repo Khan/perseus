@@ -143,12 +143,14 @@ class IframeContentRenderer extends React.Component<Props> {
         frame.onload = () => {
             // eslint-disable-next-line no-console
             console.log("Iframe loaded");
-            const iframeDoc = frame.contentDocument || frame.contentWindow?.document;
+            const iframeDoc =
+                frame.contentDocument || frame.contentWindow?.document;
             if (iframeDoc) {
                 // eslint-disable-next-line no-console
                 console.log("Adding axe-core script to iframe");
                 const axeCoreScriptElement = iframeDoc.createElement("script");
-                axeCoreScriptElement.src = "https://unpkg.com/axe-core@4.10.3/axe.js";
+                axeCoreScriptElement.src =
+                    "https://unpkg.com/axe-core@4.10.3/axe.js";
                 iframeDoc.body.appendChild(axeCoreScriptElement);
             } else {
                 // eslint-disable-next-line no-console
