@@ -141,17 +141,21 @@ class IframeContentRenderer extends React.Component<Props> {
         frame.style.height = "100%";
         frame.src = this.props.url;
         frame.onload = () => {
+            // eslint-disable-next-line no-console
             console.log("Iframe loaded");
             const iframeDoc = frame.contentDocument || frame.contentWindow?.document;
             if (iframeDoc) {
+                // eslint-disable-next-line no-console
                 console.log("Adding axe-core script to iframe");
                 const axeCoreScriptElement = iframeDoc.createElement("script");
                 axeCoreScriptElement.src = "https://unpkg.com/axe-core@4.10.3/axe.js";
                 iframeDoc.body.appendChild(axeCoreScriptElement);
             } else {
+                // eslint-disable-next-line no-console
                 console.log("Unable to access iframe document");
             }
             setTimeout(() => {
+                // eslint-disable-next-line no-console
                 console.log("Axe-core in iFrame: ", frame.contentWindow?.axe);
             }, 1000);
         };
