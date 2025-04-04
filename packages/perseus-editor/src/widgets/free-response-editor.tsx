@@ -1,6 +1,7 @@
 import {freeResponseLogic} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
+import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import plusCircleIcon from "@phosphor-icons/core/regular/plus-circle.svg";
@@ -13,6 +14,7 @@ import type {
     FreeResponseDefaultWidgetOptions,
     PerseusFreeResponseWidgetScoringCriterion,
 } from "@khanacademy/perseus-core";
+import type {ChangeEventHandler} from "react";
 
 type Props = PerseusFreeResponseWidgetOptions & {
     onChange: (options: Partial<PerseusFreeResponseWidgetOptions>) => void;
@@ -26,6 +28,8 @@ class FreeResponseEditor extends React.Component<Props> {
 
     serialize(): PerseusFreeResponseWidgetOptions {
         return {
+            allowUnlimitedCharacters: this.props.allowUnlimitedCharacters,
+            characterLimit: this.props.characterLimit,
             placeholder: this.props.placeholder,
             question: this.props.question,
             scoringCriteria: this.props.scoringCriteria,
@@ -39,6 +43,15 @@ class FreeResponseEditor extends React.Component<Props> {
         }
         return warnings;
     }
+
+    handleUpdateCharacterLimit: ChangeEventHandler<HTMLInputElement> = (e) => {
+        const val = parseInt(e.target.value);
+        if (isNaN(val)) {
+            return;
+        }
+
+        this.props.onChange({characterLimit: Math.max(1, val)});
+    };
 
     handleUpdateCriterion = (
         index: number,
@@ -108,6 +121,29 @@ class FreeResponseEditor extends React.Component<Props> {
                         }
                     />
                 </label>
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
+                <label className={css(styles.textOptionWithLabelContainer)}>
+                    <HeadingSmall>Allow unlimited characters</HeadingSmall>
+                    <Checkbox
+                        checked={this.props.allowUnlimitedCharacters}
+                        onChange={(val) =>
+                            this.props.onChange({
+                                allowUnlimitedCharacters: val,
+                            })
+                        }
+                    />
+                </label>
+                {!this.props.allowUnlimitedCharacters && (
+                    <label className={css(styles.textOptionWithLabelContainer)}>
+                        <HeadingSmall>Character limit</HeadingSmall>
+                        <input
+                            type="number"
+                            min={1}
+                            value={this.props.characterLimit}
+                            onChange={this.handleUpdateCharacterLimit}
+                        />
+                    </label>
+                )}
                 <View>
                     <HeadingSmall>Scoring criteria</HeadingSmall>
                     <View style={styles.criteriaList}>

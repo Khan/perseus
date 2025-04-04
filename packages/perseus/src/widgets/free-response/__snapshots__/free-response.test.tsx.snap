@@ -16,16 +16,37 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg"
+            class="default_xu2jcg-o_O-container_lci7r"
           >
             <label
-              class="labelAndTextarea_1o27vzy"
+              class="labelAndTextarea_b4ep1"
             >
-              test-question
-              <textarea
-                placeholder="test-placeholder"
-              />
+              <span
+                class="text_f1191h-o_O-LabelLarge_5s82ln"
+              >
+                test-question
+              </span>
+              <div
+                class="default_xu2jcg-o_O-inlineStyles_zdxht7"
+              >
+                <textarea
+                  aria-invalid="false"
+                  aria-required="false"
+                  class="textarea_o89kg2-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-textarea_1x0fg6n"
+                  id=":r1:"
+                  placeholder="test-placeholder"
+                />
+              </div>
             </label>
+            <div
+              class="default_xu2jcg"
+            >
+              <span
+                class="text_f1191h"
+              >
+                0 / 500 Characters
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -50,16 +71,37 @@ exports[`free-response widget should snapshot: first render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg"
+            class="default_xu2jcg-o_O-container_lci7r"
           >
             <label
-              class="labelAndTextarea_1o27vzy"
+              class="labelAndTextarea_b4ep1"
             >
-              test-question
-              <textarea
-                placeholder="test-placeholder"
-              />
+              <span
+                class="text_f1191h-o_O-LabelLarge_5s82ln"
+              >
+                test-question
+              </span>
+              <div
+                class="default_xu2jcg-o_O-inlineStyles_zdxht7"
+              >
+                <textarea
+                  aria-invalid="false"
+                  aria-required="false"
+                  class="textarea_o89kg2-o_O-LabelMedium_1rew30o-o_O-default_1tc7wjm-o_O-defaultFocus_lrnqlz-o_O-textarea_1x0fg6n"
+                  id=":r0:"
+                  placeholder="test-placeholder"
+                />
+              </div>
             </label>
+            <div
+              class="default_xu2jcg"
+            >
+              <span
+                class="text_f1191h"
+              >
+                0 / 500 Characters
+              </span>
+            </div>
           </div>
         </div>
       </div>
