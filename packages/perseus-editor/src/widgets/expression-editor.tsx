@@ -24,6 +24,7 @@ import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
     ExpressionDefaultWidgetOptions,
+    PerseusExpressionAnswerForm,
 } from "@khanacademy/perseus-core";
 
 const {InfoTip} = components;
@@ -133,26 +134,24 @@ class ExpressionEditor extends React.Component<Props, State> {
         return issues;
     };
 
-    _newEmptyAnswerForm: () => any = () => {
+    newAnswer: () => void = () => {
+        const answerForms = this.props.answerForms.slice();
+
         // Need to use a better random function here.
         const newKey = `answer_${Math.round(Math.random() * 1000)}`; //React.useId();
 
-        return {
+        const newAnswerForm: PerseusExpressionAnswerForm = {
             considered: "correct",
             form: false,
 
             // note: the key means "n-th form created" - not "form in
             // position n" and will stay the same for the life of this form
             key: `${newKey}`,
-
             simplify: false,
             value: "",
         };
-    };
 
-    newAnswer: () => void = () => {
-        const answerForms = this.props.answerForms.slice();
-        answerForms.push(this._newEmptyAnswerForm());
+        answerForms.push(newAnswerForm);
         this.props.onChange({answerForms});
     };
 
@@ -294,26 +293,25 @@ class ExpressionEditor extends React.Component<Props, State> {
     render(): React.ReactNode {
         const answerOptions: React.JSX.Element[] = this.props.answerForms.map(
             (ans: AnswerForm, index: number) => {
-                const expressionProps: Partial<
-                    React.ComponentProps<typeof Expression>
-                > = {
-                    // note we're using
-                    // *this.props*.{times,functions,buttonSets} since each
-                    // answer area has the same settings for those
-                    times: this.props.times,
-                    functions: this.props.functions,
-                    buttonSets: this.props.buttonSets,
-                    buttonsVisible: "focused",
-                    value: ans.value,
-                    // @ts-expect-error: Type '(props: React.ComponentProps<typeof Expression>) => void' is not assignable to type 'ChangeHandler'. Types of parameters 'props' and 'arg1' are incompatible.
-                    onChange: (
-                        props: React.ComponentProps<typeof Expression>,
-                    ) => this.changeExpressionWidget(index, props),
-                    trackInteraction: () => {},
-                    widgetId: this.props.widgetId + "-" + ans.key,
-                    visibleLabel: this.props.visibleLabel,
-                    ariaLabel: this.props.ariaLabel,
-                } as const;
+                const expressionProps: React.ComponentProps<typeof Expression> =
+                    {
+                        // note we're using
+                        // *this.props*.{times,functions,buttonSets} since each
+                        // answer area has the same settings for those
+                        times: this.props.times,
+                        functions: this.props.functions,
+                        buttonSets: this.props.buttonSets,
+                        buttonsVisible: "focused",
+                        value: ans.value,
+                        // @ts-expect-error: Type '(props: React.ComponentProps<typeof Expression>) => void' is not assignable to type 'ChangeHandler'. Types of parameters 'props' and 'arg1' are incompatible.
+                        onChange: (
+                            props: React.ComponentProps<typeof Expression>,
+                        ) => this.changeExpressionWidget(index, props),
+                        trackInteraction: () => {},
+                        widgetId: this.props.widgetId + "-" + ans.key,
+                        visibleLabel: this.props.visibleLabel,
+                        ariaLabel: this.props.ariaLabel,
+                    } as const;
 
                 return (
                     <AnswerOption
@@ -471,7 +469,7 @@ const findNextIn = function <T>(arr: ReadonlyArray<T>, val: T) {
 
 type AnswerOptionProps = {
     considered: (typeof PerseusExpressionAnswerFormConsidered)[number];
-    expressionProps: any;
+    expressionProps: React.ComponentProps<typeof Expression>;
 
     // Must the answer have the same form as this answer.
     form: boolean;
