@@ -59,7 +59,8 @@ const AccessibilityPanel = () => {
         //     );
         //     warningShown = true;
         // }
-        // // @ts-expect-error TS2339: Property 'axe' does not exist on type 'Window'
+
+        // @ts-expect-error TS2339: Property 'axe' does not exist on type 'Window'
         axeIsInstalled = iFrame?.contentWindow && iFrame.contentWindow.axe;
     };
 

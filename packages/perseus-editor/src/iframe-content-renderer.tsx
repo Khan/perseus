@@ -157,8 +157,10 @@ class IframeContentRenderer extends React.Component<Props> {
                 console.log("Unable to access iframe document");
             }
             setTimeout(() => {
+                // @ts-expect-error TS2339: Property 'axe' does not exist on type 'Window'
+                const iFrameAxe = frame.contentWindow?.axe;
                 // eslint-disable-next-line no-console
-                console.log("Axe-core in iFrame: ", frame.contentWindow?.axe);
+                console.log("Axe-core in iFrame: ", iFrameAxe);
             }, 1000);
         };
 
