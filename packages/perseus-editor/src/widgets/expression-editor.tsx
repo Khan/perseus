@@ -30,10 +30,9 @@ import type {
 const {InfoTip} = components;
 
 type Props = {
-    widgetId?: any;
+    widgetId?: string;
     value?: string;
-    // Need to add correct type.
-    onChange?: any;
+    onChange: (any) => void;
 } & Omit<PerseusExpressionWidgetOptions, "buttonsVisible">;
 
 // types for iterables
