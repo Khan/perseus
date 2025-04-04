@@ -97,12 +97,14 @@ const AccessibilityPanel = () => {
     const executeAxeCore = () => {
         // eslint-disable-next-line no-console
         console.log("Executing axe-core...");
-        const code: string = (
+        const code: string | null = prompt("Code to execute: ", (
             document.getElementById("axe-core-code") as HTMLInputElement
-        ).value;
-        // eslint-disable-next-line no-console
-        console.log(`   Code:\n`, code);
-        eval(code);
+        ).value);
+        if (code) {
+            // eslint-disable-next-line no-console
+            console.log(`   Code:\n`, code);
+            eval(code);
+        }
     };
 
     const runAxeCoreOnUpdate = () => {
@@ -172,15 +174,17 @@ const AccessibilityPanel = () => {
                         type={"hidden"}
                         id="axe-core-code"
                         value={`
+                        const useIFrameAxe = false;
                         const iFrameAxe = document.querySelector("iframe").contentWindow.axe;
                         console.log("   iFrame: ", document.querySelector("iframe"));
                         console.log("   Content Window: ", document.querySelector("iframe").contentWindow);
                         console.log("   iFrame Axe: ", iFrameAxe);
-                        const options = ${!!document.getElementById("storybook-root")}
-                            ? ${JSON.stringify(axeCoreStorybookOptions)}
+                        const options = iFrameAxe
+                            ? "#page-container"
                             : ${JSON.stringify(axeCoreEditorOptions)};
-                        const axeCore = true ? window.axe : iFrameAxe;
+                        const axeCore = useIFrameAxe : iFrameAxe ? window.axe;
                         axeCore.configure({reporter: "v2"});
+                        console.log("Element: ",document.querySelector("iframe").contendDocument.getElementById("page-container"));
                         axeCore.run(options).then(
                             (results) => {
                                 console.log(\`   Accessibility Results: \`, results);
