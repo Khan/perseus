@@ -360,6 +360,7 @@ const getContent = (ast: any) => {
         .filter((object) => object != null && _.has(object, "type"))
         .value();
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!children.length) {
         return [];
     }

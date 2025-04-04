@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /**
  * The Perseus "data schema" file.
  *

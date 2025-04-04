@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @babel/no-invalid-this, react/forbid-prop-types, react/no-unsafe */
+/* eslint-disable @typescript-eslint/no-invalid-this, react/forbid-prop-types, react/no-unsafe */
 import $ from "jquery";
 import PropTypes from "prop-types";
 import * as React from "react";

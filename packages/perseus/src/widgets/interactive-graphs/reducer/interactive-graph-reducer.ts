@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import {
     angles,
     coefficients,
@@ -331,6 +332,7 @@ function doMoveLine(
                 throw new Error("Please provide index of line to move");
             }
             const currentLine = state.coords[action.itemIndex];
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (!currentLine) {
                 throw new Error("No line to move");
             }

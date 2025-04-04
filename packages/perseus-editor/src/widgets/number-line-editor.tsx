@@ -100,6 +100,7 @@ class NumberLineEditor extends React.Component<Props> {
         numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
 
         // If the number of divisions isn't blank, update the number line
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (numDivisions) {
             // Constrain numDivisions to be within the allowed range
             numDivisions = Math.min(
@@ -159,6 +160,7 @@ class NumberLineEditor extends React.Component<Props> {
         let step;
         if (!isTickCtrl) {
             // this will help constrain the answer to what is reachable
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             step = tickStep
                 ? tickStep / snapDivisions
                 : width / numDivisions / snapDivisions;
@@ -387,6 +389,7 @@ class NumberLineEditor extends React.Component<Props> {
                             <label>
                                 Start num divisions at{" "}
                                 <NumberInput
+                                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                     value={this.props.numDivisions || null}
                                     format="decimal"
                                     onChange={this.onNumDivisionsChange}
@@ -423,6 +426,7 @@ class NumberLineEditor extends React.Component<Props> {
                             <label>
                                 Num divisions:{" "}
                                 <NumberInput
+                                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                     value={this.props.numDivisions || null}
                                     format="decimal"
                                     onChange={this.onNumDivisionsChange}
@@ -439,6 +443,7 @@ class NumberLineEditor extends React.Component<Props> {
                             <label>
                                 or tick step:{" "}
                                 <NumberInput
+                                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                     value={this.props.tickStep || null}
                                     format={this.props.labelStyle}
                                     onChange={this.onTickStepChange}

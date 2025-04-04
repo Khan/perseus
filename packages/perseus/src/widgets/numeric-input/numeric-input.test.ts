@@ -233,8 +233,10 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
 
     it("can get one correct answer from scoring data with multiple answers", () => {
         const widget = multipleAnswersWithDecimals.widgets["numeric-input 1"];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const widgetOptions = widget && widget.options;
         const answers: ReadonlyArray<any> =
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             (widgetOptions && widgetOptions.answers) || [];
 
         const singleAnswer =
@@ -247,8 +249,10 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
 
     it("can get one correct answer from scoring data with one answer", () => {
         const widget = question1.widgets["numeric-input 1"];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const widgetOptions = widget && widget.options;
         const answers: ReadonlyArray<any> =
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             (widgetOptions && widgetOptions.answers) || [];
         const singleAnswer =
             NumericInputWidgetExport.getOneCorrectAnswerFromRubric?.({

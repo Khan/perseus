@@ -1,4 +1,4 @@
-/* eslint-disable @babel/no-invalid-this, react/no-unsafe, react/sort-comp */
+/* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe, react/sort-comp */
 import {angles, geometry} from "@khanacademy/kmath";
 import {
     approximateEqual,
@@ -335,6 +335,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         graph: PerseusGraphTypePoint,
         props: Props,
     ): ReadonlyArray<Coord> {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const numPoints = graph.numPoints || 1;
         let coords = graph.coords;
 
@@ -450,6 +451,7 @@ class InteractiveGraph extends React.Component<Props, State> {
             return coords;
         }
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const n = graph.numSides || 3;
 
         if (n === UNLIMITED) {

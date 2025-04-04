@@ -1,5 +1,61 @@
 # @khanacademy/perseus-editor
 
+## 20.0.1
+
+### Patch Changes
+
+-   [#2341](https://github.com/Khan/perseus/pull/2341) [`05d3c998d`](https://github.com/Khan/perseus/commit/05d3c998d3f01b1f33ea6213bda8dd02cf5c25a6) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: each vs forEach in answer-types causing issues with fractions in the editor
+
+-   Updated dependencies [[`05d3c998d`](https://github.com/Khan/perseus/commit/05d3c998d3f01b1f33ea6213bda8dd02cf5c25a6)]:
+    -   @khanacademy/perseus@59.0.1
+    -   @khanacademy/perseus-score@4.0.1
+
+## 20.0.0
+
+### Major Changes
+
+-   [#2339](https://github.com/Khan/perseus/pull/2339) [`ef5fea555`](https://github.com/Khan/perseus/commit/ef5fea5551230f49af5b31705e84b23493f76883) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Revert move to ESM-only packages (package again ships with CJS and ESM builds)
+
+### Patch Changes
+
+-   Updated dependencies [[`ef5fea555`](https://github.com/Khan/perseus/commit/ef5fea5551230f49af5b31705e84b23493f76883)]:
+    -   @khanacademy/kas@2.0.0
+    -   @khanacademy/keypad-context@3.0.0
+    -   @khanacademy/kmath@2.0.0
+    -   @khanacademy/math-input@25.0.0
+    -   @khanacademy/perseus@59.0.0
+    -   @khanacademy/perseus-core@7.0.0
+    -   @khanacademy/perseus-linter@3.0.0
+    -   @khanacademy/perseus-score@4.0.0
+    -   @khanacademy/perseus-utils@2.0.0
+    -   @khanacademy/pure-markdown@2.0.0
+
+## 19.0.0
+
+### Major Changes
+
+-   [#2331](https://github.com/Khan/perseus/pull/2331) [`c2e33e522`](https://github.com/Khan/perseus/commit/c2e33e52291d6379799754e27c5d33b02ff4b1fa) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove CJS output from package (package is now ESM only)
+
+### Patch Changes
+
+-   Updated dependencies [[`87b129dbf`](https://github.com/Khan/perseus/commit/87b129dbf47c807b2be1fab7a18fa2e4a7984529), [`745b6337c`](https://github.com/Khan/perseus/commit/745b6337cad2aa6bbc16efaf2b66e6aef227e6db), [`c2e33e522`](https://github.com/Khan/perseus/commit/c2e33e52291d6379799754e27c5d33b02ff4b1fa), [`3bfa609b9`](https://github.com/Khan/perseus/commit/3bfa609b9131c477b16fdd00f32f52b638357e7b)]:
+    -   @khanacademy/perseus@58.0.0
+    -   @khanacademy/kas@1.0.0
+    -   @khanacademy/keypad-context@2.0.0
+    -   @khanacademy/kmath@1.0.0
+    -   @khanacademy/math-input@24.0.0
+    -   @khanacademy/perseus-core@6.0.0
+    -   @khanacademy/perseus-linter@2.0.0
+    -   @khanacademy/perseus-score@3.0.0
+    -   @khanacademy/perseus-utils@1.0.0
+    -   @khanacademy/pure-markdown@1.0.0
+
+## 18.2.3
+
+### Patch Changes
+
+-   [#2310](https://github.com/Khan/perseus/pull/2310) [`23189ca3d`](https://github.com/Khan/perseus/commit/23189ca3dfaab3b26fbe49855930ae8cfd8b4475) Thanks [@tatianasnook](https://github.com/tatianasnook)! - Modified the 'Aligned equations' template content to change the current format as requested in the ticket. Added // eslint-disable-next-line prettier/prettier to preserve the formatting.
+
 ## 18.2.2
 
 ### Patch Changes

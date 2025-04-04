@@ -288,6 +288,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
 
         // If the number of divisions isn't blank, update the number line
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (numDivisions) {
             const nextProps = _.extend({}, this.props, {
                 tickStep: width / numDivisions,
@@ -667,7 +668,8 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                         value={
                             this.state.numDivisionsEmpty
                                 ? null
-                                : this.props.numDivisions || divisionRange[0]
+                                : // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                                  this.props.numDivisions || divisionRange[0]
                         }
                         checkValidity={(val) =>
                             val >= divisionRange[0] && val <= divisionRange[1]

@@ -146,6 +146,7 @@ class HintsRenderer extends React.Component<Props, State> {
         let numCallbacks = 1;
         const fireCallback = () => {
             --numCallbacks;
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (callback && numCallbacks === 0) {
                 callback();
             }
@@ -159,6 +160,7 @@ class HintsRenderer extends React.Component<Props, State> {
             // the state to an unmounted renderer, so...
             // If you want to restore state to hints, make sure to
             // have the appropriate number of hints visible already.
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (hintRenderer) {
                 ++numCallbacks;
                 // @ts-expect-error - TS2339 - Property 'restoreSerializedState' does not exist on type 'ReactInstance'.
@@ -252,6 +254,7 @@ class HintsRenderer extends React.Component<Props, State> {
                         onClick={(evt) => {
                             evt.preventDefault();
                             evt.stopPropagation();
+                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                             if (getAnotherHint) {
                                 getAnotherHint();
                             }
