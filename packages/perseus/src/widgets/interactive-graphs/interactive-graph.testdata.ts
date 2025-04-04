@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 
 import type {LockedFunctionOptions} from "./interactive-graph-question-builder";
