@@ -121,14 +121,11 @@ class FreeResponseEditor extends React.Component<Props> {
                         }
                     />
                 </label>
-                <label
-                    className={css(styles.textOptionWithLabelContainer)}
-                    htmlFor="allow-unlimited-characters"
-                >
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
+                <label className={css(styles.textOptionWithLabelContainer)}>
                     <HeadingSmall>Allow unlimited characters</HeadingSmall>
                     <Checkbox
                         checked={this.props.allowUnlimitedCharacters}
-                        id="allow-unlimited-characters"
                         onChange={(val) =>
                             this.props.onChange({
                                 allowUnlimitedCharacters: val,
