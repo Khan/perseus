@@ -49,7 +49,7 @@ const AccessibilityPanel = () => {
             console.log(`      Axe-Core missing from iFrame. Adding it now...`);
             // @ts-expect-error TS2339: Property 'eval' does not exist on type 'Window'
             iFrame.contentWindow?.eval(
-                `import('https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.2/axe.min.js')`,
+                `import('https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.3/axe.min.js')`,
             );
             warningShown = false;
         } else if (!warningShown) {
@@ -167,28 +167,29 @@ const AccessibilityPanel = () => {
                         style={buttonStyle}
                     />
                     <span>Issues</span>
-                    {/*<button onClick={executeAxeCore}>Accessibility</button>*/}
-                    {/*<input*/}
-                    {/*    type={"hidden"}*/}
-                    {/*    id="axe-core-code"*/}
-                    {/*    value={`*/}
-                    {/*    const iFrameAxe = document.querySelector("iframe").contentWindow.axe;*/}
-                    {/*    console.log("   iFrame: ", document.querySelector("iframe"));*/}
-                    {/*    console.log("   Content Window: ", document.querySelector("iframe").contentWindow);*/}
-                    {/*    console.log("   iFrame Axe: ", iFrameAxe);*/}
-                    {/*    const options = ${!!document.getElementById("storybook-root")}*/}
-                    {/*        ? ${JSON.stringify(axeCoreStorybookOptions)}*/}
-                    {/*        : ${JSON.stringify(axeCoreEditorOptions)};*/}
-                    {/*    axeCore.configure({reporter: "v2"});*/}
-                    {/*    axeCore.run(options).then(*/}
-                    {/*        (results) => {*/}
-                    {/*            console.log(\`   Accessibility Results: \`, results);*/}
-                    {/*        },*/}
-                    {/*        (error) => {*/}
-                    {/*            console.log(\`   Error: \`, error);*/}
-                    {/*        },*/}
-                    {/*    );`}*/}
-                    {/*/>*/}
+                    <button onClick={executeAxeCore}>Accessibility</button>
+                    <input
+                        type={"hidden"}
+                        id="axe-core-code"
+                        value={`
+                        const iFrameAxe = document.querySelector("iframe").contentWindow.axe;
+                        console.log("   iFrame: ", document.querySelector("iframe"));
+                        console.log("   Content Window: ", document.querySelector("iframe").contentWindow);
+                        console.log("   iFrame Axe: ", iFrameAxe);
+                        const options = ${!!document.getElementById("storybook-root")}
+                            ? ${JSON.stringify(axeCoreStorybookOptions)}
+                            : ${JSON.stringify(axeCoreEditorOptions)};
+                        const axeCore = true ? window.axe : iFrameAxe;
+                        axeCore.configure({reporter: "v2"});
+                        axeCore.run(options).then(
+                            (results) => {
+                                console.log(\`   Accessibility Results: \`, results);
+                            },
+                            (error) => {
+                                console.log(\`   Error: \`, error);
+                            },
+                        );`}
+                    />
                 </div>
                 {issuesCount}
                 <PhosphorIcon icon={icon} size="medium" color={iconColor} />
