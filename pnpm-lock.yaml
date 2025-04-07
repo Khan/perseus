@@ -823,6 +823,9 @@ importers:
       '@khanacademy/pure-markdown':
         specifier: workspace:*
         version: link:../pure-markdown
+      axe-core:
+        specifier: ^4.10.3
+        version: 4.10.3
       katex:
         specifier: 0.11.1
         version: 0.11.1
@@ -3743,6 +3746,10 @@ packages:
 
   axe-core@4.10.2:
     resolution: {integrity: sha512-RE3mdQ7P3FRSe7eqCWoeQ/Z9QXrtniSjp1wUjt5nRC3WIpz5rSCve6o3fsZ2aCpJtrZjSZgjwXAoTO5k4tEI0w==}
+    engines: {node: '>=4'}
+
+  axe-core@4.10.3:
+    resolution: {integrity: sha512-Xm7bpRXnDSX2YE2YFfBk2FnF0ep6tmG7xPh8iHee8MIcrgq762Nkce856dYtJYLkuIoYZvGfTs/PbZhideTcEg==}
     engines: {node: '>=4'}
 
   axobject-query@4.1.0:
@@ -12274,6 +12281,8 @@ snapshots:
   aws4@1.11.0: {}
 
   axe-core@4.10.2: {}
+
+  axe-core@4.10.3: {}
 
   axobject-query@4.1.0: {}
 
