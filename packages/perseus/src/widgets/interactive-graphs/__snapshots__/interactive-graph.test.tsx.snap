@@ -16,14 +16,17 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg mafs-graph-container"
+            class="mafs-graph-container"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
           >
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="mafs-graph"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: content-box; display: flex; flex-direction: column; margin: 0px 0px 30px 20px; padding: 25px 25px 0px 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; pointer-events: auto; user-select: none; width: 400px; height: 400px;"
               tabindex="0"
             >
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <span
                   aria-hidden="true"
@@ -47,7 +50,8 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                 </span>
                 <div
                   aria-hidden="true"
-                  class="default_xu2jcg"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -1007,7 +1011,8 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                   </div>
                 </div>
                 <div
-                  class="default_xu2jcg-o_O-inlineStyles_ay4wjb"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -1099,33 +1104,39 @@ exports[`Interactive Graph question Should render predictably: after interaction
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg mafs-graph-container"
+            class="mafs-graph-container"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
           >
             <div
               aria-describedby="interactive-graph-interactive-elements-description-:r2: instructions-:r2:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="mafs-graph"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: content-box; display: flex; flex-direction: column; margin: 0px 0px 30px 20px; padding: 25px 25px 0px 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; pointer-events: auto; user-select: none; width: 400px; height: 400px;"
               tabindex="0"
             >
               <div
-                class="default_xu2jcg mafs-sr-only"
+                class="mafs-sr-only"
                 id="interactive-graph-interactive-elements-description-:r2:"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 tabindex="-1"
               >
                 Interactive elements: A polygon with 3 points. 
               </div>
               <div
-                class="default_xu2jcg mafs-sr-only"
+                class="mafs-sr-only"
                 id="instructions-:r2:"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 tabindex="-1"
               >
                 Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <div
                   aria-hidden="true"
-                  class="default_xu2jcg"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -1169,7 +1180,8 @@ exports[`Interactive Graph question Should render predictably: after interaction
                   </div>
                 </div>
                 <div
-                  class="default_xu2jcg-o_O-inlineStyles_ay4wjb"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -1544,29 +1556,34 @@ exports[`Interactive Graph question Should render predictably: after interaction
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg mafs-graph-container"
+            class="mafs-graph-container"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
           >
             <div
               aria-describedby="interactive-graph-interactive-elements-description-:ra: instructions-:ra:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="mafs-graph"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: content-box; display: flex; flex-direction: column; margin: 0px 0px 30px 20px; padding: 25px 25px 0px 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; pointer-events: auto; user-select: none; width: 400px; height: 400px;"
               tabindex="0"
             >
               <div
-                class="default_xu2jcg mafs-sr-only"
+                class="mafs-sr-only"
                 id="interactive-graph-interactive-elements-description-:ra:"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 tabindex="-1"
               >
                 Interactive elements: A polygon with 3 points. 
               </div>
               <div
-                class="default_xu2jcg mafs-sr-only"
+                class="mafs-sr-only"
                 id="instructions-:ra:"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 tabindex="-1"
               >
                 Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <div
                   class="unresponsive-svg-image"
@@ -1576,7 +1593,8 @@ exports[`Interactive Graph question Should render predictably: after interaction
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
-                      class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                      class=""
+                      style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; justify-content: center;"
                     >
                       <svg
                         height="48"
@@ -1585,9 +1603,10 @@ exports[`Interactive Graph question Should render predictably: after interaction
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                          class=""
                           d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
                           fill-rule="nonzero"
+                          style="transform-origin: 50% 50%; animation-name: [object Object]; animation-duration: 1.1s; animation-iteration-count: infinite; animation-timing-function: linear; fill: rgba(33,36,44,0.50);"
                         />
                       </svg>
                     </div>
@@ -1595,11 +1614,13 @@ exports[`Interactive Graph question Should render predictably: after interaction
                 </div>
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <div
                   aria-hidden="true"
-                  class="default_xu2jcg"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -1643,7 +1664,8 @@ exports[`Interactive Graph question Should render predictably: after interaction
                   </div>
                 </div>
                 <div
-                  class="default_xu2jcg-o_O-inlineStyles_ay4wjb"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -1995,29 +2017,34 @@ exports[`Interactive Graph question Should render predictably: after interaction
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg mafs-graph-container"
+            class="mafs-graph-container"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
           >
             <div
               aria-describedby="interactive-graph-interactive-elements-description-:rh: unlimited-graph-keyboard-prompt-:rh: instructions-:rh:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="mafs-graph"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: content-box; display: flex; flex-direction: column; margin: 0px 0px 30px 20px; padding: 25px 25px 0px 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; pointer-events: auto; user-select: none; width: 400px; height: 400px;"
               tabindex="0"
             >
               <div
-                class="default_xu2jcg mafs-sr-only"
+                class="mafs-sr-only"
                 id="interactive-graph-interactive-elements-description-:rh:"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 tabindex="-1"
               >
                 No interactive elements
               </div>
               <div
-                class="default_xu2jcg mafs-sr-only"
+                class="mafs-sr-only"
                 id="instructions-:rh:"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 tabindex="-1"
               >
                 Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <div
                   class="unresponsive-svg-image"
@@ -2027,7 +2054,8 @@ exports[`Interactive Graph question Should render predictably: after interaction
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
-                      class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                      class=""
+                      style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; justify-content: center;"
                     >
                       <svg
                         height="48"
@@ -2036,9 +2064,10 @@ exports[`Interactive Graph question Should render predictably: after interaction
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                          class=""
                           d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
                           fill-rule="nonzero"
+                          style="transform-origin: 50% 50%; animation-name: [object Object]; animation-duration: 1.1s; animation-iteration-count: infinite; animation-timing-function: linear; fill: rgba(33,36,44,0.50);"
                         />
                       </svg>
                     </div>
@@ -2046,11 +2075,13 @@ exports[`Interactive Graph question Should render predictably: after interaction
                 </div>
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <div
                   aria-hidden="true"
-                  class="default_xu2jcg"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -2094,7 +2125,8 @@ exports[`Interactive Graph question Should render predictably: after interaction
                   </div>
                 </div>
                 <div
-                  class="default_xu2jcg-o_O-inlineStyles_ay4wjb"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -2130,18 +2162,21 @@ exports[`Interactive Graph question Should render predictably: after interaction
               </div>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1ufx1c5"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 400px;"
             >
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-default_yxotth-o_O-inlineStyles_16y2sco"
+                class=""
                 id="perseus_mafs_remove_button"
                 role="button"
+                style="margin: 0px 0px 0px 20px; position: relative; display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0px 16px 0px 16px; border-radius: var(--wb-border-radius-radius_040); cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; user-select: none; border-style: solid; padding-inline: 16px; width: 100%; visibility: hidden;"
                 tabindex="-1"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class=""
+                  style="display: inline-block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 700; font-size: 16px; line-height: 24px; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                 >
                   Remove Point
                 </span>
@@ -2254,22 +2289,26 @@ exports[`Interactive Graph question Should render predictably: after interaction
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg mafs-graph-container"
+            class="mafs-graph-container"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
           >
             <div
               aria-describedby="unlimited-graph-keyboard-prompt-:rm: instructions-:rm:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="mafs-graph"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: content-box; display: flex; flex-direction: column; margin: 0px 0px 30px 20px; padding: 25px 25px 0px 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; pointer-events: auto; user-select: none; width: 400px; height: 400px;"
               tabindex="0"
             >
               <div
-                class="default_xu2jcg mafs-sr-only"
+                class="mafs-sr-only"
                 id="instructions-:rm:"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 tabindex="-1"
               >
                 Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <div
                   class="unresponsive-svg-image"
@@ -2279,7 +2318,8 @@ exports[`Interactive Graph question Should render predictably: after interaction
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
-                      class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                      class=""
+                      style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; justify-content: center;"
                     >
                       <svg
                         height="48"
@@ -2288,9 +2328,10 @@ exports[`Interactive Graph question Should render predictably: after interaction
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                          class=""
                           d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
                           fill-rule="nonzero"
+                          style="transform-origin: 50% 50%; animation-name: [object Object]; animation-duration: 1.1s; animation-iteration-count: infinite; animation-timing-function: linear; fill: rgba(33,36,44,0.50);"
                         />
                       </svg>
                     </div>
@@ -2298,11 +2339,13 @@ exports[`Interactive Graph question Should render predictably: after interaction
                 </div>
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <div
                   aria-hidden="true"
-                  class="default_xu2jcg"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -2346,7 +2389,8 @@ exports[`Interactive Graph question Should render predictably: after interaction
                   </div>
                 </div>
                 <div
-                  class="default_xu2jcg-o_O-inlineStyles_ay4wjb"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -2396,31 +2440,36 @@ exports[`Interactive Graph question Should render predictably: after interaction
               </div>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1ufx1c5"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 400px;"
             >
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-disabled_mqm918-o_O-default_yxotth-o_O-disabled_vmsefw-o_O-inlineStyles_1kc2paq"
+                class=""
                 id="perseus_mafs_remove_button"
                 role="button"
+                style="margin: 0px 0px 0px 20px; position: relative; display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0px 16px 0px 16px; border-radius: var(--wb-border-radius-radius_040); cursor: not-allowed; outline: none; text-decoration: none; box-sizing: border-box; user-select: none; border-style: solid; padding-inline: 16px; width: 100%;"
                 tabindex="-1"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class=""
+                  style="display: inline-block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 700; font-size: 16px; line-height: 24px; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                 >
                   Remove Point
                 </span>
               </button>
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-disabled_mqm918-o_O-default_hrw3a6-o_O-disabled_ebci8n-o_O-inlineStyles_1kc2paq"
+                class=""
                 role="button"
+                style="margin: 0px 0px 0px 20px; position: relative; display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0px 16px 0px 16px; border-radius: var(--wb-border-radius-radius_040); cursor: not-allowed; outline: none; text-decoration: none; box-sizing: border-box; user-select: none; border-style: solid; padding-inline: 16px; width: 100%;"
                 tabindex="-1"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class=""
+                  style="display: inline-block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 700; font-size: 16px; line-height: 24px; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                 >
                   Close shape
                 </span>
@@ -2491,33 +2540,39 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg mafs-graph-container"
+            class="mafs-graph-container"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
           >
             <div
               aria-describedby="interactive-graph-interactive-elements-description-:r2: instructions-:r2:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="mafs-graph"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: content-box; display: flex; flex-direction: column; margin: 0px 0px 30px 20px; padding: 25px 25px 0px 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; pointer-events: auto; user-select: none; width: 400px; height: 400px;"
               tabindex="0"
             >
               <div
-                class="default_xu2jcg mafs-sr-only"
+                class="mafs-sr-only"
                 id="interactive-graph-interactive-elements-description-:r2:"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 tabindex="-1"
               >
                 Interactive elements: A polygon with 3 points. 
               </div>
               <div
-                class="default_xu2jcg mafs-sr-only"
+                class="mafs-sr-only"
                 id="instructions-:r2:"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 tabindex="-1"
               >
                 Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <div
                   aria-hidden="true"
-                  class="default_xu2jcg"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -2561,7 +2616,8 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                   </div>
                 </div>
                 <div
-                  class="default_xu2jcg-o_O-inlineStyles_ay4wjb"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -2936,29 +2992,34 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg mafs-graph-container"
+            class="mafs-graph-container"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
           >
             <div
               aria-describedby="interactive-graph-interactive-elements-description-:ra: instructions-:ra:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="mafs-graph"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: content-box; display: flex; flex-direction: column; margin: 0px 0px 30px 20px; padding: 25px 25px 0px 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; pointer-events: auto; user-select: none; width: 400px; height: 400px;"
               tabindex="0"
             >
               <div
-                class="default_xu2jcg mafs-sr-only"
+                class="mafs-sr-only"
                 id="interactive-graph-interactive-elements-description-:ra:"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 tabindex="-1"
               >
                 Interactive elements: A polygon with 3 points. 
               </div>
               <div
-                class="default_xu2jcg mafs-sr-only"
+                class="mafs-sr-only"
                 id="instructions-:ra:"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 tabindex="-1"
               >
                 Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <div
                   class="unresponsive-svg-image"
@@ -2968,7 +3029,8 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
-                      class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                      class=""
+                      style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; justify-content: center;"
                     >
                       <svg
                         height="48"
@@ -2977,9 +3039,10 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                          class=""
                           d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
                           fill-rule="nonzero"
+                          style="transform-origin: 50% 50%; animation-name: [object Object]; animation-duration: 1.1s; animation-iteration-count: infinite; animation-timing-function: linear; fill: rgba(33,36,44,0.50);"
                         />
                       </svg>
                     </div>
@@ -2987,11 +3050,13 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                 </div>
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <div
                   aria-hidden="true"
-                  class="default_xu2jcg"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -3035,7 +3100,8 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                   </div>
                 </div>
                 <div
-                  class="default_xu2jcg-o_O-inlineStyles_ay4wjb"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -3387,29 +3453,34 @@ exports[`Interactive Graph question Should render predictably: first render 3`] 
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg mafs-graph-container"
+            class="mafs-graph-container"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
           >
             <div
               aria-describedby="interactive-graph-interactive-elements-description-:rh: unlimited-graph-keyboard-prompt-:rh: instructions-:rh:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="mafs-graph"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: content-box; display: flex; flex-direction: column; margin: 0px 0px 30px 20px; padding: 25px 25px 0px 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; pointer-events: auto; user-select: none; width: 400px; height: 400px;"
               tabindex="0"
             >
               <div
-                class="default_xu2jcg mafs-sr-only"
+                class="mafs-sr-only"
                 id="interactive-graph-interactive-elements-description-:rh:"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 tabindex="-1"
               >
                 No interactive elements
               </div>
               <div
-                class="default_xu2jcg mafs-sr-only"
+                class="mafs-sr-only"
                 id="instructions-:rh:"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 tabindex="-1"
               >
                 Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <div
                   class="unresponsive-svg-image"
@@ -3419,7 +3490,8 @@ exports[`Interactive Graph question Should render predictably: first render 3`] 
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
-                      class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                      class=""
+                      style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; justify-content: center;"
                     >
                       <svg
                         height="48"
@@ -3428,9 +3500,10 @@ exports[`Interactive Graph question Should render predictably: first render 3`] 
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                          class=""
                           d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
                           fill-rule="nonzero"
+                          style="transform-origin: 50% 50%; animation-name: [object Object]; animation-duration: 1.1s; animation-iteration-count: infinite; animation-timing-function: linear; fill: rgba(33,36,44,0.50);"
                         />
                       </svg>
                     </div>
@@ -3438,11 +3511,13 @@ exports[`Interactive Graph question Should render predictably: first render 3`] 
                 </div>
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <div
                   aria-hidden="true"
-                  class="default_xu2jcg"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -3486,7 +3561,8 @@ exports[`Interactive Graph question Should render predictably: first render 3`] 
                   </div>
                 </div>
                 <div
-                  class="default_xu2jcg-o_O-inlineStyles_ay4wjb"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -3522,18 +3598,21 @@ exports[`Interactive Graph question Should render predictably: first render 3`] 
               </div>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1ufx1c5"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 400px;"
             >
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-default_yxotth-o_O-inlineStyles_16y2sco"
+                class=""
                 id="perseus_mafs_remove_button"
                 role="button"
+                style="margin: 0px 0px 0px 20px; position: relative; display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0px 16px 0px 16px; border-radius: var(--wb-border-radius-radius_040); cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; user-select: none; border-style: solid; padding-inline: 16px; width: 100%; visibility: hidden;"
                 tabindex="-1"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class=""
+                  style="display: inline-block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 700; font-size: 16px; line-height: 24px; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                 >
                   Remove Point
                 </span>
@@ -3646,22 +3725,26 @@ exports[`Interactive Graph question Should render predictably: first render 4`] 
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg mafs-graph-container"
+            class="mafs-graph-container"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
           >
             <div
               aria-describedby="unlimited-graph-keyboard-prompt-:rm: instructions-:rm:"
-              class="default_xu2jcg-o_O-inlineStyles_1t4cnlh mafs-graph"
+              class="mafs-graph"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: content-box; display: flex; flex-direction: column; margin: 0px 0px 30px 20px; padding: 25px 25px 0px 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; pointer-events: auto; user-select: none; width: 400px; height: 400px;"
               tabindex="0"
             >
               <div
-                class="default_xu2jcg mafs-sr-only"
+                class="mafs-sr-only"
                 id="instructions-:rm:"
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 tabindex="-1"
               >
                 Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <div
                   class="unresponsive-svg-image"
@@ -3671,7 +3754,8 @@ exports[`Interactive Graph question Should render predictably: first render 4`] 
                     style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                   >
                     <div
-                      class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                      class=""
+                      style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; justify-content: center;"
                     >
                       <svg
                         height="48"
@@ -3680,9 +3764,10 @@ exports[`Interactive Graph question Should render predictably: first render 4`] 
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <path
-                          class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                          class=""
                           d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
                           fill-rule="nonzero"
+                          style="transform-origin: 50% 50%; animation-name: [object Object]; animation-duration: 1.1s; animation-iteration-count: infinite; animation-timing-function: linear; fill: rgba(33,36,44,0.50);"
                         />
                       </svg>
                     </div>
@@ -3690,11 +3775,13 @@ exports[`Interactive Graph question Should render predictably: first render 4`] 
                 </div>
               </div>
               <div
-                class="default_xu2jcg-o_O-inlineStyles_16155wj"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 0px; left: 0px;"
               >
                 <div
                   aria-hidden="true"
-                  class="default_xu2jcg"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -3738,7 +3825,8 @@ exports[`Interactive Graph question Should render predictably: first render 4`] 
                   </div>
                 </div>
                 <div
-                  class="default_xu2jcg-o_O-inlineStyles_ay4wjb"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0;"
                 >
                   <div
                     class="MafsView"
@@ -3788,31 +3876,36 @@ exports[`Interactive Graph question Should render predictably: first render 4`] 
               </div>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1ufx1c5"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 400px;"
             >
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-disabled_mqm918-o_O-default_yxotth-o_O-disabled_vmsefw-o_O-inlineStyles_1kc2paq"
+                class=""
                 id="perseus_mafs_remove_button"
                 role="button"
+                style="margin: 0px 0px 0px 20px; position: relative; display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0px 16px 0px 16px; border-radius: var(--wb-border-radius-radius_040); cursor: not-allowed; outline: none; text-decoration: none; box-sizing: border-box; user-select: none; border-style: solid; padding-inline: 16px; width: 100%;"
                 tabindex="-1"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class=""
+                  style="display: inline-block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 700; font-size: 16px; line-height: 24px; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                 >
                   Remove Point
                 </span>
               </button>
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-disabled_mqm918-o_O-default_hrw3a6-o_O-disabled_ebci8n-o_O-inlineStyles_1kc2paq"
+                class=""
                 role="button"
+                style="margin: 0px 0px 0px 20px; position: relative; display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0px 16px 0px 16px; border-radius: var(--wb-border-radius-radius_040); cursor: not-allowed; outline: none; text-decoration: none; box-sizing: border-box; user-select: none; border-style: solid; padding-inline: 16px; width: 100%;"
                 tabindex="-1"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class=""
+                  style="display: inline-block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 700; font-size: 16px; line-height: 24px; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                 >
                   Close shape
                 </span>

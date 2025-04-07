@@ -329,176 +329,6 @@ exports[`renderer rendering should render the math 1`] = `
 </div>
 `;
 
-exports[`renderer snapshots correct answer: correct answer 1`] = `
-<div>
-  <div
-    class="perseus-renderer perseus-renderer-responsive"
-  >
-    <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
-    >
-      <div
-        class="paragraph"
-      >
-        The total number of boxes the forklift can carry is 
-        <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
-        >
-          <div
-            class="default_xu2jcg"
-          >
-            <label
-              class="text_f1191h-o_O-LabelLarge_5s82ln"
-              for=":r3:"
-            >
-              Test visible label
-            </label>
-            <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
-            >
-              <button
-                aria-controls=":r4:"
-                aria-disabled="false"
-                aria-expanded="false"
-                aria-haspopup="listbox"
-                aria-invalid="false"
-                aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_qr7vlu"
-                id=":r3:"
-                role="combobox"
-                type="button"
-              >
-                <span
-                  class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
-                >
-                  <div
-                    class="perseus-renderer perseus-renderer-responsive"
-                  >
-                    <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
-                    >
-                      <div
-                        class="paragraph"
-                      >
-                        less than or equal to
-                      </div>
-                    </div>
-                  </div>
-                </span>
-                <span
-                  aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1mk32nz-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-         
-        <span
-          style="white-space: nowrap;"
-        >
-          <span />
-          <span
-            class="mock-TeX"
-          >
-            60
-          </span>
-          <span />
-        </span>
-        .
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
-<div>
-  <div
-    class="perseus-renderer perseus-renderer-responsive"
-  >
-    <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
-    >
-      <div
-        class="paragraph"
-      >
-        The total number of boxes the forklift can carry is 
-        <div
-          class="perseus-widget-container widget-nohighlight widget-inline-block"
-        >
-          <div
-            class="default_xu2jcg"
-          >
-            <label
-              class="text_f1191h-o_O-LabelLarge_5s82ln"
-              for=":r6:"
-            >
-              Test visible label
-            </label>
-            <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
-            >
-              <button
-                aria-controls=":r7:"
-                aria-disabled="false"
-                aria-expanded="false"
-                aria-haspopup="listbox"
-                aria-invalid="false"
-                aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_qr7vlu"
-                id=":r6:"
-                role="combobox"
-                type="button"
-              >
-                <span
-                  class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
-                >
-                  <div
-                    class="perseus-renderer perseus-renderer-responsive"
-                  >
-                    <div
-                      class="paragraph"
-                      data-perseus-paragraph-index="0"
-                    >
-                      <div
-                        class="paragraph"
-                      >
-                        greater than or equal to
-                      </div>
-                    </div>
-                  </div>
-                </span>
-                <span
-                  aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1mk32nz-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
-                />
-              </button>
-            </div>
-          </div>
-        </div>
-         
-        <span
-          style="white-space: nowrap;"
-        >
-          <span />
-          <span
-            class="mock-TeX"
-          >
-            60
-          </span>
-          <span />
-        </span>
-        .
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
 exports[`renderer snapshots initial render: initial render 1`] = `
 <div>
   <div
@@ -516,16 +346,19 @@ exports[`renderer snapshots initial render: initial render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-inline-block"
         >
           <div
-            class="default_xu2jcg"
+            class=""
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
           >
             <label
-              class="text_f1191h-o_O-LabelLarge_5s82ln"
+              class=""
               for=":r0:"
+              style="display: block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 700; font-size: 16px; line-height: 20px;"
             >
               Test visible label
             </label>
             <div
-              class="default_xu2jcg-o_O-menuWrapper_wvrnr4 perseus-dropdown"
+              class="perseus-dropdown"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
             >
               <button
                 aria-controls=":r1:"
@@ -534,13 +367,15 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_qr7vlu"
+                class=""
                 id=":r0:"
                 role="combobox"
+                style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: space-between; height: 40px; padding-left: 16px; padding-right: 12px; border-radius: var(--wb-border-radius-radius_040); border-style: solid; outline: none; text-decoration: none; box-sizing: border-box; white-space: nowrap;"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
+                  class=""
+                  style="display: block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 400; font-size: 16px; line-height: 20px; margin-right: 8px; white-space: nowrap; user-select: none; overflow: hidden; text-overflow: ellipsis;"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -559,7 +394,8 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1mk32nz-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
+                  class=""
+                  style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; width: 16px; height: 16px; mask-image: url(caret-down-bold.svg); min-width: 16px;"
                 />
               </button>
             </div>
@@ -603,29 +439,36 @@ exports[`renderer snapshots renders a placeholder for a deprecated widget: depre
             style="padding-top: 8px; padding-bottom: 8px;"
           >
             <div
-              class="default_xu2jcg-o_O-containerOuter_8mi74v-o_O-inlineStyles_1ncl5pu"
+              class=""
               role="status"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; border-inline-start-width: 6px; width: 100%; border-inline-start-color: var(--wb-semanticColor-status-notice-foreground);"
             >
               <div
-                class="default_xu2jcg-o_O-backgroundColor_10s9e9d-o_O-inlineStyles_q70ec9"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; top: 0px; bottom: 0px; left: 0px; right: 0px; opacity: 0.08;"
               />
               <div
-                class="default_xu2jcg-o_O-containerInner_mm2xcu"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 8px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
               >
                 <span
                   aria-label="info"
-                  class="svg_1q6jc65-o_O-icon_1521uiv-o_O-icon_q8rqgk-o_O-inlineStyles_94g682"
+                  class=""
                   data-testid="banner-kind-icon"
                   role="img"
+                  style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; background-color: currentColor; width: 24px; height: 24px; mask-image: url(info.svg); margin-top: 8px; margin-bottom: 8px; margin-inline-start: 2px; margin-inline-end: 8px; align-self: flex-start;"
                 />
                 <div
-                  class="default_xu2jcg-o_O-labelAndButtonsContainer_14rogkt"
+                  class=""
+                  style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; flex: 1; align-content: center; flex-wrap: wrap; justify-content: space-between;"
                 >
                   <div
-                    class="default_xu2jcg-o_O-labelContainer_1fjq5ke"
+                    class=""
+                    style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 8px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; flex-shrink: 1; text-align: start; overflow-wrap: break-word;"
                   >
                     <span
-                      class="text_f1191h-o_O-LabelSmall_hl4zs1"
+                      class=""
+                      style="display: block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 400; font-size: 14px; line-height: 18px;"
                     >
                       Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!
                     </span>

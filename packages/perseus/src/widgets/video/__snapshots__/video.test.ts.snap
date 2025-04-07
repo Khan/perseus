@@ -26,7 +26,8 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg"
+            class=""
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
           >
             <div
               class="fixed-to-responsive"
@@ -36,7 +37,8 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
                 style="padding-bottom: 56.25%;"
               />
               <div
-                class="default_xu2jcg-o_O-srOnly_19bpjuy"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: -1px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; overflow: hidden; width: 1px;"
               >
                 Khan Academy video wrapper
               </div>
@@ -50,19 +52,22 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
               />
             </div>
             <div
-              class="default_xu2jcg-o_O-transcriptLink_18xwqfz"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 100%; justify-content: center;"
             >
               <span
-                class="text_f1191h"
+                class=""
               />
               <div
                 aria-hidden="true"
-                class="default_xu2jcg-o_O-inlineStyles_sc01dy"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 10px; flex-basis: 10px; flex-shrink: 0;"
               />
               <a
-                class="shared_17fj7pd-o_O-rest_c5ltsx visited-no-recolor"
+                class="visited-no-recolor"
                 href="/transcript/videoNotFound"
                 rel="noopener noreferrer"
+                style="cursor: pointer; text-decoration: none; outline: none; align-items: center;"
                 target="_blank"
               >
                 See video transcript
@@ -102,7 +107,8 @@ exports[`video widget should snapshot: first render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg"
+            class=""
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
           >
             <div
               class="fixed-to-responsive"
@@ -112,7 +118,8 @@ exports[`video widget should snapshot: first render 1`] = `
                 style="padding-bottom: 56.25%;"
               />
               <div
-                class="default_xu2jcg-o_O-srOnly_19bpjuy"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: -1px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; overflow: hidden; width: 1px;"
               >
                 Khan Academy video wrapper
               </div>
@@ -126,19 +133,22 @@ exports[`video widget should snapshot: first render 1`] = `
               />
             </div>
             <div
-              class="default_xu2jcg-o_O-transcriptLink_18xwqfz"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 100%; justify-content: center;"
             >
               <span
-                class="text_f1191h"
+                class=""
               />
               <div
                 aria-hidden="true"
-                class="default_xu2jcg-o_O-inlineStyles_sc01dy"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 10px; flex-basis: 10px; flex-shrink: 0;"
               />
               <a
-                class="shared_17fj7pd-o_O-rest_c5ltsx visited-no-recolor"
+                class="visited-no-recolor"
                 href="/transcript/videoNotFound"
                 rel="noopener noreferrer"
+                style="cursor: pointer; text-decoration: none; outline: none; align-items: center;"
                 target="_blank"
               >
                 See video transcript

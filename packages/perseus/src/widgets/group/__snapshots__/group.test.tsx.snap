@@ -32,7 +32,8 @@ exports[`group widget should snapshot: initial render 1`] = `
                   style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                 >
                   <div
-                    class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                    class=""
+                    style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; justify-content: center;"
                   >
                     <svg
                       height="48"
@@ -41,9 +42,10 @@ exports[`group widget should snapshot: initial render 1`] = `
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
-                        class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                        class=""
                         d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
                         fill-rule="nonzero"
+                        style="transform-origin: 50% 50%; animation-name: [object Object]; animation-duration: 1.1s; animation-iteration-count: infinite; animation-timing-function: linear; fill: rgba(33,36,44,0.50);"
                       />
                     </svg>
                   </div>
@@ -174,7 +176,8 @@ exports[`group widget should snapshot: initial render 1`] = `
                                       <button
                                         aria-disabled="false"
                                         aria-hidden="true"
-                                        class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
+                                        class=""
+                                        style="margin: 0px; padding: 0px; width: auto; overflow: visible; background: transparent; text-decoration: none; color: rgb(33, 36, 44); box-sizing: border-box; user-select: text; outline: none; line-height: normal; cursor: pointer; flex: 1;"
                                         type="button"
                                       >
                                         <div
@@ -287,7 +290,8 @@ exports[`group widget should snapshot: initial render 1`] = `
                                       <button
                                         aria-disabled="false"
                                         aria-hidden="true"
-                                        class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
+                                        class=""
+                                        style="margin: 0px; padding: 0px; width: auto; overflow: visible; background: transparent; text-decoration: none; color: rgb(33, 36, 44); box-sizing: border-box; user-select: text; outline: none; line-height: normal; cursor: pointer; flex: 1;"
                                         type="button"
                                       >
                                         <div
@@ -400,7 +404,8 @@ exports[`group widget should snapshot: initial render 1`] = `
                                       <button
                                         aria-disabled="false"
                                         aria-hidden="true"
-                                        class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
+                                        class=""
+                                        style="margin: 0px; padding: 0px; width: auto; overflow: visible; background: transparent; text-decoration: none; color: rgb(33, 36, 44); box-sizing: border-box; user-select: text; outline: none; line-height: normal; cursor: pointer; flex: 1;"
                                         type="button"
                                       >
                                         <div
@@ -513,7 +518,8 @@ exports[`group widget should snapshot: initial render 1`] = `
                                       <button
                                         aria-disabled="false"
                                         aria-hidden="true"
-                                        class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
+                                        class=""
+                                        style="margin: 0px; padding: 0px; width: auto; overflow: visible; background: transparent; text-decoration: none; color: rgb(33, 36, 44); box-sizing: border-box; user-select: text; outline: none; line-height: normal; cursor: pointer; flex: 1;"
                                         type="button"
                                       >
                                         <div
@@ -626,7 +632,8 @@ exports[`group widget should snapshot: initial render 1`] = `
                                       <button
                                         aria-disabled="false"
                                         aria-hidden="true"
-                                        class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-inlineStyles_1jvwfht"
+                                        class=""
+                                        style="margin: 0px; padding: 0px; width: auto; overflow: visible; background: transparent; text-decoration: none; color: rgb(33, 36, 44); box-sizing: border-box; user-select: text; outline: none; line-height: normal; cursor: pointer; flex: 1;"
                                         type="button"
                                       >
                                         <div
@@ -755,9 +762,10 @@ exports[`group widget should snapshot: initial render 1`] = `
                             autocapitalize="off"
                             autocomplete="off"
                             autocorrect="off"
-                            class="input_a5n1n-o_O-LabelMedium_1rew30o-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-inputWithExamples_1y6ajxo"
+                            class=""
                             data-testid="input-with-examples"
                             id=":r0:"
+                            style="width: 80px; height: 32px; border-radius: 3px; box-sizing: border-box; margin: 0px; display: inline-block; font-family: Symbola, "Times New Roman", serif; font-weight: 400; font-size: 18px; line-height: 18px; border-width: 1px; padding: 4px 5px; text-align: left;"
                             tabindex="0"
                             type="text"
                             value=""
@@ -812,9 +820,10 @@ exports[`group widget should snapshot: initial render 1`] = `
                             autocapitalize="off"
                             autocomplete="off"
                             autocorrect="off"
-                            class="input_a5n1n-o_O-LabelMedium_1rew30o-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-inputWithExamples_1y6ajxo"
+                            class=""
                             data-testid="input-with-examples"
                             id=":r3:"
+                            style="width: 80px; height: 32px; border-radius: 3px; box-sizing: border-box; margin: 0px; display: inline-block; font-family: Symbola, "Times New Roman", serif; font-weight: 400; font-size: 18px; line-height: 18px; border-width: 1px; padding: 4px 5px; text-align: left;"
                             tabindex="0"
                             type="text"
                             value=""
@@ -851,7 +860,8 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
                               >
                                 <div
-                                  class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                                  class=""
+                                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; justify-content: center;"
                                 >
                                   <svg
                                     height="48"
@@ -860,9 +870,10 @@ exports[`group widget should snapshot: initial render 1`] = `
                                     xmlns="http://www.w3.org/2000/svg"
                                   >
                                     <path
-                                      class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                                      class=""
                                       d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
                                       fill-rule="nonzero"
+                                      style="transform-origin: 50% 50%; animation-name: [object Object]; animation-duration: 1.1s; animation-iteration-count: infinite; animation-timing-function: linear; fill: rgba(33,36,44,0.50);"
                                     />
                                   </svg>
                                 </div>

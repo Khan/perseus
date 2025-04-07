@@ -3,7 +3,8 @@
 exports[`Sortable renders a spinner while waiting for the TeX renderer to load: first render: displays a spinner 1`] = `
 <div>
   <div
-    class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+    class=""
+    style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; justify-content: center;"
   >
     <svg
       height="96"
@@ -12,9 +13,10 @@ exports[`Sortable renders a spinner while waiting for the TeX renderer to load: 
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+        class=""
         d="M88.38 46.91a3.818 3.818 0 1 1 7.602 0h.006c.008.362.012.725.012 1.09 0 26.51-21.49 48-48 48S0 74.51 0 48 21.49 0 48 0c.365 0 .728.004 1.09.012v.005a3.818 3.818 0 1 1 0 7.602v.032c-.362-.01-.725-.015-1.09-.015C25.708 7.636 7.636 25.708 7.636 48c0 22.292 18.072 40.364 40.364 40.364 22.292 0 40.364-18.072 40.364-40.364 0-.365-.005-.728-.015-1.09h.032z"
         fill-rule="nonzero"
+        style="transform-origin: 50% 50%; animation-name: [object Object]; animation-duration: 1.1s; animation-iteration-count: infinite; animation-timing-function: linear; fill: rgba(33,36,44,0.50);"
       />
     </svg>
   </div>

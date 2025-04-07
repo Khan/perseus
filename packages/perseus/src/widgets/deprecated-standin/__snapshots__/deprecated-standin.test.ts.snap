@@ -30,29 +30,36 @@ exports[`Deprecated Standin widget should have a default snapshot: first render 
             style="padding-top: 8px; padding-bottom: 8px;"
           >
             <div
-              class="default_xu2jcg-o_O-containerOuter_8mi74v-o_O-inlineStyles_1ncl5pu"
+              class=""
               role="status"
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; border-inline-start-width: 6px; width: 100%; border-inline-start-color: var(--wb-semanticColor-status-notice-foreground);"
             >
               <div
-                class="default_xu2jcg-o_O-backgroundColor_10s9e9d-o_O-inlineStyles_q70ec9"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; top: 0px; bottom: 0px; left: 0px; right: 0px; opacity: 0.08;"
               />
               <div
-                class="default_xu2jcg-o_O-containerInner_mm2xcu"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 8px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
               >
                 <span
                   aria-label="info"
-                  class="svg_1q6jc65-o_O-icon_1521uiv-o_O-icon_q8rqgk-o_O-inlineStyles_94g682"
+                  class=""
                   data-testid="banner-kind-icon"
                   role="img"
+                  style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; background-color: currentColor; width: 24px; height: 24px; mask-image: url(info.svg); margin-top: 8px; margin-bottom: 8px; margin-inline-start: 2px; margin-inline-end: 8px; align-self: flex-start;"
                 />
                 <div
-                  class="default_xu2jcg-o_O-labelAndButtonsContainer_14rogkt"
+                  class=""
+                  style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; flex: 1; align-content: center; flex-wrap: wrap; justify-content: space-between;"
                 >
                   <div
-                    class="default_xu2jcg-o_O-labelContainer_1fjq5ke"
+                    class=""
+                    style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 8px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; flex-shrink: 1; text-align: start; overflow-wrap: break-word;"
                   >
                     <span
-                      class="text_f1191h-o_O-LabelSmall_hl4zs1"
+                      class=""
+                      style="display: block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 400; font-size: 14px; line-height: 18px;"
                     >
                       Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!
                     </span>

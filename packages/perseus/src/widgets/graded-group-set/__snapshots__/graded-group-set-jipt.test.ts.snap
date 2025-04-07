@@ -66,9 +66,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         autocapitalize="off"
                         autocomplete="off"
                         autocorrect="off"
-                        class="input_a5n1n-o_O-LabelMedium_1rew30o-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-inputWithExamples_1y6ajxo"
+                        class=""
                         data-testid="input-with-examples"
                         id=":r0:"
+                        style="width: 80px; height: 32px; border-radius: 3px; box-sizing: border-box; margin: 0px; display: inline-block; font-family: Symbola, "Times New Roman", serif; font-weight: 400; font-size: 18px; line-height: 18px; border-width: 1px; padding: 4px 5px; text-align: left;"
                         tabindex="0"
                         type="text"
                         value=""
@@ -87,12 +88,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
               />
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-default_hrw3a6"
+                class=""
                 role="button"
+                style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0px 16px 0px 16px; border-radius: var(--wb-border-radius-radius_040); cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; user-select: none; border-style: solid; padding-inline: 16px;"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class=""
+                  style="display: inline-block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 700; font-size: 16px; line-height: 24px; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                 >
                   Check
                 </span>
@@ -144,9 +147,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         autocapitalize="off"
                         autocomplete="off"
                         autocorrect="off"
-                        class="input_a5n1n-o_O-LabelMedium_1rew30o-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-inputWithExamples_1y6ajxo"
+                        class=""
                         data-testid="input-with-examples"
                         id=":r3:"
+                        style="width: 80px; height: 32px; border-radius: 3px; box-sizing: border-box; margin: 0px; display: inline-block; font-family: Symbola, "Times New Roman", serif; font-weight: 400; font-size: 18px; line-height: 18px; border-width: 1px; padding: 4px 5px; text-align: left;"
                         tabindex="0"
                         type="text"
                         value=""
@@ -165,12 +169,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
               />
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-default_hrw3a6"
+                class=""
                 role="button"
+                style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0px 16px 0px 16px; border-radius: var(--wb-border-radius-radius_040); cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; user-select: none; border-style: solid; padding-inline: 16px;"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class=""
+                  style="display: inline-block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 700; font-size: 16px; line-height: 24px; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                 >
                   Check
                 </span>
@@ -222,9 +228,10 @@ exports[`graded-group-set should render all graded groups 1`] = `
                         autocapitalize="off"
                         autocomplete="off"
                         autocorrect="off"
-                        class="input_a5n1n-o_O-LabelMedium_1rew30o-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-inputWithExamples_1y6ajxo"
+                        class=""
                         data-testid="input-with-examples"
                         id=":r6:"
+                        style="width: 80px; height: 32px; border-radius: 3px; box-sizing: border-box; margin: 0px; display: inline-block; font-family: Symbola, "Times New Roman", serif; font-weight: 400; font-size: 18px; line-height: 18px; border-width: 1px; padding: 4px 5px; text-align: left;"
                         tabindex="0"
                         type="text"
                         value=""
@@ -243,12 +250,14 @@ exports[`graded-group-set should render all graded groups 1`] = `
               />
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-default_hrw3a6"
+                class=""
                 role="button"
+                style="margin: 0px; position: relative; display: inline-flex; align-items: center; justify-content: center; height: 40px; padding: 0px 16px 0px 16px; border-radius: var(--wb-border-radius-radius_040); cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; user-select: none; border-style: solid; padding-inline: 16px;"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class=""
+                  style="display: inline-block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 700; font-size: 16px; line-height: 24px; align-items: center; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; pointer-events: none;"
                 >
                   Check
                 </span>

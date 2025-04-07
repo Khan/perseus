@@ -21,32 +21,38 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
             aria-controls=":r1:"
             aria-disabled="false"
             aria-expanded="true"
-            class="button_vr44p2-o_O-shared_11fo0od-o_O-default_1dlh9ep-o_O-small_1rcykji-o_O-inlineStyles_1s8anjv"
+            class=""
             role="button"
+            style="margin: 0px 2px 0px -2px; position: relative; display: inline-flex; align-items: center; justify-content: center; height: auto; padding: 0px 16px 0px 2px; border-radius: var(--wb-border-radius-radius_040); cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; user-select: none; padding-inline: 0; line-height: inherit;"
             type="button"
           >
             <span
-              class="text_f1191h-o_O-LabelSmall_hl4zs1-o_O-text_1awp0u1-o_O-smallText_arcskg-o_O-textWithFocus_e296pg-o_O-inlineStyles_egvfd8"
+              class=""
+              style="display: inline-block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 700; font-size: 18px; line-height: inherit; align-items: center; white-space: normal; overflow: hidden; text-overflow: ellipsis; pointer-events: none; text-align: left; margin-right: -6px; position: relative;"
             >
               Hide explanation!
             </span>
             <div
-              class="default_xu2jcg-o_O-iconWrapper_h4cn9t-o_O-endIconWrapper_l32m71-o_O-endIconWrapperTertiary_10fyztj"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px 0px 0px 6px; padding: 2px; position: relative; z-index: 0; min-height: 0; min-width: auto; border-radius: var(--wb-border-radius-radius_full);"
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-icon_1c9fkuf-o_O-inlineStyles_1troscl"
+                class=""
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; background-color: currentColor; width: 16px; height: 16px; mask-image: url(caret-up.svg);"
               />
             </div>
           </button>
           <div
             aria-hidden="false"
-            class="default_xu2jcg-o_O-content_1pprw9s-o_O-contentExpanded_1ojyq0m"
+            class=""
             data-testid="content-container"
             id=":r1:"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-grid; flex-direction: column; margin: 14px 0px 14px -23px; padding: 0px 0px 10px 23px; position: relative; z-index: 0; min-height: 0; min-width: 100%; border-left: 0px solid #ccc; grid-template-columns: 1fr; grid-template-rows: 1fr; visibility: visible; border-left-width: 5px;"
           >
             <div
-              class="default_xu2jcg-o_O-contentWrapper_y9ev9r"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; overflow: hidden;"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"
@@ -94,32 +100,38 @@ exports[`Explanation should snapshot: initial render 1`] = `
             aria-controls=":r0:"
             aria-disabled="false"
             aria-expanded="false"
-            class="button_vr44p2-o_O-shared_11fo0od-o_O-default_1dlh9ep-o_O-small_1rcykji-o_O-inlineStyles_1s8anjv"
+            class=""
             role="button"
+            style="margin: 0px 2px 0px -2px; position: relative; display: inline-flex; align-items: center; justify-content: center; height: auto; padding: 0px 16px 0px 2px; border-radius: var(--wb-border-radius-radius_040); cursor: pointer; outline: none; text-decoration: none; box-sizing: border-box; user-select: none; padding-inline: 0; line-height: inherit;"
             type="button"
           >
             <span
-              class="text_f1191h-o_O-LabelSmall_hl4zs1-o_O-text_1awp0u1-o_O-smallText_arcskg-o_O-textWithFocus_e296pg-o_O-inlineStyles_egvfd8"
+              class=""
+              style="display: inline-block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 700; font-size: 18px; line-height: inherit; align-items: center; white-space: normal; overflow: hidden; text-overflow: ellipsis; pointer-events: none; text-align: left; margin-right: -6px; position: relative;"
             >
               Explanation
             </span>
             <div
-              class="default_xu2jcg-o_O-iconWrapper_h4cn9t-o_O-endIconWrapper_l32m71-o_O-endIconWrapperTertiary_10fyztj"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px 0px 0px 6px; padding: 2px; position: relative; z-index: 0; min-height: 0; min-width: auto; border-radius: var(--wb-border-radius-radius_full);"
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-icon_1c9fkuf-o_O-inlineStyles_urgnaq"
+                class=""
+                style="display: inline-block; vertical-align: text-bottom; flex-shrink: 0; flex-grow: 0; mask-size: 100%; mask-repeat: no-repeat; mask-position: center; background-color: currentColor; width: 16px; height: 16px; mask-image: url(caret-down.svg);"
               />
             </div>
           </button>
           <div
             aria-hidden="true"
-            class="default_xu2jcg-o_O-content_1pprw9s-o_O-contentCollapsed_j2403j"
+            class=""
             data-testid="content-container"
             id=":r0:"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: inline-grid; flex-direction: column; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; border-left: 0px solid #ccc; grid-template-columns: 0fr; grid-template-rows: 0fr; visibility: hidden;"
           >
             <div
-              class="default_xu2jcg-o_O-contentWrapper_y9ev9r"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; overflow: hidden;"
             >
               <div
                 class="perseus-renderer perseus-renderer-responsive"
