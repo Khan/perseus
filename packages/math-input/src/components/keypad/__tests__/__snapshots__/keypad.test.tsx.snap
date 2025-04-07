@@ -3,32 +3,39 @@
 exports[`keypad should snapshot expanded: first render 1`] = `
 <div>
   <div
-    class="default_xu2jcg-o_O-keypadOuterContainer_5kaapu"
+    class=""
+    style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
   >
     <div
-      class="default_xu2jcg-o_O-wrapper_144oaus-o_O-expandedWrapper_ykafj"
+      class=""
+      style="align-items: stretch; border-width: 1px 1px 0px 1px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; background: rgb(255, 255, 255); border-color: rgba(33,36,44,0.32); max-width: 500px; border-radius: 3px 3px 0 0;"
     >
       <div
-        class="default_xu2jcg-o_O-tabbar_721koc"
+        class=""
+        style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 2px 0px 2px 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; justify-content: space-between;"
       >
         <div
-          class="default_xu2jcg-o_O-pages_cjo0m2"
+          class=""
           role="tablist"
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
         >
           <button
             aria-disabled="false"
             aria-label="Numbers"
             aria-selected="true"
-            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_1ncqa8p"
+            class=""
             role="tab"
+            style="margin: 0px; padding: 0px; width: auto; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer;"
             tabindex="0"
             type="button"
           >
             <div
-              class="default_xu2jcg-o_O-base_1pupywz"
+              class=""
+              style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px 1px 0px 1px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 44px; height: 38px; border-radius: 3px; border: 1px solid transparent;"
             >
               <div
-                class="default_xu2jcg-o_O-innerBox_qdbgl3"
+                class=""
+                style="align-items: center; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; border: 1px solid transparent; border-radius: 2px; flex: 1; justify-content: center;"
               >
                 <svg
                   fill="none"
@@ -44,7 +51,8 @@ exports[`keypad should snapshot expanded: first render 1`] = `
                 </svg>
               </div>
               <div
-                class="default_xu2jcg-o_O-activeIndicator_1hljhxh-o_O-inlineStyles_14jsc6v"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px 0px 0px 3px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 3px; width: 36px; height: 3px; background-color: rgb(24, 101, 242);"
               />
             </div>
           </button>
@@ -52,16 +60,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             aria-disabled="false"
             aria-label="Operators"
             aria-selected="false"
-            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_1ncqa8p"
+            class=""
             role="tab"
+            style="margin: 0px; padding: 0px; width: auto; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer;"
             tabindex="-1"
             type="button"
           >
             <div
-              class="default_xu2jcg-o_O-base_1pupywz"
+              class=""
+              style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px 1px 0px 1px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 44px; height: 38px; border-radius: 3px; border: 1px solid transparent;"
             >
               <div
-                class="default_xu2jcg-o_O-innerBox_qdbgl3"
+                class=""
+                style="align-items: center; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; border: 1px solid transparent; border-radius: 2px; flex: 1; justify-content: center;"
               >
                 <svg
                   fill="none"
@@ -84,16 +95,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             aria-disabled="false"
             aria-label="Geometry"
             aria-selected="false"
-            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_1ncqa8p"
+            class=""
             role="tab"
+            style="margin: 0px; padding: 0px; width: auto; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer;"
             tabindex="-1"
             type="button"
           >
             <div
-              class="default_xu2jcg-o_O-base_1pupywz"
+              class=""
+              style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px 1px 0px 1px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 44px; height: 38px; border-radius: 3px; border: 1px solid transparent;"
             >
               <div
-                class="default_xu2jcg-o_O-innerBox_qdbgl3"
+                class=""
+                style="align-items: center; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; border: 1px solid transparent; border-radius: 2px; flex: 1; justify-content: center;"
               >
                 <svg
                   fill="none"
@@ -116,16 +130,19 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             aria-disabled="false"
             aria-label="Extras"
             aria-selected="false"
-            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_1ncqa8p"
+            class=""
             role="tab"
+            style="margin: 0px; padding: 0px; width: auto; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer;"
             tabindex="-1"
             type="button"
           >
             <div
-              class="default_xu2jcg-o_O-base_1pupywz"
+              class=""
+              style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px 1px 0px 1px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 44px; height: 38px; border-radius: 3px; border: 1px solid transparent;"
             >
               <div
-                class="default_xu2jcg-o_O-innerBox_qdbgl3"
+                class=""
+                style="align-items: center; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; border: 1px solid transparent; border-radius: 2px; flex: 1; justify-content: center;"
               >
                 <svg
                   fill="none"
@@ -165,31 +182,38 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </button>
         </div>
         <div
-          class="default_xu2jcg"
+          class=""
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
         />
       </div>
       <div
-        class="default_xu2jcg-o_O-keypadInnerContainer_uc6399"
+        class=""
+        style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; background-color: rgb(219, 220, 221);"
       >
         <div
           aria-label="Keypad"
-          class="default_xu2jcg-o_O-keypadGrid_ztxlrb-o_O-expressionGrid_1fuqhx9"
+          class=""
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: grid; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-template-rows: repeat(4, 1fr); flex: 1; grid-template-columns: repeat(6, 1fr);"
         >
           <div
-            class="default_xu2jcg-o_O-inlineStyles_1c2q4k1"
+            class=""
             data-testid="NUM_1"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 1; grid-row: 3;"
           >
             <button
               aria-disabled="false"
               aria-label="1"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -208,20 +232,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_4h080i"
+            class=""
             data-testid="NUM_2"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 2; grid-row: 3;"
           >
             <button
               aria-disabled="false"
               aria-label="2"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -240,20 +268,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_ei5lhv"
+            class=""
             data-testid="NUM_3"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 3; grid-row: 3;"
           >
             <button
               aria-disabled="false"
               aria-label="3"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -272,20 +304,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_1drshe8"
+            class=""
             data-testid="NUM_4"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 1; grid-row: 2;"
           >
             <button
               aria-disabled="false"
               aria-label="4"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -304,20 +340,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_1j1cer"
+            class=""
             data-testid="NUM_5"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 2; grid-row: 2;"
           >
             <button
               aria-disabled="false"
               aria-label="5"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -336,20 +376,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_1qj00wi"
+            class=""
             data-testid="NUM_6"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 3; grid-row: 2;"
           >
             <button
               aria-disabled="false"
               aria-label="6"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -368,20 +412,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_1o7q2hf"
+            class=""
             data-testid="NUM_7"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 1; grid-row: 1;"
           >
             <button
               aria-disabled="false"
               aria-label="7"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -400,20 +448,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_11fd5hs"
+            class=""
             data-testid="NUM_8"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 2; grid-row: 1;"
           >
             <button
               aria-disabled="false"
               aria-label="8"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -432,20 +484,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_mr6jkh"
+            class=""
             data-testid="NUM_9"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 3; grid-row: 1;"
           >
             <button
               aria-disabled="false"
               aria-label="9"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -464,20 +520,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_xra0eu"
+            class=""
             data-testid="NUM_0"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 1; grid-row: 4;"
           >
             <button
               aria-disabled="false"
               aria-label="0"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -496,20 +556,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_6bvuz9"
+            class=""
             data-testid="DECIMAL"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 2; grid-row: 4;"
           >
             <button
               aria-disabled="false"
               aria-label="Decimal"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     data-testid="period-decimal"
@@ -529,20 +593,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_l02gwk"
+            class=""
             data-testid="NEGATIVE"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 3; grid-row: 4;"
           >
             <button
               aria-disabled="false"
               aria-label="Negative"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -563,20 +631,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_ma0as6"
+            class=""
             data-testid="PERCENT"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 4; grid-row: 1;"
           >
             <button
               aria-disabled="false"
               aria-label="Percent"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -597,20 +669,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_771h91"
+            class=""
             data-testid="FRAC"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 4; grid-row: 2;"
           >
             <button
               aria-disabled="false"
               aria-label="Fraction, excluding the current expression"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -631,20 +707,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_wb5o9j"
+            class=""
             data-testid="PLUS"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 5; grid-row: 1;"
           >
             <button
               aria-disabled="false"
               aria-label="Plus"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -671,20 +751,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_9isr9w"
+            class=""
             data-testid="MINUS"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 6; grid-row: 1;"
           >
             <button
               aria-disabled="false"
               aria-label="Minus"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -705,20 +789,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_lv836c"
+            class=""
             data-testid="CDOT"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 5; grid-row: 2;"
           >
             <button
               aria-disabled="false"
               aria-label="Multiply"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -754,20 +842,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_k65qc5"
+            class=""
             data-testid="LEFT_PAREN"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 5; grid-row: 3;"
           >
             <button
               aria-disabled="false"
               aria-label="Left parenthesis"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -788,20 +880,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_1bljvrq"
+            class=""
             data-testid="RIGHT_PAREN"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 6; grid-row: 3;"
           >
             <button
               aria-disabled="false"
               aria-label="Right parenthesis"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -822,20 +918,24 @@ exports[`keypad should snapshot expanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_y8g975"
+            class=""
             data-testid="BACKSPACE"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 6; grid-row: 4;"
           >
             <button
               aria-disabled="false"
               aria-label="Delete"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -857,25 +957,31 @@ exports[`keypad should snapshot expanded: first render 1`] = `
           </div>
         </div>
         <div
-          class="default_xu2jcg-o_O-container_1k0uorj"
+          class=""
+          style="align-items: center; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px 1.5rem; position: relative; z-index: 0; min-height: 0; min-width: 0; justify-content: center;"
         >
           <div
-            class="default_xu2jcg-o_O-grid_8l7lum"
+            class=""
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: grid; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 140px; height: 140px; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr);"
           >
             <div
-              class="default_xu2jcg-o_O-inlineStyles_11fd5hs"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 2; grid-row: 1;"
             >
               <button
                 aria-disabled="false"
                 aria-label="Up arrow"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_13937mo"
+                class=""
+                style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_ctz3yu"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%;"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_1j2mzlg-o_O-up_1f2wdg4"
+                    class=""
+                    style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); justify-content: center; background: rgb(255, 255, 255); border-color: #ffffff; border-top-left-radius: 4px; border-top-right-radius: 4px;"
                   >
                     <svg
                       height="48"
@@ -909,19 +1015,23 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1qj00wi"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 3; grid-row: 2;"
             >
               <button
                 aria-disabled="false"
                 aria-label="Right arrow"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_13937mo"
+                class=""
+                style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_ctz3yu"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%;"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_1j2mzlg-o_O-right_6pkru3"
+                    class=""
+                    style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); justify-content: center; background: rgb(255, 255, 255); border-color: #ffffff; border-top-right-radius: 4px; border-bottom-right-radius: 4px;"
                   >
                     <svg
                       height="48"
@@ -955,19 +1065,23 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_4h080i"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 2; grid-row: 3;"
             >
               <button
                 aria-disabled="false"
                 aria-label="Down arrow"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_13937mo"
+                class=""
+                style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_ctz3yu"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%;"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_1j2mzlg-o_O-down_1h77sr8"
+                    class=""
+                    style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); justify-content: center; background: rgb(255, 255, 255); border-color: #ffffff; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;"
                   >
                     <svg
                       height="48"
@@ -1001,19 +1115,23 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-inlineStyles_1drshe8"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 1; grid-row: 2;"
             >
               <button
                 aria-disabled="false"
                 aria-label="Left arrow"
-                class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_13937mo"
+                class=""
+                style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
                 type="button"
               >
                 <div
-                  class="default_xu2jcg-o_O-outerBoxBase_ctz3yu"
+                  class=""
+                  style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%;"
                 >
                   <div
-                    class="default_xu2jcg-o_O-base_1j2mzlg-o_O-left_176nduz"
+                    class=""
+                    style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); justify-content: center; background: rgb(255, 255, 255); border-color: #ffffff; border-top-left-radius: 4px; border-bottom-left-radius: 4px;"
                   >
                     <svg
                       height="48"
@@ -1046,7 +1164,8 @@ exports[`keypad should snapshot expanded: first render 1`] = `
               </button>
             </div>
             <div
-              class="default_xu2jcg-o_O-spacer_9e1t8o"
+              class=""
+              style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 2; grid-row: 2; background: rgb(255, 255, 255);"
             />
           </div>
         </div>
@@ -1059,32 +1178,39 @@ exports[`keypad should snapshot expanded: first render 1`] = `
 exports[`keypad should snapshot unexpanded: first render 1`] = `
 <div>
   <div
-    class="default_xu2jcg"
+    class=""
+    style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
   >
     <div
-      class="default_xu2jcg-o_O-wrapper_144oaus"
+      class=""
+      style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; background: rgb(255, 255, 255);"
     >
       <div
-        class="default_xu2jcg-o_O-tabbar_721koc"
+        class=""
+        style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 2px 0px 2px 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; justify-content: space-between;"
       >
         <div
-          class="default_xu2jcg-o_O-pages_cjo0m2"
+          class=""
           role="tablist"
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
         >
           <button
             aria-disabled="false"
             aria-label="Numbers"
             aria-selected="true"
-            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_1ncqa8p"
+            class=""
             role="tab"
+            style="margin: 0px; padding: 0px; width: auto; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer;"
             tabindex="0"
             type="button"
           >
             <div
-              class="default_xu2jcg-o_O-base_1pupywz"
+              class=""
+              style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px 1px 0px 1px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 44px; height: 38px; border-radius: 3px; border: 1px solid transparent;"
             >
               <div
-                class="default_xu2jcg-o_O-innerBox_qdbgl3"
+                class=""
+                style="align-items: center; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; border: 1px solid transparent; border-radius: 2px; flex: 1; justify-content: center;"
               >
                 <svg
                   fill="none"
@@ -1100,7 +1226,8 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
                 </svg>
               </div>
               <div
-                class="default_xu2jcg-o_O-activeIndicator_1hljhxh-o_O-inlineStyles_14jsc6v"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px 0px 0px 3px; padding: 0px; position: absolute; z-index: 0; min-height: 0; min-width: 0; bottom: 3px; width: 36px; height: 3px; background-color: rgb(24, 101, 242);"
               />
             </div>
           </button>
@@ -1108,16 +1235,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             aria-disabled="false"
             aria-label="Operators"
             aria-selected="false"
-            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_1ncqa8p"
+            class=""
             role="tab"
+            style="margin: 0px; padding: 0px; width: auto; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer;"
             tabindex="-1"
             type="button"
           >
             <div
-              class="default_xu2jcg-o_O-base_1pupywz"
+              class=""
+              style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px 1px 0px 1px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 44px; height: 38px; border-radius: 3px; border: 1px solid transparent;"
             >
               <div
-                class="default_xu2jcg-o_O-innerBox_qdbgl3"
+                class=""
+                style="align-items: center; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; border: 1px solid transparent; border-radius: 2px; flex: 1; justify-content: center;"
               >
                 <svg
                   fill="none"
@@ -1140,16 +1270,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             aria-disabled="false"
             aria-label="Geometry"
             aria-selected="false"
-            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_1ncqa8p"
+            class=""
             role="tab"
+            style="margin: 0px; padding: 0px; width: auto; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer;"
             tabindex="-1"
             type="button"
           >
             <div
-              class="default_xu2jcg-o_O-base_1pupywz"
+              class=""
+              style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px 1px 0px 1px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 44px; height: 38px; border-radius: 3px; border: 1px solid transparent;"
             >
               <div
-                class="default_xu2jcg-o_O-innerBox_qdbgl3"
+                class=""
+                style="align-items: center; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; border: 1px solid transparent; border-radius: 2px; flex: 1; justify-content: center;"
               >
                 <svg
                   fill="none"
@@ -1172,16 +1305,19 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             aria-disabled="false"
             aria-label="Extras"
             aria-selected="false"
-            class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_1ncqa8p"
+            class=""
             role="tab"
+            style="margin: 0px; padding: 0px; width: auto; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer;"
             tabindex="-1"
             type="button"
           >
             <div
-              class="default_xu2jcg-o_O-base_1pupywz"
+              class=""
+              style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px 1px 0px 1px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 44px; height: 38px; border-radius: 3px; border: 1px solid transparent;"
             >
               <div
-                class="default_xu2jcg-o_O-innerBox_qdbgl3"
+                class=""
+                style="align-items: center; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; border: 1px solid transparent; border-radius: 2px; flex: 1; justify-content: center;"
               >
                 <svg
                   fill="none"
@@ -1221,31 +1357,38 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
           </button>
         </div>
         <div
-          class="default_xu2jcg"
+          class=""
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0;"
         />
       </div>
       <div
-        class="default_xu2jcg-o_O-keypadInnerContainer_uc6399"
+        class=""
+        style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: row; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; background-color: rgb(219, 220, 221);"
       >
         <div
           aria-label="Keypad"
-          class="default_xu2jcg-o_O-keypadGrid_ztxlrb-o_O-expressionGrid_1fuqhx9"
+          class=""
+          style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: grid; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-template-rows: repeat(4, 1fr); flex: 1; grid-template-columns: repeat(6, 1fr);"
         >
           <div
-            class="default_xu2jcg-o_O-inlineStyles_1c2q4k1"
+            class=""
             data-testid="NUM_1"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 1; grid-row: 3;"
           >
             <button
               aria-disabled="false"
               aria-label="1"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1264,20 +1407,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_4h080i"
+            class=""
             data-testid="NUM_2"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 2; grid-row: 3;"
           >
             <button
               aria-disabled="false"
               aria-label="2"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1296,20 +1443,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_ei5lhv"
+            class=""
             data-testid="NUM_3"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 3; grid-row: 3;"
           >
             <button
               aria-disabled="false"
               aria-label="3"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1328,20 +1479,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_1drshe8"
+            class=""
             data-testid="NUM_4"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 1; grid-row: 2;"
           >
             <button
               aria-disabled="false"
               aria-label="4"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1360,20 +1515,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_1j1cer"
+            class=""
             data-testid="NUM_5"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 2; grid-row: 2;"
           >
             <button
               aria-disabled="false"
               aria-label="5"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1392,20 +1551,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_1qj00wi"
+            class=""
             data-testid="NUM_6"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 3; grid-row: 2;"
           >
             <button
               aria-disabled="false"
               aria-label="6"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1424,20 +1587,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_1o7q2hf"
+            class=""
             data-testid="NUM_7"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 1; grid-row: 1;"
           >
             <button
               aria-disabled="false"
               aria-label="7"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1456,20 +1623,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_11fd5hs"
+            class=""
             data-testid="NUM_8"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 2; grid-row: 1;"
           >
             <button
               aria-disabled="false"
               aria-label="8"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1488,20 +1659,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_mr6jkh"
+            class=""
             data-testid="NUM_9"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 3; grid-row: 1;"
           >
             <button
               aria-disabled="false"
               aria-label="9"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1520,20 +1695,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_xra0eu"
+            class=""
             data-testid="NUM_0"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 1; grid-row: 4;"
           >
             <button
               aria-disabled="false"
               aria-label="0"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1552,20 +1731,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_6bvuz9"
+            class=""
             data-testid="DECIMAL"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 2; grid-row: 4;"
           >
             <button
               aria-disabled="false"
               aria-label="Decimal"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     data-testid="period-decimal"
@@ -1585,20 +1768,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_l02gwk"
+            class=""
             data-testid="NEGATIVE"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 3; grid-row: 4;"
           >
             <button
               aria-disabled="false"
               aria-label="Negative"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(255, 255, 255); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1619,20 +1806,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_ma0as6"
+            class=""
             data-testid="PERCENT"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 4; grid-row: 1;"
           >
             <button
               aria-disabled="false"
               aria-label="Percent"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1653,20 +1844,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_771h91"
+            class=""
             data-testid="FRAC"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 4; grid-row: 2;"
           >
             <button
               aria-disabled="false"
               aria-label="Fraction, excluding the current expression"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1687,20 +1882,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_wb5o9j"
+            class=""
             data-testid="PLUS"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 5; grid-row: 1;"
           >
             <button
               aria-disabled="false"
               aria-label="Plus"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1727,20 +1926,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_9isr9w"
+            class=""
             data-testid="MINUS"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 6; grid-row: 1;"
           >
             <button
               aria-disabled="false"
               aria-label="Minus"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1761,20 +1964,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_lv836c"
+            class=""
             data-testid="CDOT"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 5; grid-row: 2;"
           >
             <button
               aria-disabled="false"
               aria-label="Multiply"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1810,20 +2017,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_k65qc5"
+            class=""
             data-testid="LEFT_PAREN"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 5; grid-row: 3;"
           >
             <button
               aria-disabled="false"
               aria-label="Left parenthesis"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1844,20 +2055,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_1bljvrq"
+            class=""
             data-testid="RIGHT_PAREN"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 6; grid-row: 3;"
           >
             <button
               aria-disabled="false"
               aria-label="Right parenthesis"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
@@ -1878,20 +2093,24 @@ exports[`keypad should snapshot unexpanded: first render 1`] = `
             </button>
           </div>
           <div
-            class="default_xu2jcg-o_O-inlineStyles_y8g975"
+            class=""
             data-testid="BACKSPACE"
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; grid-column: 6; grid-row: 4;"
           >
             <button
               aria-disabled="false"
               aria-label="Delete"
-              class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-clickable_rukhmf"
+              class=""
+              style="margin: 0px; padding: 0px; width: 100%; overflow: visible; background: transparent; text-decoration: none; box-sizing: border-box; user-select: none; outline: none; line-height: normal; cursor: pointer; height: 100%;"
               type="button"
             >
               <div
-                class="default_xu2jcg-o_O-outerBoxBase_3w5jmh"
+                class=""
+                style="align-items: stretch; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 0; min-width: 0; height: 100%; width: 100%; border-radius: 7px; border: 2px solid transparent;"
               >
                 <div
-                  class="default_xu2jcg-o_O-base_muxx52-o_O-inlineStyles_s65xgl"
+                  class=""
+                  style="align-items: center; border-width: 2px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 1px; position: relative; z-index: 0; min-height: 42px; min-width: 42px; justify-content: center; box-shadow: 0px 1px 0px rgba(33,36,44,0.32); background: rgb(246, 246, 247); border-radius: 4px; border-color: transparent; flex: 1; font-family: Lato, "Noto Sans", sans-serif;"
                 >
                   <svg
                     fill="none"
