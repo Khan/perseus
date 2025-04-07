@@ -1,5 +1,25 @@
 # @khanacademy/perseus-editor
 
+## 20.0.2
+
+### Patch Changes
+
+-   [#2357](https://github.com/Khan/perseus/pull/2357) [`01746d3f3`](https://github.com/Khan/perseus/commit/01746d3f3e29a48af69c3f01505c61cd10706be0) Thanks [@jandrade](https://github.com/jandrade)! - Update IconButton instances to match new WB changes (IconButton styles, actionType)
+
+*   [#2334](https://github.com/Khan/perseus/pull/2334) [`6c5a0121d`](https://github.com/Khan/perseus/commit/6c5a0121dae2f0452baccc30401888379b5def95) Thanks [@handeyeco](https://github.com/handeyeco)! - Add Eslint rule "@typescript-eslint/no-restricted-imports" to help prevent circular dependencies
+
+*   Updated dependencies [[`865844cf8`](https://github.com/Khan/perseus/commit/865844cf86f20babe8f4425c366811992d7ab0c6), [`fd3a520c9`](https://github.com/Khan/perseus/commit/fd3a520c93410ae9b2af801714a289f1722e8e8e), [`140fe6563`](https://github.com/Khan/perseus/commit/140fe6563dd885c92a424b9bae81acb6a8a39582), [`01746d3f3`](https://github.com/Khan/perseus/commit/01746d3f3e29a48af69c3f01505c61cd10706be0), [`e03cfbbdd`](https://github.com/Khan/perseus/commit/e03cfbbddf33922959c0a984d13b5e304fa66375), [`6c5a0121d`](https://github.com/Khan/perseus/commit/6c5a0121dae2f0452baccc30401888379b5def95)]:
+    -   @khanacademy/perseus@59.1.0
+    -   @khanacademy/math-input@25.0.1
+    -   @khanacademy/kas@2.0.1
+    -   @khanacademy/keypad-context@3.0.1
+    -   @khanacademy/kmath@2.0.1
+    -   @khanacademy/perseus-core@7.0.1
+    -   @khanacademy/perseus-linter@3.0.1
+    -   @khanacademy/perseus-score@4.0.2
+    -   @khanacademy/perseus-utils@2.0.1
+    -   @khanacademy/pure-markdown@2.0.1
+
 ## 20.0.1
 
 ### Patch Changes
