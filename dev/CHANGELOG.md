@@ -1,5 +1,24 @@
 # @khanacademy/perseus-dev-ui
 
+## 5.4.0
+
+### Minor Changes
+
+-   [#2345](https://github.com/Khan/perseus/pull/2345) [`f0f02c7fa`](https://github.com/Khan/perseus/commit/f0f02c7fadfc1a26a6b43208385b423b09761387) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change to use SWC for Storybook
+
+### Patch Changes
+
+-   [#2357](https://github.com/Khan/perseus/pull/2357) [`01746d3f3`](https://github.com/Khan/perseus/commit/01746d3f3e29a48af69c3f01505c61cd10706be0) Thanks [@jandrade](https://github.com/jandrade)! - Update IconButton instances to match new WB changes (IconButton styles, actionType)
+
+-   Updated dependencies [[`fd3a520c9`](https://github.com/Khan/perseus/commit/fd3a520c93410ae9b2af801714a289f1722e8e8e), [`6c5a0121d`](https://github.com/Khan/perseus/commit/6c5a0121dae2f0452baccc30401888379b5def95)]:
+    -   @khanacademy/math-input@25.0.1
+    -   @khanacademy/kas@2.0.1
+    -   @khanacademy/kmath@2.0.1
+    -   @khanacademy/perseus-core@7.0.1
+    -   @khanacademy/perseus-linter@3.0.1
+    -   @khanacademy/pure-markdown@2.0.1
+    -   @khanacademy/simple-markdown@2.0.1
+
 ## 5.3.9
 
 ### Patch Changes
