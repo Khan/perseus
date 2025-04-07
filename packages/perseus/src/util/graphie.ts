@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import {
     point as kpoint,
     vector as kvector,
@@ -140,6 +141,7 @@ export class Graphie {
         scale?: number | Coord;
         isMobile?: boolean;
     }) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         let scale = options.scale || [40, 40];
         scale = typeof scale === "number" ? [scale, scale] : scale;
 
@@ -217,6 +219,7 @@ export class Graphie {
         unityLabels?: boolean | [boolean, boolean];
         isMobile?: boolean;
     }) {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         options = options || {};
 
         for (const [prop, val] of entries(options)) {
@@ -243,11 +246,14 @@ export class Graphie {
             ],
         );
         const gridRange = normalizeRange(options.gridRange || range);
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const scale = options.scale || [20, 20];
         const grid = options.grid != null ? options.grid : true;
         const gridOpacity = options.gridOpacity || 0.1;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const gridStep = toPair(options.gridStep || [1, 1]);
         const axes = options.axes != null ? options.axes : true;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const axisArrows = options.axisArrows || "";
         const axisOpacity = options.axisOpacity || 1.0;
         const axisCenter = options.axisCenter || [
@@ -257,12 +263,15 @@ export class Graphie {
         const axisLabels =
             options.axisLabels != null ? options.axisLabels : false;
         const ticks = options.ticks != null ? options.ticks : true;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const tickStep = options.tickStep || [2, 2];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const tickLen = options.tickLen || [5, 5];
         const tickOpacity = options.tickOpacity || 1.0;
         const labels = options.labels || options.labelStep || false;
         const labelStep = options.labelStep || [1, 1];
         const labelOpacity = options.labelOpacity || 1.0;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         let unityLabels = options.unityLabels || false;
         const labelFormat =
             options.labelFormat ||
@@ -373,6 +382,7 @@ export class Graphie {
                 );
             }
 
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (axisLabels && axisLabels.length === 2) {
                 this.label(
                     [gridRange[0][1], axisCenter[1]],
@@ -410,6 +420,7 @@ export class Graphie {
                             x <= stop;
                             x += step
                         ) {
+                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                             if (x < stop || !axisArrows) {
                                 thisGraphie.line(
                                     [x, -len + axisCenter[1]],
@@ -428,6 +439,7 @@ export class Graphie {
                             x >= start;
                             x -= step
                         ) {
+                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                             if (x > start || !axisArrows) {
                                 thisGraphie.line(
                                     [x, -len + axisCenter[1]],
@@ -454,6 +466,7 @@ export class Graphie {
                             y <= stop;
                             y += step
                         ) {
+                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                             if (y < stop || !axisArrows) {
                                 this.line(
                                     [-len + axisCenter[0], y],
@@ -472,6 +485,7 @@ export class Graphie {
                             y >= start;
                             y -= step
                         ) {
+                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                             if (y > start || !axisArrows) {
                                 this.line(
                                     [-len + axisCenter[0], y],
@@ -490,6 +504,7 @@ export class Graphie {
         }
 
         // draw axis labels
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (labels) {
             const thisGraphie = this;
             this.style(
@@ -519,6 +534,7 @@ export class Graphie {
                         x <= stop;
                         x += step
                     ) {
+                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         if (x < stop || !axisArrows) {
                             thisGraphie.label(
                                 [x, axisCenter[1]],
@@ -534,6 +550,7 @@ export class Graphie {
                         x >= start;
                         x -= step
                     ) {
+                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         if (x > start || !axisArrows) {
                             thisGraphie.label(
                                 [x, axisCenter[1]],
@@ -553,6 +570,7 @@ export class Graphie {
                         y <= stop;
                         y += step
                     ) {
+                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         if (y < stop || !axisArrows) {
                             thisGraphie.label(
                                 [axisCenter[0], y],
@@ -568,6 +586,7 @@ export class Graphie {
                         y >= start;
                         y -= step
                     ) {
+                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                         if (y > start || !axisArrows) {
                             thisGraphie.label(
                                 [axisCenter[0], y],
@@ -777,6 +796,7 @@ export class Graphie {
     ): PositionedShape {
         points = points.map(this.scalePoint);
         center = center ? this.scalePoint(center) : null;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         createPath = createPath || this.svgPath;
 
         // Compute bounding box
@@ -1794,6 +1814,7 @@ const GraphUtils = {
         if (vertex === undefined) {
             const x = point1[0] - point2[0];
             const y = point1[1] - point2[1];
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (!x && !y) {
                 return 0;
             }

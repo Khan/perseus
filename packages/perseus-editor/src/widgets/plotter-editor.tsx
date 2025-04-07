@@ -193,6 +193,7 @@ class PlotterEditor extends React.Component<Props, State> {
 
     changeScale: (arg1: any) => void = (e) => {
         const oldScale = this.props.scaleY;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const newScale = +e.target.value || editorDefaults.scaleY;
 
         const scale = function (value: any) {
@@ -214,12 +215,14 @@ class PlotterEditor extends React.Component<Props, State> {
 
     changeMax: (arg1: any) => void = (e) => {
         this.props.onChange({
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             maxY: +e.target.value || editorDefaults.maxY,
         });
     };
 
     changeSnaps: (arg1: any) => void = (e) => {
         this.props.onChange({
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             snapsPerLine: +e.target.value || editorDefaults.snapsPerLine,
         });
     };

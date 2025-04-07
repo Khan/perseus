@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {
     preprocessTex,

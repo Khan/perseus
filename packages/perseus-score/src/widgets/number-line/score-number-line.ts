@@ -16,6 +16,7 @@ function scoreNumberLine(
     const correctRel = rubric.correctRel || "eq";
     const correctPos = knumber.equal(
         userInput.numLinePosition,
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         rubric.correctX || 0,
     );
 

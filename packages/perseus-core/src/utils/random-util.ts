@@ -35,6 +35,7 @@ export function shuffle<T>(
 
     // Handle edge cases (input array is empty or uniform)
     if (
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         !shuffled.length ||
         _.all(shuffled, function (value) {
             return _.isEqual(value, shuffled[0]);

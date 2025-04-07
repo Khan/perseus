@@ -36,6 +36,7 @@ export const Interactive = (args: StoryArgs): React.ReactElement => {
 
     const customArgs = {
         ...args,
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         children: args.children || <div style={fauxChoiceStyles} />,
     } as const;
 

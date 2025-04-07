@@ -1,6 +1,7 @@
 import {readFileSync} from "node:fs";
 import {dirname, join, resolve} from "node:path";
 
+import react from "@vitejs/plugin-react-swc";
 import {glob} from "fast-glob";
 import {defineConfig} from "vite";
 
@@ -27,6 +28,7 @@ export default defineConfig({
             ),
         },
     },
+    plugins: [react()],
     build: {
         commonjsOptions: {
             // We need to process CJS packages in vendor/ as CJS (along with

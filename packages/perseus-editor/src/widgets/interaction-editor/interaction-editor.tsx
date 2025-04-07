@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @babel/no-invalid-this, react/no-unsafe */
+/* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe */
 import {
     Changeable,
     Dependencies,

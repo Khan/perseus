@@ -150,6 +150,7 @@ class FixedToResponsive extends React.Component<Props, State> {
             this.state.viewportWidth &&
             width >= this.state.viewportWidth;
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (shouldFullBleed) {
             return (
                 <div

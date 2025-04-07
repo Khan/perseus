@@ -1,4 +1,3 @@
-import react from "@vitejs/plugin-react";
 import {mergeConfig} from "vite";
 
 // eslint-disable-next-line import/no-relative-packages
@@ -10,5 +9,4 @@ export default mergeConfig(viteConfig, {
         // Dev/Storybook environment.
         "process.env.STORYBOOK": "true",
     },
-    plugins: [react({jsxRuntime: "automatic"})],
 });

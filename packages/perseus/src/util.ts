@@ -3,7 +3,6 @@ import _ from "underscore";
 
 import * as GraphieUtil from "./util.graphie";
 
-import type {PerseusStrings} from "./strings";
 import type {Range} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
@@ -95,6 +94,7 @@ const snowman = "\u2603";
  * Drop this custom split thing.
  */
 // In IE8, split doesn't work right. Implement it ourselves.
+// eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
 const split: (str: string, r: RegExp) => ReadonlyArray<string> = "x".split(
     /(.)/g,
 ).length
@@ -126,10 +126,7 @@ const split: (str: string, r: RegExp) => ReadonlyArray<string> = "x".split(
  * Return the first valid interpretation of 'text' as a number, in the form
  * {value: 2.3, exact: true}.
  */
-function firstNumericalParse(
-    text: string,
-    strings: PerseusStrings,
-): ParsedValue | null | undefined {
+function firstNumericalParse(text: string): ParsedValue | null | undefined {
     // TODO(alpert): This is sort of hacky...
     let first;
     const val = KhanAnswerTypes.predicate.createValidatorFunctional(

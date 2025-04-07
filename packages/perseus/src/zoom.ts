@@ -320,6 +320,7 @@ Zoom._MAX_WIDTH = 2560;
 Zoom._MAX_HEIGHT = 4096;
 
 Zoom.getOffset = function (zoomToFitOnMobile: undefined) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return zoomToFitOnMobile ? 0 : Zoom._OFFSET;
 };
 

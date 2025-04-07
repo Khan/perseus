@@ -7,43 +7,50 @@ const fs = require("fs");
 const path = require("path");
 
 const ancesdir = require("ancesdir");
+const fg = require("fast-glob");
 
 const root = ancesdir(__dirname);
-const vendorMap = fs
-    .readdirSync(path.join(root, "vendor"))
-    .reduce((map, name) => {
-        const pkgJson = JSON.parse(
-            fs.readFileSync(path.join(root, "vendor", name, "package.json")),
-        );
+const vendorMap = fg
+    .globSync(path.join(root, "vendor/*/package.json"))
+    .reduce((map, pkgJsonPath) => {
+        const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath).toString());
         return {
             ...map,
-            [`^${name}$`]: `<rootDir>/vendor/${name}/${pkgJson.main}`,
+            [`^${pkgJson.name}$`]: `<rootDir>/vendor/${pkgJson.name}/${pkgJson.main}`,
         };
     }, {});
 
-const pkgMap = fs
-    .readdirSync(path.join(root, "packages"))
-    .filter((name) => {
-        const stat = fs.statSync(path.join(root, "packages", name));
-        return stat.isDirectory();
-    })
-    .reduce((map, name) => {
-        const pkgJson = JSON.parse(
-            fs.readFileSync(path.join(root, "packages", name, "package.json")),
-        );
+const pkgMap = fg
+    .globSync(path.join(root, "packages/*/package.json"))
+    .reduce((map, pkgJsonPath) => {
+        const pkgJson = JSON.parse(fs.readFileSync(pkgJsonPath).toString());
         return {
             ...map,
             // NOTE(kevinb): we use the 'source' field here so that we can run our
             // tests without having to compile all of the packages first.
-            [`^@khanacademy/${name}$`]: `<rootDir>/packages/${name}/${pkgJson.source}`,
+            // NOTE(jeremy): We use strip the leading "@khanacademy/" namespace
+            // from all package names because our local directory structure
+            // doesn't include that. So "@khanacademy/perseus" becomes "perseus"
+            [`^${pkgJson.name}$`]: `<rootDir>/packages/${pkgJson.name.replace(/^@khanacademy\//, "")}/${pkgJson.source}`,
         };
     }, {});
+
+// NOTE: We need to use this plugin in order to turn the module exports
+// into module.exports. This will make it so that we can mock exports
+// correctly.
+const swcrc = JSON.parse(fs.readFileSync(path.join(root, ".swcrc"), "utf8"));
+// Check it out - Nullish coalescing _assignment_!
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_assignment
+swcrc.jsc ??= {};
+swcrc.jsc.experimental ??= {};
+swcrc.jsc.experimental.plugins ??= [];
+swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);
 
 /** @type {import('jest').Config} */
 module.exports = {
     rootDir: path.join(__dirname, "../../"),
     transform: {
-        "^.+\\.(j|t)sx?$": "<rootDir>/config/test/test.transform.js",
+        "^.+\\.(j|t)sx?$": ["@swc/jest", swcrc],
         // Compile .svg files using a custom transformer that returns the
         // basename of the file being transformed.
         "^.+.svg$": "<rootDir>/config/test/svg.transform.js",

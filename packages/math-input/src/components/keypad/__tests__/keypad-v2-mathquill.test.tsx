@@ -71,6 +71,7 @@ function V2KeypadWithMathquill(props: Props) {
         }
 
         const mathFieldCallback = keyTranslator[key];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (mathFieldCallback) {
             mathFieldCallback(mathField, key);
         }
