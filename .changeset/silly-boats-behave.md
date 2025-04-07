@@ -13,4 +13,4 @@
 "@khanacademy/simple-markdown": patch
 ---
 
-Add Eslint rule "no-restricted-imports" to help prevent circular dependencies
+Add Eslint rule "@typescript-eslint/no-restricted-imports" to help prevent circular dependencies
