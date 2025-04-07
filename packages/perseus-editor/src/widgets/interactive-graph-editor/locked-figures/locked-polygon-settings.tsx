@@ -279,7 +279,8 @@ const LockedPolygonSettings = (props: Props) => {
                                     <IconButton
                                         aria-label={`Delete polygon point ${pointLabel}`}
                                         icon={minusCircle}
-                                        color="destructive"
+                                        kind="tertiary"
+                                        actionType="destructive"
                                         onClick={() => {
                                             const newPoints = [...points];
                                             newPoints.splice(index, 1);
@@ -313,31 +314,31 @@ const LockedPolygonSettings = (props: Props) => {
                     <View style={styles.movementButtonsContainer}>
                         <IconButton
                             aria-label="Move polygon up"
-                            style={styles.iconButton}
                             size="small"
                             icon={arrowFatUp}
+                            kind="tertiary"
                             onClick={() => handlePolygonMove("up")}
                         />
                         <View style={styles.row}>
                             <IconButton
                                 aria-label="Move polygon left"
-                                style={styles.iconButton}
                                 size="small"
                                 icon={arrowFatLeft}
+                                kind="tertiary"
                                 onClick={() => handlePolygonMove("left")}
                             />
                             <IconButton
                                 aria-label="Move polygon down"
-                                style={styles.iconButton}
                                 size="small"
                                 icon={arrowFatDown}
+                                kind="tertiary"
                                 onClick={() => handlePolygonMove("down")}
                             />
                             <IconButton
                                 aria-label="Move polygon right"
-                                style={styles.iconButton}
                                 size="small"
                                 icon={arrowFatRight}
+                                kind="tertiary"
                                 onClick={() => handlePolygonMove("right")}
                             />
                         </View>
@@ -427,9 +428,6 @@ const styles = StyleSheet.create({
     },
     polygonActionsContainer: {
         width: "100%",
-    },
-    iconButton: {
-        margin: 0,
     },
     movementButtonsContainer: {
         display: "flex",

@@ -393,6 +393,7 @@ const ExampleItem = (props: ItemProps): React.ReactElement => {
         <li key={`${category}-${index}`} className={css(styles.exampleRow)}>
             <IconButton
                 icon={autoPasteIcon}
+                kind="tertiary"
                 aria-label="paste example"
                 aria-describedby={exampleId}
                 onClick={() => pasteEquationFn("equation", example)}
@@ -401,6 +402,7 @@ const ExampleItem = (props: ItemProps): React.ReactElement => {
             />
             <IconButton
                 icon={copyIcon}
+                kind="tertiary"
                 aria-label="copy example"
                 aria-describedby={exampleId}
                 onClick={() => navigator.clipboard.writeText(example)}

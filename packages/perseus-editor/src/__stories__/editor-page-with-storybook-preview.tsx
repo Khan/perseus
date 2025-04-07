@@ -97,8 +97,8 @@ function EditorPageWithStorybookPreview(props: Props) {
                     {/* Close button */}
                     <IconButton
                         icon={xIcon}
+                        kind="tertiary"
                         onClick={() => setPanelOpen(!panelOpen)}
-                        style={styles.closeButton}
                     />
 
                     <View style={styles.panelInner}>
@@ -148,9 +148,6 @@ const styles = StyleSheet.create({
         marginTop: spacing.medium_16,
         width: "100%",
         padding: spacing.xSmall_8,
-    },
-    closeButton: {
-        margin: 0,
     },
     openPanelButton: {
         position: "fixed",

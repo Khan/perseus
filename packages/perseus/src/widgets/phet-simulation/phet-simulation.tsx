@@ -203,7 +203,8 @@ export class PhetSimulation
                         onClick={() => {
                             this.iframeRef.current?.requestFullscreen();
                         }}
-                        kind={"secondary"}
+                        kind="tertiary"
+                        actionType="neutral"
                         aria-label={"Fullscreen"}
                         style={{
                             marginTop: 5,
