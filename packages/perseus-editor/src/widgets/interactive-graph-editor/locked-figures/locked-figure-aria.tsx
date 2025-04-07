@@ -1,15 +1,15 @@
-import { components } from "@khanacademy/perseus";
+import {components} from "@khanacademy/perseus";
 import Button from "@khanacademy/wonder-blocks-button";
-import { View } from "@khanacademy/wonder-blocks-core";
-import { TextArea } from "@khanacademy/wonder-blocks-form";
-import { Spring, Strut } from "@khanacademy/wonder-blocks-layout";
-import { color, spacing } from "@khanacademy/wonder-blocks-tokens";
-import { LabelMedium, LabelXSmall } from "@khanacademy/wonder-blocks-typography";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {TextArea} from "@khanacademy/wonder-blocks-form";
+import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {LabelMedium, LabelXSmall} from "@khanacademy/wonder-blocks-typography";
 import pencilCircle from "@phosphor-icons/core/regular/pencil-circle.svg";
-import { StyleSheet } from "aphrodite";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
-const { InfoTip } = components;
+const {InfoTip} = components;
 
 type Props = {
     ariaLabel: string | undefined;
@@ -18,11 +18,11 @@ type Props = {
      * for the locked figure with math details converted to spoken words.
      */
     getPrepopulatedAriaLabel: () => Promise<string>;
-    onChangeProps: (props: { ariaLabel?: string | undefined }) => void;
+    onChangeProps: (props: {ariaLabel?: string | undefined}) => void;
 };
 
 function LockedFigureAria(props: Props) {
-    const { ariaLabel, getPrepopulatedAriaLabel, onChangeProps } = props;
+    const {ariaLabel, getPrepopulatedAriaLabel, onChangeProps} = props;
     const id = React.useId();
     const ariaLabelId = `aria-label-${id}`;
 
@@ -78,7 +78,7 @@ function LockedFigureAria(props: Props) {
                     setLoading(true);
                     getPrepopulatedAriaLabel().then((ariaLabel) => {
                         setLoading(false);
-                        onChangeProps({ ariaLabel });
+                        onChangeProps({ariaLabel});
                     });
                 }}
             >
