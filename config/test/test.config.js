@@ -60,6 +60,11 @@ module.exports = {
     transformIgnorePatterns: ["/node_modules/.pnpm/(?!@phosphor-icons.core@)"],
     restoreMocks: true,
     resetMocks: true,
+    globals: {
+        // Causes Aphrodite to inline styles for snapshots. Makes diffing
+        // snapshot changes much clearer!
+        SNAPSHOT_INLINE_APHRODITE: true,
+    },
     testEnvironment: "jsdom",
     testMatch: [
         "<rootDir>/**/*.test.js",
