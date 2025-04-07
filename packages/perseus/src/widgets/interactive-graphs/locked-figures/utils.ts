@@ -2,8 +2,16 @@ export function clampDomain(
     domain: [number, number],
     graphBounds: [number, number],
 ): [number, number] | null {
+    // eslint-disable-next-line no-console
+    console.log("clamping domain");
     // If the domain is invalid, return the graph bounds
     if (domain[0] > domain[1]) {
+        // eslint-disable-next-line no-console
+        console.log(
+            "invalid domain, returning graph bounds",
+            domain,
+            graphBounds,
+        );
         return graphBounds;
     }
 
@@ -12,6 +20,12 @@ export function clampDomain(
         (domain[0] < graphBounds[0] && domain[1] < graphBounds[0]) ||
         (domain[0] > graphBounds[1] && domain[1] > graphBounds[1])
     ) {
+        // eslint-disable-next-line no-console
+        console.log(
+            "domain is outside graph bounds, returning null",
+            domain,
+            graphBounds,
+        );
         return null;
     }
 
@@ -20,5 +34,7 @@ export function clampDomain(
     const min = Math.max(domain[0], graphBounds[0]);
     const max = Math.min(domain[1], graphBounds[1]);
 
+    // eslint-disable-next-line no-console
+    console.log("clamped domain", [min, max]);
     return [min, max];
 }
