@@ -1,3 +1,4 @@
+import {action} from "@storybook/addon-actions";
 import * as React from "react";
 import {useState} from "react";
 
@@ -41,7 +42,7 @@ export const ImageExamplesItem: Story = {
     },
 };
 
-export const WithLintingError = (args: StoryArgs): React.ReactElement => {
+export const WithLintingError = (args: Story): React.ReactElement => {
     return (
         <ServerItemRenderer
             problemNum={0}
@@ -57,38 +58,22 @@ export const WithLintingError = (args: StoryArgs): React.ReactElement => {
     );
 };
 
-export const NumericInputWithInteractionCallback = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={itemWithMultipleNumericInputs}
-            apiOptions={{
-                interactionCallback: (data) => {
-                    // We are logging the interaction callback data to the console
-                    // eslint-disable-next-line no-console
-                    console.log(data);
-                },
-            }}
-        />
-    );
+export const NumericInputWithInteractionCallback: Story = {
+    args: {
+        item: itemWithMultipleNumericInputs,
+        apiOptions: {
+            interactionCallback: action("interactionCallback"),
+        },
+    },
 };
 
-export const MultiWidgetWithInteractionCallback = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={itemWithRadioAndExpressionWidgets}
-            apiOptions={{
-                interactionCallback: (data) => {
-                    // We are logging the interaction callback data to the console
-                    // eslint-disable-next-line no-console
-                    console.log(data);
-                },
-            }}
-        />
-    );
+export const MultiWidgetWithInteractionCallback: Story = {
+    args: {
+        item: itemWithRadioAndExpressionWidgets,
+        apiOptions: {
+            interactionCallback: action("interactionCallback"),
+        },
+    },
 };
 
 export const Interactive = () => {
