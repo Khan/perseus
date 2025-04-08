@@ -1,9 +1,8 @@
 import * as React from "react";
 
-import {generateTestPerseusItem} from "@khanacademy/perseus";
-
 import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
+import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {question1} from "./categorizer.testdata";
 
