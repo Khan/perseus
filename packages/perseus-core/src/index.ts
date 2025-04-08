@@ -131,6 +131,7 @@ export * as CoreWidgetRegistry from "./widgets/core-widget-registry";
 
 export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
 export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
+export type {CategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
 export {default as getCSProgramPublicWidgetOptions} from "./widgets/cs-program/cs-program-util";
 export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
 export type {ExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
