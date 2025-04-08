@@ -287,6 +287,9 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     render() {
+        // eslint-disable-next-line no-console
+        console.log("this.props", this.props);
+
         const box = getInteractiveBoxFromSizeClass(
             this.props.containerSizeClass,
         );

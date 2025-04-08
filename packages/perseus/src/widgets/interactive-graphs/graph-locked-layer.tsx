@@ -18,8 +18,6 @@ type Props = {
 
 const GraphLockedLayer = (props: Props) => {
     const {lockedFigures} = props;
-    // eslint-disable-next-line no-console
-    console.log("props", props);
     return (
         <>
             {lockedFigures.map((figure, index) => {
