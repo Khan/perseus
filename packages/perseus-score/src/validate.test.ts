@@ -274,4 +274,122 @@ describe("emptyWidgetsFunctional", () => {
         // Assert
         expect(result).toEqual([]);
     });
+
+    it("regression LEMS-3000: input with letter should be considered non-empty", () => {
+        // Arrange
+        const widgets: PerseusWidgetsMap = {
+            "expression 1": {
+                alignment: "default",
+                graded: true,
+                options: {
+                    answerForms: [
+                        {
+                            considered: "correct",
+                            form: false,
+                            key: "0",
+                            simplify: false,
+                            value: "AB",
+                        },
+                        {
+                            considered: "correct",
+                            form: false,
+                            key: "1",
+                            simplify: false,
+                            value: "BA",
+                        },
+                    ],
+                    ariaLabel:
+                        "expression multiplied by A B equal to A C squared plus B C squared",
+                    buttonSets: [
+                        "basic",
+                        "trig",
+                        "prealgebra",
+                        "scientific",
+                        "basic relations",
+                        "advanced relations",
+                    ],
+                    extraKeys: ["A", "B"],
+                    functions: ["f", "g", "h"],
+                    times: false,
+                },
+                static: false,
+                type: "expression",
+                version: {
+                    major: 2,
+                    minor: 0,
+                },
+            },
+            "expression 2": {
+                alignment: "default",
+                graded: true,
+                options: {
+                    answerForms: [
+                        {
+                            considered: "correct",
+                            form: false,
+                            key: "0",
+                            simplify: false,
+                            value: "AB^{2}",
+                        },
+                        {
+                            considered: "correct",
+                            form: false,
+                            key: "1",
+                            simplify: false,
+                            value: "BA^{2}",
+                        },
+                        {
+                            considered: "correct",
+                            form: false,
+                            key: "2",
+                            simplify: false,
+                            value: "\\left(AB\\right)^{2}",
+                        },
+                        {
+                            considered: "correct",
+                            form: false,
+                            key: "3",
+                            simplify: false,
+                            value: "\\left(BA\\right)^{2}",
+                        },
+                    ],
+                    ariaLabel:
+                        "expression equal to A C squared plus B C squared",
+                    buttonSets: [
+                        "basic",
+                        "trig",
+                        "prealgebra",
+                        "scientific",
+                        "basic relations",
+                        "advanced relations",
+                    ],
+                    extraKeys: ["A", "B"],
+                    functions: ["f", "g", "h"],
+                    times: false,
+                },
+                static: false,
+                type: "expression",
+                version: {
+                    major: 2,
+                    minor: 0,
+                },
+            },
+        };
+        const widgetIds: Array<string> = ["expression 1", "expression 2"];
+        const userInputMap: UserInputMap = {
+            "expression 1": "AC",
+            "expression 2": "42",
+        };
+
+        // Act
+        const result = emptyWidgetsFunctional(
+            widgets,
+            widgetIds,
+            userInputMap,
+            "en",
+        );
+
+        // Assert
+        expect(result).toEqual([]);
+    });
 });
