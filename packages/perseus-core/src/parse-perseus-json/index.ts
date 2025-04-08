@@ -55,6 +55,8 @@ export function parseAndMigratePerseusItem(
     throwErrorIfCheatingDetected();
     const object: unknown = JSON.parse(json);
     const result = parse(object, migrateAndTypecheckPerseusItem);
+    // eslint-disable-next-line no-console
+    console.log("parsed result", result);
     if (isFailure(result)) {
         return failure({message: result.detail, invalidObject: object});
     }
