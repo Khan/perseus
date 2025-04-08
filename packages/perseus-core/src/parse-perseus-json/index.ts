@@ -53,6 +53,8 @@ export function parseAndMigratePerseusItem(
     json: string,
 ): Result<PerseusItem, ParseFailureDetail> {
     throwErrorIfCheatingDetected();
+    // eslint-disable-next-line no-console
+    console.log("pre-parsed json", json);
     const object: unknown = JSON.parse(json);
     // eslint-disable-next-line no-console
     console.log("object", object);
