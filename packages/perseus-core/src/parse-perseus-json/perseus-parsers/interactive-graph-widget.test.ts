@@ -136,8 +136,9 @@ describe("parseInteractiveGraphWidget", () => {
                 },
             }),
         );
+    });
 
-        // Test with invalid labelLocation value
+    it("rejects invalid labelLocation values", () => {
         const invalidResult = parse(
             {
                 type: "interactive-graph",
@@ -159,5 +160,47 @@ describe("parseInteractiveGraphWidget", () => {
         );
 
         expect(invalidResult).toEqual(anyFailure);
+    });
+
+    it("parses when labelLocation is not provided", () => {
+        const result = parse(
+            {
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    correct: {
+                        type: "linear",
+                    },
+                },
+            },
+            parseInteractiveGraphWidget,
+        );
+
+        expect(result).toEqual(
+            success({
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    correct: {
+                        type: "linear",
+                    },
+                    graph: {
+                        type: "linear",
+                    },
+                },
+            }),
+        );
     });
 });
