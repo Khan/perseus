@@ -50,7 +50,7 @@ describe("parseLockedFunctionDomain", () => {
 });
 
 describe("parseInteractiveGraphWidget", () => {
-    it("parses labelLocation correctly", () => {
+    it("parses onAxis labelLocation correctly", () => {
         const onAxisResult = parse(
             {
                 type: "interactive-graph",
@@ -92,7 +92,9 @@ describe("parseInteractiveGraphWidget", () => {
                 },
             }),
         );
+    });
 
+    it("parses alongEdge labelLocation correctly", () => {
         const alongEdgeResult = parse(
             {
                 type: "interactive-graph",
