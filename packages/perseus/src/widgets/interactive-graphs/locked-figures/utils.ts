@@ -4,6 +4,10 @@ export function clampDomain(
 ): [number, number] | null {
     // eslint-disable-next-line no-console
     console.log("clamping domain");
+    // eslint-disable-next-line no-console
+    console.log("domain", domain);
+    // eslint-disable-next-line no-console
+    console.log("graphBounds", graphBounds);
     // If the domain is invalid, return the graph bounds
     if (domain[0] > domain[1]) {
         // eslint-disable-next-line no-console
@@ -33,6 +37,15 @@ export function clampDomain(
     // leaks when the domain is set to something like [-Infinity, Infinity].
     const min = Math.max(domain[0], graphBounds[0]);
     const max = Math.min(domain[1], graphBounds[1]);
+    // eslint-disable-next-line no-console
+    console.log(
+        "max between domain and graphBounds",
+        max,
+        "domain[1]",
+        domain[1],
+        "graphBounds[1]",
+        graphBounds[1],
+    );
 
     // eslint-disable-next-line no-console
     console.log("clamped domain", [min, max]);

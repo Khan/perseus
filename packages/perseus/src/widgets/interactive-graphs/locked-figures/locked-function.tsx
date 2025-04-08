@@ -43,6 +43,11 @@ const LockedFunction = (props: LockedFunctionType) => {
             ? clampDomain(domain, range[0])
             : clampDomain(domain, range[1]);
 
+    // eslint-disable-next-line no-console
+    console.log("clampedDomain parent", clampedDomain);
+    // eslint-disable-next-line no-console
+    console.log("range parent", range);
+
     // The domain entirely is outside the bounds of the graph. Don't render.
     if (clampedDomain === null) {
         return null;
