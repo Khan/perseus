@@ -2,7 +2,10 @@ import {anyFailure} from "../general-purpose-parsers/test-helpers";
 import {parse} from "../parse";
 import {success} from "../result";
 
-import {parseLockedFunctionDomain} from "./interactive-graph-widget";
+import {
+    parseInteractiveGraphWidget,
+    parseLockedFunctionDomain,
+} from "./interactive-graph-widget";
 
 describe("parseLockedFunctionDomain", () => {
     it("preserves finite numbers", () => {
@@ -43,5 +46,116 @@ describe("parseLockedFunctionDomain", () => {
     it("defaults the min and max if both are null", () => {
         const result = parse([null, null], parseLockedFunctionDomain);
         expect(result).toEqual(success([-Infinity, Infinity]));
+    });
+});
+
+describe("parseInteractiveGraphWidget", () => {
+    it("parses labelLocation correctly", () => {
+        const onAxisResult = parse(
+            {
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    correct: {
+                        type: "linear",
+                    },
+                    labelLocation: "onAxis",
+                },
+            },
+            parseInteractiveGraphWidget,
+        );
+
+        expect(onAxisResult).toEqual(
+            success({
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    correct: {
+                        type: "linear",
+                    },
+                    graph: {
+                        type: "linear",
+                    },
+                    labelLocation: "onAxis",
+                },
+            }),
+        );
+
+        const alongEdgeResult = parse(
+            {
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    correct: {
+                        type: "linear",
+                    },
+                    labelLocation: "alongEdge",
+                },
+            },
+            parseInteractiveGraphWidget,
+        );
+
+        expect(alongEdgeResult).toEqual(
+            success({
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    correct: {
+                        type: "linear",
+                    },
+                    graph: {
+                        type: "linear",
+                    },
+                    labelLocation: "alongEdge",
+                },
+            }),
+        );
+
+        // Test with invalid labelLocation value
+        const invalidResult = parse(
+            {
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    correct: {
+                        type: "linear",
+                    },
+                    labelLocation: "invalid",
+                },
+            },
+            parseInteractiveGraphWidget,
+        );
+
+        expect(invalidResult).toEqual(anyFailure);
     });
 });
