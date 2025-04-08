@@ -167,6 +167,7 @@ export function Flipbook() {
                                     content={<GraphiePreview url={url} />}
                                 >
                                     <IconButton
+                                        kind="tertiary"
                                         icon={
                                             isGraphieUrl(url)
                                                 ? graphIcon
@@ -182,7 +183,10 @@ export function Flipbook() {
                                         "This graph does not specify a background image"
                                     }
                                 >
-                                    <IconButton icon={cameraSlashIcon} />
+                                    <IconButton
+                                        icon={cameraSlashIcon}
+                                        kind="tertiary"
+                                    />
                                 </Tooltip>
                             )}
                         </View>

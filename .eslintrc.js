@@ -212,11 +212,6 @@ module.exports = {
         "new-cap": "off",
         "no-invalid-this": "off", // @typescript-eslint/no-invalid-this supersedes it
         "no-unused-expressions": "off", // @typescript-eslint/no-unused-expression supersedes it
-        "no-restricted-imports": [
-            "error",
-            "@khanacademy/wonder-blocks-color",
-            "@khanacademy/wonder-blocks-spacing",
-        ],
         "object-curly-spacing": "off",
         semi: "off",
 
@@ -401,6 +396,11 @@ module.exports = {
                 prefer: "type-imports",
                 fixStyle: "separate-type-imports",
             },
+        ],
+        "@typescript-eslint/no-restricted-imports": [
+            "error",
+            "@khanacademy/wonder-blocks-color",
+            "@khanacademy/wonder-blocks-spacing",
         ],
     },
 };

@@ -1,5 +1,11 @@
 # @khanacademy/shared-inline
 
+## 2.0.1
+
+### Patch Changes
+
+-   [#2334](https://github.com/Khan/perseus/pull/2334) [`6c5a0121d`](https://github.com/Khan/perseus/commit/6c5a0121dae2f0452baccc30401888379b5def95) Thanks [@handeyeco](https://github.com/handeyeco)! - Add Eslint rule "@typescript-eslint/no-restricted-imports" to help prevent circular dependencies
+
 ## 2.0.0
 
 ### Major Changes
