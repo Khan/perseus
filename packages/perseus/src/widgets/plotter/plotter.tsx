@@ -3,7 +3,6 @@
 import {KhanMath} from "@khanacademy/kmath";
 import $ from "jquery";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
