@@ -39,6 +39,7 @@ export {
 
 export {scorePerseusItem, scoreWidgetsFunctional, flattenScores} from "./score";
 export {emptyWidgetsFunctional} from "./validate";
+export {default as emptyDinerCheck} from "./empty-diner-check";
 
 export type {
     PerseusMockWidgetRubric,
