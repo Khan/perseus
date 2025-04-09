@@ -308,7 +308,6 @@ export class Plotter extends React.Component<Props, State> implements Widget {
                         opacity: isMobile ? 1 : 0.3,
                     },
                     function () {
-                        console.log("drawing line", [0, y], [c.dimX, y]);
                         graphie.line([0, y], [c.dimX, y]);
                     },
                 );
