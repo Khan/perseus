@@ -92,7 +92,7 @@ export const Quadratic: Story = {
     },
 };
 
-export const QubicPolynomial: Story = {
+export const CubicPolynomial: Story = {
     args: {
         item: generateTestPerseusItem({
             question: segmentWithLockedFunction("(1/3)x^3 - 2x^2 + 3x - 4"),
