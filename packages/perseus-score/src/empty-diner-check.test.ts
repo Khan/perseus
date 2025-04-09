@@ -1,6 +1,7 @@
-import {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
-import {UserInputMap} from "./validation.types";
 import emptyDinerCheck from "./empty-diner-check";
+
+import type {UserInputMap} from "./validation.types";
+import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 
 function generatePerseusItem(question: PerseusRenderer): PerseusItem {
     return {

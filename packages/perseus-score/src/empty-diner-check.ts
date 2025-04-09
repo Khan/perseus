@@ -1,5 +1,7 @@
-import {getWidgetIdsFromContent, PerseusItem} from "@khanacademy/perseus-core";
-import {UserInputMap} from "./validation.types";
+import {getWidgetIdsFromContent} from "@khanacademy/perseus-core";
+
+import type {UserInputMap} from "./validation.types";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 
 /**
  * Check the emptiness of DINER widgets (for the AX team):
@@ -20,7 +22,7 @@ function emptyDinerCheck(
     const usedWidgetIds = getWidgetIdsFromContent(itemData.question.content);
     const widgets = itemData.question.widgets;
 
-    for (let widgetId of usedWidgetIds) {
+    for (const widgetId of usedWidgetIds) {
         const widget = widgets[widgetId];
         const input = userInputMap[widgetId];
 
