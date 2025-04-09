@@ -169,7 +169,8 @@ export class PhetSimulation
         // that we need. This makes it safer to present third-party content
         // from the PhET website.
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
-        const sandboxProperties = "allow-same-origin allow-scripts";
+        const sandboxProperties =
+            "allow-same-origin allow-scripts allow-fullscreen";
         return (
             <View style={styles.widgetContainer}>
                 {this.state.banner !== null && (
