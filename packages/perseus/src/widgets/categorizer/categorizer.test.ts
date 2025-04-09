@@ -188,47 +188,40 @@ describe("categorizer widget", () => {
             return splitPerseusItem(getAnswerfulItem());
         }
 
-        test.each(["answerless", "answerful"])(
-            "is interactive with widget options: %p",
-            async (e) => {
-                // Arrange
-                const useAnswerless = e === "answerless";
-                const renderItem = useAnswerless
-                    ? getAnswerlessItem()
-                    : getAnswerfulItem();
+        test.each([
+            ["answerless", getAnswerlessItem()],
+            ["answerful", getAnswerfulItem()],
+        ])("is interactive with widget options: %p", async (version, item) => {
+            // Arrange
+            const useAnswerless = version === "answerless";
 
-                // assert that splitting worked as expected
-                if (useAnswerless) {
-                    expect(
-                        renderItem.widgets["categorizer 1"].options.values,
-                    ).toBeUndefined();
-                }
+            // assert that splitting worked as expected
+            if (useAnswerless) {
+                expect(
+                    item.widgets["categorizer 1"].options.values,
+                ).toBeUndefined();
+            }
 
-                // Act
-                const {renderer} = renderQuestion(renderItem);
+            // Act
+            const {renderer} = renderQuestion(item);
 
-                await userEvent.click(
-                    screen.getAllByRole("button", {name: "Shape"})[0],
-                );
-                await userEvent.click(
-                    screen.getAllByRole("button", {name: "Shape"})[2],
-                );
-                await userEvent.click(
-                    screen.getAllByRole("button", {
-                        name: "Color",
-                    })[1],
-                );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "Shape"})[0],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "Shape"})[2],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {
+                    name: "Color",
+                })[1],
+            );
 
-                const userInput = renderer.getUserInputMap();
-                const score = scorePerseusItem(
-                    getAnswerfulItem(),
-                    userInput,
-                    "en",
-                );
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItem(getAnswerfulItem(), userInput, "en");
 
-                // Assert
-                expect(score).toHaveBeenAnsweredCorrectly();
-            },
-        );
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        });
     });
 });
