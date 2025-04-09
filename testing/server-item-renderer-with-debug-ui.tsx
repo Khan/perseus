@@ -31,7 +31,7 @@ type Props = {
     item: PerseusItem;
     apiOptions?: APIOptions;
     keypadElement?: KeypadAPI | null | undefined;
-    linterContext: LinterContextProps;
+    linterContext?: LinterContextProps;
     // Temporary measure testing rendering with answerless data;
     // only exists until all widgets are renderable with answerless data
     startAnswerless?: boolean;
