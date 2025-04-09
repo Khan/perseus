@@ -15,7 +15,7 @@ import type {PerseusItem} from "@khanacademy/perseus-core";
  * @param {UserInputMap} userInputMap
  * @returns {boolean} true if there's an empty widget, otherwise false
  */
-function emptyDinerCheck(
+function hasEmptyDINERWidgets(
     itemData: PerseusItem,
     userInputMap: UserInputMap,
 ): boolean {
@@ -69,4 +69,4 @@ function emptyDinerCheck(
     return false;
 }
 
-export default emptyDinerCheck;
+export default hasEmptyDINERWidgets;

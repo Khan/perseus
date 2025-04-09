@@ -1,4 +1,4 @@
-import emptyDinerCheck from "./empty-diner-check";
+import hasEmptyDINERWidgets from "./empty-diner-check";
 
 import type {UserInputMap} from "./validation.types";
 import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
@@ -128,7 +128,7 @@ function generateBasicRadioQuestion(): PerseusRenderer {
     };
 }
 
-describe(`emptyDinerCheck`, () => {
+describe(`hasEmptyDINERWidgets`, () => {
     it("passes an answered dropdown", () => {
         const question = generateBasicDropdownQuestion();
 
@@ -138,9 +138,9 @@ describe(`emptyDinerCheck`, () => {
             },
         };
 
-        expect(emptyDinerCheck(generatePerseusItem(question), userInput)).toBe(
-            false,
-        );
+        expect(
+            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+        ).toBe(false);
     });
 
     it("fails an unanswered dropdown", () => {
@@ -152,9 +152,9 @@ describe(`emptyDinerCheck`, () => {
             },
         };
 
-        expect(emptyDinerCheck(generatePerseusItem(question), userInput)).toBe(
-            true,
-        );
+        expect(
+            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+        ).toBe(true);
     });
 
     it("passes any interactive graph", () => {
@@ -171,7 +171,7 @@ describe(`emptyDinerCheck`, () => {
 
         const userInput: any = {};
 
-        expect(emptyDinerCheck(question, userInput)).toBe(false);
+        expect(hasEmptyDINERWidgets(question, userInput)).toBe(false);
     });
 
     it("passes an answered numeric-input", () => {
@@ -183,9 +183,9 @@ describe(`emptyDinerCheck`, () => {
             },
         };
 
-        expect(emptyDinerCheck(generatePerseusItem(question), userInput)).toBe(
-            false,
-        );
+        expect(
+            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+        ).toBe(false);
     });
 
     it("fails an unanswered numeric-input", () => {
@@ -197,9 +197,9 @@ describe(`emptyDinerCheck`, () => {
             },
         };
 
-        expect(emptyDinerCheck(generatePerseusItem(question), userInput)).toBe(
-            true,
-        );
+        expect(
+            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+        ).toBe(true);
     });
 
     it("passes an unanswered numeric-input (coefficient edge case)", () => {
@@ -214,9 +214,9 @@ describe(`emptyDinerCheck`, () => {
             },
         };
 
-        expect(emptyDinerCheck(generatePerseusItem(question), userInput)).toBe(
-            false,
-        );
+        expect(
+            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+        ).toBe(false);
     });
 
     it("passes an answered numeric-input (coefficient edge case)", () => {
@@ -229,9 +229,9 @@ describe(`emptyDinerCheck`, () => {
             },
         };
 
-        expect(emptyDinerCheck(generatePerseusItem(question), userInput)).toBe(
-            false,
-        );
+        expect(
+            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+        ).toBe(false);
     });
 
     it("passes an answered expression", () => {
@@ -241,9 +241,9 @@ describe(`emptyDinerCheck`, () => {
             "expression 1": "42",
         };
 
-        expect(emptyDinerCheck(generatePerseusItem(question), userInput)).toBe(
-            false,
-        );
+        expect(
+            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+        ).toBe(false);
     });
 
     it("fails an unanswered expression", () => {
@@ -253,9 +253,9 @@ describe(`emptyDinerCheck`, () => {
             "expression 1": "",
         };
 
-        expect(emptyDinerCheck(generatePerseusItem(question), userInput)).toBe(
-            true,
-        );
+        expect(
+            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+        ).toBe(true);
     });
 
     it("passes an answered radio", () => {
@@ -267,9 +267,9 @@ describe(`emptyDinerCheck`, () => {
             },
         };
 
-        expect(emptyDinerCheck(generatePerseusItem(question), userInput)).toBe(
-            false,
-        );
+        expect(
+            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+        ).toBe(false);
     });
 
     it("fails an unanswered radio", () => {
@@ -281,8 +281,8 @@ describe(`emptyDinerCheck`, () => {
             },
         };
 
-        expect(emptyDinerCheck(generatePerseusItem(question), userInput)).toBe(
-            true,
-        );
+        expect(
+            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+        ).toBe(true);
     });
 });
