@@ -19,6 +19,9 @@ import type {Meta, StoryObj} from "@storybook/react";
 const meta: Meta = {
     title: "Perseus/Renderers/Server Item Renderer",
     component: ServerItemRendererWithDebugUI,
+    args: {
+        title: "Server Item Renderer",
+    },
 };
 export default meta;
 
@@ -56,6 +59,18 @@ export const WithLintingError = (args: Story): React.ReactElement => {
             }}
         />
     );
+};
+
+export const WithLintingError2: Story = {
+    args: {
+        item: itemWithLintingError,
+        linterContext: {
+            contentType: "",
+            highlightLint: true,
+            paths: [],
+            stack: [],
+        },
+    },
 };
 
 export const NumericInputWithInteractionCallback: Story = {

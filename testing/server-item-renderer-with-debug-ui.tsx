@@ -24,11 +24,14 @@ import {storybookDependenciesV2} from "./test-dependencies";
 
 import type {APIOptions} from "../packages/perseus/src/types";
 import type {KeypadAPI} from "@khanacademy/math-input";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
+    title?: string;
     item: PerseusItem;
     apiOptions?: APIOptions;
     keypadElement?: KeypadAPI | null | undefined;
+    linterContext: LinterContextProps;
     // Temporary measure testing rendering with answerless data;
     // only exists until all widgets are renderable with answerless data
     startAnswerless?: boolean;
@@ -37,6 +40,7 @@ type Props = {
 };
 
 export const ServerItemRendererWithDebugUI = ({
+    title = "Widget",
     item,
     apiOptions = Object.freeze({}),
     keypadElement,
@@ -106,7 +110,7 @@ export const ServerItemRendererWithDebugUI = ({
                         width: "100%",
                     }}
                 >
-                    Widget
+                    {title}
                     <View style={{marginLeft: "auto"}}>
                         <Switch
                             icon={<PhosphorIcon icon={deviceMobile} />}
