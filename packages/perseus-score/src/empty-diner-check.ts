@@ -28,13 +28,14 @@ function emptyDinerCheck(
 
         switch (widget.type) {
             case "dropdown": {
+                // see `validateDropdown`
                 if (input.value === 0) {
                     return true;
                 }
                 break;
             }
             case "interactive-graph": {
-                // doesn't do client-side validation
+                // IG doesn't do client-side validation
                 break;
             }
             case "numeric-input": {
@@ -42,19 +43,21 @@ function emptyDinerCheck(
                 // really it should be:
                 // empty input && not coefficient && answer is not 1
                 // but we don't have answers here
-                // (see: scoreNumericInput)
+                // (see: `scoreNumericInput`)
                 if (!input.currentValue && !widget.options.coefficient) {
                     return true;
                 }
                 break;
             }
             case "expression": {
+                // see `validateExpression`
                 if (!input) {
                     return true;
                 }
                 break;
             }
             case "radio": {
+                // see `validateRadio`
                 if (!input.choicesSelected.includes(true)) {
                     return true;
                 }
