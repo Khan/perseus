@@ -12,11 +12,7 @@ import type {
  * @see `scoreRadio` for the additional validation logic and the scoring logic.
  */
 function validateRadio(userInput: PerseusRadioUserInput): ValidationResult {
-    const numSelected = userInput.choicesSelected.reduce((sum, selected) => {
-        return sum + (selected ? 1 : 0);
-    }, 0);
-
-    if (numSelected === 0) {
+    if (!userInput.choicesSelected.includes(true)) {
         return {
             type: "invalid",
             message: null,
