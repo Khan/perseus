@@ -7,4 +7,3 @@ import type {ParsedValue} from "../parser-types";
 summon<
     ParsedValue<typeof parseInteractiveGraphUserInput>
 >() satisfies PerseusInteractiveGraphUserInput;
-

@@ -8,7 +8,7 @@
  * compatible. Read the TypeScript error message closely and it should point
  * you in the right direction.
  */
-import type {PerseusRenderer} from "./data-schema.ts";
+import type {PerseusRenderer} from "./data-schema";
 import type {RubricMap, ValidationDataMap} from "./validation.types";
 
 /**
