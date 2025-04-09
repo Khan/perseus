@@ -1,4 +1,4 @@
-import hasEmptyDINERWidgets from "./empty-diner-check";
+import hasEmptyDINERWidgets from "./has-empty-diner-widgets";
 
 import type {UserInputMap} from "./validation.types";
 import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
