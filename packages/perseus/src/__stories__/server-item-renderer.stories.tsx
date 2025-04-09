@@ -45,23 +45,7 @@ export const ImageExamplesItem: Story = {
     },
 };
 
-export const WithLintingError = (args: Story): React.ReactElement => {
-    return (
-        <ServerItemRenderer
-            problemNum={0}
-            item={itemWithLintingError}
-            dependencies={storybookDependenciesV2}
-            linterContext={{
-                contentType: "",
-                highlightLint: true,
-                paths: [],
-                stack: [],
-            }}
-        />
-    );
-};
-
-export const WithLintingError2: Story = {
+export const WithLintingError: Story = {
     args: {
         item: itemWithLintingError,
         linterContext: {

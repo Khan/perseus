@@ -44,6 +44,7 @@ export const ServerItemRendererWithDebugUI = ({
     item,
     apiOptions = Object.freeze({}),
     keypadElement,
+    linterContext,
     reviewMode = false,
     startAnswerless = false,
     showSolutions,
@@ -131,6 +132,7 @@ export const ServerItemRendererWithDebugUI = ({
                             item={renderedItem}
                             dependencies={storybookDependenciesV2}
                             keypadElement={keypadElement}
+                            linterContext={linterContext}
                             reviewMode={reviewMode}
                             showSolutions={showSolutions}
                             hintsVisible={hintsVisible}
