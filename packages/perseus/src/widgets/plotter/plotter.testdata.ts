@@ -19,7 +19,7 @@ export const question1: PerseusRenderer = {
                 picBoxHeight: 300,
                 picSize: 300,
                 picUrl: "",
-                plotDimensions: [0, 0],
+                plotDimensions: [380, 300],
                 correct: [15, 25, 5, 10, 10],
                 labelInterval: 1,
                 labels: ["School grade", "Number of absent students"],

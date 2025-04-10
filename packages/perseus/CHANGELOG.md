@@ -1,5 +1,47 @@
 # @khanacademy/perseus
 
+## 59.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`91ac603f9`](https://github.com/Khan/perseus/commit/91ac603f98289b11458f51eeb77af515daab5dbb), [`3cdf61b09`](https://github.com/Khan/perseus/commit/3cdf61b091393f6728dfdb8a460c6dd2f4909daa)]:
+    -   @khanacademy/perseus-score@4.1.0
+    -   @khanacademy/perseus-core@7.0.2
+    -   @khanacademy/keypad-context@3.0.2
+    -   @khanacademy/kmath@2.0.2
+    -   @khanacademy/math-input@25.0.2
+    -   @khanacademy/perseus-linter@3.0.2
+
+## 59.1.0
+
+### Minor Changes
+
+-   [#2329](https://github.com/Khan/perseus/pull/2329) [`e03cfbbdd`](https://github.com/Khan/perseus/commit/e03cfbbddf33922959c0a984d13b5e304fa66375) Thanks [@Myranae](https://github.com/Myranae)! - Update and add stories where Dropdown, Interactive Graph, Numeric Input, Expression, and Radio widgets render using answerless data
+
+### Patch Changes
+
+-   [#2299](https://github.com/Khan/perseus/pull/2299) [`865844cf8`](https://github.com/Khan/perseus/commit/865844cf86f20babe8f4425c366811992d7ab0c6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure Interactive Graph Axis Labels are clamped by graph dimensions
+
+*   [#2337](https://github.com/Khan/perseus/pull/2337) [`fd3a520c9`](https://github.com/Khan/perseus/commit/fd3a520c93410ae9b2af801714a289f1722e8e8e) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix MathInput bottom padding to make it consistent with our styling
+
+-   [#2344](https://github.com/Khan/perseus/pull/2344) [`140fe6563`](https://github.com/Khan/perseus/commit/140fe6563dd885c92a424b9bae81acb6a8a39582) Thanks [@marcysutton](https://github.com/marcysutton)! - Remove unnecessary bolted-on role=combobox from Dropdown widget that is already part of WB Dropdown
+
+*   [#2357](https://github.com/Khan/perseus/pull/2357) [`01746d3f3`](https://github.com/Khan/perseus/commit/01746d3f3e29a48af69c3f01505c61cd10706be0) Thanks [@jandrade](https://github.com/jandrade)! - Update IconButton instances to match new WB changes (IconButton styles, actionType)
+
+-   [#2334](https://github.com/Khan/perseus/pull/2334) [`6c5a0121d`](https://github.com/Khan/perseus/commit/6c5a0121dae2f0452baccc30401888379b5def95) Thanks [@handeyeco](https://github.com/handeyeco)! - Add Eslint rule "@typescript-eslint/no-restricted-imports" to help prevent circular dependencies
+
+-   Updated dependencies [[`fd3a520c9`](https://github.com/Khan/perseus/commit/fd3a520c93410ae9b2af801714a289f1722e8e8e), [`6c5a0121d`](https://github.com/Khan/perseus/commit/6c5a0121dae2f0452baccc30401888379b5def95)]:
+    -   @khanacademy/math-input@25.0.1
+    -   @khanacademy/kas@2.0.1
+    -   @khanacademy/keypad-context@3.0.1
+    -   @khanacademy/kmath@2.0.1
+    -   @khanacademy/perseus-core@7.0.1
+    -   @khanacademy/perseus-linter@3.0.1
+    -   @khanacademy/perseus-score@4.0.2
+    -   @khanacademy/perseus-utils@2.0.1
+    -   @khanacademy/pure-markdown@2.0.1
+    -   @khanacademy/simple-markdown@2.0.1
+
 ## 59.0.1
 
 ### Patch Changes

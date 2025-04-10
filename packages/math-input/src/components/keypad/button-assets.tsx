@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /*
 The SVGs in this file should be treated as binary assets. If, in the future,
 we need to make changes to update the color or size or shape of the glyph

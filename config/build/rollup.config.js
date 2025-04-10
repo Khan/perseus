@@ -3,17 +3,14 @@ import fs from "fs";
 import path from "path";
 
 import alias from "@rollup/plugin-alias";
-import {babel} from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
+import swc from "@rollup/plugin-swc";
 import ancesdir from "ancesdir";
 import autoExternal from "rollup-plugin-auto-external";
 import filesize from "rollup-plugin-filesize";
 import styles from "rollup-plugin-styles";
-
-const createBabelPlugins = require("./create-babel-plugins");
-const createBabelPresets = require("./create-babel-presets");
 
 const rootDir = ancesdir(__dirname);
 
@@ -162,14 +159,14 @@ const createConfig = (
                     math: "always",
                 },
             }),
-            babel({
-                babelHelpers: "runtime",
-                presets: createBabelPresets({platform, format}),
-                plugins: createBabelPlugins({platform, format}),
+            swc({
+                swc: {
+                    swcrc: true,
+                    minify: true,
+                },
                 exclude: "node_modules/**",
-                extensions,
             }),
-            // This must come after babel() since this plugin doesn't know how
+            // This must come after swc() since this plugin doesn't know how
             // to deal with TypeScript types.
             commonjs(),
             resolve({
@@ -179,11 +176,6 @@ const createConfig = (
             autoExternal({
                 packagePath: makePackageBasedPath(name, "./package.json"),
             }),
-            // TODO(FEI-4557): Figure out how to make this plugin work so that
-            // @khanacademy/perseus-editor works in webapp.  If we enable this
-            // plugin right now, the content editor pages in webapp will fail
-            // with the following error: `TypeError: Object(...) is not a function`
-            // terser(),
             ...plugins,
         ],
     };

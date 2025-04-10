@@ -1,5 +1,26 @@
 # @khanacademy/math-input
 
+## 25.0.2
+
+### Patch Changes
+
+-   Updated dependencies [[`91ac603f9`](https://github.com/Khan/perseus/commit/91ac603f98289b11458f51eeb77af515daab5dbb), [`3cdf61b09`](https://github.com/Khan/perseus/commit/3cdf61b091393f6728dfdb8a460c6dd2f4909daa)]:
+    -   @khanacademy/perseus-core@7.0.2
+    -   @khanacademy/keypad-context@3.0.2
+
+## 25.0.1
+
+### Patch Changes
+
+-   [#2337](https://github.com/Khan/perseus/pull/2337) [`fd3a520c9`](https://github.com/Khan/perseus/commit/fd3a520c93410ae9b2af801714a289f1722e8e8e) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix MathInput bottom padding to make it consistent with our styling
+
+*   [#2334](https://github.com/Khan/perseus/pull/2334) [`6c5a0121d`](https://github.com/Khan/perseus/commit/6c5a0121dae2f0452baccc30401888379b5def95) Thanks [@handeyeco](https://github.com/handeyeco)! - Add Eslint rule "@typescript-eslint/no-restricted-imports" to help prevent circular dependencies
+
+*   Updated dependencies [[`6c5a0121d`](https://github.com/Khan/perseus/commit/6c5a0121dae2f0452baccc30401888379b5def95)]:
+    -   @khanacademy/keypad-context@3.0.1
+    -   @khanacademy/perseus-core@7.0.1
+    -   @khanacademy/perseus-utils@2.0.1
+
 ## 25.0.0
 
 ### Major Changes

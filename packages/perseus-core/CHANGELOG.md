@@ -1,5 +1,23 @@
 # @khanacademy/perseus-core
 
+## 7.0.2
+
+### Patch Changes
+
+-   [#2368](https://github.com/Khan/perseus/pull/2368) [`91ac603f9`](https://github.com/Khan/perseus/commit/91ac603f98289b11458f51eeb77af515daab5dbb) Thanks [@handeyeco](https://github.com/handeyeco)! - Add AX-specific empty widget function to address LEMS-3000
+
+*   [#2362](https://github.com/Khan/perseus/pull/2362) [`3cdf61b09`](https://github.com/Khan/perseus/commit/3cdf61b091393f6728dfdb8a460c6dd2f4909daa) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Adding LabelLocation to parser
+
+## 7.0.1
+
+### Patch Changes
+
+-   [#2334](https://github.com/Khan/perseus/pull/2334) [`6c5a0121d`](https://github.com/Khan/perseus/commit/6c5a0121dae2f0452baccc30401888379b5def95) Thanks [@handeyeco](https://github.com/handeyeco)! - Add Eslint rule "@typescript-eslint/no-restricted-imports" to help prevent circular dependencies
+
+-   Updated dependencies [[`6c5a0121d`](https://github.com/Khan/perseus/commit/6c5a0121dae2f0452baccc30401888379b5def95)]:
+    -   @khanacademy/kas@2.0.1
+    -   @khanacademy/perseus-utils@2.0.1
+
 ## 7.0.0
 
 ### Major Changes

@@ -50,7 +50,6 @@ class Definition extends React.Component<DefinitionProps> implements Widget {
                     <Popover
                         content={
                             <PopoverContentCore
-                                color="white"
                                 style={styles.tooltipBody}
                                 closeButtonVisible={true}
                             >
