@@ -146,9 +146,6 @@ function migrateV0ToV1(
     };
 }
 
-export const parseRadioWidget = versionedWidgetOptions(
-    2,
-    parseRadioWidgetV2,
-)
+export const parseRadioWidget = versionedWidgetOptions(2, parseRadioWidgetV2)
     .withMigrationFrom(1, parseRadioWidgetV1, migrateV1ToV2)
     .withMigrationFrom(0, parseRadioWidgetV0, migrateV0ToV1).parser;
