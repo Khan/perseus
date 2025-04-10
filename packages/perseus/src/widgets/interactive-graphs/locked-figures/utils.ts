@@ -1,5 +1,5 @@
 export function clampDomain(
-    inputDomain: [number, number],
+    inputDomain: [number | null, number | null],
     graphBounds: [number, number],
 ): [number, number] | null {
     const domain = inputDomain.map((value, index) => {

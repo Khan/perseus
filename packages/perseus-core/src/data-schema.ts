@@ -900,7 +900,7 @@ export type LockedFunctionType = {
      * this function should be graphed. Values of -Infinity and Infinity are
      * allowed. Note that infinite values are serialized as `null` in JSON.
      */
-    domain: [min: number, max: number];
+    domain: [min: number | null, max: number | null];
     labels?: LockedLabelType[];
     ariaLabel?: string;
 };

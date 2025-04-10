@@ -127,7 +127,7 @@ const LockedFunctionSettings = (props: Props) => {
         const newDomainEntries: [string, string] = [...domainEntries];
         newDomainEntries[limitIndex] = newValueString;
         setDomainEntries(newDomainEntries);
-        const newDomain: [min: number, max: number] = [...domain];
+        const newDomain: [number | null, number | null] = [...domain];
 
         let newValue = parseFloat(newValueString);
         if (newValueString === "" && limitIndex === 0) {

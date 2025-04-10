@@ -26,6 +26,9 @@ const LockedFunction = (props: LockedFunctionType) => {
         style: strokeStyle,
     };
 
+    // eslint-disable-next-line no-console
+    console.log("domain", domain);
+
     const hasAria = !!props.ariaLabel;
 
     useEffect(() => {
