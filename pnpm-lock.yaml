@@ -76,8 +76,8 @@ catalogs:
       specifier: 3.1.3
       version: 3.1.3
     '@khanacademy/wonder-stuff-core':
-      specifier: 1.5.4
-      version: 1.5.4
+      specifier: 1.5.5
+      version: 1.5.5
     '@phosphor-icons/core':
       specifier: ^2.0.2
       version: 2.0.2
@@ -507,7 +507,7 @@ importers:
         version: 4.1.6(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
@@ -601,7 +601,7 @@ importers:
         version: 5.2.0
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
@@ -686,7 +686,7 @@ importers:
         version: 12.2.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-data':
         specifier: 'catalog:'
-        version: 14.1.3(@khanacademy/wonder-stuff-core@1.5.4)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+        version: 14.1.3(@khanacademy/wonder-stuff-core@1.5.5)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-dropdown':
         specifier: 'catalog:'
         version: 9.2.2(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react-window@1.8.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
@@ -728,7 +728,7 @@ importers:
         version: 3.1.3(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
@@ -783,7 +783,7 @@ importers:
     devDependencies:
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
@@ -883,7 +883,7 @@ importers:
         version: 3.1.3(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
@@ -2423,8 +2423,8 @@ packages:
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-stuff-core@1.5.4':
-    resolution: {integrity: sha512-Z1DOHdSNrXyIKCgYsq6XKT6ZTRq5bb7Daof8mN31O30twStrwBynP5fS0lARS9qgxycaueThEcmeCF8AXyU21g==}
+  '@khanacademy/wonder-stuff-core@1.5.5':
+    resolution: {integrity: sha512-0OkhkjuM2zoS6k9Y8WPFGq0OL5WjgL8faOukM5P/wY7M9RC1q/oYCECg5YUf+OFfXenSHgBi2TmJ6cpT/F1how==}
     engines: {node: '>=16'}
 
   '@manypkg/find-root@1.1.0':
@@ -4648,8 +4648,8 @@ packages:
   ecc-jsbn@0.1.2:
     resolution: {integrity: sha512-eh9O+hwRHNbG4BLTjEl3nw044CkGm5X6LoaCf7LPp7UU8Qrt47JYNi6nPX8xjW97TKGKm1ouctg0QSpZe9qrnw==}
 
-  electron-to-chromium@1.5.133:
-    resolution: {integrity: sha512-mrR+g6Y1at0GKDlPlMMwLAkI6c47q3d7U/vKS3rGTa3V4xStu18oT4UCPg5ErcAhUqk7swSjXSPUGstOYd2qBw==}
+  electron-to-chromium@1.5.135:
+    resolution: {integrity: sha512-8gXUdEmvb+WCaYUhA0Svr08uSeRjM2w3x5uHOc1QbaEVzJXB8rgm5eptieXzyKoVEtinLvW6MtTcurA65PeS1Q==}
 
   electron-to-chromium@1.5.68:
     resolution: {integrity: sha512-FgMdJlma0OzUYlbrtZ4AeXjKxKPk6KT8WOP8BjcqxWtlg8qyJQjRzPJzUtUn5GBg1oQ26hFs7HOOHJMYiJRnvQ==}
@@ -10701,11 +10701,11 @@ snapshots:
       react-router: 5.3.4(react@18.3.1)
       react-router-dom: 5.3.4(react@18.3.1)
 
-  '@khanacademy/wonder-blocks-data@14.1.3(@khanacademy/wonder-stuff-core@1.5.4)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
+  '@khanacademy/wonder-blocks-data@14.1.3(@khanacademy/wonder-stuff-core@1.5.5)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.25.4
       '@khanacademy/wonder-blocks-core': 12.2.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-stuff-core': 1.5.4
+      '@khanacademy/wonder-stuff-core': 1.5.5
       react: 18.3.1
     transitivePeerDependencies:
       - aphrodite
@@ -10975,7 +10975,7 @@ snapshots:
       - react-router
       - react-router-dom
 
-  '@khanacademy/wonder-stuff-core@1.5.4': {}
+  '@khanacademy/wonder-stuff-core@1.5.5': {}
 
   '@manypkg/find-root@1.1.0':
     dependencies:
@@ -12648,7 +12648,7 @@ snapshots:
   browserslist@4.24.4:
     dependencies:
       caniuse-lite: 1.0.30001712
-      electron-to-chromium: 1.5.133
+      electron-to-chromium: 1.5.135
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.24.4)
 
@@ -13476,7 +13476,7 @@ snapshots:
       jsbn: 0.1.1
       safer-buffer: 2.1.2
 
-  electron-to-chromium@1.5.133: {}
+  electron-to-chromium@1.5.135: {}
 
   electron-to-chromium@1.5.68: {}
 
