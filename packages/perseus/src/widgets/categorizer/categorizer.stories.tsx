@@ -1,5 +1,3 @@
-import * as React from "react";
-
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import {generateTestPerseusItem} from "../../util/test-utils";
 
