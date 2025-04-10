@@ -44,7 +44,6 @@ export default TestKeypadContextWrapper;
 
 const styles = StyleSheet.create({
     keypad: {
-        position: "absolute",
         bottom: 0,
         // The keypad itself needs to respond to events even though
         // we've set its container to pointer-events: none;

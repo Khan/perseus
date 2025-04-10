@@ -1,5 +1,4 @@
-import {storybookDependenciesV2} from "../../../../../testing/test-dependencies";
-import ArticleRenderer from "../../article-renderer";
+import {ArticleRendererWithDebugUI} from "../../../../../testing/article-renderer-with-debug-ui";
 
 import {article1} from "./graded-group-set.testdata";
 
@@ -7,14 +6,11 @@ import type {Meta, StoryObj} from "@storybook/react";
 
 const meta: Meta = {
     title: "Perseus/Widgets/Graded Group Set",
-    component: ArticleRenderer,
-    args: {
-        dependencies: storybookDependenciesV2,
-    },
+    component: ArticleRendererWithDebugUI,
 };
 export default meta;
 
-type Story = StoryObj<typeof ArticleRenderer>;
+type Story = StoryObj<typeof ArticleRendererWithDebugUI>;
 
 export const Article1: Story = {
     args: {

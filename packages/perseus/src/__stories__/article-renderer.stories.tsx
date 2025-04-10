@@ -1,8 +1,6 @@
-import {KeypadContext} from "@khanacademy/keypad-context";
 import {action} from "@storybook/addon-actions";
-import React from "react";
 
-import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
+import {ArticleRendererWithDebugUI} from "../../../../testing/article-renderer-with-debug-ui";
 import {
     singleSectionArticle,
     multiSectionArticle,
@@ -10,91 +8,51 @@ import {
     articleSectionWithExpression,
     multiSectionArticleWithExpression,
 } from "../__testdata__/article-renderer.testdata";
-import ArticleRenderer from "../article-renderer";
-import TestKeypadContextWrapper from "../widgets/__shared__/test-keypad-context-wrapper";
 
-export default {
+import type {Meta, StoryObj} from "@storybook/react";
+
+const meta: Meta = {
     title: "Perseus/Renderers/Article Renderer",
+    component: ArticleRendererWithDebugUI,
     argTypes: {
         useNewStyles: {
             control: "boolean",
         },
     },
 };
+export default meta;
 
-export const ASingleSectionArticle = (args: {
-    useNewStyles;
-}): React.ReactElement => {
-    return (
-        <ArticleRenderer
-            json={singleSectionArticle}
-            dependencies={storybookDependenciesV2}
-            useNewStyles={args.useNewStyles}
-        />
-    );
+type Story = StoryObj<typeof ArticleRendererWithDebugUI>;
+
+export const ASingleSectionArticle: Story = {
+    args: {
+        json: singleSectionArticle,
+    },
 };
 
-export const BMultiSectionArticle = (args: {
-    useNewStyles;
-}): React.ReactElement => {
-    return (
-        <ArticleRenderer
-            json={multiSectionArticle}
-            dependencies={storybookDependenciesV2}
-            useNewStyles={args.useNewStyles}
-        />
-    );
+export const BMultiSectionArticle: Story = {
+    args: {
+        json: multiSectionArticle,
+    },
 };
 
-export const PassageArticle = ({useNewStyles}): any => (
-    <ArticleRenderer
-        json={passageArticle}
-        dependencies={storybookDependenciesV2}
-        useNewStyles={useNewStyles}
-    />
-);
+export const PassageArticle: Story = {
+    args: {
+        json: passageArticle,
+    },
+};
 
-export const ExpressionArticle = ({useNewStyles}): any => (
-    <TestKeypadContextWrapper>
-        <KeypadContext.Consumer>
-            {({keypadElement, setRenderer}) => (
-                <ArticleRenderer
-                    ref={(node) => {
-                        setRenderer(node);
-                    }}
-                    json={articleSectionWithExpression}
-                    dependencies={storybookDependenciesV2}
-                    useNewStyles={useNewStyles}
-                    apiOptions={{
-                        isMobile: true,
-                        customKeypad: true,
-                        onFocusChange: action("onFocusChange"),
-                    }}
-                    keypadElement={keypadElement}
-                />
-            )}
-        </KeypadContext.Consumer>
-    </TestKeypadContextWrapper>
-);
+export const ExpressionArticle: Story = {
+    args: {
+        json: articleSectionWithExpression,
+        apiOptions: {
+            onFocusChange: action("onFocusChange"),
+        },
+    },
+};
 
-export const MultiSectionedExpressionArticle = ({useNewStyles}): any => (
-    <TestKeypadContextWrapper>
-        <KeypadContext.Consumer>
-            {({keypadElement, setRenderer}) => (
-                <ArticleRenderer
-                    ref={(node) => {
-                        setRenderer(node);
-                    }}
-                    json={multiSectionArticleWithExpression}
-                    dependencies={storybookDependenciesV2}
-                    useNewStyles={useNewStyles}
-                    apiOptions={{
-                        isMobile: true,
-                        customKeypad: true,
-                    }}
-                    keypadElement={keypadElement}
-                />
-            )}
-        </KeypadContext.Consumer>
-    </TestKeypadContextWrapper>
-);
+export const MultiSectionedExpressionArticle: Story = {
+    args: {
+        json: multiSectionArticleWithExpression,
+    },
+};
