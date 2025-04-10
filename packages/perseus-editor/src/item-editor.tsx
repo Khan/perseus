@@ -14,6 +14,7 @@ import type {
     DeviceType,
 } from "@khanacademy/perseus";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import IssuesPanel from "./issues-panel";
 
 const ITEM_DATA_VERSION = itemDataVersion;
 
@@ -21,6 +22,7 @@ type Props = {
     apiOptions?: APIOptions;
     deviceType?: DeviceType;
     widgetIsOpen?: boolean;
+    widgetAccessibility: boolean;
     gradeMessage?: string;
     imageUploader?: ImageUploader;
     wasAnswered?: boolean;
@@ -97,6 +99,7 @@ class ItemEditor extends React.Component<Props> {
             <div className="perseus-editor-table">
                 <div className="perseus-editor-row perseus-question-container">
                     <div className="perseus-editor-left-cell">
+                        <IssuesPanel />
                         <div className="pod-title">Question</div>
                         <Editor
                             ref={this.questionEditor}
