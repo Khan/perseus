@@ -1,4 +1,5 @@
 import {mergeConfig} from "vite";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 
 import type {StorybookConfig} from "@storybook/react-vite";
 
@@ -51,7 +52,8 @@ const config: StorybookConfig = {
         ${head}
         <style>
         html, body {
-            padding: 16px 0px 0px 0px !important;
+            padding: ${spacing.xSmall_8}px !important;
+            padding-left: ${spacing.large_24}px !important;
         }
         </style>
     `,

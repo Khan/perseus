@@ -1,3 +1,4 @@
+import {action} from "@storybook/addon-actions";
 import * as React from "react";
 import {useState} from "react";
 
@@ -13,76 +14,65 @@ import {
 } from "../__testdata__/server-item-renderer.testdata";
 import {ServerItemRenderer} from "../server-item-renderer";
 
-import type {StoryObj, Meta} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react";
 
-type StoryArgs = StoryObj<ServerItemRenderer>;
-
-type Story = Meta<ServerItemRenderer>;
-
-export default {
+const meta: Meta = {
     title: "Perseus/Renderers/Server Item Renderer",
-} as Story;
+    component: ServerItemRendererWithDebugUI,
+    args: {
+        title: "Server Item Renderer",
+    },
+};
+export default meta;
 
-export const NumericInputItem = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={itemWithNumericInput} />;
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+
+export const NumericInputItem: Story = {
+    args: {
+        item: itemWithNumericInput,
+    },
 };
 
-export const LabelImageItem = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={labelImageItem} />;
+export const LabelImageItem: Story = {
+    args: {
+        item: labelImageItem,
+    },
 };
 
-export const ImageExamplesItem = (args: StoryArgs): React.ReactElement => {
-    return <ServerItemRendererWithDebugUI item={itemWithImages} />;
+export const ImageExamplesItem: Story = {
+    args: {
+        item: itemWithImages,
+    },
 };
 
-export const WithLintingError = (args: StoryArgs): React.ReactElement => {
-    return (
-        <ServerItemRenderer
-            problemNum={0}
-            item={itemWithLintingError}
-            dependencies={storybookDependenciesV2}
-            linterContext={{
-                contentType: "",
-                highlightLint: true,
-                paths: [],
-                stack: [],
-            }}
-        />
-    );
+export const WithLintingError: Story = {
+    args: {
+        item: itemWithLintingError,
+        linterContext: {
+            contentType: "",
+            highlightLint: true,
+            paths: [],
+            stack: [],
+        },
+    },
 };
 
-export const NumericInputWithInteractionCallback = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={itemWithMultipleNumericInputs}
-            apiOptions={{
-                interactionCallback: (data) => {
-                    // We are logging the interaction callback data to the console
-                    // eslint-disable-next-line no-console
-                    console.log(data);
-                },
-            }}
-        />
-    );
+export const NumericInputWithInteractionCallback: Story = {
+    args: {
+        item: itemWithMultipleNumericInputs,
+        apiOptions: {
+            interactionCallback: action("interactionCallback"),
+        },
+    },
 };
 
-export const MultiWidgetWithInteractionCallback = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={itemWithRadioAndExpressionWidgets}
-            apiOptions={{
-                interactionCallback: (data) => {
-                    // We are logging the interaction callback data to the console
-                    // eslint-disable-next-line no-console
-                    console.log(data);
-                },
-            }}
-        />
-    );
+export const MultiWidgetWithInteractionCallback: Story = {
+    args: {
+        item: itemWithRadioAndExpressionWidgets,
+        apiOptions: {
+            interactionCallback: action("interactionCallback"),
+        },
+    },
 };
 
 export const Interactive = () => {

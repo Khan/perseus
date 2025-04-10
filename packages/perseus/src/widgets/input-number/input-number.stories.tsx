@@ -1,6 +1,7 @@
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
+import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {question1, question2, question3} from "./input-number.testdata";
 
@@ -81,18 +82,30 @@ const updateWidgetOptions = (
 
 export const Rational = (args: InputNumberOptions): React.ReactElement => {
     const question = updateWidgetOptions(question1, "input-number 1", args);
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 Rational.args = question1.widgets["input-number 1"].options;
 
 export const PiSimplify = (args: InputNumberOptions): React.ReactElement => {
     const question = updateWidgetOptions(question2, "input-number 1", args);
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 PiSimplify.args = question2.widgets["input-number 1"].options;
 
 export const Percent = (args: InputNumberOptions): React.ReactElement => {
     const question = updateWidgetOptions(question3, "input-number 1", args);
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 Percent.args = question3.widgets["input-number 1"].options;
