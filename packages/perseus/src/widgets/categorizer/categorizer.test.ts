@@ -188,21 +188,17 @@ describe("categorizer widget", () => {
             return splitPerseusItem(getAnswerfulItem());
         }
 
+        test("the answerless test data doesn't contain answers", () => {
+            expect(
+                getAnswerlessItem().widgets["categorizer 1"].options.values,
+            ).toBeUndefined();
+        });
+
         test.each([
             ["answerless", getAnswerlessItem()],
             ["answerful", getAnswerfulItem()],
-        ])("is interactive with widget options: %p", async (version, item) => {
-            // Arrange
-            const useAnswerless = version === "answerless";
-
-            // assert that splitting worked as expected
-            if (useAnswerless) {
-                expect(
-                    item.widgets["categorizer 1"].options.values,
-                ).toBeUndefined();
-            }
-
-            // Act
+        ])("is interactive with widget options: %p", async (_, item) => {
+            // Arrange / Act
             const {renderer} = renderQuestion(item);
 
             await userEvent.click(
