@@ -188,22 +188,18 @@ class MobileKeypadInternals
                         enter: {
                             transform: "translate3d(0, 100%, 0)",
                             transition: `${AnimationDurationInMS}ms ease-out`,
-                            opacity: 0,
                         },
                         enterActive: {
-                            transform: "translate3d(0, 0, 0)",
+                            transform: "translate3d(0, 0px, 1px)",
                             transition: `${AnimationDurationInMS}ms ease-out`,
-                            opacity: 1,
                         },
                         leave: {
                             transform: "translate3d(0, 0, 0)",
                             transition: `${AnimationDurationInMS}ms ease-out`,
-                            opacity: 1,
                         },
                         leaveActive: {
                             transform: "translate3d(0, 100%, 0)",
                             transition: `${AnimationDurationInMS}ms ease-out`,
-                            opacity: 0,
                         },
                     }}
                 >
