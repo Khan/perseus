@@ -1,7 +1,17 @@
 export function clampDomain(
-    domain: [number, number],
+    inputDomain: [number, number],
     graphBounds: [number, number],
 ): [number, number] | null {
+    const domain = inputDomain.map((value, index) => {
+        // Null values are used to indicate that the domain is not set
+        // (assumed to be -infinity/infinity), so we can use the graph
+        // bounds to clamp the domain.
+        if (value === null) {
+            return graphBounds[index];
+        }
+        return value;
+    });
+
     // If the domain is invalid, return the graph bounds
     if (domain[0] > domain[1]) {
         return graphBounds;
