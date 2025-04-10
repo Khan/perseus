@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import {Flipbook} from "../../../../../dev/flipbook";
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import {ApiOptions} from "../../perseus-api";
 import {generateTestPerseusItem} from "../../util/test-utils";
@@ -32,243 +31,271 @@ import {
 
 const defaultApiOptions = ApiOptions.defaults;
 
-export default {
+import type {Meta, StoryObj} from "@storybook/react";
+
+const meta: Meta = {
     title: "Perseus/Widgets/Interactive Graph",
+    component: ServerItemRendererWithDebugUI,
+};
+export default meta;
+
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+
+export const SideBySideFlipbook = (): React.ReactElement => <Flipbook />;
+
+export const Angle: Story = {
+    args: {
+        item: generateTestPerseusItem({question: angleQuestion}),
+    },
 };
 
-type StoryArgs = Record<any, any>;
+export const Circle: Story = {
+    args: {
+        item: generateTestPerseusItem({question: circleQuestion}),
+    },
+};
 
-export const SideBySideFlipbook = (args: StoryArgs): React.ReactElement => (
-    <Flipbook />
-);
+export const Linear: Story = {
+    args: {
+        item: generateTestPerseusItem({question: linearQuestion}),
+    },
+};
 
-export const Angle = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={angleQuestion} />
-);
+export const LinearSystem: Story = {
+    args: {
+        item: generateTestPerseusItem({question: linearSystemQuestion}),
+    },
+};
 
-export const Circle = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={circleQuestion} />
-);
+export const Point: Story = {
+    args: {
+        item: generateTestPerseusItem({question: pointQuestion}),
+    },
+};
 
-export const Linear = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={linearQuestion} />
-);
+export const Polygon: Story = {
+    args: {
+        item: generateTestPerseusItem({question: polygonQuestion}),
+    },
+};
 
-export const LinearSystem = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={linearSystemQuestion} />
-);
+export const UnlimitedPolygon: Story = {
+    args: {
+        item: generateTestPerseusItem({question: unlimitedPolygonQuestion}),
+    },
+};
 
-export const Point = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={pointQuestion} />
-);
+export const Ray: Story = {
+    args: {
+        item: generateTestPerseusItem({question: rayQuestion}),
+    },
+};
 
-export const Polygon = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={polygonQuestion} />
-);
+export const Segment: Story = {
+    args: {
+        item: generateTestPerseusItem({question: segmentQuestion}),
+    },
+};
 
-export const UnlimitedPolygon = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={unlimitedPolygonQuestion} />
-);
+export const Sinusoid: Story = {
+    args: {
+        item: generateTestPerseusItem({question: sinusoidQuestion}),
+    },
+};
 
-export const Ray = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={rayQuestion} />
-);
+export const LockedPoints: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedPointsQuestion,
+        }),
+    },
+};
 
-export const Segment = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={segmentQuestion} />
-);
+export const LockedLines: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedLineQuestion,
+        }),
+    },
+};
 
-export const Sinusoid = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI question={sinusoidQuestion} />
-);
+export const AllLockedLineSegmentStyles: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithAllLockedLineSegmentVariations,
+        }),
+    },
+};
 
-export const LockedPoints = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={defaultApiOptions}
-        question={segmentWithLockedPointsQuestion}
-    />
-);
+export const AllLockedLineStyles: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithAllLockedLineVariations,
+        }),
+    },
+};
 
-export const LockedLines = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={defaultApiOptions}
-        question={segmentWithLockedLineQuestion}
-    />
-);
+export const AllLockedRayStyles: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithAllLockedRayVariations,
+        }),
+    },
+};
 
-export const AllLockedLineSegmentStyles = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={defaultApiOptions}
-        question={segmentWithAllLockedLineSegmentVariations}
-    />
-);
+export const LockedVector: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedVectors,
+        }),
+    },
+};
 
-export const AllLockedLineStyles = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={defaultApiOptions}
-        question={segmentWithAllLockedLineVariations}
-    />
-);
+export const LockedEllipse: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedEllipses,
+        }),
+    },
+};
 
-export const AllLockedRayStyles = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={defaultApiOptions}
-        question={segmentWithAllLockedRayVariations}
-    />
-);
+export const LockedPolygon: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedPolygons,
+        }),
+    },
+};
 
-export const LockedVector = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={defaultApiOptions}
-        question={segmentWithLockedVectors}
-    />
-);
-
-export const LockedEllipse = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={defaultApiOptions}
-        question={segmentWithLockedEllipses}
-    />
-);
-
-export const LockedPolygon = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={defaultApiOptions}
-        question={segmentWithLockedPolygons}
-    />
-);
-
-export const LockedLabel = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={defaultApiOptions}
-        question={segmentWithLockedLabels}
-    />
-);
+export const LockedLabel: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: segmentWithLockedLabels,
+        }),
+    },
+};
 
 /**
  * Read only mode appears after a question is answered.
  */
-export const PolygonReadOnly = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={{...defaultApiOptions, readOnly: true}}
-        question={polygonQuestion}
-    />
-);
+export const PolygonReadOnly: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: polygonQuestion,
+        }),
+        apiOptions: {...defaultApiOptions, readOnly: true},
+    },
+};
 
 /**
  * Content authors can specify if they want a graph to be static, which
  * makes the graph non-interactive. This is generally used for hints.
  */
-export const StaticGraph = (args: StoryArgs): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={defaultApiOptions}
-        question={staticGraphQuestion}
-    />
-);
+export const StaticGraph: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: staticGraphQuestion,
+        }),
+    },
+};
 
-export const StaticGraphWithAnotherWidget = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <RendererWithDebugUI
-        apiOptions={defaultApiOptions}
-        question={staticGraphQuestionWithAnotherWidget()}
-    />
-);
+export const StaticGraphWithAnotherWidget: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: staticGraphQuestionWithAnotherWidget(),
+        }),
+    },
+};
 
 // TODO(jeremy): As of Jan 2022 there are no peresus items in production that
 // use the "quadratic" graph type.
 // "quadratic"
 
-export const AnswerlessAngle = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI
-        item={generateTestPerseusItem({
+export const AnswerlessAngle: Story = {
+    args: {
+        item: generateTestPerseusItem({
             question: angleQuestion,
-        })}
-        startAnswerless={true}
-    />
-);
+        }),
+    },
+};
 
-export const AnswerlessCircle = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI
-        item={generateTestPerseusItem({
+export const AnswerlessCircle: Story = {
+    args: {
+        item: generateTestPerseusItem({
             question: circleQuestion,
-        })}
-        startAnswerless={true}
-    />
-);
+        }),
+        startAnswerless: true,
+    },
+};
 
-export const AnswerlessLinear = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI
-        item={generateTestPerseusItem({
+export const AnswerlessLinear: Story = {
+    args: {
+        item: generateTestPerseusItem({
             question: linearQuestion,
-        })}
-        startAnswerless={true}
-    />
-);
+        }),
+        startAnswerless: true,
+    },
+};
 
-export const AnswerlessLinearSystem = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI
-        item={generateTestPerseusItem({
+export const AnswerlessLinearSystem: Story = {
+    args: {
+        item: generateTestPerseusItem({
             question: linearSystemQuestion,
-        })}
-        startAnswerless={true}
-    />
-);
+        }),
+        startAnswerless: true,
+    },
+};
 
-export const AnswerlessPoint = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI
-        item={generateTestPerseusItem({
+export const AnswerlessPoint: Story = {
+    args: {
+        item: generateTestPerseusItem({
             question: pointQuestion,
-        })}
-        startAnswerless={true}
-    />
-);
+        }),
+        startAnswerless: true,
+    },
+};
 
-export const AnswerlessPolygon = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI
-        item={generateTestPerseusItem({
+export const AnswerlessPolygon: Story = {
+    args: {
+        item: generateTestPerseusItem({
             question: polygonQuestion,
-        })}
-        startAnswerless={true}
-    />
-);
+        }),
+        startAnswerless: true,
+    },
+};
 
-export const AnswerlessUnlimitedPolygon = (
-    args: StoryArgs,
-): React.ReactElement => (
-    <ServerItemRendererWithDebugUI
-        item={generateTestPerseusItem({
+export const AnswerlessUnlimitedPolygon: Story = {
+    args: {
+        item: generateTestPerseusItem({
             question: unlimitedPolygonQuestion,
-        })}
-        startAnswerless={true}
-    />
-);
+        }),
+        startAnswerless: true,
+    },
+};
 
-export const AnswerlessRay = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI
-        item={generateTestPerseusItem({
+export const AnswerlessRay: Story = {
+    args: {
+        item: generateTestPerseusItem({
             question: rayQuestion,
-        })}
-        startAnswerless={true}
-    />
-);
+        }),
+        startAnswerless: true,
+    },
+};
 
-export const AnswerlessSegment = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI
-        item={generateTestPerseusItem({
+export const AnswerlessSegment: Story = {
+    args: {
+        item: generateTestPerseusItem({
             question: segmentQuestion,
-        })}
-        startAnswerless={true}
-    />
-);
+        }),
+        startAnswerless: true,
+    },
+};
 
-export const AnswerlessSinusoid = (args: StoryArgs): React.ReactElement => (
-    <ServerItemRendererWithDebugUI
-        item={generateTestPerseusItem({
+export const AnswerlessSinusoid: Story = {
+    args: {
+        item: generateTestPerseusItem({
             question: sinusoidQuestion,
-        })}
-        startAnswerless={true}
-    />
-);
+        }),
+        startAnswerless: true,
+    },
+};
