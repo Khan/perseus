@@ -1,7 +1,7 @@
 import type {
     PerseusIFrameUserInput,
     PerseusScore,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 // TODO: merge this with scoreCSProgram, it's the same code
 function scoreIframe(userInput: PerseusIFrameUserInput): PerseusScore {

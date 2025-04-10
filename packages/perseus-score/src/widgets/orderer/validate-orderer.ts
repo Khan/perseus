@@ -1,7 +1,7 @@
 import type {
     PerseusOrdererUserInput,
     ValidationResult,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 /**
  * Checks user input from the orderer widget to see if the user has started

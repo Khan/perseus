@@ -4,7 +4,7 @@ import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
     PerseusScore,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 function scoreRadio(
     userInput: PerseusRadioUserInput,

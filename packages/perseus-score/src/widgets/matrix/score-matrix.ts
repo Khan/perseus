@@ -7,7 +7,7 @@ import type {
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
     PerseusScore,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 function scoreMatrix(
     userInput: PerseusMatrixUserInput,

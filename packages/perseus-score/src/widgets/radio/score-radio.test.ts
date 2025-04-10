@@ -3,7 +3,7 @@ import scoreRadio from "./score-radio";
 import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 describe("scoreRadio", () => {
     it("is invalid when number selected does not match number correct", () => {

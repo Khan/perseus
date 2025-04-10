@@ -1,6 +1,6 @@
 import validateRadio from "./validate-radio";
 
-import type {PerseusRadioUserInput} from "../../validation.types";
+import type {PerseusRadioUserInput} from "@khanacademy/perseus-core";
 
 describe("validateRadio", () => {
     it("is invalid when no options are selected", () => {
