@@ -2,7 +2,8 @@ import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-
 import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {question1} from "./categorizer.testdata";
-import {Meta, StoryObj} from "@storybook/react";
+
+import type {Meta, StoryObj} from "@storybook/react";
 
 const meta: Meta = {
     title: "Perseus/Widgets/Categorizer",
