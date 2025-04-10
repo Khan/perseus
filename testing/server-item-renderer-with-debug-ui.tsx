@@ -6,31 +6,31 @@ import Switch from "@khanacademy/wonder-blocks-switch";
 import deviceMobile from "@phosphor-icons/core/regular/device-mobile.svg";
 import * as React from "react";
 
-import {
-    type PerseusItem,
-    type KEScore,
-    type PerseusRenderer,
-    splitPerseusItem,
-    type ShowSolutions,
-} from "@khanacademy/perseus-core";
+import {splitPerseusItem} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 
+import {KeypadContext} from "../packages/keypad-context/src/keypad-context";
 import {ServerItemRenderer} from "../packages/perseus/src/server-item-renderer";
 import {keScoreFromPerseusScore} from "../packages/perseus/src/util/scoring";
 
 import KEScoreUI from "./ke-score-ui";
 import SplitView from "./split-view";
 import {storybookDependenciesV2} from "./test-dependencies";
+import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
 import type {APIOptions} from "../packages/perseus/src/types";
-import type {KeypadAPI} from "@khanacademy/math-input";
+import type {
+    PerseusItem,
+    KEScore,
+    PerseusRenderer,
+    ShowSolutions,
+} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
     title?: string;
     item: PerseusItem;
     apiOptions?: APIOptions;
-    keypadElement?: KeypadAPI | null | undefined;
     linterContext?: LinterContextProps;
     // Temporary measure testing rendering with answerless data;
     // only exists until all widgets are renderable with answerless data
@@ -43,7 +43,6 @@ export const ServerItemRendererWithDebugUI = ({
     title = "Widget",
     item,
     apiOptions = Object.freeze({}),
-    keypadElement,
     linterContext,
     reviewMode = false,
     startAnswerless = false,
@@ -124,19 +123,29 @@ export const ServerItemRendererWithDebugUI = ({
             renderer={
                 <>
                     <View className={isMobile ? "perseus-mobile" : ""}>
-                        <ServerItemRenderer
-                            ref={ref}
-                            problemNum={0}
-                            score={state}
-                            apiOptions={options}
-                            item={renderedItem}
-                            dependencies={storybookDependenciesV2}
-                            keypadElement={keypadElement}
-                            linterContext={linterContext}
-                            reviewMode={reviewMode}
-                            showSolutions={showSolutions}
-                            hintsVisible={hintsVisible}
-                        />
+                        <TestKeypadContextWrapper>
+                            <KeypadContext.Consumer>
+                                {({keypadElement}) => {
+                                    return (
+                                        <ServerItemRenderer
+                                            ref={ref}
+                                            problemNum={0}
+                                            score={state}
+                                            apiOptions={options}
+                                            item={renderedItem}
+                                            dependencies={
+                                                storybookDependenciesV2
+                                            }
+                                            keypadElement={keypadElement}
+                                            linterContext={linterContext}
+                                            reviewMode={reviewMode}
+                                            showSolutions={showSolutions}
+                                            hintsVisible={hintsVisible}
+                                        />
+                                    );
+                                }}
+                            </KeypadContext.Consumer>
+                        </TestKeypadContextWrapper>
                     </View>
                     <View style={{flexDirection: "row", alignItems: "center"}}>
                         <Button

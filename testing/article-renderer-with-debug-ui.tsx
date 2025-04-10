@@ -6,10 +6,10 @@ import * as React from "react";
 
 import {KeypadContext} from "../packages/keypad-context/src/keypad-context";
 import ArticleRenderer from "../packages/perseus/src/article-renderer";
-import TestKeypadContextWrapper from "../packages/perseus/src/widgets/__shared__/test-keypad-context-wrapper";
 
 import SplitView from "./split-view";
 import {storybookDependenciesV2} from "./test-dependencies";
+import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
 import type {APIOptions} from "../packages/perseus/src/types";
 import type {PerseusArticle} from "@khanacademy/perseus-core";
