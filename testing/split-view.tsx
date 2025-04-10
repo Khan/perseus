@@ -27,10 +27,7 @@ const SplitView = ({
                 <HeadingMedium>{rendererTitle}</HeadingMedium>
                 {renderer}
             </View>
-            {/* This view is marked with zIndex: -1 so that it doesn't overlay
-                any overlapping divs (specifically, the JSON view will overlay
-                our mobile keypad in stories) */}
-            <View style={{zIndex: -1}}>
+            <View>
                 <HeadingMedium>{JSONTitle}</HeadingMedium>
                 <ReactJson
                     style={{marginTop: "10px"}}

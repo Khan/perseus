@@ -101,29 +101,29 @@ export const ServerItemRendererWithDebugUI = ({
     };
 
     return (
-        <SplitView
-            rendererTitle={
-                <View
-                    style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        width: "100%",
-                    }}
-                >
-                    {title}
-                    <View style={{marginLeft: "auto"}}>
-                        <Switch
-                            icon={<PhosphorIcon icon={deviceMobile} />}
-                            checked={isMobile}
-                            onChange={setIsMobile}
-                        />
+        <TestKeypadContextWrapper>
+            <SplitView
+                rendererTitle={
+                    <View
+                        style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            width: "100%",
+                        }}
+                    >
+                        {title}
+                        <View style={{marginLeft: "auto"}}>
+                            <Switch
+                                icon={<PhosphorIcon icon={deviceMobile} />}
+                                checked={isMobile}
+                                onChange={setIsMobile}
+                            />
+                        </View>
                     </View>
-                </View>
-            }
-            renderer={
-                <>
-                    <View className={isMobile ? "perseus-mobile" : ""}>
-                        <TestKeypadContextWrapper>
+                }
+                renderer={
+                    <>
+                        <View className={isMobile ? "perseus-mobile" : ""}>
                             <KeypadContext.Consumer>
                                 {({keypadElement}) => {
                                     return (
@@ -145,45 +145,47 @@ export const ServerItemRendererWithDebugUI = ({
                                     );
                                 }}
                             </KeypadContext.Consumer>
-                        </TestKeypadContextWrapper>
-                    </View>
-                    <View style={{flexDirection: "row", alignItems: "center"}}>
-                        <Button
-                            onClick={() => {
-                                setAnswerless(false);
-                                if (!ref.current) {
-                                    return;
-                                }
-                                setState(getKeScore());
-                            }}
+                        </View>
+                        <View
+                            style={{flexDirection: "row", alignItems: "center"}}
                         >
-                            Check
-                        </Button>
-                        <Strut size={8} />
-                        <Button
-                            onClick={() => {
-                                setAnswerless(false);
-                                ref.current?.showRationalesForCurrentlySelectedChoices();
-                            }}
-                        >
-                            Show Rationales
-                        </Button>
-                        <Strut size={8} />
-                        <Button
-                            disabled={hintsVisible >= item.hints.length}
-                            onClick={() => {
-                                setHintsVisible(hintsVisible + 1);
-                            }}
-                        >
-                            {hintsVisible >= item.hints.length
-                                ? "No hints left"
-                                : `Take Hint ${hintsVisible + 1}`}
-                        </Button>
-                    </View>
-                    <KEScoreUI score={state} />
-                </>
-            }
-            jsonObject={renderedItem}
-        />
+                            <Button
+                                onClick={() => {
+                                    setAnswerless(false);
+                                    if (!ref.current) {
+                                        return;
+                                    }
+                                    setState(getKeScore());
+                                }}
+                            >
+                                Check
+                            </Button>
+                            <Strut size={8} />
+                            <Button
+                                onClick={() => {
+                                    setAnswerless(false);
+                                    ref.current?.showRationalesForCurrentlySelectedChoices();
+                                }}
+                            >
+                                Show Rationales
+                            </Button>
+                            <Strut size={8} />
+                            <Button
+                                disabled={hintsVisible >= item.hints.length}
+                                onClick={() => {
+                                    setHintsVisible(hintsVisible + 1);
+                                }}
+                            >
+                                {hintsVisible >= item.hints.length
+                                    ? "No hints left"
+                                    : `Take Hint ${hintsVisible + 1}`}
+                            </Button>
+                        </View>
+                        <KEScoreUI score={state} />
+                    </>
+                }
+                jsonObject={renderedItem}
+            />
+        </TestKeypadContextWrapper>
     );
 };
