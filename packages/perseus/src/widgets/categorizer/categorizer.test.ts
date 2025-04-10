@@ -1,15 +1,18 @@
+import {splitPerseusItem} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {Categorizer} from "./categorizer";
 import {question1} from "./categorizer.testdata";
 
+import type {PerseusRenderer} from "../../../../perseus-core/src/data-schema";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -144,5 +147,77 @@ describe("categorizer widget", () => {
 
         // Assert
         expect(userInput).toEqual({values: [1, 0, 0, 0, 1, 1]});
+    });
+
+    describe("interactive: full vs answerless", () => {
+        beforeAll(() => {
+            registerAllWidgetsForTesting();
+        });
+
+        let userEvent: UserEvent;
+        beforeEach(() => {
+            userEvent = userEventLib.setup({
+                advanceTimers: jest.advanceTimersByTime,
+            });
+
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+        });
+
+        function getAnswerfulItem(): PerseusRenderer {
+            return {
+                content: "[[☃ categorizer 1]]",
+                images: {},
+                widgets: {
+                    "categorizer 1": {
+                        type: "categorizer",
+                        options: {
+                            static: false,
+                            items: ["Circle", "Purple", "Square"],
+                            categories: ["Shape", "Color"],
+                            randomizeItems: false,
+                            values: [0, 1, 0],
+                        },
+                    },
+                },
+            };
+        }
+
+        function getAnswerlessItem(): PerseusRenderer {
+            return splitPerseusItem(getAnswerfulItem());
+        }
+
+        test("the answerless test data doesn't contain answers", () => {
+            expect(
+                getAnswerlessItem().widgets["categorizer 1"].options.values,
+            ).toBeUndefined();
+        });
+
+        test.each([
+            ["answerless", getAnswerlessItem()],
+            ["answerful", getAnswerfulItem()],
+        ])("is interactive with widget options: %p", async (_, item) => {
+            // Arrange / Act
+            const {renderer} = renderQuestion(item);
+
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "Shape"})[0],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "Shape"})[2],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {
+                    name: "Color",
+                })[1],
+            );
+
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItem(getAnswerfulItem(), userInput, "en");
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        });
     });
 });
