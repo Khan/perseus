@@ -18,6 +18,14 @@ import {parseWidgetsMap} from "./widgets-map";
 import type {RadioWidget} from "../../data-schema";
 import type {ParsedValue, Parser} from "../parser-types";
 
+const parseWidgetsMapOrUndefined = defaulted(
+    // There is an import cycle between radio-widget.ts and
+    // widgets-map.ts. The anonymous function below ensures that we
+    // don't refer to parseWidgetsMap before it's defined.
+    (rawVal, ctx) => parseWidgetsMap(rawVal, ctx),
+    () => undefined,
+);
+
 const version2 = optional(object({major: constant(2), minor: number}));
 const parseRadioWidgetV2: Parser<RadioWidget> = parseWidgetWithVersion(
     version2,
@@ -31,12 +39,7 @@ const parseRadioWidgetV2: Parser<RadioWidget> = parseWidgetWithVersion(
                 correct: optional(boolean),
                 isNoneOfTheAbove: optional(boolean),
                 // deprecated
-                // There is an import cycle between radio-widget.ts and
-                // widgets-map.ts. The anonymous function below ensures that we
-                // don't refer to parseWidgetsMap before it's defined.
-                widgets: optional((rawVal, ctx) =>
-                    parseWidgetsMap(rawVal, ctx),
-                ),
+                widgets: parseWidgetsMapOrUndefined,
             }),
         ),
         hasNoneOfTheAbove: optional(boolean),
@@ -66,13 +69,7 @@ const parseRadioWidgetV1: Parser<RadioWidget> = parseWidgetWithVersion(
                 correct: optional(boolean),
                 isNoneOfTheAbove: optional(boolean),
                 // deprecated
-                // There is an import cycle between radio-widget.ts and
-                // widgets-map.ts. The anonymous function below ensures that we
-                // don't refer to parseWidgetsMap before it's defined.
-                widgets: defaulted(
-                    (rawVal, ctx) => parseWidgetsMap(rawVal, ctx),
-                    () => undefined,
-                ),
+                widgets: parseWidgetsMapOrUndefined,
             }),
         ),
         hasNoneOfTheAbove: optional(boolean),
@@ -116,12 +113,7 @@ const parseRadioWidgetV0: Parser<RadioWidget> = parseWidgetWithVersion(
                 correct: optional(boolean),
                 isNoneOfTheAbove: optional(boolean),
                 // deprecated
-                // There is an import cycle between radio-widget.ts and
-                // widgets-map.ts. The anonymous function below ensures that we
-                // don't refer to parseWidgetsMap before it's defined.
-                widgets: optional((rawVal, ctx) =>
-                    parseWidgetsMap(rawVal, ctx),
-                ),
+                widgets: parseWidgetsMapOrUndefined,
             }),
         ),
         hasNoneOfTheAbove: optional(boolean),

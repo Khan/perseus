@@ -1,3 +1,4 @@
+import {anySuccess} from "../general-purpose-parsers/test-helpers";
 import {parse} from "../parse";
 import {failure, success} from "../result";
 
@@ -94,5 +95,53 @@ describe("parseRadioWidget", () => {
         };
 
         expect(parse(widget, parseRadioWidget)).toEqual(success(widget));
+    });
+
+    it("accepts `null` for a choice's widgets map in version 0", () => {
+        const widget = {
+            type: "radio",
+            version: {major: 0, minor: 0},
+            options: {
+                choices: [
+                    {
+                        widgets: null,
+                    },
+                ],
+            },
+        };
+
+        expect(parse(widget, parseRadioWidget)).toEqual(anySuccess);
+    });
+
+    it("accepts `null` for a choice's widgets map in version 1", () => {
+        const widget = {
+            type: "radio",
+            version: {major: 1, minor: 0},
+            options: {
+                choices: [
+                    {
+                        widgets: null,
+                    },
+                ],
+            },
+        };
+
+        expect(parse(widget, parseRadioWidget)).toEqual(anySuccess);
+    });
+
+    it("accepts `null` for a choice's widgets map in version 2", () => {
+        const widget = {
+            type: "radio",
+            version: {major: 2, minor: 0},
+            options: {
+                choices: [
+                    {
+                        widgets: null,
+                    },
+                ],
+            },
+        };
+
+        expect(parse(widget, parseRadioWidget)).toEqual(anySuccess);
     });
 });
