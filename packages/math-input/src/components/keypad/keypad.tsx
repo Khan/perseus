@@ -18,7 +18,7 @@ import {expandedViewThreshold} from "./utils";
 import type {ClickKeyCallback, KeypadPageType} from "../../types";
 import type {CursorContext} from "../input/cursor-contexts";
 import type {
-    AnalyticsEventHandlerFn,
+    PerseusAnalyticsEvent,
     KeypadKey,
 } from "@khanacademy/perseus-core";
 
@@ -39,7 +39,10 @@ type Props = {
     scientific?: boolean;
 
     onClickKey: ClickKeyCallback;
-    onAnalyticsEvent: AnalyticsEventHandlerFn;
+    onAnalyticsEvent: (event: Extract<
+        PerseusAnalyticsEvent,
+        {type: "math-input:keypad-opened" | "math-input:keypad-closed"}
+    >) => void;
 };
 
 function getAvailableTabs(props: Props): ReadonlyArray<KeypadPageType> {
