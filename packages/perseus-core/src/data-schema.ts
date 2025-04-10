@@ -1253,7 +1253,7 @@ export type PerseusNumericInputAnswer = {
     // A range of error +/- the value
     // NOTE: perseus_data.go says this is non-nullable even though we handle null values.
     maxError: number | null | undefined;
-    // Unsimplified answers are Ungraded, Accepted, or Wrong. Options: "required", "correct", or "enforced"
+    // Unsimplified answers are Ungraded, Accepted, or Wrong.
     simplify: PerseusNumericInputSimplify;
 };
 
