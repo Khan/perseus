@@ -5,6 +5,7 @@ import _ from "underscore";
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
+import IssuesPanel from "./issues-panel";
 import ItemExtrasEditor from "./item-extras-editor";
 
 import type {
@@ -14,7 +15,6 @@ import type {
     DeviceType,
 } from "@khanacademy/perseus";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import IssuesPanel from "./issues-panel";
 
 const ITEM_DATA_VERSION = itemDataVersion;
 

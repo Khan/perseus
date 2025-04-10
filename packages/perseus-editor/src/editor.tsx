@@ -730,7 +730,7 @@ class Editor extends React.Component<Props, State> {
     };
 
     _addWidget: (widgetType: string) => void = (widgetType: string) => {
-        console.log("Selected widget type in Editor: ", widgetType);
+        // console.log("Selected widget type in Editor: ", widgetType);
         const textarea = this.textarea.current;
         if (!textarea) {
             return;
