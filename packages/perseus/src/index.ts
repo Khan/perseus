@@ -69,7 +69,6 @@ export * as Dependencies from "./dependencies";
 export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
 export {default as LoadingContext} from "./loading-context";
-export {default as mediaQueries} from "./styles/media-queries";
 export {default as PerseusMarkdown} from "./perseus-markdown";
 export {traverse} from "./traversal";
 export {isItemRenderableByVersion} from "./renderability";

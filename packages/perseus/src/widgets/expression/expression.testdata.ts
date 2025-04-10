@@ -86,7 +86,7 @@ export const expressionItem2: PerseusItem = createItemJson({
     extraKeys: ["x"],
 });
 
-const expressionItem3Options: PerseusExpressionWidgetOptions = {
+export const expressionItem3: PerseusItem = createItemJson({
     answerForms: [
         {
             considered: "ungraded",
@@ -120,8 +120,4 @@ const expressionItem3Options: PerseusExpressionWidgetOptions = {
     visibleLabel: "number of cm",
     ariaLabel: "number of centimeters",
     extraKeys: ["z", "a"],
-};
-
-export const expressionItem3: PerseusItem = createItemJson(
-    expressionItem3Options,
-);
+});
