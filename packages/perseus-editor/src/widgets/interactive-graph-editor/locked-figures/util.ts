@@ -34,6 +34,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 coord: [0, 0],
                 color: DEFAULT_COLOR,
                 filled: true,
+                labels: [],
             };
         case "line":
             return {
@@ -50,6 +51,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 lineStyle: "solid",
                 showPoint1: false,
                 showPoint2: false,
+                labels: [],
             };
         case "vector":
             return {
@@ -59,6 +61,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                     [2, 2],
                 ],
                 color: DEFAULT_COLOR,
+                labels: [],
             };
         case "ellipse":
             return {
@@ -69,6 +72,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 color: DEFAULT_COLOR,
                 fillStyle: "none",
                 strokeStyle: "solid",
+                labels: [],
             };
         case "polygon":
             return {
@@ -82,6 +86,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 showVertices: false,
                 fillStyle: "none",
                 strokeStyle: "solid",
+                labels: [],
             };
         case "function":
             return {
@@ -91,6 +96,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 equation: "x^2",
                 domain: [-Infinity, Infinity],
                 directionalAxis: "x",
+                labels: [],
             };
         case "label":
             return {

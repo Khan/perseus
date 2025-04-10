@@ -287,6 +287,7 @@ describe("splitPerseusItem", () => {
                         ],
                         graph: {type: "none"},
                         correct: {type: "none"},
+                        lockedFigures: [],
                     },
                 },
             },
