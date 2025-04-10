@@ -71,16 +71,12 @@ const parsePerseusGraphTypeCircle: Parser<PerseusGraphTypeCircle> = object({
             radius: number,
         }),
     ),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 const parsePerseusGraphTypeLinear: Parser<PerseusGraphTypeLinear> = object({
     type: constant("linear"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 const parsePerseusGraphTypeLinearSystem: Parser<PerseusGraphTypeLinearSystem> =
@@ -89,8 +85,6 @@ const parsePerseusGraphTypeLinearSystem: Parser<PerseusGraphTypeLinearSystem> =
         // TODO(benchristel): default coords to empty array?
         coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
         startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
-        // TODO: remove coord? it's legacy.
-        coord: optional(pairOfNumbers),
     });
 
 const parsePerseusGraphTypeNone: Parser<PerseusGraphTypeNone> = object({
@@ -102,8 +96,6 @@ const parsePerseusGraphTypePoint: Parser<PerseusGraphTypePoint> = object({
     numPoints: optional(union(number).or(constant("unlimited")).parser),
     coords: optional(nullable(array(pairOfNumbers))),
     startCoords: optional(array(pairOfNumbers)),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 const parsePerseusGraphTypePolygon: Parser<PerseusGraphTypePolygon> = object({
@@ -114,8 +106,6 @@ const parsePerseusGraphTypePolygon: Parser<PerseusGraphTypePolygon> = object({
     snapTo: optional(enumeration("grid", "angles", "sides")),
     match: optional(enumeration("similar", "congruent", "approx", "exact")),
     startCoords: optional(array(pairOfNumbers)),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 const parsePerseusGraphTypeQuadratic: Parser<PerseusGraphTypeQuadratic> =
@@ -127,16 +117,12 @@ const parsePerseusGraphTypeQuadratic: Parser<PerseusGraphTypeQuadratic> =
         startCoords: optional(
             trio(pairOfNumbers, pairOfNumbers, pairOfNumbers),
         ),
-        // TODO: remove coord? it's legacy.
-        coord: optional(pairOfNumbers),
     });
 
 const parsePerseusGraphTypeRay: Parser<PerseusGraphTypeRay> = object({
     type: constant("ray"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 const parsePerseusGraphTypeSegment: Parser<PerseusGraphTypeSegment> = object({
@@ -145,16 +131,12 @@ const parsePerseusGraphTypeSegment: Parser<PerseusGraphTypeSegment> = object({
     numSegments: optional(number),
     coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
     startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 const parsePerseusGraphTypeSinusoid: Parser<PerseusGraphTypeSinusoid> = object({
     type: constant("sinusoid"),
     coords: optional(nullable(array(pairOfNumbers))),
     startCoords: optional(array(pairOfNumbers)),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 const parsePerseusGraphType: Parser<PerseusGraphType> = discriminatedUnionOn(
@@ -201,8 +183,7 @@ const parseLockedPointType: Parser<LockedPointType> = object({
     coord: pairOfNumbers,
     color: parseLockedFigureColor,
     filled: boolean,
-    // TODO(benchristel): default labels to empty array?
-    labels: optional(array(parseLockedLabelType)),
+    labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
 
@@ -214,8 +195,7 @@ const parseLockedLineType: Parser<LockedLineType> = object({
     lineStyle: parseLockedLineStyle,
     showPoint1: defaulted(boolean, () => false),
     showPoint2: defaulted(boolean, () => false),
-    // TODO(benchristel): default labels to empty array?
-    labels: optional(array(parseLockedLabelType)),
+    labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
 
@@ -223,8 +203,7 @@ const parseLockedVectorType: Parser<LockedVectorType> = object({
     type: constant("vector"),
     points: pair(pairOfNumbers, pairOfNumbers),
     color: parseLockedFigureColor,
-    // TODO(benchristel): default labels to empty array?
-    labels: optional(array(parseLockedLabelType)),
+    labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
 
@@ -236,8 +215,7 @@ const parseLockedEllipseType: Parser<LockedEllipseType> = object({
     color: parseLockedFigureColor,
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
-    // TODO(benchristel): default labels to empty array?
-    labels: optional(array(parseLockedLabelType)),
+    labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
 
@@ -248,8 +226,7 @@ const parseLockedPolygonType: Parser<LockedPolygonType> = object({
     showVertices: boolean,
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
-    // TODO(benchristel): default labels to empty array?
-    labels: optional(array(parseLockedLabelType)),
+    labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
 
@@ -269,8 +246,7 @@ const parseLockedFunctionType: Parser<LockedFunctionType> = object({
     equation: string,
     directionalAxis: enumeration("x", "y"),
     domain: parseLockedFunctionDomain,
-    // TODO(benchristel): default labels to empty array?
-    labels: optional(array(parseLockedLabelType)),
+    labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
 
@@ -311,8 +287,7 @@ export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
                 type: "linear" as const,
             })),
             correct: parsePerseusGraphType,
-            // TODO(benchristel): default lockedFigures to empty array
-            lockedFigures: optional(array(parseLockedFigure)),
+            lockedFigures: defaulted(array(parseLockedFigure), () => []),
             fullGraphLabel: optional(string),
             fullGraphAriaDescription: optional(string),
         }),

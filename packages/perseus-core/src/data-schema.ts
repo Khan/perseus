@@ -782,7 +782,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     correct: PerseusGraphType;
     // Shapes (points, chords, etc) displayed on the graph that cannot
     // be moved by the user.
-    lockedFigures?: ReadonlyArray<LockedFigure>;
+    lockedFigures: ReadonlyArray<LockedFigure>;
     // Aria label that applies to the entire graph.
     fullGraphAriaLabel?: string;
     // Aria description that applies to the entire graph.
@@ -828,7 +828,7 @@ export type LockedPointType = {
     coord: Coord;
     color: LockedFigureColor;
     filled: boolean;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -840,7 +840,7 @@ export type LockedLineType = {
     lineStyle: LockedLineStyle;
     showPoint1: boolean;
     showPoint2: boolean;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -848,7 +848,7 @@ export type LockedVectorType = {
     type: "vector";
     points: [tail: Coord, tip: Coord];
     color: LockedFigureColor;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -868,7 +868,7 @@ export type LockedEllipseType = {
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -879,7 +879,7 @@ export type LockedPolygonType = {
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -901,7 +901,7 @@ export type LockedFunctionType = {
      * allowed. Note that infinite values are serialized as `null` in JSON.
      */
     domain: [min: number, max: number];
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
