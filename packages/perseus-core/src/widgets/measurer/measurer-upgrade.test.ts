@@ -15,7 +15,6 @@ describe("widgetOptionsUpgrades", () => {
             rulerPixels: 4,
             rulerLength: 4,
             box: [4, 4],
-            static: false,
         };
 
         const expected: PerseusMeasurerWidgetOptions = {
@@ -31,7 +30,6 @@ describe("widgetOptionsUpgrades", () => {
             rulerPixels: 4,
             rulerLength: 4,
             box: [4, 4],
-            static: false,
         };
 
         const result: PerseusMeasurerWidgetOptions =

@@ -1192,9 +1192,6 @@ export type PerseusMeasurerWidgetOptions = {
     rulerLength: number;
     // Containing area [width, height]
     box: [number, number];
-    // TODO(benchristel): static is not used. Remove it?
-    // Always false.  Not used for this widget
-    static: boolean;
 };
 
 export type MathFormat =
