@@ -151,6 +151,7 @@ export {deriveNumCorrect} from "./widgets/radio/radio-upgrade";
 export {default as getTablePublicWidgetOptions} from "./widgets/table/table-util";
 export {default as getIFramePublicWidgetOptions} from "./widgets/iframe/iframe-util";
 export {default as getMatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
+export type {MatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
 export {default as getPlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";
 export {
     default as getMatcherPublicWidgetOptions,
