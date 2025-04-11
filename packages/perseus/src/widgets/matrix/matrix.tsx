@@ -533,16 +533,21 @@ class Matrix extends React.Component<Props, State> implements Widget {
     }
 }
 
-const propTransform: (arg1: any) => any = (editorProps) => {
+function transform(widgetOptions: MatrixPublicWidgetOptions): RenderProps {
     // Remove answers before passing to widget
-    const blankAnswers = _(editorProps.matrixBoardSize[0]).times(function () {
-        return stringArrayOfSize(editorProps.matrixBoardSize[1]);
+    const blankAnswers = _(widgetOptions.matrixBoardSize[0]).times(function () {
+        return stringArrayOfSize(widgetOptions.matrixBoardSize[1]);
     });
-    editorProps = _.pick(editorProps, "matrixBoardSize", "prefix", "suffix");
-    return _.extend(editorProps, {
+    widgetOptions = _.pick(
+        widgetOptions,
+        "matrixBoardSize",
+        "prefix",
+        "suffix",
+    );
+    return _.extend(widgetOptions, {
         answers: blankAnswers,
     });
-};
+}
 
 const staticTransform: (arg1: any) => any = (editorProps) => {
     const widgetProps = _.pick(
@@ -566,7 +571,7 @@ export default {
     displayName: "Matrix",
     hidden: true,
     widget: Matrix,
-    transform: propTransform,
+    transform,
     staticTransform: staticTransform,
     isLintable: true,
 } satisfies WidgetExports<typeof Matrix>;
