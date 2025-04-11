@@ -6,10 +6,8 @@ import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-co
 import type {Interval, vec} from "mafs";
 import type {ReactNode} from "react";
 
-export type InteractiveGraphProps = WidgetProps<
-    PerseusInteractiveGraphWidgetOptions,
-    PerseusInteractiveGraphWidgetOptions
->;
+export type InteractiveGraphProps =
+    WidgetProps<PerseusInteractiveGraphWidgetOptions>;
 
 export type Dispatch = (action: InteractiveGraphAction) => unknown;
 

@@ -26,7 +26,6 @@ import type {
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
 } from "@khanacademy/perseus-core";
-import type {PerseusGradedGroupSetRubric} from "@khanacademy/perseus-score";
 
 type IndicatorsProps = {
     currentGroup: number;
@@ -93,7 +92,7 @@ class Indicators extends React.Component<IndicatorsProps> {
 type RenderProps = PerseusGradedGroupSetWidgetOptions; // no transform
 
 type Props = Changeable.ChangeableProps &
-    WidgetProps<RenderProps, PerseusGradedGroupSetRubric> & {
+    WidgetProps<RenderProps> & {
         trackInteraction: () => void;
     };
 

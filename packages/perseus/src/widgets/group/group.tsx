@@ -18,14 +18,10 @@ import type {
 } from "../../types";
 import type {GroupPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 import type {PerseusGroupWidgetOptions} from "@khanacademy/perseus-core";
-import type {
-    PerseusGroupRubric,
-    UserInputArray,
-    UserInputMap,
-} from "@khanacademy/perseus-score";
+import type {UserInputArray, UserInputMap} from "@khanacademy/perseus-score";
 
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
-type Props = WidgetProps<RenderProps, PerseusGroupRubric>;
+type Props = WidgetProps<RenderProps>;
 type DefaultProps = {
     content: Props["content"];
     widgets: Props["widgets"];

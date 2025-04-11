@@ -15,16 +15,13 @@ import type {SortableOption} from "../../components/sortable";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
-import type {
-    PerseusMatcherRubric,
-    PerseusMatcherUserInput,
-} from "@khanacademy/perseus-score";
+import type {PerseusMatcherUserInput} from "@khanacademy/perseus-score";
 
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
 type RenderProps = PerseusMatcherWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusMatcherRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     left: Props["left"];

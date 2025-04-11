@@ -22,10 +22,7 @@ const defaultImage = {
     left: 0,
 } as const;
 
-type Props = WidgetProps<
-    PerseusMeasurerWidgetOptions,
-    PerseusMeasurerWidgetOptions
-> & {
+type Props = WidgetProps<PerseusMeasurerWidgetOptions> & {
     // TODO: these don't show up anywhere else in code
     // I'm guessing they could just be constants
     protractorX: number;
