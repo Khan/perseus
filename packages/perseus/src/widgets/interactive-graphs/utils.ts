@@ -147,6 +147,7 @@ export function getBaseMafsGraphPropsForTests(): MafsGraphProps {
         showProtractor: false,
         readOnly: false,
         labels: ["x", "y"],
+        lockedFigures: [],
         static: false,
         dispatch: () => {},
         state: {
