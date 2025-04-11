@@ -36,21 +36,21 @@ describe("expression-editor", () => {
                 form: true,
                 simplify: true,
                 considered: "correct",
-                key: "0",
+                key: "0-0-0-0-0",
             },
             {
                 value: "x^2=y",
                 form: true,
                 simplify: true,
                 considered: "wrong",
-                key: "1",
+                key: "0-0-0-0-1",
             },
             {
                 value: "x=y\\cdotπ",
                 form: true,
                 simplify: true,
                 considered: "wrong",
-                key: "2",
+                key: "0-0-0-0-2",
             },
         ];
 
@@ -259,7 +259,7 @@ describe("expression-editor", () => {
                     {
                         considered: "correct",
                         form: false,
-                        key: "0",
+                        key: "0-0-0-0-0",
                         simplify: false,
                         value: "",
                     },
@@ -286,7 +286,7 @@ describe("expression-editor", () => {
                 {
                     considered: "correct",
                     form: false,
-                    key: "0",
+                    key: "0-0-0-0-0",
                     simplify: false,
                     value: "9",
                 },
@@ -305,7 +305,7 @@ describe("expression-editor", () => {
                     {
                         considered: "correct",
                         form: false,
-                        key: "0",
+                        key: "0-0-0-0-0",
                         simplify: false,
                         value: "",
                     },
@@ -325,7 +325,7 @@ describe("expression-editor", () => {
                 {
                     considered: "correct",
                     form: true,
-                    key: "0",
+                    key: "0-0-0-0-0",
                     simplify: false,
                     value: "",
                 },
@@ -344,7 +344,7 @@ describe("expression-editor", () => {
                     {
                         considered: "correct",
                         form: false,
-                        key: "0",
+                        key: "0-0-0-0-0",
                         simplify: false,
                         value: "",
                     },
@@ -364,7 +364,7 @@ describe("expression-editor", () => {
                 {
                     considered: "correct",
                     form: false,
-                    key: "0",
+                    key: "0-0-0-0-0",
                     simplify: true,
                     value: "",
                 },
@@ -383,7 +383,7 @@ describe("expression-editor", () => {
                     {
                         considered: "correct",
                         form: false,
-                        key: "0",
+                        key: "0-0-0-0-0",
                         simplify: false,
                         value: "",
                     },
@@ -438,7 +438,7 @@ describe("expression-editor", () => {
                         value: "42x",
                         considered: "correct",
                         form: false,
-                        key: "0",
+                        key: "0-0-0-0-0",
                         simplify: false,
                     },
                 ]}
@@ -462,7 +462,7 @@ describe("expression-editor", () => {
                     {
                         considered: "correct",
                         form: false,
-                        key: "0",
+                        key: "0-0-0-0-0",
                         simplify: false,
                         value: "",
                     },
