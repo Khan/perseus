@@ -163,7 +163,7 @@ type RenderProps = {
      * Shapes (points, chords, etc) displayed on the graph that cannot be moved
      * by the user.
      */
-    lockedFigures?: ReadonlyArray<LockedFigure>;
+    lockedFigures: ReadonlyArray<LockedFigure>;
     /**
      * Aria label that applies to the entire graph.
      */

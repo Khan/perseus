@@ -94,6 +94,7 @@ export function generateTestInteractiveGraphWidget(): InteractiveGraphWidget {
             snapStep: [1, 1],
             markings: "graph",
             labels: ["x", "y"],
+            lockedFigures: [],
             showProtractor: false,
             range: [
                 [-10, 10],
