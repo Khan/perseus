@@ -917,12 +917,6 @@ export type PerseusGraphType =
     | PerseusGraphTypeSegment
     | PerseusGraphTypeSinusoid;
 
-type PerseusGraphTypeCommon = {
-    // NOTE(jeremy): This is referenced in the component. Verify if there's any
-    // production data that still has this.
-    coord?: Coord; // Legacy!
-};
-
 export type PerseusGraphTypeAngle = {
     type: "angle";
     // Whether to show the angle measurements.  default: false
@@ -950,7 +944,7 @@ export type PerseusGraphTypeCircle = {
         center: Coord;
         radius: number;
     };
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeLinear = {
     type: "linear";
@@ -958,7 +952,7 @@ export type PerseusGraphTypeLinear = {
     coords?: CollinearTuple | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple;
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeLinearSystem = {
     type: "linear-system";
@@ -966,7 +960,7 @@ export type PerseusGraphTypeLinearSystem = {
     coords?: CollinearTuple[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple[];
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeNone = {
     type: "none";
@@ -979,7 +973,9 @@ export type PerseusGraphTypePoint = {
     coords?: Coord[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: Coord[];
-} & PerseusGraphTypeCommon;
+    // Used instead of `coords` in some old graphs that have only one point.
+    coord?: Coord;
+};
 
 export type PerseusGraphTypePolygon = {
     type: "polygon";
@@ -996,7 +992,7 @@ export type PerseusGraphTypePolygon = {
     coords?: Coord[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: Coord[];
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeQuadratic = {
     type: "quadratic";
@@ -1004,7 +1000,7 @@ export type PerseusGraphTypeQuadratic = {
     coords?: [Coord, Coord, Coord] | null;
     // The initial coordinates the graph renders with.
     startCoords?: [Coord, Coord, Coord];
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeSegment = {
     type: "segment";
@@ -1014,7 +1010,7 @@ export type PerseusGraphTypeSegment = {
     coords?: CollinearTuple[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple[];
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeSinusoid = {
     type: "sinusoid";
@@ -1022,7 +1018,7 @@ export type PerseusGraphTypeSinusoid = {
     coords?: Coord[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: Coord[];
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeRay = {
     type: "ray";
@@ -1030,7 +1026,7 @@ export type PerseusGraphTypeRay = {
     coords?: CollinearTuple | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple;
-} & PerseusGraphTypeCommon;
+};
 
 type AngleGraphCorrect = {
     type: "angle";

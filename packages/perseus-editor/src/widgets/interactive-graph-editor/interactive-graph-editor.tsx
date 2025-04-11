@@ -869,6 +869,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         this.props.correct.match || "exact"
                                     }
                                     onChange={(newValue) => {
+                                        invariant(this.props.correct.type === "angle", `Expected graph type to be angle, but got ${this.props.correct.type}`)
                                         this.props.onChange({
                                             correct: {
                                                 ...this.props.correct,
