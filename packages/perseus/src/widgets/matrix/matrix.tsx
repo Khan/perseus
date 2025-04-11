@@ -533,6 +533,10 @@ class Matrix extends React.Component<Props, State> implements Widget {
     }
 }
 
+type RenderProps = MatrixPublicWidgetOptions & {
+    answers: ReadonlyArray<ReadonlyArray<string>>;
+};
+
 function transform(widgetOptions: MatrixPublicWidgetOptions): RenderProps {
     // Remove answers before passing to widget
     const blankAnswers = _(widgetOptions.matrixBoardSize[0]).times(function () {
