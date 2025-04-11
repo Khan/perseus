@@ -1,3 +1,4 @@
+import {splitPerseusItem} from "@khanacademy/perseus-core";
 import {
     scorePerseusItem,
     type PerseusScore,
@@ -11,7 +12,9 @@ import type {
     NumericInputWidget,
     PerseusItem,
     PerseusRenderer,
+    PerseusWidgetTypes,
     RadioWidget,
+    WidgetOptions,
 } from "@khanacademy/perseus-core";
 
 export const genericPerseusItemData: PerseusItem = {
@@ -163,4 +166,29 @@ export function generateTestNumericInputWidget(): NumericInputWidget {
             static: false,
         },
     };
+}
+
+export function getAnswerfulItem<T extends keyof PerseusWidgetTypes>(
+    widgetType: T,
+    options: PerseusWidgetTypes[T]["options"],
+): PerseusRenderer {
+    const widgetName = `${widgetType} 1`;
+    const widget: WidgetOptions<T, PerseusWidgetTypes[T]["options"]> = {
+        type: widgetType,
+        options,
+    };
+    const widgets = {};
+    widgets[widgetName] = widget;
+    return {
+        content: `[[☃ ${widgetName}]]`,
+        images: {},
+        widgets,
+    };
+}
+
+export function getAnswerlessItem<T extends keyof PerseusWidgetTypes>(
+    widgetType: T,
+    options: PerseusWidgetTypes[T]["options"],
+): PerseusRenderer {
+    return splitPerseusItem(getAnswerfulItem(widgetType, options));
 }
