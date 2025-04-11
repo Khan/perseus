@@ -1,5 +1,5 @@
 import type numberLine from "../../widgets/number-line/number-line";
-import type {PerseusNumberLineUserInput} from "@khanacademy/perseus-score";
+import type {PerseusNumberLineUserInput} from "@khanacademy/perseus-core";
 import type React from "react";
 
 export type NumberLinePromptJSON = {

@@ -8,8 +8,8 @@ import {getPromptJSON} from "./input-number-ai-utils";
 import type {
     InputNumberWidget,
     PerseusRenderer,
+    PerseusInputNumberUserInput,
 } from "@khanacademy/perseus-core";
-import type {PerseusInputNumberUserInput} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
 const question: PerseusRenderer = {

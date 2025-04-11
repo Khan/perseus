@@ -1,8 +1,5 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {
-    scoreRadio,
-    type PerseusRadioUserInput,
-} from "@khanacademy/perseus-score";
+import {scoreRadio} from "@khanacademy/perseus-score";
 import {act, screen, fireEvent, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -21,7 +18,10 @@ import {
 } from "./radio.testdata";
 
 import type {APIOptions} from "../../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    PerseusRenderer,
+    PerseusRadioUserInput,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (

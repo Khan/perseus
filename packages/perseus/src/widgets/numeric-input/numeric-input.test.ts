@@ -2,11 +2,9 @@ import {
     splitPerseusItem,
     type PerseusNumericInputWidgetOptions,
     type PerseusRenderer,
-} from "@khanacademy/perseus-core";
-import {
-    scorePerseusItem,
     type PerseusNumericInputRubric,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 

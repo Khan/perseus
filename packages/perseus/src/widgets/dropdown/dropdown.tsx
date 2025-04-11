@@ -14,8 +14,8 @@ import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-a
 import type {
     DropdownPublicWidgetOptions,
     PerseusDropdownWidgetOptions,
+    PerseusDropdownUserInput,
 } from "@khanacademy/perseus-core";
-import type {PerseusDropdownUserInput} from "@khanacademy/perseus-score";
 
 type Props = WidgetProps<RenderProps> & {
     selected: number;

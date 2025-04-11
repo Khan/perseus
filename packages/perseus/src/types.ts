@@ -20,14 +20,12 @@ import type {
     AnalyticsEventHandlerFn,
     Version,
     WidgetOptionsUpgradeMap,
-} from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
-import type {
     Rubric,
     UserInput,
     UserInputArray,
     UserInputMap,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
 

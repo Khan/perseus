@@ -25,8 +25,8 @@ import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-
 import type {
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
+    PerseusGradedGroupSetRubric,
 } from "@khanacademy/perseus-core";
-import type {PerseusGradedGroupSetRubric} from "@khanacademy/perseus-score";
 
 type IndicatorsProps = {
     currentGroup: number;
