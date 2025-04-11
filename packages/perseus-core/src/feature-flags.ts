@@ -8,4 +8,6 @@
  * 3. When no active feature flag is available value will be:
  *    export const PerseusFeatureFlags = [];
  */
-export const PerseusFeatureFlags = ["new-radio-widget"];
+const PerseusFeatureFlags = ["new-radio-widget"];
+
+export default PerseusFeatureFlags;

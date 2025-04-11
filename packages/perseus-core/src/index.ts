@@ -157,4 +157,4 @@ export {
     shuffleMatcher,
 } from "./widgets/matcher/matcher-util";
 export {shuffle, seededRNG, random} from "./utils/random-util";
-export {PerseusFeatureFlags} from "./feature-flags";
+export {default as PerseusFeatureFlags} from "./feature-flags";
