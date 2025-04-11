@@ -988,8 +988,6 @@ importers:
         specifier: workspace:*
         version: link:../../config/build
 
-  vendor/hubble: {}
-
   vendor/jsdiff: {}
 
   vendor/raphael: {}
