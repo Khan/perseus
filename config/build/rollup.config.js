@@ -149,11 +149,8 @@ const createConfig = (
             }),
             styles({
                 mode: "extract",
-                // We don't want to try to resolve the url() occurrences in our
-                // stylesheets. We'll leave that for consumers of the library
-                // to deal with. Otherwise we end up packaging upstream assets
-                // into our libraries when our consumers should be the ones
-                // handling asset bundling.
+                // STOPSHIP
+                // minimize: true,
                 url: false,
                 less: {
                     math: "always",
