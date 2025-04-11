@@ -97,10 +97,9 @@ type ExternalProps = WidgetProps<{
 // defaultProps into account, which is important because
 // PerseusMatrixWidgetOptions has optional fields which receive defaults via
 // defaultProps.
-0 as any as WidgetProps<
-    PerseusMatrixWidgetOptions,
-    PerseusMatrixRubric
-> satisfies PropsFor<typeof Matrix>;
+0 as any as WidgetProps<PerseusMatrixWidgetOptions> satisfies PropsFor<
+    typeof Matrix
+>;
 
 type Props = ExternalProps & {
     onChange: (
