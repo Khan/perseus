@@ -132,26 +132,9 @@ class ExpressionEditor extends React.Component<Props, State> {
         return issues;
     };
 
-    // Gets random key of the format "answer_(1-1000000)"
-    getRandomKey() {
-        return `answer_${Math.round(Math.random() * 1000000)}`;
-    }
-
     newAnswer: () => void = () => {
         const answerForms = this.props.answerForms.slice();
-        let newKey = this.getRandomKey();
-
-        // If the random key selected is the same key as another
-        // answerForm, select another until it's unique.
-        // The chance of this code getting triggered is very small.
-        while (
-            answerForms.some(
-                (answerForm: PerseusExpressionAnswerForm) =>
-                    answerForm.key === newKey,
-            )
-        ) {
-            newKey = this.getRandomKey();
-        }
+        const newKey = crypto.randomUUID();
 
         const newAnswerForm: PerseusExpressionAnswerForm = {
             considered: "correct",

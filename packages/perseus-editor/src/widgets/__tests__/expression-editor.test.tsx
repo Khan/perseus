@@ -224,7 +224,7 @@ describe("expression-editor", () => {
 
     it("should be possible to add an answer", async () => {
         const onChangeMock = jest.fn();
-        const mathRandomSpy = jest.spyOn(Math, "random").mockReturnValue(0);
+        crypto.randomUUID = jest.fn(() => "0-0-0-0-0");
 
         render(<ExpressionEditor onChange={onChangeMock} />);
         act(() => jest.runOnlyPendingTimers());
@@ -235,13 +235,13 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(mathRandomSpy).toBeCalled();
+        expect(crypto.randomUUID).toBeCalled();
         expect(onChangeMock).toBeCalledWith({
             answerForms: [
                 {
                     considered: "correct",
                     form: false,
-                    key: "answer_0",
+                    key: "0-0-0-0-0",
                     simplify: false,
                     value: "",
                 },
