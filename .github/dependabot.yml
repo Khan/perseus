@@ -21,6 +21,8 @@ updates:
       groups:
           wonder-stuff:
               patterns:
+                  - "@khanacademy/eslint-config"
+                  - "@khanacademy/eslint-plugin"
                   - "@khanacademy/wonder-stuff-*"
           wonder-blocks:
               patterns:
