@@ -63,7 +63,12 @@ const IssuesPanel = ({violations = [], incompletes = []}: IssuesPanelProps) => {
                     <span>Issues</span>
                 </div>
                 {issuesCount}
-                <PhosphorIcon icon={icon} size="medium" color={iconColor} />
+                <PhosphorIcon
+                    icon={icon}
+                    size="medium"
+                    color={iconColor}
+                    data-icon-type={icon}
+                />
             </div>
             {showPanel && (
                 <div className="perseus-widget-editor-panel">
