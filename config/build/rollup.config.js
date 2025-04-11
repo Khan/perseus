@@ -142,7 +142,6 @@ const createConfig = (
                 // then they are marked as external and not bundled (by the
                 // autoExternal() plugin). For now, this works!
                 entries: {
-                    hubble: path.join(rootDir, "vendor", "hubble"),
                     jsdiff: path.join(rootDir, "vendor", "jsdiff"),
                     raphael: path.join(rootDir, "vendor", "raphael"),
                 },

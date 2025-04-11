@@ -19,7 +19,6 @@ export default defineConfig({
     resolve: {
         alias: {
             ...packageAliases,
-            hubble: resolve(__dirname, "vendor/hubble/hubble.js"),
             raphael: resolve(__dirname, "vendor/raphael/raphael.js"),
             jsdiff: resolve(__dirname, "vendor/jsdiff/jsdiff.js"),
             aphrodite: resolve(
@@ -34,7 +33,7 @@ export default defineConfig({
             // We need to process CJS packages in vendor/ as CJS (along with
             // the default /node_modules/).
             // See also `optimizeDeps.include`
-            include: [/vendor\/hubble/, /node_modules/],
+            include: [/node_modules/],
         },
     },
     optimizeDeps: {
