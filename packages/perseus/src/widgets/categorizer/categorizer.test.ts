@@ -1,4 +1,3 @@
-import {splitPerseusItem} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -16,7 +15,6 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import {Categorizer} from "./categorizer";
 import {question1} from "./categorizer.testdata";
 
-import type {PerseusRenderer} from "../../../../perseus-core/src/data-schema";
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
 
