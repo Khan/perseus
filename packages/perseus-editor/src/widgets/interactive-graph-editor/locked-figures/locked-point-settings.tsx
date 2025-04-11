@@ -129,12 +129,10 @@ const LockedPointSettings = (props: Props) => {
         };
 
         // Update the color of the all labels to match the point
-        if (labels) {
-            newProps.labels = labels.map((label) => ({
-                ...label,
-                color: newValue,
-            }));
-        }
+        newProps.labels = labels.map((label) => ({
+            ...label,
+            color: newValue,
+        }));
 
         onChangeProps(newProps);
     }
@@ -148,12 +146,10 @@ const LockedPointSettings = (props: Props) => {
         };
 
         // Update the coord by the same amount as the point for all labels
-        if (labels) {
-            newProps.labels = labels.map((label) => ({
-                ...label,
-                coord: [label.coord[0] + xOffset, label.coord[1] + yOffset],
-            }));
-        }
+        newProps.labels = labels.map((label) => ({
+            ...label,
+            coord: [label.coord[0] + xOffset, label.coord[1] + yOffset],
+        }));
 
         onChangeProps(newProps);
     }
@@ -162,10 +158,6 @@ const LockedPointSettings = (props: Props) => {
         updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
-        if (!labels) {
-            return;
-        }
-
         const updatedLabels = [...labels];
         updatedLabels[labelIndex] = {
             ...labels[labelIndex],
@@ -176,10 +168,6 @@ const LockedPointSettings = (props: Props) => {
     }
 
     function handleLabelRemove(labelIndex: number) {
-        if (!labels) {
-            return;
-        }
-
         const updatedLabels = labels.filter((_, index) => index !== labelIndex);
 
         onChangeProps({labels: updatedLabels});
@@ -257,7 +245,7 @@ const LockedPointSettings = (props: Props) => {
             <View style={styles.horizontalRule} />
             <Strut size={spacing.small_12} />
             <LabelMedium>Visible labels</LabelMedium>
-            {labels?.map((label, labelIndex) => (
+            {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     {...label}
                     key={labelIndex}
@@ -286,14 +274,14 @@ const LockedPointSettings = (props: Props) => {
                             coord[0] + 0.5,
                             // Additional offset for each label so
                             // they don't overlap.
-                            coord[1] - 1 * (labels?.length ?? 0),
+                            coord[1] - labels.length,
                         ],
                         // Default to the same color as the point
                         color: pointColor,
                     } satisfies LockedLabelType;
 
                     onChangeProps({
-                        labels: [...(labels ?? []), newLabel],
+                        labels: [...labels, newLabel],
                     });
                 }}
                 style={styles.addButton}

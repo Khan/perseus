@@ -178,9 +178,9 @@ export async function generateSpokenMathDetails(mathString: string) {
  * spoken math using the SpeechRuleEngine.
  */
 export async function joinLabelsAsSpokenMath(
-    labels: LockedLabelType[] | undefined,
+    labels: LockedLabelType[],
 ): Promise<string> {
-    if (!labels || labels.length === 0) {
+    if (labels.length === 0) {
         return "";
     }
 
@@ -199,12 +199,8 @@ export async function joinLabelsAsSpokenMath(
  * Non-async mocked version of joinLabelsAsSpokenMath for tests.
  */
 export function mockedJoinLabelsAsSpokenMathForTests(
-    labels: LockedLabelType[] | undefined,
+    labels: LockedLabelType[],
 ) {
-    if (!labels || labels.length === 0) {
-        return Promise.resolve("");
-    }
-
     // Mock this so that each label's text says "spoken" before it.
     const jointMock = labels.map((input) => ` spoken ${input.text}`).join(",");
     return Promise.resolve(jointMock);
