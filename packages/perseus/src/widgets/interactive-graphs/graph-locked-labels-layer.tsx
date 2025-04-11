@@ -18,7 +18,7 @@ export default function GraphLockedLabelsLayer(props: Props) {
 
         return (
             <React.Fragment key={i}>
-                {figure.labels?.map((label, j) => (
+                {figure.labels.map((label, j) => (
                     <LockedLabel key={`${i}-label-${j}`} {...label} />
                 ))}
 
@@ -26,14 +26,14 @@ export default function GraphLockedLabelsLayer(props: Props) {
                 {figure.type === "line" && (
                     <>
                         {/* Point 1 labels */}
-                        {figure.points[0].labels?.map((label, k) => (
+                        {figure.points[0].labels.map((label, k) => (
                             <LockedLabel
                                 key={`locked-figure-${i}-point-1-label-${k}`}
                                 {...label}
                             />
                         ))}
                         {/* Point 2 labels */}
-                        {figure.points[1].labels?.map((label, k) => (
+                        {figure.points[1].labels.map((label, k) => (
                             <LockedLabel
                                 key={`locked-figure-${i}-point-2-label-${k}`}
                                 {...label}
