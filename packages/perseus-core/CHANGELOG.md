@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 7.1.1
+
+### Patch Changes
+
+-   [#2386](https://github.com/Khan/perseus/pull/2386) [`1ee46bdef`](https://github.com/Khan/perseus/commit/1ee46bdef3347198d2d2b2ce548708816aa7705f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add flags in APIOption, this will be used for feature flags that can be passed from consuming application.
+
 ## 7.1.0
 
 ### Minor Changes
