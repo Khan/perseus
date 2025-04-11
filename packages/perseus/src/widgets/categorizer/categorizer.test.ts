@@ -6,7 +6,11 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
-import {scorePerseusItemTesting} from "../../util/test-utils";
+import {
+    getAnswerfulItem,
+    getAnswerlessItem,
+    scorePerseusItemTesting,
+} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {Categorizer} from "./categorizer";
@@ -165,38 +169,25 @@ describe("categorizer widget", () => {
             );
         });
 
-        function getAnswerfulItem(): PerseusRenderer {
-            return {
-                content: "[[☃ categorizer 1]]",
-                images: {},
-                widgets: {
-                    "categorizer 1": {
-                        type: "categorizer",
-                        options: {
-                            static: false,
-                            items: ["Circle", "Purple", "Square"],
-                            categories: ["Shape", "Color"],
-                            randomizeItems: false,
-                            values: [0, 1, 0],
-                        },
-                    },
-                },
-            };
-        }
-
-        function getAnswerlessItem(): PerseusRenderer {
-            return splitPerseusItem(getAnswerfulItem());
-        }
+        const options = {
+            static: false,
+            items: ["Circle", "Purple", "Square"],
+            categories: ["Shape", "Color"],
+            randomizeItems: false,
+            values: [0, 1, 0],
+        };
 
         test("the answerless test data doesn't contain answers", () => {
             expect(
-                getAnswerlessItem().widgets["categorizer 1"].options.values,
+                getAnswerlessItem("categorizer", options).widgets[
+                    "categorizer 1"
+                ].options.values,
             ).toBeUndefined();
         });
 
         test.each([
-            ["answerless", getAnswerlessItem()],
-            ["answerful", getAnswerfulItem()],
+            ["answerless", getAnswerlessItem("categorizer", options)],
+            ["answerful", getAnswerfulItem("categorizer", options)],
         ])("is interactive with widget options: %p", async (_, item) => {
             // Arrange / Act
             const {renderer} = renderQuestion(item);
@@ -214,7 +205,11 @@ describe("categorizer widget", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(getAnswerfulItem(), userInput, "en");
+            const score = scorePerseusItem(
+                getAnswerfulItem("categorizer", options),
+                userInput,
+                "en",
+            );
 
             // Assert
             expect(score).toHaveBeenAnsweredCorrectly();
