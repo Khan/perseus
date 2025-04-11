@@ -185,8 +185,15 @@ class MobileKeypadInternals
                     transitionEnterTimeout={AnimationDurationInMS}
                     transitionLeaveTimeout={AnimationDurationInMS}
                     transitionStyle={{
-                        enter: {
+                        appear: {
                             transform: "translate3d(0, 100%, 0)",
+                            transition: `${AnimationDurationInMS}ms ease-out`,
+                        },
+                        appearActive: {
+                            transform: "translate3d(0, 100%, 0)",
+                        },
+                        enter: {
+                            transform: "translate3d(0, 50%, 0)",
                             transition: `${AnimationDurationInMS}ms ease-out`,
                         },
                         enterActive: {
