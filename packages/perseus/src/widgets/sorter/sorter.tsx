@@ -9,14 +9,11 @@ import type {SortableOption} from "../../components/sortable";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
 import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
-import type {
-    PerseusSorterRubric,
-    PerseusSorterUserInput,
-} from "@khanacademy/perseus-score";
+import type {PerseusSorterUserInput} from "@khanacademy/perseus-score";
 
 type RenderProps = PerseusSorterWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusSorterRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     correct: Props["correct"];

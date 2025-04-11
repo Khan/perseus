@@ -173,7 +173,7 @@ type RenderProps = {
      */
     fullGraphAriaDescription?: string;
 }; // There's no transform function in exports
-type Props = WidgetProps<RenderProps, PerseusInteractiveGraphRubric>;
+type Props = WidgetProps<RenderProps>;
 type State = any;
 type DefaultProps = {
     labels: ReadonlyArray<string>;

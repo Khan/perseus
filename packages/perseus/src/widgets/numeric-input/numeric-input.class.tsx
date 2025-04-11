@@ -23,10 +23,7 @@ import type {
 } from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-type ExternalProps = WidgetProps<
-    PerseusNumericInputWidgetOptions,
-    PerseusNumericInputRubric
->;
+type ExternalProps = WidgetProps<PerseusNumericInputWidgetOptions>;
 
 export type NumericInputProps = ExternalProps & {
     size: NonNullable<ExternalProps["size"]>;
@@ -66,10 +63,9 @@ type RenderProps = {
 // defaultProps into account, which is important because
 // PerseusNumericInputWidgetOptions has optional fields which receive defaults
 // via defaultProps.
-0 as any as WidgetProps<
-    PerseusNumericInputWidgetOptions,
-    PerseusNumericInputRubric
-> satisfies PropsFor<typeof NumericInput>;
+0 as any as WidgetProps<PerseusNumericInputWidgetOptions> satisfies PropsFor<
+    typeof NumericInput
+>;
 
 /**
  * The NumericInput widget is a numeric input field that supports a variety of

@@ -17,10 +17,7 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
 import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
-import type {
-    PerseusOrdererRubric,
-    PerseusOrdererUserInput,
-} from "@khanacademy/perseus-score";
+import type {PerseusOrdererUserInput} from "@khanacademy/perseus-score";
 
 type PlaceholderCardProps = {
     width: number | null | undefined;
@@ -297,7 +294,7 @@ type RenderProps = PerseusOrdererWidgetOptions & {
     current: any;
 };
 
-type OrdererProps = WidgetProps<RenderProps, PerseusOrdererRubric>;
+type OrdererProps = WidgetProps<RenderProps>;
 
 type OrdererDefaultProps = {
     current: OrdererProps["current"];

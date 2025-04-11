@@ -15,14 +15,11 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plo
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
-import type {
-    PerseusPlotterRubric,
-    PerseusPlotterUserInput,
-} from "@khanacademy/perseus-score";
+import type {PerseusPlotterUserInput} from "@khanacademy/perseus-score";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusPlotterRubric> & {
+type Props = WidgetProps<RenderProps> & {
     labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
     picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
 };
