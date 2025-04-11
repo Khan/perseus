@@ -61,7 +61,7 @@ const LockedFunctionSettings = (props: Props) => {
         onMove,
         onRemove,
     } = props;
-    const labels = props.labels ?? [];
+    const labels = props.labels;
     const equationPrefix = directionalAxis === "x" ? "y=" : "x=";
     const lineLabel = `Function (${equationPrefix}${equation})`;
 
@@ -332,7 +332,7 @@ const LockedFunctionSettings = (props: Props) => {
             <View style={styles.horizontalRule} />
             <Strut size={spacing.small_12} />
             <LabelMedium>Visible labels</LabelMedium>
-            {labels.map((label, labelIndex, allLabels) => (
+            {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     key={labelIndex}
                     {...label}
