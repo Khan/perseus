@@ -1,5 +1,22 @@
 # @khanacademy/perseus-editor
 
+## 20.1.0
+
+### Minor Changes
+
+-   [#2356](https://github.com/Khan/perseus/pull/2356) [`1a80b2bc7`](https://github.com/Khan/perseus/commit/1a80b2bc7a9d8c695312f8cca1d359ab666d21e7) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Removing the sort functionality on expression answer forms, fixing delete functionality, and updating change handlers to cleaner format.
+
+### Patch Changes
+
+-   Updated dependencies [[`99c215ae4`](https://github.com/Khan/perseus/commit/99c215ae46e2995b6727a4e8f2083bfbb1ef59b3), [`4ac22bdad`](https://github.com/Khan/perseus/commit/4ac22bdadcdad844ed9964485ef727de53c6dfa7), [`86ea32b0c`](https://github.com/Khan/perseus/commit/86ea32b0c4ad32a921f1c81661cc218cfd41d77a), [`ab80b4b12`](https://github.com/Khan/perseus/commit/ab80b4b12ad5107ac75f9b6f6c6ab125b2d65735), [`5ac42d16c`](https://github.com/Khan/perseus/commit/5ac42d16c86fe062630cdec518a3dbdc109e0f17), [`ccce206f2`](https://github.com/Khan/perseus/commit/ccce206f212451579be047f801d2ccb6a198c207)]:
+    -   @khanacademy/perseus-core@7.1.0
+    -   @khanacademy/perseus-score@5.0.0
+    -   @khanacademy/perseus@60.0.0
+    -   @khanacademy/math-input@25.0.3
+    -   @khanacademy/keypad-context@3.0.3
+    -   @khanacademy/kmath@2.0.3
+    -   @khanacademy/perseus-linter@3.0.3
+
 ## 20.0.3
 
 ### Patch Changes
