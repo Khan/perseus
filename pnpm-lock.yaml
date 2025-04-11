@@ -578,8 +578,8 @@ importers:
         specifier: workspace:*
         version: link:../perseus-utils
       mathquill:
-        specifier: file:../../vendor/mathquill-v1.0.0.tgz
-        version: file:vendor/mathquill-v1.0.0.tgz
+        specifier: file:../../vendor/mathquill-v1.0.3.tgz
+        version: file:vendor/mathquill-v1.0.3.tgz
     devDependencies:
       '@khanacademy/mathjax-renderer':
         specifier: 'catalog:'
@@ -6608,9 +6608,9 @@ packages:
   mathjax-full@3.2.2:
     resolution: {integrity: sha512-+LfG9Fik+OuI8SLwsiR02IVdjcnRCy5MufYLi0C3TdMT56L/pjB0alMVGgoWJF8pN9Rc7FESycZB9BMNWIid5w==}
 
-  mathquill@file:vendor/mathquill-v1.0.0.tgz:
-    resolution: {integrity: sha512-HeTowTawjHuZRzQpiLndF4vLMO0JQFuygWi6Sd4bjseUBLfnxh0qtP8wgl8wUHQRsY0vAC+GuurY1gEsJlsRAw==, tarball: file:vendor/mathquill-v1.0.0.tgz}
-    version: 0.10.1
+  mathquill@file:vendor/mathquill-v1.0.3.tgz:
+    resolution: {integrity: sha512-buWAfxRD1yP1hPdPg8JOrivT1vHCpW2PnIYZo//IVu7vszYvDFlVZD7tUbXt3LMgExuDIZv5ODr2mgY0MOJ2ew==, tarball: file:vendor/mathquill-v1.0.3.tgz}
+    version: 1.0.3
 
   mdn-data@2.0.14:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}
@@ -16095,7 +16095,7 @@ snapshots:
       mj-context-menu: 0.6.1
       speech-rule-engine: 4.0.7
 
-  mathquill@file:vendor/mathquill-v1.0.0.tgz: {}
+  mathquill@file:vendor/mathquill-v1.0.3.tgz: {}
 
   mdn-data@2.0.14: {}
 

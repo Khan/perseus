@@ -43,7 +43,7 @@
         "@khanacademy/keypad-context": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*",
         "@khanacademy/perseus-utils": "workspace:*",
-        "mathquill": "file:../../vendor/mathquill-v1.0.0.tgz"
+        "mathquill": "file:../../vendor/mathquill-v1.0.3.tgz"
     },
     "devDependencies": {
         "@khanacademy/mathjax-renderer": "catalog:",
