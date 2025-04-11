@@ -40,6 +40,7 @@
         "prepublishOnly": "../../utils/package-pre-publish-check.sh"
     },
     "dependencies": {
+        "@growthbook/growthbook": "^1.4.1",
         "@khanacademy/kas": "workspace:*",
         "@khanacademy/keypad-context": "workspace:*",
         "@khanacademy/kmath": "workspace:*",
@@ -62,8 +63,8 @@
         "@khanacademy/wonder-blocks-data": "catalog:",
         "@khanacademy/wonder-blocks-dropdown": "catalog:",
         "@khanacademy/wonder-blocks-form": "catalog:",
-        "@khanacademy/wonder-blocks-icon-button": "catalog:",
         "@khanacademy/wonder-blocks-icon": "catalog:",
+        "@khanacademy/wonder-blocks-icon-button": "catalog:",
         "@khanacademy/wonder-blocks-layout": "catalog:",
         "@khanacademy/wonder-blocks-link": "catalog:",
         "@khanacademy/wonder-blocks-pill": "catalog:",
