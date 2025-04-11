@@ -16,7 +16,6 @@ import {
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
 import {css, StyleSheet} from "aphrodite";
 // eslint-disable-next-line import/no-extraneous-dependencies
-import lens from "hubble";
 import * as React from "react";
 import _ from "underscore";
 
@@ -32,7 +31,7 @@ const {InfoTip} = components;
 type Props = {
     widgetId?: string;
     value?: string;
-    onChange: (any) => void;
+    onChange: (newValues: Partial<PerseusExpressionWidgetOptions>) => void;
 } & Omit<PerseusExpressionWidgetOptions, "buttonsVisible">;
 
 // types for iterables
@@ -157,9 +156,6 @@ class ExpressionEditor extends React.Component<Props, State> {
         const newAnswerForm: PerseusExpressionAnswerForm = {
             considered: "correct",
             form: false,
-
-            // note: the key means "n-th form created" - not "form in
-            // position n" and will stay the same for the life of this form
             key: `${newKey}`,
             simplify: false,
             value: "",
@@ -179,10 +175,10 @@ class ExpressionEditor extends React.Component<Props, State> {
     // with new data. This function should not be used to update any
     // other properties within ExpressionEditor except extraKeys
     // which is derived from answerForms
-    updateAnswerForm(index: number, props: AnswerForm) {
-        const answerForms = lens(this.props.answerForms)
-            .merge([index], props)
-            .freeze();
+    updateAnswerForm(index: number, answerFormProps: AnswerForm) {
+        // Create a copy of props.answerForms to mutate and change.
+        const answerForms = this.props.answerForms.slice();
+        answerForms[index] = answerFormProps;
 
         // deriveExtraKeys defaults to using the `extraKeys` it was given
         // which in most case is what we want, but is not what we want
