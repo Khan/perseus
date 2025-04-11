@@ -1,12 +1,23 @@
+import {GrowthBook} from "@growthbook/growthbook";
 import {radioLogic, random, shuffle} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import Radio from "./radio-component";
+import RadioOld from "./radio-component";
+import RadioNew from "./radio-component.new";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetExports} from "../../types";
 import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
+
+// CLEANUP: Remove FF (https://khanacademy.atlassian.net/browse/LEMS-2994)
+const gb = new GrowthBook({
+    apiHost: "https://cdn.growthbook.io",
+    clientKey: "sdk-u16yaYPyqdZ0OHuZ",
+});
+await gb.init();
+
+const Radio = gb.isOn("new-radio-widget") ? RadioNew : RadioOld;
 
 // Transforms the choices for display.
 const _choiceTransform = (

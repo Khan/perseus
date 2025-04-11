@@ -8,7 +8,7 @@ import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import PassageRef from "../passage-ref/passage-ref";
 
-import BaseRadio from "./base-radio";
+import BaseRadio from "./base-radio.new";
 
 import type {FocusFunction, ChoiceType} from "./base-radio";
 import type {WidgetProps, ChoiceState, Widget} from "../../types";

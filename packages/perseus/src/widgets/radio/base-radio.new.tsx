@@ -257,6 +257,7 @@ const BaseRadio = function ({
     const fieldset = (
         <fieldset
             className={`perseus-widget-radio-fieldset ${responsiveClassName}`}
+            data-feature-flag="feature flag is ON"
         >
             <legend className="perseus-sr-only">{instructions}</legend>
             <div className={instructionsClassName} aria-hidden="true">
