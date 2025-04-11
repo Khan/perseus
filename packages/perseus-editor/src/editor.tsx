@@ -148,8 +148,6 @@ type DefaultProps = {
 
 type State = {
     textAreaValue: string;
-    selectedWidgetType: string | null;
-    isSelectedWidgetAccessible: boolean;
 };
 
 // eslint-disable-next-line react/no-unsafe
@@ -176,8 +174,6 @@ class Editor extends React.Component<Props, State> {
 
     state: State = {
         textAreaValue: this.props.content,
-        selectedWidgetType: null,
-        isSelectedWidgetAccessible: true,
     };
 
     componentDidMount() {
@@ -730,21 +726,10 @@ class Editor extends React.Component<Props, State> {
     };
 
     _addWidget: (widgetType: string) => void = (widgetType: string) => {
-        // console.log("Selected widget type in Editor: ", widgetType);
         const textarea = this.textarea.current;
         if (!textarea) {
             return;
         }
-
-        // New: Update state with the selected widget and accessibility info
-        // const widgetInfo = Widgets.getWidget(widgetType);
-        // console.log(widgetInfo);
-        // const isAccessible = widgetInfo?.accessible; How to get this?
-
-        // this.setState({
-        //     selectedWidgetType: widgetType,
-        //     isSelectedWidgetAccessible: isAccessible,
-        // });
 
         this._addWidgetToContent(
             this.props.content,
