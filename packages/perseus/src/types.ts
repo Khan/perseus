@@ -295,6 +295,11 @@ export type APIOptions = Readonly<{
      */
     editorChangeDelay?: number;
     /**
+     * Feature flags that can be passed from consuming application.
+     * Define the feature flag name in packages/perseus-core/src/feature-flags.ts
+     */
+    flags?: Record<string, boolean>;
+    /**
      * This is a callback function that returns all of the Widget props
      * after they have been transformed by the widget's transform function.
      * This is useful for when we need to know how a widget has shuffled its
