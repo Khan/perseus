@@ -70,7 +70,7 @@ type RenderProps = PerseusGradedGroupWidgetOptions; // exports has no 'transform
 
 type Props = WidgetProps<
     RenderProps,
-    null,
+    undefined,
     TrackingGradedGroupExtraArguments
 > & {
     inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,
@@ -102,7 +102,7 @@ type State = {
 // via defaultProps.
 0 as any as WidgetProps<
     PerseusGradedGroupWidgetOptions,
-    null
+    undefined
 > satisfies PropsFor<typeof GradedGroup>;
 
 // A Graded Group is more or less a Group widget that displays a check
