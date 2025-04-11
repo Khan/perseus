@@ -1,6 +1,7 @@
 // WidgetIssueDetails.tsx
-import * as React from "react";
 import {LabelLarge, LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import * as React from "react";
+
 import PerseusEditorAccordion from "./components/perseus-editor-accordion";
 
 type IssueProps = {
@@ -37,7 +38,9 @@ const IssueDetails = (props: IssueProps) => {
             <a href={issue.helpUrl} target="_blank" rel="noreferrer">
                 {issue.help}
             </a>
-            <LabelSmall style={{marginTop: "1em", fontWeight: "bold"}}>Impact:</LabelSmall>
+            <LabelSmall style={{marginTop: "1em", fontWeight: "bold"}}>
+                Impact:
+            </LabelSmall>
             <span style={{fontWeight: "initial"}}> {issue.impact}</span>
             <LabelSmall style={{fontWeight: "bold"}}>Issue:</LabelSmall>
             <span>{issue.message}</span>

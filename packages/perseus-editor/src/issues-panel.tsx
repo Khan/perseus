@@ -8,6 +8,7 @@ import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretRight from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
 import {useState} from "react";
+
 import IssueDetails from "./issue-details";
 
 type Issue = {
@@ -23,8 +24,7 @@ type IssuesPanelProps = {
     incompletes: Issue[];
 };
 
-const IssuesPanel = ({ violations = [], incompletes = [] }: IssuesPanelProps) => {
-
+const IssuesPanel = ({violations = [], incompletes = []}: IssuesPanelProps) => {
     const [showPanel, setShowPanel] = useState(false);
     const toggleIcon = showPanel ? caretDown : caretRight;
     const togglePanel = () => setShowPanel(!showPanel);

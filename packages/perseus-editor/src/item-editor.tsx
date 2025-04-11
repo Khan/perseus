@@ -98,7 +98,7 @@ class ItemEditor extends React.Component<Props> {
             <div className="perseus-editor-table">
                 <div className="perseus-editor-row perseus-question-container">
                     <div className="perseus-editor-left-cell">
-                        <IssuesPanel violations={[]} incompletes={[]}/>
+                        <IssuesPanel violations={[]} incompletes={[]} />
                         <div className="pod-title">Question</div>
                         <Editor
                             ref={this.questionEditor}
