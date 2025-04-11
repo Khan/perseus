@@ -3,7 +3,7 @@ import scoreOrderer from "./score-orderer";
 import type {
     PerseusOrdererRubric,
     PerseusOrdererUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 function generateOrdererRubric(): PerseusOrdererRubric {
     return {

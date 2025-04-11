@@ -15,8 +15,8 @@ import type {
     PerseusInteractiveGraphUserInput,
     PerseusInteractiveGraphRubric,
     PerseusScore,
-} from "../../validation.types";
-import type {Coord} from "@khanacademy/perseus-core";
+    Coord,
+} from "@khanacademy/perseus-core";
 
 const {collinear, canonicalSineCoefficients, similar, clockwise} = geometry;
 const {getClockwiseAngle} = angles;

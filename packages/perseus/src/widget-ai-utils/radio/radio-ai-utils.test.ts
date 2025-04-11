@@ -7,8 +7,11 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./radio-ai-utils";
 
-import type {PerseusRenderer, RadioWidget} from "@khanacademy/perseus-core";
-import type {PerseusRadioUserInput} from "@khanacademy/perseus-score";
+import type {
+    PerseusRenderer,
+    RadioWidget,
+    PerseusRadioUserInput,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const shuffledQuestion: PerseusRenderer = {

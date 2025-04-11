@@ -3,7 +3,7 @@ import scoreSorter from "./score-sorter";
 import type {
     PerseusSorterRubric,
     PerseusSorterUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 describe("scoreSorter", () => {
     it("is correct when the user input values are in the order defined in the rubric", () => {

@@ -1,7 +1,10 @@
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 
-import type {KEScore} from "@khanacademy/perseus-core";
-import type {PerseusScore, UserInputArray} from "@khanacademy/perseus-score";
+import type {
+    KEScore,
+    PerseusScore,
+    UserInputArray,
+} from "@khanacademy/perseus-core";
 
 export function isCorrect(score: PerseusScore): boolean {
     return score.type === "points" && score.earned >= score.total;

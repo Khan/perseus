@@ -1,6 +1,6 @@
 import validateLabelImage from "./validate-label-image";
 
-import type {PerseusLabelImageUserInput} from "../../validation.types";
+import type {PerseusLabelImageUserInput} from "@khanacademy/perseus-core";
 
 describe("scoreLabelImage", () => {
     it("should not grade non-interacted widget", function () {

@@ -1,6 +1,6 @@
 import validateMatrix from "./validate-matrix";
 
-import type {PerseusMatrixUserInput} from "../../validation.types";
+import type {PerseusMatrixUserInput} from "@khanacademy/perseus-core";
 
 describe("matrixValidator", () => {
     it("should return invalid when answers is completely empty", () => {

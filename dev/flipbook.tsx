@@ -44,7 +44,7 @@ import type {
     PerseusRenderer,
     PerseusWidget,
 } from "../packages/perseus-core/src/data-schema";
-import type {PerseusScore} from "../packages/perseus-score/src/validation.types";
+import type {PerseusScore} from "../packages/perseus-core/src/validation.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";

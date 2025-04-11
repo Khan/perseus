@@ -4,7 +4,7 @@ import type {
     PerseusMatcherRubric,
     PerseusMatcherUserInput,
     PerseusScore,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 function scoreMatcher(
     userInput: PerseusMatcherUserInput,

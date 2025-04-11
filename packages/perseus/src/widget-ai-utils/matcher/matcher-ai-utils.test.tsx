@@ -7,8 +7,10 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./matcher-ai-utils";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {PerseusMatcherUserInput} from "@khanacademy/perseus-score";
+import type {
+    PerseusRenderer,
+    PerseusMatcherUserInput,
+} from "@khanacademy/perseus-core";
 
 const question1: PerseusRenderer = {
     content:

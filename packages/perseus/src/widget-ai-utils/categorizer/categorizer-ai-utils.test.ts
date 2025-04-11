@@ -7,8 +7,10 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./categorizer-ai-utils";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {PerseusCategorizerUserInput} from "@khanacademy/perseus-score";
+import type {
+    PerseusRenderer,
+    PerseusCategorizerUserInput,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const randomizedQuestion: PerseusRenderer = {

@@ -8,11 +8,11 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/sorter/sort
 import type {SortableOption} from "../../components/sortable";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-utils";
-import type {PerseusSorterWidgetOptions} from "@khanacademy/perseus-core";
 import type {
+    PerseusSorterWidgetOptions,
     PerseusSorterRubric,
     PerseusSorterUserInput,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusSorterWidgetOptions;
 

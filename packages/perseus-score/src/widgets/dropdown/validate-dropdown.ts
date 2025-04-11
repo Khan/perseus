@@ -1,7 +1,7 @@
 import type {
     PerseusDropdownUserInput,
     ValidationResult,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 /**
  * Checks if the user has selected an item from the dropdown before scoring.

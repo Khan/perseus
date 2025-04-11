@@ -5,7 +5,7 @@ import type {
     PerseusPlotterUserInput,
     PerseusPlotterRubric,
     PerseusScore,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 function scorePlotter(
     userInput: PerseusPlotterUserInput,

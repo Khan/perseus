@@ -3,8 +3,10 @@ import _ from "underscore";
 
 import scoreInteractiveGraph from "./score-interactive-graph";
 
-import type {PerseusInteractiveGraphRubric} from "../../validation.types";
-import type {PerseusGraphType} from "@khanacademy/perseus-core";
+import type {
+    PerseusGraphType,
+    PerseusInteractiveGraphRubric,
+} from "@khanacademy/perseus-core";
 
 describe("InteractiveGraph scoring on a segment question", () => {
     it("marks the answer invalid if guess.coords is missing", () => {

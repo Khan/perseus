@@ -15,6 +15,7 @@ export type {
 export type {ErrorKind} from "./error/errors";
 export type {FunctionTypeMappingKeys} from "./utils/grapher-util";
 export type {Coords} from "./utils/grapher-types";
+export type * from "./validation.types";
 
 export {default as getMatrixSize} from "./utils/get-matrix-size";
 export {default as getDecimalSeparator} from "./utils/get-decimal-separator";

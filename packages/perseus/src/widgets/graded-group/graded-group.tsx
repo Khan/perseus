@@ -35,11 +35,11 @@ import type {
     WidgetProps,
 } from "../../types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
-import type {PerseusGradedGroupWidgetOptions} from "@khanacademy/perseus-core";
 import type {
+    PerseusGradedGroupWidgetOptions,
     PerseusGradedGroupRubric,
     PerseusScore,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const GRADING_STATUSES = {

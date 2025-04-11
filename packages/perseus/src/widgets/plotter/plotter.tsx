@@ -14,11 +14,11 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plo
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
-import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 import type {
+    PerseusPlotterWidgetOptions,
     PerseusPlotterRubric,
     PerseusPlotterUserInput,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 

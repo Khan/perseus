@@ -4,7 +4,7 @@ import type {
     PerseusNumberLineRubric,
     PerseusNumberLineUserInput,
     PerseusScore,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 function scoreNumberLine(
     userInput: PerseusNumberLineUserInput,
