@@ -14,7 +14,12 @@ import type {
     DeviceType,
     ImageUploader,
 } from "@khanacademy/perseus";
-import type {Hint, PerseusItem, Version} from "@khanacademy/perseus-core";
+import type {
+    Hint,
+    PerseusItem,
+    PerseusRenderer,
+    Version,
+} from "@khanacademy/perseus-core";
 
 const {HUD} = components;
 
@@ -48,7 +53,7 @@ type Props = {
     // A global control to expand/collapse all widget editors on a page.
     widgetsAreOpen?: boolean;
     // Initial value of the question being edited
-    question?: any;
+    question?: PerseusRenderer;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
 };

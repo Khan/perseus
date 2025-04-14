@@ -2,7 +2,7 @@ import type {
     PerseusCategorizerRubric,
     PerseusCategorizerUserInput,
     PerseusScore,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 function scoreCategorizer(
     userInput: PerseusCategorizerUserInput,

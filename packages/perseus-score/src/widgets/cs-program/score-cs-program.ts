@@ -1,7 +1,7 @@
 import type {
     PerseusCSProgramUserInput,
     PerseusScore,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 function scoreCSProgram(userInput: PerseusCSProgramUserInput): PerseusScore {
     // The CS program can tell us whether it's correct or incorrect,

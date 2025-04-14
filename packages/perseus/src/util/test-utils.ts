@@ -1,9 +1,5 @@
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {splitPerseusItem} from "@khanacademy/perseus-core";
-import {
-    scorePerseusItem,
-    type PerseusScore,
-    type UserInputMap,
-} from "@khanacademy/perseus-score";
 
 import type {
     CategorizerWidget,
@@ -15,6 +11,8 @@ import type {
     PerseusWidgetTypes,
     RadioWidget,
     WidgetOptions,
+    PerseusScore,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 
 export const genericPerseusItemData: PerseusItem = {

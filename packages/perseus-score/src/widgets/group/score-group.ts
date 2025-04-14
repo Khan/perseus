@@ -6,7 +6,7 @@ import type {
     PerseusGroupRubric,
     PerseusGroupUserInput,
     PerseusScore,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 // it. As such, scoring a group means scoring all widgets it contains.
 function scoreGroup(

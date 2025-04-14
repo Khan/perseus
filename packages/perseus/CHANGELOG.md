@@ -1,5 +1,39 @@
 # @khanacademy/perseus
 
+## 60.0.1
+
+### Patch Changes
+
+-   [#2386](https://github.com/Khan/perseus/pull/2386) [`1ee46bdef`](https://github.com/Khan/perseus/commit/1ee46bdef3347198d2d2b2ce548708816aa7705f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add flags in APIOption, this will be used for feature flags that can be passed from consuming application.
+
+-   Updated dependencies [[`1ee46bdef`](https://github.com/Khan/perseus/commit/1ee46bdef3347198d2d2b2ce548708816aa7705f)]:
+    -   @khanacademy/perseus-core@7.1.1
+    -   @khanacademy/keypad-context@3.0.4
+    -   @khanacademy/kmath@2.0.4
+    -   @khanacademy/math-input@25.0.4
+    -   @khanacademy/perseus-linter@3.0.4
+    -   @khanacademy/perseus-score@5.0.1
+
+## 60.0.0
+
+### Major Changes
+
+-   [#2373](https://github.com/Khan/perseus/pull/2373) [`86ea32b0c`](https://github.com/Khan/perseus/commit/86ea32b0c4ad32a921f1c81661cc218cfd41d77a) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - No longer export 'mediaQueries' object (it is internal-only)
+
+### Minor Changes
+
+-   [#2366](https://github.com/Khan/perseus/pull/2366) [`5ac42d16c`](https://github.com/Khan/perseus/commit/5ac42d16c86fe062630cdec518a3dbdc109e0f17) Thanks [@Myranae](https://github.com/Myranae)! - Update Categorizer widget to render with answerless data. Adds tests and stories for answerless rendering.
+
+### Patch Changes
+
+-   Updated dependencies [[`99c215ae4`](https://github.com/Khan/perseus/commit/99c215ae46e2995b6727a4e8f2083bfbb1ef59b3), [`4ac22bdad`](https://github.com/Khan/perseus/commit/4ac22bdadcdad844ed9964485ef727de53c6dfa7), [`ab80b4b12`](https://github.com/Khan/perseus/commit/ab80b4b12ad5107ac75f9b6f6c6ab125b2d65735), [`5ac42d16c`](https://github.com/Khan/perseus/commit/5ac42d16c86fe062630cdec518a3dbdc109e0f17), [`ccce206f2`](https://github.com/Khan/perseus/commit/ccce206f212451579be047f801d2ccb6a198c207)]:
+    -   @khanacademy/perseus-core@7.1.0
+    -   @khanacademy/perseus-score@5.0.0
+    -   @khanacademy/math-input@25.0.3
+    -   @khanacademy/keypad-context@3.0.3
+    -   @khanacademy/kmath@2.0.3
+    -   @khanacademy/perseus-linter@3.0.3
+
 ## 59.1.1
 
 ### Patch Changes

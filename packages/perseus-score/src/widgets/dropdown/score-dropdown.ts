@@ -2,7 +2,7 @@ import type {
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
     PerseusScore,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 function scoreDropdown(
     userInput: PerseusDropdownUserInput,

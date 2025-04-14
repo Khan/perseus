@@ -43,8 +43,8 @@ import type {
     PerseusRadioChoice,
     PerseusGraphCorrectType,
     MakeWidgetMap,
-    Relationship,
-} from "@khanacademy/perseus-core";
+} from "./data-schema";
+import type {Relationship} from "./types";
 
 export type WidgetValidatorFunction = (
     userInput: UserInput,

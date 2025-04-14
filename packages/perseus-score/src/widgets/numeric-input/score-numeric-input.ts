@@ -6,8 +6,6 @@ import type {
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
     PerseusScore,
-} from "../../validation.types";
-import type {
     MathFormat,
     PerseusNumericInputAnswer,
 } from "@khanacademy/perseus-core";

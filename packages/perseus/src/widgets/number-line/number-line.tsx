@@ -16,8 +16,10 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
-import type {Relationship} from "@khanacademy/perseus-core";
-import type {PerseusNumberLineUserInput} from "@khanacademy/perseus-score";
+import type {
+    Relationship,
+    PerseusNumberLineUserInput,
+} from "@khanacademy/perseus-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;

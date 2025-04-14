@@ -17,11 +17,9 @@ import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
     ShowSolutions,
-} from "@khanacademy/perseus-core";
-import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {

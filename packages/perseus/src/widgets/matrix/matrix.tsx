@@ -22,8 +22,8 @@ import type {
     MatrixPublicWidgetOptions,
     PerseusMatrixWidgetAnswers,
     PerseusMatrixWidgetOptions,
+    PerseusMatrixUserInput,
 } from "@khanacademy/perseus-core";
-import type {PerseusMatrixUserInput} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {assert} = InteractiveUtil;

@@ -27,11 +27,9 @@ import type {
     ExpressionPublicWidgetOptions,
     KeypadConfiguration,
     KeypadKey,
-} from "@khanacademy/perseus-core";
-import type {
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type InputPath = ReadonlyArray<string>;

@@ -1,7 +1,10 @@
 import hasEmptyDINERWidgets from "./has-empty-diner-widgets";
 
-import type {UserInputMap} from "./validation.types";
-import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    PerseusItem,
+    PerseusRenderer,
+    UserInputMap,
+} from "@khanacademy/perseus-core";
 
 function generatePerseusItem(question: PerseusRenderer): PerseusItem {
     return {

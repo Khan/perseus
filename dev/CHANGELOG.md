@@ -1,5 +1,30 @@
 # @khanacademy/perseus-dev-ui
 
+## 5.4.3
+
+### Patch Changes
+
+-   Updated dependencies [[`1ee46bdef`](https://github.com/Khan/perseus/commit/1ee46bdef3347198d2d2b2ce548708816aa7705f)]:
+    -   @khanacademy/perseus-core@7.1.1
+    -   @khanacademy/kmath@2.0.4
+    -   @khanacademy/math-input@25.0.4
+    -   @khanacademy/perseus-linter@3.0.4
+
+## 5.4.2
+
+### Patch Changes
+
+-   [#2371](https://github.com/Khan/perseus/pull/2371) [`4ac22bdad`](https://github.com/Khan/perseus/commit/4ac22bdadcdad844ed9964485ef727de53c6dfa7) Thanks [@benchristel](https://github.com/benchristel)! - Add typesafe parsers for the user input types of Dropdown, Interactive Graph,
+    Numeric Input, Expression, and Radio. The `Perseus<Widget>UserInput` types have
+    been removed from `@khanacademy/perseus-score` and are now exported from
+    `@khanacademy/perseus-core`. Clients should update their code to import these
+    types from `@khanacademy/perseus-core` instead.
+-   Updated dependencies [[`99c215ae4`](https://github.com/Khan/perseus/commit/99c215ae46e2995b6727a4e8f2083bfbb1ef59b3), [`4ac22bdad`](https://github.com/Khan/perseus/commit/4ac22bdadcdad844ed9964485ef727de53c6dfa7), [`ab80b4b12`](https://github.com/Khan/perseus/commit/ab80b4b12ad5107ac75f9b6f6c6ab125b2d65735), [`5ac42d16c`](https://github.com/Khan/perseus/commit/5ac42d16c86fe062630cdec518a3dbdc109e0f17), [`ccce206f2`](https://github.com/Khan/perseus/commit/ccce206f212451579be047f801d2ccb6a198c207)]:
+    -   @khanacademy/perseus-core@7.1.0
+    -   @khanacademy/math-input@25.0.3
+    -   @khanacademy/kmath@2.0.3
+    -   @khanacademy/perseus-linter@3.0.3
+
 ## 5.4.1
 
 ### Patch Changes

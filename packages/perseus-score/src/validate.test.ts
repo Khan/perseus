@@ -5,8 +5,7 @@ import {
 } from "./util/test-helpers";
 import {emptyWidgetsFunctional} from "./validate";
 
-import type {UserInputMap} from "./validation.types";
-import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
+import type {PerseusWidgetsMap, UserInputMap} from "@khanacademy/perseus-core";
 
 describe("emptyWidgetsFunctional", () => {
     it("returns an empty array if there are no widgets", () => {

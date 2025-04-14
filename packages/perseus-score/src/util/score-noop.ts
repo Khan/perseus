@@ -1,4 +1,4 @@
-import type {PerseusScore} from "../validation.types";
+import type {PerseusScore} from "@khanacademy/perseus-core";
 
 /**
  * Several widgets don't have "right"/"wrong" scoring logic,
