@@ -1,5 +1,4 @@
 import {
-    any,
     array,
     nullable,
     number,
@@ -27,6 +26,4 @@ export const parsePerseusItem: Parser<PerseusItem> = object({
             }),
         ),
     ),
-    // Deprecated field
-    answer: any,
 });
