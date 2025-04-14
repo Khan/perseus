@@ -306,6 +306,8 @@ export type APIOptions = Readonly<{
      * the available choices.
      */
     onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
+
+    useNewRadioWidget?: boolean;
 }>;
 
 type TeXProps = {
