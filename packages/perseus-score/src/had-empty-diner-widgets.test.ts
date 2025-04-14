@@ -1,33 +1,10 @@
-import hasEmptyDINERWidgets from "./has-empty-diner-widgets";
-
-import type {
-    PerseusItem,
-    PerseusRenderer,
-    UserInputMap,
+import {
+    generateTestPerseusItem,
+    type PerseusRenderer,
+    type UserInputMap,
 } from "@khanacademy/perseus-core";
 
-function generatePerseusItem(question: PerseusRenderer): PerseusItem {
-    return {
-        question,
-        answerArea: {
-            calculator: false,
-            chi2Table: false,
-            periodicTable: false,
-            tTable: false,
-            zTable: false,
-            financialCalculatorMonthlyPayment: false,
-            financialCalculatorTotalAmount: false,
-            financialCalculatorTimeToPayOff: false,
-            periodicTableWithKey: false,
-        },
-        itemDataVersion: {
-            major: 0,
-            minor: 1,
-        },
-        hints: [],
-        answer: null,
-    };
-}
+import hasEmptyDINERWidgets from "./has-empty-diner-widgets";
 
 function generateBasicDropdownQuestion(): PerseusRenderer {
     return {
@@ -142,7 +119,10 @@ describe(`hasEmptyDINERWidgets`, () => {
         };
 
         expect(
-            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+            hasEmptyDINERWidgets(
+                generateTestPerseusItem({question}),
+                userInput,
+            ),
         ).toBe(false);
     });
 
@@ -156,7 +136,10 @@ describe(`hasEmptyDINERWidgets`, () => {
         };
 
         expect(
-            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+            hasEmptyDINERWidgets(
+                generateTestPerseusItem({question}),
+                userInput,
+            ),
         ).toBe(true);
     });
 
@@ -187,7 +170,10 @@ describe(`hasEmptyDINERWidgets`, () => {
         };
 
         expect(
-            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+            hasEmptyDINERWidgets(
+                generateTestPerseusItem({question}),
+                userInput,
+            ),
         ).toBe(false);
     });
 
@@ -201,7 +187,10 @@ describe(`hasEmptyDINERWidgets`, () => {
         };
 
         expect(
-            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+            hasEmptyDINERWidgets(
+                generateTestPerseusItem({question}),
+                userInput,
+            ),
         ).toBe(true);
     });
 
@@ -218,7 +207,10 @@ describe(`hasEmptyDINERWidgets`, () => {
         };
 
         expect(
-            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+            hasEmptyDINERWidgets(
+                generateTestPerseusItem({question}),
+                userInput,
+            ),
         ).toBe(false);
     });
 
@@ -233,7 +225,10 @@ describe(`hasEmptyDINERWidgets`, () => {
         };
 
         expect(
-            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+            hasEmptyDINERWidgets(
+                generateTestPerseusItem({question}),
+                userInput,
+            ),
         ).toBe(false);
     });
 
@@ -245,7 +240,10 @@ describe(`hasEmptyDINERWidgets`, () => {
         };
 
         expect(
-            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+            hasEmptyDINERWidgets(
+                generateTestPerseusItem({question}),
+                userInput,
+            ),
         ).toBe(false);
     });
 
@@ -257,7 +255,10 @@ describe(`hasEmptyDINERWidgets`, () => {
         };
 
         expect(
-            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+            hasEmptyDINERWidgets(
+                generateTestPerseusItem({question}),
+                userInput,
+            ),
         ).toBe(true);
     });
 
@@ -271,7 +272,10 @@ describe(`hasEmptyDINERWidgets`, () => {
         };
 
         expect(
-            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+            hasEmptyDINERWidgets(
+                generateTestPerseusItem({question}),
+                userInput,
+            ),
         ).toBe(false);
     });
 
@@ -285,7 +289,10 @@ describe(`hasEmptyDINERWidgets`, () => {
         };
 
         expect(
-            hasEmptyDINERWidgets(generatePerseusItem(question), userInput),
+            hasEmptyDINERWidgets(
+                generateTestPerseusItem({question}),
+                userInput,
+            ),
         ).toBe(true);
     });
 });
