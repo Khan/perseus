@@ -12,8 +12,10 @@ import Util from "../../util";
 
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {PerseusTableWidgetOptions} from "@khanacademy/perseus-core";
-import type {PerseusTableUserInput} from "@khanacademy/perseus-score";
+import type {
+    PerseusTableWidgetOptions,
+    PerseusTableUserInput,
+} from "@khanacademy/perseus-core";
 
 const {assert} = InteractiveUtil;
 

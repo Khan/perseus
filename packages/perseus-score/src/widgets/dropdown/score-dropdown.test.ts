@@ -3,7 +3,7 @@ import scoreDropdown from "./score-dropdown";
 import type {
     PerseusDropdownRubric,
     PerseusDropdownUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 describe("scoreDropdown", () => {
     it("returns 0 points for incorrect answer", () => {

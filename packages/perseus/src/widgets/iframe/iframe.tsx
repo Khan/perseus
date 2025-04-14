@@ -7,7 +7,6 @@
  *  but could also be used for embedding viz's hosted elsewhere.
  */
 
-import {type PerseusIFrameWidgetOptions} from "@khanacademy/perseus-core";
 import $ from "jquery";
 import * as React from "react";
 import _ from "underscore";
@@ -22,7 +21,8 @@ import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupporte
 import type {
     PerseusIFrameUserInput,
     UserInputStatus,
-} from "@khanacademy/perseus-score";
+    PerseusIFrameWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 const {updateQueryString} = Util;
 

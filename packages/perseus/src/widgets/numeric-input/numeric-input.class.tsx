@@ -16,11 +16,9 @@ import type {
     PerseusNumericInputWidgetOptions,
     PerseusNumericInputAnswerForm,
     MathFormat,
-} from "@khanacademy/perseus-core";
-import type {
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type ExternalProps = WidgetProps<PerseusNumericInputWidgetOptions>;

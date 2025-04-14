@@ -1,6 +1,6 @@
 import {getPromptJSON} from "./prompt-utils";
 
-import type {PerseusNumericInputUserInput} from "@khanacademy/perseus-score";
+import type {PerseusNumericInputUserInput} from "@khanacademy/perseus-core";
 
 describe("NumericInput getPromptJSON", () => {
     it("it returns JSON with the expected format and fields", () => {

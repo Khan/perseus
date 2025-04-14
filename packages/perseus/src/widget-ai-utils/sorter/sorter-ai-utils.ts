@@ -1,4 +1,4 @@
-import type {PerseusSorterUserInput} from "@khanacademy/perseus-score";
+import type {PerseusSorterUserInput} from "@khanacademy/perseus-core";
 
 export type SorterPromptJSON = {
     type: "sorter";

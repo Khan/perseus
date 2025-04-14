@@ -1,6 +1,6 @@
 import scoreCategorizer from "./score-categorizer";
 
-import type {PerseusCategorizerRubric} from "../../validation.types";
+import type {PerseusCategorizerRubric} from "@khanacademy/perseus-core";
 
 describe("scoreCategorizer", () => {
     it("gives points when the answer is correct", () => {

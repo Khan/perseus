@@ -13,8 +13,8 @@ import type {
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
     PerseusScore,
-} from "../../validation.types";
-import type {PerseusExpressionAnswerForm} from "@khanacademy/perseus-core";
+    PerseusExpressionAnswerForm,
+} from "@khanacademy/perseus-core";
 
 /* Content creators input a list of answers which are matched from top to
  * bottom. The intent is that they can include spcific solutions which should

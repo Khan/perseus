@@ -39,8 +39,8 @@ import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-u
 import type {
     MarkingsType,
     PerseusGrapherWidgetOptions,
+    PerseusGrapherUserInput,
 } from "@khanacademy/perseus-core";
-import type {PerseusGrapherUserInput} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.

@@ -14,8 +14,10 @@ import InputWithExamples from "../numeric-input/input-with-examples";
 import type {PerseusStrings} from "../../strings";
 import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
-import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
-import type {PerseusInputNumberUserInput} from "@khanacademy/perseus-score";
+import type {
+    PerseusInputNumberWidgetOptions,
+    PerseusInputNumberUserInput,
+} from "@khanacademy/perseus-core";
 
 const formExamples = {
     integer: function (options, strings: PerseusStrings) {

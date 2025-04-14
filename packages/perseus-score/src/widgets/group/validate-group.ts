@@ -4,7 +4,7 @@ import type {
     PerseusGroupUserInput,
     PerseusGroupValidationData,
     ValidationResult,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 function validateGroup(
     userInput: PerseusGroupUserInput,

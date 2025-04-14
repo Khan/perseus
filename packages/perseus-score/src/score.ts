@@ -7,10 +7,11 @@ import {
 
 import {getWidgetScorer, getWidgetValidator} from "./widgets/widget-registry";
 
-import type {PerseusScore, UserInputMap} from "./validation.types";
 import type {
     PerseusRenderer,
+    PerseusScore,
     PerseusWidgetsMap,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 
 const noScore: PerseusScore = {

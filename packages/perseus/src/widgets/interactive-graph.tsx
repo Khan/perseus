@@ -37,11 +37,9 @@ import type {
     LockedFigure,
     PerseusImageBackground,
     MarkingsType,
-} from "@khanacademy/perseus-core";
-import type {
     PerseusInteractiveGraphRubric,
     PerseusInteractiveGraphUserInput,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {getClockwiseAngle} = angles;

@@ -4,8 +4,8 @@ import type {
     PerseusGrapherRubric,
     PerseusGrapherUserInput,
     PerseusScore,
-} from "../../validation.types";
-import type {GrapherAnswerTypes} from "@khanacademy/perseus-core";
+    GrapherAnswerTypes,
+} from "@khanacademy/perseus-core";
 
 function getCoefficientsByType(
     data: GrapherAnswerTypes,

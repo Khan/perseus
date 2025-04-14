@@ -1,7 +1,7 @@
 import type {
     PerseusLabelImageUserInput,
     ValidationResult,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 function validateLabelImage(
     userInput: PerseusLabelImageUserInput,

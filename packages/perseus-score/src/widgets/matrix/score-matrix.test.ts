@@ -3,7 +3,7 @@ import scoreMatrix from "./score-matrix";
 import type {
     PerseusMatrixRubric,
     PerseusMatrixUserInput,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 describe("scoreMatrix", () => {
     it("can be answered correctly", () => {

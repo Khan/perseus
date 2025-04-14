@@ -32,7 +32,6 @@ import type {
     LockedPointType,
     LockedPolygonType,
     LockedVectorType,
-    PerseusGraphType,
     PerseusGraphTypeAngle,
     PerseusGraphTypeCircle,
     PerseusGraphTypeLinear,
@@ -157,9 +156,7 @@ const parsePerseusGraphTypeSinusoid: Parser<PerseusGraphTypeSinusoid> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphType: Parser<PerseusGraphType> = discriminatedUnionOn(
-    "type",
-)
+export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("angle", parsePerseusGraphTypeAngle)
     .withBranch("circle", parsePerseusGraphTypeCircle)
     .withBranch("linear", parsePerseusGraphTypeLinear)

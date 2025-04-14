@@ -12,9 +12,6 @@ import {
     emptyWidgetsFunctional,
     flattenScores,
     scoreWidgetsFunctional,
-    type PerseusScore,
-    type UserInputArray,
-    type UserInputMap,
 } from "@khanacademy/perseus-score";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import classNames from "classnames";
@@ -66,6 +63,9 @@ import type {
     PerseusWidgetOptions,
     PerseusWidgetsMap,
     ShowSolutions,
+    PerseusScore,
+    UserInputArray,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 

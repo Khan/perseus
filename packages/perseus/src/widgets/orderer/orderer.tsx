@@ -15,9 +15,11 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/ord
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
-import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusOrdererWidgetOptions,
+    PerseusOrdererUserInput,
+} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
-import type {PerseusOrdererUserInput} from "@khanacademy/perseus-score";
 
 type PlaceholderCardProps = {
     width: number | null | undefined;

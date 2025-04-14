@@ -5,7 +5,7 @@ import ErrorCodes from "../../error-codes";
 import type {
     PerseusMatrixUserInput,
     ValidationResult,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 /**
  * Checks user input from the matrix widget to see if it is scorable.

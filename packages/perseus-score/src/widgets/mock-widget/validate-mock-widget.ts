@@ -1,5 +1,5 @@
 import type {PerseusMockWidgetUserInput} from "./mock-widget-validation.types";
-import type {ValidationResult} from "../../validation.types";
+import type {ValidationResult} from "@khanacademy/perseus-core";
 
 function validateMockWidget(
     userInput: PerseusMockWidgetUserInput,
