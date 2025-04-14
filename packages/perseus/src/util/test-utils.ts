@@ -1,5 +1,5 @@
-import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {splitPerseusItem} from "@khanacademy/perseus-core";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import type {
     CategorizerWidget,
