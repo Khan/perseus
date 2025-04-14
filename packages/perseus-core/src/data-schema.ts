@@ -261,7 +261,9 @@ export type Hint = PerseusRenderer & {
      * displayed. When `false`, the previous hint remains visible when this one
      * is displayed. This allows for hints that build upon each other.
      */
-    replace?: boolean;
+    // TODO(benchristel): see if we can default `undefined` to `false` during
+    // parsing.
+    replace: boolean | undefined;
 };
 
 export type PerseusImageDetail = {

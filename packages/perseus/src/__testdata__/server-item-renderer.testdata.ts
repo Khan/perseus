@@ -6,9 +6,12 @@ import {
     type ExpressionWidget,
     type RadioWidget,
     type NumericInputWidget,
+    type Hint,
 } from "@khanacademy/perseus-core";
 
 import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
+
+const blankHint: Hint = {content: "", widgets: {}, images: {}, replace: false};
 
 export const itemWithNumericInput: PerseusItem = {
     question: {
@@ -44,9 +47,9 @@ export const itemWithNumericInput: PerseusItem = {
         },
     },
     hints: [
-        {content: "Hint #1", images: {}, widgets: {}},
-        {content: "Hint #2", images: {}, widgets: {}},
-        {content: "Hint #3", images: {}, widgets: {}},
+        {...blankHint, content: "Hint #1"},
+        {...blankHint, content: "Hint #2"},
+        {...blankHint, content: "Hint #3"},
     ],
     answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
@@ -68,9 +71,9 @@ export const itemWithMockWidget: PerseusItem = {
         },
     },
     hints: [
-        {content: "Hint #1", images: {}, widgets: {}},
-        {content: "Hint #2", images: {}, widgets: {}},
-        {content: "Hint #3", images: {}, widgets: {}},
+        {...blankHint, content: "Hint #1"},
+        {...blankHint, content: "Hint #2"},
+        {...blankHint, content: "Hint #3"},
     ],
     answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
@@ -137,9 +140,9 @@ export const itemWithMultipleNumericInputs: PerseusItem = {
         },
     },
     hints: [
-        {content: "Hint #1", images: {}, widgets: {}},
-        {content: "Hint #2", images: {}, widgets: {}},
-        {content: "Hint #3", images: {}, widgets: {}},
+        {...blankHint, content: "Hint #1"},
+        {...blankHint, content: "Hint #2"},
+        {...blankHint, content: "Hint #3"},
     ],
     answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
@@ -169,9 +172,9 @@ export const itemWithTwoMockWidgets: PerseusItem = {
         },
     },
     hints: [
-        {content: "Hint #1", images: {}, widgets: {}},
-        {content: "Hint #2", images: {}, widgets: {}},
-        {content: "Hint #3", images: {}, widgets: {}},
+        {...blankHint, content: "Hint #1"},
+        {...blankHint, content: "Hint #2"},
+        {...blankHint, content: "Hint #3"},
     ],
     answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
@@ -260,9 +263,9 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
         },
     },
     hints: [
-        {content: "Hint #1", images: {}, widgets: {}},
-        {content: "Hint #2", images: {}, widgets: {}},
-        {content: "Hint #3", images: {}, widgets: {}},
+        {...blankHint, content: "Hint #1"},
+        {...blankHint, content: "Hint #2"},
+        {...blankHint, content: "Hint #3"},
     ],
     answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
@@ -462,9 +465,9 @@ And what follows are _hints_...
     },
     hints: [
         {
+            ...blankHint,
             content:
                 "A image widget with a portrait orientation:\n\n_should be left-aligned in hints_\n[[\u2603 image 1]]\n\n",
-            images: {},
             widgets: {
                 "image 1": {
                     type: "image",
@@ -489,9 +492,9 @@ And what follows are _hints_...
             },
         },
         {
+            ...blankHint,
             content:
                 "A image widget with a portrait orientation:\n\n_should be left-aligned in hints_\n[[\u2603 image 1]]\n\n",
-            images: {},
             widgets: {
                 "image 1": {
                     type: "image",
@@ -516,22 +519,22 @@ And what follows are _hints_...
             },
         },
         {
+            ...blankHint,
             content:
                 "A Portrait Markdown image:\n![The patron, Enrico Scrovegni presenting the Arena Chapel to the Three Marys (detail), Giotto, Last Judgment, Arena (Scrovegni) Chapel, 1305-06, fresco, Padua (photo: Steven Zucker: CC BY-NC-SA 2.0)](https://ka-perseus-images.s3.amazonaws.com/12d7324ae8a09074f029d778bc4939aa85a6ee63.jpg)\n\n",
             images: {
                 "https://ka-perseus-images.s3.amazonaws.com/12d7324ae8a09074f029d778bc4939aa85a6ee63.jpg":
                     {width: 2317, height: 2535},
             },
-            widgets: {},
         },
         {
+            ...blankHint,
             content:
                 "A small Landscape Markdown image:\n\n![Some building](https://ka-perseus-images.s3.amazonaws.com/84c9521c5f9ec8c6d2a06435e48295817db54b65.jpeg)\n\n",
             images: {
                 "https://ka-perseus-images.s3.amazonaws.com/84c9521c5f9ec8c6d2a06435e48295817db54b65.jpeg":
                     {width: 450 / 2, height: 288 / 2},
             },
-            widgets: {},
         },
     ],
     answerArea: null,

@@ -5,6 +5,9 @@ import * as React from "react";
 import CombinedHintsEditor from "../hint-editor";
 
 import type {UserEvent} from "@testing-library/user-event";
+import { Hint } from "@khanacademy/perseus-core";
+
+const blankHint: Hint = {content: "", widgets: {}, images: {}, replace: false};
 
 describe("CombinedHintsEditor", () => {
     let userEvent: UserEvent;
@@ -28,8 +31,8 @@ describe("CombinedHintsEditor", () => {
                 deviceType="phone"
                 previewURL="about:blank"
                 hints={[
-                    {content: "You know this one!", widgets: {}, images: {}},
-                    {content: "Ok, the answer is 3", widgets: {}, images: {}},
+                    {...blankHint, content: "You know this one!"},
+                    {...blankHint, content: "Ok, the answer is 3"},
                 ]}
             />,
         );
@@ -50,8 +53,8 @@ describe("CombinedHintsEditor", () => {
                 deviceType="phone"
                 previewURL="about:blank"
                 hints={[
-                    {content: "You know this one!", widgets: {}, images: {}},
-                    {content: "Ok, the answer is 3", widgets: {}, images: {}},
+                    {...blankHint, content: "You know this one!"},
+                    {...blankHint, content: "Ok, the answer is 3"},
                 ]}
                 onChange={onChangeMock}
             />,
@@ -73,8 +76,8 @@ describe("CombinedHintsEditor", () => {
                 deviceType="phone"
                 previewURL="about:blank"
                 hints={[
-                    {content: "You know this one!", widgets: {}, images: {}},
-                    {content: "Ok, the answer is 3", widgets: {}, images: {}},
+                    {...blankHint, content: "You know this one!"},
+                    {...blankHint, content: "Ok, the answer is 3"},
                 ]}
                 onChange={onChangeMock}
             />,
@@ -85,7 +88,7 @@ describe("CombinedHintsEditor", () => {
 
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({
-            hints: [{content: "Ok, the answer is 3", widgets: {}, images: {}}],
+            hints: [{...blankHint, content: "Ok, the answer is 3"}],
         });
     });
 });

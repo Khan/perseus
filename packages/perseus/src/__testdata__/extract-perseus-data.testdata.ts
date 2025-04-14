@@ -1,4 +1,7 @@
+import { Hint } from "@khanacademy/perseus-core";
 import {generateTestPerseusItem} from "../util/test-utils";
+
+const blankHint: Hint = {content: "", widgets: {}, images: {}, replace: false};
 
 export const PerseusItemWithRadioWidget = generateTestPerseusItem({
     question: {
@@ -75,9 +78,9 @@ export const PerseusItemWithRadioWidget = generateTestPerseusItem({
         },
     },
     hints: [
-        {content: "Hint #1", images: {}, widgets: {}},
-        {content: "Hint #2", images: {}, widgets: {}},
-        {content: "Hint #3", images: {}, widgets: {}},
+        {...blankHint, content: "Hint #1"},
+        {...blankHint, content: "Hint #2"},
+        {...blankHint, content: "Hint #3"},
     ],
     answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
@@ -111,25 +114,19 @@ export const PerseusItemWithInputNumber = generateTestPerseusItem({
     },
     hints: [
         {
-            replace: false,
+            ...blankHint,
             content:
                 "$\\blueD6 \\text{ tens}+\\goldD6 \\text { ones} =\\blueD{10}+\\blueD{10}+\\blueD{10}+\\blueD{10}+\\blueD{10}+\\blueD{10}+\\goldD6$ ",
-            images: {} as Record<any, any>,
-            widgets: {} as Record<any, any>,
         },
         {
-            replace: false,
+            ...blankHint,
             content:
                 "$\\blueD6 \\text{ tens}+\\goldD6 \\text { ones} =\\blueD{60}+\\goldD6$ ",
-            images: {} as Record<any, any>,
-            widgets: {} as Record<any, any>,
         },
         {
-            replace: false,
+            ...blankHint,
             content:
                 "$\\blueD6 \\text{ tens}+\\goldD6 \\text { ones} =\\blueD{6}\\goldD6$ ",
-            images: {} as Record<any, any>,
-            widgets: {} as Record<any, any>,
         },
     ],
 });

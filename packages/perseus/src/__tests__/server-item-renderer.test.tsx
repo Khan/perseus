@@ -27,9 +27,11 @@ import MockAssetLoadingWidgetExport, {
 import type {APIOptions} from "../types";
 import type {MockAssetLoadingWidget} from "../widgets/mock-widgets/mock-asset-loading-widget";
 import type {KeypadAPI} from "@khanacademy/math-input";
-import type {PerseusItem} from "@khanacademy/perseus-core";
+import type {Hint, PerseusItem} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
+
+const blankHint: Hint = {content: "", widgets: {}, images: {}, replace: false};
 
 // This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
 // the ServerItemRenderer instead of Renderer
@@ -94,9 +96,9 @@ describe("server item renderer", () => {
         const {container} = renderQuestion({
             ...itemWithMockWidget,
             hints: [
-                {content: "Hint #1", images: {}, widgets: {}},
-                {content: "Hint #2", images: {}, widgets: {}},
-                {content: "Hint #3", images: {}, widgets: {}},
+                {...blankHint, content: "Hint #1"},
+                {...blankHint, content: "Hint #2"},
+                {...blankHint, content: "Hint #3"},
             ],
         });
 
@@ -161,9 +163,9 @@ describe("server item renderer", () => {
         const {renderer} = renderQuestion({
             ...itemWithMockWidget,
             hints: [
-                {content: "Hint #1", images: {}, widgets: {}},
-                {content: "Hint #2", images: {}, widgets: {}},
-                {content: "Hint #3", images: {}, widgets: {}},
+                {...blankHint, content: "Hint #1"},
+                {...blankHint, content: "Hint #2"},
+                {...blankHint, content: "Hint #3"},
             ],
         });
 
@@ -463,9 +465,9 @@ describe("server item renderer", () => {
             const {renderer} = renderQuestion({
                 ...itemWithMockWidget,
                 hints: [
-                    {content: "Hint #1", images: {}, widgets: {}},
-                    {content: "Hint #2", images: {}, widgets: {}},
-                    {content: "Hint #3", images: {}, widgets: {}},
+                    {...blankHint, content: "Hint #1"},
+                    {...blankHint, content: "Hint #2"},
+                    {...blankHint, content: "Hint #3"},
                 ],
             });
             await userEvent.type(screen.getByRole("textbox"), "-42");

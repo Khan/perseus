@@ -358,7 +358,7 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
 
     addHint: () => void = () => {
         const hints = this.props.hints.concat([
-            {content: "", images: {}, widgets: {}},
+            {content: "", replace: false, images: {}, widgets: {}},
         ]);
         this.props.onChange({hints: hints}, () => {
             const i = hints.length - 1;

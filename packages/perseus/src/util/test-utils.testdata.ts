@@ -116,6 +116,7 @@ export const expectedAnswerAreaInfoAdded: PerseusItem = {
 export const customHintsInfo: Partial<PerseusItem> = {
     hints: [
         {
+            replace: false,
             content: "Test content string",
             images: {
                 "Test images string": {height: 200, width: 200},
@@ -156,6 +157,7 @@ export const expectedHintsInfoAdded: PerseusItem = {
     },
     hints: [
         {
+            replace: false,
             content: "Test content string",
             images: {
                 "Test images string": {height: 200, width: 200},
