@@ -12,6 +12,4 @@ export const parseHint: Parser<Hint> = object({
     content: string,
     widgets: defaulted(parseWidgetsMap, () => ({})),
     images: parseImages,
-    // deprecated
-    metadata: any,
 });

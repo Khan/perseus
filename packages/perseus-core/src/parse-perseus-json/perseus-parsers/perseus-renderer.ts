@@ -21,8 +21,6 @@ export const parsePerseusRenderer: Parser<PerseusRenderer> = defaulted(
             () => ({}),
         ),
         images: parseImages,
-        // deprecated
-        metadata: any,
     }),
     // Default value
     () => ({
