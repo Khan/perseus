@@ -151,7 +151,20 @@ const createConfig = (
                 mode: "extract",
                 // STOPSHIP
                 // minimize: true,
-                url: false,
+                // import: {
+                //     resolve(url, basedir) {
+                //         console.log(
+                //             `*** import::resolve(${url}, ${basedir}) ***`,
+                //         );
+                //     },
+                // },
+                // url: {
+                //     resolve(inputUrl, baseDir) {
+                //         console.log(
+                //             `*** url::resolve(${inputUrl}, ${baseDir}) ***`,
+                //         );
+                //     },
+                // },
                 less: {
                     math: "always",
                 },
