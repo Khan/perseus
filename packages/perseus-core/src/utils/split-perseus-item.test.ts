@@ -444,4 +444,20 @@ describe("splitPerseusItem", () => {
             false,
         );
     });
+
+    it("removes hints", () => {
+        const hint: PerseusRenderer = {
+            content: "This hint gives away an answer",
+            widgets: {},
+            images: {},
+        };
+        const item = generateTestPerseusItem({
+            hints: [hint],
+        });
+
+        const rv = splitPerseusItem(item);
+
+        expect(item.hints[0]).toEqual(hint);
+        expect(rv.hints).toEqual([]);
+    });
 });
