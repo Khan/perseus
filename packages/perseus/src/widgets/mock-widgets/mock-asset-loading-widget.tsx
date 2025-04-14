@@ -25,7 +25,6 @@ export const mockedAssetItem: PerseusItem = {
         ItemExtras.map((extra) => [extra, false]),
     ) as PerseusAnswerArea,
     hints: [],
-    answer: null,
 } as const;
 
 /**
