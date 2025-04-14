@@ -1,4 +1,5 @@
-import {render, screen, fireEvent} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import IssuesPanel from "../issues-panel";
@@ -12,6 +13,13 @@ const makeIssue = (id: string, impact: string = "moderate") => ({
 });
 
 describe("IssuesPanel", () => {
+    let userEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
     it("shows green icon and 0 issues when no data is passed", () => {
         render(<IssuesPanel violations={[]} incompletes={[]} />);
         expect(screen.getByText("0 issues")).toBeInTheDocument();
@@ -63,22 +71,22 @@ describe("IssuesPanel", () => {
         expect(screen.getByText("3 issues")).toBeInTheDocument();
     });
 
-    it("opens the panel when the heading is clicked", () => {
+    it("opens the panel when the heading is clicked", async () => {
         render(<IssuesPanel violations={[makeIssue("v1")]} incompletes={[]} />);
         const headingButton = screen.getByRole("button"); // The button in the heading
-        fireEvent.click(headingButton); // Simulate click to open panel
+        await userEvent.click(headingButton); // Simulate click to open panel
 
         expect(screen.getByText("Violation: v1")).toBeInTheDocument();
     });
 
-    it("closes the panel when the heading icon is clicked again", () => {
+    it("closes the panel when the heading icon is clicked again", async () => {
         render(<IssuesPanel violations={[makeIssue("v1")]} incompletes={[]} />);
         const headingIconButton = screen.getByRole("button");
 
-        fireEvent.click(headingIconButton);
+        await userEvent.click(headingIconButton);
         expect(screen.getByText("Violation: v1")).toBeInTheDocument();
 
-        fireEvent.click(headingIconButton);
+        await userEvent.click(headingIconButton);
         expect(screen.queryByText("Violation: v1")).not.toBeInTheDocument();
     });
 });
