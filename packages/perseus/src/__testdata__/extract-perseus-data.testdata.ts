@@ -1,5 +1,6 @@
-import { Hint } from "@khanacademy/perseus-core";
 import {generateTestPerseusItem} from "../util/test-utils";
+
+import type {Hint} from "@khanacademy/perseus-core";
 
 const blankHint: Hint = {content: "", widgets: {}, images: {}, replace: false};
 

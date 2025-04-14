@@ -4,8 +4,8 @@ import * as React from "react";
 
 import CombinedHintsEditor from "../hint-editor";
 
+import type {Hint} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
-import { Hint } from "@khanacademy/perseus-core";
 
 const blankHint: Hint = {content: "", widgets: {}, images: {}, replace: false};
 
