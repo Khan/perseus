@@ -18,3 +18,10 @@ export const Basic: Story = {
         item: generateTestPerseusItem({question: question1}),
     },
 };
+
+export const AnswerlessPlotter: Story = {
+    args: {
+        item: generateTestPerseusItem({question: question1}),
+        startAnswerless: true,
+    },
+};
