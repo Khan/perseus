@@ -1,11 +1,13 @@
-import {splitPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusItem,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
-import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 import {sinusoidWithPiTicks} from "./interactive-graph.testdata";

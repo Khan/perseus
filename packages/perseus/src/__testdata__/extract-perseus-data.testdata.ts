@@ -1,4 +1,4 @@
-import {generateTestPerseusItem} from "../util/test-utils";
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 export const PerseusItemWithRadioWidget = generateTestPerseusItem({
     question: {

@@ -1,9 +1,9 @@
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {Flipbook} from "../../../../../dev/flipbook";
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import {ApiOptions} from "../../perseus-api";
-import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {
     angleQuestion,
@@ -29,9 +29,9 @@ import {
     unlimitedPolygonQuestion,
 } from "./interactive-graph.testdata";
 
-const defaultApiOptions = ApiOptions.defaults;
-
 import type {Meta, StoryObj} from "@storybook/react";
+
+const defaultApiOptions = ApiOptions.defaults;
 
 const meta: Meta = {
     title: "Perseus/Widgets/Interactive Graph",

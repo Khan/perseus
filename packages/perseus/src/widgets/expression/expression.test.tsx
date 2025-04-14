@@ -4,6 +4,7 @@ import {
     type PerseusExpressionWidgetOptions,
     type PerseusRenderer,
     splitPerseusItem,
+    generateTestPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
@@ -15,10 +16,7 @@ import {
 } from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
-import {
-    generateTestPerseusItem,
-    scorePerseusItemTesting,
-} from "../../util/test-utils";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import ExpressionWidgetExport from "./expression";

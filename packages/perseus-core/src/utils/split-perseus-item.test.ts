@@ -1,28 +1,29 @@
 import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
 import splitPerseusItem from "./split-perseus-item";
+import {generateTestPerseusItem} from "./test-utils";
 
 import type {PerseusRenderer, RadioWidget} from "../data-schema";
 
 describe("splitPerseusItem", () => {
     it("doesn't do anything with an empty item", () => {
         // Arrange
-        const item: PerseusRenderer = {
+        const question: PerseusRenderer = {
             content: "",
             widgets: {},
             images: {},
         };
 
         // Act
-        const rv = splitPerseusItem(item);
+        const rv = splitPerseusItem(generateTestPerseusItem({question}));
 
         // Assert
-        expect(rv).toEqual(item);
+        expect(rv.question).toEqual(question);
     });
 
     it("doesn't need to strip unscorable widgets", () => {
         // Arrange
-        const item: PerseusRenderer = {
+        const question: PerseusRenderer = {
             content: "[[☃ passage 1]]",
             // calling the upgrader here so I don't
             // bog down the test with default properties
@@ -42,15 +43,15 @@ describe("splitPerseusItem", () => {
         };
 
         // Act
-        const rv = splitPerseusItem(item);
+        const rv = splitPerseusItem(generateTestPerseusItem({question}));
 
         // Assert
-        expect(rv).toEqual(item);
+        expect(rv.question).toEqual(question);
     });
 
     it("strips Radio widgets", () => {
         // Arrange
-        const item: PerseusRenderer = {
+        const question: PerseusRenderer = {
             content: "[[☃ radio 1]]",
             widgets: {
                 "radio 1": {
@@ -73,24 +74,28 @@ describe("splitPerseusItem", () => {
         };
 
         // Act
-        const rv = splitPerseusItem(item);
+        const rv = splitPerseusItem(generateTestPerseusItem({question}));
 
         // Assert
         // check that we started with "correct" values
-        expect(item.widgets["radio 1"].options.choices[0].correct).toBe(true);
-        expect(item.widgets["radio 1"].options.choices[1].correct).toBe(false);
+        expect(question.widgets["radio 1"].options.choices[0].correct).toBe(
+            true,
+        );
+        expect(question.widgets["radio 1"].options.choices[1].correct).toBe(
+            false,
+        );
         // check that we ended without "correct" values
         expect(
-            rv.widgets["radio 1"].options.choices[0].correct,
+            rv.question.widgets["radio 1"].options.choices[0].correct,
         ).toBeUndefined();
         expect(
-            rv.widgets["radio 1"].options.choices[1].correct,
+            rv.question.widgets["radio 1"].options.choices[1].correct,
         ).toBeUndefined();
     });
 
     it("strips NumericInput widgets", () => {
         // Arrange
-        const item: PerseusRenderer = {
+        const question: PerseusRenderer = {
             content: "[[☃ numeric-input 1]]",
             widgets: {
                 "numeric-input 1": {
@@ -146,15 +151,15 @@ describe("splitPerseusItem", () => {
         };
 
         // Act
-        const rv = splitPerseusItem(item);
+        const rv = splitPerseusItem(generateTestPerseusItem({question}));
 
         // Assert
-        expect(rv).toEqual(expected);
+        expect(rv.question).toEqual(expected);
     });
 
     it("strips Expression widgets", () => {
         // Arrange
-        const item: PerseusRenderer = {
+        const question: PerseusRenderer = {
             content: "[[☃ expression 1]]",
             images: {},
             widgets: {
@@ -198,15 +203,15 @@ describe("splitPerseusItem", () => {
         };
 
         // Act
-        const rv = splitPerseusItem(item);
+        const rv = splitPerseusItem(generateTestPerseusItem({question}));
 
         // Assert
-        expect(rv).toEqual(expected);
+        expect(rv.question).toEqual(expected);
     });
 
     it("strips Drodown widgets", () => {
         // Arrange
-        const item: PerseusRenderer = {
+        const question: PerseusRenderer = {
             content: "[[☃ dropdown 1]]",
             images: {},
             widgets: {
@@ -255,15 +260,15 @@ describe("splitPerseusItem", () => {
         };
 
         // Act
-        const rv = splitPerseusItem(item);
+        const rv = splitPerseusItem(generateTestPerseusItem({question}));
 
         // Assert
-        expect(rv).toEqual(expected);
+        expect(rv.question).toEqual(expected);
     });
 
     it("strips InteractiveGraph widgets", () => {
         // Arrange
-        const item: PerseusRenderer = {
+        const question: PerseusRenderer = {
             content: "[[☃ interactive-graph 1]]",
             images: {},
             widgets: {
@@ -319,10 +324,10 @@ describe("splitPerseusItem", () => {
         };
 
         // Act
-        const rv = splitPerseusItem(item);
+        const rv = splitPerseusItem(generateTestPerseusItem({question}));
 
         // Assert
-        expect(rv).toEqual(expected);
+        expect(rv.question).toEqual(expected);
     });
 
     it("handles multiple widgets", () => {
@@ -345,7 +350,7 @@ describe("splitPerseusItem", () => {
         }
 
         // Arrange
-        const item: PerseusRenderer = {
+        const question: PerseusRenderer = {
             content: "[[☃ radio 1]] [[☃ radio 2]]",
             images: {},
             // calling the upgrader here so I don't
@@ -357,16 +362,20 @@ describe("splitPerseusItem", () => {
         };
 
         // Act
-        const rv = splitPerseusItem(item);
+        const rv = splitPerseusItem(generateTestPerseusItem({question}));
 
         // Assert
         ["radio 1", "radio 2"].forEach((id) => {
             // check that we started with "correct" values
-            expect(item.widgets[id].options.choices[0].correct).toBe(true);
-            expect(item.widgets[id].options.choices[1].correct).toBe(false);
+            expect(question.widgets[id].options.choices[0].correct).toBe(true);
+            expect(question.widgets[id].options.choices[1].correct).toBe(false);
             // check that we ended without "correct" values
-            expect(rv.widgets[id].options.choices[0].correct).toBeUndefined();
-            expect(rv.widgets[id].options.choices[1].correct).toBeUndefined();
+            expect(
+                rv.question.widgets[id].options.choices[0].correct,
+            ).toBeUndefined();
+            expect(
+                rv.question.widgets[id].options.choices[1].correct,
+            ).toBeUndefined();
         });
     });
 
@@ -379,7 +388,7 @@ describe("splitPerseusItem", () => {
             ],
         };
 
-        const item: PerseusRenderer = {
+        const question: PerseusRenderer = {
             content: "[[☃ radio 1]]",
             images: {},
             widgets: {
@@ -425,12 +434,14 @@ describe("splitPerseusItem", () => {
         };
 
         // Act
-        const rv = splitPerseusItem(item);
+        const rv = splitPerseusItem(generateTestPerseusItem({question}));
 
         // Assert
-        expect(rv).toEqual(expected);
+        expect(rv.question).toEqual(expected);
         // hasNoneOfTheAbove is important because v0 doesn't have it
         // and it get added to options during the upgrade
-        expect(rv.widgets["radio 1"].options.hasNoneOfTheAbove).toBe(false);
+        expect(rv.question.widgets["radio 1"].options.hasNoneOfTheAbove).toBe(
+            false,
+        );
     });
 });

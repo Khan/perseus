@@ -1,5 +1,6 @@
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {
     basicDropdown,

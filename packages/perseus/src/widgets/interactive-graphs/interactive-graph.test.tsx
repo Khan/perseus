@@ -1,5 +1,9 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {lockedFigureColors, splitPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusItem,
+    lockedFigureColors,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -12,10 +16,7 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import {getDefaultFigureForType} from "../../../../perseus-editor/src/widgets/interactive-graph-editor/locked-figures/util";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
-import {
-    generateTestPerseusItem,
-    scorePerseusItemTesting,
-} from "../../util/test-utils";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 

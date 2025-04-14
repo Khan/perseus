@@ -130,8 +130,6 @@ export {
 } from "@khanacademy/perseus-core";
 
 export {
-    generateTestPerseusItem,
-    genericPerseusItemData,
     generateTestRadioWidget,
     generateTestInteractiveGraphWidget,
     generateTestCategorizerWidget,
