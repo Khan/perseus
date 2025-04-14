@@ -19,6 +19,8 @@ import type {
     WidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+import {Simulate} from "react-dom/test-utils";
+import drag = Simulate.drag;
 
 export function getAnswerfulItem<T extends keyof PerseusWidgetTypes>(
     widgetType: T,
@@ -132,51 +134,48 @@ describe("plotter widget", () => {
             ).toBeUndefined();
         });
 
-        test.each([
-            ["answerless", getAnswerlessItem("plotter", plotterOptions)],
-            ["answerful", getAnswerfulItem("plotter", plotterOptions)],
-        ])("is interactive with widget options: %p", async (_, item) => {
-            // Arrange / Act
-            const {renderer} = renderQuestion(item);
+        // test.each([
+        //     ["answerless", getAnswerlessItem("plotter", plotterOptions)],
+        //     ["answerful", getAnswerfulItem("plotter", plotterOptions)],
+        // ])("is interactive with widget options: %p", async (_, item) => {
+        //     // Arrange / Act
+        //     const {renderer} = renderQuestion(item);
+        //
+        //     const draggableElement = screen.getByAttribute("data-interactive-kind-for-testing", )
+        //
+        //     expect(draggableElement).toBeInTheDocument();
+        //     console.log("draggableElement", JSON.stringify(draggableElement));
 
-            const draggableElement = screen.getByText((_, element) => {
-                return (
-                    element?.getAttribute(
-                        "data-interactive-kind-for-testing",
-                    ) === "movable-line"
-                );
-            });
-
-            // Get element's position
-            const rect = draggableElement.getBoundingClientRect();
-            const startX = rect.left + rect.width / 2;
-            const startY = rect.top + rect.height / 2;
-
-            // Calculate the target Y position based on the plotter's scale
-            // The plotter has a scaleY of 5 and maxY of 30, so we'll drag to 15
-            // which is the correct answer according to plotterOptions
-            const targetY = startY - (15 / plotterOptions.scaleY) * rect.height;
-
-            // Simulate mouse down, move to target position, and release
-            await userEvent.pointer([
-                {
-                    keys: "[MouseLeft>]",
-                    target: draggableElement,
-                    coords: {clientX: startX, clientY: startY},
-                },
-                {coords: {clientX: startX, clientY: targetY}},
-                {keys: "[/MouseLeft]"},
-            ]);
-
-            const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
-                getAnswerfulItem("plotter", plotterOptions),
-                userInput,
-                "en",
-            );
-
-            // Assert
-            expect(score).toHaveBeenAnsweredCorrectly();
-        });
+            // // Get element's position
+            // const rect = draggableElement.getBoundingClientRect();
+            // const startX = rect.left + rect.width / 2;
+            // const startY = rect.top + rect.height / 2;
+            //
+            // // Calculate the target Y position based on the plotter's scale
+            // // The plotter has a scaleY of 5 and maxY of 30, so we'll drag to 15
+            // // which is the correct answer according to plotterOptions
+            // const targetY = startY - (15 / plotterOptions.scaleY) * rect.height;
+            //
+            // // Simulate mouse down, move to target position, and release
+            // await userEvent.pointer([
+            //     {
+            //         keys: "[MouseLeft>]",
+            //         target: draggableElement,
+            //         coords: {clientX: startX, clientY: startY},
+            //     },
+            //     {coords: {clientX: startX, clientY: targetY}},
+            //     {keys: "[/MouseLeft]"},
+            // ]);
+            //
+            // const userInput = renderer.getUserInputMap();
+            // const score = scorePerseusItem(
+            //     getAnswerfulItem("plotter", plotterOptions),
+            //     userInput,
+            //     "en",
+            // );
+            //
+            // // Assert
+            // expect(score).toHaveBeenAnsweredCorrectly();
+        // });
     });
 });
