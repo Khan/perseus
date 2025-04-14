@@ -81,7 +81,6 @@ export const PerseusItemWithRadioWidget = generateTestPerseusItem({
     ],
     answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
-    answer: null,
 });
 
 export const PerseusItemWithInputNumber = generateTestPerseusItem({

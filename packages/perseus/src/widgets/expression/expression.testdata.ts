@@ -23,7 +23,6 @@ const createItemJson = (
                 },
             },
         },
-        answer: null,
         answerArea: Object.fromEntries(
             ItemExtras.map((extra) => [extra, false]),
         ) as PerseusAnswerArea,

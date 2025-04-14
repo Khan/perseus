@@ -22,7 +22,6 @@ const genericPerseusItemData: PerseusItem = {
         minor: 1,
     },
     hints: [],
-    answer: null,
 } as const;
 
 /**

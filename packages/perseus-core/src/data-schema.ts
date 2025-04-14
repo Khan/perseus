@@ -214,10 +214,6 @@ export type PerseusItem = {
      * @deprecated Not used.
      */
     itemDataVersion: any;
-    /**
-     * @deprecated Superseded by per-widget answers.
-     */
-    answer: any;
 };
 
 /**

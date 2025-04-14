@@ -22,7 +22,6 @@ export const basicObject: PerseusItem = {
         minor: 1,
     },
     hints: [],
-    answer: null,
 };
 
 export const customQuestionInfo: Partial<PerseusItem> = {
@@ -71,7 +70,6 @@ export const expectedQuestionInfoAdded: PerseusItem = {
         minor: 1,
     },
     hints: [],
-    answer: null,
 };
 
 export const customAnswerAreaInfo: Partial<PerseusItem> = {
@@ -110,7 +108,6 @@ export const expectedAnswerAreaInfoAdded: PerseusItem = {
         minor: 1,
     },
     hints: [],
-    answer: null,
 };
 
 export const customHintsInfo: Partial<PerseusItem> = {
@@ -171,5 +168,4 @@ export const expectedHintsInfoAdded: PerseusItem = {
             },
         },
     ],
-    answer: null,
 };

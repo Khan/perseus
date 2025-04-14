@@ -46,5 +46,4 @@ export const itemWithPieChart: PerseusItem = {
             },
         },
     },
-    answer: null,
 };

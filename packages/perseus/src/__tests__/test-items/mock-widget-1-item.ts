@@ -20,5 +20,4 @@ export default {
         major: 1,
         minor: 0,
     },
-    answer: null,
 } satisfies PerseusItem;

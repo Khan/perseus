@@ -50,7 +50,6 @@ export const itemWithNumericInput: PerseusItem = {
     ],
     answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
-    answer: null,
 };
 
 export const itemWithMockWidget: PerseusItem = {
@@ -74,7 +73,6 @@ export const itemWithMockWidget: PerseusItem = {
     ],
     answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
-    answer: null,
 };
 
 // Used for storybook
@@ -143,7 +141,6 @@ export const itemWithMultipleNumericInputs: PerseusItem = {
     ],
     answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
-    answer: null,
 };
 
 export const itemWithTwoMockWidgets: PerseusItem = {
@@ -175,7 +172,6 @@ export const itemWithTwoMockWidgets: PerseusItem = {
     ],
     answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
-    answer: null,
 };
 
 export const itemWithRadioAndExpressionWidgets: PerseusItem = {
@@ -266,14 +262,12 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
     ],
     answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
-    answer: null,
 };
 
 export const labelImageItem: PerseusItem = {
     answerArea: Object.fromEntries(
         ItemExtras.map((extra) => [extra, false]),
     ) as PerseusAnswerArea,
-    answer: null,
     hints: [],
     itemDataVersion: {major: 0, minor: 1},
     question: {
@@ -344,7 +338,6 @@ export const itemWithLintingError: PerseusItem = {
     hints: [],
     answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
-    answer: null,
 };
 
 export const itemWithImages: PerseusItem = {
@@ -536,5 +529,4 @@ And what follows are _hints_...
     ],
     answerArea: null,
     itemDataVersion: {major: 0, minor: 0},
-    answer: null,
 };
