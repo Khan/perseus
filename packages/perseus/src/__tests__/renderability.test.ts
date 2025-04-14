@@ -11,10 +11,6 @@ const sampleItemNoWidgets = {
     answerArea: {
         calculator: false,
     },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
     hints: [],
 } as const;
 
@@ -43,10 +39,6 @@ const sampleV0InputNumberItem = {
     },
     answerArea: {
         calculator: false,
-    },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
     },
     hints: [],
 } as const;
@@ -79,10 +71,6 @@ const sampleV1MeasurerItem = {
     answerArea: {
         calculator: false,
     },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
     hints: [],
 } as const;
 
@@ -104,10 +92,6 @@ const sampleImpossibleWidgetsItem = {
     },
     answerArea: {
         calculator: false,
-    },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
     },
     hints: [],
 } as const;
@@ -139,10 +123,6 @@ const sampleImpossibleInputNumberItem1 = {
     answerArea: {
         calculator: false,
     },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
     hints: [],
 } as const;
 const sampleImpossibleInputNumberItem2 = {
@@ -171,10 +151,6 @@ const sampleImpossibleInputNumberItem2 = {
     answerArea: {
         calculator: false,
     },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
     hints: [],
 } as const;
 
@@ -200,10 +176,6 @@ const sampleEmptyGroupItem = {
     },
     answerArea: {
         calculator: false,
-    },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
     },
     hints: [],
 } as const;
@@ -247,10 +219,6 @@ const sampleGroupWithInputNumberItem = {
     },
     answerArea: {
         calculator: false,
-    },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
     },
     hints: [],
 } as const;
@@ -304,10 +272,6 @@ const sampleGroupWithRadioItem = {
     },
     answerArea: {
         calculator: false,
-    },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
     },
     hints: [],
 } as const;

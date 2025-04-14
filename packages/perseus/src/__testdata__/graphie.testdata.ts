@@ -9,10 +9,6 @@ export const itemWithPieChart: PerseusItem = {
         ItemExtras.map((extra) => [extra, false]),
     ) as PerseusAnswerArea,
     hints: [],
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
     question: {
         content: "[[☃ image 1]]",
         images: {},
