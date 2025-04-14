@@ -15,7 +15,10 @@ import {
 } from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
-import {scorePerseusItemTesting} from "../../util/test-utils";
+import {
+    generateTestPerseusItem,
+    scorePerseusItemTesting,
+} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import ExpressionWidgetExport from "./expression";
@@ -665,8 +668,8 @@ describe("Expression Widget", function () {
             ) as jest.Mock;
         });
 
-        function getFullItem(): PerseusRenderer {
-            return {
+        function getFullItem(): PerseusItem {
+            const question: PerseusRenderer = {
                 content: "[[☃ expression 1]]",
                 images: {},
                 widgets: {
@@ -690,9 +693,11 @@ describe("Expression Widget", function () {
                     },
                 },
             };
+
+            return generateTestPerseusItem({question});
         }
 
-        function getSplitItem(): PerseusRenderer {
+        function getSplitItem(): PerseusItem {
             return splitPerseusItem(getFullItem());
         }
 
@@ -703,7 +708,7 @@ describe("Expression Widget", function () {
             "is interactive with widget options: $optionsMode",
             async ({renderItem}) => {
                 // Act
-                const {renderer} = renderQuestion(renderItem);
+                const {renderer} = renderQuestion(renderItem.question);
 
                 await userEvent.click(
                     screen.getByRole("button", {name: "open math keypad"}),
@@ -716,7 +721,11 @@ describe("Expression Widget", function () {
                 act(() => jest.runOnlyPendingTimers());
 
                 const userInput = renderer.getUserInputMap();
-                const score = scorePerseusItem(getFullItem(), userInput, "en");
+                const score = scorePerseusItem(
+                    getFullItem().question,
+                    userInput,
+                    "en",
+                );
 
                 // Assert
                 expect(score).toHaveBeenAnsweredCorrectly();

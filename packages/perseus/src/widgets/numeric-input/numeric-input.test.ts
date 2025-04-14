@@ -1,9 +1,4 @@
-import {
-    splitPerseusItem,
-    type PerseusNumericInputWidgetOptions,
-    type PerseusRenderer,
-    type PerseusNumericInputRubric,
-} from "@khanacademy/perseus-core";
+import {splitPerseusItem} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -11,7 +6,10 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
-import {scorePerseusItemTesting} from "../../util/test-utils";
+import {
+    generateTestPerseusItem,
+    scorePerseusItemTesting,
+} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import NumericInputWidgetExport from "./numeric-input.class";
@@ -26,6 +24,12 @@ import {
     correctAndWrongAnswers,
 } from "./numeric-input.testdata";
 
+import type {
+    PerseusItem,
+    PerseusNumericInputWidgetOptions,
+    PerseusRenderer,
+    PerseusNumericInputRubric,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {
@@ -533,8 +537,8 @@ describe("interactive: full vs answerless", () => {
         );
     });
 
-    function getAnswerfulItem(): PerseusRenderer {
-        return {
+    function getAnswerfulItem(): PerseusItem {
+        const question: PerseusRenderer = {
             content: "[[☃ numeric-input 1]] ",
             images: {},
             widgets: {
@@ -559,9 +563,11 @@ describe("interactive: full vs answerless", () => {
                 },
             },
         };
+
+        return generateTestPerseusItem({question});
     }
 
-    function getAnswerlessItem(): PerseusRenderer {
+    function getAnswerlessItem(): PerseusItem {
         return splitPerseusItem(getAnswerfulItem());
     }
 
@@ -575,7 +581,7 @@ describe("interactive: full vs answerless", () => {
                 : getAnswerfulItem();
 
             // Act
-            const {renderer} = renderQuestion(renderItem);
+            const {renderer} = renderQuestion(renderItem.question);
             await userEvent.tab();
             expect(screen.getByRole("textbox")).toHaveFocus();
 
@@ -598,7 +604,11 @@ describe("interactive: full vs answerless", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(getAnswerfulItem(), userInput, "en");
+            const score = scorePerseusItem(
+                getAnswerfulItem().question,
+                userInput,
+                "en",
+            );
 
             // Assert
             expect(score).toHaveBeenAnsweredCorrectly();

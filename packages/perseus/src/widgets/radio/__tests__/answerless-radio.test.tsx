@@ -1,8 +1,4 @@
-import {
-    splitPerseusItem,
-    type PerseusRadioWidgetOptions,
-    type PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import {splitPerseusItem} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -10,8 +6,14 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
 import {registerAllWidgetsForTesting} from "../../../util/register-all-widgets-for-testing";
+import {generateTestPerseusItem} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
 
+import type {
+    PerseusRadioWidgetOptions,
+    PerseusRenderer,
+    PerseusItem,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 function getRadioWidgetOptions(): PerseusRadioWidgetOptions {
@@ -60,8 +62,8 @@ function getRadioWidgetOptions(): PerseusRadioWidgetOptions {
     };
 }
 
-function getAnswerfulItem(): PerseusRenderer {
-    return {
+function getAnswerfulItem(): PerseusItem {
+    const question: PerseusRenderer = {
         content: "[[☃ radio 1]]",
         images: {},
         widgets: {
@@ -71,9 +73,11 @@ function getAnswerfulItem(): PerseusRenderer {
             },
         },
     };
+
+    return generateTestPerseusItem({question});
 }
 
-function getAnswerlessItem(): PerseusRenderer {
+function getAnswerlessItem(): PerseusItem {
     return splitPerseusItem(getAnswerfulItem());
 }
 
@@ -111,7 +115,7 @@ describe("interactive: full vs answerless", () => {
                 : getAnswerfulItem();
 
             // Act
-            const {renderer} = renderQuestion(renderItem);
+            const {renderer} = renderQuestion(renderItem.question);
 
             await userEvent.click(
                 screen.getByRole("checkbox", {name: "(Choice A) Correct 1"}),
@@ -124,7 +128,11 @@ describe("interactive: full vs answerless", () => {
             expect(screen.getByRole("group", {name: "Choose 2 answers:"}));
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(getAnswerfulItem(), userInput, "en");
+            const score = scorePerseusItem(
+                getAnswerfulItem().question,
+                userInput,
+                "en",
+            );
 
             // Assert
             expect(score).toHaveBeenAnsweredCorrectly();

@@ -12,7 +12,10 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import {getDefaultFigureForType} from "../../../../perseus-editor/src/widgets/interactive-graph-editor/locked-figures/util";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
-import {scorePerseusItemTesting} from "../../util/test-utils";
+import {
+    generateTestPerseusItem,
+    scorePerseusItemTesting,
+} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 import {sinusoidQuestion} from "../grapher/grapher.testdata";
 
@@ -269,10 +272,10 @@ describe("Interactive Graph", function () {
                 // to the frontend. This test ensures that interactive graphs
                 // can render when the answers have been stripped out of the
                 // data.
+                const answerfulItem = generateTestPerseusItem({question});
+                const answerlessItem = splitPerseusItem(answerfulItem);
 
-                const answerlessQuestion = splitPerseusItem(question);
-
-                renderQuestion(answerlessQuestion, blankOptions);
+                renderQuestion(answerlessItem.question, blankOptions);
             });
 
             it("should reject when has not been interacted with", () => {

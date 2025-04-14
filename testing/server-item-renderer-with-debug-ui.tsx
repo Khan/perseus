@@ -22,7 +22,6 @@ import type {APIOptions} from "../packages/perseus/src/types";
 import type {
     PerseusItem,
     KEScore,
-    PerseusRenderer,
     ShowSolutions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -91,14 +90,9 @@ export const ServerItemRendererWithDebugUI = ({
         !reviewMode &&
         (showSolutions === "none" || !showSolutions);
 
-    const renderedQuestion: PerseusRenderer = shouldUseAnswerless
-        ? splitPerseusItem(item.question)
-        : item.question;
-
-    const renderedItem: PerseusItem = {
-        ...item,
-        question: renderedQuestion,
-    };
+    const renderedItem: PerseusItem = shouldUseAnswerless
+        ? splitPerseusItem(item)
+        : item;
 
     return (
         <TestKeypadContextWrapper>

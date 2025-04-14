@@ -5,6 +5,7 @@ import * as React from "react";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
+import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 import {sinusoidWithPiTicks} from "./interactive-graph.testdata";
@@ -321,7 +322,12 @@ export const MafsWithPiTicks: Story = {
 
 export const MafsWithAnswerlessData: Story = {
     args: {
-        question: splitPerseusItem(interactiveGraphQuestionBuilder().build()),
+        question: (() => {
+            const question = interactiveGraphQuestionBuilder().build();
+            const answerfulItem = generateTestPerseusItem({question});
+            const answerlessItem = splitPerseusItem(answerfulItem);
+            return answerlessItem.question;
+        })(),
     },
 };
 
