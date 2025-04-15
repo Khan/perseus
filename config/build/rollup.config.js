@@ -151,20 +151,17 @@ const createConfig = (
                 mode: "extract",
                 // STOPSHIP
                 // minimize: true,
-                // import: {
-                //     resolve(url, basedir) {
-                //         console.log(
-                //             `*** import::resolve(${url}, ${basedir}) ***`,
-                //         );
-                //     },
-                // },
-                // url: {
-                //     resolve(inputUrl, baseDir) {
-                //         console.log(
-                //             `*** url::resolve(${inputUrl}, ${baseDir}) ***`,
-                //         );
-                //     },
-                // },
+
+                url: {
+                    publicPath: "./assets",
+                    resolve(inputUrl, baseDir) {
+                        const targetFile = path.resolve(baseDir, inputUrl);
+                        return {
+                            from: targetFile,
+                            source: fs.readFileSync(targetFile),
+                        };
+                    },
+                },
                 less: {
                     math: "always",
                 },
