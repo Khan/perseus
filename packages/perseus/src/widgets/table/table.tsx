@@ -1,7 +1,6 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import ReactDOM from "react-dom";
-import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
@@ -14,7 +13,6 @@ import type {ChangeableProps} from "../../mixins/changeable";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusTableWidgetOptions,
-    PerseusTableRubric,
     PerseusTableUserInput,
 } from "@khanacademy/perseus-core";
 
@@ -25,7 +23,7 @@ type RenderProps = PerseusTableWidgetOptions & {
     Editor: any;
 };
 
-type Props = ChangeableProps & WidgetProps<RenderProps, PerseusTableRubric>;
+type Props = ChangeableProps & WidgetProps<RenderProps>;
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];
@@ -50,13 +48,13 @@ const getDefaultPath = function () {
 
 const getRowFromPath = function (path) {
     // 'path' should be a (row, column) pair
-    assert(_.isArray(path) && path.length === 2);
+    assert(Array.isArray(path) && path.length === 2);
     return +path[0];
 };
 
 const getColumnFromPath = function (path) {
     // 'path' should be a (row, column) pair
-    assert(_.isArray(path) && path.length === 2);
+    assert(Array.isArray(path) && path.length === 2);
     return +path[1];
 };
 
@@ -73,9 +71,10 @@ class Table extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = (function () {
         const defaultRows = 4;
         const defaultColumns = 1;
-        const blankAnswers = _(defaultRows).times(function () {
-            return Util.stringArrayOfSize(defaultColumns);
-        });
+        const blankAnswers = Util.stringArrayOfSize2D(
+            defaultRows,
+            defaultColumns,
+        );
         return {
             apiOptions: ApiOptions.defaults,
             headers: [""],
@@ -95,8 +94,15 @@ class Table extends React.Component<Props> implements Widget {
         return this.props.answers[0].length;
     };
 
+    _getAnswersClone(): PerseusTableUserInput {
+        return JSON.parse(
+            JSON.stringify(this.props.answers),
+        ) as PerseusTableUserInput;
+    }
+
     getUserInput(): PerseusTableUserInput {
-        return _.map(this.props.answers, _.clone) as PerseusTableUserInput;
+        const cloned = this._getAnswersClone();
+        return cloned as PerseusTableUserInput;
     }
 
     onValueChange: (arg1: any, arg2: any, arg3: any) => void = (
@@ -104,7 +110,7 @@ class Table extends React.Component<Props> implements Widget {
         column,
         eventOrValue,
     ) => {
-        const answers = _.map(this.props.answers, _.clone);
+        const answers = this._getAnswersClone();
 
         // If this is coming from an "input", the last argument will be an
         // event. If it's coming from a SimpleKeypadInput, it'll be the value.
@@ -176,12 +182,12 @@ class Table extends React.Component<Props> implements Widget {
         const rows = this._getRows();
         const columns = this._getColumns();
         const inputPaths: Array<Array<string>> = [];
-        _(rows).times((r) => {
-            _(columns).times((c) => {
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < columns; c++) {
                 const inputPath = getInputPath(r, c);
                 inputPaths.push(inputPath);
-            });
-        });
+            }
+        }
         return inputPaths;
     };
 
@@ -194,7 +200,7 @@ class Table extends React.Component<Props> implements Widget {
         const row = getRowFromPath(path);
         const column = getColumnFromPath(path);
 
-        const answers = _.map(this.props.answers, _.clone);
+        const answers = this._getAnswersClone();
         // @ts-expect-error - TS2571 - Object is of type 'unknown'.
         answers[row][column] = newValue;
         this.props.onChange(
@@ -206,8 +212,6 @@ class Table extends React.Component<Props> implements Widget {
     };
 
     render(): React.ReactNode {
-        const rows = this._getRows();
-        const columns = this._getColumns();
         const headers = this.props.headers;
 
         let InputComponent;
@@ -228,7 +232,7 @@ class Table extends React.Component<Props> implements Widget {
             <table className="perseus-widget-table-of-values non-markdown">
                 <thead>
                     <tr>
-                        {_.map(headers, (header, i) => {
+                        {headers.map((header, i) => {
                             if (this.props.editableHeaders) {
                                 return (
                                     <th key={i}>
@@ -237,10 +241,9 @@ class Table extends React.Component<Props> implements Widget {
                                             apiOptions={this.props.apiOptions}
                                             content={header}
                                             widgetEnabled={false}
-                                            onChange={_.partial(
-                                                this.onHeaderChange,
-                                                i,
-                                            )}
+                                            onChange={(e) =>
+                                                this.onHeaderChange(i, e)
+                                            }
                                         />
                                     </th>
                                 );
@@ -258,10 +261,10 @@ class Table extends React.Component<Props> implements Widget {
                     </tr>
                 </thead>
                 <tbody>
-                    {_(rows).times((r) => {
+                    {this.props.answers.map((rowArr, r) => {
                         return (
                             <tr key={r}>
-                                {_(columns).times((c) => {
+                                {rowArr.map((answer, c) => {
                                     return (
                                         <td key={c}>
                                             <InputComponent
@@ -269,24 +272,24 @@ class Table extends React.Component<Props> implements Widget {
                                                     getInputPath(r, c),
                                                 )}
                                                 type="text"
-                                                value={this.props.answers[r][c]}
+                                                value={answer}
                                                 disabled={
                                                     this.props.apiOptions
                                                         .readOnly
                                                 }
-                                                onFocus={_.partial(
-                                                    this._handleFocus,
-                                                    getInputPath(r, c),
-                                                )}
-                                                onBlur={_.partial(
-                                                    this._handleBlur,
-                                                    getInputPath(r, c),
-                                                )}
-                                                onChange={_.partial(
-                                                    this.onValueChange,
-                                                    r,
-                                                    c,
-                                                )}
+                                                onFocus={() =>
+                                                    this._handleFocus(
+                                                        getInputPath(r, c),
+                                                    )
+                                                }
+                                                onBlur={() =>
+                                                    this._handleBlur(
+                                                        getInputPath(r, c),
+                                                    )
+                                                }
+                                                onChange={(e) =>
+                                                    this.onValueChange(r, c, e)
+                                                }
                                                 style={inputStyle}
                                                 {...extraInputProps}
                                             />
@@ -306,12 +309,11 @@ const propTransform: (arg1: any) => any = (editorProps) => {
     // Remove answers before passing to widget
     const rows = editorProps.rows;
     const columns = editorProps.columns;
-    const blankAnswers = _(rows).times(function () {
-        return Util.stringArrayOfSize(columns);
-    });
-    return _.extend({}, editorProps, {
+    const blankAnswers = Util.stringArrayOfSize2D(rows, columns);
+    return {
+        ...editorProps,
         answers: blankAnswers,
-    });
+    };
 };
 
 export default {
