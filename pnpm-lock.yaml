@@ -393,7 +393,7 @@ importers:
         specifier: ^4.37.0
         version: 4.37.0
       rollup-plugin-auto-external:
-        specifier: ^2.0.0
+        specifier: 2.0.0
         version: 2.0.0(rollup@4.37.0)
       rollup-plugin-executable-output:
         specifier: ^1.3.0
