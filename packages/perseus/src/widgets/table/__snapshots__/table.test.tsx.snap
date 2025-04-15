@@ -154,8 +154,6 @@ exports[`table answerless: snapshots 1`] = `
                     value=""
                   />
                 </td>
-              </tr>
-              <tr>
                 <td>
                   <input
                     type="text"
@@ -170,8 +168,6 @@ exports[`table answerless: snapshots 1`] = `
                     value=""
                   />
                 </td>
-              </tr>
-              <tr>
                 <td>
                   <input
                     type="text"

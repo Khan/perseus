@@ -304,8 +304,8 @@ class Table extends React.Component<Props> implements Widget {
 
 const propTransform: (arg1: any) => any = (editorProps) => {
     // Remove answers before passing to widget
-    const rows = editorProps.answers.length;
-    const columns = editorProps.answers[0].length;
+    const rows = editorProps.rows;
+    const columns = editorProps.columns;
     const blankAnswers = _(rows).times(function () {
         return Util.stringArrayOfSize(columns);
     });
