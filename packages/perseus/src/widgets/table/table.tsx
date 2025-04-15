@@ -10,7 +10,7 @@ import Renderer from "../../renderer";
 import Util from "../../util";
 
 import type {ChangeableProps} from "../../mixins/changeable";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusTableWidgetOptions,
     PerseusTableUserInput,
@@ -18,12 +18,16 @@ import type {
 
 const {assert} = InteractiveUtil;
 
-type RenderProps = PerseusTableWidgetOptions & {
+type EditorProps = {
     editableHeaders: boolean;
     Editor: any;
 };
 
-type Props = ChangeableProps & WidgetProps<RenderProps>;
+type RenderProps = PerseusTableWidgetOptions & EditorProps;
+
+type Props = WidgetProps<PerseusTableWidgetOptions> &
+    ChangeableProps &
+    EditorProps;
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];
@@ -35,34 +39,37 @@ type DefaultProps = {
     linterContext: Props["linterContext"];
 };
 
+// A version of FocusPath that's specific to Table
+type Path = [row: string, column: string];
+
 /* Input handling: Maps a (row, column) pair to a unique ref used by React,
  * and extracts (row, column) pairs from input paths, used to allow outsiders
  * to focus, blur, set input values, etc. */
-const getInputPath = function (row, column) {
+function getInputPath(row: number, column: number): Path {
     return ["" + row, "" + column];
-};
+}
 
-const getDefaultPath = function () {
+function getDefaultPath(): Path {
     return getInputPath(0, 0);
-};
+}
 
-const getRowFromPath = function (path) {
+function getRowFromPath(path: Path): number {
     // 'path' should be a (row, column) pair
     assert(Array.isArray(path) && path.length === 2);
     return +path[0];
-};
+}
 
-const getColumnFromPath = function (path) {
+function getColumnFromPath(path: Path): number {
     // 'path' should be a (row, column) pair
     assert(Array.isArray(path) && path.length === 2);
     return +path[1];
-};
+}
 
-const getRefForPath = function (path) {
+function getRefForPath(path: Path): string {
     const row = getRowFromPath(path);
     const column = getColumnFromPath(path);
     return "answer" + row + "," + column;
-};
+}
 
 class Table extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
@@ -86,13 +93,13 @@ class Table extends React.Component<Props> implements Widget {
         };
     })();
 
-    _getRows: () => number = () => {
+    _getRows(): number {
         return this.props.answers.length;
-    };
+    }
 
-    _getColumns: () => number = () => {
+    _getColumns(): number {
         return this.props.answers[0].length;
-    };
+    }
 
     _getAnswersClone(): PerseusTableUserInput {
         return JSON.parse(
@@ -105,11 +112,7 @@ class Table extends React.Component<Props> implements Widget {
         return cloned as PerseusTableUserInput;
     }
 
-    onValueChange: (arg1: any, arg2: any, arg3: any) => void = (
-        row,
-        column,
-        eventOrValue,
-    ) => {
+    onValueChange(row: number, column: number, eventOrValue: any): void {
         const answers = this._getAnswersClone();
 
         // If this is coming from an "input", the last argument will be an
@@ -123,31 +126,31 @@ class Table extends React.Component<Props> implements Widget {
             answers: answers,
         });
         this.props.trackInteraction();
-    };
+    }
 
-    onHeaderChange: (arg1: number, arg2: any) => void = (index, e) => {
+    onHeaderChange(index: number, e: any): void {
         const headers = this.props.headers.slice();
         headers[index] = e.content;
         this.props.onChange({
             headers: headers,
         });
-    };
+    }
 
-    _handleFocus: (arg1: any) => void = (inputPath) => {
+    _handleFocus(inputPath: any): void {
         this.props.onFocus(inputPath);
-    };
+    }
 
-    _handleBlur: (arg1: any) => void = (inputPath) => {
+    _handleBlur(inputPath: any): void {
         this.props.onBlur(inputPath);
-    };
+    }
 
-    focus: () => boolean = () => {
+    focus(): boolean {
         this.focusInputPath(getDefaultPath());
         return true;
-    };
+    }
 
-    focusInputPath: (arg1: any) => void = (path) => {
-        const inputID = getRefForPath(path);
+    focusInputPath(path: FocusPath): void {
+        const inputID = getRefForPath(path as Path);
         // eslint-disable-next-line react/no-string-refs
         const inputComponent = this.refs[inputID];
         if (this.props.apiOptions.customKeypad) {
@@ -157,10 +160,10 @@ class Table extends React.Component<Props> implements Widget {
             // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
             ReactDOM.findDOMNode(inputComponent).focus();
         }
-    };
+    }
 
-    blurInputPath: (arg1: any) => void = (path) => {
-        const inputID = getRefForPath(path);
+    blurInputPath(path: FocusPath): void {
+        const inputID = getRefForPath(path as Path);
         // eslint-disable-next-line react/no-string-refs
         const inputComponent = this.refs[inputID];
         if (this.props.apiOptions.customKeypad) {
@@ -170,15 +173,17 @@ class Table extends React.Component<Props> implements Widget {
             // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'blur' does not exist on type 'Element | Text'.
             ReactDOM.findDOMNode(inputComponent).blur();
         }
-    };
+    }
 
-    getDOMNodeForPath(path) {
-        const inputID = getRefForPath(path);
+    getDOMNodeForPath(
+        path: FocusPath,
+    ): ReturnType<typeof ReactDOM.findDOMNode> {
+        const inputID = getRefForPath(path as Path);
         // eslint-disable-next-line react/no-string-refs
         return ReactDOM.findDOMNode(this.refs[inputID]);
     }
 
-    getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
+    getInputPaths(): ReadonlyArray<ReadonlyArray<string>> {
         const rows = this._getRows();
         const columns = this._getColumns();
         const inputPaths: Array<Array<string>> = [];
@@ -189,16 +194,13 @@ class Table extends React.Component<Props> implements Widget {
             }
         }
         return inputPaths;
-    };
+    }
 
-    setInputValue: (arg1: any, arg2: any, arg3: any) => void = (
-        path,
-        newValue,
-        cb,
-    ) => {
+    setInputValue(path: FocusPath, newValue: string, cb: any): void {
         // Extract row, column information
-        const row = getRowFromPath(path);
-        const column = getColumnFromPath(path);
+        const typedPath = path as Path;
+        const row = getRowFromPath(typedPath);
+        const column = getColumnFromPath(typedPath);
 
         const answers = this._getAnswersClone();
         // @ts-expect-error - TS2571 - Object is of type 'unknown'.
@@ -209,7 +211,7 @@ class Table extends React.Component<Props> implements Widget {
             },
             cb,
         );
-    };
+    }
 
     render(): React.ReactNode {
         const headers = this.props.headers;
@@ -305,16 +307,16 @@ class Table extends React.Component<Props> implements Widget {
     }
 }
 
-const propTransform: (arg1: any) => any = (editorProps) => {
+function propTransform(options: Props): RenderProps {
     // Remove answers before passing to widget
-    const rows = editorProps.rows;
-    const columns = editorProps.columns;
+    const rows = options.rows;
+    const columns = options.columns;
     const blankAnswers = Util.stringArrayOfSize2D(rows, columns);
     return {
-        ...editorProps,
+        ...options,
         answers: blankAnswers,
     };
-};
+}
 
 export default {
     name: "table",
