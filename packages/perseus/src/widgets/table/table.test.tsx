@@ -1,8 +1,4 @@
-import {
-    splitPerseusItem,
-    type PerseusItem,
-    type PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import {splitPerseusItem, type PerseusItem} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -10,32 +6,9 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {generateTestPerseusItem} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
+import {generateTableRenderer} from "./test-util";
+
 import type {UserEvent} from "@testing-library/user-event";
-
-function generateTableRenderer(
-    extend: Partial<PerseusRenderer> = {},
-): PerseusRenderer {
-    const base: PerseusRenderer = {
-        content: "[[☃ table 1]]",
-        widgets: {
-            "table 1": {
-                type: "table",
-                options: {
-                    headers: ["Column 1", "Column 2"],
-                    rows: 2,
-                    columns: 2,
-                    answers: [
-                        ["42", "42"],
-                        ["42", "42"],
-                    ],
-                },
-            },
-        },
-        images: {},
-    };
-
-    return {...base, ...extend};
-}
 
 function getFullItem(): PerseusItem {
     return generateTestPerseusItem({question: generateTableRenderer()});
