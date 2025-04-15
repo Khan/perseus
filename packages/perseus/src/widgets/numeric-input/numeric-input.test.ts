@@ -237,7 +237,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
         const widget = multipleAnswersWithDecimals.widgets["numeric-input 1"];
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const widgetOptions = widget && widget.options;
-        const answers: ReadonlyArray<any> =
+        const answers =
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             (widgetOptions && widgetOptions.answers) || [];
 
@@ -253,7 +253,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
         const widget = question1.widgets["numeric-input 1"];
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const widgetOptions = widget && widget.options;
-        const answers: ReadonlyArray<any> =
+        const answers =
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             (widgetOptions && widgetOptions.answers) || [];
         const singleAnswer =

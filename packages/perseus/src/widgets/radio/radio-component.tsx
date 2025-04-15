@@ -28,13 +28,13 @@ export type RenderProps = {
     multipleSelect?: boolean;
     countChoices?: boolean;
     deselectEnabled?: boolean;
-    choices: ReadonlyArray<RadioChoiceWithMetadata>;
-    selectedChoices: ReadonlyArray<PerseusRadioChoice["correct"]>;
+    choices: RadioChoiceWithMetadata[];
+    selectedChoices: PerseusRadioChoice["correct"][];
     showSolutions?: ShowSolutions;
-    choiceStates?: ReadonlyArray<ChoiceState>;
+    choiceStates?: ChoiceState[];
     // Depreciated; support for legacy way of handling changes
     // Adds proptype for prop that is used but was lacking type
-    values?: ReadonlyArray<boolean>;
+    values?: boolean[];
 };
 
 type Props = WidgetProps<RenderProps, PerseusRadioRubric>;

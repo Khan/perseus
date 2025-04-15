@@ -82,7 +82,7 @@ export type UserInputStatus = "correct" | "incorrect" | "incomplete";
 export type PerseusCategorizerRubric = {
     // The correct answers where index relates to the items and value relates
     // to the category.  e.g. [0, 1, 0, 1, 2]
-    values: ReadonlyArray<number>;
+    values: number[];
 } & PerseusCategorizerValidationData;
 
 export type PerseusCategorizerUserInput = {
@@ -91,7 +91,7 @@ export type PerseusCategorizerUserInput = {
 
 export type PerseusCategorizerValidationData = {
     // Translatable text; a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
-    items: ReadonlyArray<string>;
+    items: string[];
 };
 
 export type PerseusCSProgramUserInput = {
@@ -100,7 +100,7 @@ export type PerseusCSProgramUserInput = {
 };
 
 export type PerseusDropdownRubric = {
-    choices: ReadonlyArray<PerseusDropdownChoice>;
+    choices: Array<PerseusDropdownChoice>;
 };
 
 export type PerseusDropdownUserInput = {
@@ -108,8 +108,8 @@ export type PerseusDropdownUserInput = {
 };
 
 export type PerseusExpressionRubric = {
-    answerForms: ReadonlyArray<PerseusExpressionAnswerForm>;
-    functions: ReadonlyArray<string>;
+    answerForms: Array<PerseusExpressionAnswerForm>;
+    functions: string[];
 };
 
 export type PerseusExpressionUserInput = string;
@@ -162,29 +162,29 @@ export type PerseusInteractiveGraphRubric = {
 export type PerseusInteractiveGraphUserInput = PerseusGraphType;
 
 export type PerseusLabelImageRubric = {
-    markers: ReadonlyArray<{
-        answers: ReadonlyArray<string>;
+    markers: Array<{
+        answers: string[];
         label: string;
     }>;
 };
 
 export type PerseusLabelImageUserInput = {
-    markers: ReadonlyArray<{
-        selected?: ReadonlyArray<string>;
+    markers: Array<{
+        selected?: string[];
         label: string;
     }>;
 };
 
 export type PerseusMatcherRubric = {
     // Translatable Text; Static concepts to show in the left column. e.g. ["Fruit", "Color", "Clothes"]
-    left: ReadonlyArray<string>;
+    left: string[];
     // Translatable Markup; Values that represent the concepts to be correlated with the concepts.  e.g. ["Red", "Shirt", "Banana"]
-    right: ReadonlyArray<string>;
+    right: string[];
 };
 
 export type PerseusMatcherUserInput = {
-    left: ReadonlyArray<string>;
-    right: ReadonlyArray<string>;
+    left: string[];
+    right: string[];
 };
 
 export type PerseusMatrixRubric = {
@@ -201,7 +201,7 @@ export type PerseusMatrixUserInput = {
 export type PerseusNumberLineRubric = {
     correctRel: string | null | undefined;
     correctX: number;
-    range: ReadonlyArray<number>;
+    range: number[];
     initialX: number | null | undefined;
     isInequality: boolean;
 };
@@ -211,12 +211,12 @@ export type PerseusNumberLineUserInput = {
     numLinePosition: number;
     rel: Relationship | "eq";
     numDivisions: number;
-    divisionRange: ReadonlyArray<number>;
+    divisionRange: number[];
 };
 
 export type PerseusNumericInputRubric = {
     // A list of all the possible correct and incorrect answers
-    answers: ReadonlyArray<PerseusNumericInputAnswer>;
+    answers: PerseusNumericInputAnswer[];
     // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
     coefficient: boolean;
 };
@@ -228,46 +228,46 @@ export type PerseusNumericInputUserInput = {
 export type PerseusOrdererRubric = PerseusOrdererWidgetOptions;
 
 export type PerseusOrdererUserInput = {
-    current: ReadonlyArray<string>;
+    current: string[];
 };
 
 export type PerseusPlotterRubric = {
     // The Y values that represent the correct answer expected
-    correct: ReadonlyArray<number>;
+    correct: number[];
 } & PerseusPlotterValidationData;
 
 export type PerseusPlotterValidationData = {
     // The Y values the graph should start with
-    starting: ReadonlyArray<number>;
+    starting: number[];
 };
 
-export type PerseusPlotterUserInput = ReadonlyArray<number>;
+export type PerseusPlotterUserInput = number[];
 
 export type PerseusRadioRubric = {
     // The choices provided to the user.
-    choices: ReadonlyArray<PerseusRadioChoice>;
+    choices: PerseusRadioChoice[];
 };
 
 export type PerseusRadioUserInput = {
-    choicesSelected: ReadonlyArray<boolean>;
+    choicesSelected: boolean[];
 };
 
 export type PerseusSorterRubric = {
     // Translatable Text; The correct answer (in the correct order). The user will see the cards in a randomized order.
-    correct: ReadonlyArray<string>;
+    correct: string[];
 };
 
 export type PerseusSorterUserInput = {
-    options: ReadonlyArray<string>;
+    options: string[];
     changed: boolean;
 };
 
 export type PerseusTableRubric = {
     // Translatable Text; A 2-dimensional array of text to populate the table with
-    answers: ReadonlyArray<ReadonlyArray<string>>;
+    answers: string[][];
 };
 
-export type PerseusTableUserInput = ReadonlyArray<ReadonlyArray<string>>;
+export type PerseusTableUserInput = string[][];
 
 export interface RubricRegistry {
     categorizer: PerseusCategorizerRubric;
@@ -352,7 +352,7 @@ export type UserInputMap = MakeWidgetMap<UserInputRegistry>;
 /**
  * deprecated prefer using UserInputMap
  */
-export type UserInputArray = ReadonlyArray<
+export type UserInputArray = Array<
     UserInputArray | UserInput | null | undefined
 >;
 

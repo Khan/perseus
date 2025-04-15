@@ -193,10 +193,10 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
 // should this one?
 type Props = ChangeableProps & {
     range: [number, number];
-    labelRange: ReadonlyArray<number | null>;
+    labelRange: Array<number | null>;
     labelStyle: string;
     labelTicks: boolean;
-    divisionRange: ReadonlyArray<number>;
+    divisionRange: number[];
     numDivisions: number;
     snapDivisions: number;
     isTickCtrl: boolean;

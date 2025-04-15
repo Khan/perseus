@@ -4,3 +4,5 @@
 declare type SpreadType<A, B> = Omit<A, keyof B> & B;
 
 declare type Empty = Record<never, never>;
+
+declare type RecursiveReadonly<T> = {readonly [K in keyof T]: RecursiveReadonly<T[K]>}

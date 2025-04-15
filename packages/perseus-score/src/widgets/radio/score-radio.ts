@@ -7,8 +7,8 @@ import type {
 } from "@khanacademy/perseus-core";
 
 function scoreRadio(
-    userInput: PerseusRadioUserInput,
-    rubric: PerseusRadioRubric,
+    userInput: RecursiveReadonly<PerseusRadioUserInput>,
+    rubric: RecursiveReadonly<PerseusRadioRubric>,
 ): PerseusScore {
     const numSelected = userInput.choicesSelected.reduce((sum, selected) => {
         return sum + (selected ? 1 : 0);

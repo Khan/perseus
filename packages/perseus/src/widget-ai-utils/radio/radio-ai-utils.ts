@@ -1,5 +1,6 @@
 import type radio from "../../widgets/radio/radio";
 import type {PerseusRadioUserInput} from "@khanacademy/perseus-core";
+import { render } from "@testing-library/react";
 import type React from "react";
 
 type BasicOption = {
@@ -16,8 +17,8 @@ export type RadioPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof radio.widget>,
-    userInput: PerseusRadioUserInput,
+    renderProps: RecursiveReadonly<React.ComponentProps<typeof radio.widget>>,
+    userInput: RecursiveReadonly<PerseusRadioUserInput>,
 ): RadioPromptJSON => {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const choices = renderProps.choices || [];

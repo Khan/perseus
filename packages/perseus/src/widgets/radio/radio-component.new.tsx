@@ -275,7 +275,7 @@ class Radio extends React.Component<Props> implements Widget {
      * @deprecated Internal only. Use `showSolutions` prop instead.
      */
     showRationalesForCurrentlySelectedChoices: (
-        arg1: PerseusRadioWidgetOptions,
+        arg1: RecursiveReadonly<PerseusRadioRubric>,
     ) => void = (rubric) => {
         const {choiceStates} = this.props;
         if (choiceStates) {

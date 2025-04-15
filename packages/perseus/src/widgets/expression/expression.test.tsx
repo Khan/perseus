@@ -1,11 +1,5 @@
 import {it, describe, beforeEach} from "@jest/globals";
-import {
-    type PerseusItem,
-    type PerseusExpressionWidgetOptions,
-    type PerseusRenderer,
-    splitPerseusItem,
-    generateTestPerseusItem,
-} from "@khanacademy/perseus-core";
+import {splitPerseusItem, generateTestPerseusItem} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -27,6 +21,12 @@ import {
     expressionItemWithLabels,
 } from "./expression.testdata";
 
+import type {
+    PerseusItem,
+    PerseusExpressionWidgetOptions,
+    PerseusRenderer,
+    PerseusExpressionRubric,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
@@ -278,12 +278,10 @@ describe("Expression Widget", function () {
 
         it("should return undefined if rubric.value is null/undefined", () => {
             // Arrange
-            const rubric = {
+            const rubric: PerseusExpressionRubric = {
                 answerForms: [],
-                buttonSets: [],
                 functions: [],
-                times: true,
-            } as const;
+            };
 
             // Act
             const result =
@@ -295,7 +293,7 @@ describe("Expression Widget", function () {
 
         it("returns a correct answer when there is one correct answer", () => {
             // Arrange
-            const rubric = {
+            const rubric: PerseusExpressionRubric = {
                 answerForms: [
                     {
                         value: "123",
@@ -304,10 +302,8 @@ describe("Expression Widget", function () {
                         considered: "correct",
                     },
                 ],
-                buttonSets: [],
                 functions: [],
-                times: true,
-            } as const;
+            };
 
             // Act
             const result =
@@ -319,7 +315,7 @@ describe("Expression Widget", function () {
 
         it("returns the first correct answer when there are multiple correct answers", () => {
             // Arrange
-            const rubric = {
+            const rubric: PerseusExpressionRubric = {
                 answerForms: [
                     {
                         value: "123",
@@ -334,10 +330,8 @@ describe("Expression Widget", function () {
                         considered: "correct",
                     },
                 ],
-                buttonSets: [],
                 functions: [],
-                times: true,
-            } as const;
+            };
 
             // Act
             const result =

@@ -118,7 +118,6 @@ class Table extends React.Component<Props> implements Widget {
 
         // If this is coming from an "input", the last argument will be an
         // event. If it's coming from a SimpleKeypadInput, it'll be the value.
-        // @ts-expect-error - TS2571 - Object is of type 'unknown'.
         answers[row][column] = eventOrValue.target
             ? eventOrValue.target.value
             : eventOrValue;
@@ -180,7 +179,7 @@ class Table extends React.Component<Props> implements Widget {
         return ReactDOM.findDOMNode(inputRef);
     }
 
-    getInputPaths(): ReadonlyArray<ReadonlyArray<string>> {
+    getInputPaths(): string[][] {
         const rows = this._getRows();
         const columns = this._getColumns();
         const inputPaths: Array<Array<string>> = [];
@@ -200,7 +199,6 @@ class Table extends React.Component<Props> implements Widget {
         const column = getColumnFromPath(typedPath);
 
         const answers = this._getAnswersClone();
-        // @ts-expect-error - TS2571 - Object is of type 'unknown'.
         answers[row][column] = newValue;
         this.props.onChange(
             {
