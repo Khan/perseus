@@ -74,6 +74,8 @@ function getRefForPath(path: Path): string {
 class Table extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
+    headerRefs: Record<string, any> = {};
+    answerRefs: Record<string, any> = {};
 
     static defaultProps: DefaultProps = (function () {
         const defaultRows = 4;
@@ -108,8 +110,7 @@ class Table extends React.Component<Props> implements Widget {
     }
 
     getUserInput(): PerseusTableUserInput {
-        const cloned = this._getAnswersClone();
-        return cloned as PerseusTableUserInput;
+        return this._getAnswersClone();
     }
 
     onValueChange(row: number, column: number, eventOrValue: any): void {
@@ -151,10 +152,8 @@ class Table extends React.Component<Props> implements Widget {
 
     focusInputPath(path: FocusPath): void {
         const inputID = getRefForPath(path as Path);
-        // eslint-disable-next-line react/no-string-refs
-        const inputComponent = this.refs[inputID];
+        const inputComponent = this.answerRefs[inputID];
         if (this.props.apiOptions.customKeypad) {
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             inputComponent.focus();
         } else {
             // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
@@ -164,10 +163,8 @@ class Table extends React.Component<Props> implements Widget {
 
     blurInputPath(path: FocusPath): void {
         const inputID = getRefForPath(path as Path);
-        // eslint-disable-next-line react/no-string-refs
-        const inputComponent = this.refs[inputID];
+        const inputComponent = this.answerRefs[inputID];
         if (this.props.apiOptions.customKeypad) {
-            // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
             inputComponent.blur();
         } else {
             // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'blur' does not exist on type 'Element | Text'.
@@ -179,8 +176,8 @@ class Table extends React.Component<Props> implements Widget {
         path: FocusPath,
     ): ReturnType<typeof ReactDOM.findDOMNode> {
         const inputID = getRefForPath(path as Path);
-        // eslint-disable-next-line react/no-string-refs
-        return ReactDOM.findDOMNode(this.refs[inputID]);
+        const inputRef = this.answerRefs[inputID];
+        return ReactDOM.findDOMNode(inputRef);
     }
 
     getInputPaths(): ReadonlyArray<ReadonlyArray<string>> {
@@ -239,7 +236,11 @@ class Table extends React.Component<Props> implements Widget {
                                 return (
                                     <th key={i}>
                                         <this.props.Editor
-                                            ref={"columnHeader" + i}
+                                            ref={(ref) => {
+                                                this.headerRefs[
+                                                    "columnHeader" + i
+                                                ] = ref;
+                                            }}
                                             apiOptions={this.props.apiOptions}
                                             content={header}
                                             widgetEnabled={false}
@@ -270,9 +271,13 @@ class Table extends React.Component<Props> implements Widget {
                                     return (
                                         <td key={c}>
                                             <InputComponent
-                                                ref={getRefForPath(
-                                                    getInputPath(r, c),
-                                                )}
+                                                ref={(ref) => {
+                                                    this.answerRefs[
+                                                        getRefForPath(
+                                                            getInputPath(r, c),
+                                                        )
+                                                    ] = ref;
+                                                }}
                                                 type="text"
                                                 value={answer}
                                                 disabled={

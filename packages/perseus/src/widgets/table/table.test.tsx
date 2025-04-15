@@ -102,5 +102,22 @@ describe("table", () => {
 
             expect(score).toHaveBeenAnsweredCorrectly();
         });
+
+        it(`${optionsMode}: returns user input in correct order`, async () => {
+            const {renderer} = renderQuestion(renderItem.question);
+
+            const inputs = screen.getAllByRole("textbox");
+            for (let i = 0; i < 4; i++) {
+                await userEvent.type(inputs[i], `${i}`);
+            }
+
+            const userInput = renderer.getUserInputMap();
+            expect(userInput).toEqual({
+                "table 1": [
+                    ["0", "1"],
+                    ["2", "3"],
+                ],
+            });
+        });
     });
 });
