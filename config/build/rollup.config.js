@@ -149,8 +149,7 @@ const createConfig = (
             }),
             styles({
                 mode: "extract",
-                // STOPSHIP
-                // minimize: true,
+                minimize: true,
 
                 url: {
                     publicPath: "./assets",
