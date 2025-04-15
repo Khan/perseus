@@ -96,19 +96,19 @@ function getInstructionsText(
 }
 
 const BaseRadio = function ({
-                                apiOptions,
-                                reviewModeRubric,
-                                reviewMode,
-                                choices,
-                                editMode = false,
-                                multipleSelect = false,
-                                labelWrap,
-                                countChoices,
-                                numCorrect,
-                                isLastUsedWidget,
-                                onChange,
-                                registerFocusFunction,
-                            }: Props): React.ReactElement {
+    apiOptions,
+    reviewModeRubric,
+    reviewMode,
+    choices,
+    editMode = false,
+    multipleSelect = false,
+    labelWrap,
+    countChoices,
+    numCorrect,
+    isLastUsedWidget,
+    onChange,
+    registerFocusFunction,
+}: Props): React.ReactElement {
     const {strings} = usePerseusI18n();
 
     // useEffect doesn't have previous props
@@ -234,11 +234,11 @@ const BaseRadio = function ({
             styles.radio,
             styles.responsiveRadioContainer,
             firstChoiceHighlighted &&
-            isMobile &&
-            styles.radioContainerFirstHighlighted,
+                isMobile &&
+                styles.radioContainerFirstHighlighted,
             lastChoiceHighlighted &&
-            isMobile &&
-            styles.radioContainerLastHighlighted,
+                isMobile &&
+                styles.radioContainerLastHighlighted,
         ),
     );
 
@@ -315,15 +315,15 @@ const BaseRadio = function ({
                             styles.responsiveItem,
                             checked && styles.selectedItem,
                             checked &&
-                            choice.highlighted &&
-                            styles.aboveBackdrop,
+                                choice.highlighted &&
+                                styles.aboveBackdrop,
                             checked &&
-                            choice.highlighted &&
-                            apiOptions.isMobile &&
-                            styles.aboveBackdropMobile,
+                                choice.highlighted &&
+                                apiOptions.isMobile &&
+                                styles.aboveBackdropMobile,
                             nextChoiceHighlighted &&
-                            apiOptions.isMobile &&
-                            styles.nextHighlighted,
+                                apiOptions.isMobile &&
+                                styles.nextHighlighted,
                         );
                     };
 

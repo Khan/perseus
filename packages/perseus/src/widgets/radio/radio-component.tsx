@@ -62,6 +62,7 @@ class Radio extends React.Component<Props> implements Widget {
 
     // @ts-expect-error - TS2564 - Property 'focusFunction' has no initializer and is not definitely assigned in the constructor.
     focusFunction: FocusFunction;
+    testReality = 1;
 
     static defaultProps: DefaultProps = {
         choices: [],
@@ -187,6 +188,9 @@ class Radio extends React.Component<Props> implements Widget {
     // adding hints when editing.
     // See: https://github.com/Khan/perseus/blame/e18582b4b69959270b90e237ef1813899711ddfa/src/widgets/radio.js#L169
     focus(choiceIndex?: number | null): boolean {
+        console.log("Focus (radio-component)");
+        console.log("Reality check:", this.testReality);
+        console.log(`Focus Function: `, this.focusFunction);
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this.focusFunction) {
             return this.focusFunction(choiceIndex);
@@ -198,7 +202,11 @@ class Radio extends React.Component<Props> implements Widget {
     // lets BaseRadio regiser a focus callback so widget
     // can focus an individual choice
     registerFocusFunction(fun: FocusFunction): void {
+        // throw(new Error("Hopefully get a stack trace here"));
+        console.log("Register Focus (radio-component)");
         this.focusFunction = fun;
+        this.testReality = 2;
+        console.log(`Registered focus function (after): `, this.focusFunction.toString());
     }
 
     // When `BaseRadio`'s `onChange` handler is called, indicating a change in
@@ -338,6 +346,7 @@ class Radio extends React.Component<Props> implements Widget {
     };
 
     render(): React.ReactNode {
+        console.log(`Render (radio-component)`);
         const {choices} = this.props;
         const {strings} = this.context;
         let choiceStates: ReadonlyArray<ChoiceState>;
@@ -452,6 +461,7 @@ class Radio extends React.Component<Props> implements Widget {
                 deselectEnabled={this.props.deselectEnabled}
                 apiOptions={this.props.apiOptions}
                 isLastUsedWidget={this.props.isLastUsedWidget}
+                // registerFocusFunction={this.registerFocusFunction}
                 registerFocusFunction={(i) => this.registerFocusFunction(i)}
             />
         );

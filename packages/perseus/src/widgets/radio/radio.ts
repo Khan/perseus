@@ -2,6 +2,7 @@ import {radioLogic, random, shuffle} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import Radio from "./radio.ff";
+// import Radio from "./radio-component";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusStrings} from "../../strings";

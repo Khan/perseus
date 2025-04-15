@@ -154,7 +154,7 @@ describe("Radio Widget", () => {
                     },
                 );
 
-                it("calling .focus() on the renderer should succeed", async () => {
+                it.only("calling .focus() on the renderer should succeed", async () => {
                     // Arrange
                     const {renderer} = renderQuestion(question, apiOptions, {
                         reviewMode,

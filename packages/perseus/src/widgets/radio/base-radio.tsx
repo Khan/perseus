@@ -205,16 +205,22 @@ const BaseRadio = function ({
     // register a callback with the parent that allows
     // the parent to focus an individual choice
     registerFocusFunction?.((choiceIndex: number | null | undefined) => {
+        console.log(`Base-Radio.tsx - focus fn...`);
         const ref = choiceRefs.current[choiceIndex || 0];
         // note(matthew): we know this is only getting passed
         // to a WB Clickable button, so we force it to be of
         // type HTMLButtonElement
         // @ts-expect-error - TS2339 - Property 'current' does not exist on type 'never'.
+        console.log(`   findDOMNode`);
         const anyNode = ReactDOM.findDOMNode(ref.current) as any;
+        console.log(`   buttonNode...`);
         const buttonNode = anyNode as HTMLButtonElement | null | undefined;
 
+        console.log(`   conditional block...`);
         if (buttonNode) {
+            console.log(`   buttonNode: `, buttonNode);
             buttonNode.focus();
+            console.log(`   buttonNode focused`);
         } else {
             return false;
         }

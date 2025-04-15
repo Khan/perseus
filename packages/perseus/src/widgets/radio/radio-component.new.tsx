@@ -230,14 +230,14 @@ class Radio extends React.Component<Props> implements Widget {
         const newChoiceStates = choiceStates
             ? choiceStates.map((state: ChoiceState) => ({...state}))
             : choices.map(() => ({
-                selected: false,
-                crossedOut: false,
-                highlighted: false,
-                rationaleShown: false,
-                correctnessShown: false,
-                previouslyAnswered: false,
-                readOnly: false,
-            }));
+                  selected: false,
+                  crossedOut: false,
+                  highlighted: false,
+                  rationaleShown: false,
+                  correctnessShown: false,
+                  previouslyAnswered: false,
+                  readOnly: false,
+              }));
 
         // Mutate the new `choiceState` objects, according to the new `checked`
         // and `crossedOut` values provided in `newValueLists`.
