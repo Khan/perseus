@@ -12,6 +12,8 @@ exports[`table answerful: snapshots 1`] = `
       <div
         class="paragraph"
       >
+        The answer is 42
+
         <div
           class="perseus-widget-container widget-nohighlight widget-block"
         >
@@ -104,6 +106,8 @@ exports[`table answerless: snapshots 1`] = `
       <div
         class="paragraph"
       >
+        The answer is 42
+
         <div
           class="perseus-widget-container widget-nohighlight widget-block"
         >
