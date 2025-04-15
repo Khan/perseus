@@ -3,6 +3,7 @@ import {
     nullable,
     number,
     object,
+    objectWithAllPropertiesRequired,
     optional,
     string,
 } from "../general-purpose-parsers";
@@ -10,11 +11,11 @@ import {
 import type {WidgetOptions} from "../../data-schema";
 import type {Parser} from "../parser-types";
 
-export function parseWidget<Type extends string, Options>(
+export function parseWidget<Type extends string, Options extends object>(
     parseType: Parser<Type>,
     parseOptions: Parser<Options>,
 ): Parser<WidgetOptions<Type, Options>> {
-    return object({
+    return objectWithAllPropertiesRequired({
         type: parseType,
         static: optional(boolean),
         graded: optional(boolean),
@@ -33,13 +34,13 @@ export function parseWidget<Type extends string, Options>(
 export function parseWidgetWithVersion<
     Version extends {major: number; minor: number} | undefined,
     Type extends string,
-    Options,
+    Options extends object,
 >(
     parseVersion: Parser<Version>,
     parseType: Parser<Type>,
     parseOptions: Parser<Options>,
 ): Parser<WidgetOptions<Type, Options>> {
-    return object({
+    return objectWithAllPropertiesRequired({
         type: parseType,
         static: optional(boolean),
         graded: optional(boolean),
