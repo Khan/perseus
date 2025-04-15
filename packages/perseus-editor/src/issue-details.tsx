@@ -4,16 +4,21 @@ import * as React from "react";
 
 import PerseusEditorAccordion from "./components/perseus-editor-accordion";
 
-type IssueProps = {
-    issueType: "violation" | "incomplete";
-    issue: any;
+type Issue = {
+    id: string;
+    help: string;
+    helpUrl: string;
+    impact: string;
+    message: string;
 };
 
-const IssueDetails = (props: IssueProps) => {
-    const {issue, issueType} = props;
+type IssueProps = {
+    issue: Issue;
+};
+
+const IssueDetails = ({issue}: IssueProps) => {
     const [expanded, setExpanded] = React.useState(false);
     const toggleVisibility = () => setExpanded(!expanded);
-    const title = issueType === "violation" ? "Violation" : "Investigate";
 
     return (
         <PerseusEditorAccordion
@@ -30,7 +35,7 @@ const IssueDetails = (props: IssueProps) => {
                         whiteSpace: "nowrap",
                     }}
                 >
-                    {`${title}: ${issue.id}`}
+                    {`Warning: ${issue.id}`}
                 </LabelLarge>
             }
         >

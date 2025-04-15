@@ -12,6 +12,12 @@ const makeIssue = (id: string, impact: string = "moderate") => ({
     message: "Example message",
 });
 
+// Normally, we avoid direct node access per Testing Library best practices.
+// But <PhosphorIcon> renders as a <span> with no test-friendly props (e.g., no data-testid or role),
+// and attempts like getByTestId, getByText().nextSibling, or adding a test ID weren’t reliable.
+// So to verify the icon (e.g., data-icon-type="check-circle-fill.svg"), direct access was the most
+// consistent option.
+
 describe("IssuesPanel", () => {
     let userEvent;
     beforeEach(() => {
@@ -20,14 +26,14 @@ describe("IssuesPanel", () => {
         });
     });
 
-    it("shows green icon and 0 issues when no data is passed", () => {
+    it("shows passing icon and '0 issues' when no data is passed", () => {
         // Arrange
-        render(<IssuesPanel violations={[]} incompletes={[]} />);
+        render(<IssuesPanel warnings={[]} />);
 
         // Assert
         expect(screen.getByText("0 issues")).toBeInTheDocument();
 
-        //Assert that the icon is green
+        // Assert that the icon is a passing icon
         const icon = screen
             .getByText("0 issues")
             // eslint-disable-next-line testing-library/no-node-access
@@ -37,16 +43,14 @@ describe("IssuesPanel", () => {
         expect(icon).toBeInTheDocument();
     });
 
-    it("shows yellow icon for incompletes", () => {
+    it("shows caution icon for warnings", () => {
         // Arrange
-        render(
-            <IssuesPanel violations={[]} incompletes={[makeIssue("inc1")]} />,
-        );
+        render(<IssuesPanel warnings={[makeIssue("warn1")]} />);
 
         // Assert
         expect(screen.getByText("1 issue")).toBeInTheDocument();
 
-        // Assert that the icon is yellow
+        // Assert that the icon is caution icon
         const icon = screen
             .getByText("1 issue")
             // eslint-disable-next-line testing-library/no-node-access
@@ -56,59 +60,48 @@ describe("IssuesPanel", () => {
         expect(icon).toBeInTheDocument();
     });
 
-    it("shows red icon for violations", () => {
+    it("shows caution icon for warnings and correct issue count when multiple warnings are passed", async () => {
         // Arrange
-        render(<IssuesPanel violations={[makeIssue("v1")]} incompletes={[]} />);
+        render(
+            <IssuesPanel warnings={[makeIssue("warn1"), makeIssue("warn2")]} />,
+        );
 
         // Assert
-        expect(screen.getByText("1 issue")).toBeInTheDocument();
+        expect(screen.getByText("2 issues")).toBeInTheDocument();
 
-        // Assert that the icon is red
+        // Assert that the icon is caution icon
         const icon = screen
-            .getByText("1 issue")
+            .getByText("2 issues")
             // eslint-disable-next-line testing-library/no-node-access
             .parentElement?.querySelector(
-                '[data-icon-type="warning-octagon-fill.svg"]',
+                '[data-icon-type="warning-fill.svg"]',
             );
         expect(icon).toBeInTheDocument();
     });
 
-    it("renders multiple issues correctly", async () => {
-        // Arrange
-        render(
-            <IssuesPanel
-                violations={[makeIssue("v1"), makeIssue("v2")]}
-                incompletes={[makeIssue("inc1")]}
-            />,
-        );
-
-        // Assert
-        expect(screen.getByText("3 issues")).toBeInTheDocument();
-    });
-
     it("opens the panel when the heading is clicked", async () => {
         // Arrange
-        render(<IssuesPanel violations={[makeIssue("v1")]} incompletes={[]} />);
+        render(<IssuesPanel warnings={[makeIssue("warn1")]} />);
         const headingButton = screen.getByRole("button"); // The button in the heading
 
         //Act
         await userEvent.click(headingButton); // Simulate click to open panel
 
         //Assert
-        expect(screen.getByText("Violation: v1")).toBeInTheDocument();
+        expect(screen.getByText("Warning: warn1")).toBeInTheDocument();
     });
 
     it("closes the panel when the heading icon is clicked again", async () => {
         //Arrange
-        render(<IssuesPanel violations={[makeIssue("v1")]} incompletes={[]} />);
-        const headingIconButton = screen.getByRole("button");
-        await userEvent.click(headingIconButton);
-        expect(screen.getByText("Violation: v1")).toBeInTheDocument();
+        render(<IssuesPanel warnings={[makeIssue("warn1")]} />);
+        const headingButton = screen.getByRole("button");
+        await userEvent.click(headingButton);
+        expect(screen.getByText("Warning: warn1")).toBeInTheDocument();
 
         //Act
-        await userEvent.click(headingIconButton);
+        await userEvent.click(headingButton);
 
         //Assert
-        expect(screen.queryByText("Violation: v1")).not.toBeInTheDocument();
+        expect(screen.queryByText("Warning: warn1")).not.toBeInTheDocument();
     });
 });

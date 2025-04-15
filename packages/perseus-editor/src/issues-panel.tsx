@@ -3,7 +3,6 @@ import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import iconPass from "@phosphor-icons/core/fill/check-circle-fill.svg";
 import iconCaution from "@phosphor-icons/core/fill/warning-fill.svg";
-import iconViolations from "@phosphor-icons/core/fill/warning-octagon-fill.svg";
 import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretRight from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
@@ -20,31 +19,20 @@ type Issue = {
 };
 
 type IssuesPanelProps = {
-    violations: Issue[];
-    incompletes: Issue[];
+    warnings?: Issue[];
 };
 
-const IssuesPanel = ({violations = [], incompletes = []}: IssuesPanelProps) => {
+const IssuesPanel = ({warnings = []}: IssuesPanelProps) => {
     const [showPanel, setShowPanel] = useState(false);
     const toggleIcon = showPanel ? caretDown : caretRight;
     const togglePanel = () => setShowPanel(!showPanel);
 
-    const icon =
-        violations.length > 0
-            ? iconViolations
-            : incompletes.length > 0
-              ? iconCaution
-              : iconPass;
+    const icon = warnings.length > 0 ? iconCaution : iconPass;
 
-    const iconColor =
-        violations.length > 0
-            ? wbColor.red
-            : incompletes.length > 0
-              ? wbColor.gold
-              : wbColor.green;
+    const iconColor = warnings.length > 0 ? wbColor.gold : wbColor.green;
 
-    const issuesCount = `${violations.length + incompletes.length} issue${
-        violations.length + incompletes.length === 1 ? "" : "s"
+    const issuesCount = `${warnings.length} issue${
+        warnings.length === 1 ? "" : "s"
     }`;
 
     const editorClasses = `perseus-widget-editor${showPanel ? " perseus-widget-editor-open" : ""}`;
@@ -60,7 +48,7 @@ const IssuesPanel = ({violations = [], incompletes = []}: IssuesPanelProps) => {
                         onClick={togglePanel}
                         style={{marginRight: 0, flexGrow: 0}}
                     />
-                    <span>Issues</span>
+                    <span>Issues Panel</span>
                 </div>
                 {issuesCount}
                 <PhosphorIcon
@@ -73,19 +61,8 @@ const IssuesPanel = ({violations = [], incompletes = []}: IssuesPanelProps) => {
             {showPanel && (
                 <div className="perseus-widget-editor-panel">
                     <div className="perseus-widget-editor-content">
-                        {violations.map((issue, index) => (
-                            <IssueDetails
-                                key={issue.id}
-                                issue={issue}
-                                issueType="violation"
-                            />
-                        ))}
-                        {incompletes.map((issue, index) => (
-                            <IssueDetails
-                                key={issue.id}
-                                issue={issue}
-                                issueType="incomplete"
-                            />
+                        {warnings.map((issue, index) => (
+                            <IssueDetails key={issue.id} issue={issue} />
                         ))}
                     </div>
                 </div>
