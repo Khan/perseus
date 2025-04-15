@@ -1,5 +1,6 @@
 /* eslint-disable import/no-commonjs */
 import fs from "fs";
+import {URL} from "node:url";
 import path from "path";
 
 import alias from "@rollup/plugin-alias";
@@ -8,8 +9,8 @@ import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import swc from "@rollup/plugin-swc";
 import ancesdir from "ancesdir";
-import autoExternal from "rollup-plugin-auto-external";
 import filesize from "rollup-plugin-filesize";
+import {nodeExternals} from "rollup-plugin-node-externals";
 import styles from "rollup-plugin-styles";
 
 const rootDir = ancesdir(__dirname);
@@ -140,7 +141,7 @@ const createConfig = (
             alias({
                 // We don't use pnpm's workspace:* feature for these because
                 // then they are marked as external and not bundled (by the
-                // autoExternal() plugin). For now, this works!
+                // nodeExternals() plugin). For now, this works!
                 entries: {
                     hubble: path.join(rootDir, "vendor", "hubble"),
                     jsdiff: path.join(rootDir, "vendor", "jsdiff"),
@@ -150,14 +151,22 @@ const createConfig = (
             styles({
                 mode: "extract",
                 minimize: true,
-
                 url: {
                     publicPath: "./assets",
+                    // This resolve is for the fonts in Mathquill. We want to
+                    // bundle them into the math-input package so that
+                    // consumers of @khanacademy/math-input don't need to
+                    // _also_ depend on the mathquill package.
                     resolve(inputUrl, baseDir) {
-                        const targetFile = path.resolve(baseDir, inputUrl);
+                        // Some inputUrl's have a hash (eg.
+                        // font/Symbola.svg#Symbola). We use the URL object to
+                        // ensure we only have the file path and nothing else.
+                        const url = new URL(inputUrl, "http://example.com");
+                        const targetFile = path.join(baseDir, url.pathname);
                         return {
                             from: targetFile,
                             source: fs.readFileSync(targetFile),
+                            urlQuery: url.hash,
                         };
                     },
                 },
@@ -179,8 +188,11 @@ const createConfig = (
                 browser: platform === "browser",
                 extensions,
             }),
-            autoExternal({
+            nodeExternals({
                 packagePath: makePackageBasedPath(name, "./package.json"),
+                // We want to bundle mathquill so host applications don't have
+                // to depend directly on mathquill.
+                exclude: "mathquill",
             }),
             ...plugins,
         ],

@@ -42,7 +42,8 @@
     "dependencies": {
         "@khanacademy/keypad-context": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*",
-        "@khanacademy/perseus-utils": "workspace:*"
+        "@khanacademy/perseus-utils": "workspace:*",
+        "mathquill": "file:../../vendor/mathquill-v1.0.2.tgz"
     },
     "devDependencies": {
         "@khanacademy/mathjax-renderer": "catalog:",
@@ -56,7 +57,6 @@
         "aphrodite": "catalog:",
         "jquery": "catalog:",
         "katex": "0.11.1",
-        "mathquill": "file:../../vendor/mathquill-v1.0.2.tgz",
         "perseus-build-settings": "workspace:*",
         "prop-types": "catalog:",
         "react": "catalog:",
