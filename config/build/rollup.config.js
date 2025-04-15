@@ -9,8 +9,8 @@ import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import swc from "@rollup/plugin-swc";
 import ancesdir from "ancesdir";
+import autoExternal from "rollup-plugin-auto-external";
 import filesize from "rollup-plugin-filesize";
-import {nodeExternals} from "rollup-plugin-node-externals";
 import styles from "rollup-plugin-styles";
 
 const rootDir = ancesdir(__dirname);
@@ -141,7 +141,7 @@ const createConfig = (
             alias({
                 // We don't use pnpm's workspace:* feature for these because
                 // then they are marked as external and not bundled (by the
-                // nodeExternals() plugin). For now, this works!
+                // autoExternal() plugin). For now, this works!
                 entries: {
                     hubble: path.join(rootDir, "vendor", "hubble"),
                     jsdiff: path.join(rootDir, "vendor", "jsdiff"),
@@ -188,11 +188,8 @@ const createConfig = (
                 browser: platform === "browser",
                 extensions,
             }),
-            nodeExternals({
+            autoExternal({
                 packagePath: makePackageBasedPath(name, "./package.json"),
-                // We want to bundle mathquill so host applications don't have
-                // to depend directly on mathquill.
-                exclude: "mathquill",
             }),
             ...plugins,
         ],
