@@ -3,7 +3,7 @@ import _ from "underscore";
 import {getPublicWidgetOptionsFunction} from "../widgets/core-widget-registry";
 import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
-import type {PerseusRenderer} from "../data-schema";
+import type {PerseusItem} from "../data-schema";
 
 /**
  * Return a copy of a Perseus item with rubric data removed (ie answers)
@@ -11,10 +11,10 @@ import type {PerseusRenderer} from "../data-schema";
  * @param originalItem - the original, full Perseus item (which includes the rubric - aka answer data)
  */
 export default function splitPerseusItem(
-    originalItem: PerseusRenderer,
-): PerseusRenderer {
+    originalItem: PerseusItem,
+): PerseusItem {
     const item = _.clone(originalItem);
-    const originalWidgets = item.widgets ?? {};
+    const originalWidgets = item.question.widgets ?? {};
 
     const upgradedWidgets = getUpgradedWidgetOptions(originalWidgets);
     const splitWidgets = {};
@@ -32,6 +32,14 @@ export default function splitPerseusItem(
 
     return {
         ...item,
-        widgets: splitWidgets,
+        question: {
+            ...item.question,
+            // replace answerful widget options
+            // with answerless widget options
+            widgets: splitWidgets,
+        },
+        // the final hint often exposes the answer
+        // so we consider that part of the answer data
+        hints: [],
     };
 }

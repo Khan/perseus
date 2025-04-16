@@ -146,9 +146,16 @@ function firstNumericalParse(text: string): ParsedValue | null | undefined {
 }
 
 function stringArrayOfSize(size: number): ReadonlyArray<string> {
-    return _(size).times(function () {
-        return "";
-    });
+    return Array(size).fill("");
+}
+
+function stringArrayOfSize2D(opt: {
+    rows: number;
+    columns: number;
+}): ReadonlyArray<ReadonlyArray<string>> {
+    const {rows, columns} = opt;
+    const rowArr = stringArrayOfSize(rows);
+    return rowArr.map(() => stringArrayOfSize(columns));
 }
 
 /**
@@ -593,6 +600,7 @@ const Util = {
     split,
     firstNumericalParse,
     stringArrayOfSize,
+    stringArrayOfSize2D,
     gridDimensionConfig,
     getGridStep,
     snapStepFromGridStep,

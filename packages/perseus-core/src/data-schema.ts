@@ -209,15 +209,6 @@ export type PerseusItem = {
     hints: ReadonlyArray<Hint>;
     // Details about the tools the user might need to answer the question
     answerArea: PerseusAnswerArea | null | undefined;
-    /**
-     * The version of the item.
-     * @deprecated Not used.
-     */
-    itemDataVersion: any;
-    /**
-     * @deprecated Superseded by per-widget answers.
-     */
-    answer: any;
 };
 
 /**
@@ -401,7 +392,7 @@ export type DeprecatedStandinWidget = WidgetOptions<'deprecated-standin', object
  */
 export type PerseusImageBackground = {
     // The URL of the image
-    url: string | null | undefined;
+    url?: string | null;
     // The width of the image
     width?: number;
     // The height of the image
@@ -1252,7 +1243,7 @@ export type PerseusNumericInputAnswer = {
     strict: boolean;
     // A range of error +/- the value
     // NOTE: perseus_data.go says this is non-nullable even though we handle null values.
-    maxError: number | null | undefined;
+    maxError?: number | null;
     // Unsimplified answers are Ungraded, Accepted, or Wrong.
     simplify: PerseusNumericInputSimplify;
 };
@@ -1267,21 +1258,21 @@ export type PerseusNumberLineWidgetOptions = {
     // Show label ticks
     labelTicks: boolean;
     // Show tick controller
-    isTickCtrl?: boolean | null | undefined;
+    isTickCtrl?: boolean | null;
     // The range of divisions within the line
     divisionRange: ReadonlyArray<number>;
     // This controls the number (and position) of the tick marks. The number of divisions is constrained to the division range. Note:  The user will be able to specify the number of divisions in a number input.
-    numDivisions: number | null | undefined;
+    numDivisions?: number | null;
     // This determines the number of different places the point will snap between two adjacent tick marks. Note: Ensure the required number of snap increments is provided to answer the question.
     snapDivisions: number;
     // This controls the number (and position) of the tick marks; you can either set the number of divisions (2 divisions would split the entire range in two halves), or the tick step (the distance between ticks) and the other value will be updated accordingly. Note:  There is no check to see if labels coordinate with the tick marks, which may be confusing for users if the blue labels and black ticks are off-step.
-    tickStep: number | null | undefined;
+    tickStep?: number | null;
     // The correct relative value. default: "eq". options: "eq", "lt", "gt", "le", "ge"
-    correctRel: string | null | undefined;
+    correctRel?: string | null;
     // This is the correct answer. The answer is validated (as right or wrong) by using only the end position of the point and the relation (=, &lt;, &gt;, ≤, ≥).
     correctX: number | null;
     // This controls the initial position of the point along the number line
-    initialX: number | null | undefined;
+    initialX?: number | null;
     // Show tooltips
     showTooltips?: boolean;
     // When true, the answer is displayed and is immutable
@@ -1344,7 +1335,7 @@ export type PerseusPlotterWidgetOptions = {
     // The scale of the Y Axis
     scaleY: number;
     // Which ticks to display the labels for. For instance, setting this to "4" will only show every 4th label (plus the last one)
-    labelInterval: number | null | undefined;
+    labelInterval?: number | null;
     // Creates the specified number of divisions between the horizontal lines. Fewer snaps between lines makes the graph easier for the student to create correctly.
     snapsPerLine: number;
     // The Y values the graph should start with
@@ -1352,11 +1343,11 @@ export type PerseusPlotterWidgetOptions = {
     // The Y values that represent the correct answer expected
     correct: ReadonlyArray<number>;
     // A picture to represent items in a graph.
-    picUrl: string | null | undefined;
+    picUrl?: string | null;
     // deprecated
-    picSize: number | null | undefined;
+    picSize?: number | null;
     // deprecated
-    picBoxHeight: number | null | undefined;
+    picBoxHeight?: number | null;
     // deprecated
     plotDimensions: ReadonlyArray<number>;
 };

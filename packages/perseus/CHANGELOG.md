@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 60.0.2
+
+### Patch Changes
+
+-   [#2392](https://github.com/Khan/perseus/pull/2392) [`ea8398c3e`](https://github.com/Khan/perseus/commit/ea8398c3ea726318b2076643c2a9ee31d43f1e0f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update APIOptions flags type to make it more explicit to Perseus
+
 ## 60.0.1
 
 ### Patch Changes

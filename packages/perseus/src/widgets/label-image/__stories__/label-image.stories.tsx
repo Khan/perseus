@@ -1,7 +1,10 @@
+import {
+    generateTestPerseusItem,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
-import {generateTestPerseusItem} from "../../../util/test-utils";
 import {
     textQuestion,
     mathQuestion,
@@ -9,8 +12,6 @@ import {
     longTextFromArticle,
     mixedContentQuestion,
 } from "../__tests__/label-image.testdata";
-
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 const applyStoryArgs = (
     question: PerseusRenderer,

@@ -1,4 +1,5 @@
-import {generateTestPerseusItem} from "./test-utils";
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+
 import {
     basicObject,
     customQuestionInfo,
