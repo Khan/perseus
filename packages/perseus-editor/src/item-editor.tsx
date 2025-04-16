@@ -5,6 +5,7 @@ import _ from "underscore";
 import DeviceFramer from "./components/device-framer";
 import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
+import IssuesPanel from "./issues-panel";
 import ItemExtrasEditor from "./item-extras-editor";
 
 import type {
@@ -97,6 +98,7 @@ class ItemEditor extends React.Component<Props> {
             <div className="perseus-editor-table">
                 <div className="perseus-editor-row perseus-question-container">
                     <div className="perseus-editor-left-cell">
+                        <IssuesPanel warnings={[]} />
                         <div className="pod-title">Question</div>
                         <Editor
                             ref={this.questionEditor}
