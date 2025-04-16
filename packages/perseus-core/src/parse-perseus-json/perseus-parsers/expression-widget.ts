@@ -19,11 +19,8 @@ import {parseLegacyButtonSets} from "./legacy-button-sets";
 import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
 
-import type {
-    ExpressionWidget,
-    PerseusExpressionAnswerForm,
-} from "../../data-schema";
-import type {ParsedValue, Parser} from "../parser-types";
+import type {ParsedValue} from "../parser-types";
+import { PerseusExpressionAnswerForm } from "../../data-schema";
 
 const stringOrNumberOrNullOrUndefined = union(string)
     .or(number)
@@ -57,7 +54,7 @@ function removeInvalidAnswerForms(
 }
 
 const version2 = object({major: constant(2), minor: number});
-const parseExpressionWidgetV2: Parser<ExpressionWidget> =
+const parseExpressionWidgetV2 =
     parseWidgetWithVersion(
         version2,
         constant("expression"),
@@ -71,7 +68,7 @@ const parseExpressionWidgetV2: Parser<ExpressionWidget> =
             ariaLabel: optional(string),
             buttonSets: parseLegacyButtonSets,
             buttonsVisible: optional(enumeration("always", "never", "focused")),
-            extraKeys: array(enumeration(...KeypadKeys)),
+            extraKeys: optional(array(enumeration(...KeypadKeys))),
         }),
     );
 
@@ -94,7 +91,7 @@ const parseExpressionWidgetV1 = parseWidgetWithVersion(
 
 function migrateV1ToV2(
     widget: ParsedValue<typeof parseExpressionWidgetV1>,
-): ExpressionWidget {
+): ParsedValue<typeof parseExpressionWidgetV2> {
     const {options} = widget;
     return {
         ...widget,
@@ -107,7 +104,7 @@ function migrateV1ToV2(
             visibleLabel: options.visibleLabel,
             ariaLabel: options.ariaLabel,
             answerForms: options.answerForms,
-            extraKeys: deriveExtraKeys(options),
+            extraKeys: deriveExtraKeys(options) ?? [],
         },
     };
 }
@@ -156,7 +153,7 @@ function migrateV0ToV1(
     };
 }
 
-export const parseExpressionWidget: Parser<ExpressionWidget> =
+export const parseExpressionWidget =
     versionedWidgetOptions(2, parseExpressionWidgetV2)
         .withMigrationFrom(1, parseExpressionWidgetV1, migrateV1ToV2)
         .withMigrationFrom(0, parseExpressionWidgetV0, migrateV0ToV1).parser;
