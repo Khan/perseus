@@ -24,8 +24,7 @@ class Radio extends RadioOld {
 
     constructor(props: Props) {
         super(props);
-        this.ffIsOn =
-            props.apiOptions.flags?.["new-radio-widget"] ?? this.ffIsOn;
+        this.ffIsOn = props.apiOptions.flags?.["new-radio-widget"] ?? false;
     }
 
     focus(choiceIndex?: number | null): boolean {
