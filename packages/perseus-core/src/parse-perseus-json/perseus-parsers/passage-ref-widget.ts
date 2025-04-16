@@ -8,10 +8,7 @@ import {
 
 import {parseWidget} from "./widget";
 
-import type {PassageRefWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parsePassageRefWidget: Parser<PassageRefWidget> = parseWidget(
+export const parsePassageRefWidget = parseWidget(
     constant("passage-ref"),
     object({
         passageNumber: number,

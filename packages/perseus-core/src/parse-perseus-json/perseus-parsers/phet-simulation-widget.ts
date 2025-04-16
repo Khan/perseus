@@ -2,10 +2,7 @@ import {constant, object, string} from "../general-purpose-parsers";
 
 import {parseWidget} from "./widget";
 
-import type {PhetSimulationWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parsePhetSimulationWidget: Parser<PhetSimulationWidget> =
+export const parsePhetSimulationWidget =
     parseWidget(
         constant("phet-simulation"),
         object({

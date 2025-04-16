@@ -8,10 +8,7 @@ import {
 
 import {parseWidget} from "./widget";
 
-import type {MoleculeRendererWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parseMoleculeRendererWidget: Parser<MoleculeRendererWidget> =
+export const parseMoleculeRendererWidget =
     parseWidget(
         constant("molecule-renderer"),
         object({
