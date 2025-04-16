@@ -2,4 +2,4 @@
 "@khanacademy/perseus": patch
 ---
 
-[Radio] Implement feature flag usage to isolate forthcoming project work
+[Radio] Implement the "new-radio-widget" feature flag to isolate the forthcoming Radio Widget project work
