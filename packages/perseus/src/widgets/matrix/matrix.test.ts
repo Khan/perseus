@@ -125,8 +125,9 @@ describe("matrix widget", () => {
 
         test("the answerless test data doesn't contain answers", () => {
             expect(
-                getAnswerlessRenderer("matrix", matrixOptions).widgets["matrix 1"]
-                    .options.answers,
+                getAnswerlessRenderer("matrix", matrixOptions).widgets[
+                    "matrix 1"
+                ].options.answers,
             ).toBeUndefined();
         });
 
