@@ -1,6 +1,5 @@
 import {
     getMatrixSize,
-    type PerseusMatrixRubric,
     type PerseusMatrixUserInput,
     type PerseusMatrixWidgetAnswers,
     type PerseusMatrixWidgetOptions,
@@ -76,23 +75,20 @@ const getRefForPath = function (path: FocusPath) {
     return "answer" + row + "," + column;
 };
 
-type ExternalProps = WidgetProps<
-    {
-        // Translatable Text; Shown before the matrix
-        prefix: string;
-        // Translatable Text; Shown after the matrix
-        suffix: string;
-        // A data matrix representing the "correct" answers to be entered into the matrix
-        answers: PerseusMatrixWidgetAnswers;
-        // The coordinate location of the cursor position at start. default: [0, 0]
-        cursorPosition: ReadonlyArray<number>;
-        // The coordinate size of the matrix.  Only supports 2-dimensional matrix.  default: [3, 3]
-        matrixBoardSize: ReadonlyArray<number>;
-        // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
-        static?: boolean | undefined;
-    },
-    PerseusMatrixRubric
->;
+type ExternalProps = WidgetProps<{
+    // Translatable Text; Shown before the matrix
+    prefix: string;
+    // Translatable Text; Shown after the matrix
+    suffix: string;
+    // A data matrix representing the "correct" answers to be entered into the matrix
+    answers: PerseusMatrixWidgetAnswers;
+    // The coordinate location of the cursor position at start. default: [0, 0]
+    cursorPosition: ReadonlyArray<number>;
+    // The coordinate size of the matrix.  Only supports 2-dimensional matrix.  default: [3, 3]
+    matrixBoardSize: ReadonlyArray<number>;
+    // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
+    static?: boolean | undefined;
+}>;
 
 // Assert that the PerseusMatrixWidgetOptions parsed from JSON can be passed
 // as props to this component. This ensures that the PerseusMatrixWidgetOptions
@@ -100,10 +96,9 @@ type ExternalProps = WidgetProps<
 // defaultProps into account, which is important because
 // PerseusMatrixWidgetOptions has optional fields which receive defaults via
 // defaultProps.
-0 as any as WidgetProps<
-    PerseusMatrixWidgetOptions,
-    PerseusMatrixRubric
-> satisfies PropsFor<typeof Matrix>;
+0 as any as WidgetProps<PerseusMatrixWidgetOptions> satisfies PropsFor<
+    typeof Matrix
+>;
 
 type Props = ExternalProps & {
     onChange: (

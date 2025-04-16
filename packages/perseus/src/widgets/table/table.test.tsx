@@ -1,9 +1,12 @@
-import {splitPerseusItem, type PerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusItem,
+    splitPerseusItem,
+    type PerseusItem,
+} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
-import {generateTestPerseusItem} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {generateTableRenderer} from "./test-util";
@@ -16,8 +19,7 @@ function getFullItem(): PerseusItem {
 
 function getSplitItem(): PerseusItem {
     const item = getFullItem();
-    item.question = splitPerseusItem(item.question);
-    return item;
+    return splitPerseusItem(item);
 }
 
 describe("table", () => {
