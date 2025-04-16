@@ -8,12 +8,11 @@ import {
 
 import {parseWidget} from "./widget";
 
-export const parseMoleculeRendererWidget =
-    parseWidget(
-        constant("molecule-renderer"),
-        object({
-            widgetId: string,
-            rotationAngle: optional(number),
-            smiles: optional(string),
-        }),
-    );
+export const parseMoleculeRendererWidget = parseWidget(
+    constant("molecule-renderer"),
+    object({
+        widgetId: string,
+        rotationAngle: optional(number),
+        smiles: optional(string),
+    }),
+);

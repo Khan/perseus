@@ -1,7 +1,9 @@
-import { IFrameWidget } from "../../data-schema";
-import { RecursiveRequired, summon } from "../general-purpose-parsers/test-helpers";
-import { ParsedValue } from "../parser-types";
-import { parseIframeWidget } from "./iframe-widget";
+import {summon} from "../general-purpose-parsers/test-helpers";
+
+import type {parseIframeWidget} from "./iframe-widget";
+import type {IFrameWidget} from "../../data-schema";
+import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
+import type {ParsedValue} from "../parser-types";
 
 type Parsed = ParsedValue<typeof parseIframeWidget>;
 

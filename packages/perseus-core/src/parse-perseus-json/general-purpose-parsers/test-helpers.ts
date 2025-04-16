@@ -32,9 +32,10 @@ export function summon<T>(): T {
     return "fake summoned value" as any;
 }
 
-export type RecursiveRequired<T> =
-    T extends object
+export type RecursiveRequired<T> = T extends object
     ? RecursiveRequiredObject<T>
-    : T
+    : T;
 
-type RecursiveRequiredObject<T extends object> = {[K in keyof T]-?: RecursiveRequired<T[K]>}
+type RecursiveRequiredObject<T extends object> = {
+    [K in keyof T]-?: RecursiveRequired<T[K]>;
+};

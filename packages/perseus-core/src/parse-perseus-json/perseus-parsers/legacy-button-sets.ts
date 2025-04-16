@@ -1,7 +1,7 @@
 import {array, enumeration} from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
-import { ParsedValue } from "../parser-types";
+import type {ParsedValue} from "../parser-types";
 
 const parseLegacyButtonSet = enumeration(
     "basic",
@@ -19,5 +19,10 @@ export const parseLegacyButtonSets = defaulted(
     // NOTE(benchristel): I copied the default buttonSets from
     // expression.tsx. See the parse-perseus-json/README.md for
     // an explanation of why we want to duplicate the default here.
-    (): Array<ParsedValue<typeof parseLegacyButtonSet>> => ["basic", "trig", "prealgebra", "logarithms"],
+    (): Array<ParsedValue<typeof parseLegacyButtonSet>> => [
+        "basic",
+        "trig",
+        "prealgebra",
+        "logarithms",
+    ],
 );

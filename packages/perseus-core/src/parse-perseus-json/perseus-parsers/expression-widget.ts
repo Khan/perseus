@@ -27,7 +27,7 @@ const stringOrNumberOrNullOrUndefined = union(string)
     .or(constant(undefined)).parser;
 
 function numberOrNullToString(v: string | number | null | undefined) {
-    return typeof v === "number" || v === null ? String(v) : v
+    return typeof v === "number" || v === null ? String(v) : v;
 }
 
 const parsePossiblyInvalidAnswerForm = object({
@@ -38,9 +38,9 @@ const parsePossiblyInvalidAnswerForm = object({
     form: defaulted(boolean, () => false),
     simplify: defaulted(boolean, () => false),
     considered: enumeration("correct", "wrong", "ungraded"),
-    key: pipeParsers(stringOrNumberOrNullOrUndefined)
-        .then(convert(numberOrNullToString))
-        .parser,
+    key: pipeParsers(stringOrNumberOrNullOrUndefined).then(
+        convert(numberOrNullToString),
+    ).parser,
 });
 
 function removeInvalidAnswerForms(
@@ -49,30 +49,29 @@ function removeInvalidAnswerForms(
     return possiblyInvalid.flatMap((answerForm) => {
         const {value} = answerForm;
         if (value != null) {
-            return [{...answerForm, value}]
+            return [{...answerForm, value}];
         }
-        return []
-    })
+        return [];
+    });
 }
 
 const version2 = object({major: constant(2), minor: number});
-const parseExpressionWidgetV2 =
-    parseWidgetWithVersion(
-        version2,
-        constant("expression"),
-        object({
-            answerForms: pipeParsers(
-                array(parsePossiblyInvalidAnswerForm),
-            ).then(convert(removeInvalidAnswerForms)).parser,
-            functions: array(string),
-            times: boolean,
-            visibleLabel: optional(string),
-            ariaLabel: optional(string),
-            buttonSets: parseLegacyButtonSets,
-            buttonsVisible: optional(enumeration("always", "never", "focused")),
-            extraKeys: optional(array(enumeration(...KeypadKeys))),
-        }),
-    );
+const parseExpressionWidgetV2 = parseWidgetWithVersion(
+    version2,
+    constant("expression"),
+    object({
+        answerForms: pipeParsers(array(parsePossiblyInvalidAnswerForm)).then(
+            convert(removeInvalidAnswerForms),
+        ).parser,
+        functions: array(string),
+        times: boolean,
+        visibleLabel: optional(string),
+        ariaLabel: optional(string),
+        buttonSets: parseLegacyButtonSets,
+        buttonsVisible: optional(enumeration("always", "never", "focused")),
+        extraKeys: optional(array(enumeration(...KeypadKeys))),
+    }),
+);
 
 const version1 = object({major: constant(1), minor: number});
 const parseExpressionWidgetV1 = parseWidgetWithVersion(
@@ -155,7 +154,9 @@ function migrateV0ToV1(
     };
 }
 
-export const parseExpressionWidget =
-    versionedWidgetOptions(2, parseExpressionWidgetV2)
-        .withMigrationFrom(1, parseExpressionWidgetV1, migrateV1ToV2)
-        .withMigrationFrom(0, parseExpressionWidgetV0, migrateV0ToV1).parser;
+export const parseExpressionWidget = versionedWidgetOptions(
+    2,
+    parseExpressionWidgetV2,
+)
+    .withMigrationFrom(1, parseExpressionWidgetV1, migrateV1ToV2)
+    .withMigrationFrom(0, parseExpressionWidgetV0, migrateV0ToV1).parser;

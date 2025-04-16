@@ -1,7 +1,9 @@
-import { OrdererWidget } from "../../data-schema";
-import { RecursiveRequired, summon } from "../general-purpose-parsers/test-helpers";
-import { ParsedValue } from "../parser-types";
-import { parseOrdererWidget } from "./orderer-widget";
+import {summon} from "../general-purpose-parsers/test-helpers";
+
+import type {parseOrdererWidget} from "./orderer-widget";
+import type {OrdererWidget} from "../../data-schema";
+import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
+import type {ParsedValue} from "../parser-types";
 
 type Parsed = ParsedValue<typeof parseOrdererWidget>;
 

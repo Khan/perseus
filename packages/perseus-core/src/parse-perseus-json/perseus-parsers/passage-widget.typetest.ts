@@ -1,7 +1,9 @@
-import { PassageWidget } from "../../data-schema";
-import { RecursiveRequired, summon } from "../general-purpose-parsers/test-helpers";
-import { ParsedValue } from "../parser-types";
-import { parsePassageWidget } from "./passage-widget";
+import {summon} from "../general-purpose-parsers/test-helpers";
+
+import type {parsePassageWidget} from "./passage-widget";
+import type {PassageWidget} from "../../data-schema";
+import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
+import type {ParsedValue} from "../parser-types";
 
 type Parsed = ParsedValue<typeof parsePassageWidget>;
 

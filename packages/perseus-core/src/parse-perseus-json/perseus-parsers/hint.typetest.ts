@@ -1,7 +1,9 @@
-import { Hint } from "../../data-schema";
-import { RecursiveRequired, summon } from "../general-purpose-parsers/test-helpers";
-import { ParsedValue } from "../parser-types";
-import { parseHint } from "./hint";
+import {summon} from "../general-purpose-parsers/test-helpers";
+
+import type {parseHint} from "./hint";
+import type {Hint} from "../../data-schema";
+import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
+import type {ParsedValue} from "../parser-types";
 
 type Parsed = ParsedValue<typeof parseHint>;
 

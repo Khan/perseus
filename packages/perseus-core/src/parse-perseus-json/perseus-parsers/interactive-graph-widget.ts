@@ -1,4 +1,4 @@
-import {lockedFigureColorNames, PerseusGraphTypeLinear} from "../../data-schema";
+import {lockedFigureColorNames} from "../../data-schema";
 import {
     array,
     boolean,
@@ -18,6 +18,8 @@ import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-uni
 
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
+
+import type {PerseusGraphTypeLinear} from "../../data-schema";
 
 // Used to represent 2-D points and ranges
 const pairOfNumbers = pair(number, number);
@@ -55,15 +57,14 @@ const parsePerseusGraphTypeLinear = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypeLinearSystem =
-    object({
-        type: constant("linear-system"),
-        // TODO(benchristel): default coords to empty array?
-        coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
-        startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
-        // TODO: remove coord? it's legacy.
-        coord: optional(pairOfNumbers),
-    });
+const parsePerseusGraphTypeLinearSystem = object({
+    type: constant("linear-system"),
+    // TODO(benchristel): default coords to empty array?
+    coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
+    startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
+    // TODO: remove coord? it's legacy.
+    coord: optional(pairOfNumbers),
+});
 
 const parsePerseusGraphTypeNone = object({
     type: constant("none"),
@@ -91,18 +92,15 @@ const parsePerseusGraphTypePolygon = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypeQuadratic =
-    object({
-        type: constant("quadratic"),
-        coords: optional(
-            nullable(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
-        ),
-        startCoords: optional(
-            trio(pairOfNumbers, pairOfNumbers, pairOfNumbers),
-        ),
-        // TODO: remove coord? it's legacy.
-        coord: optional(pairOfNumbers),
-    });
+const parsePerseusGraphTypeQuadratic = object({
+    type: constant("quadratic"),
+    coords: optional(
+        nullable(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
+    ),
+    startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
+    // TODO: remove coord? it's legacy.
+    coord: optional(pairOfNumbers),
+});
 
 const parsePerseusGraphTypeRay = object({
     type: constant("ray"),
@@ -143,9 +141,7 @@ export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("segment", parsePerseusGraphTypeSegment)
     .withBranch("sinusoid", parsePerseusGraphTypeSinusoid).parser;
 
-const parseLockedFigureColor = enumeration(
-    ...lockedFigureColorNames,
-);
+const parseLockedFigureColor = enumeration(...lockedFigureColorNames);
 
 const parseLockedFigureFillType = enumeration(
     "none",
@@ -154,10 +150,7 @@ const parseLockedFigureFillType = enumeration(
     "solid",
 );
 
-const parseLockedLineStyle = enumeration(
-    "solid",
-    "dashed",
-);
+const parseLockedLineStyle = enumeration("solid", "dashed");
 
 const parseLockedLabelType = object({
     type: constant("label"),
@@ -254,37 +247,39 @@ const parseLockedFigure = discriminatedUnionOn("type")
     .withBranch("function", parseLockedFunctionType)
     .withBranch("label", parseLockedLabelType).parser;
 
-export const parseInteractiveGraphWidget =
-    parseWidget(
-        constant("interactive-graph"),
-        object({
-            step: pairOfNumbers,
-            // TODO(benchristel): rather than making gridStep and snapStep
-            // optional, we should duplicate the defaulting logic from the
-            // InteractiveGraph component. See parse-perseus-json/README.md for
-            // why.
-            gridStep: optional(pairOfNumbers),
-            snapStep: optional(pairOfNumbers),
-            backgroundImage: optional(parsePerseusImageBackground),
-            markings: enumeration("graph", "grid", "none", "axes"),
-            labels: optional(array(string)),
-            labelLocation: optional(enumeration("onAxis", "alongEdge")),
-            showProtractor: boolean,
-            showRuler: optional(boolean),
-            showTooltips: optional(boolean),
-            rulerLabel: optional(string),
-            rulerTicks: optional(number),
-            range: pair(pairOfNumbers, pairOfNumbers),
-            // NOTE(benchristel): I copied the default graph from
-            // interactive-graph.tsx. See the parse-perseus-json/README.md for
-            // an explanation of why we want to duplicate the default here.
-            graph: defaulted(parsePerseusGraphType, (): PerseusGraphTypeLinear => ({
+export const parseInteractiveGraphWidget = parseWidget(
+    constant("interactive-graph"),
+    object({
+        step: pairOfNumbers,
+        // TODO(benchristel): rather than making gridStep and snapStep
+        // optional, we should duplicate the defaulting logic from the
+        // InteractiveGraph component. See parse-perseus-json/README.md for
+        // why.
+        gridStep: optional(pairOfNumbers),
+        snapStep: optional(pairOfNumbers),
+        backgroundImage: optional(parsePerseusImageBackground),
+        markings: enumeration("graph", "grid", "none", "axes"),
+        labels: optional(array(string)),
+        labelLocation: optional(enumeration("onAxis", "alongEdge")),
+        showProtractor: boolean,
+        showRuler: optional(boolean),
+        showTooltips: optional(boolean),
+        rulerLabel: optional(string),
+        rulerTicks: optional(number),
+        range: pair(pairOfNumbers, pairOfNumbers),
+        // NOTE(benchristel): I copied the default graph from
+        // interactive-graph.tsx. See the parse-perseus-json/README.md for
+        // an explanation of why we want to duplicate the default here.
+        graph: defaulted(
+            parsePerseusGraphType,
+            (): PerseusGraphTypeLinear => ({
                 type: "linear" as const,
-            })),
-            correct: parsePerseusGraphType,
-            // TODO(benchristel): default lockedFigures to empty array
-            lockedFigures: optional(array(parseLockedFigure)),
-            fullGraphAriaLabel: optional(string),
-            fullGraphAriaDescription: optional(string),
-        }),
-    );
+            }),
+        ),
+        correct: parsePerseusGraphType,
+        // TODO(benchristel): default lockedFigures to empty array
+        lockedFigures: optional(array(parseLockedFigure)),
+        fullGraphAriaLabel: optional(string),
+        fullGraphAriaDescription: optional(string),
+    }),
+);

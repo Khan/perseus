@@ -1,7 +1,9 @@
-import { CSProgramWidget } from "../../data-schema";
-import { RecursiveRequired, summon } from "../general-purpose-parsers/test-helpers";
-import { ParsedValue } from "../parser-types";
-import { parseCSProgramWidget } from "./cs-program-widget";
+import {summon} from "../general-purpose-parsers/test-helpers";
+
+import type {parseCSProgramWidget} from "./cs-program-widget";
+import type {CSProgramWidget} from "../../data-schema";
+import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
+import type {ParsedValue} from "../parser-types";
 
 type Parsed = ParsedValue<typeof parseCSProgramWidget>;
 
@@ -10,4 +12,6 @@ summon<CSProgramWidget>() satisfies Parsed;
 
 // The `RecursiveRequired` test ensures that any new optional properties added
 // to the types in data-schema.ts are also added to the parser.
-summon<RecursiveRequired<Parsed>>() satisfies RecursiveRequired<CSProgramWidget>;
+summon<
+    RecursiveRequired<Parsed>
+>() satisfies RecursiveRequired<CSProgramWidget>;

@@ -1,7 +1,9 @@
-import { MatcherWidget } from "../../data-schema";
-import { RecursiveRequired, summon } from "../general-purpose-parsers/test-helpers";
-import { ParsedValue } from "../parser-types";
-import { parseMatcherWidget } from "./matcher-widget";
+import {summon} from "../general-purpose-parsers/test-helpers";
+
+import type {parseMatcherWidget} from "./matcher-widget";
+import type {MatcherWidget} from "../../data-schema";
+import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
+import type {ParsedValue} from "../parser-types";
 
 type Parsed = ParsedValue<typeof parseMatcherWidget>;
 

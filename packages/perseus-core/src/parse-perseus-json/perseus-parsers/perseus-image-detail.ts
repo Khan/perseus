@@ -1,4 +1,4 @@
-import { number, object } from "../general-purpose-parsers";
+import {number, object} from "../general-purpose-parsers";
 
 export const parsePerseusImageDetail = object({
     width: number,

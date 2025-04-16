@@ -1,7 +1,9 @@
-import { GrapherWidget } from "../../data-schema";
-import { RecursiveRequired, summon } from "../general-purpose-parsers/test-helpers";
-import { ParsedValue } from "../parser-types";
-import { parseGrapherWidget } from "./grapher-widget";
+import {summon} from "../general-purpose-parsers/test-helpers";
+
+import type {parseGrapherWidget} from "./grapher-widget";
+import type {GrapherWidget} from "../../data-schema";
+import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
+import type {ParsedValue} from "../parser-types";
 
 type Parsed = ParsedValue<typeof parseGrapherWidget>;
 

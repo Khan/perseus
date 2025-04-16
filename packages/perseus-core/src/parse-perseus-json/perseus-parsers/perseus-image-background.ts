@@ -24,13 +24,12 @@ const imageDimensionToNumber = pipeParsers(union(number).or(string).parser)
 
 const dimensionOrUndefined = defaulted(imageDimensionToNumber, () => undefined);
 
-export const parsePerseusImageBackground =
-    object({
-        url: optional(nullable(string)),
-        width: dimensionOrUndefined,
-        height: dimensionOrUndefined,
-        top: dimensionOrUndefined,
-        left: dimensionOrUndefined,
-        bottom: dimensionOrUndefined,
-        scale: dimensionOrUndefined,
-    });
+export const parsePerseusImageBackground = object({
+    url: optional(nullable(string)),
+    width: dimensionOrUndefined,
+    height: dimensionOrUndefined,
+    top: dimensionOrUndefined,
+    left: dimensionOrUndefined,
+    bottom: dimensionOrUndefined,
+    scale: dimensionOrUndefined,
+});

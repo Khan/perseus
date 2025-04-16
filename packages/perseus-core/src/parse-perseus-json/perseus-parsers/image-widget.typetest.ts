@@ -1,7 +1,9 @@
-import { ImageWidget } from "../../data-schema";
-import { RecursiveRequired, summon } from "../general-purpose-parsers/test-helpers";
-import { ParsedValue } from "../parser-types";
-import { parseImageWidget } from "./image-widget";
+import {summon} from "../general-purpose-parsers/test-helpers";
+
+import type {parseImageWidget} from "./image-widget";
+import type {ImageWidget} from "../../data-schema";
+import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
+import type {ParsedValue} from "../parser-types";
 
 type Parsed = ParsedValue<typeof parseImageWidget>;
 

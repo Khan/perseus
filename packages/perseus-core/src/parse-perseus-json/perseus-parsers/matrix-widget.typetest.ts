@@ -1,7 +1,9 @@
-import { MatrixWidget } from "../../data-schema";
-import { RecursiveRequired, summon } from "../general-purpose-parsers/test-helpers";
-import { ParsedValue } from "../parser-types";
-import { parseMatrixWidget } from "./matrix-widget";
+import {summon} from "../general-purpose-parsers/test-helpers";
+
+import type {parseMatrixWidget} from "./matrix-widget";
+import type {MatrixWidget} from "../../data-schema";
+import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
+import type {ParsedValue} from "../parser-types";
 
 type Parsed = ParsedValue<typeof parseMatrixWidget>;
 
