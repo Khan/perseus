@@ -17,8 +17,8 @@ import mediaQueries from "../../styles/media-queries";
 import Util from "../../util";
 import {scrollElementIntoView} from "../../util/scroll-utils";
 
-import Choice from "./choice";
-import ChoiceNoneAbove from "./choice-none-above";
+import ChoiceNoneAbove from "./choice-none-above.new";
+import Choice from "./choice.new";
 
 import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
@@ -95,6 +95,16 @@ function getInstructionsText(
     return strings.chooseOneAnswer;
 }
 
+/**
+ * The BaseRadio component is the core component for the radio widget.
+ * It is responsible for rendering the radio choices and handling user interactions.
+ *
+ * This component is a duplicate of the BaseRadio component in base-radio.tsx for the
+ * Radio Revitalization Project. (LEMS-2933) This component will eventually replace
+ * base-radio.tsx when the feature flag is no longer needed.
+ *
+ * TODO(LEMS-2994): Clean up this file.
+ */
 const BaseRadio = function ({
     apiOptions,
     reviewModeRubric,

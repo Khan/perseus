@@ -10,7 +10,7 @@ import PassageRef from "../passage-ref/passage-ref";
 
 import BaseRadio from "./base-radio.new";
 
-import type {FocusFunction, ChoiceType} from "./base-radio";
+import type {FocusFunction, ChoiceType} from "./base-radio.new";
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
@@ -56,6 +56,15 @@ export type RadioChoiceWithMetadata = PerseusRadioChoice & {
     correct?: boolean;
 };
 
+/**
+ * This component is a duplicate of the Radio component in radio.tsx
+ * for the Radio Revitalization Project. (LEMS-2933)
+ * This component will be split up to move the rendering logic to a new functional component.
+ * This file will be renamed to radio.class.tsx and will supercede radio-component.tsx when
+ * the feature flag is no longer needed.
+ *
+ * TODO(LEMS-2994): Clean up this file.
+ */
 class Radio extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
@@ -438,6 +447,12 @@ class Radio extends React.Component<Props> implements Widget {
                 };
             },
         );
+
+        // This is a temporary console log to ensure that the new radio component
+        // is being rendered. It will be removed after the feature flag is no longer needed.
+        // TODO(LEMS-2994): Remove this console log.
+        // eslint-disable-next-line no-console
+        console.log("This is the new radio component.");
 
         return (
             <BaseRadio

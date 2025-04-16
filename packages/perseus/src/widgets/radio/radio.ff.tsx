@@ -9,7 +9,15 @@ import type {PerseusRadioRubric} from "@khanacademy/perseus-core";
 
 type Props = WidgetProps<RenderProps, PerseusRadioRubric>;
 
-// CLEANUP: Remove this file when feature flag is no longer needed (https://khanacademy.atlassian.net/browse/LEMS-2994)
+/**
+ * This is a wrapper around the old radio widget that allows us to
+ * conditionally render the new radio widget when the feature flag is on.
+ *
+ * This is necessary to ensure that we do not interrupt the assessment studies
+ * that are currently running.
+ *
+ * TODO(LEMS-2994): Clean up this file.
+ */
 class Radio extends RadioOld {
     ffIsOn = false;
     radioRef = React.createRef<RadioOld | RadioNew>();
