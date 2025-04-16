@@ -17,9 +17,6 @@ import {parsePerseusRenderer} from "./perseus-renderer";
 import {parseWidget} from "./widget";
 import {parseWidgetsMap} from "./widgets-map";
 
-import type {GradedGroupWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
 const falseToNull = pipeParsers(constant(false)).then(
     convert(() => null),
 ).parser;
@@ -49,7 +46,7 @@ export const parseGradedGroupWidgetOptions = object({
     ),
 });
 
-export const parseGradedGroupWidget: Parser<GradedGroupWidget> = parseWidget(
+export const parseGradedGroupWidget = parseWidget(
     constant("graded-group"),
     parseGradedGroupWidgetOptions,
 );
