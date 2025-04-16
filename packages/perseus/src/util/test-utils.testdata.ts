@@ -17,10 +17,6 @@ export const basicObject: PerseusItem = {
         financialCalculatorTimeToPayOff: false,
         periodicTableWithKey: false,
     },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
     hints: [],
 };
 
@@ -65,10 +61,6 @@ export const expectedQuestionInfoAdded: PerseusItem = {
         financialCalculatorTimeToPayOff: false,
         periodicTableWithKey: false,
     },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
     hints: [],
 };
 
@@ -102,10 +94,6 @@ export const expectedAnswerAreaInfoAdded: PerseusItem = {
         financialCalculatorTotalAmount: true,
         financialCalculatorTimeToPayOff: true,
         periodicTableWithKey: true,
-    },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
     },
     hints: [],
 };
@@ -146,10 +134,6 @@ export const expectedHintsInfoAdded: PerseusItem = {
         financialCalculatorTotalAmount: false,
         financialCalculatorTimeToPayOff: false,
         periodicTableWithKey: false,
-    },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
     },
     hints: [
         {

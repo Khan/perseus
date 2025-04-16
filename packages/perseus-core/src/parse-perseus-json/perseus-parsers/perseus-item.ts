@@ -1,10 +1,4 @@
-import {
-    array,
-    nullable,
-    number,
-    object,
-    optional,
-} from "../general-purpose-parsers";
+import {array, object} from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseHint} from "./hint";
@@ -18,12 +12,4 @@ export const parsePerseusItem: Parser<PerseusItem> = object({
     question: parsePerseusRenderer,
     hints: defaulted(array(parseHint), () => []),
     answerArea: parsePerseusAnswerArea,
-    itemDataVersion: optional(
-        nullable(
-            object({
-                major: number,
-                minor: number,
-            }),
-        ),
-    ),
 });

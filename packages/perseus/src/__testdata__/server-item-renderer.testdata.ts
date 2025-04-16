@@ -49,7 +49,6 @@ export const itemWithNumericInput: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    itemDataVersion: {major: 0, minor: 0},
 };
 
 export const itemWithMockWidget: PerseusItem = {
@@ -72,7 +71,6 @@ export const itemWithMockWidget: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    itemDataVersion: {major: 0, minor: 0},
 };
 
 // Used for storybook
@@ -140,7 +138,6 @@ export const itemWithMultipleNumericInputs: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    itemDataVersion: {major: 0, minor: 0},
 };
 
 export const itemWithTwoMockWidgets: PerseusItem = {
@@ -171,7 +168,6 @@ export const itemWithTwoMockWidgets: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    itemDataVersion: {major: 0, minor: 0},
 };
 
 export const itemWithRadioAndExpressionWidgets: PerseusItem = {
@@ -261,7 +257,6 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    itemDataVersion: {major: 0, minor: 0},
 };
 
 export const labelImageItem: PerseusItem = {
@@ -269,7 +264,6 @@ export const labelImageItem: PerseusItem = {
         ItemExtras.map((extra) => [extra, false]),
     ) as PerseusAnswerArea,
     hints: [],
-    itemDataVersion: {major: 0, minor: 1},
     question: {
         content:
             "Catherine created a chart and a bar graph to show how many dogs of each breed the animal shelter placed into good homes last year. \n\nDog breed  | Number of dogs \n:- | :-: \nBulldog | $32$ \nGreyhound | $72$ \nMastiff | $56$ \nCollie | $40$ \n\n**Label each bar on the bar graph.**\n\n[[☃ label-image 1]]\n\n\n\n",
@@ -337,7 +331,6 @@ export const itemWithLintingError: PerseusItem = {
     },
     hints: [],
     answerArea: null,
-    itemDataVersion: {major: 0, minor: 0},
 };
 
 export const itemWithImages: PerseusItem = {
@@ -528,5 +521,4 @@ And what follows are _hints_...
         },
     ],
     answerArea: null,
-    itemDataVersion: {major: 0, minor: 0},
 };
