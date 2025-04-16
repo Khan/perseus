@@ -3,7 +3,6 @@ import * as React from "react";
 import RadioOld from "./radio-component";
 import RadioNew from "./radio-component.new";
 
-import type {FocusFunction} from "./base-radio";
 import type {RenderProps} from "./radio-component";
 import type {WidgetProps} from "../../types";
 import type {PerseusRadioRubric} from "@khanacademy/perseus-core";
