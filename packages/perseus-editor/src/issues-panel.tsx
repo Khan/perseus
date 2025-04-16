@@ -2,7 +2,7 @@ import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import iconPass from "@phosphor-icons/core/fill/check-circle-fill.svg";
-import iconCaution from "@phosphor-icons/core/fill/warning-fill.svg";
+import iconWarning from "@phosphor-icons/core/fill/warning-fill.svg";
 import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
 import caretRight from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
@@ -27,7 +27,7 @@ const IssuesPanel = ({warnings = []}: IssuesPanelProps) => {
     const toggleIcon = showPanel ? caretDown : caretRight;
     const togglePanel = () => setShowPanel(!showPanel);
 
-    const icon = warnings.length > 0 ? iconCaution : iconPass;
+    const icon = warnings.length > 0 ? iconWarning : iconPass;
 
     const iconColor = warnings.length > 0 ? wbColor.gold : wbColor.green;
 
