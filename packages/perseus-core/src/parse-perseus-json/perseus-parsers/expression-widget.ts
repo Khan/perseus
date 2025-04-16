@@ -20,12 +20,15 @@ import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
 
 import type {ParsedValue} from "../parser-types";
-import { PerseusExpressionAnswerForm } from "../../data-schema";
 
 const stringOrNumberOrNullOrUndefined = union(string)
     .or(number)
     .or(constant(null))
     .or(constant(undefined)).parser;
+
+function numberOrNullToString(v: string | number | null | undefined) {
+    return typeof v === "number" || v === null ? String(v) : v
+}
 
 const parsePossiblyInvalidAnswerForm = object({
     // `value` is the possibly invalid part of this. It should always be a
@@ -35,22 +38,21 @@ const parsePossiblyInvalidAnswerForm = object({
     form: defaulted(boolean, () => false),
     simplify: defaulted(boolean, () => false),
     considered: enumeration("correct", "wrong", "ungraded"),
-    key: pipeParsers(stringOrNumberOrNullOrUndefined).then(convert(String))
+    key: pipeParsers(stringOrNumberOrNullOrUndefined)
+        .then(convert(numberOrNullToString))
         .parser,
 });
 
 function removeInvalidAnswerForms(
     possiblyInvalid: Array<ParsedValue<typeof parsePossiblyInvalidAnswerForm>>,
-): PerseusExpressionAnswerForm[] {
-    const valid: PerseusExpressionAnswerForm[] = [];
-    for (const answerForm of possiblyInvalid) {
+) {
+    return possiblyInvalid.flatMap((answerForm) => {
         const {value} = answerForm;
         if (value != null) {
-            // Copying the object seems to be needed to make TypeScript happy
-            valid.push({...answerForm, value});
+            return [{...answerForm, value}]
         }
-    }
-    return valid;
+        return []
+    })
 }
 
 const version2 = object({major: constant(2), minor: number});
