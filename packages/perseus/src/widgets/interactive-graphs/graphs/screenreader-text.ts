@@ -38,16 +38,11 @@ export function getPiMultiple(a: number): string | null {
     // is a multiple of π. Return it here.
     // Example: If a = 2π, then truncatedCoefficient = 2, so return "2π"
     if (Number.isInteger(truncatedCoefficient)) {
-        // Return "π" rather than "1π".
-        if (truncatedCoefficient === 1) {
-            return "π";
-        }
-
-        // Return "-π" rather than "-1π".
-        if (truncatedCoefficient === -1) {
-            return "-π";
-        }
-
+        // NOTE: We are NOT doing a custom check to return -π and π here
+        // instead of -1π and 1π, because screen readers may not read the
+        // negative sign at all if it's directly before the π. This could
+        // completely mess up the understanding of the graph for visually
+        // impaired users.
         return truncatedCoefficient + "π";
     }
 
@@ -72,18 +67,11 @@ export function getPiMultiple(a: number): string | null {
         );
 
         if (Number.isInteger(coefficientNumerator)) {
-            // Handle the case where the coefficient numberator is just 1.
-            // We don't want to write "π/6" as "1π/6"
-            if (coefficientNumerator === 1) {
-                return "π/" + divisor;
-            }
-
-            // Handle the case where the coefficient numberator is just -1.
-            // We don't want to write "π/6" as "-1π/6"
-            if (coefficientNumerator === -1) {
-                return "-π/" + divisor;
-            }
-
+            // NOTE: We are NOT doing a custom check to return -π and π here
+            // instead of -1π and 1π, because screen readers may not read the
+            // negative sign at all if it's directly before the π. This could
+            // completely mess up the understanding of the graph for visually
+            // impaired users.
             return coefficientNumerator + "π/" + divisor;
         }
     }
