@@ -615,8 +615,8 @@ importers:
         specifier: 0.11.1
         version: 0.11.1
       mathquill:
-        specifier: github:Khan/mathquill#v1.0.2
-        version: https://codeload.github.com/Khan/mathquill/tar.gz/17d84d6386fbb4ad785d271ca6198e08458c97d6
+        specifier: github:Khan/mathquill#v1.0.3
+        version: https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
@@ -6611,9 +6611,9 @@ packages:
   mathjax-full@3.2.2:
     resolution: {integrity: sha512-+LfG9Fik+OuI8SLwsiR02IVdjcnRCy5MufYLi0C3TdMT56L/pjB0alMVGgoWJF8pN9Rc7FESycZB9BMNWIid5w==}
 
-  mathquill@https://codeload.github.com/Khan/mathquill/tar.gz/17d84d6386fbb4ad785d271ca6198e08458c97d6:
-    resolution: {tarball: https://codeload.github.com/Khan/mathquill/tar.gz/17d84d6386fbb4ad785d271ca6198e08458c97d6}
-    version: 1.0.2
+  mathquill@https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3:
+    resolution: {tarball: https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3}
+    version: 1.0.3
 
   mdn-data@2.0.14:
     resolution: {integrity: sha512-dn6wd0uw5GsdswPFfsgMp5NSB0/aDe6fK94YJV/AJDYXL6HVLWBsxeq7js7Ad+mU2K9LAlwpk6kN2D5mwCPVow==}
@@ -16097,7 +16097,7 @@ snapshots:
       mj-context-menu: 0.6.1
       speech-rule-engine: 4.0.7
 
-  mathquill@https://codeload.github.com/Khan/mathquill/tar.gz/17d84d6386fbb4ad785d271ca6198e08458c97d6: {}
+  mathquill@https://codeload.github.com/Khan/mathquill/tar.gz/c9e4329b0bc5d9b4c21d765b5768e4e7693515b3: {}
 
   mdn-data@2.0.14: {}
 
