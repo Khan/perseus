@@ -1,0 +1,1 @@
+import{_ as r}from"./underscore-U-AHniOr.js";import{v as d}from"./core-widget-registry-DuWAbnlP.js";import{g as c}from"./util-DuhzGyTK.js";function f(s){const t=r.clone(s),e=t.question.widgets??{},n=c(e),o={};for(const[g,i]of Object.entries(n)){const p=d(i.type);o[g]={...i,options:p(i.options)}}return{...t,question:{...t.question,widgets:o},hints:[]}}export{f as s};

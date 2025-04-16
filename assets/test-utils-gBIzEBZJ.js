@@ -1,0 +1,1 @@
+const a={question:{content:"",images:{},widgets:{}},answerArea:{calculator:!1,chi2Table:!1,periodicTable:!1,tTable:!1,zTable:!1,financialCalculatorMonthlyPayment:!1,financialCalculatorTotalAmount:!1,financialCalculatorTimeToPayOff:!1,periodicTableWithKey:!1},hints:[]};function l(e={}){return{...a,...e}}export{l as g};
