@@ -28,10 +28,10 @@ describe("table", () => {
         });
     });
 
-    [
+    describe.each([
         {optionsMode: "answerful", renderItem: getFullItem()},
         {optionsMode: "answerless", renderItem: getSplitItem()},
-    ].forEach(({optionsMode, renderItem}) => {
+    ])("answerful vs answerless", ({optionsMode, renderItem}) => {
         it(`${optionsMode}: renders`, () => {
             renderQuestion(renderItem.question);
 

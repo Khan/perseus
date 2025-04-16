@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`table answerful: snapshots 1`] = `
+exports[`table answerful vs answerless answerful: snapshots 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
@@ -94,7 +94,7 @@ exports[`table answerful: snapshots 1`] = `
 </div>
 `;
 
-exports[`table answerless: snapshots 1`] = `
+exports[`table answerful vs answerless answerless: snapshots 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"
