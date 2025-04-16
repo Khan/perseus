@@ -30,7 +30,8 @@ type StoryArgs = {
 /**
  * This is a story for the new radio widget.
  * It will replace radio.stories.tsx after the feature flag is no longer needed.
- * TODO(LEMS-2994)
+ *
+ * TODO(LEMS-2994): Clean up this file.
  */
 
 export default {
