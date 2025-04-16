@@ -1,1 +1,0 @@
-import{x as r}from"./core-widget-registry-DuWAbnlP.js";import{w as e}from"./all-widgets-DuvEKOPL.js";import{r as s,g as o}from"./renderer-D54lz_tu.js";const i="@khanacademy/perseus",t="__lib_version__";r(i,t);const a={major:0,minor:1};s(e);const n=o();n["::renderer::"]=a;export{a as i};
