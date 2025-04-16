@@ -1,4 +1,7 @@
-import {splitPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusItem,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -12,8 +15,8 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import {Categorizer} from "./categorizer";
 import {question1} from "./categorizer.testdata";
 
-import type {PerseusRenderer} from "../../../../perseus-core/src/data-schema";
 import type {APIOptions} from "../../types";
+import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("categorizer widget", () => {
@@ -165,8 +168,8 @@ describe("categorizer widget", () => {
             );
         });
 
-        function getAnswerfulItem(): PerseusRenderer {
-            return {
+        function getAnswerfulItem(): PerseusItem {
+            const question: PerseusRenderer = {
                 content: "[[☃ categorizer 1]]",
                 images: {},
                 widgets: {
@@ -182,15 +185,18 @@ describe("categorizer widget", () => {
                     },
                 },
             };
+
+            return generateTestPerseusItem({question});
         }
 
-        function getAnswerlessItem(): PerseusRenderer {
+        function getAnswerlessItem(): PerseusItem {
             return splitPerseusItem(getAnswerfulItem());
         }
 
         test("the answerless test data doesn't contain answers", () => {
             expect(
-                getAnswerlessItem().widgets["categorizer 1"].options.values,
+                getAnswerlessItem().question.widgets["categorizer 1"].options
+                    .values,
             ).toBeUndefined();
         });
 
@@ -199,7 +205,7 @@ describe("categorizer widget", () => {
             ["answerful", getAnswerfulItem()],
         ])("is interactive with widget options: %p", async (_, item) => {
             // Arrange / Act
-            const {renderer} = renderQuestion(item);
+            const {renderer} = renderQuestion(item.question);
 
             await userEvent.click(
                 screen.getAllByRole("button", {name: "Shape"})[0],
@@ -214,7 +220,11 @@ describe("categorizer widget", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(getAnswerfulItem(), userInput, "en");
+            const score = scorePerseusItem(
+                getAnswerfulItem().question,
+                userInput,
+                "en",
+            );
 
             // Assert
             expect(score).toHaveBeenAnsweredCorrectly();

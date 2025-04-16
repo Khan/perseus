@@ -7,7 +7,7 @@ export {default as init} from "./init";
 export {ApiOptions, ClassNames} from "./perseus-api";
 
 export {libVersion} from "./version";
-export {apiVersion, itemDataVersion} from "./perseus-version";
+export {apiVersion} from "./perseus-version";
 export {default as itemVersion} from "./item-version";
 
 /**
@@ -130,8 +130,6 @@ export {
 } from "@khanacademy/perseus-core";
 
 export {
-    generateTestPerseusItem,
-    genericPerseusItemData,
     generateTestRadioWidget,
     generateTestInteractiveGraphWidget,
     generateTestCategorizerWidget,

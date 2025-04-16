@@ -127,7 +127,6 @@ export type ChangeHandler = (
         // used only in EditorPage
         question?: any;
         answerArea?: PerseusAnswerArea | null;
-        itemDataVersion?: Version;
         editorMode?: EditorMode;
         jsonMode?: boolean;
         // perseus-all-package/widgets/unit.jsx

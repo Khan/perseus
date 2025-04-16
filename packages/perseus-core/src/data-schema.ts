@@ -209,15 +209,6 @@ export type PerseusItem = {
     hints: ReadonlyArray<Hint>;
     // Details about the tools the user might need to answer the question
     answerArea: PerseusAnswerArea | null | undefined;
-    /**
-     * The version of the item.
-     * @deprecated Not used.
-     */
-    itemDataVersion?: any;
-    /**
-     * @deprecated Superseded by per-widget answers.
-     */
-    answer?: any;
 };
 
 /**

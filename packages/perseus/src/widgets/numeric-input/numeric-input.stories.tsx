@@ -1,7 +1,11 @@
+import {
+    generateTestPerseusItem,
+    type PerseusNumericInputWidgetOptions,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {NumericInput} from "./numeric-input.class";
 import {
@@ -15,10 +19,6 @@ import {
     withCoefficient,
 } from "./numeric-input.testdata";
 
-import type {
-    PerseusNumericInputWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react";
 
 // We're using this format as storybook was not able to infer the type of the options.
