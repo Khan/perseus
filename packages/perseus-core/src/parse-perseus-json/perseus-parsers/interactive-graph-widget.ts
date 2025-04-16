@@ -1,4 +1,4 @@
-import {lockedFigureColorNames} from "../../data-schema";
+import {lockedFigureColorNames, PerseusGraphTypeLinear} from "../../data-schema";
 import {
     array,
     boolean,
@@ -19,37 +19,10 @@ import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-uni
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
-import type {
-    InteractiveGraphWidget,
-    LockedEllipseType,
-    LockedFigure,
-    LockedFigureColor,
-    LockedFigureFillType,
-    LockedFunctionType,
-    LockedLabelType,
-    LockedLineStyle,
-    LockedLineType,
-    LockedPointType,
-    LockedPolygonType,
-    LockedVectorType,
-    PerseusGraphTypeAngle,
-    PerseusGraphTypeCircle,
-    PerseusGraphTypeLinear,
-    PerseusGraphTypeLinearSystem,
-    PerseusGraphTypeNone,
-    PerseusGraphTypePoint,
-    PerseusGraphTypePolygon,
-    PerseusGraphTypeQuadratic,
-    PerseusGraphTypeRay,
-    PerseusGraphTypeSegment,
-    PerseusGraphTypeSinusoid,
-} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
 // Used to represent 2-D points and ranges
 const pairOfNumbers = pair(number, number);
 
-const parsePerseusGraphTypeAngle: Parser<PerseusGraphTypeAngle> = object({
+const parsePerseusGraphTypeAngle = object({
     type: constant("angle"),
     showAngles: optional(boolean),
     allowReflexAngles: optional(boolean),
@@ -60,7 +33,7 @@ const parsePerseusGraphTypeAngle: Parser<PerseusGraphTypeAngle> = object({
     startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
 });
 
-const parsePerseusGraphTypeCircle: Parser<PerseusGraphTypeCircle> = object({
+const parsePerseusGraphTypeCircle = object({
     type: constant("circle"),
     center: optional(pairOfNumbers),
     radius: optional(number),
@@ -74,7 +47,7 @@ const parsePerseusGraphTypeCircle: Parser<PerseusGraphTypeCircle> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypeLinear: Parser<PerseusGraphTypeLinear> = object({
+const parsePerseusGraphTypeLinear = object({
     type: constant("linear"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
@@ -82,7 +55,7 @@ const parsePerseusGraphTypeLinear: Parser<PerseusGraphTypeLinear> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypeLinearSystem: Parser<PerseusGraphTypeLinearSystem> =
+const parsePerseusGraphTypeLinearSystem =
     object({
         type: constant("linear-system"),
         // TODO(benchristel): default coords to empty array?
@@ -92,11 +65,11 @@ const parsePerseusGraphTypeLinearSystem: Parser<PerseusGraphTypeLinearSystem> =
         coord: optional(pairOfNumbers),
     });
 
-const parsePerseusGraphTypeNone: Parser<PerseusGraphTypeNone> = object({
+const parsePerseusGraphTypeNone = object({
     type: constant("none"),
 });
 
-const parsePerseusGraphTypePoint: Parser<PerseusGraphTypePoint> = object({
+const parsePerseusGraphTypePoint = object({
     type: constant("point"),
     numPoints: optional(union(number).or(constant("unlimited")).parser),
     coords: optional(nullable(array(pairOfNumbers))),
@@ -105,7 +78,7 @@ const parsePerseusGraphTypePoint: Parser<PerseusGraphTypePoint> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypePolygon: Parser<PerseusGraphTypePolygon> = object({
+const parsePerseusGraphTypePolygon = object({
     type: constant("polygon"),
     numSides: optional(union(number).or(constant("unlimited")).parser),
     showAngles: optional(boolean),
@@ -113,11 +86,12 @@ const parsePerseusGraphTypePolygon: Parser<PerseusGraphTypePolygon> = object({
     snapTo: optional(enumeration("grid", "angles", "sides")),
     match: optional(enumeration("similar", "congruent", "approx", "exact")),
     startCoords: optional(array(pairOfNumbers)),
+    coords: optional(nullable(array(pairOfNumbers))),
     // TODO: remove coord? it's legacy.
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypeQuadratic: Parser<PerseusGraphTypeQuadratic> =
+const parsePerseusGraphTypeQuadratic =
     object({
         type: constant("quadratic"),
         coords: optional(
@@ -130,7 +104,7 @@ const parsePerseusGraphTypeQuadratic: Parser<PerseusGraphTypeQuadratic> =
         coord: optional(pairOfNumbers),
     });
 
-const parsePerseusGraphTypeRay: Parser<PerseusGraphTypeRay> = object({
+const parsePerseusGraphTypeRay = object({
     type: constant("ray"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
@@ -138,7 +112,7 @@ const parsePerseusGraphTypeRay: Parser<PerseusGraphTypeRay> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypeSegment: Parser<PerseusGraphTypeSegment> = object({
+const parsePerseusGraphTypeSegment = object({
     type: constant("segment"),
     // TODO(benchristel): default numSegments?
     numSegments: optional(number),
@@ -148,7 +122,7 @@ const parsePerseusGraphTypeSegment: Parser<PerseusGraphTypeSegment> = object({
     coord: optional(pairOfNumbers),
 });
 
-const parsePerseusGraphTypeSinusoid: Parser<PerseusGraphTypeSinusoid> = object({
+const parsePerseusGraphTypeSinusoid = object({
     type: constant("sinusoid"),
     coords: optional(nullable(array(pairOfNumbers))),
     startCoords: optional(array(pairOfNumbers)),
@@ -169,23 +143,23 @@ export const parsePerseusGraphType = discriminatedUnionOn("type")
     .withBranch("segment", parsePerseusGraphTypeSegment)
     .withBranch("sinusoid", parsePerseusGraphTypeSinusoid).parser;
 
-const parseLockedFigureColor: Parser<LockedFigureColor> = enumeration(
+const parseLockedFigureColor = enumeration(
     ...lockedFigureColorNames,
 );
 
-const parseLockedFigureFillType: Parser<LockedFigureFillType> = enumeration(
+const parseLockedFigureFillType = enumeration(
     "none",
     "white",
     "translucent",
     "solid",
 );
 
-const parseLockedLineStyle: Parser<LockedLineStyle> = enumeration(
+const parseLockedLineStyle = enumeration(
     "solid",
     "dashed",
 );
 
-const parseLockedLabelType: Parser<LockedLabelType> = object({
+const parseLockedLabelType = object({
     type: constant("label"),
     coord: pairOfNumbers,
     text: string,
@@ -193,7 +167,7 @@ const parseLockedLabelType: Parser<LockedLabelType> = object({
     size: enumeration("small", "medium", "large"),
 });
 
-const parseLockedPointType: Parser<LockedPointType> = object({
+const parseLockedPointType = object({
     type: constant("point"),
     coord: pairOfNumbers,
     color: parseLockedFigureColor,
@@ -203,7 +177,7 @@ const parseLockedPointType: Parser<LockedPointType> = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedLineType: Parser<LockedLineType> = object({
+const parseLockedLineType = object({
     type: constant("line"),
     kind: enumeration("line", "ray", "segment"),
     points: pair(parseLockedPointType, parseLockedPointType),
@@ -216,7 +190,7 @@ const parseLockedLineType: Parser<LockedLineType> = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedVectorType: Parser<LockedVectorType> = object({
+const parseLockedVectorType = object({
     type: constant("vector"),
     points: pair(pairOfNumbers, pairOfNumbers),
     color: parseLockedFigureColor,
@@ -225,7 +199,7 @@ const parseLockedVectorType: Parser<LockedVectorType> = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedEllipseType: Parser<LockedEllipseType> = object({
+const parseLockedEllipseType = object({
     type: constant("ellipse"),
     center: pairOfNumbers,
     radius: pairOfNumbers,
@@ -238,7 +212,7 @@ const parseLockedEllipseType: Parser<LockedEllipseType> = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedPolygonType: Parser<LockedPolygonType> = object({
+const parseLockedPolygonType = object({
     type: constant("polygon"),
     points: array(pairOfNumbers),
     color: parseLockedFigureColor,
@@ -259,7 +233,7 @@ export const parseLockedFunctionDomain = defaulted(
     (): [number, number] => [-Infinity, Infinity],
 );
 
-const parseLockedFunctionType: Parser<LockedFunctionType> = object({
+const parseLockedFunctionType = object({
     type: constant("function"),
     color: parseLockedFigureColor,
     strokeStyle: parseLockedLineStyle,
@@ -271,7 +245,7 @@ const parseLockedFunctionType: Parser<LockedFunctionType> = object({
     ariaLabel: optional(string),
 });
 
-const parseLockedFigure: Parser<LockedFigure> = discriminatedUnionOn("type")
+const parseLockedFigure = discriminatedUnionOn("type")
     .withBranch("point", parseLockedPointType)
     .withBranch("line", parseLockedLineType)
     .withBranch("vector", parseLockedVectorType)
@@ -280,7 +254,7 @@ const parseLockedFigure: Parser<LockedFigure> = discriminatedUnionOn("type")
     .withBranch("function", parseLockedFunctionType)
     .withBranch("label", parseLockedLabelType).parser;
 
-export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
+export const parseInteractiveGraphWidget =
     parseWidget(
         constant("interactive-graph"),
         object({
@@ -292,7 +266,7 @@ export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
             gridStep: optional(pairOfNumbers),
             snapStep: optional(pairOfNumbers),
             backgroundImage: optional(parsePerseusImageBackground),
-            markings: enumeration("graph", "grid", "none"),
+            markings: enumeration("graph", "grid", "none", "axes"),
             labels: optional(array(string)),
             labelLocation: optional(enumeration("onAxis", "alongEdge")),
             showProtractor: boolean,
@@ -304,13 +278,13 @@ export const parseInteractiveGraphWidget: Parser<InteractiveGraphWidget> =
             // NOTE(benchristel): I copied the default graph from
             // interactive-graph.tsx. See the parse-perseus-json/README.md for
             // an explanation of why we want to duplicate the default here.
-            graph: defaulted(parsePerseusGraphType, () => ({
+            graph: defaulted(parsePerseusGraphType, (): PerseusGraphTypeLinear => ({
                 type: "linear" as const,
             })),
             correct: parsePerseusGraphType,
             // TODO(benchristel): default lockedFigures to empty array
             lockedFigures: optional(array(parseLockedFigure)),
-            fullGraphLabel: optional(string),
+            fullGraphAriaLabel: optional(string),
             fullGraphAriaDescription: optional(string),
         }),
     );
