@@ -1,3 +1,4 @@
+import {splitPerseusItem} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import type {
@@ -7,7 +8,9 @@ import type {
     NumericInputWidget,
     PerseusItem,
     PerseusRenderer,
+    PerseusWidgetTypes,
     RadioWidget,
+    WidgetOptions,
     PerseusScore,
     UserInputMap,
 } from "@khanacademy/perseus-core";
@@ -161,4 +164,49 @@ export function generateTestNumericInputWidget(): NumericInputWidget {
             static: false,
         },
     };
+}
+
+/**
+ * Creates an object with the minimum amount
+ * of data to be a properly typed PerseusRenderer
+ * containing answerful information
+ *
+ * @template T - The widget type extending keyof PerseusWidgetTypes
+ * @param {T} widgetType - The type of widget to create, as a string, ex. "radio"
+ * @param {PerseusWidgetTypes[T]["options"]} options - The options for the widget
+ * @returns {PerseusRenderer} skeleton PerseusRenderer for testing
+ */
+export function getAnswerfulRenderer<T extends keyof PerseusWidgetTypes>(
+    widgetType: T,
+    options: PerseusWidgetTypes[T]["options"],
+): PerseusRenderer {
+    const widgetName = `${widgetType} 1`;
+    const widget: WidgetOptions<T, PerseusWidgetTypes[T]["options"]> = {
+        type: widgetType,
+        options,
+    };
+    const widgets = {};
+    widgets[widgetName] = widget;
+    return {
+        content: `[[☃ ${widgetName}]]`,
+        images: {},
+        widgets,
+    };
+}
+
+/**
+ * Creates an object with the minimum amount
+ * of data to be a properly typed PerseusRenderer
+ * containing answerless information
+ *
+ * @template T - The widget type extending keyof PerseusWidgetTypes
+ * @param {T} widgetType - The type of widget to create, as a string, ex. "radio"
+ * @param {PerseusWidgetTypes[T]["options"]} options - The options for the widget
+ * @returns {PerseusRenderer} skeleton PerseusRenderer for testing
+ */
+export function getAnswerlessRenderer<T extends keyof PerseusWidgetTypes>(
+    widgetType: T,
+    options: PerseusWidgetTypes[T]["options"],
+): PerseusRenderer {
+    return splitPerseusItem(getAnswerfulRenderer(widgetType, options));
 }
