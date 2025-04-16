@@ -6,8 +6,8 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {
-    getAnswerfulItem,
-    getAnswerlessItem,
+    getAnswerfulRenderer,
+    getAnswerlessRenderer,
     scorePerseusItemTesting,
 } from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -177,15 +177,15 @@ describe("categorizer widget", () => {
 
         test("the answerless test data doesn't contain answers", () => {
             expect(
-                getAnswerlessItem("categorizer", options).widgets[
+                getAnswerlessRenderer("categorizer", options).widgets[
                     "categorizer 1"
                 ].options.values,
             ).toBeUndefined();
         });
 
         test.each([
-            ["answerless", getAnswerlessItem("categorizer", options)],
-            ["answerful", getAnswerfulItem("categorizer", options)],
+            ["answerless", getAnswerlessRenderer("categorizer", options)],
+            ["answerful", getAnswerfulRenderer("categorizer", options)],
         ])("is interactive with widget options: %p", async (_, item) => {
             // Arrange / Act
             const {renderer} = renderQuestion(item);
@@ -204,7 +204,7 @@ describe("categorizer widget", () => {
 
             const userInput = renderer.getUserInputMap();
             const score = scorePerseusItem(
-                getAnswerfulItem("categorizer", options),
+                getAnswerfulRenderer("categorizer", options),
                 userInput,
                 "en",
             );

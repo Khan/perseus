@@ -176,7 +176,7 @@ export function generateTestNumericInputWidget(): NumericInputWidget {
  * @param {PerseusWidgetTypes[T]["options"]} options - The options for the widget
  * @returns {PerseusRenderer} skeleton PerseusRenderer for testing
  */
-export function getAnswerfulItem<T extends keyof PerseusWidgetTypes>(
+export function getAnswerfulRenderer<T extends keyof PerseusWidgetTypes>(
     widgetType: T,
     options: PerseusWidgetTypes[T]["options"],
 ): PerseusRenderer {
@@ -204,9 +204,9 @@ export function getAnswerfulItem<T extends keyof PerseusWidgetTypes>(
  * @param {PerseusWidgetTypes[T]["options"]} options - The options for the widget
  * @returns {PerseusRenderer} skeleton PerseusRenderer for testing
  */
-export function getAnswerlessItem<T extends keyof PerseusWidgetTypes>(
+export function getAnswerlessRenderer<T extends keyof PerseusWidgetTypes>(
     widgetType: T,
     options: PerseusWidgetTypes[T]["options"],
 ): PerseusRenderer {
-    return splitPerseusItem(getAnswerfulItem(widgetType, options));
+    return splitPerseusItem(getAnswerfulRenderer(widgetType, options));
 }

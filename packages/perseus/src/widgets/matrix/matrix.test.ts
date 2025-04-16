@@ -6,8 +6,8 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {
-    getAnswerfulItem,
-    getAnswerlessItem,
+    getAnswerfulRenderer,
+    getAnswerlessRenderer,
     scorePerseusItemTesting,
 } from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -125,14 +125,14 @@ describe("matrix widget", () => {
 
         test("the answerless test data doesn't contain answers", () => {
             expect(
-                getAnswerlessItem("matrix", matrixOptions).widgets["matrix 1"]
+                getAnswerlessRenderer("matrix", matrixOptions).widgets["matrix 1"]
                     .options.answers,
             ).toBeUndefined();
         });
 
         test.each([
-            ["answerless", getAnswerlessItem("matrix", matrixOptions)],
-            ["answerful", getAnswerfulItem("matrix", matrixOptions)],
+            ["answerless", getAnswerlessRenderer("matrix", matrixOptions)],
+            ["answerful", getAnswerfulRenderer("matrix", matrixOptions)],
         ])("is interactive with widget options: %p", async (_, item) => {
             // Arrange / Act
             const {renderer} = renderQuestion(item);
@@ -142,7 +142,7 @@ describe("matrix widget", () => {
 
             const userInput = renderer.getUserInputMap();
             const score = scorePerseusItem(
-                getAnswerfulItem("matrix", matrixOptions),
+                getAnswerfulRenderer("matrix", matrixOptions),
                 userInput,
                 "en",
             );
