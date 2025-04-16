@@ -35,7 +35,6 @@ describe("IssuesPanel", () => {
             // and attempts like getByTestId, getByText().nextSibling, or adding a test ID weren’t reliable.
             // So to verify the icon (e.g., data-icon-type="check-circle-fill.svg"), direct access was the most
             // consistent option.
-            
             // eslint-disable-next-line testing-library/no-node-access
             .parentElement?.querySelector(
                 '[data-icon-type="check-circle-fill.svg"]',
