@@ -80,10 +80,10 @@ class Table extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = (function () {
         const defaultRows = 4;
         const defaultColumns = 1;
-        const blankAnswers = Util.stringArrayOfSize2D(
-            defaultRows,
-            defaultColumns,
-        );
+        const blankAnswers = Util.stringArrayOfSize2D({
+            rows: defaultRows,
+            columns: defaultColumns,
+        });
         return {
             apiOptions: ApiOptions.defaults,
             headers: [""],
@@ -316,7 +316,7 @@ function propTransform(options: Props): RenderProps {
     // Remove answers before passing to widget
     const rows = options.rows;
     const columns = options.columns;
-    const blankAnswers = Util.stringArrayOfSize2D(rows, columns);
+    const blankAnswers = Util.stringArrayOfSize2D({rows, columns});
     return {
         ...options,
         answers: blankAnswers,

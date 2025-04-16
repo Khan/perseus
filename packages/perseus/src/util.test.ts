@@ -14,7 +14,7 @@ describe("stringArrayOfSize", () => {
 
 describe("stringArrayOfSize2D", () => {
     it("makes a 2D array of strings", () => {
-        expect(Util.stringArrayOfSize2D(2, 4)).toEqual([
+        expect(Util.stringArrayOfSize2D({rows: 2, columns: 4})).toEqual([
             ["", "", "", ""],
             ["", "", "", ""],
         ]);

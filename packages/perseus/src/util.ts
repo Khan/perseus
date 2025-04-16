@@ -149,10 +149,11 @@ function stringArrayOfSize(size: number): ReadonlyArray<string> {
     return Array(size).fill("");
 }
 
-function stringArrayOfSize2D(
-    rows: number,
-    columns: number,
-): ReadonlyArray<ReadonlyArray<string>> {
+function stringArrayOfSize2D(opt: {
+    rows: number;
+    columns: number;
+}): ReadonlyArray<ReadonlyArray<string>> {
+    const {rows, columns} = opt;
     const rowArr = stringArrayOfSize(rows);
     return rowArr.map(() => stringArrayOfSize(columns));
 }
