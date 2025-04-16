@@ -56,7 +56,7 @@
         "aphrodite": "catalog:",
         "jquery": "catalog:",
         "katex": "0.11.1",
-        "mathquill": "file:../../vendor/mathquill-v1.0.2.tgz",
+        "mathquill": "github:Khan/mathquill#v1.0.2",
         "perseus-build-settings": "workspace:*",
         "prop-types": "catalog:",
         "react": "catalog:",
