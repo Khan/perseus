@@ -16,9 +16,5 @@ export default {
         calculator: false,
         periodicTable: false,
     },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
     hints: [] as ReadonlyArray<any>,
 };

@@ -16,9 +16,4 @@ export default {
     },
     answerArea: null,
     hints: [] as ReadonlyArray<any>,
-    itemDataVersion: {
-        major: 1,
-        minor: 0,
-    },
-    answer: null,
 } satisfies PerseusItem;

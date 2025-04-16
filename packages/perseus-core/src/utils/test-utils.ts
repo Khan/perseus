@@ -17,12 +17,7 @@ const genericPerseusItemData: PerseusItem = {
         financialCalculatorTimeToPayOff: false,
         periodicTableWithKey: false,
     },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
     hints: [],
-    answer: null,
 } as const;
 
 /**
