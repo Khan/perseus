@@ -1,0 +1,98 @@
+import"./underscore-U-AHniOr.js";import"./core-widget-registry-DuWAbnlP.js";import{g as e}from"./test-utils-gBIzEBZJ.js";import{S as se}from"./server-item-renderer-with-debug-ui-mjiezRAC.js";import{k as t,m as ne}from"./interactive-graph.testdata-CPB2IZMq.js";import"./_commonjsHelpers-BosuxZz1.js";import"./jsx-runtime-BT65X5dW.js";import"./index-C6mWTJJr.js";import"./index-CQe11mMd.js";import"./index-CskvhqFA.js";import"./no-important-DlFk8a1I.js";import"./index-KFdEgasi.js";import"./tiny-invariant-CopsF_GD.js";import"./index-CjnMbH_2.js";import"./index-CbNKSLRm.js";import"./index-fj4wzhGb.js";import"./index-C1fpYtXO.js";import"./index-CIHqsnLr.js";import"./index-CbIoTxL4.js";import"./all-widgets-7fv9vIly.js";import"./prop-types-bMM6XdxH.js";import"./mobile-keypad-BeZwNCVa.js";import"./index-B1Gws05u.js";import"./index-3H81sEQ1.js";import"./index-BzwLglMS.js";import"./assertThisInitialized-B9jnkVVz.js";import"./tabbar-CZSBNGic.js";import"./item-BLUJCfQ8.js";import"./button-assets-kVnaGXVB.js";import"./get-decimal-separator-B2cicA45.js";import"./keypad-button-CcG0IG4Y.js";import"./operators-page-DRls6xZS.js";import"./navigation-pad-BWaBpPCu.js";import"./key-translator-mr9KFR9M.js";import"./index-CrGd2QqM.js";import"./renderer-rOPm0J2L.js";import"./perseus-error-CSETqePQ.js";import"./util-BQEsNBoX.js";import"./jquery-CkHB0_Mt.js";import"./index-D7h-teXI.js";import"./zoomable-tex-Dy-nElJT.js";import"./tex-BONImhZG.js";import"./dependencies-BsVPGK1s.js";import"./zoomable-C_CCSKDG.js";import"./i18n-context-3AkWzTTj.js";import"./svg-image-B15HxD2O.js";import"./fixed-to-responsive-CTsII9Xx.js";import"./constants-BIpV3g0K.js";import"./client-CAS5PaPY.js";import"./inline-icon-AJRwMA4Z.js";import"./icon-paths-C3bPmxpL.js";import"./image-loader-CdkY-jNs.js";import"./perseus-api-Ty_QvlNi.js";import"./stub-tag-editor-B8lH250S.js";import"./text-list-editor-HcP7oGoC.js";import"./lint-D0FI20JF.js";import"./index-BvHsycGa.js";import"./index-Dr3BtBNU.js";import"./Popper-Bj3TCzZA.js";import"./math-input-BontzfuQ.js";import"./index-BEYgOkb5.js";import"./simple-keypad-input-DPae8uak.js";import"./input-with-examples-NDukDVX-.js";import"./text-input-D8eW524Y.js";import"./index-BePo9uoZ.js";import"./base-radio-CygXHlSp.js";import"./media-queries-D4w_O5TS.js";import"./choice-M-KeScyb.js";import"./icon-BfyZ3piz.js";import"./choice-icon-DaGBSn1O.js";import"./focus-ring-CuRoZzyy.js";import"./option-status-gZhybWxb.js";import"./choice-none-above-BJtbJeEc.js";import"./shared-Dtpp87RV.js";import"./phet-simulation-ylWgoYlI.js";import"./index-DgUBVOst.js";import"./answer-choices-CzwtSD9b.js";import"./index-GAWk9lgC.js";import"./button-group-CrIfrEdw.js";import"./index-Dd-cahjY.js";import"./hud-CP_ly967.js";import"./index-CnlhjbO_.js";import"./multi-button-group-U6RQwTwG.js";import"./number-input-BAVlNz_6.js";import"./range-input-COYKNzfF.js";import"./marker-B3l_F-wT.js";import"./answer-pill-DACvoOoJ.js";import"./sortable-C0FT4PsJ.js";import"./video-transcript-link-C7EJC_3o.js";import"./test-keypad-context-wrapper-BSnfrmIh.js";import"./index-B-lxVbXh.js";import"./v4-CtRu48qb.js";import"./split-perseus-item-BKsp6EZa.js";import"./server-item-renderer-iRYm2vlc.js";import"./hints-renderer-BLFQdHEc.js";import"./split-view-ymrOLumz.js";import"./test-dependencies-3tco5mga.js";import"./interactive-graph-question-builder-Di7B97iI.js";const Nt={title:"Perseus/Widgets/Interactive Graph/Locked Functions",component:se},r={args:{item:e({question:t()})}},o={args:{item:e({question:t("x^2",{color:"green",strokeStyle:"dashed"})})}},s={args:{item:e({question:t("y^2",{directionalAxis:"y"})})}},n={args:{item:e({question:ne("y/2",{directionalAxis:"y"})})}},i={args:{item:e({question:t("sin(x)",{domain:[-5,1/0]})})}},m={args:{item:e({question:t("sin(x)",{domain:[-1/0,5]})})}},a={args:{item:e({question:t("sin(x)",{domain:[-5,5]})})}},c={args:{item:e({question:t("x^2 + 2x + 3")})}},p={args:{item:e({question:t("(1/3)x^3 - 2x^2 + 3x - 4")})}},u={args:{item:e({question:t("tan(x)")})}},g={args:{item:e({question:t("arctan(x)")})}},d={args:{item:e({question:t("log(x)")})}},l={args:{item:e({question:t("e^x")})}},x={args:{item:e({question:t("abs(x)")})}};var q,h,S;r.parameters={...r.parameters,docs:{...(q=r.parameters)==null?void 0:q.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: segmentWithLockedFunction()
+    })
+  }
+}`,...(S=(h=r.parameters)==null?void 0:h.docs)==null?void 0:S.source}}};var y,I,F;o.parameters={...o.parameters,docs:{...(y=o.parameters)==null?void 0:y.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: segmentWithLockedFunction("x^2", {
+        color: "green",
+        strokeStyle: "dashed"
+      })
+    })
+  }
+}`,...(F=(I=o.parameters)==null?void 0:I.docs)==null?void 0:F.source}}};var k,L,T;s.parameters={...s.parameters,docs:{...(k=s.parameters)==null?void 0:k.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: segmentWithLockedFunction("y^2", {
+        directionalAxis: "y"
+      })
+    })
+  }
+}`,...(T=(L=s.parameters)==null?void 0:L.docs)==null?void 0:T.source}}};var P,W,f;n.parameters={...n.parameters,docs:{...(P=n.parameters)==null?void 0:P.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: segmentWithLockedFunctionAndAsymmetricRange("y/2", {
+        directionalAxis: "y"
+      })
+    })
+  }
+}`,...(f=(W=n.parameters)==null?void 0:W.docs)==null?void 0:f.source}}};var A,R,D;i.parameters={...i.parameters,docs:{...(A=i.parameters)==null?void 0:A.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: segmentWithLockedFunction("sin(x)", {
+        domain: [-5, Infinity]
+      })
+    })
+  }
+}`,...(D=(R=i.parameters)==null?void 0:R.docs)==null?void 0:D.source}}};var b,O,M;m.parameters={...m.parameters,docs:{...(b=m.parameters)==null?void 0:b.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: segmentWithLockedFunction("sin(x)", {
+        domain: [-Infinity, 5]
+      })
+    })
+  }
+}`,...(M=(O=m.parameters)==null?void 0:O.docs)==null?void 0:M.source}}};var Y,E,v;a.parameters={...a.parameters,docs:{...(Y=a.parameters)==null?void 0:Y.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: segmentWithLockedFunction("sin(x)", {
+        domain: [-5, 5]
+      })
+    })
+  }
+}`,...(v=(E=a.parameters)==null?void 0:E.docs)==null?void 0:v.source}}};var B,C,Q;c.parameters={...c.parameters,docs:{...(B=c.parameters)==null?void 0:B.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: segmentWithLockedFunction("x^2 + 2x + 3")
+    })
+  }
+}`,...(Q=(C=c.parameters)==null?void 0:C.docs)==null?void 0:Q.source}}};var V,_,G;p.parameters={...p.parameters,docs:{...(V=p.parameters)==null?void 0:V.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: segmentWithLockedFunction("(1/3)x^3 - 2x^2 + 3x - 4")
+    })
+  }
+}`,...(G=(_=p.parameters)==null?void 0:_.docs)==null?void 0:G.source}}};var U,j,w;u.parameters={...u.parameters,docs:{...(U=u.parameters)==null?void 0:U.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: segmentWithLockedFunction("tan(x)")
+    })
+  }
+}`,...(w=(j=u.parameters)==null?void 0:j.docs)==null?void 0:w.source}}};var z,H,J;g.parameters={...g.parameters,docs:{...(z=g.parameters)==null?void 0:z.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: segmentWithLockedFunction("arctan(x)")
+    })
+  }
+}`,...(J=(H=g.parameters)==null?void 0:H.docs)==null?void 0:J.source}}};var K,N,X;d.parameters={...d.parameters,docs:{...(K=d.parameters)==null?void 0:K.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: segmentWithLockedFunction("log(x)")
+    })
+  }
+}`,...(X=(N=d.parameters)==null?void 0:N.docs)==null?void 0:X.source}}};var Z,$,ee;l.parameters={...l.parameters,docs:{...(Z=l.parameters)==null?void 0:Z.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: segmentWithLockedFunction("e^x")
+    })
+  }
+}`,...(ee=($=l.parameters)==null?void 0:$.docs)==null?void 0:ee.source}}};var te,re,oe;x.parameters={...x.parameters,docs:{...(te=x.parameters)==null?void 0:te.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: segmentWithLockedFunction("abs(x)")
+    })
+  }
+}`,...(oe=(re=x.parameters)==null?void 0:re.docs)==null?void 0:oe.source}}};const Xt=["DefaultSettings","StyledSettings","FunctionOfY","FunctionOfYAsymmetricRange","DomainRestrictedMin","DomainRestrictedMax","DomainRestrictedBoth","Quadratic","CubicPolynomial","Tangent","ArcTangent","Logarithmic","Exponent","AbsoluteValue"];export{x as AbsoluteValue,g as ArcTangent,p as CubicPolynomial,r as DefaultSettings,a as DomainRestrictedBoth,m as DomainRestrictedMax,i as DomainRestrictedMin,l as Exponent,s as FunctionOfY,n as FunctionOfYAsymmetricRange,d as Logarithmic,c as Quadratic,o as StyledSettings,u as Tangent,Xt as __namedExportsOrder,Nt as default};
