@@ -13,7 +13,7 @@ import TextInput from "../../components/text-input";
 import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
-import Util from "../../util";
+import {stringArrayOfSize2D} from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
@@ -27,7 +27,6 @@ import type {
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {assert} = InteractiveUtil;
-const {stringArrayOfSize} = Util;
 
 // We store two sets of dimensions for the brackets, for our two types of
 // inputs, which vary in formatting: (1) the normal inputs rendered on
@@ -60,13 +59,13 @@ const getDefaultPath = function () {
 
 const getRowFromPath = function (path) {
     // 'path' should be a (row, column) pair
-    assert(_.isArray(path) && path.length === 2);
+    assert(Array.isArray(path) && path.length === 2);
     return +path[0];
 };
 
 const getColumnFromPath = function (path) {
     // 'path' should be a (row, column) pair
-    assert(_.isArray(path) && path.length === 2);
+    assert(Array.isArray(path) && path.length === 2);
     return +path[1];
 };
 
@@ -156,12 +155,12 @@ class Matrix extends React.Component<Props, State> implements Widget {
         const maxRows = this.props.matrixBoardSize[0];
         const maxCols = this.props.matrixBoardSize[1];
 
-        _(maxRows).times((row) => {
-            _(maxCols).times((col) => {
+        for (let row = 0; row < maxRows; row++) {
+            for (let col = 0; col < maxCols; col++) {
                 const inputPath = getInputPath(row, col);
                 inputPaths.push(inputPath);
-            });
-        });
+            }
+        }
 
         return inputPaths;
     };
@@ -541,9 +540,10 @@ type RenderProps = MatrixPublicWidgetOptions & {
 
 function transform(widgetOptions: MatrixPublicWidgetOptions): RenderProps {
     // Remove answers before passing to widget
-    const blankAnswers = _(widgetOptions.matrixBoardSize[0]).times(function () {
-        return stringArrayOfSize(widgetOptions.matrixBoardSize[1]);
-    });
+    const rows = widgetOptions.matrixBoardSize[0];
+    const columns = widgetOptions.matrixBoardSize[1];
+    const blankAnswers = stringArrayOfSize2D({rows, columns});
+
     const {matrixBoardSize, prefix, suffix} = widgetOptions;
     return {
         matrixBoardSize,

@@ -16,7 +16,7 @@ import {Categorizer} from "./categorizer";
 import {question1} from "./categorizer.testdata";
 
 import type {APIOptions} from "../../types";
-import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("categorizer widget", () => {
