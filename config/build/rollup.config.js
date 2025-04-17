@@ -148,13 +148,16 @@ const createConfig = (
                 },
             }),
             styles({
-                mode: "extract",
-                // minimize: true,
+                mode: ["extract", "index.css"],
+                minimize: true,
                 url: {
-                    // NOTE(jeremy): I can't figure out why, but without this,
-                    // the fonts are placed in "dist/assets/" but the `url()`
-                    // paths in the generated CSS files are not rewritten.
-                    publicPath: "./assets",
+                    // We need to specify a custom publicPath here because we
+                    // override the default `output.assetFileNames` elsewhere
+                    // in this file. If you change one, you should ensure that
+                    // a new build correctly places font files in the right dir
+                    // and that the generated CSS contains valid relative urls
+                    // to those fonts!
+                    publicPath: "assets",
                 },
                 less: {
                     math: "always",
