@@ -150,25 +150,12 @@ const createConfig = (
             }),
             styles({
                 mode: "extract",
-                minimize: true,
+                // minimize: true,
                 url: {
+                    // NOTE(jeremy): I can't figure out why, but without this,
+                    // the fonts are placed in "dist/assets/" but the `url()`
+                    // paths in the generated CSS files are not rewritten.
                     publicPath: "./assets",
-                    // This resolve is for the fonts in Mathquill. We want to
-                    // bundle them into the math-input package so that
-                    // consumers of @khanacademy/math-input don't need to
-                    // _also_ depend on the mathquill package.
-                    resolve(inputUrl, baseDir) {
-                        // Some inputUrl's have a hash (eg.
-                        // font/Symbola.svg#Symbola). We use the URL object to
-                        // ensure we only have the file path and nothing else.
-                        const url = new URL(inputUrl, "http://example.com");
-                        const targetFile = path.join(baseDir, url.pathname);
-                        return {
-                            from: targetFile,
-                            source: fs.readFileSync(targetFile),
-                            urlQuery: url.hash,
-                        };
-                    },
                 },
                 less: {
                     math: "always",
