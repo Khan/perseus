@@ -6,6 +6,9 @@ import {
     parseAndMigratePerseusArticle,
     parseAndMigratePerseusItem,
 } from "../index";
+import {parse} from "../parse";
+import {parsePerseusArticle} from "../perseus-parsers/perseus-article";
+import {parsePerseusItem} from "../perseus-parsers/perseus-item";
 import {assertSuccess, mapFailure} from "../result";
 
 const itemDataDir = join(__dirname, "item-data");
@@ -34,6 +37,23 @@ describe("parseAndMigratePerseusItem", () => {
             assertSuccess(result);
             expect(result.value).toMatchSnapshot();
         });
+
+        it("is not changed by a second pass through the parser", () => {
+            // This test ensures that the parser is idempotent, i.e. running it
+            // once is the same as running it many times. Idempotency is
+            // valuable because it means e.g. that if we run the parser on data
+            // before saving it to datastore, it won't be changed by being
+            // parsed again on read.
+            assertSuccess(result);
+
+            const result2 = parse(result.value, parsePerseusItem);
+
+            expect(result2).toEqual(anySuccess);
+            // Narrow the type. This assertion should always pass due to the
+            // expectation above.
+            assertSuccess(result2);
+            expect(result2.value).toEqual(result.value);
+        });
     });
 });
 
@@ -56,6 +76,23 @@ describe("parseAndMigratePerseusArticle", () => {
         it("returns the same result as before", () => {
             assertSuccess(result);
             expect(result.value).toMatchSnapshot();
+        });
+
+        it("is not changed by a second pass through the parser", () => {
+            // This test ensures that the parser is idempotent, i.e. running it
+            // once is the same as running it many times. Idempotency is
+            // valuable because it means e.g. that if we run the parser on data
+            // before saving it to datastore, it won't be changed by being
+            // parsed again on read.
+            assertSuccess(result);
+
+            const result2 = parse(result.value, parsePerseusArticle);
+
+            expect(result2).toEqual(anySuccess);
+            // Narrow the type. This assertion should always pass due to the
+            // expectation above.
+            assertSuccess(result2);
+            expect(result2.value).toEqual(result.value);
         });
     });
 });

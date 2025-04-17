@@ -73,7 +73,10 @@ export const parseNumericInputWidget = parseWidget(
                 // the data, simplify this.
                 value: optional(nullable(number)),
                 status: string,
-                answerForms: defaulted(array(parseMathFormat), () => undefined),
+                answerForms: defaulted(
+                    optional(array(parseMathFormat)),
+                    () => undefined,
+                ),
                 strict: boolean,
                 maxError: optional(nullable(number)),
                 // TODO(benchristel): simplify should never be a boolean, but we
