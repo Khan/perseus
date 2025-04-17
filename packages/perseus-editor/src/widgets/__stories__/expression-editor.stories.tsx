@@ -1,14 +1,13 @@
+import {
+    type PerseusRenderer,
+    type PerseusExpressionWidgetOptions,
+    generateTestPerseusItem,
+} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-import {generateTestPerseusItem} from "../../../../perseus/src/util/test-utils";
 import ExpressionEditor from "../expression-editor";
-
-import type {
-    PerseusRenderer,
-    PerseusExpressionWidgetOptions,
-} from "@khanacademy/perseus-core";
 
 type StoryArgs = Record<any, any>;
 

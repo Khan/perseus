@@ -2,13 +2,20 @@ import {failure, isSuccess} from "../result";
 
 import {isObject} from "./is-object";
 
+import type {OptionalizeProperties} from "./object-types";
 import type {Mismatch, ParsedValue, Parser} from "../parser-types";
 
 type ObjectSchema = Record<keyof any, Parser<any>>;
 
-export function object<S extends ObjectSchema>(
+export function objectWithAllPropertiesRequired<S extends ObjectSchema>(
     schema: S,
 ): Parser<{[K in keyof S]: ParsedValue<S[K]>}> {
+    return object(schema) as any;
+}
+
+export function object<S extends ObjectSchema>(
+    schema: S,
+): Parser<OptionalizeProperties<{[K in keyof S]: ParsedValue<S[K]>}>> {
     return (rawValue, ctx) => {
         if (!isObject(rawValue)) {
             return ctx.failure("object", rawValue);

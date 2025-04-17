@@ -11,7 +11,6 @@ describe("parseAndMigratePerseusItem", () => {
     it("should parse JSON", () => {
         const result = parseAndMigratePerseusItem(
             `{
-                "itemDataVersion": { "major": 0, "minor": 0 },
                 "answerArea": {},
                 "hints": [],
                 "question": {

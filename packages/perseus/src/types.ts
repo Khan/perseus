@@ -15,6 +15,7 @@ import type {
     Hint,
     PerseusAnswerArea,
     PerseusGraphType,
+    PerseusFeatureFlags,
     PerseusWidget,
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
@@ -126,7 +127,6 @@ export type ChangeHandler = (
         // used only in EditorPage
         question?: any;
         answerArea?: PerseusAnswerArea | null;
-        itemDataVersion?: Version;
         editorMode?: EditorMode;
         jsonMode?: boolean;
         // perseus-all-package/widgets/unit.jsx
@@ -298,7 +298,7 @@ export type APIOptions = Readonly<{
      * Feature flags that can be passed from consuming application.
      * Define the feature flag name in packages/perseus-core/src/feature-flags.ts
      */
-    flags?: Record<string, boolean>;
+    flags?: Record<(typeof PerseusFeatureFlags)[number], boolean>;
     /**
      * This is a callback function that returns all of the Widget props
      * after they have been transformed by the widget's transform function.

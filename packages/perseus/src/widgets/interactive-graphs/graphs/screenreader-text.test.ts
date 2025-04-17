@@ -30,7 +30,7 @@ describe("srFormatNumber", () => {
     });
 
     it("uses pi format when the number is a multiple of pi", () => {
-        expect(srFormatNumber(Math.PI, "en")).toBe("π");
+        expect(srFormatNumber(Math.PI, "en")).toBe("1π");
     });
 });
 
@@ -59,20 +59,20 @@ describe("getPiMultiple", () => {
 
     test.each`
         num                   | expectedString
-        ${Math.PI}            | ${"π"}
-        ${-Math.PI}           | ${"-π"}
+        ${Math.PI}            | ${"1π"}
+        ${-Math.PI}           | ${"-1π"}
         ${2 * Math.PI}        | ${"2π"}
         ${-2 * Math.PI}       | ${"-2π"}
         ${10 * Math.PI}       | ${"10π"}
         ${-10 * Math.PI}      | ${"-10π"}
-        ${Math.PI / 2}        | ${"π/2"}
-        ${Math.PI / 3}        | ${"π/3"}
-        ${Math.PI / 4}        | ${"π/4"}
-        ${Math.PI / 6}        | ${"π/6"}
-        ${Math.PI / -2}       | ${"-π/2"}
-        ${Math.PI / -3}       | ${"-π/3"}
-        ${Math.PI / -4}       | ${"-π/4"}
-        ${Math.PI / -6}       | ${"-π/6"}
+        ${Math.PI / 2}        | ${"1π/2"}
+        ${Math.PI / 3}        | ${"1π/3"}
+        ${Math.PI / 4}        | ${"1π/4"}
+        ${Math.PI / 6}        | ${"1π/6"}
+        ${Math.PI / -2}       | ${"-1π/2"}
+        ${Math.PI / -3}       | ${"-1π/3"}
+        ${Math.PI / -4}       | ${"-1π/4"}
+        ${Math.PI / -6}       | ${"-1π/6"}
         ${(7 * Math.PI) / 2}  | ${"7π/2"}
         ${3.5 * Math.PI}      | ${"7π/2"}
         ${(2 * Math.PI) / 3}  | ${"2π/3"}

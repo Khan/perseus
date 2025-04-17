@@ -1,16 +1,18 @@
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+
 import {
-    generateTestPerseusItem,
     getAnswerfulRenderer,
     getAnswerlessRenderer,
 } from "./test-utils";
+
 import {
     basicObject,
-    customAnswerAreaInfo,
-    customHintsInfo,
     customQuestionInfo,
-    expectedAnswerAreaInfoAdded,
-    expectedHintsInfoAdded,
     expectedQuestionInfoAdded,
+    customAnswerAreaInfo,
+    expectedAnswerAreaInfoAdded,
+    customHintsInfo,
+    expectedHintsInfoAdded,
 } from "./test-utils.testdata";
 
 describe("generateTestPerseusItem", () => {

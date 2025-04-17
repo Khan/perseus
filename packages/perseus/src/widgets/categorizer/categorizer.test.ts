@@ -1,3 +1,7 @@
+import {
+    generateTestPerseusItem,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -5,17 +9,14 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
-import {
-    getAnswerfulRenderer,
-    getAnswerlessRenderer,
-    scorePerseusItemTesting,
-} from "../../util/test-utils";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {Categorizer} from "./categorizer";
 import {question1} from "./categorizer.testdata";
 
 import type {APIOptions} from "../../types";
+import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("categorizer widget", () => {
@@ -167,28 +168,44 @@ describe("categorizer widget", () => {
             );
         });
 
-        const options = {
-            static: false,
-            items: ["Circle", "Purple", "Square"],
-            categories: ["Shape", "Color"],
-            randomizeItems: false,
-            values: [0, 1, 0],
-        };
+        function getAnswerfulItem(): PerseusItem {
+            const question: PerseusRenderer = {
+                content: "[[☃ categorizer 1]]",
+                images: {},
+                widgets: {
+                    "categorizer 1": {
+                        type: "categorizer",
+                        options: {
+                            static: false,
+                            items: ["Circle", "Purple", "Square"],
+                            categories: ["Shape", "Color"],
+                            randomizeItems: false,
+                            values: [0, 1, 0],
+                        },
+                    },
+                },
+            };
+
+            return generateTestPerseusItem({question});
+        }
+
+        function getAnswerlessItem(): PerseusItem {
+            return splitPerseusItem(getAnswerfulItem());
+        }
 
         test("the answerless test data doesn't contain answers", () => {
             expect(
-                getAnswerlessRenderer("categorizer", options).widgets[
-                    "categorizer 1"
-                ].options.values,
+                getAnswerlessItem().question.widgets["categorizer 1"].options
+                    .values,
             ).toBeUndefined();
         });
 
         test.each([
-            ["answerless", getAnswerlessRenderer("categorizer", options)],
-            ["answerful", getAnswerfulRenderer("categorizer", options)],
+            ["answerless", getAnswerlessItem()],
+            ["answerful", getAnswerfulItem()],
         ])("is interactive with widget options: %p", async (_, item) => {
             // Arrange / Act
-            const {renderer} = renderQuestion(item);
+            const {renderer} = renderQuestion(item.question);
 
             await userEvent.click(
                 screen.getAllByRole("button", {name: "Shape"})[0],
@@ -204,7 +221,7 @@ describe("categorizer widget", () => {
 
             const userInput = renderer.getUserInputMap();
             const score = scorePerseusItem(
-                getAnswerfulRenderer("categorizer", options),
+                getAnswerfulItem().question,
                 userInput,
                 "en",
             );

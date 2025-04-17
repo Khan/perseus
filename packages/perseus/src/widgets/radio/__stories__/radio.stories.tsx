@@ -1,7 +1,10 @@
+import {
+    generateTestPerseusItem,
+    type PerseusItem,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
-import {generateTestPerseusItem} from "../../../util/test-utils";
 import {
     questionWithPassage,
     choicesWithImages,
@@ -10,7 +13,6 @@ import {
 } from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
-import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react";
 
 type StoryArgs = {
