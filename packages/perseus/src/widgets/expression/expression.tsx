@@ -453,7 +453,7 @@ export default {
         return {
             keypadConfiguration: {
                 keypadType: "EXPRESSION",
-                extraKeys: extraKeys as ReadonlyArray<KeypadKey>,
+                extraKeys,
                 times,
             },
             times,

@@ -29,9 +29,9 @@ export function shuffle<T>(
     array: ReadonlyArray<T>,
     randomSeed: number | RNG,
     ensurePermuted = false,
-): ReadonlyArray<T> {
+): T[] {
     // Always return a copy of the input array
-    const shuffled = _.clone(array);
+    const shuffled = [...array];
 
     // Handle edge cases (input array is empty or uniform)
     if (
@@ -57,9 +57,7 @@ export function shuffle<T>(
             const newEnd = Math.floor(random() * top);
             const temp = shuffled[newEnd];
 
-            // @ts-expect-error - TS2542 - Index signature in type 'readonly T[]' only permits reading.
             shuffled[newEnd] = shuffled[top - 1];
-            // @ts-expect-error - TS2542 - Index signature in type 'readonly T[]' only permits reading.
             shuffled[top - 1] = temp;
         }
     } while (ensurePermuted && _.isEqual(array, shuffled));

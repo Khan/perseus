@@ -41,7 +41,7 @@ type DefaultProps = {
 };
 
 type State = {
-    values: ReadonlyArray<number>;
+    values: number[];
     categoryHeights: Record<string, number>;
 };
 
