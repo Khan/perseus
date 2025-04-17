@@ -170,7 +170,8 @@ export class PhetSimulation
         // that we need. This makes it safer to present third-party content
         // from the PhET website.
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
-        const sandboxProperties = "allow-same-origin allow-scripts";
+        const sandboxProperties =
+            "allow-same-origin allow-scripts allow-fullscreen";
         return (
             <View style={styles.widgetContainer}>
                 {this.state.banner !== null && (
@@ -201,7 +202,9 @@ export class PhetSimulation
                     <IconButton
                         icon={cornersOutIcon}
                         onClick={() => {
-                            this.iframeRef.current?.requestFullscreen();
+                            if (this.iframeRef.current) {
+                                openFullscreen(this.iframeRef.current);
+                            }
                         }}
                         kind="tertiary"
                         actionType="neutral"
@@ -217,6 +220,28 @@ export class PhetSimulation
         );
     }
 }
+
+// Unfortunately, the fullscreen API is not standardized across browsers, and
+// Safari continually changes their implementation across versions. This extension
+// and function are necessary to ensure that the fullscreen button works on all
+// browsers.
+interface HTMLElement {
+    webkitRequestFullscreen?: () => Promise<void>;
+    webkitEnterFullscreen?: () => void;
+    msRequestFullscreen?: () => Promise<void>;
+    requestFullscreen?: () => Promise<void>;
+}
+const openFullscreen = (element: HTMLElement) => {
+    if (element.requestFullscreen) {
+        element.requestFullscreen(); // Most browsers
+    } else if (element.webkitEnterFullscreen) {
+        element.webkitEnterFullscreen(); // Newer versions of Safari
+    } else if (element.webkitRequestFullscreen) {
+        element.webkitRequestFullscreen(); // Older versions of Safari
+    } else if (element.msRequestFullscreen) {
+        element.msRequestFullscreen(); // IE 11
+    }
+};
 
 // Setting URL to null will display an error message in the iframe
 export const makeSafeUrl = (urlString: string, locale: string): URL | null => {
