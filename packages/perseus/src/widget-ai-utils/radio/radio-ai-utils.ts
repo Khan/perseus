@@ -1,6 +1,8 @@
 import type radio from "../../widgets/radio/radio";
-import type {PerseusRadioUserInput} from "@khanacademy/perseus-core";
-import { render } from "@testing-library/react";
+import type {
+    PerseusRadioUserInput,
+    RecursiveReadonly,
+} from "@khanacademy/perseus-core";
 import type React from "react";
 
 type BasicOption = {

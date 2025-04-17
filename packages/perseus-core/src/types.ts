@@ -55,3 +55,7 @@ export type Alignment =
     | "float-left"
     | "float-right"
     | "full-width";
+
+export type RecursiveReadonly<T> = {
+    readonly [K in keyof T]: RecursiveReadonly<T[K]>;
+};

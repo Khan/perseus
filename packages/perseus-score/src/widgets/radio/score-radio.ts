@@ -4,6 +4,7 @@ import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
     PerseusScore,
+    RecursiveReadonly,
 } from "@khanacademy/perseus-core";
 
 function scoreRadio(

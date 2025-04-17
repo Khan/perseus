@@ -15,10 +15,10 @@ import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
-    PerseusRadioWidgetOptions,
     ShowSolutions,
     PerseusRadioRubric,
     PerseusRadioUserInput,
+    RecursiveReadonly,
 } from "@khanacademy/perseus-core";
 
 // RenderProps is the return type for radio.jsx#transform

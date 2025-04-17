@@ -1,5 +1,8 @@
 import {it, describe, beforeEach} from "@jest/globals";
-import {splitPerseusItem, generateTestPerseusItem} from "@khanacademy/perseus-core";
+import {
+    splitPerseusItem,
+    generateTestPerseusItem,
+} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
