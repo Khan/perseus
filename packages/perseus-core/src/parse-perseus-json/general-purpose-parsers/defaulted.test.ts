@@ -1,6 +1,7 @@
 import {success} from "../result";
 
 import {defaulted} from "./defaulted";
+import {nullable} from "./nullable";
 import {number} from "./number";
 import {ctx, parseFailureWith} from "./test-helpers";
 
@@ -24,7 +25,7 @@ describe("defaulted()", () => {
     it("allows the fallback function to distinguish between null and undefined", () => {
         // Maybe null is actually a valid value, but we want to default
         // undefined to 0. We can do it!
-        const numberOrNull = defaulted(number, (v): null | number =>
+        const numberOrNull = defaulted(nullable(number), (v) =>
             v === null ? null : 0,
         );
         numberOrNull satisfies Parser<number | null>;
