@@ -22,7 +22,10 @@ const imageDimensionToNumber = pipeParsers(union(number).or(string).parser)
     .then(convert(emptyToZero))
     .then(stringToNumber).parser;
 
-const dimensionOrUndefined = defaulted(imageDimensionToNumber, () => undefined);
+const dimensionOrUndefined = defaulted(
+    optional(imageDimensionToNumber),
+    () => undefined,
+);
 
 export const parsePerseusImageBackground = object({
     url: optional(nullable(string)),

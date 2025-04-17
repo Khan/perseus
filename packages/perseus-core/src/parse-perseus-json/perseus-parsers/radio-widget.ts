@@ -21,7 +21,7 @@ const parseWidgetsMapOrUndefined = defaulted(
     // There is an import cycle between radio-widget.ts and
     // widgets-map.ts. The anonymous function below ensures that we
     // don't refer to parseWidgetsMap before it's defined.
-    (rawVal, ctx) => parseWidgetsMap(rawVal, ctx),
+    optional((rawVal, ctx) => parseWidgetsMap(rawVal, ctx)),
     () => undefined,
 );
 
