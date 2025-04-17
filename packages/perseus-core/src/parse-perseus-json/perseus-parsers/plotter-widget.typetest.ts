@@ -1,17 +1,17 @@
 import {summon} from "../general-purpose-parsers/test-helpers";
 
-import type {parseRadioUserInput} from "./radio-user-input";
-import type {PerseusRadioUserInput} from "../../validation.types";
+import type {parsePlotterWidget} from "./plotter-widget";
+import type {PlotterWidget} from "../../data-schema";
 import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
 import type {ParsedValue} from "../parser-types";
 
-type Parsed = ParsedValue<typeof parseRadioUserInput>;
+type Parsed = ParsedValue<typeof parsePlotterWidget>;
 
-summon<Parsed>() satisfies PerseusRadioUserInput;
-summon<PerseusRadioUserInput>() satisfies Parsed;
+summon<Parsed>() satisfies PlotterWidget;
+summon<PlotterWidget>() satisfies Parsed;
 
 // The `RecursiveRequired` test ensures that any new optional properties added
 // to the types in data-schema.ts are also added to the parser.
 summon<
     RecursiveRequired<Parsed>
->() satisfies RecursiveRequired<PerseusRadioUserInput>;
+>() satisfies RecursiveRequired<PlotterWidget>;
