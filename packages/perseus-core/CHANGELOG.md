@@ -1,5 +1,24 @@
 # @khanacademy/perseus-core
 
+## 8.0.0
+
+### Major Changes
+
+-   [#2389](https://github.com/Khan/perseus/pull/2389) [`c922913b6`](https://github.com/Khan/perseus/commit/c922913b6289d34bf0fecb7bef96c0a6be45d8e7) Thanks [@handeyeco](https://github.com/handeyeco)! - make splitPerseusItem take/return PerseusItems instead of PerseusRenderers (also moves generateTestPerseusItem helper)
+
+### Minor Changes
+
+-   [#2397](https://github.com/Khan/perseus/pull/2397) [`8d63aedb1`](https://github.com/Khan/perseus/commit/8d63aedb1f40dd3afa5213ab4498e9a26592bacf) Thanks [@benchristel](https://github.com/benchristel)! - Switch to using optional property syntax consistently in `data-schema.ts` types.
+
+### Patch Changes
+
+-   [#2378](https://github.com/Khan/perseus/pull/2378) [`44eea76df`](https://github.com/Khan/perseus/commit/44eea76df58f89d3e0fa9f101ca1bc4ea93b6188) Thanks [@benchristel](https://github.com/benchristel)! - Fix Radio widget parser types; the parser now always sets
+    `PerseusRadioWidgetOptions.noneOfTheAbove` to either `false` or `undefined`
+    (whereas before it might be missing entirely).
+-   Updated dependencies []:
+    -   @khanacademy/kas@2.0.2
+    -   @khanacademy/perseus-utils@2.0.1
+
 ## 7.1.1
 
 ### Patch Changes
