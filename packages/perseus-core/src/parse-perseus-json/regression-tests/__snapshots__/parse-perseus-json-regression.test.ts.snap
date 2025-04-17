@@ -6521,7 +6521,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.json returns th
           "rulerTicks": 10,
           "showProtractor": true,
           "showRuler": false,
-          "static": false,
         },
         "type": "measurer",
       },
@@ -6568,7 +6567,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.json returns t
           "rulerTicks": 10,
           "showProtractor": true,
           "showRuler": true,
-          "static": false,
         },
         "type": "measurer",
         "version": {

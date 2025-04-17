@@ -359,12 +359,6 @@ describe("generateMathDetails", () => {
 });
 
 describe("joinLabelsAsSpokenText", () => {
-    test("returns empty string for undefined input", async () => {
-        const actualOutput = await joinLabelsAsSpokenMath(undefined);
-
-        expect(actualOutput).toBe("");
-    });
-
     test("return empty string if input is an empty array", async () => {
         const actualOutput = await joinLabelsAsSpokenMath([]);
 

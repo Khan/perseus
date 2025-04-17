@@ -333,13 +333,14 @@ class InteractiveGraphQuestionBuilder {
             showPoint2: options?.showPoint2 ?? false,
             color: options?.color ?? "grayH",
             lineStyle: options?.lineStyle ?? "solid",
-            labels: options?.labels?.map((label) => ({
-                type: "label",
-                coord: label.coord ?? vec.midpoint(point1, point2),
-                text: label.text,
-                color: options?.color ?? "grayH",
-                size: label.size ?? "medium",
-            })),
+            labels:
+                options?.labels?.map((label) => ({
+                    type: "label",
+                    coord: label.coord ?? vec.midpoint(point1, point2),
+                    text: label.text,
+                    color: options?.color ?? "grayH",
+                    size: label.size ?? "medium",
+                })) ?? [],
             ariaLabel: options?.ariaLabel,
             points: [
                 {
@@ -373,13 +374,14 @@ class InteractiveGraphQuestionBuilder {
             type: "vector",
             color: options?.color ?? "grayH",
             points: [tail, tip],
-            labels: options?.labels?.map((label) => ({
-                type: "label",
-                coord: label.coord ?? vec.midpoint(tail, tip),
-                text: label.text,
-                color: options?.color ?? "grayH",
-                size: label.size ?? "medium",
-            })),
+            labels:
+                options?.labels?.map((label) => ({
+                    type: "label",
+                    coord: label.coord ?? vec.midpoint(tail, tip),
+                    text: label.text,
+                    color: options?.color ?? "grayH",
+                    size: label.size ?? "medium",
+                })) ?? [],
             ariaLabel: options?.ariaLabel,
         };
         this.addLockedFigure(vector);
@@ -407,13 +409,14 @@ class InteractiveGraphQuestionBuilder {
             fillStyle: "none",
             strokeStyle: "solid",
             ...options,
-            labels: options?.labels?.map((label) => ({
-                type: "label",
-                coord: label.coord ?? center,
-                text: label.text,
-                color: options?.color ?? "grayH",
-                size: label.size ?? "medium",
-            })),
+            labels:
+                options?.labels?.map((label) => ({
+                    type: "label",
+                    coord: label.coord ?? center,
+                    text: label.text,
+                    color: options?.color ?? "grayH",
+                    size: label.size ?? "medium",
+                })) ?? [],
             ariaLabel: options?.ariaLabel,
         };
 
@@ -440,13 +443,14 @@ class InteractiveGraphQuestionBuilder {
             fillStyle: "none",
             strokeStyle: "solid",
             ...options,
-            labels: options?.labels?.map((label) => ({
-                type: "label",
-                coord: label.coord ?? points[0],
-                text: label.text,
-                color: options?.color ?? "grayH",
-                size: label.size ?? "medium",
-            })),
+            labels:
+                options?.labels?.map((label) => ({
+                    type: "label",
+                    coord: label.coord ?? points[0],
+                    text: label.text,
+                    color: options?.color ?? "grayH",
+                    size: label.size ?? "medium",
+                })) ?? [],
             ariaLabel: options?.ariaLabel,
         };
 
@@ -463,16 +467,17 @@ class InteractiveGraphQuestionBuilder {
             directionalAxis: "x",
             domain: [-Infinity, Infinity],
             ...options,
-            labels: options?.labels?.map(
-                (label) =>
-                    ({
-                        type: "label",
-                        coord: label.coord ?? [0, 0],
-                        text: label.text,
-                        color: options?.color ?? "grayH",
-                        size: label.size ?? "medium",
-                    }) satisfies LockedLabelType,
-            ),
+            labels:
+                options?.labels?.map(
+                    (label) =>
+                        ({
+                            type: "label",
+                            coord: label.coord ?? [0, 0],
+                            text: label.text,
+                            color: options?.color ?? "grayH",
+                            size: label.size ?? "medium",
+                        }) satisfies LockedLabelType,
+                ) ?? [],
             ariaLabel: options?.ariaLabel,
         };
 
@@ -516,13 +521,14 @@ class InteractiveGraphQuestionBuilder {
             coord: [x, y],
             color: options?.color ?? "grayH",
             filled: options?.filled ?? true,
-            labels: options?.labels?.map((label) => ({
-                type: "label",
-                coord: label.coord ?? [x + 0.5, y],
-                text: label.text,
-                color: options?.color ?? "grayH",
-                size: label.size ?? "medium",
-            })),
+            labels:
+                options?.labels?.map((label) => ({
+                    type: "label",
+                    coord: label.coord ?? [x + 0.5, y],
+                    text: label.text,
+                    color: options?.color ?? "grayH",
+                    size: label.size ?? "medium",
+                })) ?? [],
             ariaLabel: options?.ariaLabel,
         };
     }

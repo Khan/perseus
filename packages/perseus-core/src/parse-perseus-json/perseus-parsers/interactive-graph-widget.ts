@@ -45,16 +45,12 @@ const parsePerseusGraphTypeCircle = object({
             radius: number,
         }),
     ),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 const parsePerseusGraphTypeLinear = object({
     type: constant("linear"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 const parsePerseusGraphTypeLinearSystem = object({
@@ -62,8 +58,6 @@ const parsePerseusGraphTypeLinearSystem = object({
     // TODO(benchristel): default coords to empty array?
     coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
     startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 const parsePerseusGraphTypeNone = object({
@@ -75,7 +69,6 @@ const parsePerseusGraphTypePoint = object({
     numPoints: optional(union(number).or(constant("unlimited")).parser),
     coords: optional(nullable(array(pairOfNumbers))),
     startCoords: optional(array(pairOfNumbers)),
-    // TODO: remove coord? it's legacy.
     coord: optional(pairOfNumbers),
 });
 
@@ -88,8 +81,6 @@ const parsePerseusGraphTypePolygon = object({
     match: optional(enumeration("similar", "congruent", "approx", "exact")),
     startCoords: optional(array(pairOfNumbers)),
     coords: optional(nullable(array(pairOfNumbers))),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 const parsePerseusGraphTypeQuadratic = object({
@@ -98,16 +89,12 @@ const parsePerseusGraphTypeQuadratic = object({
         nullable(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
     ),
     startCoords: optional(trio(pairOfNumbers, pairOfNumbers, pairOfNumbers)),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 const parsePerseusGraphTypeRay = object({
     type: constant("ray"),
     coords: optional(nullable(pair(pairOfNumbers, pairOfNumbers))),
     startCoords: optional(pair(pairOfNumbers, pairOfNumbers)),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 const parsePerseusGraphTypeSegment = object({
@@ -116,16 +103,12 @@ const parsePerseusGraphTypeSegment = object({
     numSegments: optional(number),
     coords: optional(nullable(array(pair(pairOfNumbers, pairOfNumbers)))),
     startCoords: optional(array(pair(pairOfNumbers, pairOfNumbers))),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 const parsePerseusGraphTypeSinusoid = object({
     type: constant("sinusoid"),
     coords: optional(nullable(array(pairOfNumbers))),
     startCoords: optional(array(pairOfNumbers)),
-    // TODO: remove coord? it's legacy.
-    coord: optional(pairOfNumbers),
 });
 
 export const parsePerseusGraphType = discriminatedUnionOn("type")
@@ -165,8 +148,7 @@ const parseLockedPointType = object({
     coord: pairOfNumbers,
     color: parseLockedFigureColor,
     filled: boolean,
-    // TODO(benchristel): default labels to empty array?
-    labels: optional(array(parseLockedLabelType)),
+    labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
 
@@ -178,8 +160,7 @@ const parseLockedLineType = object({
     lineStyle: parseLockedLineStyle,
     showPoint1: defaulted(boolean, () => false),
     showPoint2: defaulted(boolean, () => false),
-    // TODO(benchristel): default labels to empty array?
-    labels: optional(array(parseLockedLabelType)),
+    labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
 
@@ -187,8 +168,7 @@ const parseLockedVectorType = object({
     type: constant("vector"),
     points: pair(pairOfNumbers, pairOfNumbers),
     color: parseLockedFigureColor,
-    // TODO(benchristel): default labels to empty array?
-    labels: optional(array(parseLockedLabelType)),
+    labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
 
@@ -200,8 +180,7 @@ const parseLockedEllipseType = object({
     color: parseLockedFigureColor,
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
-    // TODO(benchristel): default labels to empty array?
-    labels: optional(array(parseLockedLabelType)),
+    labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
 
@@ -212,8 +191,7 @@ const parseLockedPolygonType = object({
     showVertices: boolean,
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
-    // TODO(benchristel): default labels to empty array?
-    labels: optional(array(parseLockedLabelType)),
+    labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
 
@@ -233,8 +211,7 @@ const parseLockedFunctionType = object({
     equation: string,
     directionalAxis: enumeration("x", "y"),
     domain: parseLockedFunctionDomain,
-    // TODO(benchristel): default labels to empty array?
-    labels: optional(array(parseLockedLabelType)),
+    labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
 
@@ -277,8 +254,7 @@ export const parseInteractiveGraphWidget = parseWidget(
             }),
         ),
         correct: parsePerseusGraphType,
-        // TODO(benchristel): default lockedFigures to empty array
-        lockedFigures: optional(array(parseLockedFigure)),
+        lockedFigures: defaulted(array(parseLockedFigure), () => []),
         fullGraphAriaLabel: optional(string),
         fullGraphAriaDescription: optional(string),
     }),

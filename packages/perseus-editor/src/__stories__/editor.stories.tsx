@@ -47,6 +47,7 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
         "interactive-graph 1": {
             options: {
                 labels: ["x", "y"],
+                lockedFigures: [],
                 range: [
                     [-10, 10],
                     [-10, 10],
