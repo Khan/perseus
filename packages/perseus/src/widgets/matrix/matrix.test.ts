@@ -103,17 +103,6 @@ describe("matrix widget", () => {
             registerAllWidgetsForTesting();
         });
 
-        let userEvent: UserEvent;
-        beforeEach(() => {
-            userEvent = userEventLib.setup({
-                advanceTimers: jest.advanceTimersByTime,
-            });
-
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
-        });
-
         const matrixOptions = {
             answers: [[5, -2]],
             matrixBoardSize: [1, 2],
