@@ -11,10 +11,7 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {CategorizerWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parseCategorizerWidget: Parser<CategorizerWidget> = parseWidget(
+export const parseCategorizerWidget = parseWidget(
     constant("categorizer"),
     object({
         items: array(string),

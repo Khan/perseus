@@ -10,10 +10,7 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {DropdownWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parseDropdownWidget: Parser<DropdownWidget> = parseWidget(
+export const parseDropdownWidget = parseWidget(
     constant("dropdown"),
     object({
         placeholder: defaulted(string, () => ""),

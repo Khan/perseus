@@ -10,8 +10,7 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 import {parsePerseusRenderer} from "./perseus-renderer";
 import {parseWidget} from "./widget";
 
-import type {OrdererWidget} from "../../data-schema";
-import type {Parser, PartialParser} from "../parser-types";
+import type {PartialParser} from "../parser-types";
 
 // There is an import cycle between orderer-widget.ts and perseus-renderer.ts.
 // This wrapper ensures that we don't refer to parsePerseusRenderer before
@@ -30,7 +29,7 @@ const largeToAuto: PartialParser<
     return ctx.success(height);
 };
 
-export const parseOrdererWidget: Parser<OrdererWidget> = parseWidget(
+export const parseOrdererWidget = parseWidget(
     constant("orderer"),
     object({
         options: defaulted(array(parseRenderer), () => []),

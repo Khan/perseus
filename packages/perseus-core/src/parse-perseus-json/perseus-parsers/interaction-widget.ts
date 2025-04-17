@@ -18,19 +18,12 @@ import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-uni
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
-import type {
-    InteractionWidget,
-    PerseusInteractionElement,
-} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
 const pairOfNumbers = pair(number, number);
 const stringOrEmpty = defaulted(string, () => "");
 
 const parseKey = pipeParsers(optional(string)).then(convert(String)).parser;
 
-type FunctionElement = Extract<PerseusInteractionElement, {type: "function"}>;
-const parseFunctionElement: Parser<FunctionElement> = object({
+const parseFunctionElement = object({
     type: constant("function"),
     key: parseKey,
     options: object({
@@ -44,8 +37,7 @@ const parseFunctionElement: Parser<FunctionElement> = object({
     }),
 });
 
-type LabelElement = Extract<PerseusInteractionElement, {type: "label"}>;
-const parseLabelElement: Parser<LabelElement> = object({
+const parseLabelElement = object({
     type: constant("label"),
     key: parseKey,
     options: object({
@@ -56,8 +48,7 @@ const parseLabelElement: Parser<LabelElement> = object({
     }),
 });
 
-type LineElement = Extract<PerseusInteractionElement, {type: "line"}>;
-const parseLineElement: Parser<LineElement> = object({
+const parseLineElement = object({
     type: constant("line"),
     key: parseKey,
     options: object({
@@ -72,11 +63,7 @@ const parseLineElement: Parser<LineElement> = object({
     }),
 });
 
-type MovableLineElement = Extract<
-    PerseusInteractionElement,
-    {type: "movable-line"}
->;
-const parseMovableLineElement: Parser<MovableLineElement> = object({
+const parseMovableLineElement = object({
     type: constant("movable-line"),
     key: parseKey,
     options: object({
@@ -96,11 +83,7 @@ const parseMovableLineElement: Parser<MovableLineElement> = object({
     }),
 });
 
-type MovablePointElement = Extract<
-    PerseusInteractionElement,
-    {type: "movable-point"}
->;
-const parseMovablePointElement: Parser<MovablePointElement> = object({
+const parseMovablePointElement = object({
     type: constant("movable-point"),
     key: parseKey,
     options: object({
@@ -117,11 +100,7 @@ const parseMovablePointElement: Parser<MovablePointElement> = object({
     }),
 });
 
-type ParametricElement = Extract<
-    PerseusInteractionElement,
-    {type: "parametric"}
->;
-const parseParametricElement: Parser<ParametricElement> = object({
+const parseParametricElement = object({
     type: constant("parametric"),
     key: parseKey,
     options: object({
@@ -135,8 +114,7 @@ const parseParametricElement: Parser<ParametricElement> = object({
     }),
 });
 
-type PointElement = Extract<PerseusInteractionElement, {type: "point"}>;
-const parsePointElement: Parser<PointElement> = object({
+const parsePointElement = object({
     type: constant("point"),
     key: parseKey,
     options: object({
@@ -146,8 +124,7 @@ const parsePointElement: Parser<PointElement> = object({
     }),
 });
 
-type RectangleElement = Extract<PerseusInteractionElement, {type: "rectangle"}>;
-const parseRectangleElement: Parser<RectangleElement> = object({
+const parseRectangleElement = object({
     type: constant("rectangle"),
     key: parseKey,
     options: object({
@@ -159,7 +136,7 @@ const parseRectangleElement: Parser<RectangleElement> = object({
     }),
 });
 
-export const parseInteractionWidget: Parser<InteractionWidget> = parseWidget(
+export const parseInteractionWidget = parseWidget(
     constant("interaction"),
     object({
         static: defaulted(boolean, () => false),
@@ -169,7 +146,7 @@ export const parseInteractionWidget: Parser<InteractionWidget> = parseWidget(
             labels: array(string),
             range: pair(pairOfNumbers, pairOfNumbers),
             gridStep: pairOfNumbers,
-            markings: enumeration("graph", "grid", "none"),
+            markings: enumeration("graph", "grid", "none", "axes"),
             snapStep: optional(pairOfNumbers),
             valid: optional(union(boolean).or(string).parser),
             backgroundImage: optional(parsePerseusImageBackground),

@@ -11,7 +11,6 @@ import {
 
 import {parseWidget} from "./widget";
 
-import type {InputNumberWidget} from "../../data-schema";
 import type {Parser} from "../parser-types";
 
 const booleanToString: Parser<string> = (rawValue, ctx) => {
@@ -21,7 +20,7 @@ const booleanToString: Parser<string> = (rawValue, ctx) => {
     return ctx.failure("boolean", rawValue);
 };
 
-export const parseInputNumberWidget: Parser<InputNumberWidget> = parseWidget(
+export const parseInputNumberWidget = parseWidget(
     constant("input-number"),
     object({
         answerType: optional(

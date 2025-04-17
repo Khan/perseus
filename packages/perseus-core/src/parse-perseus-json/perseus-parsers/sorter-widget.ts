@@ -9,10 +9,7 @@ import {
 
 import {parseWidget} from "./widget";
 
-import type {SorterWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parseSorterWidget: Parser<SorterWidget> = parseWidget(
+export const parseSorterWidget = parseWidget(
     constant("sorter"),
     object({
         correct: array(string),

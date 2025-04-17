@@ -4,10 +4,7 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 import {parseWidget} from "./widget";
 import {parseWidgetsMap} from "./widgets-map";
 
-import type {ExplanationWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parseExplanationWidget: Parser<ExplanationWidget> = parseWidget(
+export const parseExplanationWidget = parseWidget(
     constant("explanation"),
     object({
         showPrompt: string,

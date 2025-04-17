@@ -12,10 +12,7 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {IFrameWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parseIframeWidget: Parser<IFrameWidget> = parseWidget(
+export const parseIframeWidget = parseWidget(
     constant("iframe"),
     object({
         url: string,

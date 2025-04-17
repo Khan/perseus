@@ -15,14 +15,11 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {NumberLineWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
 const emptyStringToNull = pipeParsers(constant("")).then(
     convert(() => null),
 ).parser;
 
-export const parseNumberLineWidget: Parser<NumberLineWidget> = parseWidget(
+export const parseNumberLineWidget = parseWidget(
     constant("number-line"),
     object({
         range: array(number),

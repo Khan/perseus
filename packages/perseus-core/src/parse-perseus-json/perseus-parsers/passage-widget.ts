@@ -3,10 +3,7 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {PassageWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parsePassageWidget: Parser<PassageWidget> = parseWidget(
+export const parsePassageWidget = parseWidget(
     constant("passage"),
     object({
         footnotes: defaulted(string, () => ""),

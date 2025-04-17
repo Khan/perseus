@@ -8,10 +8,7 @@ import {
 
 import {parseWidget} from "./widget";
 
-import type {VideoWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parseVideoWidget: Parser<VideoWidget> = parseWidget(
+export const parseVideoWidget = parseWidget(
     constant("video"),
     object({
         location: string,

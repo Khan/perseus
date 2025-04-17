@@ -11,10 +11,7 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {CSProgramWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parseCSProgramWidget: Parser<CSProgramWidget> = parseWidget(
+export const parseCSProgramWidget = parseWidget(
     constant("cs-program"),
     object({
         programID: string,

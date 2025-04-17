@@ -13,10 +13,7 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {PlotterWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parsePlotterWidget: Parser<PlotterWidget> = parseWidget(
+export const parsePlotterWidget = parseWidget(
     constant("plotter"),
     object({
         labels: array(string),

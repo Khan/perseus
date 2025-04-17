@@ -1347,7 +1347,6 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
             {
               "considered": "correct",
               "form": false,
-              "key": "undefined",
               "simplify": false,
               "value": "sqrt(3)*3",
             },
@@ -1382,7 +1381,6 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
             {
               "considered": "correct",
               "form": false,
-              "key": "undefined",
               "simplify": false,
               "value": "3",
             },
@@ -1417,7 +1415,6 @@ $\\qquad$![](https://ka-perseus-graphie.s3.amazonaws.com/bee05e004428ab4fb0d8af9
             {
               "considered": "correct",
               "form": false,
-              "key": "undefined",
               "simplify": false,
               "value": "pi/6",
             },
@@ -6743,7 +6740,6 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
             {
               "considered": "correct",
               "form": false,
-              "key": "undefined",
               "simplify": false,
               "value": "1.2c+3\\ge13.5",
             },

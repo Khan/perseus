@@ -20,6 +20,7 @@ describe("parseExpressionWidget", () => {
                     {
                         considered: "correct",
                         form: true,
+                        key: "undefined",
                         simplify: false,
                         value: "88x",
                     },

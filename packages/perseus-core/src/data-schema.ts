@@ -936,7 +936,7 @@ export type PerseusGraphTypeAngle = {
     // How to match the answer. If missing, defaults to exact matching.
     match?: "congruent";
     // must have 3 coords - ie [Coord, Coord, Coord]
-    coords?: [Coord, Coord, Coord] | null;
+    coords?: [Coord, Coord, Coord];
     // The initial coordinates the graph renders with.
     startCoords?: [Coord, Coord, Coord];
 };
