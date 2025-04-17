@@ -1,6 +1,5 @@
 /* eslint-disable import/no-commonjs */
 import fs from "fs";
-import {URL} from "node:url";
 import path from "path";
 
 import alias from "@rollup/plugin-alias";
