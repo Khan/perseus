@@ -195,7 +195,7 @@ class Radio extends React.Component<Props> implements Widget {
         return false;
     }
 
-    // lets BaseRadio regiser a focus callback so widget
+    // lets BaseRadio register a focus callback so widget
     // can focus an individual choice
     registerFocusFunction(fun: FocusFunction): void {
         this.focusFunction = fun;
