@@ -1,5 +1,11 @@
 # perseus-build-settings
 
+## 0.6.1
+
+### Patch Changes
+
+-   [#2383](https://github.com/Khan/perseus/pull/2383) [`f938449f9`](https://github.com/Khan/perseus/commit/f938449f94fd7f4b1ed54cf187bdd7dd8d18cff5) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Removing dependency on hubble.js
+
 ## 0.6.0
 
 ### Minor Changes
