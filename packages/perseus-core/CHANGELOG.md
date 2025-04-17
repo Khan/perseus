@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 9.0.0
+
+### Major Changes
+
+-   [#2398](https://github.com/Khan/perseus/pull/2398) [`45635f7ef`](https://github.com/Khan/perseus/commit/45635f7ef91cf8f7a98149b05198c7e628c8ef2d) Thanks [@benchristel](https://github.com/benchristel)! - Remove ReadonlyArray types from `@khanacademy/perseus-core` in favor of mutable arrays. Users should define separate readonly types if desired.
+
 ## 8.0.0
 
 ### Major Changes
