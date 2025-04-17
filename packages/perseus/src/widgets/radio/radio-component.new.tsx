@@ -56,6 +56,8 @@ export type RadioChoiceWithMetadata = PerseusRadioChoice & {
     correct?: boolean;
 };
 
+// This is a test
+
 /**
  * This component is a duplicate of the Radio component in radio.tsx
  * for the Radio Revitalization Project. (LEMS-2933)

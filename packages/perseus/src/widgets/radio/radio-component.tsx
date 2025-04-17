@@ -21,6 +21,8 @@ import type {
     PerseusRadioUserInput,
 } from "@khanacademy/perseus-core";
 
+// This is a test
+
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {
     numCorrect: number;
