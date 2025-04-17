@@ -149,7 +149,7 @@ function stringArrayOfSize(size: number): ReadonlyArray<string> {
     return Array(size).fill("");
 }
 
-function stringArrayOfSize2D(opt: {
+export function stringArrayOfSize2D(opt: {
     rows: number;
     columns: number;
 }): ReadonlyArray<ReadonlyArray<string>> {
