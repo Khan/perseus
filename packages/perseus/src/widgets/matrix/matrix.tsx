@@ -544,15 +544,13 @@ function transform(widgetOptions: MatrixPublicWidgetOptions): RenderProps {
     const blankAnswers = _(widgetOptions.matrixBoardSize[0]).times(function () {
         return stringArrayOfSize(widgetOptions.matrixBoardSize[1]);
     });
-    widgetOptions = _.pick(
-        widgetOptions,
-        "matrixBoardSize",
-        "prefix",
-        "suffix",
-    );
-    return _.extend(widgetOptions, {
+    const {matrixBoardSize, prefix, suffix} = widgetOptions;
+    return {
+        matrixBoardSize,
+        prefix,
+        suffix,
         answers: blankAnswers,
-    });
+    };
 }
 
 const staticTransform: (arg1: any) => any = (editorProps) => {
