@@ -1,4 +1,7 @@
-import {splitPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusItem,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import type {
@@ -9,9 +12,9 @@ import type {
     PerseusRenderer,
     PerseusWidgetTypes,
     RadioWidget,
-    WidgetOptions,
     PerseusScore,
     UserInputMap,
+    PerseusItem,
 } from "@khanacademy/perseus-core";
 
 /**
@@ -135,22 +138,23 @@ export function generateTestNumericInputWidget(): NumericInputWidget {
  * @param {PerseusWidgetTypes[T]["options"]} options - The options for the widget
  * @returns {PerseusRenderer} skeleton PerseusRenderer for testing
  */
-export function getAnswerfulRenderer<T extends keyof PerseusWidgetTypes>(
+export function getAnswerfulItem<T extends keyof PerseusWidgetTypes>(
     widgetType: T,
     options: PerseusWidgetTypes[T]["options"],
-): PerseusRenderer {
+): PerseusItem {
     const widgetName = `${widgetType} 1`;
-    const widget: WidgetOptions<T, PerseusWidgetTypes[T]["options"]> = {
+    const widget = {
         type: widgetType,
         options,
     };
     const widgets = {};
     widgets[widgetName] = widget;
-    return {
+    const question: PerseusRenderer = {
         content: `[[☃ ${widgetName}]]`,
         images: {},
         widgets,
     };
+    return generateTestPerseusItem({question});
 }
 
 /**
@@ -163,9 +167,9 @@ export function getAnswerfulRenderer<T extends keyof PerseusWidgetTypes>(
  * @param {PerseusWidgetTypes[T]["options"]} options - The options for the widget
  * @returns {PerseusRenderer} skeleton PerseusRenderer for testing
  */
-export function getAnswerlessRenderer<T extends keyof PerseusWidgetTypes>(
+export function getAnswerlessItem<T extends keyof PerseusWidgetTypes>(
     widgetType: T,
     options: PerseusWidgetTypes[T]["options"],
-): PerseusRenderer {
-    return splitPerseusItem(getAnswerfulRenderer(widgetType, options));
+): PerseusItem {
+    return splitPerseusItem(getAnswerfulItem(widgetType, options));
 }

@@ -1,10 +1,6 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import {
-    getAnswerfulRenderer,
-    getAnswerlessRenderer,
-} from "./test-utils";
-
+import {getAnswerfulItem, getAnswerlessItem} from "./test-utils";
 import {
     basicObject,
     customQuestionInfo,
@@ -41,7 +37,7 @@ describe("generateTestPerseusItem", () => {
 
 describe("getAnswerfulRenderer", () => {
     it("should return an answerful renderer using the type given", () => {
-        const answerfulRenderer = getAnswerfulRenderer("dropdown", {
+        const answerfulRenderer = getAnswerfulItem("dropdown", {
             static: false,
             placeholder: "greater/less than or equal to",
             choices: [
@@ -83,7 +79,7 @@ describe("getAnswerfulRenderer", () => {
 
 describe("getAnswerlessRenderer", () => {
     it("should return an answerless renderer using the type given with upgraded widget options", () => {
-        const answerlessRenderer = getAnswerlessRenderer("dropdown", {
+        const answerlessRenderer = getAnswerlessItem("dropdown", {
             static: false,
             placeholder: "greater/less than or equal to",
             choices: [

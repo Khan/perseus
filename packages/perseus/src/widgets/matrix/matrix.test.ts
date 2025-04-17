@@ -6,8 +6,8 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {
-    getAnswerfulRenderer,
-    getAnswerlessRenderer,
+    getAnswerfulItem,
+    getAnswerlessItem,
     scorePerseusItemTesting,
 } from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -15,6 +15,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import {question1} from "./matrix.testdata";
 
 import type {APIOptions} from "../../types";
+import type {PerseusMatrixWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("matrix widget", () => {
@@ -103,7 +104,7 @@ describe("matrix widget", () => {
             registerAllWidgetsForTesting();
         });
 
-        const matrixOptions = {
+        const matrixOptions: PerseusMatrixWidgetOptions = {
             answers: [[5, -2]],
             matrixBoardSize: [1, 2],
             cursorPosition: [0, 0],
@@ -114,25 +115,25 @@ describe("matrix widget", () => {
 
         test("the answerless test data doesn't contain answers", () => {
             expect(
-                getAnswerlessRenderer("matrix", matrixOptions).widgets[
+                getAnswerlessItem("matrix", matrixOptions).question.widgets[
                     "matrix 1"
                 ].options.answers,
             ).toBeUndefined();
         });
 
         test.each([
-            ["answerless", getAnswerlessRenderer("matrix", matrixOptions)],
-            ["answerful", getAnswerfulRenderer("matrix", matrixOptions)],
+            ["answerless", getAnswerlessItem("matrix", matrixOptions)],
+            ["answerful", getAnswerfulItem("matrix", matrixOptions)],
         ])("is interactive with widget options: %p", async (_, item) => {
             // Arrange / Act
-            const {renderer} = renderQuestion(item);
+            const {renderer} = renderQuestion(item.question);
 
             await userEvent.type(screen.getAllByRole("textbox")[0], "5");
             await userEvent.type(screen.getAllByRole("textbox")[1], "-2");
 
             const userInput = renderer.getUserInputMap();
             const score = scorePerseusItem(
-                getAnswerfulRenderer("matrix", matrixOptions),
+                getAnswerfulItem("matrix", matrixOptions).question,
                 userInput,
                 "en",
             );
