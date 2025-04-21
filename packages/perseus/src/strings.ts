@@ -762,12 +762,12 @@ export const strings = {
     },
     srLinearGraphSlopeHorizontal: {
         context:
-            "Screen reader description for the horizontal slope of the Line in the interactive graph widget.",
+            "Screen reader description for the slope of a horizontal Line in the interactive graph widget.",
         message: "Its slope is zero.",
     },
     srLinearGraphSlopeVertical: {
         context:
-            "Screen reader description for the vertical slope of the Line in the interactive graph widget.",
+            "Screen reader description for the slope of a vertical Line in the interactive graph widget.",
         message: "Its slope is undefined.",
     },
     srLinearGraphXOnlyIntercept: {
@@ -926,12 +926,12 @@ export const strings = {
     },
     srRayEndpoint: {
         context:
-            "Aria label for the defining point of the Ray in the interactive graph widget that sits on the tail of the Ray.",
+            "Aria label for the initial point of a Ray (the point at which the ray starts) in the interactive graph widget.",
         message: "Endpoint at %(x)s comma %(y)s.",
     },
     srRayTerminalPoint: {
         context:
-            "Aria label for the defining point the Ray goes through in the interactive graph widget that determines the direction of the Ray.",
+            "Aria label for the point that determines the direction of the Ray in the interactive graph widget. The ray passes through this point.",
         message: "Through point at %(x)s comma %(y)s.",
     },
     srQuadraticGraph: {
@@ -1076,17 +1076,17 @@ export const strings = {
     },
     srSinusoidMaxPoint: {
         context:
-            "Aria label for the Point defining max/min of the Sinusoid function in the interactive graph widget when it's above 0.",
+            "Aria label for the Point defining the maximum of the Sinusoid function in the interactive graph widget.",
         message: "Maximum point at %(x)s comma %(y)s.",
     },
     srSinusoidMinPoint: {
         context:
-            "Aria label for the Point defining the max/min of the Sinusoid function in the interactive graph widget when it's below 0.",
+            "Aria label for the Point defining the minimum of the Sinusoid function in the interactive graph widget.",
         message: "Minimum point at %(x)s comma %(y)s.",
     },
     srSinusoidFlatPoint: {
         context:
-            "Aria label for the Point defining the max/min of the Sinusoid function in the interactive graph widget when it's at 0.",
+            "Aria label for the Point defining the amplitude of the Sinusoid function in the interactive graph widget when the amplitude is 0.",
         message: "Line through point at %(x)s comma %(y)s.",
     },
     srSinusoidDescription: {
