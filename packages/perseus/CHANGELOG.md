@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 61.0.3
+
+### Patch Changes
+
+-   [#2410](https://github.com/Khan/perseus/pull/2410) [`3078f4c59`](https://github.com/Khan/perseus/commit/3078f4c59aa0c3b407cbcf3db8c43c69734d01f9) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Redundant reset.css styling was causing font display issues
+
 ## 61.0.2
 
 ### Patch Changes
