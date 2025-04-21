@@ -52,15 +52,16 @@ describe("getAnswerfulRenderer", () => {
             ],
         });
         expect(answerfulRenderer).toEqual({
+        question: {
             content: "[[☃ dropdown 1]]",
             images: {},
             widgets: {
                 "dropdown 1": {
                     type: "dropdown",
-                    options: {
-                        static: false,
-                        placeholder: "greater/less than or equal to",
-                        choices: [
+                        options: {
+                            static: false,
+                            placeholder: "greater/less than or equal to",
+                            choices: [
                             {
                                 content: "greater than or equal to",
                                 correct: false,
@@ -73,13 +74,26 @@ describe("getAnswerfulRenderer", () => {
                     },
                 },
             },
+        },
+        answerArea: {
+            calculator: false,
+                chi2Table: false,
+                periodicTable: false,
+                tTable: false,
+                zTable: false,
+                financialCalculatorMonthlyPayment: false,
+                financialCalculatorTotalAmount: false,
+                financialCalculatorTimeToPayOff: false,
+                periodicTableWithKey: false,
+        },
+        hints: [],
         });
     });
 });
 
-describe("getAnswerlessRenderer", () => {
-    it("should return an answerless renderer using the type given with upgraded widget options", () => {
-        const answerlessRenderer = getAnswerlessItem("dropdown", {
+describe("getAnswerlessItem", () => {
+    it("should return an answerless item using the type given with upgraded widget options", () => {
+        const answerlessItem = getAnswerlessItem("dropdown", {
             static: false,
             placeholder: "greater/less than or equal to",
             choices: [
@@ -93,30 +107,44 @@ describe("getAnswerlessRenderer", () => {
                 },
             ],
         });
-        expect(answerlessRenderer).toEqual({
-            content: "[[☃ dropdown 1]]",
-            images: {},
-            widgets: {
-                "dropdown 1": {
-                    type: "dropdown",
-                    options: {
+        expect(answerlessItem).toEqual({
+            question: {
+                content: "[[☃ dropdown 1]]",
+                images: {},
+                widgets: {
+                    "dropdown 1": {
+                        type: "dropdown",
+                        options: {
+                            static: false,
+                            placeholder: "greater/less than or equal to",
+                            choices: [
+                                {
+                                    content: "greater than or equal to",
+                                },
+                                {
+                                    content: "less than or equal to",
+                                },
+                            ],
+                        },
+                        alignment: "default",
+                        version: {major: 0, minor: 0},
+                        graded: true,
                         static: false,
-                        placeholder: "greater/less than or equal to",
-                        choices: [
-                            {
-                                content: "greater than or equal to",
-                            },
-                            {
-                                content: "less than or equal to",
-                            },
-                        ],
                     },
-                    alignment: "default",
-                    version: {major: 0, minor: 0},
-                    graded: true,
-                    static: false,
                 },
             },
+            answerArea: {
+                calculator: false,
+                chi2Table: false,
+                periodicTable: false,
+                tTable: false,
+                zTable: false,
+                financialCalculatorMonthlyPayment: false,
+                financialCalculatorTotalAmount: false,
+                financialCalculatorTimeToPayOff: false,
+                periodicTableWithKey: false,
+            },
+            hints: [],
         });
     });
 });
