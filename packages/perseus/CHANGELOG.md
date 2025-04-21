@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 61.0.2
+
+### Patch Changes
+
+-   [#2407](https://github.com/Khan/perseus/pull/2407) [`016357a5b`](https://github.com/Khan/perseus/commit/016357a5bef1e2b8896a2cb17dd7eedbd6e51f77) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Prepare strings for translation - Add context to interactive graph strings
+
 ## 61.0.1
 
 ### Patch Changes
