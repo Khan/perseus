@@ -1,3 +1,9 @@
+import type {
+    MatrixPublicWidgetOptions,
+    PerseusMatrixUserInput,
+    PerseusMatrixWidgetAnswers,
+    PerseusMatrixWidgetOptions,
+} from "@khanacademy/perseus-core";
 import {getMatrixSize} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet} from "aphrodite";
@@ -14,16 +20,10 @@ import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {stringArrayOfSize2D} from "../../util";
+import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
-import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
-import type {
-    MatrixPublicWidgetOptions,
-    PerseusMatrixWidgetAnswers,
-    PerseusMatrixWidgetOptions,
-    PerseusMatrixUserInput,
-} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {assert} = InteractiveUtil;
@@ -99,6 +99,12 @@ type ExternalProps = WidgetProps<{
 0 as any as WidgetProps<PerseusMatrixWidgetOptions> satisfies PropsFor<
     typeof Matrix
 >;
+
+// NOTE: Answers here in RenderProps does not contain answers from the rubric.
+// It's an empty array of the same length and depth used to render the matrix.
+type RenderProps = MatrixPublicWidgetOptions & {
+    emptyMatrix: ReadonlyArray<ReadonlyArray<string>>;
+};
 
 type Props = ExternalProps & {
     onChange: (
@@ -532,24 +538,18 @@ class Matrix extends React.Component<Props, State> implements Widget {
     }
 }
 
-// NOTE: Answers here in RenderProps does not contain answers from the rubric.
-// It's an empty array of the same length and depth used to render the matrix.
-type RenderProps = MatrixPublicWidgetOptions & {
-    answers: ReadonlyArray<ReadonlyArray<string>>;
-};
-
 function transform(widgetOptions: MatrixPublicWidgetOptions): RenderProps {
     // Remove answers before passing to widget
     const rows = widgetOptions.matrixBoardSize[0];
     const columns = widgetOptions.matrixBoardSize[1];
-    const blankAnswers = stringArrayOfSize2D({rows, columns});
+    const blankInput = stringArrayOfSize2D({rows, columns});
 
     const {matrixBoardSize, prefix, suffix} = widgetOptions;
     return {
         matrixBoardSize,
         prefix,
         suffix,
-        answers: blankAnswers,
+        emptyMatrix: blankInput,
     };
 }
 
