@@ -149,7 +149,10 @@ function stringArrayOfSize(size: number): string[] {
     return Array(size).fill("");
 }
 
-export function stringArrayOfSize2D(opt: {rows: number; columns: number}): string[][] {
+export function stringArrayOfSize2D(opt: {
+    rows: number;
+    columns: number;
+}): string[][] {
     const {rows, columns} = opt;
     const rowArr = stringArrayOfSize(rows);
     return rowArr.map(() => stringArrayOfSize(columns));
