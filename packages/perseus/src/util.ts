@@ -145,14 +145,11 @@ function firstNumericalParse(text: string): ParsedValue | null | undefined {
     return first;
 }
 
-function stringArrayOfSize(size: number): ReadonlyArray<string> {
+function stringArrayOfSize(size: number): string[] {
     return Array(size).fill("");
 }
 
-export function stringArrayOfSize2D(opt: {
-    rows: number;
-    columns: number;
-}): ReadonlyArray<ReadonlyArray<string>> {
+export function stringArrayOfSize2D(opt: {rows: number; columns: number}): string[][] {
     const {rows, columns} = opt;
     const rowArr = stringArrayOfSize(rows);
     return rowArr.map(() => stringArrayOfSize(columns));

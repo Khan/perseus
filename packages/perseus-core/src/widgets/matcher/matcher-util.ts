@@ -38,8 +38,8 @@ export const shuffleMatcher = (
 
 // TODO(LEMS-2841): Can shorten to shuffleMatcher after above function removed
 function shuffleMatcherWithRandom(data: MatcherShuffleInfo): {
-    left: ReadonlyArray<string>;
-    right: ReadonlyArray<string>;
+    left: string[];
+    right: string[];
 } {
     // Use the same random() function to shuffle both columns sequentially
     let left;

@@ -15,5 +15,5 @@ export default {
         },
     },
     answerArea: null,
-    hints: [] as ReadonlyArray<any>,
+    hints: [],
 } satisfies PerseusItem;

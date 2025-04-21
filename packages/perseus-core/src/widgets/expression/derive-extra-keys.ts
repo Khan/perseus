@@ -16,12 +16,12 @@ function deriveExtraKeys(
     widgetOptions: PerseusExpressionWidgetOptions,
 ): KeypadConfiguration["extraKeys"] {
     if (widgetOptions.extraKeys) {
-        return widgetOptions.extraKeys as ReadonlyArray<KeypadKey>;
+        return widgetOptions.extraKeys;
     }
 
     // If there are no extra symbols available, we include Pi anyway, so
     // that the "extra symbols" button doesn't appear empty.
-    const defaultKeys: ReadonlyArray<KeypadKey> = ["PI"];
+    const defaultKeys: KeypadKey[] = ["PI"];
 
     if (widgetOptions.answerForms == null) {
         return defaultKeys;

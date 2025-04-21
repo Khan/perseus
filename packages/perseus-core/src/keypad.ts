@@ -115,7 +115,7 @@ export type KeypadType = "FRACTION" | "EXPRESSION";
 
 export type KeypadConfiguration = {
     keypadType: KeypadType;
-    extraKeys?: ReadonlyArray<KeypadKey>;
+    extraKeys?: KeypadKey[];
     times?: boolean;
     scientific?: boolean;
 };

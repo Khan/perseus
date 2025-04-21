@@ -15,10 +15,10 @@ import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
-    PerseusRadioWidgetOptions,
     ShowSolutions,
     PerseusRadioRubric,
     PerseusRadioUserInput,
+    RecursiveReadonly,
 } from "@khanacademy/perseus-core";
 
 // RenderProps is the return type for radio.jsx#transform
@@ -204,7 +204,7 @@ class Radio extends React.Component<Props> implements Widget {
         return false;
     }
 
-    // lets BaseRadio regiser a focus callback so widget
+    // lets BaseRadio register a focus callback so widget
     // can focus an individual choice
     registerFocusFunction(fun: FocusFunction): void {
         this.focusFunction = fun;
@@ -275,7 +275,7 @@ class Radio extends React.Component<Props> implements Widget {
      * @deprecated Internal only. Use `showSolutions` prop instead.
      */
     showRationalesForCurrentlySelectedChoices: (
-        arg1: PerseusRadioWidgetOptions,
+        arg1: RecursiveReadonly<PerseusRadioRubric>,
     ) => void = (rubric) => {
         const {choiceStates} = this.props;
         if (choiceStates) {

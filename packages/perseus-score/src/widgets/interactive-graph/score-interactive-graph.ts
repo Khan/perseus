@@ -168,8 +168,9 @@ function scoreInteractiveGraph(
             // eq() comparison but _.isEqual(0, -0) is false, so we'll use
             // eq() anyway. The sort should be fine because it'll stringify
             // it and -0 converted to a string is "0"
+            // TODO(benchristel): once we drop support for Safari 15, use
+            // toSorted here to avoid mutating the input arrays!
             guess?.sort();
-            // @ts-expect-error - TS2339 - Property 'sort' does not exist on type 'readonly Coord[]'.
             correct.sort();
             if (approximateDeepEqual(guess, correct)) {
                 return {

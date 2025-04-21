@@ -10,7 +10,7 @@ describe("validateCategorizer", () => {
 
         const userInput = {
             values: [2],
-        } as const;
+        };
         const score = validateCategorizer(userInput, validationData);
 
         expect(score).toHaveInvalidInput("INVALID_SELECTION_ERROR");
@@ -23,7 +23,7 @@ describe("validateCategorizer", () => {
 
         const userInput = {
             values: [2, 4],
-        } as const;
+        };
         const score = validateCategorizer(userInput, validationData);
 
         expect(score).toBeNull();

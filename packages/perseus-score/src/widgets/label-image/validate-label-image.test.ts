@@ -6,7 +6,7 @@ describe("scoreLabelImage", () => {
     it("should not grade non-interacted widget", function () {
         const userInput: PerseusLabelImageUserInput = {
             markers: [{label: "England"}, {label: "Germany"}, {label: "Italy"}],
-        } as const;
+        };
 
         const validationError = validateLabelImage(userInput);
 
@@ -14,13 +14,13 @@ describe("scoreLabelImage", () => {
     });
 
     it("should not grade widget with not all markers answered", function () {
-        const userInput = {
+        const userInput: PerseusLabelImageUserInput = {
             markers: [
                 {label: "England", selected: ["Fiat"]},
                 {label: "Germany", selected: ["Lamborghini"]},
                 {label: "Italy"},
             ],
-        } as const;
+        };
 
         const validationError = validateLabelImage(userInput);
 

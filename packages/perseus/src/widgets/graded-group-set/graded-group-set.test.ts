@@ -7,6 +7,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {article1} from "./graded-group-set.testdata";
 
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("graded group widget", () => {
@@ -39,7 +40,7 @@ describe("graded group widget", () => {
 
     it("should render error message when no current group", () => {
         // Arrange
-        const articleWithNoGradedGroups = {
+        const articleWithNoGradedGroups: PerseusRenderer = {
             ...article1,
             widgets: {
                 "graded-group-set 1": {
@@ -50,7 +51,7 @@ describe("graded group widget", () => {
                     },
                 },
             },
-        } as const;
+        };
 
         // Act
         renderQuestion(articleWithNoGradedGroups);
