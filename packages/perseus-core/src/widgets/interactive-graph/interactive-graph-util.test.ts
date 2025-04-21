@@ -36,6 +36,7 @@ describe("getInteractiveGraphPublicWidgetOptions", () => {
             ],
             showProtractor: false,
             step: [1, 1],
+            lockedFigures: [],
         });
     });
 });

@@ -177,6 +177,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
     } = {
         ...interactiveGraphLogic.defaultWidgetOptions,
         valid: true,
+        lockedFigures: [],
     };
 
     changeStartCoords = (coords) => {

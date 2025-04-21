@@ -11,6 +11,7 @@ import {
 } from "./util";
 
 import type {Coord} from "@khanacademy/perseus";
+import type {LockedLabelType} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const defaultProps = {
@@ -184,9 +185,17 @@ describe("LockedPolygonSettings", () => {
     test("calls onChange when the whole polygon is moved up", async () => {
         // Arrange
         const onChangeSpy = jest.fn();
+        const initialLabel: LockedLabelType = {
+            type: "label",
+            coord: [0, 0],
+            text: "",
+            color: "red",
+            size: "small",
+        };
         render(
             <LockedPolygonSettings
                 {...defaultProps}
+                labels={[initialLabel]}
                 onChangeProps={onChangeSpy}
                 points={[
                     [1, 1],
@@ -206,6 +215,7 @@ describe("LockedPolygonSettings", () => {
 
         // Assert
         expect(onChangeSpy).toHaveBeenCalledWith({
+            labels: [{...initialLabel, coord: [0, 1]}],
             points: [
                 [1, 2],
                 [2, 2],
@@ -218,9 +228,17 @@ describe("LockedPolygonSettings", () => {
     test("calls onChange when the whole polygon is moved down", async () => {
         // Arrange
         const onChangeSpy = jest.fn();
+        const initialLabel: LockedLabelType = {
+            type: "label",
+            coord: [0, 0],
+            text: "",
+            color: "red",
+            size: "small",
+        };
         render(
             <LockedPolygonSettings
                 {...defaultProps}
+                labels={[initialLabel]}
                 onChangeProps={onChangeSpy}
                 points={[
                     [1, 1],
@@ -240,6 +258,7 @@ describe("LockedPolygonSettings", () => {
 
         // Assert
         expect(onChangeSpy).toHaveBeenCalledWith({
+            labels: [{...initialLabel, coord: [0, -1]}],
             points: [
                 [1, 0],
                 [2, 0],
@@ -252,10 +271,18 @@ describe("LockedPolygonSettings", () => {
     test("calls onChange when the whole polygon is moved left", async () => {
         // Arrange
         const onChangeSpy = jest.fn();
+        const initialLabel: LockedLabelType = {
+            type: "label",
+            coord: [0, 0],
+            text: "",
+            color: "red",
+            size: "small",
+        };
         render(
             <LockedPolygonSettings
                 {...defaultProps}
                 onChangeProps={onChangeSpy}
+                labels={[initialLabel]}
                 points={[
                     [1, 1],
                     [2, 1],
@@ -274,6 +301,7 @@ describe("LockedPolygonSettings", () => {
 
         // Assert
         expect(onChangeSpy).toHaveBeenCalledWith({
+            labels: [{...initialLabel, coord: [-1, 0]}],
             points: [
                 [0, 1],
                 [1, 1],
@@ -286,10 +314,18 @@ describe("LockedPolygonSettings", () => {
     test("calls onChange when the whole polygon is moved right", async () => {
         // Arrange
         const onChangeSpy = jest.fn();
+        const initialLabel: LockedLabelType = {
+            type: "label",
+            coord: [0, 0],
+            text: "",
+            color: "red",
+            size: "small",
+        };
         render(
             <LockedPolygonSettings
                 {...defaultProps}
                 onChangeProps={onChangeSpy}
+                labels={[initialLabel]}
                 points={[
                     [1, 1],
                     [2, 1],
@@ -308,6 +344,7 @@ describe("LockedPolygonSettings", () => {
 
         // Assert
         expect(onChangeSpy).toHaveBeenCalledWith({
+            labels: [{...initialLabel, coord: [1, 0]}],
             points: [
                 [2, 1],
                 [3, 1],

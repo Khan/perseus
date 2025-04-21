@@ -230,6 +230,7 @@ describe("parseWidgetsMap", () => {
                     ],
                     graph: {type: "none"},
                     correct: {type: "none"},
+                    lockedFigures: [],
                 },
             },
         };

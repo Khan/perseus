@@ -316,6 +316,7 @@ describe("splitPerseusItem", () => {
                         backgroundImage: {
                             url: null,
                         },
+                        lockedFigures: [],
                     },
                     alignment: "default",
                     static: false,
