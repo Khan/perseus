@@ -1,5 +1,17 @@
 # @khanacademy/math-input
 
+## 25.1.0
+
+### Minor Changes
+
+-   [#2385](https://github.com/Khan/perseus/pull/2385) [`a7f293aab`](https://github.com/Khan/perseus/commit/a7f293aab18fcba056d61f740dd5cdfa8e796c08) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Stop bundling mathquill CSS - enables consuming app to control bundling and font resolution
+
+### Patch Changes
+
+-   Updated dependencies [[`45635f7ef`](https://github.com/Khan/perseus/commit/45635f7ef91cf8f7a98149b05198c7e628c8ef2d)]:
+    -   @khanacademy/perseus-core@9.0.0
+    -   @khanacademy/keypad-context@3.0.6
+
 ## 25.0.5
 
 ### Patch Changes
