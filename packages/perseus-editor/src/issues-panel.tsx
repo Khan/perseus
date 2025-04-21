@@ -10,7 +10,7 @@ import {useState} from "react";
 
 import IssueDetails from "./issue-details";
 
-type Issue = {
+export type Issue = {
     id: string;
     help: string;
     helpUrl: string;

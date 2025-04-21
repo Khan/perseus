@@ -15,6 +15,7 @@ import type {
     DeviceType,
 } from "@khanacademy/perseus";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type { Issue } from "./issues-panel";
 
 const ITEM_DATA_VERSION = itemDataVersion;
 
@@ -35,7 +36,10 @@ type Props = {
     itemId?: string;
 };
 
-class ItemEditor extends React.Component<Props> {
+type State = {
+    warnings: Issue[];
+};
+class ItemEditor extends React.Component<Props, State> {
     static defaultProps: {
         answerArea: Record<any, any>;
         onChange: () => void;
@@ -49,6 +53,10 @@ class ItemEditor extends React.Component<Props> {
     frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
+
+    state = {
+        warnings: [],
+    };
 
     // Notify the parent that the question or answer area has been updated.
     updateProps: ChangeHandler = (newProps, cb, silent) => {
@@ -90,6 +98,17 @@ class ItemEditor extends React.Component<Props> {
         };
     };
 
+    handleAddWarning = (warning: Issue) => {
+        this.setState((prevState) => {
+            const alreadyExists = prevState.warnings.some(
+                (w) => w.id === warning.id,
+            );
+            return alreadyExists
+                ? null
+                : {warnings: [...prevState.warnings, warning]};
+        });
+    };
+
     render(): React.ReactNode {
         const isMobile =
             this.props.deviceType === "phone" ||
@@ -98,7 +117,7 @@ class ItemEditor extends React.Component<Props> {
             <div className="perseus-editor-table">
                 <div className="perseus-editor-row perseus-question-container">
                     <div className="perseus-editor-left-cell">
-                        <IssuesPanel warnings={[]} />
+                        <IssuesPanel warnings={this.state.warnings} />
                         <div className="pod-title">Question</div>
                         <Editor
                             ref={this.questionEditor}
@@ -114,6 +133,7 @@ class ItemEditor extends React.Component<Props> {
                             apiOptions={this.props.apiOptions}
                             showWordCount={true}
                             widgetIsOpen={this.props.widgetIsOpen}
+                            onAddWarning={this.handleAddWarning}
                             {...this.props.question}
                         />
                     </div>

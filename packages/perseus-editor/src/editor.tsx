@@ -31,6 +31,9 @@ import TexErrorView from "./tex-error-view";
 
 import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
 import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
+import { getWidgetExport, isAccessible } from "../../perseus/src/widgets";
+import { Console } from "console";
+import type { Issue }  from "./issues-panel";
 
 // like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
@@ -129,6 +132,7 @@ type Props = Readonly<{
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
     onChange: ChangeHandler;
+    onAddWarning?: (warning: Issue) => void;
 }>;
 
 type DefaultProps = {
@@ -731,6 +735,8 @@ class Editor extends React.Component<Props, State> {
             return;
         }
 
+        this._checkAccessibilityAndWarn(widgetType);
+
         this._addWidgetToContent(
             this.props.content,
             [textarea.selectionStart, textarea.selectionEnd],
@@ -738,6 +744,32 @@ class Editor extends React.Component<Props, State> {
         );
         textarea.focus();
     };
+
+    _checkAccessibilityAndWarn(
+        widgetType: string,
+    ) {
+        const widgetInfo = getWidgetExport(widgetType);
+        const widgetClass = widgetInfo?.widget;
+
+        const maybeAccessibleWidget = widgetClass as typeof React.Component & {
+            accessible?: boolean;
+        };
+
+        // If .accessible === false, then isAccessible will be false
+        // If .accessible === true or .accessible === undefined, then isAccessible will be true
+        // const isAccessible = maybeAccessibleWidget.accessible !== false;
+        const isAccessible = false; //just fot testing
+
+        if (!isAccessible && this.props.onAddWarning) {
+            this.props.onAddWarning({
+                id: `${widgetType} inaccessible`,
+                message: `${widgetType} is marked as inaccessible.`,
+                help: "Please choose an accessible alternative.",
+                helpUrl: "https://khanacademy.org/accessibility-guidelines",
+                impact: "Medium",
+            });
+        }
+    }
 
     addTemplate: (e: React.SyntheticEvent<HTMLSelectElement>) => void = (
         e: React.SyntheticEvent<HTMLSelectElement>,
