@@ -1,9 +1,3 @@
-import type {
-    MatrixPublicWidgetOptions,
-    PerseusMatrixUserInput,
-    PerseusMatrixWidgetAnswers,
-    PerseusMatrixWidgetOptions,
-} from "@khanacademy/perseus-core";
 import {getMatrixSize} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet} from "aphrodite";
@@ -20,10 +14,16 @@ import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {stringArrayOfSize2D} from "../../util";
-import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
+import type {
+    MatrixPublicWidgetOptions,
+    PerseusMatrixUserInput,
+    PerseusMatrixWidgetAnswers,
+    PerseusMatrixWidgetOptions,
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {assert} = InteractiveUtil;

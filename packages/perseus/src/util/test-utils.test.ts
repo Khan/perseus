@@ -52,31 +52,31 @@ describe("getAnswerfulRenderer", () => {
             ],
         });
         expect(answerfulRenderer).toEqual({
-        question: {
-            content: "[[☃ dropdown 1]]",
-            images: {},
-            widgets: {
-                "dropdown 1": {
-                    type: "dropdown",
+            question: {
+                content: "[[☃ dropdown 1]]",
+                images: {},
+                widgets: {
+                    "dropdown 1": {
+                        type: "dropdown",
                         options: {
                             static: false,
                             placeholder: "greater/less than or equal to",
                             choices: [
-                            {
-                                content: "greater than or equal to",
-                                correct: false,
-                            },
-                            {
-                                content: "less than or equal to",
-                                correct: true,
-                            },
-                        ],
+                                {
+                                    content: "greater than or equal to",
+                                    correct: false,
+                                },
+                                {
+                                    content: "less than or equal to",
+                                    correct: true,
+                                },
+                            ],
+                        },
                     },
                 },
             },
-        },
-        answerArea: {
-            calculator: false,
+            answerArea: {
+                calculator: false,
                 chi2Table: false,
                 periodicTable: false,
                 tTable: false,
@@ -85,8 +85,8 @@ describe("getAnswerfulRenderer", () => {
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
                 periodicTableWithKey: false,
-        },
-        hints: [],
+            },
+            hints: [],
         });
     });
 });
