@@ -100,8 +100,6 @@ type ExternalProps = WidgetProps<{
     typeof Matrix
 >;
 
-// NOTE: Answers here in RenderProps does not contain answers from the rubric.
-// It's an empty array of the same length and depth used to render the matrix.
 type RenderProps = MatrixPublicWidgetOptions & {
     emptyMatrix: ReadonlyArray<ReadonlyArray<string>>;
 };
