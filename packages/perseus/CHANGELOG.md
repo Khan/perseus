@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 61.0.1
+
+### Patch Changes
+
+-   [#2404](https://github.com/Khan/perseus/pull/2404) [`457c9b818`](https://github.com/Khan/perseus/commit/457c9b8188f60c901e2c64a43e68871a61857697) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add codeowners for radio widget
+
+-   Updated dependencies [[`45635f7ef`](https://github.com/Khan/perseus/commit/45635f7ef91cf8f7a98149b05198c7e628c8ef2d), [`a7f293aab`](https://github.com/Khan/perseus/commit/a7f293aab18fcba056d61f740dd5cdfa8e796c08)]:
+    -   @khanacademy/perseus-core@9.0.0
+    -   @khanacademy/math-input@25.1.0
+    -   @khanacademy/keypad-context@3.0.6
+    -   @khanacademy/kmath@2.0.6
+    -   @khanacademy/perseus-linter@3.0.6
+    -   @khanacademy/perseus-score@5.0.3
+
 ## 61.0.0
 
 ### Major Changes
