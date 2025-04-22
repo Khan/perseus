@@ -134,7 +134,6 @@ export type PerseusStrings = {
     simulationLoadFail: string;
     simulationLocaleWarning: string;
     selectAnAnswer: string;
-    // The following strings are used for interactive graph SR descriptions.
     srGraphInstructions: string;
     srUnlimitedGraphInstructions: string;
     addPoint: string;
@@ -505,7 +504,6 @@ export type PerseusStrings = {
         point2X: string;
         point2Y: string;
     }) => string;
-    // The above strings are used for interactive graph SR descriptions.
 };
 
 /**
@@ -675,133 +673,434 @@ export const strings = {
     simulationLocaleWarning:
         "Sorry, this simulation isn't available in your language.",
     selectAnAnswer: "Select an answer",
-
-    // The following strings are used for interactive graph SR descriptions.
     addPoint: "Add Point",
     removePoint: "Remove Point",
     graphKeyboardPrompt: "Press Shift + Enter to interact with the graph",
-    closePolygon: "Close shape",
-    openPolygon: "Re-open shape",
     srInteractiveElements: "Interactive elements: %(elements)s",
     srNoInteractiveElements: "No interactive elements",
-    // TODO(LEMS-2660): The following strings are ones that will need
-    // translation tickets after all interactive graph SR strings have
-    // been finalized. Remove this comment after the tickets have been
-    // created.
-    srGraphInstructions:
-        "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.",
-    srUnlimitedGraphInstructions:
-        "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
-    srPointAtCoordinates: "Point %(num)s at %(x)s comma %(y)s.",
-    srCircleGraph: "A circle on a coordinate plane.",
-    srCircleShape:
-        "Circle. The center point is at %(centerX)s comma %(centerY)s.",
-    srCircleRadiusPointRight:
-        "Right radius endpoint at %(radiusPointX)s comma %(radiusPointY)s.",
-    srCircleRadiusPointLeft:
-        "Left radius endpoint at %(radiusPointX)s comma %(radiusPointY)s.",
-    srCircleRadius: "Circle radius is %(radius)s.",
-    srCircleOuterPoints:
-        "Points on the circle at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, %(point3X)s comma %(point3Y)s, %(point4X)s comma %(point4Y)s.",
-    srLinearGraph: "A line on a coordinate plane.",
-    srLinearGraphPoints:
-        "The line has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
-    srLinearGraphSlopeIncreasing: "Its slope increases from left to right.",
-    srLinearGraphSlopeDecreasing: "Its slope decreases from left to right.",
-    srLinearGraphSlopeHorizontal: "Its slope is zero.",
-    srLinearGraphSlopeVertical: "Its slope is undefined.",
-    srLinearGraphXOnlyIntercept:
-        "The line crosses the X-axis at %(xIntercept)s comma 0.",
-    srLinearGraphYOnlyIntercept:
-        "The line crosses the Y-axis at 0 comma %(yIntercept)s.",
-    srLinearGraphBothIntercepts:
-        "The line crosses the X-axis at %(xIntercept)s comma 0 and the Y-axis at 0 comma %(yIntercept)s.",
-    srLinearGraphOriginIntercept:
-        "The line crosses the X and Y axes at the graph's origin.",
-    srLinearGrabHandle:
-        "Line going through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s.",
-    srAngleStartingSide: "Point 3, starting side at %(x)s comma %(y)s.",
-    srAngleEndingSide: "Point 2, ending side at %(x)s comma %(y)s.",
-    srAngleVertexWithAngleMeasure:
-        "Point 1, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees.",
-    srAngleGraphAriaLabel: "An angle on a coordinate plane.",
-    srAngleGraphAriaDescription:
-        "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
-    srAngleInteractiveElements:
-        "An angle formed by 3 points. The vertex is at %(vertexX)s comma %(vertexY)s. The starting side point is at %(startingSideX)s comma %(startingSideY)s. The ending side point is at %(endingSideX)s comma %(endingSideY)s.",
-    srSingleSegmentGraphAriaLabel: "A line segment on a coordinate plane.",
-    srMultipleSegmentGraphAriaLabel:
-        "%(countOfSegments)s line segments on a coordinate plane.",
-    srMultipleSegmentIndividualLabel:
-        "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 at %(point2X)s comma %(point2Y)s.",
-    srSingleSegmentLabel:
-        "Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 at %(point2X)s comma %(point2Y)s.",
-    srSegmentLength: "Segment length %(length)s units.",
-    srSingleSegmentGraphEndpointAriaLabel:
-        "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
-    srMultipleSegmentGraphEndpointAriaLabel:
-        "Endpoint %(endpointNumber)s on segment %(indexOfSegment)s at %(x)s comma %(y)s.",
-    srSegmentGrabHandle:
-        "Segment from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
-    srLinearSystemGraph: "Two lines on a coordinate plane.",
-    srLinearSystemPoints:
-        "Line %(lineNumber)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
-    srLinearSystemPoint:
-        "Point %(pointSequence)s on line %(lineNumber)s at %(x)s comma %(y)s.",
-    srLinearSystemGrabHandle:
-        "Line %(lineNumber)s going through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s.",
-    srLinearSystemIntersection:
-        "Line 1 and line 2 intersect at point %(x)s comma %(y)s.",
-    srLinearSystemParallel: "Line 1 and line 2 are parallel.",
-    srRayGraph: "A ray on a coordinate plane.",
-    srRayPoints:
-        "The endpoint is at %(point1X)s comma %(point1Y)s and the ray goes through point %(point2X)s comma %(point2Y)s.",
-    srRayGrabHandle:
-        "Ray with endpoint %(point1X)s comma %(point1Y)s going through point %(point2X)s comma %(point2Y)s.",
-    srRayEndpoint: "Endpoint at %(x)s comma %(y)s.",
-    srRayTerminalPoint: "Through point at %(x)s comma %(y)s.",
-    srQuadraticGraph: "A parabola on a 4-quadrant coordinate plane.",
-    srQuadraticFaceUp: "The parabola opens upward.",
-    srQuadraticFaceDown: "The parabola opens downward.",
-    srQuadraticGraphVertexOrigin: "Vertex is at the origin.",
-    srQuadraticGraphVertexXAxis: "Vertex is on the X-axis.",
-    srQuadraticGraphVertexYAxis: "Vertex is on the Y-axis.",
-    srQuadraticGraphVertexQuadrant: "Vertex is in quadrant %(quadrant)s.",
-    srQuadraticTwoXIntercepts:
-        "The X-intercepts are at %(intercept1)s comma 0 and %(intercept2)s comma 0.",
-    srQuadraticOneXIntercept: "The X-intercept is at %(intercept)s comma 0.",
-    srQuadraticYIntercept: "The Y-intercept is at 0 comma %(intercept)s.",
-    srQuadraticPointOrigin: "Point %(pointNumber)s on parabola at the origin.",
-    srQuadraticPointAxis:
-        "Point %(pointNumber)s on parabola at %(x)s comma %(y)s.",
-    srQuadraticPointQuadrant:
-        "Point %(pointNumber)s on parabola in quadrant %(quadrant)s at %(x)s comma %(y)s.",
-    srQuadraticInteractiveElements:
-        "Parabola with points at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, and %(point3X)s comma %(point3Y)s.",
-    srPolygonGraph: "A polygon.",
-    srPolygonGraphCoordinatePlane: "A polygon on a coordinate plane.",
-    srPolygonGraphPointsNum: "The polygon has %(num)s points.",
-    srPolygonGraphPointsOne: "The polygon has 1 point.",
-    srPolygonElementsNum: "A polygon with %(num)s points.",
-    srPolygonElementsOne: "A polygon with 1 point.",
-    srPolygonPointAngleApprox:
-        "Angle approximately equal to %(angle)s degrees.",
-    srPolygonPointAngle: "Angle equal to %(angle)s degrees.",
-    srPolygonSideLength:
-        "A line segment, length equal to %(length)s units, connects to point %(pointNum)s.",
-    srPolygonSideLengthApprox:
-        "A line segment, length approximately equal to %(length)s units, connects to point %(pointNum)s.",
-    srUnlimitedPolygonEmpty: "An empty coordinate plane.",
-    srSinusoidGraph: "A sinusoid function on a coordinate plane.",
-    srSinusoidRootPoint: "Midline intersection at %(x)s comma %(y)s.",
-    srSinusoidMaxPoint: "Maximum point at %(x)s comma %(y)s.",
-    srSinusoidMinPoint: "Minimum point at %(x)s comma %(y)s.",
-    srSinusoidFlatPoint: "Line through point at %(x)s comma %(y)s.",
-    srSinusoidDescription:
-        "The graph shows a wave with a minimum value of %(minValue)s and a maximum value of %(maxValue)s. The wave completes a full cycle from %(cycleStart)s to %(cycleEnd)s.",
-    srSinusoidInteractiveElements:
-        "Sinusoid graph with midline intersection point at %(point1X)s comma %(point1Y)s and extremum point at %(point2X)s comma %(point2Y)s.",
-    // The above strings are used for interactive graph SR descriptions.
+    closePolygon: {
+        context:
+            "Button label for the button that closes an incomplete polygon created by the user in the interactive graph widget.",
+        message: "Close shape",
+    },
+    openPolygon: {
+        context:
+            "Button label for the button that opens a closed polygon created by the user in the interactive graph widget.",
+        message: "Re-open shape",
+    },
+    srGraphInstructions: {
+        context:
+            "Screen reader-only instructions for using the keyboard to move through the interactive elements in the interactive graph widget.",
+        message:
+            "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.",
+    },
+    srUnlimitedGraphInstructions: {
+        context:
+            "Screen reader-only instructions for using the keyboard to move through the 'unlimited' (addable/deletable by the user) interactive elements in the interactive graph widget.",
+        message:
+            "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.",
+    },
+    srPointAtCoordinates: {
+        context:
+            "Aria label for an interactive Point element in the interactive graph widget, including the count for its order in the points (e.g. 'Point 1 at 0 comma 0'). Coordinate (x, y) is written out as 'x comma y'.",
+        message: "Point %(num)s at %(x)s comma %(y)s.",
+    },
+    srCircleGraph: {
+        context:
+            "Aria label for the container containing the Circle and its interactive elements in the interactive graph widget.",
+        message: "A circle on a coordinate plane.",
+    },
+    srCircleShape: {
+        context:
+            "Aria label for the interactive Circle element in the interactive graph widget.",
+        message:
+            "Circle. The center point is at %(centerX)s comma %(centerY)s.",
+    },
+    srCircleRadiusPointRight: {
+        context:
+            "Aria label for the interactive Point element that represents the radius endpoint when it's on the right side of the Circle in the interactive graph widget.",
+        message:
+            "Right radius endpoint at %(radiusPointX)s comma %(radiusPointY)s.",
+    },
+    srCircleRadiusPointLeft: {
+        context:
+            "Aria label for the interactive Point element that represents the radius endpoint when it's on the left side of the Circle in the interactive graph widget.",
+        message:
+            "Left radius endpoint at %(radiusPointX)s comma %(radiusPointY)s.",
+    },
+    srCircleRadius: {
+        context:
+            "Screen reader description for the radius of the Circle in the interactive graph widget.",
+        message: "Circle radius is %(radius)s.",
+    },
+    srCircleOuterPoints: {
+        context:
+            "Screen reader description for four key points on the Circle in the interactive graph widget.",
+        message:
+            "Points on the circle at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, %(point3X)s comma %(point3Y)s, %(point4X)s comma %(point4Y)s.",
+    },
+    srLinearGraph: {
+        context:
+            "Aria label for the container containing the Line and its interactive elements in the interactive graph widget.",
+        message: "A line on a coordinate plane.",
+    },
+    srLinearGraphPoints: {
+        context:
+            "Screen reader description for the two points defining the Line in the interactive graph widget.",
+        message:
+            "The line has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
+    },
+    srLinearGraphSlopeIncreasing: {
+        context:
+            "Screen reader description for the upward slope of the Line in the interactive graph widget.",
+        message: "Its slope increases from left to right.",
+    },
+    srLinearGraphSlopeDecreasing: {
+        context:
+            "Screen reader description for the downward slope of the Line in the interactive graph widget.",
+        message: "Its slope decreases from left to right.",
+    },
+    srLinearGraphSlopeHorizontal: {
+        context:
+            "Screen reader description for the slope of a horizontal Line in the interactive graph widget.",
+        message: "Its slope is zero.",
+    },
+    srLinearGraphSlopeVertical: {
+        context:
+            "Screen reader description for the slope of a vertical Line in the interactive graph widget.",
+        message: "Its slope is undefined.",
+    },
+    srLinearGraphXOnlyIntercept: {
+        context:
+            "Screen reader description for the intercept of the Line in the interactive graph widget when it only intersects the X-axis.",
+        message: "The line crosses the X-axis at %(xIntercept)s comma 0.",
+    },
+    srLinearGraphYOnlyIntercept: {
+        context:
+            "Screen reader description for the intercept of the Line in the interactive graph widget when it only intersects the Y-axis.",
+        message: "The line crosses the Y-axis at 0 comma %(yIntercept)s.",
+    },
+    srLinearGraphBothIntercepts: {
+        context:
+            "Screen reader description for the intercepts of the Line in the interactive graph widget when it intersects both the X-axis and Y-axis.",
+        message:
+            "The line crosses the X-axis at %(xIntercept)s comma 0 and the Y-axis at 0 comma %(yIntercept)s.",
+    },
+    srLinearGraphOriginIntercept: {
+        context:
+            "Screen reader description for the intercept of the Line in the interactive graph widget when it intersects both the X-axis and Y-axis at the origin.",
+        message: "The line crosses the X and Y axes at the graph's origin.",
+    },
+    srLinearGrabHandle: {
+        context:
+            "Aria label for the interactive segment that allows the user to move the whole Line in the interactive graph widget.",
+        message:
+            "Line going through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s.",
+    },
+    srAngleStartingSide: {
+        context:
+            "Aria label for interactive Point 3 of the Angle in the interactive graph widget, explaining it's on the starting side of the Angle.",
+        message: "Point 3, starting side at %(x)s comma %(y)s.",
+    },
+    srAngleEndingSide: {
+        context:
+            "Aria label for interactive Point 2 of the Angle in the interactive graph widget, explaining it's on the ending side of the Angle.",
+        message: "Point 2, ending side at %(x)s comma %(y)s.",
+    },
+    srAngleVertexWithAngleMeasure: {
+        context:
+            "Aria label for interactive Point 1 of the Angle in the interactive graph widget, explaining it's the vertex of the Angle.",
+        message:
+            "Point 1, vertex at %(x)s comma %(y)s. Angle %(angleMeasure)s degrees.",
+    },
+    srAngleGraphAriaLabel: {
+        context:
+            "Aria label for the container containing the Angle and its interactive elements in the interactive graph widget.",
+        message: "An angle on a coordinate plane.",
+    },
+    srAngleGraphAriaDescription: {
+        context:
+            "Screen reader description for the measure of the Angle in the interactive graph widget.",
+        message:
+            "The angle measure is %(angleMeasure)s degrees with a vertex at %(vertexX)s comma %(vertexY)s, a point on the starting side at %(startingSideX)s comma %(startingSideY)s and a point on the ending side at %(endingSideX)s comma %(endingSideY)s",
+    },
+    srAngleInteractiveElements: {
+        context:
+            "Screen reader description of all the elements available to interact with within the Angle graph in the interactive graph widget.",
+        message:
+            "An angle formed by 3 points. The vertex is at %(vertexX)s comma %(vertexY)s. The starting side point is at %(startingSideX)s comma %(startingSideY)s. The ending side point is at %(endingSideX)s comma %(endingSideY)s.",
+    },
+    srSingleSegmentGraphAriaLabel: {
+        context:
+            "Aria label for the container containing one Line Segment in the interactive graph widget.",
+        message: "A line segment on a coordinate plane.",
+    },
+    srMultipleSegmentGraphAriaLabel: {
+        context:
+            "Aria label for the container containing multiple Line Segments in the interactive graph widget.",
+        message: "%(countOfSegments)s line segments on a coordinate plane.",
+    },
+    srMultipleSegmentIndividualLabel: {
+        context:
+            "Screen reader description for one individual Line Segment in the interactive graph widget, including the count for its order in the segments (e.g. 'Segment 1', 'Segment 2', etc.)",
+        message:
+            "Segment %(indexOfSegment)s: Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 at %(point2X)s comma %(point2Y)s.",
+    },
+    srSingleSegmentLabel: {
+        context:
+            "Screen reader description for one individual Line Segment in the interactive graph widget.",
+        message:
+            "Endpoint 1 at %(point1X)s comma %(point1Y)s. Endpoint 2 at %(point2X)s comma %(point2Y)s.",
+    },
+    srSegmentLength: {
+        context:
+            "Screen reader description for the length of a Line Segment in the interactive graph widget.",
+        message: "Segment length %(length)s units.",
+    },
+    srSingleSegmentGraphEndpointAriaLabel: {
+        context:
+            "Screen reader description for the endpoint of a Line Segment in the interactive graph widget when there is only one segment.",
+        message: "Endpoint %(endpointNumber)s at %(x)s comma %(y)s.",
+    },
+    srMultipleSegmentGraphEndpointAriaLabel: {
+        context:
+            "Screen reader description for the endpoint of a Line Segment in the interactive graph widget when there are multiple segments. Includes the count for the segment's order (e.g. 'Segment 1', 'Segment 2', etc.)",
+        message:
+            "Endpoint %(endpointNumber)s on segment %(indexOfSegment)s at %(x)s comma %(y)s.",
+    },
+    srSegmentGrabHandle: {
+        context:
+            "Aria label for the interactive segment that allows the user to move the whole Line Segment in the interactive graph widget.",
+        message:
+            "Segment from %(point1X)s comma %(point1Y)s to %(point2X)s comma %(point2Y)s.",
+    },
+    srLinearSystemGraph: {
+        context:
+            "Aria label for the container containing two lines as part of a Linear System in the interactive graph widget.",
+        message: "Two lines on a coordinate plane.",
+    },
+    srLinearSystemPoints: {
+        context:
+            "Screen reader description for the points of a line in the Linear System in the interactive graph widget.",
+        message:
+            "Line %(lineNumber)s has two points, point 1 at %(point1X)s comma %(point1Y)s and point 2 at %(point2X)s comma %(point2Y)s.",
+    },
+    srLinearSystemPoint: {
+        context:
+            "Screen reader description for a point on a line in the Linear System in the interactive graph widget.",
+        message:
+            "Point %(pointSequence)s on line %(lineNumber)s at %(x)s comma %(y)s.",
+    },
+    srLinearSystemGrabHandle: {
+        context:
+            "Aria label for the interactive segment that allows the user to move a whole line in the Linear System in the interactive graph widget.",
+        message:
+            "Line %(lineNumber)s going through point %(point1X)s comma %(point1Y)s and point %(point2X)s comma %(point2Y)s.",
+    },
+    srLinearSystemIntersection: {
+        context:
+            "Screen reader description for the intersection of two lines in the Linear System in the interactive graph widget.",
+        message: "Line 1 and line 2 intersect at point %(x)s comma %(y)s.",
+    },
+    srLinearSystemParallel: {
+        context:
+            "Screen reader description when two lines are parallel in the Linear System in the interactive graph widget.",
+        message: "Line 1 and line 2 are parallel.",
+    },
+    srRayGraph: {
+        context:
+            "Screen reader description for the container containing a Ray in the interactive graph widget.",
+        message: "A ray on a coordinate plane.",
+    },
+    srRayPoints: {
+        context:
+            "Screen reader description for the points of a ray in the interactive graph widget.",
+        message:
+            "The endpoint is at %(point1X)s comma %(point1Y)s and the ray goes through point %(point2X)s comma %(point2Y)s.",
+    },
+    srRayGrabHandle: {
+        context:
+            "Aria label for the interactive segment that allows the user to move the whole Ray in the interactive graph widget.",
+        message:
+            "Ray with endpoint %(point1X)s comma %(point1Y)s going through point %(point2X)s comma %(point2Y)s.",
+    },
+    srRayEndpoint: {
+        context:
+            "Aria label for the initial point of a Ray (the point at which the ray starts) in the interactive graph widget.",
+        message: "Endpoint at %(x)s comma %(y)s.",
+    },
+    srRayTerminalPoint: {
+        context:
+            "Aria label for the point that determines the direction of the Ray in the interactive graph widget. The ray passes through this point.",
+        message: "Through point at %(x)s comma %(y)s.",
+    },
+    srQuadraticGraph: {
+        context:
+            "Aria label for the container containing a Quadratic function in the interactive graph widget.",
+        message: "A parabola on a 4-quadrant coordinate plane.",
+    },
+    srQuadraticFaceUp: {
+        context:
+            "Screen reader description for the direction of the Quadratic function in the interactive graph widget when it opens upward.",
+        message: "The parabola opens upward.",
+    },
+    srQuadraticFaceDown: {
+        context:
+            "Screen reader description for the direction of the Quadratic function in the interactive graph widget when it opens downward.",
+        message: "The parabola opens downward.",
+    },
+    srQuadraticGraphVertexOrigin: {
+        context:
+            "Screen reader description for the Quadratic function in the interactive graph widget when its vertex is at the origin.",
+        message: "Vertex is at the origin.",
+    },
+    srQuadraticGraphVertexXAxis: {
+        context:
+            "Screen reader description for the Quadratic function in the interactive graph widget when its vertex is on the X-axis.",
+        message: "Vertex is on the X-axis.",
+    },
+    srQuadraticGraphVertexYAxis: {
+        context:
+            "Screen reader description for the Quadratic function in the interactive graph widget when its vertex is on the Y-axis.",
+        message: "Vertex is on the Y-axis.",
+    },
+    srQuadraticGraphVertexQuadrant: {
+        context:
+            "Screen reader description for the Quadratic function in the interactive graph widget when its vertex is in a specific quadrant (quadrant 1, 2, 3, or 4).",
+        message: "Vertex is in quadrant %(quadrant)s.",
+    },
+    srQuadraticTwoXIntercepts: {
+        context:
+            "Screen reader description for the X-intercepts of the Quadratic function in the interactive graph widget when there are two X-intercepts.",
+        message:
+            "The X-intercepts are at %(intercept1)s comma 0 and %(intercept2)s comma 0.",
+    },
+    srQuadraticOneXIntercept: {
+        context:
+            "Screen reader description for the X-intercept of the Quadratic function in the interactive graph widget when there is only one X-intercept.",
+        message: "The X-intercept is at %(intercept)s comma 0.",
+    },
+    srQuadraticYIntercept: {
+        context:
+            "Screen reader description for the Y-intercept of the Quadratic function in the interactive graph widget.",
+        message: "The Y-intercept is at 0 comma %(intercept)s.",
+    },
+    srQuadraticPointOrigin: {
+        context:
+            "Aria label for an interactive Point on the Quadratic function in the interactive graph widget when the Point is at the origin.",
+        message: "Point %(pointNumber)s on parabola at the origin.",
+    },
+    srQuadraticPointAxis: {
+        context:
+            "Aria label for an interactive Point on the Quadratic function in the interactive graph widget when the Point is on the X-axis or Y-axis.",
+        message: "Point %(pointNumber)s on parabola at %(x)s comma %(y)s.",
+    },
+    srQuadraticPointQuadrant: {
+        context:
+            "Aria label for an interactive Point on the Quadratic function in the interactive graph widget when the Point is in a specific quadrant.",
+        message:
+            "Point %(pointNumber)s on parabola in quadrant %(quadrant)s at %(x)s comma %(y)s.",
+    },
+    srQuadraticInteractiveElements: {
+        context:
+            "Screen reader description of all the elements available to interact with within the Quadratic function in the interactive graph widget.",
+        message:
+            "Parabola with points at %(point1X)s comma %(point1Y)s, %(point2X)s comma %(point2Y)s, and %(point3X)s comma %(point3Y)s.",
+    },
+    srPolygonGraph: {
+        context:
+            "Aria label for the container containing a Polygon in the interactive graph widget when it's on a plane/grid without axes.",
+        message: "A polygon.",
+    },
+    srPolygonGraphCoordinatePlane: {
+        context:
+            "Aria label for the container containing a Polygon in the interactive graph widget when it's on a coordinate plane.",
+        message: "A polygon on a coordinate plane.",
+    },
+    srPolygonGraphPointsNum: {
+        context:
+            "Screen reader description for the number of points in the Polygon in the interactive graph widget.",
+        message: "The polygon has %(num)s points.",
+    },
+    srPolygonGraphPointsOne: {
+        context:
+            "Screen reader description for the number of points in the Polygon in the interactive graph widget when there is only one point.",
+        message: "The polygon has 1 point.",
+    },
+    srPolygonElementsNum: {
+        context:
+            "Screen reader description for the Polygon in the interactive graph widget explaining that it has a certain number of points.",
+        message: "A polygon with %(num)s points.",
+    },
+    srPolygonElementsOne: {
+        context:
+            "Screen reader description for the Polygon in the interactive graph widget explaining that it has one point.",
+        message: "A polygon with 1 point.",
+    },
+    srPolygonPointAngleApprox: {
+        context:
+            "Screen reader description for the angle of a point in the Polygon in the interactive graph widget when it's not an exact integer.",
+        message: "Angle approximately equal to %(angle)s degrees.",
+    },
+    srPolygonPointAngle: {
+        context:
+            "Screen reader description for the angle of a point in the Polygon in the interactive graph widget when it's an integer.",
+        message: "Angle equal to %(angle)s degrees.",
+    },
+    srPolygonSideLength: {
+        context:
+            "Screen reader description for the side of the Polygon in the interactive graph widget when its length is an exact integer.",
+        message:
+            "A line segment, length equal to %(length)s units, connects to point %(pointNum)s.",
+    },
+    srPolygonSideLengthApprox: {
+        context:
+            "Screen reader description for the side of the Polygon in the interactive graph widget when its length is not an exact integer.",
+        message:
+            "A line segment, length approximately equal to %(length)s units, connects to point %(pointNum)s.",
+    },
+    srUnlimitedPolygonEmpty: {
+        context:
+            "Screen reader description for the empty container that will eventually contain a Polygon in the interactive graph widget after the user has added points.",
+        message: "An empty coordinate plane.",
+    },
+    srSinusoidGraph: {
+        context:
+            "Aria label for the container containing a Sinusoid function in the interactive graph widget.",
+        message: "A sinusoid function on a coordinate plane.",
+    },
+    srSinusoidRootPoint: {
+        context:
+            "Aria label for the Point defining the midline intersection of the Sinusoid function in the interactive graph widget.",
+        message: "Midline intersection at %(x)s comma %(y)s.",
+    },
+    srSinusoidMaxPoint: {
+        context:
+            "Aria label for the Point defining the maximum of the Sinusoid function in the interactive graph widget.",
+        message: "Maximum point at %(x)s comma %(y)s.",
+    },
+    srSinusoidMinPoint: {
+        context:
+            "Aria label for the Point defining the minimum of the Sinusoid function in the interactive graph widget.",
+        message: "Minimum point at %(x)s comma %(y)s.",
+    },
+    srSinusoidFlatPoint: {
+        context:
+            "Aria label for the Point defining the amplitude of the Sinusoid function in the interactive graph widget when the amplitude is 0.",
+        message: "Line through point at %(x)s comma %(y)s.",
+    },
+    srSinusoidDescription: {
+        context:
+            "Screen reader description of the Sinusoid function in the interactive graph widget.",
+        message:
+            "The graph shows a wave with a minimum value of %(minValue)s and a maximum value of %(maxValue)s. The wave completes a full cycle from %(cycleStart)s to %(cycleEnd)s.",
+    },
+    srSinusoidInteractiveElements: {
+        context:
+            "Screen reader description of all the elements available to interact with within the Sinusoid function in the interactive graph widget.",
+        message:
+            "Sinusoid graph with midline intersection point at %(point1X)s comma %(point1Y)s and extremum point at %(point2X)s comma %(point2Y)s.",
+    },
 } satisfies {
     [key in keyof PerseusStrings]:
         | string
@@ -964,8 +1263,6 @@ export const mockStrings: PerseusStrings = {
     simulationLocaleWarning:
         "Sorry, this simulation isn't available in your language.",
     selectAnAnswer: "Select an answer",
-
-    // The following strings are used for interactive graph SR descriptions.
     srGraphInstructions:
         "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.",
     srUnlimitedGraphInstructions:
@@ -1139,7 +1436,6 @@ export const mockStrings: PerseusStrings = {
         `The graph shows a wave with a minimum value of ${minValue} and a maximum value of ${maxValue}. The wave completes a full cycle from ${cycleStart} to ${cycleEnd}.`,
     srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Sinusoid graph with midline intersection point at ${point1X} comma ${point1Y} and extremum point at ${point2X} comma ${point2Y}.`,
-    // The above strings are used for interactive graph SR descriptions.
 };
 
 // This type helps us make sure all error codes are mapped to strings

@@ -3,10 +3,7 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {DefinitionWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parseDefinitionWidget: Parser<DefinitionWidget> = parseWidget(
+export const parseDefinitionWidget = parseWidget(
     constant("definition"),
     object({
         togglePrompt: string,

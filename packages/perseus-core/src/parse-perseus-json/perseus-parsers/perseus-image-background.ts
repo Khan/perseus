@@ -11,9 +11,6 @@ import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 import {stringToNumber} from "../general-purpose-parsers/string-to-number";
 
-import type {PerseusImageBackground} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
 function emptyToZero(x: string | number): string | number {
     return x === "" ? 0 : x;
 }
@@ -27,13 +24,12 @@ const imageDimensionToNumber = pipeParsers(union(number).or(string).parser)
 
 const dimensionOrUndefined = defaulted(imageDimensionToNumber, () => undefined);
 
-export const parsePerseusImageBackground: Parser<PerseusImageBackground> =
-    object({
-        url: optional(nullable(string)),
-        width: dimensionOrUndefined,
-        height: dimensionOrUndefined,
-        top: dimensionOrUndefined,
-        left: dimensionOrUndefined,
-        bottom: dimensionOrUndefined,
-        scale: dimensionOrUndefined,
-    });
+export const parsePerseusImageBackground = object({
+    url: optional(nullable(string)),
+    width: dimensionOrUndefined,
+    height: dimensionOrUndefined,
+    top: dimensionOrUndefined,
+    left: dimensionOrUndefined,
+    bottom: dimensionOrUndefined,
+    scale: dimensionOrUndefined,
+});
