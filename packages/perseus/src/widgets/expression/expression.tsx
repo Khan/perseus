@@ -341,7 +341,10 @@ export class Expression
         const {ERROR_MESSAGE, ERROR_TITLE} = this.context.strings;
 
         return (
-            <View className={css(styles.desktopLabelInputWrapper)}>
+            <View
+                className={css(styles.desktopLabelInputWrapper)}
+                style={{border: "2px solid pink", background: "steelblue"}}
+            >
                 {!!this.props.visibleLabel && (
                     <LabelSmall htmlFor={this._textareaId} tag="label">
                         {this.props.visibleLabel}
