@@ -290,13 +290,13 @@ describe("InteractiveGraphEditor", () => {
                 correct: {
                     type: "polygon",
                     numSides: 5,
-                    coords: null,
+                    coords: undefined,
                     snapTo: "grid",
                 },
                 graph: {
                     type: "polygon",
                     numSides: 5,
-                    coords: null,
+                    coords: undefined,
                     snapTo: "grid",
                 },
             }),
