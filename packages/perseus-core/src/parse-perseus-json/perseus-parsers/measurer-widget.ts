@@ -11,22 +11,17 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
-import type {ParsedValue} from "../parser-types";
-
 export const parseMeasurerWidget = parseWidget(
     constant("measurer"),
     object({
         // The default value for image comes from measurer.tsx.
         // See parse-perseus-json/README.md for why we want to duplicate the
         // defaults here.
-        image: defaulted(
-            parsePerseusImageBackground,
-            (): ParsedValue<typeof parsePerseusImageBackground> => ({
-                url: null,
-                top: 0,
-                left: 0,
-            }),
-        ),
+        image: defaulted(parsePerseusImageBackground, () => ({
+            url: null,
+            top: 0,
+            left: 0,
+        })),
         showProtractor: boolean,
         showRuler: boolean,
         rulerLabel: string,
