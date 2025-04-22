@@ -277,13 +277,13 @@ export const multiChoiceQuestionSimple: PerseusRenderer = {
                         content: "Hey",
                         isNoneOfTheAbove: false,
                         correct: true,
-                        clue: "This used to attract someone's attention.",
+                        clue: "This is used to attract someone's attention.",
                     },
                     {
                         content: "Hi",
                         isNoneOfTheAbove: false,
                         correct: true,
-                        clue: "This used as friendly greeting.",
+                        clue: "This is used as friendly greeting.",
                     },
                     {
                         content: "Goodbye",
