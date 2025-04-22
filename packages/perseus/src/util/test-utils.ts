@@ -130,13 +130,13 @@ export function generateTestNumericInputWidget(): NumericInputWidget {
 
 /**
  * Creates an object with the minimum amount
- * of data to be a properly typed PerseusRenderer
+ * of data to be a properly typed PerseusItem
  * containing answerful information
  *
  * @template T - The widget type extending keyof PerseusWidgetTypes
  * @param {T} widgetType - The type of widget to create, as a string, ex. "radio"
  * @param {PerseusWidgetTypes[T]["options"]} options - The options for the widget
- * @returns {PerseusRenderer} skeleton PerseusRenderer for testing
+ * @returns {PerseusItem} skeleton PerseusItem for testing
  */
 export function getAnswerfulItem<T extends keyof PerseusWidgetTypes>(
     widgetType: T,
@@ -159,13 +159,13 @@ export function getAnswerfulItem<T extends keyof PerseusWidgetTypes>(
 
 /**
  * Creates an object with the minimum amount
- * of data to be a properly typed PerseusRenderer
+ * of data to be a properly typed PerseusItem
  * containing answerless information
  *
  * @template T - The widget type extending keyof PerseusWidgetTypes
  * @param {T} widgetType - The type of widget to create, as a string, ex. "radio"
  * @param {PerseusWidgetTypes[T]["options"]} options - The options for the widget
- * @returns {PerseusRenderer} skeleton PerseusRenderer for testing
+ * @returns {PerseusItem} skeleton PerseusItem for testing
  */
 export function getAnswerlessItem<T extends keyof PerseusWidgetTypes>(
     widgetType: T,
