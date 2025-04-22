@@ -289,7 +289,7 @@ export const multiChoiceQuestionSimple: PerseusRenderer = {
                         content: "Goodbye",
                         isNoneOfTheAbove: false,
                         correct: false,
-                        clue: "Some people likes to say Goodbye.",
+                        clue: "Some people like to say Goodbye.",
                     },
                     {
                         content: "None of these",
