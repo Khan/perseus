@@ -154,8 +154,8 @@ describe("expression-editor", () => {
         });
     });
 
-    it("should toggle prealgebra checkbox", async () => {
         const onChangeMock = jest.fn();
+    it("should toggle logarithms checkbox", async () => {
 
         render(<ExpressionEditor onChange={onChangeMock} />);
         act(() => jest.runOnlyPendingTimers());
@@ -171,8 +171,8 @@ describe("expression-editor", () => {
         });
     });
 
-    it("should toggle prealgebra checkbox", async () => {
         const onChangeMock = jest.fn();
+    it("should toggle basic relations checkbox", async () => {
 
         render(<ExpressionEditor onChange={onChangeMock} />);
         act(() => jest.runOnlyPendingTimers());
@@ -188,8 +188,8 @@ describe("expression-editor", () => {
         });
     });
 
-    it("should toggle prealgebra checkbox", async () => {
         const onChangeMock = jest.fn();
+    it("should toggle advanced relations checkbox", async () => {
 
         render(<ExpressionEditor onChange={onChangeMock} />);
         act(() => jest.runOnlyPendingTimers());
