@@ -35,9 +35,9 @@ describe("generateTestPerseusItem", () => {
     });
 });
 
-describe("getAnswerfulRenderer", () => {
-    it("should return an answerful renderer using the type given", () => {
-        const answerfulRenderer = getAnswerfulItem("dropdown", {
+describe("getAnswerfulItem", () => {
+    it("should return an answerful item using the type given", () => {
+        const answerfulItem = getAnswerfulItem("dropdown", {
             static: false,
             placeholder: "greater/less than or equal to",
             choices: [
@@ -51,7 +51,7 @@ describe("getAnswerfulRenderer", () => {
                 },
             ],
         });
-        expect(answerfulRenderer).toEqual({
+        expect(answerfulItem).toEqual({
             question: {
                 content: "[[☃ dropdown 1]]",
                 images: {},
