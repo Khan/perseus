@@ -19,6 +19,7 @@ const baseLockedFunctionProps = {
     equation: "x/2",
     directionalAxis: "x",
     domain: [-10, 10],
+    labels: [],
 } satisfies LockedFunctionType;
 
 describe("LockedFunction", () => {

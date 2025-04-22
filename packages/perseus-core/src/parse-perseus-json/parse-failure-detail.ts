@@ -11,7 +11,7 @@ export function message(failure: Mismatch): string {
 
 function conjoin(items: string[]): string {
     switch (items.length) {
-        // TODO(benchristel): handle 0 if this is reused elsewhere.
+        // FUTURE(benchristel): handle 0 if this is reused elsewhere.
         case 1:
             return items[0];
         case 2:

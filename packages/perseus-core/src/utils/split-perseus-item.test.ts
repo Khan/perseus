@@ -287,6 +287,7 @@ describe("splitPerseusItem", () => {
                         ],
                         graph: {type: "none"},
                         correct: {type: "none"},
+                        lockedFigures: [],
                     },
                 },
             },
@@ -315,6 +316,7 @@ describe("splitPerseusItem", () => {
                         backgroundImage: {
                             url: null,
                         },
+                        lockedFigures: [],
                     },
                     alignment: "default",
                     static: false,

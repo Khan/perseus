@@ -30,7 +30,7 @@ export type StatefulMafsGraphProps = {
      */
     // TODO(LEMS-2344): make the type of `correct` more specific
     correct?: PerseusGraphType;
-    lockedFigures?: InteractiveGraphProps["lockedFigures"];
+    lockedFigures: InteractiveGraphProps["lockedFigures"];
     range: InteractiveGraphProps["range"];
     snapStep: [x: number, y: number];
     step: InteractiveGraphProps["step"];

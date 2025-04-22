@@ -771,7 +771,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     correct: PerseusGraphType;
     // Shapes (points, chords, etc) displayed on the graph that cannot
     // be moved by the user.
-    lockedFigures?: LockedFigure[];
+    lockedFigures: LockedFigure[];
     // Aria label that applies to the entire graph.
     fullGraphAriaLabel?: string;
     // Aria description that applies to the entire graph.
@@ -817,7 +817,7 @@ export type LockedPointType = {
     coord: Coord;
     color: LockedFigureColor;
     filled: boolean;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -829,7 +829,7 @@ export type LockedLineType = {
     lineStyle: LockedLineStyle;
     showPoint1: boolean;
     showPoint2: boolean;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -837,7 +837,7 @@ export type LockedVectorType = {
     type: "vector";
     points: [tail: Coord, tip: Coord];
     color: LockedFigureColor;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -857,7 +857,7 @@ export type LockedEllipseType = {
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -868,7 +868,7 @@ export type LockedPolygonType = {
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -890,7 +890,7 @@ export type LockedFunctionType = {
      * allowed. Note that infinite values are serialized as `null` in JSON.
      */
     domain: [min: number, max: number];
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -916,12 +916,6 @@ export type PerseusGraphType =
     | PerseusGraphTypeRay
     | PerseusGraphTypeSegment
     | PerseusGraphTypeSinusoid;
-
-type PerseusGraphTypeCommon = {
-    // NOTE(jeremy): This is referenced in the component. Verify if there's any
-    // production data that still has this.
-    coord?: Coord; // Legacy!
-};
 
 export type PerseusGraphTypeAngle = {
     type: "angle";
@@ -950,7 +944,7 @@ export type PerseusGraphTypeCircle = {
         center: Coord;
         radius: number;
     };
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeLinear = {
     type: "linear";
@@ -958,7 +952,7 @@ export type PerseusGraphTypeLinear = {
     coords?: CollinearTuple | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple;
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeLinearSystem = {
     type: "linear-system";
@@ -966,7 +960,7 @@ export type PerseusGraphTypeLinearSystem = {
     coords?: CollinearTuple[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple[];
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeNone = {
     type: "none";
@@ -979,7 +973,9 @@ export type PerseusGraphTypePoint = {
     coords?: Coord[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: Coord[];
-} & PerseusGraphTypeCommon;
+    // Used instead of `coords` in some old graphs that have only one point.
+    coord?: Coord;
+};
 
 export type PerseusGraphTypePolygon = {
     type: "polygon";
@@ -996,7 +992,7 @@ export type PerseusGraphTypePolygon = {
     coords?: Coord[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: Coord[];
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeQuadratic = {
     type: "quadratic";
@@ -1004,7 +1000,7 @@ export type PerseusGraphTypeQuadratic = {
     coords?: [Coord, Coord, Coord] | null;
     // The initial coordinates the graph renders with.
     startCoords?: [Coord, Coord, Coord];
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeSegment = {
     type: "segment";
@@ -1014,7 +1010,7 @@ export type PerseusGraphTypeSegment = {
     coords?: CollinearTuple[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple[];
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeSinusoid = {
     type: "sinusoid";
@@ -1022,7 +1018,7 @@ export type PerseusGraphTypeSinusoid = {
     coords?: Coord[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: Coord[];
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeRay = {
     type: "ray";
@@ -1030,7 +1026,7 @@ export type PerseusGraphTypeRay = {
     coords?: CollinearTuple | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple;
-} & PerseusGraphTypeCommon;
+};
 
 type AngleGraphCorrect = {
     type: "angle";
@@ -1181,9 +1177,6 @@ export type PerseusMeasurerWidgetOptions = {
     rulerLength: number;
     // Containing area [width, height]
     box: [number, number];
-    // TODO(benchristel): static is not used. Remove it?
-    // Always false.  Not used for this widget
-    static: boolean;
 };
 
 export type MathFormat =

@@ -3830,6 +3830,7 @@ $3$ | $8$
             "w",
             "d",
           ],
+          "lockedFigures": [],
           "markings": "graph",
           "range": [
             [
@@ -3916,6 +3917,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
                 Infinity,
               ],
               "equation": "x^2",
+              "labels": [],
               "strokeStyle": "solid",
               "type": "function",
             },
@@ -4077,6 +4079,7 @@ Locked figures:
             "\\text{Re}",
             "\\text{Im}",
           ],
+          "lockedFigures": [],
           "markings": "graph",
           "range": [
             [
@@ -4139,6 +4142,7 @@ Locked figures:
             "x",
             "y",
           ],
+          "lockedFigures": [],
           "markings": "graph",
           "range": [
             [
@@ -4191,6 +4195,7 @@ Locked figures:
             "x",
             "y",
           ],
+          "lockedFigures": [],
           "markings": "graph",
           "range": [
             [
@@ -4241,6 +4246,7 @@ Locked figures:
             "x",
             "y",
           ],
+          "lockedFigures": [],
           "markings": "graph",
           "range": [
             [
@@ -4291,6 +4297,7 @@ Locked figures:
             "x",
             "y",
           ],
+          "lockedFigures": [],
           "markings": "graph",
           "range": [
             [
@@ -4341,6 +4348,7 @@ Locked figures:
             "x",
             "y",
           ],
+          "lockedFigures": [],
           "markings": "graph",
           "range": [
             [
@@ -4391,6 +4399,7 @@ Locked figures:
             "x",
             "y",
           ],
+          "lockedFigures": [],
           "markings": "graph",
           "range": [
             [
@@ -4477,6 +4486,7 @@ Locked figures:
                 5,
               ],
               "filled": true,
+              "labels": [],
               "type": "point",
             },
             {
@@ -4486,11 +4496,13 @@ Locked figures:
                 5,
               ],
               "filled": false,
+              "labels": [],
               "type": "point",
             },
             {
               "color": "grayH",
               "kind": "line",
+              "labels": [],
               "lineStyle": "solid",
               "points": [
                 {
@@ -4500,6 +4512,7 @@ Locked figures:
                     1,
                   ],
                   "filled": true,
+                  "labels": [],
                   "type": "point",
                 },
                 {
@@ -4509,6 +4522,7 @@ Locked figures:
                     2,
                   ],
                   "filled": true,
+                  "labels": [],
                   "type": "point",
                 },
               ],
@@ -4521,6 +4535,7 @@ Locked figures:
             {
               "color": "grayH",
               "kind": "line",
+              "labels": [],
               "lineStyle": "dashed",
               "points": [
                 {
@@ -4530,6 +4545,7 @@ Locked figures:
                     0,
                   ],
                   "filled": true,
+                  "labels": [],
                   "type": "point",
                 },
                 {
@@ -4539,6 +4555,7 @@ Locked figures:
                     1,
                   ],
                   "filled": false,
+                  "labels": [],
                   "type": "point",
                 },
               ],
@@ -4551,6 +4568,7 @@ Locked figures:
             {
               "color": "pink",
               "kind": "ray",
+              "labels": [],
               "lineStyle": "solid",
               "points": [
                 {
@@ -4560,6 +4578,7 @@ Locked figures:
                     -1,
                   ],
                   "filled": true,
+                  "labels": [],
                   "type": "point",
                 },
                 {
@@ -4569,6 +4588,7 @@ Locked figures:
                     0,
                   ],
                   "filled": true,
+                  "labels": [],
                   "type": "point",
                 },
               ],
@@ -4581,6 +4601,7 @@ Locked figures:
             {
               "color": "pink",
               "kind": "ray",
+              "labels": [],
               "lineStyle": "dashed",
               "points": [
                 {
@@ -4590,6 +4611,7 @@ Locked figures:
                     -2,
                   ],
                   "filled": true,
+                  "labels": [],
                   "type": "point",
                 },
                 {
@@ -4599,6 +4621,7 @@ Locked figures:
                     -1,
                   ],
                   "filled": false,
+                  "labels": [],
                   "type": "point",
                 },
               ],
@@ -4611,6 +4634,7 @@ Locked figures:
             {
               "color": "red",
               "kind": "segment",
+              "labels": [],
               "lineStyle": "solid",
               "points": [
                 {
@@ -4620,6 +4644,7 @@ Locked figures:
                     -3,
                   ],
                   "filled": true,
+                  "labels": [],
                   "type": "point",
                 },
                 {
@@ -4629,6 +4654,7 @@ Locked figures:
                     -2,
                   ],
                   "filled": true,
+                  "labels": [],
                   "type": "point",
                 },
               ],
@@ -4641,6 +4667,7 @@ Locked figures:
             {
               "color": "red",
               "kind": "segment",
+              "labels": [],
               "lineStyle": "dashed",
               "points": [
                 {
@@ -4650,6 +4677,7 @@ Locked figures:
                     -4,
                   ],
                   "filled": true,
+                  "labels": [],
                   "type": "point",
                 },
                 {
@@ -4659,6 +4687,7 @@ Locked figures:
                     -3,
                   ],
                   "filled": false,
+                  "labels": [],
                   "type": "point",
                 },
               ],
@@ -4868,6 +4897,7 @@ $\\begin{align}
                     "x",
                     "y",
                   ],
+                  "lockedFigures": [],
                   "markings": "graph",
                   "range": [
                     [
@@ -5030,6 +5060,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
               "x",
               "y",
             ],
+            "lockedFigures": [],
             "markings": "graph",
             "range": [
               [
@@ -5112,6 +5143,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
             "x",
             "y",
           ],
+          "lockedFigures": [],
           "markings": "graph",
           "range": [
             [
@@ -5179,6 +5211,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
             "x",
             "y",
           ],
+          "lockedFigures": [],
           "markings": "graph",
           "range": [
             [
@@ -5288,6 +5321,7 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
             "numSides": 3,
             "type": "polygon",
           },
+          "lockedFigures": [],
           "markings": "none",
           "range": [
             [
@@ -5428,6 +5462,7 @@ Draw the rhombus in the first quadrant.
             "x",
             "y",
           ],
+          "lockedFigures": [],
           "markings": "graph",
           "range": [
             [
@@ -5534,6 +5569,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
             "x",
             "y",
           ],
+          "lockedFigures": [],
           "markings": "graph",
           "range": [
             [
@@ -6521,7 +6557,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.json returns th
           "rulerTicks": 10,
           "showProtractor": true,
           "showRuler": false,
-          "static": false,
         },
         "type": "measurer",
       },
@@ -6568,7 +6603,6 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.json returns t
           "rulerTicks": 10,
           "showProtractor": true,
           "showRuler": true,
-          "static": false,
         },
         "type": "measurer",
         "version": {

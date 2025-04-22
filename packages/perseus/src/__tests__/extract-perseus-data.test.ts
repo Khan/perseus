@@ -931,6 +931,7 @@ describe("ExtractPerseusData", () => {
                         showTooltips: false,
                         snapStep: [0.5, 0.5],
                         step: [1, 1],
+                        lockedFigures: [],
                     },
                 },
             };

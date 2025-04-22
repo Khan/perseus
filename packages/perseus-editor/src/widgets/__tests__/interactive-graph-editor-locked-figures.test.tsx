@@ -22,6 +22,7 @@ const baseProps = {
     snapStep: [1, 1] as [number, number],
     onChange: () => {},
     graph: undefined,
+    lockedFigures: [],
 };
 
 const segmentProps = {

@@ -1293,8 +1293,8 @@ describe("Interactive Graph", function () {
         it("should render a locked label within a locked point within a locked line", async () => {
             const question = {...graphWithLabeledLine};
             invariant(
-                question.widgets["interactive-graph 1"].options
-                    .lockedFigures?.[0]?.type === "line",
+                question.widgets["interactive-graph 1"].options.lockedFigures[0]
+                    ?.type === "line",
             );
             question.widgets[
                 "interactive-graph 1"
