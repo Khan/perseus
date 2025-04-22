@@ -127,6 +127,8 @@ module.exports = {
                 "*.test.tsx",
                 "*.stories.ts",
                 "*.stories.tsx",
+                "**/__testutils__/**",
+                "**/__stories__/**",
             ],
             rules: {
                 "max-lines": "off",
@@ -218,7 +220,8 @@ module.exports = {
          * import
          */
         // "import/no-default-export": "error",
-        "import/no-unresolved": "error",
+        // "import/no-unresolved": "error",
+        "import/no-extraneous-dependencies": "error",
         // NOTE(kevinb): This rule is confused by third-party TypeScript lib defs
         "import/named": "off",
         "import/default": "error",
