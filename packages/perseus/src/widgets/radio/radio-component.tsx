@@ -11,7 +11,12 @@ import PassageRef from "../passage-ref/passage-ref";
 import BaseRadio from "./base-radio";
 
 import type {FocusFunction, ChoiceType} from "./base-radio";
-import type {WidgetProps, ChoiceState, Widget} from "../../types";
+import type {
+    WidgetProps,
+    ChoiceState,
+    Widget,
+    ChangeHandler,
+} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
@@ -19,6 +24,7 @@ import type {
     ShowSolutions,
     PerseusRadioRubric,
     PerseusRadioUserInput,
+    RecursiveReadonly,
 } from "@khanacademy/perseus-core";
 
 // RenderProps is the return type for radio.jsx#transform
@@ -54,6 +60,48 @@ type DefaultProps = Required<
 export type RadioChoiceWithMetadata = PerseusRadioChoice & {
     originalIndex: number;
     correct?: boolean;
+};
+
+// TODO: LEMS-3027 Move this to a util function in functional component
+const showRationalesDummy = (
+    choiceStates: ReadonlyArray<ChoiceState>,
+    choices: RecursiveReadonly<PerseusRadioRubric>,
+    userInput: RecursiveReadonly<PerseusRadioUserInput>,
+    onChange: ChangeHandler,
+) => {
+    if (!choiceStates) return;
+    const score = scoreRadio(userInput, choices);
+    const widgetCorrect =
+        score.type === "points" && score.total === score.earned;
+    const newStates: ReadonlyArray<ChoiceState> = choiceStates.map(
+        (state: ChoiceState): ChoiceState => ({
+            ...state,
+            highlighted: state.selected,
+            // If the choice is selected, show the rationale now
+            rationaleShown:
+                state.selected ||
+                // If the choice already had a rationale, keep it shown
+                state.rationaleShown ||
+                // If the widget is correctly answered, show the rationale
+                // for all the choices
+                widgetCorrect,
+            // We use the same behavior for the readOnly flag as for
+            // rationaleShown, but we keep it separate in case other
+            // behaviors want to disable choices without showing rationales.
+            readOnly: state.selected || state.readOnly || widgetCorrect,
+            correctnessShown: state.selected || state.correctnessShown,
+            previouslyAnswered: state.previouslyAnswered || state.selected,
+        }),
+    );
+
+    onChange(
+        {
+            choiceStates: newStates,
+        },
+        // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
+        null, // cb
+        true, // silent
+    );
 };
 
 class Radio extends React.Component<Props> implements Widget {
@@ -115,11 +163,22 @@ class Radio extends React.Component<Props> implements Widget {
     }
 
     componentDidUpdate(prevProps: Props) {
+        // In functional component use the useEffect to determine if there was any
+        /// change in the showSolutions value coming from the caller of the radio widget
+        // e.g webapp exercise-chrome
+        const {choiceStates, choices} = this.props;
+
         if (
+            choiceStates &&
             this.props.showSolutions === "selected" &&
             prevProps.showSolutions !== "selected"
         ) {
-            this.showRationalesForCurrentlySelectedChoices(this.props);
+            showRationalesDummy(
+                choiceStates,
+                {choices: choices},
+                this.getUserInput(),
+                this.props.onChange,
+            );
         }
     }
 

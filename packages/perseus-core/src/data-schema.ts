@@ -38,6 +38,7 @@ export type Vector2 = Coord; // Same name as Mafs
 export type Range = Interval;
 export type Size = [width: number, height: number];
 export type CollinearTuple = [Vector2, Vector2];
+// TODO: remove selected because it's not because used anywhere
 export type ShowSolutions = "all" | "selected" | "none";
 
 /**

@@ -60,6 +60,9 @@ export const ServerItemRendererWithDebugUI = ({
         isMobile,
         customKeypad: isMobile, // Use the mobile keypad for mobile
     };
+    // TODO: LEMS-3027 This forcess the showSolutions to be set and rerender
+    // the widget, in webapp this is handled when skipped or review values are updated
+    const [_showSolutions, setShowSolutions] = React.useState(showSolutions);
 
     const getKeScore = () => {
         const renderer = ref.current;
@@ -88,7 +91,7 @@ export const ServerItemRendererWithDebugUI = ({
     const shouldUseAnswerless =
         answerless &&
         !reviewMode &&
-        (showSolutions === "none" || !showSolutions);
+        (_showSolutions === "none" || !_showSolutions);
 
     const renderedItem: PerseusItem = shouldUseAnswerless
         ? splitPerseusItem(item)
@@ -133,7 +136,7 @@ export const ServerItemRendererWithDebugUI = ({
                                             keypadElement={keypadElement}
                                             linterContext={linterContext}
                                             reviewMode={reviewMode}
-                                            showSolutions={showSolutions}
+                                            showSolutions={_showSolutions}
                                             hintsVisible={hintsVisible}
                                         />
                                     );
@@ -158,7 +161,8 @@ export const ServerItemRendererWithDebugUI = ({
                             <Button
                                 onClick={() => {
                                     setAnswerless(false);
-                                    ref.current?.showRationalesForCurrentlySelectedChoices();
+                                    // TODO: LEMS-3027 find a way to change the value to all
+                                    setShowSolutions("selected");
                                 }}
                             >
                                 Show Rationales

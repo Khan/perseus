@@ -134,7 +134,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     reviewMode?: boolean | null | undefined;
     /**
      * If set to "all", all rationales or solutions will be shown. If set to
-     * "selected", soltions will only be shown for selected choices. If set to
+     * "selected", solutions will only be shown for selected choices. If set to
      * "none", solutions will not be shown-- equivalent to `undefined`.
      */
     showSolutions?: ShowSolutions;
@@ -383,6 +383,7 @@ class Renderer
     }
 
     componentDidUpdate(prevProps: Props, prevState: State) {
+        // TODO: LEMS-3027 handle checking of showSolutions here
         this.handleRender(prevProps);
         // We even do this if we did reuse the markdown because
         // we might need to update the widget props on this render,
@@ -719,6 +720,7 @@ class Renderer
      * shows rationales for all of the choices. This also disables interaction
      * with the choices that we show rationales for.
      */
+    // TODO: LEMS-3027 Delete this after webapp call is deleted
     showRationalesForCurrentlySelectedChoices: () => void = () => {
         Object.keys(this.props.widgets).forEach((widgetId) => {
             const widget = this.getWidgetInstance(widgetId);
