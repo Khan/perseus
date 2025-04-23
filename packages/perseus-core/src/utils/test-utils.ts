@@ -1,11 +1,19 @@
-import type {PerseusItem} from "../data-schema";
+import type {PerseusItem, PerseusRenderer} from "../data-schema";
+
+const genericPerseusRenderer: PerseusRenderer = {
+    content: "",
+    images: {},
+    widgets: {},
+} as const;
+
+export function generateTestPerseusRenderer(
+    customFields: Partial<PerseusRenderer> = {},
+): PerseusRenderer {
+    return {...genericPerseusRenderer, ...customFields};
+}
 
 const genericPerseusItemData: PerseusItem = {
-    question: {
-        content: "",
-        images: {},
-        widgets: {},
-    },
+    question: generateTestPerseusRenderer(),
     answerArea: {
         calculator: false,
         chi2Table: false,

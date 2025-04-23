@@ -1,3 +1,8 @@
+import {
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
@@ -14,6 +19,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./group.testdata";
 
+import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("group widget", () => {
@@ -560,6 +566,137 @@ describe("group widget", () => {
             // Assert
             // This callback does not get deep traversal!
             expect(optionsCallback).toHaveBeenCalledTimes(3);
+        });
+    });
+
+    function getFullItem(): PerseusItem {
+        const groupRenderer = generateTestPerseusRenderer({
+            content: "Group Renderer\n\n[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": {
+                    type: "dropdown",
+                    options: {
+                        choices: [
+                            {content: "Incorrect", correct: false},
+                            {content: "Correct", correct: true},
+                        ],
+                        placeholder: "Choose an answer",
+                        static: false,
+                    },
+                },
+            },
+        });
+
+        const itemRenderer = generateTestPerseusRenderer({
+            content: "Item Renderer\n\n[[☃ group 1]]",
+            widgets: {
+                "group 1": {
+                    type: "group",
+                    options: groupRenderer,
+                },
+            },
+        });
+
+        return generateTestPerseusItem({question: itemRenderer});
+    }
+
+    function getSplitItem(): PerseusItem {
+        return splitPerseusItem(getFullItem());
+    }
+
+    describe.each([
+        {optionsMode: "answerful", renderItem: getFullItem()},
+        {optionsMode: "answerless", renderItem: getSplitItem()},
+    ])("answerful vs answerless", ({optionsMode, renderItem}) => {
+        it(`${optionsMode}: renders`, async () => {
+            // Act
+            renderQuestion(renderItem.question);
+
+            // Assert
+            expect(
+                screen.getByRole("combobox", {name: "Select an answer"}),
+            ).toBeInTheDocument();
+        });
+
+        it(`${optionsMode}: is answerable`, async () => {
+            // Act
+            const {renderer} = renderQuestion(renderItem.question);
+
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Select an answer"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Correct"}),
+            );
+
+            // Assert
+            const userInput = renderer.getUserInputMap();
+            expect(userInput).toEqual({
+                "group 1": {
+                    "dropdown 1": {
+                        value: 2,
+                    },
+                },
+            });
+        });
+
+        it(`${optionsMode}: can be scored as correct`, async () => {
+            // Act
+            const {renderer} = renderQuestion(renderItem.question);
+
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Select an answer"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Correct"}),
+            );
+
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItem(
+                renderItem.question,
+                userInput,
+                "en",
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        });
+
+        it(`${optionsMode}: can be scored as incorrect`, async () => {
+            // Act
+            const {renderer} = renderQuestion(renderItem.question);
+
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Select an answer"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Incorrect"}),
+            );
+
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItem(
+                renderItem.question,
+                userInput,
+                "en",
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredIncorrectly();
+        });
+
+        it(`${optionsMode}: can be scored as invalid`, async () => {
+            // Act
+            const {renderer} = renderQuestion(renderItem.question);
+
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItem(
+                renderItem.question,
+                userInput,
+                "en",
+            );
+
+            // Assert
+            expect(score).toHaveInvalidInput();
         });
     });
 });

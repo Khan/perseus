@@ -28,7 +28,10 @@ export {
 } from "./utils/widget-id-utils";
 export {default as deepClone} from "./utils/deep-clone";
 export * as GrapherUtil from "./utils/grapher-util";
-export {generateTestPerseusItem} from "./utils/test-utils";
+export {
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "./utils/test-utils";
 
 export {
     parsePerseusItem,
