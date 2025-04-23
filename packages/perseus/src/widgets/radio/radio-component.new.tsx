@@ -1,6 +1,6 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
-import {forwardRef, useContext, useRef} from "react";
+import {useContext} from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
@@ -9,7 +9,7 @@ import PassageRef from "../passage-ref/passage-ref";
 
 import BaseRadio from "./base-radio";
 
-import type {FocusFunction, ChoiceType} from "./base-radio";
+import type {ChoiceType} from "./base-radio";
 import type {WidgetProps, ChoiceState} from "../../types";
 import type {
     PerseusRadioChoice,
@@ -62,7 +62,7 @@ const defaultProps: DefaultProps = {
     showSolutions: "none",
 };
 
-const RadioComponent = forwardRef((props: Props, ref) => {
+const RadioComponent = (props: Props) => {
     const {
         choices,
         multipleSelect = defaultProps.multipleSelect,
@@ -84,19 +84,6 @@ const RadioComponent = forwardRef((props: Props, ref) => {
 
     const context = useContext(PerseusI18nContext);
     const {strings} = context;
-
-    // Store the focus function in a ref
-    const focusFunction = useRef<FocusFunction | null>(null);
-
-    // Implement imperative focus method that will be exposed via ref
-    React.useImperativeHandle(ref, () => ({
-        focus: (choiceIndex?: number | null) => {
-            if (focusFunction.current) {
-                return focusFunction.current(choiceIndex);
-            }
-            return false;
-        },
-    }));
 
     // The renderer function for content rendering
     // TODO THIRD: This could probably be a util function.
@@ -305,6 +292,6 @@ const RadioComponent = forwardRef((props: Props, ref) => {
             isLastUsedWidget={isLastUsedWidget}
         />
     );
-});
+};
 
 export default RadioComponent;
