@@ -43,10 +43,6 @@ export type ChoiceType = {
     disabled: boolean;
 };
 
-export type FocusFunction = (
-    choiceIndex?: number | null | undefined,
-) => boolean;
-
 type Props = {
     apiOptions: APIOptions;
     choices: ReadonlyArray<ChoiceType>;
@@ -68,7 +64,6 @@ type Props = {
         checked: ReadonlyArray<boolean>;
         crossedOut: ReadonlyArray<boolean>;
     }) => void;
-    registerFocusFunction?: (arg1: FocusFunction) => void;
     // Whether this widget was the most recently used widget in this
     // Renderer. Determines whether we'll auto-scroll the page upon
     // entering review mode.
@@ -117,7 +112,6 @@ const BaseRadio = function ({
     numCorrect,
     isLastUsedWidget,
     onChange,
-    registerFocusFunction,
 }: Props): React.ReactElement {
     const {strings} = usePerseusI18n();
 
@@ -211,25 +205,6 @@ const BaseRadio = function ({
             crossedOut: newCrossedOutList,
         });
     }
-
-    // register a callback with the parent that allows
-    // the parent to focus an individual choice
-    registerFocusFunction?.((choiceIndex: number | null | undefined) => {
-        const ref = choiceRefs.current[choiceIndex || 0];
-        // note(matthew): we know this is only getting passed
-        // to a WB Clickable button, so we force it to be of
-        // type HTMLButtonElement
-        // @ts-expect-error - TS2339 - Property 'current' does not exist on type 'never'.
-        const anyNode = ReactDOM.findDOMNode(ref.current) as any;
-        const buttonNode = anyNode as HTMLButtonElement | null | undefined;
-
-        if (buttonNode) {
-            buttonNode.focus();
-        } else {
-            return false;
-        }
-        return true;
-    });
 
     // some commonly used shorthands
     const isMobile = apiOptions.isMobile;

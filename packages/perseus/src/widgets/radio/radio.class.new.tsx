@@ -4,9 +4,8 @@ import * as React from "react";
 
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
-import {RadioComponent} from "./radio-component.new";
+import RadioComponent from "./radio-component.new";
 
-import type {FocusFunction} from "./base-radio.new";
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
@@ -63,9 +62,6 @@ export type RadioChoiceWithMetadata = PerseusRadioChoice & {
  */
 class Radio extends React.Component<Props> implements Widget {
     radioComponentRef = React.createRef<typeof RadioComponent>();
-
-    // @ts-expect-error - TS2564 - Property 'focusFunction' has no initializer and is not definitely assigned in the constructor.
-    focusFunction: FocusFunction;
 
     static defaultProps: DefaultProps = {
         choices: [],

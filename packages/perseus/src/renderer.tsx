@@ -1422,7 +1422,6 @@ class Renderer
 
     focus: () => boolean | null | undefined = () => {
         let id;
-        // this just gets the first widget that has a focus method
         let focusResult;
         for (let i = 0; i < this.widgetIds.length; i++) {
             const widgetId = this.widgetIds[i];
