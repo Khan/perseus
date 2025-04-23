@@ -37,14 +37,14 @@ import type {
 } from "./logic-export.types";
 import type {Alignment} from "../types";
 
-const widgets: Record<string, WidgetLogic> = {};
+const widgets: Record<string, WidgetLogic | undefined> = {};
 
 function registerWidget(type: string, logic: WidgetLogic) {
     widgets[type] = logic;
 }
 
 export function isWidgetRegistered(type: string): boolean {
-    const widgetLogic: any = widgets[type];
+    const widgetLogic = widgets[type];
     return !!widgetLogic;
 }
 
