@@ -62,6 +62,14 @@ const defaultProps: DefaultProps = {
     showSolutions: "none",
 };
 
+/**
+ * This component is a duplicate of the Radio component in radio.tsx
+ * for the Radio Revitalization Project. (LEMS-2933)
+ * This component has been split up to move the rendering logic to a new functional component.
+ * The class methods are now in radio.class.new.tsx.
+ *
+ * TODO(LEMS-2994): Clean up this file.
+ */
 const RadioComponent = (props: Props) => {
     const {
         choices,
