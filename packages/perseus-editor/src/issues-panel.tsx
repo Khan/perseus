@@ -12,8 +12,9 @@ import IssueDetails from "./issue-details";
 
 export type Issue = {
     id: string;
-    help: string;
+    description: string;
     helpUrl: string;
+    help: string;
     impact: string;
     message: string;
 };
@@ -23,19 +24,23 @@ type IssuesPanelProps = {
 };
 
 const IssuesPanel = ({warnings = []}: IssuesPanelProps) => {
+    const hasWarnings = warnings.length > 0;
     const [showPanel, setShowPanel] = useState(false);
+
     const toggleIcon = showPanel ? caretDown : caretRight;
-    const togglePanel = () => setShowPanel(!showPanel);
-
-    const icon = warnings.length > 0 ? iconWarning : iconPass;
-
-    const iconColor = warnings.length > 0 ? wbColor.gold : wbColor.green;
-
+    const icon = hasWarnings ? iconWarning : iconPass;
+    const iconColor = hasWarnings ? wbColor.gold : wbColor.green;
     const issuesCount = `${warnings.length} issue${
         warnings.length === 1 ? "" : "s"
     }`;
 
     const editorClasses = `perseus-widget-editor${showPanel ? " perseus-widget-editor-open" : ""}`;
+
+    const togglePanel = () => {
+        if (hasWarnings) {
+            setShowPanel(!showPanel);
+        }
+    };
 
     return (
         <div className={editorClasses}>
@@ -46,17 +51,25 @@ const IssuesPanel = ({warnings = []}: IssuesPanelProps) => {
                         kind="secondary"
                         size="small"
                         onClick={togglePanel}
-                        style={{marginRight: 0, flexGrow: 0}}
+                        disabled={!hasWarnings}
+                        style={{
+                            marginRight: 0,
+                            // flexGrow: 0,
+                            border: "none",
+                            backgroundColor: "transparent",
+                            cursor: hasWarnings ? "pointer" : "not-allowed",
+                        }}
                     />
                     <span>Issues Panel</span>
                 </div>
-                {issuesCount}
                 <PhosphorIcon
                     icon={icon}
                     size="medium"
                     color={iconColor}
                     data-icon-type={icon}
+                    style={{marginRight: "0.25em"}}
                 />
+                {issuesCount}
             </div>
             {showPanel && (
                 <div className="perseus-widget-editor-panel">

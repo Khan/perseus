@@ -6,8 +6,9 @@ import PerseusEditorAccordion from "./components/perseus-editor-accordion";
 
 type Issue = {
     id: string;
-    help: string;
+    description: string;
     helpUrl: string;
+    help: string;
     impact: string;
     message: string;
 };
@@ -25,6 +26,7 @@ const IssueDetails = ({issue}: IssueProps) => {
             animated={true}
             expanded={expanded}
             onToggle={toggleVisibility}
+            containerStyle={{backgroundColor: "#fff9eb"}}
             panelStyle={{backgroundColor: "white"}}
             header={
                 <LabelLarge
@@ -40,6 +42,7 @@ const IssueDetails = ({issue}: IssueProps) => {
             }
         >
             <LabelSmall style={{fontWeight: "bold"}}>Description:</LabelSmall>
+            <span>{issue.description}</span>
             <a href={issue.helpUrl} target="_blank" rel="noreferrer">
                 {issue.help}
             </a>
@@ -47,7 +50,7 @@ const IssueDetails = ({issue}: IssueProps) => {
                 Impact:
             </LabelSmall>
             <span style={{fontWeight: "initial"}}> {issue.impact}</span>
-            <LabelSmall style={{fontWeight: "bold"}}>Issue:</LabelSmall>
+            <LabelSmall style={{marginTop: "1em", fontWeight: "bold"}}>Issue:</LabelSmall>
             <span>{issue.message}</span>
         </PerseusEditorAccordion>
     );

@@ -31,7 +31,7 @@ import TexErrorView from "./tex-error-view";
 
 import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
 import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
-import { getWidgetExport, isAccessible } from "../../perseus/src/widgets";
+import { isAccessible } from "../../perseus/src/widgets";
 import { Console } from "console";
 import type { Issue }  from "./issues-panel";
 
@@ -735,8 +735,6 @@ class Editor extends React.Component<Props, State> {
             return;
         }
 
-        this._checkAccessibilityAndWarn(widgetType);
-
         this._addWidgetToContent(
             this.props.content,
             [textarea.selectionStart, textarea.selectionEnd],
@@ -745,28 +743,20 @@ class Editor extends React.Component<Props, State> {
         textarea.focus();
     };
 
-    _checkAccessibilityAndWarn(
-        widgetType: string,
+    _checkAccessibilityAndWarn (
+        widgetInfo: any,
     ) {
-        const widgetInfo = getWidgetExport(widgetType);
-        const widgetClass = widgetInfo?.widget;
+        const widgetType = widgetInfo?.type;
+        const widgetAccessibility = isAccessible(widgetInfo);
 
-        const maybeAccessibleWidget = widgetClass as typeof React.Component & {
-            accessible?: boolean;
-        };
-
-        // If .accessible === false, then isAccessible will be false
-        // If .accessible === true or .accessible === undefined, then isAccessible will be true
-        // const isAccessible = maybeAccessibleWidget.accessible !== false;
-        const isAccessible = false; //just fot testing
-
-        if (!isAccessible && this.props.onAddWarning) {
+        if (!widgetAccessibility && this.props.onAddWarning) {
             this.props.onAddWarning({
                 id: `${widgetType} inaccessible`,
-                message: `${widgetType} is marked as inaccessible.`,
-                help: "Please choose an accessible alternative.",
-                helpUrl: "https://khanacademy.org/accessibility-guidelines",
+                description: `This ${widgetType} widget is marked as inaccessible. Consider using an alternative to support all learners. Please checkout the following documentation on compliant widget options.`,
+                helpUrl: "https://khanacademy.atlassian.net/wiki/spaces/LC/pages/1909489691/Widget+Fundamentals",
+                help: "Widget Fundamentals",
                 impact: "Medium",
+                message: "Selecting inaccessible widgets for a practice item will result in this exercise being hidden from users with 'Hide visually dependant content' setting set to true. Please select another widget or create an alternative practice item.",
             });
         }
     }
@@ -1018,6 +1008,14 @@ class Editor extends React.Component<Props, State> {
 
             this.widgetIds = _.keys(widgets);
             widgetsDropDown = <WidgetSelect onChange={this._addWidget} />;
+
+            // Iterate through all rendered widgets and trigger a warning
+            // in the issues panel for any widget marked as inaccessible.
+            (this.widgetIds as Array<string>).forEach((id) => {
+                const widgetInfo = this.props.widgets[id];
+
+                this._checkAccessibilityAndWarn(widgetInfo);
+            });
 
             const insertTemplateString = "Insert template\u2026";
             templatesDropDown = (
