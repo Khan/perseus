@@ -37,8 +37,9 @@ import type {
     KeypadContextRendererInterface,
     RendererInterface,
     KEScore,
+    UserInputArray,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
-import type {UserInputArray, UserInputMap} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type OwnProps = {

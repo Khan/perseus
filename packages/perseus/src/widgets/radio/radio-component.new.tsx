@@ -147,11 +147,6 @@ const RadioComponent = forwardRef((props: Props, ref) => {
         );
     };
 
-    // Register focus function from BaseRadio
-    const registerFocusFunction = (fun: FocusFunction): void => {
-        focusFunction.current = fun;
-    };
-
     /* Update the choice states for the widget upon user interaction.
     This function is called by the BaseRadio component when the user selects
     or deselects a choice.
@@ -308,7 +303,6 @@ const RadioComponent = forwardRef((props: Props, ref) => {
             deselectEnabled={deselectEnabled}
             apiOptions={apiOptions}
             isLastUsedWidget={isLastUsedWidget}
-            registerFocusFunction={(i) => registerFocusFunction(i)}
         />
     );
 });
