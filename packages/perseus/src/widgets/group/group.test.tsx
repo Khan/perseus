@@ -1,8 +1,3 @@
-import {
-    generateTestPerseusItem,
-    generateTestPerseusRenderer,
-    splitPerseusItem,
-} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
@@ -17,9 +12,12 @@ import {mockStrings} from "../../strings";
 import {traverse} from "../../traversal";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {question1} from "./group.testdata";
+import {
+    getFullGroupTestItem,
+    getSplitGroupTestItem,
+    question1,
+} from "./group.testdata";
 
-import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("group widget", () => {
@@ -569,44 +567,9 @@ describe("group widget", () => {
         });
     });
 
-    function getFullItem(): PerseusItem {
-        const groupRenderer = generateTestPerseusRenderer({
-            content: "Group Renderer\n\n[[☃ dropdown 1]]",
-            widgets: {
-                "dropdown 1": {
-                    type: "dropdown",
-                    options: {
-                        choices: [
-                            {content: "Incorrect", correct: false},
-                            {content: "Correct", correct: true},
-                        ],
-                        placeholder: "Choose an answer",
-                        static: false,
-                    },
-                },
-            },
-        });
-
-        const itemRenderer = generateTestPerseusRenderer({
-            content: "Item Renderer\n\n[[☃ group 1]]",
-            widgets: {
-                "group 1": {
-                    type: "group",
-                    options: groupRenderer,
-                },
-            },
-        });
-
-        return generateTestPerseusItem({question: itemRenderer});
-    }
-
-    function getSplitItem(): PerseusItem {
-        return splitPerseusItem(getFullItem());
-    }
-
     describe.each([
-        {optionsMode: "answerful", renderItem: getFullItem()},
-        {optionsMode: "answerless", renderItem: getSplitItem()},
+        {optionsMode: "answerful", renderItem: getFullGroupTestItem()},
+        {optionsMode: "answerless", renderItem: getSplitGroupTestItem()},
     ])("answerful vs answerless", ({optionsMode, renderItem}) => {
         it(`${optionsMode}: renders`, async () => {
             // Act
