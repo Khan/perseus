@@ -18,8 +18,9 @@ import type {
     PerseusPlotterWidgetOptions,
     PerseusPlotterUserInput,
 } from "@khanacademy/perseus-core";
+import type {PlotterPublicWidgetOptions} from "@khanacademy/perseus-core/src/widgets/plotter/plotter-util";
 
-type RenderProps = PerseusPlotterWidgetOptions;
+type RenderProps = PlotterPublicWidgetOptions;
 
 type Props = WidgetProps<RenderProps> & {
     labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
