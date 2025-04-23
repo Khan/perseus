@@ -567,6 +567,22 @@ describe("group widget", () => {
         });
     });
 
+    it("handles answerless item data", () => {
+        const itemData = getSplitGroupTestItem();
+
+        expect(
+            itemData.question.widgets["group 1"].options.widgets["dropdown 1"]
+                .options.choices,
+        ).toEqual([
+            {
+                content: "Incorrect",
+            },
+            {
+                content: "Correct",
+            },
+        ]);
+    });
+
     describe.each([
         {optionsMode: "answerful", renderItem: getFullGroupTestItem()},
         {optionsMode: "answerless", renderItem: getSplitGroupTestItem()},
