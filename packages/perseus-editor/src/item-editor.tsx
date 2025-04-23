@@ -8,6 +8,7 @@ import IframeContentRenderer from "./iframe-content-renderer";
 import IssuesPanel from "./issues-panel";
 import ItemExtrasEditor from "./item-extras-editor";
 
+import type {Issue} from "./issues-panel";
 import type {
     APIOptions,
     ImageUploader,
@@ -15,7 +16,6 @@ import type {
     DeviceType,
 } from "@khanacademy/perseus";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type { Issue } from "./issues-panel";
 
 const ITEM_DATA_VERSION = itemDataVersion;
 

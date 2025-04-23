@@ -50,7 +50,9 @@ const IssueDetails = ({issue}: IssueProps) => {
                 Impact:
             </LabelSmall>
             <span style={{fontWeight: "initial"}}> {issue.impact}</span>
-            <LabelSmall style={{marginTop: "1em", fontWeight: "bold"}}>Issue:</LabelSmall>
+            <LabelSmall style={{marginTop: "1em", fontWeight: "bold"}}>
+                Issue:
+            </LabelSmall>
             <span>{issue.message}</span>
         </PerseusEditorAccordion>
     );

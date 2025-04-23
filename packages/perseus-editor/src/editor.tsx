@@ -24,16 +24,17 @@ import "./katex-mhchem";
 import * as React from "react";
 import _ from "underscore";
 
+// eslint-disable-next-line import/no-relative-packages
+import {isAccessible} from "../../perseus/src/widgets";
+
 import DragTarget from "./components/drag-target";
 import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
 
+import type {Issue} from "./issues-panel";
 import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
 import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
-import { isAccessible } from "../../perseus/src/widgets";
-import { Console } from "console";
-import type { Issue }  from "./issues-panel";
 
 // like [[snowman numeric-input 1]]
 const widgetPlaceholder = "[[\u2603 {id}]]";
@@ -743,9 +744,7 @@ class Editor extends React.Component<Props, State> {
         textarea.focus();
     };
 
-    _checkAccessibilityAndWarn (
-        widgetInfo: any,
-    ) {
+    _checkAccessibilityAndWarn(widgetInfo: any) {
         const widgetType = widgetInfo?.type;
         const widgetAccessibility = isAccessible(widgetInfo);
 
@@ -753,10 +752,12 @@ class Editor extends React.Component<Props, State> {
             this.props.onAddWarning({
                 id: `${widgetType} inaccessible`,
                 description: `This ${widgetType} widget is marked as inaccessible. Consider using an alternative to support all learners. Please checkout the following documentation on compliant widget options.`,
-                helpUrl: "https://khanacademy.atlassian.net/wiki/spaces/LC/pages/1909489691/Widget+Fundamentals",
+                helpUrl:
+                    "https://khanacademy.atlassian.net/wiki/spaces/LC/pages/1909489691/Widget+Fundamentals",
                 help: "Widget Fundamentals",
                 impact: "Medium",
-                message: "Selecting inaccessible widgets for a practice item will result in this exercise being hidden from users with 'Hide visually dependant content' setting set to true. Please select another widget or create an alternative practice item.",
+                message:
+                    "Selecting inaccessible widgets for a practice item will result in this exercise being hidden from users with 'Hide visually dependant content' setting set to true. Please select another widget or create an alternative practice item.",
             });
         }
     }
