@@ -93,6 +93,10 @@ const RadioComponent = (props: Props) => {
     const context = useContext(PerseusI18nContext);
     const {strings} = context;
 
+    // TODO THIRD: Remove this
+    // eslint-disable-next-line no-console
+    console.log("New Radio Component");
+
     // The renderer function for content rendering
     // TODO THIRD: This should probably be a util function
     const renderRenderer = (content = ""): React.ReactElement => {
