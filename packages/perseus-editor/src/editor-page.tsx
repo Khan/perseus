@@ -212,6 +212,12 @@ class EditorPage extends React.Component<Props, State> {
         this.props.onChange(newJson);
     };
 
+    toggleWidgetsVisibility = () => {
+        this.setState((prevState) => ({
+            widgetsAreOpen: !prevState.widgetsAreOpen,
+        }));
+    };
+
     render(): React.ReactNode {
         let className = "framework-perseus";
 
@@ -252,6 +258,20 @@ class EditorPage extends React.Component<Props, State> {
                                 this.props.onPreviewDeviceChange
                             }
                         />
+                    )}
+
+                    {this.props.developerMode && (
+                        <span>
+                            <label>
+                                {" "}
+                                Widget Visbility:{" "}
+                                <input
+                                    type="checkbox"
+                                    checked={this.state.widgetsAreOpen}
+                                    onChange={this.toggleWidgetsVisibility}
+                                />
+                            </label>{" "}
+                        </span>
                     )}
 
                     {!this.props.jsonMode && (
@@ -305,6 +325,7 @@ class EditorPage extends React.Component<Props, State> {
                         apiOptions={deviceBasedApiOptions}
                         previewURL={this.props.previewURL}
                         highlightLint={this.state.highlightLint}
+                        widgetIsOpen={this.state.widgetsAreOpen}
                     />
                 )}
             </div>
