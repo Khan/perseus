@@ -1,24 +1,20 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {scoreRadio} from "@khanacademy/perseus-score";
 import * as React from "react";
+import {forwardRef, useContext, useRef} from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 import Util from "../../util";
-import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import PassageRef from "../passage-ref/passage-ref";
 
-import BaseRadio from "./base-radio.new";
+import BaseRadio from "./base-radio";
 
-import type {FocusFunction, ChoiceType} from "./base-radio.new";
-import type {WidgetProps, ChoiceState, Widget} from "../../types";
-import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
+import type {FocusFunction, ChoiceType} from "./base-radio";
+import type {WidgetProps, ChoiceState} from "../../types";
 import type {
     PerseusRadioChoice,
     ShowSolutions,
     PerseusRadioRubric,
-    PerseusRadioUserInput,
-    RecursiveReadonly,
 } from "@khanacademy/perseus-core";
 
 // RenderProps is the return type for radio.jsx#transform
@@ -56,85 +52,55 @@ export type RadioChoiceWithMetadata = PerseusRadioChoice & {
     correct?: boolean;
 };
 
-/**
- * This component is a duplicate of the Radio component in radio.tsx
- * for the Radio Revitalization Project. (LEMS-2933)
- * This component will be split up to move the rendering logic to a new functional component.
- * This file will be renamed to radio.class.tsx and will supercede radio-component.tsx when
- * the feature flag is no longer needed.
- *
- * TODO(LEMS-2994): Clean up this file.
- */
-class Radio extends React.Component<Props> implements Widget {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
+// Default props that were previously static
+const defaultProps: DefaultProps = {
+    choices: [],
+    multipleSelect: false,
+    countChoices: false,
+    deselectEnabled: false,
+    linterContext: linterContextDefault,
+    showSolutions: "none",
+};
 
-    // @ts-expect-error - TS2564 - Property 'focusFunction' has no initializer and is not definitely assigned in the constructor.
-    focusFunction: FocusFunction;
+const RadioComponent = forwardRef((props: Props, ref) => {
+    const {
+        choices,
+        multipleSelect = defaultProps.multipleSelect,
+        countChoices = defaultProps.countChoices,
+        deselectEnabled = defaultProps.deselectEnabled,
+        linterContext = defaultProps.linterContext,
+        showSolutions = defaultProps.showSolutions,
+        static: isStatic,
+        reviewModeRubric,
+        reviewMode,
+        apiOptions,
+        isLastUsedWidget,
+        questionCompleted,
+        findWidgets,
+        onChange,
+        trackInteraction,
+        numCorrect,
+    } = props;
 
-    static defaultProps: DefaultProps = {
-        choices: [],
-        multipleSelect: false,
-        countChoices: false,
-        deselectEnabled: false,
-        linterContext: linterContextDefault,
-        showSolutions: "none",
-    };
+    const context = useContext(PerseusI18nContext);
+    const {strings} = context;
 
-    static getUserInputFromProps(
-        props: Props,
-        unshuffle: boolean = true,
-    ): PerseusRadioUserInput {
-        // Return checked inputs in the form {choicesSelected: [bool]}. (Dear
-        // future timeline implementers: this used to be {value: i} before
-        // multiple select was added)
-        if (props.choiceStates) {
-            const choiceStates = props.choiceStates;
-            const choicesSelected = choiceStates.map(() => false);
+    // Store the focus function in a ref
+    const focusFunction = useRef<FocusFunction | null>(null);
 
-            for (let i = 0; i < choicesSelected.length; i++) {
-                const index = unshuffle ? props.choices[i].originalIndex : i;
-
-                choicesSelected[index] = choiceStates[i].selected;
+    // Implement imperative focus method that will be exposed via ref
+    React.useImperativeHandle(ref, () => ({
+        focus: (choiceIndex?: number | null) => {
+            if (focusFunction.current) {
+                return focusFunction.current(choiceIndex);
             }
+            return false;
+        },
+    }));
 
-            return {
-                choicesSelected,
-            };
-            // Support legacy choiceState implementation
-        }
-        /* c8 ignore if - props.values is deprecated */
-        const {values} = props;
-        if (values) {
-            const choicesSelected = [...values];
-            const valuesLength = values.length;
-
-            for (let i = 0; i < valuesLength; i++) {
-                const index = unshuffle ? props.choices[i].originalIndex : i;
-                choicesSelected[index] = values[i];
-            }
-            return {
-                choicesSelected,
-            };
-        }
-        // Nothing checked
-        return {
-            choicesSelected: props.choices.map(() => false),
-        };
-    }
-
-    componentDidUpdate(prevProps: Props) {
-        if (
-            this.props.showSolutions === "selected" &&
-            prevProps.showSolutions !== "selected"
-        ) {
-            this.showRationalesForCurrentlySelectedChoices(this.props);
-        }
-    }
-
-    _renderRenderer: (content?: string) => React.ReactElement = (
-        content = "",
-    ) => {
+    // The renderer function for content rendering
+    // TODO THIRD: This could probably be a util function.
+    const renderRenderer = (content = ""): React.ReactElement => {
         let nextPassageRefId = 1;
         const widgets: Record<string, any> = {};
 
@@ -164,72 +130,39 @@ class Radio extends React.Component<Props> implements Widget {
             },
         );
 
-        // alwaysUpdate={true} so that passage-refs findWidgets
-        // get called when the outer passage updates the renderer
-        // TODO(aria): This is really hacky
-        // We pass in a key here so that we avoid a semi-spurious
-        // react warning when the ChoiceNoneAbove renders a
-        // different renderer in the same place. Note this destroys
-        // state, but since all we're doing is outputting
-        // "None of the above", that is okay.
-        // TODO(mdr): Widgets inside this Renderer are not discoverable through
-        //     the parent Renderer's `findWidgets` function.
         return (
             <Renderer
                 key="choiceContentRenderer"
                 content={modContent}
                 widgets={widgets}
-                findExternalWidgets={this.props.findWidgets}
+                findExternalWidgets={findWidgets}
                 alwaysUpdate={true}
                 linterContext={{
-                    ...this.props.linterContext,
+                    ...linterContext,
                     // @ts-expect-error - TS2322 - Type '{ blockHighlight: true; contentType: string; highlightLint: boolean; paths: readonly string[]; stack: readonly string[]; }' is not assignable to type 'LinterContextProps'.
                     blockHighlight: true,
                 }}
-                strings={this.context.strings}
+                strings={strings}
             />
         );
     };
 
-    // TODO(LP-10672): I think this might be unused right now. I can't find anywhere
-    // that we pass a value to `.focus()` and it seems to have been used for
-    // adding hints when editing.
-    // See: https://github.com/Khan/perseus/blame/e18582b4b69959270b90e237ef1813899711ddfa/src/widgets/radio.js#L169
-    focus(choiceIndex?: number | null): boolean {
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (this.focusFunction) {
-            return this.focusFunction(choiceIndex);
-        }
+    // Register focus function from BaseRadio
+    const registerFocusFunction = (fun: FocusFunction): void => {
+        focusFunction.current = fun;
+    };
 
-        return false;
-    }
-
-    // lets BaseRadio register a focus callback so widget
-    // can focus an individual choice
-    registerFocusFunction(fun: FocusFunction): void {
-        this.focusFunction = fun;
-    }
-
-    // When `BaseRadio`'s `onChange` handler is called, indicating a change in
-    // our choices' state, we need to call our `onChange` handler in order to
-    // persist those changes in the item's Perseus state.
-    //
-    // So, given the new values for each choice, construct the new
-    // `choiceStates` objects, and pass them to `this.props.onChange`.
-    //
-    // `newValueLists` is an object with two keys: `checked` and `crossedOut`.
-    // Each contains an array of boolean values, specifying the new checked and
-    // crossed-out value of each choice.
-    //
-    // NOTE(mdr): This method expects to be auto-bound. If this component is
-    //     converted to an ES6 class, take care to auto-bind this method!
-    updateChoices: (
+    /* Update the choice states for the widget upon user interaction.
+    This function is called by the BaseRadio component when the user selects
+    or deselects a choice.
+    */
+    const updateChoices = (
         newValueLists: Readonly<{
             checked: ReadonlyArray<boolean>;
             crossedOut: ReadonlyArray<boolean>;
         }>,
-    ) => void = (newValueLists) => {
-        const {choiceStates, choices} = this.props;
+    ) => {
+        const {choiceStates} = props;
 
         // Construct the baseline `choiceStates` objects. If this is the user's
         // first interaction with the widget, we'll need to initialize them to
@@ -255,222 +188,129 @@ class Radio extends React.Component<Props> implements Widget {
             choiceState.crossedOut = newValueLists.crossedOut[i];
         });
 
-        this.props.onChange({choiceStates: newChoiceStates});
-        this.props.trackInteraction();
+        // Call the onChange function to pass the new choice states to the renderer.
+        onChange({choiceStates: newChoiceStates});
+
+        // Track the interaction.
+        trackInteraction();
     };
 
-    getUserInput(): PerseusRadioUserInput {
-        return Radio.getUserInputFromProps(this.props);
-    }
+    const getChoiceStates = (): ReadonlyArray<ChoiceState> => {
+        // The default state for a choice state object.
+        const defaultState: ChoiceState = {
+            selected: false,
+            crossedOut: false,
+            readOnly: false,
+            highlighted: false,
+            rationaleShown: false,
+            correctnessShown: false,
+            previouslyAnswered: false,
+        };
 
-    getPromptJSON(): RadioPromptJSON {
-        const userInput = Radio.getUserInputFromProps(this.props, false);
-        return _getPromptJSON(this.props, userInput);
-    }
-
-    /**
-     * Turn on rationale display for the currently selected choices. Note that
-     * this leaves rationales on for choices that are already showing
-     * rationales.
-     * @deprecated Internal only. Use `showSolutions` prop instead.
-     */
-    showRationalesForCurrentlySelectedChoices: (
-        arg1: RecursiveReadonly<PerseusRadioRubric>,
-    ) => void = (rubric) => {
-        const {choiceStates} = this.props;
-        if (choiceStates) {
-            const score = scoreRadio(this.getUserInput(), rubric);
-            const widgetCorrect =
-                score.type === "points" && score.total === score.earned;
-
-            const newStates: ReadonlyArray<ChoiceState> = choiceStates.map(
-                (state: ChoiceState): ChoiceState => ({
-                    ...state,
-                    highlighted: state.selected,
-                    // If the choice is selected, show the rationale now
-                    rationaleShown:
-                        state.selected ||
-                        // If the choice already had a rationale, keep it shown
-                        state.rationaleShown ||
-                        // If the widget is correctly answered, show the rationale
-                        // for all the choices
-                        widgetCorrect,
-                    // We use the same behavior for the readOnly flag as for
-                    // rationaleShown, but we keep it separate in case other
-                    // behaviors want to disable choices without showing rationales.
-                    readOnly:
-                        state.selected ||
-                        state.readOnly ||
-                        widgetCorrect ||
-                        this.props.showSolutions !== "none",
-                    correctnessShown: state.selected || state.correctnessShown,
-                    previouslyAnswered:
-                        state.previouslyAnswered || state.selected,
-                }),
-            );
-
-            this.props.onChange(
-                {
-                    choiceStates: newStates,
-                },
-                // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
-                null, // cb
-                true, // silent
-            );
-        }
-    };
-
-    /**
-     * Deselects any currently-selected choices that are not correct choices.
-     */
-    deselectIncorrectSelectedChoices: () => void = () => {
-        if (this.props.choiceStates) {
-            const newStates: ReadonlyArray<ChoiceState> =
-                this.props.choiceStates.map(
-                    (state: ChoiceState, i): ChoiceState => ({
-                        ...state,
-                        selected:
-                            state.selected && !!this.props.choices[i].correct,
-                        highlighted: false,
-                    }),
-                );
-
-            this.props.onChange(
-                {
-                    choiceStates: newStates,
-                },
-                // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
-                null, // cb
-                false, // silent
-            );
-        }
-    };
-
-    render(): React.ReactNode {
-        const {choices} = this.props;
-        const {strings} = this.context;
-        let choiceStates: ReadonlyArray<ChoiceState>;
-        if (this.props.static) {
-            choiceStates = choices.map((choice) => ({
+        // Case 1: The widget is in either static or showSolutions mode.
+        // Both cases show the correct answers and prevent user interaction.
+        if (isStatic || showSolutions === "all") {
+            return choices.map((choice) => ({
+                ...defaultState,
                 selected: !!choice.correct,
-                crossedOut: false,
                 readOnly: true,
-                highlighted: false,
                 rationaleShown: true,
                 correctnessShown: true,
-                previouslyAnswered: false,
-            }));
-        } else if (this.props.showSolutions === "all") {
-            choiceStates = choices.map(({correct}) => ({
-                selected: !!correct, // to draw the eye to the correct answer
-                crossedOut: false,
-                readOnly: true,
-                highlighted: false, // has no effect in this mode
-                rationaleShown: true,
-                correctnessShown: true,
-                previouslyAnswered: false,
-            }));
-        } else if (this.props.choiceStates) {
-            choiceStates = this.props.choiceStates;
-        } else if (this.props.values) {
-            // Support legacy choiceStates implementation
-            /* c8 ignore next - props.values is deprecated */
-            choiceStates = this.props.values.map((val) => ({
-                selected: val,
-                crossedOut: false,
-                readOnly: false,
-                highlighted: false,
-                rationaleShown: false,
-                correctnessShown: false,
-                previouslyAnswered: false,
-            }));
-        } else {
-            choiceStates = choices.map(() => ({
-                selected: false,
-                crossedOut: false,
-                readOnly: false,
-                highlighted: false,
-                rationaleShown: false,
-                correctnessShown: false,
-                previouslyAnswered: false,
             }));
         }
 
-        const choicesProp: ReadonlyArray<ChoiceType> = choices.map(
-            (choice, i) => {
-                const content =
-                    choice.isNoneOfTheAbove && !choice.content
-                        ? strings.noneOfTheAbove
-                        : choice.content;
+        // Case 2: The widget has been interacted with, but the user hasn't submitted their answer yet
+        // — so we're showing the user's current choice states.
+        if (props.choiceStates) {
+            return props.choiceStates;
+        }
 
-                const {
-                    selected,
-                    crossedOut,
-                    rationaleShown,
-                    correctnessShown,
-                    readOnly,
-                    highlighted,
-                    previouslyAnswered,
-                } = choiceStates[i];
+        // Case 3: The widget uses the legacy values property, and the user has interacted with the widget
+        // but hasn't submitted their answer yet — so we're showing the user's current choice states.
+        if (props.values) {
+            /* c8 ignore next - props.values is deprecated */
+            return props.values.map((val) => ({
+                ...defaultState,
+                selected: val,
+            }));
+        }
 
-                const reviewChoice = this.props.reviewModeRubric?.choices[i];
+        // Case 4: The widget hasn't been interacted with yet, so we're showing
+        // the default choice states.
+        return choices.map(() => ({...defaultState}));
+    };
 
-                return {
-                    content: this._renderRenderer(content),
-                    checked: selected,
-                    // Current versions of the radio widget always pass in the
-                    // "correct" value through the choices. Old serialized state
-                    // for radio widgets doesn't have this though, so we have to
-                    // pull the correctness out of the review mode scoring data. This
-                    // only works because all of the places we use
-                    // `restoreSerializedState()` also turn on reviewMode, but is
-                    // fine for now.
-                    // TODO(emily): Come up with a more comprehensive way to solve
-                    // this sort of "serialized state breaks when internal
-                    // structure changes" problem.
-                    correct:
-                        choice.correct === undefined
-                            ? !!reviewChoice && !!reviewChoice.correct
-                            : choice.correct,
-                    disabled: readOnly,
-                    hasRationale: !!choice.clue,
-                    rationale: this._renderRenderer(choice.clue),
-                    showRationale: rationaleShown,
-                    showCorrectness: correctnessShown,
-                    isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
-                    revealNoneOfTheAbove: !!(
-                        this.props.questionCompleted && selected
-                    ),
-                    crossedOut,
-                    highlighted,
-                    previouslyAnswered: previouslyAnswered,
-                };
-            },
-        );
+    const buildChoiceProps = (
+        choices: readonly RadioChoiceWithMetadata[],
+        choiceStates: ReadonlyArray<ChoiceState>,
+    ): ReadonlyArray<ChoiceType> => {
+        // Map over the choices and build the choice props.
+        return choices.map((choice, i) => {
+            // Get the content for the choice, which is either the content of the choice
+            // or the string "None of the above" if the choice is none of the above.
+            const content =
+                choice.isNoneOfTheAbove && !choice.content
+                    ? strings.noneOfTheAbove
+                    : choice.content;
 
-        // This is a temporary console log to ensure that the new radio component
-        // is being rendered. It will be removed after the feature flag is no longer needed.
-        // TODO(LEMS-2994): Remove this console log.
-        // eslint-disable-next-line no-console
-        console.log("This is the new radio component.");
+            // Extract the choice state for the choice.
+            const {
+                selected,
+                crossedOut,
+                rationaleShown,
+                correctnessShown,
+                readOnly,
+                highlighted,
+                previouslyAnswered,
+            } = choiceStates[i];
 
-        return (
-            <BaseRadio
-                labelWrap={true}
-                multipleSelect={this.props.multipleSelect}
-                countChoices={this.props.countChoices}
-                numCorrect={this.props.numCorrect}
-                choices={choicesProp}
-                onChange={this.updateChoices}
-                reviewModeRubric={this.props.reviewModeRubric}
-                reviewMode={this.props.reviewMode}
-                deselectEnabled={this.props.deselectEnabled}
-                apiOptions={this.props.apiOptions}
-                isLastUsedWidget={this.props.isLastUsedWidget}
-                registerFocusFunction={(i) => this.registerFocusFunction(i)}
-            />
-        );
-    }
-}
+            // Get the reviewChoice from the rubric, if it exists.
+            const reviewChoice = reviewModeRubric?.choices[i];
 
-export default Radio;
+            return {
+                // Render the content of the choice, as it may contain subwidgets such as
+                // {{passage-ref}}s.
+                content: renderRenderer(content),
+                checked: selected,
+                // If the choice is correct, check if the reviewChoice is correct.
+                correct:
+                    choice.correct === undefined
+                        ? !!reviewChoice && !!reviewChoice.correct
+                        : choice.correct,
+                disabled: readOnly,
+                hasRationale: !!choice.clue,
+                // Render the rationale for the choice, as it may contain subwidgets as well.
+                rationale: renderRenderer(choice.clue),
+                showRationale: rationaleShown,
+                showCorrectness: correctnessShown,
+                isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
+                revealNoneOfTheAbove: !!(questionCompleted && selected),
+                crossedOut,
+                highlighted,
+                previouslyAnswered: previouslyAnswered,
+            };
+        });
+    };
+
+    const choiceStates: ReadonlyArray<ChoiceState> = getChoiceStates();
+    const choicesProp = buildChoiceProps(choices, choiceStates);
+
+    return (
+        <BaseRadio
+            labelWrap={true}
+            multipleSelect={multipleSelect}
+            countChoices={countChoices}
+            numCorrect={numCorrect}
+            choices={choicesProp}
+            onChange={updateChoices}
+            reviewModeRubric={reviewModeRubric}
+            reviewMode={reviewMode}
+            deselectEnabled={deselectEnabled}
+            apiOptions={apiOptions}
+            isLastUsedWidget={isLastUsedWidget}
+            registerFocusFunction={(i) => registerFocusFunction(i)}
+        />
+    );
+});
+
+export default RadioComponent;
