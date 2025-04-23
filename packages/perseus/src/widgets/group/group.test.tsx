@@ -632,7 +632,8 @@ describe("group widget", () => {
 
             const userInput = renderer.getUserInputMap();
             const score = scorePerseusItem(
-                renderItem.question,
+                // need the full data for scoring
+                getFullGroupTestItem().question,
                 userInput,
                 "en",
             );
@@ -654,7 +655,8 @@ describe("group widget", () => {
 
             const userInput = renderer.getUserInputMap();
             const score = scorePerseusItem(
-                renderItem.question,
+                // need the full data for scoring
+                getFullGroupTestItem().question,
                 userInput,
                 "en",
             );
@@ -669,7 +671,8 @@ describe("group widget", () => {
 
             const userInput = renderer.getUserInputMap();
             const score = scorePerseusItem(
-                renderItem.question,
+                // need the full data for scoring
+                getFullGroupTestItem().question,
                 userInput,
                 "en",
             );
