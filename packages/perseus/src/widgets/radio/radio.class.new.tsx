@@ -61,8 +61,6 @@ export type RadioChoiceWithMetadata = PerseusRadioChoice & {
  * TODO(LEMS-2994): Clean up this file.
  */
 class Radio extends React.Component<Props> implements Widget {
-    radioComponentRef = React.createRef<typeof RadioComponent>();
-
     static defaultProps: DefaultProps = {
         choices: [],
         multipleSelect: false,
@@ -202,7 +200,7 @@ class Radio extends React.Component<Props> implements Widget {
     };
 
     render(): React.ReactNode {
-        return <RadioComponent {...this.props} ref={this.radioComponentRef} />;
+        return <RadioComponent {...this.props} />;
     }
 }
 
