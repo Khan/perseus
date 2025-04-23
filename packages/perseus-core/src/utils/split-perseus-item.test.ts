@@ -175,6 +175,7 @@ describe("splitPerseusItem", () => {
                             },
                         ],
                         buttonSets: ["basic"],
+                        extraKeys: ["PI"],
                         functions: [],
                         times: true,
                     },

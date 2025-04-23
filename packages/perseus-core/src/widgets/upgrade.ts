@@ -8,7 +8,6 @@ import {
     getCurrentVersion,
     getDefaultWidgetOptions,
     getSupportedAlignments,
-    getWidgetOptionsUpgrades,
     isWidgetRegistered,
 } from "./core-widget-registry";
 
@@ -53,45 +52,6 @@ export const upgradeWidgetInfoToLatestVersion = (
     }
 
     let newEditorOptions = _.clone(oldWidgetInfo.options) ?? {};
-
-    const upgradePropsMap = getWidgetOptionsUpgrades(type);
-
-    // Empty props usually mean a newly created widget by the editor,
-    // and are always considerered up-to-date.
-    // Mostly, we'd rather not run upgrade functions on props that are
-    // not complete.
-    if (_.keys(newEditorOptions).length !== 0) {
-        // We loop through all the versions after the current version of
-        // the loaded widget, up to and including the latest version of the
-        // loaded widget, and run the upgrade function to bring our loaded
-        // widget's props up to that version.
-        // There is a little subtlety here in that we call
-        // upgradePropsMap[1] to upgrade *to* version 1,
-        // (not from version 1).
-        for (
-            let nextVersion = initialVersion.major + 1;
-            nextVersion <= latestVersion.major;
-            nextVersion++
-        ) {
-            if (upgradePropsMap[String(nextVersion)]) {
-                newEditorOptions =
-                    upgradePropsMap[String(nextVersion)](newEditorOptions);
-            } else {
-                throw new PerseusError(
-                    "No upgrade found for widget. Cannot render.",
-                    Errors.Internal,
-                    {
-                        metadata: {
-                            type,
-                            fromMajorVersion: nextVersion - 1,
-                            toMajorVersion: nextVersion,
-                            oldWidgetInfo: JSON.stringify(oldWidgetInfo),
-                        },
-                    },
-                );
-            }
-        }
-    }
 
     // Minor version upgrades (eg. new optional props) don't have
     // transform functions. Instead, we fill in the new props with their

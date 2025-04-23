@@ -37,14 +37,14 @@ import type {
 } from "./logic-export.types";
 import type {Alignment} from "../types";
 
-const widgets = {};
+const widgets: Record<string, WidgetLogic> = {};
 
 function registerWidget(type: string, logic: WidgetLogic) {
     widgets[type] = logic;
 }
 
-export function isWidgetRegistered(type: string) {
-    const widgetLogic = widgets[type];
+export function isWidgetRegistered(type: string): boolean {
+    const widgetLogic: any = widgets[type];
     return !!widgetLogic;
 }
 
@@ -60,11 +60,6 @@ export const getPublicWidgetOptionsFunction = (
 ): PublicWidgetOptionsFunction => {
     return widgets[name]?.getPublicWidgetOptions ?? ((i: any) => i);
 };
-
-export function getWidgetOptionsUpgrades(type: string) {
-    const widgetLogic = widgets[type];
-    return widgetLogic?.widgetOptionsUpgrades || {};
-}
 
 export function getDefaultWidgetOptions(type: string) {
     const widgetLogic = widgets[type];
