@@ -86,7 +86,7 @@ const RadioComponent = (props: Props) => {
     const {strings} = context;
 
     // The renderer function for content rendering
-    // TODO THIRD: This could probably be a util function.
+    // TODO THIRD: This should probably be a util function
     const renderRenderer = (content = ""): React.ReactElement => {
         let nextPassageRefId = 1;
         const widgets: Record<string, any> = {};
@@ -177,6 +177,7 @@ const RadioComponent = (props: Props) => {
         trackInteraction();
     };
 
+    // TODO THIRD: This should probably be a util function
     const getChoiceStates = (): ReadonlyArray<ChoiceState> => {
         // The default state for a choice state object.
         const defaultState: ChoiceState = {
@@ -222,6 +223,7 @@ const RadioComponent = (props: Props) => {
         return choices.map(() => ({...defaultState}));
     };
 
+    // TODO THIRD: This should probably be a util function
     const buildChoiceProps = (
         choices: readonly RadioChoiceWithMetadata[],
         choiceStates: ReadonlyArray<ChoiceState>,
