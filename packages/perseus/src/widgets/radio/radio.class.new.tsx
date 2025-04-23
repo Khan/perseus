@@ -52,11 +52,10 @@ export type RadioChoiceWithMetadata = PerseusRadioChoice & {
 };
 
 /**
- * This component is a duplicate of the Radio component in radio.tsx
- * for the Radio Revitalization Project. (LEMS-2933)
- * This component will be split up to move the rendering logic to a new functional component.
- * This file will be renamed to radio.class.tsx and will supercede radio-component.tsx when
- * the feature flag is no longer needed.
+ * This component is holds the class methods for the radio widget, that were split
+ * out of radio-component.new.tsx for the Radio Revitalization Project. (LEMS-2933)
+ * This component will be the main entry point for the radio widget when the feature
+ * flag is no longer needed.
  *
  * TODO(LEMS-2994): Clean up this file.
  */
