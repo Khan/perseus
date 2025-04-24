@@ -1,11 +1,10 @@
 import {scorePerseusItem} from "@khanacademy/perseus-score";
-import {render, screen, waitFor} from "@testing-library/react";
+import {act, render, screen, waitFor} from "@testing-library/react";
 import React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
-import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -66,42 +65,38 @@ describe("plotter widget", () => {
         });
     });
 
-    describe("consistent experience with full vs answerless", () => {
-        beforeAll(() => {
-            registerAllWidgetsForTesting();
-        });
+    const plotterOptions: PerseusPlotterWidgetOptions = {
+        categories: ["$1^{\\text{st}} \\text{}$"],
+        picBoxHeight: 300,
+        picSize: 300,
+        picUrl: "",
+        plotDimensions: [380, 300],
+        correct: [15],
+        labelInterval: 1,
+        labels: ["School grade", "Number of absent students"],
+        maxY: 30,
+        scaleY: 5,
+        snapsPerLine: 1,
+        starting: [0],
+        type: "bar",
+    };
 
-        const plotterOptions: PerseusPlotterWidgetOptions = {
-            categories: ["$1^{\\text{st}} \\text{}$"],
-            picBoxHeight: 300,
-            picSize: 300,
-            picUrl: "",
-            plotDimensions: [380, 300],
-            correct: [15],
-            labelInterval: 1,
-            labels: ["School grade", "Number of absent students"],
-            maxY: 30,
-            scaleY: 5,
-            snapsPerLine: 1,
-            starting: [0],
-            type: "bar",
-        };
+    test("the answerless test data doesn't contain answers", () => {
+        // Arrange / Act / Assert
+        expect(
+            getAnswerlessItem("plotter", plotterOptions).question.widgets[
+                "plotter 1"
+            ].options.correct,
+        ).toBeUndefined();
+    });
 
-        test("the answerless test data doesn't contain answers", () => {
-            // Arrange / Act / Assert
-            expect(
-                getAnswerlessItem("plotter", plotterOptions).question.widgets[
-                    "plotter 1"
-                ].options.correct,
-            ).toBeUndefined();
-        });
-
-        test.each([
-            ["answerless", getAnswerlessItem("plotter", plotterOptions)],
-            ["answerful", getAnswerfulItem("plotter", plotterOptions)],
-        ])("renders correctly with widget options: %p", async (_, item) => {
+    describe.each([
+        ["answerless", getAnswerlessItem("plotter", plotterOptions)],
+        ["answerful", getAnswerfulItem("plotter", plotterOptions)],
+    ])("given %s options", (_, {question}) => {
+        it("renders correctly", async () => {
             // Arrange / Act
-            renderQuestion(item.question);
+            renderQuestion(question);
 
             // Assert
             expect(await screen.findByText("School grade")).toBeInTheDocument();
@@ -110,69 +105,33 @@ describe("plotter widget", () => {
             ).toBeInTheDocument();
         });
 
-        test.each([
-            ["answerless", getAnswerlessItem("plotter", plotterOptions)],
-            ["answerful", getAnswerfulItem("plotter", plotterOptions)],
-        ])(
-            "no interaction results in invalid score for widget option: %p",
-            async (_, item) => {
+        it("can given an invalid score", () => {
+            // Arrange
+            const {renderer} = renderQuestion(question);
+
+            // Act
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItem(
+                getAnswerfulItem("plotter", plotterOptions).question,
+                userInput,
+                "en",
+            );
+
+            // Assert
+            expect(userInput).toEqual({"plotter 1": [0]});
+            expect(score).toHaveInvalidInput();
+        });
+
+        it("can be answered correctly", () => {
                 // Arrange
-                const {renderer} = renderQuestion(item.question);
+                const {renderer} = renderQuestion(question);
 
                 // Act
+                const [plotter] = renderer.findWidgets("plotter 1");
+
+                act(() => plotter.setState({values: [15]}));
                 const userInput = renderer.getUserInputMap();
-                const score = scorePerseusItem(
-                    getAnswerfulItem("plotter", plotterOptions).question,
-                    userInput,
-                    "en",
-                );
 
-                // Assert
-                expect(userInput).toEqual({"plotter 1": [0]});
-                expect(score).toHaveInvalidInput();
-            },
-        );
-
-        const plotterOptionsCorrectSameAsStarting: PerseusPlotterWidgetOptions =
-            {
-                categories: ["$1^{\\text{st}} \\text{}$"],
-                picBoxHeight: 300,
-                picSize: 300,
-                picUrl: "",
-                plotDimensions: [380, 300],
-                correct: [15],
-                labelInterval: 1,
-                labels: ["School grade", "Number of absent students"],
-                maxY: 30,
-                scaleY: 5,
-                snapsPerLine: 1,
-                starting: [15],
-                type: "bar",
-            };
-
-        test.each([
-            [
-                "answerless",
-                getAnswerlessItem(
-                    "plotter",
-                    plotterOptionsCorrectSameAsStarting,
-                ),
-            ],
-            [
-                "answerful",
-                getAnswerfulItem(
-                    "plotter",
-                    plotterOptionsCorrectSameAsStarting,
-                ),
-            ],
-        ])(
-            "mocked correct user input results in correct score: %p",
-            async (_, item) => {
-                // Arrange
-                const {renderer} = renderQuestion(item.question);
-
-                // Act
-                const userInput = renderer.getUserInputMap();
                 const score = scorePerseusItem(
                     getAnswerfulItem("plotter", plotterOptions).question,
                     userInput,
@@ -184,5 +143,26 @@ describe("plotter widget", () => {
                 expect(score).toHaveBeenAnsweredCorrectly();
             },
         );
+
+        it("can be scored incorrectly", () => {
+            // Arrange
+            const {renderer} = renderQuestion(question);
+
+            // Act
+            const [plotter] = renderer.findWidgets("plotter 1");
+
+            act(() => plotter.setState({values: [7]})); // mock user entering a value
+            const userInput = renderer.getUserInputMap();
+
+            const score = scorePerseusItem(
+                getAnswerfulItem("plotter", plotterOptions).question,
+                userInput,
+                "en",
+            );
+
+            // Assert
+            expect(userInput).toEqual({"plotter 1": [7]});
+            expect(score).toHaveBeenAnsweredIncorrectly();
+        });
     });
 });
