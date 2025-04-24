@@ -96,18 +96,19 @@ describe("Perseus API", function () {
             expect(score).toHaveInvalidInput();
         });
 
-        it("should be able to accept a callback", function (done) {
+        it("should be able to accept a callback", () =>
+            new Promise(function (resolve) {
             const {renderer} = renderQuestion(mockWidget1Item.question);
             act(() =>
                 renderer.setInputValue(["mock-widget 1"], "3", function () {
                     const guess =
                         renderer.getUserInput()[0] as PerseusMockWidgetUserInput;
-                    expect(guess?.currentValue).toBe("3");
-                    done();
+                        expect(guess?.currentValue).toBe("3");
+                        resolve(null);
                 }),
             );
             jest.runAllTimers();
-        });
+            }));
     });
 
     describe("getInputPaths", function () {

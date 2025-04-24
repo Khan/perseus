@@ -37,7 +37,7 @@ describe("PhET Simulation AI utils", () => {
         global.URL.canParse = jest.fn(() => true) as jest.Mock;
     });
 
-    it("it returns JSON with the expected format and fields", () => {
+    it("returns JSON with the expected format and fields", () => {
         const resultJSON = getPromptJSON();
 
         expect(resultJSON).toEqual({

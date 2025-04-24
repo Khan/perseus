@@ -3,7 +3,7 @@ import {getPromptJSON} from "./sorter-ai-utils";
 import type {PerseusSorterUserInput} from "@khanacademy/perseus-core";
 
 describe("Sorter AI utils", () => {
-    it("it returns JSON with the expected format and fields", () => {
+    it("returns JSON with the expected format and fields", () => {
         const userInput: PerseusSorterUserInput = {
             options: ["Pickles", "Tomato", "Onion", "Lettuce"],
             changed: true,
