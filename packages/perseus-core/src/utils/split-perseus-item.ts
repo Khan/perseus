@@ -5,6 +5,11 @@ import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
 import type {PerseusItem, PerseusRenderer} from "../data-schema";
 
+/**
+ * Return a copy of a PerseusRenderer with rubric data removed (ie answers)
+ *
+ * @param original - the original, full PerseusRenderer (which includes the rubric - aka answer data)
+ */
 export function splitPerseusRenderer(
     original: PerseusRenderer,
 ): PerseusRenderer {
@@ -31,14 +36,12 @@ export function splitPerseusRenderer(
 }
 
 /**
- * Return a copy of a Perseus item with rubric data removed (ie answers)
+ * Return a copy of a PerseusItem with rubric data removed (ie answers)
  *
- * @param originalItem - the original, full Perseus item (which includes the rubric - aka answer data)
+ * @param original - the original, full PerseusItem (which includes the rubric - aka answer data)
  */
-export default function splitPerseusItem(
-    originalItem: PerseusItem,
-): PerseusItem {
-    const item = _.clone(originalItem);
+export default function splitPerseusItem(original: PerseusItem): PerseusItem {
+    const item = _.clone(original);
 
     return {
         ...item,
