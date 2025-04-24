@@ -3,15 +3,18 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Mafs, Polygon} from "mafs";
 import React from "react";
 
-import {Dependencies} from "@khanacademy/perseus";
-
 import {testDependencies} from "../../../../../../testing/test-dependencies";
+import * as Dependencies from "../../../dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import {hasFocusVisible} from "./polygon";
+import {
+    getAngleSnapConstraint,
+    getSideSnapConstraint,
+    hasFocusVisible,
+} from "./polygon";
 
-import type {InteractiveGraphState} from "../types";
+import type {InteractiveGraphState, PolygonGraphState} from "../types";
 import type {UserEvent} from "@testing-library/user-event";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
@@ -556,4 +559,102 @@ describe("Unlimited Polygon (open) screen reader", () => {
             expect(point3).toHaveAttribute("aria-live", expectedAriaLive[2]);
         },
     );
+});
+
+describe("getSideSnapConstraint", () => {
+    it("should find the next available coordinate to maintain a whole length sides", () => {
+        const range: PolygonGraphState["range"] = [
+            [-10, 10],
+            [-10, 10],
+        ];
+        const points: PolygonGraphState["coords"] = [
+            [0, 0],
+            [0, 2],
+            [2, 2],
+            [2, 0],
+        ];
+
+        // We're moving the third point in the top right corner of the polygon (square).
+        const constraint = getSideSnapConstraint(points, 2, range);
+
+        expect(constraint).toEqual({
+            up: [1.7385890143294638, 2.9885890143294653],
+            down: [1.7057189138830724, 0.9557189138830715],
+            left: [0.9557189138830734, 1.7057189138830726],
+            right: [2.9885890143294644, 1.7385890143294631],
+        });
+    });
+
+    it("should restrict the available points by the bounds of the graph", () => {
+        const range: PolygonGraphState["range"] = [
+            [0, 2],
+            [0, 2],
+        ];
+        const points: PolygonGraphState["coords"] = [
+            [0, 0],
+            [0, 2],
+            [2, 2],
+            [2, 0],
+        ];
+
+        // We're moving the third point in the top right corner of the polygon (square).
+        const constraint = getSideSnapConstraint(points, 2, range);
+
+        expect(constraint).toEqual({
+            up: [2, 2], // direction restricted due to going off the graph
+            down: [1.7057189138830724, 0.9557189138830715],
+            left: [0.9557189138830734, 1.7057189138830726],
+            right: [2, 2], // direction restricted due to going off the graph
+        });
+    });
+});
+
+describe("getAngleSnapConstraint", () => {
+    it("should find the next available coordinate to maintain a whole length sides", () => {
+        const range: PolygonGraphState["range"] = [
+            [-10, 10],
+            [-10, 10],
+        ];
+        const points: PolygonGraphState["coords"] = [
+            [0, 0],
+            [0, 2],
+            [2, 2],
+            [2, 0],
+        ];
+
+        // We're moving the third point in the top right corner of the polygon (square).
+        const constraint = getAngleSnapConstraint(points, 2, range);
+
+        // The points below represent available angles around the 90 degrees
+        // angle of the initial top right square (89, 91, etc).
+        expect(constraint).toEqual({
+            up: [1.9999999999999998, 2.1048155585660826],
+            down: [1.9999999999999998, 1.8951844414339165],
+            left: [1.8951844414339178, 1.9999999999999996],
+            right: [2.1048155585660826, 1.9999999999999996],
+        });
+    });
+
+    it("should restrict the available points by the bounds of the graph", () => {
+        const range: PolygonGraphState["range"] = [
+            [0, 2.01],
+            [0, 2.01],
+        ];
+        const points: PolygonGraphState["coords"] = [
+            [0, 0],
+            [0, 2],
+            [2, 2],
+            [2, 0],
+        ];
+
+        // We're moving the third point in the top right corner of the polygon (square).
+        const constraint = getAngleSnapConstraint(points, 2, range);
+
+        expect(constraint).toEqual({
+            up: [2, 1.9999999999999996], // direction restricted due to going off the graph
+            down: [1.9999999999999998, 1.8951844414339165],
+            left: [1.8951844414339178, 1.9999999999999996],
+            right: [2, 1.9999999999999996], // direction restricted due to going off the graph
+        });
+    });
 });

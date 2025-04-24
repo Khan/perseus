@@ -4,13 +4,19 @@ import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {scorePerseusItemTesting} from "../../util/test-utils";
+import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+import {
+    getAnswerfulItem,
+    getAnswerlessItem,
+    scorePerseusItemTesting,
+} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {Categorizer} from "./categorizer";
 import {question1} from "./categorizer.testdata";
 
 import type {APIOptions} from "../../types";
+import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("categorizer widget", () => {
@@ -144,5 +150,68 @@ describe("categorizer widget", () => {
 
         // Assert
         expect(userInput).toEqual({values: [1, 0, 0, 0, 1, 1]});
+    });
+
+    describe("interactive: full vs answerless", () => {
+        beforeAll(() => {
+            registerAllWidgetsForTesting();
+        });
+
+        let userEvent: UserEvent;
+        beforeEach(() => {
+            userEvent = userEventLib.setup({
+                advanceTimers: jest.advanceTimersByTime,
+            });
+
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+                testDependencies,
+            );
+        });
+
+        const options: PerseusCategorizerWidgetOptions = {
+            static: false,
+            items: ["Circle", "Purple", "Square"],
+            categories: ["Shape", "Color"],
+            randomizeItems: false,
+            values: [0, 1, 0],
+        };
+
+        test("the answerless test data doesn't contain answers", () => {
+            expect(
+                getAnswerlessItem("categorizer", options).question.widgets[
+                    "categorizer 1"
+                ].options.values,
+            ).toBeUndefined();
+        });
+
+        test.each([
+            ["answerless", getAnswerlessItem("categorizer", options)],
+            ["answerful", getAnswerfulItem("categorizer", options)],
+        ])("is interactive with widget options: %p", async (_, item) => {
+            // Arrange / Act
+            const {renderer} = renderQuestion(item.question);
+
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "Shape"})[0],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "Shape"})[2],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {
+                    name: "Color",
+                })[1],
+            );
+
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItem(
+                getAnswerfulItem("categorizer", options).question,
+                userInput,
+                "en",
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        });
     });
 });

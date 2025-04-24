@@ -26,9 +26,10 @@ import {debounce} from "../util/debounce";
 
 import {PerseusI18nContext} from "./i18n-context";
 
-import type {Keys, MathFieldInterface} from "@khanacademy/math-input";
+import type {MathFieldInterface} from "@khanacademy/math-input";
 import type {
     AnalyticsEventHandlerFn,
+    KeypadKey,
     LegacyButtonSets,
 } from "@khanacademy/perseus-core";
 
@@ -62,7 +63,7 @@ type Props = {
     onFocus?: () => void;
     onBlur?: () => void;
     hasError?: boolean;
-    extraKeys?: ReadonlyArray<Keys>;
+    extraKeys?: ReadonlyArray<KeypadKey>;
     /**
      * Whether to show the keypad buttons.
      * The strings now misleading, but we keep them for backwards compatibility.
@@ -262,12 +263,13 @@ class InnerMathInput extends React.Component<InnerProps, State> {
     // input is still focused
     blur: () => void = () => this.setState({focused: false});
 
-    handleKeypadPress: (key: Keys, e: any) => void = (key, e) => {
+    handleKeypadPress: (key: KeypadKey, e: any) => void = (key, e) => {
         const {locale} = this.context;
         const translator = getKeyTranslator(locale, this.context.strings)[key];
         const mathField = this.mathField();
 
         if (mathField) {
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (translator) {
                 translator(mathField, key);
             }
@@ -281,8 +283,12 @@ class InnerMathInput extends React.Component<InnerProps, State> {
         //   a keyboard event is "keydown" type.
         //   In react without WonderBlocks, "enter" or "space" keydown events
         //   are also "click" events, differentiated by "detail".
-        if (e.type === "click") {
+        if (e?.type === "click") {
             this.focus();
+        }
+
+        if (key === "DISMISS") {
+            this.closeKeypad();
         }
     };
 
@@ -339,10 +345,9 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                         onBlur={() => this.blur()}
                     />
                     <Popover
-                        rootBoundary="document"
                         opened={this.state.keypadOpen}
-                        onClose={() => this.closeKeypad()}
                         dismissEnabled
+                        rootBoundary="document"
                         aria-label={this.context.strings.mathInputTitle}
                         aria-describedby={`popover-content-${popoverContentUniqueId}`}
                         content={() => (
@@ -354,7 +359,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                     {this.context.strings.mathInputDescription}
                                 </HeadingMedium>
                                 <PopoverContentCore
-                                    closeButtonVisible
                                     style={styles.popoverContent}
                                 >
                                     <DesktopKeypad
@@ -371,6 +375,7 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                                             mapButtonSets(
                                                 this.props?.buttonSets,
                                             ))}
+                                        showDismiss
                                     />
                                 </PopoverContentCore>
                             </>

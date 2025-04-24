@@ -409,7 +409,9 @@ describe("renderer", () => {
             markImagesAsLoaded();
 
             // Assert
-            const imageNodes = screen.queryAllByRole("img");
+            const imageNodes = screen.queryAllByAltText(
+                "This image has dimensions",
+            );
             expect(imageNodes).toHaveLength(1);
 
             // eslint-disable-next-line testing-library/no-node-access
@@ -433,7 +435,9 @@ describe("renderer", () => {
             markImagesAsLoaded();
 
             // Assert
-            const imageNodes = screen.queryAllByRole("img");
+            const imageNodes = screen.queryAllByAltText(
+                "This image doesn't have dimensions",
+            );
             expect(imageNodes).toHaveLength(1);
 
             // image didn't have dimensions provided so it is not rendered as
@@ -462,7 +466,9 @@ describe("renderer", () => {
             markImagesAsLoaded();
 
             // Assert
-            expect(screen.queryAllByRole("img")).toHaveLength(1);
+            expect(
+                screen.queryAllByAltText("This image has dimensions"),
+            ).toHaveLength(1);
 
             const wrapperStyle = getComputedStyle(
                 // @ts-expect-error - TS2345 - Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'.
@@ -487,7 +493,9 @@ describe("renderer", () => {
             markImagesAsLoaded();
 
             // Assert
-            expect(screen.queryAllByRole("img")).toHaveLength(1);
+            expect(screen.queryAllByAltText("This image doesn't")).toHaveLength(
+                1,
+            );
 
             const wrapperStyle = getComputedStyle(
                 // @ts-expect-error - TS2345 - Argument of type 'HTMLElement | null' is not assignable to parameter of type 'Element'.
@@ -519,7 +527,9 @@ describe("renderer", () => {
             markImagesAsLoaded();
 
             // Assert
-            const imageNodes = screen.queryAllByRole("img");
+            const imageNodes = screen.queryAllByAltText(
+                "This image has dimensions",
+            );
             expect(imageNodes).toHaveLength(1);
             expect(getComputedStyle(imageNodes[0]).width).toBe("420px");
             expect(getComputedStyle(imageNodes[0]).height).toBe("410px");
@@ -734,26 +744,6 @@ describe("renderer", () => {
                 expect(screen.getByText("1 + 2")).toBeInTheDocument();
             });
             expect(container).toMatchSnapshot();
-        });
-
-        it("should replace deprecated alignment tags in inline math", async () => {
-            // Arrange
-            const question = {
-                content:
-                    "Hello $\\begin{align}\n2\\text{HCl}(\\text{aq})+\\text{Ca}(\\text{OH})_2(\\text{aq})\\rightarrow\\text{Ca}(\\text{s})+2\\text H_2\\text O(\\text l)+\\text{Cl}_2(\\text g)\n\\end{align}$",
-                images: {},
-                widgets: {},
-            } as const;
-
-            // Act
-            renderQuestion(question);
-
-            // Assert
-            await waitFor(() => {
-                expect(
-                    screen.getByText(/\\begin\{aligned\}.*\\end\{aligned\}/),
-                ).toBeInTheDocument();
-            });
         });
 
         it("should replace deprecated alignment tags in block math", async () => {

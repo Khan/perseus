@@ -1,6 +1,6 @@
-import * as React from "react";
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
 import {
     basicDropdown,
@@ -10,34 +10,49 @@ import {
     inlineDropdownWithVisibleLabel,
 } from "./dropdown.testdata";
 
-export default {
+import type {Meta, StoryObj} from "@storybook/react";
+
+const meta: Meta = {
     title: "Perseus/Widgets/Dropdown",
+    component: ServerItemRendererWithDebugUI,
+};
+export default meta;
+
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+
+export const BasicDropdown: Story = {
+    args: {item: generateTestPerseusItem({question: basicDropdown})},
 };
 
-type StoryArgs = Record<any, any>;
-
-export const BasicDropdown = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={basicDropdown} />;
+export const DropdownWithMath: Story = {
+    args: {item: generateTestPerseusItem({question: dropdownWithMath})},
 };
 
-export const DropdownWithMath = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={dropdownWithMath} />;
+export const DropdownWithVisibleLabel: Story = {
+    args: {item: generateTestPerseusItem({question: dropdownWithVisibleLabel})},
 };
 
-export const DropdownWithVisibleLabel = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return <RendererWithDebugUI question={dropdownWithVisibleLabel} />;
+export const InlineDropdownWithVisibleLabel: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: inlineDropdownWithVisibleLabel,
+        }),
+    },
 };
 
-export const InlineDropdownWithVisibleLabel = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return <RendererWithDebugUI question={inlineDropdownWithVisibleLabel} />;
+export const DropdownWithEmptyPlaceholder: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: dropdownWithEmptyPlaceholder,
+        }),
+    },
 };
 
-export const DropdownWithEmptyPlaceholder = (
-    args: StoryArgs,
-): React.ReactElement => {
-    return <RendererWithDebugUI question={dropdownWithEmptyPlaceholder} />;
+export const AnswerlessBasicDropdown: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: basicDropdown,
+        }),
+        startAnswerless: true,
+    },
 };

@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "17.7.0",
+    "version": "20.1.6",
     "publishConfig": {
         "access": "public"
     },
@@ -42,7 +42,9 @@
         "@khanacademy/perseus": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*",
         "@khanacademy/perseus-score": "workspace:*",
+        "@khanacademy/perseus-utils": "workspace:*",
         "@khanacademy/pure-markdown": "workspace:*",
+        "katex": "0.11.1",
         "mafs": "^0.19.0"
     },
     "devDependencies": {
@@ -68,7 +70,6 @@
         "aphrodite": "catalog:",
         "classnames": "catalog:",
         "jquery": "catalog:",
-        "katex": "0.11.1",
         "perseus-build-settings": "workspace:*",
         "prop-types": "catalog:",
         "react": "catalog:",

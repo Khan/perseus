@@ -21,7 +21,7 @@ import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupporte
 import type {PerseusPhetSimulationWidgetOptions} from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusPhetSimulationWidgetOptions;
-type Props = WidgetProps<RenderProps, PerseusPhetSimulationWidgetOptions>;
+type Props = WidgetProps<RenderProps>;
 
 type State = {
     banner: {
@@ -125,6 +125,7 @@ export class PhetSimulation
 
     async showLocaleWarning(url: URL): Promise<boolean> {
         // Do not show a locale warning on an invalid URL
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!url) {
             return false;
         }
@@ -202,7 +203,8 @@ export class PhetSimulation
                         onClick={() => {
                             this.iframeRef.current?.requestFullscreen();
                         }}
-                        kind={"secondary"}
+                        kind="tertiary"
+                        actionType="neutral"
                         aria-label={"Fullscreen"}
                         style={{
                             marginTop: 5,

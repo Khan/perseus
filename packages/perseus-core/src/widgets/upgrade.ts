@@ -55,6 +55,7 @@ export const upgradeWidgetInfoToLatestVersion = (
     // We do a clone here so that it's safe to mutate the input parameter
     // in propUpgrades functions (which I will probably accidentally do at
     // some point, and we would like to not break when that happens).
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     let newEditorOptions = _.clone(oldWidgetInfo.options) || {};
 
     const upgradePropsMap = getWidgetOptionsUpgrades(type);

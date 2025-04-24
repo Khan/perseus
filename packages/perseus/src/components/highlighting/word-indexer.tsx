@@ -105,6 +105,7 @@ class WordIndexer extends React.PureComponent<Props> {
                     const endOffset = wordMatch.index + wordMatch[0].length;
 
                     let range;
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     if (startOffset === 0 && trailingWordRange) {
                         // This word is at the start of this text node, and
                         // there's a trailing word from the previous text node,

@@ -1,10 +1,6 @@
 import * as KAS from "@khanacademy/kas";
-import {KeyArray, KeypadInput, KeypadType} from "@khanacademy/math-input";
-import {
-    getDecimalSeparator,
-    expressionLogic,
-    type PerseusExpressionWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {KeypadInput} from "@khanacademy/math-input";
+import {getDecimalSeparator, expressionLogic} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
@@ -26,11 +22,14 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/
 import type {DependenciesContext} from "../../dependencies";
 import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
-import type {Keys as Key, KeypadConfiguration} from "@khanacademy/math-input";
 import type {
+    PerseusExpressionWidgetOptions,
+    ExpressionPublicWidgetOptions,
+    KeypadConfiguration,
+    KeypadKey,
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type InputPath = ReadonlyArray<string>;
@@ -67,10 +66,10 @@ type RenderProps = {
     times: PerseusExpressionWidgetOptions["times"];
     visibleLabel: PerseusExpressionWidgetOptions["visibleLabel"];
     ariaLabel: PerseusExpressionWidgetOptions["ariaLabel"];
-    keypadConfiguration: ReturnType<typeof keypadConfigurationForProps>;
+    keypadConfiguration: KeypadConfiguration;
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusExpressionRubric>;
+type ExternalProps = WidgetProps<RenderProps>;
 
 type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -147,6 +146,7 @@ export class Expression
         // HACK: imperatively add an ID onto the Mathquill input
         // (which in mobile is a span; desktop a textarea)
         // in order to associate a visual label with it
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this.refs.input) {
             const isMobile = this.props.apiOptions.customKeypad;
             const container = ReactDOM.findDOMNode(this.refs.input);
@@ -208,6 +208,7 @@ export class Expression
     ) => {
         // TODO(jack): Disable icu for content creators here, or
         // make it so that solution answers with ','s or '.'s work
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const options = _.pick(props || this.props, "functions");
         _.extend(options, {
             decimal_separator: getDecimalSeparator(this.context.locale),
@@ -272,7 +273,7 @@ export class Expression
     }
 
     // HACK(joel)
-    insert(keyPressed: Key) {
+    insert(keyPressed: KeypadKey) {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'insert' does not exist on type 'ReactInstance'.
         this.refs.input.insert(keyPressed);
@@ -414,81 +415,6 @@ const styles = StyleSheet.create({
     },
 });
 
-/**
- * Determine the keypad configuration parameters for the input, based on the
- * provided properties.
- *
- * There are two configuration parameters to be passed to the keypad:
- *   (1) The keypad type. For the Expression widget, we always use the
- *       Expression keypad.
- *   (2) The extra keys; namely, any variables or constants (like Pi) that need
- *       to be included as keys on the keypad. These are scraped from the answer
- *       forms.
- */
-export const keypadConfigurationForProps = (
-    widgetOptions: PerseusExpressionWidgetOptions,
-): KeypadConfiguration => {
-    // Always use the Expression keypad, regardless of the button sets that have
-    // been enabled.
-    const keypadType = KeypadType.EXPRESSION;
-
-    // Extract any and all variables and constants from the answer forms.
-    const uniqueExtraVariables: Partial<Record<Key, boolean>> = {};
-    const uniqueExtraConstants: Partial<Record<Key, boolean>> = {};
-    for (const answerForm of widgetOptions.answerForms) {
-        const maybeExpr = KAS.parse(answerForm.value, widgetOptions);
-        if (maybeExpr.parsed) {
-            const expr = maybeExpr.expr;
-
-            // The keypad expects Greek letters to be capitalized (e.g., it
-            // requires `PI` instead of `pi`). Right now, it only supports Pi
-            // and Theta, so we special-case.
-            const isGreek = (symbol: any) =>
-                symbol === "pi" || symbol === "theta";
-            const toKey = (symbol: any) =>
-                isGreek(symbol) ? symbol.toUpperCase() : symbol;
-            const isKey = (key: string): key is Key =>
-                KeyArray.includes(key as Key);
-
-            for (const variable of expr.getVars()) {
-                const maybeKey = toKey(variable);
-                if (isKey(maybeKey)) {
-                    uniqueExtraVariables[maybeKey] = true;
-                }
-            }
-            for (const constant of expr.getConsts()) {
-                const maybeKey = toKey(constant);
-                if (isKey(maybeKey)) {
-                    uniqueExtraConstants[maybeKey] = true;
-                }
-            }
-        }
-    }
-
-    // TODO(charlie): Alert the keypad as to which of these symbols should be
-    // treated as functions.
-    const extraVariables = Object.keys(
-        uniqueExtraVariables,
-    ).sort() as ReadonlyArray<Key>;
-
-    const extraConstants = Object.keys(
-        uniqueExtraConstants,
-    ).sort() as ReadonlyArray<Key>;
-
-    let extraKeys = [...extraVariables, ...extraConstants];
-    if (!extraKeys.length) {
-        // If there are no extra symbols available, we include Pi anyway, so
-        // that the "extra symbols" button doesn't appear empty.
-        extraKeys = ["PI"];
-    }
-
-    return {
-        keypadType,
-        extraKeys,
-        times: widgetOptions.times,
-    };
-};
-
 const ExpressionWithDependencies = React.forwardRef<
     Expression,
     Omit<PropsFor<typeof Expression>, keyof ReturnType<typeof useDependencies>>
@@ -510,7 +436,11 @@ export default {
     displayName: "Expression / Equation",
     accessible: true,
     widget: ExpressionWithDependencies,
-    transform: (widgetOptions: PerseusExpressionWidgetOptions): RenderProps => {
+    transform: (
+        widgetOptions:
+            | PerseusExpressionWidgetOptions
+            | ExpressionPublicWidgetOptions,
+    ): RenderProps => {
         const {
             times,
             functions,
@@ -518,9 +448,14 @@ export default {
             buttonsVisible,
             visibleLabel,
             ariaLabel,
+            extraKeys,
         } = widgetOptions;
         return {
-            keypadConfiguration: keypadConfigurationForProps(widgetOptions),
+            keypadConfiguration: {
+                keypadType: "EXPRESSION",
+                extraKeys,
+                times,
+            },
             times,
             functions,
             buttonSets,
@@ -540,6 +475,7 @@ export default {
     getOneCorrectAnswerFromRubric(
         rubric: PerseusExpressionRubric,
     ): string | null | undefined {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const correctAnswers = (rubric.answerForms || []).filter(
             (answerForm) => answerForm.considered === "correct",
         );

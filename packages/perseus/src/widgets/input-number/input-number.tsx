@@ -14,11 +14,10 @@ import InputWithExamples from "../numeric-input/input-with-examples";
 import type {PerseusStrings} from "../../strings";
 import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
-import type {PerseusInputNumberWidgetOptions} from "@khanacademy/perseus-core";
 import type {
-    PerseusInputNumberRubric,
+    PerseusInputNumberWidgetOptions,
     PerseusInputNumberUserInput,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
 
 const formExamples = {
     integer: function (options, strings: PerseusStrings) {
@@ -57,7 +56,7 @@ type RenderProps = {
     rightAlign: PerseusInputNumberWidgetOptions["rightAlign"];
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusInputNumberRubric>;
+type ExternalProps = WidgetProps<RenderProps>;
 type Props = ExternalProps & {
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
@@ -66,7 +65,7 @@ type Props = ExternalProps & {
     currentValue: string;
     // NOTE(kevinb): This was the only default prop that is listed as
     // not-required in PerseusInputNumberWidgetOptions.
-    answerType: NonNullable<PerseusInputNumberRubric["answerType"]>;
+    answerType: NonNullable<ExternalProps["answerType"]>;
 };
 
 type DefaultProps = {

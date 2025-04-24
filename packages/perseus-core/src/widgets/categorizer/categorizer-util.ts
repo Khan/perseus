@@ -1,10 +1,10 @@
-import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusCategorizerWidgetOptions} from "../../data-schema";
 
 /**
  * For details on the individual options, see the
  * PerseusCategorizerWidgetOptions type
  */
-type CategorizerPublicWidgetOptions = {
+export type CategorizerPublicWidgetOptions = {
     items: PerseusCategorizerWidgetOptions["items"];
     categories: PerseusCategorizerWidgetOptions["categories"];
     randomizeItems: PerseusCategorizerWidgetOptions["randomizeItems"];

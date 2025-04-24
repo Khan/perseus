@@ -1,4 +1,3 @@
-import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 import {forwardRef} from "react";
@@ -15,7 +14,6 @@ import type {ForwardedRef} from "react";
 
 type Props = {
     point: vec.Vector2;
-    color?: string | undefined;
     dragging: boolean;
     focused: boolean;
     showFocusRing: boolean;
@@ -32,10 +30,14 @@ const hitboxSizePx = 48;
 // on an interactive graph.
 export const MovablePointView = forwardRef(
     (props: Props, hitboxRef: ForwardedRef<SVGGElement>) => {
-        const {markings, showTooltips} = useGraphConfig();
+        const {
+            markings,
+            showTooltips,
+            interactiveColor,
+            disableKeyboardInteraction,
+        } = useGraphConfig();
         const {
             point,
-            color = WBColor.blue,
             dragging,
             focused,
             cursor,
@@ -43,11 +45,15 @@ export const MovablePointView = forwardRef(
             onClick = () => {},
         } = props;
 
-        // WB Tooltip requires a color name for the background color.
-        // Since the color in props is a hex value, a reverse lookup is needed.
-        const wbColorName = (Object.entries(WBColor).find(
-            ([_, value]) => value === color,
-        )?.[0] ?? "blue") as keyof typeof WBColor;
+        // WB Tooltip requires a WB color name for the background color.
+        // We use the blue color when the points are interactive, and
+        // offBlack64 when they are disabled.
+        // Note: The disabled point color is offBlack50 to contrast with
+        // the interactive blue color, but the tooltip background has to be
+        // darker to contrast with its white text - using offBlack64.
+        const wbColorName = disableKeyboardInteraction
+            ? "fadedOffBlack64" // not see-through
+            : "blue";
 
         const pointClasses = classNames(
             "movable-point",
@@ -61,9 +67,16 @@ export const MovablePointView = forwardRef(
 
         const svgForPoint = (
             <g
+                // Use aria-hidden to hide the line from screen readers
+                // so it doesn't read as "image" with no context.
+                // The elements using this should have their own aria-labels,
+                // so this is okay.
+                aria-hidden={true}
                 ref={hitboxRef}
                 className={pointClasses}
-                style={{"--movable-point-color": color, cursor} as any}
+                style={
+                    {"--movable-point-color": interactiveColor, cursor} as any
+                }
                 data-testid="movable-point"
                 onClick={onClick}
             >
@@ -80,7 +93,7 @@ export const MovablePointView = forwardRef(
                     className="movable-point-center"
                     cx={x}
                     cy={y}
-                    style={{fill: color}}
+                    style={{fill: interactiveColor}}
                     data-testid="movable-point__center"
                 />
             </g>

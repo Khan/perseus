@@ -1,10 +1,10 @@
-import {ErrorCodes} from "@khanacademy/perseus-score";
+import ErrorCodes from "../../error-codes";
 
 import type {
-    ValidationResult,
     PerseusCategorizerUserInput,
     PerseusCategorizerValidationData,
-} from "@khanacademy/perseus-score";
+    ValidationResult,
+} from "@khanacademy/perseus-core";
 
 /**
  * Checks userInput from the categorizer widget to see if the user has selected

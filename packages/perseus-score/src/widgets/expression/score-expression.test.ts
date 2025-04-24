@@ -1,8 +1,10 @@
 import scoreExpression from "./score-expression";
 import {expressionItem3Options} from "./score-expression.testdata";
 
-import type {PerseusExpressionRubric} from "../../validation.types";
-import type {PerseusExpressionWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusExpressionRubric,
+    PerseusExpressionWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 describe("scoreExpression", () => {
     it("should handle defined ungraded answer case with no error callback", function () {

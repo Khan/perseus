@@ -14,6 +14,7 @@ import {
     type PerseusGraphType,
     type MarkingsType,
     type InteractiveGraphDefaultWidgetOptions,
+    type AxisLabelLocation,
     interactiveGraphLogic,
 } from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
@@ -70,6 +71,13 @@ export type Props = {
      * The labels for the x and y axes.
      */
     labels: ReadonlyArray<string>;
+    /**
+     * Specifies the location of the labels on the graph.  default: "onAxis".
+     * - "onAxis": Labels are positioned on the axis at the right (x) and top (y) of the graph.
+     * - "alongEdge": Labels are centered along the bottom (x) and left (y) edges of the graph.
+     *    The y label is rotated. Typically used when the range min is near 0 with longer labels.
+     */
+    labelLocation?: AxisLabelLocation;
     /**
      * The range of the graph in the x and y directions.
      */
@@ -169,6 +177,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
     } = {
         ...interactiveGraphLogic.defaultWidgetOptions,
         valid: true,
+        lockedFigures: [],
     };
 
     changeStartCoords = (coords) => {
@@ -194,6 +203,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "backgroundImage",
             "markings",
             "labels",
+            "labelLocation",
             "showProtractor",
             "showTooltips",
             "range",
@@ -206,8 +216,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
 
         // eslint-disable-next-line react/no-string-refs
         const graph = this.refs.graph;
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (graph) {
             // @ts-expect-error TS2339 Property 'getUserInput' does not exist on type 'ReactInstance'. Property 'getUserInput' does not exist on type 'Component<any, {}, any>'.
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             const correct = graph && graph.getUserInput();
             _.extend(json, {
                 graph: {
@@ -272,6 +284,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
         let equationString;
 
         const gridStep =
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             this.props.gridStep ||
             Util.getGridStep(
                 this.props.range,
@@ -279,6 +292,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 interactiveSizes.defaultBoxSize,
             );
         const snapStep =
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             this.props.snapStep || Util.snapStepFromGridStep(gridStep);
 
         const sizeClass = containerSizeClass.SMALL;
@@ -291,6 +305,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 box: this.props.box,
                 range: this.props.range,
                 labels: this.props.labels,
+                labelLocation: this.props.labelLocation,
                 step: this.props.step,
                 gridStep: gridStep,
                 snapStep: snapStep,
@@ -496,6 +511,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                     <SingleSelect
                                         key="polygon-select"
                                         selectedValue={
+                                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                             this.props.correct?.numSides
                                                 ? `${this.props.correct.numSides}`
                                                 : "3"
@@ -509,7 +525,8 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                             const updates = {
                                                 numSides:
                                                     parsePointCount(newValue),
-                                                coords: null,
+                                                coords: undefined,
+                                                startCoords: undefined,
                                                 // reset the snap for UNLIMITED, which
                                                 // only supports "grid"
                                                 // From: D6578
@@ -740,6 +757,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             box={getInteractiveBoxFromSizeClass(sizeClass)}
                             range={this.props.range}
                             labels={this.props.labels}
+                            labelLocation={this.props.labelLocation}
                             step={this.props.step}
                             gridStep={gridStep}
                             snapStep={snapStep}
@@ -852,6 +870,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         this.props.correct.match || "exact"
                                     }
                                     onChange={(newValue) => {
+                                        invariant(
+                                            this.props.correct.type === "angle",
+                                            `Expected graph type to be angle, but got ${this.props.correct.type}`,
+                                        );
                                         this.props.onChange({
                                             correct: {
                                                 ...this.props.correct,

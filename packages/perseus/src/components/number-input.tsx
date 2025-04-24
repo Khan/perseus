@@ -8,8 +8,6 @@ import _ from "underscore";
 import Util from "../util";
 import {isPiMultiple} from "../util/math-utils";
 
-import {PerseusI18nContext} from "./i18n-context";
-
 import type {MathFormat} from "@khanacademy/perseus-core";
 
 const {firstNumericalParse, captureScratchpadTouchStart} = Util;
@@ -36,8 +34,6 @@ const getNumericFormat = KhanMath.getNumericFormat;
  * Optionally takes a `size` (`"mini"`, `"small"`,` `"normal"`)
  */
 class NumberInput extends React.Component<any, any> {
-    static contextType = PerseusI18nContext;
-    declare context: React.ContextType<typeof PerseusI18nContext>;
     inputRef = React.createRef<HTMLInputElement>();
 
     static propTypes = {
@@ -111,7 +107,7 @@ class NumberInput extends React.Component<any, any> {
             const placeholder = this.props.placeholder;
             return _.isFinite(placeholder) ? +placeholder : null;
         }
-        const result = firstNumericalParse(value, this.context.strings);
+        const result = firstNumericalParse(value);
         return _.isFinite(result) ? result : this.props.value;
     };
 
@@ -146,7 +142,7 @@ class NumberInput extends React.Component<any, any> {
             return true;
         }
 
-        const val = firstNumericalParse(value, this.context.strings);
+        const val = firstNumericalParse(value);
         const checkValidity = this.props.checkValidity;
 
         return _.isFinite(val) && checkValidity(val);

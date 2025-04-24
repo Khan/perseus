@@ -1,64 +1,27 @@
-import {KeypadContext} from "@khanacademy/keypad-context";
-import {KeypadType} from "@khanacademy/math-input";
-import {action} from "@storybook/addon-actions";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-import TestKeypadContextWrapper from "../__shared__/test-keypad-context-wrapper";
 
 import expressionExport from "./expression";
 import {expressionItem2, expressionItem3} from "./expression.testdata";
 
-import type {Keys as Key} from "@khanacademy/math-input";
-import type {PerseusItem} from "@khanacademy/perseus-core";
+import type {KeypadConfiguration} from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react";
 
-type StoryArgs = {
-    customKeypad: boolean;
+const meta: Meta = {
+    title: "Perseus/Widgets/Expression",
+    component: ServerItemRendererWithDebugUI,
 };
+export default meta;
 
-type Story = {
-    title: string;
-    argTypes: any;
-};
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
-type WrappedKeypadContextProps = {
-    item: PerseusItem;
-    customKeypad: boolean;
-    isMobile?: boolean;
-};
-
-const WrappedKeypadContext = ({
-    item,
-    customKeypad,
-    isMobile = false,
-}: WrappedKeypadContextProps) => {
-    return (
-        <TestKeypadContextWrapper>
-            <KeypadContext.Consumer>
-                {({keypadElement}) => {
-                    return (
-                        <ServerItemRendererWithDebugUI
-                            item={item}
-                            keypadElement={keypadElement}
-                            // Hardcoding the V2 Keypad to true as the Storybook Args
-                            // were not working.
-                            apiOptions={{
-                                isMobile: isMobile,
-                                customKeypad: customKeypad,
-                                onFocusChange: action("onFocusChange"),
-                            }}
-                        />
-                    );
-                }}
-            </KeypadContext.Consumer>
-        </TestKeypadContextWrapper>
-    );
-};
-
-export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
-    const keypadConfiguration = {
-        keypadType: KeypadType.EXPRESSION,
-        extraKeys: ["x", "y", "z"] as Array<Key>,
+/** This story shows how the expression widget looks when the keypad is
+ * configured with _every_ option it supports.  */
+export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
+    const keypadConfiguration: KeypadConfiguration = {
+        keypadType: "EXPRESSION",
+        extraKeys: ["x", "y", "z"],
     };
 
     return (
@@ -83,48 +46,21 @@ export const DesktopKitchenSink = (args: StoryArgs): React.ReactElement => {
     );
 };
 
-export const Desktop = (args: StoryArgs): React.ReactElement => {
-    return <WrappedKeypadContext item={expressionItem3} customKeypad={false} />;
+export const ExpressionItem2: Story = {
+    args: {
+        item: expressionItem2,
+    },
 };
 
-export const Mobile = (args: StoryArgs): React.ReactElement => {
-    return (
-        <div>
-            <p>
-                MathInput uses touch events;{" "}
-                <a href="https://developer.chrome.com/docs/devtools/device-mode/">
-                    emulate mobile
-                </a>{" "}
-                to use the custom keypad.
-            </p>
-            <WrappedKeypadContext
-                item={expressionItem3}
-                customKeypad
-                isMobile
-            />
-        </div>
-    );
+export const ExpressionItem3: Story = {
+    args: {
+        item: expressionItem3,
+    },
 };
 
-export const ExpressionItem2 = (args: StoryArgs): React.ReactElement => {
-    return (
-        <WrappedKeypadContext
-            item={expressionItem2}
-            customKeypad={args.customKeypad}
-        />
-    );
+export const AnswerlessExpression: Story = {
+    args: {
+        item: expressionItem3,
+        startAnswerless: true,
+    },
 };
-
-export const ExpressionItem3 = (args: StoryArgs): React.ReactElement => {
-    return (
-        <WrappedKeypadContext
-            item={expressionItem3}
-            customKeypad={args.customKeypad}
-        />
-    );
-};
-
-export default {
-    title: "Perseus/Widgets/Expression",
-    argTypes: {customKeypad: {control: "boolean"}},
-} as Story;

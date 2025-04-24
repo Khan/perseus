@@ -1,13 +1,17 @@
 import {summon} from "../general-purpose-parsers/test-helpers";
 
-import type {parseLegacyButtonSet} from "./legacy-button-sets";
+import type {parseLegacyButtonSets} from "./legacy-button-sets";
 import type {LegacyButtonSets} from "../../data-schema";
+import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
 import type {ParsedValue} from "../parser-types";
 
-type ParsedButtonSet = ParsedValue<typeof parseLegacyButtonSet>;
+type Parsed = ParsedValue<typeof parseLegacyButtonSets>;
 
-// Test: LegacyButtonSets is mutually assignable with the result type of
-// parseButtonSets(). This ensures that we keep the parser up to date with any
-// new enum values added to the data schema.
-summon<ParsedButtonSet>() satisfies LegacyButtonSets[number];
-summon<LegacyButtonSets[number]>() satisfies ParsedButtonSet;
+summon<Parsed>() satisfies LegacyButtonSets;
+summon<LegacyButtonSets>() satisfies Parsed;
+
+// The `RecursiveRequired` test ensures that any new optional properties added
+// to the types in data-schema.ts are also added to the parser.
+summon<
+    RecursiveRequired<Parsed>
+>() satisfies RecursiveRequired<LegacyButtonSets>;

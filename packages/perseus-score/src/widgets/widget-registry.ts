@@ -36,7 +36,7 @@ import validateTable from "./table/validate-table";
 import type {
     WidgetScorerFunction,
     WidgetValidatorFunction,
-} from "../validation.types";
+} from "@khanacademy/perseus-core";
 
 const widgets = {};
 

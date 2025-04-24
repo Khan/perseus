@@ -1,6 +1,7 @@
 import {readFileSync} from "node:fs";
 import {dirname, join, resolve} from "node:path";
 
+import react from "@vitejs/plugin-react-swc";
 import {glob} from "fast-glob";
 import {defineConfig} from "vite";
 
@@ -18,7 +19,6 @@ export default defineConfig({
     resolve: {
         alias: {
             ...packageAliases,
-            hubble: resolve(__dirname, "vendor/hubble/hubble.js"),
             raphael: resolve(__dirname, "vendor/raphael/raphael.js"),
             jsdiff: resolve(__dirname, "vendor/jsdiff/jsdiff.js"),
             aphrodite: resolve(
@@ -27,12 +27,13 @@ export default defineConfig({
             ),
         },
     },
+    plugins: [react()],
     build: {
         commonjsOptions: {
             // We need to process CJS packages in vendor/ as CJS (along with
             // the default /node_modules/).
             // See also `optimizeDeps.include`
-            include: [/vendor\/hubble/, /node_modules/],
+            include: [/node_modules/],
         },
     },
     optimizeDeps: {

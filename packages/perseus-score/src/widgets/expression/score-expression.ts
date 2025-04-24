@@ -13,8 +13,8 @@ import type {
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
     PerseusScore,
-} from "../../validation.types";
-import type {PerseusExpressionAnswerForm} from "@khanacademy/perseus-core";
+    PerseusExpressionAnswerForm,
+} from "@khanacademy/perseus-core";
 
 /* Content creators input a list of answers which are matched from top to
  * bottom. The intent is that they can include spcific solutions which should
@@ -86,8 +86,10 @@ function scoreExpression(
     let matchMessage: string | undefined;
     let allEmpty = true;
     let firstUngradedResult: Score | undefined;
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     for (const answerForm of rubric.answerForms || []) {
         const validator = createValidator(answerForm);
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!validator) {
             continue;
         }

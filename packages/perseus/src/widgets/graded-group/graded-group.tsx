@@ -35,11 +35,10 @@ import type {
     WidgetProps,
 } from "../../types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
-import type {PerseusGradedGroupWidgetOptions} from "@khanacademy/perseus-core";
 import type {
-    PerseusGradedGroupRubric,
+    PerseusGradedGroupWidgetOptions,
     PerseusScore,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const GRADING_STATUSES = {
@@ -73,7 +72,7 @@ type RenderProps = PerseusGradedGroupWidgetOptions; // exports has no 'transform
 
 type Props = WidgetProps<
     RenderProps,
-    PerseusGradedGroupRubric,
+    undefined,
     TrackingGradedGroupExtraArguments
 > & {
     inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,
@@ -105,7 +104,7 @@ type State = {
 // via defaultProps.
 0 as any as WidgetProps<
     PerseusGradedGroupWidgetOptions,
-    PerseusGradedGroupRubric
+    undefined
 > satisfies PropsFor<typeof GradedGroup>;
 
 // A Graded Group is more or less a Group widget that displays a check
@@ -325,6 +324,7 @@ export class GradedGroup
                     linterContext={this.props.linterContext}
                     strings={this.context.strings}
                 />
+                {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
                 {!apiOptions.isMobile && icon && (
                     <div className="group-icon">{icon}</div>
                 )}

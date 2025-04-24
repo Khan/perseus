@@ -5,7 +5,7 @@ import type {
     PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
     PerseusScore,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 export const inputNumberAnswerTypes = {
     number: {

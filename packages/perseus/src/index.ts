@@ -7,7 +7,7 @@ export {default as init} from "./init";
 export {ApiOptions, ClassNames} from "./perseus-api";
 
 export {libVersion} from "./version";
-export {apiVersion, itemDataVersion} from "./perseus-version";
+export {apiVersion} from "./perseus-version";
 export {default as itemVersion} from "./item-version";
 
 /**
@@ -69,7 +69,6 @@ export * as Dependencies from "./dependencies";
 export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
 export {default as LoadingContext} from "./loading-context";
-export {default as mediaQueries} from "./styles/media-queries";
 export {default as PerseusMarkdown} from "./perseus-markdown";
 export {traverse} from "./traversal";
 export {isItemRenderableByVersion} from "./renderability";
@@ -131,8 +130,6 @@ export {
 } from "@khanacademy/perseus-core";
 
 export {
-    generateTestPerseusItem,
-    genericPerseusItemData,
     generateTestRadioWidget,
     generateTestInteractiveGraphWidget,
     generateTestCategorizerWidget,

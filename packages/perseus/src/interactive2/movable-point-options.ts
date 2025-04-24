@@ -1,4 +1,4 @@
-/* eslint-disable @babel/no-invalid-this */
+/* eslint-disable @typescript-eslint/no-invalid-this */
 /**
  * A library of options to pass to add/draw/remove/constraints
  */
@@ -182,11 +182,13 @@ const constraints = {
                 paddingPx,
             ]);
 
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (snap) {
                 lower = kpoint.ceilTo(lower, snap);
                 upper = kpoint.floorTo(upper, snap);
             }
 
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (!!options && !!options.onOutOfBounds) {
                 if (
                     coord[0] > upper[0] ||

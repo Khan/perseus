@@ -17,7 +17,7 @@ import {getBaseMafsGraphPropsForTests} from "./utils";
 
 import type {MafsGraphProps} from "./mafs-graph";
 import type {InteractiveGraphState} from "./types";
-import type {PerseusDependenciesV2} from "@khanacademy/perseus";
+import type {PerseusDependenciesV2} from "../../types";
 import type {GraphRange} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -188,18 +188,6 @@ describe("MafsGraph", () => {
         render(<MafsGraph {...basePropsWithTexLabels} />);
         expect(screen.getByText("\\text{4/5}")).toBeInTheDocument();
         expect(screen.getByText("\\text{5/6}")).toBeInTheDocument();
-    });
-
-    it("includes aria-labels for the axes labels", () => {
-        const basePropsWithTexLabels = {...baseMafsProps};
-
-        render(<MafsGraph {...basePropsWithTexLabels} />);
-
-        const xAxisLabel = screen.getByLabelText("X-axis");
-        const yAxisLabel = screen.getByLabelText("Y-axis");
-
-        expect(xAxisLabel).toBeInTheDocument();
-        expect(yAxisLabel).toBeInTheDocument();
     });
 
     it("renders ARIA labels for each point (segment)", () => {

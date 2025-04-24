@@ -100,7 +100,7 @@ const LockedPolygonSettings = (props: Props) => {
         };
 
         // Update the color of the all labels to match the point
-        newProps.labels = labels?.map((label) => ({
+        newProps.labels = labels.map((label) => ({
             ...label,
             color: newValue,
         }));
@@ -113,7 +113,7 @@ const LockedPolygonSettings = (props: Props) => {
             case "up":
                 onChangeProps({
                     points: points.map(([x, y]) => [x, y + 1]),
-                    labels: labels?.map((label) => ({
+                    labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0], label.coord[1] + 1],
                     })),
@@ -122,7 +122,7 @@ const LockedPolygonSettings = (props: Props) => {
             case "down":
                 onChangeProps({
                     points: points.map(([x, y]) => [x, y - 1]),
-                    labels: labels?.map((label) => ({
+                    labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0], label.coord[1] - 1],
                     })),
@@ -131,7 +131,7 @@ const LockedPolygonSettings = (props: Props) => {
             case "left":
                 onChangeProps({
                     points: points.map(([x, y]) => [x - 1, y]),
-                    labels: labels?.map((label) => ({
+                    labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0] - 1, label.coord[1]],
                     })),
@@ -140,7 +140,7 @@ const LockedPolygonSettings = (props: Props) => {
             case "right":
                 onChangeProps({
                     points: points.map(([x, y]) => [x + 1, y]),
-                    labels: labels?.map((label) => ({
+                    labels: labels.map((label) => ({
                         ...label,
                         coord: [label.coord[0] + 1, label.coord[1]],
                     })),
@@ -153,10 +153,6 @@ const LockedPolygonSettings = (props: Props) => {
         updatedLabel: Partial<LockedLabelType>,
         labelIndex: number,
     ) {
-        if (!labels) {
-            return;
-        }
-
         const updatedLabels = [...labels];
         updatedLabels[labelIndex] = {
             ...labels[labelIndex],
@@ -167,10 +163,6 @@ const LockedPolygonSettings = (props: Props) => {
     }
 
     function handleLabelRemove(labelIndex: number) {
-        if (!labels) {
-            return;
-        }
-
         const updatedLabels = labels.filter((_, index) => index !== labelIndex);
 
         onChangeProps({labels: updatedLabels});
@@ -279,7 +271,8 @@ const LockedPolygonSettings = (props: Props) => {
                                     <IconButton
                                         aria-label={`Delete polygon point ${pointLabel}`}
                                         icon={minusCircle}
-                                        color="destructive"
+                                        kind="tertiary"
+                                        actionType="destructive"
                                         onClick={() => {
                                             const newPoints = [...points];
                                             newPoints.splice(index, 1);
@@ -313,31 +306,31 @@ const LockedPolygonSettings = (props: Props) => {
                     <View style={styles.movementButtonsContainer}>
                         <IconButton
                             aria-label="Move polygon up"
-                            style={styles.iconButton}
                             size="small"
                             icon={arrowFatUp}
+                            kind="tertiary"
                             onClick={() => handlePolygonMove("up")}
                         />
                         <View style={styles.row}>
                             <IconButton
                                 aria-label="Move polygon left"
-                                style={styles.iconButton}
                                 size="small"
                                 icon={arrowFatLeft}
+                                kind="tertiary"
                                 onClick={() => handlePolygonMove("left")}
                             />
                             <IconButton
                                 aria-label="Move polygon down"
-                                style={styles.iconButton}
                                 size="small"
                                 icon={arrowFatDown}
+                                kind="tertiary"
                                 onClick={() => handlePolygonMove("down")}
                             />
                             <IconButton
                                 aria-label="Move polygon right"
-                                style={styles.iconButton}
                                 size="small"
                                 icon={arrowFatRight}
+                                kind="tertiary"
                                 onClick={() => handlePolygonMove("right")}
                             />
                         </View>
@@ -361,7 +354,7 @@ const LockedPolygonSettings = (props: Props) => {
             <View style={styles.horizontalRule} />
             <Strut size={spacing.small_12} />
             <LabelMedium>Visible labels</LabelMedium>
-            {labels?.map((label, labelIndex) => (
+            {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     {...label}
                     key={labelIndex}
@@ -385,14 +378,14 @@ const LockedPolygonSettings = (props: Props) => {
                             points[0][0],
                             // Additional vertical offset for each
                             // label so they don't overlap.
-                            points[0][1] - (labels?.length ?? 0),
+                            points[0][1] - labels.length,
                         ],
                         // Default to the same color as the ellipse
                         color: color,
                     } satisfies LockedLabelType;
 
                     onChangeProps({
-                        labels: [...(labels ?? []), newLabel],
+                        labels: [...labels, newLabel],
                     });
                 }}
                 style={styles.addButton}
@@ -427,9 +420,6 @@ const styles = StyleSheet.create({
     },
     polygonActionsContainer: {
         width: "100%",
-    },
-    iconButton: {
-        margin: 0,
     },
     movementButtonsContainer: {
         display: "flex",

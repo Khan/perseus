@@ -4,7 +4,6 @@
         "outDir": "./dist",
         "rootDir": "src",
         "paths": {
-            "hubble": ["../../vendor/hubble/hubble.js"],
             "raphael": ["../../vendor/raphael/raphael.js"],
             // NOTE(kevinb): We have to repeat this here because TS doesn't do
             // intelligent merge of tsconfig.json files when using `extends`.
@@ -15,12 +14,13 @@
     },
     "references": [
         {"path": "../kas/tsconfig-build.json"},
+        {"path": "../keypad-context/tsconfig-build.json"},
         {"path": "../kmath/tsconfig-build.json"},
         {"path": "../math-input/tsconfig-build.json"},
         {"path": "../perseus-core/tsconfig-build.json"},
-        {"path": "../perseus-score/tsconfig-build.json"},
-        {"path": "../keypad-context/tsconfig-build.json"},
         {"path": "../perseus-linter/tsconfig-build.json"},
+        {"path": "../perseus-score/tsconfig-build.json"},
+        {"path": "../perseus-utils/tsconfig-build.json"},
         {"path": "../pure-markdown/tsconfig-build.json"},
         {"path": "../simple-markdown/tsconfig-build.json"},
     ]

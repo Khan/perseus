@@ -39,11 +39,8 @@ import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-u
 import type {
     MarkingsType,
     PerseusGrapherWidgetOptions,
-} from "@khanacademy/perseus-core";
-import type {
-    PerseusGrapherRubric,
     PerseusGrapherUserInput,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
@@ -152,11 +149,13 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
         const model = this.props.model;
         const graph = this.props.graph;
         const asymptote = this._asymptote();
+        const showAsymptote = asymptote?.length > 0;
         const dashed = {
             strokeDasharray: "- ",
         } as const;
+
         return (
-            asymptote && (
+            showAsymptote && (
                 <MovableLine
                     onMove={(newCoord, oldCoord) => {
                         // Calculate and apply displacement
@@ -353,7 +352,7 @@ type RenderProps = {
     plot?: any;
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusGrapherRubric>;
+type ExternalProps = WidgetProps<RenderProps>;
 
 type Props = ExternalProps & {
     // plot is always provided by default props

@@ -68,6 +68,7 @@ export function initializeGraphState(
             return {
                 ...shared,
                 type: "polygon",
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 numSides: graph.numSides || 0,
                 showAngles: Boolean(graph.showAngles),
                 showSides: Boolean(graph.showSides),
@@ -84,6 +85,7 @@ export function initializeGraphState(
                 ...shared,
                 type: graph.type,
                 coords: getPointCoords(graph, range, step),
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 numPoints: graph.numPoints || 0,
                 focusedPointIndex: null,
                 showRemovePointButton: false,
@@ -133,6 +135,7 @@ export function getPointCoords(
     range: [x: Interval, y: Interval],
     step: [x: number, y: number],
 ): Coord[] {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const numPoints = graph.numPoints || 1;
 
     let coords = graph.coords?.slice();
@@ -310,6 +313,7 @@ export function getPolygonCoords(
         return startCoords;
     }
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     const n = graph.numSides || 3;
 
     if (n === "unlimited") {
@@ -396,6 +400,7 @@ export function getCircleCoords(graph: PerseusGraphTypeCircle): {
         };
     }
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (graph.startCoords?.center && graph.startCoords.radius) {
         return {
             center: graph.startCoords.center,

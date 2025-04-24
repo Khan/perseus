@@ -54,7 +54,19 @@ describe("parseWidgetsMap", () => {
         };
 
         const result = parse(widgetsMap, parseWidgetsMap);
-        expect(result).toEqual(success(widgetsMap));
+        expect(result).toEqual(
+            success({
+                "radio 0": {
+                    type: "radio",
+                    version: {major: 2, minor: 0},
+                    options: {
+                        choices: [],
+                        hasNoneOfTheAbove: false,
+                        numCorrect: 0,
+                    },
+                },
+            }),
+        );
     });
 
     it("rejects a widget ID with no number", () => {
@@ -184,8 +196,9 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "expression 1": {
                 type: "expression",
-                version: {major: 1, minor: 0},
+                version: {major: 2, minor: 0},
                 options: {
+                    extraKeys: ["PI"],
                     answerForms: [],
                     buttonSets: [],
                     functions: [],
@@ -217,6 +230,7 @@ describe("parseWidgetsMap", () => {
                     ],
                     graph: {type: "none"},
                     correct: {type: "none"},
+                    lockedFigures: [],
                 },
             },
         };
@@ -672,9 +686,10 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "radio 1": {
                 type: "radio",
-                version: {major: 0, minor: 0},
+                version: {major: 2, minor: 0},
                 options: {
                     choices: [],
+                    numCorrect: 0,
                     noneOfTheAbove: false,
                 },
             },

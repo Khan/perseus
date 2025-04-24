@@ -37,8 +37,9 @@ import type {
     KeypadContextRendererInterface,
     RendererInterface,
     KEScore,
+    UserInputArray,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
-import type {UserInputArray, UserInputMap} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type OwnProps = {
@@ -216,6 +217,7 @@ export class ServerItemRenderer
                 const keypadDomNode: HTMLElement =
                     keypadElement?.getDOMNode() as HTMLElement;
                 const keypadHeight =
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     keypadDomNode && didFocusInput
                         ? keypadDomNode.getBoundingClientRect().height
                         : 0;

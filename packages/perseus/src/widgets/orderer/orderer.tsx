@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @babel/no-invalid-this, react/no-unsafe */
+/* eslint-disable @typescript-eslint/no-invalid-this, react/no-unsafe */
 import {Errors} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import $ from "jquery";
@@ -15,12 +15,11 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/orderer/ord
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {OrdererPromptJSON} from "../../widget-ai-utils/orderer/orderer-ai-utils";
-import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {
-    PerseusOrdererRubric,
+    PerseusOrdererWidgetOptions,
     PerseusOrdererUserInput,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type PlaceholderCardProps = {
     width: number | null | undefined;
@@ -297,7 +296,7 @@ type RenderProps = PerseusOrdererWidgetOptions & {
     current: any;
 };
 
-type OrdererProps = WidgetProps<RenderProps, PerseusOrdererRubric>;
+type OrdererProps = WidgetProps<RenderProps>;
 
 type OrdererDefaultProps = {
     current: OrdererProps["current"];

@@ -61,7 +61,7 @@ const LockedFunctionSettings = (props: Props) => {
         onMove,
         onRemove,
     } = props;
-    const labels = props.labels ?? [];
+    const labels = props.labels;
     const equationPrefix = directionalAxis === "x" ? "y=" : "x=";
     const lineLabel = `Function (${equationPrefix}${equation})`;
 
@@ -70,8 +70,8 @@ const LockedFunctionSettings = (props: Props) => {
     // This variable is used when specifying the values of the input fields.
     const getDomainStringValues = (domain): [string, string] => {
         return [
-            domain && Number.isFinite(domain[0]) ? domain[0].toString() : "",
-            domain && Number.isFinite(domain[1]) ? domain[1].toString() : "",
+            Number.isFinite(domain[0]) ? domain[0].toString() : "",
+            Number.isFinite(domain[1]) ? domain[1].toString() : "",
         ];
     };
 
@@ -97,15 +97,8 @@ const LockedFunctionSettings = (props: Props) => {
 
         // Add the domain/range constraints to the aria label
         // if they are not the default values.
-        const domainMin =
-            domain && Number.isFinite(domain[0]) ? domain[0] : "-Infinity";
-        const domainMax =
-            domain && Number.isFinite(domain[1]) ? domain[1] : "Infinity";
-        if (
-            domain &&
-            (Number.isFinite(domain[0]) || Number.isFinite(domain[1]))
-        ) {
-            str += `, domain from ${domainMin} to ${domainMax}`;
+        if (Number.isFinite(domain[0]) || Number.isFinite(domain[1])) {
+            str += `, domain from ${domain[0]} to ${domain[1]}`;
         }
 
         const functionAppearance = generateLockedFigureAppearanceDescription(
@@ -134,9 +127,7 @@ const LockedFunctionSettings = (props: Props) => {
         const newDomainEntries: [string, string] = [...domainEntries];
         newDomainEntries[limitIndex] = newValueString;
         setDomainEntries(newDomainEntries);
-        const newDomain: [min: number | null, max: number | null] = domain
-            ? [...domain]
-            : [-Infinity, Infinity];
+        const newDomain: [min: number, max: number] = [...domain];
 
         let newValue = parseFloat(newValueString);
         if (newValueString === "" && limitIndex === 0) {
@@ -341,7 +332,7 @@ const LockedFunctionSettings = (props: Props) => {
             <View style={styles.horizontalRule} />
             <Strut size={spacing.small_12} />
             <LabelMedium>Visible labels</LabelMedium>
-            {labels.map((label, labelIndex, allLabels) => (
+            {labels.map((label, labelIndex) => (
                 <LockedLabelSettings
                     key={labelIndex}
                     {...label}
@@ -402,6 +393,7 @@ const ExampleItem = (props: ItemProps): React.ReactElement => {
         <li key={`${category}-${index}`} className={css(styles.exampleRow)}>
             <IconButton
                 icon={autoPasteIcon}
+                kind="tertiary"
                 aria-label="paste example"
                 aria-describedby={exampleId}
                 onClick={() => pasteEquationFn("equation", example)}
@@ -410,6 +402,7 @@ const ExampleItem = (props: ItemProps): React.ReactElement => {
             />
             <IconButton
                 icon={copyIcon}
+                kind="tertiary"
                 aria-label="copy example"
                 aria-describedby={exampleId}
                 onClick={() => navigator.clipboard.writeText(example)}

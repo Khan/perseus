@@ -16,9 +16,6 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {NumericInputWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
 const parseMathFormat = enumeration(
     "integer",
     "mixed",
@@ -29,14 +26,43 @@ const parseMathFormat = enumeration(
     "pi",
 );
 
-const parseSimplify = enumeration(
-    "required",
-    "correct",
-    "enforced",
-    "optional",
-);
+export const parseSimplify = pipeParsers(
+    union(constant(null))
+        .or(constant(undefined))
+        .or(boolean)
+        .or(constant("required"))
+        .or(constant("correct"))
+        .or(constant("enforced"))
+        .or(constant("optional"))
+        .or(constant("accepted")).parser,
+).then(convert(deprecatedSimplifyValuesToRequired)).parser;
 
-export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
+function deprecatedSimplifyValuesToRequired(
+    simplify:
+        | "required"
+        | "correct"
+        | "enforced"
+        | "optional"
+        | "accepted"
+        | null
+        | undefined
+        | boolean,
+): "enforced" | "required" | "optional" {
+    switch (simplify) {
+        case "enforced":
+        case "required":
+        case "optional":
+            return simplify;
+        // NOTE(benchristel): "accepted", "correct", true, false, undefined, and
+        // null are all treated the same as "required" during scoring, so we
+        // convert them to "required" here to preserve behavior. See the tests
+        // in score-numeric-input.test.ts
+        default:
+            return "required";
+    }
+}
+
+export const parseNumericInputWidget = parseWidget(
     constant("numeric-input"),
     object({
         answers: array(
@@ -47,26 +73,16 @@ export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
                 // the data, simplify this.
                 value: optional(nullable(number)),
                 status: string,
-                answerForms: defaulted(array(parseMathFormat), () => undefined),
+                answerForms: defaulted(
+                    optional(array(parseMathFormat)),
+                    () => undefined,
+                ),
                 strict: boolean,
                 maxError: optional(nullable(number)),
                 // TODO(benchristel): simplify should never be a boolean, but we
                 // have some content where it is anyway. If we ever backfill
                 // the data, we should simplify `simplify`.
-                simplify: optional(
-                    nullable(
-                        union(parseSimplify).or(
-                            pipeParsers(boolean).then(
-                                convert((value) => {
-                                    if (typeof value === "boolean") {
-                                        return value ? "required" : "optional";
-                                    }
-                                    return value;
-                                }),
-                            ).parser,
-                        ).parser,
-                    ),
-                ),
+                simplify: parseSimplify,
             }),
         ),
         labelText: optional(string),
@@ -78,16 +94,7 @@ export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
             array(
                 object({
                     name: parseMathFormat,
-                    simplify: optional(
-                        nullable(
-                            enumeration(
-                                "required",
-                                "correct",
-                                "enforced",
-                                "optional",
-                            ),
-                        ),
-                    ),
+                    simplify: parseSimplify,
                 }),
             ),
         ),

@@ -30,6 +30,7 @@ function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
         graph: {type: "segment"},
         correct: {type: "segment"},
         static: false,
+        lockedFigures: [],
     };
 }
 

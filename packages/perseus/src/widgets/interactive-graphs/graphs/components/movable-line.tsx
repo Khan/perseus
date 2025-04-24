@@ -25,7 +25,6 @@ type Props = {
     };
     // Extra graph information to be read by screen readers
     ariaDescribedBy?: string;
-    color?: string;
     /* Extends the line to the edge of the graph with an arrow */
     extend?: {
         start: boolean;
@@ -40,7 +39,6 @@ export const MovableLine = (props: Props) => {
         points: [start, end],
         ariaLabels,
         ariaDescribedBy,
-        color,
         extend,
         onMoveLine = () => {},
         onMovePoint = () => {},
@@ -76,7 +74,6 @@ export const MovableLine = (props: Props) => {
             ariaLive: ariaLives[0],
             point: start,
             sequenceNumber: 1,
-            color,
             onMove: (p) => {
                 setAriaLives(["polite", "off", "off"]);
                 onMovePoint(0, p);
@@ -94,7 +91,6 @@ export const MovableLine = (props: Props) => {
             ariaLive: ariaLives[1],
             point: end,
             sequenceNumber: 2,
-            color,
             onMove: (p) => {
                 setAriaLives(["off", "polite", "off"]);
                 onMovePoint(1, p);
@@ -113,7 +109,6 @@ export const MovableLine = (props: Props) => {
             ariaLive={ariaLives[2]}
             start={start}
             end={end}
-            stroke={color}
             extend={extend}
             onMove={(delta) => {
                 setAriaLives(["off", "off", "polite"]);
@@ -133,8 +128,6 @@ export const MovableLine = (props: Props) => {
     );
 };
 
-const defaultStroke = "var(--movable-line-stroke-color)";
-
 type LineProps = {
     start: vec.Vector2;
     end: vec.Vector2;
@@ -148,21 +141,12 @@ type LineProps = {
               start: boolean;
               end: boolean;
           };
-    stroke?: string | undefined;
     onMove: (delta: vec.Vector2) => unknown;
 };
 
 const Line = (props: LineProps) => {
-    const {
-        start,
-        end,
-        ariaLabel,
-        ariaDescribedBy,
-        ariaLive,
-        extend,
-        stroke = defaultStroke,
-        onMove,
-    } = props;
+    const {start, end, ariaLabel, ariaDescribedBy, ariaLive, extend, onMove} =
+        props;
 
     const [startPtPx, endPtPx] = useTransformVectorsToPixels(start, end);
     const {
@@ -170,6 +154,7 @@ const Line = (props: LineProps) => {
         graphDimensionsInPixels,
         snapStep,
         disableKeyboardInteraction,
+        interactiveColor,
     } = useGraphConfig();
 
     let startExtend: vec.Vector2 | undefined = undefined;
@@ -203,6 +188,7 @@ const Line = (props: LineProps) => {
                 aria-label={ariaLabel}
                 aria-describedby={ariaDescribedBy}
                 aria-live={ariaLive}
+                aria-disabled={disableKeyboardInteraction}
                 className="movable-line"
                 data-testid="movable-line"
                 style={{cursor: dragging ? "grabbing" : "grab"}}
@@ -235,7 +221,7 @@ const Line = (props: LineProps) => {
                     start={startPtPx}
                     end={endPtPx}
                     style={{
-                        stroke,
+                        stroke: interactiveColor,
                         strokeWidth: "var(--movable-line-stroke-weight)",
                     }}
                     className={dragging ? "movable-dragging" : ""}
@@ -245,9 +231,19 @@ const Line = (props: LineProps) => {
 
             {/* Draw extension vectors outside of movable area */}
             {startExtend && (
-                <Vector tail={start} tip={startExtend} color={stroke} />
+                <Vector
+                    tail={start}
+                    tip={startExtend}
+                    testId="movable-line__vector"
+                />
             )}
-            {endExtend && <Vector tail={end} tip={endExtend} color={stroke} />}
+            {endExtend && (
+                <Vector
+                    tail={end}
+                    tip={endExtend}
+                    testId="movable-line__vector"
+                />
+            )}
         </>
     );
 };

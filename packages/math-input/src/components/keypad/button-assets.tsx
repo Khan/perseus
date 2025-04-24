@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /*
 The SVGs in this file should be treated as binary assets. If, in the future,
 we need to make changes to update the color or size or shape of the glyph
@@ -15,9 +16,9 @@ import * as React from "react";
 
 import {useMathInputI18n} from "../i18n-context";
 
-import type Key from "../../data/keys";
+import type {KeypadKey} from "@khanacademy/perseus-core";
 
-type Props = {id: Key};
+type Props = {id: KeypadKey};
 
 export default function ButtonAsset({id}: Props): React.ReactNode {
     const {locale, strings} = useMathInputI18n();

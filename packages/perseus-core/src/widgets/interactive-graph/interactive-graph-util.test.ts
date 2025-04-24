@@ -1,6 +1,6 @@
 import getInteractiveGraphPublicWidgetOptions from "./interactive-graph-util";
 
-import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusInteractiveGraphWidgetOptions} from "../../data-schema";
 
 describe("getInteractiveGraphPublicWidgetOptions", () => {
     it("removes the `correct` field", () => {
@@ -22,6 +22,7 @@ describe("getInteractiveGraphPublicWidgetOptions", () => {
             ],
             showProtractor: false,
             step: [1, 1],
+            lockedFigures: [],
         };
 
         const publicOptions = getInteractiveGraphPublicWidgetOptions(options);
@@ -35,6 +36,7 @@ describe("getInteractiveGraphPublicWidgetOptions", () => {
             ],
             showProtractor: false,
             step: [1, 1],
+            lockedFigures: [],
         });
     });
 });

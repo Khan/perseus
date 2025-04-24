@@ -1,8 +1,8 @@
+/* eslint-disable max-lines */
 /* eslint-disable react/no-unsafe */
 import {KhanMath} from "@khanacademy/kmath";
 import $ from "jquery";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -14,15 +14,14 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plo
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
-import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 import type {
-    PerseusPlotterRubric,
+    PerseusPlotterWidgetOptions,
     PerseusPlotterUserInput,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusPlotterWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusPlotterRubric> & {
+type Props = WidgetProps<RenderProps> & {
     labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
     picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
 };
@@ -42,7 +41,7 @@ type DefaultProps = {
 };
 
 type State = {
-    values: ReadonlyArray<number>;
+    values: number[];
     categoryHeights: Record<string, number>;
 };
 
@@ -50,12 +49,13 @@ export class Plotter extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
+    _isMounted = false;
     // @ts-expect-error - TS2564 - Property 'shouldSetupGraphie' has no initializer and is not definitely assigned in the constructor.
     shouldSetupGraphie: boolean;
-    _isMounted = false;
+    graphieDiv = React.createRef<HTMLDivElement>();
+    graphie: any;
     horizHairline: any;
     hairlineRange: any;
-    graphie: any;
 
     static defaultProps: DefaultProps = {
         type: "bar",
@@ -75,6 +75,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
     };
 
     state: State = {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         values: this.props.starting || [1],
 
         // The measured rendered height of category strings. Used to calculate
@@ -146,11 +147,9 @@ export class Plotter extends React.Component<Props, State> implements Widget {
     setupGraphie: (arg1: any) => void = (prevState) => {
         const self = this;
         self.shouldSetupGraphie = false;
-        const graphieDiv = ReactDOM.findDOMNode(self.refs.graphieDiv);
-        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'empty' does not exist on type 'JQueryStatic'.
-        $(graphieDiv).empty();
+        $(this.graphieDiv.current!).empty();
         // @ts-expect-error - Argument of type 'Element | Text | null' is not assignable to parameter of type 'HTMLElement'.
-        const graphie = GraphUtils.createGraphie(graphieDiv);
+        const graphie = GraphUtils.createGraphie(this.graphieDiv.current);
 
         // TODO(jakesandlund): It's not the react way to hang
         // something off the component object, but since graphie
@@ -240,6 +239,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
                 ...Object.values(self.state.categoryHeights),
             );
 
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (maxCategoryHeight) {
                 // Account for bottom label position, height.
                 let offsetY = 25;
@@ -1156,8 +1156,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         return (
             <div
                 className={"perseus-widget-plotter graphie"}
-                // eslint-disable-next-line react/no-string-refs
-                ref="graphieDiv"
+                ref={this.graphieDiv}
                 style={style}
             />
         );

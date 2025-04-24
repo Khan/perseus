@@ -1,4 +1,3 @@
-import {itemDataVersion} from "@khanacademy/perseus";
 import * as React from "react";
 import _ from "underscore";
 
@@ -14,8 +13,6 @@ import type {
     DeviceType,
 } from "@khanacademy/perseus";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
-
-const ITEM_DATA_VERSION = itemDataVersion;
 
 type Props = {
     apiOptions?: APIOptions;
@@ -76,16 +73,11 @@ class ItemEditor extends React.Component<Props> {
 
     serialize: (options?: any) => {
         answerArea: any;
-        itemDataVersion: {
-            major: number;
-            minor: number;
-        };
         question: any;
     } = (options: any) => {
         return {
             question: this.questionEditor.current?.serialize(options),
             answerArea: this.itemExtrasEditor.current?.serialize(),
-            itemDataVersion: ITEM_DATA_VERSION,
         };
     };
 
@@ -150,9 +142,7 @@ class ItemEditor extends React.Component<Props> {
                         />
                     </div>
 
-                    <div className="perseus-editor-right-cell">
-                        <div id="answer_area" />
-                    </div>
+                    <div className="perseus-editor-right-cell" />
                 </div>
             </div>
         );

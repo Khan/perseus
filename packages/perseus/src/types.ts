@@ -15,19 +15,18 @@ import type {
     Hint,
     PerseusAnswerArea,
     PerseusGraphType,
+    PerseusFeatureFlags,
     PerseusWidget,
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
     Version,
     WidgetOptionsUpgradeMap,
-} from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
-import type {
     Rubric,
     UserInput,
     UserInputArray,
     UserInputMap,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
 import type * as React from "react";
 
@@ -128,7 +127,6 @@ export type ChangeHandler = (
         // used only in EditorPage
         question?: any;
         answerArea?: PerseusAnswerArea | null;
-        itemDataVersion?: Version;
         editorMode?: EditorMode;
         jsonMode?: boolean;
         // perseus-all-package/widgets/unit.jsx
@@ -296,6 +294,11 @@ export type APIOptions = Readonly<{
      * only after a good few seconds.
      */
     editorChangeDelay?: number;
+    /**
+     * Feature flags that can be passed from consuming application.
+     * Define the feature flag name in packages/perseus-core/src/feature-flags.ts
+     */
+    flags?: Record<(typeof PerseusFeatureFlags)[number], boolean>;
     /**
      * This is a callback function that returns all of the Widget props
      * after they have been transformed by the widget's transform function.

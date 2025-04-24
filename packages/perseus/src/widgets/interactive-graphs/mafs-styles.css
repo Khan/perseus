@@ -17,6 +17,14 @@
     --mafs-green: #00a60e; /* WB color.green */
     --mafs-violet: #9059ff; /* WB color.purple */
     --mafs-yellow: #ffb100; /* WB color.gold */
+    /* Note: offBlack50 is not the best for contrast. However, this color needs
+    to be distinguishable from our regular interactive blue so it is clear that
+    the element is not interactive, even though the visual elements (e.g.
+    outlines, shadows) may indicate otherwise. When using a darker gray, it
+    looks the same as our WB blue in grayscale. We had to make a call here, and
+    we decided to make it lighter and more distinguishable even if it sacrifices
+    color contrast. (Nisha 2025) */
+    --static-gray: #909296 /* WB color.offBlack50 */;
 
     /* overridden on a per-point basis */
     --movable-point-color: var(--mafs-blue);
@@ -26,7 +34,6 @@
     --movable-point-hover-expansion: 2px;
     --movable-point-focus-ring-offset: 2px;
 
-    --movable-line-stroke-color: var(--mafs-blue);
     --movable-line-stroke-weight: 2px;
     --movable-line-stroke-weight-active: 4px;
     overflow: visible !important;
@@ -166,7 +173,6 @@
 }
 
 .MafsView .movable-circle .circle {
-    stroke: var(--mafs-blue);
     stroke-width: 2px;
     fill: transparent;
 }
@@ -197,7 +203,6 @@
 }
 
 .MafsView .movable-circle .movable-circle-handle {
-    fill: var(--mafs-blue); /* WB fadedOffBlack64 */
     stroke: #fff;
     stroke-width: 2px;
 }
@@ -217,9 +222,13 @@
     stroke: rgba(33, 36, 44, 0.32);
 }
 
-.MafsView .angle-arc,
-.MafsView .arc-right-angle {
+.MafsView .angle-arc-interactive {
     stroke: var(--mafs-blue);
+    stroke-width: 0.1px;
+}
+
+.MafsView .angle-arc-static {
+    stroke: var(--static-gray);
     stroke-width: 0.1px;
 }
 

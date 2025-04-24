@@ -1,6 +1,6 @@
-import {seededRNG, shuffle} from "@khanacademy/perseus-core";
+import {seededRNG, shuffle} from "../../utils/random-util";
 
-import type {PerseusMatcherWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusMatcherWidgetOptions} from "../../data-schema";
 
 // TODO(LEMS-2841): Should be able to remove once getPublicWidgetOptions is hooked up
 type MatcherInfo = {
@@ -38,8 +38,8 @@ export const shuffleMatcher = (
 
 // TODO(LEMS-2841): Can shorten to shuffleMatcher after above function removed
 function shuffleMatcherWithRandom(data: MatcherShuffleInfo): {
-    left: ReadonlyArray<string>;
-    right: ReadonlyArray<string>;
+    left: string[];
+    right: string[];
 } {
     // Use the same random() function to shuffle both columns sequentially
     let left;

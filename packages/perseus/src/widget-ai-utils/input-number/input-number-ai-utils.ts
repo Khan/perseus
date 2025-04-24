@@ -1,5 +1,5 @@
 import type inputNumber from "../../widgets/input-number/input-number";
-import type {PerseusInputNumberUserInput} from "@khanacademy/perseus-score";
+import type {PerseusInputNumberUserInput} from "@khanacademy/perseus-core";
 import type React from "react";
 
 export type InputNumberPromptJSON = {

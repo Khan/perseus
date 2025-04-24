@@ -2,11 +2,11 @@ import {point as kpoint} from "@khanacademy/kmath";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
-import a11y from "../../../util/a11y";
 import {X, Y} from "../math";
 import {actions} from "../reducer/interactive-graph-action";
 
 import {MovableLine} from "./components/movable-line";
+import SRDescInSVG from "./components/sr-description-within-svg";
 import {srFormatNumber} from "./screenreader-text";
 
 import type {I18nContextType} from "../../../components/i18n-context";
@@ -102,12 +102,18 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
     return (
         <g
             aria-label={wholeSegmentGraphAriaLabel}
-            aria-describedby={wholeGraphDescriptionId}
+            aria-describedby={`${wholeGraphDescriptionId} ${segments.length === 1 && lengthDescriptionId}`}
         >
             {segments?.map((segment, i) => (
                 <g
-                    aria-label={getIndividualSegmentAriaLabel(segment, i)}
-                    aria-describedby={lengthDescriptionId}
+                    aria-label={
+                        segments.length === 1
+                            ? undefined
+                            : getIndividualSegmentAriaLabel(segment, i)
+                    }
+                    aria-describedby={
+                        segments.length === 1 ? undefined : lengthDescriptionId
+                    }
                     key={`${segmentUniqueId}-${i}`}
                 >
                     <MovableLine
@@ -149,19 +155,19 @@ const SegmentGraph = ({dispatch, graphState}: SegmentProps) => {
                             }),
                         }}
                     />
-                    <g id={lengthDescriptionId} style={a11y.srOnly}>
+                    <SRDescInSVG id={lengthDescriptionId}>
                         {strings.srSegmentLength({
                             length: srFormatNumber(
                                 getLengthOfSegment(segment),
                                 locale,
                             ),
                         })}
-                    </g>
+                    </SRDescInSVG>
                 </g>
             ))}
-            <g style={a11y.srOnly} id={wholeGraphDescriptionId}>
+            <SRDescInSVG id={wholeGraphDescriptionId}>
                 {getWholeSegmentGraphAriaDescription()}
-            </g>
+            </SRDescInSVG>
         </g>
     );
 };

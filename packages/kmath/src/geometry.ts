@@ -9,7 +9,9 @@ import {
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import {number as knumber, point as kpoint, sum} from "@khanacademy/kmath";
+import {sum} from "./math";
+import * as knumber from "./number";
+import * as kpoint from "./point";
 
 type Line = [Coord, Coord];
 

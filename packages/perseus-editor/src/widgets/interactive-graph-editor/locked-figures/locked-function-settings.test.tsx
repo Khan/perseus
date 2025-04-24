@@ -29,12 +29,11 @@ jest.mock("./util", () => ({
         mockedJoinLabelsAsSpokenMathForTests(input),
 }));
 
-const exampleEquationsMock = {
-    foo: ["bar", "zot"],
-};
 jest.mock("./locked-function-examples", () => ({
     __esModule: true,
-    default: exampleEquationsMock,
+    default: {
+        foo: ["bar", "zot"],
+    },
 }));
 
 describe("Locked Function Settings", () => {
@@ -81,38 +80,6 @@ describe("Locked Function Settings", () => {
                 {...defaultProps}
                 domain={[-Infinity, 0]}
             />,
-            {
-                wrapper: RenderStateRoot,
-            },
-        );
-
-        // Assert
-        inputField = screen
-            .getByText("domain min")
-            // eslint-disable-next-line testing-library/no-node-access
-            .querySelector("input");
-        expect(inputField?.value).toEqual("");
-
-        // Act (max domain not defined)
-        cleanup();
-        render(
-            <LockedFunctionSettings {...defaultProps} domain={[0, null]} />,
-            {
-                wrapper: RenderStateRoot,
-            },
-        );
-
-        // Assert
-        inputField = screen
-            .getByLabelText("domain max")
-            // eslint-disable-next-line testing-library/no-node-access
-            .querySelector("input");
-        expect(inputField?.value).toEqual("");
-
-        // Act (min domain not defined)
-        cleanup();
-        render(
-            <LockedFunctionSettings {...defaultProps} domain={[null, 0]} />,
             {
                 wrapper: RenderStateRoot,
             },
@@ -836,38 +803,10 @@ describe("Locked Function Settings", () => {
                 });
             });
 
-            test("aria label does not auto-generate with domain when both values are null", async () => {
-                // Arrange
-                const onChangeProps = jest.fn();
-                render(
-                    <LockedFunctionSettings
-                        {...defaultProps}
-                        ariaLabel={undefined}
-                        onChangeProps={onChangeProps}
-                        domain={[null, null]}
-                    />,
-                    {wrapper: RenderStateRoot},
-                );
-
-                // Act
-                const autoGenButton = screen.getByRole("button", {
-                    name: "Auto-generate",
-                });
-                await userEvent.click(autoGenButton);
-
-                // Assert
-                expect(onChangeProps).toHaveBeenCalledWith({
-                    ariaLabel:
-                        "Function with equation y=x^2. Appearance solid gray.",
-                });
-            });
-
             test.each`
                 domainValue       | domainAria
                 ${[1, Infinity]}  | ${"1 to Infinity"}
                 ${[-Infinity, 2]} | ${"-Infinity to 2"}
-                ${[1, null]}      | ${"1 to Infinity"}
-                ${[null, 2]}      | ${"-Infinity to 2"}
             `(
                 "aria label auto-generates with partial domain info: $domainValue",
                 async ({domainValue, domainAria}) => {

@@ -12,12 +12,9 @@ import {
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
-import type {ImageWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
 const pairOfNumbers = pair(number, number);
 
-export const parseImageWidget: Parser<ImageWidget> = parseWidget(
+export const parseImageWidget = parseWidget(
     constant("image"),
     object({
         title: optional(string),

@@ -17,7 +17,7 @@ import * as Dependencies from "../dependencies";
 import {ApiOptions} from "../perseus-api";
 
 import type {APIOptions} from "../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusArticle} from "@khanacademy/perseus-core";
 
 function KeypadWithContext() {
     return (
@@ -38,9 +38,7 @@ function KeypadWithContext() {
 // the ArticleRenderer instead of Renderer
 export const RenderArticle = (
     apiOptions: APIOptions = Object.freeze({}),
-    json:
-        | PerseusRenderer
-        | ReadonlyArray<PerseusRenderer> = articleSectionWithExpression,
+    json: PerseusArticle = articleSectionWithExpression,
 ): {
     container: HTMLElement;
     renderer: ArticleRenderer;
@@ -67,6 +65,7 @@ export const RenderArticle = (
             </StatefulKeypadContextProvider>
         </RenderStateRoot>,
     );
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!renderer) {
         throw new Error(`Failed to render!`);
     }

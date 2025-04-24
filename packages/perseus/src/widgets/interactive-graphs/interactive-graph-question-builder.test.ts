@@ -82,6 +82,16 @@ describe("InteractiveGraphQuestionBuilder", () => {
         expect(graph.options.labels).toEqual(["the x label", "the y label"]);
     });
 
+    it("sets the axis labelLocation", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withAxisLabels("the x label", "the y label")
+            .withLabelLocation("alongEdge")
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+
+        expect(graph.options.labelLocation).toEqual("alongEdge");
+    });
+
     it("sets the background markings", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .withMarkings("grid")
@@ -738,6 +748,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 coord: [3, 5],
                 color: "grayH",
                 filled: true,
+                labels: [],
             },
         ]);
     });
@@ -755,12 +766,14 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 coord: [3, 5],
                 color: "grayH",
                 filled: true,
+                labels: [],
             },
             {
                 type: "point",
                 coord: [6, 7],
                 color: "grayH",
                 filled: true,
+                labels: [],
             },
         ]);
     });
@@ -841,18 +854,21 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         coord: [1, 2],
                         color: "grayH",
                         filled: true,
+                        labels: [],
                     },
                     {
                         type: "point",
                         coord: [3, 4],
                         color: "grayH",
                         filled: true,
+                        labels: [],
                     },
                 ],
                 color: "grayH",
                 lineStyle: "solid",
                 showPoint1: false,
                 showPoint2: false,
+                labels: [],
             },
         ]);
     });
@@ -882,12 +898,14 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         coord: [1, 2],
                         color: "green",
                         filled: false,
+                        labels: [],
                     },
                     {
                         type: "point",
                         coord: [3, 4],
                         color: "green",
                         filled: false,
+                        labels: [],
                     },
                 ],
                 color: "green",
@@ -932,12 +950,14 @@ describe("InteractiveGraphQuestionBuilder", () => {
                         coord: [1, 2],
                         color: "green",
                         filled: false,
+                        labels: [],
                     },
                     {
                         type: "point",
                         coord: [3, 4],
                         color: "green",
                         filled: false,
+                        labels: [],
                     },
                 ],
                 color: "green",
@@ -971,6 +991,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     [3, 4],
                 ],
                 color: "grayH",
+                labels: [],
             },
         ]);
     });
@@ -1052,6 +1073,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "grayH",
                 fillStyle: "none",
                 strokeStyle: "solid",
+                labels: [],
             },
         ]);
     });
@@ -1144,6 +1166,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 showVertices: false,
                 fillStyle: "none",
                 strokeStyle: "solid",
+                labels: [],
             },
         ]);
     });
@@ -1247,6 +1270,8 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "grayH",
                 strokeStyle: "solid",
                 directionalAxis: "x",
+                domain: [-Infinity, Infinity],
+                labels: [],
             },
         ]);
     });
@@ -1301,6 +1326,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "grayH",
                 strokeStyle: "solid",
                 directionalAxis: "x",
+                domain: [-Infinity, Infinity],
                 labels: [
                     {
                         type: "label",

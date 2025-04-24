@@ -1,4 +1,4 @@
-import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusOrdererWidgetOptions} from "../../data-schema";
 
 /**
  * For details on the individual options, see the

@@ -2,8 +2,6 @@ import {object, pipeParsers} from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
-import type {PerseusAnswerArea} from "@khanacademy/perseus-core";
-
 export const parsePerseusAnswerArea = pipeParsers(
     defaulted(object({}), () => ({})),
 ).then(convert(toAnswerArea)).parser;
@@ -21,7 +19,7 @@ export const parsePerseusAnswerArea = pipeParsers(
 //
 // This function filters the fields of an answerArea object, keeping only the
 // known ones, and converts `undefined` and `null` values to `false`.
-function toAnswerArea(raw: Record<string, unknown>): PerseusAnswerArea {
+function toAnswerArea(raw: Record<string, unknown>) {
     return {
         zTable: !!raw.zTable,
         calculator: !!raw.calculator,

@@ -14,7 +14,11 @@ import type {
     DeviceType,
     ImageUploader,
 } from "@khanacademy/perseus";
-import type {Hint, PerseusItem, Version} from "@khanacademy/perseus-core";
+import type {
+    Hint,
+    PerseusItem,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 const {HUD} = components;
 
@@ -33,8 +37,6 @@ type Props = {
     // will be hosted. Image drag and drop is disabled when imageUploader
     // is null.
     imageUploader?: ImageUploader;
-    // Part of the question
-    itemDataVersion?: Version;
     // The content ID of the AssessmentItem being edited.
     itemId: string;
     // Whether the question is displaying as JSON or if it is
@@ -48,7 +50,7 @@ type Props = {
     // A global control to expand/collapse all widget editors on a page.
     widgetsAreOpen?: boolean;
     // Initial value of the question being edited
-    question?: any;
+    question?: PerseusRenderer;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
 };
@@ -82,14 +84,8 @@ class EditorPage extends React.Component<Props, State> {
         super(props);
 
         this.state = {
-            // @ts-expect-error - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea" | "itemDataVersion">' is not assignable to type 'PerseusJson'.
-            json: _.pick(
-                this.props,
-                "question",
-                "answerArea",
-                "hints",
-                "itemDataVersion",
-            ),
+            // @ts-expect-error - TS2322 - Type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "hints" | "question" | "answerArea">' is not assignable to type 'PerseusJson'.
+            json: _.pick(this.props, "question", "answerArea", "hints"),
             gradeMessage: "",
             wasAnswered: false,
             highlightLint: true,

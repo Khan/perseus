@@ -1,14 +1,13 @@
+import {
+    type PerseusRenderer,
+    type PerseusExpressionWidgetOptions,
+    generateTestPerseusItem,
+} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import ExpressionEditor from "../expression-editor";
-
-import type {APIOptions} from "@khanacademy/perseus";
-import type {
-    PerseusRenderer,
-    PerseusExpressionWidgetOptions,
-} from "@khanacademy/perseus-core";
 
 type StoryArgs = Record<any, any>;
 
@@ -52,8 +51,6 @@ class WithDebug extends React.Component<Empty, State> {
     }
 
     render(): React.ReactNode {
-        const apiOptions: APIOptions = Object.freeze({});
-
         return (
             <div className={css(styles.wrapper)}>
                 <div className={css(styles.editorWrapper)}>
@@ -69,9 +66,10 @@ class WithDebug extends React.Component<Empty, State> {
                         }
                     />
                 </div>
-                <RendererWithDebugUI
-                    question={this.mergeQuestionWithState()}
-                    apiOptions={apiOptions}
+                <ServerItemRendererWithDebugUI
+                    item={generateTestPerseusItem({
+                        question: this.mergeQuestionWithState(),
+                    })}
                     reviewMode={true}
                 />
             </div>

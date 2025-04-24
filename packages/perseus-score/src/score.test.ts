@@ -5,10 +5,10 @@ import {
     getTestDropdownWidget,
 } from "./util/test-helpers";
 
-import type {UserInputMap} from "./validation.types";
 import type {
     DropdownWidget,
     PerseusWidgetsMap,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 
 describe("flattenScores", () => {

@@ -10,10 +10,6 @@ const noWidgets = {
     answerArea: {
         calculator: false,
     },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
     hints: [],
 } as const;
 
@@ -52,10 +48,6 @@ const oneAccessibleWidget = {
     },
     answerArea: {
         calculator: false,
-    },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
     },
     hints: [],
 } as const;
@@ -111,10 +103,6 @@ const oneInaccessibleWidget = {
     answerArea: {
         calculator: false,
     },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
     hints: [],
 } as const;
 
@@ -151,10 +139,6 @@ const imageWithAltText = {
     },
     answerArea: {
         calculator: false,
-    },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
     },
     hints: [],
 } as const;
@@ -193,10 +177,6 @@ const imageWithoutAltText = {
     answerArea: {
         calculator: false,
     },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
     hints: [],
 } as const;
 
@@ -228,10 +208,6 @@ const emptyImageWithoutAltText = {
     },
     answerArea: {
         calculator: false,
-    },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
     },
     hints: [],
 } as const;

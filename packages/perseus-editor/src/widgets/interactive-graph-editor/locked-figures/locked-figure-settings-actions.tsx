@@ -51,31 +51,31 @@ const LockedFigureSettingsActions = (props: Props) => {
 
                     <IconButton
                         icon={caretDoubleUpIcon}
+                        kind="tertiary"
                         size="small"
                         aria-label={`Move locked ${figureType} to the back`}
                         onClick={() => onMove("back")}
-                        style={styles.iconButton}
                     />
                     <IconButton
                         icon={caretUpIcon}
+                        kind="tertiary"
                         size="small"
                         aria-label={`Move locked ${figureType} backward`}
                         onClick={() => onMove("backward")}
-                        style={styles.iconButton}
                     />
                     <IconButton
                         icon={caretDownIcon}
+                        kind="tertiary"
                         size="small"
                         aria-label={`Move locked ${figureType} forward`}
                         onClick={() => onMove("forward")}
-                        style={styles.iconButton}
                     />
                     <IconButton
                         icon={caretDoubleDownIcon}
+                        kind="tertiary"
                         size="small"
                         aria-label={`Move locked ${figureType} to the front`}
                         onClick={() => onMove("front")}
-                        style={styles.iconButton}
                     />
                 </>
             )}
@@ -93,11 +93,6 @@ const styles = StyleSheet.create({
     deleteButton: {
         // Line up the delete icon with the rest of the content.
         marginInlineStart: -spacing.xxxSmall_4,
-    },
-    iconButton: {
-        // Reset the margin because the icon buttons
-        // overlap each other otherwise.
-        margin: 0,
     },
 });
 

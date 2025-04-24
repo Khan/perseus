@@ -1,16 +1,22 @@
 export type {PerseusAnalyticsEvent, AnalyticsEventHandlerFn} from "./analytics";
 export type {
     KEScore,
-    KeypadContextRendererInterface,
     RendererInterface,
     MarkerType,
     InteractiveMarkerType,
     Relationship,
     Alignment,
+    RecursiveReadonly,
 } from "./types";
+export type {
+    KeypadKey,
+    KeypadConfiguration,
+    KeypadContextRendererInterface,
+} from "./keypad";
 export type {ErrorKind} from "./error/errors";
 export type {FunctionTypeMappingKeys} from "./utils/grapher-util";
 export type {Coords} from "./utils/grapher-types";
+export type * from "./validation.types";
 
 export {default as getMatrixSize} from "./utils/get-matrix-size";
 export {default as getDecimalSeparator} from "./utils/get-decimal-separator";
@@ -22,6 +28,7 @@ export {
 } from "./utils/widget-id-utils";
 export {default as deepClone} from "./utils/deep-clone";
 export * as GrapherUtil from "./utils/grapher-util";
+export {generateTestPerseusItem} from "./utils/test-utils";
 
 export {
     parsePerseusItem,
@@ -59,6 +66,7 @@ export {default as explanationLogic} from "./widgets/explanation";
 export type {ExplanationDefaultWidgetOptions} from "./widgets/explanation";
 export {default as expressionLogic} from "./widgets/expression";
 export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
+export {default as deriveExtraKeys} from "./widgets/expression/derive-extra-keys";
 export {default as gradedGroupLogic} from "./widgets/graded-group";
 export {default as freeResponseLogic} from "./widgets/free-response";
 export type {FreeResponseDefaultWidgetOptions} from "./widgets/free-response";
@@ -107,6 +115,7 @@ export {default as pythonProgramLogic} from "./widgets/python-program";
 export type {PythonProgramDefaultWidgetOptions} from "./widgets/python-program";
 export {default as radioLogic} from "./widgets/radio";
 export type {RadioDefaultWidgetOptions} from "./widgets/radio";
+export {usesNumCorrect} from "./widgets/radio/radio-util";
 export {default as sorterLogic} from "./widgets/sorter";
 export type {SorterDefaultWidgetOptions} from "./widgets/sorter";
 export {default as tableLogic} from "./widgets/table";
@@ -127,9 +136,11 @@ export * as CoreWidgetRegistry from "./widgets/core-widget-registry";
 
 export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
 export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
+export type {CategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
 export {default as getCSProgramPublicWidgetOptions} from "./widgets/cs-program/cs-program-util";
 export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
 export {default as getFreeResponsePublicWidgetOptions} from "./widgets/free-response/free-response-util";
+export type {ExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
 export {default as getGrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
 export {
     default as getInteractiveGraphPublicWidgetOptions,
@@ -142,12 +153,15 @@ export type {DropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util
 export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";
 export {default as getNumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
 export {default as getRadioPublicWidgetOptions} from "./widgets/radio/radio-util";
+export {deriveNumCorrect} from "./widgets/radio/radio-upgrade";
 export {default as getTablePublicWidgetOptions} from "./widgets/table/table-util";
 export {default as getIFramePublicWidgetOptions} from "./widgets/iframe/iframe-util";
 export {default as getMatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
+export type {MatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
 export {default as getPlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";
 export {
     default as getMatcherPublicWidgetOptions,
     shuffleMatcher,
 } from "./widgets/matcher/matcher-util";
 export {shuffle, seededRNG, random} from "./utils/random-util";
+export {default as PerseusFeatureFlags} from "./feature-flags";

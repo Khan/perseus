@@ -8,6 +8,86 @@ The parser gracefully handles old data formats that don't conform to the TS
 types. It does this by defaulting missing fields and migrating ones that have
 been renamed or restructured.
 
+## What to do if your change introduces type errors in `perseus-parsers/`
+
+Each `.ts` file in `perseus-parsers/` has an associated typetest file. These
+type tests verify that the parsers actually return the types defined in
+`data-schema.ts`. If you change the data-schema types, you will see type
+errors in these typetest files. The fix is to update the corresponding parser.
+
+Parsers' return types are intentionally NOT defined in terms of the data-schema
+types. If they were, certain kinds of type errors could sneak in.
+
+<details>
+<summary>Details</summary>
+
+Consider the case of a data-schema type like:
+
+```ts
+export type CoolWidgetOptions = {
+    text: string;
+    color: "green" | "blue";
+}
+```
+
+The parser looks like the following. Note the explicit type declaration! This
+is not the way to do it, and we'll see why in a moment.
+
+```ts
+import {CoolWidgetOptions} from "../../data-schema";
+
+// Don't follow this example! There shouldn't be a type declaration on
+// `parseCoolWidgetOptions`.
+const parseCoolWidgetOptions: Parser<CoolWidgetOptions> = object({
+    text: string,
+    color: enumeration("green", "blue"),
+});
+```
+
+Now suppose we want to add a new field to our widget's options,
+`title?: string`.
+
+```ts
+export type CoolWidgetOptions = {
+    text: string;
+    color: "green" | "blue";
+    title?: string;
+}
+```
+
+Now, the parser will not parse `title`, because it is not defined in the
+`object({})` schema. But typechecking passes! That's because the result of the
+parser is in fact assignable to `CoolWidgetOptions`. `CoolWidgetOptions`
+doesn't require `title` to be present, and the parser doesn't either.
+
+This is bad because we might forget to update the parser when we add `title` to
+the data-schema types. The solution is to remove the type declaration from
+`parseCoolWidgetOptions`, letting TypeScript infer the return type instead. Then
+we can use typetests to check that the parser's result is equal to the
+data-schema types. That way, we will be informed of any mismatches in the types.
+
+Here is another case where explicit type declarations fall short. Suppose we
+add a new `color` to `CoolWidgetOptions`:
+
+```diff
+  export type CoolWidgetOptions = {
+      text: string;
+-     color: "green" | "blue";
++     color: "green" | "blue" | "red";
+      title?: string;
+  }
+```
+
+As before, typechecking passes! That's because the parser's result,
+`"green" | "blue"`, is assignable to `"green" | "blue" | "red"`. The only
+problem is, the parser will reject widgets that have a `color` of `"red"`!
+
+Again, the solution is to let TS infer the result types of parsers and use
+typetests to keep the parsers in sync with data-schema.
+
+</details>
+
+
 ## Regression testing against old data
 
 The tests in the `regression-tests` directory ensure that the parsing code can

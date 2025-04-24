@@ -14,8 +14,8 @@ import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-a
 import type {
     DropdownPublicWidgetOptions,
     PerseusDropdownWidgetOptions,
+    PerseusDropdownUserInput,
 } from "@khanacademy/perseus-core";
-import type {PerseusDropdownUserInput} from "@khanacademy/perseus-score";
 
 type Props = WidgetProps<RenderProps> & {
     selected: number;
@@ -128,11 +128,6 @@ class Dropdown extends React.Component<Props> implements Widget {
                                 this.props.visibleLabel ||
                                 this.context.strings.selectAnAnswer
                             }
-                            // This is currently necessary for SRs to read the labels properly.
-                            // However, WB is working on a change to add the "combobox" role to
-                            // all dropdowns.
-                            // See https://khanacademy.atlassian.net/browse/WB-1671
-                            role="combobox"
                             showOpenerLabelAsText={false}
                         >
                             {children}

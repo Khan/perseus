@@ -1,6 +1,6 @@
 import scoreNumericInput, {maybeParsePercentInput} from "./score-numeric-input";
 
-import type {PerseusNumericInputRubric} from "../../validation.types";
+import type {PerseusNumericInputRubric} from "@khanacademy/perseus-core";
 
 describe("scoreNumericInput", () => {
     it("is correct when input is empty but answer is 1 and coefficient: true", () => {
@@ -527,6 +527,120 @@ describe("scoreNumericInput", () => {
         const score = scoreNumericInput({currentValue: "0.9%"}, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    // Tests for the "simplify" widget option:
+    //
+    // - simplify: "enforced" means unsimplified fractions are marked incorrect.
+    // - simplify: "required" means unsimplified fractions are returned as
+    //   invalid, and the learner can try again.
+    // - simplify: "optional" means unsimplified fractions are accepted as
+    //   correct.
+    //
+    // NOTE(benchristel): "accepted", "correct", booleans, undefined, and null
+    // are treated the same as "required". They are not valid values for
+    // `simplify` according to our types, but they appear in production data.
+    // The tests for these values characterize the current behavior as of
+    // 2025-03-18. Note that "accepted", "correct", booleans, undefined, and
+    // null are treated the same as "required".
+    describe.each`
+        simplify      | unsimplifiedFractionScore
+        ${"enforced"} | ${"incorrect"}
+        ${"optional"} | ${"correct"}
+        ${"required"} | ${"invalid"}
+        ${"accepted"} | ${"invalid"}
+        ${"correct"}  | ${"invalid"}
+        ${undefined}  | ${"invalid"}
+        ${null}       | ${"invalid"}
+        ${false}      | ${"invalid"}
+        ${true}       | ${"invalid"}
+    `("with simplify: $simplify", ({simplify, unsimplifiedFractionScore}) => {
+        it(`marks unsimplified fractions ${unsimplifiedFractionScore}`, () => {
+            const answerMatchers = {
+                incorrect: expect.objectContaining({
+                    type: "points",
+                    earned: 0,
+                }),
+
+                correct: expect.objectContaining({
+                    type: "points",
+                    earned: 1,
+                }),
+
+                invalid: expect.objectContaining({
+                    type: "invalid",
+                }),
+            };
+
+            const expected = answerMatchers[unsimplifiedFractionScore];
+
+            // Arrange
+            const rubric: PerseusNumericInputRubric = {
+                coefficient: false,
+                answers: [
+                    {
+                        value: 0.5,
+                        status: "correct",
+                        maxError: 0,
+                        simplify,
+                        strict: false,
+                        message: "",
+                    },
+                ],
+            };
+
+            // Act
+            const score = scoreNumericInput({currentValue: "2/4"}, rubric);
+
+            // Assert
+            expect(score).toEqual(expected);
+        });
+
+        it("marks a simplified fraction correct", () => {
+            // Arrange
+            const rubric: PerseusNumericInputRubric = {
+                coefficient: false,
+                answers: [
+                    {
+                        value: 0.5,
+                        status: "correct",
+                        maxError: 0,
+                        simplify,
+                        strict: false,
+                        message: "",
+                    },
+                ],
+            };
+
+            // Act
+            const score = scoreNumericInput({currentValue: "1/2"}, rubric);
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        });
+
+        it("marks an incorrect fraction incorrect", () => {
+            // Arrange
+            const rubric: PerseusNumericInputRubric = {
+                coefficient: false,
+                answers: [
+                    {
+                        value: 0.5,
+                        status: "correct",
+                        maxError: 0,
+                        simplify,
+                        strict: false,
+                        message: "",
+                    },
+                ],
+            };
+
+            // Act
+            const score = scoreNumericInput({currentValue: "2/3"}, rubric);
+
+            // Assert
+            expect(score).toHaveBeenAnsweredIncorrectly();
+        });
     });
 });
 

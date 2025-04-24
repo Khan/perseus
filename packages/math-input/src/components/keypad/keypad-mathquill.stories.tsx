@@ -1,5 +1,5 @@
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import {color} from "@khanacademy/wonder-blocks-tokens";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {mockStrings} from "../../strings";
@@ -8,8 +8,8 @@ import {getCursorContext} from "../input/mathquill-helpers";
 import {createMathField} from "../input/mathquill-instance";
 import {getKeyTranslator} from "../key-handlers/key-translator";
 
-import type Key from "../../data/keys";
 import type {MathFieldInterface} from "../input/mathquill-types";
+import type {KeypadKey} from "@khanacademy/perseus-core";
 
 import Keypad from "./index";
 
@@ -52,7 +52,7 @@ export function V2KeypadWithMathquill() {
         tan: "tan",
     });
 
-    function handleClickKey(key: Key) {
+    function handleClickKey(key: KeypadKey) {
         if (!mathField) {
             return;
         }
@@ -62,6 +62,7 @@ export function V2KeypadWithMathquill() {
         }
 
         const mathFieldCallback = keyTranslator[key];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (mathFieldCallback) {
             mathFieldCallback(mathField, key);
             setCursorContext(getCursorContext(mathField));
@@ -77,7 +78,8 @@ export function V2KeypadWithMathquill() {
                 content={
                     <PopoverContentCore
                         style={{
-                            padding: 10,
+                            padding: 0,
+                            paddingBottom: spacing.xxSmall_6,
                             maxWidth: "initial",
                         }}
                     >

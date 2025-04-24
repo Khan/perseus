@@ -1,28 +1,21 @@
-import {View} from "@khanacademy/wonder-blocks-core";
-import * as React from "react";
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
 import {question1} from "./plotter.testdata";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react";
 
-export default {
+const meta: Meta = {
     title: "Perseus/Widgets/Plotter",
+    component: ServerItemRendererWithDebugUI,
 };
+export default meta;
 
-type StoryArgs = Record<any, any>;
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
-const Template = (props: {question: PerseusRenderer}): React.ReactElement => (
-    <View
-        style={{
-            paddingLeft: 20,
-        }}
-    >
-        <RendererWithDebugUI question={props.question} />
-    </View>
-);
-
-export const Basic = (args: StoryArgs): React.ReactElement => {
-    return <Template question={question1} />;
+export const Basic: Story = {
+    args: {
+        item: generateTestPerseusItem({question: question1}),
+    },
 };

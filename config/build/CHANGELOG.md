@@ -1,5 +1,31 @@
 # perseus-build-settings
 
+## 0.6.1
+
+### Patch Changes
+
+-   [#2383](https://github.com/Khan/perseus/pull/2383) [`f938449f9`](https://github.com/Khan/perseus/commit/f938449f94fd7f4b1ed54cf187bdd7dd8d18cff5) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Removing dependency on hubble.js
+
+## 0.6.0
+
+### Minor Changes
+
+-   [#2327](https://github.com/Khan/perseus/pull/2327) [`7d1e7b0eb`](https://github.com/Khan/perseus/commit/7d1e7b0eb98bdea51066190d092d2339a4efbf93) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Migrate Rollup to v4
+
+## 0.5.1
+
+### Patch Changes
+
+-   [#2322](https://github.com/Khan/perseus/pull/2322) [`4bd882b43`](https://github.com/Khan/perseus/commit/4bd882b43b15d9d3d5ca850f5148eba57c7dca59) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change how version injection code is shared/bundled
+
+## 0.5.0
+
+### Minor Changes
+
+-   [#2202](https://github.com/Khan/perseus/pull/2202) [`c7f6f63c8`](https://github.com/Khan/perseus/commit/c7f6f63c845566d99dae6df604426e5fb14a7e85) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Tooling:
+
+    -   Switching to `pnpm`.
+
 ## 0.4.3
 
 ### Patch Changes

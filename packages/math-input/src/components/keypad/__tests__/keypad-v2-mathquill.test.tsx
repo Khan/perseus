@@ -9,9 +9,11 @@ import {createMathField} from "../../input/mathquill-instance";
 import {getKeyTranslator} from "../../key-handlers/key-translator";
 import Keypad from "../index";
 
-import type Key from "../../../data/keys";
 import type {MathFieldInterface} from "../../input/mathquill-types";
-import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
+import type {
+    AnalyticsEventHandlerFn,
+    KeypadKey,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 type Props = {
@@ -59,7 +61,7 @@ function V2KeypadWithMathquill(props: Props) {
 
     const keyTranslator = getKeyTranslator("en", strings);
 
-    function handleClickKey(key: Key) {
+    function handleClickKey(key: KeypadKey) {
         if (!mathField) {
             return;
         }
@@ -69,6 +71,7 @@ function V2KeypadWithMathquill(props: Props) {
         }
 
         const mathFieldCallback = keyTranslator[key];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (mathFieldCallback) {
             mathFieldCallback(mathField, key);
         }

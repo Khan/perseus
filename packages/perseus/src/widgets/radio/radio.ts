@@ -1,7 +1,7 @@
 import {radioLogic, random, shuffle} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import Radio from "./radio-component";
+import Radio from "./radio.ff";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusStrings} from "../../strings";
@@ -44,6 +44,7 @@ const _choiceTransform = (
         });
 
         // Place the "None of the above" options last
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (noneOfTheAbove) {
             newChoices.push(noneOfTheAbove);
         }
@@ -99,19 +100,16 @@ const transform = (
 ): RenderProps => {
     const choices = _choiceTransform(widgetOptions, strings, problemNum);
 
-    const numCorrect: number = _.reduce(
-        widgetOptions.choices,
-        function (memo, choice) {
-            return choice.correct ? memo + 1 : memo;
-        },
-        0,
-    );
-
-    const {hasNoneOfTheAbove, multipleSelect, countChoices, deselectEnabled} =
-        widgetOptions;
+    const {
+        hasNoneOfTheAbove,
+        multipleSelect,
+        countChoices,
+        deselectEnabled,
+        numCorrect,
+    } = widgetOptions;
 
     return {
-        numCorrect,
+        numCorrect: numCorrect as number,
         hasNoneOfTheAbove,
         multipleSelect,
         countChoices,

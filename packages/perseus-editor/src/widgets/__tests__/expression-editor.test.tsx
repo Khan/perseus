@@ -36,21 +36,21 @@ describe("expression-editor", () => {
                 form: true,
                 simplify: true,
                 considered: "correct",
-                key: "0",
+                key: "0-0-0-0-0",
             },
             {
                 value: "x^2=y",
                 form: true,
                 simplify: true,
                 considered: "wrong",
-                key: "1",
+                key: "0-0-0-0-1",
             },
             {
                 value: "x=y\\cdotπ",
                 form: true,
                 simplify: true,
                 considered: "wrong",
-                key: "2",
+                key: "0-0-0-0-2",
             },
         ];
 
@@ -77,15 +77,9 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
-            {
-                answerForms: [],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: true,
-            },
-            undefined,
-        );
+        expect(onChangeMock).toBeCalledWith({
+            times: true,
+        });
     });
 
     it("should be possible to change function variables", async () => {
@@ -121,15 +115,9 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
-            {
-                answerForms: [],
-                buttonSets: ["basic+div"],
-                functions: ["f", "g", "h"],
-                times: false,
-            },
-            undefined,
-        );
+        expect(onChangeMock).toBeCalledWith({
+            buttonSets: ["basic+div"],
+        });
     });
 
     it("should toggle trig checkbox", async () => {
@@ -236,6 +224,7 @@ describe("expression-editor", () => {
 
     it("should be possible to add an answer", async () => {
         const onChangeMock = jest.fn();
+        crypto.randomUUID = jest.fn(() => "0-0-0-0-0");
 
         render(<ExpressionEditor onChange={onChangeMock} />);
         act(() => jest.runOnlyPendingTimers());
@@ -246,23 +235,18 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
-            {
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: false,
-                        key: "0",
-                        simplify: false,
-                        value: "",
-                    },
-                ],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: false,
-            },
-            undefined,
-        );
+        expect(crypto.randomUUID).toBeCalled();
+        expect(onChangeMock).toBeCalledWith({
+            answerForms: [
+                {
+                    considered: "correct",
+                    form: false,
+                    key: "0-0-0-0-0",
+                    simplify: false,
+                    value: "",
+                },
+            ],
+        });
     });
 
     it("should be possible to update answer", async () => {
@@ -275,7 +259,7 @@ describe("expression-editor", () => {
                     {
                         considered: "correct",
                         form: false,
-                        key: "0",
+                        key: "0-0-0-0-0",
                         simplify: false,
                         value: "",
                     },
@@ -297,23 +281,18 @@ describe("expression-editor", () => {
         );
         act(() => jest.runOnlyPendingTimers());
 
-        expect(onChangeMock).toBeCalledWith(
-            {
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: false,
-                        key: "0",
-                        simplify: false,
-                        value: "9",
-                    },
-                ],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: false,
-            },
-            undefined,
-        );
+        expect(onChangeMock).toBeCalledWith({
+            answerForms: [
+                {
+                    considered: "correct",
+                    form: false,
+                    key: "0-0-0-0-0",
+                    simplify: false,
+                    value: "9",
+                },
+            ],
+            extraKeys: ["PI"],
+        });
     });
 
     it("should be possible to toggle same form", async () => {
@@ -326,7 +305,7 @@ describe("expression-editor", () => {
                     {
                         considered: "correct",
                         form: false,
-                        key: "0",
+                        key: "0-0-0-0-0",
                         simplify: false,
                         value: "",
                     },
@@ -341,23 +320,18 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
-            {
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: true,
-                        key: "0",
-                        simplify: false,
-                        value: "",
-                    },
-                ],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: false,
-            },
-            undefined,
-        );
+        expect(onChangeMock).toBeCalledWith({
+            answerForms: [
+                {
+                    considered: "correct",
+                    form: true,
+                    key: "0-0-0-0-0",
+                    simplify: false,
+                    value: "",
+                },
+            ],
+            extraKeys: ["PI"],
+        });
     });
 
     it("should be possible to toggle expanded and simplified", async () => {
@@ -370,7 +344,7 @@ describe("expression-editor", () => {
                     {
                         considered: "correct",
                         form: false,
-                        key: "0",
+                        key: "0-0-0-0-0",
                         simplify: false,
                         value: "",
                     },
@@ -385,23 +359,18 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
-            {
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: false,
-                        key: "0",
-                        simplify: true,
-                        value: "",
-                    },
-                ],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: false,
-            },
-            undefined,
-        );
+        expect(onChangeMock).toBeCalledWith({
+            answerForms: [
+                {
+                    considered: "correct",
+                    form: false,
+                    key: "0-0-0-0-0",
+                    simplify: true,
+                    value: "",
+                },
+            ],
+            extraKeys: ["PI"],
+        });
     });
 
     it("should be possible to delete answer", async () => {
@@ -414,7 +383,7 @@ describe("expression-editor", () => {
                     {
                         considered: "correct",
                         form: false,
-                        key: "0",
+                        key: "0-0-0-0-0",
                         simplify: false,
                         value: "",
                     },
@@ -435,14 +404,84 @@ describe("expression-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith(
-            {
-                answerForms: [],
-                buttonSets: ["basic"],
-                functions: ["f", "g", "h"],
-                times: false,
-            },
-            undefined,
+        expect(onChangeMock).toBeCalledWith({
+            answerForms: [],
+        });
+    });
+
+    it("serializes", () => {
+        const editorRef = React.createRef<ExpressionEditor>();
+
+        render(<ExpressionEditor ref={editorRef} onChange={() => {}} />);
+
+        const options = editorRef.current?.serialize();
+
+        expect(options).toEqual({
+            answerForms: [],
+            buttonSets: ["basic"],
+            extraKeys: ["PI"],
+            functions: ["f", "g", "h"],
+            times: false,
+        });
+    });
+
+    it("derives extra keys when serializing", () => {
+        const editorRef = React.createRef<ExpressionEditor>();
+
+        render(
+            <ExpressionEditor
+                ref={editorRef}
+                onChange={() => {}}
+                answerForms={[
+                    {
+                        // deriveExtraKeys should find x
+                        value: "42x",
+                        considered: "correct",
+                        form: false,
+                        key: "0-0-0-0-0",
+                        simplify: false,
+                    },
+                ]}
+            />,
         );
+
+        const options = editorRef.current?.serialize();
+
+        expect(options?.extraKeys).toEqual(["x"]);
+    });
+
+    it("calls onChange with extra keys", async () => {
+        let options: any;
+
+        render(
+            <ExpressionEditor
+                onChange={(o) => {
+                    options = o;
+                }}
+                answerForms={[
+                    {
+                        considered: "correct",
+                        form: false,
+                        key: "0-0-0-0-0",
+                        simplify: false,
+                        value: "",
+                    },
+                ]}
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        const input = screen.getByRole("textbox", {name: /Math input/});
+        await userEvent.type(input, "42");
+        act(() => jest.runOnlyPendingTimers());
+
+        // default extra keys, since "42" doesn't have variables
+        expect(options?.extraKeys).toEqual(["PI"]);
+
+        await userEvent.type(input, "x");
+        act(() => jest.runOnlyPendingTimers());
+
+        // derived extra keys, since "42x" has a variable
+        expect(options?.extraKeys).toEqual(["x"]);
     });
 });

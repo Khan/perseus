@@ -8,14 +8,12 @@ import AphroditeCssTransitionGroup from "../aphrodite-css-transition-group";
 import Keypad from "./keypad";
 import {expandedViewThreshold} from "./utils";
 
-import type Key from "../../data/keys";
+import type {Cursor, KeyHandler, KeypadAPI} from "../../types";
 import type {
-    Cursor,
+    AnalyticsEventHandlerFn,
     KeypadConfiguration,
-    KeyHandler,
-    KeypadAPI,
-} from "../../types";
-import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
+    KeypadKey,
+} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 const AnimationDurationInMS = 200;
@@ -142,6 +140,7 @@ class MobileKeypadInternals
         // callback into `configureKeypad`. However, implementing this properly
         // would require middleware, etc., so we just hack it on with
         // `setTimeout` for now.
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         setTimeout(() => cb && cb());
     };
 
@@ -157,7 +156,7 @@ class MobileKeypadInternals
         return ReactDOM.findDOMNode(this);
     };
 
-    _handleClickKey(key: Key) {
+    _handleClickKey(key: KeypadKey) {
         if (key === "DISMISS") {
             this.dismiss();
             return;
@@ -186,8 +185,15 @@ class MobileKeypadInternals
                     transitionEnterTimeout={AnimationDurationInMS}
                     transitionLeaveTimeout={AnimationDurationInMS}
                     transitionStyle={{
-                        enter: {
+                        appear: {
                             transform: "translate3d(0, 100%, 0)",
+                            transition: `${AnimationDurationInMS}ms ease-out`,
+                        },
+                        appearActive: {
+                            transform: "translate3d(0, 100%, 0)",
+                        },
+                        enter: {
+                            transform: "translate3d(0, 50%, 0)",
                             transition: `${AnimationDurationInMS}ms ease-out`,
                         },
                         enterActive: {

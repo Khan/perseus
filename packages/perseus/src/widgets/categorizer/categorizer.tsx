@@ -17,13 +17,13 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
-import type {PerseusCategorizerWidgetOptions} from "@khanacademy/perseus-core";
 import type {
-    PerseusCategorizerRubric,
+    PerseusCategorizerWidgetOptions,
     PerseusCategorizerUserInput,
-} from "@khanacademy/perseus-score";
+    CategorizerPublicWidgetOptions,
+} from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<RenderProps, PerseusCategorizerRubric> & {
+type Props = WidgetProps<RenderProps> & {
     values: ReadonlyArray<string>;
 };
 
@@ -302,21 +302,22 @@ export default {
     displayName: "Categorizer",
     hidden: true,
     widget: Categorizer,
-    transform: (
-        widgetOptions: PerseusCategorizerWidgetOptions,
-    ): RenderProps => {
-        return _.pick(widgetOptions, "items", "categories", "randomizeItems");
+    transform: (widgetOptions: CategorizerPublicWidgetOptions): RenderProps => {
+        return {
+            items: widgetOptions.items,
+            categories: widgetOptions.categories,
+            randomizeItems: widgetOptions.randomizeItems,
+        };
     },
     staticTransform: (
         editorProps: PerseusCategorizerWidgetOptions,
     ): RenderProps => {
-        return _.pick(
-            editorProps,
-            "items",
-            "categories",
-            "values",
-            "randomizeItems",
-        );
+        return {
+            items: editorProps.items,
+            categories: editorProps.categories,
+            values: editorProps.values,
+            randomizeItems: editorProps.randomizeItems,
+        };
     },
     isLintable: true,
 } satisfies WidgetExports<typeof Categorizer>;

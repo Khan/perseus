@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-/* eslint-disable @babel/no-invalid-this */
+/* eslint-disable @typescript-eslint/no-invalid-this */
 /**
  * Collection of classes for rendering the hint editor area,
  * hint editor boxes, and hint previews

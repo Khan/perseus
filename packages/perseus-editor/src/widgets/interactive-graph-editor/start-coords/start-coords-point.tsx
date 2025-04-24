@@ -10,8 +10,8 @@ import CoordinatePairInput from "../../../components/coordinate-pair-input";
 import type {Coord} from "@khanacademy/perseus";
 
 type Props = {
-    startCoords: ReadonlyArray<Coord>;
-    onChange: (startCoords: ReadonlyArray<Coord>) => void;
+    startCoords: Coord[];
+    onChange: (startCoords: Coord[]) => void;
 };
 
 const StartCoordsPoint = (props: Props) => {

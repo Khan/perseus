@@ -57,13 +57,8 @@ module.exports = {
         // This config includes rules from @testing-library/jest-dom as well
         "plugin:testing-library/react",
     ],
-    parserOptions: {
-        babelOptions: {
-            configFile: path.join(__dirname, "./config/build/babel.config.js"),
-        },
-    },
+    parser: "@typescript-eslint/parser",
     plugins: [
-        "@babel",
         "cypress",
         "disable",
         "import",
@@ -192,28 +187,33 @@ module.exports = {
                 "@typescript-eslint/no-unused-expressions": "off",
             },
         },
+        {
+            files: ["*.ts", "*.tsx"],
+            parser: "@typescript-eslint/parser",
+            parserOptions: {
+                project: ["tsconfig.json"],
+            },
+            rules: {
+                "@typescript-eslint/strict-boolean-expressions": [
+                    "error",
+                    {
+                        allowNumber: false, // Prevents using numbers as booleans (if (0))
+                        allowAny: true, // Allow any type to bypass the rule
+                        allowNullableBoolean: true, // Allow nullable booleans in conditionals (e.g., `null` or `undefined`)
+                        allowNullableString: true,
+                        allowNullableNumber: true,
+                    },
+                ],
+            },
+            excludedFiles: ["*.d.ts", "*.config.ts", "**/*.cypress.ts"],
+        },
     ],
     rules: {
-        "max-lines": "off",
         "new-cap": "off",
-        "no-invalid-this": "off",
-        "@typescript-eslint/no-this-alias": "off",
-        "no-unused-expressions": "off",
-        "no-restricted-imports": [
-            "error",
-            "@khanacademy/wonder-blocks-color",
-            "@khanacademy/wonder-blocks-spacing",
-        ],
+        "no-invalid-this": "off", // @typescript-eslint/no-invalid-this supersedes it
+        "no-unused-expressions": "off", // @typescript-eslint/no-unused-expression supersedes it
         "object-curly-spacing": "off",
         semi: "off",
-
-        /**
-         * @babel
-         */
-        // "@babel/new-cap": "error",
-        "@babel/no-invalid-this": "error",
-        "@babel/object-curly-spacing": "error",
-        "@babel/semi": "error",
 
         /**
          * jest
@@ -388,6 +388,19 @@ module.exports = {
          * typescript
          */
         "@typescript-eslint/no-empty-function": "off",
-        "@typescript-eslint/consistent-type-imports": "error",
+        "@typescript-eslint/no-invalid-this": "error",
+        "@typescript-eslint/no-this-alias": "off",
+        "@typescript-eslint/consistent-type-imports": [
+            "error",
+            {
+                prefer: "type-imports",
+                fixStyle: "separate-type-imports",
+            },
+        ],
+        "@typescript-eslint/no-restricted-imports": [
+            "error",
+            "@khanacademy/wonder-blocks-color",
+            "@khanacademy/wonder-blocks-spacing",
+        ],
     },
 };

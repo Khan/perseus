@@ -8,10 +8,7 @@ import {
 
 import {parseWidget} from "./widget";
 
-import type {MatcherWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parseMatcherWidget: Parser<MatcherWidget> = parseWidget(
+export const parseMatcherWidget = parseWidget(
     constant("matcher"),
     object({
         labels: array(string),

@@ -16,8 +16,10 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
-import type {Relationship} from "@khanacademy/perseus-core";
-import type {PerseusNumberLineUserInput} from "@khanacademy/perseus-score";
+import type {
+    Relationship,
+    PerseusNumberLineUserInput,
+} from "@khanacademy/perseus-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -191,10 +193,10 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
 // should this one?
 type Props = ChangeableProps & {
     range: [number, number];
-    labelRange: ReadonlyArray<number | null>;
+    labelRange: Array<number | null>;
     labelStyle: string;
     labelTicks: boolean;
-    divisionRange: ReadonlyArray<number>;
+    divisionRange: number[];
     numDivisions: number;
     snapDivisions: number;
     isTickCtrl: boolean;
@@ -288,6 +290,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         numDivisions = numDivisions < 0 ? numDivisions * -1 : numDivisions;
 
         // If the number of divisions isn't blank, update the number line
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (numDivisions) {
             const nextProps = _.extend({}, this.props, {
                 tickStep: width / numDivisions,
@@ -667,7 +670,8 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                         value={
                             this.state.numDivisionsEmpty
                                 ? null
-                                : this.props.numDivisions || divisionRange[0]
+                                : // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                                  this.props.numDivisions || divisionRange[0]
                         }
                         checkValidity={(val) =>
                             val >= divisionRange[0] && val <= divisionRange[1]

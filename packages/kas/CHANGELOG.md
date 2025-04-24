@@ -1,5 +1,66 @@
 # @khanacademy/kas
 
+## 2.0.2
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/perseus-utils@2.0.1
+
+## 2.0.1
+
+### Patch Changes
+
+-   [#2334](https://github.com/Khan/perseus/pull/2334) [`6c5a0121d`](https://github.com/Khan/perseus/commit/6c5a0121dae2f0452baccc30401888379b5def95) Thanks [@handeyeco](https://github.com/handeyeco)! - Add Eslint rule "@typescript-eslint/no-restricted-imports" to help prevent circular dependencies
+
+-   Updated dependencies [[`6c5a0121d`](https://github.com/Khan/perseus/commit/6c5a0121dae2f0452baccc30401888379b5def95)]:
+    -   @khanacademy/perseus-utils@2.0.1
+
+## 2.0.0
+
+### Major Changes
+
+-   [#2339](https://github.com/Khan/perseus/pull/2339) [`ef5fea555`](https://github.com/Khan/perseus/commit/ef5fea5551230f49af5b31705e84b23493f76883) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Revert move to ESM-only packages (package again ships with CJS and ESM builds)
+
+### Patch Changes
+
+-   Updated dependencies [[`ef5fea555`](https://github.com/Khan/perseus/commit/ef5fea5551230f49af5b31705e84b23493f76883)]:
+    -   @khanacademy/perseus-utils@2.0.0
+
+## 1.0.0
+
+### Major Changes
+
+-   [#2331](https://github.com/Khan/perseus/pull/2331) [`c2e33e522`](https://github.com/Khan/perseus/commit/c2e33e52291d6379799754e27c5d33b02ff4b1fa) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove CJS output from package (package is now ESM only)
+
+### Patch Changes
+
+-   Updated dependencies [[`c2e33e522`](https://github.com/Khan/perseus/commit/c2e33e52291d6379799754e27c5d33b02ff4b1fa)]:
+    -   @khanacademy/perseus-utils@1.0.0
+
+## 0.5.1
+
+### Patch Changes
+
+-   [#2322](https://github.com/Khan/perseus/pull/2322) [`4bd882b43`](https://github.com/Khan/perseus/commit/4bd882b43b15d9d3d5ca850f5148eba57c7dca59) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change how version injection code is shared/bundled
+
+-   Updated dependencies [[`4bd882b43`](https://github.com/Khan/perseus/commit/4bd882b43b15d9d3d5ca850f5148eba57c7dca59)]:
+    -   @khanacademy/perseus-utils@0.0.2
+
+## 0.5.0
+
+### Minor Changes
+
+-   [#2202](https://github.com/Khan/perseus/pull/2202) [`c7f6f63c8`](https://github.com/Khan/perseus/commit/c7f6f63c845566d99dae6df604426e5fb14a7e85) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Tooling:
+
+    -   Switching to `pnpm`.
+
+### Patch Changes
+
+-   [#2259](https://github.com/Khan/perseus/pull/2259) [`a90cf7901`](https://github.com/Khan/perseus/commit/a90cf790159fefbee41437f20ac9a403a06f148f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor change to how each package embeds it's package version in itself (slightly larger bundle size)
+
+*   [#2266](https://github.com/Khan/perseus/pull/2266) [`20a08315b`](https://github.com/Khan/perseus/commit/20a08315b288244357b8a2526f87c2c5014f2fa6) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: KAS handling functions around plain numbers
+
 ## 0.4.16
 
 ### Patch Changes

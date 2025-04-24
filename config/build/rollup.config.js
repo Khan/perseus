@@ -3,17 +3,14 @@ import fs from "fs";
 import path from "path";
 
 import alias from "@rollup/plugin-alias";
-import {babel} from "@rollup/plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
+import swc from "@rollup/plugin-swc";
 import ancesdir from "ancesdir";
 import autoExternal from "rollup-plugin-auto-external";
 import filesize from "rollup-plugin-filesize";
 import styles from "rollup-plugin-styles";
-
-const createBabelPlugins = require("./create-babel-plugins");
-const createBabelPresets = require("./create-babel-presets");
 
 const rootDir = ancesdir(__dirname);
 
@@ -54,6 +51,12 @@ const createOutputConfig = (pkgName, format, targetFile) => ({
     file: makePackageBasedPath(pkgName, targetFile),
     sourcemap: true,
     format,
+
+    // These two settings are to keep the builds as similar to pre-Rollup v4 as
+    // possible until we get rid of CJS builds.
+    // See: https://rollupjs.org/migration/#changed-defaults
+    esModule: true,
+    interop: "compat",
 
     // Governs names of CSS files (for assets from CSS use `hash` option for
     // url handler).
@@ -137,33 +140,36 @@ const createConfig = (
             alias({
                 // We don't use pnpm's workspace:* feature for these because
                 // then they are marked as external and not bundled (by the
-                // autoExternals() plugin). For now, this works!
+                // autoExternal() plugin). For now, this works!
                 entries: {
-                    hubble: path.join(rootDir, "vendor", "hubble"),
                     jsdiff: path.join(rootDir, "vendor", "jsdiff"),
                     raphael: path.join(rootDir, "vendor", "raphael"),
                 },
             }),
             styles({
-                mode: "extract",
-                // We don't want to try to resolve the url() occurrences in our
-                // stylesheets. We'll leave that for consumers of the library
-                // to deal with. Otherwise we end up packaging upstream assets
-                // into our libraries when our consumers should be the ones
-                // handling asset bundling.
-                url: false,
+                mode: ["extract", "index.css"],
+                minimize: true,
+                url: {
+                    // We need to specify a custom publicPath here because we
+                    // override the default `output.assetFileNames` elsewhere
+                    // in this file. If you change one, you should ensure that
+                    // a new build correctly places font files in the right dir
+                    // and that the generated CSS contains valid relative urls
+                    // to those fonts!
+                    publicPath: "assets",
+                },
                 less: {
                     math: "always",
                 },
             }),
-            babel({
-                babelHelpers: "runtime",
-                presets: createBabelPresets({platform, format}),
-                plugins: createBabelPlugins({platform, format}),
+            swc({
+                swc: {
+                    swcrc: true,
+                    minify: true,
+                },
                 exclude: "node_modules/**",
-                extensions,
             }),
-            // This must come after babel() since this plugin doesn't know how
+            // This must come after swc() since this plugin doesn't know how
             // to deal with TypeScript types.
             commonjs(),
             resolve({
@@ -173,11 +179,6 @@ const createConfig = (
             autoExternal({
                 packagePath: makePackageBasedPath(name, "./package.json"),
             }),
-            // TODO(FEI-4557): Figure out how to make this plugin work so that
-            // @khanacademy/perseus-editor works in webapp.  If we enable this
-            // plugin right now, the content editor pages in webapp will fail
-            // with the following error: `TypeError: Object(...) is not a function`
-            // terser(),
             ...plugins,
         ],
     };

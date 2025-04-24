@@ -1,15 +1,21 @@
-import * as React from "react";
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
 import {question1} from "./iframe.testdata";
 
-export default {
+import type {Meta, StoryObj} from "@storybook/react";
+
+const meta: Meta = {
     title: "Perseus/Widgets/IFrame",
+    component: ServerItemRendererWithDebugUI,
 };
+export default meta;
 
-type StoryArgs = Record<any, any>;
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
-export const Question1 = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={question1} />;
+export const Question1: Story = {
+    args: {
+        item: generateTestPerseusItem({question: question1}),
+    },
 };

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 
 import type {LockedFunctionOptions} from "./interactive-graph-question-builder";
@@ -217,7 +218,6 @@ export const polygonWithAnglesQuestion: PerseusRenderer =
         .withGridStep(0.5, 0.5)
         .withSnapStep(0.25, 0.25)
         .withTickStep(0.5, 0.5)
-        .withMarkings("none")
         .withXRange(-1, 6)
         .withYRange(-1, 6)
         .withPolygon("grid", {
@@ -240,7 +240,6 @@ export const polygonWithAnglesAndAnglesSnapToQuestion: PerseusRenderer =
         .withGridStep(0.5, 0.5)
         .withSnapStep(0.25, 0.25)
         .withTickStep(0.5, 0.5)
-        .withMarkings("none")
         .withXRange(-1, 6)
         .withYRange(-1, 6)
         .withPolygon("angles", {
@@ -264,7 +263,6 @@ export const polygonWithAnglesAndManySidesQuestion: PerseusRenderer =
         .withGridStep(0.5, 0.5)
         .withSnapStep(0.25, 0.25)
         .withTickStep(0.5, 0.5)
-        .withMarkings("none")
         .withXRange(-1, 6)
         .withYRange(-1, 6)
         .withPolygon("grid", {
@@ -283,7 +281,6 @@ export const polygonWithAnglesAndFourSidesQuestion: PerseusRenderer =
         .withGridStep(0.5, 0.5)
         .withSnapStep(0.25, 0.25)
         .withTickStep(0.5, 0.5)
-        .withMarkings("none")
         .withXRange(-1, 6)
         .withYRange(-1, 6)
         .withPolygon("grid", {
@@ -302,7 +299,6 @@ export const polygonWithFourSidesSnappingQuestion: PerseusRenderer =
         .withGridStep(0.5, 0.5)
         .withSnapStep(0.25, 0.25)
         .withTickStep(0.5, 0.5)
-        .withMarkings("none")
         .withXRange(-1, 6)
         .withYRange(-1, 6)
         .withPolygon("sides", {
@@ -867,6 +863,17 @@ export const segmentWithLockedFunction = (
     options?: LockedFunctionOptions,
 ): PerseusRenderer => {
     return interactiveGraphQuestionBuilder()
+        .addLockedFunction(equation, options)
+        .build();
+};
+
+export const segmentWithLockedFunctionAndAsymmetricRange = (
+    equation: string = "x^2",
+    options?: LockedFunctionOptions,
+): PerseusRenderer => {
+    return interactiveGraphQuestionBuilder()
+        .withXRange(-5, 5)
+        .withYRange(-10, 10)
         .addLockedFunction(equation, options)
         .build();
 };

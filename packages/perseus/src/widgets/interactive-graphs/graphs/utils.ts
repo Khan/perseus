@@ -4,7 +4,7 @@ import {srFormatNumber} from "./screenreader-text";
 
 import type {PerseusStrings} from "../../../strings";
 import type {PairOfPoints} from "../types";
-import type {Coord} from "@khanacademy/perseus";
+import type {Coord} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 /**
@@ -259,6 +259,7 @@ export function getAngleFromPoints(points: Coord[], i: number) {
     const point = points.at(i);
     const pt1 = points.at(i - 1);
     const pt2 = points[(i + 1) % points.length];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!point || !pt1 || !pt2) {
         return null;
     }
@@ -269,8 +270,17 @@ export function getAngleFromPoints(points: Coord[], i: number) {
     const b = vec.dist(point, pt2);
     const c = vec.dist(pt1, pt2);
 
+    let lawOfCosinesRadicand = (a ** 2 + b ** 2 - c ** 2) / (2 * a * b);
+
+    // If the equation results in a number greater than 1 or less than -1.
+    // Correct to ensure a valid angle.
+    // This ensures we are not producing NaN results from Math.acos.
+    if (lawOfCosinesRadicand < -1 || lawOfCosinesRadicand > 1) {
+        lawOfCosinesRadicand = Math.round(lawOfCosinesRadicand);
+    }
+
     // Law of cosines
-    const angle = Math.acos((a ** 2 + b ** 2 - c ** 2) / (2 * a * b));
+    const angle = Math.acos(lawOfCosinesRadicand);
 
     return angle;
 }

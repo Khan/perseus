@@ -1,5 +1,185 @@
 # @khanacademy/perseus-core
 
+## 9.0.0
+
+### Major Changes
+
+-   [#2398](https://github.com/Khan/perseus/pull/2398) [`45635f7ef`](https://github.com/Khan/perseus/commit/45635f7ef91cf8f7a98149b05198c7e628c8ef2d) Thanks [@benchristel](https://github.com/benchristel)! - Remove ReadonlyArray types from `@khanacademy/perseus-core` in favor of mutable arrays. Users should define separate readonly types if desired.
+
+## 8.0.0
+
+### Major Changes
+
+-   [#2389](https://github.com/Khan/perseus/pull/2389) [`c922913b6`](https://github.com/Khan/perseus/commit/c922913b6289d34bf0fecb7bef96c0a6be45d8e7) Thanks [@handeyeco](https://github.com/handeyeco)! - make splitPerseusItem take/return PerseusItems instead of PerseusRenderers (also moves generateTestPerseusItem helper)
+
+### Minor Changes
+
+-   [#2397](https://github.com/Khan/perseus/pull/2397) [`8d63aedb1`](https://github.com/Khan/perseus/commit/8d63aedb1f40dd3afa5213ab4498e9a26592bacf) Thanks [@benchristel](https://github.com/benchristel)! - Switch to using optional property syntax consistently in `data-schema.ts` types.
+
+### Patch Changes
+
+-   [#2378](https://github.com/Khan/perseus/pull/2378) [`44eea76df`](https://github.com/Khan/perseus/commit/44eea76df58f89d3e0fa9f101ca1bc4ea93b6188) Thanks [@benchristel](https://github.com/benchristel)! - Fix Radio widget parser types; the parser now always sets
+    `PerseusRadioWidgetOptions.noneOfTheAbove` to either `false` or `undefined`
+    (whereas before it might be missing entirely).
+-   Updated dependencies []:
+    -   @khanacademy/kas@2.0.2
+    -   @khanacademy/perseus-utils@2.0.1
+
+## 7.1.1
+
+### Patch Changes
+
+-   [#2386](https://github.com/Khan/perseus/pull/2386) [`1ee46bdef`](https://github.com/Khan/perseus/commit/1ee46bdef3347198d2d2b2ce548708816aa7705f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add flags in APIOption, this will be used for feature flags that can be passed from consuming application.
+
+## 7.1.0
+
+### Minor Changes
+
+-   [#2371](https://github.com/Khan/perseus/pull/2371) [`4ac22bdad`](https://github.com/Khan/perseus/commit/4ac22bdadcdad844ed9964485ef727de53c6dfa7) Thanks [@benchristel](https://github.com/benchristel)! - Add typesafe parsers for the user input types of Dropdown, Interactive Graph,
+    Numeric Input, Expression, and Radio. The `Perseus<Widget>UserInput` types have
+    been removed from `@khanacademy/perseus-score` and are now exported from
+    `@khanacademy/perseus-core`. Clients should update their code to import these
+    types from `@khanacademy/perseus-core` instead.
+
+*   [#2366](https://github.com/Khan/perseus/pull/2366) [`5ac42d16c`](https://github.com/Khan/perseus/commit/5ac42d16c86fe062630cdec518a3dbdc109e0f17) Thanks [@Myranae](https://github.com/Myranae)! - Update Categorizer widget to render with answerless data. Adds tests and stories for answerless rendering.
+
+### Patch Changes
+
+-   [#2376](https://github.com/Khan/perseus/pull/2376) [`99c215ae4`](https://github.com/Khan/perseus/commit/99c215ae46e2995b6727a4e8f2083bfbb1ef59b3) Thanks [@benchristel](https://github.com/benchristel)! - Fix parser for Radio widget options to accept `null` for `PerseusRadioChoice.widgets` and convert it to `undefined`.
+
+## 7.0.2
+
+### Patch Changes
+
+-   [#2368](https://github.com/Khan/perseus/pull/2368) [`91ac603f9`](https://github.com/Khan/perseus/commit/91ac603f98289b11458f51eeb77af515daab5dbb) Thanks [@handeyeco](https://github.com/handeyeco)! - Add AX-specific empty widget function to address LEMS-3000
+
+*   [#2362](https://github.com/Khan/perseus/pull/2362) [`3cdf61b09`](https://github.com/Khan/perseus/commit/3cdf61b091393f6728dfdb8a460c6dd2f4909daa) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Adding LabelLocation to parser
+
+## 7.0.1
+
+### Patch Changes
+
+-   [#2334](https://github.com/Khan/perseus/pull/2334) [`6c5a0121d`](https://github.com/Khan/perseus/commit/6c5a0121dae2f0452baccc30401888379b5def95) Thanks [@handeyeco](https://github.com/handeyeco)! - Add Eslint rule "@typescript-eslint/no-restricted-imports" to help prevent circular dependencies
+
+-   Updated dependencies [[`6c5a0121d`](https://github.com/Khan/perseus/commit/6c5a0121dae2f0452baccc30401888379b5def95)]:
+    -   @khanacademy/kas@2.0.1
+    -   @khanacademy/perseus-utils@2.0.1
+
+## 7.0.0
+
+### Major Changes
+
+-   [#2339](https://github.com/Khan/perseus/pull/2339) [`ef5fea555`](https://github.com/Khan/perseus/commit/ef5fea5551230f49af5b31705e84b23493f76883) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Revert move to ESM-only packages (package again ships with CJS and ESM builds)
+
+### Patch Changes
+
+-   Updated dependencies [[`ef5fea555`](https://github.com/Khan/perseus/commit/ef5fea5551230f49af5b31705e84b23493f76883)]:
+    -   @khanacademy/kas@2.0.0
+    -   @khanacademy/perseus-utils@2.0.0
+
+## 6.0.0
+
+### Major Changes
+
+-   [#2331](https://github.com/Khan/perseus/pull/2331) [`c2e33e522`](https://github.com/Khan/perseus/commit/c2e33e52291d6379799754e27c5d33b02ff4b1fa) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove CJS output from package (package is now ESM only)
+
+### Patch Changes
+
+-   Updated dependencies [[`c2e33e522`](https://github.com/Khan/perseus/commit/c2e33e52291d6379799754e27c5d33b02ff4b1fa)]:
+    -   @khanacademy/kas@1.0.0
+    -   @khanacademy/perseus-utils@1.0.0
+
+## 5.4.2
+
+### Patch Changes
+
+-   [#2328](https://github.com/Khan/perseus/pull/2328) [`5b6e9df5b`](https://github.com/Khan/perseus/commit/5b6e9df5b6bcacf7646475ff7884415b815f68c5) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix import of internal items to use relative paths instead of the package name
+
+*   [#2321](https://github.com/Khan/perseus/pull/2321) [`ca06cb806`](https://github.com/Khan/perseus/commit/ca06cb80686b8b414766d9b1d91a48fa4b71994c) Thanks [@benchristel](https://github.com/benchristel)! - Allow `itemDataVersion` to be null when parsing Perseus assessment item JSON
+
+-   [#2322](https://github.com/Khan/perseus/pull/2322) [`4bd882b43`](https://github.com/Khan/perseus/commit/4bd882b43b15d9d3d5ca850f5148eba57c7dca59) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change how version injection code is shared/bundled
+
+-   Updated dependencies [[`4bd882b43`](https://github.com/Khan/perseus/commit/4bd882b43b15d9d3d5ca850f5148eba57c7dca59)]:
+    -   @khanacademy/kas@0.5.1
+    -   @khanacademy/perseus-utils@0.0.2
+
+## 5.4.1
+
+### Patch Changes
+
+-   [#2308](https://github.com/Khan/perseus/pull/2308) [`1b5f51415`](https://github.com/Khan/perseus/commit/1b5f514159c25fd0eb760cb6d20cab62a813cca4) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug in numeric input scoring where `simplify` value of `false` led to incorrect scoring logic being applied
+
+*   [#2319](https://github.com/Khan/perseus/pull/2319) [`4c0b317c3`](https://github.com/Khan/perseus/commit/4c0b317c357ac06277a58e5d6ae83dc4dfa04189) Thanks [@benchristel](https://github.com/benchristel)! - Internal: unskip regression tests for Perseus JSON parser and update snapshots
+
+-   [#2272](https://github.com/Khan/perseus/pull/2272) [`335940746`](https://github.com/Khan/perseus/commit/3359407467fe5d36b4c5600da29c4ce623a2ef28) Thanks [@handeyeco](https://github.com/handeyeco)! - Add comments to external-facing functions
+
+## 5.4.0
+
+### Minor Changes
+
+-   [#2316](https://github.com/Khan/perseus/pull/2316) [`3c8ff9936`](https://github.com/Khan/perseus/commit/3c8ff993615a7224a18250f4a7e96a55ab5c724d) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add new labelLocation value for Interactive Graphs
+
+## 5.3.0
+
+### Minor Changes
+
+-   [#2314](https://github.com/Khan/perseus/pull/2314) [`48bc498f8`](https://github.com/Khan/perseus/commit/48bc498f88f98e817ea426924cbc0b016e5802b9) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Revert labelLocation
+
+## 5.2.0
+
+### Minor Changes
+
+-   [#2284](https://github.com/Khan/perseus/pull/2284) [`0d5ab0b2e`](https://github.com/Khan/perseus/commit/0d5ab0b2e5d079b8ac805077a2abad6bc5b2132d) Thanks [@nishasy](https://github.com/nishasy)! - Add new labelLocation value for Interactive Graphs
+
+### Patch Changes
+
+-   [#2300](https://github.com/Khan/perseus/pull/2300) [`fea65eaf1`](https://github.com/Khan/perseus/commit/fea65eaf12918e7e1b1e893bea80549e69313ce2) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: allow the 'key' field of Radio widgets to be null when parsing Perseus JSON
+
+## 5.1.0
+
+### Minor Changes
+
+-   [#2293](https://github.com/Khan/perseus/pull/2293) [`91e30c02c`](https://github.com/Khan/perseus/commit/91e30c02c15ddc7c811b658bdb052172739a690a) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Deprecate usage of PerseusErrorOccurred event logging in favor of PerseusErrorOccurredTI events.
+
+## 5.0.0
+
+### Major Changes
+
+-   [#2233](https://github.com/Khan/perseus/pull/2233) [`a0aee41b6`](https://github.com/Khan/perseus/commit/a0aee41b69d4288ef165416cea293100d037ce5f) Thanks [@handeyeco](https://github.com/handeyeco)! - RadioWidget v2 in support of answerless Radio
+
+*   [#2226](https://github.com/Khan/perseus/pull/2226) [`909148cdc`](https://github.com/Khan/perseus/commit/909148cdccabb3f0a2156587ea1e870bae910f8d) Thanks [@handeyeco](https://github.com/handeyeco)! - Answerless Expression: Expression can render and is interactive with answerless data
+
+## 4.0.0
+
+### Major Changes
+
+-   [#2261](https://github.com/Khan/perseus/pull/2261) [`5de2e740b`](https://github.com/Khan/perseus/commit/5de2e740b35d69fc0059af5dbb74bd894986e124) Thanks [@handeyeco](https://github.com/handeyeco)! - Make NumericInput interactive without answer data
+
+### Minor Changes
+
+-   [#2202](https://github.com/Khan/perseus/pull/2202) [`c7f6f63c8`](https://github.com/Khan/perseus/commit/c7f6f63c845566d99dae6df604426e5fb14a7e85) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Tooling:
+
+    -   Switching to `pnpm`.
+
+*   [#2209](https://github.com/Khan/perseus/pull/2209) [`c0149a1b9`](https://github.com/Khan/perseus/commit/c0149a1b9f9d917f0f9b98dd6d61414e9bb7d895) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Refactoring Numeric Input helper functions to remove underscore, improve documentation, and add tests.
+
+### Patch Changes
+
+-   [#2269](https://github.com/Khan/perseus/pull/2269) [`90034a875`](https://github.com/Khan/perseus/commit/90034a8754ab735ec84d959916b62a69d39efc2a) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: Allow null values when parsing the domain of a locked function on an Interactive Graph widget, converting them to +/-Infinity. Note that Infinity is serialized to JSON as `null`, so this preserves the existing persisted data format.
+
+*   [#2255](https://github.com/Khan/perseus/pull/2255) [`b71154170`](https://github.com/Khan/perseus/commit/b711541701ec10ccb506d0f9cbafac4a1c7c4cc1) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bug fix for Marathi language support in getDecimalSeparator
+
+-   [#2259](https://github.com/Khan/perseus/pull/2259) [`a90cf7901`](https://github.com/Khan/perseus/commit/a90cf790159fefbee41437f20ac9a403a06f148f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Minor change to how each package embeds it's package version in itself (slightly larger bundle size)
+
+*   [#2254](https://github.com/Khan/perseus/pull/2254) [`56b4ee61b`](https://github.com/Khan/perseus/commit/56b4ee61b064603fdbeb4577851fe142d881e245) Thanks [@benchristel](https://github.com/benchristel)! - Internal: test that Interactive Graph widgets can render with answerless data
+
+-   [#2267](https://github.com/Khan/perseus/pull/2267) [`381842745`](https://github.com/Khan/perseus/commit/3818427456a2ffca56481adbdafa01fee40e83c0) Thanks [@benchristel](https://github.com/benchristel)! - Bugfix: Convert null to undefined in the `replace` field of hints.
+
+    This fixes a parser error observed in production. `replace` is null in some assessment
+    items.
+
+*   [#2231](https://github.com/Khan/perseus/pull/2231) [`08409c6c9`](https://github.com/Khan/perseus/commit/08409c6c9eea1d19212d332acb056c5ef4971419) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests for answerless Dropdown support
+
 ## 3.7.0
 
 ### Minor Changes

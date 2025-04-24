@@ -3,7 +3,7 @@ import {filterNonEmpty} from "./utils";
 import type {
     PerseusTableUserInput,
     ValidationResult,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 function validateTable(userInput: PerseusTableUserInput): ValidationResult {
     const supplied = filterNonEmpty(userInput);
@@ -14,6 +14,7 @@ function validateTable(userInput: PerseusTableUserInput): ValidationResult {
         });
     });
 
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (hasEmptyCell || !supplied.length) {
         return {
             type: "invalid",

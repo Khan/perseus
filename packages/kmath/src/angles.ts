@@ -34,6 +34,7 @@ export function polar(r: number | Coord, th: number): Coord {
 export const getAngleFromVertex = (point: Coord, vertex: Coord): number => {
     const x = point[0] - vertex[0];
     const y = point[1] - vertex[1];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!x && !y) {
         return 0;
     }

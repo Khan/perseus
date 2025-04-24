@@ -1,6 +1,6 @@
-import * as React from "react";
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
 import {
     absoluteValueQuestion,
@@ -12,36 +12,56 @@ import {
     sinusoidQuestion,
 } from "./grapher.testdata";
 
-export default {
+import type {Meta, StoryObj} from "@storybook/react";
+
+const meta: Meta = {
     title: "Perseus/Widgets/Grapher",
+    component: ServerItemRendererWithDebugUI,
+};
+export default meta;
+
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+
+export const AbsoluteValueQuestion: Story = {
+    args: {
+        item: generateTestPerseusItem({question: absoluteValueQuestion}),
+    },
 };
 
-type StoryArgs = Record<any, any>;
-
-export const AbsoluteValueQuestion = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={absoluteValueQuestion} />;
+export const ExponentialQuestion: Story = {
+    args: {
+        item: generateTestPerseusItem({question: exponentialQuestion}),
+    },
 };
 
-export const ExponentialQuestion = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={exponentialQuestion} />;
+export const LinearQuestion: Story = {
+    args: {
+        item: generateTestPerseusItem({question: linearQuestion}),
+    },
 };
 
-export const LinearQuestion = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={linearQuestion} />;
+export const LogarithmQuestion: Story = {
+    args: {
+        item: generateTestPerseusItem({question: logarithmQuestion}),
+    },
 };
 
-export const LogarithmQuestion = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={logarithmQuestion} />;
+export const QuadraticQuestion: Story = {
+    args: {
+        item: generateTestPerseusItem({question: quadraticQuestion}),
+    },
 };
 
-export const QuadraticQuestion = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={quadraticQuestion} />;
+export const SinusoidQuestion: Story = {
+    args: {
+        item: generateTestPerseusItem({question: sinusoidQuestion}),
+    },
 };
 
-export const SinusoidQuestion = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={sinusoidQuestion} />;
-};
-
-export const ComplexQuestion = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={multipleAvailableTypesQuestion} />;
+export const ComplexQuestion: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: multipleAvailableTypesQuestion,
+        }),
+    },
 };

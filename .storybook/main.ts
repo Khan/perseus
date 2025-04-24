@@ -1,5 +1,5 @@
-import viteConfig from "../vite.config";
 import {mergeConfig} from "vite";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
 
 import type {StorybookConfig} from "@storybook/react-vite";
 
@@ -23,8 +23,9 @@ const lessWrapper = {
 };
 
 const config: StorybookConfig = {
+    // This framework automatically reads the vite.config.ts in the root dir
+    // https://www.npmjs.com/package/@storybook/builder-vite#customize-vite-config
     framework: "@storybook/react-vite",
-
     stories: [
         // NOTE(jeremy): This glob is extremely finicky! I would have written
         // this as a negated match to exclude node_modules, but I was never
@@ -51,14 +52,14 @@ const config: StorybookConfig = {
         ${head}
         <style>
         html, body {
-            padding: 16px 0px 0px 0px !important;
+            padding: ${spacing.xSmall_8}px !important;
+            padding-left: ${spacing.large_24}px !important;
         }
         </style>
     `,
 
-    viteFinal: async (config, {configType}) => {
+    viteFinal: async (config) => {
         return mergeConfig(config, {
-            ...viteConfig,
             define: {
                 // This is used to determine if we are running in a
                 // Dev/Storybook environment.
@@ -75,9 +76,7 @@ const config: StorybookConfig = {
                     return !file.endsWith(".svg");
                 },
             },
-            // Fix from: https://github.com/storybookjs/storybook/issues/25256#issuecomment-1866441206
-            assetsInclude: ["/sb-preview/runtime.js"],
-            plugins: [...(viteConfig.plugins ?? []), lessWrapper],
+            plugins: [lessWrapper],
         });
     },
     staticDirs: ["../static"],

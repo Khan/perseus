@@ -1,6 +1,6 @@
 import scoreCategorizer from "./score-categorizer";
 
-import type {PerseusCategorizerRubric} from "../../validation.types";
+import type {PerseusCategorizerRubric} from "@khanacademy/perseus-core";
 
 describe("scoreCategorizer", () => {
     it("gives points when the answer is correct", () => {
@@ -11,7 +11,7 @@ describe("scoreCategorizer", () => {
 
         const userInput = {
             values: [1, 3],
-        } as const;
+        };
         const score = scoreCategorizer(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -25,7 +25,7 @@ describe("scoreCategorizer", () => {
 
         const userInput = {
             values: [2, 3],
-        } as const;
+        };
         const score = scoreCategorizer(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();

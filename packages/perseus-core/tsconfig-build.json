@@ -15,5 +15,7 @@
         /* Add in-repo pacakge references here, like this:
            {"path": "../path/to/package/tsconfig-build.json"}
         */
+        {"path": "../kas/tsconfig-build.json"},
+        {"path": "../perseus-utils/tsconfig-build.json"}
     ]
 }

@@ -53,7 +53,6 @@ export function useControlPoint(params: Params): Return {
         ariaDescribedBy,
         ariaLabel,
         ariaLive = "polite",
-        color,
         constrain = (p) => snap(snapStep, p),
         cursor,
         forwardedRef = noop,
@@ -68,6 +67,7 @@ export function useControlPoint(params: Params): Return {
 
     const [focused, setFocused] = useState(false);
     const focusableHandleRef = useRef<SVGGElement>(null);
+
     useDraggable({
         gestureTarget: focusableHandleRef,
         point,
@@ -92,9 +92,20 @@ export function useControlPoint(params: Params): Return {
             y: srFormatNumber(point[Y], locale),
         });
 
+    // Set the forwarded ref to the focusable handle element when it changes.
     useLayoutEffect(() => {
         setForwardedRef(forwardedRef, focusableHandleRef.current);
     }, [forwardedRef]);
+
+    // If the point is being dragged and is not focused, focus the focusable handle.
+    useLayoutEffect(() => {
+        if (dragging && !focused) {
+            // If the point is being dragged, focus the focusable handle so that
+            // users can continue to interact with the point using the keyboard or buttons.
+            // This particular focus call ensures that the focus ring and hairlines are visible.
+            focusableHandleRef.current?.focus();
+        }
+    }, [dragging, focused]);
 
     const focusableHandle = (
         <g
@@ -106,6 +117,7 @@ export function useControlPoint(params: Params): Return {
             aria-describedby={ariaDescribedBy}
             aria-label={pointAriaLabel}
             aria-live={ariaLive}
+            aria-disabled={disableKeyboardInteraction}
             onFocus={(event) => {
                 onFocus(event);
                 setFocused(true);
@@ -126,7 +138,6 @@ export function useControlPoint(params: Params): Return {
             point={point}
             dragging={dragging}
             focused={focused}
-            color={color}
             ref={visiblePointRef}
             showFocusRing={focused}
         />

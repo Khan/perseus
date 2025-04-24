@@ -1,6 +1,11 @@
+import {
+    generateTestPerseusItem,
+    type PerseusNumericInputWidgetOptions,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
 import {NumericInput} from "./numeric-input.class";
 import {
@@ -14,10 +19,6 @@ import {
     withCoefficient,
 } from "./numeric-input.testdata";
 
-import type {
-    PerseusNumericInputWidgetOptions,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react";
 
 // We're using this format as storybook was not able to infer the type of the options.
@@ -188,7 +189,11 @@ export const Default = (
         "numeric-input 1",
         args,
     );
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 Default.args = defaultQuestion.widgets["numeric-input 1"].options;
 Default.parameters = {
@@ -207,7 +212,11 @@ export const IntegerExample = (
         "numeric-input 1",
         args,
     );
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 IntegerExample.args = integerProblem.widgets["numeric-input 1"].options;
 IntegerExample.parameters = {
@@ -226,7 +235,11 @@ export const DecimalExample = (
         "numeric-input 1",
         args,
     );
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 DecimalExample.args = decimalProblem.widgets["numeric-input 1"].options;
 DecimalExample.parameters = {
@@ -245,7 +258,11 @@ export const ImproperExample = (
         "numeric-input 1",
         args,
     );
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 ImproperExample.args = improperProblem.widgets["numeric-input 1"].options;
 ImproperExample.parameters = {
@@ -264,7 +281,11 @@ export const ProperExample = (
         "numeric-input 1",
         args,
     );
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 ProperExample.args = properProblem.widgets["numeric-input 1"].options;
 ProperExample.parameters = {
@@ -279,7 +300,11 @@ export const MixedExample = (
     args: PerseusNumericInputWidgetOptions,
 ): React.ReactElement => {
     const question = updateWidgetOptions(mixedProblem, "numeric-input 1", args);
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 MixedExample.args = mixedProblem.widgets["numeric-input 1"].options;
 MixedExample.parameters = {
@@ -294,7 +319,11 @@ export const PiExample = (
     args: PerseusNumericInputWidgetOptions,
 ): React.ReactElement => {
     const question = updateWidgetOptions(piProblem, "numeric-input 1", args);
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 PiExample.args = piProblem.widgets["numeric-input 1"].options;
 PiExample.parameters = {
@@ -313,13 +342,43 @@ export const CoefficientExample = (
         "numeric-input 1",
         args,
     );
-    return <RendererWithDebugUI question={question} />;
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({question})}
+        />
+    );
 };
 CoefficientExample.args = withCoefficient.widgets["numeric-input 1"].options;
 CoefficientExample.parameters = {
     docs: {
         description: {
             story: "When Numeric Input is set to coefficient mode, it allows the student to use - for -1 and an empty string to mean 1.",
+        },
+    },
+};
+
+export const Answerless = (
+    args: PerseusNumericInputWidgetOptions,
+): React.ReactElement => {
+    const question = updateWidgetOptions(
+        defaultQuestion,
+        "numeric-input 1",
+        args,
+    );
+    return (
+        <ServerItemRendererWithDebugUI
+            item={generateTestPerseusItem({
+                question,
+            })}
+            startAnswerless={true}
+        />
+    );
+};
+Answerless.args = defaultQuestion.widgets["numeric-input 1"].options;
+Answerless.parameters = {
+    docs: {
+        description: {
+            story: "The answerless Numeric Input widget.",
         },
     },
 };

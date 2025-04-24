@@ -1,32 +1,19 @@
-import * as React from "react";
-
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ArticleRendererWithDebugUI} from "../../../../../testing/article-renderer-with-debug-ui";
 
 import {article1} from "./graded-group-set.testdata";
 
-type StoryArgs = {
-    isMobile: boolean;
-};
+import type {Meta, StoryObj} from "@storybook/react";
 
-type GradedGroupSetStory = {
-    title: string;
-    args: StoryArgs;
-};
-
-export const Article1 = (args: StoryArgs): React.ReactElement => {
-    return (
-        <RendererWithDebugUI
-            apiOptions={{
-                isMobile: args.isMobile,
-            }}
-            question={article1}
-        />
-    );
-};
-
-export default {
+const meta: Meta = {
     title: "Perseus/Widgets/Graded Group Set",
+    component: ArticleRendererWithDebugUI,
+};
+export default meta;
+
+type Story = StoryObj<typeof ArticleRendererWithDebugUI>;
+
+export const Article1: Story = {
     args: {
-        isMobile: false,
+        json: article1,
     },
-} as GradedGroupSetStory;
+};

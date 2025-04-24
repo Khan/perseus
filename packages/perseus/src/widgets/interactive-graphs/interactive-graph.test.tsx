@@ -1,5 +1,9 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {lockedFigureColors, splitPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusItem,
+    lockedFigureColors,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -77,9 +81,9 @@ const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
     renderer.restoreSerializedState(state);
 };
 const commonInstructions =
-    "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use the Arrow keys to move it.";
+    "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.";
 const unlimitedInstructions =
-    "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use the Arrow keys to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.";
+    "Press Shift + Enter to interact with the graph. Use the Tab key to move through the interactive elements in the graph and access the graph Action Bar. When an interactive element has focus, use Control + Shift + Arrows to move it or use the Delete key to remove it from the graph. Use the buttons in the Action Bar to add or adjust elements within the graph.";
 
 const blankOptions: APIOptions = Object.freeze(ApiOptions.defaults);
 
@@ -269,10 +273,10 @@ describe("Interactive Graph", function () {
                 // to the frontend. This test ensures that interactive graphs
                 // can render when the answers have been stripped out of the
                 // data.
+                const answerfulItem = generateTestPerseusItem({question});
+                const answerlessItem = splitPerseusItem(answerfulItem);
 
-                const answerlessQuestion = splitPerseusItem(question);
-
-                renderQuestion(answerlessQuestion, blankOptions);
+                renderQuestion(answerlessItem.question, blankOptions);
             });
 
             it("should reject when has not been interacted with", () => {
@@ -1062,15 +1066,6 @@ describe("Interactive Graph", function () {
         });
 
         describe("Locked Functions", () => {
-            // const domain = (
-            //     min: number | null,
-            //     max: number | null,
-            // ): [number | null, number | null] => {
-            //     return [min, max];
-            // };
-
-            // type domain = [min: number | null, max: number | null];
-
             it("should NOT render when an invalid equation is specified", () => {
                 // Arrange
                 const {container} = renderQuestion(
@@ -1168,41 +1163,6 @@ describe("Interactive Graph", function () {
                     {},
                 );
             });
-
-            it.each`
-                domainSupplied                                            | domainExpected
-                ${[-2, null] as [min: number | null, max: number | null]} | ${[-2, Infinity]}
-                ${[null, 3] as [min: number | null, max: number | null]}  | ${[-Infinity, 3]}
-            `(
-                "plots the equation with partially supplied domain: $domainSupplied",
-                ({domainSupplied, domainExpected}) => {
-                    // Arrange
-                    const PlotOfXMock = jest
-                        .spyOn(Plot, "OfX")
-                        .mockReturnValue(<div>OfX</div>);
-                    const expectedParameters = {
-                        color: "#3B3D45",
-                        style: "solid",
-                    };
-
-                    // Act - no upper limit specified
-                    renderQuestion(
-                        segmentWithLockedFunction("x^2", {
-                            domain: domainSupplied,
-                        }),
-                        blankOptions,
-                    );
-
-                    // Assert
-                    expect(PlotOfXMock).toHaveBeenCalledWith(
-                        expect.objectContaining({
-                            ...expectedParameters,
-                            domain: domainExpected,
-                        }),
-                        {},
-                    );
-                },
-            );
 
             it("should render locked function with aria label when one is provided", () => {
                 // Arrange
@@ -1333,8 +1293,8 @@ describe("Interactive Graph", function () {
         it("should render a locked label within a locked point within a locked line", async () => {
             const question = {...graphWithLabeledLine};
             invariant(
-                question.widgets["interactive-graph 1"].options
-                    .lockedFigures?.[0]?.type === "line",
+                question.widgets["interactive-graph 1"].options.lockedFigures[0]
+                    ?.type === "line",
             );
             question.widgets[
                 "interactive-graph 1"

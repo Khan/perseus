@@ -3,7 +3,7 @@ import {success} from "../result";
 
 import {parsePerseusAnswerArea} from "./perseus-answer-area";
 
-import type {PerseusAnswerArea} from "@khanacademy/perseus-core";
+import type {PerseusAnswerArea} from "../../data-schema";
 
 describe("parsePerseusAnswerArea", () => {
     const allFalse: PerseusAnswerArea = {

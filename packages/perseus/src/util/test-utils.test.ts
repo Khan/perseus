@@ -1,4 +1,6 @@
-import {generateTestPerseusItem} from "./test-utils";
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+
+import {getAnswerfulItem, getAnswerlessItem} from "./test-utils";
 import {
     basicObject,
     customQuestionInfo,
@@ -30,5 +32,119 @@ describe("generateTestPerseusItem", () => {
         expect(generateTestPerseusItem(customHintsInfo)).toEqual(
             expectedHintsInfoAdded,
         );
+    });
+});
+
+describe("getAnswerfulItem", () => {
+    it("should return an answerful item using the type given", () => {
+        const answerfulItem = getAnswerfulItem("dropdown", {
+            static: false,
+            placeholder: "greater/less than or equal to",
+            choices: [
+                {
+                    content: "greater than or equal to",
+                    correct: false,
+                },
+                {
+                    content: "less than or equal to",
+                    correct: true,
+                },
+            ],
+        });
+        expect(answerfulItem).toEqual({
+            question: {
+                content: "[[☃ dropdown 1]]",
+                images: {},
+                widgets: {
+                    "dropdown 1": {
+                        type: "dropdown",
+                        options: {
+                            static: false,
+                            placeholder: "greater/less than or equal to",
+                            choices: [
+                                {
+                                    content: "greater than or equal to",
+                                    correct: false,
+                                },
+                                {
+                                    content: "less than or equal to",
+                                    correct: true,
+                                },
+                            ],
+                        },
+                    },
+                },
+            },
+            answerArea: {
+                calculator: false,
+                chi2Table: false,
+                periodicTable: false,
+                tTable: false,
+                zTable: false,
+                financialCalculatorMonthlyPayment: false,
+                financialCalculatorTotalAmount: false,
+                financialCalculatorTimeToPayOff: false,
+                periodicTableWithKey: false,
+            },
+            hints: [],
+        });
+    });
+});
+
+describe("getAnswerlessItem", () => {
+    it("should return an answerless item using the type given with upgraded widget options", () => {
+        const answerlessItem = getAnswerlessItem("dropdown", {
+            static: false,
+            placeholder: "greater/less than or equal to",
+            choices: [
+                {
+                    content: "greater than or equal to",
+                    correct: false,
+                },
+                {
+                    content: "less than or equal to",
+                    correct: true,
+                },
+            ],
+        });
+        expect(answerlessItem).toEqual({
+            question: {
+                content: "[[☃ dropdown 1]]",
+                images: {},
+                widgets: {
+                    "dropdown 1": {
+                        type: "dropdown",
+                        options: {
+                            static: false,
+                            placeholder: "greater/less than or equal to",
+                            choices: [
+                                {
+                                    content: "greater than or equal to",
+                                },
+                                {
+                                    content: "less than or equal to",
+                                },
+                            ],
+                        },
+                        alignment: "default",
+                        version: {major: 0, minor: 0},
+                        graded: true,
+                        static: false,
+                    },
+                },
+            },
+            answerArea: {
+                calculator: false,
+                chi2Table: false,
+                periodicTable: false,
+                tTable: false,
+                zTable: false,
+                financialCalculatorMonthlyPayment: false,
+                financialCalculatorTotalAmount: false,
+                financialCalculatorTimeToPayOff: false,
+                periodicTableWithKey: false,
+            },
+            hints: [],
+        });
     });
 });

@@ -17,11 +17,9 @@ import type {
     PerseusRadioChoice,
     PerseusRadioWidgetOptions,
     ShowSolutions,
-} from "@khanacademy/perseus-core";
-import type {
     PerseusRadioRubric,
     PerseusRadioUserInput,
-} from "@khanacademy/perseus-score";
+} from "@khanacademy/perseus-core";
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {
@@ -30,13 +28,13 @@ export type RenderProps = {
     multipleSelect?: boolean;
     countChoices?: boolean;
     deselectEnabled?: boolean;
-    choices: ReadonlyArray<RadioChoiceWithMetadata>;
-    selectedChoices: ReadonlyArray<PerseusRadioChoice["correct"]>;
+    choices: RadioChoiceWithMetadata[];
+    selectedChoices: PerseusRadioChoice["correct"][];
     showSolutions?: ShowSolutions;
-    choiceStates?: ReadonlyArray<ChoiceState>;
+    choiceStates?: ChoiceState[];
     // Depreciated; support for legacy way of handling changes
     // Adds proptype for prop that is used but was lacking type
-    values?: ReadonlyArray<boolean>;
+    values?: boolean[];
 };
 
 type Props = WidgetProps<RenderProps, PerseusRadioRubric>;
@@ -55,7 +53,7 @@ type DefaultProps = Required<
 
 export type RadioChoiceWithMetadata = PerseusRadioChoice & {
     originalIndex: number;
-    correct: boolean;
+    correct?: boolean;
 };
 
 class Radio extends React.Component<Props> implements Widget {
@@ -189,6 +187,7 @@ class Radio extends React.Component<Props> implements Widget {
     // adding hints when editing.
     // See: https://github.com/Khan/perseus/blame/e18582b4b69959270b90e237ef1813899711ddfa/src/widgets/radio.js#L169
     focus(choiceIndex?: number | null): boolean {
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (this.focusFunction) {
             return this.focusFunction(choiceIndex);
         }
@@ -196,7 +195,7 @@ class Radio extends React.Component<Props> implements Widget {
         return false;
     }
 
-    // lets BaseRadio regiser a focus callback so widget
+    // lets BaseRadio register a focus callback so widget
     // can focus an individual choice
     registerFocusFunction(fun: FocusFunction): void {
         this.focusFunction = fun;
@@ -354,7 +353,7 @@ class Radio extends React.Component<Props> implements Widget {
             }));
         } else if (this.props.showSolutions === "all") {
             choiceStates = choices.map(({correct}) => ({
-                selected: correct, // to draw the eye to the correct answer
+                selected: !!correct, // to draw the eye to the correct answer
                 crossedOut: false,
                 readOnly: true,
                 highlighted: false, // has no effect in this mode

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable prettier/prettier */
 /* eslint-disable import/order */
 /* TODO: fix these lint errors (http://eslint.org/docs/rules): */
@@ -159,7 +160,7 @@ abstract class Expr {
     eval(vars: Vars = {}, options?: ParseOptions): number {
         throw new Error(
             "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
+                // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 this.print(),
         );
     }
@@ -170,7 +171,7 @@ abstract class Expr {
     codegen(): string {
         throw new Error(
             "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
+                // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 this.print(),
         );
     }
@@ -378,6 +379,7 @@ abstract class Expr {
         // the other Expr can have more variables than this one
         // this lets you multiply equations by other variables
         var same = function (array1, array2) {
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             return !_.difference(array1, array2).length;
         };
 
@@ -434,6 +436,7 @@ abstract class Expr {
             this.getVars(/* excludeFunc */ false),
             other.getVars(/* excludeFunc */ false),
         );
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!varAndFuncList.length && !this.has(Unit) && !other.has(Unit)) {
             return equalNumbers(this.eval(), other.eval());
         }
@@ -555,7 +558,7 @@ abstract class Expr {
     isPositive(): boolean {
         throw new Error(
             "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
+                // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 this.print(),
         );
     }
@@ -591,7 +594,7 @@ abstract class Expr {
     abs(): Expr {
         throw new Error(
             "Abstract method - must override for expr: " +
-                // eslint-disable-next-line @babel/no-invalid-this
+                // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 this.print(),
         );
     }
@@ -918,8 +921,11 @@ export class Mul extends Seq {
             }
         });
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         var inverses = terms.inverse || [];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         var numbers: Num[] = (terms.number as Num[]) || [];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         var others = terms.other || [];
 
         var negatives = "";
@@ -999,6 +1005,7 @@ export class Mul extends Seq {
             numerator = tex ? tex : "1";
         }
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!inverses.length) {
             return negatives + numerator;
         } else {
@@ -1166,8 +1173,11 @@ export class Mul extends Seq {
                 return "expr";
             }
         });
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         let trigs = (groupedPairs.trig as [Trig, Expr][]) || [];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         let logs = (groupedPairs.log as [Log, Expr][]) || [];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const exprs = groupedPairs.expr || [];
 
         if (trigs.length > 1) {
@@ -1271,8 +1281,10 @@ export class Mul extends Seq {
         // `partition` splits the terms into two Seqs - one containing
         // only Nums and the all non-Num nodes.
         var numbers = partitioned[0].terms as Num[];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         var fold = numbers.length && _.all(numbers, (num) => num.n > 0);
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (fold) {
             // e.g. - x*2*3 -> x*-2*3
             var num = numbers[0].negate();
@@ -2620,6 +2632,7 @@ export class Abs extends Expr {
                 _.invoke(terms.number, "abs"),
             );
 
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (terms.other.length) {
                 positives.push(new Abs(new Mul(terms.other).flatten()));
             }
@@ -2773,11 +2786,13 @@ export class Eq extends Expr {
 
         const terms = factored.terms;
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const hasVar = (term: Expr) => !!term.getVars().length;
         const isOne = (term: Expr) => term.equals(NumOne);
 
         const [adds, others] = partition(terms, isAdd);
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (adds.length && this.isEquality()) {
             // keep only Adds
             // e.g. 2xy(z+1)(=0) -> z+1(=0)
@@ -2786,6 +2801,7 @@ export class Eq extends Expr {
 
         let denominator = others;
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!adds.length) {
             // if no Adds, keep all variable terms to preserve meaning
             // e.g. 42xyz(=0) -> xyz(=0)

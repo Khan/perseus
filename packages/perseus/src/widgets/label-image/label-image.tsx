@@ -34,8 +34,8 @@ import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label
 import type {
     InteractiveMarkerType,
     PerseusLabelImageWidgetOptions,
+    PerseusLabelImageUserInput,
 } from "@khanacademy/perseus-core";
-import type {PerseusLabelImageUserInput} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
@@ -438,6 +438,7 @@ export class LabelImage
 
         this.handleMarkerChange(index, {
             ...markers[index],
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             selected: selected.length ? selected : undefined,
         });
     }

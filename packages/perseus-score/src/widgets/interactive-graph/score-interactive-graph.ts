@@ -11,12 +11,12 @@ import {
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import type {Coord} from "@khanacademy/perseus-core";
 import type {
+    PerseusInteractiveGraphUserInput,
     PerseusInteractiveGraphRubric,
     PerseusScore,
-    PerseusInteractiveGraphUserInput,
-} from "@khanacademy/perseus-score";
+    Coord,
+} from "@khanacademy/perseus-core";
 
 const {collinear, canonicalSineCoefficients, similar, clockwise} = geometry;
 const {getClockwiseAngle} = angles;
@@ -168,8 +168,9 @@ function scoreInteractiveGraph(
             // eq() comparison but _.isEqual(0, -0) is false, so we'll use
             // eq() anyway. The sort should be fine because it'll stringify
             // it and -0 converted to a string is "0"
+            // TODO(benchristel): once we drop support for Safari 15, use
+            // toSorted here to avoid mutating the input arrays!
             guess?.sort();
-            // @ts-expect-error - TS2339 - Property 'sort' does not exist on type 'readonly Coord[]'.
             correct.sort();
             if (approximateDeepEqual(guess, correct)) {
                 return {
@@ -275,6 +276,7 @@ function scoreInteractiveGraph(
             let match;
             if (rubric.correct.match === "congruent") {
                 const angles = _.map([guess, correct], function (coords) {
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     if (!coords) {
                         return false;
                     }

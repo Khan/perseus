@@ -1,13 +1,12 @@
-import _ from "underscore";
-
 function getMatrixSize(matrix: ReadonlyArray<ReadonlyArray<number>>) {
     const matrixSize = [1, 1];
 
     // We need to find the widest row and tallest column to get the correct
     // matrix size.
-    _(matrix).each((matrixRow, row) => {
+    matrix.forEach((matrixRow, row) => {
         let rowWidth = 0;
-        _(matrixRow).each((matrixCol, col) => {
+        matrixRow.forEach((matrixCol, col) => {
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (matrixCol != null && matrixCol.toString().length) {
                 rowWidth = col + 1;
             }

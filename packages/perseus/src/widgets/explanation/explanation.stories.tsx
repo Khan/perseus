@@ -1,6 +1,6 @@
-import * as React from "react";
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
 import {
     ipsumExample,
@@ -9,24 +9,28 @@ import {
     wideButton,
 } from "./explanation.testdata";
 
-export default {
+import type {Meta, StoryObj} from "@storybook/react";
+
+const meta: Meta = {
     title: "Perseus/Widgets/Explanation",
+    component: ServerItemRendererWithDebugUI,
+};
+export default meta;
+
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+
+export const Question1: Story = {
+    args: {item: generateTestPerseusItem({question: question1})},
 };
 
-type StoryArgs = Record<any, any>;
-
-export const Question1 = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={question1} />;
+export const Question2: Story = {
+    args: {item: generateTestPerseusItem({question: question2})},
 };
 
-export const Question2 = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={question2} />;
+export const IpsumExample: Story = {
+    args: {item: generateTestPerseusItem({question: ipsumExample})},
 };
 
-export const IpsumExample = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={ipsumExample} />;
-};
-
-export const WideButton = (args: StoryArgs): React.ReactElement => {
-    return <RendererWithDebugUI question={wideButton} />;
+export const WideButton: Story = {
+    args: {item: generateTestPerseusItem({question: wideButton})},
 };

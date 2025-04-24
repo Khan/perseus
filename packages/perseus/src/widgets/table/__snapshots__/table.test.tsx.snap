@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`table answerful vs answerless answerful: snapshots 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        The answer is 42
+
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <table
+            class="perseus-widget-table-of-values non-markdown"
+          >
+            <thead>
+              <tr>
+                <th>
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        Column 1
+                      </div>
+                    </div>
+                  </div>
+                </th>
+                <th>
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        Column 2
+                      </div>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`table answerful vs answerless answerless: snapshots 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        The answer is 42
+
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <table
+            class="perseus-widget-table-of-values non-markdown"
+          >
+            <thead>
+              <tr>
+                <th>
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        Column 1
+                      </div>
+                    </div>
+                  </div>
+                </th>
+                <th>
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        Column 2
+                      </div>
+                    </div>
+                  </div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+                <td>
+                  <input
+                    type="text"
+                    value=""
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

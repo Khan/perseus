@@ -1,32 +1,19 @@
-import * as React from "react";
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import {RendererWithDebugUI} from "../../../../../testing/renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
 import {question1} from "./graded-group.testdata";
 
-type StoryArgs = {
-    isMobile: boolean;
-};
+import type {Meta, StoryObj} from "@storybook/react";
 
-type Story = {
-    title: string;
-    args: StoryArgs;
-};
-
-export const Question1 = (args: StoryArgs): React.ReactElement => {
-    return (
-        <RendererWithDebugUI
-            question={question1}
-            apiOptions={{
-                isMobile: args.isMobile,
-            }}
-        />
-    );
-};
-
-export default {
+const meta: Meta = {
     title: "Perseus/Widgets/Graded Group",
-    args: {
-        isMobile: false,
-    },
-} as Story;
+    component: ServerItemRendererWithDebugUI,
+};
+export default meta;
+
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
+
+export const Question1: Story = {
+    args: {item: generateTestPerseusItem({question: question1})},
+};

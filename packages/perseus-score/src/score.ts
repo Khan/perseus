@@ -7,10 +7,11 @@ import {
 
 import {getWidgetScorer, getWidgetValidator} from "./widgets/widget-registry";
 
-import type {PerseusScore, UserInputMap} from "./validation.types";
 import type {
     PerseusRenderer,
+    PerseusScore,
     PerseusWidgetsMap,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 
 const noScore: PerseusScore = {
@@ -122,7 +123,13 @@ export function flattenScores(widgetScoreMap: {
     return Object.values(widgetScoreMap).reduce(combineScores, noScore);
 }
 
-// once scorePerseusItem is the only one calling scoreWidgetsFunctional
+/**
+ * score a Perseus item
+ *
+ * @param perseusRenderData - the full answer data, includes the correct answer
+ * @param userInputMap - the user's input for each widget, mapped by ID
+ * @param locale - string locale for math parsing ("de" 1.000,00 vs "en" 1,000.00)
+ */
 export function scorePerseusItem(
     perseusRenderData: PerseusRenderer,
     userInputMap: UserInputMap,

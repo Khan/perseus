@@ -22,7 +22,6 @@ const config: KnipConfig = {
         // symlinked type defs for third-party libs
         "**/aphrodite.d.ts",
         "**/assets.d.ts",
-        "**/hubble.d.ts",
         "**/jsdiff.d.ts",
         "**/raphael.d.ts",
         "**/utility.d.ts",

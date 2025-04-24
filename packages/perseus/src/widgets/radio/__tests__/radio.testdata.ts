@@ -208,13 +208,7 @@ export const choicesWithImages: PerseusRenderer = {
 export const multiChoiceQuestion: PerseusRenderer = {
     content:
         "**Select all input values for which $g(x)=2$.**\n\n[[\u2603 radio 1]]\n\n ![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/4613e0d9c906b3053fb5523eed83d4f779fdf6bb)",
-    images: {
-        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/4613e0d9c906b3053fb5523eed83d4f779fdf6bb":
-            {
-                width: 428,
-                height: 428,
-            },
-    },
+    images: {},
     widgets: {
         "radio 1": {
             graded: true,
@@ -277,21 +271,25 @@ export const multiChoiceQuestionSimple: PerseusRenderer = {
                         content: "Hola",
                         isNoneOfTheAbove: false,
                         correct: true,
+                        clue: "The Spanish-speaking countries typically say Hola.",
                     },
                     {
                         content: "Hey",
                         isNoneOfTheAbove: false,
                         correct: true,
+                        clue: "This is used to attract someone's attention.",
                     },
                     {
                         content: "Hi",
                         isNoneOfTheAbove: false,
                         correct: true,
+                        clue: "This is used as friendly greeting.",
                     },
                     {
                         content: "Goodbye",
                         isNoneOfTheAbove: false,
                         correct: false,
+                        clue: "Some people like to say Goodbye.",
                     },
                     {
                         content: "None of these",

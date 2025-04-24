@@ -44,7 +44,7 @@ import type {
     PerseusRenderer,
     PerseusWidget,
 } from "../packages/perseus-core/src/data-schema";
-import type {PerseusScore} from "../packages/perseus-score/src/validation.types";
+import type {PerseusScore} from "../packages/perseus-core/src/validation.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 import "../packages/perseus/src/styles/perseus-renderer.less";
@@ -167,6 +167,7 @@ export function Flipbook() {
                                     content={<GraphiePreview url={url} />}
                                 >
                                     <IconButton
+                                        kind="tertiary"
                                         icon={
                                             isGraphieUrl(url)
                                                 ? graphIcon
@@ -182,7 +183,10 @@ export function Flipbook() {
                                         "This graph does not specify a background image"
                                     }
                                 >
-                                    <IconButton icon={cameraSlashIcon} />
+                                    <IconButton
+                                        icon={cameraSlashIcon}
+                                        kind="tertiary"
+                                    />
                                 </Tooltip>
                             )}
                         </View>

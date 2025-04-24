@@ -6,10 +6,8 @@ import type {PerseusInteractiveGraphWidgetOptions} from "@khanacademy/perseus-co
 import type {Interval, vec} from "mafs";
 import type {ReactNode} from "react";
 
-export type InteractiveGraphProps = WidgetProps<
-    PerseusInteractiveGraphWidgetOptions,
-    PerseusInteractiveGraphWidgetOptions
->;
+export type InteractiveGraphProps =
+    WidgetProps<PerseusInteractiveGraphWidgetOptions>;
 
 export type Dispatch = (action: InteractiveGraphAction) => unknown;
 
@@ -89,7 +87,7 @@ export interface PolygonGraphState extends InteractiveGraphStateCommon {
     type: "polygon";
     showAngles: boolean;
     showSides: boolean;
-    snapTo: "grid" | "angles" | "sides";
+    snapTo: SnapTo;
     coords: Coord[];
     numSides?: number | "unlimited";
     focusedPointIndex: number | null;
@@ -138,3 +136,5 @@ export type GraphDimensions = {
 };
 
 export type AriaLive = "off" | "assertive" | "polite" | undefined;
+
+export type SnapTo = "grid" | "angles" | "sides";

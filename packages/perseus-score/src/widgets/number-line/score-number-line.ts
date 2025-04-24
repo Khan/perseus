@@ -4,7 +4,7 @@ import type {
     PerseusNumberLineRubric,
     PerseusNumberLineUserInput,
     PerseusScore,
-} from "../../validation.types";
+} from "@khanacademy/perseus-core";
 
 function scoreNumberLine(
     userInput: PerseusNumberLineUserInput,
@@ -16,6 +16,7 @@ function scoreNumberLine(
     const correctRel = rubric.correctRel || "eq";
     const correctPos = knumber.equal(
         userInput.numLinePosition,
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         rubric.correctX || 0,
     );
 

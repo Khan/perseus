@@ -20,6 +20,7 @@ describe("getDefaultFigureForType", () => {
             coord: [0, 0],
             color: "grayH",
             filled: true,
+            labels: [],
         });
     });
 
@@ -34,18 +35,21 @@ describe("getDefaultFigureForType", () => {
                     coord: [0, 0],
                     color: "grayH",
                     filled: true,
+                    labels: [],
                 },
                 {
                     type: "point",
                     coord: [2, 2],
                     color: "grayH",
                     filled: true,
+                    labels: [],
                 },
             ],
             color: "grayH",
             lineStyle: "solid",
             showPoint1: false,
             showPoint2: false,
+            labels: [],
         });
     });
 
@@ -58,6 +62,7 @@ describe("getDefaultFigureForType", () => {
                 [2, 2],
             ],
             color: "grayH",
+            labels: [],
         });
     });
 
@@ -71,6 +76,7 @@ describe("getDefaultFigureForType", () => {
             color: "grayH",
             fillStyle: "none",
             strokeStyle: "solid",
+            labels: [],
         });
     });
 
@@ -87,6 +93,7 @@ describe("getDefaultFigureForType", () => {
             showVertices: false,
             fillStyle: "none",
             strokeStyle: "solid",
+            labels: [],
         });
     });
 
@@ -98,6 +105,8 @@ describe("getDefaultFigureForType", () => {
             strokeStyle: "solid",
             equation: "x^2",
             directionalAxis: "x",
+            domain: [-Infinity, Infinity],
+            labels: [],
         });
     });
 
@@ -358,12 +367,6 @@ describe("generateMathDetails", () => {
 });
 
 describe("joinLabelsAsSpokenText", () => {
-    test("returns empty string for undefined input", async () => {
-        const actualOutput = await joinLabelsAsSpokenMath(undefined);
-
-        expect(actualOutput).toBe("");
-    });
-
     test("return empty string if input is an empty array", async () => {
         const actualOutput = await joinLabelsAsSpokenMath([]);
 

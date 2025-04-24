@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/no-unsafe */
 import {
@@ -11,9 +12,6 @@ import {
     emptyWidgetsFunctional,
     flattenScores,
     scoreWidgetsFunctional,
-    type PerseusScore,
-    type UserInputArray,
-    type UserInputMap,
 } from "@khanacademy/perseus-score";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import classNames from "classnames";
@@ -65,6 +63,9 @@ import type {
     PerseusWidgetOptions,
     PerseusWidgetsMap,
     ShowSolutions,
+    PerseusScore,
+    UserInputArray,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -566,11 +567,13 @@ class Renderer
         const reviewModeRubric =
             this.props.reviewMode && widgetInfo ? widgetInfo.options : null;
 
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!this._interactionTrackers) {
             this._interactionTrackers = {};
         }
 
         let interactionTracker = this._interactionTrackers[widgetId];
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!interactionTracker) {
             interactionTracker = this._interactionTrackers[widgetId] =
                 new InteractionTracker(
@@ -1097,6 +1100,7 @@ class Renderer
         if (node.type === "widget") {
             const widgetPlaceholder = apiOptions.widgetPlaceholder;
 
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (widgetPlaceholder) {
                 return widgetPlaceholder;
             }
@@ -1219,14 +1223,7 @@ class Renderer
             );
         }
         if (node.type === "math") {
-            // Replace uses of \begin{align}...\end{align} which KaTeX doesn't
-            // support (yet) with \begin{aligned}...\end{aligned} which renders
-            // the same is supported by KaTeX.  It does the same for align*.
-            // TODO(kevinb) update content to use aligned instead of align.
-            // TODO(LEMS-1608) Remove this replacement as MathJax supports the
-            // "align" macro correctly (and, in fact, it is not synonymous with
-            // "aligned").
-            const tex = node.content.replace(/\{align[*]?\}/g, "{aligned}");
+            const tex = node.content;
 
             // We render math here instead of in perseus-markdown.jsx
             // because we need to pass it our onRender callback.
@@ -1259,6 +1256,7 @@ class Renderer
             );
         }
         if (node.type === "image") {
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (imagePlaceholder) {
                 return imagePlaceholder;
             }
@@ -1322,6 +1320,7 @@ class Renderer
             // Used by the translator portal to replace image URLs with
             // placeholders, see preprocessWidgets in manticore-utils.js
             // for more details.
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (imagePlaceholder && rImageURL.test(node.content)) {
                 return imagePlaceholder;
             }
@@ -1428,6 +1427,7 @@ class Renderer
             const widgetId = this.widgetIds[i];
             const widget = this.getWidgetInstance(widgetId);
             const widgetFocusResult = widget?.focus?.();
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (widgetFocusResult) {
                 id = widgetId;
                 focusResult = widgetFocusResult;
@@ -1562,9 +1562,9 @@ class Renderer
         _.each(
             this.state.widgetInfo,
             function (info, id) {
-                // eslint-disable-next-line @babel/no-invalid-this
+                // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                // eslint-disable-next-line @babel/no-invalid-this
+                // eslint-disable-next-line @typescript-eslint/no-invalid-this
                 const widget = this.getWidgetInstance(id);
                 const s = widget.serialize();
                 if (!_.isEmpty(s)) {
@@ -1629,6 +1629,7 @@ class Renderer
                 // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
                 // eslint-disable-next-line no-restricted-syntax
                 setTimeout(() => {
+                    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                     const cbResult = cb && cb();
                     if (!silent) {
                         this.props.onInteractWithWidget(id);
@@ -1785,6 +1786,7 @@ class Renderer
             // before jipt has a chance to replace its contents, so this check
             // will keep us from adding the component to the registry a second
             // time.
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (!this.translationIndex) {
                 this.translationIndex =
                     getDependencies().rendererTranslationComponents.addComponent(

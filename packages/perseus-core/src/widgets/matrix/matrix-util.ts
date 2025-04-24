@@ -1,6 +1,6 @@
-import type {PerseusMatrixWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusMatrixWidgetOptions} from "../../data-schema";
 
-type MatrixPublicWidgetOptions = Pick<
+export type MatrixPublicWidgetOptions = Pick<
     PerseusMatrixWidgetOptions,
     "prefix" | "suffix" | "cursorPosition" | "matrixBoardSize" | "static"
 >;
