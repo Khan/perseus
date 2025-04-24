@@ -15,20 +15,13 @@ export function splitPerseusRenderer(
     const splitWidgets = {};
 
     for (const [id, widget] of Object.entries(upgradedWidgets)) {
-        if (widget.type === "group") {
-            splitWidgets[id] = {
-                ...widget,
-                options: splitPerseusRenderer(widget.options),
-            };
-        } else {
-            const publicWidgetOptionsFun = getPublicWidgetOptionsFunction(
-                widget.type,
-            );
-            splitWidgets[id] = {
-                ...widget,
-                options: publicWidgetOptionsFun(widget.options as any),
-            };
-        }
+        const publicWidgetOptionsFun = getPublicWidgetOptionsFunction(
+            widget.type,
+        );
+        splitWidgets[id] = {
+            ...widget,
+            options: publicWidgetOptionsFun(widget.options as any),
+        };
     }
 
     return {
