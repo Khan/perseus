@@ -380,10 +380,6 @@ describe.each([
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
-
-        // jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-        //     testDependencies,
-        // );
     });
 
     it(`renders`, async () => {
