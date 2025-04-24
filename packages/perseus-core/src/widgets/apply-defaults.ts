@@ -15,7 +15,7 @@ import type {PerseusWidget, PerseusWidgetsMap} from "../data-schema";
 
 const DEFAULT_STATIC = false;
 
-export const upgradeWidgetInfoToLatestVersion = (
+export const applyDefaultsToWidget = (
     oldWidgetInfo: PerseusWidget,
 ): PerseusWidget => {
     const type = oldWidgetInfo.type;
@@ -98,7 +98,7 @@ export const upgradeWidgetInfoToLatestVersion = (
     } as any;
 };
 
-export function getUpgradedWidgetOptions(
+export function applyDefaultsToWidgets(
     oldWidgetOptions: PerseusWidgetsMap,
 ): PerseusWidgetsMap {
     return mapObject(oldWidgetOptions, (widgetInfo, widgetId) => {
@@ -119,6 +119,6 @@ export function getUpgradedWidgetOptions(
             widgetInfo = {...widgetInfo, ...newValues};
         }
 
-        return upgradeWidgetInfoToLatestVersion(widgetInfo) as any;
+        return applyDefaultsToWidget(widgetInfo) as any;
     });
 }

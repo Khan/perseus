@@ -122,9 +122,9 @@ export {default as videoLogic} from "./widgets/video";
 export type {VideoDefaultWidgetOptions} from "./widgets/video";
 
 export {
-    getUpgradedWidgetOptions,
-    upgradeWidgetInfoToLatestVersion,
-} from "./widgets/upgrade";
+    applyDefaultsToWidgets,
+    applyDefaultsToWidget,
+} from "./widgets/apply-defaults";
 
 export {default as splitPerseusItem} from "./utils/split-perseus-item";
 

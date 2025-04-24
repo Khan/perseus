@@ -1,4 +1,4 @@
-import {getUpgradedWidgetOptions} from "../widgets/upgrade";
+import {applyDefaultsToWidgets} from "../widgets/apply-defaults";
 
 import splitPerseusItem from "./split-perseus-item";
 import {generateTestPerseusItem} from "./test-utils";
@@ -27,7 +27,7 @@ describe("splitPerseusItem", () => {
             content: "[[☃ passage 1]]",
             // calling the upgrader here so I don't
             // bog down the test with default properties
-            widgets: getUpgradedWidgetOptions({
+            widgets: applyDefaultsToWidgets({
                 "passage 1": {
                     type: "passage",
                     options: {
@@ -241,7 +241,7 @@ describe("splitPerseusItem", () => {
             images: {},
             // calling the upgrader here so I don't
             // bog down the test with default properties
-            widgets: getUpgradedWidgetOptions({
+            widgets: applyDefaultsToWidgets({
                 "dropdown 1": {
                     type: "dropdown",
                     options: {
@@ -358,7 +358,7 @@ describe("splitPerseusItem", () => {
             images: {},
             // calling the upgrader here so I don't
             // bog down the test with default properties
-            widgets: getUpgradedWidgetOptions({
+            widgets: applyDefaultsToWidgets({
                 "radio 1": getFullRadio(),
                 "radio 2": getFullRadio(),
             }),

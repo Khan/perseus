@@ -1,7 +1,7 @@
 import _ from "underscore";
 
+import {applyDefaultsToWidgets} from "../widgets/apply-defaults";
 import {getPublicWidgetOptionsFunction} from "../widgets/core-widget-registry";
-import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
 import type {PerseusItem} from "../data-schema";
 
@@ -16,7 +16,7 @@ export default function splitPerseusItem(
     const item = _.clone(originalItem);
     const originalWidgets = item.question.widgets ?? {};
 
-    const upgradedWidgets = getUpgradedWidgetOptions(originalWidgets);
+    const upgradedWidgets = applyDefaultsToWidgets(originalWidgets);
     const splitWidgets = {};
 
     for (const [id, widget] of Object.entries(upgradedWidgets)) {
