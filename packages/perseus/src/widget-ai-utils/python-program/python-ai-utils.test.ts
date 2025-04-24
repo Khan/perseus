@@ -22,7 +22,7 @@ export const question1: PerseusRenderer = {
 };
 
 describe("Python Program AI utils", () => {
-    it("returns JSON with the expected format and fields", () => {
+    it("it returns JSON with the expected format and fields", () => {
         const resultJSON = getPromptJSON();
 
         expect(resultJSON).toEqual({

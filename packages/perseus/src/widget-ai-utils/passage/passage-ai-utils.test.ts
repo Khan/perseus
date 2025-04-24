@@ -30,7 +30,7 @@ const question1: PerseusRenderer = {
 };
 
 describe("Passage AI utils", () => {
-    it("returns JSON with the expected format and fields", () => {
+    it("it returns JSON with the expected format and fields", () => {
         const renderProps: any = {
             footnotes: "An example footnote",
             passageText:

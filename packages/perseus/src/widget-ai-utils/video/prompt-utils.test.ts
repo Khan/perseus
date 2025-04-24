@@ -25,7 +25,7 @@ export const question: PerseusRenderer = {
 };
 
 describe("Video AI utils", () => {
-    it("returns JSON with the expected format and fields", () => {
+    it("it returns JSON with the expected format and fields", () => {
         const resultJSON = getPromptJSON();
 
         expect(resultJSON).toEqual({
