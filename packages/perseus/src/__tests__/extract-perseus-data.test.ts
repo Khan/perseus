@@ -424,11 +424,12 @@ describe("ExtractPerseusData", () => {
                     labelRange: [null, null],
                     labelStyle: "decimal",
                     labelTicks: true,
-                    numDivisions: null,
+                    numDivisions: 0,
                     range: [-1.5, 1.5],
                     snapDivisions: 2,
                     static: false,
                     tickStep: 0.5,
+                    isTickCtrl: false,
                 },
             };
 
@@ -957,11 +958,12 @@ describe("ExtractPerseusData", () => {
                         labelRange: [null, null],
                         labelStyle: "decimal",
                         labelTicks: true,
-                        numDivisions: null,
+                        numDivisions: 0,
                         range: [-1.5, 1.5],
                         snapDivisions: 2,
                         static: false,
                         tickStep: 0.5,
+                        isTickCtrl: false,
                     },
                 },
             };

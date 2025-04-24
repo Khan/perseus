@@ -26,9 +26,9 @@ export const parseNumberLineWidget = parseWidget(
         labelRange: array(nullable(union(number).or(emptyStringToNull).parser)),
         labelStyle: string,
         labelTicks: boolean,
-        isTickCtrl: optional(nullable(boolean)),
+        isTickCtrl: defaulted(boolean, () => false),
         divisionRange: array(number),
-        numDivisions: optional(nullable(number)),
+        numDivisions: defaulted(number, () => 0),
         // NOTE(benchristel): I copied the default snapDivisions from
         // number-line.tsx. See the parse-perseus-json/README.md for
         // an explanation of why we want to duplicate the default here.

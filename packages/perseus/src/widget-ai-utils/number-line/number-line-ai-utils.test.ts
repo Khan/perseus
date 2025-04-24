@@ -29,6 +29,7 @@ export const question: PerseusRenderer = {
                 numDivisions: 6,
                 divisionRange: [1, 10],
                 correctX: -2.5,
+                isTickCtrl: false,
             },
             alignment: "default",
         },

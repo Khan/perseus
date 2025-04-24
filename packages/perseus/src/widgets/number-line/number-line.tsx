@@ -13,13 +13,20 @@ import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
-import type {ChangeableProps} from "../../mixins/changeable";
-import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
+import type {
+    APIOptions,
+    WidgetExports,
+    FocusPath,
+    Widget,
+    WidgetProps,
+} from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {
     Relationship,
     PerseusNumberLineUserInput,
+    PerseusNumberLineWidgetOptions,
 } from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -191,8 +198,8 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
 
 // TODO: most widgets use some like Widget<Something, PerseusNumberLineWidgetOptions>
 // should this one?
-type Props = ChangeableProps & {
-    range: [number, number];
+type Props = {
+    range: number[];
     labelRange: Array<number | null>;
     labelStyle: string;
     labelTicks: boolean;
@@ -207,11 +214,15 @@ type Props = ChangeableProps & {
     onBlur: (arg1: any) => void;
     onChange: (arg1: any, arg2?: () => void | null | undefined) => void;
     apiOptions: APIOptions;
-    keypadElement: HTMLElement | null | undefined;
+    keypadElement?: HTMLElement | undefined;
     static?: boolean;
     showTooltips?: boolean;
     trackInteraction: () => void;
 };
+
+0 as any as WidgetProps<PerseusNumberLineWidgetOptions> satisfies PropsFor<
+    typeof NumberLine
+>;
 
 type DefaultProps = {
     range: Props["range"];
@@ -219,7 +230,6 @@ type DefaultProps = {
     labelRange: Props["labelRange"];
     divisionRange: Props["divisionRange"];
     labelTicks: Props["labelTicks"];
-    isTickCtrl: Props["isTickCtrl"];
     isInequality: Props["isInequality"];
     numLinePosition: Props["numLinePosition"];
     snapDivisions: Props["snapDivisions"];
@@ -241,7 +251,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         labelRange: [null, null],
         divisionRange: [1, 12],
         labelTicks: true,
-        isTickCtrl: false,
         isInequality: false,
         numLinePosition: 0,
         snapDivisions: 2,

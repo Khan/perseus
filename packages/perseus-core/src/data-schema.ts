@@ -1249,11 +1249,11 @@ export type PerseusNumberLineWidgetOptions = {
     // Show label ticks
     labelTicks: boolean;
     // Show tick controller
-    isTickCtrl?: boolean | null;
+    isTickCtrl: boolean;
     // The range of divisions within the line
     divisionRange: number[];
     // This controls the number (and position) of the tick marks. The number of divisions is constrained to the division range. Note:  The user will be able to specify the number of divisions in a number input.
-    numDivisions?: number | null;
+    numDivisions: number;
     // This determines the number of different places the point will snap between two adjacent tick marks. Note: Ensure the required number of snap increments is provided to answer the question.
     snapDivisions: number;
     // This controls the number (and position) of the tick marks; you can either set the number of divisions (2 divisions would split the entire range in two halves), or the tick step (the distance between ticks) and the other value will be updated accordingly. Note:  There is no check to see if labels coordinate with the tick marks, which may be confusing for users if the blue labels and black ticks are off-step.
