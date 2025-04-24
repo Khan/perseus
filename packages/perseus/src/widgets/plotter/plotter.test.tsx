@@ -1,3 +1,4 @@
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {render, screen, waitFor} from "@testing-library/react";
 import React from "react";
 
@@ -11,7 +12,6 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import {Plotter} from "./plotter";
 
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 describe("plotter widget", () => {
     beforeEach(() => {
@@ -171,7 +171,7 @@ describe("plotter widget", () => {
                 // Arrange
                 const {renderer} = renderQuestion(item.question);
 
-                // Act 
+                // Act
                 const userInput = renderer.getUserInputMap();
                 const score = scorePerseusItem(
                     getAnswerfulItem("plotter", plotterOptions).question,
