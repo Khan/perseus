@@ -1,59 +1,20 @@
-import {splitPerseusItem} from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {render, screen, waitFor} from "@testing-library/react";
-import {userEvent as userEventLib} from "@testing-library/user-event";
 import React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
+import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {Plotter} from "./plotter";
 
-import type {
-    PerseusPlotterWidgetOptions,
-    PerseusRenderer,
-    PerseusWidgetTypes,
-    WidgetOptions,
-} from "@khanacademy/perseus-core";
-import type {UserEvent} from "@testing-library/user-event";
-import {Simulate} from "react-dom/test-utils";
-import drag = Simulate.drag;
-
-export function getAnswerfulItem<T extends keyof PerseusWidgetTypes>(
-    widgetType: T,
-    options: PerseusWidgetTypes[T]["options"],
-): PerseusRenderer {
-    const widgetName = `${widgetType} 1`;
-    const widget: WidgetOptions<T, PerseusWidgetTypes[T]["options"]> = {
-        type: widgetType,
-        options,
-    };
-    const widgets = {};
-    widgets[widgetName] = widget;
-    return {
-        content: `[[☃ ${widgetName}]]`,
-        images: {},
-        widgets,
-    };
-}
-
-export function getAnswerlessItem<T extends keyof PerseusWidgetTypes>(
-    widgetType: T,
-    options: PerseusWidgetTypes[T]["options"],
-): PerseusRenderer {
-    return splitPerseusItem(getAnswerfulItem(widgetType, options));
-}
+import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 describe("plotter widget", () => {
-    let userEvent: UserEvent;
     beforeEach(() => {
-        userEvent = userEventLib.setup({
-            advanceTimers: jest.advanceTimersByTime,
-        });
-
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -128,54 +89,99 @@ describe("plotter widget", () => {
 
         test("the answerless test data doesn't contain answers", () => {
             expect(
-                getAnswerlessItem("plotter", plotterOptions).widgets[
+                getAnswerlessItem("plotter", plotterOptions).question.widgets[
                     "plotter 1"
                 ].options.correct,
             ).toBeUndefined();
         });
 
-        // test.each([
-        //     ["answerless", getAnswerlessItem("plotter", plotterOptions)],
-        //     ["answerful", getAnswerfulItem("plotter", plotterOptions)],
-        // ])("is interactive with widget options: %p", async (_, item) => {
-        //     // Arrange / Act
-        //     const {renderer} = renderQuestion(item);
-        //
-        //     const draggableElement = screen.getByAttribute("data-interactive-kind-for-testing", )
-        //
-        //     expect(draggableElement).toBeInTheDocument();
-        //     console.log("draggableElement", JSON.stringify(draggableElement));
+        test.each([
+            ["answerless", getAnswerlessItem("plotter", plotterOptions)],
+            ["answerful", getAnswerfulItem("plotter", plotterOptions)],
+        ])("renders correctly with widget options: %p", async (_, item) => {
+            // Arrange / Act
+            renderQuestion(item.question);
 
-            // // Get element's position
-            // const rect = draggableElement.getBoundingClientRect();
-            // const startX = rect.left + rect.width / 2;
-            // const startY = rect.top + rect.height / 2;
-            //
-            // // Calculate the target Y position based on the plotter's scale
-            // // The plotter has a scaleY of 5 and maxY of 30, so we'll drag to 15
-            // // which is the correct answer according to plotterOptions
-            // const targetY = startY - (15 / plotterOptions.scaleY) * rect.height;
-            //
-            // // Simulate mouse down, move to target position, and release
-            // await userEvent.pointer([
-            //     {
-            //         keys: "[MouseLeft>]",
-            //         target: draggableElement,
-            //         coords: {clientX: startX, clientY: startY},
-            //     },
-            //     {coords: {clientX: startX, clientY: targetY}},
-            //     {keys: "[/MouseLeft]"},
-            // ]);
-            //
-            // const userInput = renderer.getUserInputMap();
-            // const score = scorePerseusItem(
-            //     getAnswerfulItem("plotter", plotterOptions),
-            //     userInput,
-            //     "en",
-            // );
-            //
-            // // Assert
-            // expect(score).toHaveBeenAnsweredCorrectly();
-        // });
+            // Assert
+            expect(await screen.findByText("School grade")).toBeInTheDocument();
+            expect(
+                await screen.findByText("Number of absent students"),
+            ).toBeInTheDocument();
+        });
+
+        test.each([
+            ["answerless", getAnswerlessItem("plotter", plotterOptions)],
+            ["answerful", getAnswerfulItem("plotter", plotterOptions)],
+        ])(
+            "no interaction results in invalid score for widget option: %p",
+            async (_, item) => {
+                const {renderer} = renderQuestion(item.question);
+
+                const userInput = renderer.getUserInputMap();
+
+                expect(userInput).toEqual({"plotter 1": [0]});
+
+                const score = scorePerseusItem(
+                    getAnswerfulItem("plotter", plotterOptions).question,
+                    userInput,
+                    "en",
+                );
+
+                // Assert
+                expect(score).toHaveInvalidInput();
+            },
+        );
+
+        const plotterOptionsCorrectSameAsStarting: PerseusPlotterWidgetOptions =
+            {
+                categories: ["$1^{\\text{st}} \\text{}$"],
+                picBoxHeight: 300,
+                picSize: 300,
+                picUrl: "",
+                plotDimensions: [380, 300],
+                correct: [15],
+                labelInterval: 1,
+                labels: ["School grade", "Number of absent students"],
+                maxY: 30,
+                scaleY: 5,
+                snapsPerLine: 1,
+                starting: [15],
+                type: "bar",
+            };
+
+        test.each([
+            [
+                "answerless",
+                getAnswerlessItem(
+                    "plotter",
+                    plotterOptionsCorrectSameAsStarting,
+                ),
+            ],
+            [
+                "answerful",
+                getAnswerfulItem(
+                    "plotter",
+                    plotterOptionsCorrectSameAsStarting,
+                ),
+            ],
+        ])(
+            "consistent experience for getting user input between item types with widget option: %p",
+            async (_, item) => {
+                const {renderer} = renderQuestion(item.question);
+
+                const userInput = renderer.getUserInputMap();
+
+                expect(userInput).toEqual({"plotter 1": [15]});
+
+                const score = scorePerseusItem(
+                    getAnswerfulItem("plotter", plotterOptions).question,
+                    userInput,
+                    "en",
+                );
+
+                // Assert
+                expect(score).toHaveBeenAnsweredCorrectly();
+            },
+        );
     });
 });
