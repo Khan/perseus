@@ -63,12 +63,19 @@ export type RadioChoiceWithMetadata = PerseusRadioChoice & {
 };
 
 // TODO: LEMS-3027 Move this to a util function in functional component
-const showRationalesDummy = (
-    choiceStates: ReadonlyArray<ChoiceState>,
-    choices: RecursiveReadonly<PerseusRadioRubric>,
-    userInput: RecursiveReadonly<PerseusRadioUserInput>,
-    onChange: ChangeHandler,
-) => {
+interface ShowRationalesDummyProps {
+    choiceStates: ReadonlyArray<ChoiceState>;
+    choices: RecursiveReadonly<PerseusRadioRubric>;
+    showSolutions: ShowSolutions;
+    userInput: RecursiveReadonly<PerseusRadioUserInput>;
+    onChange: ChangeHandler;
+}
+const showRationalesDummy = ({
+    choiceStates,
+    choices,
+    showSolutions,
+    userInput,
+}: ShowRationalesDummyProps) => {
     // eslint-disable-next-line no-console
     console.log("calling showRationalesDummy");
 
@@ -90,7 +97,11 @@ const showRationalesDummy = (
             // We use the same behavior for the readOnly flag as for
             // rationaleShown, but we keep it separate in case other
             // behaviors want to disable choices without showing rationales.
-            readOnly: state.selected || state.readOnly || widgetCorrect,
+            readOnly:
+                state.selected ||
+                state.readOnly ||
+                widgetCorrect ||
+                showSolutions !== "none",
             correctnessShown: state.selected || state.correctnessShown,
             previouslyAnswered: state.previouslyAnswered || state.selected,
         }),
@@ -175,12 +186,13 @@ class Radio extends React.Component<Props> implements Widget {
             this.props.showSolutions === "selected" &&
             prevProps.showSolutions !== "selected"
         ) {
-            showRationalesDummy(
-                choiceStates,
-                {choices: choices},
-                this.getUserInput(),
-                this.props.onChange,
-            );
+            showRationalesDummy({
+                choiceStates: choiceStates,
+                choices: {choices: choices},
+                showSolutions: this.props.showSolutions,
+                userInput: this.getUserInput(),
+                onChange: this.props.onChange,
+            });
         }
     }
 
