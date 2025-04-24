@@ -66,7 +66,7 @@ describe("plotter widget", () => {
         });
     });
 
-    describe("interactive: full vs answerless", () => {
+    describe("consistent experience with full vs answerless", () => {
         beforeAll(() => {
             registerAllWidgetsForTesting();
         });
@@ -166,7 +166,7 @@ describe("plotter widget", () => {
                 ),
             ],
         ])(
-            "consistent user input API experience between item types with widget option: %p",
+            "mocked correct user input results in correct score: %p",
             async (_, item) => {
                 // Arrange
                 const {renderer} = renderQuestion(item.question);
