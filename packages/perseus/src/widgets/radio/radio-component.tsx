@@ -75,6 +75,7 @@ const showRationalesDummy = ({
     choices,
     showSolutions,
     userInput,
+    onChange,
 }: ShowRationalesDummyProps) => {
     // eslint-disable-next-line no-console
     console.log("calling showRationalesDummy");
