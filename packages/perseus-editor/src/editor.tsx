@@ -6,6 +6,7 @@ import {
     PerseusMarkdown,
     Util,
     Widgets,
+    isAccessible,
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
@@ -24,12 +25,10 @@ import "./katex-mhchem";
 import * as React from "react";
 import _ from "underscore";
 
-// eslint-disable-next-line import/no-relative-packages
-import {isAccessible} from "../../perseus/src/widgets";
-
 import DragTarget from "./components/drag-target";
 import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
+import {WARNINGS} from "./messages";
 import TexErrorView from "./tex-error-view";
 
 import type {Issue} from "./issues-panel";
@@ -134,6 +133,7 @@ type Props = Readonly<{
     imageUploader?: ImageUploader;
     onChange: ChangeHandler;
     onAddWarning?: (warning: Issue) => void;
+    onRemoveWarning?: (warningId: string) => void;
 }>;
 
 type DefaultProps = {
@@ -181,6 +181,7 @@ class Editor extends React.Component<Props, State> {
         textAreaValue: this.props.content,
     };
 
+    _prevWidgetIds: string[] = [];
     componentDidMount() {
         // See componentDidUpdate() for how this flag is used
         this.lastUserValue = null;
@@ -744,22 +745,39 @@ class Editor extends React.Component<Props, State> {
         textarea.focus();
     };
 
-    _checkAccessibilityAndWarn(widgetInfo: any) {
-        const widgetType = widgetInfo?.type;
-        const widgetAccessibility = isAccessible(widgetInfo);
+    // Tracks previous widget IDs to diff out removals and keep the Issues Panel in sync
+    _checkAccessibilityAndWarn(currentWidgetIds: string[]) {
+        const prevWidgetIds = this._prevWidgetIds;
 
-        if (!widgetAccessibility && this.props.onAddWarning) {
-            this.props.onAddWarning({
-                id: `${widgetType} inaccessible`,
-                description: `This ${widgetType} widget is marked as inaccessible. Consider using an alternative to support all learners. Please checkout the following documentation on compliant widget options.`,
-                helpUrl:
-                    "https://khanacademy.atlassian.net/wiki/spaces/LC/pages/1909489691/Widget+Fundamentals",
-                help: "Widget Fundamentals",
-                impact: "Medium",
-                message:
-                    "Selecting inaccessible widgets for a practice item will result in this exercise being hidden from users with 'Hide visually dependant content' setting set to true. Please select another widget or create an alternative practice item.",
-            });
-        }
+        // Find deletedwidgetIDs
+        const removedWidgets = prevWidgetIds.filter(
+            (id) => !currentWidgetIds.includes(id),
+        );
+        this._prevWidgetIds = currentWidgetIds;
+
+        // Remove warnings for widgets that are gone
+        removedWidgets.forEach((id) => {
+            const widgetType = id.split(" ")[0];
+            const warningId = `${widgetType} inaccessible`;
+
+            if (this.props.onRemoveWarning) {
+                this.props.onRemoveWarning(warningId);
+            }
+        });
+
+        // Check all currently active widgets
+        currentWidgetIds.forEach((id) => {
+            const widgetInfo = this.props.widgets[id];
+            const widgetType = widgetInfo?.type;
+            const widgetAccessibility = isAccessible(widgetInfo);
+
+            if (!widgetAccessibility && this.props.onAddWarning) {
+                this.props.onAddWarning(
+                    WARNINGS.inaccessibleWidget(widgetType),
+                );
+            }
+        });
+        this._prevWidgetIds = currentWidgetIds;
     }
 
     addTemplate: (e: React.SyntheticEvent<HTMLSelectElement>) => void = (
@@ -1012,11 +1030,7 @@ class Editor extends React.Component<Props, State> {
 
             // Iterate through all rendered widgets and trigger a warning
             // in the issues panel for any widget marked as inaccessible.
-            (this.widgetIds as Array<string>).forEach((id) => {
-                const widgetInfo = this.props.widgets[id];
-
-                this._checkAccessibilityAndWarn(widgetInfo);
-            });
+            this._checkAccessibilityAndWarn(this.widgetIds);
 
             const insertTemplateString = "Insert template\u2026";
             templatesDropDown = (

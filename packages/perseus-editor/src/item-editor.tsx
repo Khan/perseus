@@ -109,6 +109,14 @@ class ItemEditor extends React.Component<Props, State> {
         });
     };
 
+    handleRemoveWarning = (warningId: string) => {
+        this.setState((prevState) => {
+            return {
+                warnings: prevState.warnings.filter((w) => w.id !== warningId),
+            };
+        });
+    };
+
     render(): React.ReactNode {
         const isMobile =
             this.props.deviceType === "phone" ||
@@ -134,6 +142,7 @@ class ItemEditor extends React.Component<Props, State> {
                             showWordCount={true}
                             widgetIsOpen={this.props.widgetIsOpen}
                             onAddWarning={this.handleAddWarning}
+                            onRemoveWarning={this.handleRemoveWarning}
                             {...this.props.question}
                         />
                     </div>
