@@ -2,11 +2,7 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
-import {
-    getFullGroupTestItem,
-    getSplitGroupTestItem,
-    question1,
-} from "./group.testdata";
+import {getFullGroupTestItem, question1} from "./group.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react";
 
@@ -32,6 +28,7 @@ export const Answerful: Story = {
 
 export const Answerless: Story = {
     args: {
-        item: getSplitGroupTestItem(),
+        item: getFullGroupTestItem(),
+        startAnswerless: true,
     },
 };

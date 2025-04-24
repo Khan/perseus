@@ -156,6 +156,6 @@ export function registerCoreWidgets() {
     ];
 
     widgets.forEach((w) => {
-        registerWidget(w.name, categorizerWidgetLogic);
+        registerWidget(w.name, w);
     });
 }
