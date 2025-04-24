@@ -452,7 +452,7 @@ class Radio extends React.Component<Props> implements Widget {
         // is being rendered. It will be removed after the feature flag is no longer needed.
         // TODO(LEMS-2994): Remove this console log.
         // eslint-disable-next-line no-console
-        console.log("This is the new radio component.");
+        // console.log("This is the new radio component.");
 
         return (
             <BaseRadio
