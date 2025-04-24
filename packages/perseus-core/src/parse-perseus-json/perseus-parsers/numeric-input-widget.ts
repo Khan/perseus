@@ -16,12 +16,6 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {
-    NumericInputWidget,
-    PerseusNumericInputSimplify,
-} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
 const parseMathFormat = enumeration(
     "integer",
     "mixed",
@@ -53,7 +47,7 @@ function deprecatedSimplifyValuesToRequired(
         | null
         | undefined
         | boolean,
-): PerseusNumericInputSimplify {
+): "enforced" | "required" | "optional" {
     switch (simplify) {
         case "enforced":
         case "required":
@@ -68,7 +62,7 @@ function deprecatedSimplifyValuesToRequired(
     }
 }
 
-export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
+export const parseNumericInputWidget = parseWidget(
     constant("numeric-input"),
     object({
         answers: array(
@@ -79,7 +73,10 @@ export const parseNumericInputWidget: Parser<NumericInputWidget> = parseWidget(
                 // the data, simplify this.
                 value: optional(nullable(number)),
                 status: string,
-                answerForms: defaulted(array(parseMathFormat), () => undefined),
+                answerForms: defaulted(
+                    optional(array(parseMathFormat)),
+                    () => undefined,
+                ),
                 strict: boolean,
                 maxError: optional(nullable(number)),
                 // TODO(benchristel): simplify should never be a boolean, but we

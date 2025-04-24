@@ -271,21 +271,25 @@ export const multiChoiceQuestionSimple: PerseusRenderer = {
                         content: "Hola",
                         isNoneOfTheAbove: false,
                         correct: true,
+                        clue: "The Spanish-speaking countries typically say Hola.",
                     },
                     {
                         content: "Hey",
                         isNoneOfTheAbove: false,
                         correct: true,
+                        clue: "This is used to attract someone's attention.",
                     },
                     {
                         content: "Hi",
                         isNoneOfTheAbove: false,
                         correct: true,
+                        clue: "This is used as friendly greeting.",
                     },
                     {
                         content: "Goodbye",
                         isNoneOfTheAbove: false,
                         correct: false,
+                        clue: "Some people like to say Goodbye.",
                     },
                     {
                         content: "None of these",

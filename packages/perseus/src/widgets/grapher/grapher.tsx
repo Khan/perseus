@@ -39,7 +39,6 @@ import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-u
 import type {
     MarkingsType,
     PerseusGrapherWidgetOptions,
-    PerseusGrapherRubric,
     PerseusGrapherUserInput,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -353,7 +352,7 @@ type RenderProps = {
     plot?: any;
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusGrapherRubric>;
+type ExternalProps = WidgetProps<RenderProps>;
 
 type Props = ExternalProps & {
     // plot is always provided by default props

@@ -15,19 +15,18 @@ import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
 import {parseWidgetsMap} from "./widgets-map";
 
-import type {RadioWidget} from "../../data-schema";
-import type {ParsedValue, Parser} from "../parser-types";
+import type {ParsedValue} from "../parser-types";
 
 const parseWidgetsMapOrUndefined = defaulted(
     // There is an import cycle between radio-widget.ts and
     // widgets-map.ts. The anonymous function below ensures that we
     // don't refer to parseWidgetsMap before it's defined.
-    (rawVal, ctx) => parseWidgetsMap(rawVal, ctx),
+    optional((rawVal, ctx) => parseWidgetsMap(rawVal, ctx)),
     () => undefined,
 );
 
 const version2 = optional(object({major: constant(2), minor: number}));
-const parseRadioWidgetV2: Parser<RadioWidget> = parseWidgetWithVersion(
+const parseRadioWidgetV2 = parseWidgetWithVersion(
     version2,
     constant("radio"),
     object({
@@ -58,7 +57,7 @@ const parseRadioWidgetV2: Parser<RadioWidget> = parseWidgetWithVersion(
 );
 
 const version1 = optional(object({major: constant(1), minor: number}));
-const parseRadioWidgetV1: Parser<RadioWidget> = parseWidgetWithVersion(
+const parseRadioWidgetV1 = parseWidgetWithVersion(
     version1,
     constant("radio"),
     object({
@@ -89,7 +88,7 @@ const parseRadioWidgetV1: Parser<RadioWidget> = parseWidgetWithVersion(
 
 function migrateV1ToV2(
     widget: ParsedValue<typeof parseRadioWidgetV1>,
-): RadioWidget {
+): ParsedValue<typeof parseRadioWidgetV2> {
     const {options} = widget;
     return {
         ...widget,
@@ -102,7 +101,7 @@ function migrateV1ToV2(
 }
 
 const version0 = optional(object({major: constant(0), minor: number}));
-const parseRadioWidgetV0: Parser<RadioWidget> = parseWidgetWithVersion(
+const parseRadioWidgetV0 = parseWidgetWithVersion(
     version0,
     constant("radio"),
     object({
@@ -132,8 +131,8 @@ const parseRadioWidgetV0: Parser<RadioWidget> = parseWidgetWithVersion(
 );
 
 function migrateV0ToV1(
-    widget: ParsedValue<typeof parseRadioWidgetV1>,
-): RadioWidget {
+    widget: ParsedValue<typeof parseRadioWidgetV0>,
+): ParsedValue<typeof parseRadioWidgetV1> {
     const {options} = widget;
     const {noneOfTheAbove: _, ...rest} = options;
     return {
@@ -142,13 +141,11 @@ function migrateV0ToV1(
         options: {
             ...rest,
             hasNoneOfTheAbove: false,
+            noneOfTheAbove: undefined,
         },
     };
 }
 
-export const parseRadioWidget: Parser<RadioWidget> = versionedWidgetOptions(
-    2,
-    parseRadioWidgetV2,
-)
+export const parseRadioWidget = versionedWidgetOptions(2, parseRadioWidgetV2)
     .withMigrationFrom(1, parseRadioWidgetV1, migrateV1ToV2)
     .withMigrationFrom(0, parseRadioWidgetV0, migrateV0ToV1).parser;

@@ -1,5 +1,25 @@
 # @khanacademy/perseus-score
 
+## 5.0.3
+
+### Patch Changes
+
+-   Updated dependencies [[`45635f7ef`](https://github.com/Khan/perseus/commit/45635f7ef91cf8f7a98149b05198c7e628c8ef2d)]:
+    -   @khanacademy/perseus-core@9.0.0
+    -   @khanacademy/kmath@2.0.6
+
+## 5.0.2
+
+### Patch Changes
+
+-   [#2389](https://github.com/Khan/perseus/pull/2389) [`c922913b6`](https://github.com/Khan/perseus/commit/c922913b6289d34bf0fecb7bef96c0a6be45d8e7) Thanks [@handeyeco](https://github.com/handeyeco)! - make splitPerseusItem take/return PerseusItems instead of PerseusRenderers (also moves generateTestPerseusItem helper)
+
+-   Updated dependencies [[`8d63aedb1`](https://github.com/Khan/perseus/commit/8d63aedb1f40dd3afa5213ab4498e9a26592bacf), [`c922913b6`](https://github.com/Khan/perseus/commit/c922913b6289d34bf0fecb7bef96c0a6be45d8e7), [`44eea76df`](https://github.com/Khan/perseus/commit/44eea76df58f89d3e0fa9f101ca1bc4ea93b6188)]:
+    -   @khanacademy/perseus-core@8.0.0
+    -   @khanacademy/kas@2.0.2
+    -   @khanacademy/kmath@2.0.5
+    -   @khanacademy/perseus-utils@2.0.1
+
 ## 5.0.1
 
 ### Patch Changes

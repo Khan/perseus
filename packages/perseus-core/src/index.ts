@@ -6,6 +6,7 @@ export type {
     InteractiveMarkerType,
     Relationship,
     Alignment,
+    RecursiveReadonly,
 } from "./types";
 export type {
     KeypadKey,
@@ -27,6 +28,7 @@ export {
 } from "./utils/widget-id-utils";
 export {default as deepClone} from "./utils/deep-clone";
 export * as GrapherUtil from "./utils/grapher-util";
+export {generateTestPerseusItem} from "./utils/test-utils";
 
 export {
     parsePerseusItem,
@@ -152,6 +154,7 @@ export {deriveNumCorrect} from "./widgets/radio/radio-upgrade";
 export {default as getTablePublicWidgetOptions} from "./widgets/table/table-util";
 export {default as getIFramePublicWidgetOptions} from "./widgets/iframe/iframe-util";
 export {default as getMatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
+export type {MatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
 export {default as getPlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";
 export {
     default as getMatcherPublicWidgetOptions,

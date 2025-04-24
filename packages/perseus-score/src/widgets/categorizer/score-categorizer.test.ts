@@ -11,7 +11,7 @@ describe("scoreCategorizer", () => {
 
         const userInput = {
             values: [1, 3],
-        } as const;
+        };
         const score = scoreCategorizer(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -25,7 +25,7 @@ describe("scoreCategorizer", () => {
 
         const userInput = {
             values: [2, 3],
-        } as const;
+        };
         const score = scoreCategorizer(userInput, rubric);
 
         expect(score).toHaveBeenAnsweredIncorrectly();

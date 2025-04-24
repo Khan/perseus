@@ -73,7 +73,7 @@ describe("scoreLabelImage", function () {
                     selected: ["Ferrari"],
                 },
             ],
-        } as const;
+        };
 
         const rubric = {
             markers: [
@@ -90,7 +90,7 @@ describe("scoreLabelImage", function () {
                     answers: [],
                 },
             ],
-        } as const;
+        };
 
         const score = scoreLabelImage(userInput, rubric);
 
@@ -113,7 +113,7 @@ describe("scoreLabelImage", function () {
                     selected: ["Ferrari"],
                 },
             ],
-        } as const;
+        };
 
         const rubric = {
             markers: [
@@ -130,7 +130,7 @@ describe("scoreLabelImage", function () {
                     answers: ["Lamborghini", "Fiat", "Ferrari"],
                 },
             ],
-        } as const;
+        };
 
         const score = scoreLabelImage(userInput, rubric);
 
@@ -153,7 +153,7 @@ describe("scoreLabelImage", function () {
                     selected: ["Lamborghini", "Fiat", "Ferrari"],
                 },
             ],
-        } as const;
+        };
 
         const rubric = {
             markers: [
@@ -170,7 +170,7 @@ describe("scoreLabelImage", function () {
                     answers: ["Lamborghini", "Fiat", "Ferrari"],
                 },
             ],
-        } as const;
+        };
 
         const score = scoreLabelImage(userInput, rubric);
 

@@ -31,14 +31,9 @@ const expression = {
             },
         },
     },
-    answer: null,
     answerArea: Object.fromEntries(
         ItemExtras.map((extra) => [extra, false]),
     ) as PerseusAnswerArea,
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
     hints: [],
 };
 

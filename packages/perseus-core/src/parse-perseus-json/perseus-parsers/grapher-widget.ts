@@ -15,14 +15,11 @@ import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-uni
 
 import {parseWidget} from "./widget";
 
-import type {GrapherWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
 const pairOfNumbers = pair(number, number);
 
 const pairOfPoints = pair(pairOfNumbers, pairOfNumbers);
 
-export const parseGrapherWidget: Parser<GrapherWidget> = parseWidget(
+export const parseGrapherWidget = parseWidget(
     constant("grapher"),
     object({
         availableTypes: array(
@@ -103,7 +100,7 @@ export const parseGrapherWidget: Parser<GrapherWidget> = parseWidget(
             ),
             gridStep: optional(pairOfNumbers),
             labels: pair(string, string),
-            markings: enumeration("graph", "none", "grid"),
+            markings: enumeration("graph", "none", "grid", "axes"),
             range: pair(pairOfNumbers, pairOfNumbers),
             rulerLabel: constant(""),
             rulerTicks: number,

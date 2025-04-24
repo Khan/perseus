@@ -1,5 +1,69 @@
 # @khanacademy/perseus
 
+## 61.0.3
+
+### Patch Changes
+
+-   [#2410](https://github.com/Khan/perseus/pull/2410) [`3078f4c59`](https://github.com/Khan/perseus/commit/3078f4c59aa0c3b407cbcf3db8c43c69734d01f9) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Bugfix - Redundant reset.css styling was causing font display issues
+
+## 61.0.2
+
+### Patch Changes
+
+-   [#2407](https://github.com/Khan/perseus/pull/2407) [`016357a5b`](https://github.com/Khan/perseus/commit/016357a5bef1e2b8896a2cb17dd7eedbd6e51f77) Thanks [@nishasy](https://github.com/nishasy)! - [SR] Prepare strings for translation - Add context to interactive graph strings
+
+## 61.0.1
+
+### Patch Changes
+
+-   [#2404](https://github.com/Khan/perseus/pull/2404) [`457c9b818`](https://github.com/Khan/perseus/commit/457c9b8188f60c901e2c64a43e68871a61857697) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add codeowners for radio widget
+
+-   Updated dependencies [[`45635f7ef`](https://github.com/Khan/perseus/commit/45635f7ef91cf8f7a98149b05198c7e628c8ef2d), [`a7f293aab`](https://github.com/Khan/perseus/commit/a7f293aab18fcba056d61f740dd5cdfa8e796c08)]:
+    -   @khanacademy/perseus-core@9.0.0
+    -   @khanacademy/math-input@25.1.0
+    -   @khanacademy/keypad-context@3.0.6
+    -   @khanacademy/kmath@2.0.6
+    -   @khanacademy/perseus-linter@3.0.6
+    -   @khanacademy/perseus-score@5.0.3
+
+## 61.0.0
+
+### Major Changes
+
+-   [#2389](https://github.com/Khan/perseus/pull/2389) [`c922913b6`](https://github.com/Khan/perseus/commit/c922913b6289d34bf0fecb7bef96c0a6be45d8e7) Thanks [@handeyeco](https://github.com/handeyeco)! - make splitPerseusItem take/return PerseusItems instead of PerseusRenderers (also moves generateTestPerseusItem helper)
+
+### Patch Changes
+
+-   [#2382](https://github.com/Khan/perseus/pull/2382) [`d6f3c50bd`](https://github.com/Khan/perseus/commit/d6f3c50bd21bf46f6e28f5949dfb1b16037cc688) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove useless Rubric type uses
+
+*   [#2400](https://github.com/Khan/perseus/pull/2400) [`e47a2229b`](https://github.com/Khan/perseus/commit/e47a2229b5bdd103145a165cd76b261375adac31) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: fix broken Storybook import
+
+-   [#2383](https://github.com/Khan/perseus/pull/2383) [`f938449f9`](https://github.com/Khan/perseus/commit/f938449f94fd7f4b1ed54cf187bdd7dd8d18cff5) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Removing dependency on hubble.js
+
+*   [#2399](https://github.com/Khan/perseus/pull/2399) [`87558715e`](https://github.com/Khan/perseus/commit/87558715e33f9e45436bd48fb1b3401aa7fb26b6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - [Radio] Implement the "new-radio-widget" feature flag to isolate the forthcoming Radio Widget project work
+
+-   [#2396](https://github.com/Khan/perseus/pull/2396) [`154ee9999`](https://github.com/Khan/perseus/commit/154ee999955cb1033072c7ae558810d4cc09e9c5) Thanks [@handeyeco](https://github.com/handeyeco)! - Update the Table widget to allow for rendering answerless data
+
+*   [#2401](https://github.com/Khan/perseus/pull/2401) [`9c9861eda`](https://github.com/Khan/perseus/commit/9c9861edaf6cf954796537d7662cf68d583962d6) Thanks [@nishasy](https://github.com/nishasy)! - [SR][pi ticks] Add a coefficient before pi-based values that start with negative pi
+
+*   Updated dependencies [[`8d63aedb1`](https://github.com/Khan/perseus/commit/8d63aedb1f40dd3afa5213ab4498e9a26592bacf), [`c922913b6`](https://github.com/Khan/perseus/commit/c922913b6289d34bf0fecb7bef96c0a6be45d8e7), [`44eea76df`](https://github.com/Khan/perseus/commit/44eea76df58f89d3e0fa9f101ca1bc4ea93b6188)]:
+    -   @khanacademy/perseus-core@8.0.0
+    -   @khanacademy/perseus-score@5.0.2
+    -   @khanacademy/kas@2.0.2
+    -   @khanacademy/keypad-context@3.0.5
+    -   @khanacademy/kmath@2.0.5
+    -   @khanacademy/math-input@25.0.5
+    -   @khanacademy/perseus-linter@3.0.5
+    -   @khanacademy/perseus-utils@2.0.1
+    -   @khanacademy/pure-markdown@2.0.2
+    -   @khanacademy/simple-markdown@2.0.2
+
+## 60.0.2
+
+### Patch Changes
+
+-   [#2392](https://github.com/Khan/perseus/pull/2392) [`ea8398c3e`](https://github.com/Khan/perseus/commit/ea8398c3ea726318b2076643c2a9ee31d43f1e0f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update APIOptions flags type to make it more explicit to Perseus
+
 ## 60.0.1
 
 ### Patch Changes

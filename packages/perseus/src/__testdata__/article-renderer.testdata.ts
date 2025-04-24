@@ -87,7 +87,7 @@ export const articleSectionWithExpression: PerseusRenderer = {
     },
 };
 
-export const multiSectionArticle: ReadonlyArray<PerseusRenderer> = [
+export const multiSectionArticle: PerseusRenderer[] = [
     {
         content:
             "## What is a matrix?\n\nA matrix is a rectangular array of numbers arranged in rows and columns.\n\nMatrices can be useful for organizing and manipulating data. They can also be used as a tool to help solve systems of equations.",
@@ -126,90 +126,89 @@ export const multiSectionArticle: ReadonlyArray<PerseusRenderer> = [
     },
 ];
 
-export const multiSectionArticleWithExpression: ReadonlyArray<PerseusRenderer> =
-    [
-        {
-            content:
-                "### Practice Problem\n\n$8\\cdot(11i+2)=$ [[☃ expression 1]]  \n*Your answer should be a complex number in the form $a+bi$ where $a$ and $b$ are real numbers.*",
-            images: {},
-            widgets: {
-                "expression 1": {
-                    alignment: "default",
-                    graded: true,
-                    options: {
-                        answerForms: [
-                            {
-                                considered: "correct",
-                                form: true,
-                                simplify: false,
-                                value: "16+88i",
-                            },
-                        ],
-                        buttonSets: ["basic"],
-                        functions: ["f", "g", "h"],
-                        times: false,
-                    },
-                    static: false,
-                    type: "expression",
-                    version: {major: 1, minor: 0},
+export const multiSectionArticleWithExpression: PerseusRenderer[] = [
+    {
+        content:
+            "### Practice Problem\n\n$8\\cdot(11i+2)=$ [[☃ expression 1]]  \n*Your answer should be a complex number in the form $a+bi$ where $a$ and $b$ are real numbers.*",
+        images: {},
+        widgets: {
+            "expression 1": {
+                alignment: "default",
+                graded: true,
+                options: {
+                    answerForms: [
+                        {
+                            considered: "correct",
+                            form: true,
+                            simplify: false,
+                            value: "16+88i",
+                        },
+                    ],
+                    buttonSets: ["basic"],
+                    functions: ["f", "g", "h"],
+                    times: false,
                 },
+                static: false,
+                type: "expression",
+                version: {major: 1, minor: 0},
             },
         },
-        {
-            content:
-                "### Practice Problem\n\n$8\\cdot(11i+2)=$ [[☃ expression 2]]  \n*Your answer should be a complex number in the form $a+bi$ where $a$ and $b$ are real numbers.*",
-            images: {},
-            widgets: {
-                "expression 2": {
-                    alignment: "default",
-                    graded: true,
-                    options: {
-                        answerForms: [
-                            {
-                                considered: "correct",
-                                form: true,
-                                simplify: false,
-                                value: "16+88i",
-                            },
-                        ],
-                        buttonSets: ["basic"],
-                        functions: ["f", "g", "h"],
-                        times: false,
-                    },
-                    static: false,
-                    type: "expression",
-                    version: {major: 1, minor: 0},
+    },
+    {
+        content:
+            "### Practice Problem\n\n$8\\cdot(11i+2)=$ [[☃ expression 2]]  \n*Your answer should be a complex number in the form $a+bi$ where $a$ and $b$ are real numbers.*",
+        images: {},
+        widgets: {
+            "expression 2": {
+                alignment: "default",
+                graded: true,
+                options: {
+                    answerForms: [
+                        {
+                            considered: "correct",
+                            form: true,
+                            simplify: false,
+                            value: "16+88i",
+                        },
+                    ],
+                    buttonSets: ["basic"],
+                    functions: ["f", "g", "h"],
+                    times: false,
                 },
+                static: false,
+                type: "expression",
+                version: {major: 1, minor: 0},
             },
         },
-        {
-            content:
-                "### Practice Problem\n\n$8\\cdot(11i+2)=$ [[☃ expression 3]]  \n*Your answer should be a complex number in the form $a+bi$ where $a$ and $b$ are real numbers.*",
-            images: {},
-            widgets: {
-                "expression 3": {
-                    alignment: "default",
-                    graded: true,
-                    options: {
-                        answerForms: [
-                            {
-                                considered: "correct",
-                                form: true,
-                                simplify: false,
-                                value: "16+88i",
-                            },
-                        ],
-                        buttonSets: ["basic"],
-                        functions: ["f", "g", "h"],
-                        times: false,
-                    },
-                    static: false,
-                    type: "expression",
-                    version: {major: 1, minor: 0},
+    },
+    {
+        content:
+            "### Practice Problem\n\n$8\\cdot(11i+2)=$ [[☃ expression 3]]  \n*Your answer should be a complex number in the form $a+bi$ where $a$ and $b$ are real numbers.*",
+        images: {},
+        widgets: {
+            "expression 3": {
+                alignment: "default",
+                graded: true,
+                options: {
+                    answerForms: [
+                        {
+                            considered: "correct",
+                            form: true,
+                            simplify: false,
+                            value: "16+88i",
+                        },
+                    ],
+                    buttonSets: ["basic"],
+                    functions: ["f", "g", "h"],
+                    times: false,
                 },
+                static: false,
+                type: "expression",
+                version: {major: 1, minor: 0},
             },
         },
-    ];
+    },
+];
 
 export const articleWithImages: PerseusRenderer = {
     content:

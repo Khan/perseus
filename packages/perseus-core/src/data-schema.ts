@@ -56,8 +56,8 @@ export type ShowSolutions = "all" | "selected" | "none";
  *
  * ```
  * interface DummyRegistry {
- *     categorizer: { categories: ReadonlyArray<string> };
- *     dropdown: { choices: ReadonlyArray<string> }:
+ *     categorizer: { categories: string[] };
+ *     dropdown: { choices: string[] }:
  * }
  * ```
  *
@@ -71,8 +71,8 @@ export type ShowSolutions = "all" | "selected" | "none";
  *
  * ```
  * type DummyMap = {
- *     `categorizer ${number}`: { categories: ReadonlyArray<string> };
- *     `dropdown ${number}`: { choices: ReadonlyArray<string> };
+ *     `categorizer ${number}`: { categories: string[] };
+ *     `dropdown ${number}`: { choices: string[] };
  * }
  * ```
  *
@@ -206,25 +206,16 @@ export type PerseusItem = {
     // The details of the question being asked to the user.
     question: PerseusRenderer;
     // A collection of hints to be offered to the user that support answering the question.
-    hints: ReadonlyArray<Hint>;
+    hints: Hint[];
     // Details about the tools the user might need to answer the question
     answerArea: PerseusAnswerArea | null | undefined;
-    /**
-     * The version of the item.
-     * @deprecated Not used.
-     */
-    itemDataVersion: any;
-    /**
-     * @deprecated Superseded by per-widget answers.
-     */
-    answer: any;
 };
 
 /**
  * A "PerseusArticle" is an item that is meant to be rendered as an article.
  * This item is never scored and is rendered by the `ArticleRenderer`.
  */
-export type PerseusArticle = PerseusRenderer | ReadonlyArray<PerseusRenderer>;
+export type PerseusArticle = PerseusRenderer | PerseusRenderer[];
 
 export type Version = {
     // The major part of the version
@@ -401,7 +392,7 @@ export type DeprecatedStandinWidget = WidgetOptions<'deprecated-standin', object
  */
 export type PerseusImageBackground = {
     // The URL of the image
-    url: string | null | undefined;
+    url?: string | null;
     // The width of the image
     width?: number;
     // The height of the image
@@ -436,15 +427,15 @@ export type AxisLabelLocation = "onAxis" | "alongEdge";
 
 export type PerseusCategorizerWidgetOptions = {
     // Translatable text; a list of items to categorize. e.g. ["banana", "yellow", "apple", "purple", "shirt"]
-    items: ReadonlyArray<string>;
+    items: string[];
     // Translatable text; a list of categories. e.g. ["fruits", "colors", "clothing"]
-    categories: ReadonlyArray<string>;
+    categories: string[];
     // Whether the items should be randemized
     randomizeItems: boolean;
     // Whether this widget is displayed with the results and immutable
     static: boolean;
     // The correct answers where index relates to the items and value relates to the category.  e.g. [0, 1, 0, 1, 2]
-    values: ReadonlyArray<number>;
+    values: number[];
     // Whether we should highlight i18n linter errors found on this widget
     highlightLint?: boolean;
     // Internal editor configuration. Can be ignored by consumers.
@@ -453,8 +444,8 @@ export type PerseusCategorizerWidgetOptions = {
 
 export type PerseusLinterContext = {
     contentType: string;
-    paths: ReadonlyArray<string>;
-    stack: ReadonlyArray<string>;
+    paths: string[];
+    stack: string[];
 };
 
 export type PerseusDefinitionWidgetOptions = {
@@ -468,7 +459,7 @@ export type PerseusDefinitionWidgetOptions = {
 
 export type PerseusDropdownWidgetOptions = {
     // A list of choices for the dropdown
-    choices: ReadonlyArray<PerseusDropdownChoice>;
+    choices: PerseusDropdownChoice[];
     // Translatable Text; placeholder text for a dropdown. e.g. "Please select a fruit"
     placeholder: string;
     // Always false.  Not used for this widget
@@ -499,7 +490,7 @@ export type PerseusExplanationWidgetOptions = {
     static: boolean;
 };
 
-export type LegacyButtonSets = ReadonlyArray<
+export type LegacyButtonSets = Array<
     | "basic"
     | "basic+div"
     | "trig"
@@ -512,16 +503,16 @@ export type LegacyButtonSets = ReadonlyArray<
 
 export type PerseusExpressionWidgetOptions = {
     // The expression forms the answer may come in
-    answerForms: ReadonlyArray<PerseusExpressionAnswerForm>;
+    answerForms: PerseusExpressionAnswerForm[];
     buttonSets: LegacyButtonSets;
     // Variables that can be used as functions.  Default: ["f", "g", "h"]
-    functions: ReadonlyArray<string>;
+    functions: string[];
     // Use x for rendering multiplication instead of a center dot.
     times: boolean;
     // What extra keys need to be displayed on the keypad so that the
     // question can be answerable without a keyboard (ie mobile)
-    // TODO: this is really ReadonlyArray<Key>
-    extraKeys?: ReadonlyArray<KeypadKey>;
+    // TODO: this is really Key[]
+    extraKeys?: KeypadKey[];
     // visible label associated with the MathQuill field
     visibleLabel?: string;
     // aria label for screen readers attached to MathQuill field
@@ -576,7 +567,7 @@ export type PerseusGradedGroupWidgetOptions = {
 
 export type PerseusGradedGroupSetWidgetOptions = {
     // A list of Widget Groups
-    gradedGroups: ReadonlyArray<PerseusGradedGroupWidgetOptions>;
+    gradedGroups: PerseusGradedGroupWidgetOptions[];
 };
 
 // 2D range: xMin, xMax, yMin, yMax
@@ -642,7 +633,7 @@ export type GrapherAnswerTypes =
       };
 
 export type PerseusGrapherWidgetOptions = {
-    availableTypes: ReadonlyArray<
+    availableTypes: Array<
         | "absolute_value"
         | "exponential"
         | "linear"
@@ -662,9 +653,7 @@ export type PerseusGrapherWidgetOptions = {
             width?: number;
         };
         box?: [number, number];
-        editableSettings?: ReadonlyArray<
-            "graph" | "snap" | "image" | "measure"
-        >;
+        editableSettings?: Array<"graph" | "snap" | "image" | "measure">;
         gridStep?: [number, number];
         labels: [string, string];
         markings: MarkingsType;
@@ -699,7 +688,7 @@ export type PerseusImageWidgetOptions = {
     static?: boolean;
     // A list of labels to display on the image
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    labels?: ReadonlyArray<PerseusImageLabel>;
+    labels?: Array<PerseusImageLabel>;
     // The range on the image render for labels
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     range?: [Interval, Interval];
@@ -714,7 +703,7 @@ export type PerseusImageLabel = {
     // The visual alignment of the label. default: "center"
     alignment: string;
     // The point on the image to display the label
-    coordinates: ReadonlyArray<number>;
+    coordinates: number[];
 };
 
 export type PerseusInteractiveGraphWidgetOptions = {
@@ -735,7 +724,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     markings: MarkingsType;
     // How to label the X and Y axis.  default: ["x", "y"]
-    labels?: ReadonlyArray<string>;
+    labels?: string[];
     /**
      * Specifies the location of the labels on the graph.  default: "onAxis".
      * - "onAxis": Labels are positioned on the axis at the right (x) and top (y) of the graph.
@@ -782,7 +771,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
     correct: PerseusGraphType;
     // Shapes (points, chords, etc) displayed on the graph that cannot
     // be moved by the user.
-    lockedFigures?: ReadonlyArray<LockedFigure>;
+    lockedFigures: LockedFigure[];
     // Aria label that applies to the entire graph.
     fullGraphAriaLabel?: string;
     // Aria description that applies to the entire graph.
@@ -828,7 +817,7 @@ export type LockedPointType = {
     coord: Coord;
     color: LockedFigureColor;
     filled: boolean;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -840,7 +829,7 @@ export type LockedLineType = {
     lineStyle: LockedLineStyle;
     showPoint1: boolean;
     showPoint2: boolean;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -848,7 +837,7 @@ export type LockedVectorType = {
     type: "vector";
     points: [tail: Coord, tip: Coord];
     color: LockedFigureColor;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -868,18 +857,18 @@ export type LockedEllipseType = {
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
 export type LockedPolygonType = {
     type: "polygon";
-    points: ReadonlyArray<Coord>;
+    points: Coord[];
     color: LockedFigureColor;
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -901,7 +890,7 @@ export type LockedFunctionType = {
      * allowed. Note that infinite values are serialized as `null` in JSON.
      */
     domain: [min: number, max: number];
-    labels?: LockedLabelType[];
+    labels: LockedLabelType[];
     ariaLabel?: string;
 };
 
@@ -928,12 +917,6 @@ export type PerseusGraphType =
     | PerseusGraphTypeSegment
     | PerseusGraphTypeSinusoid;
 
-type PerseusGraphTypeCommon = {
-    // NOTE(jeremy): This is referenced in the component. Verify if there's any
-    // production data that still has this.
-    coord?: Coord; // Legacy!
-};
-
 export type PerseusGraphTypeAngle = {
     type: "angle";
     // Whether to show the angle measurements.  default: false
@@ -947,7 +930,7 @@ export type PerseusGraphTypeAngle = {
     // How to match the answer. If missing, defaults to exact matching.
     match?: "congruent";
     // must have 3 coords - ie [Coord, Coord, Coord]
-    coords?: [Coord, Coord, Coord] | null;
+    coords?: [Coord, Coord, Coord];
     // The initial coordinates the graph renders with.
     startCoords?: [Coord, Coord, Coord];
 };
@@ -961,7 +944,7 @@ export type PerseusGraphTypeCircle = {
         center: Coord;
         radius: number;
     };
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeLinear = {
     type: "linear";
@@ -969,7 +952,7 @@ export type PerseusGraphTypeLinear = {
     coords?: CollinearTuple | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple;
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeLinearSystem = {
     type: "linear-system";
@@ -977,7 +960,7 @@ export type PerseusGraphTypeLinearSystem = {
     coords?: CollinearTuple[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple[];
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeNone = {
     type: "none";
@@ -987,10 +970,12 @@ export type PerseusGraphTypePoint = {
     type: "point";
     // The number of points if a "point" type.  default: 1.  "unlimited" if no limit
     numPoints?: number | "unlimited";
-    coords?: ReadonlyArray<Coord> | null;
+    coords?: Coord[] | null;
     // The initial coordinates the graph renders with.
-    startCoords?: ReadonlyArray<Coord>;
-} & PerseusGraphTypeCommon;
+    startCoords?: Coord[];
+    // Used instead of `coords` in some old graphs that have only one point.
+    coord?: Coord;
+};
 
 export type PerseusGraphTypePolygon = {
     type: "polygon";
@@ -1004,10 +989,10 @@ export type PerseusGraphTypePolygon = {
     snapTo?: "grid" | "angles" | "sides";
     // How to match the answer. If missing, defaults to exact matching.
     match?: "similar" | "congruent" | "approx" | "exact";
-    coords?: ReadonlyArray<Coord> | null;
+    coords?: Coord[] | null;
     // The initial coordinates the graph renders with.
-    startCoords?: ReadonlyArray<Coord>;
-} & PerseusGraphTypeCommon;
+    startCoords?: Coord[];
+};
 
 export type PerseusGraphTypeQuadratic = {
     type: "quadratic";
@@ -1015,7 +1000,7 @@ export type PerseusGraphTypeQuadratic = {
     coords?: [Coord, Coord, Coord] | null;
     // The initial coordinates the graph renders with.
     startCoords?: [Coord, Coord, Coord];
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeSegment = {
     type: "segment";
@@ -1025,15 +1010,15 @@ export type PerseusGraphTypeSegment = {
     coords?: CollinearTuple[] | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple[];
-} & PerseusGraphTypeCommon;
+};
 
 export type PerseusGraphTypeSinusoid = {
     type: "sinusoid";
     // Expects a list of 2 Coords
-    coords?: ReadonlyArray<Coord> | null;
+    coords?: Coord[] | null;
     // The initial coordinates the graph renders with.
-    startCoords?: ReadonlyArray<Coord>;
-} & PerseusGraphTypeCommon;
+    startCoords?: Coord[];
+};
 
 export type PerseusGraphTypeRay = {
     type: "ray";
@@ -1041,7 +1026,7 @@ export type PerseusGraphTypeRay = {
     coords?: CollinearTuple | null;
     // The initial coordinates the graph renders with.
     startCoords?: CollinearTuple;
-} & PerseusGraphTypeCommon;
+};
 
 type AngleGraphCorrect = {
     type: "angle";
@@ -1072,13 +1057,13 @@ type NoneGraphCorrect = {
 
 type PointGraphCorrect = {
     type: "point";
-    coords: ReadonlyArray<Coord>;
+    coords: Coord[];
 };
 
 type PolygonGraphCorrect = {
     type: "polygon";
     match: "similar" | "congruent" | "approx";
-    coords: ReadonlyArray<Coord>;
+    coords: Coord[];
 };
 
 type QuadraticGraphCorrect = {
@@ -1116,7 +1101,7 @@ export type PerseusGraphCorrectType =
 
 export type PerseusLabelImageWidgetOptions = {
     // Translatable Text; Tex representation of choices
-    choices: ReadonlyArray<string>;
+    choices: string[];
     // The URL of the image
     imageUrl: string;
     // Translatable Text; To show up in the img.alt attribute
@@ -1126,7 +1111,7 @@ export type PerseusLabelImageWidgetOptions = {
     // The width of the image
     imageWidth: number;
     // A list of markers to display on the image
-    markers: ReadonlyArray<PerseusLabelImageMarker>;
+    markers: PerseusLabelImageMarker[];
     // Do not display answer choices in instructions
     hideChoicesFromInstructions: boolean;
     // Allow multiple answers per marker
@@ -1137,7 +1122,7 @@ export type PerseusLabelImageWidgetOptions = {
 
 export type PerseusLabelImageMarker = {
     // A list of correct answers for this marker.  Often only one but can have multiple
-    answers: ReadonlyArray<string>;
+    answers: string[];
     // Translatable Text; The text to show for the marker. Not displayed directly to the user
     label: string;
     // X Coordiate location of the marker on the image
@@ -1148,18 +1133,18 @@ export type PerseusLabelImageMarker = {
 
 export type PerseusMatcherWidgetOptions = {
     // Translatable Text; Labels to adorn the headings for the columns.  Only 2 values [left, right]. e.g. ["Concepts", "Things"]
-    labels: ReadonlyArray<string>;
+    labels: string[];
     // Translatable Text; Static concepts to show in the left column. e.g. ["Fruit", "Color", "Clothes"]
-    left: ReadonlyArray<string>;
+    left: string[];
     // Translatable Markup; Values that represent the concepts to be correlated with the concepts.  e.g. ["Red", "Shirt", "Banana"]
-    right: ReadonlyArray<string>;
+    right: string[];
     // Order of the matched pairs matters. With this option enabled, only the order provided above will be treated as correct. This is useful when ordering is significant, such as in the context of a proof. If disabled, pairwise matching is sufficient. To make this clear, the left column becomes fixed in the provided order and only the cards in the right column can be moved.
     orderMatters: boolean;
     // Adds padding to the rows.  Padding is good for text, but not needed for images.
     padding: boolean;
 };
 
-export type PerseusMatrixWidgetAnswers = ReadonlyArray<ReadonlyArray<number>>;
+export type PerseusMatrixWidgetAnswers = number[][];
 export type PerseusMatrixWidgetOptions = {
     // Translatable Text; Shown before the matrix
     prefix?: string | undefined;
@@ -1168,9 +1153,9 @@ export type PerseusMatrixWidgetOptions = {
     // A data matrix representing the "correct" answers to be entered into the matrix
     answers: PerseusMatrixWidgetAnswers;
     // The coordinate location of the cursor position at start. default: [0, 0]
-    cursorPosition?: ReadonlyArray<number> | undefined;
+    cursorPosition?: number[] | undefined;
     // The coordinate size of the matrix.  Only supports 2-dimensional matrix.  default: [3, 3]
-    matrixBoardSize: ReadonlyArray<number>;
+    matrixBoardSize: number[];
     // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
     static?: boolean | undefined;
 };
@@ -1192,9 +1177,6 @@ export type PerseusMeasurerWidgetOptions = {
     rulerLength: number;
     // Containing area [width, height]
     box: [number, number];
-    // TODO(benchristel): static is not used. Remove it?
-    // Always false.  Not used for this widget
-    static: boolean;
 };
 
 export type MathFormat =
@@ -1223,7 +1205,7 @@ export type PerseusNumericInputSimplify = "required" | "enforced" | "optional";
 
 export type PerseusNumericInputWidgetOptions = {
     // A list of all the possible correct and incorrect answers
-    answers: ReadonlyArray<PerseusNumericInputAnswer>;
+    answers: PerseusNumericInputAnswer[];
     // Translatable Text; Text to describe this input. This will be shown to users using screenreaders.
     labelText?: string | undefined;
     // Use size "Normal" for all text boxes, unless there are multiple text boxes in one line and the answer area is too narrow to fit them. Options: "normal" or "small"
@@ -1246,42 +1228,42 @@ export type PerseusNumericInputAnswer = {
     status: string;
     // The forms available for this answer.  Options: "integer, ""decimal", "proper", "improper", "mixed", or "pi"
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    answerForms?: ReadonlyArray<MathFormat>;
+    answerForms?: MathFormat[];
     // Whether we should check the answer strictly against the the configured answerForms (strict = true)
     // or include the set of default answerForms (strict = false).
     strict: boolean;
     // A range of error +/- the value
     // NOTE: perseus_data.go says this is non-nullable even though we handle null values.
-    maxError: number | null | undefined;
+    maxError?: number | null;
     // Unsimplified answers are Ungraded, Accepted, or Wrong.
     simplify: PerseusNumericInputSimplify;
 };
 
 export type PerseusNumberLineWidgetOptions = {
     // The position of the endpoints of the number line. Setting the range constrains the position of the answer and the labels.
-    range: ReadonlyArray<number>;
+    range: number[];
     // This controls the position of the left / right labels. By default, the labels are set by the range.  Note:  Ensure that the labels line up with the tick marks, or it may be confusing for users.
-    labelRange: ReadonlyArray<number | null>;
+    labelRange: Array<number | null>;
     // This controls the styling of the labels for the two main labels as well as all the tick mark labels, if applicable. Options: "decimal", "improper", "mixed", "non-reduced"
     labelStyle: string;
     // Show label ticks
     labelTicks: boolean;
     // Show tick controller
-    isTickCtrl?: boolean | null | undefined;
+    isTickCtrl?: boolean | null;
     // The range of divisions within the line
-    divisionRange: ReadonlyArray<number>;
+    divisionRange: number[];
     // This controls the number (and position) of the tick marks. The number of divisions is constrained to the division range. Note:  The user will be able to specify the number of divisions in a number input.
-    numDivisions: number | null | undefined;
+    numDivisions?: number | null;
     // This determines the number of different places the point will snap between two adjacent tick marks. Note: Ensure the required number of snap increments is provided to answer the question.
     snapDivisions: number;
     // This controls the number (and position) of the tick marks; you can either set the number of divisions (2 divisions would split the entire range in two halves), or the tick step (the distance between ticks) and the other value will be updated accordingly. Note:  There is no check to see if labels coordinate with the tick marks, which may be confusing for users if the blue labels and black ticks are off-step.
-    tickStep: number | null | undefined;
+    tickStep?: number | null;
     // The correct relative value. default: "eq". options: "eq", "lt", "gt", "le", "ge"
-    correctRel: string | null | undefined;
+    correctRel?: string | null;
     // This is the correct answer. The answer is validated (as right or wrong) by using only the end position of the point and the relation (=, &lt;, &gt;, ≤, ≥).
     correctX: number | null;
     // This controls the initial position of the point along the number line
-    initialX: number | null | undefined;
+    initialX?: number | null;
     // Show tooltips
     showTooltips?: boolean;
     // When true, the answer is displayed and is immutable
@@ -1290,11 +1272,11 @@ export type PerseusNumberLineWidgetOptions = {
 
 export type PerseusOrdererWidgetOptions = {
     // All of the options available to the user. Place the cards in the correct order. The same card can be used more than once in the answer but will only be displayed once at the top of a stack of identical cards.
-    options: ReadonlyArray<PerseusRenderer>;
+    options: PerseusRenderer[];
     // The correct order of the options
-    correctOptions: ReadonlyArray<PerseusRenderer>;
+    correctOptions: PerseusRenderer[];
     // Cards that are not part of the answer
-    otherOptions: ReadonlyArray<PerseusRenderer>;
+    otherOptions: PerseusRenderer[];
     // "normal" for text options.  "auto" for image options.
     height: "normal" | "auto";
     // Use the "horizontal" layout for short text and small images. The "vertical" layout is best for longer text (e.g. proofs).
@@ -1334,9 +1316,9 @@ export type PlotType = (typeof plotterPlotTypes)[number];
 
 export type PerseusPlotterWidgetOptions = {
     // Translatable Text; The Axis labels. e.g. ["X Label", "Y Label"]
-    labels: ReadonlyArray<string>;
+    labels: string[];
     // Translatable Text; Categories to display along the X access.  e.g. [">0", ">6", ">12", ">18"]
-    categories: ReadonlyArray<string>;
+    categories: string[];
     // The type of the graph. options "bar", "line", "pic", "histogram", "dotplot"
     type: PlotType;
     // The maximimum Y tick to display in the graph
@@ -1344,26 +1326,26 @@ export type PerseusPlotterWidgetOptions = {
     // The scale of the Y Axis
     scaleY: number;
     // Which ticks to display the labels for. For instance, setting this to "4" will only show every 4th label (plus the last one)
-    labelInterval: number | null | undefined;
+    labelInterval?: number | null;
     // Creates the specified number of divisions between the horizontal lines. Fewer snaps between lines makes the graph easier for the student to create correctly.
     snapsPerLine: number;
     // The Y values the graph should start with
-    starting: ReadonlyArray<number>;
+    starting: number[];
     // The Y values that represent the correct answer expected
-    correct: ReadonlyArray<number>;
+    correct: number[];
     // A picture to represent items in a graph.
-    picUrl: string | null | undefined;
+    picUrl?: string | null;
     // deprecated
-    picSize: number | null | undefined;
+    picSize?: number | null;
     // deprecated
-    picBoxHeight: number | null | undefined;
+    picBoxHeight?: number | null;
     // deprecated
-    plotDimensions: ReadonlyArray<number>;
+    plotDimensions: number[];
 };
 
 export type PerseusRadioWidgetOptions = {
     // The choices provided to the user.
-    choices: ReadonlyArray<PerseusRadioChoice>;
+    choices: PerseusRadioChoice[];
     // Does this have a "none of the above" option?
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     hasNoneOfTheAbove?: boolean;
@@ -1412,7 +1394,7 @@ export type PerseusRadioChoice = {
 
 export type PerseusSorterWidgetOptions = {
     // Translatable Text; The correct answer (in the correct order). The user will see the cards in a randomized order.
-    correct: ReadonlyArray<string>;
+    correct: string[];
     // Adds padding to the options.  Padding is good for text but not needed for images
     padding: boolean;
     // Use the "horizontal" layout for short text and small images. The "vertical" layout is best for longer text and larger images.
@@ -1421,31 +1403,31 @@ export type PerseusSorterWidgetOptions = {
 
 export type PerseusTableWidgetOptions = {
     // Translatable Text; A list of column headers
-    headers: ReadonlyArray<string>;
+    headers: string[];
     // The number of rows to display
     rows: number;
     // The number of columns to display
     columns: number;
     // Translatable Text; A 2-dimensional array of text to populate the table with
-    answers: ReadonlyArray<ReadonlyArray<string>>;
+    answers: string[][];
 };
 
 export type PerseusInteractionWidgetOptions = {
     // The definition of the graph
     graph: PerseusInteractionGraph;
     // The elements of the graph
-    elements: ReadonlyArray<PerseusInteractionElement>;
+    elements: PerseusInteractionElement[];
     // Always false.  Not used for this widget
     static: boolean;
 };
 
 export type PerseusInteractionGraph = {
     // "canvas", "graph"
-    editableSettings?: ReadonlyArray<"canvas" | "graph">;
+    editableSettings?: Array<"canvas" | "graph">;
     // The Grid Canvas size. e.g. [400, 140]
     box: Size;
     // The Axis labels.  e.g. ["x", "y"]
-    labels: ReadonlyArray<string>;
+    labels: string[];
     // The Axis ranges. e.g. [[-10, 10], [-10, 10]]
     range: [Interval, Interval];
     // The steps in the grid. default [1, 1]
@@ -1670,7 +1652,7 @@ export type PerseusCSProgramWidgetOptions = {
     // Deprecated.  Always null and sometimes omitted entirely.
     programType?: any;
     // Settings that you add here are available to the program as an object returned by Program.settings()
-    settings: ReadonlyArray<PerseusCSProgramSetting>;
+    settings: PerseusCSProgramSetting[];
     // If you show the editor, you should use the "full-width" alignment to make room for the width of the editor.
     showEditor: boolean;
     // Whether to show the execute buttons
@@ -1700,7 +1682,7 @@ export type PerseusIFrameWidgetOptions = {
     // A URL to display OR a CS Program ID
     url: string;
     // Settings that you add here are available to the program as an object returned by Program.settings()
-    settings?: ReadonlyArray<PerseusCSProgramSetting>;
+    settings?: PerseusCSProgramSetting[];
     // The width of the widget
     width: number | string;
     // The height of the widget

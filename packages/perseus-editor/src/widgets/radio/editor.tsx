@@ -101,7 +101,7 @@ class ChoiceEditor extends React.Component<ChoiceEditorProps> {
 type RadioEditorProps = {
     apiOptions: APIOptions;
     countChoices: boolean;
-    choices: ReadonlyArray<PerseusRadioChoice>;
+    choices: PerseusRadioChoice[];
     displayCount: number;
     randomize: boolean;
     hasNoneOfTheAbove: boolean;

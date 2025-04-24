@@ -1,4 +1,4 @@
-import {generateTestPerseusItem} from "../util/test-utils";
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 export const PerseusItemWithRadioWidget = generateTestPerseusItem({
     question: {
@@ -80,8 +80,6 @@ export const PerseusItemWithRadioWidget = generateTestPerseusItem({
         {content: "Hint #3", images: {}, widgets: {}},
     ],
     answerArea: null,
-    itemDataVersion: {major: 0, minor: 0},
-    answer: null,
 });
 
 export const PerseusItemWithInputNumber = generateTestPerseusItem({

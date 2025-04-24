@@ -16,7 +16,6 @@ import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 import type {
     PerseusMatcherWidgetOptions,
-    PerseusMatcherRubric,
     PerseusMatcherUserInput,
 } from "@khanacademy/perseus-core";
 
@@ -24,7 +23,7 @@ const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
 type RenderProps = PerseusMatcherWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusMatcherRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     left: Props["left"];

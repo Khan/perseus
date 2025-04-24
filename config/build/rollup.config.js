@@ -142,19 +142,22 @@ const createConfig = (
                 // then they are marked as external and not bundled (by the
                 // autoExternal() plugin). For now, this works!
                 entries: {
-                    hubble: path.join(rootDir, "vendor", "hubble"),
                     jsdiff: path.join(rootDir, "vendor", "jsdiff"),
                     raphael: path.join(rootDir, "vendor", "raphael"),
                 },
             }),
             styles({
-                mode: "extract",
-                // We don't want to try to resolve the url() occurrences in our
-                // stylesheets. We'll leave that for consumers of the library
-                // to deal with. Otherwise we end up packaging upstream assets
-                // into our libraries when our consumers should be the ones
-                // handling asset bundling.
-                url: false,
+                mode: ["extract", "index.css"],
+                minimize: true,
+                url: {
+                    // We need to specify a custom publicPath here because we
+                    // override the default `output.assetFileNames` elsewhere
+                    // in this file. If you change one, you should ensure that
+                    // a new build correctly places font files in the right dir
+                    // and that the generated CSS contains valid relative urls
+                    // to those fonts!
+                    publicPath: "assets",
+                },
                 less: {
                     math: "always",
                 },

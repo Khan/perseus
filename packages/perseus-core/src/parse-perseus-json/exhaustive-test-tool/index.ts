@@ -11,7 +11,7 @@
 //
 // Then, run the test tool over the content like so:
 //
-//     find ~/Desktop/content/*/* -type d | xargs -n1 packages/perseus/src/util/parse-perseus-json/exhaustive-test-tool/index.ts  ~/Desktop/test-results
+//     find ~/Desktop/content/*/* -type d | xargs -n1 packages/perseus-core/src/parse-perseus-json/exhaustive-test-tool/index.ts  ~/Desktop/test-results
 //
 // Output will be written to ~/Desktop/test-results. The output format is:
 //
@@ -80,7 +80,6 @@ async function testFile(path: string, outputDir: string) {
             await writeFileIfShorterThanExisting(
                 join(outputDir, hash, "item.json"),
                 String(JSON.stringify(tester.rawData)),
-                "utf-8",
             );
         }
     }
@@ -192,18 +191,14 @@ function typeName(value: unknown): string {
     return typeof value;
 }
 
-async function writeFileIfShorterThanExisting(
-    path: string,
-    content: string,
-    encoding: "utf-8", // TODO(benchristel): add more encodings if needed
-) {
+async function writeFileIfShorterThanExisting(path: string, content: string) {
     const size = await fs
         .stat(path)
         .then((stat) => stat.size)
         .catch(() => null);
-    const contentLength = Buffer.byteLength(content, encoding);
+    const contentLength = Buffer.byteLength(content, "utf-8");
     if (size == null || contentLength < size) {
-        await fs.writeFile(path, content, encoding);
+        await fs.writeFile(path, content, "utf-8");
     }
 }
 

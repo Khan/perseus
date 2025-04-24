@@ -89,6 +89,7 @@ describe("parseInteractiveGraphWidget", () => {
                         type: "linear",
                     },
                     labelLocation: "onAxis",
+                    lockedFigures: [],
                 },
             }),
         );
@@ -133,6 +134,7 @@ describe("parseInteractiveGraphWidget", () => {
                         type: "linear",
                     },
                     labelLocation: "alongEdge",
+                    lockedFigures: [],
                 },
             }),
         );
@@ -177,6 +179,7 @@ describe("parseInteractiveGraphWidget", () => {
                     correct: {
                         type: "linear",
                     },
+                    lockedFigures: [],
                 },
             },
             parseInteractiveGraphWidget,
@@ -199,6 +202,7 @@ describe("parseInteractiveGraphWidget", () => {
                     graph: {
                         type: "linear",
                     },
+                    lockedFigures: [],
                 },
             }),
         );
