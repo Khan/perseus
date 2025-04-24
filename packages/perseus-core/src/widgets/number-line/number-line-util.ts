@@ -1,6 +1,6 @@
 import type {PerseusNumberLineWidgetOptions} from "../../data-schema";
 
-type NumberLinePublicWidgetOptions = Pick<
+export type NumberLinePublicWidgetOptions = Pick<
     PerseusNumberLineWidgetOptions,
     | "range"
     | "labelRange"

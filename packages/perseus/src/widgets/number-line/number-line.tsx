@@ -25,6 +25,7 @@ import type {
     Relationship,
     PerseusNumberLineUserInput,
     PerseusNumberLineWidgetOptions,
+    NumberLinePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -221,6 +222,10 @@ type Props = {
 };
 
 0 as any as WidgetProps<PerseusNumberLineWidgetOptions> satisfies PropsFor<
+    typeof NumberLine
+>;
+
+0 as any as WidgetProps<NumberLinePublicWidgetOptions> satisfies PropsFor<
     typeof NumberLine
 >;
 
