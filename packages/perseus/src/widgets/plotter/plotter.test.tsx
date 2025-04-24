@@ -88,6 +88,7 @@ describe("plotter widget", () => {
         };
 
         test("the answerless test data doesn't contain answers", () => {
+            // Arrange / Act / Assert
             expect(
                 getAnswerlessItem("plotter", plotterOptions).question.widgets[
                     "plotter 1"
@@ -115,12 +116,11 @@ describe("plotter widget", () => {
         ])(
             "no interaction results in invalid score for widget option: %p",
             async (_, item) => {
+                // Arrange
                 const {renderer} = renderQuestion(item.question);
 
+                // Act
                 const userInput = renderer.getUserInputMap();
-
-                expect(userInput).toEqual({"plotter 1": [0]});
-
                 const score = scorePerseusItem(
                     getAnswerfulItem("plotter", plotterOptions).question,
                     userInput,
@@ -128,6 +128,7 @@ describe("plotter widget", () => {
                 );
 
                 // Assert
+                expect(userInput).toEqual({"plotter 1": [0]});
                 expect(score).toHaveInvalidInput();
             },
         );
@@ -165,14 +166,13 @@ describe("plotter widget", () => {
                 ),
             ],
         ])(
-            "consistent experience for getting user input between item types with widget option: %p",
+            "consistent user input API experience between item types with widget option: %p",
             async (_, item) => {
+                // Arrange
                 const {renderer} = renderQuestion(item.question);
 
+                // Act 
                 const userInput = renderer.getUserInputMap();
-
-                expect(userInput).toEqual({"plotter 1": [15]});
-
                 const score = scorePerseusItem(
                     getAnswerfulItem("plotter", plotterOptions).question,
                     userInput,
@@ -180,6 +180,7 @@ describe("plotter widget", () => {
                 );
 
                 // Assert
+                expect(userInput).toEqual({"plotter 1": [15]});
                 expect(score).toHaveBeenAnsweredCorrectly();
             },
         );
