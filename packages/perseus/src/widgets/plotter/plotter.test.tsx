@@ -123,26 +123,25 @@ describe("plotter widget", () => {
         });
 
         it("can be answered correctly", () => {
-                // Arrange
-                const {renderer} = renderQuestion(question);
+            // Arrange
+            const {renderer} = renderQuestion(question);
 
-                // Act
-                const [plotter] = renderer.findWidgets("plotter 1");
+            // Act
+            const [plotter] = renderer.findWidgets("plotter 1");
 
-                act(() => plotter.setState({values: [15]}));
-                const userInput = renderer.getUserInputMap();
+            act(() => plotter.setState({values: [15]}));
+            const userInput = renderer.getUserInputMap();
 
-                const score = scorePerseusItem(
-                    getAnswerfulItem("plotter", plotterOptions).question,
-                    userInput,
-                    "en",
-                );
+            const score = scorePerseusItem(
+                getAnswerfulItem("plotter", plotterOptions).question,
+                userInput,
+                "en",
+            );
 
-                // Assert
-                expect(userInput).toEqual({"plotter 1": [15]});
-                expect(score).toHaveBeenAnsweredCorrectly();
-            },
-        );
+            // Assert
+            expect(userInput).toEqual({"plotter 1": [15]});
+            expect(score).toHaveBeenAnsweredCorrectly();
+        });
 
         it("can be scored incorrectly", () => {
             // Arrange
