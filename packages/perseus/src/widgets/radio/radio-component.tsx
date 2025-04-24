@@ -69,7 +69,9 @@ const showRationalesDummy = (
     userInput: RecursiveReadonly<PerseusRadioUserInput>,
     onChange: ChangeHandler,
 ) => {
-    if (!choiceStates) return;
+    // eslint-disable-next-line no-console
+    console.log("calling showRationalesDummy");
+
     const score = scoreRadio(userInput, choices);
     const widgetCorrect =
         score.type === "points" && score.total === score.earned;
