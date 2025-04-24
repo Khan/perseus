@@ -6713,7 +6713,7 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
             ],
             "labelStyle": "decimal",
             "labelTicks": true,
-            "numDivisions": null,
+            "numDivisions": 0,
             "range": [
               5,
               10,
@@ -6822,7 +6822,7 @@ The graph of the solution of the inequality, $c ≥ 8.75$, looks like this:
           ],
           "labelStyle": "decimal",
           "labelTicks": true,
-          "numDivisions": null,
+          "numDivisions": 0,
           "range": [
             5,
             10,
@@ -7088,6 +7088,7 @@ $=(31-31) -8$",
             12,
           ],
           "initialX": null,
+          "isTickCtrl": false,
           "labelRange": [
             null,
             null,

@@ -534,9 +534,11 @@ describe("parseWidgetsMap", () => {
                     labelStyle: "",
                     labelTicks: false,
                     divisionRange: [],
+                    numDivisions: 0,
                     snapDivisions: 1,
                     correctX: 1,
                     static: false,
+                    tickCtrl: false,
                 },
             },
         };
