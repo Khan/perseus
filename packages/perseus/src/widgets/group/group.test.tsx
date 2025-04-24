@@ -589,12 +589,12 @@ describe("group widget", () => {
     });
 
     describe.each([
-        {optionsMode: "answerful", renderItem: getFullGroupTestItem()},
-        {optionsMode: "answerless", renderItem: getSplitGroupTestItem()},
-    ])("answerful vs answerless", ({optionsMode, renderItem}) => {
-        it(`${optionsMode}: renders`, async () => {
+        ["answerless", getFullGroupTestItem()],
+        ["answerful", getSplitGroupTestItem()],
+    ])("given %s options", (_, {question}) => {
+        it(`renders`, async () => {
             // Act
-            renderQuestion(renderItem.question);
+            renderQuestion(question);
 
             // Assert
             expect(
@@ -602,9 +602,9 @@ describe("group widget", () => {
             ).toBeInTheDocument();
         });
 
-        it(`${optionsMode}: is answerable`, async () => {
+        it(`is answerable`, async () => {
             // Act
-            const {renderer} = renderQuestion(renderItem.question);
+            const {renderer} = renderQuestion(question);
 
             await userEvent.click(
                 screen.getByRole("combobox", {name: "Select an answer"}),
@@ -624,9 +624,9 @@ describe("group widget", () => {
             });
         });
 
-        it(`${optionsMode}: can be scored as correct`, async () => {
+        it(`can be scored as correct`, async () => {
             // Act
-            const {renderer} = renderQuestion(renderItem.question);
+            const {renderer} = renderQuestion(question);
 
             await userEvent.click(
                 screen.getByRole("combobox", {name: "Select an answer"}),
@@ -646,9 +646,9 @@ describe("group widget", () => {
             expect(score).toHaveBeenAnsweredCorrectly();
         });
 
-        it(`${optionsMode}: can be scored as incorrect`, async () => {
+        it(`can be scored as incorrect`, async () => {
             // Act
-            const {renderer} = renderQuestion(renderItem.question);
+            const {renderer} = renderQuestion(question);
 
             await userEvent.click(
                 screen.getByRole("combobox", {name: "Select an answer"}),
@@ -668,9 +668,9 @@ describe("group widget", () => {
             expect(score).toHaveBeenAnsweredIncorrectly();
         });
 
-        it(`${optionsMode}: can be scored as invalid`, async () => {
+        it(`can be scored as invalid`, async () => {
             // Act
-            const {renderer} = renderQuestion(renderItem.question);
+            const {renderer} = renderQuestion(question);
 
             const userInput = renderer.getUserInputMap();
             const score = scorePerseusItem(
