@@ -11,6 +11,7 @@ import * as Dependencies from "../../dependencies";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
 import {traverse} from "../../traversal";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {
@@ -636,10 +637,9 @@ describe("group widget", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const score = scorePerseusItemTesting(
                 getFullGroupTestItem().question,
                 userInput,
-                "en",
             );
 
             // Assert
@@ -658,10 +658,9 @@ describe("group widget", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const score = scorePerseusItemTesting(
                 getFullGroupTestItem().question,
                 userInput,
-                "en",
             );
 
             // Assert
@@ -673,10 +672,9 @@ describe("group widget", () => {
             const {renderer} = renderQuestion(question);
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(
+            const score = scorePerseusItemTesting(
                 getFullGroupTestItem().question,
                 userInput,
-                "en",
             );
 
             // Assert
