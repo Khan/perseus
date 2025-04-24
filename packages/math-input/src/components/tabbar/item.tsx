@@ -86,7 +86,7 @@ type TabItemProps = {
 
 function TabbarItem(props: TabItemProps): React.ReactElement {
     const {onClick, itemType, itemState, focus, role} = props;
-    const tabRef = useRef<{focus: () => void}>(null);
+    const tabRef = useRef<HTMLButtonElement | null>(null);
 
     useEffect(() => {
         let timeout;
