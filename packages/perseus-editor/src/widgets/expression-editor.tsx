@@ -533,7 +533,7 @@ class AnswerOption extends React.Component<
                 onClick={this.handleDelete}
                 color="destructive"
                 kind="tertiary"
-                style={{paddingInline: sizing.size_160}}
+                style={styles.deleteButton}
             >
                 Delete
             </Button>
@@ -638,5 +638,8 @@ const styles = StyleSheet.create({
     answerBody: {},
     buttonRow: {
         display: "flex",
+    },
+    deleteButton: {
+        paddingInline: sizing.size_160,
     },
 });
