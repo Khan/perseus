@@ -23,7 +23,7 @@ export const question1: PerseusRenderer = {
                         options: {
                             static: false,
                             items: [
-                                " Some bacteria conduct photosynthesis and produce oxygen, much like plants.",
+                                "Some bacteria conduct photosynthesis and produce oxygen, much like plants.",
                                 "Bacteria are always autotrophic but they may get energy from either light or chemical sources.",
                                 "Some chemosynthetic bacteria introduce energy and fixed carbon into communities where photosynthesis is not possible (e.g., deep-sea vents).",
                                 "Some bacteria live symbiotically inside of host organisms and provide the host with nutrients.",
@@ -48,7 +48,7 @@ export const question1: PerseusRenderer = {
                             options: {
                                 static: false,
                                 items: [
-                                    " Some bacteria conduct photosynthesis and produce oxygen, much like plants.",
+                                    "Some bacteria conduct photosynthesis and produce oxygen, much like plants.",
                                     "Bacteria are always autotrophic but they may get energy from either light or chemical sources.",
                                     "Some chemosynthetic bacteria introduce energy and fixed carbon into communities where photosynthesis is not possible (e.g., deep-sea vents).",
                                     "Some bacteria live symbiotically inside of host organisms and provide the host with nutrients.",
