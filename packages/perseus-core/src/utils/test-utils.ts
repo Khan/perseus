@@ -1,6 +1,6 @@
 import type {PerseusItem, PerseusRenderer} from "../data-schema";
 
-const genericPerseusRenderer: PerseusRenderer = {
+const blankPerseusRenderer: PerseusRenderer = {
     content: "",
     images: {},
     widgets: {},
@@ -9,10 +9,10 @@ const genericPerseusRenderer: PerseusRenderer = {
 export function generateTestPerseusRenderer(
     customFields: Partial<PerseusRenderer> = {},
 ): PerseusRenderer {
-    return {...genericPerseusRenderer, ...customFields};
+    return {...blankPerseusRenderer, ...customFields};
 }
 
-const genericPerseusItemData: PerseusItem = {
+const blankPerseusItemData: PerseusItem = {
     question: generateTestPerseusRenderer(),
     answerArea: {
         calculator: false,
@@ -40,5 +40,5 @@ const genericPerseusItemData: PerseusItem = {
 export function generateTestPerseusItem(
     customFields: Partial<PerseusItem> = {},
 ): PerseusItem {
-    return {...genericPerseusItemData, ...customFields};
+    return {...blankPerseusItemData, ...customFields};
 }
