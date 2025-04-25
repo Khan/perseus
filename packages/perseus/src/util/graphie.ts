@@ -8,7 +8,6 @@ import {
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import $ from "jquery";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Raphael from "raphael";
 
 // Minify Raphael ourselves because IE8 has a problem with the 1.5.2 minified
