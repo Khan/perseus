@@ -2,7 +2,7 @@
  * Disclaimer: Definitely not thorough enough
  */
 import {describe, beforeEach, it} from "@jest/globals";
-import {act, screen} from "@testing-library/react";
+import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
 
@@ -37,7 +37,7 @@ describe("input-number", function () {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const textbox = screen.getByRole("textbox");
+            const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "1/2");
             const score = scorePerseusItemTesting(
@@ -54,7 +54,7 @@ describe("input-number", function () {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const textbox = screen.getByRole("textbox");
+            const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "0.7");
             const score = scorePerseusItemTesting(
@@ -71,7 +71,7 @@ describe("input-number", function () {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const textbox = screen.getByRole("textbox");
+            const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "0..7");
             const score = scorePerseusItemTesting(
@@ -205,7 +205,7 @@ describe("input-number", function () {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const textbox = screen.getByRole("textbox");
+            const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, correct);
             const score = scorePerseusItemTesting(
@@ -222,7 +222,7 @@ describe("input-number", function () {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const textbox = screen.getByRole("textbox");
+            const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, incorrect);
             const score = scorePerseusItemTesting(
@@ -335,18 +335,22 @@ describe("focus state", () => {
         const gotFocus = await act(() => renderer.focus());
 
         // Assert
+        expect(screen.getByRole("textbox")).toHaveFocus();
         expect(gotFocus).toBe(true);
     });
 
     it("supports blurring", async () => {
         //  Arrange
         const {renderer} = renderQuestion(question);
+        await act(() => renderer.focus());
+        expect(screen.getByRole("textbox")).toHaveFocus();
 
         // Act
-        const gotFocus = await act(() => renderer.focus());
-        act(() => renderer.blur());
+        await act(() => renderer.blur());
 
         // Assert
-        expect(gotFocus).toBe(true);
+        await waitFor(() => {
+            expect(screen.getByRole("textbox")).not.toHaveFocus();
+        });
     });
 });

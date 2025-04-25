@@ -87,7 +87,7 @@ describe("InteractiveGraphEditor locked figures", () => {
                 name: "Add locked figure",
             });
             await userEvent.click(addLockedFigureButton);
-            const addFigureButton = screen.getByText(figureType);
+            const addFigureButton = await screen.findByText(figureType);
             await userEvent.click(addFigureButton);
 
             // Assert

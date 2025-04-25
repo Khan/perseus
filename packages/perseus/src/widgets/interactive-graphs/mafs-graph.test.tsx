@@ -1,4 +1,4 @@
-import {screen, render} from "@testing-library/react";
+import {screen, render, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {vec} from "mafs";
 import React from "react";
@@ -529,7 +529,7 @@ describe("MafsGraph", () => {
         );
 
         const group = screen.getByTestId("movable-point__focusable-handle");
-        group.focus();
+        act(() => group.focus());
         await userEvent.keyboard("[ArrowRight]");
         const action = actions.pointGraph.movePoint(0, [4, 2]);
         expect(mockDispatch).toHaveBeenCalledWith(action);
@@ -592,7 +592,7 @@ describe("MafsGraph", () => {
         );
 
         const group = screen.getByTestId("movable-line");
-        group.focus();
+        act(() => group.focus());
         await userEvent.keyboard("{arrowdown}");
 
         const state = getState();
@@ -643,7 +643,7 @@ describe("MafsGraph", () => {
         );
 
         const group = screen.getByTestId("movable-line");
-        group.focus();
+        act(() => group.focus());
         await userEvent.keyboard("{arrowup}");
 
         const state = getState();
@@ -694,7 +694,7 @@ describe("MafsGraph", () => {
         );
 
         const group = screen.getByTestId("movable-line");
-        group.focus();
+        act(() => group.focus());
         await userEvent.keyboard("{arrowright}");
 
         const state = getState();
@@ -745,7 +745,7 @@ describe("MafsGraph", () => {
         );
 
         const group = screen.getByTestId("movable-line");
-        group.focus();
+        act(() => group.focus());
         await userEvent.keyboard("{arrowleft}");
 
         const state = getState();
@@ -794,7 +794,7 @@ describe("MafsGraph", () => {
         );
 
         const group = screen.getAllByTestId("movable-point__focusable-handle");
-        group[0].focus();
+        act(() => group[0].focus());
         await userEvent.keyboard("{arrowright}");
 
         const state = getState();
@@ -841,7 +841,7 @@ describe("MafsGraph", () => {
         );
 
         const group = screen.getAllByTestId("movable-point__focusable-handle");
-        group[0].focus();
+        act(() => group[0].focus());
         await userEvent.keyboard("{arrowright}");
 
         const state = getState();
@@ -883,7 +883,7 @@ describe("MafsGraph", () => {
         );
 
         const group = screen.getAllByTestId("movable-point__focusable-handle");
-        group[0].focus();
+        act(() => group[0].focus());
         await userEvent.keyboard("{arrowright}");
 
         const state = getState();
@@ -934,7 +934,7 @@ describe("MafsGraph", () => {
         );
 
         const group = screen.getAllByTestId("movable-point__focusable-handle");
-        group[0].focus();
+        act(() => group[0].focus());
         await userEvent.keyboard("{arrowright}");
 
         const state = getState();
