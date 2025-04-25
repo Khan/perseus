@@ -37,6 +37,11 @@
         "@khanacademy/wonder-blocks-tooltip": "catalog:",
         "@khanacademy/wonder-stuff-core": "catalog:",
         "@phosphor-icons/core": "catalog:",
-        "aphrodite": "catalog:"
+        "aphrodite": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:"
+    },
+    "devDependencies": {
+        "vite": "catalog:"
     }
 }

@@ -13,7 +13,6 @@ import {
     PerseusError,
 } from "@khanacademy/perseus-core";
 import $ from "jquery";
-// eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
 import katex from "katex";
 // ./katex-mhchem is imported for side effects. It adds the mhchem extension
 // to KaTeX, which is needed to render chemistry expressions. This prevents

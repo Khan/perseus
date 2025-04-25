@@ -26,7 +26,8 @@
     },
     "dependencies": {
         "@khanacademy/kas": "workspace:*",
-        "@khanacademy/perseus-utils": "workspace:*"
+        "@khanacademy/perseus-utils": "workspace:*",
+        "tiny-invariant": "catalog:"
     },
     "devDependencies": {
         "@khanacademy/wonder-stuff-core": "catalog:",
