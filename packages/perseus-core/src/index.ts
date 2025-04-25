@@ -156,6 +156,7 @@ export {default as getIFramePublicWidgetOptions} from "./widgets/iframe/iframe-u
 export {default as getMatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
 export type {MatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
 export {default as getPlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";
+export type {PlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";
 export {
     default as getMatcherPublicWidgetOptions,
     shuffleMatcher,
