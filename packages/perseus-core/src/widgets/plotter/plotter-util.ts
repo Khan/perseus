@@ -4,7 +4,10 @@ import type {PerseusPlotterWidgetOptions} from "../../data-schema";
  * For details on the individual options, see the
  * PerseusPlotterWidgetOptions type
  */
-type PlotterPublicWidgetOptions = Omit<PerseusPlotterWidgetOptions, "correct">;
+export type PlotterPublicWidgetOptions = Omit<
+    PerseusPlotterWidgetOptions,
+    "correct"
+>;
 
 /**
  * Given a PerseusPlotterWidgetOptions object, return a new object with only
