@@ -1,5 +1,7 @@
 import _ from "underscore";
 
+import deepClone from "./deep-clone";
+
 import type {PerseusItem, PerseusRenderer} from "../data-schema";
 
 const blankPerseusRenderer: PerseusRenderer = {
@@ -7,10 +9,6 @@ const blankPerseusRenderer: PerseusRenderer = {
     images: {},
     widgets: {},
 } as const;
-
-function deepClone<T>(arg: T): T {
-    return JSON.parse(JSON.stringify(arg));
-}
 
 export function generateTestPerseusRenderer(
     customFields: Partial<PerseusRenderer> = {},

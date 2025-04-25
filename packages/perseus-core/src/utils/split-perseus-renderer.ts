@@ -3,6 +3,8 @@ import _ from "underscore";
 import {getPublicWidgetOptionsFunction} from "../widgets/core-widget-registry";
 import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
+import deepClone from "./deep-clone";
+
 import type {PerseusRenderer} from "../data-schema";
 
 /**
@@ -13,7 +15,7 @@ import type {PerseusRenderer} from "../data-schema";
 export default function splitPerseusRenderer(
     original: PerseusRenderer,
 ): PerseusRenderer {
-    const clone = _.clone(original);
+    const clone = deepClone(original);
     const originalWidgets = clone.widgets ?? {};
 
     const upgradedWidgets = getUpgradedWidgetOptions(originalWidgets);

@@ -1,5 +1,6 @@
 import _ from "underscore";
 
+import deepClone from "./deep-clone";
 import splitPerseusRenderer from "./split-perseus-renderer";
 
 import type {PerseusItem} from "../data-schema";
@@ -10,7 +11,7 @@ import type {PerseusItem} from "../data-schema";
  * @param original - the original, full PerseusItem (which includes the rubric - aka answer data)
  */
 export default function splitPerseusItem(original: PerseusItem): PerseusItem {
-    const item = _.clone(original);
+    const item = deepClone(original);
 
     return {
         ...item,
