@@ -21,7 +21,7 @@ const checkAnswer = async (
 ) => {
     // NOTE(jeremy): The only route to check the answer
     // is to use the "Check" button that is embedded _inside_ the widget.
-    await userEvent.click(screen.getByRole("button", {name: "Check"}));
+    await userEvent.click(await screen.findByRole("button", {name: "Check"}));
 };
 
 describe("graded-group", () => {
@@ -272,7 +272,7 @@ describe("graded-group", () => {
             expect(screen.getByText("Keep trying")).toBeVisible();
         });
 
-        it("should let the user retry when checked if not fully answered", async () => {
+        it("should let the user try again when checked if not fully answered", async () => {
             // Arrange
             renderQuestion(question1, apiOptions);
 
