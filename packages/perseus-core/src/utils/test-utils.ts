@@ -1,3 +1,5 @@
+import _ from "underscore";
+
 import type {PerseusItem, PerseusRenderer} from "../data-schema";
 
 const blankPerseusRenderer: PerseusRenderer = {
@@ -6,10 +8,14 @@ const blankPerseusRenderer: PerseusRenderer = {
     widgets: {},
 } as const;
 
+function deepClone<T>(arg: T): T {
+    return JSON.parse(JSON.stringify(arg));
+}
+
 export function generateTestPerseusRenderer(
     customFields: Partial<PerseusRenderer> = {},
 ): PerseusRenderer {
-    return {...blankPerseusRenderer, ...customFields};
+    return deepClone({...blankPerseusRenderer, ...customFields});
 }
 
 const blankPerseusItemData: PerseusItem = {
@@ -40,5 +46,5 @@ const blankPerseusItemData: PerseusItem = {
 export function generateTestPerseusItem(
     customFields: Partial<PerseusItem> = {},
 ): PerseusItem {
-    return {...blankPerseusItemData, ...customFields};
+    return deepClone({...blankPerseusItemData, ...customFields});
 }
