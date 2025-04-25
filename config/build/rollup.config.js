@@ -1,4 +1,5 @@
 /* eslint-disable import/no-commonjs */
+import crypto from "crypto";
 import fs from "fs";
 import path from "path";
 
@@ -149,6 +150,7 @@ const createConfig = (
             styles({
                 mode: ["extract", "index.css"],
                 minimize: true,
+                sourceMap: true,
                 url: {
                     // We need to specify a custom publicPath here because we
                     // override the default `output.assetFileNames` elsewhere
@@ -160,6 +162,22 @@ const createConfig = (
                 },
                 less: {
                     math: "always",
+                },
+                localsConvention: "camelCase",
+                modules: {
+                    generateScopedName: function (name, filename, css) {
+                        if (filename.endsWith(".module.css")) {
+                            const hash = crypto
+                                .createHash("sha256")
+                                .update(`${filename}:${name}`)
+                                .digest("base64")
+                                .replace(/[/+=]/g, "-") // Remove special characters for CSS compatibility
+                                .slice(0, 8); // Limit to 8 characters
+                            return `perseus_${hash}`;
+                        } else {
+                            return name;
+                        }
+                    },
                 },
             }),
             swc({

@@ -19,6 +19,7 @@ import {scrollElementIntoView} from "../../util/scroll-utils";
 
 import ChoiceNoneAbove from "./choice-none-above.new";
 import Choice from "./choice.new";
+import testStyles from "./radio-test.module.css";
 
 import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
@@ -264,9 +265,11 @@ const BaseRadio = function ({
     );
 
     const responsiveClassName = css(styles.responsiveFieldset);
+    // TEST
+    console.log(`Styles: `, testStyles);
     const fieldset = (
         <fieldset
-            className={`perseus-widget-radio-fieldset ${responsiveClassName}`}
+            className={`perseus-widget-radio-fieldset ${responsiveClassName} ${testStyles.cssModulesTest}`}
             data-feature-flag="feature flag is ON"
         >
             <legend className="perseus-sr-only">{instructions}</legend>

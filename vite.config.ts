@@ -53,5 +53,8 @@ export default defineConfig({
                 math: "always",
             },
         },
+        modules: {
+            localsConvention: "camelCase",
+        },
     },
 });
