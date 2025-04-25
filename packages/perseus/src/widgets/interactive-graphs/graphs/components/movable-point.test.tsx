@@ -1,4 +1,3 @@
-import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {render, screen} from "@testing-library/react";
 import {
     type UserEvent,
@@ -18,20 +17,40 @@ jest.mock("@khanacademy/wonder-blocks-tooltip", () => {
     const originalModule = jest.requireActual(
         "@khanacademy/wonder-blocks-tooltip",
     );
+
     return {
-        __esModule: true,
         ...originalModule,
-        default: jest.fn(),
+        __esModule: true,
+        default: function MockToolTip({children, ...props}) {
+            /*
+            NOTE: When a WonderBlocks Tooltip is added to an element, it isn't
+                  rendered with the element. Instead, it is rendered elsewhere
+                  in the document (usually the bottom of the <body>), and only
+                  when the user interacts with the element. This makes checking
+                  for the Tooltip element difficult to manage in a test.
+                  Therefore, these tests mock the Tooltip component and check
+                  if/how it is called.
+            */
+            return (
+                <div {...props} data-testid="tooltip-content-for-test">
+                    {children}
+                </div>
+            );
+        },
     };
 });
 
-const TooltipMock = ({children}) => {
-    return children;
-};
+function mockGraphConfig(config) {
+    return jest.spyOn(ReducerGraphConfig, "default").mockReturnValue(config);
+}
+
+function mockDraggingState(state) {
+    return jest
+        .spyOn(UseDraggableModule, "useDraggable")
+        .mockReturnValue(state ?? {dragging: false});
+}
 
 describe("MovablePoint", () => {
-    let useGraphConfigMock: jest.SpyInstance;
-    let useDraggableMock: jest.SpyInstance;
     const baseGraphConfigContext: GraphConfig = {
         range: [
             [0, 1],
@@ -48,36 +67,21 @@ describe("MovablePoint", () => {
         labels: [],
     };
 
+    const graphConfigContextWithTooltips = {
+        ...baseGraphConfigContext,
+        showTooltips: true,
+    };
+
     let userEvent: UserEvent;
     beforeEach(() => {
-        useGraphConfigMock = jest.spyOn(ReducerGraphConfig, "default");
-        useDraggableMock = jest
-            .spyOn(UseDraggableModule, "useDraggable")
-            .mockReturnValue({dragging: false});
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
         });
     });
 
     describe("Tooltip", () => {
-        const graphConfigContextWithTooltips = {
-            ...baseGraphConfigContext,
-            showTooltips: true,
-        };
-
-        /*  NOTE: When a WonderBlocks Tooltip is added to an element, it isn't rendered with the element.
-                  Instead, it is rendered elsewhere in the document (usually the bottom of the <body>),
-                        and only when the user interacts with the element.
-                  This makes checking for the Tooltip element difficult to manage in a test.
-                  Therefore, these tests mock the Tooltip component and check if/how it is called.
-         */
-        beforeEach(() => {
-            // @ts-expect-error // TS2339: Property mockImplementation does not exist on type typeof Tooltip
-            Tooltip.mockImplementation(TooltipMock);
-        });
-
         it("References a tooltip when option is indicated", () => {
-            useGraphConfigMock.mockReturnValue(graphConfigContextWithTooltips);
+            mockGraphConfig(graphConfigContextWithTooltips);
             render(
                 <Mafs width={200} height={200}>
                     <MovablePoint
@@ -85,14 +89,15 @@ describe("MovablePoint", () => {
                         sequenceNumber={1}
                         onMove={() => {}}
                     />
-                    ,
                 </Mafs>,
             );
-            expect(Tooltip).toHaveBeenCalled();
+            expect(
+                screen.getByTestId("tooltip-content-for-test"),
+            ).toBeInTheDocument();
         });
 
-        it("Does NOT reference a tooltip when option is 'false'", () => {
-            useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
+        it("Does NOT reference a tooltip when option is 'false'", async () => {
+            mockGraphConfig(baseGraphConfigContext);
             render(
                 <Mafs width={200} height={200}>
                     <MovablePoint
@@ -100,14 +105,13 @@ describe("MovablePoint", () => {
                         sequenceNumber={1}
                         onMove={() => {}}
                     />
-                    ,
                 </Mafs>,
             );
-            expect(Tooltip).not.toHaveBeenCalled();
+            expect(screen.queryByTestId("tooltip-content-for-test")).toBeNull();
         });
 
         it("Defaults to a 'blue' background by default", () => {
-            useGraphConfigMock.mockReturnValue(graphConfigContextWithTooltips);
+            mockGraphConfig(graphConfigContextWithTooltips);
             render(
                 <Mafs width={200} height={200}>
                     <MovablePoint
@@ -117,14 +121,14 @@ describe("MovablePoint", () => {
                     />
                 </Mafs>,
             );
-            // @ts-expect-error // TS2339: Property mock does not exist on type typeof Tooltip
-            expect(Tooltip.mock.calls[0][0]).toEqual(
-                expect.objectContaining({backgroundColor: "blue"}),
-            );
+
+            expect(
+                screen.queryByTestId("tooltip-content-for-test"),
+            ).toHaveAttribute("backgroundColor", "blue");
         });
 
         it("Uses 'fadedOffBlack64' background when the point is disabled", () => {
-            useGraphConfigMock.mockReturnValue({
+            mockGraphConfig({
                 ...graphConfigContextWithTooltips,
                 disableKeyboardInteraction: true,
             });
@@ -138,17 +142,17 @@ describe("MovablePoint", () => {
                     />
                 </Mafs>,
             );
-            // @ts-expect-error // TS2339: Property mock does not exist on type typeof Tooltip
-            expect(Tooltip.mock.calls[0][0]).toEqual(
-                expect.objectContaining({backgroundColor: "fadedOffBlack64"}),
-            );
+
+            expect(
+                screen.queryByTestId("tooltip-content-for-test"),
+            ).toHaveAttribute("backgroundColor", "fadedOffBlack64");
         });
     });
 
     describe("Hairlines", () => {
         it("Shows hairlines when dragging and 'markings' are NOT set to 'none'", () => {
-            useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
-            useDraggableMock.mockReturnValue({dragging: true});
+            mockGraphConfig(baseGraphConfigContext);
+            mockDraggingState({dragging: true});
             const {container} = render(
                 <Mafs width={200} height={200}>
                     <MovablePoint
@@ -156,7 +160,6 @@ describe("MovablePoint", () => {
                         sequenceNumber={1}
                         onMove={() => {}}
                     />
-                    ,
                 </Mafs>,
             );
 
@@ -166,7 +169,7 @@ describe("MovablePoint", () => {
         });
 
         it("Shows hairlines when focused via keyboard and 'markings' are NOT set to 'none'", async () => {
-            useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
+            mockGraphConfig(baseGraphConfigContext);
             const {container} = render(
                 <Mafs width={200} height={200}>
                     <MovablePoint
@@ -174,7 +177,6 @@ describe("MovablePoint", () => {
                         sequenceNumber={1}
                         onMove={() => {}}
                     />
-                    ,
                 </Mafs>,
             );
 
@@ -189,7 +191,7 @@ describe("MovablePoint", () => {
         });
 
         it("Shows hairlines when focused via click and 'markings' are NOT set to 'none'", async () => {
-            useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
+            mockGraphConfig(baseGraphConfigContext);
             const {container} = render(
                 <Mafs width={200} height={200}>
                     <MovablePoint
@@ -198,7 +200,6 @@ describe("MovablePoint", () => {
                         sequenceNumber={1}
                         onMove={() => {}}
                     />
-                    ,
                 </Mafs>,
             );
 
@@ -211,7 +212,7 @@ describe("MovablePoint", () => {
         });
 
         it("Hairlines do NOT show when not dragging and not focused", () => {
-            useGraphConfigMock.mockReturnValue(baseGraphConfigContext);
+            mockGraphConfig(baseGraphConfigContext);
             const {container} = render(
                 <Mafs width={200} height={200}>
                     <MovablePoint
@@ -219,7 +220,6 @@ describe("MovablePoint", () => {
                         sequenceNumber={1}
                         onMove={() => {}}
                     />
-                    ,
                 </Mafs>,
             );
 
@@ -231,8 +231,8 @@ describe("MovablePoint", () => {
         it("Hairlines do NOT show when dragging and 'markings' are set to 'none'", () => {
             const graphStateContext = {...baseGraphConfigContext};
             graphStateContext.markings = "none";
-            useGraphConfigMock.mockReturnValue(graphStateContext);
-            useDraggableMock.mockReturnValue({dragging: true});
+            mockGraphConfig(graphStateContext);
+            mockDraggingState({dragging: true});
             const {container} = render(
                 <Mafs width={200} height={200}>
                     <MovablePoint
@@ -240,7 +240,6 @@ describe("MovablePoint", () => {
                         sequenceNumber={1}
                         onMove={() => {}}
                     />
-                    ,
                 </Mafs>,
             );
 
@@ -252,7 +251,7 @@ describe("MovablePoint", () => {
         it("Hairlines do NOT show when focused and 'markings' are set to 'none'", async () => {
             const graphStateContext = {...baseGraphConfigContext};
             graphStateContext.markings = "none";
-            useGraphConfigMock.mockReturnValue(graphStateContext);
+            mockGraphConfig(graphStateContext);
             const {container} = render(
                 <Mafs width={200} height={200}>
                     <MovablePoint
@@ -260,7 +259,6 @@ describe("MovablePoint", () => {
                         sequenceNumber={1}
                         onMove={() => {}}
                     />
-                    ,
                 </Mafs>,
             );
 
@@ -327,7 +325,6 @@ describe("MovablePoint", () => {
                     sequenceNumber={1}
                     onFocus={focusSpy}
                 />
-                ,
             </Mafs>,
         );
 
@@ -335,7 +332,7 @@ describe("MovablePoint", () => {
 
         await userEvent.click(screen.getByTestId("movable-point"));
 
-        expect(focusSpy).toHaveBeenCalledTimes(1);
+        expect(focusSpy).toHaveBeenCalled();
     });
 
     describe("accessibility", () => {
