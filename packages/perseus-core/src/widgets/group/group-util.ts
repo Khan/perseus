@@ -1,4 +1,4 @@
-import {splitPerseusRenderer} from "../../utils/split-perseus-item";
+import splitPerseusRenderer from "../../utils/split-perseus-renderer";
 
 import type {
     PerseusGroupWidgetOptions,
