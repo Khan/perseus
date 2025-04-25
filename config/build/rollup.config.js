@@ -11,6 +11,7 @@ import swc from "@rollup/plugin-swc";
 import ancesdir from "ancesdir";
 import autoExternal from "rollup-plugin-auto-external";
 import filesize from "rollup-plugin-filesize";
+import postcss from "rollup-plugin-postcss";
 import styles from "rollup-plugin-styles";
 
 const rootDir = ancesdir(__dirname);
@@ -147,6 +148,26 @@ const createConfig = (
                     raphael: path.join(rootDir, "vendor", "raphael"),
                 },
             }),
+            // NOTE: This plugin MUST come before styles() to avoid errors.
+            postcss({
+                extract: "index.css",
+                modules: {
+                    localsConvention: "camelCase",
+                    generateScopedName: function (name, filename, css) {
+                        if (filename.endsWith(".module.css")) {
+                            const hash = crypto
+                                .createHash("sha256")
+                                .update(`${filename}:${name}`)
+                                .digest("base64")
+                                .replace(/[/+=]/g, "-") // Remove special characters for CSS compatibility
+                                .slice(0, 8); // Limit to 8 characters
+                            return `perseus_${hash}`;
+                        } else {
+                            return name;
+                        }
+                    },
+                },
+            }),
             styles({
                 mode: ["extract", "index.css"],
                 minimize: true,
@@ -163,22 +184,21 @@ const createConfig = (
                 less: {
                     math: "always",
                 },
-                localsConvention: "camelCase",
-                modules: {
-                    generateScopedName: function (name, filename, css) {
-                        if (filename.endsWith(".module.css")) {
-                            const hash = crypto
-                                .createHash("sha256")
-                                .update(`${filename}:${name}`)
-                                .digest("base64")
-                                .replace(/[/+=]/g, "-") // Remove special characters for CSS compatibility
-                                .slice(0, 8); // Limit to 8 characters
-                            return `perseus_${hash}`;
-                        } else {
-                            return name;
-                        }
-                    },
-                },
+                // modules: {
+                //     generateScopedName: function (name, filename, css) {
+                //         if (filename.endsWith(".module.css")) {
+                //             const hash = crypto
+                //                 .createHash("sha256")
+                //                 .update(`${filename}:${name}`)
+                //                 .digest("base64")
+                //                 .replace(/[/+=]/g, "-") // Remove special characters for CSS compatibility
+                //                 .slice(0, 8); // Limit to 8 characters
+                //             return `perseus_${hash}`;
+                //         } else {
+                //             return name;
+                //         }
+                //     },
+                // },
             }),
             swc({
                 swc: {
