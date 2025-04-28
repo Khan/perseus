@@ -2,12 +2,17 @@ import {act} from "@testing-library/react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {scorePerseusItemTesting} from "../../util/test-utils";
+import {
+    getAnswerfulItem,
+    getAnswerlessItem,
+    scorePerseusItemTesting,
+} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./number-line.testdata";
 
 import type {APIOptions} from "../../types";
+import type {PerseusNumberLineWidgetOptions} from "@khanacademy/perseus-core";
 
 describe("number-line widget", () => {
     beforeEach(() => {
@@ -183,41 +188,82 @@ describe("number-line widget", () => {
         });
     });
 
-    it("can be answered correctly", () => {
-        // Arrange
-        const apiOptions: APIOptions = {
-            isMobile: false,
-        };
-        const {renderer} = renderQuestion(question1, apiOptions);
+    const numberLineOptions: PerseusNumberLineWidgetOptions = {
+        labelRange: [null, null],
+        initialX: null,
+        tickStep: 1,
+        labelStyle: "decimal",
+        labelTicks: true,
+        isInequality: false,
+        snapDivisions: 2,
+        range: [-4, 4],
+        static: false,
+        correctRel: "eq",
+        numDivisions: null,
+        divisionRange: [1, 10],
+        correctX: -2.5,
+    };
 
-        // Act
-        const [numberLine] = renderer.findWidgets("number-line 1");
-        act(() => numberLine.movePosition(-2.5));
-        const score = scorePerseusItemTesting(
-            question1,
-            renderer.getUserInputMap(),
-        );
-
-        // assert
-        expect(score).toHaveBeenAnsweredCorrectly();
+    test("answerless data doesn't contain answers", () => {
+        const options = getAnswerlessItem("number-line", numberLineOptions)
+            .question.widgets["number-line 1"].options;
+        expect(options.correctX).toBeUndefined();
+        expect(options.correctRel).toBeUndefined();
     });
 
-    it("can be answered incorrectly", () => {
-        // Arrange
-        const apiOptions: APIOptions = {
-            isMobile: false,
-        };
-        const {renderer} = renderQuestion(question1, apiOptions);
+    describe.each([
+        ["answerless", getAnswerlessItem("number-line", numberLineOptions)],
+        ["answerful", getAnswerfulItem("number-line", numberLineOptions)],
+    ])("given %s options", (_, {question}) => {
+        const answerKey = getAnswerfulItem("number-line", numberLineOptions).question;
 
-        // Act
-        const [numberLine] = renderer.findWidgets("number-line 1");
-        act(() => numberLine.movePosition(3.5));
-        const score = scorePerseusItemTesting(
-            question1,
-            renderer.getUserInputMap(),
-        );
+        it("can be answered correctly", () => {
+            // Arrange
+            const apiOptions: APIOptions = {
+                isMobile: false,
+            };
+            const {renderer} = renderQuestion(question, apiOptions);
 
-        // Assert
-        expect(score).toHaveBeenAnsweredIncorrectly();
+            // Act
+            const [numberLine] = renderer.findWidgets("number-line 1");
+            act(() => numberLine.movePosition(-2.5));
+            const score = scorePerseusItemTesting(answerKey, renderer.getUserInputMap());
+
+            // assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        });
+
+        it("can be answered incorrectly", () => {
+            // Arrange
+            const apiOptions: APIOptions = {
+                isMobile: false,
+            };
+            const {renderer} = renderQuestion(question, apiOptions);
+
+            // Act
+            const [numberLine] = renderer.findWidgets("number-line 1");
+            act(() => numberLine.movePosition(3.5));
+            const score = scorePerseusItemTesting(answerKey, renderer.getUserInputMap());
+
+            // Assert
+            expect(score).toHaveBeenAnsweredIncorrectly();
+        });
+
+        it("is scored invalid if the user does not interact with it", () => {
+            // Arrange
+            const apiOptions: APIOptions = {
+                isMobile: false,
+            };
+            const {renderer} = renderQuestion(question, apiOptions);
+
+            // Act
+            const score = scorePerseusItemTesting(
+                answerKey,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveInvalidInput();
+        });
     });
 });
