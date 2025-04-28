@@ -99,16 +99,25 @@ export class NumericInput
     }
 
     focus: () => boolean = () => {
-        this.inputRef.current?.focus();
+        // TODO(benchristel): type `inputRef` properly.
+        // Typechecking fails here intermittently, probably because of nondeterminism
+        // in the interpretation of `&` types.
+        (this.inputRef.current as any)?.focus();
         return true;
     };
 
     focusInputPath: () => void = () => {
-        this.inputRef.current?.focus();
+        // TODO(benchristel): type `inputRef` properly
+        // Typechecking fails here intermittently, probably because of nondeterminism
+        // in the interpretation of `&` types.
+        (this.inputRef.current as any)?.focus();
     };
 
     blurInputPath: () => void = () => {
-        this.inputRef.current?.blur();
+        // TODO(benchristel): type `inputRef` properly
+        // Typechecking fails here intermittently, probably because of nondeterminism
+        // in the interpretation of `&` types.
+        (this.inputRef.current as any)?.blur();
     };
 
     getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
