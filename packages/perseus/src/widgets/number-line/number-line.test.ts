@@ -215,7 +215,10 @@ describe("number-line widget", () => {
         ["answerless", getAnswerlessItem("number-line", numberLineOptions)],
         ["answerful", getAnswerfulItem("number-line", numberLineOptions)],
     ])("given %s options", (_, {question}) => {
-        const answerKey = getAnswerfulItem("number-line", numberLineOptions).question;
+        const answerKey = getAnswerfulItem(
+            "number-line",
+            numberLineOptions,
+        ).question;
 
         it("can be answered correctly", () => {
             // Arrange
@@ -227,7 +230,10 @@ describe("number-line widget", () => {
             // Act
             const [numberLine] = renderer.findWidgets("number-line 1");
             act(() => numberLine.movePosition(-2.5));
-            const score = scorePerseusItemTesting(answerKey, renderer.getUserInputMap());
+            const score = scorePerseusItemTesting(
+                answerKey,
+                renderer.getUserInputMap(),
+            );
 
             // assert
             expect(score).toHaveBeenAnsweredCorrectly();
@@ -243,7 +249,10 @@ describe("number-line widget", () => {
             // Act
             const [numberLine] = renderer.findWidgets("number-line 1");
             act(() => numberLine.movePosition(3.5));
-            const score = scorePerseusItemTesting(answerKey, renderer.getUserInputMap());
+            const score = scorePerseusItemTesting(
+                answerKey,
+                renderer.getUserInputMap(),
+            );
 
             // Assert
             expect(score).toHaveBeenAnsweredIncorrectly();

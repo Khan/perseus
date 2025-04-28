@@ -29,6 +29,6 @@ export const ShowTickController: Story = {
 export const WithAnswerlessData: Story = {
     args: {
         item: generateTestPerseusItem({question: question1}),
-        startAnswerless: true
-    }
-}
+        startAnswerless: true,
+    },
+};
