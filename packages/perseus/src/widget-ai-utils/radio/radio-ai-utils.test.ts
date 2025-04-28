@@ -27,8 +27,6 @@ const shuffledQuestion: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
-                onePerLine: false,
                 choices: [
                     {
                         content: "Incorrect Choice 1",

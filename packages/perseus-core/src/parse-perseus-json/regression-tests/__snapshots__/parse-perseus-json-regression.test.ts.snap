@@ -1829,7 +1829,7 @@ The other entries of $\\text{H}$ can be found similarly.
                 "static": false,
                 "type": "radio",
                 "version": {
-                  "major": 2,
+                  "major": 3,
                   "minor": 0,
                 },
               },
@@ -2385,7 +2385,7 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.json returns th
         "static": false,
         "type": "radio",
         "version": {
-          "major": 2,
+          "major": 3,
           "minor": 0,
         },
       },
@@ -2867,7 +2867,7 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.json return
         "static": false,
         "type": "radio",
         "version": {
-          "major": 2,
+          "major": 3,
           "minor": 0,
         },
       },
@@ -3000,7 +3000,7 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.json r
         },
         "type": "radio",
         "version": {
-          "major": 2,
+          "major": 3,
           "minor": 0,
         },
       },
@@ -5010,7 +5010,7 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
         "static": false,
         "type": "radio",
         "version": {
-          "major": 2,
+          "major": 3,
           "minor": 0,
         },
       },
@@ -5630,7 +5630,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
         "static": false,
         "type": "radio",
         "version": {
-          "major": 2,
+          "major": 3,
           "minor": 0,
         },
       },
@@ -7026,7 +7026,7 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
         },
         "type": "radio",
         "version": {
-          "major": 2,
+          "major": 3,
           "minor": 0,
         },
       },
@@ -8112,7 +8112,7 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.js
         "static": false,
         "type": "radio",
         "version": {
-          "major": 2,
+          "major": 3,
           "minor": 0,
         },
       },
@@ -8992,7 +8992,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                 "static": false,
                 "type": "radio",
                 "version": {
-                  "major": 2,
+                  "major": 3,
                   "minor": 0,
                 },
               },
@@ -9297,7 +9297,7 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
         },
         "type": "radio",
         "version": {
-          "major": 2,
+          "major": 3,
           "minor": 0,
         },
       },
@@ -9560,7 +9560,7 @@ A free body diagram of the **box** is shown below.
         "static": false,
         "type": "radio",
         "version": {
-          "major": 2,
+          "major": 3,
           "minor": 0,
         },
       },
@@ -9815,7 +9815,7 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
         },
         "type": "radio",
         "version": {
-          "major": 2,
+          "major": 3,
           "minor": 0,
         },
       },
@@ -9840,7 +9840,7 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
         },
         "type": "radio",
         "version": {
-          "major": 2,
+          "major": 3,
           "minor": 0,
         },
       },
@@ -10098,7 +10098,7 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
         },
         "type": "radio",
         "version": {
-          "major": 2,
+          "major": 3,
           "minor": 0,
         },
       },
@@ -10195,7 +10195,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               },
               "type": "radio",
               "version": {
-                "major": 2,
+                "major": 3,
                 "minor": 0,
               },
             },
@@ -10243,7 +10243,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               },
               "type": "radio",
               "version": {
-                "major": 2,
+                "major": 3,
                 "minor": 0,
               },
             },
@@ -10291,7 +10291,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               },
               "type": "radio",
               "version": {
-                "major": 2,
+                "major": 3,
                 "minor": 0,
               },
             },
@@ -10339,7 +10339,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               },
               "type": "radio",
               "version": {
-                "major": 2,
+                "major": 3,
                 "minor": 0,
               },
             },
@@ -10411,7 +10411,7 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
         "static": false,
         "type": "radio",
         "version": {
-          "major": 2,
+          "major": 3,
           "minor": 0,
         },
       },
@@ -10601,7 +10601,7 @@ ___
         "static": false,
         "type": "radio",
         "version": {
-          "major": 2,
+          "major": 3,
           "minor": 0,
         },
       },

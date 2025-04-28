@@ -421,7 +421,6 @@ describe("splitPerseusItem", () => {
                                 content: "Choice 2",
                             },
                         ],
-                        displayCount: null,
                         randomize: false,
                         hasNoneOfTheAbove: false,
                         multipleSelect: false,

@@ -102,7 +102,6 @@ type RadioEditorProps = {
     apiOptions: APIOptions;
     countChoices: boolean;
     choices: PerseusRadioChoice[];
-    displayCount: number;
     randomize: boolean;
     hasNoneOfTheAbove: boolean;
     multipleSelect: boolean;
@@ -245,10 +244,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         );
     };
 
-    setDisplayCount: (arg1: number) => void = (num) => {
-        this.props.onChange({displayCount: num});
-    };
-
     focus: () => boolean = () => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
@@ -269,7 +264,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             randomize,
             multipleSelect,
             countChoices,
-            displayCount,
             hasNoneOfTheAbove,
             deselectEnabled,
         } = this.props;
@@ -279,7 +273,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             randomize,
             multipleSelect,
             countChoices,
-            displayCount,
             hasNoneOfTheAbove,
             deselectEnabled,
             numCorrect: deriveNumCorrect({

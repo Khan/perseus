@@ -58,9 +58,6 @@ function getRadioWidgetOptions(): PerseusRadioWidgetOptions {
         hasNoneOfTheAbove: false,
         randomize: false,
         deselectEnabled: false,
-        onePerLine: false,
-        displayCount: null,
-        noneOfTheAbove: false,
     };
 }
 

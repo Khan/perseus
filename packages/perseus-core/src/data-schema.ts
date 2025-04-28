@@ -1364,15 +1364,6 @@ export type PerseusRadioWidgetOptions = {
     // deprecated
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     deselectEnabled?: boolean;
-    // deprecated
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    onePerLine?: boolean;
-    // deprecated
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    displayCount?: any;
-    // v0 props
-    // `noneOfTheAbove` is still in use (but only set to `false`).
-    noneOfTheAbove?: false;
 };
 
 export type PerseusRadioChoice = {
@@ -1387,9 +1378,6 @@ export type PerseusRadioChoice = {
     // If this is none of the above, override the content with "None of the above"
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     isNoneOfTheAbove?: boolean;
-    // deprecated
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
-    widgets?: PerseusWidgetsMap;
 };
 
 export type PerseusSorterWidgetOptions = {
