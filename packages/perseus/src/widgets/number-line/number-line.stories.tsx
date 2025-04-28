@@ -25,3 +25,10 @@ export const ShowTickController: Story = {
         item: generateTestPerseusItem({question: question2}),
     },
 };
+
+export const WithAnswerlessData: Story = {
+    args: {
+        item: generateTestPerseusItem({question: question1}),
+        startAnswerless: true
+    }
+}
