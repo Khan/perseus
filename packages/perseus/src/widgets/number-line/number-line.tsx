@@ -235,6 +235,7 @@ type DefaultProps = {
     labelRange: Props["labelRange"];
     divisionRange: Props["divisionRange"];
     labelTicks: Props["labelTicks"];
+    isTickCtrl: Props["isTickCtrl"];
     isInequality: Props["isInequality"];
     numLinePosition: Props["numLinePosition"];
     snapDivisions: Props["snapDivisions"];
@@ -256,6 +257,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         labelRange: [null, null],
         divisionRange: [1, 12],
         labelTicks: true,
+        isTickCtrl: false,
         isInequality: false,
         numLinePosition: 0,
         snapDivisions: 2,
