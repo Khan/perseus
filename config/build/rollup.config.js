@@ -151,6 +151,7 @@ const createConfig = (
             // NOTE: This plugin MUST come before styles() to avoid errors.
             postcss({
                 extract: "index.css",
+                include: "*.module.css",
                 modules: {
                     localsConvention: "camelCase",
                     generateScopedName: function (name, filename, css) {
