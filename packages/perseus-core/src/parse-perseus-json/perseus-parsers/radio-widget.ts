@@ -108,33 +108,6 @@ const parseRadioWidgetV1 = parseWidgetWithVersion(
     }),
 );
 
-export function migrateV2toV3(
-    widget: ParsedValue<typeof parseRadioWidgetV2>,
-): ParsedValue<typeof parseRadioWidgetV3> {
-    const {options} = widget;
-    return {
-        ...widget,
-        version: {major: 3, minor: 0},
-        options: {
-            ...options,
-        },
-    };
-}
-
-export function migrateV1ToV2(
-    widget: ParsedValue<typeof parseRadioWidgetV1>,
-): ParsedValue<typeof parseRadioWidgetV2> {
-    const {options} = widget;
-    return {
-        ...widget,
-        version: {major: 2, minor: 0},
-        options: {
-            ...options,
-            numCorrect: deriveNumCorrect(options),
-        },
-    };
-}
-
 const version0 = optional(object({major: constant(0), minor: number}));
 const parseRadioWidgetV0 = parseWidgetWithVersion(
     version0,
@@ -164,6 +137,42 @@ const parseRadioWidgetV0 = parseWidgetWithVersion(
         noneOfTheAbove: optional(constant(false)),
     }),
 );
+
+// migrate functions
+export function migrateV2toV3(
+    widget: ParsedValue<typeof parseRadioWidgetV2>,
+): ParsedValue<typeof parseRadioWidgetV3> {
+    const {options} = widget;
+    return {
+        ...widget,
+        version: {major: 3, minor: 0},
+        options: {
+            numCorrect: deriveNumCorrect(options),
+            hasNoneOfTheAbove: options.hasNoneOfTheAbove,
+            countChoices: options.countChoices,
+            randomize: options.randomize,
+            multipleSelect: options.multipleSelect,
+            deselectEnabled: options.deselectEnabled,
+            choices: options.choices.map((choice) => ({
+                ...choice,
+            })),
+        },
+    };
+}
+
+export function migrateV1ToV2(
+    widget: ParsedValue<typeof parseRadioWidgetV1>,
+): ParsedValue<typeof parseRadioWidgetV2> {
+    const {options} = widget;
+    return {
+        ...widget,
+        version: {major: 2, minor: 0},
+        options: {
+            ...options,
+            numCorrect: deriveNumCorrect(options),
+        },
+    };
+}
 
 export function migrateV0ToV1(
     widget: ParsedValue<typeof parseRadioWidgetV0>,
