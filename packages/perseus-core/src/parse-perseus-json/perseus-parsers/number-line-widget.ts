@@ -8,7 +8,7 @@ import {
     optional,
     nullable,
     pipeParsers,
-    union,
+    union, enumeration,
 } from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
@@ -22,6 +22,8 @@ const emptyStringToNull = pipeParsers(constant("")).then(
 export const parseNumberLineWidget = parseWidget(
     constant("number-line"),
     object({
+        // TODO(LEMS-3081): change `range` to `pair(number, number)` and update the related types
+        // in data-schema.ts and number-line.tsx.
         range: array(number),
         labelRange: array(nullable(union(number).or(emptyStringToNull).parser)),
         labelStyle: string,
@@ -35,7 +37,7 @@ export const parseNumberLineWidget = parseWidget(
         // an explanation of why we want to duplicate the default here.
         snapDivisions: defaulted(number, () => 2),
         tickStep: optional(nullable(number)),
-        correctRel: optional(nullable(string)),
+        correctRel: defaulted(optional(enumeration("eq", "lt", "gt", "le", "ge")), () => undefined),
         correctX: nullable(number),
         initialX: optional(nullable(number)),
         showTooltips: optional(boolean),
