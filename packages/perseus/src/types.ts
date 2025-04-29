@@ -24,7 +24,7 @@ import type {
     Rubric,
     UserInput,
     UserInputArray,
-    UserInputMap,
+    UserInputMap, Relationship,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
@@ -141,6 +141,14 @@ export type ChangeHandler = (
         plot?: any;
         // Interactive Graph callback (see legacy: interactive-graph.tsx)
         graph?: PerseusGraphType;
+        // widgets/number-line.tsx
+        divisionRange?: number[];
+        // widgets/number-line.ts
+        numDivisions?: number;
+        // widgets/number-line.ts
+        numLinePosition?: number;
+        // widgets/number-line.ts
+        rel?: Relationship;
     },
     callback?: () => void,
     silent?: boolean,

@@ -13,12 +13,13 @@ import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
-import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
+import type {APIOptions, WidgetExports, FocusPath, Widget, WidgetProps} from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {
     Relationship,
-    PerseusNumberLineUserInput,
+    PerseusNumberLineUserInput, PerseusNumberLineWidgetOptions,
 } from "@khanacademy/perseus-core";
+import {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -190,7 +191,7 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
 
 // TODO: most widgets use some like Widget<Something, PerseusNumberLineWidgetOptions>
 // should this one?
-type Props = {
+type Props = WidgetProps<{
     range: [number, number];
     labelRange: Array<number | null>;
     labelStyle: string;
@@ -202,15 +203,8 @@ type Props = {
     isInequality: boolean;
     numLinePosition: number;
     rel: Relationship;
-    onFocus: (arg1: any) => void;
-    onBlur: (arg1: any) => void;
-    onChange: (arg1: any, arg2?: () => void | null | undefined) => void;
-    apiOptions: APIOptions;
-    keypadElement: HTMLElement | null | undefined;
-    static?: boolean;
     showTooltips?: boolean;
-    trackInteraction: () => void;
-};
+}>;
 
 type DefaultProps = {
     range: Props["range"];
