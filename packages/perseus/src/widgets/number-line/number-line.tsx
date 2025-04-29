@@ -13,7 +13,6 @@ import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {
@@ -191,7 +190,7 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
 
 // TODO: most widgets use some like Widget<Something, PerseusNumberLineWidgetOptions>
 // should this one?
-type Props = ChangeableProps & {
+type Props = {
     range: [number, number];
     labelRange: Array<number | null>;
     labelStyle: string;
