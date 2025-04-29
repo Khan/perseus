@@ -15,6 +15,7 @@ describe("parseRadioWidget", () => {
         const widget = {
             type: "radio",
             graded: true,
+            version: {major: 3, minor: 0},
             options: {
                 choices: [
                     {
@@ -41,6 +42,7 @@ describe("parseRadioWidget", () => {
             success({
                 type: "radio",
                 version: {major: 3, minor: 0},
+                graded: true,
                 options: {
                     choices: [],
                 },
@@ -214,6 +216,7 @@ describe("migration functions", () => {
         const v2Widget = {
             type: "radio" as const,
             version: {major: 2, minor: 0},
+            graded: true,
             options: {
                 numCorrect: 1,
                 choices: [
@@ -236,6 +239,7 @@ describe("migration functions", () => {
         };
 
         expect(migrateV2toV3(v2Widget)).toEqual({
+            graded: true,
             options: {
                 choices: [
                     {
