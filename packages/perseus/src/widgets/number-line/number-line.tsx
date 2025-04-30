@@ -17,7 +17,7 @@ import type {APIOptions, WidgetExports, FocusPath, Widget, WidgetProps, Universa
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {
     Relationship,
-    PerseusNumberLineUserInput, PerseusNumberLineWidgetOptions,
+    PerseusNumberLineUserInput, PerseusNumberLineWidgetOptions, NumberLinePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -709,7 +709,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     }
 }
 
-const numberLineTransform: (arg1: any) => any = (editorProps) => {
+function numberLineTransform(editorProps: NumberLinePublicWidgetOptions): RenderProps {
     const props = _.pick(editorProps, [
         "range",
 
@@ -742,14 +742,14 @@ const numberLineTransform: (arg1: any) => any = (editorProps) => {
         numDivisions = undefined; // send to getDefaultProps()
     }
 
-    _.extend(props, {
+    return {
+        ...props,
+        isTickCtrl: editorProps.isTickCtrl ?? undefined,
         numLinePosition: numLinePosition,
         numDivisions: numDivisions,
         // Use getDefaultProps value if null
         snapDivisions: props.snapDivisions || undefined,
-    });
-
-    return props;
+    };
 };
 
 function staticTransform(editorProps: PerseusNumberLineWidgetOptions): RenderProps {
