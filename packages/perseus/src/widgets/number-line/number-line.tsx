@@ -223,7 +223,7 @@ type DefaultProps = {
     apiOptions: Props["apiOptions"];
 };
 
-type RenderProps = Omit<PropsFor<typeof NumberLine>, keyof UniversalWidgetProps | "trackInteraction">;
+type RenderProps = Omit<PropsFor<typeof NumberLine>, keyof UniversalWidgetProps>;
 
 type State = {
     numDivisionsEmpty: boolean;

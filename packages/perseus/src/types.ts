@@ -569,19 +569,18 @@ export type WidgetProps<
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
-> = RenderProps & UniversalWidgetProps & {
-    reviewModeRubric?: Rubric | null | undefined
+> = RenderProps & UniversalWidgetProps<Rubric, TrackingExtraArgs>
+
+/**
+ * The props passed to every widget, regardless of its `type`.
+ */
+export type UniversalWidgetProps<ReviewModeRubric = Empty, TrackingExtraArgs = Empty> = {
+    reviewModeRubric?: ReviewModeRubric | null | undefined
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer
     // of an interaction. The Renderer then enriches the data provided with the
     // widget's id and type before calling APIOptions.trackInteraction.
     trackInteraction: (extraData?: TrackingExtraArgs) => void;
-};
-
-/**
- * The props passed to every widget, regardless of its `type`.
- */
-export type UniversalWidgetProps = {
     // provided by renderer.jsx#getWidgetProps()
     widgetId: string;
     alignment: string | null | undefined;
