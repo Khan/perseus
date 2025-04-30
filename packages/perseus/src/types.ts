@@ -24,7 +24,8 @@ import type {
     Rubric,
     UserInput,
     UserInputArray,
-    UserInputMap, Relationship,
+    UserInputMap,
+    Relationship,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
@@ -569,13 +570,16 @@ export type WidgetProps<
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
-> = RenderProps & UniversalWidgetProps<Rubric, TrackingExtraArgs>
+> = RenderProps & UniversalWidgetProps<Rubric, TrackingExtraArgs>;
 
 /**
  * The props passed to every widget, regardless of its `type`.
  */
-export type UniversalWidgetProps<ReviewModeRubric = Empty, TrackingExtraArgs = Empty> = {
-    reviewModeRubric?: ReviewModeRubric | null | undefined
+export type UniversalWidgetProps<
+    ReviewModeRubric = Empty,
+    TrackingExtraArgs = Empty,
+> = {
+    reviewModeRubric?: ReviewModeRubric | null | undefined;
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer
     // of an interaction. The Renderer then enriches the data provided with the

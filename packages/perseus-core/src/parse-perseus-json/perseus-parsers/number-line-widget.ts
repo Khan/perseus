@@ -8,7 +8,8 @@ import {
     optional,
     nullable,
     pipeParsers,
-    union, enumeration,
+    union,
+    enumeration,
 } from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
@@ -37,7 +38,10 @@ export const parseNumberLineWidget = parseWidget(
         // an explanation of why we want to duplicate the default here.
         snapDivisions: defaulted(number, () => 2),
         tickStep: optional(nullable(number)),
-        correctRel: defaulted(optional(enumeration("eq", "lt", "gt", "le", "ge")), () => undefined),
+        correctRel: defaulted(
+            optional(enumeration("eq", "lt", "gt", "le", "ge")),
+            () => undefined,
+        ),
         correctX: nullable(number),
         initialX: optional(nullable(number)),
         showTooltips: optional(boolean),

@@ -13,13 +13,21 @@ import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
-import type {APIOptions, WidgetExports, FocusPath, Widget, WidgetProps, UniversalWidgetProps} from "../../types";
+import type {
+    WidgetExports,
+    FocusPath,
+    Widget,
+    WidgetProps,
+    UniversalWidgetProps,
+} from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {
     Relationship,
-    PerseusNumberLineUserInput, PerseusNumberLineWidgetOptions, NumberLinePublicWidgetOptions,
+    PerseusNumberLineUserInput,
+    PerseusNumberLineWidgetOptions,
+    NumberLinePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
-import {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -227,7 +235,10 @@ type DefaultProps = {
 /**
  * The props returned by the `transform` and `staticTransform` functions.
  */
-type RenderProps = Omit<PropsFor<typeof NumberLine>, keyof UniversalWidgetProps>;
+type RenderProps = Omit<
+    PropsFor<typeof NumberLine>,
+    keyof UniversalWidgetProps
+>;
 
 type State = {
     numDivisionsEmpty: boolean;
@@ -713,7 +724,9 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     }
 }
 
-function numberLineTransform(editorProps: NumberLinePublicWidgetOptions): RenderProps {
+function numberLineTransform(
+    editorProps: NumberLinePublicWidgetOptions,
+): RenderProps {
     const props = _.pick(editorProps, [
         "range",
 
@@ -752,11 +765,14 @@ function numberLineTransform(editorProps: NumberLinePublicWidgetOptions): Render
         numLinePosition: numLinePosition,
         numDivisions: numDivisions,
         // Use getDefaultProps value if null
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         snapDivisions: props.snapDivisions || undefined,
     };
-};
+}
 
-function staticTransform(editorProps: PerseusNumberLineWidgetOptions): RenderProps {
+function staticTransform(
+    editorProps: PerseusNumberLineWidgetOptions,
+): RenderProps {
     const props = _.pick(editorProps, [
         "range",
 
@@ -795,6 +811,7 @@ function staticTransform(editorProps: PerseusNumberLineWidgetOptions): RenderPro
         // Render the relation in the correct answer
         rel: editorProps.isInequality ? editorProps.correctRel : undefined,
         // Use getDefaultProps value if null
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         snapDivisions: props.snapDivisions || undefined,
     };
 }
