@@ -9,24 +9,41 @@ import {
     parseRadioWidget,
 } from "./radio-widget";
 
+const previousVersion = {major: 2, minor: 0};
+const latestVersion = {major: 3, minor: 0};
+
 describe("parseRadioWidget", () => {
     it("migrates to the latest version", () => {
         const widget = {
             type: "radio",
             graded: true,
-            version: {major: 3, minor: 0},
+            version: previousVersion,
             options: {
                 choices: [],
+                hasNoneOfTheAbove: false,
+                countChoices: false,
+                randomize: false,
+                multipleSelect: false,
+                deselectEnabled: false,
+                onePerLine: false,
+                displayCount: false,
+                noneOfTheAbove: undefined,
             },
         };
 
         expect(parse(widget, parseRadioWidget)).toEqual(
             success({
                 type: "radio",
-                version: {major: 3, minor: 0},
+                version: latestVersion,
                 graded: true,
                 options: {
                     choices: [],
+                    countChoices: false,
+                    deselectEnabled: false,
+                    hasNoneOfTheAbove: false,
+                    multipleSelect: false,
+                    numCorrect: 0,
+                    randomize: false,
                 },
             }),
         );
