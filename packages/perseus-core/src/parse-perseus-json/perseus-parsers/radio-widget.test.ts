@@ -10,15 +10,15 @@ import {
     parseRadioWidget,
 } from "./radio-widget";
 
-const previousVersion = {major: 2, minor: 0};
-const latestVersion = {major: 3, minor: 0};
+const PREVIOUS_VERSION = {major: 2, minor: 0};
+const LATEST_VERSION = {major: 3, minor: 0};
 
 describe("parseRadioWidget", () => {
     it("migrates v1 options to v2", () => {
         const widget = {
             type: "radio",
             graded: true,
-            version: previousVersion,
+            version: PREVIOUS_VERSION,
             options: {
                 choices: [
                     {
@@ -52,7 +52,7 @@ describe("parseRadioWidget", () => {
         expect(parse(widget, parseRadioWidget)).toEqual(
             success({
                 type: "radio",
-                version: latestVersion,
+                version: LATEST_VERSION,
                 graded: true,
                 options: {
                     choices: [],
