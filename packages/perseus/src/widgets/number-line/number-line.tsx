@@ -191,8 +191,9 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
     return results;
 });
 
-// TODO: most widgets use some like Widget<Something, PerseusNumberLineWidgetOptions>
-// should this one?
+/**
+ * The type of `this.props` inside the NumberLine widget.
+ */
 type Props = WidgetProps<{
     range: number[];
     labelRange: Array<number | null>;
@@ -223,6 +224,9 @@ type DefaultProps = {
     apiOptions: Props["apiOptions"];
 };
 
+/**
+ * The props returned by the `transform` and `staticTransform` functions.
+ */
 type RenderProps = Omit<PropsFor<typeof NumberLine>, keyof UniversalWidgetProps>;
 
 type State = {
