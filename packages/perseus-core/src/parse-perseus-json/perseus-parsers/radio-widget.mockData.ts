@@ -30,7 +30,7 @@ export const v0Widget = {
             },
             {
                 content: "I am a choice with only content",
-            }
+            },
         ],
         countChoices: false,
         randomize: false,
@@ -73,7 +73,7 @@ export const v1Widget = {
             },
             {
                 content: "I am a choice with only content",
-            }
+            },
         ],
         hasNoneOfTheAbove: false,
         countChoices: false,
@@ -121,7 +121,7 @@ export const v2Widget = {
             },
             {
                 content: "I am a choice with only content",
-            }
+            },
         ],
         numCorrect: 1,
         hasNoneOfTheAbove: false,
@@ -167,7 +167,7 @@ export const v3Widget = {
             },
             {
                 content: "I am a choice with only content",
-            }
+            },
         ],
         numCorrect: 1,
         hasNoneOfTheAbove: false,
