@@ -15,10 +15,17 @@ describe("parseRadioWidget", () => {
     const LATEST_VERSION = {major: 3, minor: 0};
     const LATEST_OPTIONS = v3Widget;
 
-    describe.each([["v0", v0Widget], ["v1", v1Widget], ["v2", v2Widget], ["v3", v3Widget]])('Radio %s', (_, inputData) => {
+    describe.each([
+        ["v0", v0Widget],
+        ["v1", v1Widget],
+        ["v2", v2Widget],
+        ["v3", v3Widget],
+    ])("Radio %s", (_, inputData) => {
         it(`migrates to the latest version, ${LATEST_VERSION.major}.${LATEST_VERSION.minor}`, () => {
-            expect(parse(inputData, parseRadioWidget)).toEqual(success(LATEST_OPTIONS))
-        })
+            expect(parse(inputData, parseRadioWidget)).toEqual(
+                success(LATEST_OPTIONS),
+            );
+        });
     });
 
     it("rejects a widget with unrecognized version", () => {
