@@ -1806,15 +1806,21 @@ The other entries of $\\text{H}$ can be found similarly.
                 "options": {
                   "choices": [
                     {
+                      "clue": undefined,
                       "content": "$1 \\cdot 4 + 3\\cdot 0 = 4$",
                       "correct": true,
+                      "isNoneOfTheAbove": undefined,
                     },
                     {
+                      "clue": undefined,
                       "content": "$4 \\cdot 4 + 3\\cdot 3= 25$",
                       "correct": false,
+                      "isNoneOfTheAbove": undefined,
                     },
                     {
+                      "clue": undefined,
                       "content": "$1 \\cdot 3 + 4\\cdot -1 = -1$",
+                      "correct": undefined,
                       "isNoneOfTheAbove": false,
                     },
                   ],
@@ -2576,14 +2582,12 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.json returns th
               "content": "crwdns2693864:0crwdne2693864:0",
               "correct": false,
               "isNoneOfTheAbove": false,
-              "widgets": {},
             },
             {
               "clue": "",
               "content": "crwdns2693863:0crwdne2693863:0",
               "correct": true,
               "isNoneOfTheAbove": false,
-              "widgets": {},
             },
           ],
           "countChoices": false,
@@ -3041,28 +3045,24 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.json return
               "content": "crwdns7184273:0crwdne7184273:0",
               "correct": false,
               "isNoneOfTheAbove": false,
-              "widgets": {},
             },
             {
               "clue": "",
               "content": "crwdns3077510:0crwdne3077510:0",
               "correct": true,
               "isNoneOfTheAbove": false,
-              "widgets": {},
             },
             {
               "clue": "",
               "content": "crwdns4204212:0crwdne4204212:0",
               "correct": false,
               "isNoneOfTheAbove": false,
-              "widgets": {},
             },
             {
               "clue": "",
               "content": "crwdns4204218:0crwdne4204218:0",
               "correct": false,
               "isNoneOfTheAbove": false,
-              "widgets": {},
             },
           ],
           "countChoices": false,
@@ -3181,20 +3181,25 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.json r
               "clue": "Absolute values cannot be negative.",
               "content": "$-5$",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
             {
               "clue": "Check your signs.",
               "content": " $5$",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
             {
               "clue": "You might have made a sign error.",
               "content": " $15$",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "There are no solutions.",
               "correct": true,
+              "isNoneOfTheAbove": undefined,
             },
           ],
           "countChoices": undefined,
@@ -5177,29 +5182,37 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "$B_E\\ \\cos{45\\degree} \\uparrow$",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "$B_E\\ \\cos{45\\degree} \\downarrow$",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "$B_E\\ \\sin{45\\degree} \\downarrow$",
               "correct": true,
               "isNoneOfTheAbove": false,
             },
             {
+              "clue": undefined,
               "content": "$B_E\\ \\sin{45\\degree}\\uparrow$",
               "correct": false,
               "isNoneOfTheAbove": false,
             },
             {
+              "clue": undefined,
               "content": "$B_E\\ \\tan {45\\degree} \\uparrow$",
               "correct": false,
               "isNoneOfTheAbove": false,
             },
             {
+              "clue": undefined,
               "content": "$B_E\\ \\tan {45\\degree} \\downarrow$",
               "correct": false,
               "isNoneOfTheAbove": false,
@@ -5813,15 +5826,22 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "Less than halfway through the race",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "Halfway through the race",
               "correct": true,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "More than halfway through the race",
+              "correct": undefined,
+              "isNoneOfTheAbove": undefined,
             },
           ],
           "countChoices": false,
@@ -7253,16 +7273,22 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": " $\\,-1\\,\\,\\,<\\,-10$",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": " $-10\\,\\,\\,<\\,\\,\\,1$",
               "correct": true,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "  $\\,\\,\\,\\,\\,10\\,\\,\\,< \\,-1$",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
           ],
           "countChoices": undefined,
@@ -8338,14 +8364,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.js
               "content": "crwdns6520529:0$x$crwdnd6520529:0$2$crwdnd6520529:0$2$crwdnd6520529:0$y$crwdne6520529:0",
               "correct": false,
               "isNoneOfTheAbove": false,
-              "widgets": {},
             },
             {
               "clue": "",
               "content": "crwdns6520777:0$x$crwdnd6520777:0$2$crwdnd6520777:0$10$crwdnd6520777:0$y$crwdne6520777:0",
               "correct": true,
               "isNoneOfTheAbove": false,
-              "widgets": {},
             },
           ],
           "countChoices": false,
@@ -9354,14 +9378,19 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                 "options": {
                   "choices": [
                     {
+                      "clue": undefined,
                       "content": "$\\dfrac19+\\dfrac19$",
                       "correct": true,
+                      "isNoneOfTheAbove": undefined,
                     },
                     {
+                      "clue": undefined,
                       "content": "$\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12$",
                       "correct": false,
+                      "isNoneOfTheAbove": undefined,
                     },
                     {
+                      "clue": undefined,
                       "content": "$\\dfrac19+\\dfrac29$",
                       "correct": false,
                       "isNoneOfTheAbove": false,
@@ -9655,20 +9684,28 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "a.	the rate of extinction that balances the rate of speciation",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "b.	the average rate at which extinctions have occurred naturally in the geologic past, without human involvement",
               "correct": true,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "c.	the rate of extinction that is currently occurring in protected areas like national parks and marine sanctuaries",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "d.	the rate of extinction that can be determined by using Geiger counters and detecting radiation",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
           ],
           "countChoices": undefined,
@@ -9913,11 +9950,13 @@ A free body diagram of the **box** is shown below.
               "clue": "$F_\\text{N}$ results from the box interacting with the shelf.",
               "content": "normal force $(F_\\text{N})$",
               "correct": true,
+              "isNoneOfTheAbove": undefined,
             },
             {
               "clue": "$F_\\text{g}$ results from the box interacting with Earth.",
               "content": "gravitational force $(F_\\text{g})$",
               "correct": true,
+              "isNoneOfTheAbove": undefined,
             },
             {
               "clue": "$F_\\text{a}$ results from the box interacting with the woman's hand.",
@@ -10170,21 +10209,28 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "Members of the high nobility and the wealthiest of the knightly class",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "Soldiers, members of the civilian militia, and mercenaries",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "Horses and dogs",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
             {
               "clue": "Armor (of different styles and quality) was worn by almost all levels of society: high nobility (emperors, dukes, and counts), knights, mercenaries, citizens, peasants, and even young boys. Horses and dogs could also be protected with armor. Price varied considerably based on materials, quality, and decoration.",
               "content": "All of the above",
               "correct": true,
+              "isNoneOfTheAbove": undefined,
             },
           ],
           "countChoices": undefined,
@@ -10205,10 +10251,16 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "",
+              "correct": undefined,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "",
+              "correct": undefined,
+              "isNoneOfTheAbove": undefined,
             },
           ],
           "countChoices": undefined,
@@ -10453,18 +10505,28 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "15 N",
               "correct": true,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "30 N",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "60 N",
+              "correct": undefined,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "180 N",
+              "correct": undefined,
+              "isNoneOfTheAbove": undefined,
             },
           ],
           "countChoices": undefined,
@@ -10550,16 +10612,28 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               "options": {
                 "choices": [
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                 ],
                 "countChoices": undefined,
@@ -10596,16 +10670,28 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               "options": {
                 "choices": [
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                 ],
                 "countChoices": undefined,
@@ -10642,16 +10728,28 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               "options": {
                 "choices": [
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                 ],
                 "countChoices": undefined,
@@ -10688,16 +10786,28 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               "options": {
                 "choices": [
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
+                    "correct": undefined,
+                    "isNoneOfTheAbove": undefined,
                   },
                 ],
                 "countChoices": undefined,
@@ -10762,12 +10872,16 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "Yes",
               "correct": false,
+              "isNoneOfTheAbove": undefined,
             },
             {
+              "clue": undefined,
               "content": "No",
               "correct": true,
+              "isNoneOfTheAbove": undefined,
             },
           ],
           "countChoices": false,
@@ -11033,7 +11147,6 @@ ___
 ",
               "correct": true,
               "isNoneOfTheAbove": false,
-              "widgets": undefined,
             },
             {
               "clue": "This statement isn’t likely true. After explaining how the idea of conformity in schools came from Prussia, the text points out how “today, many American public schools still expect students to learn the same skills, at the same time, in the same ways.” So, you can infer that the Prussian focus on conformity still influences American public schools.
@@ -11042,7 +11155,6 @@ ___
 ",
               "correct": false,
               "isNoneOfTheAbove": false,
-              "widgets": undefined,
             },
             {
               "clue": "This statement isn’t likely true. The text discusses how American schools focus on conformity, and points out how “studies show that this focus on conformity can cause particular problems for certain students.” But the text doesn’t mention many people fighting to eliminate schools’ focus on conformity.
@@ -11051,7 +11163,6 @@ ___
 ",
               "correct": false,
               "isNoneOfTheAbove": false,
-              "widgets": undefined,
             },
             {
               "clue": "This statement isn’t likely true. The text doesn’t mention people fighting to impose new rules. 
@@ -11059,7 +11170,6 @@ ___
               "content": "There have been many people fighting to impose new rules within the American public school system.",
               "correct": false,
               "isNoneOfTheAbove": false,
-              "widgets": undefined,
             },
           ],
           "countChoices": false,
