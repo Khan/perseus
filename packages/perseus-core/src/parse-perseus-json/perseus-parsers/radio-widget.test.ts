@@ -9,62 +9,16 @@ import {
     migrateV2toV3,
     parseRadioWidget,
 } from "./radio-widget";
-
-const PREVIOUS_VERSION = {major: 2, minor: 0};
-const LATEST_VERSION = {major: 3, minor: 0};
+import {v0Widget, v1Widget, v2Widget, v3Widget} from "./radio-widget.mockData";
 
 describe("parseRadioWidget", () => {
-    it("migrates v1 options to v2", () => {
-        const widget = {
-            type: "radio",
-            graded: true,
-            version: PREVIOUS_VERSION,
-            options: {
-                choices: [
-                    {
-                        content: "Correct 1",
-                        correct: true,
-                    },
-                    {
-                        content: "Correct 2",
-                        correct: true,
-                    },
-                    {
-                        content: "Incorrect",
-                        correct: false,
-                    },
-                ],
-                hasNoneOfTheAbove: false,
-                countChoices: false,
-                randomize: false,
-                multipleSelect: false,
-                deselectEnabled: false,
-                onePerLine: false,
-                displayCount: false,
-                noneOfTheAbove: undefined,
-            },
-            version: {
-                major: 1,
-                minor: 0,
-            },
-        };
+    const LATEST_VERSION = {major: 3, minor: 0};
+    const LATEST_OPTIONS = v3Widget;
 
-        expect(parse(widget, parseRadioWidget)).toEqual(
-            success({
-                type: "radio",
-                version: LATEST_VERSION,
-                graded: true,
-                options: {
-                    choices: [],
-                    countChoices: false,
-                    deselectEnabled: false,
-                    hasNoneOfTheAbove: false,
-                    multipleSelect: false,
-                    numCorrect: 0,
-                    randomize: false,
-                },
-            }),
-        );
+    describe.each([["v0", v0Widget], ["v1", v1Widget], ["v2", v2Widget], ["v3", v3Widget]])('Radio %s', (_, inputData) => {
+        it(`migrates to the latest version, ${LATEST_VERSION.major}.${LATEST_VERSION.minor}`, () => {
+            expect(parse(inputData, parseRadioWidget)).toEqual(success(LATEST_OPTIONS))
+        })
     });
 
     it("rejects a widget with unrecognized version", () => {
@@ -155,126 +109,14 @@ describe("parseRadioWidget", () => {
 
 describe("migration functions", () => {
     it("migrates v0 to v1", () => {
-        const v0Widget = {
-            type: "radio" as const,
-            version: {major: 0, minor: 0},
-            options: {
-                choices: [{content: ""}, {content: ""}, {content: ""}],
-                hasNoneOfTheAbove: false,
-                noneOfTheAbove: undefined,
-            },
-        };
-
-        expect(migrateV0ToV1(v0Widget)).toEqual({
-            options: {
-                choices: [{content: ""}, {content: ""}, {content: ""}],
-                hasNoneOfTheAbove: false,
-                noneOfTheAbove: undefined,
-            },
-            type: "radio",
-            version: {major: 1, minor: 0},
-        });
+        expect(migrateV0ToV1(v0Widget)).toEqual(v1Widget);
     });
 
     it("migrates v1 to v2", () => {
-        const v1Widget = {
-            type: "radio" as const,
-            graded: true,
-            options: {
-                choices: [
-                    {
-                        content: "Correct 1",
-                        correct: true,
-                    },
-                    {
-                        content: "Correct 2",
-                        correct: true,
-                    },
-                    {
-                        content: "Incorrect",
-                        correct: false,
-                    },
-                ],
-            },
-            version: {
-                major: 1,
-                minor: 0,
-            },
-        };
-
-        expect(migrateV1ToV2(v1Widget)).toEqual({
-            graded: true,
-            options: {
-                choices: [
-                    {
-                        content: "Correct 1",
-                        correct: true,
-                    },
-                    {
-                        content: "Correct 2",
-                        correct: true,
-                    },
-                    {
-                        content: "Incorrect",
-                        correct: false,
-                    },
-                ],
-                numCorrect: 2,
-            },
-            type: "radio",
-            version: {
-                major: 2,
-                minor: 0,
-            },
-        });
+        expect(migrateV1ToV2(v1Widget)).toEqual(v2Widget);
     });
 
     it("migrates v2 to v3", () => {
-        const v2Widget = {
-            type: "radio" as const,
-            version: {major: 2, minor: 0},
-            graded: true,
-            options: {
-                numCorrect: 1,
-                choices: [
-                    {
-                        content: "Content 1",
-                        clue: "no clue",
-                        correct: true,
-                        isNoneOfTheAbove: false,
-                    },
-                ],
-                hasNoneOfTheAbove: false,
-                countChoices: false,
-                randomize: false,
-                multipleSelect: false,
-                deselectEnabled: false,
-                onePerLine: false,
-                displayCount: false,
-                noneOfTheAbove: undefined,
-            },
-        };
-
-        expect(migrateV2toV3(v2Widget)).toEqual({
-            graded: true,
-            options: {
-                choices: [
-                    {
-                        content: "Content 1",
-                        correct: true,
-                        clue: "no clue",
-                        isNoneOfTheAbove: false,
-                    },
-                ],
-                countChoices: false,
-                deselectEnabled: false,
-                hasNoneOfTheAbove: false,
-                multipleSelect: false,
-                numCorrect: 1,
-                randomize: false,
-            },
-            type: "radio",
-            version: {major: 3, minor: 0},
-        });
+        expect(migrateV2toV3(v2Widget)).toEqual(v3Widget);
     });
 });
