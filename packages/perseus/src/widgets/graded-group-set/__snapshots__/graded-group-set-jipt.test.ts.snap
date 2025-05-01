@@ -87,7 +87,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
               />
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-default_hrw3a6"
+                class="button_vr44p2-o_O-shared_11fo0od-o_O-default_1r63pnb"
                 role="button"
                 type="button"
               >
@@ -165,7 +165,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
               />
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-default_hrw3a6"
+                class="button_vr44p2-o_O-shared_11fo0od-o_O-default_1r63pnb"
                 role="button"
                 type="button"
               >
@@ -243,7 +243,7 @@ exports[`graded-group-set should render all graded groups 1`] = `
               />
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-default_hrw3a6"
+                class="button_vr44p2-o_O-shared_11fo0od-o_O-default_1r63pnb"
                 role="button"
                 type="button"
               >
