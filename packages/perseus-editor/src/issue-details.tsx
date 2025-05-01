@@ -4,14 +4,7 @@ import * as React from "react";
 
 import PerseusEditorAccordion from "./components/perseus-editor-accordion";
 
-type Issue = {
-    id: string;
-    description: string;
-    helpUrl: string;
-    help: string;
-    impact: string;
-    message: string;
-};
+import type {Issue} from "./issues-panel";
 
 type IssueProps = {
     issue: Issue;

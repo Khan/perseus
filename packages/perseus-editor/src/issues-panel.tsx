@@ -53,8 +53,8 @@ const IssuesPanel = ({warnings = []}: IssuesPanelProps) => {
                         onClick={togglePanel}
                         disabled={!hasWarnings}
                         style={{
-                            marginRight: 0,
-                            // flexGrow: 0,
+                            marginInlineEnd: 0,
+                            flexGrow: 0,
                             border: "none",
                             backgroundColor: "transparent",
                             cursor: hasWarnings ? "pointer" : "not-allowed",

@@ -6,12 +6,13 @@ import {
     PerseusMarkdown,
     Util,
     Widgets,
-    isAccessible,
+    widgets,
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     Errors,
     PerseusError,
+    isAccessible,
 } from "@khanacademy/perseus-core";
 import $ from "jquery";
 // eslint-disable-next-line import/no-unresolved, import/no-extraneous-dependencies
@@ -749,34 +750,40 @@ class Editor extends React.Component<Props, State> {
     _checkAccessibilityAndWarn(currentWidgetIds: string[]) {
         const prevWidgetIds = this._prevWidgetIds;
 
-        // Find deletedwidgetIDs
+        // Find deleted widgets
         const removedWidgets = prevWidgetIds.filter(
             (id) => !currentWidgetIds.includes(id),
         );
-        this._prevWidgetIds = currentWidgetIds;
 
-        // Remove warnings for widgets that are gone
+        // Remove warnings for deleted widgets
         removedWidgets.forEach((id) => {
-            const widgetType = id.split(" ")[0];
-            const warningId = `${widgetType} inaccessible`;
+            const warningId = `${id} inaccessible`;
 
             if (this.props.onRemoveWarning) {
                 this.props.onRemoveWarning(warningId);
             }
         });
 
-        // Check all currently active widgets
+        // Check currentl widgets for accessibility
         currentWidgetIds.forEach((id) => {
             const widgetInfo = this.props.widgets[id];
+
             const widgetType = widgetInfo?.type;
-            const widgetAccessibility = isAccessible(widgetInfo);
+            const widgetLogic = widgets.find((widget) => {
+                return widget.name === widgetType;
+            });
+
+            const widgetAccessibility = isAccessible(widgetInfo, widgetLogic);
 
             if (!widgetAccessibility && this.props.onAddWarning) {
-                this.props.onAddWarning(
-                    WARNINGS.inaccessibleWidget(widgetType),
-                );
+                const warning = {
+                    ...WARNINGS.inaccessibleWidget(widgetType),
+                    id: `${id} inaccessible`,
+                };
+                this.props.onAddWarning(warning);
             }
         });
+        // Update previous widgets AFTER processing everything
         this._prevWidgetIds = currentWidgetIds;
     }
 

@@ -104,7 +104,7 @@ class ItemEditor extends React.Component<Props, State> {
                 (w) => w.id === warning.id,
             );
             return alreadyExists
-                ? null
+                ? null // No need to update state if the warning already exists
                 : {warnings: [...prevState.warnings, warning]};
         });
     };

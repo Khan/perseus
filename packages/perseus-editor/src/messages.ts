@@ -1,3 +1,5 @@
+// This file is meant to contain any and all perseus-editor messages
+// we want to show within the Issues Panel.
 export const WARNINGS = {
     inaccessibleWidget: (widgetType: string) => ({
         id: `${widgetType} inaccessible`,

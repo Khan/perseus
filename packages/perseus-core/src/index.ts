@@ -25,6 +25,7 @@ export {
     getWidgetIdsFromContent,
     getWidgetIdsFromContentByType,
 } from "./utils/widget-id-utils";
+
 export {default as deepClone} from "./utils/deep-clone";
 export * as GrapherUtil from "./utils/grapher-util";
 
@@ -159,3 +160,4 @@ export {
 } from "./widgets/matcher/matcher-util";
 export {shuffle, seededRNG, random} from "./utils/random-util";
 export {default as PerseusFeatureFlags} from "./feature-flags";
+export {isAccessible} from "./utils/is-accessible";
