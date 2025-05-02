@@ -40,6 +40,7 @@ export const parseNumberLineWidget = parseWidget(
         tickStep: optional(nullable(number)),
         correctRel: defaulted(
             optional(enumeration("eq", "lt", "gt", "le", "ge")),
+            // Convert null to undefined:
             () => undefined,
         ),
         correctX: nullable(number),
