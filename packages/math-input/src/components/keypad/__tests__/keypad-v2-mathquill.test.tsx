@@ -31,10 +31,18 @@ function V2KeypadWithMathquill(props: Props) {
     const {strings} = useMathInputI18n();
 
     if (props.portuguese) {
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         strings.sin = "sen";
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         strings.tan = "tg";
     } else {
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         strings.sin = "sin";
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         strings.tan = "tan";
     }
 

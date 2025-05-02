@@ -14,6 +14,8 @@ describe("phet-simulation widget", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 json: () =>
@@ -23,6 +25,8 @@ describe("phet-simulation widget", () => {
                 ok: true,
             }),
         ) as jest.Mock;
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         global.URL.canParse = jest.fn(() => true) as jest.Mock;
     });
 

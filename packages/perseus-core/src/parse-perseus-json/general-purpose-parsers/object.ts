@@ -27,9 +27,13 @@ export function object<S extends ObjectSchema>(
             const result = propParser(rawValue[prop], ctx.forSubtree(prop));
             if (isSuccess(result)) {
                 if (result.value !== undefined || prop in rawValue) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     ret[prop] = result.value;
                 }
             } else {
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 mismatches.push(...result.detail);
             }
         }

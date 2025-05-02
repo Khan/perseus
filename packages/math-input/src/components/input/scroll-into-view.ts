@@ -50,6 +50,8 @@ export const scrollIntoView = (containerNode, keypadNode) => {
             );
 
             if (scrollNode) {
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 scrollNode.scrollTop += scrollOffset;
             }
             return;
@@ -60,6 +62,8 @@ export const scrollIntoView = (containerNode, keypadNode) => {
     // of the viewport, scroll it into view. We can do this regardless
     // of whether the keypad has been provided.
     if (scrollNode && containerTopPx < desiredMarginPx) {
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         scrollNode.scrollTop -= containerBounds.height + desiredMarginPx;
     }
 };

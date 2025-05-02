@@ -19,6 +19,8 @@ addSerializer(jestSerializerHtml);
 
 if (typeof window !== "undefined") {
     // @ts-expect-error - TS2322 - Type '() => { removeAllRanges: () => void; }' is not assignable to type '(() => Selection | null) & (() => Selection | null)'.
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     window.getSelection = () => {
         return {
             removeAllRanges: () => {},
@@ -30,6 +32,8 @@ if (typeof window !== "undefined") {
     // with RTL's `findByTestId/waitFor`.
     // See https://github.com/testing-library/dom-testing-library/issues/477
     // Release notes: https://github.com/testing-library/dom-testing-library/releases/tag/v7.0.0
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     window.MutationObserver = MutationObserver;
 
     // Override the window.location implementation to mock out assign()
@@ -37,8 +41,12 @@ if (typeof window !== "undefined") {
     // redirecting to the right place.
     const oldLocation = window.location;
     // @ts-expect-error - TS2790 - The operand of a 'delete' operator must be optional.
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     delete window.location;
     const mockedLocation = new URL("http://localhost:8081");
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     window.location = {
         ...oldLocation,
         host: mockedLocation.host,
@@ -54,7 +62,11 @@ if (typeof window !== "undefined") {
     // Override window.alert which doesn't exist in node and log any
     // alerts to the console instead.
     // @ts-expect-error - TS2790 - The operand of a 'delete' operator must be optional.
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     delete window.alert;
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     window.alert = function (message: any) {
         console.log(`KA_TEST captured: window.alert("${message}")`);
     };

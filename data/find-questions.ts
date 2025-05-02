@@ -59,6 +59,8 @@ function findJsonFiles(dir, accumulator: string[] = []) {
         if (fs.statSync(absolutePath).isDirectory()) {
             return findJsonFiles(absolutePath, accumulator);
         } else if (absolutePath.endsWith(".json")) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             return accumulator.push(absolutePath);
         }
     });
@@ -73,6 +75,8 @@ function checkFiles(jsonFiles) {
         const data = fs.readFileSync(fileName, "utf8");
         const json = JSON.parse(data);
         if (predicateCallback(json)) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             output.push(data);
         }
     }

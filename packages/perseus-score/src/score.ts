@@ -184,6 +184,8 @@ export function scoreWidgetsFunctional(
             validator?.(userInput, widget.options, locale) ??
             scorer?.(userInput, widget.options, locale);
         if (score != null) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             widgetScores[id] = score;
         }
     });
