@@ -1,3 +1,4 @@
+/* eslint-disable functional/immutable-data */
 /**
  * Utility functions for writing Interactive2 movablethings
  */
