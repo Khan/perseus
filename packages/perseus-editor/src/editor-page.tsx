@@ -198,7 +198,9 @@ class EditorPage extends React.Component<Props, State> {
             hints: this.hintsEditor.current?.serialize(options),
         });
         // eslint-disable-next-line no-console
-        console.log("result", result);
+        console.log("result for serialize", result);
+        // eslint-disable-next-line no-console
+        console.log("props for serialize", this.props);
         return result;
     }
 
@@ -206,7 +208,9 @@ class EditorPage extends React.Component<Props, State> {
         const newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);
         // eslint-disable-next-line no-console
-        console.log("newProps", newProps);
+        console.log("newProps for handleChange", newProps);
+        // eslint-disable-next-line no-console
+        console.log("props for handleChange", this.props);
         this.props.onChange(newProps, cb, silent);
     };
 
