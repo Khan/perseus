@@ -194,14 +194,19 @@ class EditorPage extends React.Component<Props, State> {
         if (this.props.jsonMode) {
             return this.state.json;
         }
-        return _.extend(this.itemEditor.current?.serialize(options), {
+        const result = _.extend(this.itemEditor.current?.serialize(options), {
             hints: this.hintsEditor.current?.serialize(options),
         });
+        // eslint-disable-next-line no-console
+        console.log("result", result);
+        return result;
     }
 
     handleChange: ChangeHandler = (toChange, cb, silent) => {
         const newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);
+        // eslint-disable-next-line no-console
+        console.log("newProps", newProps);
         this.props.onChange(newProps, cb, silent);
     };
 
@@ -264,6 +269,22 @@ class EditorPage extends React.Component<Props, State> {
                                 });
                             }}
                         />
+                    )}
+
+                    {!this.props.jsonMode && (
+                        <button
+                            onClick={() => {
+                                const serialized = this.serialize();
+                                // Only log in non-production environments
+                                if (process.env.NODE_ENV !== "production") {
+                                    // eslint-disable-next-line no-console
+                                    console.log("Serialized data:", serialized);
+                                }
+                            }}
+                            style={{marginLeft: 10}}
+                        >
+                            Debug Serialized Data
+                        </button>
                     )}
                 </div>
 

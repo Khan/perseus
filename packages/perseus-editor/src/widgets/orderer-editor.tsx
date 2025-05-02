@@ -41,6 +41,8 @@ class OrdererEditor extends React.Component<Props> {
         props[whichOptions] = _.map(options, function (option) {
             return {content: option};
         });
+        // eslint-disable-next-line no-console
+        console.log("props", props);
         this.props.onChange(props, cb);
     };
 
@@ -80,6 +82,9 @@ class OrdererEditor extends React.Component<Props> {
                 return {content: content};
             })
             .value();
+
+        // eslint-disable-next-line no-console
+        console.log("options", options);
 
         return {
             options: options,
