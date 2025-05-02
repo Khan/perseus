@@ -1,0 +1,104 @@
+import type {
+    PerseusItem,
+    KEScore,
+    ShowSolutions,
+} from "@khanacademy/perseus-core";
+
+// Define state type
+export type ItemRendererState = {
+    isMobile: boolean;
+    perseusItem: PerseusItem;
+    originalItem: PerseusItem;
+    answerless: boolean;
+    startAnswerless: boolean;
+    score: KEScore | null | undefined;
+    showPopover: boolean;
+    showSolutions: ShowSolutions | undefined;
+    hintsVisible: number;
+    key: number; // For forcing remount
+    reviewMode: boolean;
+};
+
+// Define action types
+export type ItemRendererAction =
+    | {type: "TOGGLE_MOBILE"; payload: boolean}
+    | {type: "UPDATE_ITEM"; payload: PerseusItem}
+    | {type: "SET_SCORE"; payload: KEScore | null | undefined}
+    | {type: "TOGGLE_POPOVER"; payload: boolean}
+    | {type: "SET_SHOW_SOLUTIONS"; payload: ShowSolutions | undefined}
+    | {type: "SET_HINTS_VISIBLE"; payload: number}
+    | {type: "SET_ANSWERLESS"; payload: boolean}
+    | {type: "RESET_STATE"}
+    | {type: "SKIP_TO_SOLUTION"};
+
+// Create initial state function to allow passing props
+export const createInitialState = (
+    item: PerseusItem,
+    startAnswerless: boolean = false,
+    isMobile: boolean = false,
+    reviewMode: boolean = false,
+    showSolutions?: ShowSolutions,
+): ItemRendererState => ({
+    isMobile,
+    perseusItem: item,
+    originalItem: item,
+    answerless: startAnswerless,
+    startAnswerless,
+    score: null,
+    showPopover: false,
+    showSolutions,
+    hintsVisible: 0,
+    key: 0,
+    reviewMode,
+});
+
+// Create reducer function
+export const itemRendererReducer = (
+    state: ItemRendererState,
+    action: ItemRendererAction,
+): ItemRendererState => {
+    switch (action.type) {
+        case "TOGGLE_MOBILE":
+            return {...state, isMobile: action.payload};
+
+        case "UPDATE_ITEM":
+            return {...state, perseusItem: action.payload};
+
+        case "SET_SCORE":
+            return {...state, score: action.payload};
+
+        case "TOGGLE_POPOVER":
+            return {...state, showPopover: action.payload};
+
+        case "SET_SHOW_SOLUTIONS":
+            return {...state, showSolutions: action.payload};
+
+        case "SET_HINTS_VISIBLE":
+            return {...state, hintsVisible: action.payload};
+
+        case "SET_ANSWERLESS":
+            return {...state, answerless: action.payload};
+
+        case "RESET_STATE":
+            return {
+                ...createInitialState(
+                    state.originalItem,
+                    state.startAnswerless,
+                    state.isMobile,
+                    state.reviewMode,
+                ),
+                key: state.key + 1, // Force remount
+            };
+
+        case "SKIP_TO_SOLUTION":
+            return {
+                ...state,
+                answerless: false,
+                hintsVisible: state.originalItem.hints.length,
+                showSolutions: "all",
+            };
+
+        default:
+            return state;
+    }
+};

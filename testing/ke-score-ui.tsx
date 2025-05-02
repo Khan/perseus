@@ -1,3 +1,4 @@
+import {View} from "@khanacademy/wonder-blocks-core";
 import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
@@ -6,16 +7,17 @@ import type {KEScore} from "@khanacademy/perseus-core";
 
 type Props = {
     score: KEScore | null | undefined;
+    style?: React.CSSProperties;
 };
 
-export default function KEScoreUI({score}: Props) {
+export default function KEScoreUI({score, style}: Props) {
     if (score == null) {
         return null;
     }
 
     return (
-        <>
-            <table style={{marginTop: "20px"}}>
+        <View style={style}>
+            {/*   <table>
                 <thead>
                     <tr style={{fontWeight: "bold"}}>
                         <td>Empty</td>
@@ -30,8 +32,7 @@ export default function KEScoreUI({score}: Props) {
                         <td>{score.message}</td>
                     </tr>
                 </tbody>
-            </table>
-
+            </table> */}
             <HeadingSmall style={{marginTop: "10px"}}>Guess</HeadingSmall>
             <ReactJson
                 quotesOnKeys={false}
@@ -44,6 +45,6 @@ export default function KEScoreUI({score}: Props) {
                 enableClipboard={false}
                 src={score.state}
             />
-        </>
+        </View>
     );
 }

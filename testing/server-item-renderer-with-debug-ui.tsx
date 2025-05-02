@@ -1,29 +1,18 @@
-import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import Switch from "@khanacademy/wonder-blocks-switch";
-import deviceMobile from "@phosphor-icons/core/regular/device-mobile.svg";
 import * as React from "react";
-
-import {splitPerseusItem} from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import {KeypadContext} from "../packages/keypad-context/src/keypad-context";
 import {ServerItemRenderer} from "../packages/perseus/src/server-item-renderer";
-import {keScoreFromPerseusScore} from "../packages/perseus/src/util/scoring";
 
-import KEScoreUI from "./ke-score-ui";
-import SplitView from "./split-view";
+import {DebugAccordionUI} from "./debug-accordion-ui";
+import {DebugCheckAnswerFooter} from "./debug-check-answer-footer";
+import {DebugHeader} from "./debug-header";
+import {useItemRenderer} from "./item-renderer-hooks";
 import {storybookDependenciesV2} from "./test-dependencies";
 import TestKeypadContextWrapper from "./test-keypad-context-wrapper";
 
 import type {APIOptions} from "../packages/perseus/src/types";
-import type {
-    PerseusItem,
-    KEScore,
-    ShowSolutions,
-} from "@khanacademy/perseus-core";
+import type {PerseusItem, ShowSolutions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 type Props = {
@@ -38,6 +27,9 @@ type Props = {
     showSolutions?: ShowSolutions;
 };
 
+/**
+ * A component that renders a Perseus item with debug UI controls
+ */
 export const ServerItemRendererWithDebugUI = ({
     title = "Widget",
     item,
@@ -47,139 +39,87 @@ export const ServerItemRendererWithDebugUI = ({
     startAnswerless = false,
     showSolutions,
 }: Props): React.ReactElement => {
-    const ref = React.useRef<ServerItemRenderer>(null);
-    const [state, setState] = React.useState<KEScore | null | undefined>(null);
-    const [isMobile, setIsMobile] = React.useState(
-        apiOptions.isMobile ?? false,
+    // Use our custom hook to manage the renderer state
+    const {
+        ref,
+        state,
+        options,
+        toggleMobile,
+        updateJson,
+        handleReset,
+        handleSkip,
+        handleCheck,
+        setShowPopover,
+    } = useItemRenderer(
+        item,
+        apiOptions,
+        startAnswerless,
+        reviewMode,
+        showSolutions,
     );
-    const [hintsVisible, setHintsVisible] = React.useState(0);
-    const [answerless, setAnswerless] =
-        React.useState<boolean>(startAnswerless);
-    const options = {
-        ...apiOptions,
-        isMobile,
-        customKeypad: isMobile, // Use the mobile keypad for mobile
-    };
-
-    const getKeScore = () => {
-        const renderer = ref.current;
-        if (!renderer) {
-            return;
-        }
-
-        const userInput = renderer.getUserInput();
-        const score = scorePerseusItem(item.question, userInput, "en");
-
-        // Continue to include an empty guess for the now defunct answer area.
-        // TODO(alex): Check whether we rely on the format here for
-        //             analyzing ProblemLogs. If not, remove this layer.
-        const maxCompatGuess = [renderer.getUserInputLegacy(), []];
-        return keScoreFromPerseusScore(
-            score,
-            maxCompatGuess,
-            renderer.getSerializedState().question,
-        );
-    };
-
-    // `reviewMode` and `showSolutions` require answerful data by definition,
-    // so only use answerless data if those are not enabled. Also makes the
-    // startAnswerless toggle actually switch between answerless and answerful
-    // data, though a page refresh is needed to see the change.
-    const shouldUseAnswerless =
-        answerless &&
-        !reviewMode &&
-        (showSolutions === "none" || !showSolutions);
-
-    const renderedItem: PerseusItem = shouldUseAnswerless
-        ? splitPerseusItem(item)
-        : item;
 
     return (
-        <TestKeypadContextWrapper>
-            <SplitView
-                rendererTitle={
-                    <View
-                        style={{
-                            flexDirection: "row",
-                            alignItems: "center",
-                            width: "100%",
-                        }}
-                    >
-                        {title}
-                        <View style={{marginLeft: "auto"}}>
-                            <Switch
-                                icon={<PhosphorIcon icon={deviceMobile} />}
-                                checked={isMobile}
-                                onChange={setIsMobile}
-                            />
-                        </View>
-                    </View>
-                }
-                renderer={
-                    <>
-                        <View className={isMobile ? "perseus-mobile" : ""}>
-                            <KeypadContext.Consumer>
-                                {({keypadElement}) => {
-                                    return (
-                                        <ServerItemRenderer
-                                            ref={ref}
-                                            problemNum={0}
-                                            score={state}
-                                            apiOptions={options}
-                                            item={renderedItem}
-                                            dependencies={
-                                                storybookDependenciesV2
-                                            }
-                                            keypadElement={keypadElement}
-                                            linterContext={linterContext}
-                                            reviewMode={reviewMode}
-                                            showSolutions={showSolutions}
-                                            hintsVisible={hintsVisible}
-                                        />
-                                    );
-                                }}
-                            </KeypadContext.Consumer>
-                        </View>
-                        <View
-                            style={{flexDirection: "row", alignItems: "center"}}
-                        >
-                            <Button
-                                onClick={() => {
-                                    setAnswerless(false);
-                                    if (!ref.current) {
-                                        return;
+        <View>
+            <TestKeypadContextWrapper>
+                <View
+                    style={{
+                        paddingBottom: "60px",
+                    }}
+                >
+                    {/* Title and mobile toggle */}
+                    <DebugHeader
+                        title={title}
+                        isMobile={state.isMobile}
+                        onToggleMobile={toggleMobile}
+                    />
+
+                    {/* Item renderer */}
+                    <View className={state.isMobile ? "perseus-mobile" : ""}>
+                        <KeypadContext.Consumer>
+                            {({keypadElement}) => (
+                                <ServerItemRenderer
+                                    key={state.key}
+                                    ref={ref}
+                                    problemNum={0}
+                                    score={state.score}
+                                    apiOptions={options}
+                                    item={state.perseusItem}
+                                    dependencies={storybookDependenciesV2}
+                                    keypadElement={keypadElement}
+                                    linterContext={linterContext}
+                                    showSolutions={state.showSolutions}
+                                    hintsVisible={state.hintsVisible}
+                                    reviewMode={
+                                        (state.score && state.score?.correct) ||
+                                        false
                                     }
-                                    setState(getKeScore());
-                                }}
-                            >
-                                Check
-                            </Button>
-                            <Strut size={8} />
-                            <Button
-                                onClick={() => {
-                                    setAnswerless(false);
-                                    ref.current?.showRationalesForCurrentlySelectedChoices();
-                                }}
-                            >
-                                Show Rationales
-                            </Button>
-                            <Strut size={8} />
-                            <Button
-                                disabled={hintsVisible >= item.hints.length}
-                                onClick={() => {
-                                    setHintsVisible(hintsVisible + 1);
-                                }}
-                            >
-                                {hintsVisible >= item.hints.length
-                                    ? "No hints left"
-                                    : `Take Hint ${hintsVisible + 1}`}
-                            </Button>
-                        </View>
-                        <KEScoreUI score={state} />
-                    </>
-                }
-                jsonObject={renderedItem}
+                                />
+                            )}
+                        </KeypadContext.Consumer>
+                    </View>
+
+                    {/* Debug accordion UI */}
+                    <DebugAccordionUI
+                        state={state.score}
+                        perseusItem={state.perseusItem}
+                        updateJson={updateJson}
+                    />
+                </View>
+            </TestKeypadContextWrapper>
+
+            {/* Footer with action buttons */}
+            <DebugCheckAnswerFooter
+                state={state.score}
+                popover={{
+                    isOpen: state.showPopover,
+                    setOpen: setShowPopover,
+                }}
+                actions={{
+                    reset: handleReset,
+                    skip: handleSkip,
+                    check: handleCheck,
+                }}
             />
-        </TestKeypadContextWrapper>
+        </View>
     );
 };

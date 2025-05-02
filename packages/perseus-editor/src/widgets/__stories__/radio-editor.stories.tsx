@@ -16,7 +16,7 @@ type StoryArgs = StoryObj<RadioEditor>;
 type Story = Meta<RadioEditor>;
 
 export default {
-    title: "PerseusEditor/Widgets/Radio Editor",
+    title: "Perseus/Widgets/Radio/Radio Editor",
 } as Story;
 
 const styles = StyleSheet.create({
