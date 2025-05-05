@@ -46,6 +46,19 @@ describe("isObject", () => {
         expect(isObject(Object.create({constructor: null}))).toBe(false);
     });
 
+    it("is false for an object trying to spoof the Object prototype", () => {
+        const weirdObject = Object.create({
+            constructor: Object.prototype.constructor.toString(),
+        });
+        expect(isObject(weirdObject)).toBe(false);
+    });
+
+    it("is false for an object whose constructor has a bogus toString property", () => {
+        function constructor() {}
+        constructor.toString = null;
+        expect(isObject(Object.create({constructor}))).toBe(false);
+    });
+
     it("is true for a cross-realm POJO", async () => {
         const crossRealmObject: any = await getCrossRealmObject({
             fromWorker: true,
