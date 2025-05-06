@@ -94,6 +94,8 @@ function main(argv: string[]) {
 
     for (const pkgName of packageNamesInRepo) {
         if (pkgName in targetVersions) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             workspace.catalog[pkgName] = targetVersions[pkgName];
         }
     }

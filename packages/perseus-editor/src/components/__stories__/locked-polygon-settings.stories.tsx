@@ -24,6 +24,8 @@ const defaultProps = {
 type StoryComponentType = StoryObj<typeof LockedPolygonSettings>;
 
 // Set the default values in the control panel.
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 Default.args = defaultProps;
 
 export const Controlled: StoryComponentType = {
@@ -46,6 +48,8 @@ export const Controlled: StoryComponentType = {
     },
 };
 
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 Controlled.parameters = {
     chromatic: {
         // Disabling because this is testing behavior, not visuals.

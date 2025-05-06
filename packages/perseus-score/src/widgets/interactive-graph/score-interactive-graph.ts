@@ -170,7 +170,11 @@ function scoreInteractiveGraph(
             // it and -0 converted to a string is "0"
             // TODO(benchristel): once we drop support for Safari 15, use
             // toSorted here to avoid mutating the input arrays!
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             guess?.sort();
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             correct.sort();
             if (approximateDeepEqual(guess, correct)) {
                 return {
@@ -197,7 +201,11 @@ function scoreInteractiveGraph(
                 match = similar(guess, correct, 0.1);
             } else {
                 /* exact */
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 guess.sort();
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 correct.sort();
                 match = approximateDeepEqual(guess, correct);
             }
@@ -217,7 +225,11 @@ function scoreInteractiveGraph(
         ) {
             let guess = deepClone(userInput.coords);
             let correct = deepClone(rubric.correct.coords);
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             guess = _.invoke(guess, "sort").sort();
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             correct = _.invoke(correct, "sort").sort();
             if (approximateDeepEqual(guess, correct)) {
                 return {

@@ -443,4 +443,6 @@ ${e.stack}`,
     };
 }
 
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 Rule.DEFAULT_SELECTOR = Selector.parse("text");

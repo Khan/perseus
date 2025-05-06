@@ -93,6 +93,8 @@ const parseWidgetsMapEntry: (
         if (isFailure(widgetResult)) {
             return widgetResult;
         }
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         widgetMap[key] = widgetResult.value;
         return ctx.success(undefined);
     }

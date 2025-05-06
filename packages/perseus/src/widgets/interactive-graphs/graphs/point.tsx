@@ -140,6 +140,8 @@ function UnlimitedPointGraph(statefulProps: StatefulProps) {
                         dispatch(actions.pointGraph.movePoint(i, destination))
                     }
                     ref={(ref) => {
+                        // TODO(LEMS-3083): Remove eslint suppression
+                        // eslint-disable-next-line functional/immutable-data
                         pointsRef.current[i] = ref;
                     }}
                     onFocus={() => {

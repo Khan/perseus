@@ -561,6 +561,8 @@ const staticTransform: (arg1: any) => any = (editorProps) => {
     // We convert matrix cells from numbers to string to match the expected
     // input into the rendered widget.
     // @ts-expect-error - TS2339 - Property 'answers' does not exist on type 'Pick<any, "suffix" | "prefix" | "matrixBoardSize">'.
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     widgetProps.answers = _.map(editorProps.answers, (row) => {
         // Replace null values with empty string
         return _.map(row, (cell) => (cell != null ? String(cell) : ""));

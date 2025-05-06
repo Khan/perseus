@@ -1,3 +1,4 @@
+/* eslint-disable functional/immutable-data */
 /**
  * Creates and adds a polygon to the graph that can be dragged around.
  * It allows constraints on its movement and draws when moves happen.

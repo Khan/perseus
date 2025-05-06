@@ -19,15 +19,21 @@ export function record<K extends string, V>(
             const entryCtx = ctx.forSubtree(key);
             const keyResult = parseKey(key, entryCtx);
             if (isFailure(keyResult)) {
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 mismatches.push(...keyResult.detail);
             }
 
             const valueResult = parseValue(value, entryCtx);
             if (isFailure(valueResult)) {
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 mismatches.push(...valueResult.detail);
             }
 
             if (isSuccess(keyResult) && isSuccess(valueResult)) {
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 result[keyResult.value] = valueResult.value;
             }
         }
