@@ -169,30 +169,10 @@ export class PhetSimulation
     }
 
     toggleFullScreen = () => {
-        // Toggle the fullscreen state
-        this.setState(
-            (prevState) => ({
-                isFullScreen: !prevState.isFullScreen,
-            }),
-            () => {
-                // If exiting fullscreen, send a message to reset viewport
-                if (!this.state.isFullScreen && this.iframeRef.current) {
-                    try {
-                        this.iframeRef.current.contentWindow?.postMessage(
-                            {
-                                type: "reset-viewport",
-                                initialScale: 1.0,
-                            },
-                            "https://phet.colorado.edu",
-                        );
-                    } catch (e) {
-                        // Welp didn't work too bad.
-                        // eslint-disable-next-line no-console
-                        console.log("Failed to send reset message:", e);
-                    }
-                }
-            },
-        );
+        // Use our fake fullscreen implementation for mobile
+        this.setState((prevState) => ({
+            isFullScreen: !prevState.isFullScreen,
+        }));
     };
 
     render(): React.ReactNode {
@@ -200,7 +180,7 @@ export class PhetSimulation
         // We handle mobile fullscreen differently, as many mobile browsers
         // and apps don't support the fullscreen API. Instead, we use our own
         // fake fullscreen implementation to take up the full webview.
-        const isMobile = apiOptions?.isMobile || true;
+        const isMobile = apiOptions?.isMobile || false;
         const {isFullScreen} = this.state;
 
         // We sandbox the iframe so that we allowlist only the functionality
@@ -223,18 +203,6 @@ export class PhetSimulation
 
         return (
             <View style={containerStyle}>
-                {isFullScreen && isMobile && (
-                    <View style={styles.closeButtonContainer}>
-                        <IconButton
-                            icon={xIcon}
-                            onClick={this.toggleFullScreen}
-                            kind="tertiary"
-                            actionType="neutral"
-                            aria-label={"Exit fullscreen"}
-                            style={styles.closeButton}
-                        />
-                    </View>
-                )}
                 {this.state.banner !== null && (
                     // TODO(anna): Make this banner focusable
                     <View
@@ -259,25 +227,34 @@ export class PhetSimulation
                         allow="fullscreen"
                     />
                 </View>
-                {this.state.url !== null && !isFullScreen && (
-                    <IconButton
-                        icon={cornersOutIcon}
-                        onClick={
-                            isMobile
-                                ? this.toggleFullScreen
-                                : () => {
-                                      this.iframeRef.current?.requestFullscreen();
-                                  }
-                        }
-                        kind="tertiary"
-                        actionType="neutral"
-                        aria-label={"Fullscreen"}
-                        style={{
-                            marginTop: 5,
-                            marginBottom: 5,
-                            alignSelf: "flex-end",
-                        }}
-                    />
+                {this.state.url !== null && (
+                    <View style={styles.buttonContainer}>
+                        {isFullScreen && isMobile ? (
+                            <IconButton
+                                icon={xIcon}
+                                onClick={this.toggleFullScreen}
+                                kind="tertiary"
+                                actionType="neutral"
+                                aria-label={"Exit fullscreen"}
+                                style={styles.fullScreenButton}
+                            />
+                        ) : (
+                            <IconButton
+                                icon={cornersOutIcon}
+                                onClick={
+                                    isMobile
+                                        ? this.toggleFullScreen
+                                        : () => {
+                                              this.iframeRef.current?.requestFullscreen();
+                                          }
+                                }
+                                kind="tertiary"
+                                actionType="neutral"
+                                aria-label={"Fullscreen"}
+                                style={styles.fullScreenButton}
+                            />
+                        )}
+                    </View>
                 )}
             </View>
         );
@@ -343,15 +320,14 @@ const styles = StyleSheet.create({
         width: "100%",
         height: "100%",
     },
-    closeButtonContainer: {
-        position: "absolute",
-        top: 8,
-        right: 8,
-        zIndex: 1001,
+    buttonContainer: {
+        display: "flex",
+        justifyContent: "flex-end",
+        marginTop: 5,
+        marginBottom: 5,
     },
-    closeButton: {
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
-        borderRadius: "50%",
+    fullScreenButton: {
+        alignSelf: "flex-end",
     },
 });
 
