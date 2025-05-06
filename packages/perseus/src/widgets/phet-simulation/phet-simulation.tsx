@@ -8,6 +8,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
+import xIcon from "@phosphor-icons/core/regular/x.svg";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -29,6 +30,7 @@ type State = {
         kind: "warning" | "critical";
     } | null;
     url: URL | null;
+    isFullScreen: boolean;
 };
 
 // This renders the PhET sim
@@ -49,6 +51,7 @@ export class PhetSimulation
     state: State = {
         url: null,
         banner: null,
+        isFullScreen: false,
     };
 
     constructor(props) {
@@ -165,14 +168,41 @@ export class PhetSimulation
         return true;
     }
 
+    toggleFullScreen = () => {
+        // Use our fake fullscreen implementation for mobile
+        this.setState((prevState) => ({
+            isFullScreen: !prevState.isFullScreen,
+        }));
+    };
+
     render(): React.ReactNode {
+        const {apiOptions} = this.props;
+        // We handle mobile fullscreen differently, as many mobile browsers
+        // and apps don't support the fullscreen API. Instead, we use our own
+        // fake fullscreen implementation to take up the full webview.
+        const isMobile = apiOptions?.isMobile || false;
+        const {isFullScreen} = this.state;
+
         // We sandbox the iframe so that we allowlist only the functionality
         // that we need. This makes it safer to present third-party content
         // from the PhET website.
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         const sandboxProperties = "allow-same-origin allow-scripts";
+
+        // Determine which container style to use based on fullscreen state
+        const containerStyle =
+            isFullScreen && isMobile
+                ? styles.fullScreenWidgetContainer
+                : styles.widgetContainer;
+
+        // Determine iframe container style based on fullscreen state
+        const iframeContainerStyle =
+            isFullScreen && isMobile
+                ? styles.fullScreenIframeContainer
+                : styles.iframeContainer;
+
         return (
-            <View style={styles.widgetContainer}>
+            <View style={containerStyle}>
                 {this.state.banner !== null && (
                     // TODO(anna): Make this banner focusable
                     <View
@@ -187,7 +217,7 @@ export class PhetSimulation
                         />
                     </View>
                 )}
-                <View style={styles.iframeContainer}>
+                <View style={iframeContainerStyle}>
                     <iframe
                         ref={this.iframeRef}
                         title={this.props.description}
@@ -198,20 +228,33 @@ export class PhetSimulation
                     />
                 </View>
                 {this.state.url !== null && (
-                    <IconButton
-                        icon={cornersOutIcon}
-                        onClick={() => {
-                            this.iframeRef.current?.requestFullscreen();
-                        }}
-                        kind="tertiary"
-                        actionType="neutral"
-                        aria-label={"Fullscreen"}
-                        style={{
-                            marginTop: 5,
-                            marginBottom: 5,
-                            alignSelf: "flex-end",
-                        }}
-                    />
+                    <View style={styles.buttonContainer}>
+                        {isFullScreen && isMobile ? (
+                            <IconButton
+                                icon={xIcon}
+                                onClick={this.toggleFullScreen}
+                                kind="tertiary"
+                                actionType="neutral"
+                                aria-label={"Exit fullscreen"}
+                                style={styles.fullScreenButton}
+                            />
+                        ) : (
+                            <IconButton
+                                icon={cornersOutIcon}
+                                onClick={
+                                    isMobile
+                                        ? this.toggleFullScreen
+                                        : () => {
+                                              this.iframeRef.current?.requestFullscreen();
+                                          }
+                                }
+                                kind="tertiary"
+                                actionType="neutral"
+                                aria-label={"Fullscreen"}
+                                style={styles.fullScreenButton}
+                            />
+                        )}
+                    </View>
                 )}
             </View>
         );
@@ -239,12 +282,33 @@ const styles = StyleSheet.create({
         padding: spacing.medium_16,
         paddingBottom: 0,
     },
+    fullScreenWidgetContainer: {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        width: "100%",
+        height: "100%",
+        zIndex: 1000,
+        backgroundColor: "white",
+        padding: 0,
+        margin: 0,
+        display: "flex",
+        flexDirection: "column",
+    },
     iframeContainer: {
         position: "relative",
         overflow: "hidden",
         width: "100%",
         // 16:9 aspect ratio
         paddingTop: "56.25%",
+    },
+    fullScreenIframeContainer: {
+        position: "relative",
+        overflow: "hidden",
+        width: "100%",
+        flex: 1,
     },
     iframeResponsive: {
         borderWidth: 0,
@@ -255,6 +319,15 @@ const styles = StyleSheet.create({
         right: 0,
         width: "100%",
         height: "100%",
+    },
+    buttonContainer: {
+        display: "flex",
+        justifyContent: "flex-end",
+        marginTop: 5,
+        marginBottom: 5,
+    },
+    fullScreenButton: {
+        alignSelf: "flex-end",
     },
 });
 
