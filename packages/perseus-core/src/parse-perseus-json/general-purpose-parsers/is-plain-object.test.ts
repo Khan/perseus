@@ -3,60 +3,60 @@ import {tmpdir} from "os";
 import {join} from "path";
 import {Worker} from "worker_threads";
 
-import {isObject} from "./is-object";
+import {isPlainObject} from "./is-plain-object";
 
-describe("isObject", () => {
+describe("isPlainObject", () => {
     it("is true for a POJO", () => {
-        expect(isObject({})).toBe(true);
+        expect(isPlainObject({})).toBe(true);
     });
 
     it("is false for an array", () => {
-        expect(isObject([])).toBe(false);
+        expect(isPlainObject([])).toBe(false);
     });
 
     it("is false for a class instance", () => {
         // Even if our class is named Object, it's not the same as the global
         // Object.
         class Object {}
-        expect(isObject(new Object())).toBe(false);
+        expect(isPlainObject(new Object())).toBe(false);
     });
 
     it("is false for null", () => {
-        expect(isObject(null)).toBe(false);
+        expect(isPlainObject(null)).toBe(false);
     });
 
     it("is false for a RegExp", () => {
-        expect(isObject(/a/)).toBe(false);
+        expect(isPlainObject(/a/)).toBe(false);
     });
 
     it("is false for a string", () => {
-        expect(isObject("")).toBe(false);
+        expect(isPlainObject("")).toBe(false);
     });
 
     it("is false for undefined", () => {
-        expect(isObject(undefined)).toBe(false);
+        expect(isPlainObject(undefined)).toBe(false);
     });
 
     it("is true for an object without a prototype", () => {
         // This is the same behavior as JQuery's `isPlainObject`
-        expect(isObject(Object.create(null))).toBe(true);
+        expect(isPlainObject(Object.create(null))).toBe(true);
     });
 
     it("is false for an object whose prototype has its own constructor property", () => {
-        expect(isObject(Object.create({constructor: null}))).toBe(false);
+        expect(isPlainObject(Object.create({constructor: null}))).toBe(false);
     });
 
     it("is false for an object trying to spoof the Object prototype", () => {
         const weirdObject = Object.create({
             constructor: Object.prototype.constructor.toString(),
         });
-        expect(isObject(weirdObject)).toBe(false);
+        expect(isPlainObject(weirdObject)).toBe(false);
     });
 
     it("is false for an object whose constructor has a bogus toString property", () => {
         function constructor() {}
         constructor.toString = null;
-        expect(isObject(Object.create({constructor}))).toBe(false);
+        expect(isPlainObject(Object.create({constructor}))).toBe(false);
     });
 
     it("is true for a cross-realm POJO", async () => {
@@ -64,13 +64,13 @@ describe("isObject", () => {
             fromWorker: true,
         });
         expect(crossRealmObject.fromWorker).toBe(true);
-        expect(isObject(crossRealmObject)).toBe(true);
+        expect(isPlainObject(crossRealmObject)).toBe(true);
     });
 
     it("is false for a cross-realm array", async () => {
         const crossRealmObject: any = await getCrossRealmObject([42]);
         expect(crossRealmObject[0]).toBe(42);
-        expect(isObject(crossRealmObject)).toBe(false);
+        expect(isPlainObject(crossRealmObject)).toBe(false);
     });
 });
 

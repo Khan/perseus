@@ -3,7 +3,7 @@ const objectConstructorString = Object.prototype.constructor.toString();
 
 const functionToString = Function.prototype.toString;
 
-export function isObject(x: unknown): x is Record<keyof any, unknown> {
+export function isPlainObject(x: unknown): x is Record<keyof any, unknown> {
     if (x == null) {
         return false;
     }
