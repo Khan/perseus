@@ -1,15 +1,15 @@
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {getAnswerfulItem, getAnswerlessItem, scorePerseusItemTesting} from "../../util/test-utils";
+import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question2} from "./orderer.testdata";
 
 import type {APIOptions} from "../../types";
-import {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
+import type {PerseusOrdererWidgetOptions} from "@khanacademy/perseus-core";
 
 const ordererOptions: PerseusOrdererWidgetOptions = {
     otherOptions: [],
@@ -25,7 +25,7 @@ const ordererOptions: PerseusOrdererWidgetOptions = {
         {content: "3", images: {}, widgets: {}},
     ],
     height: "normal",
-}
+};
 
 describe("orderer widget", () => {
     beforeEach(() => {
@@ -65,12 +65,12 @@ describe("orderer widget", () => {
         expect(
             getAnswerlessItem("orderer", ordererOptions).question.widgets[
                 "orderer 1"
-                ].options.correctOptions,
+            ].options.correctOptions,
         ).toBeUndefined();
         expect(
             getAnswerlessItem("orderer", ordererOptions).question.widgets[
                 "orderer 1"
-                ].options.otherOptions,
+            ].options.otherOptions,
         ).toBeUndefined();
     });
 
@@ -84,9 +84,7 @@ describe("orderer widget", () => {
 
             // Assert
             expect(await screen.findByText("1")).toBeInTheDocument();
-            expect(
-                await screen.findByText("2"),
-            ).toBeInTheDocument();
+            expect(await screen.findByText("2")).toBeInTheDocument();
         });
 
         it("can be answered", () => {
