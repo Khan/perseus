@@ -1,6 +1,6 @@
 import {failure, isSuccess} from "../result";
 
-import {isObject} from "./is-object";
+import {isPlainObject} from "./is-plain-object";
 
 import type {OptionalizeProperties} from "./object-types";
 import type {Mismatch, ParsedValue, Parser} from "../parser-types";
@@ -17,7 +17,7 @@ export function object<S extends ObjectSchema>(
     schema: S,
 ): Parser<OptionalizeProperties<{[K in keyof S]: ParsedValue<S[K]>}>> {
     return (rawValue, ctx) => {
-        if (!isObject(rawValue)) {
+        if (!isPlainObject(rawValue)) {
             return ctx.failure("object", rawValue);
         }
 
