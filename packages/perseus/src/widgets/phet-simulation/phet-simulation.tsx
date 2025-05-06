@@ -170,9 +170,29 @@ export class PhetSimulation
 
     toggleFullScreen = () => {
         // Toggle the fullscreen state
-        this.setState((prevState) => ({
-            isFullScreen: !prevState.isFullScreen,
-        }));
+        this.setState(
+            (prevState) => ({
+                isFullScreen: !prevState.isFullScreen,
+            }),
+            () => {
+                // If exiting fullscreen, send a message to reset viewport
+                if (!this.state.isFullScreen && this.iframeRef.current) {
+                    try {
+                        this.iframeRef.current.contentWindow?.postMessage(
+                            {
+                                type: "reset-viewport",
+                                initialScale: 1.0,
+                            },
+                            "https://phet.colorado.edu",
+                        );
+                    } catch (e) {
+                        // Welp didn't work too bad.
+                        // eslint-disable-next-line no-console
+                        console.log("Failed to send reset message:", e);
+                    }
+                }
+            },
+        );
     };
 
     render(): React.ReactNode {
