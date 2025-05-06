@@ -60,7 +60,7 @@ const IssuesPanel = ({warnings = []}: IssuesPanelProps) => {
                             cursor: hasWarnings ? "pointer" : "not-allowed",
                         }}
                     />
-                    <span>Issues Panel</span>
+                    <span>Issues</span>
                 </div>
                 <PhosphorIcon
                     icon={icon}
