@@ -5,7 +5,9 @@ export function isAccessible(
     widgetInfo: PerseusWidget,
     widgetLogic: WidgetExports | undefined,
 ): boolean {
-    if (!widgetLogic) {return false};
+    if (!widgetLogic) {
+        return false;
+    }
     const {accessible} = widgetLogic;
 
     return typeof accessible === "function"

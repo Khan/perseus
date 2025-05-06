@@ -2,8 +2,7 @@
 import {LabelLarge, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
-import PerseusEditorAccordion from "./components/perseus-editor-accordion";
-
+import PerseusEditorAccordion from "./components/perseus-editor-acc
 import type {Issue} from "./issues-panel";
 
 type IssueProps = {
