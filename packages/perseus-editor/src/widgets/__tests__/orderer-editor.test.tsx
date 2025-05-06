@@ -81,4 +81,67 @@ describe("OrdererEditor", () => {
             undefined,
         );
     });
+
+    it.only("sorts options correctly", async () => {
+        const onChangeMock = jest.fn();
+        const editorRef = React.createRef<OrdererEditor>();
+
+        const startWidgetOptions: PerseusOrdererWidgetOptions = {
+            correctOptions: [
+                {
+                    content: "3",
+                    widgets: {},
+                    images: {},
+                },
+                {
+                    content: "$b$",
+                    widgets: {},
+                    images: {},
+                },
+            ],
+            otherOptions: [
+                {
+                    content: "2",
+                    widgets: {},
+                    images: {},
+                },
+                {
+                    content: "1",
+                    widgets: {},
+                    images: {},
+                },
+            ],
+            height: "normal",
+            layout: "horizontal",
+            options: [],
+        };
+
+        render(
+            <OrdererEditor
+                ref={editorRef}
+                onChange={onChangeMock}
+                {...startWidgetOptions}
+            />,
+        );
+
+        const input = screen.getByDisplayValue("1");
+        await userEvent.clear(input);
+        await userEvent.type(input, "a");
+
+        // We should be sorted alphabetically, and then by category:
+        // 1. Numbers
+        // 2. $tex$ (but $tex$ without an initial number)
+        // 3. Everything else
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                options: [
+                    {content: "2"},
+                    {content: "3"},
+                    {content: "$b$"},
+                    {content: "a"},
+                ],
+            }),
+            undefined,
+        );
+    });
 });

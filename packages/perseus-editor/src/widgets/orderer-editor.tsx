@@ -42,29 +42,29 @@ class OrdererEditor extends React.Component<Props> {
             return {content: option};
         });
 
-        // We combine the correct answer and the other cards by merging them,
-        // removing duplicates and empty cards, and sorting them into
-        // categories based on their content
-        const newOptions = _.chain(_.pluck(props.correctOptions, "content"))
-            .union(_.pluck(props.otherOptions, "content"))
-            .uniq()
-            .reject(function (content) {
-                return content === "";
-            })
+        // Get all content items (from both current and updated collections)
+        const allOptions = [
+            ...(whichOptions === "correctOptions"
+                ? props.correctOptions
+                : this.props.correctOptions || []),
+            ...(whichOptions === "otherOptions"
+                ? props.otherOptions
+                : this.props.otherOptions || []),
+        ];
+
+        // Create a unique merged array, filter empty strings, and sort by category
+        const newOptions = [...new Set(allOptions.map((item) => item.content))]
+            .filter((content) => content !== "")
             .sort()
-            .sortBy(function (content) {
-                if (/\d/.test(content)) {
-                    return 0;
-                }
-                if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
-                    return 2;
-                }
-                return 1;
+            .sort((a, b) => {
+                const getCategoryScore = (content) => {
+                    if (/\d/.test(content)) return 0; // Numbers first
+                    if (/^\$?[a-zA-Z]+\$?$/.test(content)) return 2; // $tex$ next
+                    return 1; // Everything else last
+                };
+                return getCategoryScore(a) - getCategoryScore(b);
             })
-            .map(function (content) {
-                return {content: content};
-            })
-            .value();
+            .map((content) => ({content}));
 
         // Update the options with the new options whenever the correct or other options change
         props["options"] = newOptions;
