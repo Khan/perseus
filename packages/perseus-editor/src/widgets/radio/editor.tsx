@@ -102,7 +102,7 @@ type RadioEditorProps = {
     apiOptions: APIOptions;
     countChoices: boolean;
     choices: PerseusRadioChoice[];
-    displayCount?: number;
+    displayCount: number;
     randomize: boolean;
     hasNoneOfTheAbove: boolean;
     multipleSelect: boolean;
