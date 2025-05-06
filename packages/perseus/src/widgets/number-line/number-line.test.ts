@@ -215,7 +215,7 @@ describe("number-line widget", () => {
         ["answerless", getAnswerlessItem("number-line", numberLineOptions)],
         ["answerful", getAnswerfulItem("number-line", numberLineOptions)],
     ])("given %s options", (_, {question}) => {
-        const answerKey = getAnswerfulItem(
+        const correctAnswer = getAnswerfulItem(
             "number-line",
             numberLineOptions,
         ).question;
@@ -231,7 +231,7 @@ describe("number-line widget", () => {
             const [numberLine] = renderer.findWidgets("number-line 1");
             act(() => numberLine.movePosition(-2.5));
             const score = scorePerseusItemTesting(
-                answerKey,
+                correctAnswer,
                 renderer.getUserInputMap(),
             );
 
@@ -250,7 +250,7 @@ describe("number-line widget", () => {
             const [numberLine] = renderer.findWidgets("number-line 1");
             act(() => numberLine.movePosition(3.5));
             const score = scorePerseusItemTesting(
-                answerKey,
+                correctAnswer,
                 renderer.getUserInputMap(),
             );
 
@@ -267,7 +267,7 @@ describe("number-line widget", () => {
 
             // Act
             const score = scorePerseusItemTesting(
-                answerKey,
+                correctAnswer,
                 renderer.getUserInputMap(),
             );
 
