@@ -19,7 +19,9 @@ import type {
     PerseusOrdererWidgetOptions,
     PerseusOrdererUserInput,
 } from "@khanacademy/perseus-core";
+import type {OrdererPublicWidgetOptions} from "@khanacademy/perseus-core/src/widgets/orderer/orderer-util";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type PlaceholderCardProps = {
     width: number | null | undefined;
@@ -292,7 +294,7 @@ class Card extends React.Component<CardProps, CardState> {
     }
 }
 
-type RenderProps = PerseusOrdererWidgetOptions & {
+type RenderProps = OrdererPublicWidgetOptions & {
     current: any;
 };
 
@@ -319,6 +321,14 @@ type OrdererState = {
     onAnimationEnd?: (arg1: any) => void;
 };
 
+0 as any as WidgetProps<PerseusOrdererWidgetOptions> satisfies PropsFor<
+    typeof Orderer
+>;
+
+0 as any as WidgetProps<OrdererPublicWidgetOptions> satisfies PropsFor<
+    typeof Orderer
+>;
+
 class Orderer
     extends React.Component<OrdererProps, OrdererState>
     implements Widget
@@ -326,7 +336,6 @@ class Orderer
     static defaultProps: OrdererDefaultProps = {
         current: [],
         options: [],
-        correctOptions: [],
         height: "normal",
         layout: "horizontal",
         linterContext: linterContextDefault,
