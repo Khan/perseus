@@ -52,11 +52,16 @@ class OrdererEditor extends React.Component<Props> {
                 : this.props.otherOptions || []),
         ];
 
-        // Create a unique merged array, filter empty strings, sort alphabetically,
-        // and then finally sort by category: Numbers, $tex$, and everything else
-        const newOptions = [...new Set(allOptions.map((item) => item.content))]
-            .filter((content) => content !== "")
-            .sort()
+        // Get unique content items and filter out empty strings
+        const contentArray = [
+            ...new Set(allOptions.map((item) => item.content)),
+        ].filter((content) => content !== "");
+
+        // Alphabetical sort
+        const alphaSorted = [...contentArray].sort();
+
+        // Category sort
+        const newOptions = [...alphaSorted]
             .sort((a, b) => {
                 const getCategoryScore = (content) => {
                     // 1. Numbers
