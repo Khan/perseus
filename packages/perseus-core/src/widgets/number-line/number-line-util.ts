@@ -7,6 +7,7 @@ type NumberLinePublicWidgetOptions = Pick<
     | "labelStyle"
     | "labelTicks"
     | "isTickCtrl"
+    | "isInequality"
     | "divisionRange"
     | "numDivisions"
     | "snapDivisions"
