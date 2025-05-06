@@ -11,7 +11,7 @@
 import {
     Errors,
     PerseusError,
-    upgradeWidgetInfoToLatestVersion,
+    applyDefaultsToWidget,
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
 
@@ -55,7 +55,7 @@ const isRawWidgetInfoRenderableBy = function (
 
     // NOTE: This doesn't modify the widget info if the widget info
     // is at a later version than is supported.
-    const upgradedWidgetInfo = upgradeWidgetInfoToLatestVersion(widgetInfo);
+    const upgradedWidgetInfo = applyDefaultsToWidget(widgetInfo);
     return isUpgradedWidgetInfoRenderableBy(
         upgradedWidgetInfo,
         rendererContentVersion[upgradedWidgetInfo.type],

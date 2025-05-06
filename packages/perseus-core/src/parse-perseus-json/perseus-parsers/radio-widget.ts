@@ -1,4 +1,4 @@
-import {deriveNumCorrect} from "../../widgets/radio/radio-upgrade";
+import {deriveNumCorrect} from "../../widgets/radio/derive-num-correct";
 import {
     any,
     array,

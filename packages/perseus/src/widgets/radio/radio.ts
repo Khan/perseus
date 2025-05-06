@@ -127,6 +127,5 @@ export default {
     transform: transform,
     staticTransform: transform,
     version: radioLogic.version,
-    propUpgrades: radioLogic.widgetOptionsUpgrades,
     isLintable: true,
 } satisfies WidgetExports<typeof Radio>;

@@ -4,7 +4,7 @@
 import {
     Errors,
     PerseusError,
-    getUpgradedWidgetOptions,
+    applyDefaultsToWidgets,
     mapObject,
 } from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
@@ -446,7 +446,7 @@ class Renderer
         widgetInfo: State["widgetInfo"];
         widgetProps: State["widgetProps"];
     } = (props: Props) => {
-        const allWidgetInfo = getUpgradedWidgetOptions(props.widgets);
+        const allWidgetInfo = applyDefaultsToWidgets(props.widgets);
         return {
             widgetInfo: allWidgetInfo,
             widgetProps: this._getAllWidgetsStartProps(allWidgetInfo, props),

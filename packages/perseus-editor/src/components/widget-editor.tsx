@@ -8,7 +8,7 @@ import {
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
-    upgradeWidgetInfoToLatestVersion,
+    applyDefaultsToWidget,
 } from "@khanacademy/perseus-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
@@ -49,7 +49,7 @@ const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
     const filteredProps = _.omit(props, WIDGET_PROP_DENYLIST);
-    return upgradeWidgetInfoToLatestVersion(filteredProps as any);
+    return applyDefaultsToWidget(filteredProps as any);
 };
 
 // This component handles upgading widget editor props via prop
