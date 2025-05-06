@@ -41,6 +41,33 @@ class OrdererEditor extends React.Component<Props> {
         props[whichOptions] = _.map(options, function (option) {
             return {content: option};
         });
+
+        // We combine the correct answer and the other cards by merging them,
+        // removing duplicates and empty cards, and sorting them into
+        // categories based on their content
+        const newOptions = _.chain(_.pluck(props.correctOptions, "content"))
+            .union(_.pluck(props.otherOptions, "content"))
+            .uniq()
+            .reject(function (content) {
+                return content === "";
+            })
+            .sort()
+            .sortBy(function (content) {
+                if (/\d/.test(content)) {
+                    return 0;
+                }
+                if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
+                    return 2;
+                }
+                return 1;
+            })
+            .map(function (content) {
+                return {content: content};
+            })
+            .value();
+
+        // Update the options with the new options whenever the correct or other options change
+        props["options"] = newOptions;
         this.props.onChange(props, cb);
     };
 

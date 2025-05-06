@@ -90,11 +90,27 @@ describe("EditorPage", () => {
         await userEvent.clear(input);
         await userEvent.type(input, altImageTyped);
 
-        expect(onChangeMock).toHaveBeenLastCalledWith(
-            {
-                correctOptions: [{content: altImage}],
-            },
-            undefined,
+        // Verify the mock was called
+        expect(onChangeMock).toHaveBeenCalled();
+
+        // Get the widget options directly to avoid having to mock the entire PerseusItem
+        const widgetOptions =
+            onChangeMock.mock.lastCall[0].question.widgets["orderer 1"].options;
+
+        // Verify the options were updated correctly
+        expect(widgetOptions).toEqual(
+            expect.objectContaining({
+                correctOptions: [
+                    {
+                        content: altImage,
+                    },
+                ],
+                options: [
+                    {
+                        content: altImage,
+                    },
+                ],
+            }),
         );
     });
 });
