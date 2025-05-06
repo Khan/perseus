@@ -1,170 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`image widget - isMobile %b should snapshot: first render 1`] = `
-<div>
-  <div
-    class="perseus-renderer perseus-renderer-responsive perseus-renderer-two-columns"
-  >
-    <div
-      class="paragraph"
-      data-perseus-paragraph-index="0"
-    >
-      <div
-        class="perseus-two-columns"
-      >
-        <div
-          class="perseus-column"
-        >
-          <div
-            class="perseus-column-content"
-          >
-            <div
-              class="paragraph"
-            >
-              <div
-                class="perseus-widget-container widget-nohighlight widget-block"
-              >
-                <figure
-                  class="perseus-image-widget"
-                  style="max-width: 420px;"
-                >
-                  <div
-                    class="fixed-to-responsive svg-image"
-                    style="max-width: 420px; max-height: 345px;"
-                  >
-                    <div
-                      style="padding-bottom: 82.14%;"
-                    />
-                    <span
-                      style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
-                    >
-                      <div
-                        class="default_xu2jcg-o_O-spinnerContainer_agrn11"
-                      >
-                        <svg
-                          height="48"
-                          viewBox="0 0 48 48"
-                          width="48"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
-                            d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
-                            fill-rule="nonzero"
-                          />
-                        </svg>
-                      </div>
-                    </span>
-                  </div>
-                  <figcaption
-                    class="perseus-image-caption has-title"
-                    style="max-width: 420px;"
-                  >
-                    <div>
-                      <div
-                        class="perseus-renderer perseus-renderer-responsive"
-                      >
-                        <div
-                          class="paragraph"
-                          data-perseus-paragraph-index="0"
-                        >
-                          <div
-                            class="paragraph"
-                          >
-                            <strong>
-                              Image Title.
-                            </strong>
-                             Image Caption
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </figcaption>
-                </figure>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="perseus-column"
-        >
-          <div
-            class="perseus-column-content"
-          >
-            <div
-              class="paragraph"
-            >
-              A quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights 
-              <span
-                style="white-space: nowrap;"
-              >
-                <span />
-                <span
-                  class="mock-TeX"
-                >
-                  A:B
-                </span>
-                <span />
-              </span>
-               and 
-              <span
-                style="white-space: nowrap;"
-              >
-                <span />
-                <span
-                  class="mock-TeX"
-                >
-                  B:C
-                </span>
-                <span />
-              </span>
-               to each equal 
-              <span
-                style="white-space: nowrap;"
-              >
-                <span />
-                <span
-                  class="mock-TeX"
-                >
-                  1.62
-                </span>
-                <span />
-              </span>
-              . If the quilter makes the triangle height 
-              <span
-                style="white-space: nowrap;"
-              >
-                <span />
-                <span
-                  class="mock-TeX"
-                >
-                  A=8\\ \\text{in}
-                </span>
-                <span />
-              </span>
-              , approximately how tall should he make triangle height 
-              <span
-                style="white-space: nowrap;"
-              >
-                <span />
-                <span
-                  class="mock-TeX"
-                >
-                  C
-                </span>
-                <span />
-              </span>
-              ?
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`image widget - isMobile %b should snapshot: first render 2`] = `
+exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive perseus-renderer-two-columns"
@@ -253,6 +89,170 @@ exports[`image widget - isMobile %b should snapshot: first render 2`] = `
                           class="paragraph"
                         >
                           Image Caption
+                        </div>
+                      </div>
+                    </div>
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="perseus-column"
+        >
+          <div
+            class="perseus-column-content"
+          >
+            <div
+              class="paragraph"
+            >
+              A quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights 
+              <span
+                style="white-space: nowrap;"
+              >
+                <span />
+                <span
+                  class="mock-TeX"
+                >
+                  A:B
+                </span>
+                <span />
+              </span>
+               and 
+              <span
+                style="white-space: nowrap;"
+              >
+                <span />
+                <span
+                  class="mock-TeX"
+                >
+                  B:C
+                </span>
+                <span />
+              </span>
+               to each equal 
+              <span
+                style="white-space: nowrap;"
+              >
+                <span />
+                <span
+                  class="mock-TeX"
+                >
+                  1.62
+                </span>
+                <span />
+              </span>
+              . If the quilter makes the triangle height 
+              <span
+                style="white-space: nowrap;"
+              >
+                <span />
+                <span
+                  class="mock-TeX"
+                >
+                  A=8\\ \\text{in}
+                </span>
+                <span />
+              </span>
+              , approximately how tall should he make triangle height 
+              <span
+                style="white-space: nowrap;"
+              >
+                <span />
+                <span
+                  class="mock-TeX"
+                >
+                  C
+                </span>
+                <span />
+              </span>
+              ?
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive perseus-renderer-two-columns"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="perseus-two-columns"
+      >
+        <div
+          class="perseus-column"
+        >
+          <div
+            class="perseus-column-content"
+          >
+            <div
+              class="paragraph"
+            >
+              <div
+                class="perseus-widget-container widget-nohighlight widget-block"
+              >
+                <figure
+                  class="perseus-image-widget"
+                  style="max-width: 420px;"
+                >
+                  <div
+                    class="fixed-to-responsive svg-image"
+                    style="max-width: 420px; max-height: 345px;"
+                  >
+                    <div
+                      style="padding-bottom: 82.14%;"
+                    />
+                    <span
+                      style="top: 0px; left: 0px; width: 100%; height: 100%; position: absolute; min-width: 20px; display: flex; justify-content: center; align-content: center;"
+                    >
+                      <div
+                        class="default_xu2jcg-o_O-spinnerContainer_agrn11"
+                      >
+                        <svg
+                          height="48"
+                          viewBox="0 0 48 48"
+                          width="48"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            class="loadingSpinner_1dvgeb3-o_O-inlineStyles_8njutv"
+                            d="M44.19 23.455a1.91 1.91 0 1 1 3.801 0h.003c.004.18.006.363.006.545 0 13.255-10.745 24-24 24S0 37.255 0 24 10.745 0 24 0c.182 0 .364.002.545.006V.01a1.91 1.91 0 1 1 0 3.801v.015A20.564 20.564 0 0 0 24 3.818C12.854 3.818 3.818 12.854 3.818 24c0 11.146 9.036 20.182 20.182 20.182 11.146 0 20.182-9.036 20.182-20.182 0-.182-.003-.364-.007-.545h.015z"
+                            fill-rule="nonzero"
+                          />
+                        </svg>
+                      </div>
+                    </span>
+                  </div>
+                  <figcaption
+                    class="perseus-image-caption has-title"
+                    style="max-width: 420px;"
+                  >
+                    <div>
+                      <div
+                        class="perseus-renderer perseus-renderer-responsive"
+                      >
+                        <div
+                          class="paragraph"
+                          data-perseus-paragraph-index="0"
+                        >
+                          <div
+                            class="paragraph"
+                          >
+                            <strong>
+                              Image Title.
+                            </strong>
+                             Image Caption
+                          </div>
                         </div>
                       </div>
                     </div>
