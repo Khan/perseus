@@ -1261,7 +1261,9 @@ export type PerseusNumberLineWidgetOptions = {
     snapDivisions: number;
     // This controls the number (and position) of the tick marks; you can either set the number of divisions (2 divisions would split the entire range in two halves), or the tick step (the distance between ticks) and the other value will be updated accordingly. Note:  There is no check to see if labels coordinate with the tick marks, which may be confusing for users if the blue labels and black ticks are off-step.
     tickStep?: number | null;
-    // The correct relative value. default: "eq". options: "eq", "lt", "gt", "le", "ge"
+    // The answer to a NumberLine widget is a set of real numbers.
+    // `correctRel` expresses the relationship between the numbers in that set
+    // and the value of `correctX`.
     correctRel?: "eq" | "lt" | "gt" | "le" | "ge";
     // This is the correct answer. The answer is validated (as right or wrong) by using only the end position of the point and the relation (=, &lt;, &gt;, ≤, ≥).
     correctX: number | null;
