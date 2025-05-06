@@ -18,8 +18,6 @@ type StoryArgs = {
     item: PerseusItem;
     // Radio Options
     static: boolean;
-    // API Options
-    crossOutEnabled: boolean;
     // Testing Options
     startAnswerless: boolean;
 } & Pick<
@@ -40,7 +38,6 @@ export default {
         static: false,
         // Requires a page refresh for toggling this to affect the story
         startAnswerless: false,
-        crossOutEnabled: false,
         reviewMode: false,
         showSolutions: "none",
         item: generateTestPerseusItem({
@@ -89,7 +86,6 @@ const applyStoryArgs = (args: StoryArgs): PerseusItem => {
 };
 
 const buildApiOptions = (args: StoryArgs): APIOptions => ({
-    crossOutEnabled: args.crossOutEnabled,
     flags: {
         "new-radio-widget": true,
     },

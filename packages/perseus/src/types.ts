@@ -274,15 +274,6 @@ export type APIOptions = Readonly<{
      */
     canScrollPage?: boolean;
     /**
-     * Whether to enable the cross-out feature on multiple-choice radio
-     * widgets. This allows users to note which answers they believe to
-     * be incorrect, to find the answer by process of elimination.
-     *
-     * We plan to roll this out to all call sites eventually, but for
-     * now we have this flag, to add it to Generalized Test Prep first.
-     */
-    crossOutEnabled?: boolean;
-    /**
      * The value in milliseconds by which the local state of content
      * in a editor is delayed before propagated to a prop. For example,
      * when text is typed in the text area of an Editor component,
@@ -433,7 +424,6 @@ export type APIOptionsWithDefaults = Readonly<
     APIOptions & {
         baseElements: NonNullable<APIOptions["baseElements"]>;
         canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
-        crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
         editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
         groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
