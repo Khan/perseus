@@ -82,7 +82,7 @@ describe("OrdererEditor", () => {
         );
     });
 
-    it.only("sorts options correctly", async () => {
+    it("sorts options correctly", async () => {
         const onChangeMock = jest.fn();
         const editorRef = React.createRef<OrdererEditor>();
 
