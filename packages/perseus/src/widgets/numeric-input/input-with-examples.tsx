@@ -46,7 +46,7 @@ type Props = {
 const InputWithExamples = forwardRef<
     React.RefObject<typeof InputWithExamples>,
     Props
->((props, ref) => {
+>(function InputWithExamples(props, ref) {
     // Desctructure the props to set default values
     const {
         shouldShowExamples = true,

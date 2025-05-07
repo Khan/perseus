@@ -91,7 +91,7 @@ const Renderer = React.forwardRef<
         apiOptions: APIOptions;
         extraProps?: PropsFor<typeof Perseus.Renderer>;
     }
->((props, ref) => {
+>(function RendererWithDependencies(props, ref) {
     const dependencies = useDependencies();
     return (
         <Perseus.Renderer
