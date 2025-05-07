@@ -58,20 +58,14 @@ class OrdererEditor extends React.Component<Props> {
         const allOptions = [...correctOptionsToUse, ...otherOptionsToUse];
 
         // Get unique content items
-        const contentArray = [
+        const updatedOptions = [
             ...new Set(allOptions.map((item) => item.content)),
-        ];
-
-        // filter out empty strings
-        const filteredContentArray = [...contentArray].filter(
-            (content) => content !== "",
-        );
-
-        // Alphabetical sort
-        const alphaSorted = [...filteredContentArray].sort();
-
-        // Category sort
-        const newOptions = [...alphaSorted]
+        ]
+            // filter out empty strings
+            .filter((content) => content !== "")
+            // Alphabetical sort
+            .sort()
+            // Category sort
             .sort((a, b) => {
                 const getCategoryScore = (content) => {
                     // 1. Any content that contains numbers
@@ -90,7 +84,7 @@ class OrdererEditor extends React.Component<Props> {
             .map((content) => ({content}));
 
         // Update the options with the new options whenever the correct or other options change
-        props["options"] = newOptions;
+        props["options"] = updatedOptions;
         this.props.onChange(props, cb);
     };
 
