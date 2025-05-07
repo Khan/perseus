@@ -28,6 +28,8 @@ describe("generateTestPerseusRenderer", () => {
         const instance2 = generateTestPerseusRenderer();
 
         // Act
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         instance1.images["https://example.com/image.png"] = {
             width: 42,
             height: 42,
@@ -105,6 +107,8 @@ describe("generateTestPerseusItem", () => {
 
         // Act
         if (instance1.answerArea) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             instance1.answerArea.calculator = true;
         }
 
