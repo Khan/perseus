@@ -12,7 +12,8 @@ import {KeypadContext} from "@khanacademy/keypad-context";
 import {KeypadInput, keypadElementPropType} from "@khanacademy/math-input";
 import PropTypes from "prop-types";
 import * as React from "react";
-import {NumericInputHandle} from "../types";
+
+import type {NumericInputHandle} from "../types";
 
 export default class SimpleKeypadInput
     extends React.Component<any>
@@ -23,10 +24,6 @@ export default class SimpleKeypadInput
     _isMounted = false;
     inputRef = React.createRef<KeypadInput>();
 
-    get current() {
-        return this.inputRef.current;
-    }
-
     componentDidMount() {
         // TODO(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
@@ -35,6 +32,10 @@ export default class SimpleKeypadInput
 
     componentWillUnmount() {
         this._isMounted = false;
+    }
+
+    get current() {
+        return this.inputRef.current;
     }
 
     focus() {

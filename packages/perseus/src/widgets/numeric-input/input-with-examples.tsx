@@ -10,9 +10,9 @@ import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
+import type {NumericInputHandle} from "../../types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
-import {NumericInputHandle} from "../../types";
 
 const {captureScratchpadTouchStart} = Util;
 
