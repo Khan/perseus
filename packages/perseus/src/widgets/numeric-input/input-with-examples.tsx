@@ -10,7 +10,7 @@ import {ClassNames as ApiClassNames} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
-import type {NumericInputHandle} from "../../types";
+import type {Focusable} from "../../types";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
@@ -44,7 +44,7 @@ type Props = {
  * for the desktop versions of these widgets, and displays a tooltip with
  * examples of how to input the selected answer forms.
  */
-const InputWithExamples = forwardRef<NumericInputHandle, Props>(
+const InputWithExamples = forwardRef<Focusable, Props>(
     (
         {
             shouldShowExamples = true,

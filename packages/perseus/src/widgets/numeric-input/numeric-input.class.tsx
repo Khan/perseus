@@ -10,7 +10,7 @@ import {unionAnswerForms} from "./utils";
 
 import type {
     FocusPath,
-    NumericInputHandle,
+    Focusable,
     Widget,
     WidgetExports,
     WidgetProps,
@@ -81,7 +81,7 @@ export class NumericInput
     extends React.Component<NumericInputProps>
     implements Widget
 {
-    inputRef = React.createRef<NumericInputHandle>();
+    inputRef = React.createRef<Focusable>();
 
     static defaultProps: DefaultProps = {
         currentValue: "",
