@@ -15,6 +15,7 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import {phoneMargin} from "../../styles/constants";
+import {isFileProtocol} from "../../util/mobile-native-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/phet-simulation/phet-simulation-ai-utils";
 
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
@@ -180,9 +181,10 @@ export class PhetSimulation
         // We handle mobile fullscreen differently, as many mobile browsers
         // and apps don't support the fullscreen API. Instead, we use our own
         // fake fullscreen implementation to take up the full webview.
-        const isMobile = apiOptions?.isMobile || false;
+        const isMobile = apiOptions?.isMobile || true;
         const {isFullScreen} = this.state;
-
+        const {InitialRequestUrl} = getDependencies();
+        const isMobileNative = isFileProtocol(InitialRequestUrl.protocol);
         // We sandbox the iframe so that we allowlist only the functionality
         // that we need. This makes it safer to present third-party content
         // from the PhET website.
@@ -229,7 +231,7 @@ export class PhetSimulation
                 </View>
                 {this.state.url !== null && (
                     <View style={styles.buttonContainer}>
-                        {isFullScreen && isMobile ? (
+                        {isFullScreen && isMobileNative ? (
                             <IconButton
                                 icon={xIcon}
                                 onClick={this.toggleFullScreen}
@@ -242,7 +244,7 @@ export class PhetSimulation
                             <IconButton
                                 icon={cornersOutIcon}
                                 onClick={
-                                    isMobile
+                                    isMobileNative
                                         ? this.toggleFullScreen
                                         : () => {
                                               this.iframeRef.current?.requestFullscreen();
@@ -292,8 +294,7 @@ const styles = StyleSheet.create({
         height: "100%",
         zIndex: 1000,
         backgroundColor: "white",
-        padding: "0 0 120px 0",
-        margin: 0,
+        margin: "0 0 120px 0",
         display: "flex",
         flexDirection: "column",
     },
