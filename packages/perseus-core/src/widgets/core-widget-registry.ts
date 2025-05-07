@@ -1,3 +1,5 @@
+import type {PerseusWidgetOptions} from "../data-schema";
+
 import categorizerWidgetLogic from "./categorizer";
 import csProgramWidgetLogic from "./cs-program";
 import definitionWidgetLogic from "./definition";
@@ -36,9 +38,8 @@ import type {
     WidgetLogic,
 } from "./logic-export.types";
 import type {Alignment} from "../types";
-import { PerseusWidgetOptions } from "../data-schema";
 
-const widgets:Record<string, WidgetLogic> = {};
+const widgets: Record<string, WidgetLogic> = {};
 
 function registerWidget(type: string, logic: WidgetLogic) {
     widgets[type] = logic;
@@ -72,7 +73,10 @@ export function getDefaultWidgetOptions(type: string) {
     return widgetLogic?.defaultWidgetOptions || {};
 }
 
-export function isAccessible(type: string, widgetOptions: PerseusWidgetOptions):boolean {
+export function isAccessible(
+    type: string,
+    widgetOptions: PerseusWidgetOptions,
+): boolean {
     const widgetLogic = widgets[type];
 
     if (!widgetLogic) {
