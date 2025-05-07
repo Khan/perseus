@@ -305,6 +305,7 @@ class EditorPage extends React.Component<Props, State> {
                         apiOptions={deviceBasedApiOptions}
                         previewURL={this.props.previewURL}
                         highlightLint={this.state.highlightLint}
+                        widgetIsOpen={this.state.widgetsAreOpen}
                     />
                 )}
             </div>

@@ -326,6 +326,8 @@ describe("server item renderer", () => {
 
             // We need to mock the getBoundingClientRect() method for our
             // onFocusChange() callback to work properly.
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             keypadElementDOMNode.getBoundingClientRect = () =>
                 ({
                     height: 250,
@@ -395,6 +397,8 @@ describe("server item renderer", () => {
 
             // We need to mock the getBoundingClientRect() method for our
             // onFocusChange() callback to work properly.
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             keypadElementDOMNode.getBoundingClientRect = () =>
                 ({
                     height: 250,

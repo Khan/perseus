@@ -14,6 +14,9 @@ import {
 import "./global.less";
 import "./reset.css";
 
+// Import the Wonder Blocks CSS variables
+import "@khanacademy/wonder-blocks-tokens/styles.css";
+
 import type {Preview} from "@storybook/react";
 
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.

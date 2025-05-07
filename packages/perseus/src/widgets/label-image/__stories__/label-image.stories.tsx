@@ -31,6 +31,8 @@ const applyStoryArgs = (
             },
         };
 
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         q.widgets[widgetId] = {
             ...modified,
         };

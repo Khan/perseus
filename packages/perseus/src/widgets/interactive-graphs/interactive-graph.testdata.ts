@@ -976,6 +976,8 @@ export const staticGraphQuestionWithAnotherWidget: () => PerseusRenderer =
             )
             .withStaticMode(true)
             .build();
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         result["widgets"] = {
             ...result["widgets"],
             "radio 1": {
@@ -1021,6 +1023,8 @@ export const staticGraphQuestionWithAnotherWidget: () => PerseusRenderer =
                 alignment: "default",
             } as RadioWidget,
         };
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         result["content"] = "[[\u2603 radio 1]]\n\n" + result["content"];
         return result;
     };

@@ -1,4 +1,4 @@
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Mafs, Polygon} from "mafs";
 import React from "react";
@@ -83,10 +83,12 @@ describe("hasFocusVisible", () => {
             </Mafs>,
         );
         const polygon = ref.current;
-        if (polygon) {
-            await userEvent.tab();
-            await userEvent.tab();
-        }
+        await act(async () => {
+            if (polygon) {
+                await userEvent.tab();
+                await userEvent.tab();
+            }
+        });
 
         expect(polygon).toBeInTheDocument();
         expect(polygon).toHaveFocus();
@@ -113,7 +115,7 @@ describe("hasFocusVisible", () => {
         );
         const polygon = ref.current;
         if (polygon) {
-            await userEvent.tab();
+            await act(async () => await userEvent.tab());
         }
 
         expect(polygon).toBeInTheDocument();
@@ -328,10 +330,12 @@ describe.each`
                 const movingElement = interactiveElements[index];
 
                 // Act - Move the element
-                movingElement.focus();
+                act(() => movingElement.focus());
                 await userEvent.keyboard("{ArrowRight}");
 
                 const expectedAriaLive = ["off", "off", "off", "off"];
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 expectedAriaLive[index] = "polite";
 
                 // Assert
@@ -547,10 +551,12 @@ describe("Unlimited Polygon (open) screen reader", () => {
             const movingElement = interactiveElements[index];
 
             // Act - Move the element
-            movingElement.focus();
+            act(() => movingElement.focus());
             await userEvent.keyboard("{ArrowRight}");
 
             const expectedAriaLive = ["off", "off", "off", "off"];
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             expectedAriaLive[index] = "polite";
 
             // Assert

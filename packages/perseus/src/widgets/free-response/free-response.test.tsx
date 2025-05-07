@@ -57,9 +57,7 @@ describe("free-response widget", () => {
 
     it("should render the character limit when not allowing unlimited characters", () => {
         // Arrange
-        const data = getFreeResponseItemData();
-        data.widgets["free-response 1"].options.allowUnlimitedCharacters =
-            false;
+        const data = getFreeResponseItemData({allowUnlimitedCharacters: false});
 
         // Act
         renderQuestion(data, {});
@@ -70,8 +68,7 @@ describe("free-response widget", () => {
 
     it("should not render the character limit when allowing unlimited characters", () => {
         // Arrange
-        const data = getFreeResponseItemData();
-        data.widgets["free-response 1"].options.allowUnlimitedCharacters = true;
+        const data = getFreeResponseItemData({allowUnlimitedCharacters: true});
 
         // Act
         renderQuestion(data, {});
@@ -82,8 +79,7 @@ describe("free-response widget", () => {
 
     it("should ignore newline characters when rendering the character limit", async () => {
         // Arrange
-        const data = getFreeResponseItemData();
-        data.widgets["free-response 1"].options.characterLimit = 10;
+        const data = getFreeResponseItemData({characterLimit: 10});
 
         // Act
         renderQuestion(data, {});

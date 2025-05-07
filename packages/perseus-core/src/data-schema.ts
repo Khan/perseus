@@ -1253,6 +1253,7 @@ export type PerseusNumberLineWidgetOptions = {
     labelTicks: boolean;
     // Show tick controller
     isTickCtrl?: boolean | null;
+    isInequality: boolean;
     // The range of divisions within the line
     divisionRange: number[];
     // This controls the number (and position) of the tick marks. The number of divisions is constrained to the division range. Note:  The user will be able to specify the number of divisions in a number input.

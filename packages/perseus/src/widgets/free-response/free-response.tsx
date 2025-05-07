@@ -17,8 +17,10 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
-import type {PerseusFreeResponseWidgetOptions} from "@khanacademy/perseus-core";
-import type {PerseusFreeResponseUserInput} from "@khanacademy/perseus-score";
+import type {
+    PerseusFreeResponseUserInput,
+    PerseusFreeResponseWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 type RenderProps = Pick<
     PerseusFreeResponseWidgetOptions,

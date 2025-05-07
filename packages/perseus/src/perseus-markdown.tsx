@@ -367,8 +367,12 @@ const getContent = (ast: any) => {
     const nestedContent = getContent(children);
     if (ast.type === "paragraph" && nestedContent.length) {
         // Trim whitespace before or after a paragraph
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         nestedContent[0] = nestedContent[0].replace(/^\s+/, "");
         const last = nestedContent.length - 1;
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         nestedContent[last] = nestedContent[last].replace(/\s+$/, "");
     }
     return nestedContent;

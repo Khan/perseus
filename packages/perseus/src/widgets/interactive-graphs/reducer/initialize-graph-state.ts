@@ -455,12 +455,16 @@ export const getAngleCoords = (params: {
     const coords: [Coord, Coord, Coord] = [...defaultCoords, [0, 0]];
 
     // Adjust the lower point by angleOffsetDeg degrees
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     coords[0] = [
         coords[1][0] + radius * Math.cos(offset),
         coords[1][1] + radius * Math.sin(offset),
     ];
     // Position the upper point angle radians from the
     // lower point
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     coords[2] = [
         coords[1][0] + radius * Math.cos(angle + offset),
         coords[1][1] + radius * Math.sin(angle + offset),

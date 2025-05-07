@@ -8,7 +8,6 @@ import {
 import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import $ from "jquery";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Raphael from "raphael";
 
 // Minify Raphael ourselves because IE8 has a problem with the 1.5.2 minified
@@ -1769,6 +1768,8 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
             padding: `${newPadding}px`,
         };
         if (scale !== 1) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             styling["fontSize"] = `${Math.round(scale * 100) / 100}%`;
         }
         $span.css(styling);

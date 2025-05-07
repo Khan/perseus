@@ -149,6 +149,8 @@ export function getAnswerfulItem<T extends keyof PerseusWidgetTypes>(
         options,
     };
     const widgets = {};
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     widgets[widgetName] = widget;
     const question: PerseusRenderer = {
         content: `[[☃ ${widgetName}]]`,

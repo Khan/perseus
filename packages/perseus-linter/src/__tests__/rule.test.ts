@@ -75,6 +75,8 @@ the previous heading was level ${previousHeading.level}`;
             rules.forEach((r) => {
                 const lint = r.check(node, state, content, undefined);
                 if (lint) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     warnings.push(lint);
                 }
             });

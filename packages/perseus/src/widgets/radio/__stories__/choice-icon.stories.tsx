@@ -146,6 +146,8 @@ export const Incorrect = (args: StoryArgs): React.ReactElement => {
 
 export const AllPositions = (args: StoryArgs): React.ReactElement => {
     // @ts-expect-error [FEI-5003] - TS2554 - Expected 1-3 arguments, but got 0.
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     const allLetters = Array(26).fill();
     return (
         <Panel>

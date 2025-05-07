@@ -10,7 +10,7 @@ import {question} from "./image.testdata";
 
 import type {APIOptions} from "../../types";
 
-describe.each([true, false])("image widget - isMobile %b", (isMobile) => {
+describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
     const apiOptions: APIOptions = {isMobile};
 
     beforeEach(() => {
@@ -19,6 +19,8 @@ describe.each([true, false])("image widget - isMobile %b", (isMobile) => {
         );
 
         // Mocked for loading graphie in svg-image
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 text: () => "",

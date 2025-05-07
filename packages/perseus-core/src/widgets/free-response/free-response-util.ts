@@ -1,4 +1,4 @@
-import type {PerseusFreeResponseWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusFreeResponseWidgetOptions} from "../../data-schema";
 
 /**
  * For details on the individual options, see the

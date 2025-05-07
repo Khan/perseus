@@ -1,6 +1,11 @@
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
-export function getFreeResponseItemData(): PerseusRenderer {
+interface Options {
+    allowUnlimitedCharacters?: boolean;
+    characterLimit?: number;
+}
+
+export function getFreeResponseItemData(options?: Options): PerseusRenderer {
     return {
         content: "[[\u2603 free-response 1]]\n",
         images: {},
@@ -11,8 +16,9 @@ export function getFreeResponseItemData(): PerseusRenderer {
                 static: false,
                 type: "free-response",
                 options: {
-                    allowUnlimitedCharacters: false,
-                    characterLimit: 500,
+                    allowUnlimitedCharacters:
+                        options?.allowUnlimitedCharacters ?? false,
+                    characterLimit: options?.characterLimit ?? 500,
                     placeholder: "test-placeholder",
                     question: "test-question",
                     scoringCriteria: [
