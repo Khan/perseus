@@ -1,5 +1,3 @@
-import * as PureMarkdown from "@khanacademy/pure-markdown";
-
 import absoluteUrlRule from "../rules/absolute-url";
 import blockquotedMathRule from "../rules/blockquoted-math";
 import blockquotedWidgetRule from "../rules/blockquoted-widget";
@@ -32,77 +30,10 @@ import tableMissingCellsRule from "../rules/table-missing-cells";
 import unbalancedCodeDelimitersRule from "../rules/unbalanced-code-delimiters";
 import unescapedDollarRule from "../rules/unescaped-dollar";
 import widgetInTableRule from "../rules/widget-in-table";
-import TreeTransformer from "../tree-transformer";
 
-type Rule = any;
+import {expectPass, expectWarning, testRule} from "./test-utils";
 
 describe("Individual lint rules tests", () => {
-    function testRule(
-        rule: Rule,
-        markdown: string,
-        context,
-    ): {message: string}[] | null {
-        const tree = PureMarkdown.parse(markdown);
-        const tt = new TreeTransformer(tree);
-        const warnings = [];
-
-        // The markdown parser often outputs adjacent text nodes. We
-        // coalesce them before linting for efficiency and accuracy.
-        tt.traverse((node, state, content) => {
-            if (TreeTransformer.isTextNode(node)) {
-                let next = state.nextSibling();
-                while (TreeTransformer.isTextNode(next)) {
-                    // @ts-expect-error - TS2339 - Property 'content' does not exist on type 'TreeNode'. | TS2533 - Object is possibly 'null' or 'undefined'. | TS2339 - Property 'content' does not exist on type 'TreeNode'.
-                    node.content += next.content;
-                    state.removeNextSibling();
-                    next = state.nextSibling();
-                }
-            }
-        });
-
-        if (context) {
-            context.content = markdown;
-        } else {
-            context = {
-                content: markdown,
-                widgets: {},
-            };
-        }
-        tt.traverse((node, state, content) => {
-            const check = rule.check(node, state, content, context);
-            if (check) {
-                // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-                warnings.push(check);
-            }
-        });
-
-        return warnings.length === 0 ? null : warnings;
-    }
-
-    function expectWarning(rule, strings: string | Array<string>, context?) {
-        if (typeof strings === "string") {
-            strings = [strings];
-        }
-
-        it(`Rule ${rule.name} warns`, () => {
-            for (const string of strings) {
-                expect(testRule(rule, string, context) !== null).toBeTruthy();
-            }
-        });
-    }
-
-    function expectPass(rule, strings: string | Array<string>, context?) {
-        if (typeof strings === "string") {
-            strings = [strings];
-        }
-
-        it(`Rule ${rule.name} passes`, () => {
-            for (const string of strings) {
-                expect(testRule(rule, string, context) === null).toBeTruthy();
-            }
-        });
-    }
-
     // 299 characters
     const sentence = new Array(25).fill("lorem ipsum").join(" ");
 
