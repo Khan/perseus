@@ -2,16 +2,18 @@ import {parse} from "@khanacademy/pure-markdown";
 
 import TreeTransformer from "../tree-transformer";
 
-type Rule = any;
+import type Rule from "../rule";
+
+type CheckReturnType = ReturnType<InstanceType<typeof Rule>["check"]>;
 
 export function testRule(
     rule: Rule,
     markdown: string,
     context,
-): {message: string}[] | null {
+): CheckReturnType[] | null {
     const tree = parse(markdown);
     const tt = new TreeTransformer(tree);
-    const warnings = [];
+    const warnings: CheckReturnType[] = [];
 
     // The markdown parser often outputs adjacent text nodes. We
     // coalesce them before linting for efficiency and accuracy.
@@ -38,7 +40,6 @@ export function testRule(
     tt.traverse((node, state, content) => {
         const check = rule.check(node, state, content, context);
         if (check) {
-            // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
             warnings.push(check);
         }
     });
@@ -51,10 +52,8 @@ export function expectWarning(rule, strings: string | Array<string>, context?) {
         strings = [strings];
     }
 
-    it(`Rule ${rule.name} warns`, () => {
-        for (const string of strings) {
-            expect(testRule(rule, string, context) !== null).toBeTruthy();
-        }
+    it.each(strings)(`Rule ${rule.name} warns with: %s`, (string) => {
+        expect(testRule(rule, string, context)).not.toBeNull();
     });
 }
 
@@ -63,9 +62,7 @@ export function expectPass(rule, strings: string | Array<string>, context?) {
         strings = [strings];
     }
 
-    it(`Rule ${rule.name} passes`, () => {
-        for (const string of strings) {
-            expect(testRule(rule, string, context) === null).toBeTruthy();
-        }
+    it.each(strings)(`Rule ${rule.name} passes with: %s`, (string) => {
+        expect(testRule(rule, string, context)).toBeNull();
     });
 }
