@@ -15,7 +15,12 @@ import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
-import type {UniversalWidgetProps, Widget, WidgetExports} from "../../types";
+import type {
+    ChangeFn,
+    UniversalWidgetProps,
+    Widget,
+    WidgetExports,
+} from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 import type {
     PerseusCategorizerWidgetOptions,
@@ -68,8 +73,7 @@ export class Categorizer
         return {values: props.values};
     }
 
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+    change: (...args: Parameters<ChangeFn>) => any = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
