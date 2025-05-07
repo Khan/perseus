@@ -608,7 +608,7 @@ export type SharedRendererProps = {
     linterContext: LinterContextProps;
 };
 
-export interface NumericInputHandle {
+export interface Focusable {
     focus: () => void;
     blur: () => void;
 }
