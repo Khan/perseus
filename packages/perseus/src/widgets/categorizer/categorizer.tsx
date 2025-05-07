@@ -33,6 +33,8 @@ interface InternalProps extends UniversalWidgetProps {
 
 type ExternalProps = PropsFor<typeof Categorizer>;
 
+type RenderProps = Omit<ExternalProps, keyof UniversalWidgetProps>;
+
 type DefaultProps = Pick<
     InternalProps,
     "items" | "categories" | "values" | "linterContext"
@@ -293,8 +295,6 @@ const styles = StyleSheet.create({
         color: "#888",
     },
 });
-
-type RenderProps = Omit<ExternalProps, keyof UniversalWidgetProps>;
 
 export default {
     name: "categorizer",
