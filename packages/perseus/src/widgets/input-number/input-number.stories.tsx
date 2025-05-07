@@ -6,6 +6,7 @@ import {
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
+import {getAnswerfulItem} from "../../util/test-utils";
 
 import {question1, question2, question3} from "./input-number.testdata";
 
@@ -114,3 +115,27 @@ export const Percent = (args: InputNumberOptions): React.ReactElement => {
 // TODO(LEMS-3083): Remove eslint suppression
 // eslint-disable-next-line functional/immutable-data
 Percent.args = question3.widgets["input-number 1"].options;
+
+export const Answerful = (): React.ReactElement => {
+    const item = getAnswerfulItem("input-number", {
+        simplify: "optional",
+        size: "normal",
+        value: 42,
+    });
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line
+    item.question.content = `The answer is 42\n${item.question.content}`;
+    return <ServerItemRendererWithDebugUI item={item} />;
+};
+
+export const Answerless = (): React.ReactElement => {
+    const item = getAnswerfulItem("input-number", {
+        simplify: "optional",
+        size: "normal",
+        value: 42,
+    });
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line
+    item.question.content = `The answer is 42\n${item.question.content}`;
+    return <ServerItemRendererWithDebugUI item={item} startAnswerless />;
+};
