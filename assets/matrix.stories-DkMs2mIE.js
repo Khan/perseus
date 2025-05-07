@@ -1,0 +1,22 @@
+import"./underscore-U-AHniOr.js";import{g as n}from"./index-BGZPTKJ1.js";import{S as u}from"./server-item-renderer-with-debug-ui-CxpHg1rn.js";import"./_commonjsHelpers-BosuxZz1.js";import"./jsx-runtime-BT65X5dW.js";import"./index-C6mWTJJr.js";import"./extends-DDykod_l.js";import"./no-important-DlFk8a1I.js";import"./index-CazpBUXm.js";import"./index-B1Gws05u.js";import"./index-CW2s7ekB.js";import"./index-Ds5N5m2R.js";import"./index-DOvxIgPk.js";import"./split-view-C75H4AdG.js";import"./index-DAJiRA_A.js";import"./index-Bdux6mmb.js";import"./test-keypad-context-wrapper-BtZTAi4B.js";import"./index-B-lxVbXh.js";import"./v4-CtRu48qb.js";import"./mobile-keypad-DFrgxEQk.js";import"./index-3H81sEQ1.js";import"./index-BzwLglMS.js";import"./assertThisInitialized-DIFuz7Pv.js";import"./tabbar-MpFAbKP0.js";import"./item-bIeXIAjZ.js";import"./button-assets-Co79gGh-.js";import"./get-decimal-separator-B2cicA45.js";import"./keypad-button-Ckeya4lx.js";import"./operators-page-DCxIUjpq.js";import"./navigation-pad-D67yemnZ.js";import"./prop-types-DPSiQdhc.js";import"./key-translator-D1CXf9G3.js";import"./index-CrGd2QqM.js";import"./split-perseus-item-CzYR4eV1.js";import"./util-BZVT15oW.js";import"./perseus-error-CSETqePQ.js";import"./jquery-CkHB0_Mt.js";import"./server-item-renderer-DbGjM8D_.js";import"./renderer-BQnqw_bS.js";import"./index-D7h-teXI.js";import"./zoomable-tex-Dy-nElJT.js";import"./tex-BONImhZG.js";import"./dependencies-BsVPGK1s.js";import"./zoomable-C_CCSKDG.js";import"./i18n-context-3AkWzTTj.js";import"./svg-image-CiYXMMWe.js";import"./index-DEiJo70o.js";import"./fixed-to-responsive-CTsII9Xx.js";import"./constants-BIpV3g0K.js";import"./client-CAS5PaPY.js";import"./inline-icon-AJRwMA4Z.js";import"./icon-paths-C3bPmxpL.js";import"./image-loader-CdkY-jNs.js";import"./perseus-api-Ty_QvlNi.js";import"./stub-tag-editor-B8lH250S.js";import"./text-list-editor-HcP7oGoC.js";import"./lint-D0FI20JF.js";import"./hints-renderer-BZ-4Zvd5.js";import"./media-queries-D4w_O5TS.js";import"./shared-Dtpp87RV.js";import"./test-dependencies-Ck8nQiEy.js";import"./all-widgets-CG5w6-WI.js";import"./index-DqS3kFds.js";import"./index-ByoCYR4k.js";import"./index-DfoJsr3g.js";import"./index-CUPgSPQO.js";import"./Popper-Bj3TCzZA.js";import"./math-input-Cvkg7A_0.js";import"./index-KG0hCCNB.js";import"./simple-keypad-input-B5FHAE1F.js";import"./input-with-examples-D6CBGvUU.js";import"./text-input-Dvur2sgY.js";import"./index-CU62RnlP.js";import"./base-radio-BstglnyH.js";import"./choice-C1fKyBL7.js";import"./index-CWnBGvvR.js";import"./icon-BfyZ3piz.js";import"./choice-icon-CV0CEgs0.js";import"./focus-ring-CuRoZzyy.js";import"./option-status-CqSyvrjW.js";import"./choice-none-above-OZK8HsZt.js";import"./phet-simulation-CrX_59te.js";import"./index-Ck9WKKww.js";import"./answer-choices-CWdHy9nd.js";import"./index-BDp5rntB.js";import"./button-group-B24xCvY2.js";import"./index-Dd-cahjY.js";import"./tiny-invariant-CopsF_GD.js";import"./hud-CP_ly967.js";import"./index-3tXmpMZ8.js";import"./multi-button-group-U6RQwTwG.js";import"./number-input-N6NlG4cu.js";import"./range-input-CQQdELOs.js";import"./marker-520oT_Eq.js";import"./answer-pill-2tCnwxTo.js";import"./sortable-T7pPQHk4.js";import"./video-transcript-link-BsyCgIOs.js";const a={content:`**Perform the row operation, $R_3 \\leftrightarrow R_2$, on the following matrix.**
+
+$\\left[\\begin{array} {ccc}
+5 & -2 & 1 & 1 \\\\
+3 & 0 & 0 & -2 \\\\
+1 & 1 & 7 & -3 \\end{array} \\right] $
+
+[[☃ matrix 1]]
+`,images:{},widgets:{"matrix 1":{graded:!0,version:{major:0,minor:0},static:!1,type:"matrix",options:{cursorPosition:[0,0],suffix:"",answers:[[5,-2,1,1],[1,1,7,-3],[3,0,0,-2]],prefix:"",static:!1,matrixBoardSize:[3,4]},alignment:"default"}}},rt={title:"Perseus/Widgets/Matrix",component:u},r={args:{item:n({question:a})}},t={args:{item:n({question:a}),startAnswerless:!0}};var o,i,m;r.parameters={...r.parameters,docs:{...(o=r.parameters)==null?void 0:o.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: question1
+    })
+  }
+}`,...(m=(i=r.parameters)==null?void 0:i.docs)==null?void 0:m.source}}};var p,e,s;t.parameters={...t.parameters,docs:{...(p=t.parameters)==null?void 0:p.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: question1
+    }),
+    startAnswerless: true
+  }
+}`,...(s=(e=t.parameters)==null?void 0:e.docs)==null?void 0:s.source}}};const tt=["Question1","AnswerlessMatrix"];export{t as AnswerlessMatrix,r as Question1,tt as __namedExportsOrder,rt as default};
