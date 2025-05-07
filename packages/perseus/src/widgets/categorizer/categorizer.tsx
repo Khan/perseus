@@ -15,31 +15,35 @@ import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {UniversalWidgetProps, Widget, WidgetExports} from "../../types";
 import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/categorizer-ai-utils";
 import type {
     PerseusCategorizerWidgetOptions,
     PerseusCategorizerUserInput,
     CategorizerPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-type Props = WidgetProps<RenderProps> & {
-    values: ReadonlyArray<string>;
-};
+interface InternalProps extends UniversalWidgetProps {
+    values: number[];
+    items: PerseusCategorizerWidgetOptions["items"];
+    categories: PerseusCategorizerWidgetOptions["categories"];
+    randomizeItems: PerseusCategorizerWidgetOptions["randomizeItems"];
+}
 
-type DefaultProps = {
-    items: Props["items"];
-    categories: Props["categories"];
-    values: Props["values"];
-    linterContext: Props["linterContext"];
-};
+type ExternalProps = PropsFor<typeof Categorizer>;
+
+type DefaultProps = Pick<
+    InternalProps,
+    "items" | "categories" | "values" | "linterContext"
+>;
 
 type State = {
     uniqueId: string;
 };
 
 export class Categorizer
-    extends React.Component<Props, State>
+    extends React.Component<InternalProps, State>
     implements Widget
 {
     static contextType = PerseusI18nContext;
@@ -56,7 +60,9 @@ export class Categorizer
         uniqueId: _.uniqueId("perseus_radio_"),
     };
 
-    static getUserInputFromProps(props: Props): PerseusCategorizerUserInput {
+    static getUserInputFromProps(
+        props: InternalProps,
+    ): PerseusCategorizerUserInput {
         return {values: props.values};
     }
 
@@ -75,7 +81,6 @@ export class Categorizer
 
     onChange(itemNum, catNum) {
         const values = [...this.props.values];
-        // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'never'.
         values[itemNum] = catNum;
         this.change("values", values);
         this.props.trackInteraction();
@@ -289,13 +294,7 @@ const styles = StyleSheet.create({
     },
 });
 
-type RenderProps = {
-    items: PerseusCategorizerWidgetOptions["items"];
-    categories: PerseusCategorizerWidgetOptions["categories"];
-    randomizeItems: PerseusCategorizerWidgetOptions["randomizeItems"];
-    // Depends on whether the widget is in static mode
-    values?: PerseusCategorizerWidgetOptions["values"];
-};
+type RenderProps = Omit<ExternalProps, keyof UniversalWidgetProps>;
 
 export default {
     name: "categorizer",

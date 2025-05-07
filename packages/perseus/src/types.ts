@@ -575,10 +575,10 @@ export type WidgetProps<
 /**
  * The props passed to every widget, regardless of its `type`.
  */
-export type UniversalWidgetProps<
+export interface UniversalWidgetProps<
     ReviewModeRubric = Empty,
     TrackingExtraArgs = Empty,
-> = {
+> {
     reviewModeRubric?: ReviewModeRubric | null | undefined;
     // This is slightly different from the `trackInteraction` function in
     // APIOptions. This provides the widget an easy way to notify the renderer
@@ -607,7 +607,7 @@ export type UniversalWidgetProps<
     // provided by widget-container.jsx#render()
     linterContext: LinterContextProps;
     containerSizeClass: SizeClass;
-};
+}
 
 // Used to type the `change` method on all widgets.
 export type ChangeFn = (
