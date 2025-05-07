@@ -162,6 +162,7 @@ export const ServerItemRendererWithDebugUI = ({
                                 onClick={() => {
                                     setAnswerless(false);
                                     // TODO: LEMS-3027 find a way to change the value to all
+                                    // also check what would happen to other widget if this button is removed
                                     setShowSolutions("selected");
                                 }}
                             >
