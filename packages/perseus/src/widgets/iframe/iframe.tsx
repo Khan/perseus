@@ -9,7 +9,6 @@
 
 import $ from "jquery";
 import * as React from "react";
-import _ from "underscore";
 
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
@@ -25,6 +24,14 @@ import type {
 } from "@khanacademy/perseus-core";
 
 const {updateQueryString} = Util;
+
+// A type for the arguments of Changeable.change
+// Based on the ChangeFn type from "../types" which Changeable.change uses.
+type ChangeParams = [
+    newPropsOrSinglePropName: string | Record<string, any>,
+    propValue?: any,
+    callback?: () => unknown,
+];
 
 type RenderProps = PerseusIFrameWidgetOptions & {
     status: UserInputStatus;
@@ -79,7 +86,7 @@ class Iframe extends React.Component<Props> implements Widget {
             return;
         }
 
-        if (_.isUndefined(data.testsPassed)) {
+        if (data.testsPassed === undefined) {
             return;
         }
 
@@ -90,8 +97,7 @@ class Iframe extends React.Component<Props> implements Widget {
         });
     };
 
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+    change: (...args: ChangeParams) => any = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
@@ -128,7 +134,7 @@ class Iframe extends React.Component<Props> implements Widget {
         // Turn array of [{name: "", value: ""}] into object
         if (this.props.settings) {
             const settings: Record<string, any> = {};
-            _.each(this.props.settings, function (setting) {
+            this.props.settings.forEach((setting) => {
                 if (setting.name && setting.value) {
                     settings[setting.name] = setting.value;
                 }
