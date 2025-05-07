@@ -2141,7 +2141,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class="text_f1191h-o_O-LabelLarge_142uijh-o_O-text_1s96g1x"
                 >
                   Remove Point
                 </span>
@@ -2407,7 +2407,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class="text_f1191h-o_O-LabelLarge_142uijh-o_O-text_1s96g1x"
                 >
                   Remove Point
                 </span>
@@ -2420,7 +2420,7 @@ exports[`Interactive Graph question Should render predictably: after interaction
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class="text_f1191h-o_O-LabelLarge_142uijh-o_O-text_1s96g1x"
                 >
                   Close shape
                 </span>
@@ -3533,7 +3533,7 @@ exports[`Interactive Graph question Should render predictably: first render 3`] 
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class="text_f1191h-o_O-LabelLarge_142uijh-o_O-text_1s96g1x"
                 >
                   Remove Point
                 </span>
@@ -3799,7 +3799,7 @@ exports[`Interactive Graph question Should render predictably: first render 4`] 
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class="text_f1191h-o_O-LabelLarge_142uijh-o_O-text_1s96g1x"
                 >
                   Remove Point
                 </span>
@@ -3812,7 +3812,7 @@ exports[`Interactive Graph question Should render predictably: first render 4`] 
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class="text_f1191h-o_O-LabelLarge_142uijh-o_O-text_1s96g1x"
                 >
                   Close shape
                 </span>
