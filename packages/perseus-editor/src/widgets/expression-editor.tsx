@@ -15,11 +15,12 @@ import {
     Caption,
 } from "@khanacademy/wonder-blocks-typography";
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
-import {css, CSSProperties, StyleSheet} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import * as React from "react";
 import _ from "underscore";
 
+import type {CSSProperties} from "aphrodite";
 import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
