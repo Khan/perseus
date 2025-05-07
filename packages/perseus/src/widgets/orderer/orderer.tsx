@@ -19,7 +19,9 @@ import type {
     PerseusOrdererWidgetOptions,
     PerseusOrdererUserInput,
 } from "@khanacademy/perseus-core";
+import type {OrdererPublicWidgetOptions} from "@khanacademy/perseus-core/src/widgets/orderer/orderer-util";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type PlaceholderCardProps = {
     width: number | null | undefined;
@@ -266,7 +268,7 @@ class Card extends React.Component<CardProps, CardState> {
         }
 
         // Pull out the content to get rendered
-        const rendererProps = _.pick(this.props, "content");
+        const rendererProps = {content: this.props.content};
 
         const onMouseDown = this.props.animating ? $.noop : this.onMouseDown;
 
@@ -292,20 +294,16 @@ class Card extends React.Component<CardProps, CardState> {
     }
 }
 
-type RenderProps = PerseusOrdererWidgetOptions & {
+type RenderProps = OrdererPublicWidgetOptions & {
     current: any;
 };
 
 type OrdererProps = WidgetProps<RenderProps>;
 
-type OrdererDefaultProps = {
-    current: OrdererProps["current"];
-    options: OrdererProps["options"];
-    correctOptions: OrdererProps["correctOptions"];
-    height: OrdererProps["height"];
-    layout: OrdererProps["layout"];
-    linterContext: OrdererProps["linterContext"];
-};
+type OrdererDefaultProps = Pick<
+    OrdererProps,
+    "current" | "options" | "height" | "layout" | "linterContext"
+>;
 
 type OrdererState = {
     current: ReadonlyArray<any>;
@@ -323,6 +321,14 @@ type OrdererState = {
     onAnimationEnd?: (arg1: any) => void;
 };
 
+0 as any as WidgetProps<PerseusOrdererWidgetOptions> satisfies PropsFor<
+    typeof Orderer
+>;
+
+0 as any as WidgetProps<OrdererPublicWidgetOptions> satisfies PropsFor<
+    typeof Orderer
+>;
+
 class Orderer
     extends React.Component<OrdererProps, OrdererState>
     implements Widget
@@ -330,7 +336,6 @@ class Orderer
     static defaultProps: OrdererDefaultProps = {
         current: [],
         options: [],
-        correctOptions: [],
         height: "normal",
         layout: "horizontal",
         linterContext: linterContextDefault,
@@ -443,22 +448,16 @@ class Orderer
         if (inCardBank) {
             // If we're in the card bank, go through the options to find the
             // one with the same content
-            _.each(
-                this.props.options,
-                function (opt, i) {
-                    // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                    if (opt.content === this.state.dragContent) {
-                        const card = ReactDOM.findDOMNode(
-                            // eslint-disable-next-line react/no-string-refs
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.refs["bank" + i],
-                        );
-                        // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
-                        finalOffset = $(card).position();
-                    }
-                },
-                this,
-            );
+            this.props.options.forEach((opt, i) => {
+                if (opt.content === this.state.dragContent) {
+                    const card = ReactDOM.findDOMNode(
+                        // eslint-disable-next-line react/no-string-refs
+                        this.refs["bank" + i],
+                    );
+                    // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'position' does not exist on type 'JQueryStatic'.
+                    finalOffset = $(card).position();
+                }
+            });
             // eslint-disable-next-line react/no-string-refs
         } else if (this.refs.placeholder != null) {
             // Otherwise, go to the position that the placeholder is at
@@ -527,41 +526,31 @@ class Orderer
         let sumHeight = 0;
 
         if (isHorizontal) {
-            _.each(
-                list,
-                function (opt, i) {
-                    const card = ReactDOM.findDOMNode(
-                        // eslint-disable-next-line react/no-string-refs
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        this.refs["sortable" + i],
-                    );
-                    // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
-                    const outerWidth = $(card).outerWidth(true);
-                    if (midWidth > sumWidth + outerWidth / 2) {
-                        index += 1;
-                    }
-                    sumWidth += outerWidth;
-                },
-                this,
-            );
+            list.forEach((opt, i) => {
+                const card = ReactDOM.findDOMNode(
+                    // eslint-disable-next-line react/no-string-refs
+                    this.refs["sortable" + i],
+                );
+                // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'outerWidth' does not exist on type 'JQueryStatic'.
+                const outerWidth = $(card).outerWidth(true);
+                if (midWidth > sumWidth + outerWidth / 2) {
+                    index += 1;
+                }
+                sumWidth += outerWidth;
+            });
         } else {
-            _.each(
-                list,
-                function (opt, i) {
-                    const card = ReactDOM.findDOMNode(
-                        // eslint-disable-next-line react/no-string-refs
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        this.refs["sortable" + i],
-                    );
-                    // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
-                    const outerHeight = $(card).outerHeight(true);
-                    if (midHeight > sumHeight + outerHeight / 2) {
-                        index += 1;
-                    }
-                    sumHeight += outerHeight;
-                },
-                this,
-            );
+            list.forEach((_, i) => {
+                const card = ReactDOM.findDOMNode(
+                    // eslint-disable-next-line react/no-string-refs
+                    this.refs["sortable" + i],
+                );
+                // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'outerHeight' does not exist on type 'JQueryStatic'.
+                const outerHeight = $(card).outerHeight(true);
+                if (midHeight > sumHeight + outerHeight / 2) {
+                    index += 1;
+                }
+                sumHeight += outerHeight;
+            });
         }
 
         return index;
@@ -620,7 +609,7 @@ class Orderer
 
     getUserInput(): PerseusOrdererUserInput {
         return {
-            current: _.map(this.props.current, function (v) {
+            current: this.props.current.map(function (v) {
                 return v.content;
             }),
         };
@@ -665,32 +654,24 @@ class Orderer
         );
 
         // This is the list of draggable, rearrangable cards
-        const sortableCards = _.map(
-            this.state.current,
-            function (opt, i) {
-                return (
-                    <Card
-                        key={`sortableCard${i}`}
-                        ref={"sortable" + i}
-                        fakeRef={"sortable" + i}
-                        floating={false}
-                        content={opt.content}
-                        width={opt.width}
-                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                        linterContext={this.props.linterContext}
-                        // eslint-disable-next-line react/jsx-no-bind
-                        onMouseDown={
-                            // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                            this.state.animating
-                                ? $.noop
-                                : // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
-                                  this.onClick.bind(null, "current", i)
-                        }
-                    />
-                );
-            },
-            this,
-        );
+        const sortableCards = this.state.current.map((opt, i) => {
+            return (
+                <Card
+                    key={`sortableCard${i}`}
+                    ref={"sortable" + i}
+                    fakeRef={"sortable" + i}
+                    floating={false}
+                    content={opt.content}
+                    width={opt.width}
+                    linterContext={this.props.linterContext}
+                    onMouseDown={
+                        this.state.animating
+                            ? $.noop
+                            : this.onClick.bind(null, "current", i)
+                    }
+                />
+            );
+        });
 
         if (this.state.placeholderIndex != null) {
             const placeholder = (
@@ -722,30 +703,26 @@ class Orderer
         const bank = (
             // eslint-disable-next-line react/no-string-refs
             <div ref="bank" className="bank perseus-clearfix">
-                {_.map(
-                    this.props.options,
-                    (opt, i) => {
-                        return (
-                            <Card
-                                ref={"bank" + i}
-                                floating={false}
-                                content={opt.content}
-                                stack={true}
-                                key={i}
-                                linterContext={this.props.linterContext}
-                                // eslint-disable-next-line react/jsx-no-bind
-                                onMouseDown={
-                                    this.state.animating
-                                        ? $.noop
-                                        : this.onClick.bind(null, "bank", i)
-                                }
-                                onMouseMove={this.onMouseMove}
-                                onMouseUp={this.onRelease}
-                            />
-                        );
-                    },
-                    this,
-                )}
+                {this.props.options.map((opt, i) => {
+                    return (
+                        <Card
+                            ref={"bank" + i}
+                            floating={false}
+                            content={opt.content}
+                            stack={true}
+                            key={i}
+                            linterContext={this.props.linterContext}
+                            // eslint-disable-next-line react/jsx-no-bind
+                            onMouseDown={
+                                this.state.animating
+                                    ? $.noop
+                                    : this.onClick.bind(null, "bank", i)
+                            }
+                            onMouseMove={this.onMouseMove}
+                            onMouseUp={this.onRelease}
+                        />
+                    );
+                })}
             </div>
         );
 
