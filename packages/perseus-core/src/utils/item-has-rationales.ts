@@ -1,9 +1,8 @@
 import type {
-    GradedGroupWidget,
-    GroupWidget,
     LabelImageWidget,
     PerseusItem,
     PerseusWidget,
+    PerseusWidgetsMap,
     RadioWidget,
 } from "../data-schema";
 
@@ -11,18 +10,20 @@ import type {
  * Returns true if a Perseus item contains any widget with rationales.
  */
 export const itemHasRationales = (item: PerseusItem) =>
-    Object.values(item.question.widgets).some(widgetHasRationales);
+    widgetsHaveRationales(item.question.widgets);
 
-const widgetHasRationales = (widget: PerseusWidget) => {
+const widgetsHaveRationales = (widgets: PerseusWidgetsMap) =>
+    Object.values(widgets).some(widgetHasRationales);
+
+const widgetHasRationales = (widget: PerseusWidget): boolean => {
     switch (widget.type) {
         case "radio":
             return radioWidgetHasRationales(widget);
         case "label-image":
             return labelImageWidgetHasRationales(widget);
         case "graded-group":
-            return gradedGroupWidgetHasRationales(widget);
         case "group":
-            return groupWidgetHasRationales(widget);
+            return widgetsHaveRationales(widget.options.widgets);
         default:
             return false;
     }
@@ -34,12 +35,4 @@ const radioWidgetHasRationales = (widget: RadioWidget): boolean => {
 
 const labelImageWidgetHasRationales = (widget: LabelImageWidget): boolean => {
     return widget.options.markers.some((marker) => marker.answers.length > 0);
-};
-
-const gradedGroupWidgetHasRationales = (widget: GradedGroupWidget): boolean => {
-    return Object.values(widget.options.widgets).some(widgetHasRationales);
-};
-
-const groupWidgetHasRationales = (widget: GroupWidget): boolean => {
-    return Object.values(widget.options.widgets).some(widgetHasRationales);
 };
