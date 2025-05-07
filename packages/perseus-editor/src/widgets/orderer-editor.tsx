@@ -61,11 +61,8 @@ class OrdererEditor extends React.Component<Props> {
         const updatedOptions = [
             ...new Set(allOptions.map((item) => item.content)),
         ]
-            // filter out empty strings
             .filter((content) => content !== "")
-            // Alphabetical sort
             .sort()
-            // Category sort
             .sort((a, b) => {
                 const getCategoryScore = (content) => {
                     // 1. Any content that contains numbers
