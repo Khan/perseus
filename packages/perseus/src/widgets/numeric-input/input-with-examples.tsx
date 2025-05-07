@@ -100,7 +100,7 @@ const InputWithExamples = forwardRef<NumericInputHandle, Props>(
 
         const renderInput = () => {
             // Generate the provided examples in simple language for screen readers.
-            const examplesAria = props.shouldShowExamples
+            const examplesAria = shouldShowExamples
                 ? `${props.examples[0]}
                    ${props.examples.slice(1).join(", or\n")}`
                       // @ts-expect-error TS2550: Property replaceAll does not exist on type string.
@@ -113,9 +113,7 @@ const InputWithExamples = forwardRef<NumericInputHandle, Props>(
             const inputProps = {
                 id: id,
                 // If we have examples, we want to provide the aria-describedby attribute
-                "aria-describedby": props.shouldShowExamples
-                    ? ariaId
-                    : undefined,
+                "aria-describedby": shouldShowExamples ? ariaId : undefined,
                 ref: inputRef,
                 className: getInputClassName(),
                 labelText: props.labelText,
