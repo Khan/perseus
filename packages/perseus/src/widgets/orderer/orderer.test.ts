@@ -100,7 +100,7 @@ describe("orderer widget", () => {
             expect(userInput).toEqual({"orderer 1": {current: ["37"]}});
         });
 
-        it("can given an invalid score", () => {
+        it("can give an invalid score", () => {
             // Arrange
             const {renderer} = renderQuestion(question);
 
