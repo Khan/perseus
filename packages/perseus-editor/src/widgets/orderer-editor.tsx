@@ -69,11 +69,11 @@ class OrdererEditor extends React.Component<Props> {
         const newOptions = [...alphaSorted]
             .sort((a, b) => {
                 const getCategoryScore = (content) => {
-                    // 1. Numbers
+                    // 1. Any content that contains numbers
                     if (/\d/.test(content)) {
                         return 0;
                     }
-                    // 2. $tex$ (but $tex$ without an initial number)
+                    // 2. $tex$ or variables without any numbers
                     if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
                         return 2;
                     }
