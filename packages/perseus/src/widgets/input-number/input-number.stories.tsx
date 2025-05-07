@@ -122,6 +122,8 @@ export const Answerful = (): React.ReactElement => {
         size: "normal",
         value: 42,
     });
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line
     item.question.content = `The answer is 42\n${item.question.content}`;
     return <ServerItemRendererWithDebugUI item={item} />;
 };
@@ -132,6 +134,8 @@ export const Answerless = (): React.ReactElement => {
         size: "normal",
         value: 42,
     });
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line
     item.question.content = `The answer is 42\n${item.question.content}`;
     return <ServerItemRendererWithDebugUI item={item} startAnswerless />;
 };
