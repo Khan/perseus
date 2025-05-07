@@ -34,10 +34,6 @@ export default class SimpleKeypadInput
         this._isMounted = false;
     }
 
-    get current() {
-        return this.inputRef.current;
-    }
-
     focus() {
         // The inputRef is a ref to a MathInput, which
         // also controls the keypad state during focus events.

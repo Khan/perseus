@@ -609,7 +609,6 @@ export type SharedRendererProps = {
 };
 
 export interface NumericInputHandle {
-    current: any;
     focus: () => void;
     blur: () => void;
 }
