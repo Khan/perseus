@@ -42,15 +42,20 @@ class OrdererEditor extends React.Component<Props> {
             return {content: option};
         });
 
-        // Get all content items (from both current and updated collections)
-        const allOptions = [
-            ...(whichOptions === "correctOptions"
+        // Get content from correctOptions (either updated or existing)
+        const correctOptionsToUse =
+            whichOptions === "correctOptions"
                 ? props.correctOptions
-                : this.props.correctOptions || []),
-            ...(whichOptions === "otherOptions"
+                : this.props.correctOptions || [];
+
+        // Get content from otherOptions (either updated or existing)
+        const otherOptionsToUse =
+            whichOptions === "otherOptions"
                 ? props.otherOptions
-                : this.props.otherOptions || []),
-        ];
+                : this.props.otherOptions || [];
+
+        // Combine all content items
+        const allOptions = [...correctOptionsToUse, ...otherOptionsToUse];
 
         // Get unique content items
         const contentArray = [
