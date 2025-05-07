@@ -22,7 +22,7 @@ import type {NumericInputHandle} from "../../types";
  * component. It is responsible for rendering the UI elements of the Numeric
  * Input widget.
  */
-export const NumericInputComponent = forwardRef(
+export const NumericInputComponent = forwardRef<NumericInputHandle, NumericInputProps>(
     (props: NumericInputProps, ref) => {
         const context = useContext(PerseusI18nContext);
         const inputRef = useRef<NumericInputHandle>(null);
