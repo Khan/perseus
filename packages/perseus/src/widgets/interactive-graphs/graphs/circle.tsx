@@ -226,6 +226,8 @@ function crossProduct<A, B>(as: A[], bs: B[]): [A, B][] {
     const result: [A, B][] = [];
     for (const a of as) {
         for (const b of bs) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             result.push([a, b]);
         }
     }

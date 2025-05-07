@@ -62,7 +62,9 @@ export const getClockwiseAngle = (
 
     // Reverse the coordinates accordingly to ensure the angle is calculated correctly
     const clockwiseCoords = shouldReverseCoords
-        ? coordsCopy.reverse()
+        ? // TODO(LEMS-3083): Remove eslint suppression
+          // eslint-disable-next-line functional/immutable-data
+          coordsCopy.reverse()
         : coordsCopy;
 
     // Calculate the angles between the two points and get the difference

@@ -27,6 +27,7 @@ export const parseNumberLineWidget = parseWidget(
         labelStyle: string,
         labelTicks: boolean,
         isTickCtrl: optional(nullable(boolean)),
+        isInequality: defaulted(boolean, () => false),
         divisionRange: array(number),
         numDivisions: optional(nullable(number)),
         // NOTE(benchristel): I copied the default snapDivisions from

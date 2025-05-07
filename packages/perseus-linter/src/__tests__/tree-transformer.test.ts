@@ -38,8 +38,12 @@ describe("PerseusLinter tree transformer", () => {
     // four variants, and should work the same for all.
     const tree2 = [clone(tree1)];
     const tree3 = clone(tree1);
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     tree3.content[1].content = [tree3.content[1].content];
     const tree4 = clone(tree2);
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     tree4[0].content[1].content = [tree4[0].content[1].content];
 
     const trees = [tree1, tree2, tree3, tree4];
@@ -56,6 +60,8 @@ describe("PerseusLinter tree transformer", () => {
     function getTraversalOrder(tree: any) {
         const order: Array<any> = [];
         new TreeTransformer(tree).traverse((n, state) => {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             order.push(n.id);
         });
         return order;
@@ -69,7 +75,11 @@ describe("PerseusLinter tree transformer", () => {
                 const ids: Array<any> = [];
 
                 tt.traverse((n: any) => {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     nodes[n.id] = n; // Remember the nodes by id for later tests
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     ids.push(n.id);
                 });
 
@@ -406,6 +416,8 @@ describe("PerseusLinter tree transformer", () => {
 
             const tt = new TreeTransformer(tree);
             tt.traverse((n: any, state, content) => {
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 states[n.id] = state.clone();
                 // Verify that a clone() and equal() work as expected
                 expect(state.equals(states[n.id])).toBeTruthy();

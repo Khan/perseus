@@ -62,6 +62,7 @@ module.exports = {
         "cypress",
         "disable",
         "import",
+        "functional",
         "jest",
         "jsdoc",
         "monorepo",
@@ -193,6 +194,13 @@ module.exports = {
                         allowNullableBoolean: true, // Allow nullable booleans in conditionals (e.g., `null` or `undefined`)
                         allowNullableString: true,
                         allowNullableNumber: true,
+                    },
+                ],
+                "functional/immutable-data": [
+                    "error",
+                    {
+                        ignoreClasses: true,
+                        ignoreImmediateMutation: true,
                     },
                 ],
             },

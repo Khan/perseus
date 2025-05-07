@@ -113,6 +113,8 @@ export const unionAnswerForms: (
     const uniqueForms = getUniqueAnswerForms(allForms);
     // Sort them by the order they appear in the `formExamples` list.
     const formExampleKeys = Object.keys(NumericExampleStrings);
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     return uniqueForms.sort((a, b) => {
         return (
             formExampleKeys.indexOf(a.name) - formExampleKeys.indexOf(b.name)
