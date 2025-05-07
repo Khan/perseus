@@ -371,6 +371,17 @@ function getAnswerfulInputNumber() {
     });
 }
 
+it("removes answers from item data", () => {
+    expect(
+        getAnswerfulInputNumber().question.widgets["input-number 1"].options
+            .value,
+    ).toBe(42);
+    expect(
+        getAnswerlessInputNumber().question.widgets["input-number 1"].options
+            .value,
+    ).toBeUndefined();
+});
+
 describe.each([
     ["answerless", getAnswerlessInputNumber()],
     ["answerful", getAnswerfulInputNumber()],
