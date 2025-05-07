@@ -447,7 +447,7 @@ class ExpressionEditor extends React.Component<Props, State> {
 
                 <HeadingSmall>Answers</HeadingSmall>
 
-                <Caption style={{fontStyle: "italic"}}>
+                <Caption style={styles.answersSubtitle}>
                     student responses area matched against these from top to
                     bottom
                 </Caption>
@@ -624,6 +624,7 @@ const styles = StyleSheet.create({
         paddingTop: spacing.xxSmall_6,
         paddingBottom: spacing.xxSmall_6,
     },
+    answersSubtitle: {fontStyle: "italic"},
     answerOption: {
         border: "1px solid #ddd",
         borderRadius: "3px",
