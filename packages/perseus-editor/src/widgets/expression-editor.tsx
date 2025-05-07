@@ -8,7 +8,7 @@ import {
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {color, sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {
     HeadingSmall,
     HeadingXSmall,
@@ -519,7 +519,11 @@ class AnswerOption extends React.Component<
                     I&apos;m sure!
                 </Button>
                 <Strut size={spacing.small_12} />
-                <Button size="small" onClick={this.handleCancelDelete} light>
+                <Button
+                    size="small"
+                    onClick={this.handleCancelDelete}
+                    kind="secondary"
+                >
                     Cancel
                 </Button>
             </>
@@ -528,7 +532,8 @@ class AnswerOption extends React.Component<
                 size="small"
                 onClick={this.handleDelete}
                 color="destructive"
-                light
+                kind="tertiary"
+                style={styles.deleteButton}
             >
                 Delete
             </Button>
@@ -633,5 +638,8 @@ const styles = StyleSheet.create({
     answerBody: {},
     buttonRow: {
         display: "flex",
+    },
+    deleteButton: {
+        paddingInline: sizing.size_160,
     },
 });

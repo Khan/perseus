@@ -6,8 +6,14 @@
 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
 if (typeof HTMLElement !== "undefined" && !HTMLElement.prototype.scrollTo) {
     // @ts-expect-error - TS2322 - Type '(left: number, top: any) => void' is not assignable to type '{ (options?: ScrollToOptions | undefined): void; (x: number, y: number): void; }'.
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     HTMLElement.prototype.scrollTo = function (left, top: any) {
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         this.scrollLeft = left;
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         this.scrollTop = top;
     };
 }
@@ -27,6 +33,8 @@ const applyUniversalScrollOffset = (
     if (typeof elementOrWindow.scrollTo === "function") {
         elementOrWindow.scrollTo(0, amount);
     } else if ("scrollTop" in elementOrWindow) {
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         elementOrWindow.scrollTop = amount;
     }
 };

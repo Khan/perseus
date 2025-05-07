@@ -1,4 +1,4 @@
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -140,10 +140,12 @@ describe("Linear graph screen reader", () => {
             const movingElement = interactiveElements[index];
 
             // Act - Move the element
-            movingElement.focus();
+            act(() => movingElement.focus());
             await userEvent.keyboard("{ArrowRight}");
 
             const expectedAriaLive = ["off", "off", "off"];
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             expectedAriaLive[index] = "polite";
 
             // Assert

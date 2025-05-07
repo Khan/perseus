@@ -96,6 +96,8 @@ export function getWidgetsFromWidgetMap(
     widgetIds.forEach((widgetId) => {
         const widget = getWidgetFromWidgetMap(widgetId, widgetMap);
         if (widget) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             widgets[widgetId] = widget;
         }
     });

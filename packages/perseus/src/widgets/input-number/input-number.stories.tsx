@@ -88,6 +88,8 @@ export const Rational = (args: InputNumberOptions): React.ReactElement => {
         />
     );
 };
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 Rational.args = question1.widgets["input-number 1"].options;
 
 export const PiSimplify = (args: InputNumberOptions): React.ReactElement => {
@@ -98,6 +100,8 @@ export const PiSimplify = (args: InputNumberOptions): React.ReactElement => {
         />
     );
 };
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 PiSimplify.args = question2.widgets["input-number 1"].options;
 
 export const Percent = (args: InputNumberOptions): React.ReactElement => {
@@ -108,6 +112,8 @@ export const Percent = (args: InputNumberOptions): React.ReactElement => {
         />
     );
 };
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 Percent.args = question3.widgets["input-number 1"].options;
 
 export const Answerful = (): React.ReactElement => {

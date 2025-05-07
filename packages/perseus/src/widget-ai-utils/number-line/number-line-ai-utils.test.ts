@@ -22,6 +22,7 @@ export const question: PerseusRenderer = {
                 tickStep: 1,
                 labelStyle: "decimal",
                 labelTicks: true,
+                isInequality: false,
                 snapDivisions: 2,
                 range: [-4, 4],
                 static: false,

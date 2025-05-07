@@ -112,6 +112,8 @@ const LockedLineSettings = (props: Props) => {
         index: 0 | 1,
     ) {
         const newPoints = [...points] as [LockedPointType, LockedPointType];
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         newPoints[index] = {
             ...points[index],
             ...newPointProps,
@@ -179,6 +181,8 @@ const LockedLineSettings = (props: Props) => {
         labelIndex: number,
     ) {
         const updatedLabels = [...labels];
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         updatedLabels[labelIndex] = {
             ...labels[labelIndex],
             ...updatedLabel,

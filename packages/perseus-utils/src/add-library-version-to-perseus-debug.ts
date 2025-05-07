@@ -19,6 +19,8 @@ export const addLibraryVersionToPerseusDebug = (
     const formattedVersion = `${prefix}${libraryVersion}`;
 
     if (typeof globalThis !== "undefined") {
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         globalThis.__perseus_debug__ = globalThis.__perseus_debug__ ?? {};
 
         const existingVersionEntry = globalThis.__perseus_debug__[libraryName];
@@ -31,18 +33,26 @@ export const addLibraryVersionToPerseusDebug = (
                 const allVersions = Array.isArray(existingVersionEntry)
                     ? existingVersionEntry
                     : [existingVersionEntry];
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 allVersions.push(formattedVersion);
 
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 globalThis.__perseus_debug__[libraryName] = allVersions;
 
                 // eslint-disable-next-line no-console
                 console.warn(
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     `Multiple versions of ${libraryName} loaded on this page: ${allVersions
                         .sort()
                         .join(", ")}`,
                 );
             }
         } else {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             globalThis.__perseus_debug__[libraryName] = formattedVersion;
         }
     } else {

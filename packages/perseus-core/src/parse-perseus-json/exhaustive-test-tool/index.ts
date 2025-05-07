@@ -26,7 +26,7 @@ import * as fs from "fs/promises";
 import {join} from "path";
 
 import {ErrorTrackingParseContext} from "../error-tracking-parse-context";
-import {isObject} from "../general-purpose-parsers";
+import {isPlainObject} from "../general-purpose-parsers";
 import {formatPath} from "../object-path";
 import {parsePerseusItem} from "../perseus-parsers/perseus-item";
 import {parsePerseusRenderer} from "../perseus-parsers/perseus-renderer";
@@ -110,6 +110,8 @@ function createContentItemTesters(
     for (const item of contentItems) {
         const tester = createContentItemTester(item, path);
         if (tester != null) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             testers.push(tester);
         }
     }
@@ -121,7 +123,7 @@ function createContentItemTester(
     item: unknown,
     path: string,
 ): ContentItemTester | undefined {
-    if (isObject(item)) {
+    if (isPlainObject(item)) {
         if ("item_data" in item) {
             // We're looking at an exercise.
             return new AssessmentItemTester(item.item_data);

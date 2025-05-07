@@ -21,7 +21,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
             aria-controls=":r1:"
             aria-disabled="false"
             aria-expanded="true"
-            class="button_vr44p2-o_O-shared_11fo0od-o_O-default_1la56ro-o_O-small_1rcykji-o_O-inlineStyles_1s8anjv"
+            class="button_vr44p2-o_O-shared_11fo0od-o_O-default_1dlh9ep-o_O-small_1rcykji-o_O-inlineStyles_1s8anjv"
             role="button"
             type="button"
           >
@@ -94,7 +94,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
             aria-controls=":r0:"
             aria-disabled="false"
             aria-expanded="false"
-            class="button_vr44p2-o_O-shared_11fo0od-o_O-default_1la56ro-o_O-small_1rcykji-o_O-inlineStyles_1s8anjv"
+            class="button_vr44p2-o_O-shared_11fo0od-o_O-default_1dlh9ep-o_O-small_1rcykji-o_O-inlineStyles_1s8anjv"
             role="button"
             type="button"
           >
