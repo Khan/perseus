@@ -52,13 +52,18 @@ class OrdererEditor extends React.Component<Props> {
                 : this.props.otherOptions || []),
         ];
 
-        // Get unique content items and filter out empty strings
+        // Get unique content items
         const contentArray = [
             ...new Set(allOptions.map((item) => item.content)),
-        ].filter((content) => content !== "");
+        ];
+
+        // filter out empty strings
+        const filteredContentArray = [...contentArray].filter(
+            (content) => content !== "",
+        );
 
         // Alphabetical sort
-        const alphaSorted = [...contentArray].sort();
+        const alphaSorted = [...filteredContentArray].sort();
 
         // Category sort
         const newOptions = [...alphaSorted]
