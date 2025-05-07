@@ -6,6 +6,7 @@ import {
     expressionLogic,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color, sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -16,18 +17,16 @@ import {
 } from "@khanacademy/wonder-blocks-typography";
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
 import {css, StyleSheet} from "aphrodite";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import * as React from "react";
 import _ from "underscore";
 
-import type {CSSProperties} from "aphrodite";
 import type {
     PerseusExpressionWidgetOptions,
     LegacyButtonSets,
     ExpressionDefaultWidgetOptions,
     PerseusExpressionAnswerForm,
 } from "@khanacademy/perseus-core";
-import {View} from "@khanacademy/wonder-blocks-core";
+import type {CSSProperties} from "aphrodite";
 
 const {ButtonGroup, InfoTip} = components;
 
@@ -630,13 +629,6 @@ const styles = StyleSheet.create({
         borderRadius: "3px",
         display: "flex",
         flexDirection: "column",
-    },
-    answerStatus: {
-        border: "none",
-        userSelect: "none",
-        width: "100px",
-        paddingTop: spacing.small_12,
-        paddingBottom: spacing.small_12,
     },
     answerStatusWrong: {
         backgroundColor: color.fadedRed16,
