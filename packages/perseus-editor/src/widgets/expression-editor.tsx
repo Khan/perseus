@@ -358,75 +358,94 @@ class ExpressionEditor extends React.Component<Props, State> {
 
                 <div className={css(styles.paddedY)}>
                     <LabeledTextField
-                        label="Visible label"
+                        label={
+                            <>
+                                Visible label
+                                <InfoTip>
+                                    <p>
+                                        Optional visible text; strongly
+                                        encouraged to help learners using
+                                        dictation software, but can be omitted
+                                        if the surrounding content provides
+                                        enough context.
+                                    </p>
+                                </InfoTip>
+                            </>
+                        }
                         value={this.props.visibleLabel || ""}
                         onChange={this.handleVisibleLabel}
                     />
-                    <InfoTip>
-                        <p>
-                            Optional visible text; strongly encouraged to help
-                            learners using dictation software, but can be
-                            omitted if the surrounding content provides enough
-                            context.
-                        </p>
-                    </InfoTip>
                 </div>
 
                 <div className={css(styles.paddedY)}>
                     <LabeledTextField
-                        label="Aria label"
-                        value={this.props.ariaLabel || ""}
-                        onChange={this.handleAriaLabel}
-                    />
-                    <InfoTip>
-                        <p>
-                            Label text that&apos;s read by screen readers.
-                            Highly recommend adding a label here to ensure your
-                            exercise is accessible. For more information on
-                            writting accessible labels, please see{" "}
-                            <a
-                                href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
+                        label={
+                            <>
+                                Aria label
+                                <InfoTip>
+                                    <p>
+                                        Label text that&apos;s read by screen
+                                        readers. Highly recommend adding a label
+                                        here to ensure your exercise is
+                                        accessible. For more information on
+                                        writting accessible labels, please see{" "}
+                                        <a
+                                            href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
                                 target="_blank"
                                 rel="noreferrer"
                             >
                                 this article.
                             </a>
                         </p>
-                    </InfoTip>
+                                </InfoTip>
+                            </>
+                        }
+                        value={this.props.ariaLabel || ""}
+                        onChange={this.handleAriaLabel}
+                    />
                 </div>
 
                 <div className={css(styles.paddedY)}>
                     <LabeledTextField
-                        label="Function variables"
+                        label={
+                            <>
+                                Function variables
+                                <InfoTip>
+                                    <p>
+                                        Single-letter variables listed here will
+                                        be interpreted as functions. This let us
+                                        know that f(x) means &quot;f of x&quot;
+                                        and not &quot;f times x&quot;.
+                                    </p>
+                                </InfoTip>
+                            </>
+                        }
                         value={this.state.functionsInternal}
                         onChange={this.handleFunctions}
                     />
-                    <InfoTip>
-                        <p>
-                            Single-letter variables listed here will be
-                            interpreted as functions. This let us know that f(x)
-                            means &quot;f of x&quot; and not &quot;f times
-                            x&quot;.
-                        </p>
-                    </InfoTip>
                 </div>
 
                 <div className={css(styles.paddedY)}>
                     <Checkbox
-                        label="Use × instead of ⋅ for multiplication"
+                        label={
+                            <>
+                                Use × instead of ⋅ for multiplication
+                                <InfoTip>
+                                    <p>
+                                        For pre-algebra problems this option
+                                        displays multiplication as \times
+                                        instead of \cdot in both the rendered
+                                        output and the acceptable formats
+                                        examples.
+                                    </p>
+                                </InfoTip>
+                            </>
+                        }
                         checked={this.props.times}
                         onChange={(newCheckedState) => {
                             this.changeTimes(newCheckedState);
                         }}
                     />
-                    <InfoTip>
-                        <p>
-                            For pre-algebra problems this option displays
-                            multiplication as \times instead of \cdot in both
-                            the rendered output and the acceptable formats
-                            examples.
-                        </p>
-                    </InfoTip>
                 </div>
 
                 <div className={css(styles.paddedY)}>
@@ -562,37 +581,47 @@ class AnswerOption extends React.Component<
                         </div>
                     </div>
 
-                    <div className={css(styles.paddedY, styles.paddedX)}>
-                        <Checkbox
-                            label="Answer expression must have the same form."
-                            checked={this.props.form}
-                            onChange={this.props.onChangeForm}
-                        />
-                        <InfoTip>
-                            <p>
-                                The student&apos;s answer must be in the same
-                                form. Commutativity and excess negative signs
-                                are ignored.
-                            </p>
-                        </InfoTip>
-                    </div>
+                <div className={css(styles.paddedY, styles.paddedX)}>
+                    <Checkbox
+                        label={
+                            <>
+                                Answer expression must have the same form.
+                                <InfoTip>
+                                    <p>
+                                        The student&apos;s answer must be in the
+                                        same form. Commutativity and excess
+                                        negative signs are ignored.
+                                    </p>
+                                </InfoTip>
+                            </>
+                        }
+                        checked={this.props.form}
+                        onChange={this.props.onChangeForm}
+                    />
+                </div>
 
-                    <div className={css(styles.paddedY, styles.paddedX)}>
-                        <Checkbox
-                            label="Answer expression must be fully expanded and simplified."
-                            checked={this.props.simplify}
-                            onChange={this.props.onChangeSimplify}
-                        />
-                        <InfoTip>
-                            <p>
-                                The student&apos;s answer must be fully expanded
-                                and simplified. Answering this equation
-                                (x^2+2x+1) with this factored equation (x+1)^2
-                                will render this response &quot;Your answer is
-                                not fully expanded and simplified.&quot;
-                            </p>
-                        </InfoTip>
-                    </div>
+                <div className={css(styles.paddedY, styles.paddedX)}>
+                    <Checkbox
+                        label={
+                            <>
+                                Answer expression must be fully expanded and
+                                simplified.
+                                <InfoTip>
+                                    <p>
+                                        The student&apos;s answer must be fully
+                                        expanded and simplified. Answering this
+                                        equation (x^2+2x+1) with this factored
+                                        equation (x+1)^2 will render this
+                                        response &quot;Your answer is not fully
+                                        expanded and simplified.&quot;
+                                    </p>
+                                </InfoTip>
+                            </>
+                        }
+                        checked={this.props.simplify}
+                        onChange={this.props.onChangeSimplify}
+                    />
+                </div>
 
                     <div className={css(styles.buttonRow, styles.paddedY)}>
                         {removeButton}
