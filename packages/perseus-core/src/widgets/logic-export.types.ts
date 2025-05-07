@@ -3,6 +3,7 @@ import type getCSProgramPublicWidgetOptions from "./cs-program/cs-program-util";
 import type getDropdownPublicWidgetOptions from "./dropdown/dropdown-util";
 import type getExpressionPublicWidgetOptions from "./expression/expression-util";
 import type getGrapherPublicWidgetOptions from "./grapher/grapher-util";
+import type getGroupPublicWidgetOptions from "./group/group-util";
 import type getIFramePublicWidgetOptions from "./iframe/iframe-util";
 import type getInputNumberPublicWidgetOptions from "./input-number/input-number-util";
 import type getInteractiveGraphPublicWidgetOptions from "./interactive-graph/interactive-graph-util";
@@ -36,6 +37,7 @@ export type PublicWidgetOptionsFunction =
     | typeof getDropdownPublicWidgetOptions
     | typeof getExpressionPublicWidgetOptions
     | typeof getGrapherPublicWidgetOptions
+    | typeof getGroupPublicWidgetOptions
     | typeof getIFramePublicWidgetOptions
     | typeof getInputNumberPublicWidgetOptions
     | typeof getInteractiveGraphPublicWidgetOptions
