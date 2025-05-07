@@ -12,12 +12,20 @@ import {KeypadContext} from "@khanacademy/keypad-context";
 import {KeypadInput, keypadElementPropType} from "@khanacademy/math-input";
 import PropTypes from "prop-types";
 import * as React from "react";
+import {NumericInputHandle} from "../types";
 
-export default class SimpleKeypadInput extends React.Component<any> {
+export default class SimpleKeypadInput
+    extends React.Component<any>
+    implements NumericInputHandle
+{
     static contextType = KeypadContext;
     declare context: React.ContextType<typeof KeypadContext>;
     _isMounted = false;
     inputRef = React.createRef<KeypadInput>();
+
+    get current() {
+        return this.inputRef.current;
+    }
 
     componentDidMount() {
         // TODO(scottgrant): This is a hack to remove the deprecated call to

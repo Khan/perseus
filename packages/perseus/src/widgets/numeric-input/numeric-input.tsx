@@ -15,7 +15,7 @@ import InputWithExamples from "./input-with-examples";
 import {type NumericInputProps} from "./numeric-input.class";
 import {generateExamples, shouldShowExamples} from "./utils";
 
-type InputRefType = SimpleKeypadInput | typeof InputWithExamples | null;
+import type {NumericInputHandle} from "../../types";
 
 /**
  * The NumericInputComponent is a child component of the NumericInput class
@@ -25,7 +25,7 @@ type InputRefType = SimpleKeypadInput | typeof InputWithExamples | null;
 export const NumericInputComponent = forwardRef(
     (props: NumericInputProps, ref) => {
         const context = useContext(PerseusI18nContext);
-        const inputRef = useRef<InputRefType>(null);
+        const inputRef = useRef<NumericInputHandle>(null);
         const [isFocused, setIsFocused] = useState<boolean>(false);
 
         // Pass the focus and blur methods to the Numeric Input Class component
@@ -100,7 +100,7 @@ export const NumericInputComponent = forwardRef(
         // (desktop-only) Otherwise, use the InputWithExamples component
         return (
             <InputWithExamples
-                ref={inputRef as React.RefObject<typeof InputWithExamples>}
+                ref={inputRef}
                 value={props.currentValue}
                 onChange={handleChange}
                 labelText={props.labelText}

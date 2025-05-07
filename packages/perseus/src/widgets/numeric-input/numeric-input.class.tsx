@@ -8,9 +8,13 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-inp
 import {NumericInputComponent} from "./numeric-input";
 import {unionAnswerForms} from "./utils";
 
-import type InputWithExamples from "./input-with-examples";
-import type SimpleKeypadInput from "../../components/simple-keypad-input";
-import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {
+    FocusPath,
+    NumericInputHandle,
+    Widget,
+    WidgetExports,
+    WidgetProps,
+} from "../../types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 import type {
     PerseusNumericInputWidgetOptions,
@@ -77,7 +81,7 @@ export class NumericInput
     extends React.Component<NumericInputProps>
     implements Widget
 {
-    inputRef = React.createRef<SimpleKeypadInput | typeof InputWithExamples>();
+    inputRef = React.createRef<NumericInputHandle>();
 
     static defaultProps: DefaultProps = {
         currentValue: "",

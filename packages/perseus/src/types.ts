@@ -607,3 +607,9 @@ export type SharedRendererProps = {
     apiOptions: APIOptions;
     linterContext: LinterContextProps;
 };
+
+export interface NumericInputHandle {
+    current: any;
+    focus: () => void;
+    blur: () => void;
+}
