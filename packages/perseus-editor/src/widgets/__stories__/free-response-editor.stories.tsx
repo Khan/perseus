@@ -45,6 +45,12 @@ export const ThreeCriteria: Story = {
     },
 };
 
+export const QuestionWithWidget: Story = {
+    args: {
+        question: "[[\u2603 radio 1]]",
+    },
+};
+
 type State = Partial<PropsFor<typeof FreeResponseEditor>>;
 
 const WithState = () => {

@@ -36,3 +36,13 @@ export const UnlimitedCharacters: Story = {
         question: "What is the theme of the essay?",
     },
 };
+
+export const QuestionWithKatex: Story = {
+    args: {
+        allowUnlimitedCharacters: true,
+        characterLimit: 500,
+        placeholder: "Enter your answer here",
+        question:
+            "What changes are required to solve the following equation? $\\dfrac{6-3}{1-0}=\\dfrac{3}{1}=3$",
+    },
+};

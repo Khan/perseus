@@ -1,3 +1,4 @@
+import {Util} from "@khanacademy/perseus";
 import {freeResponseLogic} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
@@ -40,6 +41,9 @@ class FreeResponseEditor extends React.Component<Props> {
         const warnings: Array<string> = [];
         if (!this.props.question) {
             warnings.push("The question is empty");
+        }
+        if (this.props.question.match(Util.rWidgetRule) != null) {
+            warnings.push("The question contains a widget");
         }
         return warnings;
     }

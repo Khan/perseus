@@ -24,7 +24,20 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
               <span
                 class="text_f1191h-o_O-LabelLarge_5s82ln"
               >
-                test-question
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      test-question
+                    </div>
+                  </div>
+                </div>
               </span>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_zdxht7"
@@ -32,7 +45,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                 <textarea
                   aria-invalid="false"
                   aria-required="false"
-                  class="textarea_o89kg2-o_O-LabelMedium_1rew30o-o_O-default_l06vru-o_O-defaultFocus_lrnqlz-o_O-textarea_1x0fg6n"
+                  class="textarea_nfcfnx-o_O-LabelMedium_1rew30o-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-textarea_1x0fg6n"
                   id=":r1:"
                   placeholder="test-placeholder"
                 />
@@ -79,7 +92,20 @@ exports[`free-response widget should snapshot: first render 1`] = `
               <span
                 class="text_f1191h-o_O-LabelLarge_5s82ln"
               >
-                test-question
+                <div
+                  class="perseus-renderer perseus-renderer-responsive"
+                >
+                  <div
+                    class="paragraph"
+                    data-perseus-paragraph-index="0"
+                  >
+                    <div
+                      class="paragraph"
+                    >
+                      test-question
+                    </div>
+                  </div>
+                </div>
               </span>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_zdxht7"
@@ -87,7 +113,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
                 <textarea
                   aria-invalid="false"
                   aria-required="false"
-                  class="textarea_o89kg2-o_O-LabelMedium_1rew30o-o_O-default_l06vru-o_O-defaultFocus_lrnqlz-o_O-textarea_1x0fg6n"
+                  class="textarea_nfcfnx-o_O-LabelMedium_1rew30o-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-textarea_1x0fg6n"
                   id=":r0:"
                   placeholder="test-placeholder"
                 />
