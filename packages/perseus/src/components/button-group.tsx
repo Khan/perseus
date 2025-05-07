@@ -19,6 +19,11 @@ type Props = {
     // if false, exactly one button _must_ be selected;
     // defaults to true and _at most_ one button (0 or 1) may be selected.
     allowEmpty: boolean;
+
+    /**
+     * Customizes the selected button's styling.
+     */
+    selectedButtonStyle?: CSSProperties;
 };
 
 type DefaultProps = {
@@ -66,12 +71,13 @@ class ButtonGroup extends React.Component<Props> {
                 <button
                     title={button.title}
                     type="button"
-                    id={"" + i}
                     ref={"button" + i}
                     key={"" + i}
                     className={css(
                         styles.buttonStyle,
                         button.value === value && styles.selectedStyle,
+                        button.value === value &&
+                            this.props.selectedButtonStyle,
                     )}
                     onClick={() => this.toggleSelect(button.value)}
                 >
