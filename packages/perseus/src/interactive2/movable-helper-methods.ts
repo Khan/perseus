@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-invalid-this */
+/* eslint-disable @typescript-eslint/no-invalid-this, functional/immutable-data */
 /**
  * MovableThing convenience methods
  *

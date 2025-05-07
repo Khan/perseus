@@ -1,4 +1,4 @@
-/* eslint-disable max-lines */
+/* eslint-disable max-lines, functional/immutable-data */
 /* eslint-disable @typescript-eslint/no-invalid-this */
 /**
  * Interactive graphie utilities.

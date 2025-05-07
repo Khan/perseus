@@ -45,6 +45,8 @@ export function registerWidget(
     scorer: WidgetScorerFunction,
     validator?: WidgetValidatorFunction,
 ) {
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     widgets[type] = {
         scorer,
         validator,

@@ -18,6 +18,8 @@ let nextIframeID = 0;
 const requestIframeData: Record<string, any> = {};
 const updateIframeHeight: Record<string, any> = {};
 // @ts-expect-error - TS2339 - Property 'iframeDataStore' does not exist on type 'Window & typeof globalThis'.
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 window.iframeDataStore = {};
 
 // This is called once after Perseus is loaded and the iframe

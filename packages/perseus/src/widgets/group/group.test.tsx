@@ -38,6 +38,8 @@ describe("group widget", () => {
         );
 
         // Mocked for loading graphie in svg-image
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 text: () => "",
@@ -543,6 +545,8 @@ describe("group widget", () => {
             const widgetIds = [];
             const widgetCallback = (_: any, widgetId: string) =>
                 // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 widgetIds.push(widgetId);
 
             // Act

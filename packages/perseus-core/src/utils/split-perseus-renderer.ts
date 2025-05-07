@@ -25,6 +25,8 @@ export default function splitPerseusRenderer(
         const publicWidgetOptionsFun = getPublicWidgetOptionsFunction(
             widget.type,
         );
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         splitWidgets[id] = {
             ...widget,
             options: publicWidgetOptionsFun(widget.options as any),

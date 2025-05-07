@@ -29,6 +29,8 @@ type Props = {
 const LockedFiguresSection = (props: Props) => {
     // Keep track of all figures' accordions' expanded states for the
     // expand/collapse all button. Set the whole array to false initially.
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     const collapsedStateArray = Array((props.figures ?? []).length).fill(false);
     const [expandedStates, setExpandedStates] =
         React.useState(collapsedStateArray);
@@ -72,7 +74,11 @@ const LockedFiguresSection = (props: Props) => {
 
         // First, remove the figure from its current position
         // in the figures array and the expanded states array.
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         const [removedFigure] = newFigures.splice(index, 1);
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         newExpandedStates.splice(index, 1);
 
         // Then, add it back in the new position. Add "true" to the
@@ -80,19 +86,35 @@ const LockedFiguresSection = (props: Props) => {
         // be open since the button to move it is being pressed from there).
         switch (movement) {
             case "back":
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 newFigures.unshift(removedFigure);
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 newExpandedStates.unshift(true);
                 break;
             case "backward":
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 newFigures.splice(index - 1, 0, removedFigure);
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 newExpandedStates.splice(index - 1, 0, true);
                 break;
             case "forward":
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 newFigures.splice(index + 1, 0, removedFigure);
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 newExpandedStates.splice(index + 1, 0, true);
                 break;
             case "front":
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 newFigures.push(removedFigure);
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 newExpandedStates.push(true);
                 break;
         }
@@ -113,6 +135,8 @@ const LockedFiguresSection = (props: Props) => {
 
             // Update expanded states
             const newExpandedStates = [...expandedStates];
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             newExpandedStates.splice(index, 1);
             setExpandedStates(newExpandedStates);
         }
@@ -139,6 +163,8 @@ const LockedFiguresSection = (props: Props) => {
     }
 
     function toggleExpanded(newValue: boolean) {
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         setExpandedStates(Array(figures?.length).fill(newValue));
     }
 
@@ -163,6 +189,8 @@ const LockedFiguresSection = (props: Props) => {
                                 expanded={expandedStates[index]}
                                 onToggle={(newValue) => {
                                     const newExpanded = [...expandedStates];
+                                    // TODO(LEMS-3083): Remove eslint suppression
+                                    // eslint-disable-next-line functional/immutable-data
                                     newExpanded[index] = newValue;
                                     setExpandedStates(newExpanded);
                                 }}

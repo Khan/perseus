@@ -5,6 +5,7 @@ import type getExpressionPublicWidgetOptions from "./expression/expression-util"
 import type getGrapherPublicWidgetOptions from "./grapher/grapher-util";
 import type getGroupPublicWidgetOptions from "./group/group-util";
 import type getIFramePublicWidgetOptions from "./iframe/iframe-util";
+import type getInputNumberPublicWidgetOptions from "./input-number/input-number-util";
 import type getInteractiveGraphPublicWidgetOptions from "./interactive-graph/interactive-graph-util";
 import type getLabelImagePublicWidgetOptions from "./label-image/label-image-util";
 import type getMatcherPublicWidgetOptions from "./matcher/matcher-util";
@@ -31,24 +32,25 @@ export type WidgetOptionsUpgradeMap = {
  * so reliant on a set group of widgets
  */
 export type PublicWidgetOptionsFunction =
-    | typeof getMatcherPublicWidgetOptions
-    | typeof getPlotterPublicWidgetOptions
-    | typeof getIFramePublicWidgetOptions
-    | typeof getRadioPublicWidgetOptions
-    | typeof getNumericInputPublicWidgetOptions
-    | typeof getDropdownPublicWidgetOptions
     | typeof getCategorizerPublicWidgetOptions
-    | typeof getOrdererPublicWidgetOptions
-    | typeof getExpressionPublicWidgetOptions
-    | typeof getInteractiveGraphPublicWidgetOptions
-    | typeof getLabelImagePublicWidgetOptions
-    | typeof getSorterPublicWidgetOptions
     | typeof getCSProgramPublicWidgetOptions
-    | typeof getNumberLinePublicWidgetOptions
-    | typeof getTablePublicWidgetOptions
+    | typeof getDropdownPublicWidgetOptions
+    | typeof getExpressionPublicWidgetOptions
     | typeof getGrapherPublicWidgetOptions
     | typeof getGroupPublicWidgetOptions
-    | typeof getMatrixPublicWidgetOptions;
+    | typeof getIFramePublicWidgetOptions
+    | typeof getInputNumberPublicWidgetOptions
+    | typeof getInteractiveGraphPublicWidgetOptions
+    | typeof getLabelImagePublicWidgetOptions
+    | typeof getMatcherPublicWidgetOptions
+    | typeof getMatrixPublicWidgetOptions
+    | typeof getNumberLinePublicWidgetOptions
+    | typeof getNumericInputPublicWidgetOptions
+    | typeof getOrdererPublicWidgetOptions
+    | typeof getPlotterPublicWidgetOptions
+    | typeof getRadioPublicWidgetOptions
+    | typeof getSorterPublicWidgetOptions
+    | typeof getTablePublicWidgetOptions;
 
 export type WidgetLogic = {
     name: string;

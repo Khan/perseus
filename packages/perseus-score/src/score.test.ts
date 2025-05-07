@@ -553,6 +553,8 @@ describe("scorePerseusItem", () => {
             },
             images: {},
         };
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         json.widgets["dropdown 1"].static = true;
         const score = scorePerseusItem(json, {"dropdown 1": {value: 2}}, "en");
 

@@ -2,13 +2,17 @@
  * Disclaimer: Definitely not thorough enough
  */
 import {describe, beforeEach, it} from "@jest/globals";
-import {act, screen} from "@testing-library/react";
+import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import _ from "underscore";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import {scorePerseusItemTesting} from "../../util/test-utils";
+import {
+    getAnswerfulItem,
+    getAnswerlessItem,
+    scorePerseusItemTesting,
+} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import InputNumber from "./input-number";
@@ -37,7 +41,7 @@ describe("input-number", function () {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const textbox = screen.getByRole("textbox");
+            const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "1/2");
             const score = scorePerseusItemTesting(
@@ -54,7 +58,7 @@ describe("input-number", function () {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const textbox = screen.getByRole("textbox");
+            const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "0.7");
             const score = scorePerseusItemTesting(
@@ -71,7 +75,7 @@ describe("input-number", function () {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const textbox = screen.getByRole("textbox");
+            const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, "0..7");
             const score = scorePerseusItemTesting(
@@ -205,7 +209,7 @@ describe("input-number", function () {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const textbox = screen.getByRole("textbox");
+            const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, correct);
             const score = scorePerseusItemTesting(
@@ -222,7 +226,7 @@ describe("input-number", function () {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const textbox = screen.getByRole("textbox");
+            const textbox = await screen.findByRole("textbox");
             await userEvent.click(textbox);
             await userEvent.type(textbox, incorrect);
             const score = scorePerseusItemTesting(
@@ -335,18 +339,128 @@ describe("focus state", () => {
         const gotFocus = await act(() => renderer.focus());
 
         // Assert
+        expect(screen.getByRole("textbox")).toHaveFocus();
         expect(gotFocus).toBe(true);
     });
 
     it("supports blurring", async () => {
         //  Arrange
         const {renderer} = renderQuestion(question);
+        await act(() => renderer.focus());
+        expect(screen.getByRole("textbox")).toHaveFocus();
 
         // Act
-        const gotFocus = await act(() => renderer.focus());
-        act(() => renderer.blur());
+        await act(() => renderer.blur());
 
         // Assert
-        expect(gotFocus).toBe(true);
+        await waitFor(() => {
+            expect(screen.getByRole("textbox")).not.toHaveFocus();
+        });
+    });
+});
+
+function getAnswerlessInputNumber() {
+    return getAnswerlessItem("input-number", {
+        simplify: "optional",
+        size: "normal",
+        value: 42,
+    });
+}
+
+function getAnswerfulInputNumber() {
+    return getAnswerfulItem("input-number", {
+        simplify: "optional",
+        size: "normal",
+        value: 42,
+    });
+}
+
+it("removes answers from item data", () => {
+    expect(
+        getAnswerfulInputNumber().question.widgets["input-number 1"].options
+            .value,
+    ).toBe(42);
+    expect(
+        getAnswerlessInputNumber().question.widgets["input-number 1"].options
+            .value,
+    ).toBeUndefined();
+});
+
+describe.each([
+    ["answerless", getAnswerlessInputNumber()],
+    ["answerful", getAnswerfulInputNumber()],
+])("given %s options", (_, {question}) => {
+    let userEvent: UserEvent;
+    beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+    });
+
+    it(`renders`, async () => {
+        // Act
+        renderQuestion(question);
+
+        // Assert
+        expect(screen.getByRole("textbox")).toBeInTheDocument();
+    });
+
+    it(`can be answered`, async () => {
+        // Act
+        const {renderer} = renderQuestion(question);
+
+        await userEvent.type(screen.getByRole("textbox"), "42");
+        const userInput = renderer.getUserInputMap();
+
+        // Assert
+        expect(userInput).toEqual({
+            "input-number 1": {
+                currentValue: "42",
+            },
+        });
+    });
+
+    it(`can be scored correctly`, async () => {
+        // Act
+        const {renderer} = renderQuestion(question);
+
+        await userEvent.type(screen.getByRole("textbox"), "42");
+        const userInput = renderer.getUserInputMap();
+        const score = scorePerseusItemTesting(
+            getAnswerfulInputNumber().question,
+            userInput,
+        );
+
+        // Assert
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it(`can be scored incorrectly`, async () => {
+        // Act
+        const {renderer} = renderQuestion(question);
+
+        await userEvent.type(screen.getByRole("textbox"), "8675309");
+        const userInput = renderer.getUserInputMap();
+        const score = scorePerseusItemTesting(
+            getAnswerfulInputNumber().question,
+            userInput,
+        );
+
+        // Assert
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it(`can be scored as invalid`, async () => {
+        // Act
+        const {renderer} = renderQuestion(question);
+
+        const userInput = renderer.getUserInputMap();
+        const score = scorePerseusItemTesting(
+            getAnswerfulInputNumber().question,
+            userInput,
+        );
+
+        // Assert
+        expect(score).toHaveInvalidInput();
     });
 });
