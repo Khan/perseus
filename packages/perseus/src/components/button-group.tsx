@@ -1,6 +1,8 @@
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import type {CSSProperties} from "aphrodite";
+
 type Props = {
     // the initial value of the button selected, defaults to null
     value: any;
