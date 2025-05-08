@@ -624,3 +624,8 @@ export type SharedRendererProps = {
     apiOptions: APIOptions;
     linterContext: LinterContextProps;
 };
+
+export interface Focusable {
+    focus: () => void;
+    blur: () => void;
+}
