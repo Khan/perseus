@@ -1,5 +1,51 @@
 # @khanacademy/perseus-editor
 
+## 20.2.0
+
+### Minor Changes
+
+-   [#2449](https://github.com/Khan/perseus/pull/2449) [`2243316be`](https://github.com/Khan/perseus/commit/2243316be4f54777935cb25cf5d34f44b7537700) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - UI updates to Expression editor
+
+### Patch Changes
+
+-   [#2402](https://github.com/Khan/perseus/pull/2402) [`558cc1cc6`](https://github.com/Khan/perseus/commit/558cc1cc6ad468ba6538648c57d47df5704e6858) Thanks [@benchristel](https://github.com/benchristel)! - Add typetests to ensure that the data format accepted by
+    `parseAndMigratePerseusItem` stays in sync with the types in `data-schema.ts`,
+    exported from `@khanacademy/perseus-core`. Breaking change:
+    `PerseusGraphTypeAngle.coords` can no longer be `null`; use `undefined` instead.
+
+*   [#2421](https://github.com/Khan/perseus/pull/2421) [`bedcfc6f2`](https://github.com/Khan/perseus/commit/bedcfc6f2993201bb943bd688e95efd368e8d7cb) Thanks [@mahtabsabet](https://github.com/mahtabsabet)! - Allow widgets within hints to be collapsed/expanded through editor controls
+
+-   [#2414](https://github.com/Khan/perseus/pull/2414) [`e7807485e`](https://github.com/Khan/perseus/commit/e7807485e0d33621efa4468933e6c77ce9a53def) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix dependencies so that the package correctly depends on all of the packages it uses
+
+*   [#2430](https://github.com/Khan/perseus/pull/2430) [`312166b0b`](https://github.com/Khan/perseus/commit/312166b0b487fb276983f6ce717b1a21f021e2e8) Thanks [@jandrade](https://github.com/jandrade)! - Updates the `ExpressionEditor` widget to use a WB `Button` instance that resembles the previously supported `light` variant (now deprecated).
+
+-   [#2417](https://github.com/Khan/perseus/pull/2417) [`4184314fe`](https://github.com/Khan/perseus/commit/4184314fe3e1e48ea81429ff78184530d90d31ee) Thanks [@handeyeco](https://github.com/handeyeco)! - Enable Group to be rendered/answered with answerless item data
+
+*   [#2380](https://github.com/Khan/perseus/pull/2380) [`1f88cc191`](https://github.com/Khan/perseus/commit/1f88cc1912d9b33b899512ee9052bec10227a4c1) Thanks [@benchristel](https://github.com/benchristel)! - Removes `undefined` from the types of
+    `PerseusInteractiveGraphWidgetOptions.lockedFigures` and
+    the `labels` property of locked figures. Removes the `coords`
+    property from interactive graph widget options types, for graphs that do not
+    use it (all but the `point` graph type).
+
+    This is a breaking change because assigning `undefined` to `lockedFigures` or
+    `labels`, or setting `coord` in an object literal, will now give a type error.
+    Callers should use an empty array instead of `undefined` for `lockedFigures` and
+    `labels`. Avoid setting `coord` for graph types other than `point`.
+
+-   [#2438](https://github.com/Khan/perseus/pull/2438) [`3f32593c9`](https://github.com/Khan/perseus/commit/3f32593c9dd46140b4d8891d50e34f97e751783f) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add a linter to prevent accidental mutation of object and array values
+
+-   Updated dependencies [[`a2701f002`](https://github.com/Khan/perseus/commit/a2701f00214499cc7ab7730407f70e957d1adf7b), [`39ca81d0f`](https://github.com/Khan/perseus/commit/39ca81d0f4b5a58b70db5ef14fb17d720abd28d7), [`558cc1cc6`](https://github.com/Khan/perseus/commit/558cc1cc6ad468ba6538648c57d47df5704e6858), [`79a84d31b`](https://github.com/Khan/perseus/commit/79a84d31b54289ea69454db7f857896330c1c5d8), [`ca4df1cf8`](https://github.com/Khan/perseus/commit/ca4df1cf8c6c28cfb1d45dc94ec7eee61dfef777), [`4282de2b2`](https://github.com/Khan/perseus/commit/4282de2b214e15a7043ee3786c1df11b346c2e97), [`4b25852db`](https://github.com/Khan/perseus/commit/4b25852db90f0b1884595c8b443a87f66a9fe64f), [`e7807485e`](https://github.com/Khan/perseus/commit/e7807485e0d33621efa4468933e6c77ce9a53def), [`4184314fe`](https://github.com/Khan/perseus/commit/4184314fe3e1e48ea81429ff78184530d90d31ee), [`1f88cc191`](https://github.com/Khan/perseus/commit/1f88cc1912d9b33b899512ee9052bec10227a4c1), [`22e7de307`](https://github.com/Khan/perseus/commit/22e7de307d3662181890abed0723e463b15fcd5a), [`a90ebca08`](https://github.com/Khan/perseus/commit/a90ebca08b44174a6d94b9cc3835e9114b584183), [`c27162249`](https://github.com/Khan/perseus/commit/c271622490d64f359b8ff8e2fcafc35229c60832), [`28c395f8e`](https://github.com/Khan/perseus/commit/28c395f8e0a7f9c11b85fd42ce854fcb931a3b89), [`2243316be`](https://github.com/Khan/perseus/commit/2243316be4f54777935cb25cf5d34f44b7537700), [`bfa5ce68a`](https://github.com/Khan/perseus/commit/bfa5ce68a2c7854261f3f49822fdc159fca07993), [`b7d3b9eaf`](https://github.com/Khan/perseus/commit/b7d3b9eafd9cfddc46931c4591de36c9097ec6be), [`f1662239e`](https://github.com/Khan/perseus/commit/f1662239e40b0db4fd75823746a7fc37662f7494), [`aa7b1b621`](https://github.com/Khan/perseus/commit/aa7b1b621efd75b54419b21bc998caa2e241097f), [`1b773e2a0`](https://github.com/Khan/perseus/commit/1b773e2a0bff73072515649027066d498d33a931), [`3f32593c9`](https://github.com/Khan/perseus/commit/3f32593c9dd46140b4d8891d50e34f97e751783f)]:
+    -   @khanacademy/perseus@61.1.0
+    -   @khanacademy/perseus-core@10.0.0
+    -   @khanacademy/kas@2.0.3
+    -   @khanacademy/keypad-context@3.0.7
+    -   @khanacademy/kmath@2.0.7
+    -   @khanacademy/math-input@25.1.1
+    -   @khanacademy/perseus-linter@3.0.7
+    -   @khanacademy/perseus-score@5.0.4
+    -   @khanacademy/perseus-utils@2.0.2
+    -   @khanacademy/pure-markdown@2.0.3
+
 ## 20.1.6
 
 ### Patch Changes
