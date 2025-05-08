@@ -39,6 +39,7 @@ import type {
     MarkingsType,
     PerseusGrapherWidgetOptions,
     PerseusGrapherUserInput,
+    GrapherPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -345,10 +346,11 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     }
 }
 
-type RenderProps = {
-    availableTypes: PerseusGrapherWidgetOptions["availableTypes"];
-    graph: PerseusGrapherWidgetOptions["graph"];
-    plot?: any;
+type RenderProps = Pick<
+    GrapherPublicWidgetOptions,
+    "availableTypes" | "graph"
+> & {
+    plot?: PerseusGrapherWidgetOptions["correct"];
 };
 
 type ExternalProps = WidgetProps<RenderProps>;
@@ -549,7 +551,7 @@ class Grapher extends React.Component<Props> implements Widget {
     render(): React.ReactNode {
         const type = this.props.plot.type;
         const coords = this.props.plot.coords;
-        const asymptote = this.props.plot.asymptote;
+        const asymptote = (this.props.plot as any).asymptote;
 
         const typeSelector = (
             <div style={typeSelectorStyle}>
@@ -615,7 +617,7 @@ class Grapher extends React.Component<Props> implements Widget {
     }
 }
 
-const propTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
+const transform: (arg1: GrapherPublicWidgetOptions) => RenderProps = (
     editorProps,
 ) => {
     const widgetProps: RenderProps = {
@@ -642,7 +644,7 @@ const staticTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
     editorProps,
 ) => {
     return {
-        ...propTransform(editorProps),
+        ...transform(editorProps),
         // Don't display graph type choices if we're in static mode
         availableTypes: [editorProps.correct.type],
         // Display the same graph marked as correct in the widget editor.
@@ -655,6 +657,6 @@ export default {
     displayName: "Grapher",
     hidden: true,
     widget: Grapher,
-    transform: propTransform,
-    staticTransform: staticTransform,
+    transform,
+    staticTransform,
 } satisfies WidgetExports<typeof Grapher>;
