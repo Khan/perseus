@@ -34,9 +34,11 @@ const parseRadioWidgetV3 = parseWidgetWithVersion(
         choices: array(
             object({
                 content: defaulted(string, () => ""),
-                clue: optional(string),
                 correct: optional(boolean),
                 isNoneOfTheAbove: optional(boolean),
+                rationale: optional(string),
+                // deprecated - replaced by rationale
+                clue: optional(string),
             }),
         ),
         hasNoneOfTheAbove: optional(boolean),
@@ -155,9 +157,9 @@ export function migrateV2toV3(
             deselectEnabled: options.deselectEnabled,
             choices: options.choices.map((choice) => ({
                 content: choice.content,
-                clue: choice.clue,
                 correct: choice.correct,
                 isNoneOfTheAbove: choice.isNoneOfTheAbove,
+                rationale: choice.clue,
             })),
         },
     };
