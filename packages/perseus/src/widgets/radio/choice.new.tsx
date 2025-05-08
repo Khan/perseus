@@ -1,9 +1,5 @@
 /* eslint-disable react/no-unsafe */
-import Button from "@khanacademy/wonder-blocks-button";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
-import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
@@ -12,7 +8,6 @@ import {useState, useEffect} from "react";
 import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
-import Icon from "../../components/icon";
 import {ApiOptions, ClassNames} from "../../perseus-api";
 import mediaQueries from "../../styles/media-queries";
 
@@ -25,12 +20,6 @@ import type {APIOptions} from "../../types";
 
 const intermediateCheckboxPadding = `16px 16px`;
 const intermediateCheckboxPaddingPhone = `12px 16px`;
-
-const ellipsisHorizontalIcon = {
-    path: "M27.218 6.82l0 13.578q0 2.852-1.984 4.836t-4.836 1.984l-13.578 0q-2.852 0-4.836-1.984t-1.984-4.836l0-13.578q0-2.852 1.984-4.836t4.836-1.984l13.578 0q2.852 0 4.836 1.984t1.984 4.836zm36.27 0l0 13.578q0 2.852-1.984 4.836t-4.836 1.984l-13.578 0q-2.852 0-4.836-1.984t-1.984-4.836l0-13.578q0-2.852 1.984-4.836t4.836-1.984l13.578 0q2.852 0 4.836 1.984t1.984 4.836zm36.27 0l0 13.578q0 2.852-1.984 4.836t-4.836 1.984l-13.578 0q-2.852 0-4.836-1.984t-1.984-4.836l0-13.578q0-2.852 1.984-4.836t4.836-1.984l13.578 0q2.852 0 4.836 1.984t1.984 4.836z",
-    width: 100,
-    height: 27.284,
-} as const;
 
 export type ChoiceProps = {
     apiOptions?: APIOptions;
@@ -246,83 +235,6 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                         </div>
                     )}
                 </Clickable>
-
-                {apiOptions.crossOutEnabled && !reviewMode && (
-                    <Popover
-                        dismissEnabled
-                        content={({close}) => (
-                            <PopoverContent
-                                title={strings.crossOut}
-                                content={strings.crossOutOption}
-                                closeButtonVisible
-                                actions={
-                                    <View>
-                                        <Strut size={spacing.medium_16} />
-                                        <Button
-                                            kind="primary"
-                                            aria-label={strings.crossOutChoice({
-                                                letter: getChoiceLetter(
-                                                    pos,
-                                                    strings,
-                                                ),
-                                            })}
-                                            disabled={
-                                                apiOptions.readOnly ||
-                                                reviewMode
-                                            }
-                                            onClick={() => {
-                                                if (!crossedOut) {
-                                                    // If we're crossing
-                                                    // out a checked
-                                                    // option, let's also
-                                                    // uncheck it.
-                                                    sendChange({
-                                                        checked: false,
-                                                        crossedOut: true,
-                                                    });
-                                                } else {
-                                                    sendChange({
-                                                        crossedOut: false,
-                                                    });
-                                                }
-                                                close();
-                                            }}
-                                        >
-                                            {crossedOut
-                                                ? strings.bringBack
-                                                : strings.crossOut}
-                                        </Button>
-                                    </View>
-                                }
-                            />
-                        )}
-                    >
-                        {({open}) => (
-                            <Clickable
-                                onClick={open}
-                                aria-label={strings.openMenuForChoice({
-                                    letter: getChoiceLetter(pos, strings),
-                                })}
-                                style={{
-                                    alignSelf: "center",
-                                    padding: "5px",
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    marginLeft: "10px",
-                                }}
-                            >
-                                {({hovered, focused, pressed}) => (
-                                    <Icon
-                                        icon={ellipsisHorizontalIcon}
-                                        size={3}
-                                        color={color.offBlack64}
-                                    />
-                                )}
-                            </Clickable>
-                        )}
-                    </Popover>
-                )}
             </div>
             {showRationale && (
                 <div

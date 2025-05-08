@@ -470,150 +470,9 @@ describe("Radio Widget", () => {
             ).toHaveLength(0);
         });
 
-        describe("cross-out is enabled", () => {
-            const crossOutApiOptions = {
-                ...apiOptions,
-                crossOutEnabled: true,
-            } as const;
-
-            it("should render cross-out menu button", async () => {
-                // Arrange & Act
-                renderQuestion(question, crossOutApiOptions);
-
-                // Assert
-                expect(
-                    screen.getByRole("button", {
-                        name: /Open menu for Choice B/,
-                    }),
-                ).toBeVisible();
-            });
-
-            it("should open the cross-out menu when button clicked", async () => {
-                // Arrange
-                renderQuestion(question, crossOutApiOptions);
-
-                // Act
-                await userEvent.click(
-                    screen.getByRole("button", {
-                        name: /Open menu for Choice B/,
-                    }),
-                );
-
-                // Assert
-                expect(
-                    screen.getByRole("button", {
-                        name: /Cross out Choice B/,
-                    }),
-                ).toBeVisible();
-            });
-
-            it("should open the cross-out menu when focused and spacebar pressed", async () => {
-                // Arrange
-                renderQuestion(question, crossOutApiOptions);
-                await userEvent.tab(); // Choice icon
-                await userEvent.tab(); // Cross-out menu ellipsis
-
-                // Act
-                await userEvent.keyboard(" ");
-
-                // Assert
-                expect(
-                    screen.getByRole("button", {
-                        name: /Cross out Choice A/,
-                    }),
-                ).toBeVisible();
-            });
-
-            it("should cross-out selection and dismiss button when clicked", async () => {
-                // Arrange
-                renderQuestion(question, crossOutApiOptions);
-                await userEvent.click(
-                    screen.getByRole("button", {
-                        name: /Open menu for Choice B/,
-                    }),
-                );
-
-                // Act
-                await userEvent.click(
-                    screen.getByRole("button", {
-                        name: /Cross out Choice B/,
-                    }),
-                );
-
-                // Assert
-                expect(
-                    screen.queryAllByRole("button", {
-                        name: /Cross out Choice B/,
-                    }),
-                ).toHaveLength(0);
-
-                expect(
-                    screen.getByTestId("choice-icon__cross-out-line"),
-                ).toBeVisible();
-            });
-
-            it("should remove cross-out line on selection", async () => {
-                // Arrange
-                renderQuestion(question, crossOutApiOptions);
-                await userEvent.click(
-                    screen.getByRole("button", {
-                        name: /Open menu for Choice B/,
-                    }),
-                );
-
-                // Act
-                await userEvent.click(
-                    screen.getByRole("button", {
-                        name: /Cross out Choice B/,
-                    }),
-                );
-                jest.runAllTimers();
-
-                await userEvent.click(
-                    screen.getByRole("radio", {
-                        name: "(Choice B, Crossed out) -8",
-                    }),
-                );
-
-                // Assert
-                expect(
-                    screen.queryByTestId("choice-icon__cross-out-line"),
-                ).not.toBeInTheDocument();
-            });
-
-            it("should dismiss cross-out button with {tab} key", async () => {
-                // Arrange
-                renderQuestion(question, crossOutApiOptions);
-                await userEvent.tab(); // Choice icon
-                await userEvent.tab(); // Cross-out menu ellipsis
-
-                // Act
-                await userEvent.keyboard(" ");
-                jest.runAllTimers();
-
-                expect(
-                    screen.getByRole("button", {
-                        name: /Cross out Choice A/,
-                    }),
-                ).toBeVisible();
-
-                await userEvent.keyboard(" ");
-                jest.runAllTimers();
-
-                // Assert
-                expect(
-                    screen.queryAllByRole("button", {
-                        name: /Cross out Choice A/,
-                    }),
-                ).toHaveLength(0);
-            });
-        });
-
         it("should be invalid when first rendered", async () => {
             // Arrange
-            const apiOptions: APIOptions = {
-                crossOutEnabled: false,
-            };
+            const apiOptions: APIOptions = {};
 
             // Act
             const {renderer} = renderQuestion(question, apiOptions);
@@ -628,9 +487,7 @@ describe("Radio Widget", () => {
 
         it("Should render correct option select statuses (rationales) when review mode enabled", async () => {
             // Arrange
-            const apiOptions: APIOptions = {
-                crossOutEnabled: false,
-            };
+            const apiOptions: APIOptions = {};
             renderQuestion(question, apiOptions, {reviewMode: true});
 
             // Act
@@ -642,9 +499,7 @@ describe("Radio Widget", () => {
 
         it("Should render incorrect option select statuses (rationales) when review mode enabled", async () => {
             // Arrange
-            const apiOptions: APIOptions = {
-                crossOutEnabled: false,
-            };
+            const apiOptions: APIOptions = {};
             renderQuestion(question, apiOptions, {reviewMode: true});
 
             // Act
@@ -748,9 +603,7 @@ describe("Radio Widget", () => {
 
         it("should select multiple options when clicked", async () => {
             // Arrange
-            const apiOptions: APIOptions = {
-                crossOutEnabled: false,
-            };
+            const apiOptions: APIOptions = {};
             const radio1Widget = question.widgets["radio 1"];
             const radioOptions = radio1Widget.options;
 
@@ -791,9 +644,7 @@ describe("Radio Widget", () => {
 
         it("should deselect selected options when clicked", async () => {
             // Arrange
-            const apiOptions: APIOptions = {
-                crossOutEnabled: false,
-            };
+            const apiOptions: APIOptions = {};
             const radio1Widget = question.widgets["radio 1"];
             const radioOptions = radio1Widget.options;
 
@@ -850,9 +701,7 @@ describe("Radio Widget", () => {
 
         it("should be invalid when first rendered", async () => {
             // Arrange
-            const apiOptions: APIOptions = {
-                crossOutEnabled: false,
-            };
+            const apiOptions: APIOptions = {};
 
             // Act
             const {renderer} = renderQuestion(question, apiOptions);
@@ -867,9 +716,7 @@ describe("Radio Widget", () => {
 
         it("should be invalid when incorrect number of choices selected", async () => {
             // Arrange
-            const apiOptions: APIOptions = {
-                crossOutEnabled: false,
-            };
+            const apiOptions: APIOptions = {};
             const radio1Widget = question.widgets["radio 1"];
             const radioOptions = radio1Widget.options;
 
