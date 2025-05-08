@@ -1,0 +1,15 @@
+import{a as b}from"./index-B-lxVbXh.js";import{I as f}from"./input-with-examples-BVolRgwA.js";import"./v4-CtRu48qb.js";import"./jsx-runtime-BT65X5dW.js";import"./index-C6mWTJJr.js";import"./_commonjsHelpers-BosuxZz1.js";import"./renderer-CDMpjcHH.js";import"./underscore-U-AHniOr.js";import"./index-BWagKz4k.js";import"./perseus-error-CSETqePQ.js";import"./util-2bFi3N3g.js";import"./jquery-CkHB0_Mt.js";import"./get-decimal-separator-B2cicA45.js";import"./index-CrGd2QqM.js";import"./index-BzwLglMS.js";import"./index-D7h-teXI.js";import"./index-B1Gws05u.js";import"./zoomable-tex-Dy-nElJT.js";import"./tex-BONImhZG.js";import"./dependencies-BsVPGK1s.js";import"./zoomable-C_CCSKDG.js";import"./i18n-context-3AkWzTTj.js";import"./svg-image-ywfOpLF6.js";import"./index-DEiJo70o.js";import"./no-important-DlFk8a1I.js";import"./index-CW2s7ekB.js";import"./index-Ds5N5m2R.js";import"./fixed-to-responsive-CTsII9Xx.js";import"./constants-BIpV3g0K.js";import"./client-CAS5PaPY.js";import"./inline-icon-AJRwMA4Z.js";import"./icon-paths-C3bPmxpL.js";import"./image-loader-CdkY-jNs.js";import"./perseus-api-Ty_QvlNi.js";import"./stub-tag-editor-B8lH250S.js";import"./text-list-editor-HcP7oGoC.js";import"./lint-D0FI20JF.js";import"./index-DqS3kFds.js";import"./index-ByoCYR4k.js";import"./extends-DDykod_l.js";import"./index-DAJiRA_A.js";import"./index-CazpBUXm.js";import"./index-Bdux6mmb.js";import"./index-DfoJsr3g.js";import"./index-3H81sEQ1.js";import"./index-CUPgSPQO.js";import"./Popper-Bj3TCzZA.js";import"./text-input-By3UgNXT.js";import"./index-CU62RnlP.js";const xr={title:"Perseus/Components/Input with Examples",component:f,args:{examples:[],id:"",onChange:b("onChange"),value:""}},p=["Sample 1","Sample 2","Sample 3"],r={},t={args:{examples:p}},e={args:{examples:p,labelText:"Test label"}},o={args:{disabled:!0,examples:p}};var m,s,a;r.parameters={...r.parameters,docs:{...(m=r.parameters)==null?void 0:m.docs,source:{originalSource:"{}",...(a=(s=r.parameters)==null?void 0:s.docs)==null?void 0:a.source}}};var i,l,n;t.parameters={...t.parameters,docs:{...(i=t.parameters)==null?void 0:i.docs,source:{originalSource:`{
+  args: {
+    examples: testExamples
+  }
+}`,...(n=(l=t.parameters)==null?void 0:l.docs)==null?void 0:n.source}}};var c,d,u;e.parameters={...e.parameters,docs:{...(c=e.parameters)==null?void 0:c.docs,source:{originalSource:`{
+  args: {
+    examples: testExamples,
+    labelText: "Test label"
+  }
+}`,...(u=(d=e.parameters)==null?void 0:d.docs)==null?void 0:u.source}}};var x,g,E;o.parameters={...o.parameters,docs:{...(x=o.parameters)==null?void 0:x.docs,source:{originalSource:`{
+  args: {
+    disabled: true,
+    examples: testExamples
+  }
+}`,...(E=(g=o.parameters)==null?void 0:g.docs)==null?void 0:E.source}}};const gr=["DefaultAndMostlyEmptyProps","ListOfExamples","AriaLabelTextWithListOfExamples","DisabledInput"];export{e as AriaLabelTextWithListOfExamples,r as DefaultAndMostlyEmptyProps,o as DisabledInput,t as ListOfExamples,gr as __namedExportsOrder,xr as default};
