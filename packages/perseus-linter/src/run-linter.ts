@@ -2,6 +2,8 @@ import Rule from "./rule";
 import AllRules from "./rules/all-rules";
 import TreeTransformer from "./tree-transformer";
 
+import type {LinterWarning, RuleCheckReturnType} from "./rule";
+
 export const allLintRules: ReadonlyArray<any> = AllRules.filter(
     (r) => r.severity < Rule.Severity.BULK_WARNING,
 );
@@ -33,9 +35,9 @@ export function runLinter(
     tree: any,
     context: any,
     highlight: boolean,
-    rules: ReadonlyArray<any> = allLintRules,
-): ReadonlyArray<any> {
-    const warnings: Array<any> = [];
+    rules: ReadonlyArray<Rule> = allLintRules,
+): ReadonlyArray<LinterWarning> {
+    const warnings: Array<LinterWarning> = [];
     const tt = new TreeTransformer(tree);
 
     // The markdown parser often outputs adjacent text nodes. We
@@ -69,7 +71,7 @@ export function runLinter(
     // issue too. But using JavaScript has its own downsides: there is
     // risk that the linter JavaScript would interfere with
     // widget-related Javascript.
-    let tableWarnings: Array<never> = [];
+    let tableWarnings: Array<LinterWarning> = [];
     let insideTable = false;
 
     // Traverse through the nodes of the parse tree. At each node, loop
@@ -102,6 +104,7 @@ export function runLinter(
                 // locations in the source string then we can add
                 // these numbers to that one and get and absolute
                 // character range that will be useful
+                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (warning.start || warning.end) {
                     warning.target = content.substring(
                         warning.start,
@@ -151,9 +154,7 @@ export function runLinter(
         // If we are inside a table and there were any warnings on
         // this node, then we need to save the warnings for display
         // on the table itself
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (insideTable && nodeWarnings.length) {
-            // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+        if (insideTable && nodeWarnings.length > 0) {
             tableWarnings.push(...nodeWarnings);
         }
 
@@ -170,8 +171,7 @@ export function runLinter(
         // Note that even if we're inside a table, we still reparent the
         // linty node so that it can be highlighted. We just make a note
         // of whether this lint is inside a table or not.
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (nodeWarnings.length) {
+        if (nodeWarnings.length > 0) {
             nodeWarnings.sort((a, b) => {
                 return a.severity - b.severity;
             });

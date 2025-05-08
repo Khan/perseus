@@ -15,7 +15,7 @@ export type Issue = {
     description: string;
     helpUrl: string;
     help: string;
-    impact: string;
+    impact: string; // TODO: Make this a string union so the values are well-known. (eg. "low" | "medium" | "high")
     message: string;
 };
 

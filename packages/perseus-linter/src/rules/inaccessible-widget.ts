@@ -25,7 +25,15 @@ export default Rule.makeRule({
             widgetInfo.options,
         );
         if (!accessible) {
-            return `The widget "${widgetType}" is not accessible.`;
+            return {
+                message: `The "${widgetType}" widget is not accessible.`,
+                start: 0,
+                end: content.length,
+                metadata: {
+                    widgetType: widgetType,
+                    widgetId: widgetId,
+                },
+            };
         }
     },
 }) as Rule;

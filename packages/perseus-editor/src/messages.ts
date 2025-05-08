@@ -1,9 +1,9 @@
 // This file is meant to contain any and all perseus-editor messages
 // we want to show within the Issues Panel.
 export const WARNINGS = {
-    inaccessibleWidget: (widgetType: string) => ({
+    inaccessibleWidget: (widgetType: string, widgetId: string) => ({
         id: `${widgetType} inaccessible`,
-        description: `This ${widgetType} widget is marked as inaccessible. Consider using an alternative to support all learners. Please checkout the following documentation on compliant widget options.`,
+        description: `This ${widgetType} widget (${widgetId}) is inaccessible. Consider using an alternative to support all learners. Please check out the following documentation on compliant widget options.`,
         helpUrl:
             "https://khanacademy.atlassian.net/wiki/spaces/LC/pages/1909489691/Widget+Fundamentals",
         help: "Widget Fundamentals",

@@ -68,21 +68,29 @@ class ItemEditor extends React.Component<Props, State> {
             widgets: props.question?.widgets,
             stack: [],
         };
+
         return {
             warnings: PerseusLinter.runLinter(
                 parsed,
                 linterContext,
                 false,
-            )?.map((e) => {
-                if (e.rule === "inaccessible-widget") {
-                    return WARNINGS.inaccessibleWidget("???");
+            )?.map((linterWarning) => {
+                if (linterWarning.rule === "inaccessible-widget") {
+                    return WARNINGS.inaccessibleWidget(
+                        linterWarning.metadata?.widgetType ?? "unknown",
+                        linterWarning.metadata?.widgetId ?? "unknown",
+                    );
                 }
 
                 // Default - Do better here!
+                // Perhaps we could add more items to the WARNINGS object where
+                // each key is the lint rule. Then the rule's message could be
+                // what we use directly from teh linter and the rest of the
+                // text/links is defined in the `WARNINGS` object.
                 return {
-                    id: e.rule,
-                    description: e.message,
-                    message: e.message,
+                    id: linterWarning.rule,
+                    description: linterWarning.message,
+                    message: linterWarning.message,
                     help: "Don't do that!",
                     helpUrl: "https://www.example.com",
                     impact: "HUGE! 🤯",
