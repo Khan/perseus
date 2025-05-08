@@ -224,8 +224,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                         Interactive2.MovablePoint.constraints.snap(),
                         (coord: any) => {
                             // Always enforce that this is a function
-                            const isFunction = _.all(
-                                this._coords(),
+                            const isFunction = this._coords().every(
                                 (otherCoord, j) => {
                                     return (
                                         i === j ||
