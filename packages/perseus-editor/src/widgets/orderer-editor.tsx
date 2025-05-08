@@ -18,6 +18,66 @@ const VERTICAL = "vertical";
 
 type Props = any;
 
+const getUpdatedOptions = (
+    correctOptions: Array<{content: string}>,
+    otherOptions: Array<{content: string}>,
+    whichOptions?: string,
+    options?: string[],
+): Record<string, any> => {
+    const props: Record<string, any> = {};
+
+    // Update the changed options by mapping the options to an array of objects with a content property
+    if (whichOptions && options) {
+        props[whichOptions] = _.map(options, function (option) {
+            return {content: option};
+        });
+    }
+
+    // Get content from correctOptions (either updated or existing)
+    const correctOptionsToUse =
+        whichOptions === "correctOptions"
+            ? props.correctOptions
+            : correctOptions || [];
+
+    // Get content from otherOptions (either updated or existing)
+    const otherOptionsToUse =
+        whichOptions === "otherOptions"
+            ? props.otherOptions
+            : otherOptions || [];
+
+    // Combine all content items
+    const allOptions = [...correctOptionsToUse, ...otherOptionsToUse];
+
+    // Get unique content items
+    const updatedOptions = [...new Set(allOptions.map((item) => item.content))]
+        // filter out empty strings
+        .filter((content) => content !== "")
+        // Alphabetical sort
+        .sort()
+        // Category sort
+        .sort((a, b) => {
+            const getCategoryScore = (content) => {
+                // 1. Any content that contains numbers
+                if (/\d/.test(content)) {
+                    return 0;
+                }
+                // 2. $tex$ or variables without any numbers
+                if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
+                    return 2;
+                }
+                // 3. Everything else
+                return 1;
+            };
+            return getCategoryScore(a) - getCategoryScore(b);
+        })
+        .map((content) => ({content}));
+
+    // Update the options with the new options
+    props["options"] = updatedOptions;
+
+    return props;
+};
+
 class OrdererEditor extends React.Component<Props> {
     static propTypes = {
         correctOptions: PropTypes.array,
@@ -37,55 +97,14 @@ class OrdererEditor extends React.Component<Props> {
         arg2: any,
         arg3: any,
     ) => any = (whichOptions, options, cb) => {
-        const props: Record<string, any> = {};
-        props[whichOptions] = _.map(options, function (option) {
-            return {content: option};
-        });
+        const updatedOptions = getUpdatedOptions(
+            this.props.correctOptions || [],
+            this.props.otherOptions || [],
+            whichOptions,
+            options,
+        );
 
-        // Get content from correctOptions (either updated or existing)
-        const correctOptionsToUse =
-            whichOptions === "correctOptions"
-                ? props.correctOptions
-                : this.props.correctOptions || [];
-
-        // Get content from otherOptions (either updated or existing)
-        const otherOptionsToUse =
-            whichOptions === "otherOptions"
-                ? props.otherOptions
-                : this.props.otherOptions || [];
-
-        // Combine all content items
-        const allOptions = [...correctOptionsToUse, ...otherOptionsToUse];
-
-        // Get unique content items
-        const updatedOptions = [
-            ...new Set(allOptions.map((item) => item.content)),
-        ]
-            // filter out empty strings
-            .filter((content) => content !== "")
-            // Alphabetical sort
-            .sort()
-            // Category sort
-            .sort((a, b) => {
-                const getCategoryScore = (content) => {
-                    // 1. Any content that contains numbers
-                    if (/\d/.test(content)) {
-                        return 0;
-                    }
-                    // 2. $tex$ or variables without any numbers
-                    if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
-                        return 2;
-                    }
-                    // 3. Everything else
-                    return 1;
-                };
-                return getCategoryScore(a) - getCategoryScore(b);
-            })
-            .map((content) => ({content}));
-
-        // Update the options with the new options whenever the correct or other options change
-        props["options"] = updatedOptions;
-        this.props.onChange(props, cb);
+        this.props.onChange(updatedOptions, cb);
     };
 
     onLayoutChange: (arg1: React.ChangeEvent<HTMLInputElement>) => void = (
@@ -104,26 +123,10 @@ class OrdererEditor extends React.Component<Props> {
         // We combine the correct answer and the other cards by merging them,
         // removing duplicates and empty cards, and sorting them into
         // categories based on their content
-        const options = _.chain(_.pluck(this.props.correctOptions, "content"))
-            .union(_.pluck(this.props.otherOptions, "content"))
-            .uniq()
-            .reject(function (content) {
-                return content === "";
-            })
-            .sort()
-            .sortBy(function (content) {
-                if (/\d/.test(content)) {
-                    return 0;
-                }
-                if (/^\$?[a-zA-Z]+\$?$/.test(content)) {
-                    return 2;
-                }
-                return 1;
-            })
-            .map(function (content) {
-                return {content: content};
-            })
-            .value();
+        const {options} = getUpdatedOptions(
+            this.props.correctOptions || [],
+            this.props.otherOptions || [],
+        );
 
         return {
             options: options,
@@ -217,3 +220,5 @@ class OrdererEditor extends React.Component<Props> {
 }
 
 export default OrdererEditor;
+
+export {getUpdatedOptions};
