@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 25.1.2
+
+### Patch Changes
+
+-   [#2462](https://github.com/Khan/perseus/pull/2462) [`4c8030081`](https://github.com/Khan/perseus/commit/4c803008155f7c20c88949c9caf4f9c9a2fd399e) Thanks [@benchristel](https://github.com/benchristel)! - Remove peer dependency on KaTeX. We don't use KaTeX anymore.
+
 ## 25.1.1
 
 ### Patch Changes

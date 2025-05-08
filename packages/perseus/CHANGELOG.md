@@ -1,5 +1,16 @@
 # @khanacademy/perseus
 
+## 61.2.0
+
+### Minor Changes
+
+-   [#2454](https://github.com/Khan/perseus/pull/2454) [`8f49aac1f`](https://github.com/Khan/perseus/commit/8f49aac1f58d577f037bc03cb24d59894524e66b) Thanks [@Myranae](https://github.com/Myranae)! - Clean up the iFrame widget types and library usage, plus add tests to prepare for answerless rendering
+
+### Patch Changes
+
+-   Updated dependencies [[`4c8030081`](https://github.com/Khan/perseus/commit/4c803008155f7c20c88949c9caf4f9c9a2fd399e)]:
+    -   @khanacademy/math-input@25.1.2
+
 ## 61.1.0
 
 ### Minor Changes
