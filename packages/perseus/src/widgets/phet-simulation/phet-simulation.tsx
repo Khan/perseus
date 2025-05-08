@@ -178,30 +178,31 @@ export class PhetSimulation
 
     render(): React.ReactNode {
         const {apiOptions} = this.props;
+
         // We handle mobile fullscreen differently, as many mobile browsers
         // and apps don't support the fullscreen API. Instead, we use our own
         // fake fullscreen implementation to take up the full webview.
-        const isMobile = apiOptions?.isMobile || true;
         const {isFullScreen} = this.state;
         const {InitialRequestUrl} = getDependencies();
         const isMobileNative = isFileProtocol(InitialRequestUrl.protocol);
-        // We sandbox the iframe so that we allowlist only the functionality
-        // that we need. This makes it safer to present third-party content
-        // from the PhET website.
-        // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
-        const sandboxProperties = "allow-same-origin allow-scripts";
 
         // Determine which container style to use based on fullscreen state
         const containerStyle =
-            isFullScreen && isMobile
+            isFullScreen && isMobileNative
                 ? styles.fullScreenWidgetContainer
                 : styles.widgetContainer;
 
         // Determine iframe container style based on fullscreen state
         const iframeContainerStyle =
-            isFullScreen && isMobile
+            isFullScreen && isMobileNative
                 ? styles.fullScreenIframeContainer
                 : styles.iframeContainer;
+
+        // We sandbox the iframe so that we allowlist only the functionality
+        // that we need. This makes it safer to present third-party content
+        // from the PhET website.
+        // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
+        const sandboxProperties = "allow-same-origin allow-scripts";
 
         return (
             <View style={containerStyle}>
