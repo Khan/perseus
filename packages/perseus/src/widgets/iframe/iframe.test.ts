@@ -65,8 +65,7 @@ describe("iframe widget", () => {
         });
 
         it("should score as incorrect when postMessage has testsPassed: false", () => {
-            const apiOptions: APIOptions = {isMobile: false};
-            const {renderer} = renderQuestion(question1, apiOptions);
+            const {renderer} = renderQuestion(question1);
 
             const messageData = {testsPassed: false, message: "Try again."};
 
@@ -86,8 +85,7 @@ describe("iframe widget", () => {
         });
 
         it("should retain initial invalid score if postMessage is missing testsPassed", () => {
-            const apiOptions: APIOptions = {isMobile: false};
-            const {renderer} = renderQuestion(question1, apiOptions);
+            const {renderer} = renderQuestion(question1);
             const initialScore = scorePerseusItemTesting(
                 question1,
                 renderer.getUserInputMap(),
@@ -114,8 +112,7 @@ describe("iframe widget", () => {
         });
 
         it("should retain initial invalid score if postMessage data is not valid JSON", () => {
-            const apiOptions: APIOptions = {isMobile: false};
-            const {renderer} = renderQuestion(question1, apiOptions);
+            const {renderer} = renderQuestion(question1);
             const initialScore = scorePerseusItemTesting(
                 question1,
                 renderer.getUserInputMap(),
