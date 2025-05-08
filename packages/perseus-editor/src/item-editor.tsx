@@ -1,4 +1,5 @@
-import {itemDataVersion} from "@khanacademy/perseus";
+import {PerseusMarkdown, itemDataVersion} from "@khanacademy/perseus";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 import * as React from "react";
 import _ from "underscore";
 
@@ -7,6 +8,7 @@ import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import IssuesPanel from "./issues-panel";
 import ItemExtrasEditor from "./item-extras-editor";
+import {WARNINGS} from "./messages";
 
 import type {Issue} from "./issues-panel";
 import type {
@@ -39,6 +41,7 @@ type Props = {
 type State = {
     warnings: Issue[];
 };
+
 class ItemEditor extends React.Component<Props, State> {
     static defaultProps: {
         answerArea: Record<any, any>;
@@ -57,6 +60,36 @@ class ItemEditor extends React.Component<Props, State> {
     state = {
         warnings: [],
     };
+
+    static getDerivedStateFromProps(props: Props): Partial<State> {
+        const parsed = PerseusMarkdown.parse(props.question?.content ?? "", {});
+        const linterContext = {
+            content: props.question?.content,
+            widgets: props.question?.widgets,
+            stack: [],
+        };
+        return {
+            warnings: PerseusLinter.runLinter(
+                parsed,
+                linterContext,
+                false,
+            )?.map((e) => {
+                if (e.rule === "inaccessible-widget") {
+                    return WARNINGS.inaccessibleWidget("???");
+                }
+
+                // Default - Do better here!
+                return {
+                    id: e.rule,
+                    description: e.message,
+                    message: e.message,
+                    help: "Don't do that!",
+                    helpUrl: "https://www.example.com",
+                    impact: "HUGE! 🤯",
+                };
+            }),
+        };
+    }
 
     // Notify the parent that the question or answer area has been updated.
     updateProps: ChangeHandler = (newProps, cb, silent) => {
@@ -98,25 +131,6 @@ class ItemEditor extends React.Component<Props, State> {
         };
     };
 
-    handleAddWarning = (warning: Issue) => {
-        this.setState((prevState) => {
-            const alreadyExists = prevState.warnings.some(
-                (w) => w.id === warning.id,
-            );
-            return alreadyExists
-                ? null // No need to update state if the warning already exists
-                : {warnings: [...prevState.warnings, warning]};
-        });
-    };
-
-    handleRemoveWarning = (warningId: string) => {
-        this.setState((prevState) => {
-            return {
-                warnings: prevState.warnings.filter((w) => w.id !== warningId),
-            };
-        });
-    };
-
     render(): React.ReactNode {
         const isMobile =
             this.props.deviceType === "phone" ||
@@ -141,8 +155,6 @@ class ItemEditor extends React.Component<Props, State> {
                             apiOptions={this.props.apiOptions}
                             showWordCount={true}
                             widgetIsOpen={this.props.widgetIsOpen}
-                            onAddWarning={this.handleAddWarning}
-                            onRemoveWarning={this.handleRemoveWarning}
                             {...this.props.question}
                         />
                     </div>
