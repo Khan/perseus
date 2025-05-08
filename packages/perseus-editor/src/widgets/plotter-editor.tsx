@@ -27,8 +27,12 @@ type EditingState = (typeof editingStates)[number];
 // Return a copy of array with length n, padded with given value
 function padArray(array: any, n, value: any) {
     const copy = _.clone(array);
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     copy.length = n;
     for (let i = array.length; i < n; i++) {
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         copy[i] = value;
     }
     return copy;

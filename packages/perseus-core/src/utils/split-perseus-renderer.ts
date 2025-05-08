@@ -1,0 +1,40 @@
+import _ from "underscore";
+
+import {getPublicWidgetOptionsFunction} from "../widgets/core-widget-registry";
+import {getUpgradedWidgetOptions} from "../widgets/upgrade";
+
+import deepClone from "./deep-clone";
+
+import type {PerseusRenderer} from "../data-schema";
+
+/**
+ * Return a copy of a PerseusRenderer with rubric data removed (ie answers)
+ *
+ * @param original - the original, full PerseusRenderer (which includes the rubric - aka answer data)
+ */
+export default function splitPerseusRenderer(
+    original: PerseusRenderer,
+): PerseusRenderer {
+    const clone = deepClone(original);
+    const originalWidgets = clone.widgets ?? {};
+
+    const upgradedWidgets = getUpgradedWidgetOptions(originalWidgets);
+    const splitWidgets = {};
+
+    for (const [id, widget] of Object.entries(upgradedWidgets)) {
+        const publicWidgetOptionsFun = getPublicWidgetOptionsFunction(
+            widget.type,
+        );
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
+        splitWidgets[id] = {
+            ...widget,
+            options: publicWidgetOptionsFun(widget.options as any),
+        };
+    }
+
+    return {
+        ...original,
+        widgets: splitWidgets,
+    };
+}

@@ -2,6 +2,8 @@ import {addLibraryVersionToPerseusDebug} from "./add-library-version-to-perseus-
 
 describe("add-library-version-to-perseus-debug", () => {
     beforeEach(() => {
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         delete globalThis.__perseus_debug__;
     });
 

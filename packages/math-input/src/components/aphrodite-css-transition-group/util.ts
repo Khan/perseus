@@ -13,9 +13,13 @@ function flatten(list?: StyleType): ReadonlyArray<CSSProperties> {
     }
     if (Array.isArray(list)) {
         for (const item of list) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             result.push(...flatten(item));
         }
     } else {
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         result.push(list as any);
     }
 
@@ -55,17 +59,25 @@ export function processStyleType(style?: StyleType): {
                     // This regex converts all instances of -{lowercaseLetter}
                     // to the uppercase version of that letter, without the
                     // leading dash.
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     def[
                         key.replace(/-[a-z]/g, (match) =>
                             match[1].toUpperCase(),
                         )
                     ] = value;
                 }
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 inlineStyles.push(def);
             } else {
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 stylesheetStyles.push(child);
             }
         } else {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             inlineStyles.push(child);
         }
     });
@@ -81,6 +93,8 @@ export function processStyleType(style?: StyleType): {
         const inlineStylesStyleSheet = StyleSheet.create({
             inlineStyles: inlineStylesObject,
         });
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         stylesheetStyles.push(inlineStylesStyleSheet.inlineStyles);
     }
 

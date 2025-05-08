@@ -66,8 +66,12 @@ function partition<T, V extends _.Collection<T>>(
     const b: _.TypeOfCollection<V>[] = [];
     _.forEach(list, (elem, key, ctx) => {
         if (iteratee(elem, key, ctx)) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             a.push(elem);
         } else {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             b.push(elem);
         }
     });
@@ -3595,6 +3599,8 @@ var parseError = function (str: string, hash) {
 
 // expose concrete nodes to parser scope
 // see http://zaach.github.io/jison/docs/#sharing-scope
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 parser.yy = {
     Add: Add,
     Mul: Mul,
@@ -3631,8 +3637,12 @@ export const parse = function (input: string, options?: ParseOptions) {
     try {
         if (options && options.functions) {
             // reserve the symbol "i" for complex numbers
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             parser.yy.functions = _.without(options.functions, "i");
         } else {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             parser.yy.functions = [];
         }
 
@@ -3767,12 +3777,16 @@ export const unitParse = function (input: string) {
         const unitArray: Pow[] = [];
 
         _(parseResult.unit.num).each((unitSpec) => {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             unitArray.push(
                 new Pow(unprefixify(unitSpec.name), new Int(unitSpec.pow)),
             );
         });
 
         _(parseResult.unit.denom).each((unitSpec) => {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             unitArray.push(
                 new Pow(unprefixify(unitSpec.name), new Int(-1 * unitSpec.pow)),
             );
@@ -3863,6 +3877,8 @@ const makeAlias = function (str: string, prefixes: Prefixes) {
         numdenomStr[0]
             .split(" ")
             .filter((x) => x !== "")
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             .forEach((x) => numdenom.push(new Unit(x)));
     }
 
@@ -3870,6 +3886,8 @@ const makeAlias = function (str: string, prefixes: Prefixes) {
         numdenomStr[1]
             .split(" ")
             .filter((x) => x !== "")
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             .forEach((x) => numdenom.push(new Pow(new Unit(x), NumDiv)));
     }
 

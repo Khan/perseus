@@ -53,6 +53,8 @@ export function runLinter(
             let next = state.nextSibling();
             while (TreeTransformer.isTextNode(next)) {
                 // @ts-expect-error - TS2339 - Property 'content' does not exist on type 'TreeNode'. | TS2533 - Object is possibly 'null' or 'undefined'. | TS2339 - Property 'content' does not exist on type 'TreeNode'.
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 node.content += next.content;
                 state.removeNextSibling();
                 next = state.nextSibling();
@@ -94,6 +96,8 @@ export function runLinter(
         // Generate a stack so we can identify our position in the tree in
         // lint rules
         const stack = [...context.stack];
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         stack.push(node.type);
 
         const nodeContext = {
@@ -111,6 +115,8 @@ export function runLinter(
                 // these numbers to that one and get and absolute
                 // character range that will be useful
                 if (warning.start || warning.end) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     warning.target = content.substring(
                         warning.start,
                         warning.end,
@@ -118,11 +124,15 @@ export function runLinter(
                 }
 
                 // Add the warning to the list of all lint we've found
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 warnings.push(warning);
 
                 // If we're going to be highlighting lint, then we also
                 // need to keep track of warnings specific to this node.
                 if (highlight) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     nodeWarnings.push(warning);
                 }
             }
@@ -139,6 +149,8 @@ export function runLinter(
         if (node.type === "table") {
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             if (tableWarnings.length) {
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 nodeWarnings.push(...tableWarnings);
             }
 
@@ -162,6 +174,8 @@ export function runLinter(
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (insideTable && nodeWarnings.length) {
             // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             tableWarnings.push(...nodeWarnings);
         }
 
@@ -180,6 +194,8 @@ export function runLinter(
         // of whether this lint is inside a table or not.
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (nodeWarnings.length) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             nodeWarnings.sort((a, b) => {
                 return a.severity - b.severity;
             });
@@ -238,6 +254,8 @@ export function runLinter(
 
                 // The prefix text node, if there is one
                 if (prefix) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     replacements.push({
                         type: "text",
                         content: prefix,
@@ -245,6 +263,8 @@ export function runLinter(
                 }
 
                 // The lint node wrapped around the linty text
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 replacements.push({
                     type: "lint",
                     content: {
@@ -259,6 +279,8 @@ export function runLinter(
 
                 // The suffix node, if there is one
                 if (suffix) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     replacements.push({
                         type: "text",
                         content: suffix,

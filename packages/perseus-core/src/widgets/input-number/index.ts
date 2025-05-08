@@ -1,3 +1,5 @@
+import getInputNumberPublicWidgetOptions from "./input-number-util";
+
 import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -26,6 +28,7 @@ const inputNumberWidgetLogic: WidgetLogic = {
     name: "input-number",
     defaultWidgetOptions,
     defaultAlignment: "inline-block",
+    getPublicWidgetOptions: getInputNumberPublicWidgetOptions,
 };
 
 export default inputNumberWidgetLogic;

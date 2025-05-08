@@ -149,6 +149,8 @@ describe("StartCoordSettings", () => {
                     [-5, 5],
                     [5, 5],
                 ];
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 expectedCoords[lineIndex][coord === "x" ? 0 : 1] = 101;
 
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
@@ -248,6 +250,8 @@ describe("StartCoordSettings", () => {
                 await userEvent.type(input, "101");
 
                 const expectedCoords = clone(coords);
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 expectedCoords[segmentIndex][pointIndex][coordIndex] = 101;
 
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
@@ -324,6 +328,8 @@ describe("StartCoordSettings", () => {
                 await userEvent.type(input, "101");
 
                 const expectedCoords = clone(coords);
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 expectedCoords[lineIndex][pointIndex][coordIndex] = 101;
 
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
@@ -386,6 +392,8 @@ describe("StartCoordSettings", () => {
                 await userEvent.type(input, "101");
 
                 const expectedCoords = clone(start);
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 expectedCoords.center[coordIndex] = 101;
 
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
@@ -523,6 +531,8 @@ describe("StartCoordSettings", () => {
                     [0, 0],
                     [3, 2],
                 ];
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 expectedCoords[pointIndex][coord === "x" ? 0 : 1] = 101;
 
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
@@ -591,6 +601,8 @@ describe("StartCoordSettings", () => {
                     [0, -5],
                     [5, 5],
                 ];
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 expectedCoords[pointIndex][coord === "x" ? 0 : 1] = 101;
 
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
@@ -674,6 +686,8 @@ describe("StartCoordSettings", () => {
                     [-5, 0],
                     [5, 0],
                 ];
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 expectedCoords[pointIndex][coord === "x" ? 0 : 1] = 101;
 
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
@@ -760,6 +774,8 @@ describe("StartCoordSettings", () => {
                     [0, 4],
                     [-3, -2],
                 ];
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 expectedCoords[pointIndex][coord === "x" ? 0 : 1] = 101;
 
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);
@@ -874,6 +890,8 @@ describe("StartCoordSettings", () => {
                     [0, 0],
                     [6.5778483455013586, 2.394141003279681],
                 ];
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 expectedCoords[pointIndex][coord === "x" ? 0 : 1] = 101;
 
                 expect(onChangeMock).toHaveBeenLastCalledWith(expectedCoords);

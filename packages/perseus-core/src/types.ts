@@ -44,8 +44,7 @@ export type InteractiveMarkerType = MarkerType & {
 };
 
 // Used for NumberLine
-// TODO: can this be merged with PerseusNumberLineWidgetOptions.correctRel?
-export type Relationship = "lt" | "gt" | "le" | "ge";
+export type Relationship = "eq" | "lt" | "gt" | "le" | "ge";
 
 export type Alignment =
     | "default"

@@ -46,6 +46,7 @@ type HintEditorProps = {
     onRemove: () => unknown;
     onChange: ChangeHandler;
     __type?: "hint";
+    widgetIsOpen?: boolean;
 };
 
 /* Renders a hint editor box
@@ -112,6 +113,7 @@ class HintEditor extends React.Component<HintEditorProps> {
                     placeholder="Type your hint here..."
                     imageUploader={this.props.imageUploader}
                     onChange={this.props.onChange}
+                    widgetIsOpen={this.props.widgetIsOpen}
                 />
                 <div className="hint-controls-container clearfix">
                     {this.props.showMoveButtons && (
@@ -178,6 +180,7 @@ type CombinedHintEditorProps = {
     onMove: (direction: number) => unknown;
     onRemove: () => unknown;
     onChange: ChangeHandler;
+    widgetIsOpen?: boolean;
 };
 
 /* A single hint-row containing a hint editor and preview */
@@ -254,6 +257,7 @@ class CombinedHintEditor extends React.Component<CombinedHintEditorProps> {
                         onRemove={this.props.onRemove}
                         onMove={this.props.onMove}
                         apiOptions={this.props.apiOptions}
+                        widgetIsOpen={this.props.widgetIsOpen}
                     />
                 </div>
                 <div className="perseus-editor-right-cell">
@@ -287,6 +291,7 @@ type CombinedHintsEditorProps = {
     // The content ID of the AssessmentItem being edited. It may not be set
     // for non-content library exercise questions.
     itemId?: string;
+    widgetIsOpen?: boolean;
 };
 
 /* The entire hints editing/preview area
@@ -432,6 +437,8 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
                         previewURL={this.props.previewURL}
                         // TODO(CP-4838): what should be passed here?
                         contentPaths={[]}
+                        // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+                        widgetIsOpen={this.props.widgetIsOpen}
                     />
                 );
             },

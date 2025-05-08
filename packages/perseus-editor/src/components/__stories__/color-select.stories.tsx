@@ -18,6 +18,8 @@ export const Default = (args): React.ReactElement => {
 const defaultColor = getDefaultFigureForType("point").color;
 
 // Set the default values in the control panel.
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 Default.args = {
     id: "color-select",
     selectedValue: defaultColor,

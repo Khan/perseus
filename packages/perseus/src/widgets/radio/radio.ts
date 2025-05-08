@@ -46,6 +46,8 @@ const _choiceTransform = (
         // Place the "None of the above" options last
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (noneOfTheAbove) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             newChoices.push(noneOfTheAbove);
         }
 

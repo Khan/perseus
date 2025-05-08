@@ -22,6 +22,8 @@ describe("graded group widget", () => {
         );
 
         // Mocked for loading graphie in svg-image
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 text: () => "",

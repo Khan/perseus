@@ -74,6 +74,8 @@ export const StatefulMafsGraph = React.forwardRef<
         if (prevState.current !== state) {
             onChange({graph: mafsStateToInteractiveGraph(state, graph)});
         }
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         prevState.current = state;
     }, [onChange, state, graph]);
 

@@ -66,8 +66,12 @@ export function all<S, F>(
     const failureDetails: F[] = [];
     for (const result of results) {
         if (result.type === "success") {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             values.push(result.value);
         } else {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             failureDetails.push(result.detail);
         }
     }

@@ -62,6 +62,7 @@ module.exports = {
         "cypress",
         "disable",
         "import",
+        "functional",
         "jest",
         "jsdoc",
         "monorepo",
@@ -195,7 +196,29 @@ module.exports = {
                         allowNullableNumber: true,
                     },
                 ],
+                "functional/immutable-data": [
+                    "error",
+                    {
+                        ignoreClasses: true,
+                        ignoreImmediateMutation: true,
+                    },
+                ],
             },
+            overrides: [
+                {
+                    files: [
+                        "*.cypress.tsx",
+                        "*.cypress.ts",
+                        "*.test.ts",
+                        "*.test.tsx",
+                        "*.stories.ts",
+                        "*.stories.tsx",
+                    ],
+                    rules: {
+                        "functional/immutable-data": "off",
+                    },
+                },
+            ],
             excludedFiles: ["*.d.ts", "*.config.ts", "**/*.cypress.ts"],
         },
     ],

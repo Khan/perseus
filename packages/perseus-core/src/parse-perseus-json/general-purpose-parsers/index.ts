@@ -3,7 +3,7 @@ export * from "./array";
 export * from "./boolean";
 export * from "./constant";
 export * from "./enumeration";
-export * from "./is-object";
+export * from "./is-plain-object";
 export * from "./nullable";
 export * from "./number";
 export * from "./object";

@@ -13,7 +13,12 @@ import {KeypadInput, keypadElementPropType} from "@khanacademy/math-input";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-export default class SimpleKeypadInput extends React.Component<any> {
+import type {Focusable} from "../types";
+
+export default class SimpleKeypadInput
+    extends React.Component<any>
+    implements Focusable
+{
     static contextType = KeypadContext;
     declare context: React.ContextType<typeof KeypadContext>;
     _isMounted = false;
@@ -80,6 +85,8 @@ export default class SimpleKeypadInput extends React.Component<any> {
 }
 
 // @ts-expect-error - TS2339 - Property 'propTypes' does not exist on type 'typeof SimpleKeypadInput'.
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 SimpleKeypadInput.propTypes = {
     keypadElement: keypadElementPropType,
     onFocus: PropTypes.func,

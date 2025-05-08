@@ -13,10 +13,14 @@ function getMatrixSize(matrix: ReadonlyArray<ReadonlyArray<number>>) {
         });
 
         // Matrix width:
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         matrixSize[1] = Math.max(matrixSize[1], rowWidth);
 
         // Matrix height:
         if (rowWidth > 0) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             matrixSize[0] = Math.max(matrixSize[0], row + 1);
         }
     });

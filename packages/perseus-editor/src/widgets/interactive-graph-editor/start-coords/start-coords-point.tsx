@@ -29,6 +29,8 @@ const StartCoordsPoint = (props: Props) => {
                             labels={["x", "y"]}
                             onChange={(newCoord) => {
                                 const newStartCoords = [...startCoords];
+                                // TODO(LEMS-3083): Remove eslint suppression
+                                // eslint-disable-next-line functional/immutable-data
                                 newStartCoords[index] = newCoord;
                                 onChange(newStartCoords);
                             }}

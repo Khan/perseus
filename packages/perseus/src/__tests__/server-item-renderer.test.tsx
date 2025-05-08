@@ -188,7 +188,7 @@ describe("server item renderer", () => {
     it("should call the answerable callback when no widgets are empty", async () => {
         // Arrange
         const answerableCallback = jest.fn();
-        const {rerender} = render(
+        render(
             <RenderStateRoot>
                 <ServerItemRenderer
                     apiOptions={{
@@ -201,23 +201,11 @@ describe("server item renderer", () => {
                 />
             </RenderStateRoot>,
         );
-        await userEvent.type(screen.getByRole("textbox"), "-42");
+
+        expect(answerableCallback).toHaveBeenCalledWith(false);
 
         // Act
-        rerender(
-            <RenderStateRoot>
-                <ServerItemRenderer
-                    apiOptions={{
-                        answerableCallback,
-                    }}
-                    item={itemWithMockWidget}
-                    problemNum={1} // to force componentDidUpdate
-                    reviewMode={false}
-                    dependencies={testDependenciesV2}
-                />
-                ,
-            </RenderStateRoot>,
-        );
+        await userEvent.type(screen.getByRole("textbox"), "-42");
 
         // Assert
         expect(answerableCallback).toHaveBeenCalledWith(true);
@@ -326,6 +314,8 @@ describe("server item renderer", () => {
 
             // We need to mock the getBoundingClientRect() method for our
             // onFocusChange() callback to work properly.
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             keypadElementDOMNode.getBoundingClientRect = () =>
                 ({
                     height: 250,
@@ -395,6 +385,8 @@ describe("server item renderer", () => {
 
             // We need to mock the getBoundingClientRect() method for our
             // onFocusChange() callback to work properly.
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             keypadElementDOMNode.getBoundingClientRect = () =>
                 ({
                     height: 250,

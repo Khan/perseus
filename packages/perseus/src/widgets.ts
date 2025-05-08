@@ -23,6 +23,8 @@ const editors: Record<string, any> = {};
 // TODO(jeremy): The widget name is already embedded in the WidgetExports type
 // so could we drop the `name` parameter here?
 export const registerWidget = (name: string, widget: WidgetExports) => {
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     widgets[name] = widget;
 };
 
@@ -72,6 +74,8 @@ export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
                 Errors.Internal,
             );
         }
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         editors[editor.widgetName] = editor;
     });
 };
@@ -94,6 +98,8 @@ export const replaceEditor = (name: string, replacementName: string) => {
         return;
     }
 
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     editors[name] = substituteEditor;
 };
 
@@ -150,6 +156,8 @@ export const getVersionVector = (): {
 } => {
     const version: Record<string, any> = {};
     _.each(_.keys(widgets), function (name) {
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         version[name] = getVersion(name);
     });
     return version;

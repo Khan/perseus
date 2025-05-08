@@ -27,6 +27,8 @@ const defaultProps = {
 type StoryComponentType = StoryObj<typeof ScrolllessNumberTextField>;
 
 // Set the default values in the control panel.
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 Default.args = defaultProps;
 
 /**
@@ -41,6 +43,8 @@ export const Controlled: StoryComponentType = {
     },
 };
 
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 Controlled.parameters = {
     chromatic: {
         // Disable the snapshot for this story because it's testing
@@ -73,6 +77,8 @@ export const LongPageScroll: StoryComponentType = {
     },
 };
 
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 LongPageScroll.parameters = {
     chromatic: {
         // Disable the snapshot for this story because it's testing

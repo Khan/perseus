@@ -11,6 +11,8 @@ const atomRe = new RegExp("^(Cl|Br|[CONPSFBI]|\\[)");
 
 function ParseError(message: string) {
     // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     this.message = message;
 }
 
@@ -43,6 +45,8 @@ function _mset(obj, keylist, val) {
     if (rest.length > 0) {
         newVal = _mset(newObj[k0], rest, val);
     }
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     newObj[k0] = newVal;
     return newObj;
 }

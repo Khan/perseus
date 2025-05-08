@@ -533,6 +533,7 @@ describe("parseWidgetsMap", () => {
                     labelRange: [],
                     labelStyle: "",
                     labelTicks: false,
+                    isInequality: false,
                     divisionRange: [],
                     snapDivisions: 1,
                     correctX: 1,

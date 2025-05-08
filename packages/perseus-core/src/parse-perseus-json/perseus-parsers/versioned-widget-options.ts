@@ -1,5 +1,5 @@
 import {
-    isObject,
+    isPlainObject,
     number,
     object,
     pipeParsers,
@@ -66,7 +66,7 @@ class VersionedWidgetOptionsParserBuilder<
         ).then(convert(this.migrateToLatest)).parser;
 
         this.parser = (raw: unknown, ctx: ParseContext) => {
-            if (!isObject(raw)) {
+            if (!isPlainObject(raw)) {
                 return ctx.failure("object", raw);
             }
 

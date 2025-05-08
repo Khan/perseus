@@ -65,6 +65,8 @@ const _changeSingle = function (
     // If called with two values, change a single prop of the
     // current object
     const newProps: Record<string, any> = {};
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     newProps[propName] = value;
     _changeMultiple(component, newProps, callback);
 };

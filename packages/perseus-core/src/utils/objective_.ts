@@ -44,6 +44,8 @@ export const mapObject = function <K extends string, V, U>(
     const result: Record<string, any> = {};
     Object.keys(obj).forEach((key) => {
         // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'K'.
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         result[key] = lambda(obj[key], key);
     });
     return result;

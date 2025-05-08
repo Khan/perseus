@@ -195,7 +195,11 @@ export const Default = (
         />
     );
 };
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 Default.args = defaultQuestion.widgets["numeric-input 1"].options;
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 Default.parameters = {
     docs: {
         description: {
@@ -218,7 +222,11 @@ export const IntegerExample = (
         />
     );
 };
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 IntegerExample.args = integerProblem.widgets["numeric-input 1"].options;
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 IntegerExample.parameters = {
     docs: {
         description: {
@@ -241,7 +249,11 @@ export const DecimalExample = (
         />
     );
 };
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 DecimalExample.args = decimalProblem.widgets["numeric-input 1"].options;
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 DecimalExample.parameters = {
     docs: {
         description: {
@@ -264,7 +276,11 @@ export const ImproperExample = (
         />
     );
 };
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 ImproperExample.args = improperProblem.widgets["numeric-input 1"].options;
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 ImproperExample.parameters = {
     docs: {
         description: {
@@ -287,7 +303,11 @@ export const ProperExample = (
         />
     );
 };
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 ProperExample.args = properProblem.widgets["numeric-input 1"].options;
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 ProperExample.parameters = {
     docs: {
         description: {
@@ -306,7 +326,11 @@ export const MixedExample = (
         />
     );
 };
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 MixedExample.args = mixedProblem.widgets["numeric-input 1"].options;
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 MixedExample.parameters = {
     docs: {
         description: {
@@ -325,7 +349,11 @@ export const PiExample = (
         />
     );
 };
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 PiExample.args = piProblem.widgets["numeric-input 1"].options;
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 PiExample.parameters = {
     docs: {
         description: {
@@ -348,7 +376,11 @@ export const CoefficientExample = (
         />
     );
 };
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 CoefficientExample.args = withCoefficient.widgets["numeric-input 1"].options;
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 CoefficientExample.parameters = {
     docs: {
         description: {
@@ -374,7 +406,11 @@ export const Answerless = (
         />
     );
 };
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 Answerless.args = defaultQuestion.widgets["numeric-input 1"].options;
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 Answerless.parameters = {
     docs: {
         description: {

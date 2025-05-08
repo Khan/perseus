@@ -1,43 +1,21 @@
 import _ from "underscore";
 
-import {getPublicWidgetOptionsFunction} from "../widgets/core-widget-registry";
-import {getUpgradedWidgetOptions} from "../widgets/upgrade";
+import deepClone from "./deep-clone";
+import splitPerseusRenderer from "./split-perseus-renderer";
 
 import type {PerseusItem} from "../data-schema";
 
 /**
- * Return a copy of a Perseus item with rubric data removed (ie answers)
+ * Return a copy of a PerseusItem with rubric data removed (ie answers)
  *
- * @param originalItem - the original, full Perseus item (which includes the rubric - aka answer data)
+ * @param original - the original, full PerseusItem (which includes the rubric - aka answer data)
  */
-export default function splitPerseusItem(
-    originalItem: PerseusItem,
-): PerseusItem {
-    const item = _.clone(originalItem);
-    const originalWidgets = item.question.widgets ?? {};
-
-    const upgradedWidgets = getUpgradedWidgetOptions(originalWidgets);
-    const splitWidgets = {};
-
-    for (const [id, widget] of Object.entries(upgradedWidgets)) {
-        const publicWidgetOptionsFun = getPublicWidgetOptionsFunction(
-            widget.type,
-        );
-
-        splitWidgets[id] = {
-            ...widget,
-            options: publicWidgetOptionsFun(widget.options as any),
-        };
-    }
+export default function splitPerseusItem(original: PerseusItem): PerseusItem {
+    const item = deepClone(original);
 
     return {
         ...item,
-        question: {
-            ...item.question,
-            // replace answerful widget options
-            // with answerless widget options
-            widgets: splitWidgets,
-        },
+        question: splitPerseusRenderer(item.question),
         // the final hint often exposes the answer
         // so we consider that part of the answer data
         hints: [],

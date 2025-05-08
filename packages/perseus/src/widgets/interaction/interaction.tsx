@@ -70,6 +70,8 @@ const KASparse = (expr, options) => {
         return cached;
     }
     cached = KAS.parse(expr, options);
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     _parseCache[hash] = cached;
     return cached;
 };
@@ -92,6 +94,8 @@ const KAScompile = (
         : function () {
               return 0;
           };
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     _compileCache[hash] = cached;
     return cached;
 };
@@ -751,7 +755,11 @@ const _getInitialVariables: (
         if (startYExpr) {
             startY = startYExpr.eval({}) || 0;
         }
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         variables["x_" + subscript] = startX;
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         variables["y_" + subscript] = startY;
     });
     _.each(_.where(elements, {type: "movable-line"}), (element) => {
@@ -783,13 +791,23 @@ const _getInitialVariables: (
         if (endYExpr) {
             endY = endYExpr.eval({}) || 0;
         }
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         variables["x_" + startSubscript] = startX;
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         variables["y_" + startSubscript] = startY;
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         variables["x_" + endSubscript] = endX;
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         variables["y_" + endSubscript] = endY;
     });
     _.each(_.where(elements, {type: "function"}), (element) => {
         // @ts-expect-error - TS2339 - Property 'funcName' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'. | TS2339 - Property 'value' does not exist on type 'PerseusInteractionFunctionElementOptions | PerseusInteractionLabelElementOptions | ... 5 more ... | PerseusInteractionRectangleElementOptions'.
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         variables[element.options.funcName] = element.options.value;
     });
     return variables;

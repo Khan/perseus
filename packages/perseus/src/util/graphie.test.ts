@@ -33,6 +33,8 @@ function createFakeRaphaelSet() {
     return {
         constructor: {prototype: Raphael.st},
         push(...items) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             return contents.push(...items);
         },
         attr: jest.fn().mockName("raphael.set().attr"),
@@ -41,6 +43,8 @@ function createFakeRaphaelSet() {
 
 function createAndInitGraphie(): Graphie {
     const graphie = GraphUtils.createGraphie(document.createElement("div"));
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     graphie.raphael = createMockRaphael();
 
     // The graph is 50px by 50px

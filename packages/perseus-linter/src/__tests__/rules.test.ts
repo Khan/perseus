@@ -53,6 +53,8 @@ describe("Individual lint rules tests", () => {
                 let next = state.nextSibling();
                 while (TreeTransformer.isTextNode(next)) {
                     // @ts-expect-error - TS2339 - Property 'content' does not exist on type 'TreeNode'. | TS2533 - Object is possibly 'null' or 'undefined'. | TS2339 - Property 'content' does not exist on type 'TreeNode'.
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     node.content += next.content;
                     state.removeNextSibling();
                     next = state.nextSibling();
@@ -61,6 +63,8 @@ describe("Individual lint rules tests", () => {
         });
 
         if (context) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             context.content = markdown;
         } else {
             context = {
@@ -72,6 +76,8 @@ describe("Individual lint rules tests", () => {
             const check = rule.check(node, state, content, context);
             if (check) {
                 // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 warnings.push(check);
             }
         });

@@ -165,6 +165,8 @@ const BaseRadio = function ({
         }
 
         // @ts-expect-error - TS2322 - Type 'PerseusRadioWidgetOptions | undefined' is not assignable to type 'undefined'.
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         prevReviewModeRubric.current = reviewModeRubric;
     }, [apiOptions, choices, isLastUsedWidget, reviewModeRubric]);
 
@@ -203,7 +205,11 @@ const BaseRadio = function ({
         const newCrossedOutList = choices.map((c) => c.crossedOut);
 
         // Update this choice's `checked` and `crossedOut` values.
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         newCheckedList[choiceIndex] = newValues.checked;
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         newCrossedOutList[choiceIndex] = newValues.crossedOut;
 
         onChange({
@@ -278,6 +284,8 @@ const BaseRadio = function ({
                     let Element = Choice;
                     const ref = React.createRef<any>();
                     // @ts-expect-error - TS2322 - Type 'RefObject<unknown>' is not assignable to type 'never'.
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     choiceRefs.current[i] = ref;
                     const elementProps = {
                         apiOptions: apiOptions,

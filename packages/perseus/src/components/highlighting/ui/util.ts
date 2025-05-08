@@ -156,10 +156,16 @@ function addClientRectsForText(
         // accordingly.
         if (lineHeight !== null) {
             const heightIncrease = lineHeight - rect.height;
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             rect.top -= heightIncrease;
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             rect.height = lineHeight;
         }
 
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         mutableRects.push(rect);
     }
 }

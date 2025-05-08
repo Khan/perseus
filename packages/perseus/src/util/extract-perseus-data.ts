@@ -47,6 +47,8 @@ function getAnswersFromWidgets(
                 if (options?.choices?.length) {
                     for (const choice of options.choices) {
                         if (choice?.correct) {
+                            // TODO(LEMS-3083): Remove eslint suppression
+                            // eslint-disable-next-line functional/immutable-data
                             answers.push(choice.content);
                         }
                     }
@@ -67,6 +69,8 @@ function getAnswersFromWidgets(
                     const categories = categorizer.options?.categories;
                     const items = categorizer.options?.items;
                     const values = categorizer.options?.values;
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     answers.push(
                         ...values.map(
                             (value, index) =>
@@ -82,6 +86,8 @@ function getAnswersFromWidgets(
                 if (dropdown.options?.choices) {
                     for (const choice of dropdown.options.choices) {
                         if (choice.correct) {
+                            // TODO(LEMS-3083): Remove eslint suppression
+                            // eslint-disable-next-line functional/immutable-data
                             answers.push(choice.content);
                         }
                     }
@@ -94,6 +100,8 @@ function getAnswersFromWidgets(
                 if (numericInput.options?.answers) {
                     for (const ans of numericInput.options.answers) {
                         if (ans.status === "correct" && ans.value != null) {
+                            // TODO(LEMS-3083): Remove eslint suppression
+                            // eslint-disable-next-line functional/immutable-data
                             answers.push(ans.value.toString());
                         }
                     }
@@ -104,6 +112,8 @@ function getAnswersFromWidgets(
                 const inputNumber = widget;
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (inputNumber.options?.value) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     answers.push(inputNumber.options.value.toString());
                 }
                 break;
@@ -113,6 +123,8 @@ function getAnswersFromWidgets(
                 const expression = widget;
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (expression.options?.answerForms) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     answers.push(
                         ...expression.options.answerForms.map(
                             (answer) => answer.value,
@@ -128,6 +140,8 @@ function getAnswersFromWidgets(
                 const gradedGroup = widget;
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (gradedGroup.options?.widgets) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     answers.push(
                         ...getAnswersFromWidgets(gradedGroup.options.widgets),
                     );
@@ -147,6 +161,8 @@ function getAnswersFromWidgets(
                         plotter.options.correct.length
                 ) {
                     const {categories, correct} = plotter.options;
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     answers.push(
                         `{${categories
                             .map(
@@ -164,6 +180,8 @@ function getAnswersFromWidgets(
                 const grapher = widget;
                 // @ts-expect-error - TS2339 - Property 'coords' does not exist on type '{ type: "absolute_value"; coords: [Coord, Coord]; } | { type: "exponential"; asymptote: [Coord, Coord]; coords: [Coord, Coord]; } | { type: "linear"; coords: [...]; } | ... 4 more ... | PerseusGraphType'.
                 if (grapher.options?.correct?.coords) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     answers.push(
                         // @ts-expect-error - TS2339 - Property 'coords' does not exist on type '{ type: "absolute_value"; coords: [Coord, Coord]; } | { type: "exponential"; asymptote: [Coord, Coord]; coords: [Coord, Coord]; } | { type: "linear"; coords: [...]; } | ... 4 more ... | PerseusGraphType'.
                         `There should be point(s) on [${grapher.options.correct?.coords.join(
@@ -179,6 +197,8 @@ function getAnswersFromWidgets(
                 const orderer = widget;
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (orderer.options?.correctOptions) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     answers.push(
                         joinOptionContents(orderer.options.correctOptions),
                     );
@@ -191,6 +211,8 @@ function getAnswersFromWidgets(
                 const sorter = widget;
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (sorter.options?.correct) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     answers.push(sorter.options.correct.join(", "));
                 }
                 break;
@@ -200,6 +222,8 @@ function getAnswersFromWidgets(
                 const labelImage = widget;
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (labelImage.options?.markers) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     answers.push(
                         ...labelImage.options.markers.map(
                             (m) =>
@@ -215,6 +239,8 @@ function getAnswersFromWidgets(
                 // E.g. '0.5'
                 const numberLine = widget;
                 if (numberLine.options?.correctX != null) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     answers.push(numberLine.options.correctX.toString());
                 }
                 break;
@@ -224,6 +250,8 @@ function getAnswersFromWidgets(
                 const matrix = widget;
                 // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                 if (matrix.options?.answers) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     answers.push(`[${matrix.options.answers.join("], [")}]`);
                 }
                 break;
@@ -240,6 +268,8 @@ function getAnswersFromWidgets(
                         return `| ${leftItem} | ${right[index]} |`;
                     });
                     const table = [tableHeader, ...tableRows].join("\n");
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     answers.push(table);
                 }
                 break;
@@ -636,6 +666,8 @@ function getImagesWithoutAltData(perseusRenderer: PerseusRenderer): string {
             !widget.options.alt &&
             widget.options.backgroundImage?.url
         ) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             imgsWithoutAltData.push({
                 widgetId,
                 imgUrl: widget.options.backgroundImage.url,

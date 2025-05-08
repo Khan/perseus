@@ -172,6 +172,8 @@ const KhanMath = {
             fract += fract < 0 ? 1 : 0;
 
             const nd = KhanMath.toFraction(fract, tolerance);
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             nd[0] += Math.round(decimal - fract) * nd[1];
             return nd;
         }

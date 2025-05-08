@@ -15,6 +15,8 @@ export const Default = (args): React.ReactElement => {
 };
 
 // Set the default values in the control panel.
+// TODO(LEMS-3083): Remove eslint suppression
+// eslint-disable-next-line functional/immutable-data
 Default.args = {
     color: getDefaultFigureForType("point").color,
     filled: true,

@@ -37,6 +37,8 @@ const StartCoordsMultiline = (props: Props) => {
                             labels={["x", "y"]}
                             onChange={(value) => {
                                 const newCoords = [...startCoords];
+                                // TODO(LEMS-3083): Remove eslint suppression
+                                // eslint-disable-next-line functional/immutable-data
                                 newCoords[i] = [value, coordPair[1]];
                                 onChange(newCoords);
                             }}
@@ -50,6 +52,8 @@ const StartCoordsMultiline = (props: Props) => {
                             labels={["x", "y"]}
                             onChange={(value) => {
                                 const newCoords = [...startCoords];
+                                // TODO(LEMS-3083): Remove eslint suppression
+                                // eslint-disable-next-line functional/immutable-data
                                 newCoords[i] = [coordPair[0], value];
                                 onChange(newCoords);
                             }}

@@ -59,6 +59,8 @@ describe("renderer", () => {
         );
 
         // Mocked for loading graphie in svg-image
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 text: () => "",
@@ -339,14 +341,20 @@ describe("renderer", () => {
             // Mock HTML Image so we can trigger onLoad callbacks and see full
             // image rendering.
             // @ts-expect-error - TS2322 - Type 'Mock<Record<string, any>, [], any>' is not assignable to type 'new (width?: number | undefined, height?: number | undefined) => HTMLImageElement'.
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             window.Image = jest.fn(() => {
                 const img: Record<string, any> = {};
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 images.push(img);
                 return img;
             });
         });
 
         afterEach(() => {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             window.Image = originalImage;
         });
 
@@ -1135,6 +1143,8 @@ describe("renderer", () => {
 
             const [widget2] = renderer.findWidgets("definition 2");
             expect(widget2).not.toBeUndefined();
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             widget2.getSerializedState = jest.fn();
 
             // Act
@@ -1182,8 +1192,14 @@ describe("renderer", () => {
             const [widget1, widget2, widget3] = renderer.findWidgets(
                 (_, info) => info.type === "definition",
             );
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             widget1.restoreSerializedState = makeRestoreSerializedStateMock;
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             widget2.restoreSerializedState = makeRestoreSerializedStateMock;
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             widget3.restoreSerializedState = makeRestoreSerializedStateMock;
 
             const restorationCallback = jest.fn();
@@ -1212,6 +1228,8 @@ describe("renderer", () => {
                 ["definition 1", "definition 2", "definition 3"].includes(id),
             );
             widgets.forEach((w) => {
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 w.serialize = jest.fn(() => `State: ${w.props.widgetId}`);
             });
 
@@ -1369,6 +1387,8 @@ describe("renderer", () => {
             );
             widgets.forEach(
                 (w) =>
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     (w.showRationalesForCurrentlySelectedChoices = jest.fn()),
             );
 
@@ -1394,6 +1414,8 @@ describe("renderer", () => {
                 (_, info) => info.type === "definition",
             );
             widgets.forEach(
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 (w) => (w.deselectIncorrectSelectedChoices = jest.fn()),
             );
 
@@ -1512,6 +1534,8 @@ describe("renderer", () => {
             const {renderer} = renderQuestion(definitionItem);
             const widget2DOMNode = <span />;
             const [widget2] = renderer.findWidgets("definition 2");
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             widget2.getDOMNodeForPath = jest.fn(() => widget2DOMNode);
 
             // Act
@@ -1532,8 +1556,14 @@ describe("renderer", () => {
                         id,
                     ),
                 );
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             definition1.getInputPaths = jest.fn(() => ["input 1"]);
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             definition2.getInputPaths = jest.fn(() => ["input 2", "input 3"]);
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             definition3.getInputPaths = jest.fn(() => [
                 ["input 4", "sub-input 4.1"],
                 "input 5",
@@ -1633,6 +1663,8 @@ describe("renderer", () => {
             const simpleGroupQuestionCopy = JSON.parse(
                 JSON.stringify(simpleGroupQuestion),
             );
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             simpleGroupQuestionCopy.widgets["group 1"].options.widgets[
                 "expression 1"
             ].static = true;

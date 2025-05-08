@@ -38,6 +38,8 @@ const CoordinatePairInput = (props: Props) => {
     function handleCoordChange(newValue, coordIndex) {
         // Update the local state (update the input field value).
         const newCoordState = [...coordState];
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         newCoordState[coordIndex] = newValue;
         setCoordState(newCoordState);
 
@@ -49,6 +51,8 @@ const CoordinatePairInput = (props: Props) => {
 
         // Update the props (update the graph).
         const newCoords = [...coord] satisfies [number, number];
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         newCoords[coordIndex] = +newValue;
         onChange(newCoords);
     }
