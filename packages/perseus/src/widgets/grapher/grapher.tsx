@@ -160,7 +160,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     onMove={(newCoord, oldCoord) => {
                         // Calculate and apply displacement
                         const delta = kvector.subtract(newCoord, oldCoord);
-                        const newAsymptote = _.map(this._asymptote(), (coord) =>
+                        const newAsymptote = this._asymptote().map((coord) =>
                             kvector.add(coord, delta),
                         );
                         this.props.onChange({
@@ -175,8 +175,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                         (newCoord, oldCoord: any) => {
                             // Calculate and apply proposed displacement
                             const delta = kvector.subtract(newCoord, oldCoord);
-                            const proposedAsymptote = _.map(
-                                this._asymptote(),
+                            const proposedAsymptote = this._asymptote().map(
                                 (coord) => kvector.add(coord, delta),
                             );
                             // Verify that resulting asymptote is valid for graph
@@ -195,7 +194,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     normalStyle={dashed}
                     highlightStyle={dashed}
                 >
-                    {_.map(asymptote, (coord, i) => (
+                    {asymptote.map((coord, i) => (
                         <MovablePoint
                             key={`asymptoteCoord-${i}`}
                             coord={coord}
@@ -276,7 +275,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                             this.props.model.allowReflectOverAsymptote &&
                             isFlipped(newCoord, oldCoord, asymptote)
                         ) {
-                            coords = _.map(this._coords(), (coord) => {
+                            coords = this._coords().map((coord) => {
                                 return kpoint.reflectOverLine(coord, asymptote);
                             });
                         } else {
@@ -294,7 +293,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                 />
             );
         };
-        const points = _.map(this._coords(), pointForCoord);
+        const points = this._coords().map(pointForCoord);
         const box = this.props.graph.box;
 
         const imageDescription = this.props.graph.backgroundImage;
@@ -379,7 +378,7 @@ class Grapher extends React.Component<Props> implements Widget {
     }
 
     handlePlotChanges: (arg1: any) => any = (newPlot) => {
-        const plot = _.extend({}, this.props.plot, newPlot);
+        const plot = {...this.props.plot, ...newPlot};
         this.props.onChange({
             plot: plot,
         });
@@ -388,11 +387,10 @@ class Grapher extends React.Component<Props> implements Widget {
 
     handleActiveTypeChange: (arg1: any) => any = (newType) => {
         const graph = this.props.graph;
-        const plot = _.extend(
-            {},
-            this.props.plot,
-            defaultPlotProps(newType, graph),
-        );
+        const plot = {
+            ...this.props.plot,
+            ...defaultPlotProps(newType, graph),
+        };
         this.props.onChange({
             plot: plot,
         });
@@ -558,7 +556,7 @@ class Grapher extends React.Component<Props> implements Widget {
                 <ButtonGroup
                     value={type}
                     allowEmpty={true}
-                    buttons={_.map(this.props.availableTypes, typeToButton)}
+                    buttons={this.props.availableTypes.map(typeToButton)}
                     onChange={this.handleActiveTypeChange}
                 />
             </div>
