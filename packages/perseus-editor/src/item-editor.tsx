@@ -12,7 +12,10 @@ import type {
     ChangeHandler,
     DeviceType,
 } from "@khanacademy/perseus";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    PerseusAnswerArea,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 type Props = {
     apiOptions?: APIOptions;
@@ -20,7 +23,7 @@ type Props = {
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
     question?: PerseusRenderer;
-    answerArea?: any;
+    answerArea?: PerseusAnswerArea | null;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
     onChange: ChangeHandler;
@@ -60,9 +63,9 @@ class ItemEditor extends React.Component<Props> {
         this.updateProps({question}, cb, silent);
     };
 
-    handleItemExtrasChange: ChangeHandler = (newProps, cb, silent) => {
+    handleItemExtrasChange = (newProps: Partial<PerseusAnswerArea>) => {
         const answerArea = _.extend({}, this.props.answerArea, newProps);
-        this.updateProps({answerArea}, cb, silent);
+        this.updateProps({answerArea}, () => {}, true);
     };
 
     getSaveWarnings: () => any = () => {
@@ -70,7 +73,7 @@ class ItemEditor extends React.Component<Props> {
     };
 
     serialize: (options?: any) => {
-        answerArea: any;
+        answerArea: PerseusAnswerArea | undefined;
         question: any;
     } = (options: any) => {
         return {
