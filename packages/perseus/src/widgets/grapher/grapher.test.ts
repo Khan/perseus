@@ -1,8 +1,3 @@
-import {
-    generateTestPerseusItem,
-    splitPerseusItem,
-} from "@khanacademy/perseus-core";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {waitForInitialGraphieRender} from "../../../../../testing/wait";
 import * as Dependencies from "../../dependencies";
@@ -28,14 +23,6 @@ describe("grapher widget", () => {
                 ok: true,
             }),
         ) as jest.Mock;
-    });
-
-    it("should remove answerful data in answerless data", () => {
-        const answerful = generateTestPerseusItem({question: linearQuestion});
-        const answerless = splitPerseusItem(answerful);
-        expect(
-            answerless.question.widgets["grapher 1"].options.correct,
-        ).toBeUndefined();
     });
 
     it("should snapshot linear graph question", async () => {

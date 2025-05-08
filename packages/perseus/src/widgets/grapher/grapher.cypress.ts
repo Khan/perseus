@@ -1,3 +1,8 @@
+import {
+    generateTestPerseusItem,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
+
 import renderQuestionWithCypress from "../../../../../testing/render-question-with-cypress";
 import {cypressTestDependencies} from "../../../../../testing/test-dependencies";
 import * as Perseus from "../../index";
@@ -31,602 +36,783 @@ describe("Grapher widget", () => {
     });
 
     describe("absolute value graph", () => {
-        it("should be correctly answerable", () => {
-            // Arrange
-            const getRenderer = renderQuestionWithCypress(
-                absoluteValueQuestion,
+        const answerful = generateTestPerseusItem({
+            question: absoluteValueQuestion,
+        });
+        const answerless = splitPerseusItem(answerful);
+
+        it("should not have answerful data in answerless item", () => {
+            cy.wrap(answerless.question.widgets["grapher 1"].options).should(
+                "not.have.property",
+                "correct",
             );
-
-            // Act
-            cy.get(GRAPHIE)
-                .should("exist")
-                .then((node) => {
-                    const {left, top} = node[0].getBoundingClientRect();
-                    cy.get(POINTS)
-                        .eq(0)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 360, y: top + 180});
-                    cy.get(POINTS)
-                        .eq(1)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 340, y: top + 140});
-                });
-
-            // Assert
-            cy.then(() => {
-                const userInput = getRenderer().getUserInputMap();
-                const score = scorePerseusItemTesting(
-                    absoluteValueQuestion,
-                    userInput,
-                );
-                expect(score).toStrictEqual({
-                    type: "points",
-                    earned: 1,
-                    total: 1,
-                    message: null,
-                });
-            });
         });
 
-        it("should be incorrectly answerable", () => {
-            // Arrange
-            const getRenderer = renderQuestionWithCypress(
-                absoluteValueQuestion,
-            );
+        const data = [
+            {name: "answerful", item: answerful},
+            {name: "answerless", item: answerless},
+        ];
 
-            // Act
-            cy.get(GRAPHIE)
-                .should("exist")
-                .then((node) => {
-                    const {left, top} = node[0].getBoundingClientRect();
-                    cy.get(POINTS)
-                        .eq(0)
+        data.forEach((d) => {
+            const {name, item} = d;
+
+            describe(name, () => {
+                it("should be correctly answerable", () => {
+                    // Arrange
+                    const getRenderer = renderQuestionWithCypress(
+                        item.question,
+                    );
+
+                    // Act
+                    cy.get(GRAPHIE)
                         .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 200, y: top + 200});
-                    cy.get(POINTS)
-                        .eq(1)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 100, y: top + 100});
+                        .then((node) => {
+                            const {left, top} = node[0].getBoundingClientRect();
+                            cy.get(POINTS)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 360, y: top + 180});
+                            cy.get(POINTS)
+                                .eq(1)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 340, y: top + 140});
+                        });
+
+                    // Assert
+                    cy.then(() => {
+                        const userInput = getRenderer().getUserInputMap();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            userInput,
+                        );
+                        expect(score).toStrictEqual({
+                            type: "points",
+                            earned: 1,
+                            total: 1,
+                            message: null,
+                        });
+                    });
                 });
 
-            // Assert
-            cy.then(() => {
-                const userInput = getRenderer().getUserInputMap();
-                const score = scorePerseusItemTesting(
-                    absoluteValueQuestion,
-                    userInput,
-                );
-                expect(score).toStrictEqual({
-                    type: "points",
-                    earned: 0,
-                    total: 1,
-                    message: null,
+                it("should be incorrectly answerable", () => {
+                    // Arrange
+                    const getRenderer = renderQuestionWithCypress(
+                        item.question,
+                    );
+
+                    // Act
+                    cy.get(GRAPHIE)
+                        .should("exist")
+                        .then((node) => {
+                            const {left, top} = node[0].getBoundingClientRect();
+                            cy.get(POINTS)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 200, y: top + 200});
+                            cy.get(POINTS)
+                                .eq(1)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 100, y: top + 100});
+                        });
+
+                    // Assert
+                    cy.then(() => {
+                        const userInput = getRenderer().getUserInputMap();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            userInput,
+                        );
+                        expect(score).toStrictEqual({
+                            type: "points",
+                            earned: 0,
+                            total: 1,
+                            message: null,
+                        });
+                    });
                 });
             });
         });
     });
 
     describe("exponential graph", () => {
-        it("should be correctly answerable", () => {
-            // Arrange
-            const getRenderer = renderQuestionWithCypress(exponentialQuestion);
+        const answerful = generateTestPerseusItem({
+            question: exponentialQuestion,
+        });
+        const answerless = splitPerseusItem(answerful);
 
-            // Act
-            cy.get(GRAPHIE)
-                .should("exist")
-                .then((node) => {
-                    const {left, top} = node[0].getBoundingClientRect();
-                    cy.get(LINES)
-                        .eq(0)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 200, y: top + 75});
-                    // [0, 3],
-                    // [1, -1],
-                    cy.get(POINTS)
-                        .eq(0)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 200, y: top + 120});
-                    cy.get(POINTS)
-                        .eq(1)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 225, y: top + 225});
-                });
-
-            // Assert
-            cy.then(() => {
-                const userInput = getRenderer().getUserInputMap();
-                const score = scorePerseusItemTesting(
-                    exponentialQuestion,
-                    userInput,
-                );
-                expect(score).toStrictEqual({
-                    type: "points",
-                    earned: 1,
-                    total: 1,
-                    message: null,
-                });
-            });
+        it("should not have answerful data in answerless item", () => {
+            cy.wrap(answerless.question.widgets["grapher 1"].options).should(
+                "not.have.property",
+                "correct",
+            );
         });
 
-        it("should be incorrectly answerable", () => {
-            // Arrange
-            const getRenderer = renderQuestionWithCypress(exponentialQuestion);
+        const data = [
+            {name: "answerful", item: answerful},
+            {name: "answerless", item: answerless},
+        ];
 
-            // Act
-            cy.get(GRAPHIE)
-                .should("exist")
-                .then((node) => {
-                    const {left, top} = node[0].getBoundingClientRect();
-                    cy.get(LINES)
-                        .eq(0)
+        data.forEach((d) => {
+            const {name, item} = d;
+
+            describe(name, () => {
+                it("should be correctly answerable", () => {
+                    // Arrange
+                    const getRenderer = renderQuestionWithCypress(
+                        item.question,
+                    );
+
+                    // Act
+                    cy.get(GRAPHIE)
                         .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 200, y: top + 200});
-                    cy.get(POINTS)
-                        .eq(0)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 25, y: top + 25});
-                    cy.get(POINTS)
-                        .eq(1)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 200, y: top + 200});
+                        .then((node) => {
+                            const {left, top} = node[0].getBoundingClientRect();
+                            cy.get(LINES)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 200, y: top + 75});
+                            // [0, 3],
+                            // [1, -1],
+                            cy.get(POINTS)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 200, y: top + 120});
+                            cy.get(POINTS)
+                                .eq(1)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 225, y: top + 225});
+                        });
+
+                    // Assert
+                    cy.then(() => {
+                        const userInput = getRenderer().getUserInputMap();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            userInput,
+                        );
+                        expect(score).toStrictEqual({
+                            type: "points",
+                            earned: 1,
+                            total: 1,
+                            message: null,
+                        });
+                    });
                 });
 
-            // Assert
-            cy.then(() => {
-                const userInput = getRenderer().getUserInputMap();
-                const score = scorePerseusItemTesting(
-                    exponentialQuestion,
-                    userInput,
-                );
-                expect(score).toStrictEqual({
-                    type: "points",
-                    earned: 0,
-                    total: 1,
-                    message: null,
+                it("should be incorrectly answerable", () => {
+                    // Arrange
+                    const getRenderer = renderQuestionWithCypress(
+                        item.question,
+                    );
+
+                    // Act
+                    cy.get(GRAPHIE)
+                        .should("exist")
+                        .then((node) => {
+                            const {left, top} = node[0].getBoundingClientRect();
+                            cy.get(LINES)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 200, y: top + 200});
+                            cy.get(POINTS)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 25, y: top + 25});
+                            cy.get(POINTS)
+                                .eq(1)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 200, y: top + 200});
+                        });
+
+                    // Assert
+                    cy.then(() => {
+                        const userInput = getRenderer().getUserInputMap();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            userInput,
+                        );
+                        expect(score).toStrictEqual({
+                            type: "points",
+                            earned: 0,
+                            total: 1,
+                            message: null,
+                        });
+                    });
                 });
             });
         });
     });
 
     describe("linear graph", () => {
-        it("should be correctly answerable", () => {
-            // Arrange
-            const getRenderer = renderQuestionWithCypress(linearQuestion);
+        const answerful = generateTestPerseusItem({
+            question: linearQuestion,
+        });
+        const answerless = splitPerseusItem(answerful);
 
-            // Act
-            cy.get(GRAPHIE)
-                .should("exist")
-                .then((node) => {
-                    const {left, top} = node[0].getBoundingClientRect();
-                    cy.get(POINTS)
-                        .eq(0)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 200, y: top + 100});
-                    cy.get(POINTS)
-                        .eq(1)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 260, y: top + 200});
-                });
-
-            // Assert
-            cy.then(() => {
-                const userInput = getRenderer().getUserInputMap();
-                const score = scorePerseusItemTesting(
-                    linearQuestion,
-                    userInput,
-                );
-                expect(score).toStrictEqual({
-                    type: "points",
-                    earned: 1,
-                    total: 1,
-                    message: null,
-                });
-            });
+        it("should not have answerful data in answerless item", () => {
+            cy.wrap(answerless.question.widgets["grapher 1"].options).should(
+                "not.have.property",
+                "correct",
+            );
         });
 
-        it("should be incorrectly answerable", () => {
-            // Arrange
-            const getRenderer = renderQuestionWithCypress(linearQuestion);
+        const data = [
+            {name: "answerful", item: answerful},
+            {name: "answerless", item: answerless},
+        ];
 
-            // Act
-            cy.get(GRAPHIE)
-                .should("exist")
-                .then((node) => {
-                    const {left, top} = node[0].getBoundingClientRect();
-                    cy.get(POINTS)
-                        .eq(0)
+        data.forEach((d) => {
+            const {name, item} = d;
+
+            describe(name, () => {
+                it("should be correctly answerable", () => {
+                    // Arrange
+                    const getRenderer = renderQuestionWithCypress(
+                        item.question,
+                    );
+
+                    // Act
+                    cy.get(GRAPHIE)
                         .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 100, y: top + 100});
-                    cy.get(POINTS)
-                        .eq(1)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 300, y: top + 300});
+                        .then((node) => {
+                            const {left, top} = node[0].getBoundingClientRect();
+                            cy.get(POINTS)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 200, y: top + 100});
+                            cy.get(POINTS)
+                                .eq(1)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 260, y: top + 200});
+                        });
+
+                    // Assert
+                    cy.then(() => {
+                        const userInput = getRenderer().getUserInputMap();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            userInput,
+                        );
+                        expect(score).toStrictEqual({
+                            type: "points",
+                            earned: 1,
+                            total: 1,
+                            message: null,
+                        });
+                    });
                 });
 
-            // Assert
-            cy.then(() => {
-                const userInput = getRenderer().getUserInputMap();
-                const score = scorePerseusItemTesting(
-                    linearQuestion,
-                    userInput,
-                );
-                expect(score).toStrictEqual({
-                    type: "points",
-                    earned: 0,
-                    total: 1,
-                    message: null,
+                it("should be incorrectly answerable", () => {
+                    // Arrange
+                    const getRenderer = renderQuestionWithCypress(
+                        item.question,
+                    );
+
+                    // Act
+                    cy.get(GRAPHIE)
+                        .should("exist")
+                        .then((node) => {
+                            const {left, top} = node[0].getBoundingClientRect();
+                            cy.get(POINTS)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 100, y: top + 100});
+                            cy.get(POINTS)
+                                .eq(1)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 300, y: top + 300});
+                        });
+
+                    // Assert
+                    cy.then(() => {
+                        const userInput = getRenderer().getUserInputMap();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            userInput,
+                        );
+                        expect(score).toStrictEqual({
+                            type: "points",
+                            earned: 0,
+                            total: 1,
+                            message: null,
+                        });
+                    });
                 });
             });
         });
     });
 
     describe("logarithm graph", () => {
-        it("should be correctly answerable", () => {
-            // Arrange
-            const getRenderer = renderQuestionWithCypress(logarithmQuestion);
+        const answerful = generateTestPerseusItem({
+            question: logarithmQuestion,
+        });
+        const answerless = splitPerseusItem(answerful);
 
-            // Act
-            cy.get(GRAPHIE)
-                .should("exist")
-                .then((node) => {
-                    const {left, top} = node[0].getBoundingClientRect();
-                    // Move the Asymptote to x=-6
-                    cy.get(LINES)
-                        .eq(0)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({
-                            x: left + 50,
-                            y: top + 200, // It's a vertical line, so this doesn't matter much
-                        });
-                    // Move point A
-                    cy.get(POINTS)
-                        .eq(0)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({
-                            x: left + 100,
-                            y: top + 275,
-                        });
-                    // Move point B
-                    cy.get(POINTS)
-                        .eq(1)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({
-                            x: left + 75,
-                            y: top + 375,
-                        });
-                });
-
-            // Assert
-            cy.then(() => {
-                const userInput = getRenderer().getUserInputMap();
-                const score = scorePerseusItemTesting(
-                    logarithmQuestion,
-                    userInput,
-                );
-                expect(score).toStrictEqual({
-                    type: "points",
-                    earned: 1,
-                    total: 1,
-                    message: null,
-                });
-            });
+        it("should not have answerful data in answerless item", () => {
+            cy.wrap(answerless.question.widgets["grapher 1"].options).should(
+                "not.have.property",
+                "correct",
+            );
         });
 
-        it("should be incorrectly answerable", () => {
-            // Arrange
-            const getRenderer = renderQuestionWithCypress(logarithmQuestion);
+        const data = [
+            {name: "answerful", item: answerful},
+            {name: "answerless", item: answerless},
+        ];
 
-            // Act
-            cy.get(GRAPHIE)
-                .should("exist")
-                .then((node) => {
-                    const {left, top} = node[0].getBoundingClientRect();
-                    // Move the Asymptote to x=-6
-                    cy.get(LINES)
-                        .eq(0)
+        data.forEach((d) => {
+            const {name, item} = d;
+
+            describe(name, () => {
+                it("should be correctly answerable", () => {
+                    // Arrange
+                    const getRenderer = renderQuestionWithCypress(
+                        item.question,
+                    );
+
+                    // Act
+                    cy.get(GRAPHIE)
                         .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({
-                            x: left + 50,
-                            y: top + 200, // It's a vertical line, so this doesn't matter much
+                        .then((node) => {
+                            const {left, top} = node[0].getBoundingClientRect();
+                            // Move the Asymptote to x=-6
+                            cy.get(LINES)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({
+                                    x: left + 50,
+                                    y: top + 200, // It's a vertical line, so this doesn't matter much
+                                });
+                            // Move point A
+                            cy.get(POINTS)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({
+                                    x: left + 100,
+                                    y: top + 275,
+                                });
+                            // Move point B
+                            cy.get(POINTS)
+                                .eq(1)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({
+                                    x: left + 75,
+                                    y: top + 375,
+                                });
                         });
-                    // Move point A
-                    cy.get(POINTS)
-                        .eq(0)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({
-                            x: left + 225,
-                            y: top + 125,
+
+                    // Assert
+                    cy.then(() => {
+                        const userInput = getRenderer().getUserInputMap();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            userInput,
+                        );
+                        expect(score).toStrictEqual({
+                            type: "points",
+                            earned: 1,
+                            total: 1,
+                            message: null,
                         });
-                    // Move point B
-                    cy.get(POINTS)
-                        .eq(1)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({
-                            x: left + 100,
-                            y: top + 300,
-                        });
+                    });
                 });
 
-            // Assert
-            cy.then(() => {
-                const userInput = getRenderer().getUserInputMap();
-                const score = scorePerseusItemTesting(
-                    logarithmQuestion,
-                    userInput,
-                );
-                expect(score).toStrictEqual({
-                    type: "points",
-                    earned: 0,
-                    total: 1,
-                    message: null,
+                it("should be incorrectly answerable", () => {
+                    // Arrange
+                    const getRenderer = renderQuestionWithCypress(
+                        item.question,
+                    );
+
+                    // Act
+                    cy.get(GRAPHIE)
+                        .should("exist")
+                        .then((node) => {
+                            const {left, top} = node[0].getBoundingClientRect();
+                            // Move the Asymptote to x=-6
+                            cy.get(LINES)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({
+                                    x: left + 50,
+                                    y: top + 200, // It's a vertical line, so this doesn't matter much
+                                });
+                            // Move point A
+                            cy.get(POINTS)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({
+                                    x: left + 225,
+                                    y: top + 125,
+                                });
+                            // Move point B
+                            cy.get(POINTS)
+                                .eq(1)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({
+                                    x: left + 100,
+                                    y: top + 300,
+                                });
+                        });
+
+                    // Assert
+                    cy.then(() => {
+                        const userInput = getRenderer().getUserInputMap();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            userInput,
+                        );
+                        expect(score).toStrictEqual({
+                            type: "points",
+                            earned: 0,
+                            total: 1,
+                            message: null,
+                        });
+                    });
                 });
             });
         });
     });
 
     describe("quadratic graph", () => {
-        it("should be correctly answerable", () => {
-            // Arrange
-            const getRenderer = renderQuestionWithCypress(quadraticQuestion);
+        const answerful = generateTestPerseusItem({
+            question: quadraticQuestion,
+        });
+        const answerless = splitPerseusItem(answerful);
 
-            // Act
-            cy.get(GRAPHIE)
-                .should("exist")
-                .then((node) => {
-                    const {left, top} = node[0].getBoundingClientRect();
-                    // Move point A
-                    cy.get(POINTS)
-                        .eq(0)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 260, y: top + 360});
-                    // Move point B
-                    cy.get(POINTS)
-                        .eq(1)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 220, y: top + 200});
-                });
-
-            // Assert
-            cy.then(() => {
-                const userInput = getRenderer().getUserInputMap();
-                const score = scorePerseusItemTesting(
-                    quadraticQuestion,
-                    userInput,
-                );
-                expect(score).toStrictEqual({
-                    type: "points",
-                    earned: 1,
-                    total: 1,
-                    message: null,
-                });
-            });
+        it("should not have answerful data in answerless item", () => {
+            cy.wrap(answerless.question.widgets["grapher 1"].options).should(
+                "not.have.property",
+                "correct",
+            );
         });
 
-        it("should be incorrectly answerable", () => {
-            // Arrange
-            const getRenderer = renderQuestionWithCypress(quadraticQuestion);
+        const data = [
+            {name: "answerful", item: answerful},
+            {name: "answerless", item: answerless},
+        ];
 
-            // Act
-            cy.get(GRAPHIE)
-                .should("exist")
-                .then((node) => {
-                    const {left, top} = node[0].getBoundingClientRect();
-                    // Move point A
-                    cy.get(POINTS)
-                        .eq(0)
+        data.forEach((d) => {
+            const {name, item} = d;
+
+            describe(name, () => {
+                it("should be correctly answerable", () => {
+                    // Arrange
+                    const getRenderer = renderQuestionWithCypress(
+                        item.question,
+                    );
+
+                    // Act
+                    cy.get(GRAPHIE)
                         .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 50, y: top + 50});
-                    // Move point B
-                    cy.get(POINTS)
-                        .eq(1)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 200, y: top + 300});
+                        .then((node) => {
+                            const {left, top} = node[0].getBoundingClientRect();
+                            // Move point A
+                            cy.get(POINTS)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 260, y: top + 360});
+                            // Move point B
+                            cy.get(POINTS)
+                                .eq(1)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 220, y: top + 200});
+                        });
+
+                    // Assert
+                    cy.then(() => {
+                        const userInput = getRenderer().getUserInputMap();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            userInput,
+                        );
+                        expect(score).toStrictEqual({
+                            type: "points",
+                            earned: 1,
+                            total: 1,
+                            message: null,
+                        });
+                    });
                 });
 
-            // Assert
-            cy.then(() => {
-                const userInput = getRenderer().getUserInputMap();
-                const score = scorePerseusItemTesting(
-                    quadraticQuestion,
-                    userInput,
-                );
-                expect(score).toStrictEqual({
-                    type: "points",
-                    earned: 0,
-                    total: 1,
-                    message: null,
+                it("should be incorrectly answerable", () => {
+                    // Arrange
+                    const getRenderer = renderQuestionWithCypress(
+                        item.question,
+                    );
+
+                    // Act
+                    cy.get(GRAPHIE)
+                        .should("exist")
+                        .then((node) => {
+                            const {left, top} = node[0].getBoundingClientRect();
+                            // Move point A
+                            cy.get(POINTS)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 50, y: top + 50});
+                            // Move point B
+                            cy.get(POINTS)
+                                .eq(1)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 200, y: top + 300});
+                        });
+
+                    // Assert
+                    cy.then(() => {
+                        const userInput = getRenderer().getUserInputMap();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            userInput,
+                        );
+                        expect(score).toStrictEqual({
+                            type: "points",
+                            earned: 0,
+                            total: 1,
+                            message: null,
+                        });
+                    });
                 });
             });
         });
     });
 
     describe("sinusoid graph", () => {
-        it("should be correctly answerable", () => {
-            // Arrange
-            const getRenderer = renderQuestionWithCypress(sinusoidQuestion);
+        const answerful = generateTestPerseusItem({
+            question: sinusoidQuestion,
+        });
+        const answerless = splitPerseusItem(answerful);
 
-            // Act
-            cy.get(GRAPHIE)
-                .should("exist")
-                .then((node) => {
-                    const {left, top} = node[0].getBoundingClientRect();
-
-                    cy.get(POINTS)
-                        .eq(0)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 220, y: top + 140});
-                    cy.get(POINTS)
-                        .eq(1)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 200, y: top + 220});
-                });
-
-            // Assert
-            cy.then(() => {
-                const userInput = getRenderer().getUserInputMap();
-                const score = scorePerseusItemTesting(
-                    sinusoidQuestion,
-                    userInput,
-                );
-                expect(score).toStrictEqual({
-                    type: "points",
-                    earned: 1,
-                    total: 1,
-                    message: null,
-                });
-            });
+        it("should not have answerful data in answerless item", () => {
+            cy.wrap(answerless.question.widgets["grapher 1"].options).should(
+                "not.have.property",
+                "correct",
+            );
         });
 
-        it("should be incorrectly answerable", () => {
-            // Arrange
-            const getRenderer = renderQuestionWithCypress(sinusoidQuestion);
+        const data = [
+            {name: "answerful", item: answerful},
+            {name: "answerless", item: answerless},
+        ];
 
-            // Act
-            cy.get(GRAPHIE)
-                .should("exist")
-                .then((node) => {
-                    const {left, top} = node[0].getBoundingClientRect();
+        data.forEach((d) => {
+            const {name, item} = d;
 
-                    cy.get(POINTS)
-                        .eq(0)
+            describe(name, () => {
+                it("should be correctly answerable", () => {
+                    // Arrange
+                    const getRenderer = renderQuestionWithCypress(
+                        item.question,
+                    );
+
+                    // Act
+                    cy.get(GRAPHIE)
                         .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 100, y: top + 140});
-                    cy.get(POINTS)
-                        .eq(1)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 200, y: top + 220});
+                        .then((node) => {
+                            const {left, top} = node[0].getBoundingClientRect();
+
+                            cy.get(POINTS)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 220, y: top + 140});
+                            cy.get(POINTS)
+                                .eq(1)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 200, y: top + 220});
+                        });
+
+                    // Assert
+                    cy.then(() => {
+                        const userInput = getRenderer().getUserInputMap();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            userInput,
+                        );
+                        expect(score).toStrictEqual({
+                            type: "points",
+                            earned: 1,
+                            total: 1,
+                            message: null,
+                        });
+                    });
                 });
 
-            // Assert
-            cy.then(() => {
-                const userInput = getRenderer().getUserInputMap();
-                const score = scorePerseusItemTesting(
-                    sinusoidQuestion,
-                    userInput,
-                );
-                expect(score).toStrictEqual({
-                    type: "points",
-                    earned: 0,
-                    total: 1,
-                    message: null,
+                it("should be incorrectly answerable", () => {
+                    // Arrange
+                    const getRenderer = renderQuestionWithCypress(
+                        item.question,
+                    );
+
+                    // Act
+                    cy.get(GRAPHIE)
+                        .should("exist")
+                        .then((node) => {
+                            const {left, top} = node[0].getBoundingClientRect();
+
+                            cy.get(POINTS)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 100, y: top + 140});
+                            cy.get(POINTS)
+                                .eq(1)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 200, y: top + 220});
+                        });
+
+                    // Assert
+                    cy.then(() => {
+                        const userInput = getRenderer().getUserInputMap();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            userInput,
+                        );
+                        expect(score).toStrictEqual({
+                            type: "points",
+                            earned: 0,
+                            total: 1,
+                            message: null,
+                        });
+                    });
                 });
             });
         });
     });
 
     describe("complex graph question", () => {
-        it("should be correctly answerable", () => {
-            // Arrange
-            const getRenderer = renderQuestionWithCypress(
-                multipleAvailableTypesQuestion,
+        const answerful = generateTestPerseusItem({
+            question: multipleAvailableTypesQuestion,
+        });
+        const answerless = splitPerseusItem(answerful);
+
+        it("should not have answerful data in answerless item", () => {
+            cy.wrap(answerless.question.widgets["grapher 1"].options).should(
+                "not.have.property",
+                "correct",
             );
-
-            // Act
-            cy.get("button[title=Absolute_value]").click();
-
-            cy.get(GRAPHIE)
-                .should("exist")
-                .then((node) => {
-                    const rect = node[0].getBoundingClientRect();
-                    const left = rect.left + window.scrollX;
-                    const top = rect.top + window.scrollY;
-
-                    cy.get(POINTS)
-                        .eq(0)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 220, y: top + 260});
-                    cy.get(POINTS)
-                        .eq(1)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 200, y: top + 200});
-                });
-
-            // Assert
-            cy.then(() => {
-                const userInput = getRenderer().getUserInputMap();
-                const score = scorePerseusItemTesting(
-                    multipleAvailableTypesQuestion,
-                    userInput,
-                );
-                expect(score).toStrictEqual({
-                    type: "points",
-                    earned: 1,
-                    total: 1,
-                    message: null,
-                });
-            });
         });
 
-        it("should be incorrectly answerable", () => {
-            // Arrange
-            const getRenderer = renderQuestionWithCypress(
-                multipleAvailableTypesQuestion,
-            );
+        const data = [
+            {name: "answerful", item: answerful},
+            {name: "answerless", item: answerless},
+        ];
 
-            // Act
-            cy.get("button[title=Absolute_value]").click();
+        data.forEach((d) => {
+            const {name, item} = d;
 
-            cy.get(GRAPHIE)
-                .should("exist")
-                .then((node) => {
-                    const rect = node[0].getBoundingClientRect();
-                    const left = rect.left + window.scrollX;
-                    const top = rect.top + window.scrollY;
+            describe(name, () => {
+                it("should be correctly answerable", () => {
+                    // Arrange
+                    const getRenderer = renderQuestionWithCypress(
+                        item.question,
+                    );
 
-                    cy.get(POINTS)
-                        .eq(0)
+                    // Act
+                    cy.get("button[title=Absolute_value]").click();
+
+                    cy.get(GRAPHIE)
                         .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 200, y: top + 200});
-                    cy.get(POINTS)
-                        .eq(1)
-                        .should("exist")
-                        // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
-                        .dragTo({x: left + 100, y: top + 100});
+                        .then((node) => {
+                            const rect = node[0].getBoundingClientRect();
+                            const left = rect.left + window.scrollX;
+                            const top = rect.top + window.scrollY;
+
+                            cy.get(POINTS)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 220, y: top + 260});
+                            cy.get(POINTS)
+                                .eq(1)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 200, y: top + 200});
+                        });
+
+                    // Assert
+                    cy.then(() => {
+                        const userInput = getRenderer().getUserInputMap();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            userInput,
+                        );
+                        expect(score).toStrictEqual({
+                            type: "points",
+                            earned: 1,
+                            total: 1,
+                            message: null,
+                        });
+                    });
                 });
 
-            // Assert
-            cy.then(() => {
-                const userInput = getRenderer().getUserInputMap();
-                const score = scorePerseusItemTesting(
-                    multipleAvailableTypesQuestion,
-                    userInput,
-                );
-                expect(score).toStrictEqual({
-                    type: "points",
-                    earned: 0,
-                    total: 1,
-                    message: null,
+                it("should be incorrectly answerable", () => {
+                    // Arrange
+                    const getRenderer = renderQuestionWithCypress(
+                        item.question,
+                    );
+
+                    // Act
+                    cy.get("button[title=Absolute_value]").click();
+
+                    cy.get(GRAPHIE)
+                        .should("exist")
+                        .then((node) => {
+                            const rect = node[0].getBoundingClientRect();
+                            const left = rect.left + window.scrollX;
+                            const top = rect.top + window.scrollY;
+
+                            cy.get(POINTS)
+                                .eq(0)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 200, y: top + 200});
+                            cy.get(POINTS)
+                                .eq(1)
+                                .should("exist")
+                                // @ts-expect-error - TS2339 - Property 'dragTo' does not exist on type 'Chainable<JQuery<HTMLElement>>'.
+                                .dragTo({x: left + 100, y: top + 100});
+                        });
+
+                    // Assert
+                    cy.then(() => {
+                        const userInput = getRenderer().getUserInputMap();
+                        const score = scorePerseusItemTesting(
+                            answerful.question,
+                            userInput,
+                        );
+                        expect(score).toStrictEqual({
+                            type: "points",
+                            earned: 0,
+                            total: 1,
+                            message: null,
+                        });
+                    });
                 });
             });
         });
