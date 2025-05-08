@@ -3,9 +3,8 @@ import {
     vector as kvector,
     point as kpoint,
 } from "@khanacademy/kmath";
-import {GrapherUtil} from "@khanacademy/perseus-core";
+import {deepClone, GrapherUtil} from "@khanacademy/perseus-core";
 import * as React from "react";
-import _ from "underscore";
 
 import ButtonGroup from "../../components/button-group";
 import Graphie from "../../components/graphie";
@@ -248,10 +247,12 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                             ) {
                                 const extraConstraint =
                                     this.props.model.extraCoordConstraint;
-                                // Calculat resulting coords and verify that
+                                // Calculate resulting coords and verify that
                                 // they're valid for this graph
-                                const proposedCoords = _.clone(this._coords());
-                                const oldCoord = _.clone(proposedCoords[i]);
+                                const proposedCoords = deepClone(
+                                    this._coords(),
+                                );
+                                const oldCoord = deepClone(proposedCoords[i]);
                                 proposedCoords[i] = coord;
                                 return extraConstraint(
                                     coord,
@@ -278,7 +279,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                                 return kpoint.reflectOverLine(coord, asymptote);
                             });
                         } else {
-                            coords = _.clone(this._coords());
+                            coords = deepClone(this._coords());
                         }
                         coords[i] = newCoord;
                         this.props.onChange({
