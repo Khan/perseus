@@ -166,14 +166,7 @@ class EditorPage extends React.Component<Props, State> {
                 },
                 reviewMode: true,
                 legacyPerseusLint: this.itemEditor.current?.getSaveWarnings(),
-            }).extend(
-                _(this.props).pick(
-                    "workAreaSelector",
-                    "solutionAreaSelector",
-                    "hintsAreaSelector",
-                    "problemNum",
-                ),
-            ),
+            }).extend(_(this.props).pick("problemNum")),
         });
     }
 
