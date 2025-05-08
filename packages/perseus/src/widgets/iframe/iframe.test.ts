@@ -1,5 +1,3 @@
-import {screen, act} from "@testing-library/react";
-
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
@@ -7,7 +5,6 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 import {question1} from "./iframe.testdata";
 
 import type {APIOptions} from "../../types";
-import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 describe("iframe widget", () => {
     beforeEach(() => {
