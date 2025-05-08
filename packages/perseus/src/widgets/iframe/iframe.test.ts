@@ -1,5 +1,8 @@
+import {act} from "react-dom/test-utils";
+
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question1} from "./iframe.testdata";
@@ -40,4 +43,98 @@ describe("iframe widget", () => {
     });
 
     //There isn't testable behavior for this widget
+    describe("iframe widget postMessage handling", () => {
+        it("should score as correct when postMessage has testsPassed: true", () => {
+            const {renderer} = renderQuestion(question1);
+
+            const messageData = {testsPassed: true, message: "Nicely done!"};
+
+            act(() => {
+                const fakeEvent = new MessageEvent("message", {
+                    data: JSON.stringify(messageData),
+                });
+                window.dispatchEvent(fakeEvent);
+            });
+
+            const score = scorePerseusItemTesting(
+                question1,
+                renderer.getUserInputMap(),
+            );
+            expect(score).toHaveBeenAnsweredCorrectly();
+            expect(score.message).toBe("Nicely done!");
+        });
+
+        it("should score as incorrect when postMessage has testsPassed: false", () => {
+            const apiOptions: APIOptions = {isMobile: false};
+            const {renderer} = renderQuestion(question1, apiOptions);
+
+            const messageData = {testsPassed: false, message: "Try again."};
+
+            act(() => {
+                const fakeEvent = new MessageEvent("message", {
+                    data: JSON.stringify(messageData),
+                });
+                window.dispatchEvent(fakeEvent);
+            });
+
+            const score = scorePerseusItemTesting(
+                question1,
+                renderer.getUserInputMap(),
+            );
+            expect(score).toHaveBeenAnsweredIncorrectly();
+            expect(score.message).toBe("Try again.");
+        });
+
+        it("should retain initial invalid score if postMessage is missing testsPassed", () => {
+            const apiOptions: APIOptions = {isMobile: false};
+            const {renderer} = renderQuestion(question1, apiOptions);
+            const initialScore = scorePerseusItemTesting(
+                question1,
+                renderer.getUserInputMap(),
+            );
+            const expectedInitialMessage = "Keep going, you're not there yet!";
+            expect(initialScore).toHaveInvalidInput(expectedInitialMessage);
+
+            const messageData = {
+                info: "This is just an informational message.",
+            };
+
+            act(() => {
+                const fakeEvent = new MessageEvent("message", {
+                    data: JSON.stringify(messageData),
+                });
+                window.dispatchEvent(fakeEvent);
+            });
+
+            const currentScore = scorePerseusItemTesting(
+                question1,
+                renderer.getUserInputMap(),
+            );
+            expect(currentScore).toHaveInvalidInput(expectedInitialMessage);
+        });
+
+        it("should retain initial invalid score if postMessage data is not valid JSON", () => {
+            const apiOptions: APIOptions = {isMobile: false};
+            const {renderer} = renderQuestion(question1, apiOptions);
+            const initialScore = scorePerseusItemTesting(
+                question1,
+                renderer.getUserInputMap(),
+            );
+            const expectedInitialMessage = "Keep going, you're not there yet!";
+            expect(initialScore).toHaveInvalidInput(expectedInitialMessage);
+
+            act(() => {
+                const fakeEvent = new MessageEvent("message", {
+                    data: "this is not json",
+                });
+                window.dispatchEvent(fakeEvent);
+            });
+
+            const currentScore = scorePerseusItemTesting(
+                question1,
+                renderer.getUserInputMap(),
+            );
+            expect(currentScore).toHaveInvalidInput(expectedInitialMessage);
+        });
+    });
 });
