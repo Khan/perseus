@@ -1,5 +1,4 @@
 import {act} from "@testing-library/react";
-import $ from "jquery";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -52,10 +51,11 @@ describe("iframe widget postMessage handling", () => {
         const messageData = {testsPassed: true, message: "Nicely done!"};
 
         act(() => {
-            const fakeEvent = new $.Event("message", {
-                originalEvent: {data: JSON.stringify(messageData)},
+            const nativeMessageEvent = new MessageEvent("message", {
+                data: JSON.stringify(messageData),
+                origin: window.location.origin || "http://localhost",
             });
-            $(window).trigger(fakeEvent);
+            window.dispatchEvent(nativeMessageEvent);
         });
 
         const updatedProps = renderer.getWidgetProps("iframe 1");
@@ -64,16 +64,16 @@ describe("iframe widget postMessage handling", () => {
     });
 
     it("should update widget props to incorrect when testsPassed is false", () => {
-        const apiOptions: APIOptions = {isMobile: false};
-        const {renderer} = renderQuestion(question1, apiOptions);
+        const {renderer} = renderQuestion(question1);
 
         const messageData = {testsPassed: false, message: "Try again."};
 
         act(() => {
-            const fakeEvent = new $.Event("message", {
-                originalEvent: {data: JSON.stringify(messageData)},
+            const nativeMessageEvent = new MessageEvent("message", {
+                data: JSON.stringify(messageData),
+                origin: window.location.origin || "http://localhost",
             });
-            $(window).trigger(fakeEvent);
+            window.dispatchEvent(nativeMessageEvent);
         });
 
         const updatedProps = renderer.getWidgetProps("iframe 1");
@@ -82,17 +82,17 @@ describe("iframe widget postMessage handling", () => {
     });
 
     it("should not update widget props if testsPassed is missing", () => {
-        const apiOptions: APIOptions = {isMobile: false};
-        const {renderer} = renderQuestion(question1, apiOptions);
+        const {renderer} = renderQuestion(question1);
         const initialProps = renderer.getWidgetProps("iframe 1");
 
         const messageData = {info: "This is just an informational message."};
 
         act(() => {
-            const fakeEvent = new $.Event("message", {
-                originalEvent: {data: JSON.stringify(messageData)},
+            const nativeMessageEvent = new MessageEvent("message", {
+                data: JSON.stringify(messageData),
+                origin: window.location.origin || "http://localhost",
             });
-            $(window).trigger(fakeEvent);
+            window.dispatchEvent(nativeMessageEvent);
         });
 
         const currentProps = renderer.getWidgetProps("iframe 1");
@@ -101,15 +101,15 @@ describe("iframe widget postMessage handling", () => {
     });
 
     it("should not update widget props if message data is not valid JSON", () => {
-        const apiOptions: APIOptions = {isMobile: false};
-        const {renderer} = renderQuestion(question1, apiOptions);
+        const {renderer} = renderQuestion(question1);
         const initialProps = renderer.getWidgetProps("iframe 1");
 
         act(() => {
-            const fakeEvent = new $.Event("message", {
-                originalEvent: {data: "this is not json"},
+            const nativeMessageEvent = new MessageEvent("message", {
+                data: "this is not json",
+                origin: window.location.origin || "http://localhost",
             });
-            $(window).trigger(fakeEvent);
+            window.dispatchEvent(nativeMessageEvent);
         });
 
         const currentProps = renderer.getWidgetProps("iframe 1");
