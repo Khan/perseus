@@ -177,8 +177,6 @@ export class PhetSimulation
     };
 
     render(): React.ReactNode {
-        const {apiOptions} = this.props;
-
         // We handle mobile fullscreen differently, as many mobile browsers
         // and apps don't support the fullscreen API. Instead, we use our own
         // fake fullscreen implementation to take up the full webview.
