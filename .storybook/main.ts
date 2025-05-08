@@ -57,10 +57,12 @@ const config: StorybookConfig = {
     previewHead: (head) => `
         ${head}
         <style>
-        html, body {
+        html {
             font-size: 62.5%;
-            padding: ${spacing.xSmall_8}px !important;
-            padding-left: ${spacing.large_24}px !important;
+        }
+        body {
+            font-size: 1.4rem;
+            padding: 1.6rem 1.6rem 1.6rem 4.8rem !important;
         }
         </style>
     `,
