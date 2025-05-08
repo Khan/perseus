@@ -56,6 +56,12 @@ type Props = {
     previewURL: string;
 };
 
+type DefaultProps = {
+    developerMode: Props["developerMode"];
+    jsonMode: Props["jsonMode"];
+    onChange: Props["onChange"];
+};
+
 type State = {
     json: PerseusItem;
     highlightLint: boolean;
@@ -64,16 +70,11 @@ type State = {
 
 class EditorPage extends React.Component<Props, State> {
     _isMounted: boolean;
-    renderer: any;
 
     itemEditor = React.createRef<ItemEditor>();
     hintsEditor = React.createRef<CombinedHintsEditor>();
 
-    static defaultProps: {
-        developerMode: boolean;
-        jsonMode: boolean;
-        onChange: () => void;
-    } = {
+    static defaultProps: DefaultProps = {
         developerMode: false,
         jsonMode: false,
         onChange: () => {},
