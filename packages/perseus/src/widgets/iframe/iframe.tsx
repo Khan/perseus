@@ -15,7 +15,7 @@ import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/iframe-ai-utils";
 
-import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {WidgetExports, WidgetProps, Widget, ChangeFn} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     PerseusIFrameUserInput,
@@ -24,14 +24,6 @@ import type {
 } from "@khanacademy/perseus-core";
 
 const {updateQueryString} = Util;
-
-// A type for the arguments of Changeable.change
-// Based on the ChangeFn type from "../types" which Changeable.change uses.
-type ChangeParams = [
-    newPropsOrSinglePropName: string | Record<string, any>,
-    propValue?: any,
-    callback?: () => unknown,
-];
 
 type RenderProps = PerseusIFrameWidgetOptions & {
     status: UserInputStatus;
@@ -97,7 +89,7 @@ class Iframe extends React.Component<Props> implements Widget {
         });
     };
 
-    change: (...args: ChangeParams) => any = (...args) => {
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
