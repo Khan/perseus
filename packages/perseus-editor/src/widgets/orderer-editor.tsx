@@ -24,31 +24,30 @@ const getUpdatedOptions = (
     whichOptions?: string,
     options?: string[],
 ): Record<string, any> => {
-    const props: Record<string, any> = {};
-
     // Update the changed options by mapping the options to an array of objects with a content property
-    if (whichOptions && options) {
-        props[whichOptions] = _.map(options, function (option) {
-            return {content: option};
-        });
+    const props: Record<string, any> = {};
+    if (whichOptions && options !== undefined) {
+        // eslint-disable-next-line functional/immutable-data
+        props[whichOptions] = options.map((option) => ({
+            content: option,
+        }));
     }
 
     // Get content from correctOptions (either updated or existing)
     const correctOptionsToUse =
         whichOptions === "correctOptions"
             ? props.correctOptions
-            : correctOptions || [];
+            : correctOptions;
 
     // Get content from otherOptions (either updated or existing)
     const otherOptionsToUse =
-        whichOptions === "otherOptions"
-            ? props.otherOptions
-            : otherOptions || [];
+        whichOptions === "otherOptions" ? props.otherOptions : otherOptions;
 
     // Combine all content items
     const allOptions = [...correctOptionsToUse, ...otherOptionsToUse];
 
     // Get unique content items
+    // eslint-disable-next-line functional/immutable-data
     const updatedOptions = [...new Set(allOptions.map((item) => item.content))]
         // filter out empty strings
         .filter((content) => content !== "")
@@ -72,10 +71,10 @@ const getUpdatedOptions = (
         })
         .map((content) => ({content}));
 
-    // Update the options with the new options
-    props["options"] = updatedOptions;
-
-    return props;
+    return {
+        ...props,
+        options: updatedOptions,
+    };
 };
 
 class OrdererEditor extends React.Component<Props> {
