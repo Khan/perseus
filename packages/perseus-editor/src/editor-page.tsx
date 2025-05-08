@@ -57,8 +57,6 @@ type Props = {
 
 type State = {
     json: PerseusItem;
-    gradeMessage: string;
-    wasAnswered: boolean;
     highlightLint: boolean;
     widgetsAreOpen: boolean;
 };
@@ -285,8 +283,6 @@ class EditorPage extends React.Component<Props, State> {
                         answerArea={this.props.answerArea}
                         imageUploader={this.props.imageUploader}
                         onChange={this.handleChange}
-                        wasAnswered={this.state.wasAnswered}
-                        gradeMessage={this.state.gradeMessage}
                         deviceType={this.props.previewDevice}
                         widgetIsOpen={this.state.widgetsAreOpen}
                         apiOptions={deviceBasedApiOptions}

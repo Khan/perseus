@@ -18,9 +18,7 @@ type Props = {
     apiOptions?: APIOptions;
     deviceType?: DeviceType;
     widgetIsOpen?: boolean;
-    gradeMessage?: string;
     imageUploader?: ImageUploader;
-    wasAnswered?: boolean;
     question?: PerseusRenderer;
     answerArea?: any;
     // URL of the route to show on initial load of the preview frames.
