@@ -32,6 +32,8 @@ export {
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "./utils/test-utils";
+export {itemHasRationales} from "./utils/item-has-rationales";
+export {itemHasHints} from "./utils/item-has-hints";
 
 export {
     parsePerseusItem,
@@ -153,6 +155,7 @@ export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/drop
 export type {DropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";
 export {default as getNumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
+export type {NumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
 export {default as getRadioPublicWidgetOptions} from "./widgets/radio/radio-util";
 export {deriveNumCorrect} from "./widgets/radio/radio-upgrade";
 export {default as getTablePublicWidgetOptions} from "./widgets/table/table-util";

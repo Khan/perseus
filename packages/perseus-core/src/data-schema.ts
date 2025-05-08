@@ -28,6 +28,8 @@
  *      the new format _as well as_ the old format.
  */
 
+// TODO(LEMS-3080): Don't import KeypadKey here; data-schema.ts is supposed to
+// be independent of everything else.
 import type {KeypadKey} from "./keypad";
 
 // TODO(FEI-4010): Remove `Perseus` prefix for all types here
@@ -1259,8 +1261,10 @@ export type PerseusNumberLineWidgetOptions = {
     snapDivisions: number;
     // This controls the number (and position) of the tick marks; you can either set the number of divisions (2 divisions would split the entire range in two halves), or the tick step (the distance between ticks) and the other value will be updated accordingly. Note:  There is no check to see if labels coordinate with the tick marks, which may be confusing for users if the blue labels and black ticks are off-step.
     tickStep?: number | null;
-    // The correct relative value. default: "eq". options: "eq", "lt", "gt", "le", "ge"
-    correctRel?: string | null;
+    // The answer to a NumberLine widget is a set of real numbers.
+    // `correctRel` expresses the relationship between the numbers in that set
+    // and the value of `correctX`.
+    correctRel?: "eq" | "lt" | "gt" | "le" | "ge";
     // This is the correct answer. The answer is validated (as right or wrong) by using only the end position of the point and the relation (=, &lt;, &gt;, ≤, ≥).
     correctX: number | null;
     // This controls the initial position of the point along the number line
