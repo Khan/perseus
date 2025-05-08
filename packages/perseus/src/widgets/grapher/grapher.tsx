@@ -434,7 +434,7 @@ class Grapher extends React.Component<Props> implements Widget {
         if (options.markings === "graph") {
             graphie.graphInit({
                 range: options.range,
-                scale: _.pluck(options.gridConfig, "scale"),
+                scale: options.gridConfig.map((e) => e.scale),
                 axisArrows: "<->",
                 labelFormat: function (s) {
                     return "\\small{" + s + "}";
@@ -447,9 +447,9 @@ class Grapher extends React.Component<Props> implements Widget {
                           options.step,
                           options.range,
                       )
-                    : _.pluck(options.gridConfig, "tickStep"),
+                    : options.gridConfig.map((e) => e.tickStep),
                 labelStep: 1,
-                unityLabels: _.pluck(options.gridConfig, "unityLabel"),
+                unityLabels: options.gridConfig.map((e) => e.unityLabel),
                 isMobile: isMobile,
             });
             graphie.label(
@@ -465,7 +465,7 @@ class Grapher extends React.Component<Props> implements Widget {
         } else if (options.markings === "grid") {
             graphie.graphInit({
                 range: options.range,
-                scale: _.pluck(options.gridConfig, "scale"),
+                scale: options.gridConfig.map((e) => e.scale),
                 gridStep: options.gridStep,
                 axes: false,
                 ticks: false,
@@ -475,7 +475,7 @@ class Grapher extends React.Component<Props> implements Widget {
         } else if (options.markings === "none") {
             graphie.init({
                 range: options.range,
-                scale: _.pluck(options.gridConfig, "scale"),
+                scale: options.gridConfig.map((e) => e.scale),
             });
         }
 
