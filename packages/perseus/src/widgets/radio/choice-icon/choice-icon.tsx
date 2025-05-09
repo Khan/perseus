@@ -120,6 +120,7 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
     }
 
     return (
+        // Choice letter
         <div className={css(sharedStyles.iconWrapper)}>
             <FocusRing
                 color={WBColor.blue}

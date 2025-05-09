@@ -8,6 +8,7 @@ const styles: StyleDeclaration = StyleSheet.create({
     iconWrapper: {
         display: "inline-block",
         position: "relative",
+        backgroundColor: "white",
     },
 });
 
