@@ -551,7 +551,10 @@ class Grapher extends React.Component<Props> implements Widget {
     render(): React.ReactNode {
         const type = this.props.plot.type;
         const coords = this.props.plot.coords;
-        const asymptote = (this.props.plot as any).asymptote;
+        const asymptote =
+            "asymptote" in this.props.plot
+                ? this.props.plot.asymptote
+                : undefined;
 
         const typeSelector = (
             <div style={typeSelectorStyle}>
