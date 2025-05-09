@@ -144,6 +144,7 @@ export {default as getCSProgramPublicWidgetOptions} from "./widgets/cs-program/c
 export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
 export type {ExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
 export {default as getGrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
+export type {GrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
 export {default as getGroupPublicWidgetOptions} from "./widgets/group/group-util";
 export {
     default as getInteractiveGraphPublicWidgetOptions,
