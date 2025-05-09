@@ -37,7 +37,8 @@ export const UnlimitedCharacters: Story = {
     },
 };
 
-export const QuestionWithKatex: Story = {
+export const QuestionWithTex: Story = {
+    storyName: "Question with TeX content",
     args: {
         allowUnlimitedCharacters: true,
         characterLimit: 500,
