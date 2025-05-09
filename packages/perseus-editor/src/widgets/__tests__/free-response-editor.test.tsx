@@ -145,6 +145,25 @@ describe("free-response editor", () => {
         ]);
     });
 
+    it("returns a warning when the question contains a widget placeholder", async () => {
+        // Arrange
+        const ref = React.createRef<FreeResponseEditor>();
+
+        // Act
+        render(
+            <FreeResponseEditor
+                ref={ref}
+                question="[[☃ radio 1]]"
+                onChange={() => {}}
+            />,
+        );
+
+        // Assert
+        expect(ref.current?.getSaveWarnings()).toEqual([
+            "The question contains a widget",
+        ]);
+    });
+
     it("does not return a warning when the placeholder is empty", async () => {
         // Arrange
         const ref = React.createRef<FreeResponseEditor>();

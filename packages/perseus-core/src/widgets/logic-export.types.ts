@@ -37,17 +37,11 @@ export type PublicWidgetOptionsFunction =
     | typeof getCSProgramPublicWidgetOptions
     | typeof getDropdownPublicWidgetOptions
     | typeof getExpressionPublicWidgetOptions
+    | typeof getFreeResponsePublicWidgetOptions
     | typeof getGrapherPublicWidgetOptions
     | typeof getGroupPublicWidgetOptions
     | typeof getIFramePublicWidgetOptions
     | typeof getInputNumberPublicWidgetOptions
-    | typeof getCSProgramPublicWidgetOptions
-    | typeof getCategorizerPublicWidgetOptions
-    | typeof getDropdownPublicWidgetOptions
-    | typeof getExpressionPublicWidgetOptions
-    | typeof getFreeResponsePublicWidgetOptions
-    | typeof getGrapherPublicWidgetOptions
-    | typeof getIFramePublicWidgetOptions
     | typeof getInteractiveGraphPublicWidgetOptions
     | typeof getLabelImagePublicWidgetOptions
     | typeof getMatcherPublicWidgetOptions

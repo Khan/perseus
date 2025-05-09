@@ -15,6 +15,7 @@ import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
+import Renderer from "../../renderer";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PerseusFreeResponseWidgetOptions} from "@khanacademy/perseus-core";
@@ -102,7 +103,12 @@ export class FreeResponse
         return (
             <View style={styles.container}>
                 <label className={css(styles.labelAndTextarea)}>
-                    <LabelLarge>{this.props.question}</LabelLarge>
+                    <LabelLarge>
+                        <Renderer
+                            content={this.props.question}
+                            strings={this.context.strings}
+                        />
+                    </LabelLarge>
                     <TextArea
                         error={this.isOverLimit()}
                         onChange={this.handleChange}
