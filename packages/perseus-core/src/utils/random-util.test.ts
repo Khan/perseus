@@ -11,6 +11,12 @@ describe("shuffle", () => {
         expect(shuffle([1, 1, 1], 0)).toEqual([1, 1, 1]);
     });
 
+    it("always copies the input array, even if there's nothing to shuffle", () => {
+        const input = [];
+        const result = shuffle(input, 0);
+        expect(result).not.toBe(input);
+    });
+
     it.each([
         [0, [2, 1, 3]],
         [1, [3, 2, 1]],
