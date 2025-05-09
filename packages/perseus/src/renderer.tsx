@@ -1097,6 +1097,8 @@ class Renderer
         const apiOptions = this.getApiOptions();
         const imagePlaceholder = apiOptions.imagePlaceholder;
 
+        // TODO: LEMS-3006 maybe add here the ScrollableView component if applying
+        // the scroll to all widgets and not only for radio
         if (node.type === "widget") {
             const widgetPlaceholder = apiOptions.widgetPlaceholder;
 
@@ -1142,6 +1144,7 @@ class Renderer
                 // as well, despite the parent and child elements having
                 // the exact same height. Force it to not scroll by
                 // applying overflowY: 'hidden'
+                // TODO: LEMS-3006 check what impact this has in the radio widget scroll
                 overflowX: "auto",
                 overflowY: "hidden",
 
