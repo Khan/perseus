@@ -37,7 +37,7 @@ describe("shuffle", () => {
     });
 
     it("does not return the initial order if ensurePermuted is true", () => {
-        expect(shuffle([1, 2, 3], 8, true)).toEqual([3, 2, 1]);
+        expect(shuffle([1, 2, 3], 8, true)).toEqual([2, 3, 1]);
     });
 
     it("ignores ensurePermuted if there is nothing to shuffle", () => {
