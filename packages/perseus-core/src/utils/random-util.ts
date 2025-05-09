@@ -53,16 +53,11 @@ export function shuffle<T>(
 
     do {
         // Fischer-Yates shuffle
-        for (let top = shuffled.length; top > 0; top--) {
-            const newEnd = Math.floor(random() * top);
-            const temp = shuffled[newEnd];
+        for (let i = shuffled.length - 1; i >= 0; i--) {
+            const k = Math.floor(random() * (i + 1));
 
-            // TODO(LEMS-3083): Remove eslint suppression
             // eslint-disable-next-line functional/immutable-data
-            shuffled[newEnd] = shuffled[top - 1];
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
-            shuffled[top - 1] = temp;
+            [shuffled[k], shuffled[i]] = [shuffled[i], shuffled[k]];
         }
     } while (ensurePermuted && _.isEqual(array, shuffled));
 
