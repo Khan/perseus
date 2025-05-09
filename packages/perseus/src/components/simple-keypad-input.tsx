@@ -13,7 +13,12 @@ import {KeypadInput, keypadElementPropType} from "@khanacademy/math-input";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-export default class SimpleKeypadInput extends React.Component<any> {
+import type {Focusable} from "../types";
+
+export default class SimpleKeypadInput
+    extends React.Component<any>
+    implements Focusable
+{
     static contextType = KeypadContext;
     declare context: React.ContextType<typeof KeypadContext>;
     _isMounted = false;

@@ -104,7 +104,7 @@ async function getCrossRealmObject(value: object): Promise<unknown> {
 
     const tmpDir = fs.mkdtempSync(join(tmpdir(), "isObject-test"));
     const workerScript = `
-            import {parentPort} from "worker_threads";
+            const {parentPort} = require("worker_threads");
             parentPort.postMessage(${JSON.stringify(value)});
         `;
     const workerScriptPath = join(tmpDir, "worker.js");
