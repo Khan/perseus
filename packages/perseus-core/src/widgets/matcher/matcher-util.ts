@@ -10,13 +10,6 @@ type MatcherInfo = {
     problemNum: number | null | undefined;
 };
 
-type MatcherShuffleInfo = {
-    left: ReadonlyArray<string>;
-    right: ReadonlyArray<string>;
-    orderMatters: boolean;
-};
-
-// TODO(LEMS-2841): Should be able to remove once getPublicWidgetOptions is hooked up
 export const shuffleMatcher = (
     props: MatcherInfo,
 ): {left: ReadonlyArray<string>; right: ReadonlyArray<string>} => {
@@ -35,25 +28,6 @@ export const shuffleMatcher = (
 
     return {left, right};
 };
-
-// TODO(LEMS-2841): Can shorten to shuffleMatcher after above function removed
-function shuffleMatcherWithRandom(data: MatcherShuffleInfo): {
-    left: string[];
-    right: string[];
-} {
-    // Use the same random() function to shuffle both columns sequentially
-    let left;
-    if (!data.orderMatters) {
-        // If the order doesn't matter, don't shuffle the left column
-        left = data.left;
-    } else {
-        left = shuffle(data.left, Math.random, /* ensurePermuted */ true);
-    }
-
-    const right = shuffle(data.right, Math.random, /* ensurePermuted */ true);
-
-    return {left, right};
-}
 
 /**
  * For details on the individual options, see the
@@ -74,7 +48,20 @@ type MatcherPublicWidgetOptions = {
 function getMatcherPublicWidgetOptions(
     options: PerseusMatcherWidgetOptions,
 ): MatcherPublicWidgetOptions {
-    const {left, right} = shuffleMatcherWithRandom(options);
+    // Use the same random() function to shuffle both columns sequentially
+    let left;
+    if (!options.orderMatters) {
+        // If the order doesn't matter, don't shuffle the left column
+        left = options.left;
+    } else {
+        left = shuffle(options.left, Math.random, /* ensurePermuted */ true);
+    }
+
+    const right = shuffle(
+        options.right,
+        Math.random,
+        /* ensurePermuted */ true,
+    );
 
     return {
         ...options,
