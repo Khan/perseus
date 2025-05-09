@@ -63,6 +63,8 @@ export function shuffle<T>(
 }
 
 function shuffleInPlace(a: unknown[], random: RNG): void {
+    // The Fisher-Yates shuffling algorithm. See:
+    // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
     for (let i = a.length - 1; i >= 0; i--) {
         const k = Math.floor(random() * (i + 1));
         // eslint-disable-next-line functional/immutable-data
