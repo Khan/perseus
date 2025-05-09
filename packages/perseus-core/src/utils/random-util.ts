@@ -34,9 +34,10 @@ export function shuffle<T>(
     randomSeed: number | RNG,
     ensurePermuted = false,
 ): T[] {
-    // Handle edge cases (input array is empty or uniform)
+    // Return early if all elements are equal -- both for performance, and
+    // so we don't go into an infinite loop if ensurePermuted is true.
     if (array.every((value) => _.isEqual(value, array[0]))) {
-        // Make sure we always return a copy, since callers might rely on that.
+        // We always return a copy, since callers might rely on that.
         return [...array];
     }
 
