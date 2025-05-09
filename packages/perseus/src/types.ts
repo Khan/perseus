@@ -273,6 +273,7 @@ export type APIOptions = Readonly<{
     setDrawingAreaAvailable?: (arg1: boolean) => unknown;
     /** The color used for the hint progress indicator (eg. 1 / 3) */
     hintProgressColor?: string;
+    // TODO: LEMS-3006 check if this has an impact to radio widget scroll
     /**
      * Whether this Renderer is allowed to auto-scroll the rest of the
      * page. For example, if this is enabled, the most recently used

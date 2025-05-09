@@ -252,7 +252,7 @@ export const multiChoiceQuestion: PerseusRenderer = {
 };
 
 export const multiChoiceQuestionSimple: PerseusRenderer = {
-    content: "What are some ways to say hello?\n\n[[\u2603 radio 1]]",
+    content: "Choose the correct answer?\n\n[[\u2603 radio 1]]",
     images: {},
     widgets: {
         "radio 1": {
@@ -268,25 +268,29 @@ export const multiChoiceQuestionSimple: PerseusRenderer = {
                 displayCount: null,
                 choices: [
                     {
-                        content: "Hola",
+                        content:
+                            "$300+100+70+50+4+2+100+70+50+4+2+100+70+50+4+2+100+70+50+4+2+100+70+50+4+2+100+70+50+4+2$",
                         isNoneOfTheAbove: false,
                         correct: true,
                         clue: "The Spanish-speaking countries typically say Hola.",
                     },
                     {
-                        content: "Hey",
+                        content:
+                            "$300+100+70+50+4+2+100+4+2+100+70+50+4+2+100+70+50+4+2$",
                         isNoneOfTheAbove: false,
                         correct: true,
                         clue: "This is used to attract someone's attention.",
                     },
                     {
-                        content: "Hi",
+                        content:
+                            "$300+100+70+50+4+2+4+2+100+70+50+4+2+100+70+50+4+2+100+70+50+4+2+100+70+50+4+2$",
                         isNoneOfTheAbove: false,
                         correct: true,
                         clue: "This is used as friendly greeting.",
                     },
                     {
-                        content: "Goodbye",
+                        content:
+                            "$300+100+70+50+4+2+100+70+50+4+2+100+70+50+4+2+100+70+50+4+2+100+70+50+4+2$",
                         isNoneOfTheAbove: false,
                         correct: false,
                         clue: "Some people like to say Goodbye.",

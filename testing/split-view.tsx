@@ -44,7 +44,7 @@ const SplitView = ({
 const styles = {
     sideBySide: {
         display: "flex",
-        flexWrap: "wrap",
+        // flexWrap: "wrap",
         flexDirection: "column",
         gap: spacing.large_24,
         padding: `0px ${spacing.large_24}px`,

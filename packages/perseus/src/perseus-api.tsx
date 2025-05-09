@@ -105,6 +105,7 @@ export const ApiOptions = {
         // The color used for the hint progress indicator (eg. 1 / 3)
         hintProgressColor: PropTypes.string,
 
+        // TODO: LEMS-3006 Maybe use this to check if the radio is scrollable or not
         // Whether this Renderer is allowed to auto-scroll the rest of the
         // page. For example, if this is enabled, the most recently used
         // radio widget will attempt to keep the "selected" answer in view
