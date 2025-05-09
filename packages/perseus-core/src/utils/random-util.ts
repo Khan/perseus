@@ -4,6 +4,10 @@
 
 import _ from "underscore";
 
+/**
+ * A random number generator. Should return floats in the range [0, 1), like
+ * Math.random().
+ */
 type RNG = () => number;
 
 export const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
@@ -22,26 +26,21 @@ export const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
     };
 };
 
-// Shuffle an array using a given random seed or function.
-// If `ensurePermuted` is true, the input and output are guaranteed to be
-// distinct permutations.
+/**
+ * Shuffle an array using a given random seed or function.
+ * If `ensurePermuted` is true, the input and output are guaranteed to be
+ * distinct permutations.
+ */
 export function shuffle<T>(
     array: ReadonlyArray<T>,
     randomSeed: number | RNG,
     ensurePermuted = false,
 ): T[] {
-    // Always return a copy of the input array
-    const shuffled = [...array];
-
-    // Handle edge cases (input array is empty or uniform)
-    if (
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        !shuffled.length ||
-        _.all(shuffled, function (value) {
-            return _.isEqual(value, shuffled[0]);
-        })
-    ) {
-        return shuffled;
+    // Return early if all elements are equal -- both for performance, and
+    // so we don't go into an infinite loop if ensurePermuted is true.
+    if (array.every((value) => _.isEqual(value, array[0]))) {
+        // We always return a copy, since callers might rely on that.
+        return [...array];
     }
 
     let random;
@@ -51,22 +50,42 @@ export function shuffle<T>(
         random = seededRNG(randomSeed);
     }
 
+    return constrainedShuffle(
+        array,
+        random,
+        (shuffled) => ensurePermuted && _.isEqual(array, shuffled),
+    );
+}
+
+function constrainedShuffle<T>(
+    array: readonly T[],
+    random: RNG,
+    shouldReshuffle: (shuffled: readonly T[], iteration: number) => boolean,
+): T[] {
+    const shuffled = [...array];
+    let iteration = 1;
     do {
-        // Fischer-Yates shuffle
-        for (let top = shuffled.length; top > 0; top--) {
-            const newEnd = Math.floor(random() * top);
-            const temp = shuffled[newEnd];
-
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
-            shuffled[newEnd] = shuffled[top - 1];
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
-            shuffled[top - 1] = temp;
-        }
-    } while (ensurePermuted && _.isEqual(array, shuffled));
-
+        shuffleInPlace(shuffled, random);
+    } while (shouldReshuffle(shuffled, iteration++));
     return shuffled;
+}
+
+function shuffleInPlace(a: unknown[], random: RNG): void {
+    // The Fisher-Yates shuffling algorithm. See:
+    // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+    for (let i = a.length - 1; i > 0; i--) {
+        const k = randomIntInRange(0, i, random);
+        // eslint-disable-next-line functional/immutable-data
+        [a[k], a[i]] = [a[i], a[k]];
+    }
+}
+
+export function randomIntInRange(
+    min: number,
+    max: number,
+    random: RNG,
+): number {
+    return Math.floor(random() * (max - min + 1)) + min;
 }
 
 export const random: RNG = seededRNG(new Date().getTime() & 0xffffffff);

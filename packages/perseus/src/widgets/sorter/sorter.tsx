@@ -97,10 +97,6 @@ class Sorter extends React.Component<Props, State> implements Widget {
     };
 
     render(): React.ReactNode {
-        // TODO(LEMS-2841): Remove client-side shuffle once receiving public
-        //     options. The correct field will already be shuffled.
-        //     Probably easiest to replace "options" with "this.props.correct" when
-        //     setting up Sortable below. Or use the assignment to rename for clarity.
         const options = shuffle(
             this.props.correct,
             this.props.problemNum as number,
