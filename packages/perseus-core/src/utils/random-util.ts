@@ -55,10 +55,23 @@ export function shuffle<T>(
         random = seededRNG(randomSeed);
     }
 
+    return constrainedShuffle(
+        shuffled,
+        random,
+        (proposedOrder) => ensurePermuted && _.isEqual(array, proposedOrder),
+    );
+}
+
+function constrainedShuffle<T>(
+    array: readonly T[],
+    random: RNG,
+    shouldReshuffle: (proposedOrder: T[], iteration: number) => boolean,
+): T[] {
+    const shuffled = [...array];
+    let iteration = 1;
     do {
         shuffleInPlace(shuffled, random);
-    } while (ensurePermuted && _.isEqual(array, shuffled));
-
+    } while (shouldReshuffle(shuffled, iteration++));
     return shuffled;
 }
 
@@ -72,7 +85,11 @@ function shuffleInPlace(a: unknown[], random: RNG): void {
     }
 }
 
-function randomIntInRange(min: number, max: number, random: RNG): number {
+export function randomIntInRange(
+    min: number,
+    max: number,
+    random: RNG,
+): number {
     return Math.floor(random() * (max - min + 1)) + min;
 }
 

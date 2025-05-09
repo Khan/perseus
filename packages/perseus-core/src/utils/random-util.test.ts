@@ -1,6 +1,6 @@
 import {describe, it, expect} from "@jest/globals";
 
-import {shuffle} from "./random-util";
+import {randomIntInRange, seededRNG, shuffle} from "./random-util";
 
 describe("shuffle", () => {
     it("does nothing to an empty array", () => {
@@ -42,5 +42,38 @@ describe("shuffle", () => {
 
     it("ignores ensurePermuted if there is nothing to shuffle", () => {
         expect(shuffle([1], 8, true)).toEqual([1]);
+    });
+});
+
+describe("randomIntInRange", () => {
+    function arrayOfLength(n: number) {
+        return Array(n).fill(null);
+    }
+
+    it("always generates 0 when min and max are both 0", () => {
+        expect(
+            arrayOfLength(3).map(() => randomIntInRange(0, 0, Math.random)),
+        ).toEqual([0, 0, 0]);
+    });
+
+    it("always generates N when min and max are both N", () => {
+        expect(
+            arrayOfLength(3).map(() => randomIntInRange(42, 42, Math.random)),
+        ).toEqual([42, 42, 42]);
+    });
+
+    it("generates numbers between the min and the max, inclusive", () => {
+        // Arrange
+        const min = 3;
+        const max = 6;
+        const rng = seededRNG(0);
+
+        // Act
+        const result = arrayOfLength(20).map(() =>
+            randomIntInRange(min, max, rng),
+        );
+
+        // Assert
+        expect(new Set(result)).toEqual(new Set([3, 4, 5, 6]));
     });
 });
