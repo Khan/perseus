@@ -4,6 +4,10 @@
 
 import _ from "underscore";
 
+/**
+ * A random number generator. Should return floats in the range [0, 1), like
+ * Math.random().
+ */
 type RNG = () => number;
 
 export const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
@@ -52,16 +56,18 @@ export function shuffle<T>(
     }
 
     do {
-        // Fischer-Yates shuffle
-        for (let i = shuffled.length - 1; i >= 0; i--) {
-            const k = Math.floor(random() * (i + 1));
-
-            // eslint-disable-next-line functional/immutable-data
-            [shuffled[k], shuffled[i]] = [shuffled[i], shuffled[k]];
-        }
+        shuffleInPlace(shuffled, random);
     } while (ensurePermuted && _.isEqual(array, shuffled));
 
     return shuffled;
+}
+
+function shuffleInPlace(a: unknown[], random: RNG): void {
+    for (let i = a.length - 1; i >= 0; i--) {
+        const k = Math.floor(random() * (i + 1));
+        // eslint-disable-next-line functional/immutable-data
+        [a[k], a[i]] = [a[i], a[k]];
+    }
 }
 
 export const random: RNG = seededRNG(new Date().getTime() & 0xffffffff);
