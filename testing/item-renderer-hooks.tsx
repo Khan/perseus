@@ -61,6 +61,8 @@ export const useItemRenderer = (
 
         // If the answer is not empty or there's a message, show the popover
         if (!state.score.empty || state.score.message !== null) {
+            // This is a hack to ensure the popover is shown after the score is set
+            // so that it gets the correct position.
             setTimeout(() => {
                 dispatch({type: "TOGGLE_POPOVER", payload: true});
             }, 100);
@@ -77,11 +79,16 @@ export const useItemRenderer = (
             interactionCallback: () => {
                 if (state.showPopover) {
                     dispatch({type: "TOGGLE_POPOVER", payload: false});
-                    ref.current?.deselectIncorrectSelectedChoices();
+                    // Only deselect incorrect choices when the score is not empty
+                    // This prevents deselection when clicking a new answer after
+                    // receiving an empty score
+                    if (state.score && !state.score.empty) {
+                        ref.current?.deselectIncorrectSelectedChoices();
+                    }
                 }
             },
         }),
-        [apiOptions, state.isMobile, state.showPopover],
+        [apiOptions, state.isMobile, state.showPopover, state.score],
     );
 
     /**
