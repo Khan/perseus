@@ -48,6 +48,8 @@ export function getAccessibilityAttributes(graphId: string): AttributeMap[] {
         if (ariaLabel) {
             // Add the aria-label to the front of the array so
             // it shows up first for this element in the tree.
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             elementAttributes.unshift({
                 name: "label",
                 value: ariaLabel,
@@ -62,6 +64,8 @@ export function getAccessibilityAttributes(graphId: string): AttributeMap[] {
                     document.getElementById(description)?.textContent;
 
                 if (descriptionString) {
+                    // TODO(LEMS-3083): Remove eslint suppression
+                    // eslint-disable-next-line functional/immutable-data
                     elementAttributes.push({
                         name: "description",
                         value: descriptionString,
@@ -73,6 +77,8 @@ export function getAccessibilityAttributes(graphId: string): AttributeMap[] {
         // Only push the element to the list if it has aria-labels
         // or aria-descriptions.
         if (elementAttributes.length > 0) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             elementArias.push({
                 roleOrTag:
                     element.getAttribute("role") ||

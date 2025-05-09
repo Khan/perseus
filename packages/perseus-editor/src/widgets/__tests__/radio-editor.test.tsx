@@ -152,6 +152,8 @@ describe("radio-editor", () => {
 
         function getIncorrectChoice(): PerseusRadioChoice {
             const choice = getCorrectChoice();
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             choice.correct = false;
             return choice;
         }
@@ -189,6 +191,8 @@ describe("radio-editor", () => {
 
         function getIncorrectChoice(): PerseusRadioChoice {
             const choice = getCorrectChoice();
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             choice.correct = false;
             return choice;
         }

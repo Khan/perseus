@@ -18,6 +18,8 @@ const verifyRealTimers = () => {
     // change this behavior we would silently start just working.
     // eslint-disable-next-line no-console
     const oldWarn = console.warn;
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     console.warn = () => {}; // eslint-disable-line no-console
 
     try {
@@ -33,6 +35,8 @@ const verifyRealTimers = () => {
             );
         }
     } finally {
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         console.warn = oldWarn; // eslint-disable-line no-console
     }
 };

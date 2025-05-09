@@ -75,18 +75,28 @@ const createClass = function (spec: any): any {
             );
         }
         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         this.props = rewriteProps(props, props.children || []);
         // @ts-expect-error - TS2683 - 'this' implicitly has type 'any' because it does not have a type annotation.
         return this;
     };
 
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     spec.displayName = spec.displayName || _.uniqueId("GraphieClass");
 
     // Add the displayName to the constructor for compatibility with
     // React's myDescriptor.constructor.displayName
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     GraphieClass.displayName = spec.displayName;
 
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     GraphieClass.prototype = new GraphieMovable(spec);
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     GraphieClass.prototype.constructor = GraphieClass;
 
     return GraphieClass;
@@ -114,7 +124,11 @@ const createSimpleClass = function (addFunction: any): any {
         movableProps: ["children"],
 
         add: function (graphie) {
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             this._elements = addFunction(graphie, this.props);
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             this._prevProps = this.props;
         },
 
@@ -122,6 +136,8 @@ const createSimpleClass = function (addFunction: any): any {
             if (!approximateDeepEqual(this.props, this._prevProps)) {
                 this.remove();
                 this.add(graphie);
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 this._prevProps = this.props;
                 return "reordered";
             }
@@ -134,7 +150,11 @@ const createSimpleClass = function (addFunction: any): any {
                     elem.remove();
                 }
             });
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             this._elements = null;
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             this._prevProps = null;
         },
 

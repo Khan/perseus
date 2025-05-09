@@ -630,6 +630,8 @@ const propTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
         const graph = widgetProps.graph;
         const type = chooseType(widgetProps.availableTypes);
         // @ts-expect-error - TS2345 - Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         widgetProps.plot = defaultPlotProps(type, graph);
     }
 

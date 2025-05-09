@@ -100,6 +100,8 @@ describe("numeric-input widget", () => {
     it("Should render tooltip when format option is given", async () => {
         // Arrange
         const questionWithFormatOptions = JSON.parse(JSON.stringify(question1));
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         questionWithFormatOptions.widgets[
             "numeric-input 1"
         ].options.answers[0].answerForms = ["proper"];
@@ -159,6 +161,8 @@ describe("numeric-input widget", () => {
     it("Should render tooltip as list when multiple format options are given", async () => {
         // Arrange
         const questionWithFormatOptions = JSON.parse(JSON.stringify(question1));
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         questionWithFormatOptions.widgets[
             "numeric-input 1"
         ].options.answers[0].answerForms = ["proper", "improper", "mixed"];
@@ -183,6 +187,8 @@ describe("numeric-input widget", () => {
     it("Should render an element with format options as text for use by assistive technologies", async () => {
         // Arrange - Fractions
         const questionWithFormatOptions = JSON.parse(JSON.stringify(question1));
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         questionWithFormatOptions.widgets[
             "numeric-input 1"
         ].options.answers[0].answerForms = ["proper", "improper", "mixed"];
@@ -206,6 +212,8 @@ describe("numeric-input widget", () => {
         expect(fractionTextContainer).toHaveTextContent("a mixed number");
 
         // Arrange - Non-Fractions
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         questionWithFormatOptions.widgets[
             "numeric-input 1"
         ].options.answers[0].answerForms = ["integer", "decimal", "pi"];

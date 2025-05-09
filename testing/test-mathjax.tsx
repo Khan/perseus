@@ -33,6 +33,8 @@ export function TestMathjax({children: tex, onRender}: Props) {
     React.useLayoutEffect(() => {
         if (ref.current) {
             addLabelWhenPresentational(ref.current);
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             ref.current.innerHTML = "";
             ref.current.appendChild(domElement);
         }

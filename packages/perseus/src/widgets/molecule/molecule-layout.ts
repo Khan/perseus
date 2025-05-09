@@ -69,10 +69,14 @@ function atomLayout(
         // The first atom is special-cased because there are no neighbors for
         // relative positioning.
         const pos = [0, 0];
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         atom.pos = pos;
         // Conventionally, molecules are rendered where the first bond is not
         // horizontal, but at a 30 degree angle, so subtract 30 degrees for the
         // first atom's direction.
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         atom.baseAngle = -30 + rotationAngle;
         return {type: "text", value: textValue, pos: pos, idx: atom.idx};
     }
@@ -134,7 +138,11 @@ function atomLayout(
 
     const pos = polarAdd(prevPositionedAtom.pos, angle, bondLength);
 
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     atom.pos = pos;
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line functional/immutable-data
     atom.baseAngle = angle;
 
     return {type: "text", value: textValue, pos: pos, idx: atom.idx};
@@ -242,6 +250,8 @@ function convertTree(atoms: any, bonds: any, tree: any): [any, any] {
     }
     if (tree.type === "atom") {
         const treeIdx = idxString(tree.idx);
+        // TODO(LEMS-3083): Remove eslint suppression
+        // eslint-disable-next-line functional/immutable-data
         atoms[treeIdx] = {idx: treeIdx, symbol: tree.symbol, connections: []};
         if (tree.bonds) {
             tree.bonds.forEach(function (b) {

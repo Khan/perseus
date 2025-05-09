@@ -1,3 +1,4 @@
+/* eslint-disable functional/immutable-data */
 import {Movable} from "./interactive2/movable";
 import MovableLine from "./interactive2/movable-line";
 import {MovablePoint} from "./interactive2/movable-point";

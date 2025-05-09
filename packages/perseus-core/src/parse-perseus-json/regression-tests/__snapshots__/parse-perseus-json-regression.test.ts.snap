@@ -6976,6 +6976,7 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
             10,
           ],
           "initialX": null,
+          "isInequality": false,
           "isTickCtrl": false,
           "labelRange": [
             null,
@@ -7088,6 +7089,7 @@ $=(31-31) -8$",
             12,
           ],
           "initialX": null,
+          "isInequality": false,
           "labelRange": [
             null,
             null,

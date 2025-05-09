@@ -46,6 +46,8 @@ C
         // of node we find
         tt.traverse((n, state, content) => {
             if (!selectors[n.type]) {
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 selectors[n.type] = Selector.parse(n.type);
             }
         });
@@ -67,6 +69,8 @@ C
             });
 
             if (!selectors[n.type]) {
+                // TODO(LEMS-3083): Remove eslint suppression
+                // eslint-disable-next-line functional/immutable-data
                 selectors[n.type] = Selector.parse(n.type);
             }
         });
@@ -112,7 +116,11 @@ C
             const match = selector.match(state);
             // Make a mutable copy before popping.
             const ancestors = [...state.ancestors()];
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             const parent = ancestors.pop();
+            // TODO(LEMS-3083): Remove eslint suppression
+            // eslint-disable-next-line functional/immutable-data
             const grandparent = ancestors.pop();
             if (
                 n.type === "text" &&

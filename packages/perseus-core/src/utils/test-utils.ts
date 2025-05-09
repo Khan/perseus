@@ -1,11 +1,23 @@
-import type {PerseusItem} from "../data-schema";
+import _ from "underscore";
 
-const genericPerseusItemData: PerseusItem = {
-    question: {
-        content: "",
-        images: {},
-        widgets: {},
-    },
+import deepClone from "./deep-clone";
+
+import type {PerseusItem, PerseusRenderer} from "../data-schema";
+
+const blankPerseusRenderer: PerseusRenderer = {
+    content: "",
+    images: {},
+    widgets: {},
+} as const;
+
+export function generateTestPerseusRenderer(
+    customFields: Partial<PerseusRenderer> = {},
+): PerseusRenderer {
+    return deepClone({...blankPerseusRenderer, ...customFields});
+}
+
+const blankPerseusItemData: PerseusItem = {
+    question: generateTestPerseusRenderer(),
     answerArea: {
         calculator: false,
         chi2Table: false,
@@ -32,5 +44,5 @@ const genericPerseusItemData: PerseusItem = {
 export function generateTestPerseusItem(
     customFields: Partial<PerseusItem> = {},
 ): PerseusItem {
-    return {...genericPerseusItemData, ...customFields};
+    return deepClone({...blankPerseusItemData, ...customFields});
 }
