@@ -618,7 +618,7 @@ export type ChangeFn = (
           },
     propValue?: any,
     callback?: () => unknown,
-) => any | null | undefined;
+) => any;
 
 export type SharedRendererProps = {
     apiOptions: APIOptions;

@@ -1,5 +1,73 @@
 # @khanacademy/perseus
 
+## 61.2.0
+
+### Minor Changes
+
+-   [#2454](https://github.com/Khan/perseus/pull/2454) [`8f49aac1f`](https://github.com/Khan/perseus/commit/8f49aac1f58d577f037bc03cb24d59894524e66b) Thanks [@Myranae](https://github.com/Myranae)! - Clean up the iFrame widget types and library usage, plus add tests to prepare for answerless rendering
+
+### Patch Changes
+
+-   Updated dependencies [[`4c8030081`](https://github.com/Khan/perseus/commit/4c803008155f7c20c88949c9caf4f9c9a2fd399e)]:
+    -   @khanacademy/math-input@25.1.2
+
+## 61.1.0
+
+### Minor Changes
+
+-   [#2423](https://github.com/Khan/perseus/pull/2423) [`22e7de307`](https://github.com/Khan/perseus/commit/22e7de307d3662181890abed0723e463b15fcd5a) Thanks [@Myranae](https://github.com/Myranae)! - Update Plotter widget to render with answerless data. Adds test and stories for answerless rendering.
+
+*   [#2449](https://github.com/Khan/perseus/pull/2449) [`2243316be`](https://github.com/Khan/perseus/commit/2243316be4f54777935cb25cf5d34f44b7537700) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add option to ButtonGroup component to allow selected button to be styled
+
+-   [#2441](https://github.com/Khan/perseus/pull/2441) [`f1662239e`](https://github.com/Khan/perseus/commit/f1662239e40b0db4fd75823746a7fc37662f7494) Thanks [@Myranae](https://github.com/Myranae)! - Update Orderer widget to render with answerless data. Adds tests and stories for answerless rendering.
+
+*   [#2387](https://github.com/Khan/perseus/pull/2387) [`aa7b1b621`](https://github.com/Khan/perseus/commit/aa7b1b621efd75b54419b21bc998caa2e241097f) Thanks [@Myranae](https://github.com/Myranae)! - Update Matrix widget to render with answerless data. Adds tests and stories for answerless rendering.
+
+### Patch Changes
+
+-   [#2426](https://github.com/Khan/perseus/pull/2426) [`a2701f002`](https://github.com/Khan/perseus/commit/a2701f00214499cc7ab7730407f70e957d1adf7b) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests/stories to prove InputNumber is interactive with answerless data
+
+*   [#2447](https://github.com/Khan/perseus/pull/2447) [`39ca81d0f`](https://github.com/Khan/perseus/commit/39ca81d0f4b5a58b70db5ef14fb17d720abd28d7) Thanks [@handeyeco](https://github.com/handeyeco)! - Clean up a ServerItemRenderer test to make it more focused
+
+-   [#2436](https://github.com/Khan/perseus/pull/2436) [`79a84d31b`](https://github.com/Khan/perseus/commit/79a84d31b54289ea69454db7f857896330c1c5d8) Thanks [@benchristel](https://github.com/benchristel)! - Change the type of `PerseusNumberLineWidgetOptions.correctRel` to `"eq" | "lt" | "gt" | "le" | "ge"`, to better reflect our data and the semantics of this field.
+
+*   [#2425](https://github.com/Khan/perseus/pull/2425) [`4282de2b2`](https://github.com/Khan/perseus/commit/4282de2b214e15a7043ee3786c1df11b346c2e97) Thanks [@benchristel](https://github.com/benchristel)! - Add `isInequality` to the `PerseusNumberLineWidgetOptions` type. The NumberLine component was using this field, but it wasn't represented in the types.
+
+-   [#2452](https://github.com/Khan/perseus/pull/2452) [`4b25852db`](https://github.com/Khan/perseus/commit/4b25852db90f0b1884595c8b443a87f66a9fe64f) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix types used for forwardref in `expression` widget
+
+*   [#2414](https://github.com/Khan/perseus/pull/2414) [`e7807485e`](https://github.com/Khan/perseus/commit/e7807485e0d33621efa4468933e6c77ce9a53def) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix dependencies so that the package correctly depends on all of the packages it uses
+
+-   [#2417](https://github.com/Khan/perseus/pull/2417) [`4184314fe`](https://github.com/Khan/perseus/commit/4184314fe3e1e48ea81429ff78184530d90d31ee) Thanks [@handeyeco](https://github.com/handeyeco)! - Enable Group to be rendered/answered with answerless item data
+
+*   [#2380](https://github.com/Khan/perseus/pull/2380) [`1f88cc191`](https://github.com/Khan/perseus/commit/1f88cc1912d9b33b899512ee9052bec10227a4c1) Thanks [@benchristel](https://github.com/benchristel)! - Removes `undefined` from the types of
+    `PerseusInteractiveGraphWidgetOptions.lockedFigures` and
+    the `labels` property of locked figures. Removes the `coords`
+    property from interactive graph widget options types, for graphs that do not
+    use it (all but the `point` graph type).
+
+    This is a breaking change because assigning `undefined` to `lockedFigures` or
+    `labels`, or setting `coord` in an object literal, will now give a type error.
+    Callers should use an empty array instead of `undefined` for `lockedFigures` and
+    `labels`. Avoid setting `coord` for graph types other than `point`.
+
+-   [#2416](https://github.com/Khan/perseus/pull/2416) [`a90ebca08`](https://github.com/Khan/perseus/commit/a90ebca08b44174a6d94b9cc3835e9114b584183) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update Radio Widget docs to include rationales in the test data
+
+*   [#2434](https://github.com/Khan/perseus/pull/2434) [`28c395f8e`](https://github.com/Khan/perseus/commit/28c395f8e0a7f9c11b85fd42ce854fcb931a3b89) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add tests verifying that NumberLine widgets work with answerless data
+
+-   [#2438](https://github.com/Khan/perseus/pull/2438) [`3f32593c9`](https://github.com/Khan/perseus/commit/3f32593c9dd46140b4d8891d50e34f97e751783f) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add a linter to prevent accidental mutation of object and array values
+
+-   Updated dependencies [[`a2701f002`](https://github.com/Khan/perseus/commit/a2701f00214499cc7ab7730407f70e957d1adf7b), [`558cc1cc6`](https://github.com/Khan/perseus/commit/558cc1cc6ad468ba6538648c57d47df5704e6858), [`79a84d31b`](https://github.com/Khan/perseus/commit/79a84d31b54289ea69454db7f857896330c1c5d8), [`ca4df1cf8`](https://github.com/Khan/perseus/commit/ca4df1cf8c6c28cfb1d45dc94ec7eee61dfef777), [`4282de2b2`](https://github.com/Khan/perseus/commit/4282de2b214e15a7043ee3786c1df11b346c2e97), [`e7807485e`](https://github.com/Khan/perseus/commit/e7807485e0d33621efa4468933e6c77ce9a53def), [`4184314fe`](https://github.com/Khan/perseus/commit/4184314fe3e1e48ea81429ff78184530d90d31ee), [`1f88cc191`](https://github.com/Khan/perseus/commit/1f88cc1912d9b33b899512ee9052bec10227a4c1), [`22e7de307`](https://github.com/Khan/perseus/commit/22e7de307d3662181890abed0723e463b15fcd5a), [`c27162249`](https://github.com/Khan/perseus/commit/c271622490d64f359b8ff8e2fcafc35229c60832), [`28c395f8e`](https://github.com/Khan/perseus/commit/28c395f8e0a7f9c11b85fd42ce854fcb931a3b89), [`bfa5ce68a`](https://github.com/Khan/perseus/commit/bfa5ce68a2c7854261f3f49822fdc159fca07993), [`b7d3b9eaf`](https://github.com/Khan/perseus/commit/b7d3b9eafd9cfddc46931c4591de36c9097ec6be), [`f1662239e`](https://github.com/Khan/perseus/commit/f1662239e40b0db4fd75823746a7fc37662f7494), [`aa7b1b621`](https://github.com/Khan/perseus/commit/aa7b1b621efd75b54419b21bc998caa2e241097f), [`1b773e2a0`](https://github.com/Khan/perseus/commit/1b773e2a0bff73072515649027066d498d33a931), [`3f32593c9`](https://github.com/Khan/perseus/commit/3f32593c9dd46140b4d8891d50e34f97e751783f)]:
+    -   @khanacademy/perseus-core@10.0.0
+    -   @khanacademy/kas@2.0.3
+    -   @khanacademy/keypad-context@3.0.7
+    -   @khanacademy/kmath@2.0.7
+    -   @khanacademy/math-input@25.1.1
+    -   @khanacademy/perseus-linter@3.0.7
+    -   @khanacademy/perseus-score@5.0.4
+    -   @khanacademy/perseus-utils@2.0.2
+    -   @khanacademy/pure-markdown@2.0.3
+    -   @khanacademy/simple-markdown@2.0.3
+
 ## 61.0.3
 
 ### Patch Changes
