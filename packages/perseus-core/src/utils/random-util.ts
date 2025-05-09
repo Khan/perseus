@@ -26,9 +26,11 @@ export const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
     };
 };
 
-// Shuffle an array using a given random seed or function.
-// If `ensurePermuted` is true, the input and output are guaranteed to be
-// distinct permutations.
+/**
+ * Shuffle an array using a given random seed or function.
+ * If `ensurePermuted` is true, the input and output are guaranteed to be
+ * distinct permutations.
+ */
 export function shuffle<T>(
     array: ReadonlyArray<T>,
     randomSeed: number | RNG,
