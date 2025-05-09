@@ -47,20 +47,46 @@ export function ScrollableView({
     ...rest
 }: ScrollableViewProps) {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [shouldShowButtons, setShouldShowButtons] = React.useState(false);
+    const [isScrollable, setIsScrollable] = React.useState(false);
+    const [canScrollLeft, setCanScrollLeft] = React.useState(false);
+    const [canScrollRight, setCanScrollRight] = React.useState(false);
 
-    const checkIfScrollable = () => {
-        if (containerRef.current) {
-            const scrollWidth = containerRef.current.scrollWidth;
-            const clientWidth = containerRef.current.clientWidth;
-            setShouldShowButtons(scrollWidth > clientWidth);
+    const updateScrollState = () => {
+        if (!containerRef.current) {
+            return;
         }
+
+        const {scrollLeft, scrollWidth, clientWidth} = containerRef.current;
+        setIsScrollable(scrollWidth > clientWidth + 1); // 1px tolerance
+        setCanScrollLeft(scrollLeft > 0);
+        setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
+    };
+    const scroll = (direction: "left" | "right") => {
+        if (!containerRef.current) {
+            return;
+        }
+
+        const scrollAmount = 100; // Adjust this value as needed
+        containerRef.current.scrollBy({
+            left: direction === "left" ? -scrollAmount : scrollAmount,
+            behavior: "smooth",
+        });
     };
 
     useEffect(() => {
-        checkIfScrollable();
-        window.addEventListener("resize", checkIfScrollable);
-        return () => window.removeEventListener("resize", checkIfScrollable);
+        const container = containerRef.current;
+        if (!container) {
+            return;
+        }
+
+        updateScrollState();
+        container.addEventListener("scroll", updateScrollState);
+        window.addEventListener("resize", updateScrollState);
+
+        return () => {
+            container.removeEventListener("scroll", updateScrollState);
+            window.removeEventListener("resize", updateScrollState);
+        };
     }, [children]);
 
     const mergeStyle: React.CSSProperties = {
@@ -74,42 +100,31 @@ export function ScrollableView({
             <div {...rest} role={role} style={mergeStyle} ref={containerRef}>
                 {children}
             </div>
-            {showScrollButtons && shouldShowButtons && (
-                <ScrollButtons containerRef={containerRef} />
+            {isScrollable && showScrollButtons && (
+                <ScrollButtons
+                    onScrollLeft={() => scroll("left")}
+                    onScrollRight={() => scroll("right")}
+                    canScrollLeft={canScrollLeft}
+                    canScrollRight={canScrollRight}
+                />
             )}
         </div>
     );
 }
 
 interface ScrollButtonsProps {
-    containerRef: React.RefObject<HTMLDivElement>;
+    onScrollLeft: () => void;
+    onScrollRight: () => void;
+    canScrollLeft: boolean;
+    canScrollRight: boolean;
 }
 
-function ScrollButtons({containerRef}: ScrollButtonsProps) {
-    const scroll = (direction: "left" | "right") => {
-        if (containerRef.current) {
-            const scrollAmount = 100; // Adjust this value as needed
-            const scrollLeft = containerRef.current.scrollLeft;
-            const clientWidth = containerRef.current.clientWidth;
-            const scrollWidth = containerRef.current.scrollWidth;
-
-            if (direction === "left") {
-                containerRef.current.scrollTo({
-                    left: Math.max(scrollLeft - scrollAmount, 0),
-                    behavior: "smooth",
-                });
-            } else {
-                containerRef.current.scrollTo({
-                    left: Math.min(
-                        scrollLeft + scrollAmount,
-                        scrollWidth - clientWidth,
-                    ),
-                    behavior: "smooth",
-                });
-            }
-        }
-    };
-
+function ScrollButtons({
+    onScrollLeft,
+    onScrollRight,
+    canScrollLeft,
+    canScrollRight,
+}: ScrollButtonsProps) {
     return (
         <View style={styles.scrollButtonsContainer}>
             <IconButton
@@ -117,16 +132,18 @@ function ScrollButtons({containerRef}: ScrollButtonsProps) {
                 actionType="neutral"
                 kind="secondary"
                 size="small"
-                onClick={(e) => scroll("left")}
+                onClick={onScrollLeft}
                 aria-label="scroll left"
+                disabled={!canScrollLeft}
             />
             <IconButton
                 icon={caretRightIcon}
                 actionType="neutral"
                 kind="secondary"
                 size="small"
-                onClick={(e) => scroll("right")}
+                onClick={onScrollRight}
                 aria-label="scroll right"
+                disabled={!canScrollRight}
             />
             <LabelSmall>Scroll Answers</LabelSmall>
         </View>
