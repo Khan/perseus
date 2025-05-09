@@ -15,7 +15,6 @@ import * as React from "react";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
 import {phoneMargin} from "../../styles/constants";
-import {isFileProtocol} from "../../util/mobile-native-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/phet-simulation/phet-simulation-ai-utils";
 
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
@@ -217,6 +216,7 @@ export class PhetSimulation
                         />
                     </View>
                 )}
+                We are in the mobile app: {isMobileApp ? "true" : "false"}
                 <View style={iframeContainerStyle}>
                     <iframe
                         ref={this.iframeRef}
