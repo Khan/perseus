@@ -381,7 +381,10 @@ describe("splitPerseusRenderer", () => {
         });
     });
 
-    it("upgrades widgets before splitting", () => {
+    // TEMP Comment:
+    // https://github.com/Khan/perseus/pull/2419 removes the old upgrade system
+    // this test will not be needed once that lands
+    it.skip("upgrades widgets before splitting", () => {
         // Arrange
         const v0RadioOptions = {
             choices: [

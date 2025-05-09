@@ -34,9 +34,7 @@ const oneAccessibleWidget = {
                     ],
                     randomize: false,
                     multipleSelect: false,
-                    displayCount: null,
                     hasNoneOfTheAbove: false,
-                    onePerLine: true,
                     deselectEnabled: false,
                 },
                 version: {
@@ -73,9 +71,7 @@ const oneInaccessibleWidget = {
                     ],
                     randomize: false,
                     multipleSelect: false,
-                    displayCount: null,
                     hasNoneOfTheAbove: false,
-                    onePerLine: true,
                     deselectEnabled: false,
                 },
                 version: {
