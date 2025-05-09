@@ -3,7 +3,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Body, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import checkCircle from "@phosphor-icons/core/regular/check-circle.svg";
 import * as React from "react";
@@ -11,18 +11,6 @@ import * as React from "react";
 import {mapErrorToString, mockStrings} from "../packages/perseus/src/strings";
 
 import type {KEScore} from "@khanacademy/perseus-core";
-
-// Constants for popover messages
-const POPOVER_STRINGS = {
-    correct: {
-        title: "Correct!",
-        message: "You got it. Onward!",
-    },
-    incorrect: {
-        title: "Incorrect!",
-        message: "Please check your answer",
-    },
-};
 
 type DebugCheckAnswerFooterProps = {
     state: KEScore | null | undefined;
@@ -46,53 +34,65 @@ export const DebugCheckAnswerFooter = ({
     actions,
 }: DebugCheckAnswerFooterProps): React.ReactElement => {
     /**
-     * Get the content for the popover based on the state
+     * Creates the popover content based on the scoring state
      */
     const getPopoverContent = (state: KEScore | null | undefined) => {
         if (!state) {
             return null;
         }
 
+        // Correct answer
         if (state.correct) {
             return (
                 <>
                     <PhosphorIcon
                         size="large"
                         icon={checkCircle}
-                        color="green"
+                        color={color.green}
+                        aria-hidden="true"
                     />
                     <View>
-                        <LabelLarge>{POPOVER_STRINGS.correct.title}</LabelLarge>
-                        <Body>{POPOVER_STRINGS.correct.message}</Body>
+                        <LabelLarge>{mockStrings.correctExcited}</LabelLarge>
+                        <Body>{mockStrings.nextQuestion}</Body>
                     </View>
                 </>
             );
         }
 
+        // Incorrect answer
         if (state.correct === false && !state.empty) {
             return (
                 <View>
-                    <View style={{fontWeight: "bold", marginBottom: 8}}>
-                        {POPOVER_STRINGS.incorrect.title}
-                    </View>
-                    <View>{POPOVER_STRINGS.incorrect.message}</View>
+                    <LabelLarge style={{marginBottom: spacing.xxSmall_6}}>
+                        {mockStrings.incorrect}
+                    </LabelLarge>
+                    <View>{mockStrings.tryAgain}</View>
                 </View>
             );
         }
 
+        // Error or "almost there" message
         const title = state?.suppressAlmostThere
-            ? "Please check your answer"
-            : "You're almost there";
-        const errorMessage = mapErrorToString(state.message, mockStrings);
+            ? mockStrings.tryAgain
+            : mockStrings.keepTrying;
+
+        // Use mapErrorToString to correctly map error codes to their text representations
+        const errorMessage = state.message
+            ? mapErrorToString(state.message, mockStrings)
+            : mockStrings.ERROR_MESSAGE;
+
         return (
             <View>
-                <View style={{fontWeight: "bold", marginBottom: 8}}>
+                <LabelLarge style={{marginBottom: spacing.xSmall_8}}>
                     {title}
-                </View>
-                <View>{errorMessage}</View>
+                </LabelLarge>
+                <Body>{errorMessage}</Body>
             </View>
         );
     };
+
+    // Determine if buttons should be disabled
+    const isCheckDisabled = Boolean(state?.correct);
 
     return (
         <View
@@ -104,38 +104,44 @@ export const DebugCheckAnswerFooter = ({
                 bottom: 0,
                 left: 0,
                 right: 0,
-                padding: "10px 20px",
-                backgroundColor: "white",
-                border: "1px solid #e0e0e0",
+                padding: `${spacing.small_12}px ${spacing.medium_16}px`,
+                backgroundColor: color.white,
+                border: `1px solid ${color.offBlack8}`,
             }}
+            aria-label="Debug controls"
+            role="region"
         >
             <View>
                 <Button
                     kind="tertiary"
                     color="destructive"
                     onClick={actions.reset}
+                    aria-label="Reset state"
                 >
                     Reset State
                 </Button>
             </View>
             <View style={{display: "flex", flexDirection: "row"}}>
                 <Button
-                    disabled={(state && state?.correct) || false}
+                    disabled={isCheckDisabled}
                     kind="tertiary"
                     onClick={actions.skip}
+                    aria-label="Skip question"
                 >
                     Skip
                 </Button>
-                <Strut size={8} />
+                <Strut size={spacing.small_12} />
                 <Popover
                     opened={popover.isOpen}
                     onClose={() => popover.setOpen(false)}
+                    showTail={false}
                     content={
                         <PopoverContentCore
                             style={{
-                                alignItems: "center",
+                                alignItems: "flex-start",
                                 flexDirection: "row",
                                 gap: spacing.medium_16,
+                                paddingRight: spacing.xxLarge_48,
                             }}
                             closeButtonVisible
                         >
@@ -144,10 +150,11 @@ export const DebugCheckAnswerFooter = ({
                     }
                 >
                     <Button
-                        disabled={(state && state?.correct) || false}
+                        disabled={isCheckDisabled}
                         onClick={actions.check}
+                        aria-label="Check answer"
                     >
-                        Check
+                        {mockStrings.check}
                     </Button>
                 </Popover>
             </View>

@@ -3,7 +3,8 @@ import {
     AccordionSection,
 } from "@khanacademy/wonder-blocks-accordion";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import KEScoreUI from "./ke-score-ui";
@@ -17,6 +18,89 @@ type DebugAccordionUIProps = {
 };
 
 /**
+ * ScoreHeader displays the score state with colored indicators
+ */
+const ScoreHeader = ({score}: {score: KEScore}): React.ReactElement => {
+    // Create the status badge component for the score
+    const StatusBadge = ({
+        label,
+        value,
+        success,
+    }: {
+        label: string;
+        value: boolean;
+        success: boolean;
+    }) => (
+        <View
+            style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: spacing.xxSmall_6,
+                backgroundColor: color.offWhite,
+                borderRadius: 4,
+                padding: `${spacing.xSmall_8}px ${spacing.xSmall_8}px`,
+                border: `1px solid ${success ? color.green : color.red}`,
+            }}
+        >
+            <LabelSmall>{label}:</LabelSmall>
+            <LabelSmall
+                style={{
+                    color: success ? color.green : color.red,
+                    fontWeight: "bold",
+                }}
+            >
+                {value.toString()}
+            </LabelSmall>
+        </View>
+    );
+
+    return (
+        <View
+            style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                padding: spacing.small_12,
+                gap: spacing.medium_16,
+            }}
+        >
+            Score
+            <StatusBadge
+                label="Empty"
+                value={score?.empty}
+                success={!score?.empty}
+            />
+            <StatusBadge
+                label="Correct"
+                value={score?.correct}
+                success={score?.correct}
+            />
+        </View>
+    );
+};
+
+/**
+ * JsonEditor provides a textarea for editing the Perseus item JSON
+ * and quickly updating the Perseus item live.
+ */
+const JsonEditor = ({
+    perseusItem,
+    updateJson,
+}: {
+    perseusItem: PerseusItem;
+    updateJson: (json: string) => void;
+}): React.ReactElement => (
+    <textarea
+        wrap="off"
+        rows={10}
+        style={{width: "100%", height: 400}}
+        value={JSON.stringify(perseusItem, null, 2)}
+        onChange={(e) => updateJson(e.target.value)}
+    />
+);
+
+/**
  * A component that renders the debug accordion UI for Perseus items
  */
 export const DebugAccordionUI = ({
@@ -25,66 +109,41 @@ export const DebugAccordionUI = ({
     updateJson,
 }: DebugAccordionUIProps): React.ReactElement => {
     /**
-     * Get the accordion sections for the debug UI
+     * Get the accordion sections for the debug UI,
+     * which includes the score and the Perseus JSON sections
      */
     const getAccordionSections = () => {
-        const accordionSections: React.ReactElement[] = [];
+        // Create the score section if we have a score
+        const scoreSection =
+            state != null
+                ? [
+                      <AccordionSection
+                          header={<ScoreHeader score={state} />}
+                          key="score"
+                      >
+                          <KEScoreUI
+                              score={state}
+                              style={{
+                                  padding: `0 ${spacing.medium_16} ${spacing.medium_16}`,
+                              }}
+                          />
+                      </AccordionSection>,
+                  ]
+                : [];
 
-        // Add the score section first if we have a score
-        if (state !== null) {
-            const headerElement = (
-                <View
-                    style={{
-                        flexDirection: "row",
-                        margin: spacing.medium_16,
-                        gap: spacing.medium_16,
-                    }}
-                >
-                    <span>Score</span>
-                    <span> | </span>
-                    <span>
-                        Empty:{" "}
-                        <span style={{color: state?.empty ? "red" : "green"}}>
-                            {state?.empty.toString()}
-                        </span>
-                    </span>
-                    <span> | </span>
-                    <span>
-                        Correct:{" "}
-                        <span style={{color: state?.correct ? "green" : "red"}}>
-                            {state?.correct.toString()}
-                        </span>
-                    </span>
-                </View>
-            );
-            accordionSections.push(
-                <AccordionSection header={headerElement} key={0}>
-                    <KEScoreUI
-                        score={state}
-                        style={{padding: "0px 20px 20px 20px"}}
-                    />
-                </AccordionSection>,
-            );
-        }
-
-        // Then add the Perseus JSON section
-        accordionSections.push(
-            <AccordionSection header="Perseus JSON" key={1}>
-                <textarea
-                    wrap={"off"}
-                    rows={10}
-                    style={{width: "100%", height: 400}}
-                    value={JSON.stringify(perseusItem, null, 2)}
-                    onChange={(e) => updateJson(e.target.value)}
-                />
-            </AccordionSection>,
+        // Create the Perseus JSON section
+        const jsonSection = (
+            <AccordionSection header="Perseus JSON" key="json">
+                <JsonEditor perseusItem={perseusItem} updateJson={updateJson} />
+            </AccordionSection>
         );
 
-        return accordionSections;
+        // Combine the sections
+        return [...scoreSection, jsonSection];
     };
 
     return (
-        <Accordion style={{margin: "20px 0px"}}>
+        <Accordion style={{margin: `${spacing.medium_16} 0`}}>
             {getAccordionSections()}
         </Accordion>
     );
