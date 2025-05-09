@@ -181,18 +181,17 @@ export class PhetSimulation
         // and apps don't support the fullscreen API. Instead, we use our own
         // fake fullscreen implementation to take up the full webview.
         const {isFullScreen} = this.state;
-        const {InitialRequestUrl} = getDependencies();
-        const isMobileNative = isFileProtocol(InitialRequestUrl.protocol);
+        const {isMobileApp} = this.props.apiOptions;
 
         // Determine which container style to use based on fullscreen state
         const containerStyle =
-            isFullScreen && isMobileNative
+            isFullScreen && isMobileApp
                 ? styles.fullScreenWidgetContainer
                 : styles.widgetContainer;
 
         // Determine iframe container style based on fullscreen state
         const iframeContainerStyle =
-            isFullScreen && isMobileNative
+            isFullScreen && isMobileApp
                 ? styles.fullScreenIframeContainer
                 : styles.iframeContainer;
 
@@ -230,7 +229,7 @@ export class PhetSimulation
                 </View>
                 {this.state.url !== null && (
                     <View style={styles.buttonContainer}>
-                        {isFullScreen && isMobileNative ? (
+                        {isFullScreen && isMobileApp ? (
                             <IconButton
                                 icon={xIcon}
                                 onClick={this.toggleFullScreen}
@@ -243,7 +242,7 @@ export class PhetSimulation
                             <IconButton
                                 icon={cornersOutIcon}
                                 onClick={
-                                    isMobileNative
+                                    isMobileApp
                                         ? this.toggleFullScreen
                                         : () => {
                                               this.iframeRef.current?.requestFullscreen();

@@ -256,6 +256,8 @@ export type APIOptions = Readonly<{
     nativeKeypadProxy?: (blur: () => void) => KeypadAPI;
     /** Indicates whether or not to use mobile styling. */
     isMobile?: boolean;
+    /** Indicates whether or not to use mobile app styling. */
+    isMobileApp?: boolean;
     /** A function, called with a bool indicating whether use of the
      * drawing area (scratchpad) should be allowed/disallowed.
      *
@@ -438,6 +440,7 @@ export type APIOptionsWithDefaults = Readonly<
         groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
+        isMobileApp: NonNullable<APIOptions["isMobileApp"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
         setDrawingAreaAvailable: NonNullable<
