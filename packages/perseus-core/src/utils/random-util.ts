@@ -60,7 +60,7 @@ export function shuffle<T>(
 function constrainedShuffle<T>(
     array: readonly T[],
     random: RNG,
-    shouldReshuffle: (proposedOrder: T[], iteration: number) => boolean,
+    shouldReshuffle: (shuffled: readonly T[], iteration: number) => boolean,
 ): T[] {
     const shuffled = [...array];
     let iteration = 1;
