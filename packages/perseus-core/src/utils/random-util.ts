@@ -66,10 +66,14 @@ function shuffleInPlace(a: unknown[], random: RNG): void {
     // The Fisher-Yates shuffling algorithm. See:
     // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
     for (let i = a.length - 1; i >= 0; i--) {
-        const k = Math.floor(random() * (i + 1));
+        const k = randomIntInRange(0, i, random);
         // eslint-disable-next-line functional/immutable-data
         [a[k], a[i]] = [a[i], a[k]];
     }
+}
+
+function randomIntInRange(min: number, max: number, random: RNG): number {
+    return Math.floor(random() * (max - min + 1)) + min;
 }
 
 export const random: RNG = seededRNG(new Date().getTime() & 0xffffffff);
