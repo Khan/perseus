@@ -34,18 +34,16 @@ export function shuffle<T>(
     randomSeed: number | RNG,
     ensurePermuted = false,
 ): T[] {
-    // Always return a copy of the input array
-    const shuffled = [...array];
-
     // Handle edge cases (input array is empty or uniform)
     if (
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        !shuffled.length ||
-        _.all(shuffled, function (value) {
-            return _.isEqual(value, shuffled[0]);
+        !array.length ||
+        _.all(array, function (value) {
+            return _.isEqual(value, array[0]);
         })
     ) {
-        return shuffled;
+        // Make sure we always return a copy, since callers might rely on that.
+        return [...array];
     }
 
     let random;
@@ -56,9 +54,9 @@ export function shuffle<T>(
     }
 
     return constrainedShuffle(
-        shuffled,
+        array,
         random,
-        (proposedOrder) => ensurePermuted && _.isEqual(array, proposedOrder),
+        (shuffled) => ensurePermuted && _.isEqual(array, shuffled),
     );
 }
 
