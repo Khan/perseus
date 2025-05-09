@@ -3,6 +3,7 @@ import {
     usesNumCorrect,
     type PerseusRadioWidgetOptions,
 } from "@khanacademy/perseus-core";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -11,6 +12,7 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
+import {ScrollableView} from "../../components/scrollable-view";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import * as styleConstants from "../../styles/constants";
 import mediaQueries from "../../styles/media-queries";
@@ -23,11 +25,6 @@ import ChoiceNoneAbove from "./choice-none-above";
 import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
 import type {StyleDeclaration} from "aphrodite";
-import {
-    ScrollableView,
-    ScrollButtons,
-} from "../../components/__stories__/scrollable-view";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
 
 const {captureScratchpadTouchStart} = Util;
 
@@ -273,7 +270,11 @@ const BaseRadio = function ({
             <div className={instructionsClassName} aria-hidden="true">
                 {instructions}
             </div>
-            <ScrollableView aria-label={"radio widget"} x="auto">
+            <ScrollableView
+                aria-label={"radio widget"}
+                x="auto"
+                showScrollButtons={true}
+            >
                 <ul className={className} style={styles.fieldSetContent}>
                     {choices.map((choice, i) => {
                         let Element = Choice;
@@ -425,12 +426,7 @@ const BaseRadio = function ({
 
     // Allow for horizontal scrolling if content is too wide, which may be
     // an issue especially on phones.
-    return (
-        <>
-            <div className={css(styles.responsiveContainer)}>{fieldset}</div>
-            <ScrollButtons />
-        </>
-    );
+    return <div className={css(styles.responsiveContainer)}>{fieldset}</div>;
 };
 
 const styles: StyleDeclaration = StyleSheet.create({
@@ -533,11 +529,6 @@ const styles: StyleDeclaration = StyleSheet.create({
     responsiveFieldset: {
         paddingRight: styleConstants.phoneMargin,
         minWidth: "auto",
-    },
-
-    scrollWrapper: {
-        overflowX: "auto",
-        whiteSpace: "nowrap",
     },
 
     fieldSetContent: {
