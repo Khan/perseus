@@ -45,6 +45,17 @@ export const ThreeCriteria: Story = {
     },
 };
 
+/**
+ * An example story showing how the editor looks when a widget is contained
+ * in the free response widget's question field. Widgets are not allowed in
+ * the free response widget.
+ */
+export const QuestionWithWidget: Story = {
+    args: {
+        question: "[[\u2603 radio 1]]",
+    },
+};
+
 type State = Partial<PropsFor<typeof FreeResponseEditor>>;
 
 const WithState = () => {
