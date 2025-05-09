@@ -35,13 +35,7 @@ export function shuffle<T>(
     ensurePermuted = false,
 ): T[] {
     // Handle edge cases (input array is empty or uniform)
-    if (
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        !array.length ||
-        _.all(array, function (value) {
-            return _.isEqual(value, array[0]);
-        })
-    ) {
+    if (array.every((value) => _.isEqual(value, array[0]))) {
         // Make sure we always return a copy, since callers might rely on that.
         return [...array];
     }
