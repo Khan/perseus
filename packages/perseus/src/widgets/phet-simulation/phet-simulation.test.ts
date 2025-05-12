@@ -1,4 +1,5 @@
 import {screen, waitFor} from "@testing-library/react";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -8,9 +9,16 @@ import {makeSafeUrl} from "./phet-simulation";
 import {nonPhetUrl, question1} from "./phet-simulation.testdata";
 
 import type {APIOptions} from "../../types";
+import type {UserEvent} from "@testing-library/user-event";
 
 describe("phet-simulation widget", () => {
+    let userEvent: UserEvent;
+
     beforeEach(() => {
+        userEvent = userEventLib.setup({
+            advanceTimers: jest.advanceTimersByTime,
+        });
+
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -137,5 +145,37 @@ describe("phet-simulation widget", () => {
 
         // Assert
         expect(url).toBe(null);
+    });
+
+    it("should use the mobile app fullscreen logic when rendered in a mobile app", async () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            isMobileApp: true,
+        };
+
+        // Act
+        renderQuestion(question1, apiOptions);
+        await waitFor(() => {
+            expect(
+                screen.getByTitle("Projectile Data Lab"),
+            ).toBeInTheDocument();
+        });
+
+        await waitFor(async () => {
+            const fullscreenButton = screen.getByRole("button", {
+                name: "Fullscreen",
+            });
+            // Find and click the fullscreen button once available
+            await userEvent.click(fullscreenButton);
+        });
+
+        // Assert
+        await waitFor(() => {
+            const closeButton = screen.getByRole("button", {
+                name: "Exit fullscreen",
+            });
+            // Check that the mobile app fullscreen close button is present
+            expect(closeButton).toBeInTheDocument();
+        });
     });
 });
