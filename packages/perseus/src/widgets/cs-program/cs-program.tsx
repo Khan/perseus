@@ -70,7 +70,7 @@ class CSProgram extends React.Component<Props> implements Widget {
         window.removeEventListener("message", this.handleMessageEvent);
     }
 
-    handleMessageEvent = (e: MessageEvent): void => {
+    handleMessageEvent: (e: MessageEvent) => void = (e) => {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
         if (
