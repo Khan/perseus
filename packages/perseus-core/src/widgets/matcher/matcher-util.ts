@@ -61,9 +61,11 @@ function sortAllButFirst([first, ...rest]: readonly string[]): string[] {
 }
 
 function shuffleDisplacingFirst<T>(array: readonly T[], rng: RNG): T[] {
-    // FIXME: rename shouldReshuffle to isValidReshuffle after flipping conditional in constrainedShuffle
-    const firstElementDiffers = (shuffled: readonly T[]) => shuffled[0] === array[0];
-    return constrainedShuffle(array, rng, firstElementDiffers);
+    function firstElementDisplaced(shuffled: readonly T[]) {
+        return shuffled[0] !== array[0];
+    }
+
+    return constrainedShuffle(array, rng, firstElementDisplaced);
 }
 
 export default getMatcherPublicWidgetOptions;

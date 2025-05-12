@@ -43,23 +43,23 @@ export function shuffle<T>(
         random = seededRNG(randomSeed);
     }
 
-    return constrainedShuffle(
-        array,
-        random,
-        (shuffled) => ensurePermuted && _.isEqual(array, shuffled),
-    );
+    function isValidShuffle(shuffled: readonly T[]) {
+        return ensurePermuted ? !_.isEqual(array, shuffled) : true
+    }
+
+    return constrainedShuffle(array, random, isValidShuffle);
 }
 
 export function constrainedShuffle<T>(
     array: readonly T[],
     random: RNG,
-    shouldReshuffle: (shuffled: readonly T[], iteration: number) => boolean,
+    isValidShuffle: (shuffled: readonly T[], iteration: number) => boolean,
 ): T[] {
     const shuffled = [...array];
 
     // Return early if all elements are equal -- both for performance, and
     // to avoid going into an infinite loop in the (common) case where
-    // shouldReshuffle is checking the order of the values.
+    // isValidShuffle is checking the order of the values.
     if (shuffled.every((value) => _.isEqual(value, shuffled[0]))) {
         return shuffled;
     }
@@ -67,7 +67,7 @@ export function constrainedShuffle<T>(
     let iteration = 1;
     do {
         shuffleInPlace(shuffled, random);
-    } while (shouldReshuffle(shuffled, iteration++));
+    } while (!isValidShuffle(shuffled, iteration++));
     return shuffled;
 }
 
