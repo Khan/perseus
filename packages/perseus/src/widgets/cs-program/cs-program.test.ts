@@ -1,3 +1,4 @@
+import {screen} from "@testing-library/react";
 import {act} from "react-dom/test-utils";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -57,10 +58,12 @@ describe("cs-program widget", () => {
 
     describe("CS Program widget postMessage handling", () => {
         it("should score as correct when postMessage has testsPassed: true", () => {
-            const {container, renderer} = renderQuestion(question1);
-            const iframeElement = container.querySelector("iframe");
+            const {renderer} = renderQuestion(question1);
+            const iframeElement = screen.getByTitle(
+                "CS Program",
+            ) as HTMLIFrameElement;
 
-            if (!iframeElement?.contentWindow) {
+            if (!iframeElement.contentWindow) {
                 throw new Error(
                     "Iframe or its contentWindow not found for test event source",
                 );
@@ -85,10 +88,12 @@ describe("cs-program widget", () => {
         });
 
         it("should score as incorrect when postMessage has testsPassed: false", () => {
-            const {container, renderer} = renderQuestion(question1);
-            const iframeElement = container.querySelector("iframe");
+            const {renderer} = renderQuestion(question1);
+            const iframeElement = screen.getByTitle(
+                "CS Program",
+            ) as HTMLIFrameElement;
 
-            if (!iframeElement?.contentWindow) {
+            if (!iframeElement.contentWindow) {
                 throw new Error(
                     "Iframe or its contentWindow not found for test event source",
                 );

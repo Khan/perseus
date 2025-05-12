@@ -86,8 +86,9 @@ class CSProgram extends React.Component<Props> implements Widget {
         try {
             data = JSON.parse(e.data);
         } catch (error) {
-            console.warn("Failed to parse JSON data in message event:", error);
-            return;
+            throw new Error(
+                `Failed to parse JSON data in message event: ${error}`,
+            );
         }
 
         if (data.testsPassed === undefined) {
@@ -190,6 +191,7 @@ class CSProgram extends React.Component<Props> implements Widget {
                     style={style}
                     className={className}
                     allowFullScreen={true}
+                    title="CS Program"
                 />
             </div>
         );
