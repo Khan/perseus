@@ -66,9 +66,9 @@ function partition<T, V extends _.Collection<T>>(
     const b: _.TypeOfCollection<V>[] = [];
     _.forEach(list, (elem, key, ctx) => {
         if (iteratee(elem, key, ctx)) {
-                        a.push(elem);
+            a.push(elem);
         } else {
-                        b.push(elem);
+            b.push(elem);
         }
     });
     return [a, b];
@@ -3631,9 +3631,9 @@ export const parse = function (input: string, options?: ParseOptions) {
     try {
         if (options && options.functions) {
             // reserve the symbol "i" for complex numbers
-                        parser.yy.functions = _.without(options.functions, "i");
+            parser.yy.functions = _.without(options.functions, "i");
         } else {
-                        parser.yy.functions = [];
+            parser.yy.functions = [];
         }
 
         // If ',' is the decimal dividor in your country, replace any ','s
@@ -3767,13 +3767,13 @@ export const unitParse = function (input: string) {
         const unitArray: Pow[] = [];
 
         _(parseResult.unit.num).each((unitSpec) => {
-                        unitArray.push(
+            unitArray.push(
                 new Pow(unprefixify(unitSpec.name), new Int(unitSpec.pow)),
             );
         });
 
         _(parseResult.unit.denom).each((unitSpec) => {
-                        unitArray.push(
+            unitArray.push(
                 new Pow(unprefixify(unitSpec.name), new Int(-1 * unitSpec.pow)),
             );
         });
@@ -3863,14 +3863,14 @@ const makeAlias = function (str: string, prefixes: Prefixes) {
         numdenomStr[0]
             .split(" ")
             .filter((x) => x !== "")
-                        .forEach((x) => numdenom.push(new Unit(x)));
+            .forEach((x) => numdenom.push(new Unit(x)));
     }
 
     if (numdenomStr[1]) {
         numdenomStr[1]
             .split(" ")
             .filter((x) => x !== "")
-                        .forEach((x) => numdenom.push(new Pow(new Unit(x), NumDiv)));
+            .forEach((x) => numdenom.push(new Pow(new Unit(x), NumDiv)));
     }
 
     return {
