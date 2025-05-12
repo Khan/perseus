@@ -101,6 +101,8 @@ class CSProgram extends React.Component<Props> implements Widget {
         }
 
         const status = data.testsPassed ? "correct" : "incorrect";
+        // eslint-disable-next-line no-console
+        console.log("status", status);
         this.change({
             status: status,
             message: data.message,
