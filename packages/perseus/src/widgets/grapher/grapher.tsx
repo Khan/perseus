@@ -509,10 +509,7 @@ class Grapher extends React.Component<Props> implements Widget {
     };
 
     showHairlines: (arg1: Coord) => void = (point) => {
-        if (
-            this.props.apiOptions.isMobile &&
-            this.props.graph.markings !== "none"
-        ) {
+        if (this.props.apiOptions.isMobile) {
             // Hairlines are already initialized when the graph is loaded, so
             // here we just move them to the updated location and make them
             // visible.
