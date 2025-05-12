@@ -62,7 +62,6 @@ module.exports = {
         "cypress",
         "disable",
         "import",
-        "functional",
         "jest",
         "jsdoc",
         "monorepo",
@@ -196,9 +195,6 @@ module.exports = {
                         allowNullableNumber: true,
                     },
                 ],
-                // functional/immutable-data is disabled for now because we had
-                // to suppress it in too many places.
-                "functional/immutable-data": "off",
             },
             excludedFiles: ["*.d.ts", "*.config.ts", "**/*.cypress.ts"],
         },
