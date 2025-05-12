@@ -7,8 +7,6 @@ import type {Meta, StoryObj} from "@storybook/react";
 const meta: Meta<typeof PhetSimulation> = {
     title: "Perseus/Widgets/PhET Simulation",
     component: PhetSimulation,
-    // Using parameters to avoid component-level type checking issues since PhetSimulation
-    // expects WidgetProps that we can't fully satisfy in the story
     parameters: {
         docs: {
             description: {
