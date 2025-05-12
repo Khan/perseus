@@ -2,7 +2,7 @@
  * This widget is for embedding Khan Academy CS programs.
  */
 
-import {css, StyleSheet} from "aphrodite";
+import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
 import {getDependencies} from "../../dependencies";
@@ -16,8 +16,8 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
-    PerseusCSProgramUserInput,
     PerseusCSProgramWidgetOptions,
+    PerseusCSProgramUserInput,
 } from "@khanacademy/perseus-core";
 
 const {updateQueryString} = Util;
@@ -53,7 +53,7 @@ function getUrlFromProgramID(programID: any) {
 /* This renders the scratchpad in an iframe and handles validation via
  * window.postMessage */
 class CSProgram extends React.Component<Props> implements Widget {
-    // iframeElement: HTMLIFrameElement | null = null;
+    iframeElement: HTMLIFrameElement | null = null;
     static defaultProps: DefaultProps = {
         showEditor: false,
         showButtons: false,
@@ -70,25 +70,25 @@ class CSProgram extends React.Component<Props> implements Widget {
         window.removeEventListener("message", this.handleMessageEvent);
     }
 
-    handleMessageEvent: (e: MessageEvent) => void = (e) => {
+    handleMessageEvent: (e: any) => void = (e) => {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
-        // // eslint-disable-next-line no-console
-        // console.log("e.source", e.source);
-        // // eslint-disable-next-line no-console
-        // console.log("contentWindow", this.iframeElement?.contentWindow);
-        //
-        // if (
-        //     !this.iframeElement ||
-        //     e.source !== this.iframeElement.contentWindow
-        // ) {
-        //     return;
-        // }
+        // eslint-disable-next-line no-console
+        console.log("e.source", e.source);
+        // eslint-disable-next-line no-console
+        console.log("contentWindow", this.iframeElement?.contentWindow);
+
+        if (
+            !this.iframeElement ||
+            e.source !== this.iframeElement.contentWindow
+        ) {
+            return;
+        }
 
         // It could also contain an optional message
         let data: Record<string, any> = {};
         try {
-            data = JSON.parse(e.data);
+            data = JSON.parse(e.originalEvent.data);
         } catch (error) {
             throw new Error(
                 `Failed to parse JSON data in message event: ${error}`,
@@ -190,7 +190,7 @@ class CSProgram extends React.Component<Props> implements Widget {
                 )}
             >
                 <iframe
-                    // ref={(element) => (this.iframeElement = element)}
+                    ref={(element) => (this.iframeElement = element)}
                     sandbox={sandboxOptions}
                     src={url}
                     style={style}
