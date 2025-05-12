@@ -1,5 +1,4 @@
 import {shuffleMatcher} from "@khanacademy/perseus-core";
-import {constrainedShuffle} from "@khanacademy/perseus-core/src/utils/random-util";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
@@ -18,7 +17,6 @@ import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-u
 import type {
     PerseusMatcherWidgetOptions,
     PerseusMatcherUserInput,
-    MatcherPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";

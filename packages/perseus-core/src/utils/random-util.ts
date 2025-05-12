@@ -44,7 +44,7 @@ export function shuffle<T>(
     }
 
     function isValidShuffle(shuffled: readonly T[]) {
-        return ensurePermuted ? !_.isEqual(array, shuffled) : true
+        return ensurePermuted ? !_.isEqual(array, shuffled) : true;
     }
 
     return constrainedShuffle(array, random, isValidShuffle);
