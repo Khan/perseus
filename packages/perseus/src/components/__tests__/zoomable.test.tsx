@@ -221,11 +221,7 @@ describe("Zoomable", () => {
                 cancelable: true,
             });
 
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             window.innerWidth = width;
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             window.innerHeight = height;
             window.dispatchEvent(resizeEvent);
         };
@@ -297,8 +293,6 @@ describe("Zoomable", () => {
         it("should not propogate event to children when zoomed out", async () => {
             // Arrange
             const props: Record<string, any> = {};
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             props[propName] = jest.fn();
 
             renderAndWaitToSettle(
@@ -318,8 +312,6 @@ describe("Zoomable", () => {
         it("should propogate event to children when not zoomed", async () => {
             // Arrange
             const props: Record<string, any> = {};
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             props[propName] = jest.fn();
 
             renderAndWaitToSettle(
@@ -351,8 +343,6 @@ describe("Zoomable", () => {
                 // Post-mutation render
                 {width: 1000, height: 1000},
             ];
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             computeChildBounds = jest.fn(() => sizes.shift());
 
             // eslint-disable-next-line testing-library/no-render-in-lifecycle
@@ -386,8 +376,6 @@ describe("Zoomable", () => {
 
         it("should update measurements", async () => {
             // Act
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
             await waitForStyle({height: "1001px"});
@@ -411,8 +399,6 @@ describe("Zoomable", () => {
             // Arrange
 
             // Act
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
             await waitForStyle({height: "1001px"});
@@ -439,8 +425,6 @@ describe("Zoomable", () => {
             act(() => jest.runOnlyPendingTimers());
 
             // Act
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             screen.getByText("Some zoomable text").innerHTML =
                 "Some more zoomable text";
             await waitForStyle({

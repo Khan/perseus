@@ -125,8 +125,6 @@ export function Gallery() {
     const insertShowTooltips = ([question, i]): [PerseusRenderer, number] => {
         Object.keys(question.widgets).forEach((widgetName) => {
             if (question.widgets[widgetName].type === "interactive-graph") {
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 question.widgets[widgetName].options.showTooltips =
                     showTooltips;
             }

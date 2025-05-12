@@ -13,8 +13,6 @@ import * as Widgets from "./widgets";
 function traverseRenderer(itemData, widgets: Array<any>) {
     traverse(itemData, null, function (info) {
         if (info.type && !Widgets.isAccessible(info)) {
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             widgets.push(info.type);
         }
     });

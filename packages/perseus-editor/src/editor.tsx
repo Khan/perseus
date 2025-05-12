@@ -98,8 +98,6 @@ const allMatches = function (regex: RegExp, str: string) {
         if (!match) {
             break;
         }
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         result.push(match);
     }
     return result;

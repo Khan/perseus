@@ -12,8 +12,6 @@ function getTextWidth(text: any) {
         // Hacky way to guess the width of an input box
         const $test = $("<span>").text(text).appendTo("body");
         // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         textWidthCache[text] = $test.width() + 5;
         $test.remove();
     }

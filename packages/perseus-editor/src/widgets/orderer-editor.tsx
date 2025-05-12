@@ -27,7 +27,6 @@ export const getUpdatedOptions = (
     // Update the changed options by mapping the options to an array of objects with a content property
     const props: Record<string, any> = {};
     if (whichOptions && options !== undefined) {
-        // eslint-disable-next-line functional/immutable-data
         props[whichOptions] = options.map((option) => ({
             content: option,
         }));
@@ -47,7 +46,6 @@ export const getUpdatedOptions = (
     const allOptions = [...correctOptionsToUse, ...otherOptionsToUse];
 
     // Get unique content items
-    // eslint-disable-next-line functional/immutable-data
     const updatedOptions = [...new Set(allOptions.map((item) => item.content))]
         // filter out empty strings
         .filter((content) => content !== "")

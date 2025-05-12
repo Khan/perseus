@@ -58,20 +58,14 @@ function getAvailableTabs(props: Props): ReadonlyArray<KeypadPageType> {
         props.basicRelations ||
         props.advancedRelations
     ) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         tabs.push("Operators");
     }
 
     if (props.trigonometry) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         tabs.push("Geometry");
     }
 
     if (props.extraKeys?.length) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         tabs.push("Extras");
     }
 

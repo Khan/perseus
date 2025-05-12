@@ -281,8 +281,6 @@ class Parser {
 // are identifiers, integers, punctuation and spaces. Note that spaces
 // tokens are only returned when they appear before an identifier or
 // wildcard token and are otherwise omitted.
-// TODO(LEMS-3083): Remove eslint suppression
-// eslint-disable-next-line functional/immutable-data
 Parser.TOKENS = /([a-zA-Z][\w-]*)|(\d+)|[^\s]|(\s(?=[a-zA-Z\*]))/g;
 
 /**

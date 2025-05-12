@@ -20,8 +20,6 @@ export const Default = (args): React.ReactElement => {
 type StoryComponentType = StoryObj<typeof LockedFiguresSection>;
 
 // Set the default values in the control panel.
-// TODO(LEMS-3083): Remove eslint suppression
-// eslint-disable-next-line functional/immutable-data
 Default.args = {};
 
 export const Controlled: StoryComponentType = {

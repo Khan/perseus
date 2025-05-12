@@ -21,8 +21,6 @@ export function zip<T>(...arrays: ReadonlyArray<T>[]): T[][] {
     const n = Math.min(...arrays.map((a) => a.length));
     const results: T[][] = [];
     for (let i = 0; i < n; i++) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         results.push(arrays.map((a) => a[i]));
     }
     return results;

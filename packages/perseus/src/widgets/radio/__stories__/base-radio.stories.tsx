@@ -93,13 +93,9 @@ export const MultipleSelectWithCountChoicesLabel = (
 };
 
 export const SingleSelected = (args: StoryArgs): React.ReactElement => {
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     const choices = Array(4)
         .fill(null)
         .map((_, i) => generateChoice({content: `Choice ${i + 1}`}));
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     choices[1].checked = true;
 
     const overwrittenProps = {
@@ -111,16 +107,10 @@ export const SingleSelected = (args: StoryArgs): React.ReactElement => {
 };
 
 export const MultipleSelected = (args: StoryArgs): React.ReactElement => {
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     const choices = Array(4)
         .fill(null)
         .map((_, i) => generateChoice({content: `Choice ${i + 1}`}));
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     choices[1].checked = true;
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     choices[2].checked = true;
 
     const overwrittenProps = {
@@ -132,8 +122,6 @@ export const MultipleSelected = (args: StoryArgs): React.ReactElement => {
 };
 
 export const SingleKitchenSink = (args: StoryArgs): React.ReactElement => {
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     const choices = Array(4)
         .fill(null)
         .map((_, i) => {
@@ -148,11 +136,7 @@ export const SingleKitchenSink = (args: StoryArgs): React.ReactElement => {
 
             return choice;
         });
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     choices[1].checked = true;
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     choices[2].correct = true;
 
     const overwrittenProps = {
@@ -164,8 +148,6 @@ export const SingleKitchenSink = (args: StoryArgs): React.ReactElement => {
 };
 
 export const MultipleKitchenSink = (args: StoryArgs): React.ReactElement => {
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     const choices = Array(4)
         .fill(null)
         .map((_, i) => {
@@ -180,17 +162,9 @@ export const MultipleKitchenSink = (args: StoryArgs): React.ReactElement => {
 
             return choice;
         });
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     choices[1].checked = true;
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     choices[2].checked = true;
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     choices[2].correct = true;
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     choices[3].correct = true;
 
     const overwrittenProps = {

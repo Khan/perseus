@@ -25,8 +25,6 @@ const question1: PerseusRenderer = {
 
 describe("PhET Simulation AI utils", () => {
     beforeEach(() => {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 json: () =>
@@ -36,8 +34,6 @@ describe("PhET Simulation AI utils", () => {
                 ok: true,
             }),
         ) as jest.Mock;
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         global.URL.canParse = jest.fn(() => true) as jest.Mock;
     });
 

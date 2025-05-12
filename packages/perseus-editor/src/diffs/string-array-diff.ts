@@ -34,17 +34,11 @@ const mapcat = function (lst: any, fn: (chunk?: any) => any) {
 //    { "value": [4],
 //      "added": true }]
 const ArrayDiff = new jsdiff.Diff();
-// TODO(LEMS-3083): Remove eslint suppression
-// eslint-disable-next-line functional/immutable-data
 ArrayDiff.tokenize = (array) => _.map(array, (elem) => [elem]);
 // The default is `+` for string concatenation, which doesn't work for array
 // concatenation.
-// TODO(LEMS-3083): Remove eslint suppression
-// eslint-disable-next-line functional/immutable-data
 ArrayDiff.join = (a, b: any) => a.concat(b);
 // By default jsDiff uses ===
-// TODO(LEMS-3083): Remove eslint suppression
-// eslint-disable-next-line functional/immutable-data
 ArrayDiff.equals = _.isEqual;
 
 // Take the output of jsdiff's function (which concatenates adjacent entries)

@@ -13,14 +13,10 @@ const splitDiff = function (diffEntries: any): any {
             const isNewline = i > 0;
             if (isNewline) {
                 // @ts-expect-error - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'never'.
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 lines.push(currentLine);
                 currentLine = [];
             }
             const newEntry = _.extend({}, entry, {value: value});
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             currentLine.push(newEntry);
         });
     });
@@ -28,8 +24,6 @@ const splitDiff = function (diffEntries: any): any {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (currentLine.length) {
         // @ts-expect-error - TS2345 - Argument of type 'any[]' is not assignable to parameter of type 'never'.
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         lines.push(currentLine);
     }
     return lines;

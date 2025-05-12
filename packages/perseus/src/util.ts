@@ -105,27 +105,19 @@ const split: (str: string, r: RegExp) => ReadonlyArray<string> = "x".split(
           // Based on Steven Levithan's MIT-licensed split, available at
           // http://blog.stevenlevithan.com/archives/cross-browser-split
           const output = [];
-          // TODO(LEMS-3083): Remove eslint suppression
-          // eslint-disable-next-line functional/immutable-data
           let lastIndex = (r.lastIndex = 0);
           let match;
 
           while ((match = r.exec(str))) {
               const m = match;
               // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
-              // TODO(LEMS-3083): Remove eslint suppression
-              // eslint-disable-next-line functional/immutable-data
               output.push(str.slice(lastIndex, m.index));
               // @ts-expect-error - TS2345 - Argument of type 'any' is not assignable to parameter of type 'never'.
-              // TODO(LEMS-3083): Remove eslint suppression
-              // eslint-disable-next-line functional/immutable-data
               output.push(...m.slice(1));
               lastIndex = m.index + m[0].length;
           }
 
           // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
-          // TODO(LEMS-3083): Remove eslint suppression
-          // eslint-disable-next-line functional/immutable-data
           output.push(str.slice(lastIndex));
           return output;
       };
@@ -154,8 +146,6 @@ function firstNumericalParse(text: string): ParsedValue | null | undefined {
 }
 
 function stringArrayOfSize(size: number): string[] {
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     return Array(size).fill("");
 }
 
@@ -381,8 +371,6 @@ function parseQueryString(query: string): QueryParams {
     let e;
     while ((e = r.exec(query))) {
         const m = e;
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         urlParams[d(m[1])] = d(m[2]);
     }
 
@@ -435,8 +423,6 @@ const touchHandlers: TouchHandlers = {
 };
 
 function resetTouchHandlers() {
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     Object.assign(touchHandlers, {
         pointerDown: false,
         currentTouchIdentifier: null,
@@ -470,22 +456,14 @@ function extractPointerLocation(event: any): Position | null | undefined {
         const isEndish =
             event.type === "touchend" || event.type === "touchcancel";
         if (touchOrEvent && isEndish) {
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             touchHandlers.pointerDown = false;
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             touchHandlers.currentTouchIdentifier = null;
         }
     } else {
         // touchstart or mousedown
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         touchHandlers.pointerDown = true;
         if (event.changedTouches) {
             touchOrEvent = event.changedTouches[0];
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             touchHandlers.currentTouchIdentifier = touchOrEvent.identifier;
         } else {
             touchOrEvent = event;
@@ -536,8 +514,6 @@ function getImageSize(
     callback: (width: number, height: number) => void,
 ): void {
     const img = new Image();
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     img.onload = function () {
         // IE 11 seems to have problems calculating the heights of svgs
         // if they're not in the DOM. To solve this, we add the element to
@@ -561,8 +537,6 @@ function getImageSize(
         }
     };
 
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     img.src = GraphieUtil.getRealImageUrl(url);
 }
 
@@ -598,11 +572,7 @@ function getWordBeforeCursor(textarea: HTMLTextAreaElement): WordAndPosition {
  * @param {int} pos - The position where the cursor will be moved
  */
 function moveCursor(textarea: HTMLTextAreaElement, pos: number): void {
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     textarea.selectionStart = pos;
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     textarea.selectionEnd = pos;
 }
 
