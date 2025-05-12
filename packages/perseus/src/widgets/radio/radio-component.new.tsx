@@ -118,6 +118,7 @@ const RadioComponent = (props: Props) => {
                 const widgetId = "passage-ref " + nextPassageRefId;
                 nextPassageRefId++;
 
+                // eslint-disable-next-line functional/immutable-data
                 widgets[widgetId] = {
                     type: "passage-ref",
                     graded: false,
@@ -133,6 +134,15 @@ const RadioComponent = (props: Props) => {
             },
         );
 
+        // This has been called out as a hack in the past.
+        // We pass in a key here so that we avoid a semi-spurious
+        // react warning when the ChoiceNoneAbove renders a
+        // different renderer in the same place. Note this destroys
+        // state, but since all we're doing is outputting
+        // "None of the above", that is okay. Widgets inside this Renderer
+        // are not discoverable through the parent Renderer's `findWidgets` function.
+        // alwaysUpdate={true} so that passage-refs findWidgets
+        // get called when the outer passage updates the renderer
         return (
             <Renderer
                 key="choiceContentRenderer"
@@ -167,6 +177,7 @@ const RadioComponent = (props: Props) => {
         // new objects with all fields set to the default values. Otherwise, we
         // should clone the old `choiceStates` objects, in preparation to
         // mutate them.
+        // eslint-disable-next-line functional/immutable-data
         const newChoiceStates = choiceStates
             ? choiceStates.map((state: ChoiceState) => ({...state}))
             : choices.map(() => ({
@@ -182,7 +193,9 @@ const RadioComponent = (props: Props) => {
         // Mutate the new `choiceState` objects, according to the new `checked`
         // and `crossedOut` values provided in `newValueLists`.
         newChoiceStates.forEach((choiceState: ChoiceState, i) => {
+            // eslint-disable-next-line functional/immutable-data
             choiceState.selected = newValueLists.checked[i];
+            // eslint-disable-next-line functional/immutable-data
             choiceState.crossedOut = newValueLists.crossedOut[i];
         });
 
