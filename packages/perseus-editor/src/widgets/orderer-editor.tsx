@@ -18,7 +18,7 @@ const VERTICAL = "vertical";
 
 type Props = any;
 
-const getUpdatedOptions = (
+export const getUpdatedOptions = (
     correctOptions: Array<{content: string}>,
     otherOptions: Array<{content: string}>,
     whichOptions?: string,
@@ -219,5 +219,3 @@ class OrdererEditor extends React.Component<Props> {
 }
 
 export default OrdererEditor;
-
-export {getUpdatedOptions};
