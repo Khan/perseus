@@ -70,14 +70,9 @@ class CSProgram extends React.Component<Props> implements Widget {
         window.removeEventListener("message", this.handleMessageEvent);
     }
 
-    handleMessageEvent: (e: any) => void = (e) => {
+    handleMessageEvent: (e: MessageEvent) => void = (e) => {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
-        // eslint-disable-next-line no-console
-        console.log("e.source", e.source);
-        // eslint-disable-next-line no-console
-        console.log("contentWindow", this.iframeElement?.contentWindow);
-
         if (
             !this.iframeElement ||
             e.source !== this.iframeElement.contentWindow
@@ -88,7 +83,7 @@ class CSProgram extends React.Component<Props> implements Widget {
         // It could also contain an optional message
         let data: Record<string, any> = {};
         try {
-            data = JSON.parse(e.originalEvent.data);
+            data = JSON.parse(e.data);
         } catch (error) {
             throw new Error(
                 `Failed to parse JSON data in message event: ${error}`,
@@ -100,8 +95,6 @@ class CSProgram extends React.Component<Props> implements Widget {
         }
 
         const status = data.testsPassed ? "correct" : "incorrect";
-        // eslint-disable-next-line no-console
-        console.log("status", status);
         this.change({
             status: status,
             message: data.message,
