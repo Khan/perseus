@@ -1,4 +1,4 @@
-import {shuffleMatcher} from "@khanacademy/perseus-core";
+import {MatcherPublicWidgetOptions, shuffleMatcher} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
@@ -12,29 +12,50 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
 import type {SortableOption} from "../../components/sortable";
-import type {WidgetExports, WidgetProps, Widget} from "../../types";
+import type {
+    WidgetExports,
+    Widget,
+    UniversalWidgetProps,
+} from "../../types";
 import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 import type {
     PerseusMatcherWidgetOptions,
     PerseusMatcherUserInput,
 } from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
-type RenderProps = PerseusMatcherWidgetOptions;
+interface InternalProps extends UniversalWidgetProps {
+    left: string[];
+    right: string[];
+    labels: string[];
+    orderMatters: boolean;
+    padding: boolean;
+}
 
-type Props = WidgetProps<RenderProps>;
+type ExternalProps = PropsFor<typeof Matcher>;
 
-type DefaultProps = {
-    left: Props["left"];
-    right: Props["right"];
-    labels: Props["labels"];
-    orderMatters: Props["orderMatters"];
-    padding: Props["padding"];
-    problemNum: Props["problemNum"];
-    onChange: Props["onChange"];
-    linterContext: Props["linterContext"];
-};
+type RenderProps = Omit<ExternalProps, keyof UniversalWidgetProps>;
+
+// Assert that PerseusMatcherWidgetOptions is assignable directly to the props.
+// This assertion can be removed if we implement typesafe `transform` and
+// `staticTransform` functions for this component that take
+// `PerseusMatcherWidgetOptions` and return `RenderProps`.
+0 as any as PerseusMatcherWidgetOptions satisfies RenderProps;
+0 as any as MatcherPublicWidgetOptions satisfies RenderProps;
+
+type DefaultProps = Pick<
+    InternalProps,
+    | "left"
+    | "right"
+    | "labels"
+    | "orderMatters"
+    | "padding"
+    | "problemNum"
+    | "onChange"
+    | "linterContext"
+>;
 
 type State = {
     leftHeight: number;
@@ -42,7 +63,10 @@ type State = {
     texRendererLoaded: boolean;
 };
 
-export class Matcher extends React.Component<Props, State> implements Widget {
+export class Matcher
+    extends React.Component<InternalProps, State>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 

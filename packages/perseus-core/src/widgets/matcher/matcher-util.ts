@@ -30,7 +30,7 @@ export const shuffleMatcher = (
  * For details on the individual options, see the
  * PerseusMatcherWidgetOptions type
  */
-type MatcherPublicWidgetOptions = {
+export type MatcherPublicWidgetOptions = {
     labels: PerseusMatcherWidgetOptions["labels"];
     left: PerseusMatcherWidgetOptions["left"];
     right: PerseusMatcherWidgetOptions["right"];
