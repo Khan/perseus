@@ -8,7 +8,7 @@ import _ from "underscore";
  * A random number generator. Should return floats in the range [0, 1), like
  * Math.random().
  */
-type RNG = () => number;
+export type RNG = () => number;
 
 export const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
     let randomSeed = seed;
@@ -36,13 +36,6 @@ export function shuffle<T>(
     randomSeed: number | RNG,
     ensurePermuted = false,
 ): T[] {
-    // Return early if all elements are equal -- both for performance, and
-    // so we don't go into an infinite loop if ensurePermuted is true.
-    if (array.every((value) => _.isEqual(value, array[0]))) {
-        // We always return a copy, since callers might rely on that.
-        return [...array];
-    }
-
     let random;
     if (typeof randomSeed === "function") {
         random = randomSeed;
@@ -57,12 +50,20 @@ export function shuffle<T>(
     );
 }
 
-function constrainedShuffle<T>(
+export function constrainedShuffle<T>(
     array: readonly T[],
     random: RNG,
     shouldReshuffle: (shuffled: readonly T[], iteration: number) => boolean,
 ): T[] {
     const shuffled = [...array];
+
+    // Return early if all elements are equal -- both for performance, and
+    // to avoid going into an infinite loop in the (common) case where
+    // shouldReshuffle is checking the order of the values.
+    if (shuffled.every((value) => _.isEqual(value, shuffled[0]))) {
+        return shuffled;
+    }
+
     let iteration = 1;
     do {
         shuffleInPlace(shuffled, random);

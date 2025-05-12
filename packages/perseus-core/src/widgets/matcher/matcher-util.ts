@@ -1,6 +1,7 @@
-import {seededRNG, shuffle} from "../../utils/random-util";
+import {constrainedShuffle, seededRNG} from "../../utils/random-util";
 
 import type {PerseusMatcherWidgetOptions} from "../../data-schema";
+import type {RNG} from "../../utils/random-util";
 
 // TODO(LEMS-2841): Should be able to remove once getPublicWidgetOptions is hooked up
 type MatcherInfo = {
@@ -16,17 +17,13 @@ export const shuffleMatcher = (
     // Use the same random() function to shuffle both columns sequentially
     const rng = seededRNG(props.problemNum as number);
 
-    let left;
-    if (!props.orderMatters) {
-        // If the order doesn't matter, don't shuffle the left column
-        left = props.left;
-    } else {
-        left = shuffle(props.left, rng, /* ensurePermuted */ true);
-    }
-
-    const right = shuffle(props.right, rng, /* ensurePermuted */ true);
-
-    return {left, right};
+    return {
+        // If the order of rows doesn't matter, don't shuffle the left column
+        left: !props.orderMatters
+            ? props.left
+            : shuffleDisplacingFirst(props.left, rng),
+        right: shuffleDisplacingFirst(props.right, rng),
+    };
 };
 
 /**
@@ -50,13 +47,23 @@ function getMatcherPublicWidgetOptions(
 ): MatcherPublicWidgetOptions {
     return {
         ...options,
-        left: options.orderMatters ? sortAllButFirst(options.left) : options.left,
+        left: options.orderMatters
+            ? sortAllButFirst(options.left)
+            : options.left,
         right: sortAllButFirst(options.right),
     };
 }
 
 function sortAllButFirst([first, ...rest]: readonly string[]): string[] {
-    return [first, ...rest.sort()]
+    // The array mutated by sort() can't be referenced elsewhere, so this is safe.
+    // eslint-disable-next-line functional/immutable-data
+    return [first, ...rest.sort()];
+}
+
+function shuffleDisplacingFirst<T>(array: readonly T[], rng: RNG): T[] {
+    // FIXME: rename shouldReshuffle to isValidReshuffle after flipping conditional in constrainedShuffle
+    const firstElementDiffers = (shuffled: readonly T[]) => shuffled[0] === array[0];
+    return constrainedShuffle(array, rng, firstElementDiffers);
 }
 
 export default getMatcherPublicWidgetOptions;
