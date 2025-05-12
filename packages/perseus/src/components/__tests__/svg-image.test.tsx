@@ -16,18 +16,12 @@ describe("SvgImage", () => {
         // Mock HTML Image so we can trigger onLoad callbacks and see full
         // image rendering.
         // @ts-expect-error - TS2322 - Type 'Mock<Record<string, any>, [], any>' is not assignable to type 'new (width?: number | undefined, height?: number | undefined) => HTMLImageElement'.
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         window.Image = jest.fn(() => {
             const img: Record<string, any> = {};
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             images.push(img);
             return img;
         });
 
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         global.fetch = jest.fn((url) => {
             return Promise.resolve({
                 text: () => Promise.resolve(typicalCase.jsonpString),
@@ -37,8 +31,6 @@ describe("SvgImage", () => {
     });
 
     afterEach(() => {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         window.Image = originalImage;
     });
 

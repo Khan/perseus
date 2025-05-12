@@ -113,8 +113,6 @@ const LockedFunctionSettings = (props: Props) => {
     // Generic function for handling property changes (except for 'domain/range')
     function handlePropChange(property: string, newValue: string) {
         const updatedProps: Partial<LockedFunctionType> = {};
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         updatedProps[property] = newValue;
         onChangeProps(updatedProps);
     }
@@ -127,8 +125,6 @@ const LockedFunctionSettings = (props: Props) => {
      */
     function handleDomainChange(limitIndex: number, newValueString: string) {
         const newDomainEntries: [string, string] = [...domainEntries];
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         newDomainEntries[limitIndex] = newValueString;
         setDomainEntries(newDomainEntries);
         const newDomain: [min: number, max: number] = [...domain];
@@ -139,8 +135,6 @@ const LockedFunctionSettings = (props: Props) => {
         } else if (newValueString === "" && limitIndex === 1) {
             newValue = Infinity;
         }
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         newDomain[limitIndex] = newValue;
         onChangeProps({domain: newDomain});
     }
@@ -157,8 +151,6 @@ const LockedFunctionSettings = (props: Props) => {
         };
 
         // Update the color of all the labels to match the point
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         newProps.labels = labels.map((label) => ({
             ...label,
             color: newValue,
@@ -172,8 +164,6 @@ const LockedFunctionSettings = (props: Props) => {
         labelIndex: number,
     ) {
         const updatedLabels = [...labels];
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         updatedLabels[labelIndex] = {
             ...labels[labelIndex],
             ...updatedLabel,

@@ -46,20 +46,14 @@ export async function getImageSizeModern(
 
     return new Promise((resolve, reject) => {
         // Handle the success case
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         image.onload = () => {
             resolve([image.naturalWidth, image.naturalHeight]);
         };
 
         // Handle the error case
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         image.onerror = reject;
 
         // Kick off the loading
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         image.src = getRealImageUrl(url);
     });
 }

@@ -57,11 +57,7 @@ export function shuffle<T>(
             const newEnd = Math.floor(random() * top);
             const temp = shuffled[newEnd];
 
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             shuffled[newEnd] = shuffled[top - 1];
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             shuffled[top - 1] = temp;
         }
     } while (ensurePermuted && _.isEqual(array, shuffled));

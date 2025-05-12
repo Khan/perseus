@@ -27,8 +27,6 @@ export default function MathquillInput(props: Props) {
         // make a new Mathquill input
         if (mathFieldWrapperRef.current && !mathFieldInstance.current) {
             // Initialize MathQuill.MathField instance
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             mathFieldInstance.current = createMathField(
                 mathFieldWrapperRef.current,
                 locale,

@@ -27,8 +27,6 @@ export const getPromptJSON = (
     const input = {type, coords} as GrapherAnswerTypes;
 
     if (userInput.type === "logarithm" || userInput.type === "exponential") {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         input["asymptote"] = userInput.asymptote;
     }
 

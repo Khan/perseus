@@ -62,8 +62,6 @@ export function getArrayWithoutDuplicates(array: Array<Coord>): Array<Coord> {
                 ([x, y]) => x === coordPair[0] && y === coordPair[1],
             )
         ) {
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             returnArray.push(coordPair);
         }
     }
@@ -319,8 +317,6 @@ export function getSideLengthsFromPoints(
     // The first side of the first point does not exist if
     // the polygon is open.
     if (side1 && !(isPolygonOpen && i === 0)) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         returnArray.push({pointIndex: point1Index, sideLength: side1});
     }
 
@@ -336,8 +332,6 @@ export function getSideLengthsFromPoints(
     // The second side of the last point does not exist if
     // the polygon is open.
     if (side2 && !(isPolygonOpen && i === points.length - 1)) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         returnArray.push({pointIndex: point2Index, sideLength: side2});
     }
 

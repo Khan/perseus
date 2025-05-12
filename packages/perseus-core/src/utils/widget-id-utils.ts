@@ -41,8 +41,6 @@ export function getWidgetIdsFromContent(
     let match = localWidgetRegex.exec(content);
 
     while (match !== null) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         widgets.push(match[1]);
         match = localWidgetRegex.exec(content);
     }
@@ -69,8 +67,6 @@ export function getWidgetIdsFromContentByType(
     widgetIdsInContent.forEach((widgetId) => {
         const widget = widgetMap[widgetId];
         if (widget?.type === type) {
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             rv.push(widgetId);
         }
     });

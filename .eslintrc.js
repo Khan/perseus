@@ -196,29 +196,10 @@ module.exports = {
                         allowNullableNumber: true,
                     },
                 ],
-                "functional/immutable-data": [
-                    "error",
-                    {
-                        ignoreClasses: true,
-                        ignoreImmediateMutation: true,
-                    },
-                ],
+                // functional/immutable-data is disabled for now because we had
+                // to suppress it in too many places.
+                "functional/immutable-data": "off",
             },
-            overrides: [
-                {
-                    files: [
-                        "*.cypress.tsx",
-                        "*.cypress.ts",
-                        "*.test.ts",
-                        "*.test.tsx",
-                        "*.stories.ts",
-                        "*.stories.tsx",
-                    ],
-                    rules: {
-                        "functional/immutable-data": "off",
-                    },
-                },
-            ],
             excludedFiles: ["*.d.ts", "*.config.ts", "**/*.cypress.ts"],
         },
     ],

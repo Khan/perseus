@@ -24,14 +24,10 @@ export function validateOptions(
     const errors: Array<string> = [];
 
     if (programID === "") {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         errors.push("The program ID is required.");
     }
 
     if (!Number.isInteger(height) || height < 1) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         errors.push("The height must be a positive integer.");
     }
 

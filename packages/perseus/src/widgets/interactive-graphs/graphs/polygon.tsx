@@ -191,8 +191,6 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
     const {disableKeyboardInteraction, interactiveColor} = graphConfig;
     const {strings, locale} = usePerseusI18n();
     const id = React.useId();
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     const pointsOffArray = Array(points.length).fill("off");
     // When moving an element, set its aria-live to "polite" and the others
     // to "off". Otherwise, other connected elements that move at the same
@@ -364,15 +362,11 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                                             destination,
                                         ),
                                     );
-                                    // TODO(LEMS-3083): Remove eslint suppression
-                                    // eslint-disable-next-line functional/immutable-data
                                     lastMoveTimeRef.current = now;
                                 }
                             }}
                             onFocus={() => {
                                 const newPointAriaLives = [...pointsOffArray];
-                                // TODO(LEMS-3083): Remove eslint suppression
-                                // eslint-disable-next-line functional/immutable-data
                                 newPointAriaLives[i] = "polite";
                                 // Whole polygon is "off", and the current
                                 // point is "polite".
@@ -440,8 +434,6 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
     // When moving an element, set its aria-live to "polite" and the others
     // to "off". Otherwise, other connected elements that move at the same
     // time might override the currently focused element's aria live.
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     const pointsOffArray = Array(points.length).fill("off");
     const [ariaLives, setAriaLives] =
         React.useState<Array<AriaLive>>(pointsOffArray);
@@ -550,15 +542,11 @@ const UnlimitedPolygonGraph = (statefulProps: StatefulProps) => {
                                 )
                             }
                             ref={(ref) => {
-                                // TODO(LEMS-3083): Remove eslint suppression
-                                // eslint-disable-next-line functional/immutable-data
                                 pointsRef.current[i] = ref;
                             }}
                             onFocus={() => {
                                 dispatch(actions.polygon.focusPoint(i));
                                 const newPointAriaLives = [...pointsOffArray];
-                                // TODO(LEMS-3083): Remove eslint suppression
-                                // eslint-disable-next-line functional/immutable-data
                                 newPointAriaLives[i] = "polite";
                                 // Whole polygon is "off", and the current
                                 // point is "polite".

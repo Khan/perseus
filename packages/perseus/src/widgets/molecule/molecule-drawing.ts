@@ -14,11 +14,7 @@ function drawText(ctx, item: any) {
     if (item.value === null) {
         return;
     }
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     ctx.fillStyle = styles.fgColor;
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     ctx.font = styles.font;
     ctx.fillText(
         item.value,
@@ -45,11 +41,7 @@ function drawText(ctx, item: any) {
 function drawDoubleLine(ctx: any, item: any) {
     // Outer line that forms both of the bond lines.
     let path = new Path2D();
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     ctx.lineWidth = 5 * styles.lineWidth;
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     ctx.strokeStyle = styles.fgColor;
     path.moveTo(item.startPos[0], item.startPos[1]);
     path.lineTo(item.endPos[0], item.endPos[1]);
@@ -57,11 +49,7 @@ function drawDoubleLine(ctx: any, item: any) {
 
     // Inner white line that separates the two bond lines.
     path = new Path2D();
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     ctx.lineWidth = 3 * styles.lineWidth;
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     ctx.strokeStyle = styles.bgColor;
     path.moveTo(item.startPos[0], item.startPos[1]);
     path.lineTo(item.endPos[0], item.endPos[1]);
@@ -89,11 +77,7 @@ function drawTripleLine(ctx: any, item: any) {
 
     // Outer line that will form the two outer bond lines.
     let path = new Path2D();
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     ctx.lineWidth = 7 * styles.lineWidth;
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     ctx.strokeStyle = styles.fgColor;
     path.moveTo(item.startPos[0], item.startPos[1]);
     path.lineTo(item.endPos[0], item.endPos[1]);
@@ -101,11 +85,7 @@ function drawTripleLine(ctx: any, item: any) {
 
     // Middle white line that separates the bonds
     path = new Path2D();
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     ctx.lineWidth = 5 * styles.lineWidth;
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     ctx.strokeStyle = styles.bgColor;
     path.moveTo(item.startPos[0], item.startPos[1]);
     path.lineTo(item.endPos[0], item.endPos[1]);
@@ -128,11 +108,7 @@ function drawTripleLine(ctx: any, item: any) {
  */
 function drawLine(ctx: any, item) {
     const path = new Path2D();
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     ctx.lineWidth = styles.lineWidth;
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     ctx.strokeStyle = styles.fgColor;
     path.moveTo(item.startPos[0], item.startPos[1]);
     path.lineTo(item.endPos[0], item.endPos[1]);
@@ -183,8 +159,6 @@ function compareElements(item0: any, item1: any) {
  * Draw an array of rendering instructions into a 2D canvas drawing context.
  */
 function draw(ctx: any, items: Array<any>) {
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     items.sort(compareElements).forEach(drawItem(ctx));
 }
 

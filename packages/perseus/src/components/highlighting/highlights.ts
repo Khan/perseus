@@ -53,8 +53,6 @@ export function addHighlight(
         } else {
             // This highlight's range can't be merged into the new highlight.
             // Add it to the new set of highlights.
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             newHighlights[key] = h;
         }
     }
@@ -69,8 +67,6 @@ export function addHighlight(
     // unique key.
     const existingKeys = Object.keys(newHighlights);
     const newKey = createNewUniqueKey(existingKeys);
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     newHighlights[newKey] = newMergedHighlight;
 
     return newHighlights;

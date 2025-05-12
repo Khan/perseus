@@ -24,22 +24,16 @@ const filterWidgetInfo = function (widgetInfo, showAlignmentOptions: boolean) {
         CoreWidgetRegistry.getSupportedAlignments(type).length > 1
     ) {
         // @ts-expect-error - TS2339 - Property 'alignment' does not exist on type '{ readonly options: any; }'.
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         filteredWidgetInfo.alignment = alignment;
     }
 
     if (type === "transformer") {
         // @ts-expect-error - TS2339 - Property 'graded' does not exist on type '{ readonly options: any; }'.
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         filteredWidgetInfo.graded = graded;
     }
 
     if (Widgets.supportsStaticMode(type)) {
         // @ts-expect-error - TS2339 - Property 'static' does not exist on type '{ readonly options: any; }'.
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         filteredWidgetInfo.static = widgetInfo?.static ?? undefined;
     }
 

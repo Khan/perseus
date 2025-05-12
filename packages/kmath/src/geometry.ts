@@ -217,11 +217,7 @@ export function similar(
 
         // Reverse angles and sides to allow matching reflected polygons
         if (i >= n) {
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             angles.reverse();
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             sides.reverse();
             // Since sides are calculated from two coordinates,
             // simply reversing results in an off by one error

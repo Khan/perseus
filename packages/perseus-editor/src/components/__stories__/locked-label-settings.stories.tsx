@@ -24,8 +24,6 @@ const defaultProps = {
 type StoryComponentType = StoryObj<typeof LockedLabelSettings>;
 
 // Set the default values in the control panel.
-// TODO(LEMS-3083): Remove eslint suppression
-// eslint-disable-next-line functional/immutable-data
 Default.args = defaultProps;
 
 export const Expanded: StoryComponentType = {
