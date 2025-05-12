@@ -57,13 +57,21 @@ describe("cs-program widget", () => {
 
     describe("CS Program widget postMessage handling", () => {
         it("should score as correct when postMessage has testsPassed: true", () => {
-            const {renderer} = renderQuestion(question1);
+            const {container, renderer} = renderQuestion(question1);
+            const iframeElement = container.querySelector("iframe");
+
+            if (!iframeElement?.contentWindow) {
+                throw new Error(
+                    "Iframe or its contentWindow not found for test event source",
+                );
+            }
 
             const messageData = {testsPassed: true, message: "Nicely done!"};
 
             act(() => {
                 const fakeEvent = new MessageEvent("message", {
                     data: JSON.stringify(messageData),
+                    source: iframeElement.contentWindow,
                 });
                 window.dispatchEvent(fakeEvent);
             });
@@ -77,13 +85,21 @@ describe("cs-program widget", () => {
         });
 
         it("should score as incorrect when postMessage has testsPassed: false", () => {
-            const {renderer} = renderQuestion(question1);
+            const {container, renderer} = renderQuestion(question1);
+            const iframeElement = container.querySelector("iframe");
+
+            if (!iframeElement?.contentWindow) {
+                throw new Error(
+                    "Iframe or its contentWindow not found for test event source",
+                );
+            }
 
             const messageData = {testsPassed: false, message: "Try again."};
 
             act(() => {
                 const fakeEvent = new MessageEvent("message", {
                     data: JSON.stringify(messageData),
+                    source: iframeElement.contentWindow,
                 });
                 window.dispatchEvent(fakeEvent);
             });

@@ -53,6 +53,7 @@ function getUrlFromProgramID(programID: any) {
 /* This renders the scratchpad in an iframe and handles validation via
  * window.postMessage */
 class CSProgram extends React.Component<Props> implements Widget {
+    iframeElement: HTMLIFrameElement | null = null;
     static defaultProps: DefaultProps = {
         showEditor: false,
         showButtons: false,
@@ -72,37 +73,20 @@ class CSProgram extends React.Component<Props> implements Widget {
     handleMessageEvent = (e: MessageEvent): void => {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
-        // Note: Origin might be null or "" in file:// or test environments.
-        const allowedOrigins = [
-            "https://khanacademy.org",
-            "https://www.khanacademy.org",
-            "https://ka.org",
-            "https://www.ka.org",
-            // Add specific testing origins if needed, e.g., "http://localhost:xxxx"
-        ];
+        if (
+            !this.iframeElement ||
+            e.source !== this.iframeElement.contentWindow
+        ) {
+            return;
+        }
 
         // It could also contain an optional message
         let data: Record<string, any> = {};
 
-        // Add origin check for security
-        // Allow null/empty origin for file:// or test environments
-        const isAllowedOrigin =
-            e.origin === null ||
-            e.origin === "" ||
-            allowedOrigins.some((origin) => e.origin === origin);
-
-        if (!isAllowedOrigin) {
-            // Don't process messages from unexpected origins.
-            return;
-        }
-
         try {
-            // We expect data to be a string, but it could be anything.
-            if (typeof e.data !== "string") {
-                return;
-            }
             data = JSON.parse(e.data);
         } catch (error) {
+            console.warn("Failed to parse JSON data in message event:", error);
             return;
         }
 
@@ -200,6 +184,7 @@ class CSProgram extends React.Component<Props> implements Widget {
             >
                 {/* eslint-disable-next-line jsx-a11y/iframe-has-title -- TODO(LEMS-2871): Address a11y error */}
                 <iframe
+                    ref={(element) => (this.iframeElement = element)}
                     sandbox={sandboxOptions}
                     src={url}
                     style={style}
