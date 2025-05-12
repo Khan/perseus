@@ -2,7 +2,7 @@
  * This widget is for embedding Khan Academy CS programs.
  */
 
-import {StyleSheet, css} from "aphrodite";
+import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {getDependencies} from "../../dependencies";
@@ -16,8 +16,8 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/
 import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
-    PerseusCSProgramWidgetOptions,
     PerseusCSProgramUserInput,
+    PerseusCSProgramWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 const {updateQueryString} = Util;
@@ -69,18 +69,44 @@ class CSProgram extends React.Component<Props> implements Widget {
         window.removeEventListener("message", this.handleMessageEvent);
     }
 
-    handleMessageEvent: (e: any) => void = (e) => {
+    handleMessageEvent = (e: MessageEvent): void => {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
+        // Note: Origin might be null or "" in file:// or test environments.
+        const allowedOrigins = [
+            "https://khanacademy.org",
+            "https://www.khanacademy.org",
+            "https://ka.org",
+            "https://www.ka.org",
+            // Add specific testing origins if needed, e.g., "http://localhost:xxxx"
+        ];
+
         // It could also contain an optional message
         let data: Record<string, any> = {};
-        try {
-            data = JSON.parse(e.originalEvent.data);
-        } catch {
+
+        // Add origin check for security
+        // Allow null/empty origin for file:// or test environments
+        const isAllowedOrigin =
+            e.origin === null ||
+            e.origin === "" ||
+            allowedOrigins.some((origin) => e.origin === origin);
+
+        if (!isAllowedOrigin) {
+            // Don't process messages from unexpected origins.
             return;
         }
 
-        if (data.testsPassed === "undefined") {
+        try {
+            // We expect data to be a string, but it could be anything.
+            if (typeof e.data !== "string") {
+                return;
+            }
+            data = JSON.parse(e.data);
+        } catch (error) {
+            return;
+        }
+
+        if (data.testsPassed === undefined) {
             return;
         }
 
@@ -140,7 +166,10 @@ class CSProgram extends React.Component<Props> implements Widget {
         }
 
         // Turn array of [{name: "", value: ""}] into object
-        if (Array.isArray(this.props.settings) && this.props.settings.length > 0) {
+        if (
+            Array.isArray(this.props.settings) &&
+            this.props.settings.length > 0
+        ) {
             const settings: Record<string, any> = {};
             this.props.settings.forEach((setting) => {
                 if (setting.name && setting.value) {
