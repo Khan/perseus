@@ -91,7 +91,7 @@ class Radio extends React.Component<Props> implements Widget {
             };
             // Support legacy choiceState implementation
         }
-        /* c8 ignore if - props.values is deprecated */
+
         const {values} = props;
         if (values) {
             const choicesSelected = [...values];
