@@ -1,3 +1,4 @@
+import {registerCoreWidgets} from "../widgets/core-widget-registry";
 import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
 import splitPerseusItem from "./split-perseus-item";
@@ -6,6 +7,10 @@ import {generateTestPerseusItem} from "./test-utils";
 import type {PerseusRenderer, RadioWidget} from "../data-schema";
 
 describe("splitPerseusItem", () => {
+    beforeAll(() => {
+        registerCoreWidgets();
+    });
+
     it("doesn't do anything with an empty item", () => {
         // Arrange
         const question: PerseusRenderer = {

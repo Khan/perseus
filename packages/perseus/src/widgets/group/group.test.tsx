@@ -1,3 +1,4 @@
+import {registerCoreWidgets} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
@@ -10,13 +11,22 @@ import * as Dependencies from "../../dependencies";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
 import {traverse} from "../../traversal";
+import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {question1} from "./group.testdata";
+import {
+    getFullGroupTestItem,
+    getSplitGroupTestItem,
+    question1,
+} from "./group.testdata";
 
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("group widget", () => {
+    beforeAll(() => {
+        registerCoreWidgets();
+    });
+
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -560,6 +570,115 @@ describe("group widget", () => {
             // Assert
             // This callback does not get deep traversal!
             expect(optionsCallback).toHaveBeenCalledTimes(3);
+        });
+    });
+
+    it("handles answerless item data", () => {
+        const itemData = getSplitGroupTestItem();
+
+        expect(
+            itemData.question.widgets["group 1"].options.widgets["dropdown 1"]
+                .options.choices,
+        ).toEqual([
+            {
+                content: "Incorrect",
+            },
+            {
+                content: "Correct",
+            },
+        ]);
+    });
+
+    describe.each([
+        ["answerless", getFullGroupTestItem()],
+        ["answerful", getSplitGroupTestItem()],
+    ])("given %s options", (_, {question}) => {
+        it(`renders`, async () => {
+            // Act
+            renderQuestion(question);
+
+            // Assert
+            expect(
+                screen.getByRole("combobox", {name: "Select an answer"}),
+            ).toBeInTheDocument();
+        });
+
+        it(`is answerable`, async () => {
+            // Act
+            const {renderer} = renderQuestion(question);
+
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Select an answer"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Correct"}),
+            );
+
+            // Assert
+            const userInput = renderer.getUserInputMap();
+            expect(userInput).toEqual({
+                "group 1": {
+                    "dropdown 1": {
+                        value: 2,
+                    },
+                },
+            });
+        });
+
+        it(`can be scored as correct`, async () => {
+            // Act
+            const {renderer} = renderQuestion(question);
+
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Select an answer"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Correct"}),
+            );
+
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItemTesting(
+                getFullGroupTestItem().question,
+                userInput,
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        });
+
+        it(`can be scored as incorrect`, async () => {
+            // Act
+            const {renderer} = renderQuestion(question);
+
+            await userEvent.click(
+                screen.getByRole("combobox", {name: "Select an answer"}),
+            );
+            await userEvent.click(
+                screen.getByRole("option", {name: "Incorrect"}),
+            );
+
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItemTesting(
+                getFullGroupTestItem().question,
+                userInput,
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredIncorrectly();
+        });
+
+        it(`can be scored as invalid`, async () => {
+            // Act
+            const {renderer} = renderQuestion(question);
+
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItemTesting(
+                getFullGroupTestItem().question,
+                userInput,
+            );
+
+            // Assert
+            expect(score).toHaveInvalidInput();
         });
     });
 });

@@ -1,6 +1,6 @@
 import {failure, isFailure, isSuccess} from "../result";
 
-import {isObject} from "./is-object";
+import {isPlainObject} from "./is-plain-object";
 
 import type {Mismatch, Parser} from "../parser-types";
 
@@ -9,7 +9,7 @@ export function record<K extends string, V>(
     parseValue: Parser<V>,
 ): Parser<Record<K, V>> {
     return (rawValue, ctx) => {
-        if (!isObject(rawValue)) {
+        if (!isPlainObject(rawValue)) {
             return ctx.failure("object", rawValue);
         }
 

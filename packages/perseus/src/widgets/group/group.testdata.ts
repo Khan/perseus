@@ -1,4 +1,10 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+    splitPerseusItem,
+    type PerseusItem,
+    type PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {
     content:
@@ -179,3 +185,38 @@ export const simpleGroupQuestion: PerseusRenderer = {
         },
     },
 };
+
+export function getFullGroupTestItem(): PerseusItem {
+    const groupRenderer = generateTestPerseusRenderer({
+        content: "Group Renderer\n\n[[☃ dropdown 1]]",
+        widgets: {
+            "dropdown 1": {
+                type: "dropdown",
+                options: {
+                    choices: [
+                        {content: "Incorrect", correct: false},
+                        {content: "Correct", correct: true},
+                    ],
+                    placeholder: "Choose an answer",
+                    static: false,
+                },
+            },
+        },
+    });
+
+    const itemRenderer = generateTestPerseusRenderer({
+        content: "Item Renderer\n\n[[☃ group 1]]",
+        widgets: {
+            "group 1": {
+                type: "group",
+                options: groupRenderer,
+            },
+        },
+    });
+
+    return generateTestPerseusItem({question: itemRenderer});
+}
+
+export function getSplitGroupTestItem(): PerseusItem {
+    return splitPerseusItem(getFullGroupTestItem());
+}

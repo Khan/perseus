@@ -1,12 +1,13 @@
 import type {PerseusNumberLineWidgetOptions} from "../../data-schema";
 
-type NumberLinePublicWidgetOptions = Pick<
+export type NumberLinePublicWidgetOptions = Pick<
     PerseusNumberLineWidgetOptions,
     | "range"
     | "labelRange"
     | "labelStyle"
     | "labelTicks"
     | "isTickCtrl"
+    | "isInequality"
     | "divisionRange"
     | "numDivisions"
     | "snapDivisions"
