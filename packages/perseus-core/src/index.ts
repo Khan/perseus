@@ -160,4 +160,3 @@ export {
 } from "./widgets/matcher/matcher-util";
 export {shuffle, seededRNG, random} from "./utils/random-util";
 export {default as PerseusFeatureFlags} from "./feature-flags";
-export {isAccessible} from "./utils/is-accessible";
