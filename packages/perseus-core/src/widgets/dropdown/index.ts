@@ -23,6 +23,7 @@ const dropdownWidgetLogic: WidgetLogic = {
     defaultWidgetOptions,
     defaultAlignment: "inline-block",
     getPublicWidgetOptions: getDropdownPublicWidgetOptions,
+    accessible: true,
 };
 
 export default dropdownWidgetLogic;
