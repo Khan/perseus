@@ -3,9 +3,7 @@
  */
 
 import {StyleSheet, css} from "aphrodite";
-import $ from "jquery";
 import * as React from "react";
-import _ from "underscore";
 
 import {getDependencies} from "../../dependencies";
 import * as Changeable from "../../mixins/changeable";
@@ -15,7 +13,7 @@ import {isFileProtocol} from "../../util/mobile-native-utils";
 import {toAbsoluteUrl} from "../../util/url-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/cs-program/cs-program-ai-utils";
 
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     PerseusCSProgramWidgetOptions,
@@ -64,14 +62,14 @@ class CSProgram extends React.Component<Props> implements Widget {
     };
 
     componentDidMount() {
-        $(window).on("message", this.handleMessageEvent);
+        window.addEventListener("message", this.handleMessageEvent);
     }
 
     componentWillUnmount() {
-        $(window).off("message", this.handleMessageEvent);
+        window.removeEventListener("message", this.handleMessageEvent);
     }
 
-    handleMessageEvent: (arg1: any) => void = (e) => {
+    handleMessageEvent: (e: any) => void = (e) => {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
         // It could also contain an optional message
@@ -82,7 +80,7 @@ class CSProgram extends React.Component<Props> implements Widget {
             return;
         }
 
-        if (_.isUndefined(data.testsPassed)) {
+        if (data.testsPassed === "undefined") {
             return;
         }
 
@@ -93,8 +91,7 @@ class CSProgram extends React.Component<Props> implements Widget {
         });
     };
 
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
+    change: ChangeFn = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
@@ -120,7 +117,7 @@ class CSProgram extends React.Component<Props> implements Widget {
         const style = {
             height: this.props.height,
             width: "100%",
-        } as const;
+        };
 
         if (this.props.showEditor) {
             url += "&editor=yes";
@@ -137,17 +134,15 @@ class CSProgram extends React.Component<Props> implements Widget {
             url += "&buttons=yes";
             // Matches templates/scratchpads/embed_script.js
             // Toolbar height is 66, border height is 1 pixel
-            // @ts-expect-error - TS2540 - Cannot assign to 'height' because it is a read-only property.
             style.height += 67;
         } else {
             url += "&buttons=no";
         }
 
         // Turn array of [{name: "", value: ""}] into object
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (this.props.settings) {
+        if (Array.isArray(this.props.settings) && this.props.settings.length > 0) {
             const settings: Record<string, any> = {};
-            _.each(this.props.settings, function (setting) {
+            this.props.settings.forEach((setting) => {
                 if (setting.name && setting.value) {
                     settings[setting.name] = setting.value;
                 }
