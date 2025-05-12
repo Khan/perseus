@@ -19,3 +19,10 @@ export const Question1: Story = {
         item: generateTestPerseusItem({question: question1}),
     },
 };
+
+export const Question1Answerless: Story = {
+    args: {
+        item: generateTestPerseusItem({question: question1}),
+        startAnswerless: true,
+    },
+};
