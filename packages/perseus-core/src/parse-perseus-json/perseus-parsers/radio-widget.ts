@@ -25,6 +25,56 @@ const parseWidgetsMapOrUndefined = defaulted(
     () => undefined,
 );
 
+const version3 = optional(object({major: constant(3), minor: number}));
+const parseRadioWidgetV3 = parseWidgetWithVersion(
+    version3,
+    constant("radio"),
+    object({
+        numCorrect: optional(number),
+        choices: array(
+            object({
+                content: defaulted(string, () => ""),
+                correct: optional(boolean),
+                isNoneOfTheAbove: optional(boolean),
+                rationale: optional(string),
+                // deprecated - replaced by rationale
+                clue: optional(string),
+                // deprecated
+                widgets: parseWidgetsMapOrUndefined,
+            }),
+        ),
+        hasNoneOfTheAbove: optional(boolean),
+        countChoices: optional(boolean),
+        randomize: optional(boolean),
+        multipleSelect: optional(boolean),
+        deselectEnabled: optional(boolean),
+        // deprecated
+        onePerLine: optional(boolean),
+        // deprecated
+        displayCount: optional(any),
+        // v0 props
+        // `noneOfTheAbove` is still in use (but only set to `false`).
+        noneOfTheAbove: optional(constant(false)),
+    }),
+);
+
+export function migrateV2ToV3(
+    widget: ParsedValue<typeof parseRadioWidgetV2>,
+): ParsedValue<typeof parseRadioWidgetV3> {
+    const {options} = widget;
+    return {
+        ...widget,
+        version: {major: 3, minor: 0},
+        options: {
+            ...options,
+            choices: options.choices.map((choice) => ({
+                ...choice,
+                rationale: choice.clue,
+            })),
+        },
+    };
+}
+
 const version2 = optional(object({major: constant(2), minor: number}));
 const parseRadioWidgetV2 = parseWidgetWithVersion(
     version2,
@@ -146,6 +196,7 @@ function migrateV0ToV1(
     };
 }
 
-export const parseRadioWidget = versionedWidgetOptions(2, parseRadioWidgetV2)
+export const parseRadioWidget = versionedWidgetOptions(3, parseRadioWidgetV3)
+    .withMigrationFrom(2, parseRadioWidgetV2, migrateV2ToV3)
     .withMigrationFrom(1, parseRadioWidgetV1, migrateV1ToV2)
     .withMigrationFrom(0, parseRadioWidgetV0, migrateV0ToV1).parser;

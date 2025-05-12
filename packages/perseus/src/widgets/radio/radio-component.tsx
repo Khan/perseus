@@ -424,8 +424,8 @@ class Radio extends React.Component<Props> implements Widget {
                             ? !!reviewChoice && !!reviewChoice.correct
                             : choice.correct,
                     disabled: readOnly,
-                    hasRationale: !!choice.clue,
-                    rationale: this._renderRenderer(choice.clue),
+                    hasRationale: !!choice.rationale,
+                    rationale: this._renderRenderer(choice.rationale),
                     showRationale: rationaleShown,
                     showCorrectness: correctnessShown,
                     isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
