@@ -1,58 +1,36 @@
-import {
-    generateTestPerseusItem,
-    type PerseusRenderer,
-} from "@khanacademy/perseus-core";
-import * as React from "react";
-
-import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
+import {ApiOptions} from "../../perseus-api";
 
 import {PhetSimulation} from "./phet-simulation";
 
-import type {Meta} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react";
 
 const meta: Meta<typeof PhetSimulation> = {
-    component: PhetSimulation,
     title: "Perseus/Widgets/PhET Simulation",
+    component: PhetSimulation,
+    // Using parameters to avoid component-level type checking issues since PhetSimulation
+    // expects WidgetProps that we can't fully satisfy in the story
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "PhET Simulation widget for embedding interactive simulations from PhET Colorado",
+            },
+        },
+    },
 };
 
 export default meta;
 
-// Create a simple renderer with a PhET simulation widget
-const createPhETSimulation = (
-    url: string,
-    description: string,
-): PerseusRenderer => {
-    return {
-        content: "[[☃ phet-simulation 1]]",
-        images: {},
-        widgets: {
-            "phet-simulation 1": {
-                type: "phet-simulation",
-                graded: true,
-                static: false,
-                options: {
-                    url,
-                    description,
-                },
-                version: {
-                    major: 0,
-                    minor: 0,
-                },
-            },
+type Story = StoryObj<typeof PhetSimulation>;
+
+// Story showing the PhetSimulation component directly
+export const Default: Story = {
+    args: {
+        url: "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html",
+        description: "Projectile Data Lab",
+        apiOptions: {
+            ...ApiOptions.defaults,
+            isMobileApp: false,
         },
-    };
-};
-
-export const Primary = (args: any): React.ReactElement => {
-    const question = createPhETSimulation(
-        "https://phet.colorado.edu/sims/html/projectile-data-lab/latest/projectile-data-lab_all.html",
-        "Projectile Data Lab",
-    );
-
-    return (
-        <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({question})}
-            title="PhET Simulation"
-        />
-    );
+    },
 };
