@@ -192,12 +192,12 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         this.props.onChange({choices: choices});
     };
 
-    onrationaleChange(choiceIndex: number, newrationale: string): void {
+    onRationaleChange(choiceIndex: number, newRationale: string): void {
         const choices = this.props.choices.slice();
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-            rationale: newrationale,
+            rationale: newRationale,
         });
-        if (newrationale === "") {
+        if (newRationale === "") {
             delete choices[choiceIndex].rationale;
         }
         this.props.onChange({choices: choices});
@@ -373,7 +373,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                                     }}
                                     onRationaleChange={(newProps) => {
                                         if (newProps.content != null) {
-                                            this.onrationaleChange(
+                                            this.onRationaleChange(
                                                 i,
                                                 newProps.content,
                                             );
