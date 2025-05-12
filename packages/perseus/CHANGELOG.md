@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 61.2.1
+
+### Patch Changes
+
+-   [#2458](https://github.com/Khan/perseus/pull/2458) [`a87ba4e37`](https://github.com/Khan/perseus/commit/a87ba4e3762bd8b5d670a6320f3d8190f2e0da29) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests and stories for Answerless Grapher with minor refactoring
+
+-   Updated dependencies [[`a87ba4e37`](https://github.com/Khan/perseus/commit/a87ba4e3762bd8b5d670a6320f3d8190f2e0da29)]:
+    -   @khanacademy/perseus-core@10.1.0
+    -   @khanacademy/keypad-context@3.0.8
+    -   @khanacademy/kmath@2.0.8
+    -   @khanacademy/math-input@25.1.3
+    -   @khanacademy/perseus-linter@3.0.8
+    -   @khanacademy/perseus-score@5.0.5
+
 ## 61.2.0
 
 ### Minor Changes

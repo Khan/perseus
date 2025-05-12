@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 10.1.0
+
+### Minor Changes
+
+-   [#2458](https://github.com/Khan/perseus/pull/2458) [`a87ba4e37`](https://github.com/Khan/perseus/commit/a87ba4e3762bd8b5d670a6320f3d8190f2e0da29) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests and stories for Answerless Grapher with minor refactoring
+
 ## 10.0.0
 
 ### Major Changes

@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 20.2.2
+
+### Patch Changes
+
+-   [#2444](https://github.com/Khan/perseus/pull/2444) [`8a7eb469b`](https://github.com/Khan/perseus/commit/8a7eb469b8e6f1d52fa5e06d9b5d57917e633a6b) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixing OrdererEditor so that it properly returns fully updated options onOptionsChange.
+
+-   Updated dependencies [[`a87ba4e37`](https://github.com/Khan/perseus/commit/a87ba4e3762bd8b5d670a6320f3d8190f2e0da29)]:
+    -   @khanacademy/perseus-core@10.1.0
+    -   @khanacademy/perseus@61.2.1
+    -   @khanacademy/keypad-context@3.0.8
+    -   @khanacademy/kmath@2.0.8
+    -   @khanacademy/math-input@25.1.3
+    -   @khanacademy/perseus-linter@3.0.8
+    -   @khanacademy/perseus-score@5.0.5
+
 ## 20.2.1
 
 ### Patch Changes
