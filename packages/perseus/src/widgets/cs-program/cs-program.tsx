@@ -73,6 +73,11 @@ class CSProgram extends React.Component<Props> implements Widget {
     handleMessageEvent: (e: MessageEvent) => void = (e) => {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
+        // eslint-disable-next-line no-console
+        console.log("e.source", e.source);
+        // eslint-disable-next-line no-console
+        console.log("contentWindow", this.iframeElement?.contentWindow);
+
         if (
             !this.iframeElement ||
             e.source !== this.iframeElement.contentWindow
