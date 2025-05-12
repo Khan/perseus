@@ -1,6 +1,6 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
@@ -93,11 +93,15 @@ const RadioComponent = (props: Props) => {
     const context = useContext(PerseusI18nContext);
     const {strings} = context;
 
-    // TODO THIRD: Remove this
-    // eslint-disable-next-line no-console
-    console.log("New Radio Component");
+    useEffect(() => {
+        // This is temporary to confirm that we're using the new radio component.
+        // TODO(LEMS-2994): Remove this console.log
+        // eslint-disable-next-line no-console
+        console.log("New Radio Component");
+    }, []);
 
-    // The renderer function for content rendering
+    // The renderer function for content rendering, which currently
+    // only supports passage-ref subwidgets.
     // TODO THIRD: This should probably be a util function
     const renderRenderer = (content = ""): React.ReactElement => {
         let nextPassageRefId = 1;
@@ -189,7 +193,6 @@ const RadioComponent = (props: Props) => {
         trackInteraction();
     };
 
-    // TODO THIRD: This should probably be a util function
     const getChoiceStates = (): ReadonlyArray<ChoiceState> => {
         // The default state for a choice state object.
         const defaultState: ChoiceState = {
@@ -235,7 +238,6 @@ const RadioComponent = (props: Props) => {
         return choices.map(() => ({...defaultState}));
     };
 
-    // TODO THIRD: This should probably be a util function
     const buildChoiceProps = (
         choices: readonly RadioChoiceWithMetadata[],
         choiceStates: ReadonlyArray<ChoiceState>,
