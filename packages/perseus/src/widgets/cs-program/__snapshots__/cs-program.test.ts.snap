@@ -24,6 +24,7 @@ exports[`cs-program widget should snapshot on mobile: first mobile render 1`] = 
               sandbox="allow-popups allow-same-origin allow-scripts allow-top-navigation"
               src="http://localhost:8081/computer-programming/program/6293105639817216/embedded?embed=yes&author=no&editor=no&width=688&buttons=no&settings=%7B%7D"
               style="height: 540px; width: 100%;"
+              title="CS Program"
             />
           </div>
         </div>
@@ -57,6 +58,7 @@ exports[`cs-program widget should snapshot: first render 1`] = `
               sandbox="allow-popups allow-same-origin allow-scripts allow-top-navigation"
               src="http://localhost:8081/computer-programming/program/6293105639817216/embedded?embed=yes&author=no&editor=no&width=688&buttons=no&settings=%7B%7D"
               style="height: 540px; width: 100%;"
+              title="CS Program"
             />
           </div>
         </div>
