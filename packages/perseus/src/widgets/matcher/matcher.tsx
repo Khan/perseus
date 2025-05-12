@@ -1,4 +1,4 @@
-import {MatcherPublicWidgetOptions, shuffleMatcher} from "@khanacademy/perseus-core";
+import {shuffleMatcher} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {CircularSpinner} from "@khanacademy/wonder-blocks-progress-spinner";
 import {StyleSheet, css} from "aphrodite";
@@ -12,15 +12,12 @@ import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 
 import type {SortableOption} from "../../components/sortable";
-import type {
-    WidgetExports,
-    Widget,
-    UniversalWidgetProps,
-} from "../../types";
+import type {WidgetExports, Widget, UniversalWidgetProps} from "../../types";
 import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 import type {
     PerseusMatcherWidgetOptions,
     PerseusMatcherUserInput,
+    MatcherPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
