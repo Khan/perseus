@@ -3,49 +3,57 @@ import getMatcherPublicWidgetOptions from "./matcher-util";
 import type {PerseusMatcherWidgetOptions} from "../../data-schema";
 
 describe("getMatcherPublicWidgetOptions", () => {
-    it("should return a shuffled right array when order doesn't matter to remove the correct order information", () => {
+    it("sorts the right-hand column, leaving the first item in place, when orderMatters is false", () => {
         // Arrange
         const options: PerseusMatcherWidgetOptions = {
             labels: ["**Claims**", "**Evidence**"],
             padding: true,
             orderMatters: false,
             left: ["Fuel", "Plate", "Hydrogen", "Average", "Billion"],
-            right: ["Stars", "Earth", "Life", "Rapid", "Milky Way"],
+            right: ["Stars", "Rapid", "Milky Way", "Earth", "Life"],
         };
 
         // Act
         const publicWidgetOptions = getMatcherPublicWidgetOptions(options);
 
         // Assert
-        expect(publicWidgetOptions.left).toEqual(options.left);
-        expect(new Set(publicWidgetOptions.right)).toEqual(
-            new Set(options.right),
-        );
-        expect(publicWidgetOptions.right).not.toEqual(options.right);
+        expect(publicWidgetOptions.left).toEqual(options.left)
+        expect(publicWidgetOptions.right).toEqual([
+            "Stars",
+            "Earth",
+            "Life",
+            "Milky Way",
+            "Rapid"
+        ])
     });
 
-    it("should return shuffled left and right arrays when order matters to remove the correct order information", () => {
+    it("sorts both columns, leaving the first items in place, when orderMatters is true", () => {
         // Arrange
         const options: PerseusMatcherWidgetOptions = {
             labels: ["**Claims**", "**Evidence**"],
             padding: true,
             orderMatters: true,
             left: ["Fuel", "Plate", "Hydrogen", "Average", "Billion"],
-            right: ["Stars", "Earth", "Life", "Rapid", "Milky Way"],
+            right: ["Stars", "Milky Way", "Earth", "Rapid", "Life"],
         };
 
         // Act
         const publicWidgetOptions = getMatcherPublicWidgetOptions(options);
 
         // Assert
-        expect(new Set(publicWidgetOptions.left)).toEqual(
-            new Set(options.left),
-        );
-        expect(publicWidgetOptions.left).not.toEqual(options.left);
-
-        expect(new Set(publicWidgetOptions.right)).toEqual(
-            new Set(options.right),
-        );
-        expect(publicWidgetOptions.right).not.toEqual(options.right);
+        expect(publicWidgetOptions.left).toEqual([
+            "Fuel",
+            "Average",
+            "Billion",
+            "Hydrogen",
+            "Plate",
+        ])
+        expect(publicWidgetOptions.right).toEqual([
+            "Stars",
+            "Earth",
+            "Life",
+            "Milky Way",
+            "Rapid",
+        ])
     });
 });

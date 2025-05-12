@@ -48,26 +48,15 @@ type MatcherPublicWidgetOptions = {
 function getMatcherPublicWidgetOptions(
     options: PerseusMatcherWidgetOptions,
 ): MatcherPublicWidgetOptions {
-    // Use the same random() function to shuffle both columns sequentially
-    let left;
-    if (!options.orderMatters) {
-        // If the order doesn't matter, don't shuffle the left column
-        left = options.left;
-    } else {
-        left = shuffle(options.left, Math.random, /* ensurePermuted */ true);
-    }
-
-    const right = shuffle(
-        options.right,
-        Math.random,
-        /* ensurePermuted */ true,
-    );
-
     return {
         ...options,
-        left: left,
-        right: right,
+        left: options.orderMatters ? sortAllButFirst(options.left) : options.left,
+        right: sortAllButFirst(options.right),
     };
+}
+
+function sortAllButFirst([first, ...rest]: readonly string[]): string[] {
+    return [first, ...rest.sort()]
 }
 
 export default getMatcherPublicWidgetOptions;
