@@ -24,12 +24,12 @@ type PropsWithForwardRef = Props & WithForwardRef;
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-const ChoiceNoneAbove = function ({
+const ChoiceNoneAbove = ({
     content,
     forwardedRef,
     showContent = true,
     ...rest
-}: PropsWithForwardRef): React.ReactElement {
+}: PropsWithForwardRef): React.ReactElement => {
     const {strings} = usePerseusI18n();
 
     const choiceProps = {

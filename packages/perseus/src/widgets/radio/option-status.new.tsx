@@ -58,10 +58,13 @@ function renderText(
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-const OptionStatus = function (props: Props): React.ReactElement {
-    const {checked, correct, crossedOut, previouslyAnswered, reviewMode} =
-        props;
-
+const OptionStatus = ({
+    checked,
+    correct,
+    crossedOut,
+    previouslyAnswered,
+    reviewMode,
+}: Props): React.ReactElement => {
     const {strings} = usePerseusI18n();
 
     // Option status is shown only in review mode, or for incorrectly

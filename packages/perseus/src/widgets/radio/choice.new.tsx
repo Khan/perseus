@@ -76,27 +76,23 @@ type ChoicePropsWithForwardRef = ChoiceProps & WithForwardRef;
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
-    const {
-        disabled = false,
-        checked = false,
-        content,
-        crossedOut,
-        showCorrectness,
-        multipleSelect,
-        onChange = (newValues: {
-            checked: boolean;
-            crossedOut: boolean;
-        }): void => {},
-        reviewMode,
-        correct = false,
-        apiOptions = ApiOptions.defaults,
-        previouslyAnswered = false,
-        pos = 0,
-        showRationale = false,
-        rationale,
-        forwardedRef,
-    } = props;
+const Choice = ({
+    disabled = false,
+    checked = false,
+    content,
+    crossedOut,
+    showCorrectness,
+    multipleSelect,
+    onChange = (newValues: {checked: boolean; crossedOut: boolean}): void => {},
+    reviewMode,
+    correct = false,
+    apiOptions = ApiOptions.defaults,
+    previouslyAnswered = false,
+    pos = 0,
+    showRationale = false,
+    rationale,
+    forwardedRef,
+}: ChoicePropsWithForwardRef): React.ReactElement => {
     const [isInputFocused, setIsInputFocused] = useState(false);
 
     const {strings} = usePerseusI18n();

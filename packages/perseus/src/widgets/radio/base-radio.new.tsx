@@ -100,7 +100,7 @@ function getInstructionsText(
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-const BaseRadio = function ({
+const BaseRadio = ({
     apiOptions,
     reviewModeRubric,
     reviewMode,
@@ -112,7 +112,7 @@ const BaseRadio = function ({
     numCorrect,
     isLastUsedWidget,
     onChange,
-}: Props): React.ReactElement {
+}: Props): React.ReactElement => {
     const {strings} = usePerseusI18n();
 
     // useEffect doesn't have previous props
