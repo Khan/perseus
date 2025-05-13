@@ -17,8 +17,12 @@ import type {
     PerseusRadioRubric,
 } from "@khanacademy/perseus-core";
 
-// RenderProps is the return type for radio.jsx#transform
-export type RenderProps = {
+export interface RadioChoiceWithMetadata extends PerseusRadioChoice {
+    originalIndex: number;
+    correct?: boolean;
+}
+
+export interface RenderProps {
     numCorrect: number;
     hasNoneOfTheAbove?: boolean;
     multipleSelect?: boolean;
@@ -31,28 +35,19 @@ export type RenderProps = {
     // Depreciated; support for legacy way of handling changes
     // Adds proptype for prop that is used but was lacking type
     values?: ReadonlyArray<boolean>;
-};
+}
 
-type Props = WidgetProps<RenderProps, PerseusRadioRubric>;
+type RadioComponentProps = WidgetProps<RenderProps, PerseusRadioRubric>;
 
-type DefaultProps = Required<
-    Pick<
-        Props,
-        | "choices"
-        | "multipleSelect"
-        | "countChoices"
-        | "deselectEnabled"
-        | "linterContext"
-        | "showSolutions"
-    >
->;
+interface DefaultProps {
+    choices: ReadonlyArray<RadioChoiceWithMetadata>;
+    multipleSelect: boolean;
+    countChoices: boolean;
+    deselectEnabled: boolean;
+    linterContext: typeof linterContextDefault;
+    showSolutions: ShowSolutions;
+}
 
-export type RadioChoiceWithMetadata = PerseusRadioChoice & {
-    originalIndex: number;
-    correct?: boolean;
-};
-
-// Default props that were previously static
 const defaultProps: DefaultProps = {
     choices: [],
     multipleSelect: false,
@@ -70,7 +65,7 @@ const defaultProps: DefaultProps = {
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-const RadioComponent = (props: Props) => {
+const RadioComponent = (props: RadioComponentProps) => {
     const {
         choices,
         multipleSelect = defaultProps.multipleSelect,
