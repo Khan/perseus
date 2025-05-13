@@ -55,8 +55,6 @@ function getMatcherPublicWidgetOptions(
 }
 
 function sortAllButFirst([first, ...rest]: readonly string[]): string[] {
-    // The array mutated by sort() can't be referenced elsewhere, so this is safe.
-    // eslint-disable-next-line functional/immutable-data
     return [first, ...rest.sort()];
 }
 

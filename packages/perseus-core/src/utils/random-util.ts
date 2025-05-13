@@ -76,7 +76,6 @@ function shuffleInPlace<T>(a: T[], random: RNG): void {
     // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
     for (let i = a.length - 1; i > 0; i--) {
         const k = randomIntInRange(0, i, random);
-        // eslint-disable-next-line functional/immutable-data
         [a[k], a[i]] = [a[i], a[k]];
     }
 }
