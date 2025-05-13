@@ -307,6 +307,64 @@ export const multiChoiceQuestionSimple: PerseusRenderer = {
     },
 };
 
+export const multiChoiceQuestionSimpleOverflowContent: PerseusRenderer = {
+    content: "Which are the same as the number 75?\n\n[[\u2603 radio 1]]",
+    images: {},
+    widgets: {
+        "radio 1": {
+            graded: true,
+            version: {
+                major: 1,
+                minor: 0,
+            },
+            static: false,
+            type: "radio",
+            options: {
+                onePerLine: true,
+                displayCount: null,
+                choices: [
+                    {
+                        content:
+                            "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
+                        isNoneOfTheAbove: false,
+                        correct: true,
+                        clue: "Add the following numbers to get 75.",
+                    },
+                    {
+                        content:
+                            "$5+4+1+9+1+2+2+2+2+2+3+3+3+1+4+4+2+5+5+10+3+2$",
+                        isNoneOfTheAbove: false,
+                        correct: true,
+                        clue: "Add the following numbers to get 75.",
+                    },
+                    {
+                        content: "$10+10+10+10+10+10+10+5$",
+                        isNoneOfTheAbove: false,
+                        correct: true,
+                        clue: "Add the following numbers to get 75.",
+                    },
+                    {
+                        content: "$10+10+10+10+10+10+10+3+2$",
+                        isNoneOfTheAbove: false,
+                        correct: false,
+                        clue: "Add the following numbers to get 75.",
+                    },
+                    {
+                        content: "None of these",
+                        isNoneOfTheAbove: true,
+                        correct: false,
+                    },
+                ],
+                hasNoneOfTheAbove: true,
+                multipleSelect: true,
+                randomize: false,
+                deselectEnabled: false,
+            },
+            alignment: "default",
+        } as RadioWidget,
+    },
+};
+
 export const multiChoiceQuestionAndAnswer: [
     PerseusRenderer,
     ReadonlyArray<number>,

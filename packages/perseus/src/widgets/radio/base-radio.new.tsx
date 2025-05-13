@@ -11,6 +11,7 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
+import ScrollableView from "../../components/scrollable-view";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import * as styleConstants from "../../styles/constants";
 import mediaQueries from "../../styles/media-queries";
@@ -248,145 +249,155 @@ const BaseRadio = function ({
             <div className={instructionsClassName} aria-hidden="true">
                 {instructions}
             </div>
-            <ul className={className} style={{listStyle: "none"}}>
-                {choices.map((choice, i) => {
-                    let Element = Choice;
-                    const ref = React.createRef<any>();
-                    // @ts-expect-error - TS2322 - Type 'RefObject<unknown>' is not assignable to type 'never'.
-                    choiceRefs.current[i] = ref;
-                    const elementProps = {
-                        apiOptions: apiOptions,
-                        multipleSelect: multipleSelect,
-                        checked: choice.checked,
-                        crossedOut: choice.crossedOut,
-                        previouslyAnswered: choice.previouslyAnswered,
-                        reviewMode,
-                        correct: choice.correct,
-                        rationale: choice.rationale,
-                        content: choice.content,
-                        disabled: apiOptions.readOnly || choice.disabled,
-                        showCorrectness: reviewMode || !!choice.showCorrectness,
-                        showRationale:
-                            choice.hasRationale &&
-                            (reviewMode || choice.showRationale),
-                        pos: i,
-                        onChange: (newValues) => {
-                            // editMode selection is handled in clickHandler
-                            if (editMode) {
-                                return;
-                            }
-
-                            updateChoice(i, newValues);
-                        },
-                    } as const;
-
-                    if (choice.isNoneOfTheAbove) {
-                        Element = ChoiceNoneAbove;
-                        _.extend(elementProps, {
-                            showContent: choice.revealNoneOfTheAbove,
-                        });
-                    }
-
-                    const nextChoice = choices[i + 1];
-                    const nextChoiceHighlighted =
-                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                        !!nextChoice && nextChoice.highlighted;
-
-                    const aphroditeClassName = (checked: boolean) => {
-                        // Whether or not to show correctness borders
-                        // for this choice and the next choice.
-                        return css(
-                            styles.item,
-                            styles.responsiveItem,
-                            checked && styles.selectedItem,
-                            checked &&
-                                choice.highlighted &&
-                                styles.aboveBackdrop,
-                            checked &&
-                                choice.highlighted &&
-                                apiOptions.isMobile &&
-                                styles.aboveBackdropMobile,
-                            nextChoiceHighlighted &&
-                                apiOptions.isMobile &&
-                                styles.nextHighlighted,
-                        );
-                    };
-
-                    // HACK(abdulrahman): Preloads the selection-state
-                    // css because of a bug that causes iOS to lag
-                    // when selecting the button for the first time.
-                    aphroditeClassName(true);
-
-                    let correctnessClass;
-                    // reviewMode is only true if there's a rubric
-                    // but TypeScript doesn't understand that
-                    if (reviewMode && reviewModeRubric) {
-                        correctnessClass = reviewModeRubric.choices[i].correct
-                            ? ApiClassNames.CORRECT
-                            : ApiClassNames.INCORRECT;
-                    }
-                    const className = classNames(
-                        aphroditeClassName(choice.checked),
-                        // TODO(aria): Make test case for these API
-                        // classNames
-                        ApiClassNames.RADIO.OPTION,
-                        choice.checked && ApiClassNames.RADIO.SELECTED,
-                        correctnessClass,
-                    );
-
-                    // In edit mode, the Choice renders a Div in order to
-                    // allow for the contentEditable area to be selected
-                    // (label forces any clicks inside to select the input
-                    // element) We have to add some extra behavior to make
-                    // sure that we can still check the choice.
-                    let listElem: HTMLLIElement | null = null;
-                    let clickHandler:
-                        | React.MouseEventHandler<HTMLLIElement>
-                        | undefined;
-                    if (editMode) {
-                        clickHandler = (e: any) => {
-                            // Traverse the parent nodes of the clicked
-                            // element.
-                            let elem = e.target;
-                            while (elem && elem !== listElem) {
-                                // If the clicked element is inside of the
-                                // radio icon, then we want to trigger the
-                                // check by flipping the choice of the icon.
-                                if (elem.getAttribute("data-is-radio-icon")) {
-                                    updateChoice(i, {
-                                        checked: !choice.checked,
-                                        crossedOut: choice.crossedOut,
-                                    });
+            <ScrollableView
+                aria-label={"radio widget scrollable view"}
+                x="auto"
+                showScrollButtons={true}
+            >
+                <ul className={className} style={styles.fieldSetContent}>
+                    {choices.map((choice, i) => {
+                        let Element = Choice;
+                        const ref = React.createRef<any>();
+                        // @ts-expect-error - TS2322 - Type 'RefObject<unknown>' is not assignable to type 'never'.
+                        choiceRefs.current[i] = ref;
+                        const elementProps = {
+                            apiOptions: apiOptions,
+                            multipleSelect: multipleSelect,
+                            checked: choice.checked,
+                            crossedOut: choice.crossedOut,
+                            previouslyAnswered: choice.previouslyAnswered,
+                            reviewMode,
+                            correct: choice.correct,
+                            rationale: choice.rationale,
+                            content: choice.content,
+                            disabled: apiOptions.readOnly || choice.disabled,
+                            showCorrectness:
+                                reviewMode || !!choice.showCorrectness,
+                            showRationale:
+                                choice.hasRationale &&
+                                (reviewMode || choice.showRationale),
+                            pos: i,
+                            onChange: (newValues) => {
+                                // editMode selection is handled in clickHandler
+                                if (editMode) {
                                     return;
                                 }
-                                elem = elem.parentNode;
-                            }
-                        };
-                    }
 
-                    // TODO(mattdr): Index isn't a *good* choice of key
-                    // here; is there a better one? Can we use choice
-                    // content somehow? Would changing our choice of key
-                    // somehow break something happening inside a choice's
-                    // child Renderers, by changing when we mount/unmount?
-                    return (
-                        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
-                        <li
-                            key={i}
-                            ref={(e) => (listElem = e)}
-                            className={className}
-                            onClick={clickHandler}
-                            onTouchStart={
-                                labelWrap
-                                    ? undefined
-                                    : captureScratchpadTouchStart
-                            }
-                        >
-                            <Element {...elementProps} ref={ref} />
-                        </li>
-                    );
-                })}
-            </ul>
+                                updateChoice(i, newValues);
+                            },
+                        } as const;
+
+                        if (choice.isNoneOfTheAbove) {
+                            Element = ChoiceNoneAbove;
+                            _.extend(elementProps, {
+                                showContent: choice.revealNoneOfTheAbove,
+                            });
+                        }
+
+                        const nextChoice = choices[i + 1];
+                        const nextChoiceHighlighted =
+                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+                            !!nextChoice && nextChoice.highlighted;
+
+                        const aphroditeClassName = (checked: boolean) => {
+                            // Whether or not to show correctness borders
+                            // for this choice and the next choice.
+                            return css(
+                                styles.item,
+                                styles.responsiveItem,
+                                checked && styles.selectedItem,
+                                checked &&
+                                    choice.highlighted &&
+                                    styles.aboveBackdrop,
+                                checked &&
+                                    choice.highlighted &&
+                                    apiOptions.isMobile &&
+                                    styles.aboveBackdropMobile,
+                                nextChoiceHighlighted &&
+                                    apiOptions.isMobile &&
+                                    styles.nextHighlighted,
+                            );
+                        };
+
+                        // HACK(abdulrahman): Preloads the selection-state
+                        // css because of a bug that causes iOS to lag
+                        // when selecting the button for the first time.
+                        aphroditeClassName(true);
+
+                        let correctnessClass;
+                        // reviewMode is only true if there's a rubric
+                        // but TypeScript doesn't understand that
+                        if (reviewMode && reviewModeRubric) {
+                            correctnessClass = reviewModeRubric.choices[i]
+                                .correct
+                                ? ApiClassNames.CORRECT
+                                : ApiClassNames.INCORRECT;
+                        }
+                        const className = classNames(
+                            aphroditeClassName(choice.checked),
+                            // TODO(aria): Make test case for these API
+                            // classNames
+                            ApiClassNames.RADIO.OPTION,
+                            choice.checked && ApiClassNames.RADIO.SELECTED,
+                            correctnessClass,
+                        );
+
+                        // In edit mode, the Choice renders a Div in order to
+                        // allow for the contentEditable area to be selected
+                        // (label forces any clicks inside to select the input
+                        // element) We have to add some extra behavior to make
+                        // sure that we can still check the choice.
+                        let listElem: HTMLLIElement | null = null;
+                        let clickHandler:
+                            | React.MouseEventHandler<HTMLLIElement>
+                            | undefined;
+                        if (editMode) {
+                            clickHandler = (e: any) => {
+                                // Traverse the parent nodes of the clicked
+                                // element.
+                                let elem = e.target;
+                                while (elem && elem !== listElem) {
+                                    // If the clicked element is inside of the
+                                    // radio icon, then we want to trigger the
+                                    // check by flipping the choice of the icon.
+                                    if (
+                                        elem.getAttribute("data-is-radio-icon")
+                                    ) {
+                                        updateChoice(i, {
+                                            checked: !choice.checked,
+                                            crossedOut: choice.crossedOut,
+                                        });
+                                        return;
+                                    }
+                                    elem = elem.parentNode;
+                                }
+                            };
+                        }
+
+                        // TODO(mattdr): Index isn't a *good* choice of key
+                        // here; is there a better one? Can we use choice
+                        // content somehow? Would changing our choice of key
+                        // somehow break something happening inside a choice's
+                        // child Renderers, by changing when we mount/unmount?
+                        return (
+                            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
+                            <li
+                                key={i}
+                                ref={(e) => (listElem = e)}
+                                className={className}
+                                onClick={clickHandler}
+                                onTouchStart={
+                                    labelWrap
+                                        ? undefined
+                                        : captureScratchpadTouchStart
+                                }
+                            >
+                                <Element {...elementProps} ref={ref} />
+                            </li>
+                        );
+                    })}
+                </ul>
+            </ScrollableView>
         </fieldset>
     );
 
@@ -426,13 +437,20 @@ const styles: StyleDeclaration = StyleSheet.create({
     },
 
     responsiveRadioContainer: {
+        display: "inline-block",
+        minWidth: "max-content",
+        width: "100%",
         borderBottom: `1px solid ${styleConstants.radioBorderColor}`,
         borderTop: `1px solid ${styleConstants.radioBorderColor}`,
-        width: "auto",
+        scrollbarWidth: "thin",
         [mediaQueries.smOrSmaller]: {
             marginLeft: styleConstants.negativePhoneMargin,
             marginRight: styleConstants.negativePhoneMargin,
         },
+    },
+
+    fieldSetContent: {
+        listStyle: "none",
     },
 
     radioContainerFirstHighlighted: {

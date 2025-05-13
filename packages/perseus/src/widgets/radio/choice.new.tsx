@@ -4,12 +4,11 @@ import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {color, sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import {useState, useEffect} from "react";
-import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import Icon from "../../components/icon";
@@ -146,22 +145,11 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
     );
 
     return (
-        <div
-            style={{
-                // @ts-expect-error - TS2322 - Type '{ dispay: string; flexDirection: "column"; color: string; }' is not assignable to type 'Properties<string | number, string & {}>'.
-                dispay: "flex",
-                flexDirection: "column",
-                color: color.offBlack,
-            }}
-            className={descriptionClassName}
-        >
+        <div className={descriptionClassName}>
             <div
                 style={{
                     display: "flex",
-                    flexDirection: "row",
                     opacity: showDimmed ? 0.5 : 1.0,
-                    overflowX: "auto",
-                    overflowY: "hidden",
                 }}
             >
                 <div className="perseus-sr-only">
@@ -206,30 +194,46 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                                 flexDirection: "row",
                                 justifyContent: "center",
                                 alignContent: "center",
-                                paddingTop: spacing.xSmall_8,
-                                paddingBottom: spacing.xSmall_8,
-                                paddingLeft: spacing.xSmall_8,
+                                paddingTop: sizing.size_080,
+                                paddingBottom: sizing.size_080,
+                                paddingLeft: sizing.size_080,
+                                alignItems: "flex-start",
+                                position: "relative",
+                                backgroundColor: color.white64,
+                                minWidth: "100%",
                             }}
                         >
-                            <ChoiceIcon
-                                pos={pos}
-                                correct={correct}
-                                crossedOut={crossedOut}
-                                pressed={pressed}
-                                focused={focused}
-                                checked={checked}
-                                hovered={hovered}
-                                showCorrectness={showCorrectness}
-                                multipleSelect={multipleSelect}
-                                reviewMode={reviewMode}
-                                previouslyAnswered={previouslyAnswered}
-                            />
+                            <div
+                                style={{
+                                    flex: "0 0 30px",
+                                    position: "sticky",
+                                    left: 0,
+                                    backgroundColor:
+                                        "linear-gradient(to right, white 70% rba(255,255,255, 0.8) 100%)",
+                                    zIndex: 1,
+                                }}
+                            >
+                                <ChoiceIcon
+                                    pos={pos}
+                                    correct={correct}
+                                    crossedOut={crossedOut}
+                                    pressed={pressed}
+                                    focused={focused}
+                                    checked={checked}
+                                    hovered={hovered}
+                                    showCorrectness={showCorrectness}
+                                    multipleSelect={multipleSelect}
+                                    reviewMode={reviewMode}
+                                    previouslyAnswered={previouslyAnswered}
+                                />
+                            </div>
                             <span
                                 style={{
-                                    paddingLeft: spacing.small_12,
+                                    paddingLeft: sizing.size_120,
                                     textAlign: "left",
                                     flex: 1,
-                                    paddingTop: 4,
+                                    paddingTop: sizing.size_040,
+                                    minWidth: 0,
                                 }}
                             >
                                 <div>
@@ -340,6 +344,8 @@ const styles = StyleSheet.create({
     description: {
         display: "inline-block",
         width: "100%",
+        flexDirection: "column",
+        color: color.offBlack,
     },
 
     rationale: {

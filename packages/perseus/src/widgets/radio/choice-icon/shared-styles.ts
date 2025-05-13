@@ -1,3 +1,4 @@
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 
 import type {StyleDeclaration} from "aphrodite";
@@ -8,6 +9,7 @@ const styles: StyleDeclaration = StyleSheet.create({
     iconWrapper: {
         display: "inline-block",
         position: "relative",
+        backgroundColor: color.white,
     },
 });
 
