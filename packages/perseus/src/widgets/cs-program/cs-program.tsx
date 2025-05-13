@@ -71,8 +71,6 @@ class CSProgram extends React.Component<Props> implements Widget {
     }
 
     handleMessageEvent: (e: MessageEvent) => void = (e) => {
-        // We receive data from the iframe that contains {passed: true/false}
-        //  and use that to set the status
         if (
             !this.iframeElement ||
             e.source !== this.iframeElement.contentWindow
@@ -80,6 +78,8 @@ class CSProgram extends React.Component<Props> implements Widget {
             return;
         }
 
+        // We receive data from the iframe that contains {passed: true/false}
+        //  and use that to set the status
         // It could also contain an optional message
         let data: Record<string, any> = {};
         try {
