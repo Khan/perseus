@@ -109,13 +109,9 @@ describe("matcher widget", () => {
         ["answerful", answerfulItem],
         ["answerless", answerlessItem],
     ])("given an %s item", (_, {question}) => {
-        it("can be answered correctly", async () => {
+        it("can be answered correctly", () => {
             // Arrange
-            const apiOptions: APIOptions = {
-                isMobile: false,
-            };
-            const {renderer} = renderQuestion(question, apiOptions);
-            await wait();
+            const {renderer} = renderQuestion(question);
 
             // Act
             const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
@@ -140,13 +136,9 @@ describe("matcher widget", () => {
             expect(score).toHaveBeenAnsweredCorrectly();
         });
 
-        it("can be answered incorrectly", async () => {
+        it("can be answered incorrectly", () => {
             // Arrange
-            const apiOptions: APIOptions = {
-                isMobile: false,
-            };
-            const {renderer} = renderQuestion(question, apiOptions);
-            await wait();
+            const {renderer} = renderQuestion(question);
 
             // Act
             const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
@@ -181,10 +173,7 @@ describe("matcher widget", () => {
             });
 
             // Act
-            const apiOptions: APIOptions = {
-                isMobile: false,
-            };
-            const {renderer} = renderQuestion(question, apiOptions);
+            const {renderer} = renderQuestion(question);
             const score = scorePerseusItemTesting(
                 answerfulItem.question,
                 renderer.getUserInputMap(),
