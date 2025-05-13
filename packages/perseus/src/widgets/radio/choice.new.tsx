@@ -16,10 +16,9 @@ import Icon from "../../components/icon";
 import {ApiOptions, ClassNames} from "../../perseus-api";
 import mediaQueries from "../../styles/media-queries";
 
-import getA11yText from "./choice-a11y-text.new";
 import ChoiceIcon from "./choice-icon/choice-icon.new";
 import OptionStatus from "./option-status.new";
-import {getChoiceLetter} from "./util";
+import {getChoiceLetter, getA11yText} from "./util";
 
 import type {APIOptions} from "../../types";
 

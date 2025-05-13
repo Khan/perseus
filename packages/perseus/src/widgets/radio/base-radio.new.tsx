@@ -1,8 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {
-    usesNumCorrect,
-    type PerseusRadioWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {type PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -19,8 +16,8 @@ import {scrollElementIntoView} from "../../util/scroll-utils";
 
 import ChoiceNoneAbove from "./choice-none-above.new";
 import Choice from "./choice.new";
+import {getInstructionsText} from "./util";
 
-import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
 import type {StyleDeclaration} from "aphrodite";
 
@@ -69,26 +66,6 @@ type Props = {
     // entering review mode.
     isLastUsedWidget?: boolean;
 };
-
-function getInstructionsText(
-    multipleSelect: boolean,
-    countChoices: boolean | null | undefined,
-    numCorrect: number,
-    strings: PerseusStrings,
-): string {
-    if (multipleSelect) {
-        // using usesNumCorrect to make sure this logic stays in sync
-        // with getRadioPublicWidgetOptions logic
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (usesNumCorrect(multipleSelect, !!countChoices, numCorrect)) {
-            return strings.chooseNumAnswers({
-                numCorrect: String(numCorrect),
-            });
-        }
-        return strings.chooseAllAnswers;
-    }
-    return strings.chooseOneAnswer;
-}
 
 /**
  * The BaseRadio component is the core component for the radio widget.

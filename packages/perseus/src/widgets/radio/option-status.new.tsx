@@ -12,7 +12,7 @@ import * as React from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 
-import type {PerseusStrings} from "../../strings";
+import {getOptionStatusText} from "./util";
 
 type Props = {
     // Was this option the correct answer?
@@ -25,31 +25,6 @@ type Props = {
     previouslyAnswered: boolean;
     reviewMode: boolean;
 };
-
-function renderText(
-    checked: boolean,
-    correct: boolean,
-    crossedOut: boolean,
-    strings: PerseusStrings,
-): string {
-    if (correct) {
-        // For correct answers, we surface checked _or_ crossedOut state,
-        // because any interaction with the correct answer is noteworthy!
-        if (checked) {
-            return strings.correctSelected;
-        }
-        if (crossedOut) {
-            return strings.correctCrossedOut;
-        }
-        return strings.correct;
-    }
-    // But, for incorrect answers, we only surface checked state,
-    // because crossing out an incorrect answer is not noteworthy.
-    if (checked) {
-        return strings.incorrectSelected;
-    }
-    return strings.incorrect;
-}
 
 /**
  * This component is a duplicate of the OptionStatus component in option-status.tsx
@@ -87,7 +62,7 @@ const OptionStatus = ({
 
     return (
         <div className={css(styles.text, textStyle)}>
-            {renderText(checked, correct, crossedOut, strings)}
+            {getOptionStatusText(checked, correct, crossedOut, strings)}
         </div>
     );
 };
