@@ -33,9 +33,12 @@ describe("shuffle", () => {
     });
 
     it("does not mutate the input array", () => {
-        const input = [1, 2, 3, 4, 5, 6, 7];
-        shuffle(input, 0);
-        expect(input).toEqual([1, 2, 3, 4, 5, 6, 7]);
+        const input = [1, 2, 3];
+        const result = shuffle(input, 0);
+        expect(input).toEqual([1, 2, 3]);
+        // Check that the shuffle permuted the data, to guard against false
+        // passes in the case where the shuffle was a no-op.
+        expect(result).not.toEqual(input);
     });
 
     it("can return the initial order if ensurePermuted is false", () => {
