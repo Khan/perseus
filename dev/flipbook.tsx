@@ -47,7 +47,7 @@ import type {
 import type {PerseusScore} from "../packages/perseus-core/src/validation.types";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-import "../packages/perseus/src/styles/perseus-renderer.less";
+import "../packages/perseus/src/styles/perseus-renderer.css";
 
 const exampleCommands = `
 # copy all questions

@@ -158,9 +158,9 @@ const createConfig = (
                     // to those fonts!
                     publicPath: "assets",
                 },
-                less: {
-                    math: "always",
-                },
+                // less: {
+                //     math: "always",
+                // },
             }),
             swc({
                 swc: {
