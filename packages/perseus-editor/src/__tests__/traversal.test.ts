@@ -272,8 +272,6 @@ describe("Traversal", () => {
     it("should have access to widgets", () => {
         const widgetMap: Record<string, any> = {};
         traverse(sampleOptions, null, (widgetInfo) => {
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             widgetMap[widgetInfo.type] = (widgetMap[widgetInfo.type] || 0) + 1;
         });
         expect(widgetMap).toEqual({
@@ -328,8 +326,6 @@ describe("Traversal", () => {
     it("should be able to see group widgets", () => {
         const widgetMap: Record<string, any> = {};
         traverse(sampleGroup, null, (widgetInfo) => {
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             widgetMap[widgetInfo.type] = (widgetMap[widgetInfo.type] || 0) + 1;
         });
         expect(widgetMap).toEqual({

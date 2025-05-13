@@ -129,8 +129,6 @@ const LockedPointSettings = (props: Props) => {
         };
 
         // Update the color of the all labels to match the point
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         newProps.labels = labels.map((label) => ({
             ...label,
             color: newValue,
@@ -148,8 +146,6 @@ const LockedPointSettings = (props: Props) => {
         };
 
         // Update the coord by the same amount as the point for all labels
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         newProps.labels = labels.map((label) => ({
             ...label,
             coord: [label.coord[0] + xOffset, label.coord[1] + yOffset],
@@ -163,8 +159,6 @@ const LockedPointSettings = (props: Props) => {
         labelIndex: number,
     ) {
         const updatedLabels = [...labels];
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         updatedLabels[labelIndex] = {
             ...labels[labelIndex],
             ...updatedLabel,

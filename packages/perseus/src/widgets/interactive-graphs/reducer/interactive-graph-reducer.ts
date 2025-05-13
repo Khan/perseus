@@ -173,8 +173,6 @@ function doBlurPoint(
             };
 
             if (state.interactionMode === "mouse") {
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 nextState.focusedPointIndex = null;
             }
 
@@ -527,8 +525,6 @@ function doMovePoint(
             // Then, we need to verify that the new coordinates are not on the same
             // vertical line. If they are, then we don't want to move the point
             const newCoords: vec.Vector2[] = [...state.coords];
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             newCoords[action.index] = boundDestination;
             if (newCoords[0][X] === newCoords[1][X]) {
                 return state;
@@ -553,8 +549,6 @@ function doMovePoint(
                 action.destination,
                 state,
             );
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             newCoords[action.index] = boundDestination;
             const QuadraticCoefficients = getQuadraticCoefficients(newCoords);
 
@@ -611,8 +605,6 @@ function doMoveCenter(
                 const xJumpDist = (radX - constrainedCenter[X]) * 2;
                 const possibleNewX = radX - xJumpDist;
                 if (possibleNewX >= xMin && possibleNewX <= xMax) {
-                    // TODO(LEMS-3083): Remove eslint suppression
-                    // eslint-disable-next-line functional/immutable-data
                     newRadiusPoint[X] = possibleNewX;
                 }
             }
@@ -835,18 +827,12 @@ function boundAndSnapAngleVertex(
         angle *= Math.PI / 180;
 
         newPoint = constrainToBoundsOnAngle(newPoint, angle, range, snapStep);
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         newPoints[i] = newPoint;
     }
 
     // Update the vertex after snapping to the snapStep
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     newPoints[1] = newVertex;
     Object.entries(newPoints).forEach(([i, newPoint]) => {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         coordsCopy[i] = newPoint;
     });
     return coordsCopy;
@@ -949,8 +935,6 @@ function boundAndSnapAngleEndPoints(
         range: angleRange,
         point: destinationPoint,
     });
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     coordsCopy[index] = boundPoint;
 
     // Get the vertex of the angle
@@ -1013,8 +997,6 @@ export function calculateAngleSnap(
 
     // Takes the destination point and makes sure it is within the bounds of the graph
     // SnapStep is [0, 0] because we don't want to snap to the grid
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     coordsCopy[index] = bound({
         snapStep: [0, 0],
         range,
@@ -1033,8 +1015,6 @@ export function calculateAngleSnap(
 
     // Round the angles to left and right of the current point
     _.each([-1, 1], function (j) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         angles[rel(j)] = Math.round(angles[rel(j)]);
     });
 
@@ -1052,8 +1032,6 @@ export function calculateAngleSnap(
         angles[rel(1)] - getAngle(-1, 1, 2),
     ];
 
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     innerAngles[2] = 180 - (innerAngles[0] + innerAngles[1]);
 
     // Avoid degenerate triangles
@@ -1149,8 +1127,6 @@ export function calculateSideSnap(
 
     // Round the sides to left and right of the current point
     _.each([0, 1], function (j) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         sides[j] = Math.round(sides[j]);
     });
 
@@ -1222,8 +1198,6 @@ function setAtIndex<A extends any[]>(args: {
 }): A {
     const {array, index, newValue} = args;
     const copy: A = [...array] as A;
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     copy[index] = newValue;
     return copy;
 }

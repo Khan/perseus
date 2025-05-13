@@ -125,15 +125,11 @@ const KhanAnswerTypes = {
             if (options.inexact === undefined) {
                 // If we aren't allowing inexact, ensure that we don't have a
                 // large maxError as well.
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 options.maxError = 0;
             }
             // Allow a small tolerance on maxError, to avoid numerical
             // representation issues (2.3 should be correct for a solution of
             // 2.45 with maxError=0.15).
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             options.maxError = +options.maxError + MAXERROR_EPSILON;
 
             // If percent is an acceptable form, make sure it's the last one
@@ -388,8 +384,6 @@ const KhanAnswerTypes = {
                         }
                         if (approximatesPi) {
                             _.each(possibilities, function (possibility) {
-                                // TODO(LEMS-3083): Remove eslint suppression
-                                // eslint-disable-next-line functional/immutable-data
                                 possibility.piApprox = true;
                             });
                         }
@@ -408,8 +402,6 @@ const KhanAnswerTypes = {
                     }
 
                     possibilities.forEach((possibility) => {
-                        // TODO(LEMS-3083): Remove eslint suppression
-                        // eslint-disable-next-line functional/immutable-data
                         possibility.value *= multiplier;
                     });
                     return possibilities;
@@ -468,12 +460,8 @@ const KhanAnswerTypes = {
 
                     const transformed = forms.decimal(text);
                     transformed.forEach((t) => {
-                        // TODO(LEMS-3083): Remove eslint suppression
-                        // eslint-disable-next-line functional/immutable-data
                         t.exact = hasPercentSign;
                         // @ts-expect-error - TS2532 - Object is possibly 'undefined'.
-                        // TODO(LEMS-3083): Remove eslint suppression
-                        // eslint-disable-next-line functional/immutable-data
                         t.value = t.value / 100;
                     });
                     return transformed;
@@ -600,36 +588,22 @@ const KhanAnswerTypes = {
                                 // If the exact correct number was returned,
                                 // return true
                                 if (exact || options.simplify === "optional") {
-                                    // TODO(LEMS-3083): Remove eslint suppression
-                                    // eslint-disable-next-line functional/immutable-data
                                     score.correct = true;
-                                    // TODO(LEMS-3083): Remove eslint suppression
-                                    // eslint-disable-next-line functional/immutable-data
                                     score.message = options.message || null;
                                     // If the answer is correct, don't say it's
                                     // empty. This happens, for example, with the
                                     // coefficient type where guess === "" but is
                                     // interpreted as "1" which is correct.
-                                    // TODO(LEMS-3083): Remove eslint suppression
-                                    // eslint-disable-next-line functional/immutable-data
                                     score.empty = false;
                                 } else if (form === "percent") {
                                     // Otherwise, an error was returned
-                                    // TODO(LEMS-3083): Remove eslint suppression
-                                    // eslint-disable-next-line functional/immutable-data
                                     score.empty = true;
-                                    // TODO(LEMS-3083): Remove eslint suppression
-                                    // eslint-disable-next-line functional/immutable-data
                                     score.message =
                                         ErrorCodes.MISSING_PERCENT_ERROR;
                                 } else {
                                     if (options.simplify !== "enforced") {
-                                        // TODO(LEMS-3083): Remove eslint suppression
-                                        // eslint-disable-next-line functional/immutable-data
                                         score.empty = true;
                                     }
-                                    // TODO(LEMS-3083): Remove eslint suppression
-                                    // eslint-disable-next-line functional/immutable-data
                                     score.message =
                                         ErrorCodes.NEEDS_TO_BE_SIMPLIFIED_ERROR;
                                 }
@@ -642,11 +616,7 @@ const KhanAnswerTypes = {
                                 piApprox &&
                                 predicate(val, Math.abs(val * 0.001))
                             ) {
-                                // TODO(LEMS-3083): Remove eslint suppression
-                                // eslint-disable-next-line functional/immutable-data
                                 score.empty = true;
-                                // TODO(LEMS-3083): Remove eslint suppression
-                                // eslint-disable-next-line functional/immutable-data
                                 score.message =
                                     ErrorCodes.APPROXIMATED_PI_ERROR;
                             }
@@ -669,11 +639,7 @@ const KhanAnswerTypes = {
                         }
                     });
                     if (!interpretedGuess) {
-                        // TODO(LEMS-3083): Remove eslint suppression
-                        // eslint-disable-next-line functional/immutable-data
                         score.empty = true;
-                        // TODO(LEMS-3083): Remove eslint suppression
-                        // eslint-disable-next-line functional/immutable-data
                         score.message = ErrorCodes.EXTRA_SYMBOLS_ERROR;
                         return score;
                     }
@@ -816,8 +782,6 @@ const KhanAnswerTypes = {
                 // Don't bother parsing an empty input
                 if (!guess) {
                     // @ts-expect-error - TS2540 - Cannot assign to 'empty' because it is a read-only property.
-                    // TODO(LEMS-3083): Remove eslint suppression
-                    // eslint-disable-next-line functional/immutable-data
                     score.empty = true;
                     return score;
                 }
@@ -827,8 +791,6 @@ const KhanAnswerTypes = {
                 // An unsuccessful parse doesn't count as wrong
                 if (!answer.parsed) {
                     // @ts-expect-error - TS2540 - Cannot assign to 'empty' because it is a read-only property.
-                    // TODO(LEMS-3083): Remove eslint suppression
-                    // eslint-disable-next-line functional/immutable-data
                     score.empty = true;
                     return score;
                 }
@@ -847,8 +809,6 @@ const KhanAnswerTypes = {
                 if (result.equal) {
                     // Correct answer
                     // @ts-expect-error - TS2540 - Cannot assign to 'correct' because it is a read-only property.
-                    // TODO(LEMS-3083): Remove eslint suppression
-                    // eslint-disable-next-line functional/immutable-data
                     score.correct = true;
                 } else if (
                     result.wrongVariableNames ||
@@ -860,27 +820,19 @@ const KhanAnswerTypes = {
                     // under the `result.message` condition, but the
                     // KAS messages currently aren't translatable.
                     // @ts-expect-error - TS2540 - Cannot assign to 'ungraded' because it is a read-only property.
-                    // TODO(LEMS-3083): Remove eslint suppression
-                    // eslint-disable-next-line functional/immutable-data
                     score.ungraded = true;
                     // @ts-expect-error - TS2540 - Cannot assign to 'message' because it is a read-only property.
-                    // TODO(LEMS-3083): Remove eslint suppression
-                    // eslint-disable-next-line functional/immutable-data
                     score.message = result.wrongVariableCase
                         ? ErrorCodes.WRONG_CASE_ERROR
                         : ErrorCodes.WRONG_LETTER_ERROR;
                     // Don't tell the use they're "almost there" in this case, that may not be true and isn't helpful.
                     // @ts-expect-error - TS2339 - Property 'suppressAlmostThere' does not exist on type '{ readonly empty: false; readonly correct: false; readonly message: string | null | undefined; readonly guess: any; readonly ungraded: false; }'.
-                    // TODO(LEMS-3083): Remove eslint suppression
-                    // eslint-disable-next-line functional/immutable-data
                     score.suppressAlmostThere = true;
                 } else if (result.message) {
                     // Nearly correct answer
                     // TODO(aasmund): This message also isn't translatable;
                     // need to fix that in KAS
                     // @ts-expect-error - TS2540 - Cannot assign to 'message' because it is a read-only property.
-                    // TODO(LEMS-3083): Remove eslint suppression
-                    // eslint-disable-next-line functional/immutable-data
                     score.message = result.message;
                 } else {
                     // Replace x with * and see if it would have been correct
@@ -903,19 +855,13 @@ const KhanAnswerTypes = {
                         );
                         if (resultX.equal) {
                             // @ts-expect-error - TS2540 - Cannot assign to 'ungraded' because it is a read-only property.
-                            // TODO(LEMS-3083): Remove eslint suppression
-                            // eslint-disable-next-line functional/immutable-data
                             score.ungraded = true;
                             // @ts-expect-error - TS2540 - Cannot assign to 'message' because it is a read-only property.
-                            // TODO(LEMS-3083): Remove eslint suppression
-                            // eslint-disable-next-line functional/immutable-data
                             score.message =
                                 ErrorCodes.MULTIPLICATION_SIGN_ERROR;
                         } else if (resultX.message) {
                             // TODO(aasmund): I18nize `score.message`
                             // @ts-expect-error - TS2540 - Cannot assign to 'message' because it is a read-only property.
-                            // TODO(LEMS-3083): Remove eslint suppression
-                            // eslint-disable-next-line functional/immutable-data
                             score.message =
                                 resultX.message +
                                 " Also, I'm a computer. I only understand " +

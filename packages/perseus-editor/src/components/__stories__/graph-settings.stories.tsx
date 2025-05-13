@@ -14,8 +14,6 @@ export const Default = (args): React.ReactElement => {
     return <GraphSettings {...args} />;
 };
 
-// TODO(LEMS-3083): Remove eslint suppression
-// eslint-disable-next-line functional/immutable-data
 Default.args = {
     // Separating the array props out because trying to editing them in
     // the controls panel without a default value causes the story to crash.

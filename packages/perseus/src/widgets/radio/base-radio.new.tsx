@@ -43,10 +43,6 @@ export type ChoiceType = {
     disabled: boolean;
 };
 
-export type FocusFunction = (
-    choiceIndex?: number | null | undefined,
-) => boolean;
-
 type Props = {
     apiOptions: APIOptions;
     choices: ReadonlyArray<ChoiceType>;
@@ -68,7 +64,6 @@ type Props = {
         checked: ReadonlyArray<boolean>;
         crossedOut: ReadonlyArray<boolean>;
     }) => void;
-    registerFocusFunction?: (arg1: FocusFunction) => void;
     // Whether this widget was the most recently used widget in this
     // Renderer. Determines whether we'll auto-scroll the page upon
     // entering review mode.
@@ -117,7 +112,6 @@ const BaseRadio = function ({
     numCorrect,
     isLastUsedWidget,
     onChange,
-    registerFocusFunction,
 }: Props): React.ReactElement {
     const {strings} = usePerseusI18n();
 
@@ -165,8 +159,6 @@ const BaseRadio = function ({
         }
 
         // @ts-expect-error - TS2322 - Type 'PerseusRadioWidgetOptions | undefined' is not assignable to type 'undefined'.
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         prevReviewModeRubric.current = reviewModeRubric;
     }, [apiOptions, choices, isLastUsedWidget, reviewModeRubric]);
 
@@ -205,11 +197,7 @@ const BaseRadio = function ({
         const newCrossedOutList = choices.map((c) => c.crossedOut);
 
         // Update this choice's `checked` and `crossedOut` values.
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         newCheckedList[choiceIndex] = newValues.checked;
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         newCrossedOutList[choiceIndex] = newValues.crossedOut;
 
         onChange({
@@ -217,25 +205,6 @@ const BaseRadio = function ({
             crossedOut: newCrossedOutList,
         });
     }
-
-    // register a callback with the parent that allows
-    // the parent to focus an individual choice
-    registerFocusFunction?.((choiceIndex: number | null | undefined) => {
-        const ref = choiceRefs.current[choiceIndex || 0];
-        // note(matthew): we know this is only getting passed
-        // to a WB Clickable button, so we force it to be of
-        // type HTMLButtonElement
-        // @ts-expect-error - TS2339 - Property 'current' does not exist on type 'never'.
-        const anyNode = ReactDOM.findDOMNode(ref.current) as any;
-        const buttonNode = anyNode as HTMLButtonElement | null | undefined;
-
-        if (buttonNode) {
-            buttonNode.focus();
-        } else {
-            return false;
-        }
-        return true;
-    });
 
     // some commonly used shorthands
     const isMobile = apiOptions.isMobile;
@@ -284,8 +253,6 @@ const BaseRadio = function ({
                     let Element = Choice;
                     const ref = React.createRef<any>();
                     // @ts-expect-error - TS2322 - Type 'RefObject<unknown>' is not assignable to type 'never'.
-                    // TODO(LEMS-3083): Remove eslint suppression
-                    // eslint-disable-next-line functional/immutable-data
                     choiceRefs.current[i] = ref;
                     const elementProps = {
                         apiOptions: apiOptions,

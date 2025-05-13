@@ -84,8 +84,6 @@ describe("Linear System graph screen reader", () => {
             ({coords, interceptDescription}) => {
                 // Arrange
                 const newCoords = [...baseLinearSystemState.coords];
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 newCoords[lineNumber - 1] = coords;
 
                 render(
@@ -122,8 +120,6 @@ describe("Linear System graph screen reader", () => {
             ({coords, slopeDescription}) => {
                 // Arrange
                 const newCoords = [...baseLinearSystemState.coords];
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 newCoords[lineNumber - 1] = coords;
 
                 render(
@@ -148,8 +144,6 @@ describe("Linear System graph screen reader", () => {
         test("aria label reflects updated values", async () => {
             // Arrange
             const newCoords = [...baseLinearSystemState.coords];
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             newCoords[lineNumber - 1] = [
                 [-2, 3],
                 [3, 3],
@@ -286,8 +280,6 @@ describe("Linear System graph screen reader", () => {
                 await userEvent.keyboard("{ArrowRight}");
 
                 const expectedAriaLive = ["off", "off", "off"];
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 expectedAriaLive[index] = "polite";
 
                 // Assert

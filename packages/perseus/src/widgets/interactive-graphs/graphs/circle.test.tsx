@@ -143,8 +143,6 @@ describe("Circle graph", () => {
 
     test("Hairlines do NOT show when dragging and 'markings' are set to 'none'", () => {
         const graphStateContext = {...baseGraphConfigContext};
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         graphStateContext.markings = "none";
         useGraphConfigMock.mockReturnValue(graphStateContext);
         useDraggableMock.mockReturnValue({dragging: true});
@@ -161,8 +159,6 @@ describe("Circle graph", () => {
 
     test("Hairlines do NOT show when focused and 'markings' are set to 'none'", async () => {
         const graphStateContext = {...baseGraphConfigContext};
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         graphStateContext.markings = "none";
         useGraphConfigMock.mockReturnValue(graphStateContext);
         const {container} = render(

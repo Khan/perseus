@@ -72,8 +72,6 @@ function buildRandomPhrase() {
     const phrases: string[] = [];
     const randomLength = Math.floor(Math.random() * 10) + 5;
     for (let i = 0; i < randomLength; i++) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         phrases.push(buildRandomString(i === 0));
     }
     const modifierStart = ["**", "$"];

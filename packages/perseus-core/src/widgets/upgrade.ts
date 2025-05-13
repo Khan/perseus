@@ -153,14 +153,10 @@ export function getUpgradedWidgetOptions(
                 // TODO: why does widget have no type?
                 // We don't want to derive type from widget ID
                 // see: LEMS-1845
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 newValues.type = widgetId.split(" ")[0];
             }
 
             if (!widgetInfo.alignment) {
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 newValues.alignment = "default";
             }
 

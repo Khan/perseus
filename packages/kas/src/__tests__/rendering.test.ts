@@ -30,8 +30,6 @@ expect.extend({
             times: false,
         } as const;
         _.each(optlist, function (opt) {
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             options[opt] = true;
         });
 

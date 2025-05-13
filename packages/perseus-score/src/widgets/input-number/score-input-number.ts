@@ -47,8 +47,6 @@ function scoreInputNumber(
     rubric: PerseusInputNumberRubric,
 ): PerseusScore {
     if (rubric.answerType == null) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         rubric.answerType = "number";
     }
 

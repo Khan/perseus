@@ -22,24 +22,18 @@ export function scoreLabelImageMarker(
     };
 
     if (userInput && userInput.length > 0) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         score.hasAnswers = true;
     }
 
     if (rubric.length > 0) {
         if (userInput && userInput.length === rubric.length) {
             // All correct answers are selected by the user.
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             score.isCorrect = userInput.every((choice) =>
                 rubric.includes(choice),
             );
         }
     } else if (!userInput || userInput.length === 0) {
         // Correct as no answers should be selected by the user.
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         score.isCorrect = true;
     }
 

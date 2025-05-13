@@ -40,8 +40,6 @@ import type {Alignment} from "../types";
 const widgets = {};
 
 function registerWidget(type: string, logic: WidgetLogic) {
-    // TODO(LEMS-3083): Remove eslint suppression
-    // eslint-disable-next-line functional/immutable-data
     widgets[type] = logic;
 }
 

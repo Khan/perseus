@@ -85,8 +85,6 @@ export default class SimpleKeypadInput
 }
 
 // @ts-expect-error - TS2339 - Property 'propTypes' does not exist on type 'typeof SimpleKeypadInput'.
-// TODO(LEMS-3083): Remove eslint suppression
-// eslint-disable-next-line functional/immutable-data
 SimpleKeypadInput.propTypes = {
     keypadElement: keypadElementPropType,
     onFocus: PropTypes.func,

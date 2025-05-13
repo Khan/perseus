@@ -46,8 +46,6 @@ function scoreTable(
                 return result.correct;
             });
             if (correct) {
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 supplied.splice(i, 1);
                 return true;
             }

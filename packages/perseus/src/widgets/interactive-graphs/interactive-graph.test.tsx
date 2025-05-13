@@ -98,8 +98,6 @@ describe("Interactive Graph", function () {
         );
 
         // Mocked for loading graphie in svg-image
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 text: () => Promise.resolve("{}"),
@@ -131,8 +129,6 @@ describe("Interactive Graph", function () {
                     updateWidgetState(
                         renderer,
                         "interactive-graph 1",
-                        // TODO(LEMS-3083): Remove eslint suppression
-                        // eslint-disable-next-line functional/immutable-data
                         (state) => (state.graph.coords = correct),
                     ),
                 );
@@ -158,8 +154,6 @@ describe("Interactive Graph", function () {
                     updateWidgetState(
                         renderer,
                         "interactive-graph 1",
-                        // TODO(LEMS-3083): Remove eslint suppression
-                        // eslint-disable-next-line functional/immutable-data
                         (state) => (state.graph.coords = correct),
                     ),
                 );
@@ -191,8 +185,6 @@ describe("Interactive Graph", function () {
                     updateWidgetState(
                         renderer,
                         "interactive-graph 1",
-                        // TODO(LEMS-3083): Remove eslint suppression
-                        // eslint-disable-next-line functional/immutable-data
                         (state) => (state.graph.coords = incorrect),
                     ),
                 );
@@ -1304,8 +1296,6 @@ describe("Interactive Graph", function () {
                 question.widgets["interactive-graph 1"].options.lockedFigures[0]
                     ?.type === "line",
             );
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             question.widgets[
                 "interactive-graph 1"
             ].options.lockedFigures[0].points = [

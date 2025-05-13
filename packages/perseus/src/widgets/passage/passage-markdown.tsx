@@ -116,14 +116,10 @@ const rules = {
             // If the previous footnote was a *, we need to adjust it to be
             // a number, since now we know there is more than one footnote
             if (state.lastFootnote.text === "*") {
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 state.lastFootnote.text = "" + state.lastFootnote.id;
             }
 
             // and update our last footnote, + return.
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             state.lastFootnote = footnote;
             return footnote;
         },
@@ -167,8 +163,6 @@ const rules = {
                 // but captures the full ref text internally :D
                 // unfortunately the "magic" makes TypeScript upset,
                 // so there's this questionable workaround
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 capture[1] = source.slice(2, closeIndex);
                 return capture;
             }
@@ -187,11 +181,7 @@ const rules = {
             }
 
             const ref = state.lastRef + 1;
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             state.lastRef = ref;
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             state.currentRef.push(ref);
 
             const refContent = parse(
@@ -251,8 +241,6 @@ const rules = {
                 };
             }
 
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             const ref = state.currentRef.pop() || null;
             return {
                 ref: ref,
@@ -284,8 +272,6 @@ const rules = {
             state: ParseState,
         ): LabelNode => {
             if (!state.firstQuestionRef) {
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 state.firstQuestionRef = capture[1];
             }
             return {
@@ -358,8 +344,6 @@ const rules = {
             state: ParseState,
         ): LabelNode => {
             if (!state.firstSentenceRef) {
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 state.firstSentenceRef = capture[1];
             }
             return {

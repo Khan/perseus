@@ -85,8 +85,6 @@ function scoreNumericInput(
         // were no provided answer forms, we will include all
         // of the default answer forms in our validator.
         if (!answer.strict || validatorForms.length === 0) {
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             validatorForms.push(...defaultAnswerForms);
         }
 

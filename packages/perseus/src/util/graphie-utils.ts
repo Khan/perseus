@@ -165,8 +165,6 @@ export function loadGraphie(
             const {data, localized} = entry;
             onDataLoaded(data, localized);
         } else {
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             entry.dataCallbacks.push(onDataLoaded);
         }
     } else {
@@ -176,8 +174,6 @@ export function loadGraphie(
             localized: shouldUseLocalizedData(),
         };
 
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         labelDataCache[hash] = cacheData;
 
         const retrieveData = async (
@@ -212,8 +208,6 @@ export function loadGraphie(
                 return;
             }
 
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             const newCacheEntry = (labelDataCache[hash] = {
                 ...labelDataCache[hash],
                 loaded: true as const,
@@ -236,8 +230,6 @@ export function loadGraphie(
         };
 
         if (shouldUseLocalizedData()) {
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             cacheData.localized = false;
             // If there is isn't any localized data, use the error callback to try to
             // load the non-localized data. If that fails too, then we will throw an error.

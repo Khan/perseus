@@ -196,8 +196,6 @@ describe(`hasEmptyDINERWidgets`, () => {
 
     it("passes an unanswered numeric-input (coefficient edge case)", () => {
         const question = generateBasicNumericInputQuestion();
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         question.widgets["numeric-input 1"].options.coefficient = true;
 
         const userInput: UserInputMap = {
@@ -218,8 +216,6 @@ describe(`hasEmptyDINERWidgets`, () => {
 
     it("passes an answered numeric-input (coefficient edge case)", () => {
         const question = generateBasicNumericInputQuestion();
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         question.widgets["numeric-input 1"].options.coefficient = true;
 
         const userInput: UserInputMap = {

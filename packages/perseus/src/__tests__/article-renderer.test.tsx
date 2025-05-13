@@ -75,8 +75,6 @@ export const RenderArticle = (
 describe("article renderer", () => {
     beforeEach(() => {
         // Mock ResizeObserver used by the mobile keypad
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         window.ResizeObserver = jest.fn().mockImplementation(() => ({
             observe: jest.fn(),
             unobserve: jest.fn(),

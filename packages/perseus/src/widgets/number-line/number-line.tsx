@@ -147,8 +147,6 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
         const fractions = [leftLabel, rightLabel];
         for (let i = 0; i <= numDivisions; i++) {
             const x = range[0] + i * tickStep;
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             fractions.push(x);
         }
         const getDenom = (x: any) => knumber.toFraction(x)[1];
@@ -189,14 +187,10 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
         const lineStyle = tickIsHighlighted ? highlightedLineStyle : null;
         const textStyle = tickIsHighlighted ? highlightedTextStyle : null;
         graphie.style(lineStyle, () => {
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             results.push(graphie.line([tick, -0.2], [tick, 0.2]));
         });
         if (labelTicks || tickIsHighlighted || labelStyle === "decimal ticks") {
             graphie.style(textStyle, () => {
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 results.push(_label(graphie, labelStyle, tick, tick, base));
             });
         }

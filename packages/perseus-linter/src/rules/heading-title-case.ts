@@ -51,8 +51,6 @@ export default Rule.makeRule({
         let words = heading.split(/\s+/);
 
         // Remove the first word and the little words
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         words.shift();
         words = words.filter(
             // eslint-disable-next-line no-prototype-builtins

@@ -48,16 +48,12 @@ function deriveExtraKeys(
             for (const variable of expr.getVars()) {
                 const maybeKey = toKey(variable);
                 if (isKey(maybeKey)) {
-                    // TODO(LEMS-3083): Remove eslint suppression
-                    // eslint-disable-next-line functional/immutable-data
                     uniqueExtraVariables[maybeKey] = true;
                 }
             }
             for (const constant of expr.getConsts()) {
                 const maybeKey = toKey(constant);
                 if (isKey(maybeKey)) {
-                    // TODO(LEMS-3083): Remove eslint suppression
-                    // eslint-disable-next-line functional/immutable-data
                     uniqueExtraConstants[maybeKey] = true;
                 }
             }

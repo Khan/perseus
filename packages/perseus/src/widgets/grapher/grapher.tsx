@@ -36,7 +36,6 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GridDimensions} from "../../util";
 import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
 import type {
-    MarkingsType,
     PerseusGrapherWidgetOptions,
     PerseusGrapherUserInput,
     GrapherPublicWidgetOptions,
@@ -358,9 +357,6 @@ type ExternalProps = WidgetProps<RenderProps>;
 type Props = ExternalProps & {
     // plot is always provided by default props
     plot: NonNullable<RenderProps["plot"]>;
-    // NOTE(jeremy): This prop exists in the `graph` prop value. Unsure what
-    // passes it down as a top-level prop (I suspect the editor?)
-    markings: MarkingsType;
 };
 
 type DefaultProps = {
@@ -513,7 +509,7 @@ class Grapher extends React.Component<Props> implements Widget {
     };
 
     showHairlines: (arg1: Coord) => void = (point) => {
-        if (this.props.apiOptions.isMobile && this.props.markings !== "none") {
+        if (this.props.apiOptions.isMobile) {
             // Hairlines are already initialized when the graph is loaded, so
             // here we just move them to the updated location and make them
             // visible.
@@ -633,8 +629,6 @@ const transform: (arg1: GrapherPublicWidgetOptions) => RenderProps = (
         const graph = widgetProps.graph;
         const type = chooseType(widgetProps.availableTypes);
         // @ts-expect-error - TS2345 - Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         widgetProps.plot = defaultPlotProps(type, graph);
     }
 
@@ -654,6 +648,14 @@ const staticTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
         plot: editorProps.correct,
     };
 };
+
+0 as any as WidgetProps<PerseusGrapherWidgetOptions> satisfies PropsFor<
+    typeof Grapher
+>;
+
+0 as any as WidgetProps<GrapherPublicWidgetOptions> satisfies PropsFor<
+    typeof Grapher
+>;
 
 export default {
     name: "grapher",

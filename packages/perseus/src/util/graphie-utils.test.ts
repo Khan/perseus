@@ -69,8 +69,6 @@ describe("graphie utils", () => {
             kaLocale: "the-locale-youre-looking-for-does-not-exist",
         });
 
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         global.fetch = jest.fn((url) => {
             if (url === typicalCase.expectedLocalizedUrl) {
                 return Promise.resolve({

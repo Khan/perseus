@@ -100,8 +100,6 @@ const LockedPolygonSettings = (props: Props) => {
         };
 
         // Update the color of the all labels to match the point
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         newProps.labels = labels.map((label) => ({
             ...label,
             color: newValue,
@@ -156,8 +154,6 @@ const LockedPolygonSettings = (props: Props) => {
         labelIndex: number,
     ) {
         const updatedLabels = [...labels];
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         updatedLabels[labelIndex] = {
             ...labels[labelIndex],
             ...updatedLabel,
@@ -263,8 +259,6 @@ const LockedPolygonSettings = (props: Props) => {
                                 labels={["x", "y"]}
                                 onChange={(newValue: Coord) => {
                                     const newPoints = [...points];
-                                    // TODO(LEMS-3083): Remove eslint suppression
-                                    // eslint-disable-next-line functional/immutable-data
                                     newPoints[index] = newValue;
                                     props.onChangeProps({points: newPoints});
                                 }}
@@ -281,8 +275,6 @@ const LockedPolygonSettings = (props: Props) => {
                                         actionType="destructive"
                                         onClick={() => {
                                             const newPoints = [...points];
-                                            // TODO(LEMS-3083): Remove eslint suppression
-                                            // eslint-disable-next-line functional/immutable-data
                                             newPoints.splice(index, 1);
                                             props.onChangeProps({
                                                 points: newPoints,

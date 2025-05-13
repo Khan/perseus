@@ -1,4 +1,3 @@
-/* eslint-disable functional/immutable-data */
 /**
  * This file is loaded after the jest test framework has be initialized
  * but before any tests have run.

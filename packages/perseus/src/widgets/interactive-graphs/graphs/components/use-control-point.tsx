@@ -156,8 +156,6 @@ function setForwardedRef<T>(ref: React.ForwardedRef<T>, value: T): void {
     if (typeof ref === "function") {
         ref(value);
     } else if (ref !== null) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         ref.current = value;
     }
 }
