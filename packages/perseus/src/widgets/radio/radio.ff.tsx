@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import RadioOld from "./radio-component";
-import RadioNew from "./radio-component.class.new";
+import RadioNew from "./radio.class.new";
 
 import type {RenderProps} from "./radio-component";
 import type {WidgetProps} from "../../types";

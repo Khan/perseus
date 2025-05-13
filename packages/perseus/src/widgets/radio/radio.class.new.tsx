@@ -4,7 +4,7 @@ import * as React from "react";
 
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
-import RadioComponent from "./radio-component.new";
+import RadioComponent from "./radio.new";
 
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
