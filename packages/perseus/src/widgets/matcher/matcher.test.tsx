@@ -1,3 +1,7 @@
+import {
+    generateTestPerseusItem,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 import * as React from "react";
 
@@ -98,88 +102,96 @@ describe("matcher widget", () => {
         expect(container).toMatchSnapshot("moved items");
     });
 
-    it("can be answered correctly", async () => {
-        // Arrange
-        const apiOptions: APIOptions = {
-            isMobile: false,
-        };
-        const {renderer} = renderQuestion(question1, apiOptions);
-        await wait();
+    const answerfulItem = generateTestPerseusItem({question: question1});
+    const answerlessItem = splitPerseusItem(answerfulItem);
 
-        // Act
-        const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
+    describe.each([
+        ["answerful", answerfulItem],
+        ["answerless", answerlessItem],
+    ])("given an %s item", (_, {question}) => {
+        it("can be answered correctly", async () => {
+            // Arrange
+            const apiOptions: APIOptions = {
+                isMobile: false,
+            };
+            const {renderer} = renderQuestion(question, apiOptions);
+            await wait();
 
-        // Put the right options in the correct order by repeatedly moving
-        // answers to the end of the list
-        [
-            "Medium-sized stars typically exist for roughly 10 billion years",
-            "The current trajectory of the Earth\u2019s tectonic plate movement",
-            "The life cycle of medium-sized stars includes a red giant stage and ends in a whimper as a white dwarf",
-            "Rapid escalation of greenhouse gas emissions",
-            "The current trajectory of the Milky Way galaxy and those in its immediate proximity",
-        ].forEach((option, index) => {
-            act(() => matcher.moveRightOptionToIndex(option, 4));
-        });
-        const score = scorePerseusItemTesting(
-            question1,
-            renderer.getUserInputMap(),
-        );
+            // Act
+            const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
 
-        // assert
-        expect(score).toHaveBeenAnsweredCorrectly();
-    });
+            // Put the right options in the correct order by repeatedly moving
+            // answers to the end of the list
+            [
+                "Medium-sized stars typically exist for roughly 10 billion years",
+                "The current trajectory of the Earth\u2019s tectonic plate movement",
+                "The life cycle of medium-sized stars includes a red giant stage and ends in a whimper as a white dwarf",
+                "Rapid escalation of greenhouse gas emissions",
+                "The current trajectory of the Milky Way galaxy and those in its immediate proximity",
+            ].forEach((option, index) => {
+                act(() => matcher.moveRightOptionToIndex(option, 4));
+            });
+            const score = scorePerseusItemTesting(
+                answerfulItem.question,
+                renderer.getUserInputMap(),
+            );
 
-    it("can be answered incorrectly", async () => {
-        // Arrange
-        const apiOptions: APIOptions = {
-            isMobile: false,
-        };
-        const {renderer} = renderQuestion(question1, apiOptions);
-        await wait();
-
-        // Act
-        const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
-
-        // Put the left options in reverse order
-        [
-            "Our Sun will run out of fuel and die in around 5 billion years ",
-            "Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans ",
-            "Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die ",
-            "Average global temperatures will rise ",
-            "In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda ",
-        ].forEach((option, index) => {
-            matcher.moveLeftOptionToIndex(option, 0);
-        });
-        const score = scorePerseusItemTesting(
-            question1,
-            renderer.getUserInputMap(),
-        );
-
-        // Assert
-        expect(score).toHaveBeenAnsweredIncorrectly();
-    });
-
-    it("is scored incorrect if the math renderer hasn't loaded yet", () => {
-        // Arrange: stub the TeX renderer to never call its onRender prop,
-        // which is how the matcher knows the math renderer is ready.
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
-            ...testDependencies,
-            TeX: () => {
-                return null;
-            },
+            // assert
+            expect(score).toHaveBeenAnsweredCorrectly();
         });
 
-        // Act
-        const apiOptions: APIOptions = {
-            isMobile: false,
-        };
-        const {renderer} = renderQuestion(question1, apiOptions);
-        const score = scorePerseusItemTesting(
-            question1,
-            renderer.getUserInputMap(),
-        );
+        it("can be answered incorrectly", async () => {
+            // Arrange
+            const apiOptions: APIOptions = {
+                isMobile: false,
+            };
+            const {renderer} = renderQuestion(question, apiOptions);
+            await wait();
 
-        // Assert
-        expect(score).toHaveBeenAnsweredIncorrectly();
+            // Act
+            const matcher: Matcher = renderer.findWidgets("matcher 1")[0];
+
+            // Put the left options in reverse order
+            [
+                "Our Sun will run out of fuel and die in around 5 billion years ",
+                "Plate tectonics will rearrange the continents: the Pacific will narrow, bringing Australia closer to the Americas, and the Atlantic will expand to form the largest of the oceans ",
+                "Our Sun will run out of hydrogen, swell into a red giant, gobble up the inner rocky planets, and then collapse and die ",
+                "Average global temperatures will rise ",
+                "In 3 to 4 billion years, our galaxy will begin a slow collision with its closest large neighbor, Andromeda ",
+            ].forEach((option, index) => {
+                matcher.moveLeftOptionToIndex(option, 0);
+            });
+            const score = scorePerseusItemTesting(
+                answerfulItem.question,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredIncorrectly();
+        });
+
+        it("is scored incorrect if the math renderer hasn't loaded yet", () => {
+            // Arrange: stub the TeX renderer to never call its onRender prop,
+            // which is how the matcher knows the math renderer is ready.
+            jest.spyOn(Dependencies, "getDependencies").mockReturnValue({
+                ...testDependencies,
+                TeX: () => {
+                    return null;
+                },
+            });
+
+            // Act
+            const apiOptions: APIOptions = {
+                isMobile: false,
+            };
+            const {renderer} = renderQuestion(question, apiOptions);
+            const score = scorePerseusItemTesting(
+                answerfulItem.question,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredIncorrectly();
+        });
     });
 });
