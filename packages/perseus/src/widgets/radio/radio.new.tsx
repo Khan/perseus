@@ -7,9 +7,9 @@ import Renderer from "../../renderer";
 import Util from "../../util";
 import PassageRef from "../passage-ref/passage-ref";
 
-import BaseRadio from "./base-radio";
+import BaseRadio from "./base-radio.new";
 
-import type {ChoiceType} from "./base-radio";
+import type {ChoiceType} from "./base-radio.new";
 import type {WidgetProps, ChoiceState} from "../../types";
 import type {
     PerseusRadioChoice,
