@@ -53,8 +53,9 @@ export function shuffle<T>(
 export function constrainedShuffle<T>(
     array: readonly T[],
     random: RNG,
-    isValidShuffle: (shuffled: readonly T[], iteration: number) => boolean,
+    isValidShuffle: (shuffled: readonly T[]) => boolean,
 ): T[] {
+    const maxIterations = 100;
     const shuffled = [...array];
 
     // Return early if all elements are equal -- both for performance, and
@@ -64,11 +65,14 @@ export function constrainedShuffle<T>(
         return shuffled;
     }
 
-    let iteration = 1;
-    do {
+    for (let i = 0; i < maxIterations; i++) {
         shuffleInPlace(shuffled, random);
-    } while (!isValidShuffle(shuffled, iteration++));
-    return shuffled;
+        if (isValidShuffle(shuffled)) {
+            return shuffled;
+        }
+    }
+
+    throw new Error(`constrainedShuffle: constraint not met after ${maxIterations} attempts`)
 }
 
 function shuffleInPlace<T>(a: T[], random: RNG): void {
