@@ -1,4 +1,48 @@
-import{j as n}from"./jsx-runtime-BT65X5dW.js";import"./underscore-U-AHniOr.js";import"./index-ugi6HOUw.js";import"./all-widgets-C3x3jP2N.js";import{V as o}from"./index-CW2s7ekB.js";import"./answer-choices-D-vvytLk.js";import{L as R}from"./index-DfoJsr3g.js";import{r as a}from"./index-C6mWTJJr.js";import"./index-B1Gws05u.js";import{m as p}from"./i18n-context-3AkWzTTj.js";import"./perseus-api-Ty_QvlNi.js";import{R as m}from"./renderer-CyriytdQ.js";import"./index-D7h-teXI.js";import"./jquery-CkHB0_Mt.js";import"./dependencies-BsVPGK1s.js";import"./util-Bq-wNCAN.js";import"./zoomable-tex-Dy-nElJT.js";import"./svg-image-CBYUgRDf.js";import{n as x}from"./no-important-DlFk8a1I.js";import"./number-input-Q3Pnp6Qu.js";import"./simple-keypad-input-B92yzbDH.js";import"./text-input-CJsQJ9jq.js";import"./phet-simulation-CrX_59te.js";import"./sortable-ClEgBIe8.js";import"./fixed-to-responsive-CTsII9Xx.js";import"./math-input-7aXviQHX.js";import"./video-transcript-link-BsyCgIOs.js";import"./item-version-D8ytq9mA.js";import"./article-renderer-B9B6Ub7y.js";import"./server-item-renderer-CY3cI5TO.js";import"./hints-renderer-B9syaaIq.js";import"./base-radio-ClhN_LRn.js";import"./button-group-B24xCvY2.js";import"./hud-CP_ly967.js";import"./icon-BfyZ3piz.js";import"./index-3tXmpMZ8.js";import"./inline-icon-AJRwMA4Z.js";import"./multi-button-group-U6RQwTwG.js";import"./range-input-tPhlv0Aw.js";import"./text-list-editor-HcP7oGoC.js";import"./index-Dd-cahjY.js";import{B as A}from"./index-CWnBGvvR.js";import{I,x as q}from"./index-DAJiRA_A.js";import{S as F}from"./index-CUPgSPQO.js";import{s as t,c as g}from"./index-Ds5N5m2R.js";import{a as D}from"./index-B-lxVbXh.js";import{E}from"./editor-page-Dlyknioe.js";const j=D("onChange");function N(d){const[w,y]=a.useState("phone"),[f,b]=a.useState(!1),[v,k]=a.useState(),[u,P]=a.useState(d.question),[r,T]=a.useState(d.hints),[i,h]=a.useState(!0),l=d.apiOptions??{isMobile:!1};return n.jsxs(o,{children:[n.jsx(E,{apiOptions:l,previewDevice:w,onPreviewDeviceChange:e=>y(e),developerMode:!0,jsonMode:f,answerArea:v,question:u,hints:r,frameSource:"about:blank",previewURL:"about:blank",itemId:"1",onChange:e=>{j(e),"jsonMode"in e&&b(e.jsonMode),"answerArea"in e&&k(e.answerArea),"question"in e&&P(e.question),"hints"in e&&T(e.hints)}}),!i&&n.jsx(A,{onClick:()=>h(!i),style:s.openPanelButton,children:"Open preview (storybook only)"}),i&&n.jsxs(o,{style:s.panel,children:[n.jsx(I,{icon:q,kind:"tertiary",onClick:()=>h(!i)}),n.jsx(o,{style:s.panelInner,children:n.jsx(m,{strings:p,apiOptions:l,...u})}),r==null?void 0:r.map((e,c)=>n.jsxs(o,{style:s.panelInner,children:[n.jsx(F,{size:t.medium_16}),n.jsx(R,{children:`Hint ${c+1}`}),n.jsx(m,{strings:p,apiOptions:l,...e})]},c))]})]})}const s=x.StyleSheet.create({panel:{position:"fixed",right:0,minWidth:500,height:"90vh",overflow:"auto",flex:"none",backgroundColor:g.fadedBlue16,padding:t.medium_16,borderRadius:t.small_12,alignItems:"end"},panelInner:{flex:"none",backgroundColor:g.white,borderRadius:t.xSmall_8,marginTop:t.medium_16,width:"100%",padding:t.xSmall_8},openPanelButton:{position:"fixed",right:t.medium_16,bottom:t.xxxLarge_64}});N.__docgenInfo={description:"",methods:[],displayName:"EditorPageWithStorybookPreview",props:{apiOptions:{required:!1,tsType:{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
+import{j as e}from"./jsx-runtime-BT65X5dW.js";import{S as m,a as g,M as y}from"./mobile-keypad-DLZHuHyR.js";import"./prop-types-CuT6iFVZ.js";import"./key-translator-D3mDAVJw.js";import"./button-assets-DkwGlj8X.js";import"./underscore-U-AHniOr.js";import"./index-ugi6HOUw.js";import"./all-widgets-C3x3jP2N.js";import{V as w}from"./index-CW2s7ekB.js";import"./answer-choices-D-vvytLk.js";import"./index-DfoJsr3g.js";import"./index-C6mWTJJr.js";import"./index-B1Gws05u.js";import{u as f}from"./i18n-context-3AkWzTTj.js";import"./perseus-api-Ty_QvlNi.js";import{R as b}from"./renderer-CyriytdQ.js";import"./index-D7h-teXI.js";import"./jquery-CkHB0_Mt.js";import"./dependencies-BsVPGK1s.js";import"./util-Bq-wNCAN.js";import"./zoomable-tex-Dy-nElJT.js";import"./svg-image-CBYUgRDf.js";import{n as v}from"./no-important-DlFk8a1I.js";import"./number-input-Q3Pnp6Qu.js";import"./simple-keypad-input-B92yzbDH.js";import"./text-input-CJsQJ9jq.js";import"./phet-simulation-CrX_59te.js";import"./sortable-ClEgBIe8.js";import"./fixed-to-responsive-CTsII9Xx.js";import"./math-input-7aXviQHX.js";import"./video-transcript-link-BsyCgIOs.js";import"./item-version-D8ytq9mA.js";import"./article-renderer-B9B6Ub7y.js";import"./server-item-renderer-CY3cI5TO.js";import"./hints-renderer-B9syaaIq.js";import"./base-radio-ClhN_LRn.js";import"./button-group-B24xCvY2.js";import"./hud-CP_ly967.js";import"./icon-BfyZ3piz.js";import"./index-3tXmpMZ8.js";import"./inline-icon-AJRwMA4Z.js";import"./multi-button-group-U6RQwTwG.js";import"./range-input-tPhlv0Aw.js";import"./text-list-editor-HcP7oGoC.js";import"./index-Dd-cahjY.js";import{s as k}from"./index-Ds5N5m2R.js";import{l as P}from"./constants-kyOY0S4e.js";function T({question:a,apiOptions:r,seamless:i,linterContext:o,legacyPerseusLint:s,previewDevice:d}){const l=f(),n=d!=="desktop",u=n?"perseus-mobile":"";return e.jsx(w,{className:`framework-perseus ${u}`,style:[t.container,i?void 0:t.gutter],children:e.jsx(m,{children:e.jsx(g.Consumer,{children:({setKeypadActive:h,keypadElement:c,setKeypadElement:p})=>e.jsxs(e.Fragment,{children:[e.jsx(b,{strings:l.strings,apiOptions:{...r,isMobile:n},keypadElement:c,linterContext:o,legacyPerseusLint:s,...a}),e.jsx(y,{onAnalyticsEvent:()=>Promise.resolve(),onDismiss:()=>h(!1),onElementMounted:p})]})})})})}const t=v.StyleSheet.create({container:{padding:k.xxxSmall_4,containerType:"inline-size",containerName:"perseus-root"},gutter:{marginRight:P}});T.__docgenInfo={description:"The `ContentPreview` component provides a simple preview system for Perseus\nContent. Due to how Persus styles are built, the preview styling matches the\ncurrent device based on the viewport width (using `@media` queries for\n`min-width` and `max-width`).\n\nThe preview will render the mobile variant (styling and layout) when the\n`previewDevice` is phone or tablet. Note that the styling cannot be matched\n100% due to the above `@media` query limitation.",methods:[],displayName:"ContentPreview",props:{question:{required:!1,tsType:{name:"signature",type:"object",raw:`{
+    /**
+     * Translatable Markdown content to be rendered.  May include references to
+     * widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
+     * For each image found in this content, there can be an entry in the
+     * \`images\` dict (below) with the key being the image's url which defines
+     * additional attributes for the image.
+     */
+    content: string;
+    /**
+     * A dictionary of {[widgetName]: Widget} to be referenced from the content
+     * field.
+     */
+    widgets: PerseusWidgetsMap;
+    /**
+     * Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
+     * are keys that represent other content in the system.  Not rendered to
+     * the user. NOTE: perseus_data.go says this is required even though it
+     * isn't necessary.
+     * @deprecated
+     */
+    metadata?: any;
+    /**
+     * A dictionary of {[imageUrl]: PerseusImageDetail}.
+     */
+    images: {
+        [imageUrl: string]: PerseusImageDetail;
+    };
+}`,signature:{properties:[{key:"content",value:{name:"string",required:!0},description:`Translatable Markdown content to be rendered.  May include references to
+widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
+For each image found in this content, there can be an entry in the
+\`images\` dict (below) with the key being the image's url which defines
+additional attributes for the image.`},{key:"widgets",value:{name:"signature",type:"object",raw:"{\n    [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];\n}",signature:{properties:[{key:{name:"PerseusWidgetTypes",required:!0},value:{name:"PerseusWidgetTypes[Property]",raw:"TRegistry[Property]"}}]},required:!0},description:`A dictionary of {[widgetName]: Widget} to be referenced from the content
+field.`},{key:"metadata",value:{name:"any",required:!1},description:`Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
+are keys that represent other content in the system.  Not rendered to
+the user. NOTE: perseus_data.go says this is required even though it
+isn't necessary.
+@deprecated`},{key:"images",value:{name:"signature",type:"object",raw:`{
+    [imageUrl: string]: PerseusImageDetail;
+}`,signature:{properties:[{key:{name:"string"},value:{name:"signature",type:"object",raw:`{
+    // The width of the image
+    width: number;
+    // the height of the image
+    height: number;
+}`,signature:{properties:[{key:"width",value:{name:"number",required:!0}},{key:"height",value:{name:"number",required:!0}}]},required:!0}}]},required:!0},description:"A dictionary of {[imageUrl]: PerseusImageDetail}."}]}},description:"The Perseus question to preview."},apiOptions:{required:!1,tsType:{name:"Readonly",elements:[{name:"signature",type:"object",raw:`{
     isArticle?: boolean;
     onFocusChange?: (
         newFocusPath: FocusPath,
@@ -351,106 +395,12 @@ the available choices.`}]}}],raw:`Readonly<{
      * the available choices.
      */
     onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
-}>`},description:""},question:{required:!1,tsType:{name:"signature",type:"object",raw:`{
-    /**
-     * Translatable Markdown content to be rendered.  May include references to
-     * widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
-     * For each image found in this content, there can be an entry in the
-     * \`images\` dict (below) with the key being the image's url which defines
-     * additional attributes for the image.
-     */
-    content: string;
-    /**
-     * A dictionary of {[widgetName]: Widget} to be referenced from the content
-     * field.
-     */
-    widgets: PerseusWidgetsMap;
-    /**
-     * Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
-     * are keys that represent other content in the system.  Not rendered to
-     * the user. NOTE: perseus_data.go says this is required even though it
-     * isn't necessary.
-     * @deprecated
-     */
-    metadata?: any;
-    /**
-     * A dictionary of {[imageUrl]: PerseusImageDetail}.
-     */
-    images: {
-        [imageUrl: string]: PerseusImageDetail;
-    };
-}`,signature:{properties:[{key:"content",value:{name:"string",required:!0},description:`Translatable Markdown content to be rendered.  May include references to
-widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
-For each image found in this content, there can be an entry in the
-\`images\` dict (below) with the key being the image's url which defines
-additional attributes for the image.`},{key:"widgets",value:{name:"signature",type:"object",raw:"{\n    [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];\n}",signature:{properties:[{key:{name:"PerseusWidgetTypes",required:!0},value:{name:"PerseusWidgetTypes[Property]",raw:"TRegistry[Property]"}}]},required:!0},description:`A dictionary of {[widgetName]: Widget} to be referenced from the content
-field.`},{key:"metadata",value:{name:"any",required:!1},description:`Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
-are keys that represent other content in the system.  Not rendered to
-the user. NOTE: perseus_data.go says this is required even though it
-isn't necessary.
-@deprecated`},{key:"images",value:{name:"signature",type:"object",raw:`{
-    [imageUrl: string]: PerseusImageDetail;
-}`,signature:{properties:[{key:{name:"string"},value:{name:"signature",type:"object",raw:`{
-    // The width of the image
-    width: number;
-    // the height of the image
-    height: number;
-}`,signature:{properties:[{key:"width",value:{name:"number",required:!0}},{key:"height",value:{name:"number",required:!0}}]},required:!0}}]},required:!0},description:"A dictionary of {[imageUrl]: PerseusImageDetail}."}]}},description:""},hints:{required:!1,tsType:{name:"ReadonlyArray",elements:[{name:"intersection",raw:`PerseusRenderer & {
-    /**
-     * When \`true\`, causes the previous hint to be replaced with this hint when
-     * displayed. When \`false\`, the previous hint remains visible when this one
-     * is displayed. This allows for hints that build upon each other.
-     */
-    replace?: boolean;
-}`,elements:[{name:"signature",type:"object",raw:`{
-    /**
-     * Translatable Markdown content to be rendered.  May include references to
-     * widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
-     * For each image found in this content, there can be an entry in the
-     * \`images\` dict (below) with the key being the image's url which defines
-     * additional attributes for the image.
-     */
-    content: string;
-    /**
-     * A dictionary of {[widgetName]: Widget} to be referenced from the content
-     * field.
-     */
-    widgets: PerseusWidgetsMap;
-    /**
-     * Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
-     * are keys that represent other content in the system.  Not rendered to
-     * the user. NOTE: perseus_data.go says this is required even though it
-     * isn't necessary.
-     * @deprecated
-     */
-    metadata?: any;
-    /**
-     * A dictionary of {[imageUrl]: PerseusImageDetail}.
-     */
-    images: {
-        [imageUrl: string]: PerseusImageDetail;
-    };
-}`,signature:{properties:[{key:"content",value:{name:"string",required:!0},description:`Translatable Markdown content to be rendered.  May include references to
-widgets (as [[☃ widgetName]]) or images (as ![image text](imageUrl)).
-For each image found in this content, there can be an entry in the
-\`images\` dict (below) with the key being the image's url which defines
-additional attributes for the image.`},{key:"widgets",value:{name:"signature",type:"object",raw:"{\n    [Property in keyof TRegistry as `${Property & string} ${number}`]: TRegistry[Property];\n}",signature:{properties:[{key:{name:"PerseusWidgetTypes",required:!0},value:{name:"PerseusWidgetTypes[Property]",raw:"TRegistry[Property]"}}]},required:!0},description:`A dictionary of {[widgetName]: Widget} to be referenced from the content
-field.`},{key:"metadata",value:{name:"any",required:!1},description:`Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
-are keys that represent other content in the system.  Not rendered to
-the user. NOTE: perseus_data.go says this is required even though it
-isn't necessary.
-@deprecated`},{key:"images",value:{name:"signature",type:"object",raw:`{
-    [imageUrl: string]: PerseusImageDetail;
-}`,signature:{properties:[{key:{name:"string"},value:{name:"signature",type:"object",raw:`{
-    // The width of the image
-    width: number;
-    // the height of the image
-    height: number;
-}`,signature:{properties:[{key:"width",value:{name:"number",required:!0}},{key:"height",value:{name:"number",required:!0}}]},required:!0}}]},required:!0},description:"A dictionary of {[imageUrl]: PerseusImageDetail}."}]}},{name:"signature",type:"object",raw:`{
-    /**
-     * When \`true\`, causes the previous hint to be replaced with this hint when
-     * displayed. When \`false\`, the previous hint remains visible when this one
-     * is displayed. This allows for hints that build upon each other.
-     */
-    replace?: boolean;
-}`,signature:{properties:[{key:"replace",value:{name:"boolean",required:!1},description:"When `true`, causes the previous hint to be replaced with this hint when\ndisplayed. When `false`, the previous hint remains visible when this one\nis displayed. This allows for hints that build upon each other."}]}}]}],raw:"ReadonlyArray<Hint>"},description:""}}};export{N as E};
+}>`},description:"API Options to use when previewing."},seamless:{required:!1,tsType:{name:"boolean"},description:"When `true`, renders a seamless preview without any extra spacing. When\n`false`, renders a gutter where linting issues are displayed."},linterContext:{required:!1,tsType:{name:"signature",type:"object",raw:`{
+    contentType: string;
+    highlightLint: boolean;
+    paths: ReadonlyArray<string>;
+    stack: ReadonlyArray<string>;
+    // additional properties can be added to the context by widgets
+}`,signature:{properties:[{key:"contentType",value:{name:"string",required:!0}},{key:"highlightLint",value:{name:"boolean",required:!0}},{key:"paths",value:{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>",required:!0}},{key:"stack",value:{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>",required:!0}}]}},description:""},legacyPerseusLint:{required:!1,tsType:{name:"ReadonlyArray",elements:[{name:"string"}],raw:"ReadonlyArray<string>"},description:""},previewDevice:{required:!0,tsType:{name:"union",raw:'"phone" | "tablet" | "desktop"',elements:[{name:"literal",value:'"phone"'},{name:"literal",value:'"tablet"'},{name:"literal",value:'"desktop"'}]},description:`The type of device to simulate the preview for. Note that this preview
+may not be 100% accurate with regards to styling (due to styles that use
+media queries based on the screen width).`}}};export{T as C};
