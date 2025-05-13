@@ -211,5 +211,5 @@ export default {
     name: "cs-program",
     displayName: "CS Program",
     widget: CSProgram,
-    hidden: true,
+    hidden: false,
 } satisfies WidgetExports<typeof CSProgram>;
