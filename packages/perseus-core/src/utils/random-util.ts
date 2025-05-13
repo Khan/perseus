@@ -5,7 +5,7 @@
 import _ from "underscore";
 
 /**
- * A random number generator. Should return floats in the range [0, 1), like
+ * A random number generator. Should return floats in the interval [0, 1), like
  * Math.random().
  */
 export type RNG = () => number;
