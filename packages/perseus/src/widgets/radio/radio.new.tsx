@@ -279,9 +279,9 @@ const RadioComponent = (props: RadioComponentProps) => {
                         ? !!reviewChoice && !!reviewChoice.correct
                         : choice.correct,
                 disabled: readOnly,
-                hasRationale: !!choice.clue,
+                hasRationale: !!choice.rationale,
                 // Render the rationale for the choice, as it may contain subwidgets as well.
-                rationale: renderRenderer(choice.clue),
+                rationale: renderRenderer(choice.rationale),
                 showRationale: rationaleShown,
                 showCorrectness: correctnessShown,
                 isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
