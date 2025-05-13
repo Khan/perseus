@@ -27,7 +27,7 @@ type ChoiceEditorProps = {
     apiOptions: APIOptions;
     choice: PerseusRadioChoice;
     showDelete: boolean;
-    onClueChange: (newProps: Contentful) => void;
+    onRationaleChange: (newProps: Contentful) => void;
     onContentChange: (newProps: Contentful) => void;
     onDelete: () => void;
 };
@@ -61,15 +61,15 @@ class ChoiceEditor extends React.Component<ChoiceEditorProps> {
             />
         );
 
-        const clueEditor = (
+        const rationaleEditor = (
             <Editor
                 // eslint-disable-next-line react/no-string-refs
-                ref="clue-editor"
+                ref="rationale-editor"
                 apiOptions={this.props.apiOptions}
-                content={this.props.choice.clue || ""}
+                content={this.props.choice.rationale || ""}
                 widgetEnabled={false}
                 placeholder={`Why is this choice ${checkedClass}?`}
-                onChange={this.props.onClueChange}
+                onChange={this.props.onRationaleChange}
             />
         );
 
@@ -89,9 +89,9 @@ class ChoiceEditor extends React.Component<ChoiceEditorProps> {
         );
 
         return (
-            <div className="choice-clue-editors">
+            <div className="choice-rationale-editors">
                 <div className={`choice-editor ${checkedClass}`}>{editor}</div>
-                <div className="clue-editor">{clueEditor}</div>
+                <div className="rationale-editor">{rationaleEditor}</div>
                 {this.props.showDelete && deleteLink}
             </div>
         );
@@ -192,13 +192,13 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         this.props.onChange({choices: choices});
     };
 
-    onClueChange(choiceIndex: number, newClue: string): void {
+    onRationaleChange(choiceIndex: number, newRationale: string): void {
         const choices = this.props.choices.slice();
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-            clue: newClue,
+            rationale: newRationale,
         });
-        if (newClue === "") {
-            delete choices[choiceIndex].clue;
+        if (newRationale === "") {
+            delete choices[choiceIndex].rationale;
         }
         this.props.onChange({choices: choices});
     }
@@ -371,9 +371,9 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                                             );
                                         }
                                     }}
-                                    onClueChange={(newProps) => {
+                                    onRationaleChange={(newProps) => {
                                         if (newProps.content != null) {
-                                            this.onClueChange(
+                                            this.onRationaleChange(
                                                 i,
                                                 newProps.content,
                                             );

@@ -7,14 +7,14 @@ export const v0Widget = {
             {
                 content: "I am a correct choice",
                 correct: true,
-                clue: "I am a clue for a choice",
+                clue: "I am some rationale for a choice",
                 isNoneOfTheAbove: true,
                 widgets: undefined,
             },
             {
                 content: "I am an incorrect choice",
                 correct: false,
-                clue: "I am a clue for a choice",
+                clue: "I am some rationale for a choice",
                 widgets: undefined,
             },
             {
@@ -25,7 +25,7 @@ export const v0Widget = {
             },
             {
                 content: "I am content for a choice",
-                clue: "I am a clue for a choice",
+                clue: "I am some rationale for a choice",
                 isNoneOfTheAbove: false,
             },
             {
@@ -50,14 +50,14 @@ export const v1Widget = {
             {
                 content: "I am a correct choice",
                 correct: true,
-                clue: "I am a clue for a choice",
+                clue: "I am some rationale for a choice",
                 isNoneOfTheAbove: true,
                 widgets: undefined,
             },
             {
                 content: "I am an incorrect choice",
                 correct: false,
-                clue: "I am a clue for a choice",
+                clue: "I am some rationale for a choice",
                 widgets: undefined,
             },
             {
@@ -68,7 +68,7 @@ export const v1Widget = {
             },
             {
                 content: "I am content for a choice",
-                clue: "I am a clue for a choice",
+                clue: "I am some rationale for a choice",
                 isNoneOfTheAbove: false,
             },
             {
@@ -98,14 +98,14 @@ export const v2Widget = {
             {
                 content: "I am a correct choice",
                 correct: true,
-                clue: "I am a clue for a choice",
+                clue: "I am some rationale for a choice",
                 isNoneOfTheAbove: true,
                 widgets: undefined,
             },
             {
                 content: "I am an incorrect choice",
                 correct: false,
-                clue: "I am a clue for a choice",
+                clue: "I am some rationale for a choice",
                 widgets: undefined,
             },
             {
@@ -116,7 +116,7 @@ export const v2Widget = {
             },
             {
                 content: "I am content for a choice",
-                clue: "I am a clue for a choice",
+                clue: "I am some rationale for a choice",
                 isNoneOfTheAbove: false,
             },
             {
@@ -147,13 +147,13 @@ export const v3Widget = {
             {
                 content: "I am a correct choice",
                 correct: true,
-                clue: "I am a clue for a choice",
+                rationale: "I am some rationale for a choice",
                 isNoneOfTheAbove: true,
             },
             {
                 content: "I am an incorrect choice",
                 correct: false,
-                clue: "I am a clue for a choice",
+                rationale: "I am some rationale for a choice",
             },
             {
                 content: "I am an incorrect choice",
@@ -162,7 +162,7 @@ export const v3Widget = {
             },
             {
                 content: "I am content for a choice",
-                clue: "I am a clue for a choice",
+                rationale: "I am some rationale for a choice",
                 isNoneOfTheAbove: false,
             },
             {

@@ -30,7 +30,8 @@ export const question1: PerseusRenderer = {
                                 {
                                     content: "$30$",
                                     correct: false,
-                                    clue: "Here's a clue, this isn't the correct answer!",
+                                    rationale:
+                                        "Here's some rationale, this isn't the correct answer!",
                                 },
                                 {content: "$18$", correct: false},
                                 {content: "$15$", correct: true},

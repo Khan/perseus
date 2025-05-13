@@ -90,24 +90,24 @@
             {
               "content": "normal force $(F_\\text{N})$",
               "correct": true,
-              "clue": "$F_\\text{N}$ results from the box interacting with the shelf."
+              "rationale": "$F_\\text{N}$ results from the box interacting with the shelf."
             },
             {
               "content": "gravitational force $(F_\\text{g})$",
               "correct": true,
-              "clue": "$F_\\text{g}$ results from the box interacting with Earth."
+              "rationale": "$F_\\text{g}$ results from the box interacting with Earth."
             },
             {
               "isNoneOfTheAbove": false,
               "content": "applied force $(F_\\text{a})$",
               "correct": true,
-              "clue": "$F_\\text{a}$ results from the box interacting with the woman's hand."
+              "rationale": "$F_\\text{a}$ results from the box interacting with the woman's hand."
             },
             {
               "isNoneOfTheAbove": false,
               "content": "frictional force $(F_\\text{f})$",
               "correct": true,
-              "clue": "$F_\\text{f}$ results from the box interacting with the shelf."
+              "rationale": "$F_\\text{f}$ results from the box interacting with the shelf."
             }
           ],
           "randomize": true,

@@ -24,24 +24,26 @@ export const question: PerseusRenderer = {
                     {
                         content: "$-8$ and $8$",
                         correct: false,
-                        clue: "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
+                        rationale:
+                            "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
                     },
                     {
                         content: "$-8$",
                         correct: false,
-                        clue: "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
+                        rationale:
+                            "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
                     },
                     {
                         content: "$8$",
                         correct: true,
                         isNoneOfTheAbove: false,
-                        clue: "$8$ is the positive square root of $64$.",
+                        rationale: "$8$ is the positive square root of $64$.",
                     },
                     {
                         content: "No value of $x$ satisfies the equation.",
                         correct: false,
                         isNoneOfTheAbove: false,
-                        clue: "$8$ satisfies the equation.",
+                        rationale: "$8$ satisfies the equation.",
                     },
                 ],
                 countChoices: false,
@@ -80,24 +82,26 @@ export const questionWithPassage: PerseusRenderer = {
                     {
                         content: "$-8$ and $8$",
                         correct: false,
-                        clue: "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
+                        rationale:
+                            "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
                     },
                     {
                         content: "$-8$",
                         correct: false,
-                        clue: "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
+                        rationale:
+                            "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
                     },
                     {
                         content: "$8$ {{passage-ref 1 1}}\n\n",
                         correct: true,
                         isNoneOfTheAbove: false,
-                        clue: "$8$ is the positive square root of $64$.",
+                        rationale: "$8$ is the positive square root of $64$.",
                     },
                     {
                         content: "No value of $x$ satisfies the equation.",
                         correct: false,
                         isNoneOfTheAbove: false,
-                        clue: "$8$ satisfies the equation.",
+                        rationale: "$8$ satisfies the equation.",
                     },
                 ],
                 countChoices: false,
@@ -146,37 +150,43 @@ export const choicesWithImages: PerseusRenderer = {
                         content:
                             "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
                         correct: false,
-                        clue: "The markdown only has single lines between each item, so they should be treated as one complete line.",
+                        rationale:
+                            "The markdown only has single lines between each item, so they should be treated as one complete line.",
                     },
                     {
                         content:
                             "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
-                        clue: "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
+                        rationale:
+                            "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
                     },
                     {
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
                         correct: false,
-                        clue: "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
+                        rationale:
+                            "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
                     },
                     {
                         content:
                             "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
                         correct: false,
-                        clue: "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
+                        rationale:
+                            "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
                     },
                     {
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
-                        clue: "The markdown only has an image (no text), so nothing should be adjusted.",
+                        rationale:
+                            "The markdown only has an image (no text), so nothing should be adjusted.",
                     },
                     {
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
-                        clue: "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
+                        rationale:
+                            "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
                     },
                 ],
                 countChoices: false,
@@ -382,25 +392,27 @@ export const multiChoiceQuestionSimple: PerseusRenderer = {
                         content: "Hola",
                         isNoneOfTheAbove: false,
                         correct: true,
-                        clue: "The Spanish-speaking countries typically say Hola.",
+                        rationale:
+                            "The Spanish-speaking countries typically say Hola.",
                     },
                     {
                         content: "Hey",
                         isNoneOfTheAbove: false,
                         correct: true,
-                        clue: "This is used to attract someone's attention.",
+                        rationale:
+                            "This is used to attract someone's attention.",
                     },
                     {
                         content: "Hi",
                         isNoneOfTheAbove: false,
                         correct: true,
-                        clue: "This is used as friendly greeting.",
+                        rationale: "This is used as friendly greeting.",
                     },
                     {
                         content: "Goodbye",
                         isNoneOfTheAbove: false,
                         correct: false,
-                        clue: "Some people like to say Goodbye.",
+                        rationale: "Some people like to say Goodbye.",
                     },
                     {
                         content: "None of these",

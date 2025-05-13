@@ -59,28 +59,28 @@
           "choices": [
             {
               "content": "crwdns7184273:0crwdne7184273:0",
-              "clue": "",
+              "rationale": "",
               "correct": false,
               "isNoneOfTheAbove": false,
               "widgets": {}
             },
             {
               "content": "crwdns3077510:0crwdne3077510:0",
-              "clue": "",
+              "rationale": "",
               "correct": true,
               "isNoneOfTheAbove": false,
               "widgets": {}
             },
             {
               "content": "crwdns4204212:0crwdne4204212:0",
-              "clue": "",
+              "rationale": "",
               "correct": false,
               "isNoneOfTheAbove": false,
               "widgets": {}
             },
             {
               "content": "crwdns4204218:0crwdne4204218:0",
-              "clue": "",
+              "rationale": "",
               "correct": false,
               "isNoneOfTheAbove": false,
               "widgets": {}
