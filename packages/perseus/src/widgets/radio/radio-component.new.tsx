@@ -90,8 +90,7 @@ const RadioComponent = (props: Props) => {
         numCorrect,
     } = props;
 
-    const context = useContext(PerseusI18nContext);
-    const {strings} = context;
+    const {strings} = useContext(PerseusI18nContext);
 
     useEffect(() => {
         // This is temporary to confirm that we're using the new radio component.

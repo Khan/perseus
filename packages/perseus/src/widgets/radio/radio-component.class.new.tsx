@@ -124,6 +124,7 @@ class Radio extends React.Component<Props> implements Widget {
      * Turn on rationale display for the currently selected choices. Note that
      * this leaves rationales on for choices that are already showing
      * rationales.
+     * TODO: LEMS-3077 Remove deprecated class function
      * @deprecated Internal only. Use `showSolutions` prop instead.
      */
     showRationalesForCurrentlySelectedChoices: (
