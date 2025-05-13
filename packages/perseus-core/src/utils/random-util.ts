@@ -71,7 +71,7 @@ export function constrainedShuffle<T>(
     return shuffled;
 }
 
-function shuffleInPlace(a: unknown[], random: RNG): void {
+function shuffleInPlace<T>(a: T[], random: RNG): void {
     // The Fisher-Yates shuffling algorithm. See:
     // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
     for (let i = a.length - 1; i > 0; i--) {
