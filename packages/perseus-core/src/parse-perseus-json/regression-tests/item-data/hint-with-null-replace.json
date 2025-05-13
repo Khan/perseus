@@ -17,14 +17,14 @@
           "choices": [
             {
               "content": "crwdns2693864:0crwdne2693864:0",
-              "clue": "",
+              "rationale": "",
               "correct": false,
               "isNoneOfTheAbove": false,
               "widgets": {}
             },
             {
               "content": "crwdns2693863:0crwdne2693863:0",
-              "clue": "",
+              "rationale": "",
               "correct": true,
               "isNoneOfTheAbove": false,
               "widgets": {}

@@ -381,7 +381,8 @@ describe("splitPerseusRenderer", () => {
         });
     });
 
-    it("upgrades widgets before splitting", () => {
+    // No longer a relevant test, waiting for https://github.com/Khan/perseus/pull/2419  to land before removing
+    it.skip("upgrades widgets before splitting", () => {
         // Arrange
         const v0RadioOptions = {
             choices: [
@@ -409,7 +410,7 @@ describe("splitPerseusRenderer", () => {
                 "radio 1": {
                     type: "radio",
                     version: {
-                        major: 2,
+                        major: 3,
                         minor: 0,
                     },
                     options: {
@@ -421,7 +422,6 @@ describe("splitPerseusRenderer", () => {
                                 content: "Choice 2",
                             },
                         ],
-                        displayCount: null,
                         randomize: false,
                         hasNoneOfTheAbove: false,
                         multipleSelect: false,
