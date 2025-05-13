@@ -163,7 +163,7 @@ export function migrateV2toV3(
         ...widget,
         version: {major: 3, minor: 0},
         options: {
-            numCorrect: deriveNumCorrect(options),
+            numCorrect: options.numCorrect,
             hasNoneOfTheAbove: options.hasNoneOfTheAbove,
             countChoices: options.countChoices,
             randomize: options.randomize,
