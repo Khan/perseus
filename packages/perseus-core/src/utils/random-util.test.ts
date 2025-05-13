@@ -1,7 +1,12 @@
 import {describe, it, expect} from "@jest/globals";
-
-import {constrainedShuffle, randomIntInRange, seededRNG, shuffle} from "./random-util";
 import invariant from "tiny-invariant";
+
+import {
+    constrainedShuffle,
+    randomIntInRange,
+    seededRNG,
+    shuffle,
+} from "./random-util";
 
 describe("shuffle", () => {
     it("does nothing to an empty array", () => {
@@ -58,35 +63,44 @@ describe("shuffle", () => {
 describe("constrainedShuffle", () => {
     it("does nothing to an empty array", () => {
         const rng = seededRNG(0);
-        expect(constrainedShuffle([], rng, () => false)).toEqual([])
-    })
+        expect(constrainedShuffle([], rng, () => false)).toEqual([]);
+    });
 
     it("does nothing to a uniform array", () => {
         const rng = seededRNG(0);
-        expect(constrainedShuffle([1, 1, 1], rng, () => false)).toEqual([1, 1, 1])
-    })
+        expect(constrainedShuffle([1, 1, 1], rng, () => false)).toEqual([
+            1, 1, 1,
+        ]);
+    });
 
     it("shuffles the given array", () => {
         const rng = seededRNG(0);
-        expect(constrainedShuffle([1, 2, 3], rng, () => true)).toEqual([2, 1, 3])
-    })
+        expect(constrainedShuffle([1, 2, 3], rng, () => true)).toEqual([
+            2, 1, 3,
+        ]);
+    });
 
-    it.each(range(0, 10))("returns an array satisfying the given constraint when the seed is %d", (seed) => {
-        const rng = seededRNG(seed);
-        function constraint(array: readonly number[]) {
-            return array[0] === 3
-        }
+    it.each(range(0, 10))(
+        "returns an array satisfying the given constraint when the seed is %d",
+        (seed) => {
+            const rng = seededRNG(seed);
+            function constraint(array: readonly number[]) {
+                return array[0] === 3;
+            }
 
-        let result = constrainedShuffle([1, 2, 3], rng, constraint);
+            const result = constrainedShuffle([1, 2, 3], rng, constraint);
 
-        expect(result[0]).toBe(3);
-    })
+            expect(result[0]).toBe(3);
+        },
+    );
 
     it("throws given a constraint that is never satisfied", () => {
         const rng = seededRNG(0);
-        expect(() => constrainedShuffle([1, 2, 3], rng, () => false)).toThrowError();
-    })
-})
+        expect(() =>
+            constrainedShuffle([1, 2, 3], rng, () => false),
+        ).toThrowError();
+    });
+});
 
 describe("randomIntInRange", () => {
     function arrayOfLength(n: number) {
@@ -123,7 +137,7 @@ describe("randomIntInRange", () => {
 
 function range(min: number, max: number): number[] {
     invariant(min <= max, "range: min must be <= max");
-    const ret: number[] = []
+    const ret: number[] = [];
     for (let i = min; i <= max; i++) {
         ret.push(i);
     }

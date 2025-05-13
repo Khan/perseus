@@ -72,7 +72,9 @@ export function constrainedShuffle<T>(
         }
     }
 
-    throw new Error(`constrainedShuffle: constraint not met after ${maxIterations} attempts`)
+    throw new Error(
+        `constrainedShuffle: constraint not met after ${maxIterations} attempts`,
+    );
 }
 
 function shuffleInPlace<T>(a: T[], random: RNG): void {

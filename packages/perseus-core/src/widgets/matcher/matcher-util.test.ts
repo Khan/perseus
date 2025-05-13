@@ -167,7 +167,7 @@ describe("shuffleMatcher", () => {
 
 function range(min: number, max: number): number[] {
     invariant(min <= max, "range: min must be <= max");
-    const ret: number[] = []
+    const ret: number[] = [];
     for (let i = min; i <= max; i++) {
         ret.push(i);
     }
