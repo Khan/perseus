@@ -1,10 +1,10 @@
-import {ItemExtras} from "@khanacademy/perseus-core";
+import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import AssetContext from "../../asset-context";
 
 import type {WidgetExports} from "../../types";
-import type {PerseusAnswerArea, PerseusItem} from "@khanacademy/perseus-core";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 
 export const mockedAssetItem: PerseusItem = {
     question: {
@@ -21,9 +21,7 @@ export const mockedAssetItem: PerseusItem = {
             },
         },
     },
-    answerArea: Object.fromEntries(
-        ItemExtras.map((extra) => [extra, false]),
-    ) as PerseusAnswerArea,
+    answerArea: getDefaultAnswerArea(),
     hints: [],
 } as const;
 
