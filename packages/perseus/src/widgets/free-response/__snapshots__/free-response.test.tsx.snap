@@ -16,46 +16,59 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg-o_O-container_lci7r"
+            class="default_xu2jcg-o_O-container_lci7r free-response"
           >
-            <label
-              class="labelAndTextarea_b4ep1"
+            <div
+              class="default_xu2jcg"
             >
-              <span
-                class="text_f1191h-o_O-LabelLarge_5s82ln"
+              <label
+                class="text_f1191h-o_O-LabelMedium_1voxh4u-o_O-textWordBreak_6z3til-o_O-label_wdxvi6-o_O-labelWithNoDescription_p67whi-o_O-questionLabel_u5j6yl"
+                for=":r2:-labeled-field-field"
+                id=":r2:-labeled-field-label"
               >
                 <div
-                  class="perseus-renderer perseus-renderer-responsive"
+                  class="free-response-question"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
                       class="paragraph"
+                      data-perseus-paragraph-index="0"
                     >
-                      test-question
+                      <div
+                        class="paragraph"
+                      >
+                        test-question
+                      </div>
                     </div>
                   </div>
                 </div>
-              </span>
+              </label>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_zdxht7"
               >
                 <textarea
+                  aria-describedby=""
                   aria-invalid="false"
                   aria-required="false"
                   class="textarea_nfcfnx-o_O-LabelMedium_1rew30o-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-textarea_1x0fg6n"
-                  id=":r1:"
+                  id=":r2:-labeled-field-field"
                   placeholder="test-placeholder"
                 />
               </div>
-            </label>
+              <div
+                aria-atomic="true"
+                aria-live="assertive"
+                class="default_xu2jcg-o_O-errorSection_375epe"
+                id=":r2:-labeled-field-error"
+              />
+            </div>
             <div
               class="default_xu2jcg"
             >
               <span
-                class="text_f1191h"
+                class="text_f1191h-o_O-characterCountText_12vvpv1"
               >
                 0 / 500 Characters
               </span>
@@ -84,46 +97,59 @@ exports[`free-response widget should snapshot: first render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg-o_O-container_lci7r"
+            class="default_xu2jcg-o_O-container_lci7r free-response"
           >
-            <label
-              class="labelAndTextarea_b4ep1"
+            <div
+              class="default_xu2jcg"
             >
-              <span
-                class="text_f1191h-o_O-LabelLarge_5s82ln"
+              <label
+                class="text_f1191h-o_O-LabelMedium_1voxh4u-o_O-textWordBreak_6z3til-o_O-label_wdxvi6-o_O-labelWithNoDescription_p67whi-o_O-questionLabel_u5j6yl"
+                for=":r0:-labeled-field-field"
+                id=":r0:-labeled-field-label"
               >
                 <div
-                  class="perseus-renderer perseus-renderer-responsive"
+                  class="free-response-question"
                 >
                   <div
-                    class="paragraph"
-                    data-perseus-paragraph-index="0"
+                    class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
                       class="paragraph"
+                      data-perseus-paragraph-index="0"
                     >
-                      test-question
+                      <div
+                        class="paragraph"
+                      >
+                        test-question
+                      </div>
                     </div>
                   </div>
                 </div>
-              </span>
+              </label>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_zdxht7"
               >
                 <textarea
+                  aria-describedby=""
                   aria-invalid="false"
                   aria-required="false"
                   class="textarea_nfcfnx-o_O-LabelMedium_1rew30o-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-textarea_1x0fg6n"
-                  id=":r0:"
+                  id=":r0:-labeled-field-field"
                   placeholder="test-placeholder"
                 />
               </div>
-            </label>
+              <div
+                aria-atomic="true"
+                aria-live="assertive"
+                class="default_xu2jcg-o_O-errorSection_375epe"
+                id=":r0:-labeled-field-error"
+              />
+            </div>
             <div
               class="default_xu2jcg"
             >
               <span
-                class="text_f1191h"
+                class="text_f1191h-o_O-characterCountText_12vvpv1"
               >
                 0 / 500 Characters
               </span>

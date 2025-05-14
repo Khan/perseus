@@ -1,0 +1,14 @@
+.framework-perseus {
+    .free-response .free-response-question {
+        .paragraph {
+            font-weight: 700;
+        }
+
+        :nth-child(1 of .paragraph) {
+            margin-top: 0;
+        }
+        :nth-last-child(1 of .paragraph) {
+            margin-bottom: 0;
+        }
+    }
+}
