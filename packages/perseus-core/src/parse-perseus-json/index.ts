@@ -40,9 +40,9 @@ export type ParseFailureDetail = {
 };
 
 /**
- * Parses a PerseusItem from a JSON string, migrates old formats to the latest
- * schema, and runtime-typechecks the result. Use this to parse assessmentItem
- * data.
+ * Parses a PerseusItem from a plain object or JSON string, migrates old
+ * formats to the latest schema, and runtime-typechecks the result. Use this to
+ * parse assessmentItem data.
  *
  * @returns a {@link Result} of the parsed PerseusItem. If the result is a
  * failure, it will contain an error message describing where in the tree
@@ -50,10 +50,10 @@ export type ParseFailureDetail = {
  * @throws SyntaxError if the argument is not well-formed JSON.
  */
 export function parseAndMigratePerseusItem(
-    json: string,
+    json: string | object,
 ): Result<PerseusItem, ParseFailureDetail> {
     throwErrorIfCheatingDetected();
-    const object: unknown = JSON.parse(json);
+    const object = typeof json === "string" ? JSON.parse(json) : json;
     const result = parse(object, migrateAndTypecheckPerseusItem);
     if (isFailure(result)) {
         return failure({message: result.detail, invalidObject: object});

@@ -8,7 +8,7 @@ import {
 } from "./index";
 
 describe("parseAndMigratePerseusItem", () => {
-    it("should parse JSON", () => {
+    it("should parse a JSON string", () => {
         const result = parseAndMigratePerseusItem(
             `{
                 "answerArea": {},
@@ -20,6 +20,23 @@ describe("parseAndMigratePerseusItem", () => {
                 }
             }`,
         );
+
+        assertSuccess(result);
+        expect(result.value.question.content).toBe(
+            "this is the question content",
+        );
+    });
+
+    it("should parse an object", () => {
+        const result = parseAndMigratePerseusItem({
+            answerArea: {},
+            hints: [],
+            question: {
+                content: "this is the question content",
+                widgets: {},
+                images: {},
+            },
+        });
 
         assertSuccess(result);
         expect(result.value.question.content).toBe(
