@@ -212,7 +212,7 @@ const RadioComponent = ({
                 revealNoneOfTheAbove: !!(questionCompleted && selected),
                 crossedOut,
                 highlighted,
-                previouslyAnswered: previouslyAnswered,
+                previouslyAnswered,
             };
         });
     };

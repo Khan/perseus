@@ -143,8 +143,7 @@ const Choice = ({
     return (
         <div
             style={{
-                // @ts-expect-error - TS2322 - Type '{ dispay: string; flexDirection: "column"; color: string; }' is not assignable to type 'Properties<string | number, string & {}>'.
-                dispay: "flex",
+                display: "flex",
                 flexDirection: "column",
                 color: color.offBlack,
             }}

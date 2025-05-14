@@ -77,7 +77,7 @@ type Props = {
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-const BaseRadio = ({
+export const BaseRadio = ({
     apiOptions,
     reviewModeRubric,
     reviewMode,
@@ -93,8 +93,10 @@ const BaseRadio = ({
     const {strings} = usePerseusI18n();
 
     // useEffect doesn't have previous props
-    const prevReviewModeRubric = useRef();
-    const choiceRefs = useRef([]);
+    const prevReviewModeRubric = useRef<
+        PerseusRadioWidgetOptions | undefined | null
+    >();
+    const choiceRefs = useRef<Array<React.RefObject<HTMLButtonElement>>>([]);
 
     useEffect(() => {
         // Switching into review mode can sometimes cause the selected answer
@@ -114,7 +116,6 @@ const BaseRadio = ({
             apiOptions.canScrollPage &&
             isLastUsedWidget &&
             reviewModeRubric &&
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             !prevReviewModeRubric.current
         ) {
             const checkedIndex = choices.findIndex((c) => c.checked);
@@ -123,9 +124,7 @@ const BaseRadio = ({
                 // note(matthew): we know this is only getting passed
                 // to a WB Clickable button, so we force it to be of
                 // type HTMLButtonElement
-                // @ts-expect-error - TS2339 - Property 'current' does not exist on type 'never'.
-                const anyNode = ReactDOM.findDOMNode(ref.current) as any;
-                const buttonNode = anyNode as
+                const buttonNode = ReactDOM.findDOMNode(ref.current) as
                     | HTMLButtonElement
                     | null
                     | undefined;
@@ -135,7 +134,6 @@ const BaseRadio = ({
             }
         }
 
-        // @ts-expect-error - TS2322 - Type 'PerseusRadioWidgetOptions | undefined' is not assignable to type 'undefined'.
         prevReviewModeRubric.current = reviewModeRubric;
     }, [apiOptions, choices, isLastUsedWidget, reviewModeRubric]);
 
@@ -229,8 +227,9 @@ const BaseRadio = ({
                 {choices.map((choice, i) => {
                     let Element = Choice;
                     const ref = React.createRef<any>();
-                    // @ts-expect-error - TS2322 - Type 'RefObject<unknown>' is not assignable to type 'never'.
+
                     choiceRefs.current[i] = ref;
+
                     const elementProps = {
                         apiOptions: apiOptions,
                         multipleSelect: multipleSelect,
@@ -266,8 +265,7 @@ const BaseRadio = ({
 
                     const nextChoice = choices[i + 1];
                     const nextChoiceHighlighted =
-                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                        !!nextChoice && nextChoice.highlighted;
+                        nextChoice?.highlighted || false;
 
                     const aphroditeClassName = (checked: boolean) => {
                         // Whether or not to show correctness borders
@@ -472,5 +470,3 @@ const styles: StyleDeclaration = StyleSheet.create({
         minWidth: "auto",
     },
 });
-
-export default BaseRadio;

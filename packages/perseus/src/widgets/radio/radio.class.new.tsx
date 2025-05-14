@@ -166,8 +166,7 @@ class Radio extends React.Component<Props> implements Widget {
                 {
                     choiceStates: newStates,
                 },
-                // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
-                null, // cb
+                () => {}, // cb
                 true, // silent
             );
         }
@@ -192,8 +191,7 @@ class Radio extends React.Component<Props> implements Widget {
                 {
                     choiceStates: newStates,
                 },
-                // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
-                null, // cb
+                () => {}, // cb
                 false, // silent
             );
         }
