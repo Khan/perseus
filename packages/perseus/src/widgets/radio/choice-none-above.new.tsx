@@ -7,9 +7,9 @@ import Choice from "./choice.new";
 
 import type {ChoiceProps} from "./choice.new";
 
-type Props = ChoiceProps & {
+interface Props extends ChoiceProps {
     showContent?: boolean;
-};
+}
 
 /**
  * This component is a duplicate of the ChoiceNoneAbove component in choice-none-above.tsx

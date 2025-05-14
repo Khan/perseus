@@ -46,10 +46,10 @@ type DefaultProps = Required<
     >
 >;
 
-export type RadioChoiceWithMetadata = PerseusRadioChoice & {
+export interface RadioChoiceWithMetadata extends PerseusRadioChoice {
     originalIndex: number;
     correct?: boolean;
-};
+}
 
 /**
  * This component is holds the class methods for the radio widget, that were split
