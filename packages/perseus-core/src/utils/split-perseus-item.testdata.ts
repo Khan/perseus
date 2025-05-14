@@ -1,4 +1,4 @@
-export const NorwegianKnownIssue = {
+export const norwegianKnownIssue = {
     answerArea: {
         calculator: false,
         options: {
