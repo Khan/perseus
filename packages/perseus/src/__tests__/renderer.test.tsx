@@ -859,9 +859,7 @@ describe("renderer", () => {
     it("doesn't reset widget state when going from answerless to answerful data", async () => {
         // Arrange
         const answerful = generateTestPerseusItem({question: question1});
-        const answerless = splitPerseusItem(
-            generateTestPerseusItem({question: answerful.question}),
-        );
+        const answerless = splitPerseusItem(generateTestPerseusItem(answerful));
         const {rerender, renderer} = renderQuestion(answerless.question);
 
         // Poke the renderer so it's not in it's initial-render state
