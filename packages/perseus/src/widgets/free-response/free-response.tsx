@@ -113,12 +113,12 @@ export class FreeResponse
             <View style={styles.container} className={"free-response"}>
                 <LabeledField
                     label={
-                        <div className="free-response-question">
+                        <View className="free-response-question">
                             <Renderer
                                 content={this.props.question}
                                 strings={this.context.strings}
                             />
-                        </div>
+                        </View>
                     }
                     field={
                         <TextArea

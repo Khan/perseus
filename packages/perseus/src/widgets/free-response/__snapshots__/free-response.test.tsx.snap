@@ -27,7 +27,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                 id=":r2:-labeled-field-label"
               >
                 <div
-                  class="free-response-question"
+                  class="default_xu2jcg free-response-question"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -109,7 +109,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
                 id=":r0:-labeled-field-label"
               >
                 <div
-                  class="free-response-question"
+                  class="default_xu2jcg free-response-question"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
