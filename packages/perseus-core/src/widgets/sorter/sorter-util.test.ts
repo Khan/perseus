@@ -1,4 +1,4 @@
-import invariant from "tiny-invariant";
+import {range} from "../../utils/range";
 
 import getSorterPublicWidgetOptions, {shuffleSorter} from "./sorter-util";
 
@@ -52,12 +52,3 @@ describe("shuffleSorter", () => {
         });
     });
 });
-
-function range(min: number, max: number): number[] {
-    invariant(min <= max, "range: min must be <= max");
-    const ret: number[] = [];
-    for (let i = min; i <= max; i++) {
-        ret.push(i);
-    }
-    return ret;
-}
