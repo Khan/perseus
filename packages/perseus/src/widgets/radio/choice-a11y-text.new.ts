@@ -15,12 +15,11 @@ function getA11yText(
     letter: string,
     checked: boolean,
     correct: boolean,
-    crossedOut: boolean,
     showCorrectness: boolean,
     strings: PerseusStrings,
 ): string {
     // There are two pieces of metadata we want to add to each a11yText:
-    // whether the answer was checked/crossed-out/neither, and whether the
+    // whether the answer was checked/not checked, and whether the
     // answer is correct/incorrect/not-yet-revealed.
     //
     // Translation is tricky for cross-product situations like this, so
@@ -31,11 +30,7 @@ function getA11yText(
                 letter,
             });
         }
-        if (crossedOut) {
-            return strings.choiceCrossedOutCorrect({
-                letter,
-            });
-        }
+
         return strings.choiceCorrect({
             letter,
         });
@@ -46,11 +41,7 @@ function getA11yText(
                 letter,
             });
         }
-        if (crossedOut) {
-            return strings.choiceCrossedOutIncorrect({
-                letter,
-            });
-        }
+
         return strings.choiceIncorrect({
             letter,
         });
@@ -60,11 +51,7 @@ function getA11yText(
             letter,
         });
     }
-    if (crossedOut) {
-        return strings.choiceCrossedOut({
-            letter,
-        });
-    }
+
     return strings.choice({
         letter,
     });

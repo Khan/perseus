@@ -17,7 +17,6 @@ import sharedStyles, {CHOICE_ICON_SIZE} from "./shared-styles";
 type ChoiceIconProps = {
     pos: number;
     checked: boolean;
-    crossedOut: boolean;
     focused: boolean;
     hovered: boolean;
     pressed: boolean;

@@ -160,7 +160,6 @@ const RadioComponent = (props: RadioComponentProps) => {
     const updateChoices = (
         newValueLists: Readonly<{
             checked: ReadonlyArray<boolean>;
-            crossedOut: ReadonlyArray<boolean>;
         }>,
     ) => {
         const {choiceStates} = props;
@@ -174,7 +173,6 @@ const RadioComponent = (props: RadioComponentProps) => {
             ? choiceStates.map((state: ChoiceState) => ({...state}))
             : choices.map(() => ({
                   selected: false,
-                  crossedOut: false,
                   highlighted: false,
                   rationaleShown: false,
                   correctnessShown: false,
@@ -183,10 +181,9 @@ const RadioComponent = (props: RadioComponentProps) => {
               }));
 
         // Mutate the new `choiceState` objects, according to the new `checked`
-        // and `crossedOut` values provided in `newValueLists`.
+        // value provided in `newValueLists`.
         newChoiceStates.forEach((choiceState: ChoiceState, i) => {
             choiceState.selected = newValueLists.checked[i];
-            choiceState.crossedOut = newValueLists.crossedOut[i];
         });
 
         // Call the onChange function to pass the new choice states to the renderer.
@@ -200,7 +197,6 @@ const RadioComponent = (props: RadioComponentProps) => {
         // The default state for a choice state object.
         const defaultState: ChoiceState = {
             selected: false,
-            crossedOut: false,
             readOnly: false,
             highlighted: false,
             rationaleShown: false,
@@ -257,7 +253,6 @@ const RadioComponent = (props: RadioComponentProps) => {
             // Extract the choice state for the choice.
             const {
                 selected,
-                crossedOut,
                 rationaleShown,
                 correctnessShown,
                 readOnly,
@@ -286,7 +281,6 @@ const RadioComponent = (props: RadioComponentProps) => {
                 showCorrectness: correctnessShown,
                 isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
                 revealNoneOfTheAbove: !!(questionCompleted && selected),
-                crossedOut,
                 highlighted,
                 previouslyAnswered: previouslyAnswered,
             };

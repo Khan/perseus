@@ -110,7 +110,6 @@ export type EditorMode = "edit" | "preview" | "json";
 
 export type ChoiceState = {
     selected: boolean;
-    crossedOut: boolean;
     highlighted: boolean;
     rationaleShown: boolean;
     correctnessShown: boolean;
