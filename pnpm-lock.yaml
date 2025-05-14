@@ -76,8 +76,8 @@ catalogs:
       specifier: 3.1.3
       version: 3.1.3
     '@khanacademy/wonder-stuff-core':
-      specifier: 1.5.4
-      version: 1.5.4
+      specifier: 1.5.5
+      version: 1.5.5
     '@phosphor-icons/core':
       specifier: ^2.0.2
       version: 2.0.2
@@ -132,8 +132,8 @@ importers:
         specifier: ^29.7.0
         version: 29.7.0
       '@khanacademy/eslint-config':
-        specifier: ^5.2.0
-        version: 5.2.0(@khanacademy/eslint-plugin@3.1.2(eslint@8.57.1)(typescript@5.7.2))(@typescript-eslint/eslint-plugin@8.27.0(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2))(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.7.2))(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint-import-resolver-typescript@3.6.1)(eslint-plugin-import@2.29.1)(eslint-plugin-jsx-a11y@6.10.2(eslint@8.57.1))(eslint-plugin-prettier@5.1.3(@types/eslint@9.6.1)(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint@8.57.1)(prettier@3.2.5))(eslint-plugin-react@7.34.1(eslint@8.57.1))(eslint@8.57.1)
+        specifier: ^5.2.1
+        version: 5.2.1(@khanacademy/eslint-plugin@3.1.2(eslint@8.57.1)(typescript@5.7.2))(@typescript-eslint/eslint-plugin@8.27.0(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2))(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.7.2))(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint-import-resolver-typescript@3.6.1)(eslint-plugin-import@2.29.1)(eslint-plugin-jsx-a11y@6.10.2(eslint@8.57.1))(eslint-plugin-prettier@5.1.3(@types/eslint@9.6.1)(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint@8.57.1)(prettier@3.2.5))(eslint-plugin-react@7.34.1(eslint@8.57.1))(eslint@8.57.1)
       '@khanacademy/eslint-plugin':
         specifier: ^3.1.2
         version: 3.1.2(eslint@8.57.1)(typescript@5.7.2)
@@ -516,7 +516,7 @@ importers:
         version: 4.1.12(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
@@ -617,7 +617,7 @@ importers:
         version: 9.0.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
@@ -705,7 +705,7 @@ importers:
         version: 12.2.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-data':
         specifier: 'catalog:'
-        version: 14.1.3(@khanacademy/wonder-stuff-core@1.5.4)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
+        version: 14.1.3(@khanacademy/wonder-stuff-core@1.5.5)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-dropdown':
         specifier: 'catalog:'
         version: 10.0.4(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react-window@1.8.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
@@ -747,7 +747,7 @@ importers:
         version: 3.1.3(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
@@ -808,7 +808,7 @@ importers:
     devDependencies:
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
@@ -911,7 +911,7 @@ importers:
         version: 3.1.3(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
@@ -2249,10 +2249,10 @@ packages:
   '@juggle/resize-observer@3.4.0':
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
 
-  '@khanacademy/eslint-config@5.2.0':
-    resolution: {integrity: sha512-fTlATb2MmPeEudBRSGTpydliukkBZ9/H/zXEdM1xau9+XbZ73RCMFOFdYSD9r9XhwyM5EcfSIO/V3kYnbx5cWg==}
+  '@khanacademy/eslint-config@5.2.1':
+    resolution: {integrity: sha512-2OuMYsE4LTFVOCLR0Os89UG3X5atbE9roA/1qzUJWxxLUMOMGSFiFA1b6oRPmjJxFOiC6vR7g0Q5HGNFy5e7lg==}
     peerDependencies:
-      '@khanacademy/eslint-plugin': ^3.1.1
+      '@khanacademy/eslint-plugin': 3.1.2
       '@typescript-eslint/eslint-plugin': 8.17.0
       '@typescript-eslint/parser': 8.17.0
       eslint: ^8.55.0
@@ -2478,8 +2478,8 @@ packages:
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-stuff-core@1.5.4':
-    resolution: {integrity: sha512-Z1DOHdSNrXyIKCgYsq6XKT6ZTRq5bb7Daof8mN31O30twStrwBynP5fS0lARS9qgxycaueThEcmeCF8AXyU21g==}
+  '@khanacademy/wonder-stuff-core@1.5.5':
+    resolution: {integrity: sha512-0OkhkjuM2zoS6k9Y8WPFGq0OL5WjgL8faOukM5P/wY7M9RC1q/oYCECg5YUf+OFfXenSHgBi2TmJ6cpT/F1how==}
     engines: {node: '>=16'}
 
   '@manypkg/find-root@1.1.0':
@@ -10672,7 +10672,7 @@ snapshots:
 
   '@juggle/resize-observer@3.4.0': {}
 
-  '@khanacademy/eslint-config@5.2.0(@khanacademy/eslint-plugin@3.1.2(eslint@8.57.1)(typescript@5.7.2))(@typescript-eslint/eslint-plugin@8.27.0(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2))(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.7.2))(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint-import-resolver-typescript@3.6.1)(eslint-plugin-import@2.29.1)(eslint-plugin-jsx-a11y@6.10.2(eslint@8.57.1))(eslint-plugin-prettier@5.1.3(@types/eslint@9.6.1)(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint@8.57.1)(prettier@3.2.5))(eslint-plugin-react@7.34.1(eslint@8.57.1))(eslint@8.57.1)':
+  '@khanacademy/eslint-config@5.2.1(@khanacademy/eslint-plugin@3.1.2(eslint@8.57.1)(typescript@5.7.2))(@typescript-eslint/eslint-plugin@8.27.0(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2))(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.7.2))(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint-import-resolver-typescript@3.6.1)(eslint-plugin-import@2.29.1)(eslint-plugin-jsx-a11y@6.10.2(eslint@8.57.1))(eslint-plugin-prettier@5.1.3(@types/eslint@9.6.1)(eslint-config-prettier@9.1.0(eslint@8.57.1))(eslint@8.57.1)(prettier@3.2.5))(eslint-plugin-react@7.34.1(eslint@8.57.1))(eslint@8.57.1)':
     dependencies:
       '@khanacademy/eslint-plugin': 3.1.2(eslint@8.57.1)(typescript@5.7.2)
       '@typescript-eslint/eslint-plugin': 8.27.0(@typescript-eslint/parser@8.27.0(eslint@8.57.1)(typescript@5.7.2))(eslint@8.57.1)(typescript@5.7.2)
@@ -10857,11 +10857,11 @@ snapshots:
       react-router: 6.30.0(react@18.3.1)
       react-router-dom: 5.3.4(react@18.3.1)
 
-  '@khanacademy/wonder-blocks-data@14.1.3(@khanacademy/wonder-stuff-core@1.5.4)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)':
+  '@khanacademy/wonder-blocks-data@14.1.3(@khanacademy/wonder-stuff-core@1.5.5)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.27.1
       '@khanacademy/wonder-blocks-core': 12.2.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-stuff-core': 1.5.4
+      '@khanacademy/wonder-stuff-core': 1.5.5
       react: 18.3.1
     transitivePeerDependencies:
       - aphrodite
@@ -11214,7 +11214,7 @@ snapshots:
       - react-router
       - react-router-dom
 
-  '@khanacademy/wonder-stuff-core@1.5.4': {}
+  '@khanacademy/wonder-stuff-core@1.5.5': {}
 
   '@manypkg/find-root@1.1.0':
     dependencies:
