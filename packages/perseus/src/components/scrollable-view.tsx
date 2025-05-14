@@ -37,6 +37,10 @@ type ScrollableViewProps = (ScrollAxisX | ScrollAxisY) &
     React.HTMLAttributes<HTMLDivElement> &
     ScrollableViewPropsBase;
 
+// This is the number of pixels to scroll when the left or right scroll buttons
+// are clicked. Adjust this value to change the scroll amount as needed.
+const SCROLL_DISTANCE = 100;
+
 function ScrollableView({
     x,
     y,
@@ -66,9 +70,8 @@ function ScrollableView({
             return;
         }
 
-        const scrollAmount = 100; // Adjust this value as needed
         containerRef.current.scrollBy({
-            left: direction === "left" ? -scrollAmount : scrollAmount,
+            left: direction === "left" ? -SCROLL_DISTANCE : SCROLL_DISTANCE,
             behavior: "smooth",
         });
     };
