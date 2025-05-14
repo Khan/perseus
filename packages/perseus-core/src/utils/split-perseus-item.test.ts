@@ -2,6 +2,7 @@ import {registerCoreWidgets} from "../widgets/core-widget-registry";
 import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
 import splitPerseusItem from "./split-perseus-item";
+import {NorwegianKnownIssue} from "./split-perseus-item.testdata";
 import {generateTestPerseusItem} from "./test-utils";
 
 import type {PerseusRenderer, RadioWidget} from "../data-schema";
@@ -466,5 +467,16 @@ describe("splitPerseusItem", () => {
 
         expect(item.hints[0]).toEqual(hint);
         expect(rv.hints).toEqual([]);
+    });
+
+    it("handles real data", () => {
+        const rv = splitPerseusItem(NorwegianKnownIssue as any);
+
+        expect(
+            rv.question.widgets["input-number 1"].options.value,
+        ).toBeUndefined();
+        rv.question.widgets["radio 1"].options.choices.forEach((c) => {
+            expect(c.correct).toBeUndefined();
+        });
     });
 });
