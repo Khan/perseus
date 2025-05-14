@@ -1,12 +1,12 @@
-import Rule from "../rule";
 import {CoreWidgetRegistry} from "@khanacademy/perseus-core";
+
+import Rule from "../rule";
 
 export default Rule.makeRule({
     name: "inaccessible-widget",
     severity: Rule.Severity.WARNING,
     selector: "widget",
     lint: function (state, content, nodes, match, context) {
-        console.log("Enter lint rule");
         const node = state.currentNode();
         const widgetType = node.widgetType;
         const widgetId = node.id;
@@ -20,10 +20,12 @@ export default Rule.makeRule({
             return;
         }
 
-        const accessible = CoreWidgetRegistry.isAccessible(widgetType, widgetInfo.options);
-        if(!accessible) {
-            console.log(`The widget "${widgetType}" is not accessible.`)
-            return `The widget "${widgetType}" is not accessible.`
+        const accessible = CoreWidgetRegistry.isAccessible(
+            widgetType,
+            widgetInfo.options,
+        );
+        if (!accessible) {
+            return `The widget "${widgetType}" is not accessible.`;
         }
-    }
+    },
 }) as Rule;

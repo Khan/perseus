@@ -317,7 +317,6 @@ const propTransform: (arg1: any) => any = (editorProps) => {
 export default {
     name: "table",
     displayName: "Table (deprecated - use markdown table instead)",
-    accessible: true,
     widget: Table,
     transform: propTransform,
     hidden: true,

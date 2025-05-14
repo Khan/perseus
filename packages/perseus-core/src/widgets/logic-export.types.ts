@@ -56,6 +56,7 @@ export type WidgetLogic = {
     supportedAlignments?: ReadonlyArray<Alignment>;
     defaultAlignment?: Alignment;
     accessible?: boolean | ((options: PerseusWidgetOptions) => boolean);
+    traverseChildWidgets?: any;
 
     /**
      * A function that provides a public version of the widget options that can

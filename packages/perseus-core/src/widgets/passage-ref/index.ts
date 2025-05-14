@@ -9,6 +9,7 @@ const passageRefWidgetLogic: WidgetLogic = {
     version: currentVersion,
     defaultWidgetOptions: defaultWidgetOptions,
     defaultAlignment: "inline",
+    accessible: false,
 };
 
 export default passageRefWidgetLogic;

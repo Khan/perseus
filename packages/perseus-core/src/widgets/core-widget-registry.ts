@@ -1,3 +1,8 @@
+import _ from "underscore";
+
+import {Errors} from "../error/errors";
+import {PerseusError} from "../error/perseus-error";
+
 import categorizerWidgetLogic from "./categorizer";
 import csProgramWidgetLogic from "./cs-program";
 import definitionWidgetLogic from "./definition";
@@ -31,14 +36,16 @@ import sorterWidgetLogic from "./sorter";
 import tableWidgetLogic from "./table";
 import videoWidgetLogic from "./video";
 
+import type {PerseusWidgetOptions} from "../data-schema";
 import type {
     PublicWidgetOptionsFunction,
     WidgetLogic,
 } from "./logic-export.types";
 import type {Alignment} from "../types";
-import { PerseusWidgetOptions } from "../data-schema";
+// eslint-disable-next-line @typescript-eslint/no-restricted-imports
+import type {PerseusWidget} from "@khanacademy/perseus-core";
 
-const widgets:Record<string, WidgetLogic> = {};
+const widgets: Record<string, WidgetLogic> = {};
 
 function registerWidget(type: string, logic: WidgetLogic) {
     widgets[type] = logic;
@@ -46,6 +53,7 @@ function registerWidget(type: string, logic: WidgetLogic) {
 
 export function isWidgetRegistered(type: string) {
     const widgetLogic = widgets[type];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return !!widgetLogic;
 }
 
@@ -72,9 +80,12 @@ export function getDefaultWidgetOptions(type: string) {
     return widgetLogic?.defaultWidgetOptions || {};
 }
 
-export function isAccessible(type: string, widgetOptions: PerseusWidgetOptions):boolean {
+export function isAccessible(
+    type: string,
+    widgetOptions: PerseusWidgetOptions,
+): boolean {
     const widgetLogic = widgets[type];
-
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!widgetLogic) {
         return false;
     }
@@ -88,6 +99,36 @@ export function isAccessible(type: string, widgetOptions: PerseusWidgetOptions):
         ? accessible(widgetOptions)
         : !!accessible;
 }
+
+export const traverseChildWidgets = (
+    widgetInfo: PerseusWidget,
+    traverseRenderer: any,
+): PerseusWidget => {
+    if (!traverseRenderer) {
+        throw new PerseusError(
+            "traverseRenderer must be provided, but was not",
+            Errors.Internal,
+        );
+    }
+
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!widgetInfo || !widgetInfo.type || !widgets[widgetInfo.type]) {
+        return widgetInfo;
+    }
+
+    const widgetExports = widgets[widgetInfo.type];
+    const props = widgetInfo.options;
+
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (widgetExports.traverseChildWidgets && props) {
+        const newProps = widgetExports.traverseChildWidgets(
+            props,
+            traverseRenderer,
+        );
+        return _.extend({}, widgetInfo, {options: newProps});
+    }
+    return widgetInfo;
+};
 /**
  * Handling for the optional alignments for widgets
  * See widget-container.jsx for details on how alignments are implemented.

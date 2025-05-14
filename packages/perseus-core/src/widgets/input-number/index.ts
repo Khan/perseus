@@ -26,6 +26,7 @@ const inputNumberWidgetLogic: WidgetLogic = {
     name: "input-number",
     defaultWidgetOptions,
     defaultAlignment: "inline-block",
+    accessible: false,
 };
 
 export default inputNumberWidgetLogic;

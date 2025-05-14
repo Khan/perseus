@@ -20,6 +20,7 @@ const matrixWidgetLogic: WidgetLogic = {
     name: "matrix",
     defaultWidgetOptions,
     getPublicWidgetOptions: getMatrixPublicWidgetOptions,
+    accessible: false,
 };
 
 export default matrixWidgetLogic;
