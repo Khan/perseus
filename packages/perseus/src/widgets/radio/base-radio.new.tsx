@@ -77,7 +77,7 @@ type Props = {
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-export const BaseRadio = ({
+const BaseRadio = ({
     apiOptions,
     reviewModeRubric,
     reviewMode,
@@ -369,6 +369,8 @@ export const BaseRadio = ({
     // an issue especially on phones.
     return <div className={css(styles.responsiveContainer)}>{fieldset}</div>;
 };
+
+export default BaseRadio;
 
 const styles: StyleDeclaration = StyleSheet.create({
     instructions: {
