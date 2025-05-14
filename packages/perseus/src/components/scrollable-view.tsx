@@ -4,19 +4,16 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import caretLeftIcon from "@phosphor-icons/core/regular/caret-left.svg";
 import caretRightIcon from "@phosphor-icons/core/regular/caret-right.svg";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {useEffect, useRef} from "react";
 
-import type {CSSProperties, StyleDeclaration} from "aphrodite";
-
 type ScrollAxisX = {
-    x: CSSProperties["overflowX"];
-    y?: CSSProperties["overflowY"];
+    x: React.CSSProperties["overflowX"];
+    y?: React.CSSProperties["overflowY"];
 };
 type ScrollAxisY = {
-    y: CSSProperties["overflowY"];
-    x?: CSSProperties["overflowX"];
+    y: React.CSSProperties["overflowY"];
+    x?: React.CSSProperties["overflowX"];
 };
 type AriaLabelOnly = {
     "aria-label": string;
@@ -154,7 +151,7 @@ function ScrollButtons({
     );
 }
 
-const styles: StyleDeclaration = StyleSheet.create({
+const styles = {
     scrollButtonsContainer: {
         alignItems: "center",
         flexDirection: "row",
@@ -173,6 +170,6 @@ const styles: StyleDeclaration = StyleSheet.create({
         zIndex: 2,
         transition: "opacity 0.3s ease",
     },
-});
+} as const;
 
 export default ScrollableView;
