@@ -1,6 +1,6 @@
 import type {PerseusGrapherWidgetOptions} from "../../data-schema";
 
-type GrapherPublicWidgetOptions = Pick<
+export type GrapherPublicWidgetOptions = Pick<
     PerseusGrapherWidgetOptions,
     "availableTypes" | "graph"
 >;

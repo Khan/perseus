@@ -13,13 +13,21 @@ import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
-import type {ChangeableProps} from "../../mixins/changeable";
-import type {APIOptions, WidgetExports, FocusPath, Widget} from "../../types";
+import type {
+    WidgetExports,
+    FocusPath,
+    Widget,
+    WidgetProps,
+    UniversalWidgetProps,
+} from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {
     Relationship,
     PerseusNumberLineUserInput,
+    PerseusNumberLineWidgetOptions,
+    NumberLinePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -32,19 +40,21 @@ const bound = (x: number, gt: any, lt: any) => Math.min(Math.max(x, gt), lt);
 const EN_DASH = "\u2013";
 const horizontalPadding = 30;
 
-const reverseRel = {
+const reverseRel: Record<Relationship, Relationship> = {
+    eq: "eq",
     ge: "le",
     gt: "lt",
     le: "ge",
     lt: "gt",
-} as const;
+};
 
-const toggleStrictRel = {
+const toggleStrictRel: Record<Relationship, Relationship> = {
+    eq: "eq",
     ge: "gt",
     gt: "ge",
     le: "lt",
     lt: "le",
-} as const;
+};
 
 function formatImproper(n: number, d: number): string {
     if (d === 1) {
@@ -189,10 +199,11 @@ const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
     return results;
 });
 
-// TODO: most widgets use some like Widget<Something, PerseusNumberLineWidgetOptions>
-// should this one?
-type Props = ChangeableProps & {
-    range: [number, number];
+/**
+ * The type of `this.props` inside the NumberLine widget.
+ */
+type Props = WidgetProps<{
+    range: number[];
     labelRange: Array<number | null>;
     labelStyle: string;
     labelTicks: boolean;
@@ -203,15 +214,8 @@ type Props = ChangeableProps & {
     isInequality: boolean;
     numLinePosition: number;
     rel: Relationship;
-    onFocus: (arg1: any) => void;
-    onBlur: (arg1: any) => void;
-    onChange: (arg1: any, arg2?: () => void | null | undefined) => void;
-    apiOptions: APIOptions;
-    keypadElement: HTMLElement | null | undefined;
-    static?: boolean;
     showTooltips?: boolean;
-    trackInteraction: () => void;
-};
+}>;
 
 type DefaultProps = {
     range: Props["range"];
@@ -227,6 +231,14 @@ type DefaultProps = {
     rel: Props["rel"];
     apiOptions: Props["apiOptions"];
 };
+
+/**
+ * The props returned by the `transform` and `staticTransform` functions.
+ */
+type RenderProps = Omit<
+    PropsFor<typeof NumberLine>,
+    keyof UniversalWidgetProps
+>;
 
 type State = {
     numDivisionsEmpty: boolean;
@@ -712,7 +724,9 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     }
 }
 
-const numberLineTransform: (arg1: any) => any = (editorProps) => {
+function numberLineTransform(
+    editorProps: NumberLinePublicWidgetOptions,
+): RenderProps {
     const props = _.pick(editorProps, [
         "range",
 
@@ -745,17 +759,20 @@ const numberLineTransform: (arg1: any) => any = (editorProps) => {
         numDivisions = undefined; // send to getDefaultProps()
     }
 
-    _.extend(props, {
+    return {
+        ...props,
+        isTickCtrl: editorProps.isTickCtrl ?? undefined,
         numLinePosition: numLinePosition,
         numDivisions: numDivisions,
         // Use getDefaultProps value if null
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         snapDivisions: props.snapDivisions || undefined,
-    });
+    };
+}
 
-    return props;
-};
-
-const staticTransform: (arg1: any) => any = (editorProps) => {
+function staticTransform(
+    editorProps: PerseusNumberLineWidgetOptions,
+): RenderProps {
     const props = _.pick(editorProps, [
         "range",
 
@@ -787,17 +804,17 @@ const staticTransform: (arg1: any) => any = (editorProps) => {
         numDivisions = undefined; // send to getDefaultProps()
     }
 
-    _.extend(props, {
+    return {
+        ...props,
         numLinePosition: numLinePosition,
         numDivisions: numDivisions,
         // Render the relation in the correct answer
-        rel: editorProps.isInequality ? editorProps.correctRel : null,
+        rel: editorProps.isInequality ? editorProps.correctRel : undefined,
         // Use getDefaultProps value if null
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         snapDivisions: props.snapDivisions || undefined,
-    });
-
-    return props;
-};
+    };
+}
 
 export default {
     name: "number-line",

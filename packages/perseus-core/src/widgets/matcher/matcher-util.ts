@@ -1,6 +1,7 @@
-import {seededRNG, shuffle} from "../../utils/random-util";
+import {constrainedShuffle, seededRNG} from "../../utils/random-util";
 
 import type {PerseusMatcherWidgetOptions} from "../../data-schema";
+import type {RNG} from "../../utils/random-util";
 
 // TODO(LEMS-2841): Should be able to remove once getPublicWidgetOptions is hooked up
 type MatcherInfo = {
@@ -10,56 +11,26 @@ type MatcherInfo = {
     problemNum: number | null | undefined;
 };
 
-type MatcherShuffleInfo = {
-    left: ReadonlyArray<string>;
-    right: ReadonlyArray<string>;
-    orderMatters: boolean;
-};
-
-// TODO(LEMS-2841): Should be able to remove once getPublicWidgetOptions is hooked up
 export const shuffleMatcher = (
     props: MatcherInfo,
 ): {left: ReadonlyArray<string>; right: ReadonlyArray<string>} => {
     // Use the same random() function to shuffle both columns sequentially
     const rng = seededRNG(props.problemNum as number);
 
-    let left;
-    if (!props.orderMatters) {
-        // If the order doesn't matter, don't shuffle the left column
-        left = props.left;
-    } else {
-        left = shuffle(props.left, rng, /* ensurePermuted */ true);
-    }
-
-    const right = shuffle(props.right, rng, /* ensurePermuted */ true);
-
-    return {left, right};
+    return {
+        // If the order of rows doesn't matter, don't shuffle the left column
+        left: !props.orderMatters
+            ? props.left
+            : shuffleDisplacingFirst(props.left, rng),
+        right: shuffleDisplacingFirst(props.right, rng),
+    };
 };
-
-// TODO(LEMS-2841): Can shorten to shuffleMatcher after above function removed
-function shuffleMatcherWithRandom(data: MatcherShuffleInfo): {
-    left: string[];
-    right: string[];
-} {
-    // Use the same random() function to shuffle both columns sequentially
-    let left;
-    if (!data.orderMatters) {
-        // If the order doesn't matter, don't shuffle the left column
-        left = data.left;
-    } else {
-        left = shuffle(data.left, Math.random, /* ensurePermuted */ true);
-    }
-
-    const right = shuffle(data.right, Math.random, /* ensurePermuted */ true);
-
-    return {left, right};
-}
 
 /**
  * For details on the individual options, see the
  * PerseusMatcherWidgetOptions type
  */
-type MatcherPublicWidgetOptions = {
+export type MatcherPublicWidgetOptions = {
     labels: PerseusMatcherWidgetOptions["labels"];
     left: PerseusMatcherWidgetOptions["left"];
     right: PerseusMatcherWidgetOptions["right"];
@@ -74,13 +45,25 @@ type MatcherPublicWidgetOptions = {
 function getMatcherPublicWidgetOptions(
     options: PerseusMatcherWidgetOptions,
 ): MatcherPublicWidgetOptions {
-    const {left, right} = shuffleMatcherWithRandom(options);
-
     return {
         ...options,
-        left: left,
-        right: right,
+        left: options.orderMatters
+            ? sortAllButFirst(options.left)
+            : options.left,
+        right: sortAllButFirst(options.right),
     };
+}
+
+function sortAllButFirst([first, ...rest]: readonly string[]): string[] {
+    return [first, ...rest.sort()];
+}
+
+function shuffleDisplacingFirst<T>(array: readonly T[], rng: RNG): T[] {
+    function firstElementDisplaced(shuffled: readonly T[]) {
+        return shuffled[0] !== array[0];
+    }
+
+    return constrainedShuffle(array, rng, firstElementDisplaced);
 }
 
 export default getMatcherPublicWidgetOptions;
