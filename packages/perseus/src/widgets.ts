@@ -1,4 +1,8 @@
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
+import {
+    Errors,
+    PerseusError,
+    getInaccessibleProxy,
+} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import {Log} from "./logging/log";
@@ -13,16 +17,26 @@ const DEFAULT_LINTABLE = false;
 
 type Editor = any;
 
-const widgets: {
+let widgetsRegistered: boolean = false;
+let widgets: {
     [key: string]: WidgetExports;
-} = {};
-const editors: Record<string, any> = {};
+} = getInaccessibleProxy("Perseus widget registry");
+
+let editorsRegistered: boolean = false;
+let editors: Record<string, any> = getInaccessibleProxy(
+    "Perseus widget editor registry",
+);
 
 // Widgets must be registered to avoid circular dependencies with the
 // core Editor and Renderer components.
 // TODO(jeremy): The widget name is already embedded in the WidgetExports type
 // so could we drop the `name` parameter here?
 export const registerWidget = (name: string, widget: WidgetExports) => {
+    if (!widgetsRegistered) {
+        widgetsRegistered = true;
+        widgets = {};
+    }
+
     widgets[name] = widget;
 };
 
@@ -65,6 +79,11 @@ export const replaceDeprecatedWidgets = () => {
 };
 
 export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
+    if (!editorsRegistered) {
+        editorsRegistered = true;
+        editors = {};
+    }
+
     editorsToRegister.forEach((editor) => {
         if (!editor.widgetName) {
             throw new PerseusError(

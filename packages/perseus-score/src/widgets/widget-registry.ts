@@ -1,3 +1,9 @@
+import {
+    getInaccessibleProxy,
+    type WidgetScorerFunction,
+    type WidgetValidatorFunction,
+} from "@khanacademy/perseus-core";
+
 import scoreNoop from "../util/score-noop";
 
 import scoreCategorizer from "./categorizer/score-categorizer";
@@ -33,18 +39,19 @@ import validateSorter from "./sorter/validate-sorter";
 import scoreTable from "./table/score-table";
 import validateTable from "./table/validate-table";
 
-import type {
-    WidgetScorerFunction,
-    WidgetValidatorFunction,
-} from "@khanacademy/perseus-core";
-
-const widgets = {};
+let registered: boolean = false;
+let widgets = getInaccessibleProxy("Score widget registry");
 
 export function registerWidget(
     type: string,
     scorer: WidgetScorerFunction,
     validator?: WidgetValidatorFunction,
 ) {
+    if (!registered) {
+        registered = true;
+        widgets = {};
+    }
+
     widgets[type] = {
         scorer,
         validator,

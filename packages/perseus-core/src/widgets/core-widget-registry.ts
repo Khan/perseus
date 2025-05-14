@@ -1,3 +1,5 @@
+import getInaccessibleProxy from "../utils/get-inaccessible-proxy";
+
 import categorizerWidgetLogic from "./categorizer";
 import csProgramWidgetLogic from "./cs-program";
 import definitionWidgetLogic from "./definition";
@@ -37,9 +39,15 @@ import type {
 } from "./logic-export.types";
 import type {Alignment} from "../types";
 
-const widgets = {};
+let registered: boolean = false;
+let widgets = getInaccessibleProxy("Core widget registry");
 
 function registerWidget(type: string, logic: WidgetLogic) {
+    if (!registered) {
+        registered = true;
+        widgets = {};
+    }
+
     widgets[type] = logic;
 }
 
