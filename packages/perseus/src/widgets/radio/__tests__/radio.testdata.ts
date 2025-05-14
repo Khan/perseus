@@ -205,6 +205,71 @@ export const choicesWithImages: PerseusRenderer = {
     },
 };
 
+export const SingleSelectOverflowContent: PerseusRenderer = {
+    content: "Which are the same as the number 75?[[\u2603 radio 1]]\n\n",
+    images: {},
+    widgets: {
+        "radio 1": {
+            graded: true,
+            version: {
+                major: 1,
+                minor: 0,
+            },
+            static: false,
+            type: "radio",
+            options: {
+                displayCount: null,
+                choices: [
+                    {
+                        content:
+                            "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
+                        correct: true,
+                        clue: "Add the following numbers to get 75.",
+                    },
+                    {
+                        content: "$100-50$",
+                        correct: false,
+                        clue: "Subtract the following numbers.",
+                    },
+                    {
+                        content: "$200-125+10$",
+                        correct: false,
+                        isNoneOfTheAbove: false,
+                        clue: "Calculate the following numbers.",
+                    },
+                    {
+                        content: "$10+10+10+10$",
+                        correct: false,
+                        isNoneOfTheAbove: false,
+                        clue: "Add the following numbers.",
+                    },
+                ],
+                countChoices: false,
+                hasNoneOfTheAbove: false,
+                multipleSelect: false,
+                randomize: false,
+                deselectEnabled: false,
+            },
+            alignment: "default",
+        } as RadioWidget,
+        "passage 1": {
+            alignment: "default",
+            graded: true,
+            options: {
+                footnotes: "",
+                passageText:
+                    "Here's a passage about the positive square root. It contains a {{reference to something}}.",
+                passageTitle: "",
+                showLineNumbers: true,
+                static: false,
+            },
+            static: false,
+            type: "passage",
+            version: {major: 0, minor: 0},
+        } as PassageWidget,
+    },
+};
+
 export const multiChoiceQuestion: PerseusRenderer = {
     content:
         "**Select all input values for which $g(x)=2$.**\n\n[[\u2603 radio 1]]\n\n ![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/4613e0d9c906b3053fb5523eed83d4f779fdf6bb)",
