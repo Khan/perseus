@@ -55,7 +55,6 @@ describe("isPlainObject", () => {
 
     it("is false for an object whose constructor has a bogus toString property", () => {
         function constructor() {}
-        // eslint-disable-next-line functional/immutable-data
         constructor.toString = null;
         expect(isPlainObject(Object.create({constructor}))).toBe(false);
     });

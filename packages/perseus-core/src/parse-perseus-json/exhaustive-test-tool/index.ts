@@ -110,8 +110,6 @@ function createContentItemTesters(
     for (const item of contentItems) {
         const tester = createContentItemTester(item, path);
         if (tester != null) {
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             testers.push(tester);
         }
     }

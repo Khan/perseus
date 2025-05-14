@@ -265,10 +265,10 @@ export const quadraticQuestion: PerseusRenderer = {
 
 export const sinusoidQuestion: PerseusRenderer = {
     content:
-        "###The answer\n\nWe found that the graph of $y=-4\\cos\\left(x\\right)+3$ has a minimum point at $(0,-1)$ and then intersects its midline at $\\left(\\dfrac{1}{2}\\pi,3\\right)$.\n\n[[☃ grapher 3]]\n  ",
+        "###The answer\n\nWe found that the graph of $y=-4\\cos\\left(x\\right)+3$ has a minimum point at $(0,-1)$ and then intersects its midline at $\\left(\\dfrac{1}{2}\\pi,3\\right)$.\n\n[[☃ grapher 1]]\n  ",
     images: {},
     widgets: {
-        "grapher 3": {
+        "grapher 1": {
             alignment: "default",
             graded: true,
             options: {

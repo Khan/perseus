@@ -185,8 +185,6 @@ export function generateTickLocations(
     for (let i = start + tickStep; i < max; i += tickStep) {
         // Match to the same number of decimal places as the tick step
         // to avoid floating point errors when working with small numbers
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         ticks.push(parseFloat(i.toFixed(decimalSigFigs)));
     }
 
@@ -194,8 +192,6 @@ export function generateTickLocations(
     // Start at the first tick after 0 or the maximum value if it is negative
     let i = Math.min(max, 0) - tickStep;
     for (i; i > min; i -= tickStep) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         ticks.push(i);
     }
     return ticks;

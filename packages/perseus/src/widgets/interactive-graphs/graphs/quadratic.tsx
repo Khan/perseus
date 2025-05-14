@@ -58,8 +58,6 @@ function QuadraticGraph(props: QuadraticGraphProps) {
     const coeffRef = React.useRef<QuadraticCoefficient>([0, 0, 0]);
     const coeffs = getQuadraticCoefficients(coords);
     if (coeffs !== undefined) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         coeffRef.current = coeffs;
     }
 
@@ -282,8 +280,6 @@ export const getQuadraticKeyboardConstraint = (
     ): Coord => {
         // Move the point the desired direction
         let movedCoord = moveFunc(coordToBeMoved);
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         newCoords[pointMoved] = movedCoord;
 
         // If these new coordinates are valid, return the moved coord
@@ -294,8 +290,6 @@ export const getQuadraticKeyboardConstraint = (
         // If the new coordinates are invalid, we need to move the point an additional
         // snapStep to avoid creating an invalid quadratic graph.
         movedCoord = moveFunc(movedCoord);
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         newCoords[pointMoved] = movedCoord;
 
         // If these updated coordinates are valid now, we can return the new coordinates.

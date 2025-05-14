@@ -414,15 +414,11 @@ describe("LockedPolygonSettings", () => {
                 await userEvent.click(movementButton);
 
                 const expectedCoords = startingCoords.map((point) => {
-                    // TODO(LEMS-3083): Remove eslint suppression
-                    // eslint-disable-next-line functional/immutable-data
                     point[coord] += updatedBy;
                     return point;
                 });
 
                 const expectedLabelCoord = [0, 0];
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 expectedLabelCoord[coord] += updatedBy;
 
                 // Assert

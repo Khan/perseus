@@ -50,8 +50,6 @@ describe("Radio Widget", () => {
         );
 
         // Mocked for loading graphie in svg-image
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         global.fetch = jest.fn(() =>
             Promise.resolve({
                 text: () => "",
@@ -280,8 +278,6 @@ describe("Radio Widget", () => {
         it("should be able to navigate to 'None of the above' choice by keyboard", async () => {
             // Arrange
             const q = clone(question);
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             q.widgets["radio 1"].options.choices[3].isNoneOfTheAbove = true;
             renderQuestion(q, apiOptions);
 
@@ -306,8 +302,6 @@ describe("Radio Widget", () => {
             async (...answers) => {
                 // Arrange
                 const q = clone(question);
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 q.widgets["radio 1"].options.choices = answers.map(
                     (answer, idx) => ({
                         content: answer,
@@ -338,8 +332,6 @@ describe("Radio Widget", () => {
             // Arrange
             const answers = ["Last", "First"];
             const q = clone(question);
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             q.widgets["radio 1"].options.choices = answers.map(
                 (answer, idx) => ({
                     content: answer,
@@ -695,14 +687,8 @@ describe("Radio Widget", () => {
             // Arrange
             const q = clone(question);
             const choices = q.widgets["radio 1"].options.choices;
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             choices[2].correct = false;
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             choices[3].isNoneOfTheAbove = true;
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             choices[3].correct = true;
 
             const {renderer} = renderQuestion(q);

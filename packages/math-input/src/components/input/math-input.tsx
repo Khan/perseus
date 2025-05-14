@@ -1042,8 +1042,6 @@ class MathInput extends React.Component<Props, State> {
     }
 }
 
-// TODO(LEMS-3083): Remove eslint suppression
-// eslint-disable-next-line functional/immutable-data
 MathInput.contextType = MathInputI18nContext;
 
 const fontSizePt = 18;

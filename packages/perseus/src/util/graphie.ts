@@ -1768,8 +1768,6 @@ const setLabelMargins = function (span: HTMLElement, size: Coord): void {
             padding: `${newPadding}px`,
         };
         if (scale !== 1) {
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             styling["fontSize"] = `${Math.round(scale * 100) / 100}%`;
         }
         $span.css(styling);

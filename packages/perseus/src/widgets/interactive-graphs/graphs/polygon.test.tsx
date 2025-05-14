@@ -334,8 +334,6 @@ describe.each`
                 await userEvent.keyboard("{ArrowRight}");
 
                 const expectedAriaLive = ["off", "off", "off", "off"];
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 expectedAriaLive[index] = "polite";
 
                 // Assert
@@ -555,8 +553,6 @@ describe("Unlimited Polygon (open) screen reader", () => {
             await userEvent.keyboard("{ArrowRight}");
 
             const expectedAriaLive = ["off", "off", "off", "off"];
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             expectedAriaLive[index] = "polite";
 
             // Assert

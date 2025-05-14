@@ -156,8 +156,6 @@ export function useDraggable(args: Params): DragState {
                 setDragging(!last);
 
                 if (first) {
-                    // TODO(LEMS-3083): Remove eslint suppression
-                    // eslint-disable-next-line functional/immutable-data
                     pickup.current = vec.transform(point, userTransform);
                 }
                 if (vec.mag(pixelMovement) === 0) {
@@ -212,19 +210,13 @@ function useSpanContext() {
 function range(min: number, max: number, step = 1): number[] {
     const result: number[] = [];
     for (let i = min; i < max - step / 2; i += step) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         result.push(i);
     }
 
     const computedMax = result[result.length - 1] + step;
     if (Math.abs(max - computedMax) < step / 1e-6) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         result.push(max);
     } else {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         result.push(computedMax);
     }
 

@@ -147,6 +147,7 @@ export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/
 export {default as getFreeResponsePublicWidgetOptions} from "./widgets/free-response/free-response-util";
 export type {ExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
 export {default as getGrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
+export type {GrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
 export {default as getGroupPublicWidgetOptions} from "./widgets/group/group-util";
 export {
     default as getInteractiveGraphPublicWidgetOptions,
@@ -171,6 +172,7 @@ export {
     default as getMatcherPublicWidgetOptions,
     shuffleMatcher,
 } from "./widgets/matcher/matcher-util";
+export type {MatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
 export {shuffle, seededRNG, random} from "./utils/random-util";
 export {default as PerseusFeatureFlags} from "./feature-flags";
 

@@ -72,8 +72,6 @@ const applyStoryArgs = (args: StoryArgs): PerseusItem => {
     for (const [widgetId, widget] of Object.entries(
         args.item.question.widgets,
     )) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         storyItem.question.widgets[widgetId] = {...widget, static: args.static};
     }
 

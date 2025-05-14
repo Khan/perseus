@@ -165,8 +165,6 @@ function useDraggablePx(args: {
             event?.stopPropagation();
 
             if (first) {
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 pickupPx.current = point;
             }
             if (vec.mag(pixelMovement) === 0) {

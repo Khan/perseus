@@ -200,8 +200,6 @@ describe("Explanation", function () {
     it("does NOT use transitions when matchMedia is not available", async () => {
         // e.g. during SSR in webapp
         const fakeWindow = Object.create(window);
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         fakeWindow.matchMedia = undefined;
         jest.spyOn(window, "window", "get").mockReturnValue(fakeWindow as any);
         renderQuestion(question1);

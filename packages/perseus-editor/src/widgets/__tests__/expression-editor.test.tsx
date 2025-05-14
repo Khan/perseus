@@ -224,8 +224,6 @@ describe("expression-editor", () => {
 
     it("should be possible to add an answer", async () => {
         const onChangeMock = jest.fn();
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         crypto.randomUUID = jest.fn(() => "0-0-0-0-0");
 
         render(<ExpressionEditor onChange={onChangeMock} />);

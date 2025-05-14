@@ -489,38 +489,24 @@ const mapButtonSets = (buttonSets?: LegacyButtonSets) => {
     buttonSets.forEach((buttonSet) => {
         switch (buttonSet) {
             case "advanced relations":
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 keypadButtonSets.advancedRelations = true;
                 break;
             case "basic relations":
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 keypadButtonSets.basicRelations = true;
                 break;
             case "basic+div":
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 keypadButtonSets.divisionKey = true;
                 break;
             case "logarithms":
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 keypadButtonSets.logarithms = true;
                 break;
             case "prealgebra":
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 keypadButtonSets.preAlgebra = true;
                 break;
             case "trig":
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 keypadButtonSets.trigonometry = true;
                 break;
             case "scientific":
-                // TODO(LEMS-3083): Remove eslint suppression
-                // eslint-disable-next-line functional/immutable-data
                 keypadButtonSets.scientific = true;
                 break;
             case "basic":

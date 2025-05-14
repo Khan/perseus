@@ -428,8 +428,6 @@ const ExpressionWithDependencies = React.forwardRef<
 // methods and instead adjust Perseus to provide these facilities through
 // instance methods on our Renderers.
 // @ts-expect-error - TS2339 - Property 'validate' does not exist on type
-// TODO(LEMS-3083): Remove eslint suppression
-// eslint-disable-next-line functional/immutable-data
 ExpressionWithDependencies.getUserInputFromProps =
     Expression.getUserInputFromProps;
 

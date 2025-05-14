@@ -29,15 +29,11 @@ const MovablePoint: any = GraphieClasses.createClass({
 
             // TODO(kevinb) precompute normalStyle and normalMobileStyle
             const normalStyle = isMobile
-                ? // TODO(LEMS-3083): Remove eslint suppression
-                  // eslint-disable-next-line functional/immutable-data
-                  Object.assign(
+                ? Object.assign(
                       commonStyle,
                       this.props.mobileStyleOverride || {},
                   )
-                : // TODO(LEMS-3083): Remove eslint suppression
-                  // eslint-disable-next-line functional/immutable-data
-                  Object.assign(commonStyle, this.props.normalStyle);
+                : Object.assign(commonStyle, this.props.normalStyle);
 
             // TODO(kevinb) precompute highlightStyle and highlightMobileStyle
             const highlightStyle = isMobile
@@ -59,16 +55,12 @@ const MovablePoint: any = GraphieClasses.createClass({
                 isMobile ? {pointSize: 7} : {},
             );
 
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             return Object.assign(this.props, addedProps);
         }
         return this.props;
     },
 
     add: function (graphie) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         this.point = Interactive2.addMovablePoint(graphie, this._getProps());
     },
 
@@ -103,8 +95,6 @@ const MovableLine: any = GraphieClasses.createClass({
         const props = _.extend({}, this.props, {
             points: points,
         });
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         this.line = Interactive2.addMovableLine(graphie, props);
     },
 
@@ -169,11 +159,7 @@ const Line: any = GraphieClasses.createClass({
 
     add: function (graphie) {
         const props = this.props;
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         this.graphie = graphie;
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         this.line = this.graphie.line(props.start, props.end, props.style);
     },
 
@@ -199,11 +185,7 @@ const Parabola: any = GraphieClasses.createClass({
 
     add: function (graphie) {
         const props = this.props;
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         this.graphie = graphie;
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         this.parabola = this.graphie.parabola(
             props.a,
             props.b,
@@ -234,11 +216,7 @@ const Sinusoid: any = GraphieClasses.createClass({
 
     add: function (graphie) {
         const props = this.props;
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         this.graphie = graphie;
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         this.sinusoid = this.graphie.sinusoid(
             props.a,
             props.b,
@@ -292,11 +270,7 @@ const Path: any = GraphieClasses.createClass({
 
     add: function (graphie) {
         const props = this.props;
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         this.graphie = graphie;
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         this.path = this.graphie.path(props.coords, props.style);
     },
 

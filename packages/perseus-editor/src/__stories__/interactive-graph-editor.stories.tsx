@@ -236,8 +236,6 @@ export const WithSaveWarnings = (): React.ReactElement => {
     );
 };
 
-// TODO(LEMS-3083): Remove eslint suppression
-// eslint-disable-next-line functional/immutable-data
 WithSaveWarnings.parameters = {
     chromatic: {
         // Disabling because this isn't testing anything visually on the

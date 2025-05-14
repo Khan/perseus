@@ -89,8 +89,6 @@ const LockedVectorSettings = (props: Props) => {
     function handleChangePoint(newCoord: Coord | undefined, index: 0 | 1) {
         if (typeof newCoord !== "undefined") {
             const newPoints = [...points] satisfies [tail: Coord, tip: Coord];
-            // TODO(LEMS-3083): Remove eslint suppression
-            // eslint-disable-next-line functional/immutable-data
             newPoints[index] = [...newCoord];
 
             // Update labels to match the new points
@@ -115,8 +113,6 @@ const LockedVectorSettings = (props: Props) => {
         };
 
         // Update the color of the all labels to match the point
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         newProps.labels = labels.map((label) => ({
             ...label,
             color: newColor,
@@ -130,8 +126,6 @@ const LockedVectorSettings = (props: Props) => {
         labelIndex: number,
     ) {
         const updatedLabels = [...labels];
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         updatedLabels[labelIndex] = {
             ...labels[labelIndex],
             ...updatedLabel,

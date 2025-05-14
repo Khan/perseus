@@ -61,8 +61,6 @@ function SinusoidGraph(props: SinusoidGraphProps) {
 
     // If the coefficients are valid, update the reference
     if (coeffs !== undefined) {
-        // TODO(LEMS-3083): Remove eslint suppression
-        // eslint-disable-next-line functional/immutable-data
         coeffRef.current = coeffs;
     }
 
