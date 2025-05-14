@@ -53,10 +53,7 @@ describe("parseRadioWidget", () => {
             type: "radio",
             key: null,
             graded: true,
-            version: {
-                major: 2,
-                minor: 0,
-            },
+            version: LATEST_VERSION,
             options: {
                 choices: [],
             },
