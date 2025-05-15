@@ -43,10 +43,11 @@ describe("Widget API support", () => {
             );
         });
     });
+
     describe("getVersionVector", () => {
         it("creates a map of all widget versions", () => {
             expect(Widgets.getVersionVector()).toEqual(
-                // skipping all the 0.0 widgets
+                // skipping the 0.0 widgets for brevity
                 expect.objectContaining({
                     expression: {
                         major: 2,
@@ -70,6 +71,34 @@ describe("Widget API support", () => {
                     },
                 }),
             );
+        });
+
+        it("defaults to 0.0 for widgets without a version", () => {
+            expect(Widgets.getVersionVector()).toEqual(
+                expect.objectContaining({
+                    "numeric-input": {
+                        major: 0,
+                        minor: 0,
+                    },
+                }),
+            );
+        });
+    });
+
+    describe("getPublicWidgets", () => {
+        it("gets a widget exports for all public widgets", () => {
+            expect(Widgets.getPublicWidgets()).toEqual(
+                expect.objectContaining({
+                    radio: expect.objectContaining({
+                        displayName: "Radio / Multiple choice",
+                        name: "radio",
+                    }),
+                }),
+            );
+        });
+
+        it("does not list hidden widgets", () => {
+            expect((Widgets.getPublicWidgets() as any).grapher).toBe(undefined);
         });
     });
 
