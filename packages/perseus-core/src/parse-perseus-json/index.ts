@@ -76,7 +76,7 @@ export function parseAndMigratePerseusItem(
  * @throws SyntaxError if the argument is not well-formed JSON.
  */
 export function parseAndMigratePerseusArticle(
-    json: string | unknown,
+    json: unknown,
 ): Result<PerseusArticle, ParseFailureDetail> {
     throwErrorIfCheatingDetected();
     const object: unknown = maybeParseJson(json);
