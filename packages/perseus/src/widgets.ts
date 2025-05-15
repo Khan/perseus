@@ -3,7 +3,6 @@ import {
     PerseusError,
     getInaccessibleProxy,
 } from "@khanacademy/perseus-core";
-import _ from "underscore";
 
 import {Log} from "./logging/log";
 
@@ -27,7 +26,7 @@ let editors: Record<string, any> = getInaccessibleProxy(
     "Perseus widget editor registry",
 );
 
-const identity = (val) => val;
+const identity = <T>(val: T) => val;
 
 // Widgets must be registered to avoid circular dependencies with the
 // core Editor and Renderer components.
@@ -200,7 +199,7 @@ export const isAccessible = (widgetInfo: PerseusWidget): boolean => {
 };
 
 export const getAllWidgetTypes = (): ReadonlyArray<string> => {
-    return _.keys(widgets);
+    return Object.keys(widgets);
 };
 
 export const getRendererPropsForWidgetInfo = (
@@ -223,9 +222,9 @@ export const getRendererPropsForWidgetInfo = (
         // _.identity, but it's theoretically possible if someone changes
         // the JSON manually / we have to back out static support for a
         // widget.
-        transform = getStaticTransform(type) || _.identity;
+        transform = getStaticTransform(type) || identity;
     } else {
-        transform = widgetExports.transform || _.identity;
+        transform = widgetExports.transform || identity;
     }
     // widgetInfo.options are the widgetEditor's props:
     return transform(widgetInfo.options, strings, problemNum);
@@ -256,7 +255,10 @@ export const traverseChildWidgets = (
             props,
             traverseRenderer,
         );
-        return _.extend({}, widgetInfo, {options: newProps});
+        return {
+            ...widgetInfo,
+            options: newProps,
+        };
     }
     return widgetInfo;
 };
