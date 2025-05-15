@@ -132,6 +132,7 @@ export {
 } from "./widgets/upgrade";
 
 export {default as splitPerseusItem} from "./utils/split-perseus-item";
+export {default as getDefaultAnswerArea} from "./utils/get-default-answer-area";
 
 export type * from "./widgets/logic-export.types";
 

@@ -1,5 +1,9 @@
 import {describe, beforeAll, beforeEach, it} from "@jest/globals";
-import {Errors} from "@khanacademy/perseus-core";
+import {
+    Errors,
+    generateTestPerseusItem,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
@@ -849,6 +853,33 @@ describe("renderer", () => {
                     originalWidgetProps[widgetId],
                 );
             }
+        });
+    });
+
+    it("doesn't reset widget state when going from answerless to answerful data", async () => {
+        // Arrange
+        const answerful = generateTestPerseusItem({question: question1});
+        const answerless = splitPerseusItem(generateTestPerseusItem(answerful));
+        const {rerender, renderer} = renderQuestion(answerless.question);
+
+        // Poke the renderer so it's not in it's initial-render state
+        await userEvent.click(screen.getByRole("combobox"));
+        await userEvent.click(screen.getAllByRole("option")[1]);
+
+        expect(renderer.getUserInputMap()).toEqual({
+            "dropdown 1": {
+                value: 1,
+            },
+        });
+
+        // Act
+        rerender(answerful.question);
+
+        // Assert
+        expect(renderer.getUserInputMap()).toEqual({
+            "dropdown 1": {
+                value: 1,
+            },
         });
     });
 

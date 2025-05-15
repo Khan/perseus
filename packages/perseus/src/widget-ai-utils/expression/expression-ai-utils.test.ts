@@ -1,14 +1,11 @@
-import {ItemExtras} from "@khanacademy/perseus-core";
+import {getDefaultAnswerArea} from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 
 import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./expression-ai-utils";
 
-import type {
-    PerseusAnswerArea,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 const expression = {
     question: {
@@ -31,9 +28,7 @@ const expression = {
             },
         },
     },
-    answerArea: Object.fromEntries(
-        ItemExtras.map((extra) => [extra, false]),
-    ) as PerseusAnswerArea,
+    answerArea: getDefaultAnswerArea(),
     hints: [],
 };
 
