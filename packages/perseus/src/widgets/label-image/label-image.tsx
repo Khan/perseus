@@ -314,9 +314,6 @@ export class LabelImage
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
-    // TODO(LEMS-2544): Investigate impact on scoring
-    // Also consider how scoreMarker is being called as it seems to require the marker.answers property.
-    // Removed rubric parameter, but it gets a full widget options object from the renderer
     showRationalesForCurrentlySelectedChoices() {
         const {markers} = this.props;
         const {onChange} = this.props;
