@@ -92,7 +92,7 @@ export const parseNestedWidgets = (
 
     const parsedContent = content.replace(
         /\{\{passage-ref (\d+) (\d+)(?: "([^"]*)")?\}\}/g,
-        (passageNum: string, refNum: string, summaryText: string) => {
+        (_, passageNum: string, refNum: string, summaryText: string) => {
             const widgetId = "passage-ref " + nextPassageRefId;
             nextPassageRefId++;
 
