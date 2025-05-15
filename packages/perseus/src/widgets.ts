@@ -176,7 +176,7 @@ export const getVersionVector = (): {
     [key: string]: Version;
 } => {
     const version: Record<string, any> = {};
-    _.each(_.keys(widgets), function (name) {
+    Object.keys(widgets).forEach((name) => {
         version[name] = getVersion(name);
     });
     return version;

@@ -43,6 +43,35 @@ describe("Widget API support", () => {
             );
         });
     });
+    describe("getVersionVector", () => {
+        it("creates a map of all widget versions", () => {
+            expect(Widgets.getVersionVector()).toEqual(
+                // skipping all the 0.0 widgets
+                expect.objectContaining({
+                    expression: {
+                        major: 2,
+                        minor: 0,
+                    },
+                    measurer: {
+                        major: 1,
+                        minor: 0,
+                    },
+                    "passage-ref": {
+                        major: 0,
+                        minor: 1,
+                    },
+                    radio: {
+                        major: 2,
+                        minor: 0,
+                    },
+                    transformer: {
+                        major: 2,
+                        minor: 0,
+                    },
+                }),
+            );
+        });
+    });
 
     // This list is mirrored in Khan Academy's webapp for the coach reports.
     // If you change this, be sure to double-check that consuming applications
