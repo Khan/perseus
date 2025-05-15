@@ -71,10 +71,10 @@ export function parseAndMigratePerseusItem(
  * @throws SyntaxError if the argument is not well-formed JSON.
  */
 export function parseAndMigratePerseusArticle(
-    json: string,
+    json: string | unknown,
 ): Result<PerseusArticle, ParseFailureDetail> {
     throwErrorIfCheatingDetected();
-    const object: unknown = JSON.parse(json);
+    const object: unknown = typeof json === "string" ? JSON.parse(json) : json;
     const result = parse(object, migrateAndTypecheckPerseusArticle);
     if (isFailure(result)) {
         return failure({message: result.detail, invalidObject: object});
