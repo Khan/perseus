@@ -143,7 +143,7 @@ function ScrollButtons({
                 kind="secondary"
                 size="small"
                 onClick={onScrollLeft}
-                aria-label={strings.scrollLeftArrow}
+                aria-label={strings.scrollLeft}
                 disabled={!canScrollLeft}
             />
             <IconButton
@@ -152,7 +152,7 @@ function ScrollButtons({
                 kind="secondary"
                 size="small"
                 onClick={onScrollRight}
-                aria-label={strings.scrollRightArrow}
+                aria-label={strings.scrollRight}
                 disabled={!canScrollRight}
             />
             <LabelSmall>{strings.scrollAnswers}</LabelSmall>

@@ -117,8 +117,8 @@ export type PerseusStrings = {
     openMenuForChoice: ({letter}: {letter: string}) => string;
     letters: string;
     scrollAnswers: string;
-    scrollLeftArrow: string;
-    scrollRightArrow: string;
+    scrollLeft: string;
+    scrollRight: string;
     rightArrow: string;
     dontUnderstandUnits: string;
     checkSigFigs: string;
@@ -657,8 +657,8 @@ export const strings = {
         message: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",
     },
     scrollAnswers: "Scroll Answers",
-    scrollLeftArrow: "Scroll left arrow",
-    scrollRightArrow: "Scroll right arrow",
+    scrollLeft: "Scroll left",
+    scrollRight: "Scroll right",
     rightArrow: "Reaction arrow pointing to the right.",
     dontUnderstandUnits: "I couldn't understand those units.",
     checkSigFigs: "Check your significant figures.",
@@ -1250,8 +1250,8 @@ export const mockStrings: PerseusStrings = {
     openMenuForChoice: ({letter}) => `Open menu for Choice ${letter}`,
     letters: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",
     scrollAnswers: "Scroll Answers",
-    scrollLeftArrow: "Scroll left arrow",
-    scrollRightArrow: "Scroll right arrow",
+    scrollLeft: "Scroll left",
+    scrollRight: "Scroll right",
     rightArrow: "Reaction arrow pointing to the right.",
     dontUnderstandUnits: "I couldn't understand those units.",
     checkSigFigs: "Check your significant figures.",
