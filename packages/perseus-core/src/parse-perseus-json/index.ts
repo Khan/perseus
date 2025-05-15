@@ -57,7 +57,7 @@ export function parseAndMigratePerseusItem(
     json: string | unknown,
 ): Result<PerseusItem, ParseFailureDetail> {
     throwErrorIfCheatingDetected();
-    const object = maybeParseJson(json);
+    const object: unknown = maybeParseJson(json);
     const result = parse(object, migrateAndTypecheckPerseusItem);
     if (isFailure(result)) {
         return failure({message: result.detail, invalidObject: object});
@@ -79,7 +79,7 @@ export function parseAndMigratePerseusArticle(
     json: string | unknown,
 ): Result<PerseusArticle, ParseFailureDetail> {
     throwErrorIfCheatingDetected();
-    const object = maybeParseJson(json);
+    const object: unknown = maybeParseJson(json);
     const result = parse(object, migrateAndTypecheckPerseusArticle);
     if (isFailure(result)) {
         return failure({message: result.detail, invalidObject: object});
