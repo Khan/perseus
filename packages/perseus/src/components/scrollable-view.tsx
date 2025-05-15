@@ -169,7 +169,7 @@ const styles = {
         right: 0,
         width: "max-content",
         height: "100%",
-        backgroundColor: "linear-gradient( to left, white transparent)",
+        background: "linear-gradient(to left, white 40%, transparent)",
         pointerEvents: "none",
         zIndex: 2,
         transition: "opacity 0.3s ease",
