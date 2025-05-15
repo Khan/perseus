@@ -47,7 +47,7 @@ function ScrollableView({
     showScrollButtons = false,
     style,
     role = "group",
-    ...rest
+    ...additionalProps
 }: ScrollableViewProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const [isScrollable, setIsScrollable] = React.useState(false);
@@ -100,7 +100,12 @@ function ScrollableView({
     return (
         <div>
             {canScrollRight && <div style={styles.scrollFadeRight} />}
-            <div {...rest} role={role} style={mergeStyle} ref={containerRef}>
+            <div
+                {...additionalProps}
+                role={role}
+                style={mergeStyle}
+                ref={containerRef}
+            >
                 {children}
             </div>
             {isScrollable && showScrollButtons && (
