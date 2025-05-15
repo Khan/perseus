@@ -33,12 +33,13 @@ export const UnlimitedCharacters: Story = {
         allowUnlimitedCharacters: true,
         characterLimit: 500,
         placeholder: "Enter your answer here",
-        question: "What is the theme of the essay?",
+        question:
+            "What is the theme of the essay?\n\nPut your answer in your own words.",
     },
 };
 
 export const QuestionWithTex: Story = {
-    storyName: "Question with TeX content",
+    name: "Question with TeX content",
     args: {
         allowUnlimitedCharacters: true,
         characterLimit: 500,
