@@ -39,16 +39,18 @@ exports[`server item renderer should snapshot: initial render 1`] = `
               class="perseus-widget-container widget-nohighlight widget-block"
             >
               <div
-                class="default_xu2jcg-o_O-widgetContainer_137u7ef"
+                class=""
+                style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: 0px; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; color: red;"
               >
                 <input
                   aria-disabled="false"
                   aria-invalid="false"
                   aria-label="Mock Widget"
                   aria-required="false"
-                  class="input_a5n1n-o_O-LabelMedium_1rew30o-o_O-default_1elaks2-o_O-defaultFocus_drkasj"
+                  class=""
                   id="mock-widget 1"
                   role="textbox"
+                  style="width: 100%; height: 40px; border-radius: var(--wb-border-radius-radius_040); box-sizing: border-box; padding-left: 16px; margin: 0px; display: block; font-family: Lato, "Noto Sans", sans-serif; font-weight: 400; font-size: 16px; line-height: 20px;"
                   type="text"
                   value=""
                 />

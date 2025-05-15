@@ -16,7 +16,8 @@ exports[`python-program widget should snapshot on mobile: first mobile render 1`
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg-o_O-container_1s1lg5o"
+            class=""
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: auto; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 100%;"
           >
             <iframe
               allowfullscreen=""
@@ -48,7 +49,8 @@ exports[`python-program widget should snapshot: first render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="default_xu2jcg-o_O-container_1s1lg5o"
+            class=""
+            style="align-items: stretch; border-width: 0px; border-style: solid; box-sizing: border-box; display: flex; flex-direction: column; margin: auto; padding: 0px; position: relative; z-index: 0; min-height: 0; min-width: 0; width: 100%;"
           >
             <iframe
               allowfullscreen=""
