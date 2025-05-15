@@ -129,6 +129,7 @@ module.exports = {
                 "*.stories.tsx",
                 "**/__testutils__/**",
                 "**/__stories__/**",
+                "**/__docs__/**",
             ],
             rules: {
                 "max-lines": "off",
