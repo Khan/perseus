@@ -205,6 +205,52 @@ export const choicesWithImages: PerseusRenderer = {
     },
 };
 
+export const SingleSelectOverflowImageContent: PerseusRenderer = {
+    content: "Select 9 ponies.[[\u2603 radio 1]]\n\n",
+    images: {},
+    widgets: {
+        "radio 1": {
+            graded: true,
+            version: {
+                major: 1,
+                minor: 0,
+            },
+            static: false,
+            type: "radio",
+            options: {
+                displayCount: null,
+                choices: [
+                    {
+                        content:
+                            "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
+                        correct: true,
+                        clue: "Count the ponies in the image.",
+                    },
+                    {
+                        content:
+                            "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
+                        correct: false,
+                        clue: "Count the ponies in the image.",
+                    },
+                    {
+                        content:
+                            "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
+                        correct: false,
+                        isNoneOfTheAbove: false,
+                        clue: "Count the ponies in the image.",
+                    },
+                ],
+                countChoices: false,
+                hasNoneOfTheAbove: false,
+                multipleSelect: false,
+                randomize: false,
+                deselectEnabled: false,
+            },
+            alignment: "default",
+        } as RadioWidget,
+    },
+};
+
 export const multiChoiceQuestion: PerseusRenderer = {
     content:
         "**Select all input values for which $g(x)=2$.**\n\n[[\u2603 radio 1]]\n\n ![](web+graphie://ka-perseus-graphie.s3.amazonaws.com/4613e0d9c906b3053fb5523eed83d4f779fdf6bb)",

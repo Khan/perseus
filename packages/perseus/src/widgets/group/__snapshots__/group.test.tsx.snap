@@ -181,7 +181,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                                         >
                                           <div
-                                            class="iconWrapper_17y0hv9"
+                                            class="iconWrapper_1ckyr70"
                                           >
                                             <span
                                               class="ring_ya75gi"
@@ -294,7 +294,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                                         >
                                           <div
-                                            class="iconWrapper_17y0hv9"
+                                            class="iconWrapper_1ckyr70"
                                           >
                                             <span
                                               class="ring_ya75gi"
@@ -407,7 +407,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                                         >
                                           <div
-                                            class="iconWrapper_17y0hv9"
+                                            class="iconWrapper_1ckyr70"
                                           >
                                             <span
                                               class="ring_ya75gi"
@@ -520,7 +520,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                                         >
                                           <div
-                                            class="iconWrapper_17y0hv9"
+                                            class="iconWrapper_1ckyr70"
                                           >
                                             <span
                                               class="ring_ya75gi"
@@ -633,7 +633,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                           style="display: flex; flex-direction: row; justify-content: center; align-content: center; padding-top: 8px; padding-bottom: 8px; padding-left: 8px;"
                                         >
                                           <div
-                                            class="iconWrapper_17y0hv9"
+                                            class="iconWrapper_1ckyr70"
                                           >
                                             <span
                                               class="ring_ya75gi"
