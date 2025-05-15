@@ -7,6 +7,8 @@ import caretRightIcon from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
 import {useEffect, useRef} from "react";
 
+import {usePerseusI18n} from "./i18n-context";
+
 type ScrollAxisX = {
     x: React.CSSProperties["overflowX"];
     y?: React.CSSProperties["overflowY"];
@@ -126,6 +128,8 @@ function ScrollButtons({
     canScrollLeft,
     canScrollRight,
 }: ScrollButtonsProps) {
+    const {strings} = usePerseusI18n();
+
     return (
         <View style={styles.scrollButtonsContainer}>
             <IconButton
@@ -134,7 +138,7 @@ function ScrollButtons({
                 kind="secondary"
                 size="small"
                 onClick={onScrollLeft}
-                aria-label="scroll left"
+                aria-label={strings.scrollLeftArrow}
                 disabled={!canScrollLeft}
             />
             <IconButton
@@ -143,10 +147,10 @@ function ScrollButtons({
                 kind="secondary"
                 size="small"
                 onClick={onScrollRight}
-                aria-label="scroll right"
+                aria-label={strings.scrollRightArrow}
                 disabled={!canScrollRight}
             />
-            <LabelSmall>Scroll Answers</LabelSmall>
+            <LabelSmall>{strings.scrollAnswers}</LabelSmall>
         </View>
     );
 }

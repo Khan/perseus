@@ -116,6 +116,9 @@ export type PerseusStrings = {
     bringBack: string;
     openMenuForChoice: ({letter}: {letter: string}) => string;
     letters: string;
+    scrollAnswers: string;
+    scrollLeftArrow: string;
+    scrollRightArrow: string;
     rightArrow: string;
     dontUnderstandUnits: string;
     checkSigFigs: string;
@@ -653,6 +656,9 @@ export const strings = {
             "This is a list of single-character labels that will appear in front of multiple-choice options. For instance, a multiple-choice question with three options would display (A) first option (B) second option (C) third option. There must be spaces between each of the different characters. The characters will show up next to options in the order that they are listed here. Most multiple choice questions have 5 or fewer options.",
         message: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",
     },
+    scrollAnswers: "Scroll Answers",
+    scrollLeftArrow: "Scroll left arrow",
+    scrollRightArrow: "Scroll right arrow",
     rightArrow: "Reaction arrow pointing to the right.",
     dontUnderstandUnits: "I couldn't understand those units.",
     checkSigFigs: "Check your significant figures.",
@@ -1243,6 +1249,9 @@ export const mockStrings: PerseusStrings = {
     bringBack: "Bring back",
     openMenuForChoice: ({letter}) => `Open menu for Choice ${letter}`,
     letters: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",
+    scrollAnswers: "Scroll Answers",
+    scrollLeftArrow: "Scroll left arrow",
+    scrollRightArrow: "Scroll right arrow",
     rightArrow: "Reaction arrow pointing to the right.",
     dontUnderstandUnits: "I couldn't understand those units.",
     checkSigFigs: "Check your significant figures.",
