@@ -8,10 +8,15 @@
 import {Text, View} from "@khanacademy/wonder-blocks-core";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
+import {
+    color,
+    font,
+    spacing,
+    semanticColor,
+} from "@khanacademy/wonder-blocks-tokens";
 import warningCircleIcon from "@phosphor-icons/core/regular/warning-circle.svg";
-import {StyleSheet, css} from "aphrodite";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -81,11 +86,13 @@ export class FreeResponse
         return (
             <View>
                 <Text
-                    style={
+                    role="status"
+                    style={[
+                        styles.characterCountText,
                         this.isOverLimit()
                             ? styles.overCharacterLimit
-                            : undefined
-                    }
+                            : undefined,
+                    ]}
                 >
                     {this.isOverLimit() && (
                         <PhosphorIcon
@@ -103,22 +110,29 @@ export class FreeResponse
 
     render(): React.ReactNode {
         return (
-            <View style={styles.container}>
-                <label className={css(styles.labelAndTextarea)}>
-                    <LabelLarge>
-                        <Renderer
-                            content={this.props.question}
-                            strings={this.context.strings}
+            <View style={styles.container} className={"free-response"}>
+                <LabeledField
+                    label={
+                        <View className="free-response-question">
+                            <Renderer
+                                content={this.props.question}
+                                strings={this.context.strings}
+                            />
+                        </View>
+                    }
+                    field={
+                        <TextArea
+                            error={this.isOverLimit()}
+                            onChange={this.handleChange}
+                            placeholder={this.props.placeholder}
+                            style={styles.textarea}
+                            value={this.state.currentValue}
                         />
-                    </LabelLarge>
-                    <TextArea
-                        error={this.isOverLimit()}
-                        onChange={this.handleChange}
-                        placeholder={this.props.placeholder}
-                        style={styles.textarea}
-                        value={this.state.currentValue}
-                    />
-                </label>
+                    }
+                    styles={{
+                        label: styles.questionLabel,
+                    }}
+                />
                 {this.renderCharacterCount()}
             </View>
         );
@@ -138,13 +152,15 @@ const styles = StyleSheet.create({
     container: {
         gap: spacing.xSmall_8,
     },
-    labelAndTextarea: {
-        display: "flex",
-        flexDirection: "column",
-        gap: spacing.small_12,
+    characterCountText: {
+        color: semanticColor.text.secondary,
+        fontSize: font.size.small,
     },
     overCharacterLimit: {
         color: color.red,
+    },
+    questionLabel: {
+        fontWeight: font.weight.bold,
     },
     textarea: {
         padding: spacing.medium_16,
