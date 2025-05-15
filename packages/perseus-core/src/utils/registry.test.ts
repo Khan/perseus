@@ -39,6 +39,18 @@ describe("Registry", () => {
         expect(registry.entries("radio")).toEqual([["radio", "hello"]]);
     });
 
+    it("throws when calling keys before setting anything", () => {
+        const registry: any = new Registry();
+        expect(() => registry.keys()).toThrow(defaultMessage);
+    });
+
+    it("does not throw when calling keys after setting", () => {
+        const registry: any = new Registry();
+        registry.set("radio", "hello");
+        expect(() => registry.keys()).not.toThrow(defaultMessage);
+        expect(registry.keys("radio")).toEqual(["radio"]);
+    });
+
     it("accepts an optional name", () => {
         const registry: any = new Registry("TestName");
         expect(() => registry.get("radio")).toThrow(
