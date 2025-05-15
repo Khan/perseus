@@ -66,8 +66,9 @@ export function parseAndMigratePerseusItem(
 }
 
 /**
- * Parses a PerseusArticle from a JSON string, migrates old formats to the
- * latest schema, and runtime-typechecks the result.
+ * Parses a PerseusArticle from a plain object (or array) or JSON string,
+ * migrates old formats to the latest schema, and runtime-typechecks the
+ * result.
  *
  * @returns a {@link Result} of the parsed PerseusArticle. If the result is a
  * failure, it will contain an error message describing where in the tree
