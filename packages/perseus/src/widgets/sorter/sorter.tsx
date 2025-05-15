@@ -1,4 +1,4 @@
-import {shuffle} from "@khanacademy/perseus-core";
+import {shuffleSorter} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
@@ -97,11 +97,7 @@ class Sorter extends React.Component<Props, State> implements Widget {
     };
 
     render(): React.ReactNode {
-        const options = shuffle(
-            this.props.correct,
-            this.props.problemNum as number,
-            /* ensurePermuted */ true,
-        );
+        const options = shuffleSorter(this.props);
 
         const {apiOptions} = this.props;
         const marginPx = apiOptions.isMobile ? 8 : 5;

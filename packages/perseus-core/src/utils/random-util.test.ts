@@ -1,5 +1,4 @@
 import {describe, it, expect} from "@jest/globals";
-import invariant from "tiny-invariant";
 
 import {
     constrainedShuffle,
@@ -7,6 +6,7 @@ import {
     seededRNG,
     shuffle,
 } from "./random-util";
+import {range} from "./range";
 
 describe("shuffle", () => {
     it("does nothing to an empty array", () => {
@@ -134,12 +134,3 @@ describe("randomIntInRange", () => {
         expect(new Set(result)).toEqual(new Set([3, 4, 5, 6]));
     });
 });
-
-function range(min: number, max: number): number[] {
-    invariant(min <= max, "range: min must be <= max");
-    const ret: number[] = [];
-    for (let i = min; i <= max; i++) {
-        ret.push(i);
-    }
-    return ret;
-}
