@@ -69,7 +69,7 @@ type LabelImageProps = ChangeableProps &
     Omit<PerseusLabelImageWidgetOptions, "markers"> & {
         apiOptions: APIOptions;
         // The list of label markers on the question image.
-        markers: ReadonlyArray<InteractiveMarkerType>;
+        markers: ReadonlyArray<OptionalAnswersMarkerType>;
         // Whether the question has been answered by the user.
         questionCompleted: boolean;
         // preferred placement for popover (preference, not MUST)
@@ -84,6 +84,21 @@ type LabelImageState = {
     // Hide answer pills.
     hideAnswers: boolean;
 };
+
+export type OptionalAnswersMarkerType = Omit<
+    InteractiveMarkerType,
+    "answers"
+> & {
+    answers?: string[];
+};
+
+// 0 as any as WidgetProps<PerseusLabelImageWidgetOptions> satisfies PropsFor<
+//     typeof LabelImage
+// >;
+//
+// 0 as any as WidgetProps<LabelImagePublicWidgetOptions> satisfies PropsFor<
+//     typeof LabelImage
+// >;
 
 export class LabelImage
     extends React.Component<LabelImageProps, LabelImageState>
@@ -321,7 +336,7 @@ export class LabelImage
         const updatedMarkers = markers.map((marker) => {
             const score = scoreLabelImageMarker(
                 marker.selected,
-                marker.answers,
+                marker.answers ?? [],
             );
 
             return {
@@ -439,7 +454,6 @@ export class LabelImage
             selected: selected.length ? selected : undefined,
         });
     }
-    // TODO(LEMS-2723): Investigate if possible to change this to not require answers
     renderMarkers(): ReadonlyArray<React.ReactNode> {
         const {markers, questionCompleted, preferredPopoverDirection} =
             this.props;
@@ -486,7 +500,7 @@ export class LabelImage
 
             const score = scoreLabelImageMarker(
                 marker.selected,
-                marker.answers,
+                marker.answers ?? [],
             );
             // Once the question is answered, show markers
             // with correct answers, otherwise passthrough
