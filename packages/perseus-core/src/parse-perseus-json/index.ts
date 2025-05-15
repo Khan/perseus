@@ -53,7 +53,7 @@ export function parseAndMigratePerseusItem(
     json: string | unknown,
 ): Result<PerseusItem, ParseFailureDetail> {
     throwErrorIfCheatingDetected();
-    const object = typeof json === "string" ? JSON.parse(json) : json;
+    const object: unknown = typeof json === "string" ? JSON.parse(json) : json;
     const result = parse(object, migrateAndTypecheckPerseusItem);
     if (isFailure(result)) {
         return failure({message: result.detail, invalidObject: object});
