@@ -7,7 +7,7 @@ import type {RadioChoiceWithMetadata} from "./radio.new";
 import type {PerseusStrings} from "../../strings";
 import type {ChoiceState} from "../../types";
 
-// State utilities
+// Radio Choice State and Content Utilities
 
 /**
  * Determine the updated choice states for the Radio widget, based on the
@@ -17,7 +17,7 @@ import type {ChoiceState} from "../../types";
  * @param isStatic - Whether the widget is static.
  * @param showSolutions - Whether the widget is in showSolutions mode.
  * @param choiceStates - The choice states for the widget. (The user's current selection states.)
- * @param values - The values for the widget. (Deprecated: The user's current selection states.)
+ * @param values - The values for the widget. (Deprecated: The user's current selection states for old content.)
  * @returns The updated choice states for the widget.
  */
 export const getChoiceStates = (
@@ -38,8 +38,9 @@ export const getChoiceStates = (
         previouslyAnswered: false,
     };
 
-    // Case 1: The widget is in either static or showSolutions mode.
-    // Both cases show the correct answers and prevent user interaction.
+    // Case 1: Review mode
+    // The widget is in static or showSolutions mode.
+    // — In this state, we display correct answers with explanations and prevent interaction.
     if (isStatic || showSolutions === "all") {
         return choices.map((choice) => ({
             ...defaultState,
@@ -50,14 +51,17 @@ export const getChoiceStates = (
         }));
     }
 
-    // Case 2: The widget has been interacted with, but the user hasn't submitted their answer yet
-    // — so we're showing the user's current choice states.
+    // Case 2: Active user selection without submission
+    // The widget has received user input that hasn't been submitted yet
+    // — In this state, we preserve the user's current choice states.
     if (choiceStates) {
         return choiceStates;
     }
 
-    // Case 3: The widget uses the legacy values property, and the user has interacted with the widget
-    // but hasn't submitted their answer yet — so we're showing the user's current choice states.
+    // Case 3: Legacy user selection without submission
+    // The widget uses the deprecated values property and has
+    // received user input that hasn't been submitted yet.
+    // — In this state, we convert legacy values to choice states.
     if (values) {
         /* c8 ignore next - props.values is deprecated */
         return values.map((val) => ({
@@ -66,13 +70,16 @@ export const getChoiceStates = (
         }));
     }
 
-    // Case 4: The widget hasn't been interacted with yet, so we're showing
-    // the default choice states.
+    // Case 4: Initial state
+    // The widget is in its pristine state with no user interaction yet
+    // — In this state, we return the default, unselected choice states.
     return choices.map(() => ({...defaultState}));
 };
 
 /**
  * Parse the nested widgets in the content of a Radio widget.
+ * Currently this only supports passage-ref widgets, but can
+ * be extended to support other nested widgets in the future.
  *
  * @param content - The content of the Radio widget.
  * @returns The parsed content and the extracted widgets.
@@ -107,7 +114,7 @@ export const parseNestedWidgets = (
     return {parsedContent, extractedWidgets};
 };
 
-// Text & String utilities
+// Text & String Utilities
 
 /**
  * Given a choice's position in the radio widget, return the corresponding
@@ -137,13 +144,13 @@ export const getChoiceLetter = (
 };
 
 /**
- * Render the text for an option status.
+ * Get the correct (translated) string for an option status (correct, incorrect, selected, etc.)
  *
  * @param checked - Whether the option is checked.
  * @param correct - Whether the option is correct.
  * @param crossedOut - Whether the option is crossed out.
  * @param strings - The strings for the Radio widget.
- * @returns The rendered text for the option status.
+ * @returns The appropriate string for the option status.
  */
 export const getOptionStatusText = (
     checked: boolean,
@@ -171,13 +178,16 @@ export const getOptionStatusText = (
 };
 
 /**
- * Get the instructions text for a Radio widget.
+ * Get the (translated) instructions string for a Radio widget.
+ *
+ * This is the text that appears above the widget that explains
+ * how many choices the user should select.
  *
  * @param multipleSelect - Whether the widget is a multiple-select widget.
  * @param countChoices - Whether the widget counts choices.
  * @param numCorrect - The number of correct choices.
  * @param strings - The strings for the Radio widget.
- * @returns The instructions text for the widget.
+ * @returns The instructions string for the widget.
  */
 export const getInstructionsText = (
     multipleSelect: boolean,
@@ -200,7 +210,10 @@ export const getInstructionsText = (
 };
 
 /**
- * Get the a11y text for a Radio widget.
+ * Get the (translated) a11y string for a Radio widget.
+ *
+ * This string is provided to screen readers to help the user
+ * understand the current state of a Radio option.
  *
  * @param letter - The letter for the choice.
  * @param checked - Whether the choice is checked.
@@ -208,7 +221,7 @@ export const getInstructionsText = (
  * @param crossedOut - Whether the choice is crossed out.
  * @param showCorrectness - Whether the correctness is shown.
  * @param strings - The strings for the Radio widget.
- * @returns The a11y text for the widget.
+ * @returns The a11y string for the Radio option.
  */
 export const getA11yText = (
     letter: string,
