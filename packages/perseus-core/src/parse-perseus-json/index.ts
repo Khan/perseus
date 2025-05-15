@@ -40,9 +40,9 @@ export type ParseFailureDetail = {
 };
 
 /**
- * Parses a PerseusItem from a JSON string, migrates old formats to the latest
- * schema, and runtime-typechecks the result. Use this to parse assessmentItem
- * data.
+ * Parses a PerseusItem from a plain object or JSON string, migrates old
+ * formats to the latest schema, and runtime-typechecks the result. Use this to
+ * parse assessmentItem data.
  *
  * @returns a {@link Result} of the parsed PerseusItem. If the result is a
  * failure, it will contain an error message describing where in the tree
@@ -50,10 +50,10 @@ export type ParseFailureDetail = {
  * @throws SyntaxError if the argument is not well-formed JSON.
  */
 export function parseAndMigratePerseusItem(
-    json: string,
+    data: unknown,
 ): Result<PerseusItem, ParseFailureDetail> {
     throwErrorIfCheatingDetected();
-    const object: unknown = JSON.parse(json);
+    const object: unknown = typeof data === "string" ? JSON.parse(data) : data;
     const result = parse(object, migrateAndTypecheckPerseusItem);
     if (isFailure(result)) {
         return failure({message: result.detail, invalidObject: object});
@@ -62,8 +62,9 @@ export function parseAndMigratePerseusItem(
 }
 
 /**
- * Parses a PerseusArticle from a JSON string, migrates old formats to the
- * latest schema, and runtime-typechecks the result.
+ * Parses a PerseusArticle from a plain object (or array) or JSON string,
+ * migrates old formats to the latest schema, and runtime-typechecks the
+ * result.
  *
  * @returns a {@link Result} of the parsed PerseusArticle. If the result is a
  * failure, it will contain an error message describing where in the tree
@@ -71,10 +72,10 @@ export function parseAndMigratePerseusItem(
  * @throws SyntaxError if the argument is not well-formed JSON.
  */
 export function parseAndMigratePerseusArticle(
-    json: string,
+    data: unknown,
 ): Result<PerseusArticle, ParseFailureDetail> {
     throwErrorIfCheatingDetected();
-    const object: unknown = JSON.parse(json);
+    const object: unknown = typeof data === "string" ? JSON.parse(data) : data;
     const result = parse(object, migrateAndTypecheckPerseusArticle);
     if (isFailure(result)) {
         return failure({message: result.detail, invalidObject: object});

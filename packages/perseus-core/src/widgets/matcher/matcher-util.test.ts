@@ -1,4 +1,4 @@
-import invariant from "tiny-invariant";
+import {range} from "../../utils/range";
 
 import getMatcherPublicWidgetOptions, {shuffleMatcher} from "./matcher-util";
 
@@ -164,12 +164,3 @@ describe("shuffleMatcher", () => {
         },
     );
 });
-
-function range(min: number, max: number): number[] {
-    invariant(min <= max, "range: min must be <= max");
-    const ret: number[] = [];
-    for (let i = min; i <= max; i++) {
-        ret.push(i);
-    }
-    return ret;
-}
