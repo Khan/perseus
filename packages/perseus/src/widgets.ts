@@ -27,6 +27,8 @@ let editors: Record<string, any> = getInaccessibleProxy(
     "Perseus widget editor registry",
 );
 
+const identity = (val) => val;
+
 // Widgets must be registered to avoid circular dependencies with the
 // core Editor and Renderer components.
 // TODO(jeremy): The widget name is already embedded in the WidgetExports type
@@ -158,7 +160,7 @@ export const getTransform = (
         return null;
     }
 
-    return widgets[name].transform || _.identity;
+    return widgets[name].transform || identity;
 };
 
 export const getVersion = (name: string): Version | undefined => {
