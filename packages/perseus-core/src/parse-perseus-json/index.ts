@@ -39,10 +39,6 @@ export type ParseFailureDetail = {
     invalidObject: unknown;
 };
 
-function maybeParseJson(json: string | unknown): unknown {
-    return typeof json === "string" ? JSON.parse(json) : json;
-}
-
 /**
  * Parses a PerseusItem from a plain object or JSON string, migrates old
  * formats to the latest schema, and runtime-typechecks the result. Use this to
@@ -54,10 +50,10 @@ function maybeParseJson(json: string | unknown): unknown {
  * @throws SyntaxError if the argument is not well-formed JSON.
  */
 export function parseAndMigratePerseusItem(
-    json: string | unknown,
+    data: unknown,
 ): Result<PerseusItem, ParseFailureDetail> {
     throwErrorIfCheatingDetected();
-    const object: unknown = maybeParseJson(json);
+    const object: unknown = typeof data === "string" ? JSON.parse(data) : data;
     const result = parse(object, migrateAndTypecheckPerseusItem);
     if (isFailure(result)) {
         return failure({message: result.detail, invalidObject: object});
@@ -76,10 +72,10 @@ export function parseAndMigratePerseusItem(
  * @throws SyntaxError if the argument is not well-formed JSON.
  */
 export function parseAndMigratePerseusArticle(
-    json: unknown,
+    data: unknown,
 ): Result<PerseusArticle, ParseFailureDetail> {
     throwErrorIfCheatingDetected();
-    const object: unknown = maybeParseJson(json);
+    const object: unknown = typeof data === "string" ? JSON.parse(data) : data;
     const result = parse(object, migrateAndTypecheckPerseusArticle);
     if (isFailure(result)) {
         return failure({message: result.detail, invalidObject: object});

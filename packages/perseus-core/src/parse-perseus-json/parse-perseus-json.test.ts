@@ -56,7 +56,7 @@ describe("parseAndMigratePerseusItem", () => {
     it("returns an error given an invalid PerseusItem object", () => {
         const result = parseAndMigratePerseusItem({
             question: "bad value",
-        } as any);
+        });
 
         assertFailure(result);
         expect(result.detail.message).toContain(
