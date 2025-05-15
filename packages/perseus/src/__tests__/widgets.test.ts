@@ -98,7 +98,7 @@ describe("Widget API support", () => {
         });
 
         it("does not list hidden widgets", () => {
-            expect((Widgets.getPublicWidgets() as any).grapher).toBe(undefined);
+            expect(Widgets.getPublicWidgets().grapher).toBe(undefined);
         });
     });
 
