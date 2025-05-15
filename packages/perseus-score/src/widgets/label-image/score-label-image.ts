@@ -25,7 +25,7 @@ export function scoreLabelImageMarker(
         score.hasAnswers = true;
     }
 
-    if (rubric && rubric.length > 0) {
+    if (rubric.length > 0) {
         if (userInput && userInput.length === rubric.length) {
             // All correct answers are selected by the user.
             score.isCorrect = userInput.every((choice) =>
