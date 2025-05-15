@@ -199,7 +199,7 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                                 paddingLeft: sizing.size_080,
                                 alignItems: "flex-start",
                                 position: "relative",
-                                backgroundColor: color.white64,
+                                background: color.white64,
                                 minWidth: "100%",
                             }}
                         >
@@ -208,9 +208,11 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
                                     flex: "0 0 30px",
                                     position: "sticky",
                                     left: 0,
-                                    backgroundColor:
-                                        "linear-gradient(to right, white 70% rba(255,255,255, 0.8) 100%)",
+                                    background:
+                                        "linear-gradient(to right, white 70%, rba(255,255,255, 0.8) 100%)",
                                     zIndex: 1,
+                                    alignItems: "center",
+                                    justifyContent: "center",
                                 }}
                             >
                                 <ChoiceIcon
