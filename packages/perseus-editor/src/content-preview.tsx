@@ -37,11 +37,22 @@ function ContentPreview({
     legacyPerseusLint,
     previewDevice,
 }: {
+    /** The Perseus question to preview. */
     question?: PerseusRenderer;
+    /** API Options to use when previewing. */
     apiOptions?: APIOptions;
+    /**
+     * When `true`, renders a seamless preview without any extra spacing. When
+     * `false`, renders a gutter where linting issues are displayed.
+     */
     seamless?: boolean;
     linterContext?: LinterContextProps;
     legacyPerseusLint?: ReadonlyArray<string>;
+    /**
+     * The type of device to simulate the preview for. Note that this preview
+     * may not be 100% accurate with regards to styling (due to styles that use
+     * media queries based on the screen width).
+     */
     previewDevice: DeviceType;
 }) {
     const i18n = usePerseusI18n();

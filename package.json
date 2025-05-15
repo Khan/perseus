@@ -121,7 +121,6 @@
         "yaml": "^2.7.0"
     },
     "scripts": {
-        "preinstall": "npx -y only-allow pnpm",
         "gen:parsers": "pnpm --filter ./packages/kas gen:parsers",
         "prebuild": "pnpm gen:parsers",
         "build": "rollup --bundleConfigAsCjs --config config/build/rollup.config.js",

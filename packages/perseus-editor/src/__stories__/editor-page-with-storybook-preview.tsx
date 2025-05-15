@@ -17,6 +17,7 @@ import * as React from "react";
 
 // eslint-disable-next-line import/no-relative-packages
 import {mockStrings} from "../../../perseus/src/strings";
+import ContentPreview from "../content-preview";
 import EditorPage from "../editor-page";
 
 type Props = {
@@ -103,10 +104,16 @@ function EditorPageWithStorybookPreview(props: Props) {
 
                     <View style={styles.panelInner}>
                         {/* Question preview */}
-                        <Renderer
-                            strings={mockStrings}
+                        <ContentPreview
+                            question={question}
+                            previewDevice={previewDevice}
                             apiOptions={apiOptions}
-                            {...question}
+                            linterContext={{
+                                contentType: "exercise",
+                                highlightLint: true,
+                                paths: [],
+                                stack: [],
+                            }}
                         />
                     </View>
 
