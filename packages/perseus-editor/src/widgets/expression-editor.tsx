@@ -524,7 +524,7 @@ class AnswerOption extends React.Component<
                 <Button
                     size="small"
                     onClick={this.handleImSure}
-                    color="destructive"
+                    actionType="destructive"
                 >
                     I&apos;m sure!
                 </Button>
@@ -541,7 +541,7 @@ class AnswerOption extends React.Component<
             <Button
                 size="small"
                 onClick={this.handleDelete}
-                color="destructive"
+                actionType="destructive"
                 kind="tertiary"
                 style={styles.deleteButton}
             >
