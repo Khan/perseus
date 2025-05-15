@@ -131,8 +131,7 @@ export const getWidget = (
 ): React.ComponentType<any> | null | undefined => {
     // TODO(alex): Consider referring to these as renderers to avoid
     // overloading "widget"
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (!widgets[name]) {
+    if (widgets[name] == null) {
         return null;
     }
 
@@ -154,8 +153,7 @@ export const getEditor = (name: string): Editor | null | undefined => {
 export const getTransform = (
     name: string,
 ): WidgetTransform | null | undefined => {
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (!widgets[name]) {
+    if (widgets[name] == null) {
         return null;
     }
 
