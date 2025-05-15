@@ -42,6 +42,7 @@ const numberLineWidgetLogic: WidgetLogic = {
     name: "number-line",
     defaultWidgetOptions,
     getPublicWidgetOptions: getNumberLinePublicWidgetOptions,
+    accessible: false,
 };
 
 export default numberLineWidgetLogic;

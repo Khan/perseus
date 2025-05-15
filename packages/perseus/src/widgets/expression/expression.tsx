@@ -434,7 +434,6 @@ ExpressionWithDependencies.getUserInputFromProps =
 export default {
     name: "expression",
     displayName: "Expression / Equation",
-    accessible: true,
     widget: ExpressionWithDependencies,
     transform: (
         widgetOptions:

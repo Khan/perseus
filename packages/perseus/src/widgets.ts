@@ -207,36 +207,6 @@ export const getRendererPropsForWidgetInfo = (
     return transform(widgetInfo.options, strings, problemNum);
 };
 
-export const traverseChildWidgets = (
-    widgetInfo: PerseusWidget,
-    traverseRenderer: any,
-): PerseusWidget => {
-    if (!traverseRenderer) {
-        throw new PerseusError(
-            "traverseRenderer must be provided, but was not",
-            Errors.Internal,
-        );
-    }
-
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (!widgetInfo || !widgetInfo.type || !widgets[widgetInfo.type]) {
-        return widgetInfo;
-    }
-
-    const widgetExports = widgets[widgetInfo.type];
-    const props = widgetInfo.options;
-
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (widgetExports.traverseChildWidgets && props) {
-        const newProps = widgetExports.traverseChildWidgets(
-            props,
-            traverseRenderer,
-        );
-        return _.extend({}, widgetInfo, {options: newProps});
-    }
-    return widgetInfo;
-};
-
 /**
  * Handling for static mode for widgets that support it.
  */

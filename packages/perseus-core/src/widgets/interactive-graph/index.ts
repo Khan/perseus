@@ -42,6 +42,7 @@ const interactiveGraphWidgetLogic: WidgetLogic = {
     name: "interactive-graph",
     defaultWidgetOptions,
     getPublicWidgetOptions: getInteractiveGraphPublicWidgetOptions,
+    accessible: true,
 };
 
 export default interactiveGraphWidgetLogic;

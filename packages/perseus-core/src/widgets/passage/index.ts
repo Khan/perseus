@@ -16,6 +16,7 @@ const defaultWidgetOptions: PassageDefaultWidgetOptions = {
 const passageWidgetLogic: WidgetLogic = {
     name: "passage",
     defaultWidgetOptions,
+    accessible: false,
 };
 
 export default passageWidgetLogic;

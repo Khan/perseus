@@ -221,7 +221,6 @@ const styles = StyleSheet.create({
 export default {
     name: "explanation",
     displayName: "Explanation",
-    accessible: true,
     widget: Explanation,
     transform: _.identity,
     isLintable: true,

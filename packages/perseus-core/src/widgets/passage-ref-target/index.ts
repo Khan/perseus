@@ -14,6 +14,7 @@ const passageRefTargetWidgetLogic: WidgetLogic = {
     name: "passageRefTarget",
     defaultWidgetOptions,
     defaultAlignment: "inline",
+    accessible: false,
 };
 
 export default passageRefTargetWidgetLogic;

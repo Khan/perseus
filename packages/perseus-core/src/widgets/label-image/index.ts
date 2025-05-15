@@ -30,6 +30,7 @@ const labelImageWidgetLogic: WidgetLogic = {
     name: "label-image",
     defaultWidgetOptions,
     getPublicWidgetOptions: getLabelImagePublicWidgetOptions,
+    accessible: true,
 };
 
 export default labelImageWidgetLogic;

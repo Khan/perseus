@@ -182,7 +182,6 @@ const propsTransform = function (
 export default {
     name: "numeric-input",
     displayName: "Numeric input",
-    accessible: true,
     widget: NumericInput,
     transform: propsTransform,
     isLintable: true,

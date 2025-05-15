@@ -8,6 +8,7 @@ import IframeContentRenderer from "./iframe-content-renderer";
 import IssuesPanel from "./issues-panel";
 import ItemExtrasEditor from "./item-extras-editor";
 
+import type {Issue} from "./issues-panel";
 import type {
     APIOptions,
     ImageUploader,
@@ -35,7 +36,10 @@ type Props = {
     itemId?: string;
 };
 
-class ItemEditor extends React.Component<Props> {
+type State = {
+    warnings: Issue[];
+};
+class ItemEditor extends React.Component<Props, State> {
     static defaultProps: {
         answerArea: Record<any, any>;
         onChange: () => void;
@@ -49,6 +53,10 @@ class ItemEditor extends React.Component<Props> {
     frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
+
+    state = {
+        warnings: [],
+    };
 
     // Notify the parent that the question or answer area has been updated.
     updateProps: ChangeHandler = (newProps, cb, silent) => {
@@ -90,6 +98,25 @@ class ItemEditor extends React.Component<Props> {
         };
     };
 
+    handleAddWarning = (warning: Issue) => {
+        this.setState((prevState) => {
+            const alreadyExists = prevState.warnings.some(
+                (w) => w.id === warning.id,
+            );
+            return alreadyExists
+                ? null // No need to update state if the warning already exists
+                : {warnings: [...prevState.warnings, warning]};
+        });
+    };
+
+    handleRemoveWarning = (warningId: string) => {
+        this.setState((prevState) => {
+            return {
+                warnings: prevState.warnings.filter((w) => w.id !== warningId),
+            };
+        });
+    };
+
     render(): React.ReactNode {
         const isMobile =
             this.props.deviceType === "phone" ||
@@ -98,7 +125,7 @@ class ItemEditor extends React.Component<Props> {
             <div className="perseus-editor-table">
                 <div className="perseus-editor-row perseus-question-container">
                     <div className="perseus-editor-left-cell">
-                        <IssuesPanel warnings={[]} />
+                        <IssuesPanel warnings={this.state.warnings} />
                         <div className="pod-title">Question</div>
                         <Editor
                             ref={this.questionEditor}
@@ -114,6 +141,8 @@ class ItemEditor extends React.Component<Props> {
                             apiOptions={this.props.apiOptions}
                             showWordCount={true}
                             widgetIsOpen={this.props.widgetIsOpen}
+                            onAddWarning={this.handleAddWarning}
+                            onRemoveWarning={this.handleRemoveWarning}
                             {...this.props.question}
                         />
                     </div>

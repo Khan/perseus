@@ -24,6 +24,7 @@ const defaultWidgetOptions: InteractionDefaultWidgetOptions = {
 const interactionWidgetLogic: WidgetLogic = {
     name: "interaction",
     defaultWidgetOptions,
+    accessible: false,
 };
 
 export default interactionWidgetLogic;
