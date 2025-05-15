@@ -5,13 +5,31 @@ import * as Widgets from "../widgets";
  * since it's testing pre-registration behavior
  */
 describe("widgets pre-registration", () => {
-    it("throws when getWidgetExport is called before registerWidget", () => {
-        expect(() => Widgets.getWidgetExport("radio")).toThrow(
-            "Perseus widget registry accessed before initialization!",
-        );
+    describe("widget registry", () => {
+        test.each([
+            "getWidget",
+            "getWidgetExport",
+            "getTransform",
+            "getVersion",
+            "supportsStaticMode",
+            "getStaticTransform",
+            "getTracking",
+            "isLintable",
+        ])("%s throws when called before registerWidget", (funName) => {
+            // eslint-disable-next-line import/namespace
+            expect(() => Widgets[funName]?.("radio")).toThrow(
+                "Perseus widget registry accessed before initialization!",
+            );
+        });
     });
 
     it("throws when getEditor is called before registerWidget", () => {
+        expect(() => Widgets.getEditor("radio")).toThrow(
+            "Perseus widget editor registry accessed before initialization!",
+        );
+    });
+
+    it("throws when replaceEditor is called before registerWidget", () => {
         expect(() => Widgets.replaceEditor("radio", "cool")).toThrow(
             "Perseus widget editor registry accessed before initialization!",
         );

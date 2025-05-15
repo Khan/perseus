@@ -130,7 +130,8 @@ export const getWidget = (
 ): React.ComponentType<any> | null | undefined => {
     // TODO(alex): Consider referring to these as renderers to avoid
     // overloading "widget"
-    if (!_.has(widgets, name)) {
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!widgets[name]) {
         return null;
     }
 
@@ -146,13 +147,18 @@ export const getWidgetExport = (name: string): WidgetExports | null => {
 };
 
 export const getEditor = (name: string): Editor | null | undefined => {
-    return _.has(editors, name) ? editors[name] : null;
+    return editors[name] ?? null;
 };
 
 export const getTransform = (
     name: string,
 ): WidgetTransform | null | undefined => {
-    return _.has(widgets, name) ? widgets[name].transform || _.identity : null;
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!widgets[name]) {
+        return null;
+    }
+
+    return widgets[name].transform || _.identity;
 };
 
 export const getVersion = (name: string): Version | undefined => {
