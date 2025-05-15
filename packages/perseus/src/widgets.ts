@@ -126,7 +126,7 @@ export const getWidgetExport = (type: string): WidgetExports | null => {
     return widgets.get(type) ?? null;
 };
 
-export const getEditor = (type: string): Editor | null | undefined => {
+export const getEditor = (type: string): Editor | null => {
     return editors.get(type) ?? null;
 };
 
