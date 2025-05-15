@@ -1,4 +1,4 @@
-import {shuffle} from "../../utils/random-util";
+import {constrainedShuffle, type RNG, seededRNG} from "../../utils/random-util";
 
 import type {PerseusSorterWidgetOptions} from "../../data-schema";
 
@@ -7,10 +7,11 @@ import type {PerseusSorterWidgetOptions} from "../../data-schema";
  * PerseusSorterWidgetOptions type
  */
 type SorterPublicWidgetOptions = {
+    // TODO(benchristel): rename to `cards`; the whole point of public widget
+    // options is that this isn't the correct order!
     correct: PerseusSorterWidgetOptions["correct"];
     padding: PerseusSorterWidgetOptions["padding"];
     layout: PerseusSorterWidgetOptions["layout"];
-    isCorrectShuffled: boolean;
 };
 
 /**
@@ -20,23 +21,37 @@ type SorterPublicWidgetOptions = {
 function getSorterPublicWidgetOptions(
     options: PerseusSorterWidgetOptions,
 ): SorterPublicWidgetOptions {
-    const shuffledCorrect = shuffle(
-        options.correct,
-        Math.random,
-        /* ensurePermuted */ true,
-    );
-
     return {
         ...options,
-        // Note(Tamara): This does not provide correct answer information any longer.
-        // To maintain compatibility with the original widget options, we are
-        // keeping the key the same. Represents initial state of the cards here.
-        correct: shuffledCorrect,
-        // Note(Tamara): This new key is only added here with "true". There isn't
-        // a place where it is set to false. It indicates that the correct field
-        // has been shuffled and no longer contains correct answer info.
-        isCorrectShuffled: true,
+        // To remove information about the correct answer, we sort the cards.
+        // However, we leave the first card in place so the client can avoid
+        // showing the correct answer to the learner in the initial state of
+        // the widget (since that could be confusing).
+        correct: sortAllButFirst(options.correct),
     };
+}
+
+export function shuffleSorter(props: {
+    correct: string[];
+    problemNum: number | null | undefined;
+}): string[] {
+    const {correct, problemNum} = props;
+    const rng = seededRNG(problemNum ?? 0);
+    // See getSorterPublicWidgetOptions for an explanation of why we need to
+    // displace the first card.
+    return shuffleDisplacingFirst(correct, rng);
+}
+
+function sortAllButFirst([first, ...rest]: readonly string[]): string[] {
+    return [first, ...rest.sort()];
+}
+
+function shuffleDisplacingFirst<T>(array: readonly T[], rng: RNG): T[] {
+    function isFirstElementDisplaced(shuffled: readonly T[]) {
+        return shuffled[0] !== array[0];
+    }
+
+    return constrainedShuffle(array, rng, isFirstElementDisplaced);
 }
 
 export default getSorterPublicWidgetOptions;

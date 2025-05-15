@@ -151,9 +151,12 @@ export {
     type InteractiveGraphPublicWidgetOptions,
 } from "./widgets/interactive-graph/interactive-graph-util";
 export {default as getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
+export {
+    default as getSorterPublicWidgetOptions,
+    shuffleSorter,
+} from "./widgets/sorter/sorter-util";
 export type {LabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
 export type {LabelImageMarkerPublicData} from "./widgets/label-image/label-image-util";
-export {default as getSorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
 export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export type {DropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";
@@ -171,6 +174,7 @@ export {
     default as getMatcherPublicWidgetOptions,
     shuffleMatcher,
 } from "./widgets/matcher/matcher-util";
+export type {MatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
 export {shuffle, seededRNG, random} from "./utils/random-util";
 export {default as PerseusFeatureFlags} from "./feature-flags";
 
