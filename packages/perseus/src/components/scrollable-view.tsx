@@ -10,12 +10,12 @@ import {useEffect, useRef} from "react";
 import {usePerseusI18n} from "./i18n-context";
 
 type ScrollAxisX = {
-    x: React.CSSProperties["overflowX"];
-    y?: React.CSSProperties["overflowY"];
+    overflowX: React.CSSProperties["overflowX"];
+    overflowY?: React.CSSProperties["overflowY"];
 };
 type ScrollAxisY = {
-    y: React.CSSProperties["overflowY"];
-    x?: React.CSSProperties["overflowX"];
+    overflowY: React.CSSProperties["overflowY"];
+    overflowX?: React.CSSProperties["overflowX"];
 };
 type AriaLabelOnly = {
     "aria-label": string;
@@ -41,8 +41,8 @@ type ScrollableViewProps = (ScrollAxisX | ScrollAxisY) &
 const SCROLL_DISTANCE = 100;
 
 function ScrollableView({
-    x,
-    y,
+    overflowX,
+    overflowY,
     children,
     showScrollButtons = false,
     style,
@@ -92,13 +92,13 @@ function ScrollableView({
     }, [children]);
 
     const mergeStyle: React.CSSProperties = {
-        overflowX: x,
-        overflowY: y,
+        overflowX,
+        overflowY,
         ...style,
     };
 
     return (
-        <div>
+        <>
             {canScrollRight && <div style={styles.scrollFadeRight} />}
             <div
                 {...additionalProps}
@@ -116,7 +116,7 @@ function ScrollableView({
                     canScrollRight={canScrollRight}
                 />
             )}
-        </div>
+        </>
     );
 }
 
