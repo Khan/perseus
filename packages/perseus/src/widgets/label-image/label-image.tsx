@@ -561,7 +561,7 @@ export class LabelImage
                             >
                                 {({hovered, focused, pressed}) => (
                                     <Marker
-                                        {...marker}
+                                        label={marker.label}
                                         showCorrectness={showCorrectness}
                                         showSelected={opened}
                                         showPulsate={!markersInteracted}
@@ -571,7 +571,6 @@ export class LabelImage
                                         showAnswer={showAnswerChoice}
                                         answerSide={side}
                                         answerStyles={adjustPillDistance}
-                                        analytics={this.props.analytics}
                                         focused={focused || pressed}
                                         hovered={hovered}
                                     />
