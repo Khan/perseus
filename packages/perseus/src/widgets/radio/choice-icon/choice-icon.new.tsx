@@ -1,7 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* Component for rendering a letter icon in a library radio choice */
 
-import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
+import {color, color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -173,6 +173,9 @@ const styles = StyleSheet.create({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+
+        // TODO: LEMS-3108 address light/dark mode theme
+        background: color.white,
     },
 
     choiceHasLetter: {

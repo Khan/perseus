@@ -328,9 +328,12 @@ const styles = {
         paddingBottom: spacing.xSmall_8,
         paddingLeft: spacing.xSmall_8,
         position: "relative",
-        background: color.white64,
         minWidth: "100%",
         left: 0,
+        // The height and background will ensure content will be scrolled
+        // behind the ChoiceIcon and will not be visible
+        height: "100%",
+        background: color.white64, // TODO: LEMS-3108 address light/dark mode theme
     },
 
     choiceIcon: {
@@ -339,11 +342,13 @@ const styles = {
         flexBasis: "30px",
         position: "sticky",
         left: 0,
-        background:
-            "linear-gradient(to right, white 70%, rba(255,255,255, 0.8) 100%)",
+        background: "linear-gradient(to right, white 70%, transparent)",
+        paddingRight: spacing.xSmall_8,
+        paddingTop: spacing.xxxSmall_4,
         zIndex: 1,
         alignItems: "center",
         justifyContent: "center",
+        height: "100%",
     },
 
     choiceContent: {
