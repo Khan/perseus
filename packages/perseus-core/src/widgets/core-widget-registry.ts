@@ -46,6 +46,7 @@ function registerWidget(type: string, logic: WidgetLogic) {
 
 export function isWidgetRegistered(type: string) {
     const widgetLogic = widgets[type];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return !!widgetLogic;
 }
 

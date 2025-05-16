@@ -23,7 +23,7 @@ describe("IssuesPanel", () => {
 
     it("shows passing icon and '0 issues' when no data is passed", () => {
         // Arrange
-        render(<IssuesPanel warnings={[]} />);
+        render(<IssuesPanel issues={[]} />);
 
         // Assert
         expect(screen.getByText("0 issues")).toBeInTheDocument();
@@ -41,7 +41,7 @@ describe("IssuesPanel", () => {
 
     it("shows warning icon for warnings", () => {
         // Arrange
-        render(<IssuesPanel warnings={[makeIssue("warn1")]} />);
+        render(<IssuesPanel issues={[makeIssue("warn1")]} />);
 
         // Assert
         expect(screen.getByText("1 issue")).toBeInTheDocument();
@@ -60,7 +60,7 @@ describe("IssuesPanel", () => {
     it("shows warning icon for warnings and correct issue count when multiple warnings are passed", async () => {
         // Arrange
         render(
-            <IssuesPanel warnings={[makeIssue("warn1"), makeIssue("warn2")]} />,
+            <IssuesPanel issues={[makeIssue("warn1"), makeIssue("warn2")]} />,
         );
 
         // Assert
@@ -79,7 +79,7 @@ describe("IssuesPanel", () => {
 
     it("opens the panel when the heading is clicked", async () => {
         // Arrange
-        render(<IssuesPanel warnings={[makeIssue("warn1")]} />);
+        render(<IssuesPanel issues={[makeIssue("warn1")]} />);
         const headingButton = screen.getByRole("button"); // The button in the heading
 
         //Act
@@ -91,7 +91,7 @@ describe("IssuesPanel", () => {
 
     it("closes the panel when the heading icon is clicked again", async () => {
         //Arrange
-        render(<IssuesPanel warnings={[makeIssue("warn1")]} />);
+        render(<IssuesPanel issues={[makeIssue("warn1")]} />);
         const headingButton = screen.getByRole("button");
         await userEvent.click(headingButton);
         expect(screen.getByText("Warning: warn1")).toBeInTheDocument();
