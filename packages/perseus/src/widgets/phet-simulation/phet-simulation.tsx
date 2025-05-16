@@ -8,6 +8,7 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import cornersOutIcon from "@phosphor-icons/core/regular/corners-out.svg";
+import xIcon from "@phosphor-icons/core/regular/x.svg";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -29,7 +30,13 @@ type State = {
         kind: "warning" | "critical";
     } | null;
     url: URL | null;
+    isFullScreen: boolean;
 };
+
+// A constant for the bottom bar height in the mobile app.
+// This is a little hacky, but seems to be the best way to make sure the
+// simulation is not cut off by the bottom bar.
+const MOBILE_APP_BOTTOM_BAR_HEIGHT = 66;
 
 // This renders the PhET sim
 export class PhetSimulation
@@ -49,6 +56,7 @@ export class PhetSimulation
     state: State = {
         url: null,
         banner: null,
+        isFullScreen: false,
     };
 
     constructor(props) {
@@ -165,15 +173,60 @@ export class PhetSimulation
         return true;
     }
 
+    /**
+     * Mobile App Fullscreen Implementation
+     *
+     * The mobile app environment doesn't support the standard browser fullscreen API.
+     * Instead, we implement a "fake" fullscreen mode with the following approach:
+     *
+     * 1. When fullscreen is toggled, we use a fixed position container that covers
+     *    almost the entire viewport (appFullScreenWidgetContainer)
+     * 2. We leave space at the bottom for the mobile app's Check Answer bar (66px)
+     * 3. We position a close button in the top-right corner for exiting fullscreen
+     * 4. The iframe container expands to fill the available space
+     *
+     * This differs from the web implementation which uses the browser's
+     * native Fullscreen API via requestFullscreen().
+     *
+     * Note: Unfortunately, full screen is not supported in iOS mobile web due to
+     * the lack of support for the Fullscreen API.
+     */
+    toggleFullScreen = () => {
+        // Use our fake fullscreen implementation for mobile
+        this.setState((prevState) => ({
+            isFullScreen: !prevState.isFullScreen,
+        }));
+    };
+
     render(): React.ReactNode {
+        // Extract state and props we'll use
+        const {isFullScreen, banner, url} = this.state;
+        const {isMobileApp} = this.props.apiOptions;
+
+        // Determine if we're using the mobile app fullscreen implementation
+        const isMobileAppFullscreen = isFullScreen && isMobileApp;
+
+        // Determine which container style to use based on isMobileAppFullscreen
+        const containerStyle = isMobileAppFullscreen
+            ? {
+                  ...styles.appFullScreenWidgetContainer,
+              }
+            : styles.widgetContainer;
+
+        // Determine iframe container style based on isMobileAppFullscreen
+        const iframeContainerStyle = isMobileAppFullscreen
+            ? styles.appFullScreenIframeContainer
+            : styles.iframeContainer;
+
         // We sandbox the iframe so that we allowlist only the functionality
         // that we need. This makes it safer to present third-party content
         // from the PhET website.
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         const sandboxProperties = "allow-same-origin allow-scripts";
+
         return (
-            <View style={styles.widgetContainer}>
-                {this.state.banner !== null && (
+            <View style={containerStyle}>
+                {banner !== null && (
                     // TODO(anna): Make this banner focusable
                     <View
                         style={{
@@ -182,27 +235,49 @@ export class PhetSimulation
                     >
                         <Banner
                             layout="floating"
-                            kind={this.state.banner.kind}
-                            text={this.state.banner.message}
+                            kind={banner.kind}
+                            text={banner.message}
                         />
                     </View>
                 )}
-                <View style={styles.iframeContainer}>
+
+                {/* Mobile app fullscreen close button */}
+                {isMobileAppFullscreen && (
+                    <View style={styles.closeButtonContainer}>
+                        <IconButton
+                            icon={xIcon}
+                            onClick={this.toggleFullScreen}
+                            kind="tertiary"
+                            actionType="neutral"
+                            aria-label={"Exit fullscreen"}
+                            style={styles.closeButton}
+                        />
+                    </View>
+                )}
+
+                {/* PhET simulation iframe */}
+                <View style={iframeContainerStyle}>
                     <iframe
                         ref={this.iframeRef}
                         title={this.props.description}
                         sandbox={sandboxProperties}
                         className={css(styles.iframeResponsive)}
-                        src={this.state.url?.toString()}
+                        src={url?.toString()}
                         allow="fullscreen"
                     />
                 </View>
-                {this.state.url !== null && (
+
+                {/* Fullscreen button (only shown when not in mobile app fullscreen) */}
+                {url !== null && !isMobileAppFullscreen && (
                     <IconButton
                         icon={cornersOutIcon}
-                        onClick={() => {
-                            this.iframeRef.current?.requestFullscreen();
-                        }}
+                        onClick={
+                            isMobileApp
+                                ? this.toggleFullScreen
+                                : () => {
+                                      this.iframeRef.current?.requestFullscreen();
+                                  }
+                        }
                         kind="tertiary"
                         actionType="neutral"
                         aria-label={"Fullscreen"}
@@ -255,6 +330,37 @@ const styles = StyleSheet.create({
         right: 0,
         width: "100%",
         height: "100%",
+    },
+    // Mobile app fullscreen implementation styles
+    appFullScreenWidgetContainer: {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        // Ensure that the Check Answer bar does not cover the bottom of the simulation
+        bottom: MOBILE_APP_BOTTOM_BAR_HEIGHT,
+        width: "100%",
+        height: "auto",
+        zIndex: 1000,
+        backgroundColor: "white",
+        display: "flex",
+        flexDirection: "column",
+    },
+    appFullScreenIframeContainer: {
+        position: "relative",
+        overflow: "hidden",
+        width: "100%",
+        flex: 1,
+    },
+    closeButtonContainer: {
+        position: "absolute",
+        top: spacing.xSmall_8,
+        right: spacing.xSmall_8,
+        zIndex: 1001,
+    },
+    closeButton: {
+        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        borderRadius: "50%",
     },
 });
 
