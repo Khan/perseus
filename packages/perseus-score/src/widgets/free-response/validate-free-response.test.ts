@@ -6,6 +6,11 @@ describe("free response validation", () => {
         expect(result).toHaveInvalidInput();
     });
 
+    it("should return invalid for whitespace-only user input", () => {
+        const result = validateFreeResponse({currentValue: "    "});
+        expect(result).toHaveInvalidInput();
+    });
+
     it("should return null for non-empty user input", () => {
         const result = validateFreeResponse({currentValue: "A short answer"});
         expect(result).toBeNull();
