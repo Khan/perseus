@@ -20,13 +20,13 @@ interface Props extends ChoiceProps {
  */
 const ChoiceNoneAbove = React.forwardRef<HTMLButtonElement, Props>(
     (
-        {content, showContent = true, ...rest},
+        {content, showContent = true, ...otherChoiceProps},
         forwardedRef,
     ): React.ReactElement => {
         const {strings} = usePerseusI18n();
 
         const choiceProps = {
-            ...rest,
+            ...otherChoiceProps,
             content: showContent ? (
                 content
             ) : (
