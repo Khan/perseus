@@ -1,5 +1,21 @@
 # @khanacademy/perseus-score
 
+## 6.0.0
+
+### Major Changes
+
+-   [#2483](https://github.com/Khan/perseus/pull/2483) [`6e3991082`](https://github.com/Khan/perseus/commit/6e3991082cf41d6dcf397adcc288a966091a9569) Thanks [@handeyeco](https://github.com/handeyeco)! - Prevent use of widget registries before any widget is registered
+
+### Patch Changes
+
+-   [#2472](https://github.com/Khan/perseus/pull/2472) [`3389e0611`](https://github.com/Khan/perseus/commit/3389e06111b2c801fba6c34ed4e5bdc747ef1ed1) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Remove eslint-plugin-functional linter
+
+-   Updated dependencies [[`536de9b97`](https://github.com/Khan/perseus/commit/536de9b973a72841c1e7db9398510781bf2deea4), [`b5f1af8fc`](https://github.com/Khan/perseus/commit/b5f1af8fc66ae0be2b2aa89ffe4f47c87b050309), [`4fae24098`](https://github.com/Khan/perseus/commit/4fae24098a0aa73f1ad6b3f0545381c199c9df25), [`6e3991082`](https://github.com/Khan/perseus/commit/6e3991082cf41d6dcf397adcc288a966091a9569), [`3389e0611`](https://github.com/Khan/perseus/commit/3389e06111b2c801fba6c34ed4e5bdc747ef1ed1), [`7611266b8`](https://github.com/Khan/perseus/commit/7611266b853b68fee3e13a4ea28c2dcfb97b3d1e), [`077d2d60e`](https://github.com/Khan/perseus/commit/077d2d60e96ef77e7cae87cf0244b5c5f073e534)]:
+    -   @khanacademy/perseus-core@11.0.0
+    -   @khanacademy/kas@2.0.4
+    -   @khanacademy/kmath@2.0.9
+    -   @khanacademy/perseus-utils@2.0.3
+
 ## 5.0.5
 
 ### Patch Changes
