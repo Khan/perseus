@@ -31,13 +31,14 @@ import sorterWidgetLogic from "./sorter";
 import tableWidgetLogic from "./table";
 import videoWidgetLogic from "./video";
 
+import type {PerseusWidgetOptions} from "../data-schema";
 import type {
     PublicWidgetOptionsFunction,
     WidgetLogic,
 } from "./logic-export.types";
 import type {Alignment} from "../types";
 
-const widgets = {};
+const widgets: Record<string, WidgetLogic> = {};
 
 function registerWidget(type: string, logic: WidgetLogic) {
     widgets[type] = logic;
@@ -45,6 +46,7 @@ function registerWidget(type: string, logic: WidgetLogic) {
 
 export function isWidgetRegistered(type: string) {
     const widgetLogic = widgets[type];
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return !!widgetLogic;
 }
 
@@ -71,6 +73,15 @@ export function getDefaultWidgetOptions(type: string) {
     return widgetLogic?.defaultWidgetOptions || {};
 }
 
+export function isAccessible(
+    type: string,
+    widgetOptions: PerseusWidgetOptions,
+): boolean {
+    const accessible = widgets[type]?.accessible;
+    return typeof accessible === "function"
+        ? accessible(widgetOptions)
+        : !!accessible;
+}
 /**
  * Handling for the optional alignments for widgets
  * See widget-container.jsx for details on how alignments are implemented.

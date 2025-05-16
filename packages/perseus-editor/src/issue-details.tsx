@@ -1,16 +1,11 @@
 // WidgetIssueDetails.tsx
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
 import PerseusEditorAccordion from "./components/perseus-editor-accordion";
 
-type Issue = {
-    id: string;
-    help: string;
-    helpUrl: string;
-    impact: string;
-    message: string;
-};
+import type {Issue} from "./issues-panel";
 
 type IssueProps = {
     issue: Issue;
@@ -25,6 +20,7 @@ const IssueDetails = ({issue}: IssueProps) => {
             animated={true}
             expanded={expanded}
             onToggle={toggleVisibility}
+            containerStyle={{backgroundColor: color.fadedGold8}}
             panelStyle={{backgroundColor: "white"}}
             header={
                 <LabelLarge
@@ -40,6 +36,7 @@ const IssueDetails = ({issue}: IssueProps) => {
             }
         >
             <LabelSmall style={{fontWeight: "bold"}}>Description:</LabelSmall>
+            <span>{issue.description}</span>
             <a href={issue.helpUrl} target="_blank" rel="noreferrer">
                 {issue.help}
             </a>
@@ -47,7 +44,9 @@ const IssueDetails = ({issue}: IssueProps) => {
                 Impact:
             </LabelSmall>
             <span style={{fontWeight: "initial"}}> {issue.impact}</span>
-            <LabelSmall style={{fontWeight: "bold"}}>Issue:</LabelSmall>
+            <LabelSmall style={{marginTop: "1em", fontWeight: "bold"}}>
+                Issue:
+            </LabelSmall>
             <span>{issue.message}</span>
         </PerseusEditorAccordion>
     );
