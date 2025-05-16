@@ -12,8 +12,9 @@ import * as styleConstants from "../../../styles/constants";
 import FocusRing from "../focus-ring";
 import {getChoiceLetter} from "../util";
 
-import CrossOutLine from "./cross-out-line";
 import choiceIconStyles, {CHOICE_ICON_SIZE} from "./choice-icon-styles";
+// TODO: LEMS-2995: Remove CrossOutLine
+import CrossOutLine from "./cross-out-line";
 
 type ChoiceIconProps = {
     pos: number;
