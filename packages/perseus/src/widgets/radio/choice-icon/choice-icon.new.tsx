@@ -12,8 +12,8 @@ import * as styleConstants from "../../../styles/constants";
 import FocusRing from "../focus-ring";
 import {getChoiceLetter} from "../util";
 
+import CrossOutLine from "./cross-out-line";
 import choiceIconStyles, {CHOICE_ICON_SIZE} from "./choice-icon-styles";
-import CrossOutLine from "./cross-out-line.new";
 
 type ChoiceIconProps = {
     pos: number;
