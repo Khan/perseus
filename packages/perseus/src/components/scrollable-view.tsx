@@ -28,6 +28,7 @@ type AriaLabelledByOnly = {
 interface ScrollableViewPropsBase extends React.HTMLAttributes<HTMLDivElement> {
     children?: React.ReactNode;
     role?: string;
+    scrollDescription?: string;
 }
 type ScrollableViewProps = (ScrollAxisX | ScrollAxisY) &
     // Require label OR labelId
@@ -43,10 +44,12 @@ function ScrollableView({
     overflowX,
     overflowY,
     children,
+    scrollDescription,
     style,
     role = "group",
     ...additionalProps
 }: ScrollableViewProps) {
+    const {strings} = usePerseusI18n();
     const containerRef = useRef<HTMLDivElement>(null);
     const [isScrollable, setIsScrollable] = React.useState(false);
     const [canScrollLeft, setCanScrollLeft] = React.useState(false);
@@ -112,6 +115,11 @@ function ScrollableView({
                     onScrollRight={() => scroll("right")}
                     canScrollLeft={canScrollLeft}
                     canScrollRight={canScrollRight}
+                    scrollDescription={
+                        scrollDescription
+                            ? scrollDescription
+                            : strings.scrollAnswers
+                    }
                 />
             )}
         </>
@@ -123,6 +131,7 @@ interface ScrollButtonsProps {
     onScrollRight: () => void;
     canScrollLeft: boolean;
     canScrollRight: boolean;
+    scrollDescription: string;
 }
 
 function ScrollButtons({
@@ -130,6 +139,7 @@ function ScrollButtons({
     onScrollRight,
     canScrollLeft,
     canScrollRight,
+    scrollDescription,
 }: ScrollButtonsProps) {
     const {strings} = usePerseusI18n();
 
@@ -153,7 +163,7 @@ function ScrollButtons({
                 aria-label={strings.scrollRight}
                 disabled={!canScrollRight}
             />
-            <LabelSmall>{strings.scrollAnswers}</LabelSmall>
+            <LabelSmall>{scrollDescription}</LabelSmall>
         </View>
     );
 }
