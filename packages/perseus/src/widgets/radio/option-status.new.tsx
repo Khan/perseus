@@ -12,7 +12,7 @@ import * as React from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 
-import {getOptionStatusText} from "./util";
+import {getOptionStatusText} from "./utils/string-utils";
 
 type Props = {
     // Was this option the correct answer?
@@ -61,7 +61,12 @@ const OptionStatus = ({
 
     return (
         <div className={css(styles.text, textStyle)}>
-            {getOptionStatusText(checked, correct, crossedOut, strings)}
+            {getOptionStatusText({
+                checked,
+                correct,
+                crossedOut,
+                strings,
+            })}
         </div>
     );
 };

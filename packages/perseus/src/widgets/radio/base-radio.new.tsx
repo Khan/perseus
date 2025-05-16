@@ -16,7 +16,7 @@ import {scrollElementIntoView} from "../../util/scroll-utils";
 
 import ChoiceNoneAbove from "./choice-none-above.new";
 import Choice from "./choice.new";
-import {getInstructionsText} from "./util";
+import {getInstructionsText} from "./utils/string-utils";
 
 import type {APIOptions} from "../../types";
 import type {StyleDeclaration} from "aphrodite";
@@ -206,12 +206,12 @@ const BaseRadio = ({
         "instructions",
         css(styles.instructions, isMobile && styles.instructionsMobile),
     );
-    const instructions = getInstructionsText(
+    const instructions = getInstructionsText({
         multipleSelect,
         countChoices,
         numCorrect,
         strings,
-    );
+    });
 
     const responsiveClassName = css(styles.responsiveFieldset);
     const fieldset = (

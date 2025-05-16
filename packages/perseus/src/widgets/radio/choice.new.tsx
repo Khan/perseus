@@ -18,7 +18,7 @@ import mediaQueries from "../../styles/media-queries";
 
 import ChoiceIcon from "./choice-icon/choice-icon.new";
 import OptionStatus from "./option-status.new";
-import {getChoiceLetter, getA11yText} from "./util";
+import {getChoiceLetter, getA11yText} from "./utils/string-utils";
 
 import type {APIOptions} from "../../types";
 
@@ -134,14 +134,14 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
         const showDimmed = (!reviewMode && apiOptions.readOnly) || crossedOut;
 
         const letter = getChoiceLetter(pos, strings);
-        const a11yText = getA11yText(
+        const a11yText = getA11yText({
             letter,
             checked,
             correct,
             crossedOut,
             showCorrectness,
             strings,
-        );
+        });
 
         return (
             <div

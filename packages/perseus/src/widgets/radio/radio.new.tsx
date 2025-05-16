@@ -6,7 +6,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
 import BaseRadio from "./base-radio.new";
-import {getChoiceStates, parseNestedWidgets} from "./util";
+import {getChoiceStates, parseNestedWidgets} from "./utils/general-utils";
 
 import type {ChoiceType} from "./base-radio.new";
 import type {WidgetProps, ChoiceState} from "../../types";
@@ -217,13 +217,13 @@ const RadioComponent = ({
         });
     };
 
-    const updatedChoiceStates: ReadonlyArray<ChoiceState> = getChoiceStates(
+    const updatedChoiceStates: ReadonlyArray<ChoiceState> = getChoiceStates({
         choices,
         isStatic,
         showSolutions,
         choiceStates,
         values,
-    );
+    });
     const updatedChoicesProp = buildChoiceProps(choices, updatedChoiceStates);
 
     return (
