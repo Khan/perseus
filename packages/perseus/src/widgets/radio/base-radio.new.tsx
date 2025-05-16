@@ -1,8 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {
-    usesNumCorrect,
-    type PerseusRadioWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {type PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -20,8 +17,8 @@ import {scrollElementIntoView} from "../../util/scroll-utils";
 
 import ChoiceNoneAbove from "./choice-none-above.new";
 import Choice from "./choice.new";
+import {getInstructionsText} from "./utils/string-utils";
 
-import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
 import type {StyleDeclaration} from "aphrodite";
 
@@ -71,26 +68,6 @@ type Props = {
     isLastUsedWidget?: boolean;
 };
 
-function getInstructionsText(
-    multipleSelect: boolean,
-    countChoices: boolean | null | undefined,
-    numCorrect: number,
-    strings: PerseusStrings,
-): string {
-    if (multipleSelect) {
-        // using usesNumCorrect to make sure this logic stays in sync
-        // with getRadioPublicWidgetOptions logic
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (usesNumCorrect(multipleSelect, !!countChoices, numCorrect)) {
-            return strings.chooseNumAnswers({
-                numCorrect: String(numCorrect),
-            });
-        }
-        return strings.chooseAllAnswers;
-    }
-    return strings.chooseOneAnswer;
-}
-
 /**
  * The BaseRadio component is the core component for the radio widget.
  * It is responsible for rendering the radio choices and handling user interactions.
@@ -101,7 +78,7 @@ function getInstructionsText(
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-const BaseRadio = function ({
+const BaseRadio = ({
     apiOptions,
     reviewModeRubric,
     reviewMode,
@@ -113,12 +90,14 @@ const BaseRadio = function ({
     numCorrect,
     isLastUsedWidget,
     onChange,
-}: Props): React.ReactElement {
+}: Props): React.ReactElement => {
     const {strings} = usePerseusI18n();
 
     // useEffect doesn't have previous props
-    const prevReviewModeRubric = useRef();
-    const choiceRefs = useRef([]);
+    const prevReviewModeRubric = useRef<
+        PerseusRadioWidgetOptions | undefined | null
+    >();
+    const choiceRefs = useRef<Array<React.RefObject<HTMLButtonElement>>>([]);
 
     useEffect(() => {
         // Switching into review mode can sometimes cause the selected answer
@@ -138,7 +117,6 @@ const BaseRadio = function ({
             apiOptions.canScrollPage &&
             isLastUsedWidget &&
             reviewModeRubric &&
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             !prevReviewModeRubric.current
         ) {
             const checkedIndex = choices.findIndex((c) => c.checked);
@@ -147,9 +125,7 @@ const BaseRadio = function ({
                 // note(matthew): we know this is only getting passed
                 // to a WB Clickable button, so we force it to be of
                 // type HTMLButtonElement
-                // @ts-expect-error - TS2339 - Property 'current' does not exist on type 'never'.
-                const anyNode = ReactDOM.findDOMNode(ref.current) as any;
-                const buttonNode = anyNode as
+                const buttonNode = ReactDOM.findDOMNode(ref.current) as
                     | HTMLButtonElement
                     | null
                     | undefined;
@@ -159,7 +135,6 @@ const BaseRadio = function ({
             }
         }
 
-        // @ts-expect-error - TS2322 - Type 'PerseusRadioWidgetOptions | undefined' is not assignable to type 'undefined'.
         prevReviewModeRubric.current = reviewModeRubric;
     }, [apiOptions, choices, isLastUsedWidget, reviewModeRubric]);
 
@@ -232,12 +207,12 @@ const BaseRadio = function ({
         "instructions",
         css(styles.instructions, isMobile && styles.instructionsMobile),
     );
-    const instructions = getInstructionsText(
+    const instructions = getInstructionsText({
         multipleSelect,
         countChoices,
         numCorrect,
         strings,
-    );
+    });
 
     const responsiveClassName = css(styles.responsiveFieldset);
     const fieldset = (
@@ -254,8 +229,9 @@ const BaseRadio = function ({
                     {choices.map((choice, i) => {
                         let Element = Choice;
                         const ref = React.createRef<any>();
-                        // @ts-expect-error - TS2322 - Type 'RefObject<unknown>' is not assignable to type 'never'.
+
                         choiceRefs.current[i] = ref;
+
                         const elementProps = {
                             apiOptions: apiOptions,
                             multipleSelect: multipleSelect,
@@ -267,8 +243,7 @@ const BaseRadio = function ({
                             rationale: choice.rationale,
                             content: choice.content,
                             disabled: apiOptions.readOnly || choice.disabled,
-                            showCorrectness:
-                                reviewMode || !!choice.showCorrectness,
+                            showCorrectness: reviewMode || !!choice.showCorrectness,
                             showRationale:
                                 choice.hasRationale &&
                                 (reviewMode || choice.showRationale),
@@ -292,8 +267,7 @@ const BaseRadio = function ({
 
                         const nextChoice = choices[i + 1];
                         const nextChoiceHighlighted =
-                            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                            !!nextChoice && nextChoice.highlighted;
+                            nextChoice?.highlighted || false;
 
                         const aphroditeClassName = (checked: boolean) => {
                             // Whether or not to show correctness borders
@@ -303,15 +277,15 @@ const BaseRadio = function ({
                                 styles.responsiveItem,
                                 checked && styles.selectedItem,
                                 checked &&
-                                    choice.highlighted &&
-                                    styles.aboveBackdrop,
+                                choice.highlighted &&
+                                styles.aboveBackdrop,
                                 checked &&
-                                    choice.highlighted &&
-                                    apiOptions.isMobile &&
-                                    styles.aboveBackdropMobile,
+                                choice.highlighted &&
+                                apiOptions.isMobile &&
+                                styles.aboveBackdropMobile,
                                 nextChoiceHighlighted &&
-                                    apiOptions.isMobile &&
-                                    styles.nextHighlighted,
+                                apiOptions.isMobile &&
+                                styles.nextHighlighted,
                             );
                         };
 
@@ -324,8 +298,7 @@ const BaseRadio = function ({
                         // reviewMode is only true if there's a rubric
                         // but TypeScript doesn't understand that
                         if (reviewMode && reviewModeRubric) {
-                            correctnessClass = reviewModeRubric.choices[i]
-                                .correct
+                            correctnessClass = reviewModeRubric.choices[i].correct
                                 ? ApiClassNames.CORRECT
                                 : ApiClassNames.INCORRECT;
                         }
@@ -356,9 +329,7 @@ const BaseRadio = function ({
                                     // If the clicked element is inside of the
                                     // radio icon, then we want to trigger the
                                     // check by flipping the choice of the icon.
-                                    if (
-                                        elem.getAttribute("data-is-radio-icon")
-                                    ) {
+                                    if (elem.getAttribute("data-is-radio-icon")) {
                                         updateChoice(i, {
                                             checked: !choice.checked,
                                             crossedOut: choice.crossedOut,
@@ -401,6 +372,8 @@ const BaseRadio = function ({
     // an issue especially on phones.
     return <div className={css(styles.responsiveContainer)}>{fieldset}</div>;
 };
+
+export default BaseRadio;
 
 const styles: StyleDeclaration = StyleSheet.create({
     instructions: {
@@ -509,5 +482,3 @@ const styles: StyleDeclaration = StyleSheet.create({
         minWidth: "auto",
     },
 });
-
-export default BaseRadio;

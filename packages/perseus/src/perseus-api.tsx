@@ -97,6 +97,9 @@ export const ApiOptions = {
         // Indicates whether or not to use mobile styling.
         isMobile: PropTypes.bool,
 
+        // Indicates whether or not to use mobile app styling.
+        isMobileApp: PropTypes.bool,
+
         // A function, called with a bool indicating whether use of the
         // drawing area (scratchpad) should be allowed/disallowed.
         // Previously handled by `Khan.scratchpad.enable/disable`
@@ -136,6 +139,7 @@ export const ApiOptions = {
     defaults: {
         isArticle: false,
         isMobile: false,
+        isMobileApp: false,
         onFocusChange: function () {},
         GroupMetadataEditor: StubTagEditor,
         showAlignmentOptions: false,
