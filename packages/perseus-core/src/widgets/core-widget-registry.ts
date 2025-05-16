@@ -1,5 +1,3 @@
-import type {PerseusWidgetOptions} from "../data-schema";
-
 import categorizerWidgetLogic from "./categorizer";
 import csProgramWidgetLogic from "./cs-program";
 import definitionWidgetLogic from "./definition";
@@ -33,6 +31,7 @@ import sorterWidgetLogic from "./sorter";
 import tableWidgetLogic from "./table";
 import videoWidgetLogic from "./video";
 
+import type {PerseusWidgetOptions} from "../data-schema";
 import type {
     PublicWidgetOptionsFunction,
     WidgetLogic,
@@ -77,17 +76,7 @@ export function isAccessible(
     type: string,
     widgetOptions: PerseusWidgetOptions,
 ): boolean {
-    const widgetLogic = widgets[type];
-
-    if (!widgetLogic) {
-        return false;
-    }
-    const {accessible} = widgetLogic;
-
-    if (accessible == null) {
-        return false;
-    }
-
+    const accessible = widgets[type]?.accessible;
     return typeof accessible === "function"
         ? accessible(widgetOptions)
         : !!accessible;

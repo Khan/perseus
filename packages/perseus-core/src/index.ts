@@ -25,7 +25,6 @@ export {
     getWidgetIdsFromContent,
     getWidgetIdsFromContentByType,
 } from "./utils/widget-id-utils";
-
 export {default as deepClone} from "./utils/deep-clone";
 export * as GrapherUtil from "./utils/grapher-util";
 

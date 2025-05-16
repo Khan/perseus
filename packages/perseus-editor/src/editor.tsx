@@ -176,7 +176,6 @@ class Editor extends React.Component<Props, State> {
         textAreaValue: this.props.content,
     };
 
-    _prevWidgetIds: string[] = [];
     componentDidMount() {
         // See componentDidUpdate() for how this flag is used
         this.lastUserValue = null;

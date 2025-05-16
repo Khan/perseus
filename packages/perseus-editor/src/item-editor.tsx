@@ -39,7 +39,7 @@ type Props = {
 };
 
 type State = {
-    warnings: Issue[];
+    issues: Issue[];
 };
 
 class ItemEditor extends React.Component<Props, State> {
@@ -52,16 +52,30 @@ class ItemEditor extends React.Component<Props, State> {
         question: {},
         answerArea: {},
     };
+    static prevContent: string | undefined;
+    static prevWidgets: any;
 
     frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
     state = {
-        warnings: [],
+        issues: [],
     };
 
-    static getDerivedStateFromProps(props: Props): Partial<State> {
+    static getDerivedStateFromProps(props: Props): Partial<State> | null {
+        // Short-circuit if nothing changed
+        if (
+            props.question?.content === ItemEditor.prevContent &&
+            props.question?.widgets === ItemEditor.prevWidgets
+        ) {
+            return null;
+        }
+
+        // Update cached values
+        ItemEditor.prevContent = props.question?.content;
+        ItemEditor.prevWidgets = props.question?.widgets;
+
         const parsed = PerseusMarkdown.parse(props.question?.content ?? "", {});
         const linterContext = {
             content: props.question?.content,
@@ -70,32 +84,21 @@ class ItemEditor extends React.Component<Props, State> {
         };
 
         return {
-            warnings: PerseusLinter.runLinter(
-                parsed,
-                linterContext,
-                false,
-            )?.map((linterWarning) => {
-                if (linterWarning.rule === "inaccessible-widget") {
-                    return WARNINGS.inaccessibleWidget(
-                        linterWarning.metadata?.widgetType ?? "unknown",
-                        linterWarning.metadata?.widgetId ?? "unknown",
-                    );
-                }
+            issues: PerseusLinter.runLinter(parsed, linterContext, false)?.map(
+                (linterWarning) => {
+                    if (linterWarning.rule === "inaccessible-widget") {
+                        return WARNINGS.inaccessibleWidget(
+                            linterWarning.metadata?.widgetType ?? "unknown",
+                            linterWarning.metadata?.widgetId ?? "unknown",
+                        );
+                    }
 
-                // Default - Do better here!
-                // Perhaps we could add more items to the WARNINGS object where
-                // each key is the lint rule. Then the rule's message could be
-                // what we use directly from teh linter and the rest of the
-                // text/links is defined in the `WARNINGS` object.
-                return {
-                    id: linterWarning.rule,
-                    description: linterWarning.message,
-                    message: linterWarning.message,
-                    help: "Don't do that!",
-                    helpUrl: "https://www.example.com",
-                    impact: "HUGE! 🤯",
-                };
-            }),
+                    return WARNINGS.genericLinterWarning(
+                        linterWarning.rule,
+                        linterWarning.message,
+                    );
+                },
+            ),
         };
     }
 
@@ -147,7 +150,7 @@ class ItemEditor extends React.Component<Props, State> {
             <div className="perseus-editor-table">
                 <div className="perseus-editor-row perseus-question-container">
                     <div className="perseus-editor-left-cell">
-                        <IssuesPanel warnings={this.state.warnings} />
+                        <IssuesPanel issues={this.state.issues} />
                         <div className="pod-title">Question</div>
                         <Editor
                             ref={this.questionEditor}
