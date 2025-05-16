@@ -300,6 +300,7 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
                 {showRationale && (
                     <div
                         className={rationaleClassName}
+                        style={styles.rationale}
                         data-testid={`perseus-radio-rationale-content-${pos}`}
                     >
                         {rationale}
