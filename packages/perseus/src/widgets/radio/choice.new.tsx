@@ -5,11 +5,9 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {Popover, PopoverContent} from "@khanacademy/wonder-blocks-popover";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import {useState, useEffect} from "react";
-import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import Icon from "../../components/icon";
@@ -118,14 +116,9 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
             onChange({checked: updatedChecked, crossedOut: updatedCrossedOut});
         }
 
-        const descriptionClassName = classNames(
-            "description",
-            css(styles.description),
-        );
-
+        const descriptionClassName = classNames("description");
         const rationaleClassName = classNames(
             "perseus-radio-rationale-content",
-            css(styles.rationale),
         );
 
         // We want to show the choices as dimmed out when the choices are disabled.
@@ -144,21 +137,11 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
         });
 
         return (
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    color: color.offBlack,
-                }}
-                className={descriptionClassName}
-            >
+            <div className={descriptionClassName} style={styles.description}>
                 <div
                     style={{
                         display: "flex",
-                        flexDirection: "row",
                         opacity: showDimmed ? 0.5 : 1.0,
-                        overflowX: "auto",
-                        overflowY: "hidden",
                     }}
                 >
                     <div className="perseus-sr-only">
@@ -201,38 +184,23 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
                         aria-hidden="true"
                     >
                         {({hovered, focused, pressed}) => (
-                            <div
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    justifyContent: "center",
-                                    alignContent: "center",
-                                    paddingTop: spacing.xSmall_8,
-                                    paddingBottom: spacing.xSmall_8,
-                                    paddingLeft: spacing.xSmall_8,
-                                }}
-                            >
-                                <ChoiceIcon
-                                    pos={pos}
-                                    correct={correct}
-                                    crossedOut={crossedOut}
-                                    pressed={pressed}
-                                    focused={focused}
-                                    checked={checked}
-                                    hovered={hovered}
-                                    showCorrectness={showCorrectness}
-                                    multipleSelect={multipleSelect}
-                                    reviewMode={reviewMode}
-                                    previouslyAnswered={previouslyAnswered}
-                                />
-                                <span
-                                    style={{
-                                        paddingLeft: spacing.small_12,
-                                        textAlign: "left",
-                                        flex: 1,
-                                        paddingTop: 4,
-                                    }}
-                                >
+                            <div style={styles.choiceRow}>
+                                <div style={styles.choiceIcon}>
+                                    <ChoiceIcon
+                                        pos={pos}
+                                        correct={correct}
+                                        crossedOut={crossedOut}
+                                        pressed={pressed}
+                                        focused={focused}
+                                        checked={checked}
+                                        hovered={hovered}
+                                        showCorrectness={showCorrectness}
+                                        multipleSelect={multipleSelect}
+                                        reviewMode={reviewMode}
+                                        previouslyAnswered={previouslyAnswered}
+                                    />
+                                </div>
+                                <span style={styles.choiceContent}>
                                     <div>
                                         <OptionStatus
                                             checked={checked}
@@ -332,6 +300,7 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
                 {showRationale && (
                     <div
                         className={rationaleClassName}
+                        style={styles.rationale}
                         data-testid={`perseus-radio-rationale-content-${pos}`}
                     >
                         {rationale}
@@ -342,10 +311,47 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
     },
 );
 
-const styles = StyleSheet.create({
+const styles = {
     description: {
         display: "inline-block",
         width: "100%",
+        flexDirection: "column",
+        color: color.offBlack,
+    },
+
+    choiceRow: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        paddingTop: spacing.xSmall_8,
+        paddingBottom: spacing.xSmall_8,
+        paddingLeft: spacing.xSmall_8,
+        position: "relative",
+        background: color.white64,
+        minWidth: "100%",
+        left: 0,
+    },
+
+    choiceIcon: {
+        flexGrow: 0,
+        flexShrink: 0,
+        flexBasis: "30px",
+        position: "sticky",
+        left: 0,
+        background:
+            "linear-gradient(to right, white 70%, rba(255,255,255, 0.8) 100%)",
+        zIndex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+    },
+
+    choiceContent: {
+        paddingLeft: spacing.small_12,
+        textAlign: "left",
+        flex: 1,
+        paddingTop: spacing.xxxSmall_4,
+        minWidth: 0,
     },
 
     rationale: {
@@ -359,6 +365,6 @@ const styles = StyleSheet.create({
             paddingTop: 0,
         },
     },
-});
+} as const;
 
 export default Choice;
