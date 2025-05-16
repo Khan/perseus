@@ -17,23 +17,13 @@ type ScrollAxisY = {
     overflowY: React.CSSProperties["overflowY"];
     overflowX?: React.CSSProperties["overflowX"];
 };
-type AriaLabelOnly = {
-    "aria-label": string;
-    "aria-labelledby"?: never;
-};
-type AriaLabelledByOnly = {
-    "aria-labelledby": string;
-    "aria-label"?: never;
-};
+
 interface ScrollableViewPropsBase extends React.HTMLAttributes<HTMLDivElement> {
     children?: React.ReactNode;
     role?: string;
     scrollDescription?: string;
 }
 type ScrollableViewProps = (ScrollAxisX | ScrollAxisY) &
-    // Require label OR labelId
-    (AriaLabelOnly | AriaLabelledByOnly) &
-    React.HTMLAttributes<HTMLDivElement> &
     ScrollableViewPropsBase;
 
 // This is the number of pixels to scroll when the left or right scroll buttons
