@@ -8,7 +8,13 @@ import type {PerseusStrings} from "../../strings";
 import type {ChoiceState} from "../../types";
 
 // Radio Choice State and Content Utilities
-
+interface GetChoiceStatesProps {
+    choices: ReadonlyArray<RadioChoiceWithMetadata>;
+    isStatic?: boolean | null;
+    showSolutions?: ShowSolutions;
+    choiceStates?: ReadonlyArray<ChoiceState>;
+    values?: ReadonlyArray<boolean>;
+}
 /**
  * Determine the updated choice states for the Radio widget, based on the
  * widget's static / showSolutions states, choiceStates, and values.
@@ -20,13 +26,13 @@ import type {ChoiceState} from "../../types";
  * @param values - The values for the widget. (Deprecated: The user's current selection states for old content.)
  * @returns The updated choice states for the widget.
  */
-export const getChoiceStates = (
-    choices: ReadonlyArray<RadioChoiceWithMetadata>,
-    isStatic?: boolean | null,
-    showSolutions?: ShowSolutions,
-    choiceStates?: ReadonlyArray<ChoiceState>,
-    values?: ReadonlyArray<boolean>,
-): ReadonlyArray<ChoiceState> => {
+export const getChoiceStates = ({
+    choices,
+    isStatic,
+    showSolutions,
+    choiceStates,
+    values,
+}: GetChoiceStatesProps): ReadonlyArray<ChoiceState> => {
     // The default state for a choice state object.
     const defaultState: ChoiceState = {
         selected: false,
@@ -143,6 +149,13 @@ export const getChoiceLetter = (
     return " ";
 };
 
+interface GetOptionStatusTextProps {
+    checked: boolean;
+    correct: boolean;
+    crossedOut: boolean;
+    strings: PerseusStrings;
+}
+
 /**
  * Get the correct (translated) string for an option status (correct, incorrect, selected, etc.)
  *
@@ -152,12 +165,12 @@ export const getChoiceLetter = (
  * @param strings - The strings for the Radio widget.
  * @returns The appropriate string for the option status.
  */
-export const getOptionStatusText = (
-    checked: boolean,
-    correct: boolean,
-    crossedOut: boolean,
-    strings: PerseusStrings,
-): string => {
+export const getOptionStatusText = ({
+    checked,
+    correct,
+    crossedOut,
+    strings,
+}: GetOptionStatusTextProps): string => {
     if (correct) {
         // For correct answers, we surface checked _or_ crossedOut state,
         // because any interaction with the correct answer is noteworthy!
@@ -177,6 +190,13 @@ export const getOptionStatusText = (
     return strings.incorrect;
 };
 
+interface GetInstructionsTextProps {
+    multipleSelect: boolean;
+    countChoices: boolean | null | undefined;
+    numCorrect: number;
+    strings: PerseusStrings;
+}
+
 /**
  * Get the (translated) instructions string for a Radio widget.
  *
@@ -189,12 +209,12 @@ export const getOptionStatusText = (
  * @param strings - The strings for the Radio widget.
  * @returns The instructions string for the widget.
  */
-export const getInstructionsText = (
-    multipleSelect: boolean,
-    countChoices: boolean | null | undefined,
-    numCorrect: number,
-    strings: PerseusStrings,
-): string => {
+export const getInstructionsText = ({
+    multipleSelect,
+    countChoices,
+    numCorrect,
+    strings,
+}: GetInstructionsTextProps): string => {
     if (multipleSelect) {
         // using usesNumCorrect to make sure this logic stays in sync
         // with getRadioPublicWidgetOptions logic
@@ -208,6 +228,15 @@ export const getInstructionsText = (
     }
     return strings.chooseOneAnswer;
 };
+
+interface GetA11yTextProps {
+    letter: string;
+    checked: boolean;
+    correct: boolean;
+    crossedOut: boolean;
+    showCorrectness: boolean;
+    strings: PerseusStrings;
+}
 
 /**
  * Get the (translated) a11y string for a Radio widget.
@@ -223,14 +252,14 @@ export const getInstructionsText = (
  * @param strings - The strings for the Radio widget.
  * @returns The a11y string for the Radio option.
  */
-export const getA11yText = (
-    letter: string,
-    checked: boolean,
-    correct: boolean,
-    crossedOut: boolean,
-    showCorrectness: boolean,
-    strings: PerseusStrings,
-): string => {
+export const getA11yText = ({
+    letter,
+    checked,
+    correct,
+    crossedOut,
+    showCorrectness,
+    strings,
+}: GetA11yTextProps): string => {
     // There are two pieces of metadata we want to add to each a11yText:
     // whether the answer was checked/crossed-out/neither, and whether the
     // answer is correct/incorrect/not-yet-revealed.
