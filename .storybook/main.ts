@@ -3,11 +3,7 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 
 import type {StorybookConfig} from "@storybook/react-vite";
 
-const excludedCssFiles = [
-    "lato.css",
-    "protractor.css",
-    "mafs-styles.css",
-];
+const excludedCssFiles = ["lato.css", "protractor.css", "mafs-styles.css"];
 // This is a temporary plugin option to mimic what is in PROD in regard to cascade layers.
 // Perseus LESS files are wrapped in the 'shared' layer in Webapp.
 // To get the same ordering of precedence in Storybook, the imported LESS files need to be wrapped accordingly.
