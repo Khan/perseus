@@ -9,6 +9,7 @@ import {
     multiChoiceQuestion,
     multiChoiceQuestionSimpleOverflowContent,
     SingleSelectOverflowContent,
+    SingleSelectOverflowImageContent,
 } from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
@@ -109,6 +110,14 @@ export const SelectWithImages = {
     args: {
         item: generateTestPerseusItem({
             question: choicesWithImages,
+        }),
+    },
+};
+
+export const SelectWithImagesAndScroll = {
+    args: {
+        item: generateTestPerseusItem({
+            question: SingleSelectOverflowImageContent,
         }),
     },
 };
