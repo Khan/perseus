@@ -28,13 +28,13 @@ import {HideAnswersToggle} from "./hide-answers-toggle";
 import Marker from "./marker";
 
 import type {DependencyProps} from "../../dependencies";
-import type {ChangeableProps} from "../../mixins/changeable";
-import type {APIOptions, Widget, WidgetExports} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
 import type {
     InteractiveMarkerType,
     PerseusLabelImageWidgetOptions,
     PerseusLabelImageUserInput,
+    LabelImagePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
@@ -64,15 +64,22 @@ type Point = {
     y: number;
 };
 
-type LabelImageProps = ChangeableProps &
-    DependencyProps &
-    Omit<PerseusLabelImageWidgetOptions, "markers"> & {
-        apiOptions: APIOptions;
-        // The list of label markers on the question image.
-        markers: ReadonlyArray<OptionalAnswersMarkerType>;
-        // Whether the question has been answered by the user.
-        questionCompleted: boolean;
+export type OptionalAnswersMarkerType = Omit<
+    InteractiveMarkerType,
+    "answers"
+> & {
+    answers?: string[];
+};
+
+type Options = Omit<PerseusLabelImageWidgetOptions, "markers"> & {
+    // The list of label markers on the question image.
+    markers: ReadonlyArray<OptionalAnswersMarkerType>;
+};
+
+type Props = WidgetProps<Options> &
+    DependencyProps & {
         // preferred placement for popover (preference, not MUST)
+        // TODO: this is sus, probably never passed in
         preferredPopoverDirection?: PreferredPopoverDirection;
     };
 
@@ -85,23 +92,8 @@ type LabelImageState = {
     hideAnswers: boolean;
 };
 
-export type OptionalAnswersMarkerType = Omit<
-    InteractiveMarkerType,
-    "answers"
-> & {
-    answers?: string[];
-};
-
-// 0 as any as WidgetProps<PerseusLabelImageWidgetOptions> satisfies PropsFor<
-//     typeof LabelImage
-// >;
-//
-// 0 as any as WidgetProps<LabelImagePublicWidgetOptions> satisfies PropsFor<
-//     typeof LabelImage
-// >;
-
 export class LabelImage
-    extends React.Component<LabelImageProps, LabelImageState>
+    extends React.Component<Props, LabelImageState>
     implements Widget
 {
     static contextType = PerseusI18nContext;
@@ -208,7 +200,7 @@ export class LabelImage
      */
     static navigateToMarkerIndex(
         navigateDirection: Direction,
-        markers: LabelImageProps["markers"],
+        markers: Props["markers"],
         thisIndex: number,
     ): number {
         const thisMarker = markers[thisIndex];
@@ -303,7 +295,7 @@ export class LabelImage
         return sortedMarkers.length > 0 ? sortedMarkers[0].index : thisIndex;
     }
 
-    constructor(props: LabelImageProps) {
+    constructor(props: Props) {
         super(props);
 
         this._markers = [];
@@ -359,13 +351,10 @@ export class LabelImage
 
         // Update Perseus widget state with user selected answers without
         // triggering interaction events for listeners.
-        onChange({markers: updatedMarkers}, null, true);
+        onChange({markers: updatedMarkers}, undefined, true);
     }
 
-    handleMarkerChange(
-        index: number,
-        marker: LabelImageProps["markers"][number],
-    ) {
+    handleMarkerChange(index: number, marker: Props["markers"][number]) {
         const {markers, onChange} = this.props;
 
         // Replace marker with a changed version at the specified index.
@@ -780,6 +769,14 @@ const LabelImageWithDependencies = React.forwardRef<
     const deps = useDependencies();
     return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
 });
+
+0 as any as WidgetProps<PerseusLabelImageWidgetOptions> satisfies PropsFor<
+    typeof LabelImage
+>;
+
+0 as any as WidgetProps<LabelImagePublicWidgetOptions> satisfies PropsFor<
+    typeof LabelImage
+>;
 
 export default {
     name: "label-image",
