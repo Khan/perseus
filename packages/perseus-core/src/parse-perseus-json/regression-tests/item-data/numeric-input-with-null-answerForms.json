@@ -152,14 +152,14 @@
           "choices": [
             {
               "content": "crwdns6520529:0$x$crwdnd6520529:0$2$crwdnd6520529:0$2$crwdnd6520529:0$y$crwdne6520529:0",
-              "clue": "",
+              "rationale": "",
               "correct": false,
               "isNoneOfTheAbove": false,
               "widgets": {}
             },
             {
               "content": "crwdns6520777:0$x$crwdnd6520777:0$2$crwdnd6520777:0$10$crwdnd6520777:0$y$crwdne6520777:0",
-              "clue": "",
+              "rationale": "",
               "correct": true,
               "isNoneOfTheAbove": false,
               "widgets": {}

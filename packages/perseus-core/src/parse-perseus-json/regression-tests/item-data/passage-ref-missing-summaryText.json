@@ -140,7 +140,7 @@
               "correct": false
             },
             {
-              "clue": "Armor (of different styles and quality) was worn by almost all levels of society: high nobility (emperors, dukes, and counts), knights, mercenaries, citizens, peasants, and even young boys. Horses and dogs could also be protected with armor. Price varied considerably based on materials, quality, and decoration.",
+              "rationale": "Armor (of different styles and quality) was worn by almost all levels of society: high nobility (emperors, dukes, and counts), knights, mercenaries, citizens, peasants, and even young boys. Horses and dogs could also be protected with armor. Price varied considerably based on materials, quality, and decoration.",
               "content": "All of the above",
               "correct": true
             }

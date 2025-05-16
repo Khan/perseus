@@ -251,9 +251,6 @@ const sampleGroupWithRadioItem = {
                                 ],
                                 randomize: false,
                                 multipleSelect: false,
-                                displayCount: null,
-                                noneOfTheAbove: false,
-                                onePerLine: true,
                                 deselectEnabled: false,
                             },
                             version: {
