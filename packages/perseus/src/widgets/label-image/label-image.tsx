@@ -117,7 +117,7 @@ export class LabelImage
      * Implementation taken from: https://stackoverflow.com/a/2049593
      */
     static pointInTriangle(p: Point, a: Point, b: Point, c: Point): boolean {
-        const sign = (p1: Point, p2: Point, p3) =>
+        const sign = (p1: Point, p2: Point, p3: Point) =>
             (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
 
         const b1 = sign(p, a, b) < 0;
@@ -167,24 +167,31 @@ export class LabelImage
         const bl = {x: 20, y: 100} as const;
         const cp = {x: 50, y: 50} as const;
 
+        type Side = "top" | "right" | "bottom" | "left";
+
         // The triangles representing the sides to test.
-        const triangles = {
+        const triangles: Record<Side, [Point, Point, Point]> = {
             top: [tl, tr, cp],
             right: [cp, tr, br],
             bottom: [bl, cp, br],
             left: [tl, cp, bl],
-        } as const;
+        };
 
         const p = {x, y} as const;
 
         // Test whether marker is positioned within one of the triangles
         // representing the sides.
-        for (const side of Object.keys(triangles)) {
+        for (const side of Object.keys(triangles) as Side[]) {
             const corners = triangles[side];
 
-            // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
-            if (LabelImage.pointInTriangle(p, ...corners)) {
-                // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"left" | "top" | "center" | "right" | "bottom"'.
+            if (
+                LabelImage.pointInTriangle(
+                    p,
+                    corners[0],
+                    corners[1],
+                    corners[2],
+                )
+            ) {
                 return side;
             }
         }
@@ -410,16 +417,19 @@ export class LabelImage
         }
 
         // Only navigation in the "x" or "y" axis is supported, no diagonals.
-        const navigateDirection = {
+        const directions: Record<string, Direction> = {
             ArrowUp: {x: 0, y: -1},
             ArrowRight: {x: 1, y: 0},
             ArrowDown: {x: 0, y: 1},
             ArrowLeft: {x: -1, y: 0},
-        }[e.key];
+        };
 
-        if (!navigateDirection) {
+        // Return early if key is not an arrow key
+        if (!(e.key in directions)) {
             return;
         }
+
+        const navigateDirection = directions[e.key];
 
         e.preventDefault();
 
@@ -427,7 +437,6 @@ export class LabelImage
         const marker =
             this._markers[
                 LabelImage.navigateToMarkerIndex(
-                    // @ts-expect-error - TS2345 - Argument of type '{ x: number; y: number; } | { x: number; y: number; } | { x: number; y: number; } | { x: number; y: number; }' is not assignable to parameter of type 'Direction'.
                     navigateDirection,
                     markers,
                     index,
@@ -587,6 +596,7 @@ export class LabelImage
                                         answerStyles={adjustPillDistance}
                                         focused={focused || pressed}
                                         hovered={hovered}
+                                        selected={marker.selected}
                                     />
                                 )}
                             </Clickable>
