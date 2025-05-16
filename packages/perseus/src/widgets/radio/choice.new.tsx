@@ -117,7 +117,9 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
         }
 
         const descriptionClassName = classNames("description");
-        const rationaleClassName = classNames("perseus-radio-rationale-content");
+        const rationaleClassName = classNames(
+            "perseus-radio-rationale-content",
+        );
 
         // We want to show the choices as dimmed out when the choices are disabled.
         // However, we don't want to do this when we're in review mode in the

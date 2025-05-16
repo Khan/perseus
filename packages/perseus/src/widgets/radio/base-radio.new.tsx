@@ -243,7 +243,8 @@ const BaseRadio = ({
                             rationale: choice.rationale,
                             content: choice.content,
                             disabled: apiOptions.readOnly || choice.disabled,
-                            showCorrectness: reviewMode || !!choice.showCorrectness,
+                            showCorrectness:
+                                reviewMode || !!choice.showCorrectness,
                             showRationale:
                                 choice.hasRationale &&
                                 (reviewMode || choice.showRationale),
@@ -277,15 +278,15 @@ const BaseRadio = ({
                                 styles.responsiveItem,
                                 checked && styles.selectedItem,
                                 checked &&
-                                choice.highlighted &&
-                                styles.aboveBackdrop,
+                                    choice.highlighted &&
+                                    styles.aboveBackdrop,
                                 checked &&
-                                choice.highlighted &&
-                                apiOptions.isMobile &&
-                                styles.aboveBackdropMobile,
+                                    choice.highlighted &&
+                                    apiOptions.isMobile &&
+                                    styles.aboveBackdropMobile,
                                 nextChoiceHighlighted &&
-                                apiOptions.isMobile &&
-                                styles.nextHighlighted,
+                                    apiOptions.isMobile &&
+                                    styles.nextHighlighted,
                             );
                         };
 
@@ -298,7 +299,8 @@ const BaseRadio = ({
                         // reviewMode is only true if there's a rubric
                         // but TypeScript doesn't understand that
                         if (reviewMode && reviewModeRubric) {
-                            correctnessClass = reviewModeRubric.choices[i].correct
+                            correctnessClass = reviewModeRubric.choices[i]
+                                .correct
                                 ? ApiClassNames.CORRECT
                                 : ApiClassNames.INCORRECT;
                         }
@@ -329,7 +331,9 @@ const BaseRadio = ({
                                     // If the clicked element is inside of the
                                     // radio icon, then we want to trigger the
                                     // check by flipping the choice of the icon.
-                                    if (elem.getAttribute("data-is-radio-icon")) {
+                                    if (
+                                        elem.getAttribute("data-is-radio-icon")
+                                    ) {
                                         updateChoice(i, {
                                             checked: !choice.checked,
                                             crossedOut: choice.crossedOut,
