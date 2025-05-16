@@ -43,6 +43,7 @@ import type {
     PerseusRadioChoice,
     PerseusGraphCorrectType,
     MakeWidgetMap,
+    PerseusFreeResponseWidgetScoringCriterion,
 } from "./data-schema";
 import type {Relationship} from "./types";
 
@@ -227,6 +228,11 @@ export type PerseusNumericInputUserInput = {
 
 export type PerseusFreeResponseUserInput = {
     currentValue: string;
+};
+
+export type PerseusFreeResponseRubric = {
+    question: string;
+    scoringCriteria: ReadonlyArray<PerseusFreeResponseWidgetScoringCriterion>;
 };
 
 export type PerseusOrdererRubric = PerseusOrdererWidgetOptions;
