@@ -1,5 +1,4 @@
-import {Errors, PerseusError} from "@khanacademy/perseus-core";
-import _ from "underscore";
+import {Errors, PerseusError, Registry} from "@khanacademy/perseus-core";
 
 import {Log} from "./logging/log";
 
@@ -13,46 +12,44 @@ const DEFAULT_LINTABLE = false;
 
 type Editor = any;
 
-const widgets: {
-    [key: string]: WidgetExports;
-} = {};
-const editors: Record<string, any> = {};
+const widgets = new Registry<WidgetExports>("Perseus widget registry");
+const editors = new Registry<any>("Perseus widget editor registry");
+
+const identity = <T>(val: T) => val;
 
 // Widgets must be registered to avoid circular dependencies with the
 // core Editor and Renderer components.
-// TODO(jeremy): The widget name is already embedded in the WidgetExports type
-// so could we drop the `name` parameter here?
-export const registerWidget = (name: string, widget: WidgetExports) => {
-    widgets[name] = widget;
+export const registerWidget = (type: string, widget: WidgetExports) => {
+    widgets.set(type, widget);
 };
 
-export const registerWidgets = (widgets: ReadonlyArray<WidgetExports>) => {
-    widgets.forEach((widget) => {
+export const registerWidgets = (widgetArr: ReadonlyArray<WidgetExports>) => {
+    widgetArr.forEach((widget) => {
         registerWidget(widget.name, widget);
     });
 };
 
 /**
  *
- * @param name - the widget that you are trying to replace
- * @param replacementName - the name of the widget that takes its place
+ * @param type - the widget that you are trying to replace
+ * @param replacementType - the type of the widget that takes its place
  *
  * e.g. replaceWidget("transformer", "deprecated-standin") will make it so the
  * transformer widget is replaced by the always correct widget
  */
-export const replaceWidget = (name: string, replacementName: string) => {
-    const substituteWidget = widgets[replacementName];
+export const replaceWidget = (type: string, replacementType: string) => {
+    const substituteWidget = widgets.get(replacementType);
 
     // If the replacement widget isn't found, we need to throw. Otherwise after
     // removing the deprecated widget, we'll have data asking for a widget type
     // that doesn't exist at all.
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!substituteWidget) {
-        const errorMsg = `Failed to replace ${name} with ${replacementName}`;
+        const errorMsg = `Failed to replace ${type} with ${replacementType}`;
         throw new PerseusError(errorMsg, Errors.Internal);
     }
 
-    registerWidget(name, substituteWidget);
+    registerWidget(type, substituteWidget);
 };
 
 export const replaceDeprecatedWidgets = () => {
@@ -72,29 +69,29 @@ export const registerEditors = (editorsToRegister: ReadonlyArray<Editor>) => {
                 Errors.Internal,
             );
         }
-        editors[editor.widgetName] = editor;
+        editors.set(editor.widgetName, editor);
     });
 };
 
 /**
  *
- * @param name - the widget that you are trying to replace
- * @param replacementName - the name of the widget that takes its place
+ * @param type - the widget that you are trying to replace
+ * @param replacementType - the type of the widget that takes its place
  *
  * e.g. replaceEditor("transformer", "deprecated-standin") will make it so the
  * transformer widget is replaced by the deprecated stand-in widget
  */
-export const replaceEditor = (name: string, replacementName: string) => {
-    const substituteEditor = editors[replacementName];
+export const replaceEditor = (type: string, replacementType: string) => {
+    const substituteEditor = editors.get(replacementType);
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!substituteEditor && Log) {
-        const errorMsg = `Failed to replace editor ${name} with ${replacementName}`;
+        const errorMsg = `Failed to replace editor ${type} with ${replacementType}`;
         Log.error(errorMsg, Errors.Internal);
         return;
     }
 
-    editors[name] = substituteEditor;
+    editors.set(type, substituteEditor);
 };
 
 export const replaceDeprecatedEditors = () => {
@@ -107,41 +104,49 @@ export const replaceDeprecatedEditors = () => {
 };
 
 export const getWidget = (
-    name: string,
+    type: string,
 ): React.ComponentType<any> | null | undefined => {
+    const widget = widgets.get(type);
+
     // TODO(alex): Consider referring to these as renderers to avoid
     // overloading "widget"
-    if (!_.has(widgets, name)) {
+    if (widget == null) {
         return null;
     }
 
     // Allow widgets to specify a widget directly or via a function
-    if (widgets[name]?.getWidget) {
-        return widgets[name].getWidget?.();
+    if (widget.getWidget) {
+        return widget.getWidget();
     }
-    return widgets[name].widget;
+
+    return widget.widget;
 };
 
-export const getWidgetExport = (name: string): WidgetExports | null => {
-    return widgets[name] ?? null;
+export const getWidgetExport = (type: string): WidgetExports | null => {
+    return widgets.get(type) ?? null;
 };
 
-export const getEditor = (name: string): Editor | null | undefined => {
-    return _.has(editors, name) ? editors[name] : null;
+export const getEditor = (type: string): Editor | null => {
+    return editors.get(type) ?? null;
 };
 
 export const getTransform = (
-    name: string,
+    type: string,
 ): WidgetTransform | null | undefined => {
-    return _.has(widgets, name) ? widgets[name].transform || _.identity : null;
+    const widget = widgets.get(type);
+    if (widget == null) {
+        return null;
+    }
+
+    return widget.transform || identity;
 };
 
-export const getVersion = (name: string): Version | undefined => {
-    const widgetInfo = widgets[name];
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (widgetInfo) {
-        return widgets[name].version || {major: 0, minor: 0};
+export const getVersion = (type: string): Version | undefined => {
+    const widget = widgets.get(type);
+    if (widget != null) {
+        return widget.version || {major: 0, minor: 0};
     }
+
     return;
 };
 
@@ -149,26 +154,23 @@ export const getVersionVector = (): {
     [key: string]: Version;
 } => {
     const version: Record<string, any> = {};
-    _.each(_.keys(widgets), function (name) {
-        version[name] = getVersion(name);
+    widgets.keys().forEach((type) => {
+        version[type] = getVersion(type);
     });
     return version;
 };
 
-export const getPublicWidgets = (): ReadonlyArray<WidgetExports> => {
-    // TODO(alex): Update underscore.js so that _.pick can take a function.
-    // @ts-expect-error - TS2740 - Type 'Pick<{ [key: string]: Readonly<{ name: string; displayName: string; getWidget?: (() => ComponentType<any>) | undefined; accessible?: boolean | ((props: any) => boolean) | undefined; hidden?: boolean | undefined; ... 10 more ...; widget: ComponentType<...>; }>; }, string>' is missing the following properties from type 'readonly Readonly<{ name: string; displayName: string; getWidget?: (() => ComponentType<any>) | undefined; accessible?: boolean | ((props: any) => boolean) | undefined; hidden?: boolean | undefined; ... 10 more ...; widget: ComponentType<...>; }>[]': length, concat, join, slice, and 18 more.
-    return _.pick(
-        widgets,
-        // @ts-expect-error - TS2345 - Argument of type '(name: string) => boolean | undefined' is not assignable to parameter of type 'Iteratee<string[], boolean, string>'.
-        _.reject(_.keys(widgets), function (name) {
-            return widgets[name].hidden;
-        }),
-    );
+export const getPublicWidgets = (): Record<string, WidgetExports> => {
+    return widgets.entries().reduce((acc, [key, value]) => {
+        if (!value.hidden) {
+            acc[key] = value;
+        }
+        return acc;
+    }, {});
 };
 
 export const isAccessible = (widgetInfo: PerseusWidget): boolean => {
-    const accessible = widgets[widgetInfo.type].accessible;
+    const accessible = widgets.get(widgetInfo.type)?.accessible;
     if (typeof accessible === "function") {
         return accessible(widgetInfo.options);
     }
@@ -176,7 +178,7 @@ export const isAccessible = (widgetInfo: PerseusWidget): boolean => {
 };
 
 export const getAllWidgetTypes = (): ReadonlyArray<string> => {
-    return _.keys(widgets);
+    return widgets.keys();
 };
 
 export const getRendererPropsForWidgetInfo = (
@@ -185,7 +187,7 @@ export const getRendererPropsForWidgetInfo = (
     problemNum?: number,
 ): PerseusWidget => {
     const type = widgetInfo.type;
-    const widgetExports = widgets[type];
+    const widgetExports = widgets.get(type);
     if (widgetExports == null) {
         // The widget is not a registered widget
         // It shouldn't matter what we return here, but for consistency
@@ -199,9 +201,9 @@ export const getRendererPropsForWidgetInfo = (
         // _.identity, but it's theoretically possible if someone changes
         // the JSON manually / we have to back out static support for a
         // widget.
-        transform = getStaticTransform(type) || _.identity;
+        transform = getStaticTransform(type) || identity;
     } else {
-        transform = widgetExports.transform || _.identity;
+        transform = widgetExports.transform || identity;
     }
     // widgetInfo.options are the widgetEditor's props:
     return transform(widgetInfo.options, strings, problemNum);
@@ -219,20 +221,25 @@ export const traverseChildWidgets = (
     }
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (!widgetInfo || !widgetInfo.type || !widgets[widgetInfo.type]) {
+    if (!widgetInfo || !widgetInfo.type) {
         return widgetInfo;
     }
 
-    const widgetExports = widgets[widgetInfo.type];
+    const widget = widgets.get(widgetInfo.type);
+
+    if (widget == null) {
+        return widgetInfo;
+    }
+
     const props = widgetInfo.options;
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (widgetExports.traverseChildWidgets && props) {
-        const newProps = widgetExports.traverseChildWidgets(
-            props,
-            traverseRenderer,
-        );
-        return _.extend({}, widgetInfo, {options: newProps});
+    if (widget.traverseChildWidgets && props) {
+        const newProps = widget.traverseChildWidgets(props, traverseRenderer);
+        return {
+            ...widgetInfo,
+            options: newProps,
+        };
     }
     return widgetInfo;
 };
@@ -246,8 +253,8 @@ export const traverseChildWidgets = (
  * A widget implicitly supports static mode if it exports a
  * staticTransform function.
  */
-export const supportsStaticMode = (type: string): boolean => {
-    const widgetInfo = widgets[type];
+export const supportsStaticMode = (type: string): boolean | undefined => {
+    const widgetInfo = widgets.get(type);
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return widgetInfo && widgetInfo.staticTransform != null;
 };
@@ -259,7 +266,7 @@ export const supportsStaticMode = (type: string): boolean => {
 export const getStaticTransform = (
     type: string,
 ): WidgetTransform | null | undefined => {
-    const widgetInfo = widgets[type];
+    const widgetInfo = widgets.get(type);
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return widgetInfo && widgetInfo.staticTransform;
 };
@@ -270,7 +277,7 @@ export const getStaticTransform = (
  * option is "all" which means to track all interactions.
  */
 export const getTracking = (type: string): Tracking => {
-    const widgetExport = widgets[type];
+    const widgetExport = widgets.get(type);
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return (widgetExport && widgetExport.tracking) || DEFAULT_TRACKING;
 };
@@ -280,7 +287,7 @@ export const getTracking = (type: string): Tracking => {
  * and supports a highlightLint prop, or false otherwise.
  */
 export const isLintable = (type: string): boolean => {
-    const widgetExports = widgets[type];
+    const widgetExports = widgets.get(type);
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     return (widgetExports && widgetExports.isLintable) || DEFAULT_LINTABLE;
 };

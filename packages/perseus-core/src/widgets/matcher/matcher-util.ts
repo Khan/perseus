@@ -30,7 +30,7 @@ export const shuffleMatcher = (
  * For details on the individual options, see the
  * PerseusMatcherWidgetOptions type
  */
-type MatcherPublicWidgetOptions = {
+export type MatcherPublicWidgetOptions = {
     labels: PerseusMatcherWidgetOptions["labels"];
     left: PerseusMatcherWidgetOptions["left"];
     right: PerseusMatcherWidgetOptions["right"];
@@ -59,11 +59,11 @@ function sortAllButFirst([first, ...rest]: readonly string[]): string[] {
 }
 
 function shuffleDisplacingFirst<T>(array: readonly T[], rng: RNG): T[] {
-    function firstElementDisplaced(shuffled: readonly T[]) {
+    function isFirstElementDisplaced(shuffled: readonly T[]) {
         return shuffled[0] !== array[0];
     }
 
-    return constrainedShuffle(array, rng, firstElementDisplaced);
+    return constrainedShuffle(array, rng, isFirstElementDisplaced);
 }
 
 export default getMatcherPublicWidgetOptions;

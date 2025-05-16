@@ -1,3 +1,7 @@
+import {
+    generateTestPerseusItem,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {act} from "@testing-library/react";
 import * as React from "react";
 
@@ -69,50 +73,72 @@ describe("sorter widget", () => {
         expect(container).toMatchSnapshot("first mobile render");
     });
 
-    it("can be answered correctly", () => {
-        // Arrange
-        const apiOptions: APIOptions = {
-            isMobile: false,
-        };
-        const {renderer} = renderQuestion(question1, apiOptions);
-        const sorter = renderer.findWidgets("sorter 1")[0];
+    const answerfulItem = generateTestPerseusItem({question: question1});
+    const answerlessItem = splitPerseusItem(answerfulItem);
 
-        // Act
-        // Put the options in the correct order
-        ["$0.005$ kilograms", "$15$ grams", "$55$ grams"].forEach((option) => {
-            act(() => sorter.moveOptionToIndex(option, 3));
+    test("safety check: the answerless data does not contain the correct answer", () => {
+        expect(
+            answerlessItem.question.widgets["sorter 1"].options.correct,
+        ).not.toEqual(
+            answerfulItem.question.widgets["sorter 1"].options.correct,
+        );
+    });
+
+    describe.each([
+        ["answerful", answerfulItem],
+        ["answerless", answerlessItem],
+    ])("given %s data", (_, {question}) => {
+        it("is initially scored 'invalid'", () => {
+            // Arrange
+            const {renderer} = renderQuestion(question);
+
+            // Act
+            const score = scorePerseusItemTesting(
+                answerfulItem.question,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveInvalidInput();
         });
 
-        const score = scorePerseusItemTesting(
-            question1,
-            renderer.getUserInputMap(),
-        );
+        it("can be answered correctly", () => {
+            // Arrange
+            const {renderer} = renderQuestion(question);
+            const sorter = renderer.findWidgets("sorter 1")[0];
 
-        // Assert
-        expect(score).toHaveBeenAnsweredCorrectly();
-    });
-    it("can be answered incorrectly", () => {
-        // Arrange
-        const apiOptions: APIOptions = {
-            isMobile: false,
-        };
-        const {renderer} = renderQuestion(question1, apiOptions);
-        const sorter = renderer.findWidgets("sorter 1")[0];
+            // Act
+            // Put the options in the correct order
+            ["Zeroth", "First", "Second", "Third", "Fourth"].forEach(
+                (option) => {
+                    act(() => sorter.moveOptionToIndex(option, 4));
+                },
+            );
 
-        // Act
-        // Put the options in the reverse order
-        ["$0.005$ kilograms", "$15$ grams", "$55$ grams"].forEach(
-            (option, index) => {
-                act(() => sorter.moveOptionToIndex(option, 0));
-            },
-        );
+            const score = scorePerseusItemTesting(
+                answerfulItem.question,
+                renderer.getUserInputMap(),
+            );
 
-        const score = scorePerseusItemTesting(
-            question1,
-            renderer.getUserInputMap(),
-        );
+            // Assert
+            expect(score).toHaveBeenAnsweredCorrectly();
+        });
 
-        // Assert
-        expect(score).toHaveBeenAnsweredIncorrectly();
+        it("can be answered incorrectly", () => {
+            // Arrange
+            const {renderer} = renderQuestion(question);
+            const sorter = renderer.findWidgets("sorter 1")[0];
+
+            // Act
+            act(() => sorter.moveOptionToIndex("Zeroth", 4));
+
+            const score = scorePerseusItemTesting(
+                answerfulItem.question,
+                renderer.getUserInputMap(),
+            );
+
+            // Assert
+            expect(score).toHaveBeenAnsweredIncorrectly();
+        });
     });
 });

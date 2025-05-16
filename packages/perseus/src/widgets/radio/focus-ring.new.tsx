@@ -25,12 +25,12 @@ type Props = {
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-const FocusRing = function ({
+const FocusRing = ({
     visible = true,
     color = styleConstants.kaGreen,
     multipleSelect = false,
     children,
-}: Props): React.ReactElement {
+}: Props): React.ReactElement => {
     const borderColor = visible ? color : "transparent";
     const borderRadius = multipleSelect ? 5 : "50%";
     const style = {
