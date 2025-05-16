@@ -1,5 +1,13 @@
 # @khanacademy/perseus
 
+## 62.0.1
+
+### Patch Changes
+
+-   [#2492](https://github.com/Khan/perseus/pull/2492) [`dd6916b31`](https://github.com/Khan/perseus/commit/dd6916b3133d325602b8ce31a01f3de3a5eeca14) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Standardization of New Radio Widget functional component declarations and utility functions.
+
+*   [#2481](https://github.com/Khan/perseus/pull/2481) [`4d6debc84`](https://github.com/Khan/perseus/commit/4d6debc84d539578b883ef8b89658d2aa33f6445) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add Horizontal Scrollbar for New Radio Widget to allow users to visually scroll a long radio option content
+
 ## 62.0.0
 
 ### Major Changes
