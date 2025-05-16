@@ -27,7 +27,6 @@ type AriaLabelledByOnly = {
 };
 interface ScrollableViewPropsBase extends React.HTMLAttributes<HTMLDivElement> {
     children?: React.ReactNode;
-    showScrollButtons?: boolean;
     role?: string;
 }
 type ScrollableViewProps = (ScrollAxisX | ScrollAxisY) &
@@ -44,7 +43,6 @@ function ScrollableView({
     overflowX,
     overflowY,
     children,
-    showScrollButtons = false,
     style,
     role = "group",
     ...additionalProps
@@ -108,7 +106,7 @@ function ScrollableView({
             >
                 {children}
             </div>
-            {isScrollable && showScrollButtons && (
+            {isScrollable && (
                 <ScrollButtons
                     onScrollLeft={() => scroll("left")}
                     onScrollRight={() => scroll("right")}
