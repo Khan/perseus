@@ -1,5 +1,7 @@
-import type {PerseusStrings} from "../../../strings";
 import {usesNumCorrect} from "@khanacademy/perseus-core";
+
+import type {PerseusStrings} from "../../../strings";
+
 /**
  * Given a choice's position in the radio widget, return the corresponding
  * "choice letter". (For example, `getChoiceLetter(0)` is "A",

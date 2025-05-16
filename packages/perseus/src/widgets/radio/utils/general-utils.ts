@@ -3,8 +3,8 @@ import {type ShowSolutions} from "@khanacademy/perseus-core";
 import Util from "../../../util";
 import PassageRef from "../../passage-ref/passage-ref";
 
-import type {RadioChoiceWithMetadata} from "../radio.new";
 import type {ChoiceState} from "../../../types";
+import type {RadioChoiceWithMetadata} from "../radio.new";
 
 interface GetChoiceStatesProps {
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
