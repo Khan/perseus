@@ -252,7 +252,6 @@ const BaseRadio = function ({
             <ScrollableView
                 aria-label={"radio widget scrollable view"}
                 overflowX="auto"
-                showScrollButtons={true}
             >
                 <ul className={className} style={styles.fieldSetContent}>
                     {choices.map((choice, i) => {
