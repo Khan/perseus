@@ -76,8 +76,8 @@ catalogs:
       specifier: 3.1.3
       version: 3.1.3
     '@khanacademy/wonder-stuff-core':
-      specifier: 1.5.4
-      version: 1.5.4
+      specifier: 1.5.5
+      version: 1.5.5
     '@phosphor-icons/core':
       specifier: ^2.0.2
       version: 2.0.2
@@ -205,7 +205,7 @@ importers:
         version: 8.6.11(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.2.5)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.11(prettier@3.2.5))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: ^8.6.11
-        version: 8.6.11(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.2.5)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.37.0)(storybook@8.6.11(prettier@3.2.5))(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))
+        version: 8.6.11(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.2.5)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.37.0)(storybook@8.6.11(prettier@3.2.5))(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))
       '@swc-node/register':
         specifier: ^1.10.10
         version: 1.10.10(@swc/core@1.11.13(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.2)
@@ -256,7 +256,7 @@ importers:
         version: 8.27.0(eslint@8.57.1)(typescript@5.7.2)
       '@vitejs/plugin-react-swc':
         specifier: ^3.8.1
-        version: 3.8.1(@swc/helpers@0.5.17)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))
+        version: 3.8.1(@swc/helpers@0.5.17)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))
       ancesdir:
         specifier: ^3.1.0
         version: 3.1.0
@@ -436,10 +436,10 @@ importers:
         version: 0.7.0(typescript@5.7.2)
       vite:
         specifier: 'catalog:'
-        version: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)
+        version: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)
       vite-plugin-istanbul:
         specifier: ^5.0.0
-        version: 5.0.0(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))
+        version: 5.0.0(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))
       winston:
         specifier: ^3.7.2
         version: 3.7.2
@@ -516,7 +516,7 @@ importers:
         version: 4.1.12(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
@@ -532,7 +532,7 @@ importers:
     devDependencies:
       vite:
         specifier: 'catalog:'
-        version: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)
+        version: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)
 
   packages/kas:
     dependencies:
@@ -617,7 +617,7 @@ importers:
         version: 9.0.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
@@ -705,7 +705,7 @@ importers:
         version: 12.2.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-data':
         specifier: 'catalog:'
-        version: 14.1.3(@khanacademy/wonder-stuff-core@1.5.4)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
+        version: 14.1.3(@khanacademy/wonder-stuff-core@1.5.5)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-dropdown':
         specifier: 'catalog:'
         version: 10.0.4(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react-window@1.8.10(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)
@@ -747,7 +747,7 @@ importers:
         version: 3.1.3(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
@@ -808,7 +808,7 @@ importers:
     devDependencies:
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
@@ -911,7 +911,7 @@ importers:
         version: 3.1.3(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
-        version: 1.5.4
+        version: 1.5.5
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
@@ -2478,8 +2478,8 @@ packages:
       aphrodite: ^1.2.5
       react: 18.2.0
 
-  '@khanacademy/wonder-stuff-core@1.5.4':
-    resolution: {integrity: sha512-Z1DOHdSNrXyIKCgYsq6XKT6ZTRq5bb7Daof8mN31O30twStrwBynP5fS0lARS9qgxycaueThEcmeCF8AXyU21g==}
+  '@khanacademy/wonder-stuff-core@1.5.5':
+    resolution: {integrity: sha512-0OkhkjuM2zoS6k9Y8WPFGq0OL5WjgL8faOukM5P/wY7M9RC1q/oYCECg5YUf+OFfXenSHgBi2TmJ6cpT/F1how==}
     engines: {node: '>=16'}
 
   '@manypkg/find-root@1.1.0':
@@ -4716,8 +4716,8 @@ packages:
   ecc-jsbn@0.1.2:
     resolution: {integrity: sha512-eh9O+hwRHNbG4BLTjEl3nw044CkGm5X6LoaCf7LPp7UU8Qrt47JYNi6nPX8xjW97TKGKm1ouctg0QSpZe9qrnw==}
 
-  electron-to-chromium@1.5.152:
-    resolution: {integrity: sha512-xBOfg/EBaIlVsHipHl2VdTPJRSvErNUaqW8ejTq5OlOlIYx1wOllCHsAvAIrr55jD1IYEfdR86miUEt8H5IeJg==}
+  electron-to-chromium@1.5.155:
+    resolution: {integrity: sha512-ps5KcGGmwL8VaeJlvlDlu4fORQpv3+GIcF5I3f9tUKUlJ/wsysh6HU8P5L1XWRYeXfA0oJd4PyM8ds8zTFf6Ng==}
 
   electron-to-chromium@1.5.68:
     resolution: {integrity: sha512-FgMdJlma0OzUYlbrtZ4AeXjKxKPk6KT8WOP8BjcqxWtlg8qyJQjRzPJzUtUn5GBg1oQ26hFs7HOOHJMYiJRnvQ==}
@@ -8455,8 +8455,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  terser@5.39.1:
-    resolution: {integrity: sha512-Mm6+uad0ZuDtcV8/4uOZQDQ8RuiC5Pu+iZRedJtF7yA/27sPL7d++In/AJKpWZlU3SYMPPkVfwetn6sgZ66pUA==}
+  terser@5.39.2:
+    resolution: {integrity: sha512-yEPUmWve+VA78bI71BW70Dh0TuV4HHd+I5SHOAfS1+QBOmvmCiiffgjR8ryyEd3KIfvPGFqoADt8LdQ6XpXIvg==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -10631,12 +10631,12 @@ snapshots:
       '@types/yargs': 17.0.29
       chalk: 4.1.2
 
-  '@joshwooding/vite-plugin-react-docgen-typescript@0.5.0(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))':
+  '@joshwooding/vite-plugin-react-docgen-typescript@0.5.0(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))':
     dependencies:
       glob: 10.4.5
       magic-string: 0.27.0
       react-docgen-typescript: 2.2.2(typescript@5.7.2)
-      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)
+      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)
     optionalDependencies:
       typescript: 5.7.2
 
@@ -10857,11 +10857,11 @@ snapshots:
       react-router: 6.30.0(react@18.3.1)
       react-router-dom: 5.3.4(react@18.3.1)
 
-  '@khanacademy/wonder-blocks-data@14.1.3(@khanacademy/wonder-stuff-core@1.5.4)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)':
+  '@khanacademy/wonder-blocks-data@14.1.3(@khanacademy/wonder-stuff-core@1.5.5)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@babel/runtime': 7.27.1
       '@khanacademy/wonder-blocks-core': 12.2.1(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
-      '@khanacademy/wonder-stuff-core': 1.5.4
+      '@khanacademy/wonder-stuff-core': 1.5.5
       react: 18.3.1
     transitivePeerDependencies:
       - aphrodite
@@ -11214,7 +11214,7 @@ snapshots:
       - react-router
       - react-router-dom
 
-  '@khanacademy/wonder-stuff-core@1.5.4': {}
+  '@khanacademy/wonder-stuff-core@1.5.5': {}
 
   '@manypkg/find-root@1.1.0':
     dependencies:
@@ -11630,13 +11630,13 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@storybook/builder-vite@8.6.11(storybook@8.6.11(prettier@3.2.5))(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))':
+  '@storybook/builder-vite@8.6.11(storybook@8.6.11(prettier@3.2.5))(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))':
     dependencies:
       '@storybook/csf-plugin': 8.6.11(storybook@8.6.11(prettier@3.2.5))
       browser-assert: 1.2.1
       storybook: 8.6.11(prettier@3.2.5)
       ts-dedent: 2.2.0
-      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)
+      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)
 
   '@storybook/components@8.6.11(storybook@8.6.11(prettier@3.2.5))':
     dependencies:
@@ -11699,11 +11699,11 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       storybook: 8.6.11(prettier@3.2.5)
 
-  '@storybook/react-vite@8.6.11(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.2.5)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.37.0)(storybook@8.6.11(prettier@3.2.5))(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))':
+  '@storybook/react-vite@8.6.11(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.2.5)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.37.0)(storybook@8.6.11(prettier@3.2.5))(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))':
     dependencies:
-      '@joshwooding/vite-plugin-react-docgen-typescript': 0.5.0(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))
+      '@joshwooding/vite-plugin-react-docgen-typescript': 0.5.0(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))
       '@rollup/pluginutils': 5.1.0(rollup@4.37.0)
-      '@storybook/builder-vite': 8.6.11(storybook@8.6.11(prettier@3.2.5))(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))
+      '@storybook/builder-vite': 8.6.11(storybook@8.6.11(prettier@3.2.5))(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))
       '@storybook/react': 8.6.11(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.2.5)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.11(prettier@3.2.5))(typescript@5.7.2)
       find-up: 5.0.0
       magic-string: 0.30.7
@@ -11713,7 +11713,7 @@ snapshots:
       resolve: 1.22.8
       storybook: 8.6.11(prettier@3.2.5)
       tsconfig-paths: 4.2.0
-      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)
+      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)
     optionalDependencies:
       '@storybook/test': 8.6.11(storybook@8.6.11(prettier@3.2.5))
     transitivePeerDependencies:
@@ -12283,10 +12283,10 @@ snapshots:
       '@use-gesture/core': 10.3.0
       react: 18.3.1
 
-  '@vitejs/plugin-react-swc@3.8.1(@swc/helpers@0.5.17)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))':
+  '@vitejs/plugin-react-swc@3.8.1(@swc/helpers@0.5.17)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))':
     dependencies:
       '@swc/core': 1.11.13(@swc/helpers@0.5.17)
-      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)
+      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)
     transitivePeerDependencies:
       - '@swc/helpers'
 
@@ -12888,7 +12888,7 @@ snapshots:
   browserslist@4.24.4:
     dependencies:
       caniuse-lite: 1.0.30001718
-      electron-to-chromium: 1.5.152
+      electron-to-chromium: 1.5.155
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.24.4)
 
@@ -13720,7 +13720,7 @@ snapshots:
       jsbn: 0.1.1
       safer-buffer: 2.1.2
 
-  electron-to-chromium@1.5.152: {}
+  electron-to-chromium@1.5.155: {}
 
   electron-to-chromium@1.5.68: {}
 
@@ -18388,7 +18388,7 @@ snapshots:
       jest-worker: 27.5.1
       schema-utils: 4.3.2
       serialize-javascript: 6.0.2
-      terser: 5.39.1
+      terser: 5.39.2
       webpack: 5.97.1(@swc/core@1.11.13(@swc/helpers@0.5.17))(esbuild@0.24.0)
     optionalDependencies:
       '@swc/core': 1.11.13(@swc/helpers@0.5.17)
@@ -18401,7 +18401,7 @@ snapshots:
       commander: 2.20.3
       source-map-support: 0.5.21
 
-  terser@5.39.1:
+  terser@5.39.2:
     dependencies:
       '@jridgewell/source-map': 0.3.6
       acorn: 8.14.1
@@ -18816,18 +18816,18 @@ snapshots:
       core-util-is: 1.0.2
       extsprintf: 1.4.1
 
-  vite-plugin-istanbul@5.0.0(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)):
+  vite-plugin-istanbul@5.0.0(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)):
     dependencies:
       '@istanbuljs/load-nyc-config': 1.1.0
       espree: 9.6.1
       istanbul-lib-instrument: 5.2.1
       picocolors: 1.1.1
       test-exclude: 6.0.0
-      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)
+      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)
     transitivePeerDependencies:
       - supports-color
 
-  vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1):
+  vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2):
     dependencies:
       esbuild: 0.19.12
       postcss: 8.4.35
@@ -18836,7 +18836,7 @@ snapshots:
       '@types/node': 20.17.6
       fsevents: 2.3.3
       less: 4.2.0
-      terser: 5.39.1
+      terser: 5.39.2
 
   w3c-xmlserializer@4.0.0:
     dependencies:
