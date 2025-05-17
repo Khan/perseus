@@ -1,37 +1,26 @@
 /* Derived from the MIT-licensed zoom.js:
    https://github.com/fat/zoom.js/blob/fd4f3e43153da7596da0bade198e99f98b47791e/
 */
-
-@zoomOverlayZIndex: 9000;
-@zoomAnimationDurationMs: 300ms;
-
 .zoomable {
     cursor: pointer;
     cursor: -webkit-zoom-in;
     cursor: -moz-zoom-in;
 }
-
 .zoom-img {
-    // NOTE(charlie): We set the zoomed image's background color to white so
-    // that any images with transparent backgrounds (like SVGs and some PNGs)
-    // remain legible over the article content, as our backdrop is opaque.
     background-color: white;
     position: absolute;
-    z-index: @zoomOverlayZIndex + 1;
+    z-index: 9001;
 }
-
 img.zoom-img {
     cursor: pointer;
     cursor: -webkit-zoom-out;
     cursor: -moz-zoom-out;
 }
-
 .zoom-transition {
-    transition: transform @zoomAnimationDurationMs ease;
+    transition: transform 300ms ease;
 }
-
 .zoom-overlay {
-    z-index: @zoomOverlayZIndex;
+    z-index: 9000;
     position: fixed;
     top: 0;
     left: 0;
@@ -39,22 +28,17 @@ img.zoom-img {
     bottom: 0;
     overflow: scroll;
 }
-
 .zoom-overlay-open,
 .zoom-overlay-transitioning {
     cursor: default;
 }
-
-// Disable vertical scrolling on the page when image is opened in modal.
 .zoom-overlay-open {
     height: 100%;
     max-height: 100%;
     overflow: hidden;
 }
-
-// Render an opaque backdrop upon zoom.
 .zoom-backdrop {
-    z-index: @zoomOverlayZIndex - 1;
+    z-index: 8999;
     position: fixed;
     top: 0;
     left: 0;
@@ -62,9 +46,8 @@ img.zoom-img {
     bottom: 0;
     background: white;
     opacity: 0;
-    transition: opacity @zoomAnimationDurationMs;
+    transition: opacity 300ms;
 }
-
 .zoom-overlay-open > .zoom-backdrop {
     opacity: 0.9;
 }
