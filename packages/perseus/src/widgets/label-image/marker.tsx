@@ -17,13 +17,12 @@ import {iconCheck, iconChevronDown, iconMinus} from "../../icon-paths";
 import {AnswerPill} from "./answer-pill";
 
 import type {IconType} from "../../components/icon";
-import type {
-    AnalyticsEventHandlerFn,
-    InteractiveMarkerType,
-} from "@khanacademy/perseus-core";
 import type {CSSProperties} from "aphrodite";
 
-type Props = InteractiveMarkerType & {
+type Props = {
+    selected?: string[];
+    showCorrectness?: "correct" | "incorrect";
+    label: string;
     // Whether this marker has been selected by user.
     showSelected: boolean;
     // Whether this marker should pulsate to draw user attention.
@@ -31,9 +30,6 @@ type Props = InteractiveMarkerType & {
     answerSide: "top" | "bottom" | "left" | "right";
     answerStyles?: CSSProperties;
     showAnswer?: boolean;
-    analytics?: {
-        onAnalyticsEvent: AnalyticsEventHandlerFn;
-    };
     focused: boolean;
     hovered: boolean;
 };

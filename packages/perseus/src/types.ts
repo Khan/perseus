@@ -26,6 +26,8 @@ import type {
     UserInputArray,
     UserInputMap,
     Relationship,
+    LabelImageMarkerPublicData,
+    PerseusLabelImageMarker,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
@@ -150,6 +152,8 @@ export type ChangeHandler = (
         numLinePosition?: number;
         // widgets/number-line.ts
         rel?: Relationship;
+        // widgets/label-image.tsx
+        markers?: Array<LabelImageMarkerPublicData | PerseusLabelImageMarker>;
     },
     callback?: () => void,
     silent?: boolean,
