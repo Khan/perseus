@@ -3,11 +3,12 @@ import {freeResponseLogic} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import {LabeledField} from "@khanacademy/wonder-blocks-labeled-field";
 import {spacing, semanticColor} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import plusCircleIcon from "@phosphor-icons/core/regular/plus-circle.svg";
 import trashIcon from "@phosphor-icons/core/regular/trash.svg";
-import {StyleSheet, css} from "aphrodite";
+import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import type {
@@ -107,46 +108,61 @@ class FreeResponseEditor extends React.Component<Props> {
     render(): React.ReactNode {
         return (
             <View>
-                <label className={css(styles.textOptionWithLabelContainer)}>
-                    <HeadingSmall>Question</HeadingSmall>
-                    <textarea
-                        value={this.props.question}
-                        onChange={(e) =>
-                            this.props.onChange({question: e.target.value})
-                        }
-                    />
-                </label>
-                <label className={css(styles.textOptionWithLabelContainer)}>
-                    <HeadingSmall>Placeholder</HeadingSmall>
-                    <textarea
-                        value={this.props.placeholder}
-                        onChange={(e) =>
-                            this.props.onChange({placeholder: e.target.value})
-                        }
-                    />
-                </label>
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
-                <label className={css(styles.textOptionWithLabelContainer)}>
-                    <HeadingSmall>Allow unlimited characters</HeadingSmall>
-                    <Checkbox
-                        checked={this.props.allowUnlimitedCharacters}
-                        onChange={(val) =>
-                            this.props.onChange({
-                                allowUnlimitedCharacters: val,
-                            })
-                        }
-                    />
-                </label>
-                {!this.props.allowUnlimitedCharacters && (
-                    <label className={css(styles.textOptionWithLabelContainer)}>
-                        <HeadingSmall>Character limit</HeadingSmall>
-                        <input
-                            type="number"
-                            min={1}
-                            value={this.props.characterLimit}
-                            onChange={this.handleUpdateCharacterLimit}
+                <LabeledField
+                    label={<HeadingSmall>Question</HeadingSmall>}
+                    field={
+                        <textarea
+                            value={this.props.question}
+                            onChange={(e) =>
+                                this.props.onChange({question: e.target.value})
+                            }
                         />
-                    </label>
+                    }
+                    styles={{root: styles.labeledInputField}}
+                />
+                <LabeledField
+                    label={<HeadingSmall>Placeholder</HeadingSmall>}
+                    field={
+                        <textarea
+                            value={this.props.placeholder}
+                            onChange={(e) =>
+                                this.props.onChange({
+                                    placeholder: e.target.value,
+                                })
+                            }
+                        />
+                    }
+                    styles={{root: styles.labeledInputField}}
+                />
+                <LabeledField
+                    label={
+                        <HeadingSmall>Allow unlimited characters</HeadingSmall>
+                    }
+                    field={
+                        <Checkbox
+                            checked={this.props.allowUnlimitedCharacters}
+                            onChange={(val) =>
+                                this.props.onChange({
+                                    allowUnlimitedCharacters: val,
+                                })
+                            }
+                        />
+                    }
+                    styles={{root: styles.labeledInputField}}
+                />
+                {!this.props.allowUnlimitedCharacters && (
+                    <LabeledField
+                        label={<HeadingSmall>Character limit</HeadingSmall>}
+                        field={
+                            <input
+                                type="number"
+                                min={1}
+                                value={this.props.characterLimit}
+                                onChange={this.handleUpdateCharacterLimit}
+                            />
+                        }
+                        styles={{root: styles.labeledInputField}}
+                    />
                 )}
                 <View>
                     <HeadingSmall>Scoring criteria</HeadingSmall>
@@ -225,11 +241,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "flex-end",
     },
-    textOptionWithLabelContainer: {
-        display: "flex",
-        flexDirection: "column",
-        gap: spacing.xSmall_8,
-        paddingBottom: spacing.medium_16,
+    labeledInputField: {
+        paddingBottom: spacing.large_24,
     },
 });
 

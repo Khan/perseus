@@ -894,6 +894,9 @@ importers:
       '@khanacademy/wonder-blocks-icon-button':
         specifier: 'catalog:'
         version: 9.0.4(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
+      '@khanacademy/wonder-blocks-labeled-field':
+        specifier: 'catalog:'
+        version: 3.0.6(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-layout':
         specifier: 'catalog:'
         version: 3.1.9(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
