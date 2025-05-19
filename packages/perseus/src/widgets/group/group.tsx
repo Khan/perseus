@@ -1,3 +1,12 @@
+/**
+ * Group widget (different than GradedGroup and GradedGroupSet)
+ * is a widget that was specifically made for old SAT content
+ * and no longer seems to be needed.
+ * There's some question to whether we want to keep it
+ * to let content creators access old content that is no longer
+ * learner-facing, but new content cannot be made with Group.
+ */
+
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import classNames from "classnames";
 import * as React from "react";
@@ -19,13 +28,12 @@ import type {
 import type {GroupPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 import type {
     PerseusGroupWidgetOptions,
-    PerseusGroupRubric,
     UserInputArray,
     UserInputMap,
 } from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
-type Props = WidgetProps<RenderProps, PerseusGroupRubric>;
+type Props = WidgetProps<RenderProps>;
 type DefaultProps = {
     content: Props["content"];
     widgets: Props["widgets"];

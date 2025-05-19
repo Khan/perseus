@@ -1,4 +1,5 @@
-import {itemDataVersion} from "@khanacademy/perseus";
+import {PerseusMarkdown} from "@khanacademy/perseus";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 import * as React from "react";
 import _ from "underscore";
 
@@ -7,6 +8,7 @@ import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import IssuesPanel from "./issues-panel";
 import ItemExtrasEditor from "./item-extras-editor";
+import {WARNINGS} from "./messages";
 
 import type {Issue} from "./issues-panel";
 import type {
@@ -15,19 +17,19 @@ import type {
     ChangeHandler,
     DeviceType,
 } from "@khanacademy/perseus";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
-
-const ITEM_DATA_VERSION = itemDataVersion;
+import type {
+    PerseusAnswerArea,
+    PerseusWidgetsMap,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 type Props = {
     apiOptions?: APIOptions;
     deviceType?: DeviceType;
     widgetIsOpen?: boolean;
-    gradeMessage?: string;
     imageUploader?: ImageUploader;
-    wasAnswered?: boolean;
     question?: PerseusRenderer;
-    answerArea?: any;
+    answerArea?: PerseusAnswerArea | null;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
     onChange: ChangeHandler;
@@ -37,7 +39,7 @@ type Props = {
 };
 
 type State = {
-    warnings: Issue[];
+    issues: Issue[];
 };
 class ItemEditor extends React.Component<Props, State> {
     static defaultProps: {
@@ -49,14 +51,55 @@ class ItemEditor extends React.Component<Props, State> {
         question: {},
         answerArea: {},
     };
+    static prevContent: string | undefined;
+    static prevWidgets: PerseusWidgetsMap | undefined;
 
     frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
 
     state = {
-        warnings: [],
+        issues: [],
     };
+
+    static getDerivedStateFromProps(props: Props): Partial<State> | null {
+        // Short-circuit if nothing changed
+        if (
+            props.question?.content === ItemEditor.prevContent &&
+            props.question?.widgets === ItemEditor.prevWidgets
+        ) {
+            return null;
+        }
+
+        // Update cached values
+        ItemEditor.prevContent = props.question?.content;
+        ItemEditor.prevWidgets = props.question?.widgets;
+
+        const parsed = PerseusMarkdown.parse(props.question?.content ?? "", {});
+        const linterContext = {
+            content: props.question?.content,
+            widgets: props.question?.widgets,
+            stack: [],
+        };
+
+        return {
+            issues: PerseusLinter.runLinter(parsed, linterContext, false)?.map(
+                (linterWarning) => {
+                    if (linterWarning.rule === "inaccessible-widget") {
+                        return WARNINGS.inaccessibleWidget(
+                            linterWarning.metadata?.widgetType ?? "unknown",
+                            linterWarning.metadata?.widgetId ?? "unknown",
+                        );
+                    }
+
+                    return WARNINGS.genericLinterWarning(
+                        linterWarning.rule,
+                        linterWarning.message,
+                    );
+                },
+            ),
+        };
+    }
 
     // Notify the parent that the question or answer area has been updated.
     updateProps: ChangeHandler = (newProps, cb, silent) => {
@@ -74,9 +117,9 @@ class ItemEditor extends React.Component<Props, State> {
         this.updateProps({question}, cb, silent);
     };
 
-    handleItemExtrasChange: ChangeHandler = (newProps, cb, silent) => {
+    handleItemExtrasChange = (newProps: Partial<PerseusAnswerArea>) => {
         const answerArea = _.extend({}, this.props.answerArea, newProps);
-        this.updateProps({answerArea}, cb, silent);
+        this.updateProps({answerArea}, () => {}, true);
     };
 
     getSaveWarnings: () => any = () => {
@@ -84,17 +127,12 @@ class ItemEditor extends React.Component<Props, State> {
     };
 
     serialize: (options?: any) => {
-        answerArea: any;
-        itemDataVersion: {
-            major: number;
-            minor: number;
-        };
+        answerArea: PerseusAnswerArea | undefined;
         question: any;
     } = (options: any) => {
         return {
             question: this.questionEditor.current?.serialize(options),
             answerArea: this.itemExtrasEditor.current?.serialize(),
-            itemDataVersion: ITEM_DATA_VERSION,
         };
     };
 
@@ -125,7 +163,7 @@ class ItemEditor extends React.Component<Props, State> {
             <div className="perseus-editor-table">
                 <div className="perseus-editor-row perseus-question-container">
                     <div className="perseus-editor-left-cell">
-                        <IssuesPanel warnings={this.state.warnings} />
+                        <IssuesPanel issues={this.state.issues} />
                         <div className="pod-title">Question</div>
                         <Editor
                             ref={this.questionEditor}

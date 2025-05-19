@@ -1,3 +1,5 @@
+import getGroupPublicWidgetOptions from "./group-util";
+
 import type {PerseusGroupWidgetOptions} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
@@ -21,6 +23,7 @@ const groupWidgetLogic: WidgetLogic = {
     defaultWidgetOptions,
     accessible: false,
     traverseChildWidgets: traverseChildWidgets,
+    getPublicWidgetOptions: getGroupPublicWidgetOptions,
 };
 
 export default groupWidgetLogic;

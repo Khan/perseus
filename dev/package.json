@@ -3,7 +3,7 @@
     "description": "Perseus dev UI",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "5.4.3",
+    "version": "5.4.9",
     "private": true,
     "repository": {
         "type": "git",
@@ -37,6 +37,11 @@
         "@khanacademy/wonder-blocks-tooltip": "catalog:",
         "@khanacademy/wonder-stuff-core": "catalog:",
         "@phosphor-icons/core": "catalog:",
-        "aphrodite": "catalog:"
+        "aphrodite": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:"
+    },
+    "devDependencies": {
+        "vite": "catalog:"
     }
 }

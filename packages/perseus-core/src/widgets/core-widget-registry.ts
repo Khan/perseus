@@ -2,6 +2,7 @@ import _ from "underscore";
 
 import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
+import Registry from "../utils/registry";
 
 import categorizerWidgetLogic from "./categorizer";
 import csProgramWidgetLogic from "./cs-program";
@@ -36,47 +37,46 @@ import sorterWidgetLogic from "./sorter";
 import tableWidgetLogic from "./table";
 import videoWidgetLogic from "./video";
 
-import type {PerseusWidgetOptions} from "../data-schema";
 import type {
     PublicWidgetOptionsFunction,
     WidgetLogic,
 } from "./logic-export.types";
+import type {PerseusWidgetOptions} from "../data-schema";
 import type {Alignment} from "../types";
 // eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import type {PerseusWidget} from "@khanacademy/perseus-core";
 
-const widgets: Record<string, WidgetLogic> = {};
+const widgets = new Registry<WidgetLogic>("Core widget registry");
 
 function registerWidget(type: string, logic: WidgetLogic) {
-    widgets[type] = logic;
+    widgets.set(type, logic);
 }
 
 export function isWidgetRegistered(type: string) {
-    const widgetLogic = widgets[type];
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    const widgetLogic = widgets.get(type);
     return !!widgetLogic;
 }
 
 export function getCurrentVersion(type: string) {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     return widgetLogic?.version || {major: 0, minor: 0};
 }
 
 // TODO(LEMS-2870): getPublicWidgetOptionsFunction/PublicWidgetOptionsFunction
 // need better types
 export const getPublicWidgetOptionsFunction = (
-    name: string,
+    type: string,
 ): PublicWidgetOptionsFunction => {
-    return widgets[name]?.getPublicWidgetOptions ?? ((i: any) => i);
+    return widgets.get(type)?.getPublicWidgetOptions ?? ((i: any) => i);
 };
 
 export function getWidgetOptionsUpgrades(type: string) {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     return widgetLogic?.widgetOptionsUpgrades || {};
 }
 
 export function getDefaultWidgetOptions(type: string) {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     return widgetLogic?.defaultWidgetOptions || {};
 }
 
@@ -84,17 +84,7 @@ export function isAccessible(
     type: string,
     widgetOptions: PerseusWidgetOptions,
 ): boolean {
-    const widgetLogic = widgets[type];
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (!widgetLogic) {
-        return false;
-    }
-    const {accessible} = widgetLogic;
-
-    if (accessible == null) {
-        return false;
-    }
-
+    const accessible = widgets[type]?.accessible;
     return typeof accessible === "function"
         ? accessible(widgetOptions)
         : !!accessible;
@@ -129,6 +119,7 @@ export const traverseChildWidgets = (
     }
     return widgetInfo;
 };
+
 /**
  * Handling for the optional alignments for widgets
  * See widget-container.jsx for details on how alignments are implemented.
@@ -145,7 +136,7 @@ export const traverseChildWidgets = (
 export const getSupportedAlignments = (
     type: string,
 ): ReadonlyArray<Alignment> => {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     if (!widgetLogic?.supportedAlignments?.[0]) {
         // default alignments
         return ["default"];
@@ -163,42 +154,57 @@ export const getSupportedAlignments = (
  * the exports of a widget's module.
  */
 export const getDefaultAlignment = (type: string): Alignment => {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     if (!widgetLogic?.defaultAlignment) {
         return "block";
     }
     return widgetLogic.defaultAlignment;
 };
 
-registerWidget("categorizer", categorizerWidgetLogic);
-registerWidget("cs-program", csProgramWidgetLogic);
-registerWidget("definition", definitionWidgetLogic);
-registerWidget("dropdown", dropdownWidgetLogic);
-registerWidget("explanation", explanationWidgetLogic);
-registerWidget("expression", expressionWidgetLogic);
-registerWidget("graded-group", gradedGroupWidgetLogic);
-registerWidget("graded-group-set", gradedGroupSetWidgetLogic);
-registerWidget("grapher", grapherWidgetLogic);
-registerWidget("group", groupWidgetLogic);
-registerWidget("iframe", iframeWidgetLogic);
-registerWidget("image", imageWidgetLogic);
-registerWidget("input-number", inputNumberWidgetLogic);
-registerWidget("interaction", interactionWidgetLogic);
-registerWidget("interactive-graph", interactiveGraphWidgetLogic);
-registerWidget("label-image", labelImageWidgetLogic);
-registerWidget("matcher", matcherWidgetLogic);
-registerWidget("matrix", matrixWidgetLogic);
-registerWidget("measurer", measurerWidgetLogic);
-registerWidget("number-line", numberLineWidgetLogic);
-registerWidget("numeric-input", numericInputWidgetLogic);
-registerWidget("orderer", ordererWidgetLogic);
-registerWidget("passage", passageWidgetLogic);
-registerWidget("passage-ref", passageRefWidgetLogic);
-registerWidget("passage-ref-target", passageRefTargetWidgetLogic);
-registerWidget("phet-simulation", phetSimulationWidgetLogic);
-registerWidget("plotter", plotterWidgetLogic);
-registerWidget("python-program", pythonProgramWidgetLogic);
-registerWidget("radio", radioWidgetLogic);
-registerWidget("sorter", sorterWidgetLogic);
-registerWidget("table", tableWidgetLogic);
-registerWidget("video", videoWidgetLogic);
+/**
+ * We use a function here rather than registering widgets
+ * at the top-level of the file to avoid circular dependencies.
+ * Logic that needs core widget functionality
+ * (like a prod or in tests)
+ * need to call this function before trying to use that logic.
+ */
+export function registerCoreWidgets() {
+    const widgets = [
+        categorizerWidgetLogic,
+        csProgramWidgetLogic,
+        definitionWidgetLogic,
+        dropdownWidgetLogic,
+        explanationWidgetLogic,
+        expressionWidgetLogic,
+        gradedGroupWidgetLogic,
+        gradedGroupSetWidgetLogic,
+        grapherWidgetLogic,
+        groupWidgetLogic,
+        iframeWidgetLogic,
+        imageWidgetLogic,
+        inputNumberWidgetLogic,
+        interactionWidgetLogic,
+        interactiveGraphWidgetLogic,
+        labelImageWidgetLogic,
+        matcherWidgetLogic,
+        matrixWidgetLogic,
+        measurerWidgetLogic,
+        numberLineWidgetLogic,
+        numericInputWidgetLogic,
+        ordererWidgetLogic,
+        passageWidgetLogic,
+        passageRefWidgetLogic,
+        passageRefTargetWidgetLogic,
+        phetSimulationWidgetLogic,
+        plotterWidgetLogic,
+        pythonProgramWidgetLogic,
+        radioWidgetLogic,
+        sorterWidgetLogic,
+        tableWidgetLogic,
+        videoWidgetLogic,
+    ];
+
+    widgets.forEach((w) => {
+        registerWidget(w.name, w);
+    });
+}

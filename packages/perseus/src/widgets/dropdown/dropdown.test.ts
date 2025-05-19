@@ -1,6 +1,6 @@
 import {
+    generateTestPerseusItem,
     splitPerseusItem,
-    type PerseusRenderer,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
@@ -14,6 +14,7 @@ import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {basicDropdown} from "./dropdown.testdata";
 
+import type {PerseusItem, PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("Dropdown widget", () => {
@@ -150,8 +151,8 @@ describe("Dropdown widget", () => {
             );
         });
 
-        function getAnswerfulItem(): PerseusRenderer {
-            return {
+        function getAnswerfulItem(): PerseusItem {
+            const question: PerseusRenderer = {
                 content: "[[☃ dropdown 1]]",
                 images: {},
                 widgets: {
@@ -174,9 +175,11 @@ describe("Dropdown widget", () => {
                     },
                 },
             };
+
+            return generateTestPerseusItem({question});
         }
 
-        function getAnswerlessItem(): PerseusRenderer {
+        function getAnswerlessItem(): PerseusItem {
             return splitPerseusItem(getAnswerfulItem());
         }
 
@@ -192,17 +195,17 @@ describe("Dropdown widget", () => {
                 // assert that splitting worked as expected
                 if (useAnswerless) {
                     expect(
-                        renderItem.widgets["dropdown 1"].options.choices[0]
-                            .correct,
+                        renderItem.question.widgets["dropdown 1"].options
+                            .choices[0].correct,
                     ).toBeUndefined();
                     expect(
-                        renderItem.widgets["dropdown 1"].options.choices[1]
-                            .correct,
+                        renderItem.question.widgets["dropdown 1"].options
+                            .choices[1].correct,
                     ).toBeUndefined();
                 }
 
                 // Act
-                const {renderer} = renderQuestion(renderItem);
+                const {renderer} = renderQuestion(renderItem.question);
 
                 await userEvent.click(
                     screen.getByRole("combobox", {name: "Select an answer"}),
@@ -213,7 +216,7 @@ describe("Dropdown widget", () => {
 
                 const userInput = renderer.getUserInputMap();
                 const score = scorePerseusItem(
-                    getAnswerfulItem(),
+                    getAnswerfulItem().question,
                     userInput,
                     "en",
                 );

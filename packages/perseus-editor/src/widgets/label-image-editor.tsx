@@ -25,7 +25,7 @@ import type {
 
 type Props = {
     // List of answer choices to label question image with.
-    choices: ReadonlyArray<string>;
+    choices: string[];
     // The question image properties.
     imageAlt: string;
     imageUrl: string;

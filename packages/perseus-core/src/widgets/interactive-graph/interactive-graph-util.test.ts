@@ -22,6 +22,7 @@ describe("getInteractiveGraphPublicWidgetOptions", () => {
             ],
             showProtractor: false,
             step: [1, 1],
+            lockedFigures: [],
         };
 
         const publicOptions = getInteractiveGraphPublicWidgetOptions(options);
@@ -35,6 +36,7 @@ describe("getInteractiveGraphPublicWidgetOptions", () => {
             ],
             showProtractor: false,
             step: [1, 1],
+            lockedFigures: [],
         });
     });
 });

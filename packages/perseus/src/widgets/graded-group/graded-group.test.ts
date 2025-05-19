@@ -251,7 +251,7 @@ describe("graded-group", () => {
 
             // Assert
             expect(
-                screen.getByRole("button", {name: "Try again"}),
+                await screen.findByRole("button", {name: "Try again"}),
             ).toBeVisible();
         });
 

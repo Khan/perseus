@@ -16,7 +16,6 @@ import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 import type {
     PerseusMatcherWidgetOptions,
-    PerseusMatcherRubric,
     PerseusMatcherUserInput,
 } from "@khanacademy/perseus-core";
 
@@ -24,7 +23,7 @@ const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
 type RenderProps = PerseusMatcherWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusMatcherRubric>;
+type Props = WidgetProps<RenderProps>;
 
 type DefaultProps = {
     left: Props["left"];
@@ -156,12 +155,6 @@ export class Matcher extends React.Component<Props, State> implements Widget {
             );
         }
 
-        /* TODO(LEMS-2841):
-            Once the getMatcherPublicWidgetOptions function gets connected to the
-            widget, we'll need to update this to the line below to only shuffle
-            on the server.
-                const {left, right} = this.props;
-         */
         const {left, right} = shuffleMatcher(this.props);
 
         const showLabels = _.any(this.props.labels);

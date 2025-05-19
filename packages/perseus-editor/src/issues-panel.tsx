@@ -15,23 +15,23 @@ export type Issue = {
     description: string;
     helpUrl: string;
     help: string;
-    impact: string;
+    impact: string; // TODO: Make this a string union so the values are well-known. (eg. "low" | "medium" | "high")
     message: string;
 };
 
 type IssuesPanelProps = {
-    warnings?: Issue[];
+    issues?: Issue[];
 };
 
-const IssuesPanel = ({warnings = []}: IssuesPanelProps) => {
-    const hasWarnings = warnings.length > 0;
+const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
+    const hasWarnings = issues.length > 0;
     const [showPanel, setShowPanel] = useState(false);
 
     const toggleIcon = showPanel ? caretDown : caretRight;
     const icon = hasWarnings ? iconWarning : iconPass;
     const iconColor = hasWarnings ? wbColor.gold : wbColor.green;
-    const issuesCount = `${warnings.length} issue${
-        warnings.length === 1 ? "" : "s"
+    const issuesCount = `${issues.length} issue${
+        issues.length === 1 ? "" : "s"
     }`;
 
     const editorClasses = `perseus-widget-editor${showPanel ? " perseus-widget-editor-open" : ""}`;
@@ -66,7 +66,7 @@ const IssuesPanel = ({warnings = []}: IssuesPanelProps) => {
                     icon={icon}
                     size="medium"
                     color={iconColor}
-                    data-icon-type={icon}
+                    testId={`issues-icon-${icon}`}
                     style={{marginRight: "0.25em"}}
                 />
                 {issuesCount}
@@ -74,7 +74,7 @@ const IssuesPanel = ({warnings = []}: IssuesPanelProps) => {
             {showPanel && (
                 <div className="perseus-widget-editor-panel">
                     <div className="perseus-widget-editor-content">
-                        {warnings.map((issue, index) => (
+                        {issues.map((issue, index) => (
                             <IssueDetails key={issue.id} issue={issue} />
                         ))}
                     </div>

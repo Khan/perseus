@@ -8,10 +8,9 @@ import {
 } from "./index";
 
 describe("parseAndMigratePerseusItem", () => {
-    it("should parse JSON", () => {
+    it("parses a JSON string", () => {
         const result = parseAndMigratePerseusItem(
             `{
-                "itemDataVersion": { "major": 0, "minor": 0 },
                 "answerArea": {},
                 "hints": [],
                 "question": {
@@ -28,8 +27,36 @@ describe("parseAndMigratePerseusItem", () => {
         );
     });
 
-    it("returns an error given an invalid PerseusItem", () => {
+    it("parses an object", () => {
+        const result = parseAndMigratePerseusItem({
+            answerArea: {},
+            hints: [],
+            question: {
+                content: "this is the question content",
+                widgets: {},
+                images: {},
+            },
+        });
+
+        assertSuccess(result);
+        expect(result.value.question.content).toBe(
+            "this is the question content",
+        );
+    });
+
+    it("returns an error given an invalid PerseusItem string", () => {
         const result = parseAndMigratePerseusItem(`{"question": "bad value"}`);
+
+        assertFailure(result);
+        expect(result.detail.message).toContain(
+            `At (root).question -- expected object, but got "bad value"`,
+        );
+    });
+
+    it("returns an error given an invalid PerseusItem object", () => {
+        const result = parseAndMigratePerseusItem({
+            question: "bad value",
+        });
 
         assertFailure(result);
         expect(result.detail.message).toContain(
@@ -59,7 +86,7 @@ describe("parseAndMigratePerseusItem", () => {
 });
 
 describe("parseAndMigratePerseusArticle", () => {
-    it("parses a single renderer", () => {
+    it("parses a single renderer from a string", () => {
         const result = parseAndMigratePerseusArticle(
             `{"content": "", "widgets": {}}`,
         );
@@ -73,7 +100,22 @@ describe("parseAndMigratePerseusArticle", () => {
         );
     });
 
-    it("parses an array of renderers", () => {
+    it("parses a single renderer", () => {
+        const result = parseAndMigratePerseusArticle({
+            content: "",
+            widgets: {},
+        });
+
+        expect(result).toEqual(
+            success({
+                content: "",
+                widgets: {},
+                images: {},
+            }),
+        );
+    });
+
+    it("parses an array of renderers from a string", () => {
         const result = parseAndMigratePerseusArticle(
             `[{"content": "one"}, {"content": "two"}]`,
         );
@@ -85,8 +127,30 @@ describe("parseAndMigratePerseusArticle", () => {
         );
     });
 
-    it("fails given invalid data", () => {
+    it("parses an array of renderers", () => {
+        const result = parseAndMigratePerseusArticle([
+            {content: "one"},
+            {content: "two"},
+        ]);
+        expect(result).toEqual(
+            success([
+                {content: "one", widgets: {}, images: {}},
+                {content: "two", widgets: {}, images: {}},
+            ]),
+        );
+    });
+
+    it("fails given an invalid data string", () => {
         const result = parseAndMigratePerseusArticle("[9]");
+
+        assertFailure(result);
+        expect(result.detail.message).toEqual(
+            "At (root)[0] -- expected object, but got 9",
+        );
+    });
+
+    it("fails given an invalid data ", () => {
+        const result = parseAndMigratePerseusArticle([9]);
 
         assertFailure(result);
         expect(result.detail.message).toEqual(

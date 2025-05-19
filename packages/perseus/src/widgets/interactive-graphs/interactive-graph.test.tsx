@@ -1,5 +1,9 @@
 import {describe, beforeEach, it} from "@jest/globals";
-import {lockedFigureColors, splitPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusItem,
+    lockedFigureColors,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {act, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -269,10 +273,10 @@ describe("Interactive Graph", function () {
                 // to the frontend. This test ensures that interactive graphs
                 // can render when the answers have been stripped out of the
                 // data.
+                const answerfulItem = generateTestPerseusItem({question});
+                const answerlessItem = splitPerseusItem(answerfulItem);
 
-                const answerlessQuestion = splitPerseusItem(question);
-
-                renderQuestion(answerlessQuestion, blankOptions);
+                renderQuestion(answerlessItem.question, blankOptions);
             });
 
             it("should reject when has not been interacted with", () => {
@@ -1289,8 +1293,8 @@ describe("Interactive Graph", function () {
         it("should render a locked label within a locked point within a locked line", async () => {
             const question = {...graphWithLabeledLine};
             invariant(
-                question.widgets["interactive-graph 1"].options
-                    .lockedFigures?.[0]?.type === "line",
+                question.widgets["interactive-graph 1"].options.lockedFigures[0]
+                    ?.type === "line",
             );
             question.widgets[
                 "interactive-graph 1"

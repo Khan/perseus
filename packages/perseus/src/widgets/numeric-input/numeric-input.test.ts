@@ -1,8 +1,6 @@
 import {
+    generateTestPerseusItem,
     splitPerseusItem,
-    type PerseusNumericInputWidgetOptions,
-    type PerseusRenderer,
-    type PerseusNumericInputRubric,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen} from "@testing-library/react";
@@ -26,6 +24,12 @@ import {
     correctAndWrongAnswers,
 } from "./numeric-input.testdata";
 
+import type {
+    PerseusItem,
+    PerseusNumericInputWidgetOptions,
+    PerseusRenderer,
+    PerseusNumericInputRubric,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("numeric-input widget", () => {
@@ -233,7 +237,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
         const widget = multipleAnswersWithDecimals.widgets["numeric-input 1"];
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const widgetOptions = widget && widget.options;
-        const answers: ReadonlyArray<any> =
+        const answers =
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             (widgetOptions && widgetOptions.answers) || [];
 
@@ -249,7 +253,7 @@ describe("static function getOneCorrectAnswerFromRubric", () => {
         const widget = question1.widgets["numeric-input 1"];
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const widgetOptions = widget && widget.options;
-        const answers: ReadonlyArray<any> =
+        const answers =
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             (widgetOptions && widgetOptions.answers) || [];
         const singleAnswer =
@@ -533,8 +537,8 @@ describe("interactive: full vs answerless", () => {
         );
     });
 
-    function getAnswerfulItem(): PerseusRenderer {
-        return {
+    function getAnswerfulItem(): PerseusItem {
+        const question: PerseusRenderer = {
             content: "[[☃ numeric-input 1]] ",
             images: {},
             widgets: {
@@ -559,9 +563,11 @@ describe("interactive: full vs answerless", () => {
                 },
             },
         };
+
+        return generateTestPerseusItem({question});
     }
 
-    function getAnswerlessItem(): PerseusRenderer {
+    function getAnswerlessItem(): PerseusItem {
         return splitPerseusItem(getAnswerfulItem());
     }
 
@@ -575,7 +581,7 @@ describe("interactive: full vs answerless", () => {
                 : getAnswerfulItem();
 
             // Act
-            const {renderer} = renderQuestion(renderItem);
+            const {renderer} = renderQuestion(renderItem.question);
             await userEvent.tab();
             expect(screen.getByRole("textbox")).toHaveFocus();
 
@@ -598,7 +604,11 @@ describe("interactive: full vs answerless", () => {
             );
 
             const userInput = renderer.getUserInputMap();
-            const score = scorePerseusItem(getAnswerfulItem(), userInput, "en");
+            const score = scorePerseusItem(
+                getAnswerfulItem().question,
+                userInput,
+                "en",
+            );
 
             // Assert
             expect(score).toHaveBeenAnsweredCorrectly();

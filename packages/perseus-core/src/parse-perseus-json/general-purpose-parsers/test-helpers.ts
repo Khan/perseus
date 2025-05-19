@@ -31,3 +31,11 @@ export function summonParsedValue<P extends Parser<any>>(): ParsedValue<P> {
 export function summon<T>(): T {
     return "fake summoned value" as any;
 }
+
+export type RecursiveRequired<T> = T extends object
+    ? RecursiveRequiredObject<T>
+    : T;
+
+type RecursiveRequiredObject<T extends object> = {
+    [K in keyof T]-?: RecursiveRequired<T[K]>;
+};

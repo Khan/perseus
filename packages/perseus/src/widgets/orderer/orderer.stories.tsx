@@ -1,7 +1,8 @@
-import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-import {generateTestPerseusItem} from "../../util/test-utils";
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import {question1, questionWithImages} from "./orderer.testdata";
+import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
+
+import {question1, question2, questionWithImages} from "./orderer.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react";
 
@@ -22,5 +23,12 @@ export const Question1: Story = {
 export const QuestionWithImages: Story = {
     args: {
         item: generateTestPerseusItem({question: questionWithImages}),
+    },
+};
+
+export const Answerless: Story = {
+    args: {
+        item: generateTestPerseusItem({question: question2}),
+        startAnswerless: true,
     },
 };

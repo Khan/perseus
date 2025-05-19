@@ -159,6 +159,7 @@ describe("LockedLineSettings", () => {
 
         // Assert
         expect(onChangeProps).toHaveBeenCalledWith({
+            labels: [],
             points: [
                 {
                     ...defaultProps.points[0],
@@ -250,6 +251,7 @@ describe("LockedLineSettings", () => {
 
         // Assert
         expect(onChangeProps).toHaveBeenCalledWith({
+            labels: [],
             points: [
                 {
                     ...defaultProps.points[0],

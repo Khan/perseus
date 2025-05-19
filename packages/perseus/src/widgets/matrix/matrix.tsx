@@ -1,10 +1,4 @@
-import {
-    getMatrixSize,
-    type PerseusMatrixRubric,
-    type PerseusMatrixUserInput,
-    type PerseusMatrixWidgetAnswers,
-    type PerseusMatrixWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {getMatrixSize} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
@@ -19,15 +13,20 @@ import TextInput from "../../components/text-input";
 import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
-import Util from "../../util";
+import {stringArrayOfSize2D} from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
+import type {
+    MatrixPublicWidgetOptions,
+    PerseusMatrixUserInput,
+    PerseusMatrixWidgetAnswers,
+    PerseusMatrixWidgetOptions,
+} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {assert} = InteractiveUtil;
-const {stringArrayOfSize} = Util;
 
 // We store two sets of dimensions for the brackets, for our two types of
 // inputs, which vary in formatting: (1) the normal inputs rendered on
@@ -60,13 +59,13 @@ const getDefaultPath = function () {
 
 const getRowFromPath = function (path) {
     // 'path' should be a (row, column) pair
-    assert(_.isArray(path) && path.length === 2);
+    assert(Array.isArray(path) && path.length === 2);
     return +path[0];
 };
 
 const getColumnFromPath = function (path) {
     // 'path' should be a (row, column) pair
-    assert(_.isArray(path) && path.length === 2);
+    assert(Array.isArray(path) && path.length === 2);
     return +path[1];
 };
 
@@ -76,23 +75,20 @@ const getRefForPath = function (path: FocusPath) {
     return "answer" + row + "," + column;
 };
 
-type ExternalProps = WidgetProps<
-    {
-        // Translatable Text; Shown before the matrix
-        prefix: string;
-        // Translatable Text; Shown after the matrix
-        suffix: string;
-        // A data matrix representing the "correct" answers to be entered into the matrix
-        answers: PerseusMatrixWidgetAnswers;
-        // The coordinate location of the cursor position at start. default: [0, 0]
-        cursorPosition: ReadonlyArray<number>;
-        // The coordinate size of the matrix.  Only supports 2-dimensional matrix.  default: [3, 3]
-        matrixBoardSize: ReadonlyArray<number>;
-        // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
-        static?: boolean | undefined;
-    },
-    PerseusMatrixRubric
->;
+type ExternalProps = WidgetProps<{
+    // Translatable Text; Shown before the matrix
+    prefix: string;
+    // Translatable Text; Shown after the matrix
+    suffix: string;
+    // A data matrix representing the "correct" answers to be entered into the matrix
+    answers: PerseusMatrixWidgetAnswers;
+    // The coordinate location of the cursor position at start. default: [0, 0]
+    cursorPosition: ReadonlyArray<number>;
+    // The coordinate size of the matrix.  Only supports 2-dimensional matrix.  default: [3, 3]
+    matrixBoardSize: ReadonlyArray<number>;
+    // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
+    static?: boolean | undefined;
+}>;
 
 // Assert that the PerseusMatrixWidgetOptions parsed from JSON can be passed
 // as props to this component. This ensures that the PerseusMatrixWidgetOptions
@@ -100,10 +96,13 @@ type ExternalProps = WidgetProps<
 // defaultProps into account, which is important because
 // PerseusMatrixWidgetOptions has optional fields which receive defaults via
 // defaultProps.
-0 as any as WidgetProps<
-    PerseusMatrixWidgetOptions,
-    PerseusMatrixRubric
-> satisfies PropsFor<typeof Matrix>;
+0 as any as WidgetProps<PerseusMatrixWidgetOptions> satisfies PropsFor<
+    typeof Matrix
+>;
+
+type RenderProps = MatrixPublicWidgetOptions & {
+    emptyMatrix: ReadonlyArray<ReadonlyArray<string>>;
+};
 
 type Props = ExternalProps & {
     onChange: (
@@ -160,12 +159,12 @@ class Matrix extends React.Component<Props, State> implements Widget {
         const maxRows = this.props.matrixBoardSize[0];
         const maxCols = this.props.matrixBoardSize[1];
 
-        _(maxRows).times((row) => {
-            _(maxCols).times((col) => {
+        for (let row = 0; row < maxRows; row++) {
+            for (let col = 0; col < maxCols; col++) {
                 const inputPath = getInputPath(row, col);
                 inputPaths.push(inputPath);
-            });
-        });
+            }
+        }
 
         return inputPaths;
     };
@@ -537,16 +536,20 @@ class Matrix extends React.Component<Props, State> implements Widget {
     }
 }
 
-const propTransform: (arg1: any) => any = (editorProps) => {
+function transform(widgetOptions: MatrixPublicWidgetOptions): RenderProps {
     // Remove answers before passing to widget
-    const blankAnswers = _(editorProps.matrixBoardSize[0]).times(function () {
-        return stringArrayOfSize(editorProps.matrixBoardSize[1]);
-    });
-    editorProps = _.pick(editorProps, "matrixBoardSize", "prefix", "suffix");
-    return _.extend(editorProps, {
-        answers: blankAnswers,
-    });
-};
+    const rows = widgetOptions.matrixBoardSize[0];
+    const columns = widgetOptions.matrixBoardSize[1];
+    const blankInput = stringArrayOfSize2D({rows, columns});
+
+    const {matrixBoardSize, prefix, suffix} = widgetOptions;
+    return {
+        matrixBoardSize,
+        prefix,
+        suffix,
+        emptyMatrix: blankInput,
+    };
+}
 
 const staticTransform: (arg1: any) => any = (editorProps) => {
     const widgetProps = _.pick(
@@ -570,7 +573,7 @@ export default {
     displayName: "Matrix",
     hidden: true,
     widget: Matrix,
-    transform: propTransform,
+    transform,
     staticTransform: staticTransform,
     isLintable: true,
 } satisfies WidgetExports<typeof Matrix>;

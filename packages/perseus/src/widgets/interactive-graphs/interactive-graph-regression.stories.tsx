@@ -1,4 +1,7 @@
-import {splitPerseusItem} from "@khanacademy/perseus-core";
+import {
+    generateTestPerseusItem,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
@@ -321,7 +324,12 @@ export const MafsWithPiTicks: Story = {
 
 export const MafsWithAnswerlessData: Story = {
     args: {
-        question: splitPerseusItem(interactiveGraphQuestionBuilder().build()),
+        question: (() => {
+            const question = interactiveGraphQuestionBuilder().build();
+            const answerfulItem = generateTestPerseusItem({question});
+            const answerlessItem = splitPerseusItem(answerfulItem);
+            return answerlessItem.question;
+        })(),
     },
 };
 

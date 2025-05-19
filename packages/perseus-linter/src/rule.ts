@@ -140,7 +140,7 @@ export type MakeRuleOptions = {
         nodes: any,
         match: any,
         context: LintRuleContextObject,
-    ) => string | undefined;
+    ) => LintTesterReturnType;
     applies?: AppliesTester;
 };
 
@@ -149,17 +149,18 @@ export type MakeRuleOptions = {
 // TypeScript doesn't handle it well, so we punt and just use any.
 type PatternMatchType = any;
 
+export type LinterWarning = {
+    rule: string;
+    message: string;
+    start: number;
+    end: number;
+    target?: string;
+    severity?: number;
+    metadata?: Record<string, any>;
+};
+
 // This is the return type of the check() method of a Rule object
-type RuleCheckReturnType =
-    | {
-          rule: string;
-          message: string;
-          start: number;
-          end: number;
-          severity?: number;
-      }
-    | null
-    | undefined;
+export type RuleCheckReturnType = LinterWarning | null | undefined;
 
 // This is the return type of the lint detection function passed as the 4th
 // argument to the Rule() constructor. It can return null or a string or an
@@ -170,6 +171,7 @@ type LintTesterReturnType = string | {
     message: string,
     start: number,
     end: number
+    metadata?:Record<string,any>
 } | null | undefined;
 
 type LintRuleContextObject =
@@ -337,6 +339,7 @@ export default class Rule {
                 message: error.message,
                 start: error.start,
                 end: error.end,
+                metadata: error.metadata,
             };
         } catch (e: any) {
             // If the lint function threw an exception we handle that as

@@ -1,14 +1,14 @@
+import {
+    type PerseusRenderer,
+    type PerseusInputNumberWidgetOptions,
+    generateTestPerseusItem,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-import {generateTestPerseusItem} from "../../util/test-utils";
+import {getAnswerfulItem} from "../../util/test-utils";
 
 import {question1, question2, question3} from "./input-number.testdata";
-
-import type {
-    PerseusRenderer,
-    PerseusInputNumberWidgetOptions,
-} from "@khanacademy/perseus-core";
 
 export default {
     title: "Perseus/Widgets/InputNumber",
@@ -109,3 +109,27 @@ export const Percent = (args: InputNumberOptions): React.ReactElement => {
     );
 };
 Percent.args = question3.widgets["input-number 1"].options;
+
+export const Answerful = (): React.ReactElement => {
+    const item = getAnswerfulItem("input-number", {
+        simplify: "optional",
+        size: "normal",
+        value: 42,
+    });
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line
+    item.question.content = `The answer is 42\n${item.question.content}`;
+    return <ServerItemRendererWithDebugUI item={item} />;
+};
+
+export const Answerless = (): React.ReactElement => {
+    const item = getAnswerfulItem("input-number", {
+        simplify: "optional",
+        size: "normal",
+        value: 42,
+    });
+    // TODO(LEMS-3083): Remove eslint suppression
+    // eslint-disable-next-line
+    item.question.content = `The answer is 42\n${item.question.content}`;
+    return <ServerItemRendererWithDebugUI item={item} startAnswerless />;
+};

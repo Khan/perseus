@@ -77,7 +77,7 @@ export const upgradeWidgetInfoToLatestVersion = (
             nextVersion <= latestVersion.major;
             nextVersion++
         ) {
-            if (upgradePropsMap[String(nextVersion)]) {
+            if (upgradePropsMap[String(nextVersion)] != null) {
                 newEditorOptions =
                     upgradePropsMap[String(nextVersion)](newEditorOptions);
             } else {

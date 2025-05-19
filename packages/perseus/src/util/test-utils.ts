@@ -1,3 +1,7 @@
+import {
+    generateTestPerseusItem,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 
 import type {
@@ -5,37 +9,13 @@ import type {
     ExpressionWidget,
     InteractiveGraphWidget,
     NumericInputWidget,
-    PerseusItem,
     PerseusRenderer,
+    PerseusWidgetTypes,
     RadioWidget,
     PerseusScore,
     UserInputMap,
+    PerseusItem,
 } from "@khanacademy/perseus-core";
-
-export const genericPerseusItemData: PerseusItem = {
-    question: {
-        content: "",
-        images: {},
-        widgets: {},
-    },
-    answerArea: {
-        calculator: false,
-        chi2Table: false,
-        periodicTable: false,
-        tTable: false,
-        zTable: false,
-        financialCalculatorMonthlyPayment: false,
-        financialCalculatorTotalAmount: false,
-        financialCalculatorTimeToPayOff: false,
-        periodicTableWithKey: false,
-    },
-    itemDataVersion: {
-        major: 0,
-        minor: 1,
-    },
-    hints: [],
-    answer: null,
-} as const;
 
 /**
  * Thin wrapper around scorePerseusItem for internal testing
@@ -45,21 +25,6 @@ export function scorePerseusItemTesting(
     userInputMap: UserInputMap,
 ): PerseusScore {
     return scorePerseusItem(perseusRenderData, userInputMap, "en");
-}
-
-/**
- * Generate a Perseus item object for testing purposes.
- *
- * In order to better type Perseus objects used in testing, this function
- * uses a basic Perseus object and updates it with custom values as needed.
- *
- * @param {Partial<PerseusItem>} customFields
- * @returns {PerseusItem}
- */
-export function generateTestPerseusItem(
-    customFields: Partial<PerseusItem> = {},
-): PerseusItem {
-    return {...genericPerseusItemData, ...customFields};
 }
 
 /**
@@ -92,6 +57,7 @@ export function generateTestInteractiveGraphWidget(): InteractiveGraphWidget {
             snapStep: [1, 1],
             markings: "graph",
             labels: ["x", "y"],
+            lockedFigures: [],
             showProtractor: false,
             range: [
                 [-10, 10],
@@ -161,4 +127,50 @@ export function generateTestNumericInputWidget(): NumericInputWidget {
             static: false,
         },
     };
+}
+
+/**
+ * Creates an object with the minimum amount
+ * of data to be a properly typed PerseusItem
+ * containing answerful information
+ *
+ * @template T - The widget type extending keyof PerseusWidgetTypes
+ * @param {T} widgetType - The type of widget to create, as a string, ex. "radio"
+ * @param {PerseusWidgetTypes[T]["options"]} options - The options for the widget
+ * @returns {PerseusItem} skeleton PerseusItem for testing
+ */
+export function getAnswerfulItem<T extends keyof PerseusWidgetTypes>(
+    widgetType: T,
+    options: PerseusWidgetTypes[T]["options"],
+): PerseusItem {
+    const widgetName = `${widgetType} 1`;
+    const widget = {
+        type: widgetType,
+        options,
+    };
+    const widgets = {};
+    widgets[widgetName] = widget;
+    const question: PerseusRenderer = {
+        content: `[[☃ ${widgetName}]]`,
+        images: {},
+        widgets,
+    };
+    return generateTestPerseusItem({question});
+}
+
+/**
+ * Creates an object with the minimum amount
+ * of data to be a properly typed PerseusItem
+ * containing answerless information
+ *
+ * @template T - The widget type extending keyof PerseusWidgetTypes
+ * @param {T} widgetType - The type of widget to create, as a string, ex. "radio"
+ * @param {PerseusWidgetTypes[T]["options"]} options - The options for the widget
+ * @returns {PerseusItem} skeleton PerseusItem for testing
+ */
+export function getAnswerlessItem<T extends keyof PerseusWidgetTypes>(
+    widgetType: T,
+    options: PerseusWidgetTypes[T]["options"],
+): PerseusItem {
+    return splitPerseusItem(getAnswerfulItem(widgetType, options));
 }

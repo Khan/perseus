@@ -15,7 +15,7 @@ import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
 type Props = {
     // The list of possible answers in a specific order.
-    choices: ReadonlyArray<string>;
+    choices: string[];
     // The question image properties.
     imageUrl: string;
     imageWidth: number;

@@ -24,7 +24,7 @@ const emptyMarker = {
     selected: [],
     x: 0,
     y: 0,
-} as const;
+};
 
 describe("LabelImage", function () {
     let userEvent: UserEvent;

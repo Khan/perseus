@@ -6,6 +6,7 @@ export type {
     InteractiveMarkerType,
     Relationship,
     Alignment,
+    RecursiveReadonly,
 } from "./types";
 export type {
     KeypadKey,
@@ -28,6 +29,12 @@ export {
 
 export {default as deepClone} from "./utils/deep-clone";
 export * as GrapherUtil from "./utils/grapher-util";
+export {
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+} from "./utils/test-utils";
+export {itemHasRationales} from "./utils/item-has-rationales";
+export {itemHasHints} from "./utils/item-has-hints";
 
 export {
     parsePerseusItem,
@@ -126,6 +133,7 @@ export {
 } from "./widgets/upgrade";
 
 export {default as splitPerseusItem} from "./utils/split-perseus-item";
+export {default as Registry} from "./utils/registry";
 
 export type * from "./widgets/logic-export.types";
 
@@ -138,26 +146,37 @@ export {default as getCSProgramPublicWidgetOptions} from "./widgets/cs-program/c
 export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
 export type {ExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
 export {default as getGrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
+export type {GrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
+export {default as getGroupPublicWidgetOptions} from "./widgets/group/group-util";
 export {
     default as getInteractiveGraphPublicWidgetOptions,
     type InteractiveGraphPublicWidgetOptions,
 } from "./widgets/interactive-graph/interactive-graph-util";
 export {default as getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
-export {default as getSorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
+export {
+    default as getSorterPublicWidgetOptions,
+    shuffleSorter,
+} from "./widgets/sorter/sorter-util";
 export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export type {DropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";
 export {default as getNumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
+export type {NumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
 export {default as getRadioPublicWidgetOptions} from "./widgets/radio/radio-util";
 export {deriveNumCorrect} from "./widgets/radio/radio-upgrade";
 export {default as getTablePublicWidgetOptions} from "./widgets/table/table-util";
 export {default as getIFramePublicWidgetOptions} from "./widgets/iframe/iframe-util";
 export {default as getMatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
+export type {MatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";
 export {default as getPlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";
+export type {PlotterPublicWidgetOptions} from "./widgets/plotter/plotter-util";
 export {
     default as getMatcherPublicWidgetOptions,
     shuffleMatcher,
 } from "./widgets/matcher/matcher-util";
+export type {MatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
 export {shuffle, seededRNG, random} from "./utils/random-util";
 export {default as PerseusFeatureFlags} from "./feature-flags";
 export {isAccessible} from "./utils/is-accessible";
+
+export {registerCoreWidgets} from "./widgets/core-widget-registry";

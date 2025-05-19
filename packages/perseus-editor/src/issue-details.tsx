@@ -1,4 +1,5 @@
 // WidgetIssueDetails.tsx
+import {color} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
@@ -19,7 +20,7 @@ const IssueDetails = ({issue}: IssueProps) => {
             animated={true}
             expanded={expanded}
             onToggle={toggleVisibility}
-            containerStyle={{backgroundColor: "#fff9eb"}}
+            containerStyle={{backgroundColor: color.fadedGold8}}
             panelStyle={{backgroundColor: "white"}}
             header={
                 <LabelLarge

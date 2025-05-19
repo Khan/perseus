@@ -12,7 +12,6 @@ describe("parsePerseusItem", () => {
         },
         hints: [],
         answerArea: {},
-        itemDataVersion: {major: 0, minor: 0},
     };
 
     it("accepts valid ItemExtras as keys in the answerArea", () => {

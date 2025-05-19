@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "20.1.2",
+    "version": "21.0.0",
     "publishConfig": {
         "access": "public"
     },
@@ -45,7 +45,8 @@
         "@khanacademy/perseus-utils": "workspace:*",
         "@khanacademy/pure-markdown": "workspace:*",
         "katex": "0.11.1",
-        "mafs": "^0.19.0"
+        "mafs": "^0.19.0",
+        "tiny-invariant": "catalog:"
     },
     "devDependencies": {
         "@khanacademy/mathjax-renderer": "catalog:",
@@ -70,6 +71,7 @@
         "aphrodite": "catalog:",
         "classnames": "catalog:",
         "jquery": "catalog:",
+        "jsdiff": "workspace:*",
         "perseus-build-settings": "workspace:*",
         "prop-types": "catalog:",
         "react": "catalog:",

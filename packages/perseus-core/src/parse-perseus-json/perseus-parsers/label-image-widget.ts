@@ -10,10 +10,7 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {LabelImageWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parseLabelImageWidget: Parser<LabelImageWidget> = parseWidget(
+export const parseLabelImageWidget = parseWidget(
     constant("label-image"),
     object({
         choices: array(string),

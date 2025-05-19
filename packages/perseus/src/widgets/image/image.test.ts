@@ -10,7 +10,7 @@ import {question} from "./image.testdata";
 
 import type {APIOptions} from "../../types";
 
-describe.each([true, false])("image widget - isMobile %b", (isMobile) => {
+describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
     const apiOptions: APIOptions = {isMobile};
 
     beforeEach(() => {

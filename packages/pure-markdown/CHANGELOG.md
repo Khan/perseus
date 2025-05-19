@@ -1,5 +1,31 @@
 # @khanacademy/pure-markdown
 
+## 2.0.4
+
+### Patch Changes
+
+-   Updated dependencies [[`3389e0611`](https://github.com/Khan/perseus/commit/3389e06111b2c801fba6c34ed4e5bdc747ef1ed1)]:
+    -   @khanacademy/perseus-utils@2.0.3
+    -   @khanacademy/simple-markdown@2.0.4
+
+## 2.0.3
+
+### Patch Changes
+
+-   [#2414](https://github.com/Khan/perseus/pull/2414) [`e7807485e`](https://github.com/Khan/perseus/commit/e7807485e0d33621efa4468933e6c77ce9a53def) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix dependencies so that the package correctly depends on all of the packages it uses
+
+-   Updated dependencies [[`e7807485e`](https://github.com/Khan/perseus/commit/e7807485e0d33621efa4468933e6c77ce9a53def), [`3f32593c9`](https://github.com/Khan/perseus/commit/3f32593c9dd46140b4d8891d50e34f97e751783f)]:
+    -   @khanacademy/perseus-utils@2.0.2
+    -   @khanacademy/simple-markdown@2.0.3
+
+## 2.0.2
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/perseus-utils@2.0.1
+    -   @khanacademy/simple-markdown@2.0.2
+
 ## 2.0.1
 
 ### Patch Changes

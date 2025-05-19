@@ -8,15 +8,11 @@ import {
 
 import {parseWidget} from "./widget";
 
-import type {MoleculeRendererWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parseMoleculeRendererWidget: Parser<MoleculeRendererWidget> =
-    parseWidget(
-        constant("molecule-renderer"),
-        object({
-            widgetId: string,
-            rotationAngle: optional(number),
-            smiles: optional(string),
-        }),
-    );
+export const parseMoleculeRendererWidget = parseWidget(
+    constant("molecule-renderer"),
+    object({
+        widgetId: string,
+        rotationAngle: optional(number),
+        smiles: optional(string),
+    }),
+);

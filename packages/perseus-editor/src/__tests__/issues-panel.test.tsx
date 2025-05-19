@@ -23,92 +23,63 @@ describe("IssuesPanel", () => {
 
     it("shows passing icon and '0 issues' when no data is passed", () => {
         // Arrange
-        render(<IssuesPanel warnings={[]} />);
+        render(<IssuesPanel issues={[]} />);
 
         // Assert
         expect(screen.getByText("0 issues")).toBeInTheDocument();
 
-        // Assert that the icon is a passing icon
-        const icon = screen
-            .getByText("0 issues")
-            // Normally, we avoid direct node access per Testing Library best practices.
-            // But <PhosphorIcon> renders as a <span> with no test-friendly props (e.g., no data-testid or role),
-            // and attempts like getByTestId, getByText().nextSibling, or adding a test ID weren’t reliable.
-            // So to verify the icon (e.g., data-icon-type="check-circle-fill.svg"), direct access was the most
-            // consistent option.
-            // eslint-disable-next-line testing-library/no-node-access
-            .parentElement?.querySelector(
-                '[data-icon-type="check-circle-fill.svg"]',
-            );
-        expect(icon).toBeInTheDocument();
+        // Assert that the icon is passing icon
+        const icon = screen.getByTestId("issues-icon-check-circle-fill.svg");
+        expect(icon).toBeVisible();
 
         // Assert that no warning icon is shown when there are 0 issues
-        const warningIcon = screen
-            .getByText("0 issues")
-            // eslint-disable-next-line testing-library/no-node-access
-            .parentElement?.querySelector(
-                '[data-icon-type="warning-fill.svg"]',
-            );
+        const warningIcon = screen.queryByTestId(
+            "issues-icon-warning-fill.svg",
+        );
         expect(warningIcon).not.toBeInTheDocument();
     });
 
     it("shows warning icon for warnings", () => {
         // Arrange
-        render(<IssuesPanel warnings={[makeIssue("warn1")]} />);
+        render(<IssuesPanel issues={[makeIssue("warn1")]} />);
 
         // Assert
         expect(screen.getByText("1 issue")).toBeInTheDocument();
 
         // Assert that the icon is warning icon
-        const icon = screen
-            .getByText("1 issue")
-            // eslint-disable-next-line testing-library/no-node-access
-            .parentElement?.querySelector(
-                '[data-icon-type="warning-fill.svg"]',
-            );
-        expect(icon).toBeInTheDocument();
+        const icon = screen.getByTestId("issues-icon-warning-fill.svg");
+        expect(icon).toBeVisible();
 
         // Assert that the passing icon is not in the document
-        const passingIcon = screen
-            .getByText("1 issue")
-            // eslint-disable-next-line testing-library/no-node-access
-            .parentElement?.querySelector(
-                '[data-icon-type="check-circle-fill.svg"]',
-            );
+        const passingIcon = screen.queryByTestId(
+            "issues-icon-check-circle-fill.svg",
+        );
         expect(passingIcon).not.toBeInTheDocument();
     });
 
     it("shows warning icon for warnings and correct issue count when multiple warnings are passed", async () => {
         // Arrange
         render(
-            <IssuesPanel warnings={[makeIssue("warn1"), makeIssue("warn2")]} />,
+            <IssuesPanel issues={[makeIssue("warn1"), makeIssue("warn2")]} />,
         );
 
         // Assert
         expect(screen.getByText("2 issues")).toBeInTheDocument();
 
         // Assert that the icon is warning icon
-        const icon = screen
-            .getByText("2 issues")
-            // eslint-disable-next-line testing-library/no-node-access
-            .parentElement?.querySelector(
-                '[data-icon-type="warning-fill.svg"]',
-            );
-        expect(icon).toBeInTheDocument();
+        const icon = screen.getByTestId("issues-icon-warning-fill.svg");
+        expect(icon).toBeVisible();
 
         // Assert that the passing icon is not in the document
-        const passingIcon = screen
-            .getByText("2 issues")
-            // eslint-disable-next-line testing-library/no-node-access
-            .parentElement?.querySelector(
-                '[data-icon-type="check-circle-fill.svg"]',
-            );
+        const passingIcon = screen.queryByTestId(
+            "issues-icon-check-circle-fill.svg",
+        );
         expect(passingIcon).not.toBeInTheDocument();
     });
 
     it("opens the panel when the heading is clicked", async () => {
         // Arrange
-        render(<IssuesPanel warnings={[makeIssue("warn1")]} />);
+        render(<IssuesPanel issues={[makeIssue("warn1")]} />);
         const headingButton = screen.getByRole("button"); // The button in the heading
 
         //Act
@@ -120,7 +91,7 @@ describe("IssuesPanel", () => {
 
     it("closes the panel when the heading icon is clicked again", async () => {
         //Arrange
-        render(<IssuesPanel warnings={[makeIssue("warn1")]} />);
+        render(<IssuesPanel issues={[makeIssue("warn1")]} />);
         const headingButton = screen.getByRole("button");
         await userEvent.click(headingButton);
         expect(screen.getByText("Warning: warn1")).toBeInTheDocument();

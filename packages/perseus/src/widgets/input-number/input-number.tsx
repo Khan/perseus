@@ -3,7 +3,6 @@ import {inputNumberAnswerTypes} from "@khanacademy/perseus-score";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
-import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
@@ -16,48 +15,47 @@ import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 import type {
     PerseusInputNumberWidgetOptions,
-    PerseusInputNumberRubric,
     PerseusInputNumberUserInput,
 } from "@khanacademy/perseus-core";
 
-const formExamples = {
-    integer: function (options, strings: PerseusStrings) {
+type FormExampleFunction = (options: Props, strings: PerseusStrings) => string;
+
+const formExamples: Record<string, FormExampleFunction> = {
+    integer: function (_, strings) {
         return strings.integerExample;
     },
-    proper: function (options, strings: PerseusStrings) {
+    proper: function (options, strings) {
         if (options.simplify === "optional") {
             return strings.properExample;
         }
         return strings.simplifiedProperExample;
     },
-    improper: function (options, strings: PerseusStrings) {
+    improper: function (options, strings) {
         if (options.simplify === "optional") {
             return strings.improperExample;
         }
         return strings.simplifiedImproperExample;
     },
-    mixed: function (options, strings: PerseusStrings) {
+    mixed: function (_, strings) {
         return strings.mixedExample;
     },
-    decimal: function (options, strings: PerseusStrings) {
+    decimal: function (_, strings) {
         return strings.decimalExample;
     },
-    percent: function (options, strings: PerseusStrings) {
+    percent: function (_, strings) {
         return strings.percentExample;
     },
-    pi: function (options, strings: PerseusStrings) {
+    pi: function (_, strings) {
         return strings.piExample;
     },
 } as const;
 
-type RenderProps = {
-    simplify: PerseusInputNumberWidgetOptions["simplify"];
-    size: PerseusInputNumberWidgetOptions["size"];
-    answerType: PerseusInputNumberWidgetOptions["answerType"];
-    rightAlign: PerseusInputNumberWidgetOptions["rightAlign"];
-};
+type RenderProps = Pick<
+    PerseusInputNumberWidgetOptions,
+    "simplify" | "size" | "answerType" | "rightAlign"
+>;
 
-type ExternalProps = WidgetProps<RenderProps, PerseusInputNumberRubric>;
+type ExternalProps = WidgetProps<RenderProps>;
 type Props = ExternalProps & {
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
@@ -66,17 +64,18 @@ type Props = ExternalProps & {
     currentValue: string;
     // NOTE(kevinb): This was the only default prop that is listed as
     // not-required in PerseusInputNumberWidgetOptions.
-    answerType: NonNullable<PerseusInputNumberRubric["answerType"]>;
+    answerType: NonNullable<ExternalProps["answerType"]>;
 };
 
-type DefaultProps = {
-    answerType: Props["answerType"];
-    apiOptions: Props["apiOptions"];
-    currentValue: Props["currentValue"];
-    linterContext: Props["linterContext"];
-    rightAlign: Props["rightAlign"];
-    size: Props["size"];
-};
+type DefaultProps = Pick<
+    Props,
+    | "answerType"
+    | "apiOptions"
+    | "currentValue"
+    | "linterContext"
+    | "rightAlign"
+    | "size"
+>;
 
 class InputNumber extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
@@ -179,7 +178,7 @@ class InputNumber extends React.Component<Props> implements Widget {
         const type = this.props.answerType;
         const forms = inputNumberAnswerTypes[type].forms.split(/\s*,\s*/);
 
-        const examples = _.map(forms, (form) =>
+        const examples = forms.map((form) =>
             formExamples[form](this.props, strings),
         );
 
@@ -263,9 +262,9 @@ const styles = StyleSheet.create({
     },
 });
 
-const propTransform = (
+function transform(
     widgetOptions: PerseusInputNumberWidgetOptions,
-): RenderProps => {
+): RenderProps {
     const {simplify, size, answerType, rightAlign} = widgetOptions;
     return {
         simplify,
@@ -273,24 +272,25 @@ const propTransform = (
         answerType,
         rightAlign,
     };
-};
+}
+
+function getOneCorrectAnswerFromRubric(rubric: any): string | undefined {
+    if (rubric.value == null) {
+        return;
+    }
+    let answerString = String(rubric.value);
+    if (rubric.inexact && rubric.maxError) {
+        answerString += " \u00B1 " + rubric.maxError;
+    }
+    return answerString;
+}
 
 export default {
     name: "input-number",
     displayName: "Input number (deprecated - use numeric input instead)",
     hidden: true,
     widget: InputNumber,
-    transform: propTransform,
     isLintable: true,
-
-    getOneCorrectAnswerFromRubric(rubric: any): string | null | undefined {
-        if (rubric.value == null) {
-            return;
-        }
-        let answerString = String(rubric.value);
-        if (rubric.inexact && rubric.maxError) {
-            answerString += " \u00B1 " + rubric.maxError;
-        }
-        return answerString;
-    },
+    transform,
+    getOneCorrectAnswerFromRubric,
 } satisfies WidgetExports<typeof InputNumber>;

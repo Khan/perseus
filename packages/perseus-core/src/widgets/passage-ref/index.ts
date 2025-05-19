@@ -5,7 +5,7 @@ import type {WidgetLogic} from "../logic-export.types";
 export type {PassageRefDefaultWidgetOptions} from "./passage-ref-upgrade";
 
 const passageRefWidgetLogic: WidgetLogic = {
-    name: "passageRef",
+    name: "passage-ref",
     version: currentVersion,
     defaultWidgetOptions: defaultWidgetOptions,
     defaultAlignment: "inline",

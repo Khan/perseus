@@ -16,13 +16,13 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     PerseusPlotterWidgetOptions,
-    PerseusPlotterRubric,
     PerseusPlotterUserInput,
 } from "@khanacademy/perseus-core";
+import type {PlotterPublicWidgetOptions} from "@khanacademy/perseus-core/src/widgets/plotter/plotter-util";
 
-type RenderProps = PerseusPlotterWidgetOptions;
+type RenderProps = PlotterPublicWidgetOptions;
 
-type Props = WidgetProps<RenderProps, PerseusPlotterRubric> & {
+type Props = WidgetProps<RenderProps> & {
     labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
     picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
 };
@@ -42,7 +42,7 @@ type DefaultProps = {
 };
 
 type State = {
-    values: ReadonlyArray<number>;
+    values: number[];
     categoryHeights: Record<string, number>;
 };
 

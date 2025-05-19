@@ -11,6 +11,12 @@ import {
     storybookDependenciesV2,
 } from "../testing/test-dependencies";
 
+import "./global.less";
+import "./reset.css";
+
+// Import the Wonder Blocks CSS variables
+import "@khanacademy/wonder-blocks-tokens/styles.css";
+
 import type {Preview} from "@storybook/react";
 
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
@@ -30,7 +36,7 @@ const preview: Preview = {
                         We want to make sure we can include it here, since it
                         can also affect the styling.
 
-                        Inclue box-sizing-border-box-reset to reflect
+                        Include box-sizing-border-box-reset to reflect
                         the global styles from prod.
                     */}
                     <div className="framework-perseus box-sizing-border-box-reset">

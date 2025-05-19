@@ -106,7 +106,7 @@ type RenderProps = {
     /**
      * How to label the X and Y axis.  default: ["x", "y"]
      */
-    labels: ReadonlyArray<string>;
+    labels: string[];
     /**
      * Whether to show the Protractor tool overlaid on top of the graph
      */
@@ -161,7 +161,7 @@ type RenderProps = {
      * Shapes (points, chords, etc) displayed on the graph that cannot be moved
      * by the user.
      */
-    lockedFigures?: ReadonlyArray<LockedFigure>;
+    lockedFigures: LockedFigure[];
     /**
      * Aria label that applies to the entire graph.
      */
@@ -171,10 +171,10 @@ type RenderProps = {
      */
     fullGraphAriaDescription?: string;
 }; // There's no transform function in exports
-type Props = WidgetProps<RenderProps, PerseusInteractiveGraphRubric>;
+type Props = WidgetProps<RenderProps>;
 type State = any;
 type DefaultProps = {
-    labels: ReadonlyArray<string>;
+    labels: string[];
     range: Props["range"];
     step: Props["step"];
     backgroundImage: Props["backgroundImage"];
@@ -202,9 +202,7 @@ type DefaultProps = {
 
 // TODO: there's another, very similar getSinusoidCoefficients function
 // they should probably be merged
-function getSinusoidCoefficients(
-    coords: ReadonlyArray<Coord>,
-): SineCoefficient {
+function getSinusoidCoefficients(coords: Coord[]): SineCoefficient {
     // It's assumed that p1 is the root and p2 is the first peak
     const p1 = coords[0];
     const p2 = coords[1];
@@ -220,9 +218,7 @@ function getSinusoidCoefficients(
 
 // TODO: there's another, very similar getQuadraticCoefficients function
 // they should probably be merged
-function getQuadraticCoefficients(
-    coords: ReadonlyArray<Coord>,
-): QuadraticCoefficient {
+function getQuadraticCoefficients(coords: Coord[]): QuadraticCoefficient {
     const p1 = coords[0];
     const p2 = coords[1];
     const p3 = coords[2];
@@ -311,10 +307,7 @@ class InteractiveGraph extends React.Component<Props, State> {
      * @param {object} graph Like props.graph or props.correct
      * @param {object} props of an InteractiveGraph instance
      */
-    static getLineCoords(
-        graph: PerseusGraphType,
-        props: Props,
-    ): ReadonlyArray<Coord> {
+    static getLineCoords(graph: PerseusGraphType, props: Props): Coord[] {
         return (
             // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
             graph.coords ||
@@ -329,10 +322,7 @@ class InteractiveGraph extends React.Component<Props, State> {
      * @param {object} graph Like props.graph or props.correct
      * @param {object} props of an InteractiveGraph instance
      */
-    static getPointCoords(
-        graph: PerseusGraphTypePoint,
-        props: Props,
-    ): ReadonlyArray<Coord> {
+    static getPointCoords(graph: PerseusGraphTypePoint, props: Props): Coord[] {
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         const numPoints = graph.numPoints || 1;
         let coords = graph.coords;
@@ -408,7 +398,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     static getLinearSystemCoords(
         graph: PerseusGraphType,
         props: Props,
-    ): ReadonlyArray<ReadonlyArray<Coord>> {
+    ): Coord[][] {
         return (
             // The callers assume that we're return an array of points
             // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
@@ -423,9 +413,8 @@ class InteractiveGraph extends React.Component<Props, State> {
                         [0.25, 0.25],
                         [0.75, 0.25],
                     ],
-                ],
+                ] as Coord[][],
                 (coords) => {
-                    // @ts-expect-error - TS2345 - Argument of type 'number[][]' is not assignable to parameter of type 'readonly Coord[]'.
                     return InteractiveGraph.pointsFromNormalized(props, coords);
                 },
             )
@@ -436,10 +425,7 @@ class InteractiveGraph extends React.Component<Props, State> {
      * @param {object} graph Like props.graph or props.correct
      * @param {object} props of an InteractiveGraph instance
      */
-    static getPolygonCoords(
-        graph: PerseusGraphType,
-        props: Props,
-    ): ReadonlyArray<Coord> {
+    static getPolygonCoords(graph: PerseusGraphType, props: Props): Coord[] {
         if (graph.type !== "polygon") {
             throw makeInvalidTypeError("toggleShowSides", "polygon");
         }
@@ -495,15 +481,15 @@ class InteractiveGraph extends React.Component<Props, State> {
     static getSegmentCoords(
         graph: PerseusGraphTypeSegment,
         props: Props,
-    ): ReadonlyArray<ReadonlyArray<Coord>> {
+    ): Coord[][] {
         const coords = graph.coords;
         if (coords) {
             return coords;
         }
 
         const n = graph.numSegments || 1;
-        // @ts-expect-error - TS2322 - Type 'number[] | undefined' is not assignable to type 'readonly number[]'.
-        const ys: ReadonlyArray<number> = {
+        // @ts-expect-error - TS2322 - Type 'number[] | undefined' is not assignable to type 'number[]'.
+        const ys: number[] = {
             1: [5],
             2: [5, -5],
             3: [5, 0, -5],
@@ -575,9 +561,9 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static normalizeCoords(
-        coordsList: ReadonlyArray<Coord>,
+        coordsList: Coord[],
         ranges: [Range, Range],
-    ): ReadonlyArray<Coord> {
+    ): Coord[] {
         // @ts-expect-error - TS2322 - Type 'number[][]' is not assignable to type 'readonly Coord[]'.
         return _.map(coordsList, function (coords) {
             return _.map(coords, function (coord, i) {
@@ -619,9 +605,9 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     static pointsFromNormalized(
         props: Props,
-        coordsList: ReadonlyArray<Coord>,
+        coordsList: Coord[],
         noSnap?: boolean,
-    ): ReadonlyArray<Coord> {
+    ): Coord[] {
         // @ts-expect-error - TS2322 - Type 'number[][]' is not assignable to type 'readonly Coord[]'.
         return _.map(coordsList, function (coords) {
             return _.map(coords, function (coord, i) {
@@ -692,7 +678,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         return getSinusoidCoefficients(coords);
     }
 
-    static defaultSinusoidCoords(props: Props): ReadonlyArray<Coord> {
+    static defaultSinusoidCoords(props: Props): Coord[] {
         const coords = [
             [0.5, 0.5],
             [0.65, 0.6],
