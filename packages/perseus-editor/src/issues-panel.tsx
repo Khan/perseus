@@ -10,32 +10,37 @@ import {useState} from "react";
 
 import IssueDetails from "./issue-details";
 
-type Issue = {
+export type Issue = {
     id: string;
-    help: string;
+    description: string;
     helpUrl: string;
-    impact: string;
+    help: string;
+    impact: string; // TODO: Make this a string union so the values are well-known. (eg. "low" | "medium" | "high")
     message: string;
 };
 
 type IssuesPanelProps = {
-    warnings?: Issue[];
+    issues?: Issue[];
 };
 
-const IssuesPanel = ({warnings = []}: IssuesPanelProps) => {
+const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
+    const hasWarnings = issues.length > 0;
     const [showPanel, setShowPanel] = useState(false);
+
     const toggleIcon = showPanel ? caretDown : caretRight;
-    const togglePanel = () => setShowPanel(!showPanel);
-
-    const icon = warnings.length > 0 ? iconWarning : iconPass;
-
-    const iconColor = warnings.length > 0 ? wbColor.gold : wbColor.green;
-
-    const issuesCount = `${warnings.length} issue${
-        warnings.length === 1 ? "" : "s"
+    const icon = hasWarnings ? iconWarning : iconPass;
+    const iconColor = hasWarnings ? wbColor.gold : wbColor.green;
+    const issuesCount = `${issues.length} issue${
+        issues.length === 1 ? "" : "s"
     }`;
 
     const editorClasses = `perseus-widget-editor${showPanel ? " perseus-widget-editor-open" : ""}`;
+
+    const togglePanel = () => {
+        if (hasWarnings) {
+            setShowPanel(!showPanel);
+        }
+    };
 
     return (
         <div className={editorClasses}>
@@ -46,22 +51,30 @@ const IssuesPanel = ({warnings = []}: IssuesPanelProps) => {
                         kind="secondary"
                         size="small"
                         onClick={togglePanel}
-                        style={{marginRight: 0, flexGrow: 0}}
+                        disabled={!hasWarnings}
+                        style={{
+                            marginInlineEnd: 0,
+                            flexGrow: 0,
+                            border: "none",
+                            backgroundColor: "transparent",
+                            cursor: hasWarnings ? "pointer" : "not-allowed",
+                        }}
                     />
-                    <span>Issues Panel</span>
+                    <span>Issues</span>
                 </div>
-                {issuesCount}
                 <PhosphorIcon
                     icon={icon}
                     size="medium"
                     color={iconColor}
-                    data-icon-type={icon}
+                    testId={`issues-icon-${icon}`}
+                    style={{marginRight: "0.25em"}}
                 />
+                {issuesCount}
             </div>
             {showPanel && (
                 <div className="perseus-widget-editor-panel">
                     <div className="perseus-widget-editor-content">
-                        {warnings.map((issue, index) => (
+                        {issues.map((issue, index) => (
                             <IssueDetails key={issue.id} issue={issue} />
                         ))}
                     </div>

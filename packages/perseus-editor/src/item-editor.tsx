@@ -1,4 +1,5 @@
-import {itemDataVersion} from "@khanacademy/perseus";
+import {PerseusMarkdown, itemDataVersion} from "@khanacademy/perseus";
+import * as PerseusLinter from "@khanacademy/perseus-linter";
 import * as React from "react";
 import _ from "underscore";
 
@@ -7,14 +8,19 @@ import Editor from "./editor";
 import IframeContentRenderer from "./iframe-content-renderer";
 import IssuesPanel from "./issues-panel";
 import ItemExtrasEditor from "./item-extras-editor";
+import {WARNINGS} from "./messages";
 
+import type {Issue} from "./issues-panel";
 import type {
     APIOptions,
     ImageUploader,
     ChangeHandler,
     DeviceType,
 } from "@khanacademy/perseus";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    PerseusRenderer,
+    PerseusWidgetsMap,
+} from "@khanacademy/perseus-core";
 
 const ITEM_DATA_VERSION = itemDataVersion;
 
@@ -35,7 +41,11 @@ type Props = {
     itemId?: string;
 };
 
-class ItemEditor extends React.Component<Props> {
+type State = {
+    issues: Issue[];
+};
+
+class ItemEditor extends React.Component<Props, State> {
     static defaultProps: {
         answerArea: Record<any, any>;
         onChange: () => void;
@@ -45,10 +55,55 @@ class ItemEditor extends React.Component<Props> {
         question: {},
         answerArea: {},
     };
+    static prevContent: string | undefined;
+    static prevWidgets: PerseusWidgetsMap | undefined;
 
     frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
     itemExtrasEditor = React.createRef<ItemExtrasEditor>();
+
+    state = {
+        issues: [],
+    };
+
+    static getDerivedStateFromProps(props: Props): Partial<State> | null {
+        // Short-circuit if nothing changed
+        if (
+            props.question?.content === ItemEditor.prevContent &&
+            props.question?.widgets === ItemEditor.prevWidgets
+        ) {
+            return null;
+        }
+
+        // Update cached values
+        ItemEditor.prevContent = props.question?.content;
+        ItemEditor.prevWidgets = props.question?.widgets;
+
+        const parsed = PerseusMarkdown.parse(props.question?.content ?? "", {});
+        const linterContext = {
+            content: props.question?.content,
+            widgets: props.question?.widgets,
+            stack: [],
+        };
+
+        return {
+            issues: PerseusLinter.runLinter(parsed, linterContext, false)?.map(
+                (linterWarning) => {
+                    if (linterWarning.rule === "inaccessible-widget") {
+                        return WARNINGS.inaccessibleWidget(
+                            linterWarning.metadata?.widgetType ?? "unknown",
+                            linterWarning.metadata?.widgetId ?? "unknown",
+                        );
+                    }
+
+                    return WARNINGS.genericLinterWarning(
+                        linterWarning.rule,
+                        linterWarning.message,
+                    );
+                },
+            ),
+        };
+    }
 
     // Notify the parent that the question or answer area has been updated.
     updateProps: ChangeHandler = (newProps, cb, silent) => {
@@ -98,7 +153,7 @@ class ItemEditor extends React.Component<Props> {
             <div className="perseus-editor-table">
                 <div className="perseus-editor-row perseus-question-container">
                     <div className="perseus-editor-left-cell">
-                        <IssuesPanel warnings={[]} />
+                        <IssuesPanel issues={this.state.issues} />
                         <div className="pod-title">Question</div>
                         <Editor
                             ref={this.questionEditor}

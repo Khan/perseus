@@ -35,9 +35,10 @@ import type {
     PublicWidgetOptionsFunction,
     WidgetLogic,
 } from "./logic-export.types";
+import type {PerseusWidgetOptions} from "../data-schema";
 import type {Alignment} from "../types";
 
-const widgets = {};
+const widgets: Record<string, WidgetLogic> = {};
 
 function registerWidget(type: string, logic: WidgetLogic) {
     widgets[type] = logic;
@@ -45,7 +46,7 @@ function registerWidget(type: string, logic: WidgetLogic) {
 
 export function isWidgetRegistered(type: string) {
     const widgetLogic = widgets[type];
-    return !!widgetLogic;
+    return Boolean(widgetLogic);
 }
 
 export function getCurrentVersion(type: string) {
@@ -71,6 +72,15 @@ export function getDefaultWidgetOptions(type: string) {
     return widgetLogic?.defaultWidgetOptions || {};
 }
 
+export function isAccessible(
+    type: string,
+    widgetOptions: PerseusWidgetOptions,
+): boolean {
+    const accessible = widgets[type]?.accessible;
+    return typeof accessible === "function"
+        ? accessible(widgetOptions)
+        : !!accessible;
+}
 /**
  * Handling for the optional alignments for widgets
  * See widget-container.jsx for details on how alignments are implemented.
