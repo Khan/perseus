@@ -52,7 +52,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                   aria-describedby=""
                   aria-invalid="false"
                   aria-required="false"
-                  class="textarea_nfcfnx-o_O-LabelMedium_1rew30o-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-textarea_1x0fg6n"
+                  class="textarea_6p4mp0-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-textarea_1x0fg6n"
                   id=":r2:-labeled-field-field"
                   placeholder="test-placeholder"
                 />
@@ -68,7 +68,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
               class="default_xu2jcg"
             >
               <span
-                class="text_f1191h-o_O-characterCountText_12vvpv1"
+                class="text_f1191h-o_O-characterCountText_t2sw55"
                 role="status"
               >
                 0 / 500 Characters
@@ -134,7 +134,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
                   aria-describedby=""
                   aria-invalid="false"
                   aria-required="false"
-                  class="textarea_nfcfnx-o_O-LabelMedium_1rew30o-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-textarea_1x0fg6n"
+                  class="textarea_6p4mp0-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-textarea_1x0fg6n"
                   id=":r0:-labeled-field-field"
                   placeholder="test-placeholder"
                 />
@@ -150,7 +150,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
               class="default_xu2jcg"
             >
               <span
-                class="text_f1191h-o_O-characterCountText_12vvpv1"
+                class="text_f1191h-o_O-characterCountText_t2sw55"
                 role="status"
               >
                 0 / 500 Characters
