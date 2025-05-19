@@ -1477,6 +1477,7 @@ const errorToString: ErrorStringMap = {
     FILL_ALL_CELLS_ERROR: "fillAllCells",
     USER_INPUT_EMPTY: "USER_INPUT_EMPTY",
 };
+
 export function mapErrorToString(
     // the string representing an error code
     err: string | null | undefined,
