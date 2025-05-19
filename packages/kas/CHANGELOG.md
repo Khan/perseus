@@ -1,5 +1,14 @@
 # @khanacademy/kas
 
+## 2.0.4
+
+### Patch Changes
+
+-   [#2472](https://github.com/Khan/perseus/pull/2472) [`3389e0611`](https://github.com/Khan/perseus/commit/3389e06111b2c801fba6c34ed4e5bdc747ef1ed1) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Remove eslint-plugin-functional linter
+
+-   Updated dependencies [[`3389e0611`](https://github.com/Khan/perseus/commit/3389e06111b2c801fba6c34ed4e5bdc747ef1ed1)]:
+    -   @khanacademy/perseus-utils@2.0.3
+
 ## 2.0.3
 
 ### Patch Changes

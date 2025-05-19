@@ -134,6 +134,7 @@ export {
 } from "./widgets/upgrade";
 
 export {default as splitPerseusItem} from "./utils/split-perseus-item";
+export {default as Registry} from "./utils/registry";
 
 export type * from "./widgets/logic-export.types";
 
@@ -154,7 +155,10 @@ export {
     type InteractiveGraphPublicWidgetOptions,
 } from "./widgets/interactive-graph/interactive-graph-util";
 export {default as getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
-export {default as getSorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
+export {
+    default as getSorterPublicWidgetOptions,
+    shuffleSorter,
+} from "./widgets/sorter/sorter-util";
 export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export type {DropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";

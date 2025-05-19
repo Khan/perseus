@@ -46,10 +46,10 @@ type DefaultProps = Required<
     >
 >;
 
-export type RadioChoiceWithMetadata = PerseusRadioChoice & {
+export interface RadioChoiceWithMetadata extends PerseusRadioChoice {
     originalIndex: number;
     correct?: boolean;
-};
+}
 
 /**
  * This component is holds the class methods for the radio widget, that were split
@@ -166,8 +166,7 @@ class Radio extends React.Component<Props> implements Widget {
                 {
                     choiceStates: newStates,
                 },
-                // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
-                null, // cb
+                () => {}, // cb
                 true, // silent
             );
         }
@@ -192,8 +191,7 @@ class Radio extends React.Component<Props> implements Widget {
                 {
                     choiceStates: newStates,
                 },
-                // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
-                null, // cb
+                () => {}, // cb
                 false, // silent
             );
         }
