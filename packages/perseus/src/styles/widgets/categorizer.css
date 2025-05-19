@@ -1,0 +1,30 @@
+.categorizer-container {
+    margin-top: 20px;
+}
+.categorizer-container div.paragraph {
+    margin: 10px 0px;
+}
+.categorizer-container .category {
+    text-align: center;
+}
+.categorizer-container table {
+    min-width: 0;
+}
+
+/* TODO(benkomalo): ughhh. kill or move this out of here :(
+   Styles specifically for the mobile native apps */
+body.mobile
+    .categorizer-container
+    td.category
+    input[type="radio"]:checked
+    + span:before {
+    color: #1c758a;
+}
+body.mobile
+    .categorizer-container
+    td.category
+    input[type="radio"]
+    + span:active:before {
+    color: #666;
+    content: "\f111"; /* fa-circle */
+}

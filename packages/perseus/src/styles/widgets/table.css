@@ -1,0 +1,61 @@
+.framework-perseus table.perseus-widget-table-of-values.non-markdown {
+    text-align: left;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+.framework-perseus table.perseus-widget-table-of-values.non-markdown tr {
+    height: 23px;
+}
+.framework-perseus table.perseus-widget-table-of-values.non-markdown th,
+.framework-perseus table.perseus-widget-table-of-values.non-markdown td {
+    border: 2px solid black;
+    border-width: 0 2px;
+}
+.framework-perseus
+    table.perseus-widget-table-of-values.non-markdown
+    th:first-child,
+.framework-perseus
+    table.perseus-widget-table-of-values.non-markdown
+    td:first-child {
+    border-left: 0;
+}
+.framework-perseus
+    table.perseus-widget-table-of-values.non-markdown
+    th:last-child,
+.framework-perseus
+    table.perseus-widget-table-of-values.non-markdown
+    td:last-child {
+    border-right: 0;
+}
+.framework-perseus table.perseus-widget-table-of-values.non-markdown th {
+    font-weight: normal;
+    padding: 5px;
+    width: 80px;
+    text-align: left;
+    border-bottom: 2px solid black;
+}
+.framework-perseus
+    table.perseus-widget-table-of-values.non-markdown
+    th
+    .paragraph {
+    margin: 0;
+}
+.framework-perseus table.perseus-widget-table-of-values.non-markdown td {
+    padding: 0px 5px;
+}
+.framework-perseus
+    table.perseus-widget-table-of-values.non-markdown
+    tbody
+    tr:first-child
+    td {
+    padding-top: 5px;
+}
+.framework-perseus table.perseus-widget-table-of-values input {
+    width: 80px;
+}
+body.mobile
+    .framework-perseus
+    table.perseus-widget-table-of-values.non-markdown
+    td {
+    padding: 5px;
+}

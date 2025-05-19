@@ -10,7 +10,7 @@ export {default as Editor} from "./editor";
 export {default as IframeContentRenderer} from "./iframe-content-renderer";
 export {default as ContentPreview} from "./content-preview";
 
-import "./styles/perseus-editor.less";
+import "./styles/perseus-editor.css";
 
 // eslint-disable-next-line import/order
 import {Widgets, widgets} from "@khanacademy/perseus";

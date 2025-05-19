@@ -3,21 +3,28 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 
 import type {StorybookConfig} from "@storybook/react-vite";
 
+const excludedCssFiles = ["lato.css", "protractor.css", "mafs-styles.css"];
 // This is a temporary plugin option to mimic what is in PROD in regard to cascade layers.
 // Perseus LESS files are wrapped in the 'shared' layer in Webapp.
 // To get the same ordering of precedence in Storybook, the imported LESS files need to be wrapped accordingly.
 // Once the LESS files have cascade layers included (LEMS-2801),
 //     then the following plugin option should be removed.
-const lessWrapper = {
-    name: "wrap-less-in-layer",
+const cssWrapper = {
+    name: "wrap-css-in-layer",
     transform: (code: string, pathname: string) => {
-        if (pathname.endsWith(".less")) {
-            const layerStatements =
-                "@layer reset, shared, legacy;\n@layer shared";
-            return {
-                code: `${layerStatements} { ${code} }`,
-                map: null,
-            };
+        if (pathname.endsWith(".css")) {
+            // Exclude the CSS files that are not part of the shared layer.
+            if (!excludedCssFiles.some((file) => pathname.endsWith(file))) {
+                // Exclude any CSS file that already has a layer statement.
+                if (!code.includes("@layer")) {
+                    const layerStatements =
+                        "@layer reset, shared, legacy;\n@layer shared";
+                    return {
+                        code: `${layerStatements} { ${code} }`,
+                        map: null,
+                    };
+                }
+            }
         }
     },
 };
@@ -48,12 +55,21 @@ const config: StorybookConfig = {
     // NOTE(kevinb): We customize the padding a bit so that so that stories
     // using the on-screen keypad render correctly.  Storybook adds its own
     // padding as a class to <body> so we use !important to override that.
+    // NOTE(jandrade): We also need to set the font size to 62.5% so that the
+    // font size is consistent with the rest of the codebase. This is because
+    // all Khan frontends now use rems as the default unit for measurements, and
+    // we have defined the base font size to be 10px (62.5% of 16px). We set a
+    // percentage instead of a pixel value so that it scales correctly when the
+    // user changes their font size in the browser.
     previewHead: (head) => `
         ${head}
         <style>
-        html, body {
-            padding: ${spacing.xSmall_8}px !important;
-            padding-left: ${spacing.large_24}px !important;
+        html {
+            font-size: 62.5%;
+        }
+        body {
+            font-size: 1.4rem;
+            padding: 1.6rem 1.6rem 1.6rem 4.8rem !important;
         }
         </style>
     `,
@@ -76,7 +92,7 @@ const config: StorybookConfig = {
                     return !file.endsWith(".svg");
                 },
             },
-            plugins: [lessWrapper],
+            plugins: [cssWrapper],
         });
     },
     staticDirs: ["../static"],

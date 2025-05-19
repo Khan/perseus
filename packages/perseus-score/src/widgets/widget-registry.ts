@@ -1,3 +1,9 @@
+import {
+    Registry,
+    type WidgetScorerFunction,
+    type WidgetValidatorFunction,
+} from "@khanacademy/perseus-core";
+
 import scoreNoop from "../util/score-noop";
 
 import scoreCategorizer from "./categorizer/score-categorizer";
@@ -33,32 +39,33 @@ import validateSorter from "./sorter/validate-sorter";
 import scoreTable from "./table/score-table";
 import validateTable from "./table/validate-table";
 
-import type {
-    WidgetScorerFunction,
-    WidgetValidatorFunction,
-} from "@khanacademy/perseus-core";
+type ScoringLogic = {
+    scorer: WidgetScorerFunction;
+    validator?: WidgetValidatorFunction;
+};
 
-const widgets = {};
+const widgets = new Registry<ScoringLogic>("Score widget registry");
 
 export function registerWidget(
     type: string,
     scorer: WidgetScorerFunction,
     validator?: WidgetValidatorFunction,
 ) {
-    widgets[type] = {
+    const logic = {
         scorer,
         validator,
     };
+    widgets.set(type, logic);
 }
 
 export const getWidgetValidator = (
-    name: string,
+    type: string,
 ): WidgetValidatorFunction | null => {
-    return widgets[name]?.validator ?? null;
+    return widgets.get(type)?.validator ?? null;
 };
 
-export const getWidgetScorer = (name: string): WidgetScorerFunction | null => {
-    return widgets[name]?.scorer ?? null;
+export const getWidgetScorer = (type: string): WidgetScorerFunction | null => {
+    return widgets.get(type)?.scorer ?? null;
 };
 
 registerWidget(

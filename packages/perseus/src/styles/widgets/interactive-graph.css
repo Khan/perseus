@@ -1,0 +1,47 @@
+.perseus-widget-interactive-graph > .graphie-container {
+    position: relative;
+}
+.perseus-widget-interactive-graph > .graphie-container > img,
+.perseus-widget-interactive-graph
+    > .graphie-container
+    > .unresponsive-svg-image {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.perseus-mobile .tooltip.visible {
+    z-index: 2;
+}
+.perseus-mobile .tooltip.visible .tooltip-content:before {
+    border: solid;
+    border-color: white transparent;
+    border-width: 10px 10px 0 10px;
+    bottom: -10px;
+    content: "";
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    z-index: 2;
+}
+.perseus-mobile .tooltip .tooltip-content {
+    display: none;
+}
+.perseus-mobile .tooltip.visible .tooltip-content {
+    display: inline-block;
+    background-color: #ffffff;
+    border-radius: 5px;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 5px;
+    position: absolute;
+    white-space: nowrap;
+    min-width: 30px;
+    text-align: center;
+}
+.perseus-mobile .tooltip.visible .tooltip-content mjx-container {
+    color: #71b307 !important;
+}
+.perseus-mobile .graphie-label mjx-container {
+    color: inherit !important;
+}

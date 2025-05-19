@@ -148,27 +148,6 @@ const createConfig = (
                     raphael: path.join(rootDir, "vendor", "raphael"),
                 },
             }),
-            // NOTE: This plugin MUST come before styles() to avoid errors.
-            postcss({
-                extract: "index.css",
-                include: "*.module.css",
-                modules: {
-                    localsConvention: "camelCase",
-                    generateScopedName: function (name, filename, css) {
-                        if (filename.endsWith(".module.css")) {
-                            const hash = crypto
-                                .createHash("sha256")
-                                .update(`${filename}:${name}`)
-                                .digest("base64")
-                                .replace(/[/+=]/g, "-") // Remove special characters for CSS compatibility
-                                .slice(0, 8); // Limit to 8 characters
-                            return `perseus_${hash}`;
-                        } else {
-                            return name;
-                        }
-                    },
-                },
-            }),
             styles({
                 mode: ["extract", "index.css"],
                 minimize: true,
@@ -182,25 +161,32 @@ const createConfig = (
                     // to those fonts!
                     publicPath: "assets",
                 },
-                less: {
-                    math: "always",
+                modules: {
+                    localsConvention: "camelCase",
+                    auto: /\.module\.css$/,
+                    localIdentName: "perseus_[sha256:hash:base64:8]",
                 },
-                // modules: {
-                //     generateScopedName: function (name, filename, css) {
-                //         if (filename.endsWith(".module.css")) {
-                //             const hash = crypto
-                //                 .createHash("sha256")
-                //                 .update(`${filename}:${name}`)
-                //                 .digest("base64")
-                //                 .replace(/[/+=]/g, "-") // Remove special characters for CSS compatibility
-                //                 .slice(0, 8); // Limit to 8 characters
-                //             return `perseus_${hash}`;
-                //         } else {
-                //             return name;
-                //         }
-                //     },
-                // },
             }),
+            // postcss({
+            //     extract: "index.css",
+            //     include: "*.module.css",
+            //     modules: {
+            //         localsConvention: "camelCase",
+            //         generateScopedName: function (name, filename, css) {
+            //             if (filename.endsWith(".module.css")) {
+            //                 const hash = crypto
+            //                     .createHash("sha256")
+            //                     .update(`${filename}:${name}`)
+            //                     .digest("base64")
+            //                     .replace(/[/+=]/g, "-") // Remove special characters for CSS compatibility
+            //                     .slice(0, 8); // Limit to 8 characters
+            //                 return `perseus_${hash}`;
+            //             } else {
+            //                 return name;
+            //             }
+            //         },
+            //     },
+            // }),
             swc({
                 swc: {
                     swcrc: true,

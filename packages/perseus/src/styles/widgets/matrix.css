@@ -1,0 +1,96 @@
+.perseus-matrix .matrix-prefix,
+.perseus-matrix .matrix-suffix {
+    display: inline-block;
+    margin: 10px 5px 0 10px;
+    vertical-align: top;
+}
+.perseus-matrix .matrix-suffix {
+    margin: 10px 10px 0 5px;
+}
+.perseus-matrix div.paragraph {
+    margin: 0;
+}
+.perseus-matrix .matrix-input {
+    background: #e2e2e2;
+    display: inline-block;
+    margin: 5px;
+    padding: 3px;
+    position: relative;
+    width: auto;
+}
+.perseus-matrix .matrix-row {
+    white-space: nowrap;
+}
+.perseus-matrix .matrix-bracket {
+    border-color: #666;
+    border-style: solid;
+    border-bottom-width: 2px;
+    border-top-width: 2px;
+    margin-top: -2px;
+    position: absolute;
+    width: 6px;
+}
+.perseus-matrix .matrix-bracket.bracket-left {
+    border-color: #666;
+    border-left-width: 2px;
+    border-right-width: 0;
+    left: 3px;
+}
+.perseus-matrix .matrix-bracket.bracket-right {
+    border-color: #666;
+    border-left-width: 0;
+    border-right-width: 2px;
+    margin-left: -3px;
+}
+.perseus-matrix input,
+.perseus-matrix .number-input {
+    border: none;
+    border-radius: 0;
+    box-sizing: border-box;
+    margin: 3px;
+    padding: 0;
+    text-align: center;
+}
+.perseus-matrix input.outside,
+.perseus-matrix .number-input.outside {
+    background: #f3f3f3;
+}
+.perseus-matrix input:focus,
+.perseus-matrix .number-input:focus {
+    border: none;
+    outline: none;
+}
+.static-mode.perseus-matrix input,
+.static-mode.perseus-matrix .number-input {
+    background: #f5f5f5;
+}
+.perseus-matrix.the-matrix .matrix-bracket,
+.perseus-matrix.the-matrix .matrix-left,
+.perseus-matrix.the-matrix .matrix-right {
+    border-color: #29f139;
+}
+.perseus-matrix.the-matrix .matrix-input {
+    background: #222;
+}
+.perseus-matrix.the-matrix input,
+.perseus-matrix.the-matrix .number-input {
+    background: #666;
+    color: #29f139;
+    font-weight: bold;
+}
+.perseus-matrix.the-matrix input.outside,
+.perseus-matrix.the-matrix .number-input.outside {
+    background: #444;
+}
+body.mobile .perseus-matrix .matrix-input {
+    display: table;
+}
+body.mobile .perseus-matrix .matrix-row {
+    display: table-row;
+}
+body.mobile .perseus-matrix .matrix-input-field {
+    display: table-cell;
+}
+.perseus-matrix-editor .perseus-single-editor {
+    width: 338px;
+}

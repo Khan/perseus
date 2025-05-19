@@ -1,5 +1,95 @@
 # @khanacademy/perseus-core
 
+## 11.0.0
+
+### Major Changes
+
+-   [#2483](https://github.com/Khan/perseus/pull/2483) [`6e3991082`](https://github.com/Khan/perseus/commit/6e3991082cf41d6dcf397adcc288a966091a9569) Thanks [@handeyeco](https://github.com/handeyeco)! - Prevent use of widget registries before any widget is registered
+
+### Minor Changes
+
+-   [#2473](https://github.com/Khan/perseus/pull/2473) [`536de9b97`](https://github.com/Khan/perseus/commit/536de9b973a72841c1e7db9398510781bf2deea4) Thanks [@benchristel](https://github.com/benchristel)! - Add types and stories to ensure Matcher widgets work with answerless data.
+
+*   [#2487](https://github.com/Khan/perseus/pull/2487) [`7611266b8`](https://github.com/Khan/perseus/commit/7611266b853b68fee3e13a4ea28c2dcfb97b3d1e) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Extend parseAndMigratePerseusItem so that it accepts either a JS object or a string (instead of only a string). When an object is passed, it skips calling `JSON.parse()`.
+
+-   [#2468](https://github.com/Khan/perseus/pull/2468) [`077d2d60e`](https://github.com/Khan/perseus/commit/077d2d60e96ef77e7cae87cf0244b5c5f073e534) Thanks [@benchristel](https://github.com/benchristel)! - Make `getMatcherPublicWidgetOptions` deterministic, and ensure the correct answer is not shown to the learner in the initial widget state
+
+### Patch Changes
+
+-   [#2484](https://github.com/Khan/perseus/pull/2484) [`b5f1af8fc`](https://github.com/Khan/perseus/commit/b5f1af8fc66ae0be2b2aa89ffe4f47c87b050309) Thanks [@benchristel](https://github.com/benchristel)! - Remove answer information from the public widget options of Sorter by sorting the cards in `getSorterPublicWidgetOptions`.
+
+*   [#2469](https://github.com/Khan/perseus/pull/2469) [`4fae24098`](https://github.com/Khan/perseus/commit/4fae24098a0aa73f1ad6b3f0545381c199c9df25) Thanks [@dependabot](https://github.com/apps/dependabot)! - Bumping wonder-blocks versions
+
+-   [#2472](https://github.com/Khan/perseus/pull/2472) [`3389e0611`](https://github.com/Khan/perseus/commit/3389e06111b2c801fba6c34ed4e5bdc747ef1ed1) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Remove eslint-plugin-functional linter
+
+-   Updated dependencies [[`3389e0611`](https://github.com/Khan/perseus/commit/3389e06111b2c801fba6c34ed4e5bdc747ef1ed1)]:
+    -   @khanacademy/kas@2.0.4
+    -   @khanacademy/perseus-utils@2.0.3
+
+## 10.1.0
+
+### Minor Changes
+
+-   [#2458](https://github.com/Khan/perseus/pull/2458) [`a87ba4e37`](https://github.com/Khan/perseus/commit/a87ba4e3762bd8b5d670a6320f3d8190f2e0da29) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests and stories for Answerless Grapher with minor refactoring
+
+## 10.0.0
+
+### Major Changes
+
+-   [#2402](https://github.com/Khan/perseus/pull/2402) [`558cc1cc6`](https://github.com/Khan/perseus/commit/558cc1cc6ad468ba6538648c57d47df5704e6858) Thanks [@benchristel](https://github.com/benchristel)! - Add typetests to ensure that the data format accepted by
+    `parseAndMigratePerseusItem` stays in sync with the types in `data-schema.ts`,
+    exported from `@khanacademy/perseus-core`. Breaking change:
+    `PerseusGraphTypeAngle.coords` can no longer be `null`; use `undefined` instead.
+
+*   [#2436](https://github.com/Khan/perseus/pull/2436) [`79a84d31b`](https://github.com/Khan/perseus/commit/79a84d31b54289ea69454db7f857896330c1c5d8) Thanks [@benchristel](https://github.com/benchristel)! - Change the type of `PerseusNumberLineWidgetOptions.correctRel` to `"eq" | "lt" | "gt" | "le" | "ge"`, to better reflect our data and the semantics of this field.
+
+-   [#2425](https://github.com/Khan/perseus/pull/2425) [`4282de2b2`](https://github.com/Khan/perseus/commit/4282de2b214e15a7043ee3786c1df11b346c2e97) Thanks [@benchristel](https://github.com/benchristel)! - Add `isInequality` to the `PerseusNumberLineWidgetOptions` type. The NumberLine component was using this field, but it wasn't represented in the types.
+
+*   [#2417](https://github.com/Khan/perseus/pull/2417) [`4184314fe`](https://github.com/Khan/perseus/commit/4184314fe3e1e48ea81429ff78184530d90d31ee) Thanks [@handeyeco](https://github.com/handeyeco)! - Enable Group to be rendered/answered with answerless item data
+
+-   [#2380](https://github.com/Khan/perseus/pull/2380) [`1f88cc191`](https://github.com/Khan/perseus/commit/1f88cc1912d9b33b899512ee9052bec10227a4c1) Thanks [@benchristel](https://github.com/benchristel)! - Removes `undefined` from the types of
+    `PerseusInteractiveGraphWidgetOptions.lockedFigures` and
+    the `labels` property of locked figures. Removes the `coords`
+    property from interactive graph widget options types, for graphs that do not
+    use it (all but the `point` graph type).
+
+    This is a breaking change because assigning `undefined` to `lockedFigures` or
+    `labels`, or setting `coord` in an object literal, will now give a type error.
+    Callers should use an empty array instead of `undefined` for `lockedFigures` and
+    `labels`. Avoid setting `coord` for graph types other than `point`.
+
+### Minor Changes
+
+-   [#2423](https://github.com/Khan/perseus/pull/2423) [`22e7de307`](https://github.com/Khan/perseus/commit/22e7de307d3662181890abed0723e463b15fcd5a) Thanks [@Myranae](https://github.com/Myranae)! - Update Plotter widget to render with answerless data. Adds test and stories for answerless rendering.
+
+*   [#2448](https://github.com/Khan/perseus/pull/2448) [`b7d3b9eaf`](https://github.com/Khan/perseus/commit/b7d3b9eafd9cfddc46931c4591de36c9097ec6be) Thanks [@tony-dinh](https://github.com/tony-dinh)! - Introduce `itemHasHints` & `itemHasRationales` methods to detect when a parsed PerseusItem contains widgets with hints or rationales, respectively.
+
+-   [#2441](https://github.com/Khan/perseus/pull/2441) [`f1662239e`](https://github.com/Khan/perseus/commit/f1662239e40b0db4fd75823746a7fc37662f7494) Thanks [@Myranae](https://github.com/Myranae)! - Update Orderer widget to render with answerless data. Adds tests and stories for answerless rendering.
+
+*   [#2387](https://github.com/Khan/perseus/pull/2387) [`aa7b1b621`](https://github.com/Khan/perseus/commit/aa7b1b621efd75b54419b21bc998caa2e241097f) Thanks [@Myranae](https://github.com/Myranae)! - Update Matrix widget to render with answerless data. Adds tests and stories for answerless rendering.
+
+### Patch Changes
+
+-   [#2426](https://github.com/Khan/perseus/pull/2426) [`a2701f002`](https://github.com/Khan/perseus/commit/a2701f00214499cc7ab7730407f70e957d1adf7b) Thanks [@handeyeco](https://github.com/handeyeco)! - Add tests/stories to prove InputNumber is interactive with answerless data
+
+*   [#2446](https://github.com/Khan/perseus/pull/2446) [`ca4df1cf8`](https://github.com/Khan/perseus/commit/ca4df1cf8c6c28cfb1d45dc94ec7eee61dfef777) Thanks [@benchristel](https://github.com/benchristel)! - Internal: suppress immutable-data lint rule in a test
+
+-   [#2414](https://github.com/Khan/perseus/pull/2414) [`e7807485e`](https://github.com/Khan/perseus/commit/e7807485e0d33621efa4468933e6c77ce9a53def) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix dependencies so that the package correctly depends on all of the packages it uses
+
+*   [#2459](https://github.com/Khan/perseus/pull/2459) [`c27162249`](https://github.com/Khan/perseus/commit/c271622490d64f359b8ff8e2fcafc35229c60832) Thanks [@benchristel](https://github.com/benchristel)! - Internal: use 'require' instead of 'import' in test script so it will work on more platforms
+
+-   [#2434](https://github.com/Khan/perseus/pull/2434) [`28c395f8e`](https://github.com/Khan/perseus/commit/28c395f8e0a7f9c11b85fd42ce854fcb931a3b89) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add tests verifying that NumberLine widgets work with answerless data
+
+*   [#2403](https://github.com/Khan/perseus/pull/2403) [`bfa5ce68a`](https://github.com/Khan/perseus/commit/bfa5ce68a2c7854261f3f49822fdc159fca07993) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add tests to ensure Perseus JSON parsers are idempotent
+
+-   [#2439](https://github.com/Khan/perseus/pull/2439) [`1b773e2a0`](https://github.com/Khan/perseus/commit/1b773e2a0bff73072515649027066d498d33a931) Thanks [@benchristel](https://github.com/benchristel)! - The Perseus JSON parser now accepts cross-realm objects.
+
+*   [#2438](https://github.com/Khan/perseus/pull/2438) [`3f32593c9`](https://github.com/Khan/perseus/commit/3f32593c9dd46140b4d8891d50e34f97e751783f) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add a linter to prevent accidental mutation of object and array values
+
+*   Updated dependencies [[`e7807485e`](https://github.com/Khan/perseus/commit/e7807485e0d33621efa4468933e6c77ce9a53def), [`3f32593c9`](https://github.com/Khan/perseus/commit/3f32593c9dd46140b4d8891d50e34f97e751783f)]:
+    -   @khanacademy/kas@2.0.3
+    -   @khanacademy/perseus-utils@2.0.2
+
 ## 9.0.0
 
 ### Major Changes

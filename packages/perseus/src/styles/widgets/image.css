@@ -1,0 +1,49 @@
+.perseus-image-widget .perseus-image-title {
+    text-align: center;
+}
+.perseus-image-widget .perseus-image-caption {
+    color: rgba(33, 36, 44, 0.7);
+    padding-left: 16px;
+    position: relative;
+}
+.perseus-image-widget .perseus-image-caption::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin-left: 4px;
+    width: 1px;
+    background-color: rgba(33, 36, 44, 0.5);
+    border: 1px solid rgba(33, 36, 44, 0.5);
+    border-radius: 2px;
+}
+.perseus-image-widget .perseus-image-caption .paragraph {
+    font-size: 14px;
+    padding-right: 12px;
+}
+.perseus-image-editor .label-settings td {
+    padding: 5px 4px;
+    text-align: center;
+}
+.perseus-image-editor .label-settings tr:nth-child(odd) td {
+    background-color: transparent;
+}
+.perseus-image-editor .label-settings th,
+.perseus-image-editor .label-settings td {
+    border-width: 0;
+}
+.perseus-image-editor .image-settings,
+.perseus-image-editor .graph-settings {
+    margin-top: 5px;
+}
+.perseus-image-widget {
+    margin-inline-start: auto;
+    margin-inline-end: auto;
+}
+.perseus-hint-renderer .perseus-image-widget {
+    margin-inline-start: 0;
+}
+.perseus-hint-renderer .svg-image {
+    margin-inline-start: 0;
+}

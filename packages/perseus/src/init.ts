@@ -1,3 +1,5 @@
+import {registerCoreWidgets} from "@khanacademy/perseus-core";
+
 import basicWidgets from "./basic-widgets";
 import extraWidgets from "./extra-widgets";
 import * as Widgets from "./widgets";
@@ -8,9 +10,10 @@ import * as Widgets from "./widgets";
  * call it multiple times.
  */
 const init = function () {
+    registerCoreWidgets();
+
     Widgets.registerWidgets(basicWidgets);
     Widgets.registerWidgets(extraWidgets);
-
     Widgets.replaceDeprecatedWidgets();
 };
 

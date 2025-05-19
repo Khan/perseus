@@ -1,0 +1,71 @@
+.draggy-boxy-thing .draggable-box,
+.draggy-boxy-thing .cards-area {
+    background: #eee;
+    border: 1px solid #ccc;
+    border-bottom: 1px solid #aaa;
+    box-shadow: 0 1px 2px #ccc;
+}
+.draggy-boxy-thing .card {
+    background-color: #fff;
+    border: 1px solid #b9b9b9;
+    border-bottom-color: #939393;
+    border-radius: 4px;
+    cursor: pointer;
+    touch-action: none;
+}
+.draggy-boxy-thing .card.placeholder {
+    background: #ddd;
+    border: 1px solid #ccc;
+}
+.draggy-boxy-thing .card.drag-hint {
+    background: none;
+    border: 1px dashed #aaa;
+    cursor: auto;
+}
+.draggy-boxy-thing .card.drag-hint:hover {
+    border-color: #aaa;
+    box-shadow: none;
+}
+.draggy-boxy-thing .card.dragging {
+    background-color: #ffedcd;
+    opacity: 0.8;
+    filter: opacity(0.8);
+}
+.draggy-boxy-thing .card.stack {
+    z-index: auto;
+}
+.draggy-boxy-thing .card.stack:after {
+    content: " ";
+    background-color: #fff;
+    border: 1px solid #b9b9b9;
+    border-bottom-color: #939393;
+    border-radius: 4px;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    top: 1px;
+    left: 1px;
+    position: absolute;
+}
+.draggy-boxy-thing .card:hover {
+    border-color: #ffa500;
+    box-shadow: 0 0 4px #c78100;
+}
+.perseus-sortable div.paragraph {
+    margin: 0;
+}
+.perseus-sortable .perseus-sortable-draggable:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+.perseus-sortable .perseus-sortable-draggable > div {
+    display: inline-block;
+    font-size: 14px;
+    max-width: 100%;
+    vertical-align: middle;
+}
+.perseus-sortable .perseus-sortable-draggable-unpadded img {
+    vertical-align: bottom;
+}
