@@ -6,13 +6,11 @@ import {
     PerseusMarkdown,
     Util,
     Widgets,
-    widgets,
 } from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     Errors,
     PerseusError,
-    isAccessible,
 } from "@khanacademy/perseus-core";
 import $ from "jquery";
 import katex from "katex";
@@ -28,10 +26,8 @@ import _ from "underscore";
 import DragTarget from "./components/drag-target";
 import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
-import {WARNINGS} from "./messages";
 import TexErrorView from "./tex-error-view";
 
-import type {Issue} from "./issues-panel";
 import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
 import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
@@ -132,8 +128,6 @@ type Props = Readonly<{
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
     onChange: ChangeHandler;
-    onAddWarning?: (warning: Issue) => void;
-    onRemoveWarning?: (warningId: string) => void;
 }>;
 
 type DefaultProps = {
@@ -181,7 +175,6 @@ class Editor extends React.Component<Props, State> {
         textAreaValue: this.props.content,
     };
 
-    _prevWidgetIds: string[] = [];
     componentDidMount() {
         // See componentDidUpdate() for how this flag is used
         this.lastUserValue = null;
@@ -745,47 +738,6 @@ class Editor extends React.Component<Props, State> {
         textarea.focus();
     };
 
-    // Tracks previous widget IDs to diff out removals and keep the Issues Panel in sync
-    _checkAccessibilityAndWarn(currentWidgetIds: string[]) {
-        const prevWidgetIds = this._prevWidgetIds;
-
-        // Find deleted widgets
-        const removedWidgets = prevWidgetIds.filter(
-            (id) => !currentWidgetIds.includes(id),
-        );
-
-        // Remove warnings for deleted widgets
-        removedWidgets.forEach((id) => {
-            const warningId = `${id} inaccessible`;
-
-            if (this.props.onRemoveWarning) {
-                this.props.onRemoveWarning(warningId);
-            }
-        });
-
-        // Check currentl widgets for accessibility
-        currentWidgetIds.forEach((id) => {
-            const widgetInfo = this.props.widgets[id];
-
-            const widgetType = widgetInfo?.type;
-            const widgetLogic = widgets.find((widget) => {
-                return widget.name === widgetType;
-            });
-
-            const widgetAccessibility = isAccessible(widgetInfo, widgetLogic);
-
-            if (!widgetAccessibility && this.props.onAddWarning) {
-                const warning = {
-                    ...WARNINGS.inaccessibleWidget(widgetType),
-                    id: `${id} inaccessible`,
-                };
-                this.props.onAddWarning(warning);
-            }
-        });
-        // Update previous widgets AFTER processing everything
-        this._prevWidgetIds = currentWidgetIds;
-    }
-
     addTemplate: (e: React.SyntheticEvent<HTMLSelectElement>) => void = (
         e: React.SyntheticEvent<HTMLSelectElement>,
     ) => {
@@ -1033,10 +985,6 @@ class Editor extends React.Component<Props, State> {
 
             this.widgetIds = _.keys(widgets);
             widgetsDropDown = <WidgetSelect onChange={this._addWidget} />;
-
-            // Iterate through all rendered widgets and trigger a warning
-            // in the issues panel for any widget marked as inaccessible.
-            this._checkAccessibilityAndWarn(this.widgetIds);
 
             const insertTemplateString = "Insert template\u2026";
             templatesDropDown = (
