@@ -159,7 +159,9 @@ export class LabelImage
         const bl = {x: 20, y: 100} as const;
         const cp = {x: 50, y: 50} as const;
 
-        type Side = "top" | "right" | "bottom" | "left";
+        const sides = ["top", "right", "bottom", "left"] as const;
+
+        type Side = (typeof sides)[number];
 
         // The triangles representing the sides to test.
         const triangles: Record<Side, [Point, Point, Point]> = {
@@ -173,17 +175,10 @@ export class LabelImage
 
         // Test whether marker is positioned within one of the triangles
         // representing the sides.
-        for (const side of Object.keys(triangles) as Side[]) {
+        for (const side of sides) {
             const corners = triangles[side];
 
-            if (
-                LabelImage.pointInTriangle(
-                    p,
-                    corners[0],
-                    corners[1],
-                    corners[2],
-                )
-            ) {
+            if (LabelImage.pointInTriangle(p, ...corners)) {
                 return side;
             }
         }
