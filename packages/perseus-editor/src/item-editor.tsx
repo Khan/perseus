@@ -41,6 +41,7 @@ type Props = {
 type State = {
     issues: Issue[];
 };
+
 class ItemEditor extends React.Component<Props, State> {
     static defaultProps: {
         answerArea: Record<any, any>;
@@ -136,25 +137,6 @@ class ItemEditor extends React.Component<Props, State> {
         };
     };
 
-    handleAddWarning = (warning: Issue) => {
-        this.setState((prevState) => {
-            const alreadyExists = prevState.warnings.some(
-                (w) => w.id === warning.id,
-            );
-            return alreadyExists
-                ? null // No need to update state if the warning already exists
-                : {warnings: [...prevState.warnings, warning]};
-        });
-    };
-
-    handleRemoveWarning = (warningId: string) => {
-        this.setState((prevState) => {
-            return {
-                warnings: prevState.warnings.filter((w) => w.id !== warningId),
-            };
-        });
-    };
-
     render(): React.ReactNode {
         const isMobile =
             this.props.deviceType === "phone" ||
@@ -179,8 +161,6 @@ class ItemEditor extends React.Component<Props, State> {
                             apiOptions={this.props.apiOptions}
                             showWordCount={true}
                             widgetIsOpen={this.props.widgetIsOpen}
-                            onAddWarning={this.handleAddWarning}
-                            onRemoveWarning={this.handleRemoveWarning}
                             {...this.props.question}
                         />
                     </div>
