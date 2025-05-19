@@ -18,7 +18,7 @@ export const WARNINGS = {
         help: "Learn more about best practices for authoring items",
         helpUrl:
             "https://docs.google.com/document/d/1N13f4sY-7EXWDwQ04ivA9vJBVvPPd60qjBT73B4NHuM/edit?tab=t.0",
-        impact: "medium",
+        impact: "low",
         message: message,
     }),
 };

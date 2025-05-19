@@ -58,7 +58,7 @@ function LockedFigureAria(props: Props) {
             <Strut size={spacing.xxSmall_6} />
             <TextArea
                 id={ariaLabelId}
-                value={loading ? "Loading..." : ariaLabel ?? ""}
+                value={loading ? "Loading..." : (ariaLabel ?? "")}
                 onChange={(newValue) => {
                     onChangeProps({
                         // Save as undefined if the field is empty.

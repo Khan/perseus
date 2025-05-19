@@ -2,7 +2,7 @@ import Rule from "./rule";
 import AllRules from "./rules/all-rules";
 import TreeTransformer from "./tree-transformer";
 
-import type {LinterWarning, RuleCheckReturnType} from "./rule";
+import type {LinterWarning} from "./rule";
 
 export const allLintRules: ReadonlyArray<any> = AllRules.filter(
     (r) => r.severity < Rule.Severity.BULK_WARNING,

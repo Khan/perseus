@@ -30,7 +30,7 @@ describe("IssuesPanel", () => {
 
         // Assert that the icon is passing icon
         const icon = screen.getByTestId("issues-icon-check-circle-fill.svg");
-        expect(icon).toBeInTheDocument();
+        expect(icon).toBeVisible();
 
         // Assert that no warning icon is shown when there are 0 issues
         const warningIcon = screen.queryByTestId(
@@ -48,7 +48,7 @@ describe("IssuesPanel", () => {
 
         // Assert that the icon is warning icon
         const icon = screen.getByTestId("issues-icon-warning-fill.svg");
-        expect(icon).toBeInTheDocument();
+        expect(icon).toBeVisible();
 
         // Assert that the passing icon is not in the document
         const passingIcon = screen.queryByTestId(
@@ -68,7 +68,7 @@ describe("IssuesPanel", () => {
 
         // Assert that the icon is warning icon
         const icon = screen.getByTestId("issues-icon-warning-fill.svg");
-        expect(icon).toBeInTheDocument();
+        expect(icon).toBeVisible();
 
         // Assert that the passing icon is not in the document
         const passingIcon = screen.queryByTestId(

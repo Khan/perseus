@@ -31,11 +31,11 @@ import sorterWidgetLogic from "./sorter";
 import tableWidgetLogic from "./table";
 import videoWidgetLogic from "./video";
 
-import type {PerseusWidgetOptions} from "../data-schema";
 import type {
     PublicWidgetOptionsFunction,
     WidgetLogic,
 } from "./logic-export.types";
+import type {PerseusWidgetOptions} from "../data-schema";
 import type {Alignment} from "../types";
 
 const widgets: Record<string, WidgetLogic> = {};
@@ -46,8 +46,7 @@ function registerWidget(type: string, logic: WidgetLogic) {
 
 export function isWidgetRegistered(type: string) {
     const widgetLogic = widgets[type];
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    return !!widgetLogic;
+    return Boolean(widgetLogic);
 }
 
 export function getCurrentVersion(type: string) {

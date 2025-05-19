@@ -17,7 +17,10 @@ import type {
     ChangeHandler,
     DeviceType,
 } from "@khanacademy/perseus";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    PerseusRenderer,
+    PerseusWidgetsMap,
+} from "@khanacademy/perseus-core";
 
 const ITEM_DATA_VERSION = itemDataVersion;
 
@@ -53,7 +56,7 @@ class ItemEditor extends React.Component<Props, State> {
         answerArea: {},
     };
     static prevContent: string | undefined;
-    static prevWidgets: any;
+    static prevWidgets: PerseusWidgetsMap | undefined;
 
     frame = React.createRef<IframeContentRenderer>();
     questionEditor = React.createRef<Editor>();
