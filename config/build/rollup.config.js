@@ -163,7 +163,7 @@ const createConfig = (
                 },
                 modules: {
                     localsConvention: "camelCase",
-                    auto: /\.module\.css$/,
+                    // auto: /\.module\.css$/,
                     localIdentName: "perseus_[sha256:hash:base64:8]",
                 },
             }),
