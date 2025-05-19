@@ -1,5 +1,3 @@
-import type {PerseusWidgetOptions, Version} from "../data-schema";
-import type {Alignment} from "../types";
 import type getCategorizerPublicWidgetOptions from "./categorizer/categorizer-util";
 import type getCSProgramPublicWidgetOptions from "./cs-program/cs-program-util";
 import type getDropdownPublicWidgetOptions from "./dropdown/dropdown-util";
@@ -17,6 +15,8 @@ import type getPlotterPublicWidgetOptions from "./plotter/plotter-util";
 import type getRadioPublicWidgetOptions from "./radio/radio-util";
 import type getSorterPublicWidgetOptions from "./sorter/sorter-util";
 import type getTablePublicWidgetOptions from "./table/table-util";
+import type {PerseusWidgetOptions, Version} from "../data-schema";
+import type {Alignment} from "../types";
 
 export type WidgetOptionsUpgradeMap = {
     // OldProps => NewProps,
