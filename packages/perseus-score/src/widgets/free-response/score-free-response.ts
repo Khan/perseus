@@ -1,3 +1,5 @@
+import scoreNoop from "../../util/score-noop";
+
 import type {
     PerseusFreeResponseUserInput,
     PerseusFreeResponseRubric,
@@ -9,15 +11,11 @@ function scoreFreeResponse(
     rubric: PerseusFreeResponseRubric,
     locale: string,
 ): PerseusScore {
-    // TODO: Implement support for external scoring. Since the user's input is
-    //       free text input, we can't easily do scoring inside the widget, so
-    //       we'll need to have a way to do it by some other method. For now,
-    //       we'll just always give full credit.
-    return {
-        type: "points",
-        earned: 1,
-        total: 1,
-    };
+    // TODO(AX-961): Implement support for external scoring. Since the user's
+    //     input is free text input, we can't easily do scoring inside the
+    //     widget, so we'll need to have a way to do it by some other method.
+    //     For now, we'll just always give full credit.
+    return scoreNoop();
 }
 
 export default scoreFreeResponse;

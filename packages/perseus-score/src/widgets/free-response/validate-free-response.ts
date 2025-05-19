@@ -1,3 +1,5 @@
+import ErrorCodes from "../../error-codes";
+
 import type {
     PerseusFreeResponseUserInput,
     ValidationResult,
@@ -11,7 +13,10 @@ function validateFreeResponse(
     userInput: PerseusFreeResponseUserInput,
 ): ValidationResult {
     if (userInput.currentValue.trim() === "") {
-        return {type: "invalid", message: "The answer cannot be empty."};
+        return {
+            type: "invalid",
+            message: ErrorCodes.USER_INPUT_EMPTY,
+        };
     }
 
     return null;
