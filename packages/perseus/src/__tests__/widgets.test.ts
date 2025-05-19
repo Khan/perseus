@@ -1,11 +1,105 @@
-import {testDependencies} from "../../../../testing/test-dependencies";
-import * as Dependencies from "../dependencies";
+import {mockStrings} from "../strings";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
+import {generateTestRadioWidget} from "../util/test-utils";
 import * as Widgets from "../widgets";
 
 describe("Widget API support", () => {
     beforeAll(() => {
         registerAllWidgetsForTesting();
+    });
+
+    describe("replaceWidget", () => {
+        it("replaces an existing widget", () => {
+            Widgets.replaceWidget("transformer", "radio");
+            expect(Widgets.getWidget("transformer")?.name).toBe("Radio");
+        });
+
+        it("Throws when the replacement isn't available", () => {
+            expect(() => Widgets.replaceWidget("radio", "dog-cat")).toThrow();
+        });
+    });
+
+    describe("getTransform", () => {
+        it("returns null for unknown widget types", () => {
+            // Coolbeans is not a real widget sadly
+            expect(Widgets.getWidget("coolbeans")).toBe(null);
+        });
+
+        it("returns a transform function when widgets provide one", () => {
+            const widgetOptions = generateTestRadioWidget().options;
+            // Radio provides a `transform` function
+            const transform = Widgets.getTransform("radio");
+            expect(transform?.(widgetOptions, mockStrings)).not.toEqual(
+                widgetOptions,
+            );
+        });
+
+        it("returns an identity function when widgets don't provide a transform", () => {
+            const widgetOptions = {cool: "beans"};
+            // Group does not provide a `transform` function
+            const transform = Widgets.getTransform("group");
+            expect(transform?.(widgetOptions, mockStrings)).toEqual(
+                widgetOptions,
+            );
+        });
+    });
+
+    describe("getVersionVector", () => {
+        it("creates a map of all widget versions", () => {
+            expect(Widgets.getVersionVector()).toEqual(
+                // skipping the 0.0 widgets for brevity
+                expect.objectContaining({
+                    expression: {
+                        major: 2,
+                        minor: 0,
+                    },
+                    measurer: {
+                        major: 1,
+                        minor: 0,
+                    },
+                    "passage-ref": {
+                        major: 0,
+                        minor: 1,
+                    },
+                    radio: {
+                        major: 2,
+                        minor: 0,
+                    },
+                    transformer: {
+                        major: 2,
+                        minor: 0,
+                    },
+                }),
+            );
+        });
+
+        it("defaults to 0.0 for widgets without a version", () => {
+            expect(Widgets.getVersionVector()).toEqual(
+                expect.objectContaining({
+                    "numeric-input": {
+                        major: 0,
+                        minor: 0,
+                    },
+                }),
+            );
+        });
+    });
+
+    describe("getPublicWidgets", () => {
+        it("gets a widget exports for all public widgets", () => {
+            expect(Widgets.getPublicWidgets()).toEqual(
+                expect.objectContaining({
+                    radio: expect.objectContaining({
+                        displayName: "Radio / Multiple choice",
+                        name: "radio",
+                    }),
+                }),
+            );
+        });
+
+        it("does not list hidden widgets", () => {
+            expect(Widgets.getPublicWidgets().grapher).toBe(undefined);
+        });
     });
 
     // This list is mirrored in Khan Academy's webapp for the coach reports.
@@ -174,23 +268,5 @@ describe("Widget API support", () => {
         } else {
             throw new Error("Widget does not have getUserInputFromProps");
         }
-    });
-});
-
-describe("replaceWidget", () => {
-    beforeEach(() => {
-        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-            testDependencies,
-        );
-        registerAllWidgetsForTesting();
-    });
-
-    it("replaces an existing widget", () => {
-        Widgets.replaceWidget("transformer", "radio");
-        expect(Widgets.getWidget("transformer")?.name).toBe("Radio");
-    });
-
-    it("Throws when the replacement isn't available", () => {
-        expect(() => Widgets.replaceWidget("radio", "dog-cat")).toThrow();
     });
 });

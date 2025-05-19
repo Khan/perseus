@@ -1,4 +1,4 @@
-import {PerseusMarkdown, itemDataVersion} from "@khanacademy/perseus";
+import {PerseusMarkdown} from "@khanacademy/perseus";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import * as React from "react";
 import _ from "underscore";
@@ -18,21 +18,18 @@ import type {
     DeviceType,
 } from "@khanacademy/perseus";
 import type {
-    PerseusRenderer,
+    PerseusAnswerArea,
     PerseusWidgetsMap,
+    PerseusRenderer,
 } from "@khanacademy/perseus-core";
-
-const ITEM_DATA_VERSION = itemDataVersion;
 
 type Props = {
     apiOptions?: APIOptions;
     deviceType?: DeviceType;
     widgetIsOpen?: boolean;
-    gradeMessage?: string;
     imageUploader?: ImageUploader;
-    wasAnswered?: boolean;
     question?: PerseusRenderer;
-    answerArea?: any;
+    answerArea?: PerseusAnswerArea | null;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
     onChange: ChangeHandler;
@@ -121,9 +118,9 @@ class ItemEditor extends React.Component<Props, State> {
         this.updateProps({question}, cb, silent);
     };
 
-    handleItemExtrasChange: ChangeHandler = (newProps, cb, silent) => {
+    handleItemExtrasChange = (newProps: Partial<PerseusAnswerArea>) => {
         const answerArea = _.extend({}, this.props.answerArea, newProps);
-        this.updateProps({answerArea}, cb, silent);
+        this.updateProps({answerArea}, () => {}, true);
     };
 
     getSaveWarnings: () => any = () => {
@@ -131,17 +128,12 @@ class ItemEditor extends React.Component<Props, State> {
     };
 
     serialize: (options?: any) => {
-        answerArea: any;
-        itemDataVersion: {
-            major: number;
-            minor: number;
-        };
+        answerArea: PerseusAnswerArea | undefined;
         question: any;
     } = (options: any) => {
         return {
             question: this.questionEditor.current?.serialize(options),
             answerArea: this.itemExtrasEditor.current?.serialize(),
-            itemDataVersion: ITEM_DATA_VERSION,
         };
     };
 

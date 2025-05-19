@@ -1,5 +1,6 @@
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {
     absoluteValueQuestion,
@@ -62,5 +63,12 @@ export const ComplexQuestion: Story = {
         item: generateTestPerseusItem({
             question: multipleAvailableTypesQuestion,
         }),
+    },
+};
+
+export const AnswerlessQuestion: Story = {
+    args: {
+        item: generateTestPerseusItem({question: absoluteValueQuestion}),
+        startAnswerless: true,
     },
 };

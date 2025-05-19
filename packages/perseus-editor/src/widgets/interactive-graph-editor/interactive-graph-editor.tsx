@@ -177,6 +177,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
     } = {
         ...interactiveGraphLogic.defaultWidgetOptions,
         valid: true,
+        lockedFigures: [],
     };
 
     changeStartCoords = (coords) => {
@@ -524,7 +525,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                             const updates = {
                                                 numSides:
                                                     parsePointCount(newValue),
-                                                coords: null,
+                                                coords: undefined,
                                                 startCoords: undefined,
                                                 // reset the snap for UNLIMITED, which
                                                 // only supports "grid"
@@ -869,6 +870,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                                         this.props.correct.match || "exact"
                                     }
                                     onChange={(newValue) => {
+                                        invariant(
+                                            this.props.correct.type === "angle",
+                                            `Expected graph type to be angle, but got ${this.props.correct.type}`,
+                                        );
                                         this.props.onChange({
                                             correct: {
                                                 ...this.props.correct,

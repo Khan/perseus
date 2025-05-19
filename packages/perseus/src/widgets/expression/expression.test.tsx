@@ -1,9 +1,7 @@
 import {it, describe, beforeEach} from "@jest/globals";
 import {
-    type PerseusItem,
-    type PerseusExpressionWidgetOptions,
-    type PerseusRenderer,
     splitPerseusItem,
+    generateTestPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {act, screen, waitFor} from "@testing-library/react";
@@ -26,6 +24,12 @@ import {
     expressionItemWithLabels,
 } from "./expression.testdata";
 
+import type {
+    PerseusItem,
+    PerseusExpressionWidgetOptions,
+    PerseusRenderer,
+    PerseusExpressionRubric,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const renderAndAnswer = async (
@@ -277,12 +281,10 @@ describe("Expression Widget", function () {
 
         it("should return undefined if rubric.value is null/undefined", () => {
             // Arrange
-            const rubric = {
+            const rubric: PerseusExpressionRubric = {
                 answerForms: [],
-                buttonSets: [],
                 functions: [],
-                times: true,
-            } as const;
+            };
 
             // Act
             const result =
@@ -294,7 +296,7 @@ describe("Expression Widget", function () {
 
         it("returns a correct answer when there is one correct answer", () => {
             // Arrange
-            const rubric = {
+            const rubric: PerseusExpressionRubric = {
                 answerForms: [
                     {
                         value: "123",
@@ -303,10 +305,8 @@ describe("Expression Widget", function () {
                         considered: "correct",
                     },
                 ],
-                buttonSets: [],
                 functions: [],
-                times: true,
-            } as const;
+            };
 
             // Act
             const result =
@@ -318,7 +318,7 @@ describe("Expression Widget", function () {
 
         it("returns the first correct answer when there are multiple correct answers", () => {
             // Arrange
-            const rubric = {
+            const rubric: PerseusExpressionRubric = {
                 answerForms: [
                     {
                         value: "123",
@@ -333,10 +333,8 @@ describe("Expression Widget", function () {
                         considered: "correct",
                     },
                 ],
-                buttonSets: [],
                 functions: [],
-                times: true,
-            } as const;
+            };
 
             // Act
             const result =
@@ -665,8 +663,8 @@ describe("Expression Widget", function () {
             ) as jest.Mock;
         });
 
-        function getFullItem(): PerseusRenderer {
-            return {
+        function getFullItem(): PerseusItem {
+            const question: PerseusRenderer = {
                 content: "[[☃ expression 1]]",
                 images: {},
                 widgets: {
@@ -690,9 +688,11 @@ describe("Expression Widget", function () {
                     },
                 },
             };
+
+            return generateTestPerseusItem({question});
         }
 
-        function getSplitItem(): PerseusRenderer {
+        function getSplitItem(): PerseusItem {
             return splitPerseusItem(getFullItem());
         }
 
@@ -703,7 +703,7 @@ describe("Expression Widget", function () {
             "is interactive with widget options: $optionsMode",
             async ({renderItem}) => {
                 // Act
-                const {renderer} = renderQuestion(renderItem);
+                const {renderer} = renderQuestion(renderItem.question);
 
                 await userEvent.click(
                     screen.getByRole("button", {name: "open math keypad"}),
@@ -716,7 +716,11 @@ describe("Expression Widget", function () {
                 act(() => jest.runOnlyPendingTimers());
 
                 const userInput = renderer.getUserInputMap();
-                const score = scorePerseusItem(getFullItem(), userInput, "en");
+                const score = scorePerseusItem(
+                    getFullItem().question,
+                    userInput,
+                    "en",
+                );
 
                 // Assert
                 expect(score).toHaveBeenAnsweredCorrectly();

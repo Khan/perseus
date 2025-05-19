@@ -1,7 +1,7 @@
 import {
     any,
     pair,
-    isObject,
+    isPlainObject,
     string,
     object,
     constant,
@@ -49,7 +49,7 @@ import type {
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
-    if (!isObject(rawValue)) {
+    if (!isPlainObject(rawValue)) {
         return ctx.failure("PerseusWidgetsMap", rawValue);
     }
 

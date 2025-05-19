@@ -28,13 +28,13 @@ export type RenderProps = {
     multipleSelect?: boolean;
     countChoices?: boolean;
     deselectEnabled?: boolean;
-    choices: ReadonlyArray<RadioChoiceWithMetadata>;
-    selectedChoices: ReadonlyArray<PerseusRadioChoice["correct"]>;
+    choices: RadioChoiceWithMetadata[];
+    selectedChoices: PerseusRadioChoice["correct"][];
     showSolutions?: ShowSolutions;
-    choiceStates?: ReadonlyArray<ChoiceState>;
+    choiceStates?: ChoiceState[];
     // Depreciated; support for legacy way of handling changes
     // Adds proptype for prop that is used but was lacking type
-    values?: ReadonlyArray<boolean>;
+    values?: boolean[];
 };
 
 type Props = WidgetProps<RenderProps, PerseusRadioRubric>;
@@ -195,7 +195,7 @@ class Radio extends React.Component<Props> implements Widget {
         return false;
     }
 
-    // lets BaseRadio regiser a focus callback so widget
+    // lets BaseRadio register a focus callback so widget
     // can focus an individual choice
     registerFocusFunction(fun: FocusFunction): void {
         this.focusFunction = fun;

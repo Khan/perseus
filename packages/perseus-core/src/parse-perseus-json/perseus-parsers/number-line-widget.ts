@@ -9,27 +9,28 @@ import {
     nullable,
     pipeParsers,
     union,
+    enumeration,
 } from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
-import type {NumberLineWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
 const emptyStringToNull = pipeParsers(constant("")).then(
     convert(() => null),
 ).parser;
 
-export const parseNumberLineWidget: Parser<NumberLineWidget> = parseWidget(
+export const parseNumberLineWidget = parseWidget(
     constant("number-line"),
     object({
+        // TODO(LEMS-3081): change `range` to `pair(number, number)` and update the related types
+        // in data-schema.ts and number-line.tsx.
         range: array(number),
         labelRange: array(nullable(union(number).or(emptyStringToNull).parser)),
         labelStyle: string,
         labelTicks: boolean,
         isTickCtrl: optional(nullable(boolean)),
+        isInequality: defaulted(boolean, () => false),
         divisionRange: array(number),
         numDivisions: optional(nullable(number)),
         // NOTE(benchristel): I copied the default snapDivisions from
@@ -37,7 +38,11 @@ export const parseNumberLineWidget: Parser<NumberLineWidget> = parseWidget(
         // an explanation of why we want to duplicate the default here.
         snapDivisions: defaulted(number, () => 2),
         tickStep: optional(nullable(number)),
-        correctRel: optional(nullable(string)),
+        correctRel: defaulted(
+            optional(enumeration("eq", "lt", "gt", "le", "ge")),
+            // Convert null to undefined:
+            () => undefined,
+        ),
         correctX: nullable(number),
         initialX: optional(nullable(number)),
         showTooltips: optional(boolean),

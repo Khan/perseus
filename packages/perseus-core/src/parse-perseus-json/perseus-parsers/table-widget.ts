@@ -8,10 +8,7 @@ import {
 
 import {parseWidget} from "./widget";
 
-import type {TableWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parseTableWidget: Parser<TableWidget> = parseWidget(
+export const parseTableWidget = parseWidget(
     constant("table"),
     object({
         headers: array(string),

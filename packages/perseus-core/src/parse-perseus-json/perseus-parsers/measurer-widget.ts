@@ -11,10 +11,7 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 import {parsePerseusImageBackground} from "./perseus-image-background";
 import {parseWidget} from "./widget";
 
-import type {MeasurerWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
-export const parseMeasurerWidget: Parser<MeasurerWidget> = parseWidget(
+export const parseMeasurerWidget = parseWidget(
     constant("measurer"),
     object({
         // The default value for image comes from measurer.tsx.
@@ -32,7 +29,5 @@ export const parseMeasurerWidget: Parser<MeasurerWidget> = parseWidget(
         rulerPixels: number,
         rulerLength: number,
         box: pair(number, number),
-        // TODO(benchristel): static is not used. Remove it?
-        static: defaulted(boolean, () => false),
     }),
 );

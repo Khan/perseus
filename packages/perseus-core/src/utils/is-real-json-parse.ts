@@ -17,7 +17,6 @@ export function isRealJSONParse(jsonParse: typeof JSON.parse): boolean {
             zTable: false,
         },
         hints: [randomHintPhrase, `=${Math.floor(Math.random() * 50) + 1}`],
-        itemDataVersion: {major: 0, minor: 1},
         question: {
             content: `${randomPhrase}`,
             images: {},

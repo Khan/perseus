@@ -14,15 +14,12 @@ import {stringToNumber} from "../general-purpose-parsers/string-to-number";
 
 import {parseWidget} from "./widget";
 
-import type {MatrixWidget} from "../../data-schema";
-import type {Parser} from "../parser-types";
-
 const numberOrString = union(number).or(string).parser;
 const numeric = pipeParsers(defaulted(numberOrString, () => NaN)).then(
     stringToNumber,
 ).parser;
 
-export const parseMatrixWidget: Parser<MatrixWidget> = parseWidget(
+export const parseMatrixWidget = parseWidget(
     defaulted(constant("matrix"), () => "matrix"),
     object({
         prefix: optional(string),

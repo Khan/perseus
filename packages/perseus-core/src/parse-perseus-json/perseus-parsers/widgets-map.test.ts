@@ -230,6 +230,7 @@ describe("parseWidgetsMap", () => {
                     ],
                     graph: {type: "none"},
                     correct: {type: "none"},
+                    lockedFigures: [],
                 },
             },
         };
@@ -532,6 +533,7 @@ describe("parseWidgetsMap", () => {
                     labelRange: [],
                     labelStyle: "",
                     labelTicks: false,
+                    isInequality: false,
                     divisionRange: [],
                     snapDivisions: 1,
                     correctX: 1,

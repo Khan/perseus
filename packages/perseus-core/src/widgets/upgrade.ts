@@ -77,8 +77,7 @@ export const upgradeWidgetInfoToLatestVersion = (
             nextVersion <= latestVersion.major;
             nextVersion++
         ) {
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            if (upgradePropsMap[String(nextVersion)]) {
+            if (upgradePropsMap[String(nextVersion)] != null) {
                 newEditorOptions =
                     upgradePropsMap[String(nextVersion)](newEditorOptions);
             } else {

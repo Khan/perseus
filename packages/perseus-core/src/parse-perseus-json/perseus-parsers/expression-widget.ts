@@ -19,16 +19,16 @@ import {parseLegacyButtonSets} from "./legacy-button-sets";
 import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
 
-import type {
-    ExpressionWidget,
-    PerseusExpressionAnswerForm,
-} from "../../data-schema";
-import type {ParsedValue, Parser} from "../parser-types";
+import type {ParsedValue} from "../parser-types";
 
 const stringOrNumberOrNullOrUndefined = union(string)
     .or(number)
     .or(constant(null))
     .or(constant(undefined)).parser;
+
+function numberOrNullToString(v: string | number | null | undefined) {
+    return typeof v === "number" || v === null ? String(v) : v;
+}
 
 const parsePossiblyInvalidAnswerForm = object({
     // `value` is the possibly invalid part of this. It should always be a
@@ -38,42 +38,40 @@ const parsePossiblyInvalidAnswerForm = object({
     form: defaulted(boolean, () => false),
     simplify: defaulted(boolean, () => false),
     considered: enumeration("correct", "wrong", "ungraded"),
-    key: pipeParsers(stringOrNumberOrNullOrUndefined).then(convert(String))
-        .parser,
+    key: pipeParsers(stringOrNumberOrNullOrUndefined).then(
+        convert(numberOrNullToString),
+    ).parser,
 });
 
 function removeInvalidAnswerForms(
     possiblyInvalid: Array<ParsedValue<typeof parsePossiblyInvalidAnswerForm>>,
-): PerseusExpressionAnswerForm[] {
-    const valid: PerseusExpressionAnswerForm[] = [];
-    for (const answerForm of possiblyInvalid) {
+) {
+    return possiblyInvalid.flatMap((answerForm) => {
         const {value} = answerForm;
         if (value != null) {
-            // Copying the object seems to be needed to make TypeScript happy
-            valid.push({...answerForm, value});
+            return [{...answerForm, value}];
         }
-    }
-    return valid;
+        return [];
+    });
 }
 
 const version2 = object({major: constant(2), minor: number});
-const parseExpressionWidgetV2: Parser<ExpressionWidget> =
-    parseWidgetWithVersion(
-        version2,
-        constant("expression"),
-        object({
-            answerForms: pipeParsers(
-                array(parsePossiblyInvalidAnswerForm),
-            ).then(convert(removeInvalidAnswerForms)).parser,
-            functions: array(string),
-            times: boolean,
-            visibleLabel: optional(string),
-            ariaLabel: optional(string),
-            buttonSets: parseLegacyButtonSets,
-            buttonsVisible: optional(enumeration("always", "never", "focused")),
-            extraKeys: array(enumeration(...KeypadKeys)),
-        }),
-    );
+const parseExpressionWidgetV2 = parseWidgetWithVersion(
+    version2,
+    constant("expression"),
+    object({
+        answerForms: pipeParsers(array(parsePossiblyInvalidAnswerForm)).then(
+            convert(removeInvalidAnswerForms),
+        ).parser,
+        functions: array(string),
+        times: boolean,
+        visibleLabel: optional(string),
+        ariaLabel: optional(string),
+        buttonSets: parseLegacyButtonSets,
+        buttonsVisible: optional(enumeration("always", "never", "focused")),
+        extraKeys: optional(array(enumeration(...KeypadKeys))),
+    }),
+);
 
 const version1 = object({major: constant(1), minor: number});
 const parseExpressionWidgetV1 = parseWidgetWithVersion(
@@ -94,7 +92,7 @@ const parseExpressionWidgetV1 = parseWidgetWithVersion(
 
 function migrateV1ToV2(
     widget: ParsedValue<typeof parseExpressionWidgetV1>,
-): ExpressionWidget {
+): ParsedValue<typeof parseExpressionWidgetV2> {
     const {options} = widget;
     return {
         ...widget,
@@ -107,7 +105,7 @@ function migrateV1ToV2(
             visibleLabel: options.visibleLabel,
             ariaLabel: options.ariaLabel,
             answerForms: options.answerForms,
-            extraKeys: deriveExtraKeys(options),
+            extraKeys: deriveExtraKeys(options) ?? [],
         },
     };
 }
@@ -156,7 +154,9 @@ function migrateV0ToV1(
     };
 }
 
-export const parseExpressionWidget: Parser<ExpressionWidget> =
-    versionedWidgetOptions(2, parseExpressionWidgetV2)
-        .withMigrationFrom(1, parseExpressionWidgetV1, migrateV1ToV2)
-        .withMigrationFrom(0, parseExpressionWidgetV0, migrateV0ToV1).parser;
+export const parseExpressionWidget = versionedWidgetOptions(
+    2,
+    parseExpressionWidgetV2,
+)
+    .withMigrationFrom(1, parseExpressionWidgetV1, migrateV1ToV2)
+    .withMigrationFrom(0, parseExpressionWidgetV0, migrateV0ToV1).parser;

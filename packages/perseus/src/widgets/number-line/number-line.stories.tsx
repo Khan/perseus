@@ -1,5 +1,6 @@
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-import {generateTestPerseusItem} from "../../util/test-utils";
 
 import {question1, question2} from "./number-line.testdata";
 
@@ -22,5 +23,12 @@ export const BasicQuestion: Story = {
 export const ShowTickController: Story = {
     args: {
         item: generateTestPerseusItem({question: question2}),
+    },
+};
+
+export const WithAnswerlessData: Story = {
+    args: {
+        item: generateTestPerseusItem({question: question1}),
+        startAnswerless: true,
     },
 };

@@ -1,4 +1,4 @@
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Mafs} from "mafs";
 import * as React from "react";
@@ -315,7 +315,7 @@ describe("Circle graph screen reader", () => {
 
         // Act
         // move the radius point
-        radiusPoint.focus();
+        act(() => radiusPoint.focus());
         await userEvent.keyboard("{arrowright}");
 
         // Assert
@@ -333,12 +333,12 @@ describe("Circle graph screen reader", () => {
 
         // Act
         // move the radius point so that its aria-live is set to polite
-        radiusPoint.focus();
+        act(() => radiusPoint.focus());
         await userEvent.keyboard("{arrowright}");
         expect(radiusPoint).toHaveAttribute("aria-live", "polite");
 
         // move the circle
-        circleGraph.focus();
+        act(() => circleGraph.focus());
         await userEvent.keyboard("{arrowright}");
 
         // Assert

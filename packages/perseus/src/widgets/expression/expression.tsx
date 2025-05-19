@@ -69,7 +69,7 @@ type RenderProps = {
     keypadConfiguration: KeypadConfiguration;
 };
 
-type ExternalProps = WidgetProps<RenderProps, PerseusExpressionRubric>;
+type ExternalProps = WidgetProps<RenderProps>;
 
 type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -453,7 +453,7 @@ export default {
         return {
             keypadConfiguration: {
                 keypadType: "EXPRESSION",
-                extraKeys: extraKeys as ReadonlyArray<KeypadKey>,
+                extraKeys,
                 times,
             },
             times,

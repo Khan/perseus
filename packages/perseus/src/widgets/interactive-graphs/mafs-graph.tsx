@@ -62,7 +62,7 @@ import "./mafs-styles.css";
 export type MafsGraphProps = {
     box: [number, number];
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
-    lockedFigures?: InteractiveGraphProps["lockedFigures"];
+    lockedFigures: InteractiveGraphProps["lockedFigures"];
     step: InteractiveGraphProps["step"];
     gridStep: [x: number, y: number];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
@@ -275,12 +275,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                             // Note: Adding this in a wrapping View element
                             // so that `aria-hidden` is a valid property.
                             // It does not work on `Mafs` or svg elements.
-                            aria-hidden={
-                                props.lockedFigures &&
-                                props.lockedFigures.length > 0
-                                    ? false
-                                    : true
-                            }
+                            aria-hidden={props.lockedFigures.length === 0}
                         >
                             <Mafs
                                 preserveAspectRatio={false}
@@ -321,24 +316,19 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                     )
                                 }
                                 {/* Locked figures layer nested in SVG to lock to graph bounds*/}
-                                {props.lockedFigures &&
-                                    props.lockedFigures.length > 0 && (
-                                        <svg {...nestedSVGAttributes}>
-                                            <GraphLockedLayer
-                                                lockedFigures={
-                                                    props.lockedFigures
-                                                }
-                                                range={state.range}
-                                            />
-                                        </svg>
-                                    )}
+                                {props.lockedFigures.length > 0 && (
+                                    <svg {...nestedSVGAttributes}>
+                                        <GraphLockedLayer
+                                            lockedFigures={props.lockedFigures}
+                                            range={state.range}
+                                        />
+                                    </svg>
+                                )}
                             </Mafs>
                         </View>
-                        {props.lockedFigures && (
-                            <GraphLockedLabelsLayer
-                                lockedFigures={props.lockedFigures}
-                            />
-                        )}
+                        <GraphLockedLabelsLayer
+                            lockedFigures={props.lockedFigures}
+                        />
                         <View style={{position: "absolute"}}>
                             <Mafs
                                 preserveAspectRatio={false}

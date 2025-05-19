@@ -28,7 +28,23 @@ beforeEach(() => {
     stub.mockClear();
 });
 
-import type {RadioWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
+import type {
+    RadioWidget,
+    PerseusWidgetsMap,
+    PerseusRenderer,
+    MatcherWidget,
+    MatrixWidget,
+    NumberLineWidget,
+    LabelImageWidget,
+    DropdownWidget,
+    GrapherWidget,
+    SorterWidget,
+    PlotterWidget,
+    GroupWidget,
+    NumericInputWidget,
+    ExpressionWidget,
+    CategorizerWidget,
+} from "@khanacademy/perseus-core";
 
 describe("ExtractPerseusData", () => {
     describe("getAnswersFromWidgets", () => {
@@ -53,7 +69,7 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should get the answers from a radio widget with multiple correct answers", () => {
-            const widget = {
+            const widget: RadioWidget = {
                 type: "radio",
                 options: {
                     choices: [
@@ -71,13 +87,13 @@ describe("ExtractPerseusData", () => {
                         },
                     ],
                 },
-            } as const;
+            };
             const answer = getAnswersFromWidgets({"radio 1": widget});
             expect(answer).toEqual(["choice 1", "choice 2"]);
         });
 
         it("should get the answer from a categorizer widget", () => {
-            const widget = {
+            const widget: CategorizerWidget = {
                 type: "categorizer",
                 options: {
                     static: false,
@@ -86,7 +102,7 @@ describe("ExtractPerseusData", () => {
                     values: [0, 1, 0, 0],
                     randomizeItems: false,
                 },
-            } as const;
+            };
 
             const answer = getAnswersFromWidgets({"categorizer 1": widget});
             expect(answer).toMatchInlineSnapshot(`
@@ -113,7 +129,7 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should get the answer from an expression widget", () => {
-            const widget = {
+            const widget: ExpressionWidget = {
                 type: "expression",
                 options: {
                     answerForms: [
@@ -136,7 +152,7 @@ describe("ExtractPerseusData", () => {
                     functions: ["f", "g", "h"],
                     times: false,
                 },
-            } as const;
+            };
 
             const answer = getAnswersFromWidgets({"expression 1": widget});
             expect(answer).toMatchInlineSnapshot(`
@@ -148,7 +164,7 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should get the answer from a numeric-input widget", () => {
-            const widget = {
+            const widget: NumericInputWidget = {
                 type: "numeric-input",
                 options: {
                     answers: [
@@ -166,13 +182,13 @@ describe("ExtractPerseusData", () => {
                     coefficient: false,
                     static: false,
                 },
-            } as const;
+            };
             const answer = getAnswersFromWidgets({"numeric-input 1": widget});
             expect(answer).toEqual(["42"]);
         });
 
         it("should get the answers from a group widget", () => {
-            const widget = {
+            const widget: GroupWidget = {
                 type: "group",
                 options: {
                     content: "Answer the questions in the following widgets",
@@ -203,13 +219,13 @@ describe("ExtractPerseusData", () => {
                         },
                     },
                 },
-            } as const;
+            };
             const answer = getAnswersFromWidgets({"group 1": widget});
             expect(answer).toEqual(["choice 1", "42"]);
         });
 
         it("should get the answers from a plotter widget", () => {
-            const widget = {
+            const widget: PlotterWidget = {
                 type: "plotter",
                 graded: true,
                 options: {
@@ -234,7 +250,7 @@ describe("ExtractPerseusData", () => {
                     picBoxHeight: null,
                     plotDimensions: [],
                 },
-            } as const;
+            };
 
             const answer = getAnswersFromWidgets({"plotter 1": widget});
             expect(answer).toMatchInlineSnapshot(`
@@ -245,7 +261,7 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should get the answers from a grapher widget", () => {
-            const widget = {
+            const widget: GrapherWidget = {
                 type: "grapher",
                 options: {
                     correct: {
@@ -276,9 +292,8 @@ describe("ExtractPerseusData", () => {
                         showRuler: false,
                     },
                 },
-            } as const;
+            };
 
-            // @ts-expect-error - TS2322 - Type '{ readonly type: "grapher"; readonly options: { readonly correct: { readonly type: "quadratic"; readonly coords: readonly [readonly [-4, -1], readonly [-3, 0]]; }; readonly availableTypes: readonly ["quadratic"]; readonly graph: { readonly editableSettings: readonly [...]; ... 12 more ...; readonly showRuler: false;...' is not assignable to type 'PerseusWidget'.
             const answer = getAnswersFromWidgets({"grapher 1": widget});
             expect(answer).toMatchInlineSnapshot(`
                             [
@@ -288,7 +303,7 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should get the answers from a dropdown widget", () => {
-            const widget = {
+            const widget: DropdownWidget = {
                 type: "dropdown",
                 options: {
                     placeholder: "Select an option",
@@ -305,7 +320,7 @@ describe("ExtractPerseusData", () => {
                         },
                     ],
                 },
-            } as const;
+            };
             const answer = getAnswersFromWidgets({"dropdown 1": widget});
             expect(answer).toEqual(["choice 1"]);
         });
@@ -345,14 +360,14 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should get the answers from an sorter widget", () => {
-            const widget = {
+            const widget: SorterWidget = {
                 type: "sorter",
                 options: {
                     correct: ["$4^2+2$", "$5^2$", "$6^2-6$"],
                     layout: "horizontal",
                     padding: true,
                 },
-            } as const;
+            };
 
             const answer = getAnswersFromWidgets({"sorter 1": widget});
             expect(answer).toMatchInlineSnapshot(`
@@ -363,7 +378,7 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should get the answers from the label-image widget", () => {
-            const widget = {
+            const widget: LabelImageWidget = {
                 type: "label-image",
                 options: {
                     choices: ["answer 1", "answer 2"],
@@ -389,7 +404,7 @@ describe("ExtractPerseusData", () => {
                     multipleAnswers: false,
                     static: false,
                 },
-            } as const;
+            };
 
             const answer = getAnswersFromWidgets({"label-image 1": widget});
             expect(answer).toEqual([
@@ -399,7 +414,7 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should get the answers from the number-line widget", () => {
-            const widget = {
+            const widget: NumberLineWidget = {
                 type: "number-line",
                 options: {
                     correctRel: "eq",
@@ -409,20 +424,21 @@ describe("ExtractPerseusData", () => {
                     labelRange: [null, null],
                     labelStyle: "decimal",
                     labelTicks: true,
+                    isInequality: false,
                     numDivisions: null,
                     range: [-1.5, 1.5],
                     snapDivisions: 2,
                     static: false,
                     tickStep: 0.5,
                 },
-            } as const;
+            };
 
             const answer = getAnswersFromWidgets({"number-line 1": widget});
             expect(answer).toEqual(["-1.5"]);
         });
 
         it("should get the answers from the matrix widget", () => {
-            const widget = {
+            const widget: MatrixWidget = {
                 type: "matrix",
                 options: {
                     answers: [
@@ -436,14 +452,14 @@ describe("ExtractPerseusData", () => {
                     static: false,
                     suffix: "",
                 },
-            } as const;
+            };
 
             const answer = getAnswersFromWidgets({"matrix 1": widget});
             expect(answer).toEqual(["[-2,22,-29,-16], [1,-4,7,5], [3,4,6,1]"]);
         });
 
         it("should get the answers from the matcher widget", () => {
-            const widget = {
+            const widget: MatcherWidget = {
                 type: "matcher",
                 options: {
                     labels: ["Left", "Right"],
@@ -452,7 +468,7 @@ describe("ExtractPerseusData", () => {
                     padding: true,
                     right: ["1", "2", "3", "4"],
                 },
-            } as const;
+            };
 
             const answer = getAnswersFromWidgets({"matcher 1": widget});
             expect(answer).toEqual([
@@ -522,7 +538,7 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should inject radio widget into the content", () => {
-            const widgets = {
+            const widgets: PerseusWidgetsMap = {
                 "radio 1": {
                     type: "radio",
                     options: {
@@ -538,7 +554,7 @@ describe("ExtractPerseusData", () => {
                         ],
                     },
                 },
-            } as const;
+            };
             const content = injectWidgets(
                 "Content with a radio\n[[☃ radio 1]]",
                 widgets,
@@ -796,7 +812,7 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should inject categorizer widget into the content", () => {
-            const widgets = {
+            const widgets: PerseusWidgetsMap = {
                 "categorizer 1": {
                     type: "categorizer",
                     alignment: "default",
@@ -811,7 +827,7 @@ describe("ExtractPerseusData", () => {
                     },
                     version: {major: 0, minor: 0},
                 },
-            } as const;
+            };
 
             const content = injectWidgets("[[☃ categorizer 1]]", widgets);
             expect(content).toMatchInlineSnapshot(`
@@ -826,31 +842,35 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should inject orderer widget into the content", () => {
-            const widgets = {
+            const blankOption: PerseusRenderer = {
+                content: "",
+                images: {},
+                widgets: {},
+            };
+            const widgets: PerseusWidgetsMap = {
                 "orderer 1": {
                     type: "orderer",
                     options: {
                         height: "normal",
                         layout: "horizontal",
                         correctOptions: [
-                            {content: "$\\sqrt{145}$"},
-                            {content: "$12.1$"},
-                            {content: "$12.2$"},
+                            {...blankOption, content: "$\\sqrt{145}$"},
+                            {...blankOption, content: "$12.1$"},
+                            {...blankOption, content: "$12.2$"},
                         ],
                         options: [
-                            {content: "$12.1$"},
-                            {content: "$12.2$"},
-                            {content: "$\\sqrt{145}$"},
+                            {...blankOption, content: "$12.1$"},
+                            {...blankOption, content: "$12.2$"},
+                            {...blankOption, content: "$\\sqrt{145}$"},
                         ],
                         otherOptions: [],
                     },
                 },
-            } as const;
+            };
 
             // Perseus types think `widgets` and `images` are required on
             // options.options objects, but we have data in production that omits
             // these keys.
-            // @ts-expect-error - TS2345 - Argument of type '{ readonly "orderer 1": { readonly type: "orderer"; readonly options: { readonly height: "normal"; readonly layout: "horizontal"; readonly correctOptions: readonly [{ readonly content: "$\\sqrt{145}$"; }, { readonly content: "$12.1$"; }, { ...; }]; readonly options: readonly [...]; readonly otherOptions: readonly []...' is not assignable to parameter of type '{ [key: string]: PerseusWidget; }'.
             const content = injectWidgets("[[☃ orderer 1]]", widgets);
             expect(content).toMatchInlineSnapshot(`
                 "$12.1$
@@ -860,7 +880,7 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should inject sorter widget into the content", () => {
-            const widgets = {
+            const widgets: PerseusWidgetsMap = {
                 "sorter 1": {
                     type: "sorter",
                     options: {
@@ -869,7 +889,7 @@ describe("ExtractPerseusData", () => {
                         padding: true,
                     },
                 },
-            } as const;
+            };
 
             const content = injectWidgets("[[☃ sorter 1]]", widgets);
             expect(content).toMatchInlineSnapshot(
@@ -878,7 +898,7 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should inject interactive-graph widget into the content", () => {
-            const widgets = {
+            const widgets: PerseusWidgetsMap = {
                 "interactive-graph 1": {
                     type: "interactive-graph",
                     options: {
@@ -912,13 +932,13 @@ describe("ExtractPerseusData", () => {
                         showTooltips: false,
                         snapStep: [0.5, 0.5],
                         step: [1, 1],
+                        lockedFigures: [],
                     },
                 },
-            } as const;
+            };
 
             const content = injectWidgets(
                 "[[☃ interactive-graph 1]]",
-                // @ts-expect-error - TS2345 - Argument of type '{ readonly "interactive-graph 1": { readonly type: "interactive-graph"; readonly options: { readonly correct: { readonly coords: readonly [readonly [7, -7], readonly [5, 4], readonly [-3, 4], readonly [-3, -4]]; readonly numSides: "unlimited"; readonly snapTo: "grid"; readonly type: "polygon"; }; ... 11 more ...; re...' is not assignable to parameter of type '{ [key: string]: PerseusWidget; }'.
                 widgets,
             );
             expect(content).toMatchInlineSnapshot(
@@ -927,7 +947,7 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should inject number-line widget into the content", () => {
-            const widgets = {
+            const widgets: PerseusWidgetsMap = {
                 "number-line 1": {
                     type: "number-line",
                     options: {
@@ -938,6 +958,7 @@ describe("ExtractPerseusData", () => {
                         labelRange: [null, null],
                         labelStyle: "decimal",
                         labelTicks: true,
+                        isInequality: false,
                         numDivisions: null,
                         range: [-1.5, 1.5],
                         snapDivisions: 2,
@@ -945,7 +966,7 @@ describe("ExtractPerseusData", () => {
                         tickStep: 0.5,
                     },
                 },
-            } as const;
+            };
 
             const content = injectWidgets("[[☃ number-line 1]]", widgets);
             expect(content).toMatchInlineSnapshot(
@@ -954,7 +975,7 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should inject matcher widget into the content", () => {
-            const widgets = {
+            const widgets: PerseusWidgetsMap = {
                 "matcher 1": {
                     type: "matcher",
                     options: {
@@ -965,7 +986,7 @@ describe("ExtractPerseusData", () => {
                         right: ["1", "2", "3", "4"],
                     },
                 },
-            } as const;
+            };
 
             const content = injectWidgets("[[☃ matcher 1]]", widgets);
             expect(content).toMatchInlineSnapshot(`
@@ -980,7 +1001,7 @@ describe("ExtractPerseusData", () => {
         });
 
         it("should inject ? placeholder string for input widgets", () => {
-            const widgets = {
+            const widgets: PerseusWidgetsMap = {
                 "numeric-input 1": {
                     type: "numeric-input",
                     options: {
@@ -1025,7 +1046,7 @@ describe("ExtractPerseusData", () => {
                         times: false,
                     },
                 },
-            } as const;
+            };
             const content = injectWidgets(
                 "Enter your numeric-input [[☃ numeric-input 1]], Enter your input-number [[☃ input-number 1]], Enter your expression [[☃ expression 1]]",
                 widgets,
