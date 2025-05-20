@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 25.1.6
+
+### Patch Changes
+
+-   [#2455](https://github.com/Khan/perseus/pull/2455) [`998d12113`](https://github.com/Khan/perseus/commit/998d121139c4017e557c0bd33a63fa9154119d6f) Thanks [@marcysutton](https://github.com/marcysutton)! - Update to latest WB typography and tokens packages, using REM font sizing
+
 ## 25.1.5
 
 ### Patch Changes
