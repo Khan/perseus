@@ -1,5 +1,18 @@
 # @khanacademy/perseus
 
+## 63.0.1
+
+### Patch Changes
+
+-   [#2494](https://github.com/Khan/perseus/pull/2494) [`670b695e4`](https://github.com/Khan/perseus/commit/670b695e4dac6b7d795e8e3502032caa50d36b29) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add story for radio widget single select with images and scroll
+
+*   [#2455](https://github.com/Khan/perseus/pull/2455) [`998d12113`](https://github.com/Khan/perseus/commit/998d121139c4017e557c0bd33a63fa9154119d6f) Thanks [@marcysutton](https://github.com/marcysutton)! - Update to latest WB typography and tokens packages, using REM font sizing
+
+-   [#2491](https://github.com/Khan/perseus/pull/2491) [`69c12a0fa`](https://github.com/Khan/perseus/commit/69c12a0fa0c5a9454f88f6b61ebb48dc0a217bc7) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB Button instances to match new API (color -> actionType)
+
+-   Updated dependencies [[`998d12113`](https://github.com/Khan/perseus/commit/998d121139c4017e557c0bd33a63fa9154119d6f)]:
+    -   @khanacademy/math-input@25.1.6
+
 ## 63.0.0
 
 ### Major Changes
