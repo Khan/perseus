@@ -1,4 +1,4 @@
-@import "../node_modules/mathquill/build/mathquill.css";
+@import "mathquill/build/mathquill.css";
 .keypad-input {
     outline: none !important;
 }
