@@ -7,15 +7,13 @@
  * This supports widgets that contain renderers, such as the
  * group or sequence widgets.
  */
-
 import {
     Errors,
     PerseusError,
     upgradeWidgetInfoToLatestVersion,
+    traverse,
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
-
-import {traverse} from "./traversal";
 
 import type {PerseusWidget} from "@khanacademy/perseus-core";
 

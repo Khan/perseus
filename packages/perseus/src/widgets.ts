@@ -169,14 +169,6 @@ export const getPublicWidgets = (): Record<string, WidgetExports> => {
     }, {});
 };
 
-export const isAccessible = (widgetInfo: PerseusWidget): boolean => {
-    const accessible = widgets.get(widgetInfo.type)?.accessible;
-    if (typeof accessible === "function") {
-        return accessible(widgetInfo.options);
-    }
-    return !!accessible;
-};
-
 export const getAllWidgetTypes = (): ReadonlyArray<string> => {
     return widgets.keys();
 };
