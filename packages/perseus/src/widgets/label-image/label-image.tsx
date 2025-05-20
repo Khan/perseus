@@ -765,11 +765,11 @@ const LabelImageWithDependencies = React.forwardRef<
     return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
 });
 
-0 as any as WidgetProps<PerseusLabelImageWidgetOptions> satisfies PropsFor<
+({}) as WidgetProps<PerseusLabelImageWidgetOptions> satisfies PropsFor<
     typeof LabelImage
 >;
 
-0 as any as WidgetProps<LabelImagePublicWidgetOptions> satisfies PropsFor<
+({}) as WidgetProps<LabelImagePublicWidgetOptions> satisfies PropsFor<
     typeof LabelImage
 >;
 
