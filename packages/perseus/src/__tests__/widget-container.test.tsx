@@ -44,6 +44,7 @@ describe("widget-container", () => {
                 id="invalid-widget 1"
                 shouldHighlight={false}
                 initialProps={{apiOptions: {isMobile: false}}}
+                useAnswerful={() => {}}
             />,
         );
 
@@ -77,6 +78,7 @@ describe("widget-container", () => {
 
                     apiOptions: {isMobile: false},
                 }}
+                useAnswerful={() => {}}
             />,
         );
 
@@ -118,6 +120,7 @@ describe("widget-container", () => {
 
                         apiOptions: {isMobile: false},
                     }}
+                    useAnswerful={() => {}}
                 />
             </Dependencies.DependenciesContext.Provider>,
         );

@@ -113,6 +113,7 @@ class HintRenderer extends React.Component<Props> {
                         "hint",
                     )}
                     strings={this.context.strings}
+                    useAnswerful={() => {}}
                 />
             </div>
         );

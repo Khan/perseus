@@ -464,6 +464,9 @@ export class ServerItemRenderer
                         "question",
                     )}
                     strings={this.context.strings}
+                    useAnswerful={() =>
+                        this.setState({renderAnswerless: false})
+                    }
                     {...this.props.dependencies}
                 />
             </AssetContext.Provider>
