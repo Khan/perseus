@@ -132,7 +132,7 @@ exports[`graded group widget should snapshot 1`] = `
                         autocapitalize="off"
                         autocomplete="off"
                         autocorrect="off"
-                        class="input_a5n1n-o_O-LabelMedium_1rew30o-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-inputWithExamples_1y6ajxo"
+                        class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-inputWithExamples_1y6ajxo"
                         data-testid="input-with-examples"
                         id=":r0:"
                         tabindex="0"
@@ -158,7 +158,7 @@ exports[`graded group widget should snapshot 1`] = `
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class="text_f1191h-o_O-LabelLarge_142uijh-o_O-text_1s96g1x"
                 >
                   Check
                 </span>
