@@ -5,9 +5,9 @@ import type {StorybookConfig} from "@storybook/react-vite";
 
 const excludedCssFiles = ["lato.css", "protractor.css", "mafs-styles.css"];
 // This is a temporary plugin option to mimic what is in PROD in regard to cascade layers.
-// Perseus LESS files are wrapped in the 'shared' layer in Webapp.
-// To get the same ordering of precedence in Storybook, the imported LESS files need to be wrapped accordingly.
-// Once the LESS files have cascade layers included (LEMS-2801),
+// Perseus CSS files are wrapped in the 'shared' layer in Webapp.
+// To get the same ordering of precedence in Storybook, the imported CSS files need to be wrapped accordingly.
+// Once the CSS files have cascade layers included (LEMS-2801),
 //     then the following plugin option should be removed.
 const cssWrapper = {
     name: "wrap-css-in-layer",
