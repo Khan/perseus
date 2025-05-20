@@ -343,6 +343,7 @@ const styles = {
         position: "sticky",
         left: 0,
         background: "linear-gradient(to right, white 70%, transparent)",
+        // TODO: LEMS-3107 adjust to support RTL
         paddingRight: spacing.xSmall_8,
         paddingTop: spacing.xxxSmall_4,
         zIndex: 1,
