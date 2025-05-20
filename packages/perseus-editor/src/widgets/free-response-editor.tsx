@@ -209,7 +209,7 @@ const CriterionEditor = function (props: {
                 <View style={styles.deleteButtonContainer}>
                     <Button
                         aria-label={`Delete criterion ${props.index + 1}`}
-                        color="destructive"
+                        actionType="destructive"
                         disabled={!props.isDeletable}
                         kind="tertiary"
                         onClick={() => props.onDelete(props.index)}
