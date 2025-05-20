@@ -427,7 +427,7 @@ const renderPointGraphControls = (props: {
                 <Button
                     id={REMOVE_BUTTON_ID}
                     kind="secondary"
-                    color="destructive"
+                    actionType="destructive"
                     // This button is meant to be interacted with by the mouse only
                     // Never allow learners to tab to this button
                     tabIndex={-1}
@@ -547,7 +547,7 @@ const renderPolygonGraphControls = (props: {
                     <Button
                         id={REMOVE_BUTTON_ID}
                         kind="secondary"
-                        color="destructive"
+                        actionType="destructive"
                         // Disable button when polygon is closed.
                         disabled={closedPolygon || !shouldShowRemoveButton}
                         // This button is meant to be interacted with by the mouse only

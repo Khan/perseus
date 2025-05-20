@@ -13,6 +13,8 @@ import scoreDropdown from "./dropdown/score-dropdown";
 import validateDropdown from "./dropdown/validate-dropdown";
 import scoreExpression from "./expression/score-expression";
 import validateExpression from "./expression/validate-expression";
+import scoreFreeResponse from "./free-response/score-free-response";
+import validateFreeResponse from "./free-response/validate-free-response";
 import scoreGrapher from "./grapher/score-grapher";
 import scoreGroup from "./group/score-group";
 import validateGroup from "./group/validate-group";
@@ -76,6 +78,11 @@ registerWidget(
 registerWidget("cs-program", scoreCSProgram as any);
 registerWidget("dropdown", scoreDropdown as any, validateDropdown as any);
 registerWidget("expression", scoreExpression as any, validateExpression as any);
+registerWidget(
+    "free-response",
+    scoreFreeResponse as any,
+    validateFreeResponse as any,
+);
 registerWidget("grapher", scoreGrapher as any);
 registerWidget("group", scoreGroup as any, validateGroup as any);
 registerWidget("iframe", scoreIframe as any);
@@ -100,7 +107,6 @@ registerWidget("plotter", scorePlotter as any, validatePlotter as any);
 registerWidget("radio", scoreRadio as any, validateRadio as any);
 registerWidget("sorter", scoreSorter as any, validateSorter as any);
 registerWidget("table", scoreTable as any, validateTable as any);
-
 registerWidget("deprecated-standin", () => scoreNoop(1) as any);
 registerWidget("measurer", () => scoreNoop(1) as any);
 
