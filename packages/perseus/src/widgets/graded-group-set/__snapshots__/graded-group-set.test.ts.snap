@@ -132,11 +132,7 @@ exports[`graded group widget should snapshot 1`] = `
                         autocapitalize="off"
                         autocomplete="off"
                         autocorrect="off"
-<<<<<<< HEAD
                         class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-inputWithExamples_1y6ajxo"
-=======
-                        class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-inputWithExamples_1y6ajxo"
->>>>>>> origin
                         data-testid="input-with-examples"
                         id=":r0:"
                         tabindex="0"

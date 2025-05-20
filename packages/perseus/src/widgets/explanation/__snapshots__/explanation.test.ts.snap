@@ -21,20 +21,12 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
             aria-controls=":r1:"
             aria-disabled="false"
             aria-expanded="true"
-<<<<<<< HEAD
             class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1v12k51-o_O-default_y5mm15-o_O-small_oliyv9-o_O-inlineStyles_1s8anjv"
-=======
-            class="button_vr44p2-o_O-shared_11fo0od-o_O-default_1t67lz5-o_O-small_1rcykji-o_O-inlineStyles_1s8anjv"
->>>>>>> origin
             role="button"
             type="button"
           >
             <span
-<<<<<<< HEAD
               class="text_f1191h-o_O-LabelSmall_b0rx6x-o_O-text_1s96g1x-o_O-smallText_9bce1o-o_O-inlineStyles_egvfd8"
-=======
-              class="text_f1191h-o_O-LabelSmall_b0rx6x-o_O-text_1s96g1x-o_O-smallText_9bce1o-o_O-textWithFocus_e296pg-o_O-inlineStyles_egvfd8"
->>>>>>> origin
             >
               Hide explanation!
             </span>
@@ -102,20 +94,12 @@ exports[`Explanation should snapshot: initial render 1`] = `
             aria-controls=":r0:"
             aria-disabled="false"
             aria-expanded="false"
-<<<<<<< HEAD
             class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1v12k51-o_O-default_y5mm15-o_O-small_oliyv9-o_O-inlineStyles_1s8anjv"
-=======
-            class="button_vr44p2-o_O-shared_11fo0od-o_O-default_1t67lz5-o_O-small_1rcykji-o_O-inlineStyles_1s8anjv"
->>>>>>> origin
             role="button"
             type="button"
           >
             <span
-<<<<<<< HEAD
               class="text_f1191h-o_O-LabelSmall_b0rx6x-o_O-text_1s96g1x-o_O-smallText_9bce1o-o_O-inlineStyles_egvfd8"
-=======
-              class="text_f1191h-o_O-LabelSmall_b0rx6x-o_O-text_1s96g1x-o_O-smallText_9bce1o-o_O-textWithFocus_e296pg-o_O-inlineStyles_egvfd8"
->>>>>>> origin
             >
               Explanation
             </span>
