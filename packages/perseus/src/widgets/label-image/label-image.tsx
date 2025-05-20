@@ -39,7 +39,12 @@ import type {
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
-type PreferredPopoverDirection = "NONE" | "UP" | "DOWN" | "LEFT" | "RIGHT";
+export type PreferredPopoverDirection =
+    | "NONE"
+    | "UP"
+    | "DOWN"
+    | "LEFT"
+    | "RIGHT";
 
 /**
  * Represents a direction vector.
