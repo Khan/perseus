@@ -419,7 +419,8 @@ export class ServerItemRenderer
         return (
             this.state.renderAnswerless &&
             this.props.showSolutions !== "all" &&
-            this.props.showSolutions !== "selected"
+            this.props.showSolutions !== "selected" &&
+            this.props.score == null
         );
     }
 
