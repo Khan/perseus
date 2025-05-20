@@ -76,8 +76,8 @@ catalogs:
       specifier: 4.1.13
       version: 4.1.13
     '@khanacademy/wonder-blocks-typography':
-      specifier: 3.2.0
-      version: 3.2.0
+      specifier: 3.2.3
+      version: 3.2.3
     '@khanacademy/wonder-stuff-core':
       specifier: 1.5.4
       version: 1.5.4
@@ -162,8 +162,8 @@ importers:
         specifier: 'catalog:'
         version: 10.0.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-typography':
-        specifier: 'catalog:'
-        version: 3.2.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+        specifier: ^3.2.3
+        version: 3.2.3(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
       '@phosphor-icons/core':
         specifier: 'catalog:'
         version: 2.0.2
@@ -208,7 +208,7 @@ importers:
         version: 8.6.11(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.2.5)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.11(prettier@3.2.5))(typescript@5.7.2)
       '@storybook/react-vite':
         specifier: ^8.6.11
-        version: 8.6.11(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.2.5)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.37.0)(storybook@8.6.11(prettier@3.2.5))(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))
+        version: 8.6.11(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.2.5)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.37.0)(storybook@8.6.11(prettier@3.2.5))(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))
       '@swc-node/register':
         specifier: ^1.10.10
         version: 1.10.10(@swc/core@1.11.13(@swc/helpers@0.5.17))(@swc/types@0.1.21)(typescript@5.7.2)
@@ -259,7 +259,7 @@ importers:
         version: 8.27.0(eslint@8.57.1)(typescript@5.7.2)
       '@vitejs/plugin-react-swc':
         specifier: ^3.8.1
-        version: 3.8.1(@swc/helpers@0.5.17)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))
+        version: 3.8.1(@swc/helpers@0.5.17)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))
       ancesdir:
         specifier: ^3.1.0
         version: 3.1.0
@@ -439,10 +439,10 @@ importers:
         version: 0.7.0(typescript@5.7.2)
       vite:
         specifier: 'catalog:'
-        version: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)
+        version: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)
       vite-plugin-istanbul:
         specifier: ^5.0.0
-        version: 5.0.0(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))
+        version: 5.0.0(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))
       winston:
         specifier: ^3.7.2
         version: 3.7.2
@@ -535,7 +535,7 @@ importers:
     devDependencies:
       vite:
         specifier: 'catalog:'
-        version: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)
+        version: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)
 
   packages/kas:
     dependencies:
@@ -750,7 +750,7 @@ importers:
         version: 4.1.13(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-typography':
         specifier: 'catalog:'
-        version: 3.2.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
+        version: 3.2.3(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
         version: 1.5.4
@@ -917,7 +917,7 @@ importers:
         version: 4.1.13(@phosphor-icons/core@2.0.2)(@popperjs/core@2.11.8)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-popper@2.3.0(@popperjs/core@2.11.8)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-blocks-typography':
         specifier: 'catalog:'
-        version: 3.2.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
+        version: 3.2.3(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
       '@khanacademy/wonder-stuff-core':
         specifier: 'catalog:'
         version: 1.5.4
@@ -2340,6 +2340,16 @@ packages:
       react-router: 5.3.4
       react-router-dom: 5.3.4
 
+  '@khanacademy/wonder-blocks-core@12.3.0':
+    resolution: {integrity: sha512-P9w1OXkPJn2QHodKoXau1ka7is3rapLW463+at0vQDOmo6v4TcugLP0Gw9zxYwCSmvKVum1Vi3qt/2+5RiW99w==}
+    peerDependencies:
+      aphrodite: ^1.2.5
+      react: 18.2.0
+      react-dom: 18.2.0
+      react-router: 5.3.4
+      react-router-dom: 5.3.4
+      react-router-dom-v5-compat: ^6.30.0
+
   '@khanacademy/wonder-blocks-data@14.1.3':
     resolution: {integrity: sha512-WRxq+MYoAfPczd6CUln4L00FpzD/Te116pojLwcRZA/T440zPvsZvdxbFpqNNIA9+EdkpUqilWQMMrruCFXCWQ==}
     peerDependencies:
@@ -2465,6 +2475,13 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0
 
+  '@khanacademy/wonder-blocks-theming@3.4.0':
+    resolution: {integrity: sha512-fhY3VZx+KoNHW7/fioHykZBHwBO8dQe5puxQw2SuRGHrx2BND+xZccka7FvO1IzACiY/ahutr8Ckq5ETqrGZgA==}
+    peerDependencies:
+      aphrodite: ^1.2.5
+      react: 18.2.0
+      react-dom: 18.2.0
+
   '@khanacademy/wonder-blocks-timing@7.0.2':
     resolution: {integrity: sha512-6JcFMo+XR2QCv4zcyjkj4M4EzqpWTEZopbQ4SrwB+6pjNYXd20YA3Y7EIsFIa1KHsZ2S1wsjiQliqQOXjB2VwQ==}
     peerDependencies:
@@ -2472,6 +2489,10 @@ packages:
 
   '@khanacademy/wonder-blocks-tokens@10.0.0':
     resolution: {integrity: sha512-E7WQreN7tG6UT5vyTAdXHkEMQSMFkwQO+64LO/+J+SXqMzQnflGzwjRWy0OG3bUzNy2lKDramW3QrP88DxuFgA==}
+
+  '@khanacademy/wonder-blocks-tokens@10.2.0':
+    resolution: {integrity: sha512-pkfuo6Q2KaPJUI71l0Zrq2skpKFFwWmni3/8txki+Hm2dJUmMzg3jipvS8ZVBzDv/FP+J9XWls4M+9o46sx8Bg==}
+    hasBin: true
 
   '@khanacademy/wonder-blocks-toolbar@5.1.10':
     resolution: {integrity: sha512-j0x3mkwCP9Isg86ly2fl0QF+eTY/vnhbV42VLoOQ4KfPBOzC4KwbdScsNEbVoyYhHHW7qPaZ0Rsv68URC5g/Cw==}
@@ -2490,6 +2511,12 @@ packages:
 
   '@khanacademy/wonder-blocks-typography@3.2.0':
     resolution: {integrity: sha512-cg5cqMD3dRldpI9yZwaPnEk02RREU/u9tdhfgsoi7PZEMqV0IDGH9XtFzZ8RqLR1XgCXMK01qqmPVz3hoR7K6Q==}
+    peerDependencies:
+      aphrodite: ^1.2.5
+      react: 18.2.0
+
+  '@khanacademy/wonder-blocks-typography@3.2.3':
+    resolution: {integrity: sha512-H9RL3+GOpmxHRmW/LbhsGFG2aoBF9zA3DZPNxmqGQSk0lsPIklWEgjPQt+dfRIqMoxW3h5rdrz7ajCluvH9ZAw==}
     peerDependencies:
       aphrodite: ^1.2.5
       react: 18.2.0
@@ -4732,8 +4759,8 @@ packages:
   ecc-jsbn@0.1.2:
     resolution: {integrity: sha512-eh9O+hwRHNbG4BLTjEl3nw044CkGm5X6LoaCf7LPp7UU8Qrt47JYNi6nPX8xjW97TKGKm1ouctg0QSpZe9qrnw==}
 
-  electron-to-chromium@1.5.152:
-    resolution: {integrity: sha512-xBOfg/EBaIlVsHipHl2VdTPJRSvErNUaqW8ejTq5OlOlIYx1wOllCHsAvAIrr55jD1IYEfdR86miUEt8H5IeJg==}
+  electron-to-chromium@1.5.155:
+    resolution: {integrity: sha512-ps5KcGGmwL8VaeJlvlDlu4fORQpv3+GIcF5I3f9tUKUlJ/wsysh6HU8P5L1XWRYeXfA0oJd4PyM8ds8zTFf6Ng==}
 
   electron-to-chromium@1.5.68:
     resolution: {integrity: sha512-FgMdJlma0OzUYlbrtZ4AeXjKxKPk6KT8WOP8BjcqxWtlg8qyJQjRzPJzUtUn5GBg1oQ26hFs7HOOHJMYiJRnvQ==}
@@ -8442,6 +8469,10 @@ packages:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
 
+  tapable@2.2.2:
+    resolution: {integrity: sha512-Re10+NauLTMCudc7T5WLFLAwDhQ0JWdrMK+9B2M8zR5hRExKmsRDCBA7/aV/pNJFltmBFO5BAMlQFi/vq3nKOg==}
+    engines: {node: '>=6'}
+
   tar@6.1.11:
     resolution: {integrity: sha512-an/KZQzQUkZCkuoAA64hM92X0Urb6VpRhAFllDzz44U2mcD5scmT3zBc4VgVpkugF580+DQn8eAFSyoQt0tznA==}
     engines: {node: '>= 10'}
@@ -8471,8 +8502,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  terser@5.39.1:
-    resolution: {integrity: sha512-Mm6+uad0ZuDtcV8/4uOZQDQ8RuiC5Pu+iZRedJtF7yA/27sPL7d++In/AJKpWZlU3SYMPPkVfwetn6sgZ66pUA==}
+  terser@5.39.2:
+    resolution: {integrity: sha512-yEPUmWve+VA78bI71BW70Dh0TuV4HHd+I5SHOAfS1+QBOmvmCiiffgjR8ryyEd3KIfvPGFqoADt8LdQ6XpXIvg==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -8914,8 +8945,8 @@ packages:
   warning@4.0.3:
     resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
 
-  watchpack@2.4.2:
-    resolution: {integrity: sha512-TnbFSbcOCcDgjZ4piURLCbJ3nJhznVh9kw6F6iokjiFPl8ONxe9A6nMDVXDiNbrSfLILs6vB07F7wLBrwPYzJw==}
+  watchpack@2.4.3:
+    resolution: {integrity: sha512-adBYQLivcg1jbdKEJeqScJJFvgm4qY9+3tXw+jdG6lkVeqRJEtiQmSWjmth8GKmDZuX7sYM4YFxQsf0AzMfGGw==}
     engines: {node: '>=10.13.0'}
 
   wcwidth@1.0.1:
@@ -10647,12 +10678,12 @@ snapshots:
       '@types/yargs': 17.0.29
       chalk: 4.1.2
 
-  '@joshwooding/vite-plugin-react-docgen-typescript@0.5.0(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))':
+  '@joshwooding/vite-plugin-react-docgen-typescript@0.5.0(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))':
     dependencies:
       glob: 10.4.5
       magic-string: 0.27.0
       react-docgen-typescript: 2.2.2(typescript@5.7.2)
-      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)
+      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)
     optionalDependencies:
       typescript: 5.7.2
 
@@ -10864,6 +10895,24 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       react-router: 6.30.0(react@18.3.1)
       react-router-dom: 5.3.4(react@18.3.1)
+
+  '@khanacademy/wonder-blocks-core@12.3.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      aphrodite: 1.2.5
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-router: 5.3.4(react@18.3.1)
+      react-router-dom: 5.3.4(react@18.3.1)
+      react-router-dom-v5-compat: 6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1)
+
+  '@khanacademy/wonder-blocks-core@12.3.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      aphrodite: 1.2.5
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+      react-router: 6.30.0(react@18.3.1)
+      react-router-dom: 5.3.4(react@18.3.1)
+      react-router-dom-v5-compat: 6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1)
 
   '@khanacademy/wonder-blocks-data@14.1.3(@khanacademy/wonder-stuff-core@1.5.4)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)':
     dependencies:
@@ -11155,6 +11204,12 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
+  '@khanacademy/wonder-blocks-theming@3.4.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      aphrodite: 1.2.5
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   '@khanacademy/wonder-blocks-timing@7.0.2(react@18.3.1)':
     dependencies:
       react: 18.3.1
@@ -11162,6 +11217,14 @@ snapshots:
   '@khanacademy/wonder-blocks-tokens@10.0.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@khanacademy/wonder-blocks-theming': 3.3.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+    transitivePeerDependencies:
+      - aphrodite
+      - react
+      - react-dom
+
+  '@khanacademy/wonder-blocks-tokens@10.2.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@khanacademy/wonder-blocks-theming': 3.4.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     transitivePeerDependencies:
       - aphrodite
       - react
@@ -11218,6 +11281,30 @@ snapshots:
       - react-dom
       - react-router
       - react-router-dom
+
+  '@khanacademy/wonder-blocks-typography@3.2.3(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@khanacademy/wonder-blocks-core': 12.3.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
+      '@khanacademy/wonder-blocks-tokens': 10.2.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      aphrodite: 1.2.5
+      react: 18.3.1
+    transitivePeerDependencies:
+      - react-dom
+      - react-router
+      - react-router-dom
+      - react-router-dom-v5-compat
+
+  '@khanacademy/wonder-blocks-typography@3.2.3(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@khanacademy/wonder-blocks-core': 12.3.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
+      '@khanacademy/wonder-blocks-tokens': 10.2.0(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      aphrodite: 1.2.5
+      react: 18.3.1
+    transitivePeerDependencies:
+      - react-dom
+      - react-router
+      - react-router-dom
+      - react-router-dom-v5-compat
 
   '@khanacademy/wonder-stuff-core@1.5.4': {}
 
@@ -11635,13 +11722,13 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@storybook/builder-vite@8.6.11(storybook@8.6.11(prettier@3.2.5))(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))':
+  '@storybook/builder-vite@8.6.11(storybook@8.6.11(prettier@3.2.5))(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))':
     dependencies:
       '@storybook/csf-plugin': 8.6.11(storybook@8.6.11(prettier@3.2.5))
       browser-assert: 1.2.1
       storybook: 8.6.11(prettier@3.2.5)
       ts-dedent: 2.2.0
-      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)
+      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)
 
   '@storybook/components@8.6.11(storybook@8.6.11(prettier@3.2.5))':
     dependencies:
@@ -11704,11 +11791,11 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       storybook: 8.6.11(prettier@3.2.5)
 
-  '@storybook/react-vite@8.6.11(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.2.5)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.37.0)(storybook@8.6.11(prettier@3.2.5))(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))':
+  '@storybook/react-vite@8.6.11(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.2.5)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@4.37.0)(storybook@8.6.11(prettier@3.2.5))(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))':
     dependencies:
-      '@joshwooding/vite-plugin-react-docgen-typescript': 0.5.0(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))
+      '@joshwooding/vite-plugin-react-docgen-typescript': 0.5.0(typescript@5.7.2)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))
       '@rollup/pluginutils': 5.1.0(rollup@4.37.0)
-      '@storybook/builder-vite': 8.6.11(storybook@8.6.11(prettier@3.2.5))(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))
+      '@storybook/builder-vite': 8.6.11(storybook@8.6.11(prettier@3.2.5))(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))
       '@storybook/react': 8.6.11(@storybook/test@8.6.11(storybook@8.6.11(prettier@3.2.5)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.6.11(prettier@3.2.5))(typescript@5.7.2)
       find-up: 5.0.0
       magic-string: 0.30.7
@@ -11718,7 +11805,7 @@ snapshots:
       resolve: 1.22.8
       storybook: 8.6.11(prettier@3.2.5)
       tsconfig-paths: 4.2.0
-      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)
+      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)
     optionalDependencies:
       '@storybook/test': 8.6.11(storybook@8.6.11(prettier@3.2.5))
     transitivePeerDependencies:
@@ -12288,10 +12375,10 @@ snapshots:
       '@use-gesture/core': 10.3.0
       react: 18.3.1
 
-  '@vitejs/plugin-react-swc@3.8.1(@swc/helpers@0.5.17)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1))':
+  '@vitejs/plugin-react-swc@3.8.1(@swc/helpers@0.5.17)(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2))':
     dependencies:
       '@swc/core': 1.11.13(@swc/helpers@0.5.17)
-      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)
+      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)
     transitivePeerDependencies:
       - '@swc/helpers'
 
@@ -12893,7 +12980,7 @@ snapshots:
   browserslist@4.24.4:
     dependencies:
       caniuse-lite: 1.0.30001718
-      electron-to-chromium: 1.5.152
+      electron-to-chromium: 1.5.155
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.24.4)
 
@@ -13725,7 +13812,7 @@ snapshots:
       jsbn: 0.1.1
       safer-buffer: 2.1.2
 
-  electron-to-chromium@1.5.152: {}
+  electron-to-chromium@1.5.155: {}
 
   electron-to-chromium@1.5.68: {}
 
@@ -13753,7 +13840,7 @@ snapshots:
   enhanced-resolve@5.18.1:
     dependencies:
       graceful-fs: 4.2.11
-      tapable: 2.2.1
+      tapable: 2.2.2
 
   enquirer@2.3.6:
     dependencies:
@@ -18376,6 +18463,8 @@ snapshots:
 
   tapable@2.2.1: {}
 
+  tapable@2.2.2: {}
+
   tar@6.1.11:
     dependencies:
       chownr: 2.0.0
@@ -18393,7 +18482,7 @@ snapshots:
       jest-worker: 27.5.1
       schema-utils: 4.3.2
       serialize-javascript: 6.0.2
-      terser: 5.39.1
+      terser: 5.39.2
       webpack: 5.97.1(@swc/core@1.11.13(@swc/helpers@0.5.17))(esbuild@0.24.0)
     optionalDependencies:
       '@swc/core': 1.11.13(@swc/helpers@0.5.17)
@@ -18406,7 +18495,7 @@ snapshots:
       commander: 2.20.3
       source-map-support: 0.5.21
 
-  terser@5.39.1:
+  terser@5.39.2:
     dependencies:
       '@jridgewell/source-map': 0.3.6
       acorn: 8.14.1
@@ -18821,18 +18910,18 @@ snapshots:
       core-util-is: 1.0.2
       extsprintf: 1.4.1
 
-  vite-plugin-istanbul@5.0.0(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)):
+  vite-plugin-istanbul@5.0.0(vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)):
     dependencies:
       '@istanbuljs/load-nyc-config': 1.1.0
       espree: 9.6.1
       istanbul-lib-instrument: 5.2.1
       picocolors: 1.1.1
       test-exclude: 6.0.0
-      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1)
+      vite: 5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2)
     transitivePeerDependencies:
       - supports-color
 
-  vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.1):
+  vite@5.1.0(@types/node@20.17.6)(less@4.2.0)(terser@5.39.2):
     dependencies:
       esbuild: 0.19.12
       postcss: 8.4.35
@@ -18841,7 +18930,7 @@ snapshots:
       '@types/node': 20.17.6
       fsevents: 2.3.3
       less: 4.2.0
-      terser: 5.39.1
+      terser: 5.39.2
 
   w3c-xmlserializer@4.0.0:
     dependencies:
@@ -18855,7 +18944,7 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
 
-  watchpack@2.4.2:
+  watchpack@2.4.3:
     dependencies:
       glob-to-regexp: 0.4.1
       graceful-fs: 4.2.11
@@ -18893,9 +18982,9 @@ snapshots:
       mime-types: 2.1.35
       neo-async: 2.6.2
       schema-utils: 3.3.0
-      tapable: 2.2.1
+      tapable: 2.2.2
       terser-webpack-plugin: 5.3.14(@swc/core@1.11.13(@swc/helpers@0.5.17))(esbuild@0.24.0)(webpack@5.97.1(@swc/core@1.11.13(@swc/helpers@0.5.17))(esbuild@0.24.0))
-      watchpack: 2.4.2
+      watchpack: 2.4.3
       webpack-sources: 3.2.3
     transitivePeerDependencies:
       - '@swc/core'
