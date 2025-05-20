@@ -4,6 +4,7 @@ import * as React from "react";
 
 import LabelImageEditor from "../label-image-editor";
 
+import type {PreferredPopoverDirection} from "../../../../perseus/src/widgets/label-image/label-image";
 import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
 
 type StoryArgs = Record<any, any>;
@@ -25,18 +26,19 @@ const styles = StyleSheet.create({
 
 type State = {
     imageAlt: string;
-    choices: ReadonlyArray<string>;
+    choices: string[];
     imageUrl: string;
     imageWidth: number;
     imageHeight: number;
     markers: PerseusLabelImageWidgetOptions["markers"];
+    preferredPopoverDirection: PreferredPopoverDirection;
 };
 
 class WithState extends React.Component<Empty, State> {
     // @ts-expect-error [FEI-5003] - TS2564 - Property '_widget' has no initializer and is not definitely assigned in the constructor.
     _widget: LabelImageEditor;
 
-    state = {
+    state: State = {
         imageAlt: "Map of Europe",
         choices: [
             "Lamborghini",
@@ -70,6 +72,7 @@ class WithState extends React.Component<Empty, State> {
                 y: 78.8,
             },
         ],
+        preferredPopoverDirection: "NONE",
     };
 
     render(): React.ReactNode {
