@@ -18,6 +18,7 @@ import Behavior from "./label-image/behavior";
 import QuestionMarkers from "./label-image/question-markers";
 import SelectImage from "./label-image/select-image";
 
+import type {PreferredPopoverDirection} from "@khanacademy/perseus/src/widgets/label-image/label-image";
 import type {
     PerseusLabelImageWidgetOptions,
     LabelImageDefaultWidgetOptions,
@@ -37,6 +38,8 @@ type Props = {
     multipleAnswers: boolean;
     // Whether to hide answer choices from user instructions.
     hideChoicesFromInstructions: boolean;
+    // Preferred popover direction
+    preferredPopoverDirection: PreferredPopoverDirection;
     // Callback for when a widget prop is changed.
     onChange: (options: any) => void;
 };
@@ -188,6 +191,7 @@ class LabelImageEditor extends React.Component<Props> {
             markers,
             multipleAnswers,
             hideChoicesFromInstructions,
+            preferredPopoverDirection,
         } = this.props;
 
         const imageSelected = imageUrl && imageWidth > 0 && imageHeight > 0;
@@ -231,7 +235,7 @@ class LabelImageEditor extends React.Component<Props> {
                 <div className={css(styles.largeSpacer)} />
 
                 <Behavior
-                    preferredPopoverDirection="NONE"
+                    preferredPopoverDirection={preferredPopoverDirection}
                     multipleAnswers={multipleAnswers}
                     hideChoicesFromInstructions={hideChoicesFromInstructions}
                     onChange={this.handleBehaviorChange}
