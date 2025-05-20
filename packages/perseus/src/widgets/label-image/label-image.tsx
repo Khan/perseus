@@ -36,6 +36,7 @@ import type {
     PerseusLabelImageUserInput,
     LabelImagePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
+import type {InteractiveMarkerScore} from "@khanacademy/perseus-score/src/widgets/label-image/score-label-image";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
@@ -91,6 +92,12 @@ type LabelImageState = {
     // Hide answer pills.
     hideAnswers: boolean;
 };
+
+function isAnswerful(
+    marker: OptionalAnswersMarkerType | InteractiveMarkerType,
+): marker is InteractiveMarkerType {
+    return marker.answers != null;
+}
 
 export class LabelImage
     extends React.Component<Props, LabelImageState>
@@ -328,19 +335,27 @@ export class LabelImage
         const {onChange} = this.props;
 
         const updatedMarkers = markers.map((marker) => {
-            const score = scoreLabelImageMarker(
-                marker.selected,
-                marker.answers ?? [],
-            );
+            if (isAnswerful(marker)) {
+                const score = scoreLabelImageMarker(
+                    marker.selected,
+                    marker.answers,
+                );
 
+                return {
+                    ...marker,
+                    // Reveal correctness state for markers with answers.
+                    showCorrectness: score.hasAnswers
+                        ? score.isCorrect
+                            ? "correct"
+                            : "incorrect"
+                        : undefined,
+                };
+            }
+            // If the marker doesn't have answers, retain its current state
+            // or set showCorrectness to undefined.
             return {
                 ...marker,
-                // Reveal correctness state for markers with answers.
-                showCorrectness: score.hasAnswers
-                    ? score.isCorrect
-                        ? "correct"
-                        : "incorrect"
-                    : undefined,
+                showCorrectness: undefined,
             };
         });
 
@@ -491,10 +506,15 @@ export class LabelImage
                 }[markerPosition];
             }
 
-            const score = scoreLabelImageMarker(
-                marker.selected,
-                marker.answers ?? [],
-            );
+            let score: InteractiveMarkerScore;
+            if (isAnswerful(marker)) {
+                score = scoreLabelImageMarker(marker.selected, marker.answers);
+            } else {
+                score = {
+                    hasAnswers: false,
+                    isCorrect: false,
+                };
+            }
             // Once the question is answered, show markers
             // with correct answers, otherwise passthrough
             // the correctness state.
