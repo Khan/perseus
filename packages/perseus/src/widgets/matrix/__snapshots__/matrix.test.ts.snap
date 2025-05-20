@@ -93,7 +93,11 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1qo22fw"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1qo22fw"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-13"
                     type="text"
@@ -110,7 +114,11 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-14"
                     type="text"
@@ -127,7 +135,11 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-15"
                     type="text"
@@ -144,7 +156,11 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-16"
                     type="text"
@@ -165,7 +181,11 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-17"
                     type="text"
@@ -182,7 +202,11 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-18"
                     type="text"
@@ -199,7 +223,11 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-19"
                     type="text"
@@ -216,7 +244,11 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-20"
                     type="text"
@@ -237,7 +269,11 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-21"
                     type="text"
@@ -254,7 +290,11 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-22"
                     type="text"
@@ -271,7 +311,11 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-23"
                     type="text"
@@ -288,7 +332,11 @@ exports[`matrix widget should snapshot on mobile: first mobile render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-24"
                     type="text"
@@ -393,7 +441,11 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1qo22fw"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1qo22fw"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-1"
                     type="text"
@@ -410,7 +462,11 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-2"
                     type="text"
@@ -427,7 +483,11 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-3"
                     type="text"
@@ -444,7 +504,11 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-4"
                     type="text"
@@ -465,7 +529,11 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-5"
                     type="text"
@@ -482,7 +550,11 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-6"
                     type="text"
@@ -499,7 +571,11 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-7"
                     type="text"
@@ -516,7 +592,11 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-8"
                     type="text"
@@ -537,7 +617,11 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-9"
                     type="text"
@@ -554,7 +638,11 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-10"
                     type="text"
@@ -571,7 +659,11 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-11"
                     type="text"
@@ -588,7 +680,11 @@ exports[`matrix widget should snapshot: first render 1`] = `
                     autocapitalize="off"
                     autocomplete="off"
                     autocorrect="off"
+<<<<<<< HEAD
                     class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+=======
+                    class="input_a5n1n-o_O-LabelMedium_1voxh4u-o_O-default_1elaks2-o_O-defaultFocus_drkasj-o_O-input_1simu8f"
+>>>>>>> origin
                     data-testid="input-with-examples"
                     id="input-12"
                     type="text"
