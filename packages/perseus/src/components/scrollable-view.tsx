@@ -96,6 +96,7 @@ function ScrollableView({
                 role={role}
                 style={mergeStyle}
                 ref={containerRef}
+                tabIndex={-1}
             >
                 {children}
             </div>

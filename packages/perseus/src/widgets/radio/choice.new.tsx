@@ -182,6 +182,7 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
                         }}
                         ref={ref as any}
                         aria-hidden="true"
+                        hideDefaultFocusRing={true}
                     >
                         {({hovered, focused, pressed}) => (
                             <div style={styles.choiceRow}>
