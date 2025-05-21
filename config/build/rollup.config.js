@@ -12,7 +12,7 @@ import ancesdir from "ancesdir";
 import autoExternal from "rollup-plugin-auto-external";
 import filesize from "rollup-plugin-filesize";
 import postcss from "rollup-plugin-postcss";
-import styles from "rollup-plugin-styles";
+import postcssImport from "postcss-import";
 
 const rootDir = ancesdir(__dirname);
 
@@ -148,45 +148,28 @@ const createConfig = (
                     raphael: path.join(rootDir, "vendor", "raphael"),
                 },
             }),
-            styles({
-                mode: ["extract", "index.css"],
+            postcss({
+                extract: "index.css",
                 minimize: true,
                 sourceMap: true,
-                url: {
-                    // We need to specify a custom publicPath here because we
-                    // override the default `output.assetFileNames` elsewhere
-                    // in this file. If you change one, you should ensure that
-                    // a new build correctly places font files in the right dir
-                    // and that the generated CSS contains valid relative urls
-                    // to those fonts!
-                    publicPath: "assets",
-                },
+                plugins: [postcssImport()],
                 modules: {
                     localsConvention: "camelCase",
-                    // auto: /\.module\.css$/,
-                    localIdentName: "perseus_[sha256:hash:base64:8]",
+                    generateScopedName: function (name, filename, css) {
+                        if (filename.endsWith(".module.css")) {
+                            const hash = crypto
+                                .createHash("sha256")
+                                .update(`${filename}:${name}`)
+                                .digest("base64")
+                                .replace(/[/+=]/g, "-") // Remove special characters for CSS compatibility
+                                .slice(0, 8); // Limit to 8 characters
+                            return `perseus_${hash}`;
+                        } else {
+                            return name;
+                        }
+                    },
                 },
             }),
-            // postcss({
-            //     extract: "index.css",
-            //     include: "*.module.css",
-            //     modules: {
-            //         localsConvention: "camelCase",
-            //         generateScopedName: function (name, filename, css) {
-            //             if (filename.endsWith(".module.css")) {
-            //                 const hash = crypto
-            //                     .createHash("sha256")
-            //                     .update(`${filename}:${name}`)
-            //                     .digest("base64")
-            //                     .replace(/[/+=]/g, "-") // Remove special characters for CSS compatibility
-            //                     .slice(0, 8); // Limit to 8 characters
-            //                 return `perseus_${hash}`;
-            //             } else {
-            //                 return name;
-            //             }
-            //         },
-            //     },
-            // }),
             swc({
                 swc: {
                     swcrc: true,
