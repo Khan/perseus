@@ -266,9 +266,6 @@ importers:
       aphrodite:
         specifier: 'catalog:'
         version: 1.2.5
-      core-js:
-        specifier: 3.42.0
-        version: 3.42.0
       cross-env:
         specifier: ^5.2.0
         version: 5.2.1
@@ -4345,9 +4342,6 @@ packages:
   core-js@1.2.7:
     resolution: {integrity: sha512-ZiPp9pZlgxpWRu0M+YWbm6+aQ84XEfH1JRXvfOc/fILWI0VKhLC2LX13X1NYq4fULzLMq7Hfh43CSo2/aIaUPA==}
     deprecated: core-js@<3.23.3 is no longer maintained and not recommended for usage due to the number of issues. Because of the V8 engine whims, feature detection in old core-js versions could cause a slowdown up to 100x even if nothing is polyfilled. Some versions have web compatibility issues. Please, upgrade your dependencies to the actual version of core-js.
-
-  core-js@3.42.0:
-    resolution: {integrity: sha512-Sz4PP4ZA+Rq4II21qkNqOEDTDrCvcANId3xpIgB34NDkWc3UduWj2dqEtN9yZIq8Dk3HyPI33x9sqqU5C8sr0g==}
 
   core-util-is@1.0.2:
     resolution: {integrity: sha512-3lqz5YjWTYnW6dlDa5TLaTCcShfar1e40rmcJVwCBJC6mWlFuj0eCHIElmG1g5kyuJ/GD+8Wn4FFCcz4gJPfaQ==}
@@ -13318,8 +13312,6 @@ snapshots:
       browserslist: 4.24.4
 
   core-js@1.2.7: {}
-
-  core-js@3.42.0: {}
 
   core-util-is@1.0.2: {}
 
