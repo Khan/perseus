@@ -22,6 +22,7 @@ type Props = {
     id: string; // widget id
     initialProps: WidgetProps<any, PerseusWidgetOptions>;
     linterContext: LinterContextProps;
+    useAnswerful: () => void;
 };
 
 type DefaultProps = {
@@ -184,6 +185,7 @@ class WidgetContainer extends React.Component<Props, State> {
                                 widget_id: this.props.id,
                             }}
                             onError={(error: Error) => {
+                                this.props.useAnswerful();
                                 analytics.onAnalyticsEvent({
                                     type: "perseus:widget-rendering-error:ti",
                                     payload: {

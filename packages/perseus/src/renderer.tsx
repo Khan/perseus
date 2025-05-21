@@ -77,7 +77,7 @@ import "./styles/perseus-renderer.less";
 const rContainsNonWhitespace = /\S/;
 const rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
 
-const noopOnRender = () => {};
+const noop = () => {};
 
 const makeContainerId = (id: string) => "container:" + id;
 
@@ -160,6 +160,7 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
      */
     inline?: boolean;
     strings: PerseusStrings;
+    useAnswerful?: () => void;
 };
 
 type State = {
@@ -273,7 +274,7 @@ class Renderer
         // onRender may be called multiple times per render, for example
         // if there are multiple images or TeX pieces within `content`.
         // It is a good idea to debounce any functions passed here.
-        onRender: noopOnRender,
+        onRender: noop,
         onInteractWithWidget: function () {},
         findExternalWidgets: () => [],
         alwaysUpdate: false,
@@ -578,6 +579,7 @@ class Renderer
                         this.props.linterContext,
                         "widget",
                     )}
+                    useAnswerful={this.props.useAnswerful ?? noop}
                 />
             );
         }
@@ -1404,16 +1406,16 @@ class Renderer
         const oldOnRender = prevProps.onRender;
 
         // In the common case of no callback specified, avoid this work.
-        if (onRender !== noopOnRender || oldOnRender !== noopOnRender) {
+        if (onRender !== noop || oldOnRender !== noop) {
             // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'find' does not exist on type 'JQueryStatic'.
             const $images = $(ReactDOM.findDOMNode(this)).find("img");
 
             // Fire callback on image load...
-            if (oldOnRender !== noopOnRender) {
+            if (oldOnRender !== noop) {
                 $images.off("load", oldOnRender);
             }
 
-            if (onRender !== noopOnRender) {
+            if (onRender !== noop) {
                 $images.on("load", onRender);
             }
         }
