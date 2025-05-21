@@ -73,6 +73,8 @@ export {default as expressionLogic} from "./widgets/expression";
 export type {ExpressionDefaultWidgetOptions} from "./widgets/expression";
 export {default as deriveExtraKeys} from "./widgets/expression/derive-extra-keys";
 export {default as gradedGroupLogic} from "./widgets/graded-group";
+export {default as freeResponseLogic} from "./widgets/free-response";
+export type {FreeResponseDefaultWidgetOptions} from "./widgets/free-response";
 export type {GradedGroupDefaultWidgetOptions} from "./widgets/graded-group";
 export {default as gradedGroupSetLogic} from "./widgets/graded-group-set";
 export type {GradedGroupSetDefaultWidgetOptions} from "./widgets/graded-group-set";
@@ -132,6 +134,7 @@ export {
 } from "./widgets/upgrade";
 
 export {default as splitPerseusItem} from "./utils/split-perseus-item";
+export {default as Registry} from "./utils/registry";
 
 export type * from "./widgets/logic-export.types";
 
@@ -142,6 +145,7 @@ export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorize
 export type {CategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
 export {default as getCSProgramPublicWidgetOptions} from "./widgets/cs-program/cs-program-util";
 export {default as getExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
+export {default as getFreeResponsePublicWidgetOptions} from "./widgets/free-response/free-response-util";
 export type {ExpressionPublicWidgetOptions} from "./widgets/expression/expression-util";
 export {default as getGrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
 export type {GrapherPublicWidgetOptions} from "./widgets/grapher/grapher-util";
@@ -151,7 +155,10 @@ export {
     type InteractiveGraphPublicWidgetOptions,
 } from "./widgets/interactive-graph/interactive-graph-util";
 export {default as getLabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
-export {default as getSorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
+export {
+    default as getSorterPublicWidgetOptions,
+    shuffleSorter,
+} from "./widgets/sorter/sorter-util";
 export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export type {DropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";

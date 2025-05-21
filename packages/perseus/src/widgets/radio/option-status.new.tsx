@@ -12,7 +12,7 @@ import * as React from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 
-import type {PerseusStrings} from "../../strings";
+import {getOptionStatusText} from "./utils/string-utils";
 
 type Props = {
     // Was this option the correct answer?
@@ -24,24 +24,6 @@ type Props = {
     reviewMode: boolean;
 };
 
-function renderText(
-    checked: boolean,
-    correct: boolean,
-    strings: PerseusStrings,
-): string {
-    if (correct) {
-        if (checked) {
-            return strings.correctSelected;
-        }
-        return strings.correct;
-    }
-
-    if (checked) {
-        return strings.incorrectSelected;
-    }
-    return strings.incorrect;
-}
-
 /**
  * This component is a duplicate of the OptionStatus component in option-status.tsx
  * for the Radio Revitalization Project. (LEMS-2933)
@@ -49,16 +31,18 @@ function renderText(
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-const OptionStatus = function (props: Props): React.ReactElement {
-    const {checked, correct, previouslyAnswered, reviewMode} =
-        props;
-
+const OptionStatus = ({
+    checked,
+    correct,
+    crossedOut,
+    previouslyAnswered,
+    reviewMode,
+}: Props): React.ReactElement | null => {
     const {strings} = usePerseusI18n();
 
     // Option status is shown only in review mode, or for incorrectly
     // answered items.
     if (!reviewMode && !previouslyAnswered) {
-        // @ts-expect-error - TS2322 - Type 'null' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'.
         return null;
     }
 
@@ -75,7 +59,12 @@ const OptionStatus = function (props: Props): React.ReactElement {
 
     return (
         <div className={css(styles.text, textStyle)}>
-            {renderText(checked, correct, strings)}
+            {getOptionStatusText({
+                checked,
+                correct,
+                crossedOut,
+                strings,
+            })}
         </div>
     );
 };

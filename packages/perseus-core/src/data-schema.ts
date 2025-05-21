@@ -136,6 +136,7 @@ export interface PerseusWidgetTypes {
     dropdown: DropdownWidget;
     explanation: ExplanationWidget;
     expression: ExpressionWidget;
+    "free-response": FreeResponseWidget;
     grapher: GrapherWidget;
     "graded-group-set": GradedGroupSetWidget;
     "graded-group": GradedGroupWidget;
@@ -332,6 +333,8 @@ export type DropdownWidget = WidgetOptions<'dropdown', PerseusDropdownWidgetOpti
 export type ExplanationWidget = WidgetOptions<'explanation', PerseusExplanationWidgetOptions>;
 // prettier-ignore
 export type ExpressionWidget = WidgetOptions<'expression', PerseusExpressionWidgetOptions>;
+// prettier-ignore
+export type FreeResponseWidget = WidgetOptions<'free-response', PerseusFreeResponseWidgetOptions>;
 // prettier-ignore
 export type GradedGroupSetWidget = WidgetOptions<'graded-group-set', PerseusGradedGroupSetWidgetOptions>;
 // prettier-ignore
@@ -1683,6 +1686,28 @@ export type PerseusPythonProgramWidgetOptions = {
     height: number;
 };
 
+// This is an object instead of just a string because we think we'll want to add more
+// fields in the future, like a weight, which would allow us to give partial credit
+// and weight each criterion separately.
+export type PerseusFreeResponseWidgetScoringCriterion = {
+    // An English-language description of how to score the response for this criterion.
+    text: string;
+};
+
+export type PerseusFreeResponseWidgetOptions = {
+    // Whether to allow the user to enter an unlimited number of characters.
+    allowUnlimitedCharacters: boolean;
+    // The maximum number of characters that the user can enter.
+    characterLimit: number;
+    // The placeholder text that will be displayed to the user in the text input field.
+    placeholder: string;
+    // The question text that will be displayed to the user.
+    question: string;
+    // A list of scoring criteria for the free response question. This is a list
+    // of things the answer should contain to be considered correct.
+    scoringCriteria: ReadonlyArray<PerseusFreeResponseWidgetScoringCriterion>;
+};
+
 export type PerseusIFrameWidgetOptions = {
     // A URL to display OR a CS Program ID
     url: string;
@@ -1748,6 +1773,7 @@ export type PerseusWidgetOptions =
     | PerseusDropdownWidgetOptions
     | PerseusExplanationWidgetOptions
     | PerseusExpressionWidgetOptions
+    | PerseusFreeResponseWidgetOptions
     | PerseusGradedGroupSetWidgetOptions
     | PerseusGradedGroupWidgetOptions
     | PerseusIFrameWidgetOptions

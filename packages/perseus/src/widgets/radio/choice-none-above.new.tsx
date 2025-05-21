@@ -7,15 +7,9 @@ import Choice from "./choice.new";
 
 import type {ChoiceProps} from "./choice.new";
 
-type Props = ChoiceProps & {
+interface Props extends ChoiceProps {
     showContent?: boolean;
-};
-
-type WithForwardRef = {
-    forwardedRef: React.ForwardedRef<HTMLButtonElement>;
-};
-
-type PropsWithForwardRef = Props & WithForwardRef;
+}
 
 /**
  * This component is a duplicate of the ChoiceNoneAbove component in choice-none-above.tsx
@@ -24,40 +18,38 @@ type PropsWithForwardRef = Props & WithForwardRef;
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-const ChoiceNoneAbove = function ({
-    content,
-    forwardedRef,
-    showContent = true,
-    ...rest
-}: PropsWithForwardRef): React.ReactElement {
-    const {strings} = usePerseusI18n();
+const ChoiceNoneAbove = React.forwardRef<HTMLButtonElement, Props>(
+    (
+        {content, showContent = true, ...otherChoiceProps},
+        forwardedRef,
+    ): React.ReactElement => {
+        const {strings} = usePerseusI18n();
 
-    const choiceProps = {
-        ...rest,
-        content: showContent ? (
-            content
-        ) : (
-            // We use a Renderer here because that is how
-            // `this.props.content` is wrapped otherwise.
-            // We pass in a key here so that we avoid a semi-spurious
-            // react warning when we render this in the same place
-            // as the previous choice content renderer.
-            // Note this destroys state, but since all we're doing
-            // is outputting "None of the above", that is okay.
-            //
-            // todo(matthewc): this seems like way overkill
-            // just to render a string
-            <Renderer
-                key="noneOfTheAboveRenderer"
-                content={strings.noneOfTheAbove}
-                strings={strings}
-            />
-        ),
-    } as const;
+        const choiceProps = {
+            ...otherChoiceProps,
+            content: showContent ? (
+                content
+            ) : (
+                // We use a Renderer here because that is how
+                // `this.props.content` is wrapped otherwise.
+                // We pass in a key here so that we avoid a semi-spurious
+                // react warning when we render this in the same place
+                // as the previous choice content renderer.
+                // Note this destroys state, but since all we're doing
+                // is outputting "None of the above", that is okay.
+                //
+                // todo(matthewc): this seems like way overkill
+                // just to render a string
+                <Renderer
+                    key="noneOfTheAboveRenderer"
+                    content={strings.noneOfTheAbove}
+                    strings={strings}
+                />
+            ),
+        } as const;
 
-    return <Choice {...choiceProps} ref={forwardedRef} />;
-};
+        return <Choice {...choiceProps} ref={forwardedRef} />;
+    },
+);
 
-export default React.forwardRef<HTMLButtonElement, Props>((props, ref) => (
-    <ChoiceNoneAbove {...props} forwardedRef={ref} />
-));
+export default ChoiceNoneAbove;

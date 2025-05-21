@@ -5,6 +5,9 @@ import type {ErrorCodes} from "@khanacademy/perseus-score";
  * The translated strings that are used to render Perseus.
  */
 export type PerseusStrings = {
+    // `num` is a special variable name that is used to determine the plurality
+    // of the translated string.
+    characterCount: ({used, num}: {used: number; num: number}) => string;
     closeKeypad: string;
     openKeypad: string;
     mathInputBox: string;
@@ -22,6 +25,7 @@ export type PerseusStrings = {
     invalidSelection: string;
     ERROR_TITLE: string;
     ERROR_MESSAGE: string;
+    USER_INPUT_EMPTY: string;
     hints: string;
     getAnotherHint: string;
     deprecatedStandin: string;
@@ -112,6 +116,9 @@ export type PerseusStrings = {
     bringBack: string;
     openMenuForChoice: ({letter}: {letter: string}) => string;
     letters: string;
+    scrollAnswers: string;
+    scrollLeft: string;
+    scrollRight: string;
     rightArrow: string;
     dontUnderstandUnits: string;
     checkSigFigs: string;
@@ -508,6 +515,12 @@ export type PerseusStrings = {
  * !! Note: Ensure that all escape sequences are double-escaped. (e.g. `\\text` -> `\\\\text`)
  */
 export const strings = {
+    // `num` is a special variable name that is used to determine the plurality
+    // of the translated string.
+    characterCount: {
+        one: "%(used)s / %(num)s Character",
+        other: "%(used)s / %(num)s Characters",
+    },
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
     mathInputBox: "Math input box",
@@ -535,6 +548,7 @@ export const strings = {
         "I'm a computer. I only understand " +
         "multiplication if you use an asterisk " +
         "(*) as the multiplication sign.",
+    USER_INPUT_EMPTY: "Your answer is empty.",
     WRONG_CASE_ERROR:
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
@@ -645,6 +659,9 @@ export const strings = {
             "This is a list of single-character labels that will appear in front of multiple-choice options. For instance, a multiple-choice question with three options would display (A) first option (B) second option (C) third option. There must be spaces between each of the different characters. The characters will show up next to options in the order that they are listed here. Most multiple choice questions have 5 or fewer options.",
         message: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",
     },
+    scrollAnswers: "Scroll Answers",
+    scrollLeft: "Scroll left",
+    scrollRight: "Scroll right",
     rightArrow: "Reaction arrow pointing to the right.",
     dontUnderstandUnits: "I couldn't understand those units.",
     checkSigFigs: "Check your significant figures.",
@@ -1104,6 +1121,10 @@ export const strings = {
  * Mock strings for the Perseus package, to be used for tests and Storybook.
  */
 export const mockStrings: PerseusStrings = {
+    characterCount: ({used, num}) =>
+        num === 1
+            ? `${used} / ${num} Character`
+            : `${used} / ${num} Characters`,
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
     mathInputBox: "Math input box",
@@ -1131,6 +1152,7 @@ export const mockStrings: PerseusStrings = {
         "I'm a computer. I only understand " +
         "multiplication if you use an asterisk " +
         "(*) as the multiplication sign.",
+    USER_INPUT_EMPTY: "Your answer is empty.",
     WRONG_CASE_ERROR:
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
@@ -1229,6 +1251,9 @@ export const mockStrings: PerseusStrings = {
     bringBack: "Bring back",
     openMenuForChoice: ({letter}) => `Open menu for Choice ${letter}`,
     letters: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",
+    scrollAnswers: "Scroll Answers",
+    scrollLeft: "Scroll left",
+    scrollRight: "Scroll right",
     rightArrow: "Reaction arrow pointing to the right.",
     dontUnderstandUnits: "I couldn't understand those units.",
     checkSigFigs: "Check your significant figures.",
@@ -1445,6 +1470,7 @@ const errorToString: ErrorStringMap = {
     CHOOSE_CORRECT_NUM_ERROR: "chooseCorrectNum",
     NOT_NONE_ABOVE_ERROR: "notNoneOfTheAbove",
     FILL_ALL_CELLS_ERROR: "fillAllCells",
+    USER_INPUT_EMPTY: "USER_INPUT_EMPTY",
 };
 
 export function mapErrorToString(

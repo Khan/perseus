@@ -1,7 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* Component for rendering a letter icon in a library radio choice */
 
-import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
+import {color, color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -12,7 +12,9 @@ import * as styleConstants from "../../../styles/constants";
 import FocusRing from "../focus-ring";
 import {getChoiceLetter} from "../util";
 
-import sharedStyles, {CHOICE_ICON_SIZE} from "./shared-styles";
+import choiceIconStyles, {CHOICE_ICON_SIZE} from "./choice-icon-styles";
+// TODO: LEMS-2995: Remove CrossOutLine
+import CrossOutLine from "./cross-out-line";
 
 type ChoiceIconProps = {
     pos: number;
@@ -108,7 +110,7 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
     }
 
     return (
-        <div className={css(sharedStyles.iconWrapper)}>
+        <div style={choiceIconStyles.iconWrapper}>
             <FocusRing
                 color={WBColor.blue}
                 visible={focused || hovered}
@@ -162,6 +164,9 @@ const styles = StyleSheet.create({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+
+        // TODO: LEMS-3108 address light/dark mode theme
+        background: color.white,
     },
 
     choiceHasLetter: {
