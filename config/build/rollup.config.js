@@ -19,7 +19,7 @@ const BROWSER_MINIMUMS = {
     // `Array.at()` and that function was introduced in 15.4. It's a small
     // difference but hopefully meaningful to our learners who aren't totally
     // up to date yet.
-    safari: "15.0",
+    safari: "14.0",
 };
 
 const rootDir = ancesdir(__dirname);
@@ -177,13 +177,16 @@ const createConfig = (
                     swcrc: true,
                     minify: true,
                     env: {
+                        // "usage" polyfills _only_ the functions in use that
+                        // aren't included in our targets. These polyfills from
+                        // core-js will appear inline in the bundled code.
+                        mode: "usage",
                         targets:
                             `chrome >= ${BROWSER_MINIMUMS.chrome}, ` +
                             `last 1 edge versions, ` +
                             `safari >= ${BROWSER_MINIMUMS.safari},` +
                             `last 1 firefox versions, ` +
                             `ios_saf >= ${BROWSER_MINIMUMS.safari}`,
-                        mode: "usage",
                         coreJs: "3.42",
                     },
                 },
