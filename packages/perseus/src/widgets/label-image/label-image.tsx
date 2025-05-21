@@ -203,9 +203,9 @@ export class LabelImage
     static navigateToMarkerIndex(
         navigateDirection: Direction,
         markers: ReadonlyArray<{
-            x: number,
-            y: number,
-            showCorrectness?: "correct" | "incorrect",
+            x: number;
+            y: number;
+            showCorrectness?: "correct" | "incorrect";
         }>,
         thisIndex: number,
     ): number {
