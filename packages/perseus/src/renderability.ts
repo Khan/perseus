@@ -75,6 +75,7 @@ const isRendererContentRenderableBy = function (
             isRenderable &&
             isRawWidgetInfoRenderableBy(widgetInfo, rendererContentVersion);
 
+        // TODO(LEMS-3142): Refactor manual widget recursion
         // Manually recurse into child widgets for group/sequence
         if (
             widgetInfo &&

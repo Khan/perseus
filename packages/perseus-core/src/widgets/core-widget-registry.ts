@@ -98,14 +98,14 @@ export const traverseChildWidgets = (
     }
 
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (!widgetInfo || !widgetInfo.type || !widgets[widgetInfo.type]) {
+    if (!widgetInfo || !widgetInfo.type || !widgets.get(widgetInfo.type)) {
         return widgetInfo;
     }
 
-    const widgetExports = widgets[widgetInfo.type];
+    const widgetExports = widgets.get(widgetInfo.type);
     const props = widgetInfo.options;
 
-    if (widgetExports.traverseChildWidgets != null && props != null) {
+    if (widgetExports?.traverseChildWidgets != null && props != null) {
         const newProps = widgetExports.traverseChildWidgets(
             props,
             traverseRenderer,
