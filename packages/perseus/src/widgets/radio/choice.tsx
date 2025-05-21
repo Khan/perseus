@@ -102,7 +102,7 @@ const Choice = function (props: ChoicePropsWithForwardRef): React.ReactElement {
     // We want to show the choices as dimmed out when the choices are disabled.
     // However, we don't want to do this when we're in review mode in the
     // content library.
-    const showDimmed = (!reviewMode && apiOptions.readOnly);
+    const showDimmed = !reviewMode && apiOptions.readOnly;
 
     const letter = getChoiceLetter(pos, strings);
     const a11yText = getA11yText(

@@ -56,12 +56,10 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
             disabled = false,
             checked = false,
             content,
-            crossedOut,
             showCorrectness,
             multipleSelect,
             onChange = (newValues: {
                 checked: boolean;
-                crossedOut: boolean;
             }): void => {},
             reviewMode,
             correct = false,
@@ -92,11 +90,9 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
         // maintaining a consistent API for the parent.
         function sendChange(newValues: {
             checked?: boolean;
-            crossedOut?: boolean;
         }) {
             const updatedChecked = newValues.checked ?? checked;
-            const updatedCrossedOut = newValues.crossedOut ?? crossedOut;
-            onChange({checked: updatedChecked, crossedOut: updatedCrossedOut});
+            onChange({checked: updatedChecked});
         }
 
         const descriptionClassName = classNames("description");
@@ -107,14 +103,13 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
         // We want to show the choices as dimmed out when the choices are disabled.
         // However, we don't want to do this when we're in review mode in the
         // content library.
-        const showDimmed = (!reviewMode && apiOptions.readOnly) || crossedOut;
+        const showDimmed = (!reviewMode && apiOptions.readOnly);
 
         const letter = getChoiceLetter(pos, strings);
         const a11yText = getA11yText({
             letter,
             checked,
             correct,
-            crossedOut,
             showCorrectness,
             strings,
         });
@@ -134,11 +129,8 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
                                 type={multipleSelect ? "checkbox" : "radio"}
                                 checked={checked}
                                 onClick={() => {
-                                    // If we're checking a crossed-out option, let's
-                                    // also uncross it.
                                     sendChange({
                                         checked: !checked,
-                                        crossedOut: false,
                                     });
                                 }}
                                 onChange={() => {}}
@@ -150,11 +142,8 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
                     </div>
                     <Clickable
                         onClick={() => {
-                            // If we're checking a crossed-out option, let's
-                            // also uncross it.
                             sendChange({
                                 checked: !checked,
-                                crossedOut: false,
                             });
                         }}
                         disabled={disabled || apiOptions.readOnly}
@@ -173,7 +162,6 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
                                     <ChoiceIcon
                                         pos={pos}
                                         correct={correct}
-                                        crossedOut={crossedOut}
                                         pressed={pressed}
                                         focused={focused}
                                         checked={checked}
@@ -189,7 +177,6 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
                                         <OptionStatus
                                             checked={checked}
                                             correct={correct}
-                                            crossedOut={crossedOut}
                                             previouslyAnswered={
                                                 previouslyAnswered
                                             }
@@ -228,27 +215,12 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
                                                     reviewMode
                                                 }
                                                 onClick={() => {
-                                                    if (!crossedOut) {
-                                                        // If we're crossing
-                                                        // out a checked
-                                                        // option, let's also
-                                                        // uncheck it.
-                                                        sendChange({
-                                                            checked: false,
-                                                            crossedOut: true,
-                                                        });
-                                                    } else {
-                                                        sendChange({
-                                                            crossedOut: false,
-                                                        });
-                                                    }
+                                                    sendChange({
+                                                        checked: !checked,
+                                                    });
                                                     close();
                                                 }}
-                                            >
-                                                {crossedOut
-                                                    ? strings.bringBack
-                                                    : strings.crossOut}
-                                            </Button>
+                                            />
                                         </View>
                                     }
                                 />

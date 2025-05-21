@@ -224,7 +224,6 @@ const BaseRadio = ({
                             apiOptions: apiOptions,
                             multipleSelect: multipleSelect,
                             checked: choice.checked,
-                            crossedOut: choice.crossedOut,
                             previouslyAnswered: choice.previouslyAnswered,
                             reviewMode,
                             correct: choice.correct,
@@ -324,7 +323,6 @@ const BaseRadio = ({
                                     ) {
                                         updateChoice(i, {
                                             checked: !choice.checked,
-                                            crossedOut: choice.crossedOut,
                                         });
                                         return;
                                     }

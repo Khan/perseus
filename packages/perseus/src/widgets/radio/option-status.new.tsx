@@ -34,7 +34,6 @@ type Props = {
 const OptionStatus = ({
     checked,
     correct,
-    crossedOut,
     previouslyAnswered,
     reviewMode,
 }: Props): React.ReactElement | null => {
@@ -62,7 +61,6 @@ const OptionStatus = ({
             {getOptionStatusText({
                 checked,
                 correct,
-                crossedOut,
                 strings,
             })}
         </div>
