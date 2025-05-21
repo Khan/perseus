@@ -234,20 +234,20 @@ export const SingleSelectOverflowImageContent: PerseusRenderer = {
                         content:
                             "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
                         correct: true,
-                        clue: "Count the ponies in the image.",
+                        rationale: "Count the ponies in the image.",
                     },
                     {
                         content:
                             "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
                         correct: false,
-                        clue: "Count the ponies in the image.",
+                        rationale: "Count the ponies in the image.",
                     },
                     {
                         content:
                             "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
                         correct: false,
                         isNoneOfTheAbove: false,
-                        clue: "Count the ponies in the image.",
+                        rationale: "Count the ponies in the image.",
                     },
                 ],
                 countChoices: false,
@@ -280,24 +280,24 @@ export const SingleSelectOverflowContent: PerseusRenderer = {
                         content:
                             "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
                         correct: true,
-                        clue: "Add the following numbers to get 75.",
+                        rationale: "Add the following numbers to get 75.",
                     },
                     {
                         content: "$100-50$",
                         correct: false,
-                        clue: "Subtract the following numbers.",
+                        rationale: "Subtract the following numbers.",
                     },
                     {
                         content: "$200-125+10$",
                         correct: false,
                         isNoneOfTheAbove: false,
-                        clue: "Calculate the following numbers.",
+                        rationale: "Calculate the following numbers.",
                     },
                     {
                         content: "$10+10+10+10$",
                         correct: false,
                         isNoneOfTheAbove: false,
-                        clue: "Add the following numbers.",
+                        rationale: "Add the following numbers.",
                     },
                 ],
                 countChoices: false,
@@ -451,26 +451,26 @@ export const multiChoiceQuestionSimpleOverflowContent: PerseusRenderer = {
                             "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
                         isNoneOfTheAbove: false,
                         correct: true,
-                        clue: "Add the following numbers to get 75.",
+                        rationale: "Add the following numbers to get 75.",
                     },
                     {
                         content:
                             "$5+4+1+9+1+2+2+2+2+2+3+3+3+1+4+4+2+5+5+10+3+2$",
                         isNoneOfTheAbove: false,
                         correct: true,
-                        clue: "Add the following numbers to get 75.",
+                        rationale: "Add the following numbers to get 75.",
                     },
                     {
                         content: "$10+10+10+10+10+10+10+5$",
                         isNoneOfTheAbove: false,
                         correct: true,
-                        clue: "Add the following numbers to get 75.",
+                        rationale: "Add the following numbers to get 75.",
                     },
                     {
                         content: "$10+10+10+10+10+10+10+3+2$",
                         isNoneOfTheAbove: false,
                         correct: false,
-                        clue: "Add the following numbers to get 75.",
+                        rationale: "Add the following numbers to get 75.",
                     },
                     {
                         content: "None of these",
