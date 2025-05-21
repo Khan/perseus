@@ -12,16 +12,6 @@ import autoExternal from "rollup-plugin-auto-external";
 import filesize from "rollup-plugin-filesize";
 import styles from "rollup-plugin-styles";
 
-const BROWSER_MINIMUMS = {
-    chrome: "128",
-    // Although Khan Academy's minimum supported Safari browser is 15.6, we are
-    // setting it to 15.0 because we're seeing errors related to usage of
-    // `Array.at()` and that function was introduced in 15.4. It's a small
-    // difference but hopefully meaningful to our learners who aren't totally
-    // up to date yet.
-    safari: "14.0",
-};
-
 const rootDir = ancesdir(__dirname);
 
 /**
@@ -176,19 +166,6 @@ const createConfig = (
                 swc: {
                     swcrc: true,
                     minify: true,
-                    env: {
-                        // "usage" polyfills _only_ the functions in use that
-                        // aren't included in our targets. These polyfills from
-                        // core-js will appear inline in the bundled code.
-                        mode: "usage",
-                        targets:
-                            `chrome >= ${BROWSER_MINIMUMS.chrome}, ` +
-                            `last 1 edge versions, ` +
-                            `safari >= ${BROWSER_MINIMUMS.safari},` +
-                            `last 1 firefox versions, ` +
-                            `ios_saf >= ${BROWSER_MINIMUMS.safari}`,
-                        coreJs: "3.42",
-                    },
                 },
                 exclude: "node_modules/**",
             }),
