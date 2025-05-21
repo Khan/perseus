@@ -202,7 +202,11 @@ export class LabelImage
      */
     static navigateToMarkerIndex(
         navigateDirection: Direction,
-        markers: Props["markers"],
+        markers: ReadonlyArray<{
+            x: number,
+            y: number,
+            showCorrectness?: "correct" | "incorrect",
+        }>,
         thisIndex: number,
     ): number {
         const thisMarker = markers[thisIndex];
