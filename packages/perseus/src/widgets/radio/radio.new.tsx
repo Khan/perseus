@@ -4,12 +4,11 @@ import {useContext, useEffect} from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
-import Util from "../../util";
-import PassageRef from "../passage-ref/passage-ref";
 
-import BaseRadio from "./base-radio";
+import BaseRadio from "./base-radio.new";
+import {getChoiceStates, parseNestedWidgets} from "./utils/general-utils";
 
-import type {ChoiceType} from "./base-radio";
+import type {ChoiceType} from "./base-radio.new";
 import type {WidgetProps, ChoiceState} from "../../types";
 import type {
     PerseusRadioChoice,
@@ -65,26 +64,26 @@ const defaultProps: DefaultProps = {
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-const RadioComponent = (props: RadioComponentProps) => {
-    const {
-        choices,
-        multipleSelect = defaultProps.multipleSelect,
-        countChoices = defaultProps.countChoices,
-        deselectEnabled = defaultProps.deselectEnabled,
-        linterContext = defaultProps.linterContext,
-        showSolutions = defaultProps.showSolutions,
-        static: isStatic,
-        reviewModeRubric,
-        reviewMode,
-        apiOptions,
-        isLastUsedWidget,
-        questionCompleted,
-        findWidgets,
-        onChange,
-        trackInteraction,
-        numCorrect,
-    } = props;
-
+const RadioComponent = ({
+    choices,
+    multipleSelect = defaultProps.multipleSelect,
+    countChoices = defaultProps.countChoices,
+    deselectEnabled = defaultProps.deselectEnabled,
+    linterContext = defaultProps.linterContext,
+    showSolutions = defaultProps.showSolutions,
+    static: isStatic,
+    reviewModeRubric,
+    reviewMode,
+    apiOptions,
+    isLastUsedWidget,
+    questionCompleted,
+    findWidgets,
+    onChange,
+    trackInteraction,
+    numCorrect,
+    choiceStates,
+    values,
+}: RadioComponentProps): React.ReactElement => {
     const {strings} = useContext(PerseusI18nContext);
 
     useEffect(() => {
@@ -96,36 +95,8 @@ const RadioComponent = (props: RadioComponentProps) => {
 
     // The renderer function for content rendering, which currently
     // only supports passage-ref subwidgets.
-    // TODO THIRD: This should probably be a util function
     const renderRenderer = (content = ""): React.ReactElement => {
-        let nextPassageRefId = 1;
-        const widgets: Record<string, any> = {};
-
-        const modContent = content.replace(
-            /\{\{passage-ref (\d+) (\d+)(?: "([^"]*)")?\}\}/g,
-            (
-                match: string,
-                passageNum: string,
-                refNum: string,
-                summaryText: string,
-            ) => {
-                const widgetId = "passage-ref " + nextPassageRefId;
-                nextPassageRefId++;
-
-                widgets[widgetId] = {
-                    type: "passage-ref",
-                    graded: false,
-                    options: {
-                        passageNumber: parseInt(passageNum),
-                        referenceNumber: parseInt(refNum),
-                        summaryText: summaryText,
-                    },
-                    version: PassageRef.version,
-                };
-
-                return "[[" + Util.snowman + " " + widgetId + "]]";
-            },
-        );
+        const {parsedContent, extractedWidgets} = parseNestedWidgets(content);
 
         // This has been called out as a hack in the past.
         // We pass in a key here so that we avoid a semi-spurious
@@ -139,8 +110,8 @@ const RadioComponent = (props: RadioComponentProps) => {
         return (
             <Renderer
                 key="choiceContentRenderer"
-                content={modContent}
-                widgets={widgets}
+                content={parsedContent}
+                widgets={extractedWidgets}
                 findExternalWidgets={findWidgets}
                 alwaysUpdate={true}
                 linterContext={{
@@ -163,8 +134,6 @@ const RadioComponent = (props: RadioComponentProps) => {
             crossedOut: ReadonlyArray<boolean>;
         }>,
     ) => {
-        const {choiceStates} = props;
-
         // Construct the baseline `choiceStates` objects. If this is the user's
         // first interaction with the widget, we'll need to initialize them to
         // new objects with all fields set to the default values. Otherwise, we
@@ -194,51 +163,6 @@ const RadioComponent = (props: RadioComponentProps) => {
 
         // Track the interaction.
         trackInteraction();
-    };
-
-    const getChoiceStates = (): ReadonlyArray<ChoiceState> => {
-        // The default state for a choice state object.
-        const defaultState: ChoiceState = {
-            selected: false,
-            crossedOut: false,
-            readOnly: false,
-            highlighted: false,
-            rationaleShown: false,
-            correctnessShown: false,
-            previouslyAnswered: false,
-        };
-
-        // Case 1: The widget is in either static or showSolutions mode.
-        // Both cases show the correct answers and prevent user interaction.
-        if (isStatic || showSolutions === "all") {
-            return choices.map((choice) => ({
-                ...defaultState,
-                selected: !!choice.correct,
-                readOnly: true,
-                rationaleShown: true,
-                correctnessShown: true,
-            }));
-        }
-
-        // Case 2: The widget has been interacted with, but the user hasn't submitted their answer yet
-        // — so we're showing the user's current choice states.
-        if (props.choiceStates) {
-            return props.choiceStates;
-        }
-
-        // Case 3: The widget uses the legacy values property, and the user has interacted with the widget
-        // but hasn't submitted their answer yet — so we're showing the user's current choice states.
-        if (props.values) {
-            /* c8 ignore next - props.values is deprecated */
-            return props.values.map((val) => ({
-                ...defaultState,
-                selected: val,
-            }));
-        }
-
-        // Case 4: The widget hasn't been interacted with yet, so we're showing
-        // the default choice states.
-        return choices.map(() => ({...defaultState}));
     };
 
     const buildChoiceProps = (
@@ -288,13 +212,19 @@ const RadioComponent = (props: RadioComponentProps) => {
                 revealNoneOfTheAbove: !!(questionCompleted && selected),
                 crossedOut,
                 highlighted,
-                previouslyAnswered: previouslyAnswered,
+                previouslyAnswered,
             };
         });
     };
 
-    const choiceStates: ReadonlyArray<ChoiceState> = getChoiceStates();
-    const choicesProp = buildChoiceProps(choices, choiceStates);
+    const updatedChoiceStates: ReadonlyArray<ChoiceState> = getChoiceStates({
+        choices,
+        isStatic,
+        showSolutions,
+        choiceStates,
+        values,
+    });
+    const updatedChoicesProp = buildChoiceProps(choices, updatedChoiceStates);
 
     return (
         <BaseRadio
@@ -302,7 +232,7 @@ const RadioComponent = (props: RadioComponentProps) => {
             multipleSelect={multipleSelect}
             countChoices={countChoices}
             numCorrect={numCorrect}
-            choices={choicesProp}
+            choices={updatedChoicesProp}
             onChange={updateChoices}
             reviewModeRubric={reviewModeRubric}
             reviewMode={reviewMode}
