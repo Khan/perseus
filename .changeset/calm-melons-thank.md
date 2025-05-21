@@ -2,4 +2,4 @@
 "perseus-build-settings": patch
 ---
 
-Updates build system to polyfill bundles to support Khan Academy's minimum supported browsers
+Updates TypeScript configuration to target ES2021 instead of ES2016
