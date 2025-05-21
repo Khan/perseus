@@ -122,7 +122,6 @@ const transform = (
 export default {
     name: "radio",
     displayName: "Radio / Multiple choice",
-    accessible: true,
     widget: Radio,
     transform: transform,
     staticTransform: transform,

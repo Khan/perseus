@@ -43,6 +43,7 @@ const plotterWidgetLogic: WidgetLogic = {
     name: "plotter",
     defaultWidgetOptions,
     getPublicWidgetOptions: getPlotterPublicWidgetOptions,
+    accessible: false,
 };
 
 export default plotterWidgetLogic;

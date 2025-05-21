@@ -1,14 +1,15 @@
+import {components, iconChevronDown} from "@khanacademy/perseus";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import iconPass from "@phosphor-icons/core/fill/check-circle-fill.svg";
 import iconWarning from "@phosphor-icons/core/fill/warning-fill.svg";
-import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
-import caretRight from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
 import {useState} from "react";
 
 import IssueDetails from "./issue-details";
+import {iconChevronRight} from "./styles/icon-paths";
+
+const {InlineIcon} = components;
 
 export type Issue = {
     id: string;
@@ -26,8 +27,6 @@ type IssuesPanelProps = {
 const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
     const hasWarnings = issues.length > 0;
     const [showPanel, setShowPanel] = useState(false);
-
-    const toggleIcon = showPanel ? caretDown : caretRight;
     const icon = hasWarnings ? iconWarning : iconPass;
     const iconColor = hasWarnings ? wbColor.gold : wbColor.green;
     const issuesCount = `${issues.length} issue${
@@ -46,10 +45,7 @@ const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
         <div className={editorClasses}>
             <div className="perseus-widget-editor-title">
                 <div className="perseus-widget-editor-title-id">
-                    <IconButton
-                        icon={toggleIcon}
-                        kind="secondary"
-                        size="small"
+                    <button
                         onClick={togglePanel}
                         disabled={!hasWarnings}
                         style={{
@@ -59,7 +55,13 @@ const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
                             backgroundColor: "transparent",
                             cursor: hasWarnings ? "pointer" : "not-allowed",
                         }}
-                    />
+                    >
+                        {showPanel ? (
+                            <InlineIcon {...iconChevronDown} />
+                        ) : (
+                            <InlineIcon {...iconChevronRight} />
+                        )}
+                    </button>
                     <span>Issues</span>
                 </div>
                 <PhosphorIcon
@@ -74,7 +76,7 @@ const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
             {showPanel && (
                 <div className="perseus-widget-editor-panel">
                     <div className="perseus-widget-editor-content">
-                        {issues.map((issue, index) => (
+                        {issues.map((issue) => (
                             <IssueDetails key={issue.id} issue={issue} />
                         ))}
                     </div>

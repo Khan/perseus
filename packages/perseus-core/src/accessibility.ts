@@ -6,13 +6,13 @@
 import _ from "underscore";
 
 import {traverse} from "./traversal";
-import * as Widgets from "./widgets";
+import * as Widgets from "./widgets/core-widget-registry";
 
 // Iterate over a single Perseus renderer, mutating `widgets` by appending
 // violating widget types discovered in this item.
 function traverseRenderer(itemData, widgets: Array<any>) {
     traverse(itemData, null, function (info) {
-        if (info.type && !Widgets.isAccessible(info)) {
+        if (info.type && !Widgets.isAccessible(info.type, info.options)) {
             widgets.push(info.type);
         }
     });

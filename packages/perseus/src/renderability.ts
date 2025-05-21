@@ -7,15 +7,13 @@
  * This supports widgets that contain renderers, such as the
  * group or sequence widgets.
  */
-
 import {
     Errors,
     PerseusError,
     upgradeWidgetInfoToLatestVersion,
+    traverse,
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
-
-import {traverse} from "./traversal";
 
 import type {PerseusWidget} from "@khanacademy/perseus-core";
 
@@ -65,12 +63,31 @@ const isRawWidgetInfoRenderableBy = function (
 const isRendererContentRenderableBy = function (
     rendererOptions,
     rendererContentVersion: any,
-) {
+): boolean {
     let isRenderable = true;
     traverse(rendererOptions, null, function (widgetInfo) {
+        // If already determined to be unrenderable, skip further checks
+        if (!isRenderable) {
+            return;
+        }
+
         isRenderable =
             isRenderable &&
             isRawWidgetInfoRenderableBy(widgetInfo, rendererContentVersion);
+
+        // TODO(LEMS-3142): Refactor manual widget recursion
+        // Manually recurse into child widgets for group/sequence
+        if (
+            widgetInfo &&
+            (widgetInfo.type === "group" || widgetInfo.type === "sequence") &&
+            widgetInfo.options?.widgets
+        ) {
+            const subRenderable = isRendererContentRenderableBy(
+                widgetInfo.options,
+                rendererContentVersion,
+            );
+            isRenderable = isRenderable && subRenderable;
+        }
     });
     return isRenderable;
 };

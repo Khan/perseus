@@ -19,6 +19,7 @@ const categorizerWidgetLogic: WidgetLogic = {
     name: "categorizer",
     defaultWidgetOptions,
     getPublicWidgetOptions: getCategorizerPublicWidgetOptions,
+    accessible: false,
 };
 
 export default categorizerWidgetLogic;

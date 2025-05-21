@@ -502,7 +502,6 @@ export type WidgetExports<
     getWidget?: () => T;
     widget: T;
 
-    accessible?: boolean | ((props: any) => boolean);
     /** Supresses widget from showing up in the dropdown in the content editor */
     hidden?: boolean;
     /**
@@ -516,8 +515,6 @@ export type WidgetExports<
     version?: Version;
     isLintable?: boolean;
     tracking?: Tracking;
-
-    traverseChildWidgets?: any; // (Props, traverseRenderer) => NewProps,
 
     /**
      * Transforms the widget options to the props used to render the widget.

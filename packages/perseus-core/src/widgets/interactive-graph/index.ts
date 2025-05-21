@@ -42,6 +42,8 @@ const interactiveGraphWidgetLogic: WidgetLogic = {
     name: "interactive-graph",
     defaultWidgetOptions,
     getPublicWidgetOptions: getInteractiveGraphPublicWidgetOptions,
+    // TODO(LEMS-3102): add partially inaccessible function
+    accessible: true,
 };
 
 export default interactiveGraphWidgetLogic;

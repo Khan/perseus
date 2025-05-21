@@ -18,6 +18,7 @@ const sorterWidgetLogic: WidgetLogic = {
     name: "sorter",
     defaultWidgetOptions,
     getPublicWidgetOptions: getSorterPublicWidgetOptions,
+    accessible: false,
 };
 
 export default sorterWidgetLogic;
