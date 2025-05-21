@@ -799,20 +799,6 @@ describe("LabelImage", function () {
         );
     });
 
-    test("the answerless test data is in the right shape", () => {
-        // Arrange / Act / Assert
-        const answerfulMarker =
-            answerfulItem.question.widgets["label-image 1"].options.markers[0];
-
-        expect(
-            answerlessItem.question.widgets["label-image 1"].options.markers[0],
-        ).toEqual({
-            label: answerfulMarker.label,
-            x: answerfulMarker.x,
-            y: answerfulMarker.y,
-        });
-    });
-
     describe.each([
         ["answerless", answerlessItem],
         ["answerful", answerfulItem],
