@@ -7,6 +7,9 @@ import {
     choicesWithImages,
     multiChoiceQuestionSimple,
     multiChoiceQuestion,
+    multiChoiceQuestionSimpleOverflowContent,
+    SingleSelectOverflowContent,
+    SingleSelectOverflowImageContent,
 } from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
@@ -111,6 +114,22 @@ export const SelectWithImages = {
     },
 };
 
+export const SelectWithImagesAndScroll = {
+    args: {
+        item: generateTestPerseusItem({
+            question: SingleSelectOverflowImageContent,
+        }),
+    },
+};
+
+export const SingleSelectWithScroll = {
+    args: {
+        item: generateTestPerseusItem({
+            question: SingleSelectOverflowContent,
+        }),
+    },
+};
+
 export const MultiSelectSimple = {
     args: {
         item: generateTestPerseusItem({
@@ -123,6 +142,14 @@ export const MultiSelect = {
     args: {
         item: generateTestPerseusItem({
             question: multiChoiceQuestion,
+        }),
+    },
+};
+
+export const MultiSelectWithScroll = {
+    args: {
+        item: generateTestPerseusItem({
+            question: multiChoiceQuestionSimpleOverflowContent,
         }),
     },
 };
