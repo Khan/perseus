@@ -58,7 +58,6 @@
         "@vitejs/plugin-react-swc": "^3.8.1",
         "ancesdir": "^3.1.0",
         "aphrodite": "catalog:",
-        "core-js": "3.42.0",
         "cross-env": "^5.2.0",
         "css-loader": "^6.8.1",
         "cypress": "^13.6.5",
@@ -151,7 +150,6 @@
     "packageManager": "pnpm@10.8.0",
     "pnpm": {
         "onlyBuiltDependencies": [
-            "core-js",
             "cypress",
             "esbuild",
             "@swc/core"
