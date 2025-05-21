@@ -285,6 +285,7 @@ describe("splitPerseusItem", () => {
                         snapStep: [1, 1],
                         markings: "none",
                         labels: [],
+                        labelLocation: "onAxis",
                         showProtractor: false,
                         range: [
                             [0, 1],
@@ -311,6 +312,7 @@ describe("splitPerseusItem", () => {
                         snapStep: [1, 1],
                         markings: "none",
                         labels: [],
+                        labelLocation: "onAxis",
                         showProtractor: false,
                         range: [
                             [0, 1],
