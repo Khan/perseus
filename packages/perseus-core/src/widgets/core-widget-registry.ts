@@ -1,7 +1,6 @@
-import _ from "underscore";
-
 import {Errors} from "../error/errors";
 import {PerseusError} from "../error/perseus-error";
+import Registry from "../utils/registry";
 
 import categorizerWidgetLogic from "./categorizer";
 import csProgramWidgetLogic from "./cs-program";
@@ -43,19 +42,19 @@ import type {
 import type {PerseusWidgetOptions, PerseusWidget} from "../data-schema";
 import type {Alignment} from "../types";
 
-const widgets: Record<string, WidgetLogic> = {};
+const widgets = new Registry<WidgetLogic>("Core widget registry");
 
 function registerWidget(type: string, logic: WidgetLogic) {
-    widgets[type] = logic;
+    widgets.set(type, logic);
 }
 
 export function isWidgetRegistered(type: string) {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     return Boolean(widgetLogic);
 }
 
 export function getCurrentVersion(type: string) {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     return widgetLogic?.version || {major: 0, minor: 0};
 }
 
@@ -64,16 +63,16 @@ export function getCurrentVersion(type: string) {
 export const getPublicWidgetOptionsFunction = (
     type: string,
 ): PublicWidgetOptionsFunction => {
-    return widgets[name]?.getPublicWidgetOptions ?? ((i: any) => i);
+    return widgets.get(type)?.getPublicWidgetOptions ?? ((i: any) => i);
 };
 
 export function getWidgetOptionsUpgrades(type: string) {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     return widgetLogic?.widgetOptionsUpgrades || {};
 }
 
 export function getDefaultWidgetOptions(type: string) {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     return widgetLogic?.defaultWidgetOptions || {};
 }
 
@@ -81,7 +80,7 @@ export function isAccessible(
     type: string,
     widgetOptions: PerseusWidgetOptions,
 ): boolean {
-    const accessible = widgets[type]?.accessible;
+    const accessible = widgets.get(type)?.accessible;
     return typeof accessible === "function"
         ? accessible(widgetOptions)
         : !!accessible;
@@ -106,13 +105,12 @@ export const traverseChildWidgets = (
     const widgetExports = widgets[widgetInfo.type];
     const props = widgetInfo.options;
 
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (widgetExports.traverseChildWidgets && props) {
+    if (widgetExports.traverseChildWidgets != null && props != null) {
         const newProps = widgetExports.traverseChildWidgets(
             props,
             traverseRenderer,
         );
-        return _.extend({}, widgetInfo, {options: newProps});
+        return {...widgetInfo, options: newProps};
     }
     return widgetInfo;
 };
@@ -133,7 +131,7 @@ export const traverseChildWidgets = (
 export const getSupportedAlignments = (
     type: string,
 ): ReadonlyArray<Alignment> => {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     if (!widgetLogic?.supportedAlignments?.[0]) {
         // default alignments
         return ["default"];
@@ -151,7 +149,7 @@ export const getSupportedAlignments = (
  * the exports of a widget's module.
  */
 export const getDefaultAlignment = (type: string): Alignment => {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     if (!widgetLogic?.defaultAlignment) {
         return "block";
     }

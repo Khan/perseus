@@ -31,13 +31,12 @@ const imageWidgetLogic: WidgetLogic = {
     defaultWidgetOptions,
     supportedAlignments: ["block", "full-width"],
     defaultAlignment: "block",
-    // This widget's accessibility depends on its contents: if the image
+    // This widget's accessibility depends on its widget option: if the image
     // has a background but no alt text, it is not accessible
     accessible: (widgetOptions: PerseusWidgetOptions): boolean => {
         const imageOptions = widgetOptions as PerseusImageWidgetOptions;
         const bgImage = imageOptions.backgroundImage;
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        return !(bgImage && bgImage.url && !imageOptions.alt);
+        return !(bgImage.url != null && !imageOptions.alt);
     },
 };
 
