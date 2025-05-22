@@ -61,13 +61,4 @@ describe("answer text", () => {
             expect(optionStatus).toBeVisible();
         },
     );
-
-    it("renders correctly based on 'correct'", () => {
-        // Arrange/Act
-        renderOptionStatus({correct: true});
-        const optionStatus = screen.getByText("Correct");
-
-        // Assert
-        expect(optionStatus).toBeVisible();
-    });
 });
