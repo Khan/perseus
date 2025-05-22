@@ -1,3 +1,5 @@
+import Registry from "../utils/registry";
+
 import categorizerWidgetLogic from "./categorizer";
 import csProgramWidgetLogic from "./cs-program";
 import definitionWidgetLogic from "./definition";
@@ -37,37 +39,37 @@ import type {
 } from "./logic-export.types";
 import type {Alignment} from "../types";
 
-const widgets = {};
+const widgets = new Registry<WidgetLogic>("Core widget registry");
 
 function registerWidget(type: string, logic: WidgetLogic) {
-    widgets[type] = logic;
+    widgets.set(type, logic);
 }
 
 export function isWidgetRegistered(type: string) {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     return !!widgetLogic;
 }
 
 export function getCurrentVersion(type: string) {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     return widgetLogic?.version || {major: 0, minor: 0};
 }
 
 // TODO(LEMS-2870): getPublicWidgetOptionsFunction/PublicWidgetOptionsFunction
 // need better types
 export const getPublicWidgetOptionsFunction = (
-    name: string,
+    type: string,
 ): PublicWidgetOptionsFunction => {
-    return widgets[name]?.getPublicWidgetOptions ?? ((i: any) => i);
+    return widgets.get(type)?.getPublicWidgetOptions ?? ((i: any) => i);
 };
 
 export function getWidgetOptionsUpgrades(type: string) {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     return widgetLogic?.widgetOptionsUpgrades || {};
 }
 
 export function getDefaultWidgetOptions(type: string) {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     return widgetLogic?.defaultWidgetOptions || {};
 }
 
@@ -87,7 +89,7 @@ export function getDefaultWidgetOptions(type: string) {
 export const getSupportedAlignments = (
     type: string,
 ): ReadonlyArray<Alignment> => {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     if (!widgetLogic?.supportedAlignments?.[0]) {
         // default alignments
         return ["default"];
@@ -105,7 +107,7 @@ export const getSupportedAlignments = (
  * the exports of a widget's module.
  */
 export const getDefaultAlignment = (type: string): Alignment => {
-    const widgetLogic = widgets[type];
+    const widgetLogic = widgets.get(type);
     if (!widgetLogic?.defaultAlignment) {
         return "block";
     }
