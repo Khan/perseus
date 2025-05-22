@@ -256,6 +256,8 @@ export type PerseusPlotterUserInput = number[];
 export type PerseusRadioRubric = {
     // The choices provided to the user.
     choices: PerseusRadioChoice[];
+    // If true, the number of choices selected must match the number of correct choices.
+    countChoices?: boolean;
 };
 
 export type PerseusRadioUserInput = {
