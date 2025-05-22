@@ -9,27 +9,22 @@ import * as React from "react";
 import Checkbox from "../../components/checkbox";
 import {gray17} from "../../styles/global-colors";
 
-type PreferredPopoverDirection = "NONE" | "UP" | "DOWN" | "LEFT" | "RIGHT";
-
 type Props = {
     // Whether multiple answer choices may be selected for markers.
     multipleAnswers: boolean;
     // Whether to hide answer choices from user instructions.
     hideChoicesFromInstructions: boolean;
 
-    preferredPopoverDirection: PreferredPopoverDirection;
     // Callback for when widget options change.
     onChange: (options: {
         multipleAnswers?: boolean;
         hideChoicesFromInstructions?: boolean;
-        preferredPopoverDirection?: PreferredPopoverDirection;
     }) => void;
 };
 
 const Behavior = ({
     multipleAnswers,
     hideChoicesFromInstructions,
-    preferredPopoverDirection,
     onChange,
 }: Props): React.ReactElement => (
     <div>
@@ -63,27 +58,6 @@ const Behavior = ({
                 <span className={css(styles.label)}>
                     Do not display answer choices in instructions
                 </span>
-            </li>
-
-            <li className={css(styles.option)}>
-                <span className={css(styles.label)}>
-                    Preferred pop-over direction
-                </span>
-                <select
-                    value={preferredPopoverDirection}
-                    onChange={(e) => {
-                        onChange({
-                            preferredPopoverDirection: e.target
-                                .value as PreferredPopoverDirection,
-                        });
-                    }}
-                >
-                    <option value="NONE"> No Preference </option>
-                    <option value="UP"> Up </option>
-                    <option value="DOWN"> Down </option>
-                    <option value="LEFT"> Left </option>
-                    <option value="RIGHT"> Right </option>
-                </select>
             </li>
         </ul>
     </div>
