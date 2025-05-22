@@ -1,3 +1,9 @@
+import {
+    Registry,
+    type WidgetScorerFunction,
+    type WidgetValidatorFunction,
+} from "@khanacademy/perseus-core";
+
 import scoreNoop from "../util/score-noop";
 
 import scoreCategorizer from "./categorizer/score-categorizer";
@@ -7,6 +13,8 @@ import scoreDropdown from "./dropdown/score-dropdown";
 import validateDropdown from "./dropdown/validate-dropdown";
 import scoreExpression from "./expression/score-expression";
 import validateExpression from "./expression/validate-expression";
+import scoreFreeResponse from "./free-response/score-free-response";
+import validateFreeResponse from "./free-response/validate-free-response";
 import scoreGrapher from "./grapher/score-grapher";
 import scoreGroup from "./group/score-group";
 import validateGroup from "./group/validate-group";
@@ -33,32 +41,33 @@ import validateSorter from "./sorter/validate-sorter";
 import scoreTable from "./table/score-table";
 import validateTable from "./table/validate-table";
 
-import type {
-    WidgetScorerFunction,
-    WidgetValidatorFunction,
-} from "@khanacademy/perseus-core";
+type ScoringLogic = {
+    scorer: WidgetScorerFunction;
+    validator?: WidgetValidatorFunction;
+};
 
-const widgets = {};
+const widgets = new Registry<ScoringLogic>("Score widget registry");
 
 export function registerWidget(
     type: string,
     scorer: WidgetScorerFunction,
     validator?: WidgetValidatorFunction,
 ) {
-    widgets[type] = {
+    const logic = {
         scorer,
         validator,
     };
+    widgets.set(type, logic);
 }
 
 export const getWidgetValidator = (
-    name: string,
+    type: string,
 ): WidgetValidatorFunction | null => {
-    return widgets[name]?.validator ?? null;
+    return widgets.get(type)?.validator ?? null;
 };
 
-export const getWidgetScorer = (name: string): WidgetScorerFunction | null => {
-    return widgets[name]?.scorer ?? null;
+export const getWidgetScorer = (type: string): WidgetScorerFunction | null => {
+    return widgets.get(type)?.scorer ?? null;
 };
 
 registerWidget(
@@ -69,6 +78,11 @@ registerWidget(
 registerWidget("cs-program", scoreCSProgram as any);
 registerWidget("dropdown", scoreDropdown as any, validateDropdown as any);
 registerWidget("expression", scoreExpression as any, validateExpression as any);
+registerWidget(
+    "free-response",
+    scoreFreeResponse as any,
+    validateFreeResponse as any,
+);
 registerWidget("grapher", scoreGrapher as any);
 registerWidget("group", scoreGroup as any, validateGroup as any);
 registerWidget("iframe", scoreIframe as any);
@@ -93,7 +107,6 @@ registerWidget("plotter", scorePlotter as any, validatePlotter as any);
 registerWidget("radio", scoreRadio as any, validateRadio as any);
 registerWidget("sorter", scoreSorter as any, validateSorter as any);
 registerWidget("table", scoreTable as any, validateTable as any);
-
 registerWidget("deprecated-standin", () => scoreNoop(1) as any);
 registerWidget("measurer", () => scoreNoop(1) as any);
 
