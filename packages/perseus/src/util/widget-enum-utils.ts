@@ -13,6 +13,7 @@ type WidgetName =
     | "dropdown"
     | "explanation"
     | "expression"
+    | "free-response"
     | "graded-group-set"
     | "graded-group"
     | "grapher"
@@ -53,6 +54,7 @@ type WidgetEnum =
     | "DROPDOWN"
     | "EXPLANATION"
     | "EXPRESSION"
+    | "FREE_RESPONSE"
     | "GRADED_GROUP"
     | "GRADED_GROUP_SET"
     | "GRAPHER"
@@ -94,6 +96,7 @@ const widgetNameToEnum: Record<WidgetName, WidgetEnum> = {
     dropdown: "DROPDOWN",
     explanation: "EXPLANATION",
     expression: "EXPRESSION",
+    "free-response": "FREE_RESPONSE",
     "graded-group-set": "GRADED_GROUP_SET",
     "graded-group": "GRADED_GROUP",
     grapher: "GRAPHER",

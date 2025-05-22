@@ -2,6 +2,7 @@ import type getCategorizerPublicWidgetOptions from "./categorizer/categorizer-ut
 import type getCSProgramPublicWidgetOptions from "./cs-program/cs-program-util";
 import type getDropdownPublicWidgetOptions from "./dropdown/dropdown-util";
 import type getExpressionPublicWidgetOptions from "./expression/expression-util";
+import type getFreeResponsePublicWidgetOptions from "./free-response/free-response-util";
 import type getGrapherPublicWidgetOptions from "./grapher/grapher-util";
 import type getGroupPublicWidgetOptions from "./group/group-util";
 import type getIFramePublicWidgetOptions from "./iframe/iframe-util";
@@ -36,6 +37,7 @@ export type PublicWidgetOptionsFunction =
     | typeof getCSProgramPublicWidgetOptions
     | typeof getDropdownPublicWidgetOptions
     | typeof getExpressionPublicWidgetOptions
+    | typeof getFreeResponsePublicWidgetOptions
     | typeof getGrapherPublicWidgetOptions
     | typeof getGroupPublicWidgetOptions
     | typeof getIFramePublicWidgetOptions
