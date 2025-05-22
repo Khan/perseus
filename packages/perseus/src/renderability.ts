@@ -74,20 +74,6 @@ const isRendererContentRenderableBy = function (
         isRenderable =
             isRenderable &&
             isRawWidgetInfoRenderableBy(widgetInfo, rendererContentVersion);
-
-        // TODO(LEMS-3142): Refactor manual widget recursion
-        // Manually recurse into child widgets for group/sequence
-        if (
-            widgetInfo &&
-            (widgetInfo.type === "group" || widgetInfo.type === "sequence") &&
-            widgetInfo.options?.widgets
-        ) {
-            const subRenderable = isRendererContentRenderableBy(
-                widgetInfo.options,
-                rendererContentVersion,
-            );
-            isRenderable = isRenderable && subRenderable;
-        }
     });
     return isRenderable;
 };
