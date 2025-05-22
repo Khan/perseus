@@ -87,19 +87,6 @@ export const Checked = (args: StoryArgs): React.ReactElement => {
     );
 };
 
-export const CrossedOut = (args: StoryArgs): React.ReactElement => {
-    return (
-        <Panel>
-            <ChoiceIcon {...defaultProps} crossedOut={true} />
-            <ChoiceIcon
-                {...defaultProps}
-                crossedOut={true}
-                multipleSelect={true}
-            />
-        </Panel>
-    );
-};
-
 export const Correct = (args: StoryArgs): React.ReactElement => {
     return (
         <Panel>

@@ -58,9 +58,7 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
             content,
             showCorrectness,
             multipleSelect,
-            onChange = (newValues: {
-                checked: boolean;
-            }): void => {},
+            onChange = (newValues: {checked: boolean}): void => {},
             reviewMode,
             correct = false,
             apiOptions = ApiOptions.defaults,
@@ -88,9 +86,7 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
         //
         // This enables us to use shorthand inside this component, while
         // maintaining a consistent API for the parent.
-        function sendChange(newValues: {
-            checked?: boolean;
-        }) {
+        function sendChange(newValues: {checked?: boolean}) {
             const updatedChecked = newValues.checked ?? checked;
             onChange({checked: updatedChecked});
         }
@@ -103,7 +99,7 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
         // We want to show the choices as dimmed out when the choices are disabled.
         // However, we don't want to do this when we're in review mode in the
         // content library.
-        const showDimmed = (!reviewMode && apiOptions.readOnly);
+        const showDimmed = !reviewMode && apiOptions.readOnly;
 
         const letter = getChoiceLetter(pos, strings);
         const a11yText = getA11yText({
@@ -188,70 +184,6 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
                             </div>
                         )}
                     </Clickable>
-
-                    {apiOptions.crossOutEnabled && !reviewMode && (
-                        <Popover
-                            dismissEnabled
-                            content={({close}) => (
-                                <PopoverContent
-                                    title={strings.crossOut}
-                                    content={strings.crossOutOption}
-                                    closeButtonVisible
-                                    actions={
-                                        <View>
-                                            <Strut size={spacing.medium_16} />
-                                            <Button
-                                                kind="primary"
-                                                aria-label={strings.crossOutChoice(
-                                                    {
-                                                        letter: getChoiceLetter(
-                                                            pos,
-                                                            strings,
-                                                        ),
-                                                    },
-                                                )}
-                                                disabled={
-                                                    apiOptions.readOnly ||
-                                                    reviewMode
-                                                }
-                                                onClick={() => {
-                                                    sendChange({
-                                                        checked: !checked,
-                                                    });
-                                                    close();
-                                                }}
-                                            />
-                                        </View>
-                                    }
-                                />
-                            )}
-                        >
-                            {({open}) => (
-                                <Clickable
-                                    onClick={open}
-                                    aria-label={strings.openMenuForChoice({
-                                        letter: getChoiceLetter(pos, strings),
-                                    })}
-                                    style={{
-                                        alignSelf: "center",
-                                        padding: "5px",
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        marginLeft: "10px",
-                                    }}
-                                >
-                                    {({hovered, focused, pressed}) => (
-                                        <Icon
-                                            icon={ellipsisHorizontalIcon}
-                                            size={3}
-                                            color={color.offBlack64}
-                                        />
-                                    )}
-                                </Clickable>
-                            )}
-                        </Popover>
-                    )}
                 </div>
                 {showRationale && (
                     <div

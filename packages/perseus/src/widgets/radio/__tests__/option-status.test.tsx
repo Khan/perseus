@@ -62,12 +62,10 @@ describe("answer text", () => {
         },
     );
 
-    it("renders correctly based on 'crossedOut' and 'correct'", () => {
+    it("renders correctly based on 'correct'", () => {
         // Arrange/Act
-        renderOptionStatus({crossedOut: true, correct: true});
-        const optionStatus = screen.getByText(
-            "Correct (but you crossed it out)",
-        );
+        renderOptionStatus({correct: true});
+        const optionStatus = screen.getByText("Correct");
 
         // Assert
         expect(optionStatus).toBeVisible();
