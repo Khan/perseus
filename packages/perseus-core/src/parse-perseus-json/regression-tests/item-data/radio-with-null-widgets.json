@@ -78,28 +78,28 @@
           "choices": [
             {
               "content": "The Prussian Model of Education continues to influence how many American public schools are run today.\n",
-              "rationale": "**This statement **is** likely true, making it the best choice.** The text first explains how the idea of conformity in schools came from Prussia. Then, the text points out how “today, many American public schools still expect students to learn the same skills, at the same time, in the same ways.” From this, you can infer that the Prussian model continues to influence American public schools today. ",
+              "clue": "**This statement **is** likely true, making it the best choice.** The text first explains how the idea of conformity in schools came from Prussia. Then, the text points out how “today, many American public schools still expect students to learn the same skills, at the same time, in the same ways.” From this, you can infer that the Prussian model continues to influence American public schools today. ",
               "correct": true,
               "isNoneOfTheAbove": false,
               "widgets": null
             },
             {
               "content": "The Prussian Model of Education has little influence on the way that American public schools are run today.\n",
-              "rationale": "This statement isn’t likely true. After explaining how the idea of conformity in schools came from Prussia, the text points out how “today, many American public schools still expect students to learn the same skills, at the same time, in the same ways.” So, you can infer that the Prussian focus on conformity still influences American public schools.\n",
+              "clue": "This statement isn’t likely true. After explaining how the idea of conformity in schools came from Prussia, the text points out how “today, many American public schools still expect students to learn the same skills, at the same time, in the same ways.” So, you can infer that the Prussian focus on conformity still influences American public schools.\n",
               "correct": false,
               "isNoneOfTheAbove": false,
               "widgets": null
             },
             {
               "content": "There have been many people fighting to eliminate the focus on conformity in American public schools.\n",
-              "rationale": "This statement isn’t likely true. The text discusses how American schools focus on conformity, and points out how “studies show that this focus on conformity can cause particular problems for certain students.” But the text doesn’t mention many people fighting to eliminate schools’ focus on conformity.\n",
+              "clue": "This statement isn’t likely true. The text discusses how American schools focus on conformity, and points out how “studies show that this focus on conformity can cause particular problems for certain students.” But the text doesn’t mention many people fighting to eliminate schools’ focus on conformity.\n",
               "correct": false,
               "isNoneOfTheAbove": false,
               "widgets": null
             },
             {
               "content": "There have been many people fighting to impose new rules within the American public school system.",
-              "rationale": "This statement isn’t likely true. The text doesn’t mention people fighting to impose new rules. \n",
+              "clue": "This statement isn’t likely true. The text doesn’t mention people fighting to impose new rules. \n",
               "correct": false,
               "isNoneOfTheAbove": false,
               "widgets": null
