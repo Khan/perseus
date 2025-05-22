@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "22.0.1",
+    "version": "21.0.0",
     "publishConfig": {
         "access": "public"
     },
@@ -59,7 +59,6 @@
         "@khanacademy/wonder-blocks-form": "catalog:",
         "@khanacademy/wonder-blocks-icon": "catalog:",
         "@khanacademy/wonder-blocks-icon-button": "catalog:",
-        "@khanacademy/wonder-blocks-labeled-field": "catalog:",
         "@khanacademy/wonder-blocks-layout": "catalog:",
         "@khanacademy/wonder-blocks-pill": "catalog:",
         "@khanacademy/wonder-blocks-switch": "catalog:",
@@ -90,7 +89,6 @@
         "@khanacademy/wonder-blocks-form": "catalog:",
         "@khanacademy/wonder-blocks-icon": "catalog:",
         "@khanacademy/wonder-blocks-icon-button": "catalog:",
-        "@khanacademy/wonder-blocks-labeled-field": "catalog:",
         "@khanacademy/wonder-blocks-layout": "catalog:",
         "@khanacademy/wonder-blocks-pill": "catalog:",
         "@khanacademy/wonder-blocks-switch": "catalog:",

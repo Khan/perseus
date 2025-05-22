@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "63.0.1",
+    "version": "62.0.0",
     "publishConfig": {
         "access": "public"
     },
@@ -65,7 +65,6 @@
         "@khanacademy/wonder-blocks-form": "catalog:",
         "@khanacademy/wonder-blocks-icon-button": "catalog:",
         "@khanacademy/wonder-blocks-icon": "catalog:",
-        "@khanacademy/wonder-blocks-labeled-field": "catalog:",
         "@khanacademy/wonder-blocks-layout": "catalog:",
         "@khanacademy/wonder-blocks-link": "catalog:",
         "@khanacademy/wonder-blocks-pill": "catalog:",
@@ -102,7 +101,6 @@
         "@khanacademy/wonder-blocks-form": "catalog:",
         "@khanacademy/wonder-blocks-icon": "catalog:",
         "@khanacademy/wonder-blocks-icon-button": "catalog:",
-        "@khanacademy/wonder-blocks-labeled-field": "catalog:",
         "@khanacademy/wonder-blocks-layout": "catalog:",
         "@khanacademy/wonder-blocks-link": "catalog:",
         "@khanacademy/wonder-blocks-pill": "catalog:",

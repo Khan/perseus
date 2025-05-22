@@ -14,7 +14,6 @@ import {parseDefinitionWidget} from "./definition-widget";
 import {parseDropdownWidget} from "./dropdown-widget";
 import {parseExplanationWidget} from "./explanation-widget";
 import {parseExpressionWidget} from "./expression-widget";
-import {parseFreeResponseWidget} from "./free-response-widget";
 import {parseGradedGroupSetWidget} from "./graded-group-set-widget";
 import {parseGradedGroupWidget} from "./graded-group-widget";
 import {parseGrapherWidget} from "./grapher-widget";
@@ -111,11 +110,6 @@ const parseWidgetsMapEntry: (
             return parseAndAssign(`explanation ${n}`, parseExplanationWidget);
         case "expression":
             return parseAndAssign(`expression ${n}`, parseExpressionWidget);
-        case "free-response":
-            return parseAndAssign(
-                `free-response ${n}`,
-                parseFreeResponseWidget,
-            );
         case "grapher":
             return parseAndAssign(`grapher ${n}`, parseGrapherWidget);
         case "group":

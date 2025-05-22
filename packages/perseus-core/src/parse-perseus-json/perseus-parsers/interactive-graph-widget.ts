@@ -9,12 +9,10 @@ import {
     object,
     optional,
     pair,
-    pipeParsers,
     string,
     trio,
     union,
 } from "../general-purpose-parsers";
-import {convert} from "../general-purpose-parsers/convert";
 import {defaulted} from "../general-purpose-parsers/defaulted";
 import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
 
@@ -226,11 +224,6 @@ const parseLockedFigure = discriminatedUnionOn("type")
     .withBranch("function", parseLockedFunctionType)
     .withBranch("label", parseLockedLabelType).parser;
 
-const parseLabelLocation = union(enumeration("onAxis", "alongEdge")).or(
-    // If the labelLocation is an empty string, we default to "onAxis".
-    pipeParsers(constant("")).then(convert(() => "onAxis" as const)).parser,
-).parser;
-
 export const parseInteractiveGraphWidget = parseWidget(
     constant("interactive-graph"),
     object({
@@ -244,7 +237,7 @@ export const parseInteractiveGraphWidget = parseWidget(
         backgroundImage: optional(parsePerseusImageBackground),
         markings: enumeration("graph", "grid", "none", "axes"),
         labels: optional(array(string)),
-        labelLocation: optional(parseLabelLocation),
+        labelLocation: optional(enumeration("onAxis", "alongEdge")),
         showProtractor: boolean,
         showRuler: optional(boolean),
         showTooltips: optional(boolean),

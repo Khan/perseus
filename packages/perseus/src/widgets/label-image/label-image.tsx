@@ -28,15 +28,14 @@ import {HideAnswersToggle} from "./hide-answers-toggle";
 import Marker from "./marker";
 
 import type {DependencyProps} from "../../dependencies";
-import type {Widget, WidgetExports, WidgetProps} from "../../types";
+import type {ChangeableProps} from "../../mixins/changeable";
+import type {APIOptions, Widget, WidgetExports} from "../../types";
 import type {LabelImagePromptJSON} from "../../widget-ai-utils/label-image/label-image-ai-utils";
 import type {
     InteractiveMarkerType,
     PerseusLabelImageWidgetOptions,
     PerseusLabelImageUserInput,
-    LabelImagePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
-import type {InteractiveMarkerScore} from "@khanacademy/perseus-score/src/widgets/label-image/score-label-image";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
@@ -65,22 +64,15 @@ type Point = {
     y: number;
 };
 
-export type OptionalAnswersMarkerType = Omit<
-    InteractiveMarkerType,
-    "answers"
-> & {
-    answers?: string[];
-};
-
-type Options = Omit<PerseusLabelImageWidgetOptions, "markers"> & {
-    // The list of label markers on the question image.
-    markers: ReadonlyArray<OptionalAnswersMarkerType>;
-};
-
-type Props = WidgetProps<Options> &
-    DependencyProps & {
+type LabelImageProps = ChangeableProps &
+    DependencyProps &
+    Omit<PerseusLabelImageWidgetOptions, "markers"> & {
+        apiOptions: APIOptions;
+        // The list of label markers on the question image.
+        markers: ReadonlyArray<InteractiveMarkerType>;
+        // Whether the question has been answered by the user.
+        questionCompleted: boolean;
         // preferred placement for popover (preference, not MUST)
-        // TODO: this is sus, probably never passed in
         preferredPopoverDirection?: PreferredPopoverDirection;
     };
 
@@ -93,14 +85,8 @@ type LabelImageState = {
     hideAnswers: boolean;
 };
 
-function isAnswerful(
-    marker: OptionalAnswersMarkerType | InteractiveMarkerType,
-): marker is InteractiveMarkerType {
-    return marker.answers != null;
-}
-
 export class LabelImage
-    extends React.Component<Props, LabelImageState>
+    extends React.Component<LabelImageProps, LabelImageState>
     implements Widget
 {
     static contextType = PerseusI18nContext;
@@ -116,7 +102,7 @@ export class LabelImage
      * Implementation taken from: https://stackoverflow.com/a/2049593
      */
     static pointInTriangle(p: Point, a: Point, b: Point, c: Point): boolean {
-        const sign = (p1: Point, p2: Point, p3: Point) =>
+        const sign = (p1: Point, p2: Point, p3) =>
             (p1.x - p3.x) * (p2.y - p3.y) - (p2.x - p3.x) * (p1.y - p3.y);
 
         const b1 = sign(p, a, b) < 0;
@@ -166,26 +152,24 @@ export class LabelImage
         const bl = {x: 20, y: 100} as const;
         const cp = {x: 50, y: 50} as const;
 
-        const sides = ["top", "right", "bottom", "left"] as const;
-
-        type Side = (typeof sides)[number];
-
         // The triangles representing the sides to test.
-        const triangles: Record<Side, [Point, Point, Point]> = {
+        const triangles = {
             top: [tl, tr, cp],
             right: [cp, tr, br],
             bottom: [bl, cp, br],
             left: [tl, cp, bl],
-        };
+        } as const;
 
         const p = {x, y} as const;
 
         // Test whether marker is positioned within one of the triangles
         // representing the sides.
-        for (const side of sides) {
+        for (const side of Object.keys(triangles)) {
             const corners = triangles[side];
 
+            // @ts-expect-error - TS2556 - A spread argument must either have a tuple type or be passed to a rest parameter.
             if (LabelImage.pointInTriangle(p, ...corners)) {
+                // @ts-expect-error - TS2322 - Type 'string' is not assignable to type '"left" | "top" | "center" | "right" | "bottom"'.
                 return side;
             }
         }
@@ -202,11 +186,7 @@ export class LabelImage
      */
     static navigateToMarkerIndex(
         navigateDirection: Direction,
-        markers: ReadonlyArray<{
-            x: number;
-            y: number;
-            showCorrectness?: "correct" | "incorrect";
-        }>,
+        markers: LabelImageProps["markers"],
         thisIndex: number,
     ): number {
         const thisMarker = markers[thisIndex];
@@ -301,7 +281,7 @@ export class LabelImage
         return sortedMarkers.length > 0 ? sortedMarkers[0].index : thisIndex;
     }
 
-    constructor(props: Props) {
+    constructor(props: LabelImageProps) {
         super(props);
 
         this._markers = [];
@@ -334,41 +314,39 @@ export class LabelImage
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
+    // TODO(LEMS-2544): Investigate impact on scoring
+    // Also consider how scoreMarker is being called as it seems to require the marker.answers property.
+    // Removed rubric parameter, but it gets a full widget options object from the renderer
     showRationalesForCurrentlySelectedChoices() {
         const {markers} = this.props;
         const {onChange} = this.props;
 
         const updatedMarkers = markers.map((marker) => {
-            if (isAnswerful(marker)) {
-                const score = scoreLabelImageMarker(
-                    marker.selected,
-                    marker.answers,
-                );
+            const score = scoreLabelImageMarker(
+                marker.selected,
+                marker.answers,
+            );
 
-                return {
-                    ...marker,
-                    // Reveal correctness state for markers with answers.
-                    showCorrectness: score.hasAnswers
-                        ? score.isCorrect
-                            ? "correct"
-                            : "incorrect"
-                        : undefined,
-                };
-            }
-            // If the marker doesn't have answers, retain its current state
-            // or set showCorrectness to undefined.
             return {
                 ...marker,
-                showCorrectness: undefined,
+                // Reveal correctness state for markers with answers.
+                showCorrectness: score.hasAnswers
+                    ? score.isCorrect
+                        ? "correct"
+                        : "incorrect"
+                    : undefined,
             };
         });
 
         // Update Perseus widget state with user selected answers without
         // triggering interaction events for listeners.
-        onChange({markers: updatedMarkers}, undefined, true);
+        onChange({markers: updatedMarkers}, null, true);
     }
 
-    handleMarkerChange(index: number, marker: Props["markers"][number]) {
+    handleMarkerChange(
+        index: number,
+        marker: LabelImageProps["markers"][number],
+    ) {
         const {markers, onChange} = this.props;
 
         // Replace marker with a changed version at the specified index.
@@ -420,19 +398,16 @@ export class LabelImage
         }
 
         // Only navigation in the "x" or "y" axis is supported, no diagonals.
-        const directions: Record<string, Direction> = {
+        const navigateDirection = {
             ArrowUp: {x: 0, y: -1},
             ArrowRight: {x: 1, y: 0},
             ArrowDown: {x: 0, y: 1},
             ArrowLeft: {x: -1, y: 0},
-        };
+        }[e.key];
 
-        // Return early if key is not an arrow key
-        if (!(e.key in directions)) {
+        if (!navigateDirection) {
             return;
         }
-
-        const navigateDirection = directions[e.key];
 
         e.preventDefault();
 
@@ -440,6 +415,7 @@ export class LabelImage
         const marker =
             this._markers[
                 LabelImage.navigateToMarkerIndex(
+                    // @ts-expect-error - TS2345 - Argument of type '{ x: number; y: number; } | { x: number; y: number; } | { x: number; y: number; } | { x: number; y: number; }' is not assignable to parameter of type 'Direction'.
                     navigateDirection,
                     markers,
                     index,
@@ -466,6 +442,7 @@ export class LabelImage
             selected: selected.length ? selected : undefined,
         });
     }
+    // TODO(LEMS-2723): Investigate if possible to change this to not require answers
     renderMarkers(): ReadonlyArray<React.ReactNode> {
         const {markers, questionCompleted, preferredPopoverDirection} =
             this.props;
@@ -510,15 +487,10 @@ export class LabelImage
                 }[markerPosition];
             }
 
-            let score: InteractiveMarkerScore;
-            if (isAnswerful(marker)) {
-                score = scoreLabelImageMarker(marker.selected, marker.answers);
-            } else {
-                score = {
-                    hasAnswers: false,
-                    isCorrect: false,
-                };
-            }
+            const score = scoreLabelImageMarker(
+                marker.selected,
+                marker.answers,
+            );
             // Once the question is answered, show markers
             // with correct answers, otherwise passthrough
             // the correctness state.
@@ -592,7 +564,7 @@ export class LabelImage
                             >
                                 {({hovered, focused, pressed}) => (
                                     <Marker
-                                        label={marker.label}
+                                        {...marker}
                                         showCorrectness={showCorrectness}
                                         showSelected={opened}
                                         showPulsate={!markersInteracted}
@@ -602,9 +574,9 @@ export class LabelImage
                                         showAnswer={showAnswerChoice}
                                         answerSide={side}
                                         answerStyles={adjustPillDistance}
+                                        analytics={this.props.analytics}
                                         focused={focused || pressed}
                                         hovered={hovered}
-                                        selected={marker.selected}
                                     />
                                 )}
                             </Clickable>
@@ -788,14 +760,6 @@ const LabelImageWithDependencies = React.forwardRef<
     const deps = useDependencies();
     return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
 });
-
-({}) as WidgetProps<PerseusLabelImageWidgetOptions> satisfies PropsFor<
-    typeof LabelImage
->;
-
-({}) as WidgetProps<LabelImagePublicWidgetOptions> satisfies PropsFor<
-    typeof LabelImage
->;
 
 export default {
     name: "label-image",

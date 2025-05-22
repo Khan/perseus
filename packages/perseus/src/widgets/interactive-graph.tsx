@@ -39,7 +39,6 @@ import type {
     MarkingsType,
     PerseusInteractiveGraphRubric,
     PerseusInteractiveGraphUserInput,
-    AxisLabelLocation,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -109,10 +108,6 @@ type RenderProps = {
      */
     labels: string[];
     /**
-     * Where to put the axis labels on the graph.  default: "onAxis"
-     */
-    labelLocation: AxisLabelLocation;
-    /**
      * Whether to show the Protractor tool overlaid on top of the graph
      */
     showProtractor: boolean;
@@ -180,7 +175,6 @@ type Props = WidgetProps<RenderProps>;
 type State = any;
 type DefaultProps = {
     labels: string[];
-    labelLocation: Props["labelLocation"];
     range: Props["range"];
     step: Props["step"];
     backgroundImage: Props["backgroundImage"];
@@ -258,7 +252,6 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     static defaultProps: DefaultProps = {
         labels: ["x", "y"],
-        labelLocation: "onAxis",
         range: [
             [-10, 10],
             [-10, 10],

@@ -6,7 +6,6 @@ import type {WidgetLogic} from "../logic-export.types";
 export type InteractiveGraphDefaultWidgetOptions = Pick<
     PerseusInteractiveGraphWidgetOptions,
     | "labels"
-    | "labelLocation"
     | "range"
     | "step"
     | "backgroundImage"
@@ -19,7 +18,6 @@ export type InteractiveGraphDefaultWidgetOptions = Pick<
 
 const defaultWidgetOptions: InteractiveGraphDefaultWidgetOptions = {
     labels: ["x", "y"],
-    labelLocation: "onAxis",
     range: [
         [-10, 10],
         [-10, 10],

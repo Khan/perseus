@@ -5,9 +5,6 @@ import type {ErrorCodes} from "@khanacademy/perseus-score";
  * The translated strings that are used to render Perseus.
  */
 export type PerseusStrings = {
-    // `num` is a special variable name that is used to determine the plurality
-    // of the translated string.
-    characterCount: ({used, num}: {used: number; num: number}) => string;
     closeKeypad: string;
     openKeypad: string;
     mathInputBox: string;
@@ -25,7 +22,6 @@ export type PerseusStrings = {
     invalidSelection: string;
     ERROR_TITLE: string;
     ERROR_MESSAGE: string;
-    USER_INPUT_EMPTY: string;
     hints: string;
     getAnotherHint: string;
     deprecatedStandin: string;
@@ -519,12 +515,6 @@ export type PerseusStrings = {
  * !! Note: Ensure that all escape sequences are double-escaped. (e.g. `\\text` -> `\\\\text`)
  */
 export const strings = {
-    // `num` is a special variable name that is used to determine the plurality
-    // of the translated string.
-    characterCount: {
-        one: "%(used)s / %(num)s Character",
-        other: "%(used)s / %(num)s Characters",
-    },
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
     mathInputBox: "Math input box",
@@ -552,7 +542,6 @@ export const strings = {
         "I'm a computer. I only understand " +
         "multiplication if you use an asterisk " +
         "(*) as the multiplication sign.",
-    USER_INPUT_EMPTY: "Your answer is empty.",
     WRONG_CASE_ERROR:
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
@@ -1129,10 +1118,6 @@ export const strings = {
  * Mock strings for the Perseus package, to be used for tests and Storybook.
  */
 export const mockStrings: PerseusStrings = {
-    characterCount: ({used, num}) =>
-        num === 1
-            ? `${used} / ${num} Character`
-            : `${used} / ${num} Characters`,
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
     mathInputBox: "Math input box",
@@ -1160,7 +1145,6 @@ export const mockStrings: PerseusStrings = {
         "I'm a computer. I only understand " +
         "multiplication if you use an asterisk " +
         "(*) as the multiplication sign.",
-    USER_INPUT_EMPTY: "Your answer is empty.",
     WRONG_CASE_ERROR:
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
@@ -1484,7 +1468,6 @@ const errorToString: ErrorStringMap = {
     CHOOSE_CORRECT_NUM_ERROR: "chooseCorrectNum",
     NOT_NONE_ABOVE_ERROR: "notNoneOfTheAbove",
     FILL_ALL_CELLS_ERROR: "fillAllCells",
-    USER_INPUT_EMPTY: "USER_INPUT_EMPTY",
 };
 
 export function mapErrorToString(

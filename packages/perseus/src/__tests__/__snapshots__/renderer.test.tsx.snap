@@ -349,7 +349,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
             class="default_xu2jcg"
           >
             <label
-              class="text_f1191h-o_O-LabelLarge_142uijh"
+              class="text_f1191h-o_O-LabelLarge_5s82ln"
               for=":r3:"
             >
               Test visible label
@@ -364,13 +364,13 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_bvghof"
+                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_qr7vlu"
                 id=":r3:"
                 role="combobox"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelMedium_1voxh4u-o_O-text_16ujc3c"
+                  class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -434,7 +434,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
             class="default_xu2jcg"
           >
             <label
-              class="text_f1191h-o_O-LabelLarge_142uijh"
+              class="text_f1191h-o_O-LabelLarge_5s82ln"
               for=":r6:"
             >
               Test visible label
@@ -449,13 +449,13 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_bvghof"
+                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_qr7vlu"
                 id=":r6:"
                 role="combobox"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelMedium_1voxh4u-o_O-text_16ujc3c"
+                  class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -519,7 +519,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
             class="default_xu2jcg"
           >
             <label
-              class="text_f1191h-o_O-LabelLarge_142uijh"
+              class="text_f1191h-o_O-LabelLarge_5s82ln"
               for=":r0:"
             >
               Test visible label
@@ -534,13 +534,13 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_bvghof"
+                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_qr7vlu"
                 id=":r0:"
                 role="combobox"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelMedium_1voxh4u-o_O-text_16ujc3c"
+                  class="text_f1191h-o_O-LabelMedium_1rew30o-o_O-text_16ujc3c"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -625,7 +625,7 @@ exports[`renderer snapshots renders a placeholder for a deprecated widget: depre
                     class="default_xu2jcg-o_O-labelContainer_1fjq5ke"
                   >
                     <span
-                      class="text_f1191h-o_O-LabelSmall_b0rx6x"
+                      class="text_f1191h-o_O-LabelSmall_hl4zs1"
                     >
                       Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!
                     </span>

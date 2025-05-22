@@ -8,7 +8,6 @@ import Definition from "./widgets/definition";
 import DeprecatedStandin from "./widgets/deprecated-standin";
 import Dropdown from "./widgets/dropdown";
 import Explanation from "./widgets/explanation";
-import FreeResponse from "./widgets/free-response";
 import GradedGroup from "./widgets/graded-group";
 import GradedGroupSet from "./widgets/graded-group-set";
 import Grapher from "./widgets/grapher";
@@ -37,24 +36,22 @@ import Video from "./widgets/video";
 import type {WidgetExports} from "./types";
 
 export default [
-    CSProgram,
     Categorizer,
-    Definition,
-    DeprecatedStandin,
+    CSProgram,
     Dropdown,
     Explanation,
-    FreeResponse,
+    Definition,
+    Grapher,
     GradedGroup,
     GradedGroupSet,
-    Grapher,
     Group,
     Iframe,
     Image,
     Interactive,
     InteractiveGraph,
     LabelImage,
-    Matcher,
     Matrix,
+    Matcher,
     Measurer,
     Molecule,
     NumberLine,
@@ -68,4 +65,5 @@ export default [
     Sorter,
     Table,
     Video,
+    DeprecatedStandin,
 ] as ReadonlyArray<WidgetExports>;

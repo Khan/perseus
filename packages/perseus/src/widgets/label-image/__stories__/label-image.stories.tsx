@@ -100,17 +100,6 @@ export const LabelImageMixedContent = (args: StoryArgs): React.ReactElement => {
     );
 };
 
-export const LabelWidgetAnswerless = (args: StoryArgs): React.ReactElement => {
-    return (
-        <ServerItemRendererWithDebugUI
-            item={generateTestPerseusItem({
-                question: applyStoryArgs(textQuestion, args),
-            })}
-            startAnswerless={true}
-        />
-    );
-};
-
 export default {
     title: "Perseus/Widgets/Label Image",
     args: {
