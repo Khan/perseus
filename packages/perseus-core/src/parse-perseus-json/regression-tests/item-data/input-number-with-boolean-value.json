@@ -75,17 +75,17 @@
         "options": {
           "choices": [
             {
-              "rationale": "Absolute values cannot be negative.",
+              "clue": "Absolute values cannot be negative.",
               "content": "$-5$",
               "correct": false
             },
             {
-              "rationale": "Check your signs.",
+              "clue": "Check your signs.",
               "content": " $5$",
               "correct": false
             },
             {
-              "rationale": "You might have made a sign error.",
+              "clue": "You might have made a sign error.",
               "content": " $15$",
               "correct": false
             },
