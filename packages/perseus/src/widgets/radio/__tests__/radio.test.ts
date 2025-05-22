@@ -877,6 +877,7 @@ describe("Radio Widget", () => {
                                     correct: false,
                                 },
                             ],
+                            countChoices: true,
                         },
                     },
                 },
