@@ -1,0 +1,75 @@
+.perseus-sr-only {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    font-size: 0;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+.perseus-clearfix {
+    *zoom: 1;
+}
+.perseus-clearfix:before,
+.perseus-clearfix:after {
+    content: "";
+    display: table;
+}
+.perseus-clearfix:after {
+    clear: both;
+}
+.perseus-widget-radio.perseus-rendered-radio div,
+.perseus-widget-radio.perseus-rendered-radio div > p {
+    /* TODO(alpert): Find a better way of doing inline renderers */
+    display: inline;
+}
+.perseus-widget-radio.perseus-rendered-radio
+    .perseus-radio-rationale-content
+    > .perseus-renderer
+    > .paragraph {
+    display: table;
+    margin: 0;
+}
+.perseus-widget-radio.perseus-rendered-radio
+    .perseus-radio-rationale-content
+    > .perseus-renderer
+    > .paragraph:not(:last-child) {
+    margin-bottom: 8px;
+}
+.perseus-widget-radio .unresponsive-svg-image div,
+.perseus-widget-radio .svg-image div {
+    display: block;
+}
+.perseus-widget-radio li div.instructions {
+    margin-bottom: 5px;
+}
+.perseus-widget-radio li .value {
+    display: block;
+    margin-left: 18px;
+    min-height: 22px;
+}
+.perseus-widget-radio li img,
+.perseus-widget-radio li table {
+    display: inline-block;
+    vertical-align: middle;
+}
+.perseus-widget-radio li table {
+    border: 1px solid #ccc;
+}
+.perseus-widget-radio .perseus-radio-option {
+    /* Radio options with images that are set apart should be on their own line */
+}
+.perseus-widget-radio
+    .perseus-radio-option
+    .paragraph
+    + .paragraph:has(img:only-child),
+.perseus-widget-radio
+    .perseus-radio-option
+    .paragraph:has(img:only-child):has(+ .paragraph) {
+    display: block;
+}
+.perseus-widget-radio-fieldset .instructions {
+    font-family: "Lato", sans-serif;
+}
