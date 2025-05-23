@@ -110,9 +110,6 @@ export type PerseusStrings = {
     choiceIncorrect: ({letter}: {letter: string}) => string;
     choiceChecked: ({letter}: {letter: string}) => string;
     choice: ({letter}: {letter: string}) => string;
-    crossOut: string;
-    crossOutOption: string;
-    crossOutChoice: ({letter}: {letter: string}) => string;
     bringBack: string;
     openMenuForChoice: ({letter}: {letter: string}) => string;
     letters: string;
@@ -649,9 +646,6 @@ export const strings = {
     choiceIncorrect: "(Choice %(letter)s, Incorrect)",
     choiceChecked: "(Choice %(letter)s, Checked)",
     choice: "(Choice %(letter)s)",
-    crossOut: "Cross out",
-    crossOutOption: "Cross out option",
-    crossOutChoice: "Cross out Choice %(letter)s",
     bringBack: "Bring back",
     openMenuForChoice: "Open menu for Choice %(letter)s",
     letters: {
@@ -1245,9 +1239,6 @@ export const mockStrings: PerseusStrings = {
     choiceIncorrect: ({letter}) => `(Choice ${letter}, Incorrect)`,
     choiceChecked: ({letter}) => `(Choice ${letter}, Checked)`,
     choice: ({letter}) => `(Choice ${letter})`,
-    crossOut: "Cross out",
-    crossOutOption: "Cross out option",
-    crossOutChoice: ({letter}) => `Cross out Choice ${letter}`,
     bringBack: "Bring back",
     openMenuForChoice: ({letter}) => `Open menu for Choice ${letter}`,
     letters: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",

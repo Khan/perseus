@@ -5,7 +5,6 @@ import ChoiceIcon from "../choice-icon/choice-icon";
 type StoryArgs = {
     pos: number;
     checked: boolean;
-    crossedOut: boolean;
     focused: boolean;
     hovered: boolean;
     pressed: boolean;
@@ -19,7 +18,6 @@ type StoryArgs = {
 const defaultProps = {
     pos: 0,
     checked: false,
-    crossedOut: false,
     focused: false,
     hovered: false,
     pressed: false,
