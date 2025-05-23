@@ -1,5 +1,21 @@
 # @khanacademy/math-input
 
+## 26.0.0
+
+### Major Changes
+
+-   [#2522](https://github.com/Khan/perseus/pull/2522) [`ff2f1664d`](https://github.com/Khan/perseus/commit/ff2f1664db934d862570fd9b840f799a2f23bbf7) Thanks [@benchristel](https://github.com/benchristel)! - Breaking change: version `^3.0.0` of `@khanacademy/mathjax-renderer` is now
+    required as a peer dep, instead of `^2.1.1`. Clients should update
+    `@khanacademy/mathjax-renderer` at their convenience; nothing will immediately
+    break if you stay on 2.x.x for now.
+
+### Patch Changes
+
+-   Updated dependencies [[`86ac76f79`](https://github.com/Khan/perseus/commit/86ac76f79c2fd4ee8b822393f89a064af92c0339), [`efb99e901`](https://github.com/Khan/perseus/commit/efb99e9016418875a3b3713c8077a9465a5b41c6), [`0d46a8599`](https://github.com/Khan/perseus/commit/0d46a85999557ca17daad67cb1663fe88a33a3ae)]:
+    -   @khanacademy/perseus-core@12.1.0
+    -   @khanacademy/keypad-context@3.0.11
+    -   @khanacademy/perseus-utils@2.0.3
+
 ## 25.1.6
 
 ### Patch Changes
