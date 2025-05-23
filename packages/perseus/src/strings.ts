@@ -26,6 +26,7 @@ export type PerseusStrings = {
     ERROR_TITLE: string;
     ERROR_MESSAGE: string;
     USER_INPUT_EMPTY: string;
+    USER_INPUT_TOO_LONG: string;
     hints: string;
     getAnotherHint: string;
     deprecatedStandin: string;
@@ -553,6 +554,7 @@ export const strings = {
         "multiplication if you use an asterisk " +
         "(*) as the multiplication sign.",
     USER_INPUT_EMPTY: "Your answer is empty.",
+    USER_INPUT_TOO_LONG: "Please shorten your response.",
     WRONG_CASE_ERROR:
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
@@ -1161,6 +1163,7 @@ export const mockStrings: PerseusStrings = {
         "multiplication if you use an asterisk " +
         "(*) as the multiplication sign.",
     USER_INPUT_EMPTY: "Your answer is empty.",
+    USER_INPUT_TOO_LONG: "Please shorten your response.",
     WRONG_CASE_ERROR:
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
@@ -1485,6 +1488,7 @@ const errorToString: ErrorStringMap = {
     NOT_NONE_ABOVE_ERROR: "notNoneOfTheAbove",
     FILL_ALL_CELLS_ERROR: "fillAllCells",
     USER_INPUT_EMPTY: "USER_INPUT_EMPTY",
+    USER_INPUT_TOO_LONG: "USER_INPUT_TOO_LONG",
 };
 
 export function mapErrorToString(
