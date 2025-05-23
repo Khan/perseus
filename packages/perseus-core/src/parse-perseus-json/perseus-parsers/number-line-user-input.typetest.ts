@@ -1,9 +1,9 @@
 import {summon} from "../general-purpose-parsers/test-helpers";
 
+import type {parseNumberLineUserInput} from "./number-line-user-input";
 import type {PerseusNumberLineUserInput} from "../../validation.types";
 import type {RecursiveRequired} from "../general-purpose-parsers/test-helpers";
 import type {ParsedValue} from "../parser-types";
-import type {parseNumberLineUserInput} from "./number-line-user-input";
 
 type Parsed = ParsedValue<typeof parseNumberLineUserInput>;
 
