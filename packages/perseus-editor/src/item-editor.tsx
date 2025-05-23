@@ -36,6 +36,14 @@ type Props = {
     // The content ID of the AssessmentItem being edited. It may not be set
     // for non-content library exercise questions.
     itemId?: string;
+    issues?: Array<{
+        id: string;
+        description: string;
+        help: string;
+        helpUrl: string;
+        impact: string;
+        message: string;
+    }>;
 };
 
 type State = {
@@ -83,22 +91,42 @@ class ItemEditor extends React.Component<Props, State> {
             stack: [],
         };
 
-        return {
-            issues: PerseusLinter.runLinter(parsed, linterContext, false)?.map(
-                (linterWarning) => {
-                    if (linterWarning.rule === "inaccessible-widget") {
-                        return WARNINGS.inaccessibleWidget(
-                            linterWarning.metadata?.widgetType ?? "unknown",
-                            linterWarning.metadata?.widgetId ?? "unknown",
-                        );
-                    }
+        // return {
+        //     issues: PerseusLinter.runLinter(parsed, linterContext, false)?.map(
+        //         (linterWarning) => {
+        //             if (linterWarning.rule === "inaccessible-widget") {
+        //                 return WARNINGS.inaccessibleWidget(
+        //                     linterWarning.metadata?.widgetType ?? "unknown",
+        //                     linterWarning.metadata?.widgetId ?? "unknown",
+        //                 );
+        //             }
 
-                    return WARNINGS.genericLinterWarning(
-                        linterWarning.rule,
-                        linterWarning.message,
-                    );
-                },
-            ),
+        //             return WARNINGS.genericLinterWarning(
+        //                 linterWarning.rule,
+        //                 linterWarning.message,
+        //             );
+        //         },
+        //     ),
+        // };
+
+        return {
+            issues: [
+                ...(props.issues ?? []),
+                ...(PerseusLinter.runLinter(parsed, linterContext, false)?.map(
+                    (linterWarning) => {
+                        if (linterWarning.rule === "inaccessible-widget") {
+                            return WARNINGS.inaccessibleWidget(
+                                linterWarning.metadata?.widgetType ?? "unknown",
+                                linterWarning.metadata?.widgetId ?? "unknown",
+                            );
+                        }
+                        return WARNINGS.genericLinterWarning(
+                            linterWarning.rule,
+                            linterWarning.message,
+                        );
+                    },
+                ) ?? []),
+            ],
         };
     }
 
