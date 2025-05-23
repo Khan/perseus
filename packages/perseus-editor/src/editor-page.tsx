@@ -54,6 +54,14 @@ type Props = {
     question?: PerseusRenderer;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
+    issues?: Array<{
+        id: string;
+        description: string;
+        help: string;
+        helpUrl: string;
+        impact: string;
+        message: string;
+    }>;
 };
 
 type DefaultProps = {
@@ -282,6 +290,7 @@ class EditorPage extends React.Component<Props, State> {
                         widgetIsOpen={this.state.widgetsAreOpen}
                         apiOptions={deviceBasedApiOptions}
                         previewURL={this.props.previewURL}
+                        issues={this.props.issues}
                     />
                 )}
 
