@@ -10,6 +10,8 @@ type Parsed = ParsedValue<typeof parseMatrixUserInput>;
 summon<Parsed>() satisfies PerseusMatrixUserInput;
 summon<PerseusMatrixUserInput>() satisfies Parsed;
 
+// The `RecursiveRequired` test ensures that any new optional properties added
+// to the types in data-schema.ts are also added to the parser.
 summon<
     RecursiveRequired<Parsed>
 >() satisfies RecursiveRequired<PerseusMatrixUserInput>;
