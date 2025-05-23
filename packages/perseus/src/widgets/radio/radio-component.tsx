@@ -217,7 +217,6 @@ class Radio extends React.Component<Props> implements Widget {
     updateChoices: (
         newValueLists: Readonly<{
             checked: ReadonlyArray<boolean>;
-            crossedOut: ReadonlyArray<boolean>;
         }>,
     ) => void = (newValueLists) => {
         const {choiceStates, choices} = this.props;
@@ -231,7 +230,6 @@ class Radio extends React.Component<Props> implements Widget {
             ? choiceStates.map((state: ChoiceState) => ({...state}))
             : choices.map(() => ({
                   selected: false,
-                  crossedOut: false,
                   highlighted: false,
                   rationaleShown: false,
                   correctnessShown: false,
@@ -243,7 +241,6 @@ class Radio extends React.Component<Props> implements Widget {
         // and `crossedOut` values provided in `newValueLists`.
         newChoiceStates.forEach((choiceState: ChoiceState, i) => {
             choiceState.selected = newValueLists.checked[i];
-            choiceState.crossedOut = newValueLists.crossedOut[i];
         });
 
         this.props.onChange({choiceStates: newChoiceStates});
@@ -396,7 +393,6 @@ class Radio extends React.Component<Props> implements Widget {
 
                 const {
                     selected,
-                    crossedOut,
                     rationaleShown,
                     correctnessShown,
                     readOnly,
@@ -432,7 +428,6 @@ class Radio extends React.Component<Props> implements Widget {
                     revealNoneOfTheAbove: !!(
                         this.props.questionCompleted && selected
                     ),
-                    crossedOut,
                     highlighted,
                     previouslyAnswered: previouslyAnswered,
                 };

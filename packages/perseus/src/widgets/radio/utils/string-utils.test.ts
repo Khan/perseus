@@ -30,7 +30,6 @@ describe("getOptionStatusText", () => {
             getOptionStatusText({
                 checked: true,
                 correct: true,
-                crossedOut: false,
                 strings: mockStrings,
             }),
         ).toEqual(mockStrings.correctSelected);
@@ -39,16 +38,6 @@ describe("getOptionStatusText", () => {
             getOptionStatusText({
                 checked: false,
                 correct: true,
-                crossedOut: true,
-                strings: mockStrings,
-            }),
-        ).toEqual(mockStrings.correctCrossedOut);
-
-        expect(
-            getOptionStatusText({
-                checked: false,
-                correct: true,
-                crossedOut: false,
                 strings: mockStrings,
             }),
         ).toEqual(mockStrings.correct);
@@ -59,7 +48,6 @@ describe("getOptionStatusText", () => {
             getOptionStatusText({
                 checked: true,
                 correct: false,
-                crossedOut: false,
                 strings: mockStrings,
             }),
         ).toEqual(mockStrings.incorrectSelected);
@@ -68,16 +56,6 @@ describe("getOptionStatusText", () => {
             getOptionStatusText({
                 checked: false,
                 correct: false,
-                crossedOut: true,
-                strings: mockStrings,
-            }),
-        ).toEqual(mockStrings.incorrect);
-
-        expect(
-            getOptionStatusText({
-                checked: false,
-                correct: false,
-                crossedOut: false,
                 strings: mockStrings,
             }),
         ).toEqual(mockStrings.incorrect);
@@ -132,7 +110,6 @@ describe("getA11yText", () => {
                 letter,
                 checked: true,
                 correct: true,
-                crossedOut: false,
                 showCorrectness: true,
                 strings: mockStrings,
             }),
@@ -143,18 +120,6 @@ describe("getA11yText", () => {
                 letter,
                 checked: false,
                 correct: true,
-                crossedOut: true,
-                showCorrectness: true,
-                strings: mockStrings,
-            }),
-        ).toEqual(mockStrings.choiceCrossedOutCorrect({letter}));
-
-        expect(
-            getA11yText({
-                letter,
-                checked: false,
-                correct: true,
-                crossedOut: false,
                 showCorrectness: true,
                 strings: mockStrings,
             }),
@@ -167,7 +132,6 @@ describe("getA11yText", () => {
                 letter,
                 checked: true,
                 correct: false,
-                crossedOut: false,
                 showCorrectness: true,
                 strings: mockStrings,
             }),
@@ -178,18 +142,6 @@ describe("getA11yText", () => {
                 letter,
                 checked: false,
                 correct: false,
-                crossedOut: true,
-                showCorrectness: true,
-                strings: mockStrings,
-            }),
-        ).toEqual(mockStrings.choiceCrossedOutIncorrect({letter}));
-
-        expect(
-            getA11yText({
-                letter,
-                checked: false,
-                correct: false,
-                crossedOut: false,
                 showCorrectness: true,
                 strings: mockStrings,
             }),
@@ -202,7 +154,6 @@ describe("getA11yText", () => {
                 letter,
                 checked: true,
                 correct: true, // Should be ignored when showCorrectness is false
-                crossedOut: false,
                 showCorrectness: false,
                 strings: mockStrings,
             }),
@@ -213,18 +164,6 @@ describe("getA11yText", () => {
                 letter,
                 checked: false,
                 correct: true, // Should be ignored when showCorrectness is false
-                crossedOut: true,
-                showCorrectness: false,
-                strings: mockStrings,
-            }),
-        ).toEqual(mockStrings.choiceCrossedOut({letter}));
-
-        expect(
-            getA11yText({
-                letter,
-                checked: false,
-                correct: true, // Should be ignored when showCorrectness is false
-                crossedOut: false,
                 showCorrectness: false,
                 strings: mockStrings,
             }),

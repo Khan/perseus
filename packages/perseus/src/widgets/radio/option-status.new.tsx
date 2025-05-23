@@ -19,8 +19,6 @@ type Props = {
     correct: boolean;
     // Did the user select this option as the answer?
     checked: boolean;
-    // Did the user cross out this option?
-    crossedOut: boolean;
     // Did the user select this option as the answer earlier?
     previouslyAnswered: boolean;
     reviewMode: boolean;
@@ -36,7 +34,6 @@ type Props = {
 const OptionStatus = ({
     checked,
     correct,
-    crossedOut,
     previouslyAnswered,
     reviewMode,
 }: Props): React.ReactElement | null => {
@@ -64,7 +61,6 @@ const OptionStatus = ({
             {getOptionStatusText({
                 checked,
                 correct,
-                crossedOut,
                 strings,
             })}
         </div>

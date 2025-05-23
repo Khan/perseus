@@ -27,7 +27,6 @@ const {captureScratchpadTouchStart} = Util;
 // exported for tests
 export type ChoiceType = {
     checked: boolean;
-    crossedOut: boolean;
     content: React.ReactNode;
     rationale: React.ReactNode;
     hasRationale: boolean;
@@ -55,13 +54,9 @@ type Props = {
     reviewModeRubric?: PerseusRadioWidgetOptions | null;
     reviewMode: boolean;
     // A callback indicating that this choice has changed. Its argument is
-    // an object with two keys: `checked` and `crossedOut`. Each contains
-    // an array of boolean values, specifying the new checked and
-    // crossed-out value of each choice.
-    onChange: (newValues: {
-        checked: ReadonlyArray<boolean>;
-        crossedOut: ReadonlyArray<boolean>;
-    }) => void;
+    // an object with a `checked` key. It contains an array of boolean values,
+    // specifying the new checked value of each choice.
+    onChange: (newValues: {checked: ReadonlyArray<boolean>}) => void;
     // Whether this widget was the most recently used widget in this
     // Renderer. Determines whether we'll auto-scroll the page upon
     // entering review mode.
@@ -149,14 +144,12 @@ const BaseRadio = ({
     // So, given the new values for a particular choice, compute the new values
     // for all choices, and pass them to `onChange`.
     //
-    // `newValues` is an object with two keys: `checked` and `crossedOut`. Each
-    // contains a boolean value specifying the new checked and crossed-out
-    // value of this choice.
+    // `newValues` is an object with a `checked` key. It contains a boolean value
+    // specifying the new checked value of this choice.
     function updateChoice(
         choiceIndex: number,
         newValues: Readonly<{
             checked: boolean;
-            crossedOut: boolean;
         }>,
     ): void {
         // Get the baseline `checked` values. If we're checking a new answer
@@ -169,16 +162,11 @@ const BaseRadio = ({
             newCheckedList = choices.map((c) => c.checked);
         }
 
-        // Get the baseline `crossedOut` values.
-        const newCrossedOutList = choices.map((c) => c.crossedOut);
-
-        // Update this choice's `checked` and `crossedOut` values.
+        // Update this choice's `checked` values.
         newCheckedList[choiceIndex] = newValues.checked;
-        newCrossedOutList[choiceIndex] = newValues.crossedOut;
 
         onChange({
             checked: newCheckedList,
-            crossedOut: newCrossedOutList,
         });
     }
 
@@ -236,7 +224,6 @@ const BaseRadio = ({
                             apiOptions: apiOptions,
                             multipleSelect: multipleSelect,
                             checked: choice.checked,
-                            crossedOut: choice.crossedOut,
                             previouslyAnswered: choice.previouslyAnswered,
                             reviewMode,
                             correct: choice.correct,
@@ -336,7 +323,6 @@ const BaseRadio = ({
                                     ) {
                                         updateChoice(i, {
                                             checked: !choice.checked,
-                                            crossedOut: choice.crossedOut,
                                         });
                                         return;
                                     }

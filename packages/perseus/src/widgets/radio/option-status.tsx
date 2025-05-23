@@ -19,8 +19,6 @@ type Props = {
     correct: boolean;
     // Did the user select this option as the answer?
     checked: boolean;
-    // Did the user cross out this option?
-    crossedOut: boolean;
     // Did the user select this option as the answer earlier?
     previouslyAnswered: boolean;
     reviewMode: boolean;
@@ -29,17 +27,13 @@ type Props = {
 function renderText(
     checked: boolean,
     correct: boolean,
-    crossedOut: boolean,
     strings: PerseusStrings,
 ): string {
     if (correct) {
-        // For correct answers, we surface checked _or_ crossedOut state,
+        // For correct answers, we surface checked state,
         // because any interaction with the correct answer is noteworthy!
         if (checked) {
             return strings.correctSelected;
-        }
-        if (crossedOut) {
-            return strings.correctCrossedOut;
         }
         return strings.correct;
     }
@@ -52,8 +46,7 @@ function renderText(
 }
 
 const OptionStatus = function (props: Props): React.ReactElement {
-    const {checked, correct, crossedOut, previouslyAnswered, reviewMode} =
-        props;
+    const {checked, correct, previouslyAnswered, reviewMode} = props;
 
     const {strings} = usePerseusI18n();
 
@@ -77,7 +70,7 @@ const OptionStatus = function (props: Props): React.ReactElement {
 
     return (
         <div className={css(styles.text, textStyle)}>
-            {renderText(checked, correct, crossedOut, strings)}
+            {renderText(checked, correct, strings)}
         </div>
     );
 };
