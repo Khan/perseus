@@ -20,10 +20,12 @@ const indentation = "    ";
  * WIP Variables *
  *****************/
 const codeBlocksToDelete = [];
+const importedModules = {};
 
 /********************
  * Helper Functions *
  ********************/
+const isExportNamedDeclaration = (node) => node.type === "ExportNamedDeclaration";
 const isVariableDeclaration = (node) => node.type === "VariableDeclaration";
 
 const camelToKabob = (camel) => {
@@ -36,9 +38,52 @@ const pxToRem = (px) => {
     return parseFloat(px) / 10;
 };
 
+const validFileExtensions = ["js", "jsx", "ts", "tsx"];
+const getFilePath = (rawFilePath) => {
+    let filePath = path.join(fileDirectory, rawFilePath);
+    if (!fs.existsSync(filePath)) {
+        filePath = validFileExtensions.reduce((matchedExtension, possibleExtension) => {
+            if (matchedExtension) {
+                return matchedExtension;
+            } else {
+                const possibleFilePath = path.join(fileDirectory, `${rawFilePath}.${possibleExtension}`);
+                return fs.existsSync(possibleFilePath) ? possibleFilePath : null;
+            }
+        }, "");
+    }
+    return filePath;
+};
+
 /****************
  * Code Parsing *
  ****************/
+
+const getCode = (filePath) => {
+    const code = fs.readFileSync(filePath, "utf8");
+    const parsedCode = parse(code, {
+        sourceType: "module",
+        plugins: ["jsx", "typescript"],
+    });
+    return {code, parsedCode};
+};
+
+const mapVariables = (parsedCode) => {
+    // Gather variable declarations, both regular and exported.
+    const variableDeclarations = parsedCode.program.body
+        .filter(isVariableDeclaration)
+        .concat(parsedCode.program.body
+            .filter(isExportNamedDeclaration)
+            .map(node => node.declaration));
+    // console.log(`Declarations: `, variableDeclarations);
+    return variableDeclarations
+        .flatMap((node) => node.declarations)
+        .filter((node) => node.init.type === "NumericLiteral" || node.init.type === "StringLiteral")
+        .reduce((mappedVariables, node) => {
+            mappedVariables[node.id.name] = node.init.value;
+            return mappedVariables;
+        }, {});
+}
+
 // Archive the original file in case something doesn't quite go right.
 fs.copyFile(filePath, archivedFilePath, (error) => {
     if (error) {
@@ -50,11 +95,7 @@ fs.copyFile(filePath, archivedFilePath, (error) => {
 });
 
 // Parse the code in order to extract and replace the CSS parts.
-const code = fs.readFileSync(filePath, "utf8");
-const parsedCode = parse(code, {
-    sourceType: "module",
-    plugins: ["jsx", "typescript"],
-});
+const {code, parsedCode} = getCode(filePath);
 
 // Find the variables that have literal values (like numbers).
 // Sometimes, the CSS settings reference these literal variables.
@@ -63,7 +104,7 @@ const literalVariables = {};
 parsedCode.program.body
     .filter(isVariableDeclaration)
     .flatMap((node) => node.declarations)
-    .filter((node) => node.init.type === "NumericLiteral")
+    .filter((node) => node.init.type === "NumericLiteral" || node.init.type === "StringLiteral")
     .forEach((node) => {
         literalVariables[node.id.name] = node.init.value;
     });
@@ -116,12 +157,13 @@ const getClassName = (node) => {
 const getCssPropertyInfo = (property) => {
     const cssProperty = property.key.name ?? property.key.value;
     let propertyValue = property.value.value;
-    console.log(`Property: ${cssProperty}, Value: ${propertyValue}, Type: ${property.value.type}`);
+    // if (cssProperty === "borderBottom") {
+    //     console.log(`Property: ${cssProperty}, Value: ${propertyValue}, Type: ${property.value.type}`);
+    // }
     switch (property.value.type) {
         case "NumericLiteral":
-            // Should exclude things like 'opacity'
-            if (parseFloat(property.value.value) > 1) {
-                propertyValue = `${pxToRem(property.value.value)}rem`;
+            if (cssProperty !== "zIndex" && cssProperty !== "opacity" && propertyValue !== 0) {
+                propertyValue = `${pxToRem(propertyValue)}rem`;
             }
             break;
         case "Identifier":
@@ -130,10 +172,34 @@ const getCssPropertyInfo = (property) => {
         case "UnaryExpression":
             propertyValue = `${property.value.operator}${pxToRem(literalVariables[property.value.argument.name])}rem`;
             break;
+        case "TemplateLiteral":
+            const literalParts = property.value.expressions
+                .concat(property.value.quasis)
+                .sort((a, b) => a.start - b.start);
+            propertyValue = literalParts.reduce((builtString, part) => {
+                switch (part.type) {
+                    case "TemplateElement":
+                        return `${builtString}${part.value.raw}`;
+                    case "Identifier":
+                        return `${builtString}${literalVariables[part.name]}`;
+                    case "MemberExpression":
+                        const referencedValue = getMemberExpressionValue(part.object.name, part.property.name);
+                        return `${builtString}${referencedValue}`;
+                }
+            }, "");
+            break;
         case "MemberExpression":
-            console.log(`MemberExpression: `, property);
-            console.log(`Object Location: `, property.value.object.loc);
-            console.log(`Property Location: `, property.value.property.loc);
+            // console.log(`MemberExpression: `, property);
+            // console.log(`Object Location: `, property.value.object.loc);
+            // console.log(`Property Location: `, property.value.property.loc);
+            // console.log("Loading imported values for: ", property.value.object.name);
+
+            const expressionValue = getMemberExpressionValue(property.value.object.name, property.value.property.name);
+            if (isNaN(expressionValue || cssProperty === "zIndex" || cssProperty === "opacity" || propertyValue === 0)) {
+                propertyValue = expressionValue;
+            } else {
+                propertyValue = `${pxToRem(expressionValue)}rem`;
+            }
     }
 
     return {
@@ -144,6 +210,32 @@ const getCssPropertyInfo = (property) => {
         trailingComments: [],
     };
 };
+
+const getImportedValues = (sourceName) => {
+    if (!Object.keys(importedModules).includes(sourceName)) {
+        parsedCode.program.body
+            .filter((node) => node.type === "ImportDeclaration")
+            .filter((node) => node.specifiers.some(specifier => specifier.local.name === sourceName))
+            .forEach((node => {
+                    const filePath = getFilePath(node.source.value);
+                    const {_, parsedCode} = getCode(filePath);
+                    importedModules[sourceName] = mapVariables(parsedCode);
+                })
+            );
+    }
+    return importedModules[sourceName];
+};
+
+const getMemberExpressionValue = (objectName, variableName) => {
+    const errorMessage = `/* ${objectName} is not defined */`;
+    const importedValues = getImportedValues(objectName);
+    if (importedValues === undefined) {
+        return errorMessage;
+    } else {
+        const importedValue = importedValues[variableName];
+        return importedValue !== undefined ? importedValue : errorMessage;
+    }
+}
 
 const isStylesheetNode = (node) => {
     const isStyleSheet =
@@ -237,7 +329,7 @@ parsedCode.program.body
         });
     })
     .filter((node) => !isStylesheetNode(node.declaration))
-    .filter((node) => node.declaration.id.name.toLowerCase().includes("style"))
+    .filter((node) => node.declaration.id.name?.toLowerCase().includes("style"))
     .forEach((node) => {
         cssRules[getClassName(node.declaration)] = {
             comments: node.comments,
@@ -251,7 +343,10 @@ const cssStringified = Object.keys(cssRules)
     .sort()
     .map((className) => {
         const comments = stringifyComments(cssRules[className].comments, 1);
-        const ruleSet = cssRules[className].properties.map(
+        const ruleSet = cssRules[className].properties
+            // TODO: The following line is temporary to get past rulesets that include [media]
+            .filter(property => property.key.name !== undefined || property.key.value !== undefined)
+            .map(
             (property, index, allPropertiesForClass) => {
                 const cssProperty = getCssPropertyInfo(property);
                 associateCommentsToCssProperty(
