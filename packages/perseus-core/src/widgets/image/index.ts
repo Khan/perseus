@@ -1,4 +1,7 @@
-import type {PerseusImageWidgetOptions} from "../../data-schema";
+import type {
+    PerseusImageWidgetOptions,
+    PerseusWidgetOptions,
+} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
 export type ImageDefaultWidgetOptions = Pick<
@@ -28,6 +31,13 @@ const imageWidgetLogic: WidgetLogic = {
     defaultWidgetOptions,
     supportedAlignments: ["block", "full-width"],
     defaultAlignment: "block",
+    // This widget's accessibility depends on its widget option: if the image
+    // has a background but no alt text, it is not accessible
+    accessible: (widgetOptions: PerseusWidgetOptions): boolean => {
+        const imageOptions = widgetOptions as PerseusImageWidgetOptions;
+        const bgImage = imageOptions.backgroundImage;
+        return !(bgImage.url != null && !imageOptions.alt);
+    },
 };
 
 export default imageWidgetLogic;

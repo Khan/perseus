@@ -16,6 +16,7 @@ const expressionWidgetLogic: WidgetLogic = {
     defaultWidgetOptions: defaultWidgetOptions,
     defaultAlignment: "inline-block",
     getPublicWidgetOptions: getExpressionPublicWidgetOptions,
+    accessible: true,
 };
 
 export default expressionWidgetLogic;
