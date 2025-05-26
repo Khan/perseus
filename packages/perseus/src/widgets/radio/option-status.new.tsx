@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         height: 32,
         textTransform: "uppercase",
+        textAlign: "start",
     },
     correct: {
         color: color.green,

@@ -5,7 +5,7 @@ import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import caretLeftIcon from "@phosphor-icons/core/regular/caret-left.svg";
 import caretRightIcon from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 
 import {usePerseusI18n} from "./i18n-context";
 
@@ -41,27 +41,70 @@ function ScrollableView({
 }: ScrollableViewProps) {
     const {strings} = usePerseusI18n();
     const containerRef = useRef<HTMLDivElement>(null);
-    const [isScrollable, setIsScrollable] = React.useState(false);
-    const [canScrollLeft, setCanScrollLeft] = React.useState(false);
-    const [canScrollRight, setCanScrollRight] = React.useState(false);
+    const [isScrollable, setIsScrollable] = useState(false);
+    const [canScrollStart, setCanScrollStart] = useState(false);
+    const [canScrollEnd, setCanScrollEnd] = useState(false);
+    const [isRtl, setIsRtl] = useState(false);
 
+    /**
+     * Updates scroll state variables based on current scroll position.
+     *
+     * This function determines:
+     * 1. Whether the content is scrollable (content width > container width)
+     * 2. Whether user can scroll towards the start of the content
+     * 3. Whether user can scroll towards the end of the content
+     *
+     * For LTR (left-to-right):
+     * - canScrollStart: true when scrollLeft > 0 (user can scroll left)
+     * - canScrollEnd: true when scrollLeft + clientWidth < scrollWidth (user can scroll right)
+     *
+     * For RTL (right-to-left):
+     * - RTL scrolling works differently across browsers, with scrollLeft potentially being negative
+     * - canScrollStart: true when there's content to the right to scroll to
+     * - canScrollEnd: true when there's content to the left to scroll to
+     */
     const updateScrollState = () => {
         if (!containerRef.current) {
             return;
         }
 
         const {scrollLeft, scrollWidth, clientWidth} = containerRef.current;
+        const rtlDirection =
+            getComputedStyle(containerRef.current).direction === "rtl";
+        setIsRtl(rtlDirection);
+
         setIsScrollable(scrollWidth > clientWidth + 1); // 1px tolerance
-        setCanScrollLeft(scrollLeft > 0);
-        setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
+
+        // In RTL mode, scrollLeft values work differently (can be negative)
+        // We need to handle this to ensure the correct buttons are enabled
+        if (rtlDirection) {
+            // For RTL, scrollLeft is negative when scrolling to the end (right side in visual terms)
+            // Math.abs to get a positive value for comparison
+            setCanScrollStart(
+                Math.abs(scrollLeft) < scrollWidth - clientWidth - 1,
+            );
+            setCanScrollEnd(scrollLeft < 0);
+        } else {
+            setCanScrollStart(scrollLeft > 0);
+            setCanScrollEnd(scrollLeft + clientWidth < scrollWidth - 1);
+        }
     };
-    const scroll = (direction: "left" | "right") => {
+
+    const scroll = (direction: "start" | "end") => {
         if (!containerRef.current) {
             return;
         }
 
+        const scrollAmount = isRtl
+            ? direction === "start"
+                ? SCROLL_DISTANCE
+                : -SCROLL_DISTANCE
+            : direction === "start"
+              ? -SCROLL_DISTANCE
+              : SCROLL_DISTANCE;
+
         containerRef.current.scrollBy({
-            left: direction === "left" ? -SCROLL_DISTANCE : SCROLL_DISTANCE,
+            left: scrollAmount,
             behavior: "smooth",
         });
     };
@@ -90,7 +133,26 @@ function ScrollableView({
 
     return (
         <>
-            {canScrollRight && <div style={styles.scrollFadeRight} />}
+            {canScrollEnd && (
+                <div
+                    style={{
+                        ...styles.scrollFade,
+                        ...(isRtl
+                            ? styles.scrollFadeRight
+                            : styles.scrollFadeLeft),
+                    }}
+                />
+            )}
+            {canScrollStart && (
+                <div
+                    style={{
+                        ...styles.scrollFade,
+                        ...(isRtl
+                            ? styles.scrollFadeLeft
+                            : styles.scrollFadeRight),
+                    }}
+                />
+            )}
             <div
                 {...additionalProps}
                 role={role}
@@ -101,10 +163,14 @@ function ScrollableView({
             </div>
             {isScrollable && (
                 <ScrollButtons
-                    onScrollLeft={() => scroll("left")}
-                    onScrollRight={() => scroll("right")}
-                    canScrollLeft={canScrollLeft}
-                    canScrollRight={canScrollRight}
+                    onScrollStart={() =>
+                        isRtl ? scroll("end") : scroll("start")
+                    }
+                    onScrollEnd={() =>
+                        isRtl ? scroll("start") : scroll("end")
+                    }
+                    canScrollStart={canScrollStart}
+                    canScrollEnd={canScrollEnd}
                     scrollDescription={
                         scrollDescription
                             ? scrollDescription
@@ -117,18 +183,18 @@ function ScrollableView({
 }
 
 interface ScrollButtonsProps {
-    onScrollLeft: () => void;
-    onScrollRight: () => void;
-    canScrollLeft: boolean;
-    canScrollRight: boolean;
+    onScrollStart: () => void;
+    onScrollEnd: () => void;
+    canScrollStart: boolean;
+    canScrollEnd: boolean;
     scrollDescription: string;
 }
 
 function ScrollButtons({
-    onScrollLeft,
-    onScrollRight,
-    canScrollLeft,
-    canScrollRight,
+    onScrollStart,
+    onScrollEnd,
+    canScrollStart,
+    canScrollEnd,
     scrollDescription,
 }: ScrollButtonsProps) {
     const {strings} = usePerseusI18n();
@@ -140,18 +206,18 @@ function ScrollButtons({
                 actionType="neutral"
                 kind="secondary"
                 size="small"
-                onClick={onScrollLeft}
+                onClick={onScrollStart}
                 aria-label={strings.scrollLeft}
-                disabled={!canScrollLeft}
+                disabled={!canScrollStart}
             />
             <IconButton
                 icon={caretRightIcon}
                 actionType="neutral"
                 kind="secondary"
                 size="small"
-                onClick={onScrollRight}
+                onClick={onScrollEnd}
                 aria-label={strings.scrollRight}
-                disabled={!canScrollRight}
+                disabled={!canScrollEnd}
             />
             <LabelSmall>{scrollDescription}</LabelSmall>
         </View>
@@ -166,16 +232,26 @@ const styles = {
         padding: spacing.small_12,
     },
 
-    scrollFadeRight: {
+    scrollFade: {
         position: "absolute",
         top: 0,
-        right: 0,
-        width: "max-content",
         height: "100%",
-        background: "linear-gradient(to left, white 40%, transparent)",
+        width: "max-content",
         pointerEvents: "none",
-        zIndex: 2,
+        zIndex: 1,
         transition: "opacity 0.3s ease",
+    },
+
+    scrollFadeRight: {
+        right: 0,
+        background:
+            "linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))",
+    },
+
+    scrollFadeLeft: {
+        left: 0,
+        background:
+            "linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))",
     },
 } as const;
 

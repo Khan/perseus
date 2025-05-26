@@ -325,16 +325,20 @@ const styles = {
         flexDirection: "row",
         justifyContent: "flex-start",
         alignItems: "center",
-        paddingTop: spacing.xSmall_8,
-        paddingBottom: spacing.xSmall_8,
-        paddingLeft: spacing.xSmall_8,
+        paddingBlock: spacing.xSmall_8,
+        paddingInlineStart: spacing.xSmall_8,
         position: "relative",
         minWidth: "100%",
-        left: 0,
+        insetInlineStart: 0,
         // The height and background will ensure content will be scrolled
         // behind the ChoiceIcon and will not be visible
         height: "100%",
         background: color.white64, // TODO: LEMS-3108 address light/dark mode theme
+        // TODO: LEMS-3107 not properly working fix this by moving in a css file
+        ":dir(rtl)": {
+            flexDirection: "row-reverse",
+            justifyContent: "flex-end",
+        },
     },
 
     choiceIcon: {
@@ -342,10 +346,14 @@ const styles = {
         flexShrink: 0,
         flexBasis: "30px",
         position: "sticky",
-        left: 0,
+        insetInlineStart: 0,
         background: "linear-gradient(to right, white 70%, transparent)",
-        // TODO: LEMS-3107 adjust to support RTL
-        paddingRight: spacing.xSmall_8,
+        // TODO: LEMS-3107 not properly working fix this by moving in a css file
+        ":dir(rtl)": {
+            background: "linear-gradient(to left, white 70%, transparent)",
+        },
+        paddingInlineStart: spacing.xSmall_8,
+        paddingInlineEnd: spacing.xSmall_8,
         paddingTop: spacing.xxxSmall_4,
         zIndex: 1,
         alignItems: "center",
@@ -354,8 +362,8 @@ const styles = {
     },
 
     choiceContent: {
-        paddingLeft: spacing.small_12,
-        textAlign: "left",
+        paddingInlineStart: spacing.small_12,
+        textAlign: "start",
         flex: 1,
         paddingTop: spacing.xxxSmall_4,
         minWidth: 0,
@@ -365,7 +373,7 @@ const styles = {
         display: "block",
         padding: intermediateCheckboxPadding,
         paddingTop: 0,
-        marginLeft: 54,
+        marginInlineStart: 54,
         color: color.offBlack64,
         [mediaQueries.smOrSmaller]: {
             padding: intermediateCheckboxPaddingPhone,
