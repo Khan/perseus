@@ -140,7 +140,7 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
             <div className={descriptionClassName} style={styles.description}>
                 <div
                     style={{
-                        display: "flex",
+                        ...styles.choicesContainer,
                         opacity: showDimmed ? 0.5 : 1.0,
                     }}
                 >
@@ -175,11 +175,7 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
                             });
                         }}
                         disabled={disabled || apiOptions.readOnly}
-                        style={{
-                            flex: 1,
-                            color: color.offBlack,
-                            userSelect: "text",
-                        }}
+                        style={styles.clickable}
                         ref={ref as any}
                         aria-hidden="true"
                         hideDefaultFocusRing={true}
@@ -277,14 +273,7 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
                                     aria-label={strings.openMenuForChoice({
                                         letter: getChoiceLetter(pos, strings),
                                     })}
-                                    style={{
-                                        alignSelf: "center",
-                                        padding: "5px",
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        marginLeft: "10px",
-                                    }}
+                                    style={styles.popoverClickable}
                                 >
                                     {({hovered, focused, pressed}) => (
                                         <Icon
@@ -318,6 +307,16 @@ const styles = {
         width: "100%",
         flexDirection: "column",
         color: color.offBlack,
+    },
+
+    choicesContainer: {
+        display: "flex",
+    },
+
+    clickable: {
+        flex: 1,
+        color: color.offBlack,
+        userSelect: "text",
     },
 
     choiceRow: {
@@ -367,6 +366,15 @@ const styles = {
         flex: 1,
         paddingTop: spacing.xxxSmall_4,
         minWidth: 0,
+    },
+
+    popoverClickable: {
+        alignSelf: "center",
+        padding: "5px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        marginLeft: "10px",
     },
 
     rationale: {
