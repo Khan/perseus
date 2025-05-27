@@ -10,7 +10,6 @@ import IssuesPanel from "./issues-panel";
 import ItemExtrasEditor from "./item-extras-editor";
 import {WARNINGS} from "./messages";
 
-import type {Issue} from "../types/utility.d";
 import type {
     APIOptions,
     ImageUploader,
@@ -22,6 +21,7 @@ import type {
     PerseusWidgetsMap,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
+import type {Issue} from "perseus-editor/types/utility.d";
 
 type Props = {
     apiOptions?: APIOptions;

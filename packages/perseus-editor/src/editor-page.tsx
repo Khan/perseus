@@ -20,7 +20,7 @@ import type {
     PerseusItem,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
-import type {Issue} from "../types/utility.d";
+import type {Issue} from "perseus-editor/types/utility.d";
 
 const {HUD} = components;
 

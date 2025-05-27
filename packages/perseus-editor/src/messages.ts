@@ -1,4 +1,4 @@
-import type {Issue} from "../types/utility.d";
+import type {Issue} from "perseus-editor/types/utility.d";
 // This file is meant to contain any and all perseus-editor messages
 // we want to show within the Issues Panel.
 export const WARNINGS = {
@@ -13,7 +13,7 @@ export const WARNINGS = {
             "Selecting inaccessible widgets for a practice item will result in this exercise being hidden from users with 'Hide visually dependant content' setting set to true. Please select another widget or create an alternative practice item.",
     }),
 
-    genericLinterWarning: (rule: string, message: string):  => ({
+    genericLinterWarning: (rule: string, message: string): Issue => ({
         id: rule,
         description: message,
         help: "Learn more about best practices for authoring items",

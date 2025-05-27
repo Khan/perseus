@@ -9,7 +9,7 @@ import {useState} from "react";
 import IssueDetails from "./issue-details";
 import {iconChevronRight} from "./styles/icon-paths";
 
-import type {Issue} from "../types/utility.d";
+import type {Issue} from "perseus-editor/types/utility.d";
 
 const {InlineIcon} = components;
 
