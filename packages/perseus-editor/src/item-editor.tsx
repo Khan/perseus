@@ -10,7 +10,7 @@ import IssuesPanel from "./issues-panel";
 import ItemExtrasEditor from "./item-extras-editor";
 import {WARNINGS} from "./messages";
 
-import type {Issue} from "./issues-panel";
+import type {Issue} from "../types/utility.d";
 import type {
     APIOptions,
     ImageUploader,
@@ -36,14 +36,7 @@ type Props = {
     // The content ID of the AssessmentItem being edited. It may not be set
     // for non-content library exercise questions.
     itemId?: string;
-    issues?: Array<{
-        id: string;
-        description: string;
-        help: string;
-        helpUrl: string;
-        impact: string;
-        message: string;
-    }>;
+    issues?: Issue[];
 };
 
 type State = {

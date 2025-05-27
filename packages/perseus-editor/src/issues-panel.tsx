@@ -9,16 +9,9 @@ import {useState} from "react";
 import IssueDetails from "./issue-details";
 import {iconChevronRight} from "./styles/icon-paths";
 
-const {InlineIcon} = components;
+import type {Issue} from "../types/utility.d";
 
-export type Issue = {
-    id: string;
-    description: string;
-    helpUrl: string;
-    help: string;
-    impact: string; // TODO: Make this a string union so the values are well-known. (eg. "low" | "medium" | "high")
-    message: string;
-};
+const {InlineIcon} = components;
 
 type IssuesPanelProps = {
     issues?: Issue[];
