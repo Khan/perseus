@@ -1,12 +1,15 @@
-import _ from "underscore";
+import {parseAndMigratePerseusItem} from "../parse-perseus-json";
+import {
+    failure,
+    isFailure,
+    type Result,
+    success,
+} from "../parse-perseus-json/result";
 
 import deepClone from "./deep-clone";
 import splitPerseusRenderer from "./split-perseus-renderer";
 
-import {parsePerseusItem} from "../parse-perseus-json/perseus-parsers/perseus-item"
-
 import type {PerseusItem} from "../data-schema";
-
 
 /**
  * Return a copy of a PerseusItem with rubric data removed (ie answers)
@@ -26,18 +29,20 @@ export default function splitPerseusItem(original: PerseusItem): PerseusItem {
 }
 
 /**
- * Return a JSON copy of a PerseusItem with rubric data removed (ie answers)
+ * Returns a JSON copy of a PerseusItem with rubric data (i.e. answers and
+ * hints) removed. Idempotent and deterministic.
  *
- * This will work on any valid JSON produced from the editors
- *
- * CP calls this on every item of content (in every locale) as part of publish
- * If it throws on an item, Perseus upgrades are blocked
- *
- * It should also have a consistent 1-to-1 mapping from input to output
- * as CP uses that consistency to validate publish
- *
- * @param originalJSON - the original, full PerseusItem as JSON (which includes the rubric - aka answer data)
+ * @param data a {@linkcode PerseusItem}, either as JSON or as an object.
+ * @returns {Result} containing either the JSON (on success) or an
+ * error message (on failure).
+ * @throws {SyntaxError} given malformed JSON.
  */
-export function splitPerseusItemExternal(originalJSON: string): string {
-    return JSON.stringify(splitPerseusItem(parsePerseusItem(originalJSON)));
+export function splitPerseusItemJSON(data: unknown): Result<string, string> {
+    const parseResult = parseAndMigratePerseusItem(data);
+    if (isFailure(parseResult)) {
+        return failure(parseResult.detail.message);
+    }
+    const item = parseResult.value;
+
+    return success(JSON.stringify(splitPerseusItem(item)));
 }
