@@ -5,13 +5,20 @@ import {failure, success} from "../result";
 import {
     migrateV0ToV1,
     migrateV1ToV2,
-    migrateV2toV3,
+    migrateV2ToV3,
+    migrateV3ToV4,
     parseRadioWidget,
 } from "./radio-widget";
-import {v0Widget, v1Widget, v2Widget, v3Widget} from "./radio-widget.mockData";
+import {
+    v0Widget,
+    v1Widget,
+    v2Widget,
+    v3Widget,
+    v4Widget,
+} from "./radio-widget.mockData";
 
 describe("parseRadioWidget", () => {
-    const LATEST_VERSION = {major: 3, minor: 0};
+    const LATEST_VERSION = {major: 4, minor: 0};
     const LATEST_OPTIONS = v3Widget;
 
     describe.each([
@@ -19,6 +26,7 @@ describe("parseRadioWidget", () => {
         ["v1", v1Widget],
         ["v2", v2Widget],
         ["v3", v3Widget],
+        ["v4", v4Widget],
     ])("Radio %s", (_, inputData) => {
         it(`migrates to the latest version, ${LATEST_VERSION.major}.${LATEST_VERSION.minor}`, () => {
             expect(parse(inputData, parseRadioWidget)).toEqual(
@@ -120,6 +128,10 @@ describe("migration functions", () => {
     });
 
     it("migrates v2 to v3", () => {
-        expect(migrateV2toV3(v2Widget)).toEqual(v3Widget);
+        expect(migrateV2ToV3(v2Widget)).toEqual(v3Widget);
+    });
+     // TODO: write tests to validate scenarios where an ID does and doesn't exist
+    it("migrates v3 to v4", () => {
+        expect(migrateV3ToV4(v4Widget)).toEqual(v4Widget);
     });
 });

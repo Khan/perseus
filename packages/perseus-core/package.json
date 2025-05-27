@@ -27,10 +27,12 @@
     "dependencies": {
         "@khanacademy/kas": "workspace:*",
         "@khanacademy/perseus-utils": "workspace:*",
-        "tiny-invariant": "catalog:"
+        "tiny-invariant": "catalog:",
+        "uuid": "^10.0.0"
     },
     "devDependencies": {
         "@khanacademy/wonder-stuff-core": "catalog:",
+        "@types/uuid": "^10.0.0",
         "perseus-build-settings": "workspace:*",
         "underscore": "catalog:"
     },
