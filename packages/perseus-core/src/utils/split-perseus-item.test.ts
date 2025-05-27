@@ -1,15 +1,34 @@
+import {assertFailure, assertSuccess} from "../parse-perseus-json/result";
 import {registerCoreWidgets} from "../widgets/core-widget-registry";
 import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
-import splitPerseusItem from "./split-perseus-item";
+import splitPerseusItem, {splitPerseusItemJSON} from "./split-perseus-item";
 import {generateTestPerseusItem} from "./test-utils";
 
-import type {PerseusRenderer, RadioWidget} from "../data-schema";
+import type {PerseusItem, PerseusRenderer, RadioWidget} from "../data-schema";
 
 describe("splitPerseusItem", () => {
     beforeAll(() => {
         registerCoreWidgets();
     });
+
+    function getFullRadio(): RadioWidget {
+        return {
+            type: "radio",
+            options: {
+                choices: [
+                    {
+                        content: "Correct",
+                        correct: true,
+                    },
+                    {
+                        content: "Incorrect",
+                        correct: false,
+                    },
+                ],
+            },
+        };
+    }
 
     it("doesn't do anything with an empty item", () => {
         // Arrange
@@ -340,24 +359,6 @@ describe("splitPerseusItem", () => {
     });
 
     it("handles multiple widgets", () => {
-        function getFullRadio(): RadioWidget {
-            return {
-                type: "radio",
-                options: {
-                    choices: [
-                        {
-                            content: "Correct",
-                            correct: true,
-                        },
-                        {
-                            content: "Incorrect",
-                            correct: false,
-                        },
-                    ],
-                },
-            };
-        }
-
         // Arrange
         const question: PerseusRenderer = {
             content: "[[☃ radio 1]] [[☃ radio 2]]",
@@ -468,5 +469,98 @@ describe("splitPerseusItem", () => {
 
         expect(item.hints[0]).toEqual(hint);
         expect(rv.hints).toEqual([]);
+    });
+});
+
+describe("splitPerseusItemJSON", () => {
+    function getBlankItem(): PerseusItem {
+        return {
+            question: {
+                content: "",
+                widgets: {},
+                images: {},
+            },
+            hints: [],
+            answerArea: {
+                calculator: false,
+                chi2Table: false,
+                financialCalculatorMonthlyPayment: false,
+                financialCalculatorTotalAmount: false,
+                financialCalculatorTimeToPayOff: false,
+                periodicTable: false,
+                periodicTableWithKey: false,
+                tTable: false,
+                zTable: false,
+            },
+        };
+    }
+
+    it("accepts JSON", () => {
+        // Arrange
+        const item = getBlankItem();
+        const json = JSON.stringify(item);
+
+        // Act
+        const rv = splitPerseusItemJSON(json);
+
+        // Assert
+        assertSuccess(rv);
+        expect(JSON.parse(rv.value)).toEqual(item);
+    });
+
+    it("accepts an object", () => {
+        // Arrange
+        const item = getBlankItem();
+
+        // Act
+        const rv = splitPerseusItemJSON(item);
+
+        // Assert
+        assertSuccess(rv);
+        expect(JSON.parse(rv.value)).toEqual(item);
+    });
+
+    it("is idempotent", () => {
+        // Arrange
+        const item = getBlankItem();
+
+        // Act
+        const rv1 = splitPerseusItemJSON(item);
+        assertSuccess(rv1);
+        const rv2 = splitPerseusItemJSON(rv1.value);
+
+        // Assert
+        assertSuccess(rv2);
+        expect(rv1.value).toBe(rv2.value);
+    });
+
+    it("removes answer-revealing information, e.g. hints", () => {
+        // Arrange
+        const item: PerseusItem = {
+            ...getBlankItem(),
+            hints: [{content: "a hint", widgets: {}, images: {}}],
+        };
+
+        // Act
+        const rv = splitPerseusItemJSON(item);
+
+        // Assert
+        assertSuccess(rv);
+        expect(JSON.parse(rv.value).hints).toEqual([]);
+    });
+
+    it("returns failure given an invalid PerseusItem", () => {
+        // Act
+        const rv = splitPerseusItemJSON(`"not an item"`);
+
+        // Assert
+        assertFailure(rv);
+        expect(rv.detail).toBe(
+            `At (root) -- expected object, but got "not an item"`,
+        );
+    });
+
+    it("throws on a JSON parse error", () => {
+        expect(() => splitPerseusItemJSON("")).toThrow(SyntaxError);
     });
 });
