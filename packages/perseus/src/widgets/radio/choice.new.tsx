@@ -273,7 +273,14 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
                                     aria-label={strings.openMenuForChoice({
                                         letter: getChoiceLetter(pos, strings),
                                     })}
-                                    style={styles.popoverClickable}
+                                    style={{
+                                        alignSelf: "center",
+                                        padding: "5px",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        marginLeft: "10px",
+                                    }}
                                 >
                                     {({hovered, focused, pressed}) => (
                                         <Icon
@@ -366,15 +373,6 @@ const styles = {
         flex: 1,
         paddingTop: spacing.xxxSmall_4,
         minWidth: 0,
-    },
-
-    popoverClickable: {
-        alignSelf: "center",
-        padding: "5px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        marginLeft: "10px",
     },
 
     rationale: {
