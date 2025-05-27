@@ -27,5 +27,5 @@ export const Default = (args: StoryArgs): React.ReactElement => {
             setState({...state, ...newState});
         },
     } as const;
-    return <Behavior preferredPopoverDirection="NONE" {...props} />;
+    return <Behavior {...props} />;
 };
