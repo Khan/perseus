@@ -91,24 +91,6 @@ class ItemEditor extends React.Component<Props, State> {
             stack: [],
         };
 
-        // return {
-        //     issues: PerseusLinter.runLinter(parsed, linterContext, false)?.map(
-        //         (linterWarning) => {
-        //             if (linterWarning.rule === "inaccessible-widget") {
-        //                 return WARNINGS.inaccessibleWidget(
-        //                     linterWarning.metadata?.widgetType ?? "unknown",
-        //                     linterWarning.metadata?.widgetId ?? "unknown",
-        //                 );
-        //             }
-
-        //             return WARNINGS.genericLinterWarning(
-        //                 linterWarning.rule,
-        //                 linterWarning.message,
-        //             );
-        //         },
-        //     ),
-        // };
-
         return {
             issues: [
                 ...(props.issues ?? []),

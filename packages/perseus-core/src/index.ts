@@ -185,3 +185,4 @@ export {default as PerseusFeatureFlags} from "./feature-flags";
 
 export {registerCoreWidgets} from "./widgets/core-widget-registry";
 export {traverse} from "./traversal";
+export {violatingWidgets} from "./accessibility";
