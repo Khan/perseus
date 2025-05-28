@@ -27,7 +27,9 @@ const parseWidgetsMapOrUndefined = defaulted(
 
 function getDefaultOptions() {
     // See parse-perseus-json/README.md for why we want these defaults here.
-    return {choices: [{content: ""}, {content: ""}, {content: ""}, {content: ""}]}
+    return {
+        choices: [{content: ""}, {content: ""}, {content: ""}, {content: ""}],
+    };
 }
 
 const version2 = optional(object({major: constant(2), minor: number}));
