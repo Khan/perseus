@@ -171,7 +171,6 @@ export class GradedGroup
     };
 
     _checkAnswer: () => void = () => {
-        this.rendererRef.current?.showRationalesForCurrentlySelectedChoices();
         const score: PerseusScore = this.rendererRef.current?.score() || {
             type: "invalid",
         };

@@ -398,14 +398,6 @@ export class ServerItemRenderer
         this.hintsRenderer.restoreSerializedState(state.hints, fireCallback);
     }
 
-    showRationalesForCurrentlySelectedChoices() {
-        this.questionRenderer.showRationalesForCurrentlySelectedChoices();
-    }
-
-    deselectIncorrectSelectedChoices() {
-        this.questionRenderer.deselectIncorrectSelectedChoices();
-    }
-
     // This must be pre-bound otherwise SvgImage's shouldComponentUpdate
     // won't behave correctly and we'll get an infinite loop.
     setAssetStatus: (assetKey: string, status: boolean) => void = (

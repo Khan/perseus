@@ -1,5 +1,4 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import {scoreRadio} from "@khanacademy/perseus-score";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -15,7 +14,6 @@ import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
-    PerseusRadioWidgetOptions,
     ShowSolutions,
     PerseusRadioRubric,
     PerseusRadioUserInput,
@@ -112,15 +110,6 @@ class Radio extends React.Component<Props> implements Widget {
         return {
             choicesSelected: props.choices.map(() => false),
         };
-    }
-
-    componentDidUpdate(prevProps: Props) {
-        if (
-            this.props.showSolutions === "selected" &&
-            prevProps.showSolutions !== "selected"
-        ) {
-            this.showRationalesForCurrentlySelectedChoices(this.props);
-        }
     }
 
     _renderRenderer: (content?: string) => React.ReactElement = (
@@ -255,58 +244,6 @@ class Radio extends React.Component<Props> implements Widget {
         const userInput = Radio.getUserInputFromProps(this.props, false);
         return _getPromptJSON(this.props, userInput);
     }
-
-    /**
-     * Turn on rationale display for the currently selected choices. Note that
-     * this leaves rationales on for choices that are already showing
-     * rationales.
-     * @deprecated Internal only. Use `showSolutions` prop instead.
-     */
-    showRationalesForCurrentlySelectedChoices: (
-        arg1: PerseusRadioWidgetOptions,
-    ) => void = (rubric) => {
-        const {choiceStates} = this.props;
-        if (choiceStates) {
-            const score = scoreRadio(this.getUserInput(), rubric);
-            const widgetCorrect =
-                score.type === "points" && score.total === score.earned;
-
-            const newStates: ReadonlyArray<ChoiceState> = choiceStates.map(
-                (state: ChoiceState): ChoiceState => ({
-                    ...state,
-                    highlighted: state.selected,
-                    // If the choice is selected, show the rationale now
-                    rationaleShown:
-                        state.selected ||
-                        // If the choice already had a rationale, keep it shown
-                        state.rationaleShown ||
-                        // If the widget is correctly answered, show the rationale
-                        // for all the choices
-                        widgetCorrect,
-                    // We use the same behavior for the readOnly flag as for
-                    // rationaleShown, but we keep it separate in case other
-                    // behaviors want to disable choices without showing rationales.
-                    readOnly:
-                        state.selected ||
-                        state.readOnly ||
-                        widgetCorrect ||
-                        this.props.showSolutions !== "none",
-                    correctnessShown: state.selected || state.correctnessShown,
-                    previouslyAnswered:
-                        state.previouslyAnswered || state.selected,
-                }),
-            );
-
-            this.props.onChange(
-                {
-                    choiceStates: newStates,
-                },
-                // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
-                null, // cb
-                true, // silent
-            );
-        }
-    };
 
     /**
      * Deselects any currently-selected choices that are not correct choices.

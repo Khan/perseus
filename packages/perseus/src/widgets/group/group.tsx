@@ -119,10 +119,6 @@ class Group extends React.Component<Props> implements Widget {
         this.rendererRef?.blurPath(path);
     };
 
-    showRationalesForCurrentlySelectedChoices: () => void = () => {
-        this.rendererRef?.showRationalesForCurrentlySelectedChoices();
-    };
-
     render(): React.ReactNode {
         const apiOptions: APIOptions = {
             ...ApiOptions.defaults,

@@ -35,6 +35,7 @@ import type {
     PerseusLabelImageWidgetOptions,
     PerseusLabelImageUserInput,
     LabelImagePublicWidgetOptions,
+    ShowSolutions,
 } from "@khanacademy/perseus-core";
 import type {InteractiveMarkerScore} from "@khanacademy/perseus-score/src/widgets/label-image/score-label-image";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -82,6 +83,7 @@ type Props = WidgetProps<Options> &
         // preferred placement for popover (preference, not MUST)
         // TODO: this is sus, probably never passed in
         preferredPopoverDirection?: PreferredPopoverDirection;
+        showSolutions?: ShowSolutions;
     };
 
 type LabelImageState = {
@@ -334,40 +336,6 @@ export class LabelImage
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
-    showRationalesForCurrentlySelectedChoices() {
-        const {markers} = this.props;
-        const {onChange} = this.props;
-
-        const updatedMarkers = markers.map((marker) => {
-            if (isAnswerful(marker)) {
-                const score = scoreLabelImageMarker(
-                    marker.selected,
-                    marker.answers,
-                );
-
-                return {
-                    ...marker,
-                    // Reveal correctness state for markers with answers.
-                    showCorrectness: score.hasAnswers
-                        ? score.isCorrect
-                            ? "correct"
-                            : "incorrect"
-                        : undefined,
-                };
-            }
-            // If the marker doesn't have answers, retain its current state
-            // or set showCorrectness to undefined.
-            return {
-                ...marker,
-                showCorrectness: undefined,
-            };
-        });
-
-        // Update Perseus widget state with user selected answers without
-        // triggering interaction events for listeners.
-        onChange({markers: updatedMarkers}, undefined, true);
-    }
-
     handleMarkerChange(index: number, marker: Props["markers"][number]) {
         const {markers, onChange} = this.props;
 
@@ -466,11 +434,43 @@ export class LabelImage
             selected: selected.length ? selected : undefined,
         });
     }
-    renderMarkers(): ReadonlyArray<React.ReactNode> {
-        const {markers, questionCompleted, preferredPopoverDirection} =
-            this.props;
 
-        const {activeMarkerIndex, markersInteracted} = this.state;
+    /**
+     * Get marker with the appropriate selection state for current display mode.
+     * When showing solutions, it auto-selects correct answers, or clears
+     * selections for markers without answers.
+     *
+     * @param marker - The marker to update.
+     * @returns The updated marker state.
+     */
+    getUpdatedMarkerState(
+        marker: OptionalAnswersMarkerType,
+    ): OptionalAnswersMarkerType {
+        const shouldShowFeedback =
+            this.props.showSolutions === "all" || this.props.reviewMode;
+
+        if (!shouldShowFeedback) {
+            return marker;
+        }
+
+        if (isAnswerful(marker)) {
+            // Auto-select correct answers when feedback should be shown
+            return {
+                ...marker,
+                selected: marker.answers,
+            };
+        } else {
+            // For markers without answers, ensure no selection when showing feedback
+            return {
+                ...marker,
+                selected: undefined,
+            };
+        }
+    }
+
+    renderMarkers(): ReadonlyArray<React.ReactNode> {
+        const {markers, preferredPopoverDirection} = this.props;
+        const {markersInteracted, activeMarkerIndex} = this.state;
 
         // Determine whether page is rendered in a narrow browser window.
         const isNarrowPage =
@@ -510,25 +510,51 @@ export class LabelImage
                 }[markerPosition];
             }
 
+            // Get the updated marker state depending on whether the question
+            // has been answered or skipped by the user.
+            const updatedMarkerState = this.getUpdatedMarkerState(marker);
+
             let score: InteractiveMarkerScore;
-            if (isAnswerful(marker)) {
-                score = scoreLabelImageMarker(marker.selected, marker.answers);
+            if (isAnswerful(updatedMarkerState)) {
+                score = scoreLabelImageMarker(
+                    updatedMarkerState.selected,
+                    updatedMarkerState.answers,
+                );
             } else {
                 score = {
                     hasAnswers: false,
                     isCorrect: false,
                 };
+                // For markers without answers, mark as correct when showing feedback
+                if (
+                    this.props.showSolutions === "all" ||
+                    this.props.reviewMode
+                ) {
+                    score.isCorrect = true;
+                }
             }
-            // Once the question is answered, show markers
-            // with correct answers, otherwise passthrough
-            // the correctness state.
+
+            // Once the question has been answered or skipped, show the markers
+            // with their correct answers. Otherwise passthrough the correctness state.
+            const shouldShowFeedback =
+                this.props.showSolutions === "all" || this.props.reviewMode;
             const showCorrectness =
-                questionCompleted && score.hasAnswers && score.isCorrect
+                shouldShowFeedback && score.isCorrect
                     ? "correct"
                     : marker.showCorrectness;
 
-            // Disable marker interaction once the question is answered correctly.
-            const disabled = showCorrectness === "correct";
+            // Disable marker interaction once the question has been answered or skipped.
+            const disabled = shouldShowFeedback;
+
+            // Determine whether the marker is currently being interacted with.
+            const isActiveAnswerChoice = activeMarkerIndex === index;
+
+            // Show the selected answer choices, if available, when they have not been manually hidden.
+            // The correct answers will be automatically selected when the question is answered/skipped.
+            const showAnswerChoice =
+                updatedMarkerState.selected &&
+                !this.state.hideAnswers &&
+                !isActiveAnswerChoice;
 
             const adjustPillDistance: CSSProperties = {
                 [`margin${
@@ -536,13 +562,6 @@ export class LabelImage
                     markerPosition.slice(1)
                 }`]: 10, // move pill further from marker
             };
-
-            const answerChoicesActive = index === activeMarkerIndex;
-
-            const showAnswerChoice =
-                marker.selected &&
-                !answerChoicesActive &&
-                !this.state.hideAnswers;
 
             return (
                 <View
@@ -559,8 +578,8 @@ export class LabelImage
                         key={`answers-${marker.x}.${marker.y}`}
                         choices={this.props.choices.map((choice) => ({
                             content: choice,
-                            checked: marker.selected
-                                ? marker.selected.includes(choice)
+                            checked: updatedMarkerState.selected
+                                ? updatedMarkerState.selected.includes(choice)
                                 : false,
                         }))}
                         multipleSelect={this.props.multipleAnswers}
@@ -604,7 +623,7 @@ export class LabelImage
                                         answerStyles={adjustPillDistance}
                                         focused={focused || pressed}
                                         hovered={hovered}
-                                        selected={marker.selected}
+                                        selected={updatedMarkerState.selected}
                                     />
                                 )}
                             </Clickable>
