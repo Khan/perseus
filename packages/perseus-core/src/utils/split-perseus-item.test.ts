@@ -1,4 +1,3 @@
-import {assertFailure, assertSuccess} from "../parse-perseus-json/result";
 import {registerCoreWidgets} from "../widgets/core-widget-registry";
 import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
@@ -504,8 +503,7 @@ describe("splitPerseusItemJSON", () => {
         const rv = splitPerseusItemJSON(json);
 
         // Assert
-        assertSuccess(rv);
-        expect(JSON.parse(rv.value)).toEqual(item);
+        expect(JSON.parse(rv)).toEqual(item);
     });
 
     it("accepts an object", () => {
@@ -516,8 +514,7 @@ describe("splitPerseusItemJSON", () => {
         const rv = splitPerseusItemJSON(item);
 
         // Assert
-        assertSuccess(rv);
-        expect(JSON.parse(rv.value)).toEqual(item);
+        expect(JSON.parse(rv)).toEqual(item);
     });
 
     it("is idempotent", () => {
@@ -526,12 +523,10 @@ describe("splitPerseusItemJSON", () => {
 
         // Act
         const rv1 = splitPerseusItemJSON(item);
-        assertSuccess(rv1);
-        const rv2 = splitPerseusItemJSON(rv1.value);
+        const rv2 = splitPerseusItemJSON(rv1);
 
         // Assert
-        assertSuccess(rv2);
-        expect(rv1.value).toBe(rv2.value);
+        expect(rv1).toBe(rv2);
     });
 
     it("removes answer-revealing information, e.g. hints", () => {
@@ -545,18 +540,14 @@ describe("splitPerseusItemJSON", () => {
         const rv = splitPerseusItemJSON(item);
 
         // Assert
-        assertSuccess(rv);
-        expect(JSON.parse(rv.value).hints).toEqual([]);
+        expect(JSON.parse(rv).hints).toEqual([]);
     });
 
-    it("returns failure given an invalid PerseusItem", () => {
-        // Act
-        const rv = splitPerseusItemJSON(`"not an item"`);
-
-        // Assert
-        assertFailure(rv);
-        expect(rv.detail).toBe(
-            `At (root) -- expected object, but got "not an item"`,
+    it("throws given an invalid PerseusItem", () => {
+        expect(() => splitPerseusItemJSON(`"not an item"`)).toThrow(
+            new SyntaxError(
+                `At (root) -- expected object, but got "not an item"`,
+            ),
         );
     });
 

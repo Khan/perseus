@@ -1,10 +1,5 @@
 import {parseAndMigratePerseusItem} from "../parse-perseus-json";
-import {
-    failure,
-    isFailure,
-    type Result,
-    success,
-} from "../parse-perseus-json/result";
+import {isFailure} from "../parse-perseus-json/result";
 
 import deepClone from "./deep-clone";
 import splitPerseusRenderer from "./split-perseus-renderer";
@@ -33,16 +28,16 @@ export default function splitPerseusItem(original: PerseusItem): PerseusItem {
  * hints) removed. Idempotent and deterministic.
  *
  * @param data a {@linkcode PerseusItem}, either as JSON or as an object.
- * @returns {Result} containing either the JSON (on success) or an
- * error message (on failure).
- * @throws {SyntaxError} given malformed JSON.
+ * @returns {string} the answerless data formatted as JSON
+ * @throws {SyntaxError} given malformed JSON or data that can't be parsed as
+ * a Perseus item.
  */
-export function splitPerseusItemJSON(data: unknown): Result<string, string> {
+export function splitPerseusItemJSON(data: unknown): string {
     const parseResult = parseAndMigratePerseusItem(data);
     if (isFailure(parseResult)) {
-        return failure(parseResult.detail.message);
+        throw new SyntaxError(parseResult.detail.message);
     }
     const item = parseResult.value;
 
-    return success(JSON.stringify(splitPerseusItem(item)));
+    return JSON.stringify(splitPerseusItem(item));
 }
