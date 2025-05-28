@@ -130,7 +130,7 @@ describe("migration functions", () => {
     it("migrates v2 to v3", () => {
         expect(migrateV2ToV3(v2Widget)).toEqual(v3Widget);
     });
-    // TODO: write tests to validate scenarios where an ID does and doesn't exist
+
     it("migrates v3 to v4", () => {
         expect(migrateV3ToV4(v3Widget)).toEqual(v4Widget);
     });
