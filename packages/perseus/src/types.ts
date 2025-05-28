@@ -99,7 +99,6 @@ export interface Widget {
     getUserInputMap?: () => UserInputMap | undefined;
     getUserInput?: () => UserInputArray | UserInput | undefined;
 
-    showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
     getPromptJSON?: () => WidgetPromptJSON;
 }
 

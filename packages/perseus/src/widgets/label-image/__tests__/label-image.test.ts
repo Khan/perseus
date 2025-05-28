@@ -52,6 +52,136 @@ describe("LabelImage", function () {
         ) as jest.Mock;
     });
 
+    describe("getUpdatedMarkerState", function () {
+        it("should return original marker when feedback is not shown", function () {
+            // Arrange
+            const {renderer} = renderQuestion(shortTextQuestion);
+            const widget = renderer.findWidgets("label-image")[0] as LabelImage;
+
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                selected: ["User Choice"],
+                answers: ["Correct Answer"],
+            };
+
+            // Act
+            const result = widget.getUpdatedMarkerState(marker);
+
+            // Assert - Should return unchanged since showSolutions and reviewMode are false
+            expect(result).toEqual(marker);
+        });
+
+        it("should auto-select correct answers when showSolutions is 'all'", function () {
+            // Arrange
+            const {renderer} = renderQuestion(
+                shortTextQuestion,
+                {},
+                {showSolutions: "all"}, // re-render with showSolutions
+            );
+            const widget = renderer.findWidgets("label-image")[0] as LabelImage;
+
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                selected: ["Answer C"],
+                answers: ["Answer A", "Answer B"],
+            };
+
+            // Act
+            const result = widget.getUpdatedMarkerState(marker);
+
+            // Assert
+            expect(result).toEqual({
+                ...marker,
+                selected: ["Answer A", "Answer B"],
+            });
+        });
+
+        it("should auto-select correct answers when reviewMode is true", function () {
+            // Arrange
+            const {renderer} = renderQuestion(
+                shortTextQuestion,
+                {},
+                {reviewMode: true}, // re-render with reviewMode
+            );
+            const widget = renderer.findWidgets("label-image")[0] as LabelImage;
+
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                selected: ["Answer C"],
+                answers: ["Answer A", "Answer B"],
+            };
+
+            // Act
+            const result = widget.getUpdatedMarkerState(marker);
+
+            // Assert
+            expect(result).toEqual({
+                ...marker,
+                selected: ["Answer A", "Answer B"],
+            });
+        });
+
+        it("should clear selection for answerless markers when showing feedback", function () {
+            // Arrange
+            const {renderer} = renderQuestion(
+                shortTextQuestion,
+                {},
+                {showSolutions: "all"}, // re-render with showSolutions
+            );
+            const widget = renderer.findWidgets("label-image")[0] as LabelImage;
+
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                selected: ["Some Choice"],
+                // No answers property - this is an answerless marker
+            };
+
+            // Act
+            const result = widget.getUpdatedMarkerState(marker);
+
+            // Assert
+            expect(result).toEqual({
+                ...marker,
+                selected: undefined,
+            });
+        });
+
+        it("should handle markers with empty answers array", function () {
+            // Arrange
+            const {renderer} = renderQuestion(
+                shortTextQuestion,
+                {},
+                {reviewMode: true}, // re-render with reviewMode
+            );
+            const widget = renderer.findWidgets("label-image")[0] as LabelImage;
+
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                selected: ["User Choice"],
+                answers: [],
+            };
+
+            // Act
+            const result = widget.getUpdatedMarkerState(marker);
+
+            // Assert
+            expect(result).toEqual({
+                ...marker,
+                selected: [],
+            });
+        });
+    });
+
     describe("imageSideForMarkerPosition", function () {
         it("should return side: top", function () {
             expect(
