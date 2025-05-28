@@ -10854,7 +10854,20 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
         "id": null,
         "key": null,
         "options": {
-          "choices": [],
+          "choices": [
+            {
+              "content": "",
+            },
+            {
+              "content": "",
+            },
+            {
+              "content": "",
+            },
+            {
+              "content": "",
+            },
+          ],
           "numCorrect": 0,
         },
         "static": false,

@@ -25,6 +25,11 @@ const parseWidgetsMapOrUndefined = defaulted(
     () => undefined,
 );
 
+function getDefaultOptions() {
+    // See parse-perseus-json/README.md for why we want these defaults here.
+    return {choices: [{content: ""}, {content: ""}, {content: ""}, {content: ""}]}
+}
+
 const version2 = optional(object({major: constant(2), minor: number}));
 const parseRadioWidgetV2 = parseWidgetWithVersion(
     version2,
@@ -55,7 +60,7 @@ const parseRadioWidgetV2 = parseWidgetWithVersion(
             // `noneOfTheAbove` is still in use (but only set to `false`).
             noneOfTheAbove: optional(constant(false)),
         }),
-        () => ({choices: []}),
+        getDefaultOptions,
     ),
 );
 
@@ -88,7 +93,7 @@ const parseRadioWidgetV1 = parseWidgetWithVersion(
             // `noneOfTheAbove` is still in use (but only set to `false`).
             noneOfTheAbove: optional(constant(false)),
         }),
-        () => ({choices: []}),
+        getDefaultOptions,
     ),
 );
 
@@ -135,7 +140,7 @@ const parseRadioWidgetV0 = parseWidgetWithVersion(
             // `noneOfTheAbove` is still in use (but only set to `false`).
             noneOfTheAbove: optional(constant(false)),
         }),
-        () => ({choices: []}),
+        getDefaultOptions,
     ),
 );
 
