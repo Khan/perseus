@@ -13,13 +13,10 @@ import FocusRing from "../focus-ring";
 import {getChoiceLetter} from "../util";
 
 import choiceIconStyles, {CHOICE_ICON_SIZE} from "./choice-icon-styles";
-// TODO: LEMS-2995: Remove CrossOutLine
-import CrossOutLine from "./cross-out-line";
 
 type ChoiceIconProps = {
     pos: number;
     checked: boolean;
-    crossedOut: boolean;
     focused: boolean;
     hovered: boolean;
     pressed: boolean;
@@ -68,7 +65,6 @@ function ChoiceInner(props: ChoiceInnerProps) {
 const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
     const {
         checked,
-        crossedOut,
         showCorrectness,
         correct,
         focused,
@@ -96,25 +92,19 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
     // MC icon styles are constant, but we do allow the caller
     // to specify the selected color, and thus must control styles
     // related to the selected state dynamically.
-    let crossOutColor: string;
     if (showCorrectness && correct && checked) {
         choiceStyling.push(styles.choiceCorrect);
-        crossOutColor = WBColor.green;
     } else if (showCorrectness && !correct && (checked || previouslyAnswered)) {
         choiceStyling.push(styles.choiceIncorrect);
-        crossOutColor = WBColor.red;
     } else if (checked) {
         // Show filled neutral blue color (showCorrectness is false)
         choiceStyling.push(styles.choiceNeutral);
-        crossOutColor = WBColor.blue;
     } else if (pressed) {
         // Show outlined neutral blue color (showCorrectness is false)
         choiceStyling.push(styles.activeNeutral);
-        crossOutColor = WBColor.blue;
     } else {
         // choice is not checked
         choiceStyling.push(styles.uncheckedColors);
-        crossOutColor = WBColor.offBlack64;
     }
 
     return (
@@ -140,7 +130,6 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
                     </div>
                 </div>
             </FocusRing>
-            {crossedOut && <CrossOutLine color={crossOutColor} />}
         </div>
     );
 };
