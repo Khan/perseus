@@ -8,27 +8,23 @@ import _ from "underscore";
 import {traverse} from "./traversal";
 import * as Widgets from "./widgets/core-widget-registry";
 
-// Iterate over a single Perseus renderer, mutating `widgets` by appending
-// violating widget types discovered in this item.
-function traverseRenderer(itemData, widgets: Array<any>) {
-    traverse(itemData, null, function (info) {
-        if (info.type && !Widgets.isAccessible(info.type, info.options)) {
-            widgets.push(info.type);
-        }
-    });
-}
+import type {PerseusItem} from "./data-schema";
 
-// Returns a list of widgets that cause a given perseus item to require
+// Returns a list of widgets that cause a given Perseus item to require
 // the use of a screen or mouse.
 //
 // For now we'll just check the `accessible` field on each of the widgets
 // in the item data, but in the future we may specify accessibility on
 // each widget with higher granularity.
-export function violatingWidgets(itemData: any): any {
+export function violatingWidgets(itemData: PerseusItem): Array<string> {
     // TODO(jordan): Hints as well
-    const widgets = [];
+    const widgets: Array<string> = [];
 
-    traverseRenderer(itemData.question, widgets);
+    traverse(itemData.question, null, function (info) {
+        if (info.type && !Widgets.isAccessible(info.type, info.options)) {
+            widgets.push(info.type);
+        }
+    });
 
     // Uniquify the list of widgets (by type)
     return _.uniq(widgets);
