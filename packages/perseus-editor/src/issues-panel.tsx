@@ -9,9 +9,16 @@ import {useState} from "react";
 import IssueDetails from "./issue-details";
 import {iconChevronRight} from "./styles/icon-paths";
 
-import type {Issue} from "perseus-editor/types/utility.d";
-
 const {InlineIcon} = components;
+
+export type Issue = {
+    id: string;
+    description: string;
+    helpUrl: string;
+    help: string;
+    impact: "low" | "medium" | "high";
+    message: string;
+};
 
 type IssuesPanelProps = {
     issues?: Issue[];

@@ -1,4 +1,4 @@
-import type {Issue} from "perseus-editor/types/utility.d";
+import type {Issue} from "./issues-panel";
 // This file is meant to contain any and all perseus-editor messages
 // we want to show within the Issues Panel.
 export const WARNINGS = {

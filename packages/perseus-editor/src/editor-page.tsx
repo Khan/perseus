@@ -7,6 +7,7 @@ import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
 
+import type {Issue} from "./issues-panel";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
@@ -20,7 +21,6 @@ import type {
     PerseusItem,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
-import type {Issue} from "perseus-editor/types/utility.d";
 
 const {HUD} = components;
 
