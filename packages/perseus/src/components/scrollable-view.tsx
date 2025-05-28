@@ -63,21 +63,19 @@ function ScrollableView({
      * - canScrollStart: true when there's content to the right to scroll to
      * - canScrollEnd: true when there's content to the left to scroll to
      */
-    const updateScrollState = () => {
+    const updateScrollState = React.useCallback(() => {
         if (!containerRef.current) {
             return;
         }
 
         const {scrollLeft, scrollWidth, clientWidth} = containerRef.current;
-        const rtlDirection =
-            getComputedStyle(containerRef.current).direction === "rtl";
-        setIsRtl(rtlDirection);
+        setIsRtl(getComputedStyle(containerRef.current).direction === "rtl");
 
         setIsScrollable(scrollWidth > clientWidth + 1); // 1px tolerance
 
         // In RTL mode, scrollLeft values work differently (can be negative)
         // We need to handle this to ensure the correct buttons are enabled
-        if (rtlDirection) {
+        if (isRtl) {
             // For RTL, scrollLeft is negative when scrolling to the end (right side in visual terms)
             // Math.abs to get a positive value for comparison
             setCanScrollStart(
@@ -88,20 +86,19 @@ function ScrollableView({
             setCanScrollStart(scrollLeft > 0);
             setCanScrollEnd(scrollLeft + clientWidth < scrollWidth - 1);
         }
-    };
+    }, [isRtl]);
 
     const scroll = (direction: "start" | "end") => {
         if (!containerRef.current) {
             return;
         }
 
-        const scrollAmount = isRtl
-            ? direction === "start"
-                ? SCROLL_DISTANCE
-                : -SCROLL_DISTANCE
-            : direction === "start"
-              ? -SCROLL_DISTANCE
-              : SCROLL_DISTANCE;
+        const scrollNegative =
+            (isRtl && direction !== "start") ||
+            (!isRtl && direction === "start");
+        const scrollAmount = scrollNegative
+            ? -SCROLL_DISTANCE
+            : SCROLL_DISTANCE;
 
         containerRef.current.scrollBy({
             left: scrollAmount,
@@ -123,7 +120,7 @@ function ScrollableView({
             container.removeEventListener("scroll", updateScrollState);
             window.removeEventListener("resize", updateScrollState);
         };
-    }, [children]);
+    }, [children, updateScrollState]);
 
     const mergeStyle: React.CSSProperties = {
         overflowX,
@@ -176,6 +173,7 @@ function ScrollableView({
                             ? scrollDescription
                             : strings.scrollAnswers
                     }
+                    isRTL={isRtl}
                 />
             )}
         </>
@@ -188,6 +186,7 @@ interface ScrollButtonsProps {
     canScrollStart: boolean;
     canScrollEnd: boolean;
     scrollDescription: string;
+    isRTL: boolean;
 }
 
 function ScrollButtons({
@@ -196,6 +195,7 @@ function ScrollButtons({
     canScrollStart,
     canScrollEnd,
     scrollDescription,
+    isRTL,
 }: ScrollButtonsProps) {
     const {strings} = usePerseusI18n();
 
@@ -207,7 +207,7 @@ function ScrollButtons({
                 kind="secondary"
                 size="small"
                 onClick={onScrollStart}
-                aria-label={strings.scrollStart}
+                aria-label={isRTL ? strings.scrollEnd : strings.scrollStart}
                 disabled={!canScrollStart}
             />
             <IconButton
@@ -216,7 +216,7 @@ function ScrollButtons({
                 kind="secondary"
                 size="small"
                 onClick={onScrollEnd}
-                aria-label={strings.scrollEnd}
+                aria-label={isRTL ? strings.scrollStart : strings.scrollEnd}
                 disabled={!canScrollEnd}
             />
             <LabelSmall>{scrollDescription}</LabelSmall>

@@ -143,7 +143,7 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
                             });
                         }}
                         disabled={disabled || apiOptions.readOnly}
-                        style={styles.clickable}
+                        style={styles.optionContainer}
                         ref={ref as any}
                         aria-hidden="true"
                         hideDefaultFocusRing={true}
@@ -207,7 +207,7 @@ const styles = {
         display: "flex",
     },
 
-    clickable: {
+    optionContainer: {
         flex: 1,
         color: color.offBlack,
         userSelect: "text",
@@ -227,11 +227,6 @@ const styles = {
         // behind the ChoiceIcon and will not be visible
         height: "100%",
         background: color.white64, // TODO: LEMS-3108 address light/dark mode theme
-        // TODO: LEMS-3107 not properly working fix this by moving in a css file
-        ":dir(rtl)": {
-            flexDirection: "row-reverse",
-            justifyContent: "flex-end",
-        },
     },
 
     choiceIcon: {
