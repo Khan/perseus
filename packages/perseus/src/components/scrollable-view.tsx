@@ -202,22 +202,22 @@ function ScrollButtons({
     return (
         <View style={styles.scrollButtonsContainer}>
             <IconButton
-                icon={caretLeftIcon}
+                icon={isRTL ? caretRightIcon : caretLeftIcon}
                 actionType="neutral"
                 kind="secondary"
                 size="small"
-                onClick={onScrollStart}
-                aria-label={isRTL ? strings.scrollEnd : strings.scrollStart}
-                disabled={!canScrollStart}
+                onClick={isRTL ? onScrollEnd : onScrollStart}
+                aria-label={strings.scrollStart}
+                disabled={isRTL ? !canScrollEnd : !canScrollStart}
             />
             <IconButton
-                icon={caretRightIcon}
+                icon={isRTL ? caretLeftIcon : caretRightIcon}
                 actionType="neutral"
                 kind="secondary"
                 size="small"
-                onClick={onScrollEnd}
-                aria-label={isRTL ? strings.scrollStart : strings.scrollEnd}
-                disabled={!canScrollEnd}
+                onClick={isRTL ? onScrollStart : onScrollEnd}
+                aria-label={strings.scrollEnd}
+                disabled={isRTL ? !canScrollStart : !canScrollEnd}
             />
             <LabelSmall>{scrollDescription}</LabelSmall>
         </View>
