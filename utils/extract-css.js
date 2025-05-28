@@ -15,6 +15,29 @@ const archivedFilePath = path.join(fileDirectory, archivedFileName);
 const cssFileName = `${fileNameParts[0]}.module.css`;
 const cssFilePath = path.join(fileDirectory, cssFileName);
 const indentation = "    ";
+const wbColorValues = {
+    // from node_modules/@khanacademy/wonder-blocks-tokens/dist/css/index.css
+    "#21242c": "--wb-semanticColor-text-primary",
+    "#5f6167": "--wb-semanticColor-text-secondary",
+    "#b8b9bb": "--wb-semanticColor-text-disabled",
+    "#ffffff": "--wb-semanticColor-text-inverse",
+};
+const mediaQueries = {
+    // from packages/perseus/src/styles/media-queries.ts
+    xs: `@media screen and (max-width: 567px)`,
+    sm: `@media screen and (min-width: 568px) and (max-width: 767px)`,
+    md: `@media screen and (min-width: 768px) and (max-width: 1023px)`,
+    lg: `@media screen and (min-width: 1024px) and (max-width: 1279px)`,
+    xl: `@media screen and (min-width: 1280px)`,
+    xsOrSmaller: `@media screen and (max-width: 567px)`,
+    smOrSmaller: `@media screen and (max-width: 767px)`,
+    mdOrSmaller: `@media screen and (max-width: 1023px)`,
+    lgOrSmaller: `@media screen and (max-width: 1279px)`,
+    smOrLarger: `@media screen and (min-width: 568px)`,
+    mdOrLarger: `@media screen and (min-width: 768px})`,
+    lgOrLarger: `@media screen and (min-width: 1024px)`,
+    xlOrLarger: `@media screen and (min-width: 1280px)`,
+};
 
 /*****************
  * WIP Variables *
@@ -25,7 +48,8 @@ const importedModules = {};
 /********************
  * Helper Functions *
  ********************/
-const isExportNamedDeclaration = (node) => node.type === "ExportNamedDeclaration";
+const isExportNamedDeclaration = (node) =>
+    node.type === "ExportNamedDeclaration";
 const isVariableDeclaration = (node) => node.type === "VariableDeclaration";
 
 const camelToKabob = (camel) => {
@@ -43,20 +67,28 @@ const replacePxWithRem = (cssString) => {
         const remValue = pxToRem(parseFloat(p1));
         return `${remValue}rem`;
     });
-}
+};
 
 const validFileExtensions = ["js", "jsx", "ts", "tsx"];
 const getFilePath = (rawFilePath) => {
     let filePath = path.join(fileDirectory, rawFilePath);
     if (!fs.existsSync(filePath)) {
-        filePath = validFileExtensions.reduce((matchedExtension, possibleExtension) => {
-            if (matchedExtension) {
-                return matchedExtension;
-            } else {
-                const possibleFilePath = path.join(fileDirectory, `${rawFilePath}.${possibleExtension}`);
-                return fs.existsSync(possibleFilePath) ? possibleFilePath : null;
-            }
-        }, "");
+        filePath = validFileExtensions.reduce(
+            (matchedExtension, possibleExtension) => {
+                if (matchedExtension) {
+                    return matchedExtension;
+                } else {
+                    const possibleFilePath = path.join(
+                        fileDirectory,
+                        `${rawFilePath}.${possibleExtension}`,
+                    );
+                    return fs.existsSync(possibleFilePath)
+                        ? possibleFilePath
+                        : null;
+                }
+            },
+            "",
+        );
     }
     return filePath;
 };
@@ -78,18 +110,29 @@ const mapVariables = (parsedCode) => {
     // Gather variable declarations, both regular and exported.
     const variableDeclarations = parsedCode.program.body
         .filter(isVariableDeclaration)
-        .concat(parsedCode.program.body
-            .filter(isExportNamedDeclaration)
-            .map(node => node.declaration));
-    // console.log(`Declarations: `, variableDeclarations);
+        .concat(
+            parsedCode.program.body
+                .filter(isExportNamedDeclaration)
+                .map((node) => node.declaration),
+        );
     return variableDeclarations
         .flatMap((node) => node.declarations)
-        .filter((node) => node.init.type === "NumericLiteral" || node.init.type === "StringLiteral")
+        .filter(
+            (node) =>
+                node.init.type === "NumericLiteral" ||
+                node.init.type === "StringLiteral" ||
+                node.init.type === "UnaryExpression", // UnaryExpression is used for negative numbers
+        )
         .reduce((mappedVariables, node) => {
-            mappedVariables[node.id.name] = node.init.value;
+            if (node.init.type === "UnaryExpression") {
+                mappedVariables[node.id.name] =
+                    `${node.init.operator}${node.init.argument.value}`;
+            } else {
+                mappedVariables[node.id.name] = node.init.value;
+            }
             return mappedVariables;
         }, {});
-}
+};
 
 // Archive the original file in case something doesn't quite go right.
 fs.copyFile(filePath, archivedFilePath, (error) => {
@@ -111,9 +154,19 @@ const literalVariables = {};
 parsedCode.program.body
     .filter(isVariableDeclaration)
     .flatMap((node) => node.declarations)
-    .filter((node) => node.init.type === "NumericLiteral" || node.init.type === "StringLiteral")
+    .filter(
+        (node) =>
+            node.init.type === "NumericLiteral" ||
+            node.init.type === "StringLiteral" ||
+            node.init.type === "UnaryExpression", // UnaryExpression is used for negative numbers
+    )
     .forEach((node) => {
-        literalVariables[node.id.name] = node.init.value;
+        if (node.init.type === "UnaryExpression") {
+            literalVariables[node.id.name] =
+                `${node.init.operator}${node.init.argument.value}`;
+        } else {
+            literalVariables[node.id.name] = node.init.value;
+        }
     });
 
 /**************************
@@ -143,6 +196,16 @@ const associateCommentsToCssProperty = (property, index, allProperties) => {
     );
 };
 
+const convertToWbColor = (cssProperty, propertyValue) => {
+    if (
+        cssProperty === "color" &&
+        Object.keys(wbColorValues).includes(propertyValue)
+    ) {
+        return `var(${wbColorValues[propertyValue]})`;
+    }
+    return propertyValue;
+};
+
 const cssPropertyIsOnLine = (allProperties, lineToCheck) => {
     return allProperties.some(
         (property) => property.key.loc.start.line === lineToCheck,
@@ -162,13 +225,11 @@ const getClassName = (node) => {
 };
 
 const getCssPropertyInfo = (property) => {
-    const cssProperty = property.key.name ?? property.key.value;
+    const cssProperty =
+        property.key.name ?? property.key.value ?? "unknownProperty";
     let cssPropertyName = camelToKabob(cssProperty);
+    let nestedRuleSet = null;
     let propertyValue = property.value.value;
-    if (cssProperty === ":not(:last-child)") {
-        console.log(`Property: ${cssProperty}, Value: ${propertyValue}, Type: ${property.value.type}`);
-        console.log(`Node: `, property);
-    }
     switch (property.value.type) {
         case "Identifier":
             propertyValue = `${pxToRem(literalVariables[property.value.name])}rem`;
@@ -177,7 +238,10 @@ const getCssPropertyInfo = (property) => {
             propertyValue = getBinaryExpressionValue(property.value);
             break;
         case "MemberExpression":
-            const expressionValue = getMemberExpressionValue(property.value.object.name, property.value.property.name);
+            const expressionValue = getMemberExpressionValue(
+                property.value.object.name,
+                property.value.property.name,
+            );
             if (
                 isNaN(
                     expressionValue ||
@@ -192,17 +256,24 @@ const getCssPropertyInfo = (property) => {
             }
             break;
         case "ObjectExpression":
-
-            // TODO: Need to add these items to the returned object so that it spits out a new selctor in stringifyCssRuleset
-
+            if (property.key.type === "MemberExpression") {
+                cssPropertyName = `${property.key.object.name}.${property.key.property.name}`;
+            }
+            nestedRuleSet = getCssRuleSet(property.value.properties);
+            if (nestedRuleSet.length === 0) {
+                return null;
+            }
+            propertyValue = "";
+            break;
         case "UnaryExpression":
             propertyValue = `${property.value.operator}${pxToRem(literalVariables[property.value.argument.name])}rem`;
             break;
         case "NumericLiteral":
-            const convertToRem = cssProperty !== "zIndex"
-                && cssProperty !== "opacity"
-                && cssProperty !== "lineHeight"
-                && propertyValue !== 0;
+            const convertToRem =
+                cssProperty !== "zIndex" &&
+                cssProperty !== "opacity" &&
+                cssProperty !== "lineHeight" &&
+                propertyValue !== 0;
             if (convertToRem) {
                 propertyValue = `${pxToRem(propertyValue)}rem`;
             }
@@ -218,44 +289,73 @@ const getCssPropertyInfo = (property) => {
                     case "Identifier":
                         return `${builtString}${literalVariables[part.name]}`;
                     case "MemberExpression":
-                        const referencedValue = getMemberExpressionValue(part.object.name, part.property.name);
+                        const referencedValue = getMemberExpressionValue(
+                            part.object.name,
+                            part.property.name,
+                        );
                         return `${builtString}${referencedValue}`;
                 }
             }, "");
             break;
     }
 
+    propertyValue = replacePxWithRem(`${propertyValue}`);
+    propertyValue = convertToWbColor(cssPropertyName, propertyValue);
+
     return {
         property: cssPropertyName,
-        value: replacePxWithRem(`${propertyValue}`),
+        value: propertyValue,
         line: property.key.loc.start.line,
         leadingComments: property.leadingComments ?? [],
         trailingComments: [],
+        nestedRuleSet,
     };
+};
+
+const getCssRuleSet = (properties) => {
+    return properties
+        .map((property, index, allPropertiesForClass) => {
+            const cssProperty = getCssPropertyInfo(property);
+            if (cssProperty) {
+                associateCommentsToCssProperty(
+                    cssProperty,
+                    index,
+                    allPropertiesForClass,
+                );
+            }
+            return cssProperty;
+        })
+        .filter((property) => property !== null);
 };
 
 const getImportedValues = (sourceName) => {
     if (!Object.keys(importedModules).includes(sourceName)) {
         parsedCode.program.body
             .filter((node) => node.type === "ImportDeclaration")
-            .filter((node) => node.specifiers.some(specifier => specifier.local.name === sourceName))
-            .forEach((node => {
-                    const filePath = getFilePath(node.source.value);
-                    const {_, parsedCode} = getCode(filePath);
-                    importedModules[sourceName] = mapVariables(parsedCode);
-                })
-            );
+            .filter((node) =>
+                node.specifiers.some(
+                    (specifier) => specifier.local.name === sourceName,
+                ),
+            )
+            .forEach((node) => {
+                const filePath = getFilePath(node.source.value);
+                const {_, parsedCode} = getCode(filePath);
+                importedModules[sourceName] = mapVariables(parsedCode);
+            });
     }
     return importedModules[sourceName];
 };
 
 const getBinaryExpressionValue = (expressionNode) => {
-    if (expressionNode.left.type === "StringLiteral" || expressionNode.right.type === "StringLiteral") {
+    if (
+        expressionNode.left.type === "StringLiteral" ||
+        expressionNode.right.type === "StringLiteral"
+    ) {
         return `${expressionNode.left.value}${expressionNode.right.value}`;
     } else {
         return `/* Unable to handle binary expression: ${expressionNode.left.type} ${expressionNode.operator} ${expressionNode.right.type}  */`;
     }
-}
+};
 
 const getMemberExpressionValue = (objectName, variableName) => {
     const errorMessage = `/* ${objectName} is not defined */`;
@@ -266,7 +366,7 @@ const getMemberExpressionValue = (objectName, variableName) => {
         const importedValue = importedValues[variableName];
         return importedValue !== undefined ? importedValue : errorMessage;
     }
-}
+};
 
 const isStylesheetNode = (node) => {
     const isStyleSheet =
@@ -289,18 +389,51 @@ const stringifyComments = (commentLines, indentationCount) => {
           : `${indent}/*${"\n"}${indent}  ${comments.join("\n" + indent + "  ")}${"\n"}${indent}*/${"\n"}`;
 };
 
-const stringifyCssProperty = (cssProperty) => {
-    const property = `${indentation.repeat(2)}${cssProperty.property}: ${cssProperty.value};`;
+const stringifyCssProperty = (cssProperty, indentationCount = 1) => {
+    const property = `${indentation.repeat(indentationCount)}${cssProperty.property}: ${cssProperty.value};`;
     const trailingComments =
         cssProperty.trailingComments.length === 0
             ? ""
             : ` /* ${cssProperty.trailingComments.map((comment) => comment.value.trim()).join(" ")} */`;
-    const leadingComments = stringifyComments(cssProperty.leadingComments, 2);
+    const leadingComments = stringifyComments(
+        cssProperty.leadingComments,
+        indentationCount + 1,
+    );
     return `${leadingComments}${property}${trailingComments}${"\n"}`;
 };
 
-const stringifyCssRuleset = (selector, ruleset) => {
-    return `${indentation}${selector} {${"\n"}${ruleset.map(stringifyCssProperty).join("")}${indentation}}${"\n"}`;
+const stringifyCssRuleset = (selector, ruleset, indentationCount = 0) => {
+    let stringifiedRuleset = ruleset
+        .filter((property) => property.nestedRuleSet === null)
+        .map((property) => stringifyCssProperty(property, indentationCount + 1))
+        .join("");
+    const nestedRulesets = ruleset.filter((property) => property.nestedRuleSet !== null);
+    if (stringifiedRuleset.length !== 0) {
+        const rulesetSelector = `${indentation.repeat(indentationCount)}${selector} {${"\n"}`;
+        const rulesetEnd = `${indentation.repeat(indentationCount)}}${"\n"}`;
+        stringifiedRuleset = `${rulesetSelector}${stringifiedRuleset}${rulesetEnd}`;
+    }
+    nestedRulesets.forEach((nestedRuleset) => {
+        if (stringifiedRuleset.length !== 0) {
+            stringifiedRuleset = `${stringifiedRuleset}${"\n"}`;
+        }
+        let nestedSelector = `${selector}${nestedRuleset.property}`;
+        let mediaQueryWrapper = "";
+        let mediaQueryWrapperEnd = "";
+        if (nestedRuleset.property.startsWith("mediaQueries")) {
+            nestedSelector = selector;
+            mediaQueryWrapper = `${mediaQueries[nestedRuleset.property.slice(13)]} {${"\n"}`;
+            mediaQueryWrapperEnd = `}${"\n"}`;
+        }
+        const stringifiedNestedRuleset = stringifyCssRuleset(
+            nestedSelector,
+            nestedRuleset.nestedRuleSet,
+            indentationCount +
+                (nestedRuleset.property.startsWith("mediaQueries") ? 1 : 0),
+        );
+        stringifiedRuleset = `${stringifiedRuleset}${mediaQueryWrapper}${stringifiedNestedRuleset}${mediaQueryWrapperEnd}`;
+    });
+    return stringifiedRuleset;
 };
 
 // Dive into the node tree of the parsed code to find the stylesheet declaration.
@@ -373,21 +506,8 @@ parsedCode.program.body
 const cssStringified = Object.keys(cssRules)
     .sort()
     .map((className) => {
-        const comments = stringifyComments(cssRules[className].comments, 1);
-        const ruleSet = cssRules[className].properties
-            // TODO: The following line is temporary to get past rulesets that include [media]
-            .filter(property => property.key.name !== undefined || property.key.value !== undefined)
-            .map(
-            (property, index, allPropertiesForClass) => {
-                const cssProperty = getCssPropertyInfo(property);
-                associateCommentsToCssProperty(
-                    cssProperty,
-                    index,
-                    allPropertiesForClass,
-                );
-                return cssProperty;
-            },
-        );
+        const comments = stringifyComments(cssRules[className].comments, 0);
+        const ruleSet = getCssRuleSet(cssRules[className].properties);
         return `${comments}${stringifyCssRuleset(`.${className}`, ruleSet)}`;
     })
     .join("\n");
