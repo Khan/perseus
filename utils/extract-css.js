@@ -38,6 +38,13 @@ const pxToRem = (px) => {
     return parseFloat(px) / 10;
 };
 
+const replacePxWithRem = (cssString) => {
+    return cssString.replace(/(\d+)px/g, (match, p1) => {
+        const remValue = pxToRem(parseFloat(p1));
+        return `${remValue}rem`;
+    });
+}
+
 const validFileExtensions = ["js", "jsx", "ts", "tsx"];
 const getFilePath = (rawFilePath) => {
     let filePath = path.join(fileDirectory, rawFilePath);
@@ -156,21 +163,49 @@ const getClassName = (node) => {
 
 const getCssPropertyInfo = (property) => {
     const cssProperty = property.key.name ?? property.key.value;
+    let cssPropertyName = camelToKabob(cssProperty);
     let propertyValue = property.value.value;
-    // if (cssProperty === "borderBottom") {
-    //     console.log(`Property: ${cssProperty}, Value: ${propertyValue}, Type: ${property.value.type}`);
-    // }
+    if (cssProperty === ":not(:last-child)") {
+        console.log(`Property: ${cssProperty}, Value: ${propertyValue}, Type: ${property.value.type}`);
+        console.log(`Node: `, property);
+    }
     switch (property.value.type) {
-        case "NumericLiteral":
-            if (cssProperty !== "zIndex" && cssProperty !== "opacity" && propertyValue !== 0) {
-                propertyValue = `${pxToRem(propertyValue)}rem`;
-            }
-            break;
         case "Identifier":
             propertyValue = `${pxToRem(literalVariables[property.value.name])}rem`;
             break;
+        case "BinaryExpression":
+            propertyValue = getBinaryExpressionValue(property.value);
+            break;
+        case "MemberExpression":
+            const expressionValue = getMemberExpressionValue(property.value.object.name, property.value.property.name);
+            if (
+                isNaN(
+                    expressionValue ||
+                        cssProperty === "zIndex" ||
+                        cssProperty === "opacity" ||
+                        propertyValue === 0,
+                )
+            ) {
+                propertyValue = expressionValue;
+            } else {
+                propertyValue = `${pxToRem(expressionValue)}rem`;
+            }
+            break;
+        case "ObjectExpression":
+
+            // TODO: Need to add these items to the returned object so that it spits out a new selctor in stringifyCssRuleset
+
         case "UnaryExpression":
             propertyValue = `${property.value.operator}${pxToRem(literalVariables[property.value.argument.name])}rem`;
+            break;
+        case "NumericLiteral":
+            const convertToRem = cssProperty !== "zIndex"
+                && cssProperty !== "opacity"
+                && cssProperty !== "lineHeight"
+                && propertyValue !== 0;
+            if (convertToRem) {
+                propertyValue = `${pxToRem(propertyValue)}rem`;
+            }
             break;
         case "TemplateLiteral":
             const literalParts = property.value.expressions
@@ -188,23 +223,11 @@ const getCssPropertyInfo = (property) => {
                 }
             }, "");
             break;
-        case "MemberExpression":
-            // console.log(`MemberExpression: `, property);
-            // console.log(`Object Location: `, property.value.object.loc);
-            // console.log(`Property Location: `, property.value.property.loc);
-            // console.log("Loading imported values for: ", property.value.object.name);
-
-            const expressionValue = getMemberExpressionValue(property.value.object.name, property.value.property.name);
-            if (isNaN(expressionValue || cssProperty === "zIndex" || cssProperty === "opacity" || propertyValue === 0)) {
-                propertyValue = expressionValue;
-            } else {
-                propertyValue = `${pxToRem(expressionValue)}rem`;
-            }
     }
 
     return {
-        property: camelToKabob(cssProperty),
-        value: propertyValue,
+        property: cssPropertyName,
+        value: replacePxWithRem(`${propertyValue}`),
         line: property.key.loc.start.line,
         leadingComments: property.leadingComments ?? [],
         trailingComments: [],
@@ -225,6 +248,14 @@ const getImportedValues = (sourceName) => {
     }
     return importedModules[sourceName];
 };
+
+const getBinaryExpressionValue = (expressionNode) => {
+    if (expressionNode.left.type === "StringLiteral" || expressionNode.right.type === "StringLiteral") {
+        return `${expressionNode.left.value}${expressionNode.right.value}`;
+    } else {
+        return `/* Unable to handle binary expression: ${expressionNode.left.type} ${expressionNode.operator} ${expressionNode.right.type}  */`;
+    }
+}
 
 const getMemberExpressionValue = (objectName, variableName) => {
     const errorMessage = `/* ${objectName} is not defined */`;
