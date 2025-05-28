@@ -6232,6 +6232,51 @@ exports[`parseAndMigratePerseusItem given lights-puzzle.json returns the same re
 }
 `;
 
+exports[`parseAndMigratePerseusItem given matcher-with-null-options.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "
+[[☃ matcher 1]]",
+    "images": {},
+    "widgets": {
+      "matcher 1": {
+        "options": {
+          "labels": [
+            "test",
+            "label",
+          ],
+          "left": [
+            "$x$",
+            "$y$",
+            "$z$",
+          ],
+          "orderMatters": false,
+          "padding": true,
+          "right": [
+            "$1$",
+            "$2$",
+            "$3$",
+          ],
+        },
+        "type": "matcher",
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given matrix-missing-version.json returns the same result as before 1`] = `
 {
   "answerArea": {
