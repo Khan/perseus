@@ -19,7 +19,7 @@ import {
 
 describe("parseRadioWidget", () => {
     const LATEST_VERSION = {major: 4, minor: 0};
-    const LATEST_OPTIONS = v3Widget;
+    const LATEST_OPTIONS = v4Widget;
 
     describe.each([
         ["v0", v0Widget],
@@ -130,8 +130,8 @@ describe("migration functions", () => {
     it("migrates v2 to v3", () => {
         expect(migrateV2ToV3(v2Widget)).toEqual(v3Widget);
     });
-     // TODO: write tests to validate scenarios where an ID does and doesn't exist
+    // TODO: write tests to validate scenarios where an ID does and doesn't exist
     it("migrates v3 to v4", () => {
-        expect(migrateV3ToV4(v4Widget)).toEqual(v4Widget);
+        expect(migrateV3ToV4(v3Widget)).toEqual(v4Widget);
     });
 });

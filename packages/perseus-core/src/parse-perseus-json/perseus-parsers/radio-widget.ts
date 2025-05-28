@@ -1,5 +1,3 @@
-import {v4 as uuidv4} from "uuid";
-
 import {deriveNumCorrect} from "../../widgets/radio/radio-upgrade";
 import {
     any,
@@ -163,10 +161,6 @@ const parseRadioWidgetV0 = parseWidgetWithVersion(
     }),
 );
 
-function generateChoiceId(): string {
-    return `choice-${uuidv4()}`;
-}
-
 // migrate functions
 export function migrateV3ToV4(
     widget: ParsedValue<typeof parseRadioWidgetV3>,
@@ -183,16 +177,15 @@ export function migrateV3ToV4(
             randomize: options.randomize,
             multipleSelect: options.multipleSelect,
             deselectEnabled: options.deselectEnabled,
-            choices: options.choices.map((choice) => {
-                // keep choiceId if it exists, generate choice id if it doesn't
-                const choiceId = (choice as any).id ?? generateChoiceId();
-                return{
-                content: choice.content,
-                rationale: choice.rationale,
-                correct: choice.correct,
-                isNoneOfTheAbove: choice.isNoneOfTheAbove,
-                id: choiceId,
-                }
+            choices: options.choices.map((choice, index) => {
+                const choiceId = `choice-${index + 1}`;
+                return {
+                    content: choice.content,
+                    rationale: choice.rationale,
+                    correct: choice.correct,
+                    isNoneOfTheAbove: choice.isNoneOfTheAbove,
+                    id: choiceId,
+                };
             }),
         },
     };
