@@ -11,12 +11,13 @@ import {iconChevronRight} from "./styles/icon-paths";
 
 const {InlineIcon} = components;
 
+export type IssueImpact = "low" | "medium" | "high";
 export type Issue = {
     id: string;
     description: string;
     helpUrl: string;
     help: string;
-    impact: string; // TODO: Make this a string union so the values are well-known. (eg. "low" | "medium" | "high")
+    impact: IssueImpact;
     message: string;
 };
 

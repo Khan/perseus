@@ -36,6 +36,7 @@ type Props = {
     // The content ID of the AssessmentItem being edited. It may not be set
     // for non-content library exercise questions.
     itemId?: string;
+    issues?: Issue[];
 };
 
 type State = {
@@ -84,21 +85,23 @@ class ItemEditor extends React.Component<Props, State> {
         };
 
         return {
-            issues: PerseusLinter.runLinter(parsed, linterContext, false)?.map(
-                (linterWarning) => {
-                    if (linterWarning.rule === "inaccessible-widget") {
-                        return WARNINGS.inaccessibleWidget(
-                            linterWarning.metadata?.widgetType ?? "unknown",
-                            linterWarning.metadata?.widgetId ?? "unknown",
+            issues: [
+                ...(props.issues ?? []),
+                ...(PerseusLinter.runLinter(parsed, linterContext, false)?.map(
+                    (linterWarning) => {
+                        if (linterWarning.rule === "inaccessible-widget") {
+                            return WARNINGS.inaccessibleWidget(
+                                linterWarning.metadata?.widgetType ?? "unknown",
+                                linterWarning.metadata?.widgetId ?? "unknown",
+                            );
+                        }
+                        return WARNINGS.genericLinterWarning(
+                            linterWarning.rule,
+                            linterWarning.message,
                         );
-                    }
-
-                    return WARNINGS.genericLinterWarning(
-                        linterWarning.rule,
-                        linterWarning.message,
-                    );
-                },
-            ),
+                    },
+                ) ?? []),
+            ],
         };
     }
 
