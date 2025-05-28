@@ -126,34 +126,14 @@ export const useItemRenderer = (
     /**
      * Update the Perseus item from JSON text
      */
-    const updateJson = React.useCallback((json: string) => {
+    const updateJson = React.useCallback((json: string): boolean => {
         try {
             const parsed = JSON.parse(json);
             dispatch({type: "UPDATE_ITEM", payload: parsed});
+            return true;
         } catch {
-            const errorItem = {
-                question: {
-                    content:
-                        "**Could not parse the JSON for this question.**\n\n```\n" +
-                        json +
-                        "\n```",
-                    widgets: {},
-                    images: {},
-                },
-                hints: [],
-                answerArea: {
-                    calculator: false,
-                    chi2Table: false,
-                    financialCalculatorMonthlyPayment: false,
-                    financialCalculatorTotalAmount: false,
-                    financialCalculatorTimeToPayOff: false,
-                    periodicTable: false,
-                    periodicTableWithKey: false,
-                    tTable: false,
-                    zTable: false,
-                },
-            };
-            dispatch({type: "UPDATE_ITEM", payload: errorItem});
+            // Don't update the item if JSON is invalid
+            return false;
         }
     }, []);
 
