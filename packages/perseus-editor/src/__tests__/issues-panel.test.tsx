@@ -4,7 +4,10 @@ import * as React from "react";
 
 import IssuesPanel from "../issues-panel";
 
-const makeIssue = (id: string, impact: string = "Medium") => ({
+const makeIssue = (
+    id: string,
+    impact: "low" | "medium" | "high" = "medium",
+) => ({
     id,
     description: "Example description",
     helpUrl: "http://example.com",
