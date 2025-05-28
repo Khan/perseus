@@ -1906,6 +1906,221 @@ $ \\text{H}=\\left[\\begin{array}{rr}4 & -1 \\\\ 4 & 0\\end{array}\\right]$ ",
 }
 `;
 
+exports[`parseAndMigratePerseusItem given grapher-with-empty-coords.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": true,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "This is a linear equation given in *standard form*: $Ax+By=C$. A common way of graphing an equation of this form is to find the $x$- and $y$-intercepts of the graph.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "To find the $y$-intercept, let's substitute $\\blueD{x}=\\blueD{0}$ into the equation and solve for $y$:
+
+$\\begin{align}
+6\\blueD{x}-5y&=30
+\\\\\\\\
+6\\cdot\\blueD{0}-5y&=30
+\\\\\\\\
+-5y&=30
+\\\\\\\\
+y&=-6
+\\end{align}$
+
+So the $y$-intercept is $(0,-6)$.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "To find the $x$-intercept, let's substitute $\\maroonD{y}=\\maroonD{0}$ into the equation and solve for $x$:
+
+$\\begin{align}
+6x-5\\maroonD{y}&=30
+\\\\\\\\
+6x-5\\cdot\\maroonD{0}&=30
+\\\\\\\\
+6x&=30
+\\\\\\\\
+x&=5
+\\end{align}$
+
+So the $x$-intercept is $(5,0)$.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "We can graph the linear equation using these two points, as shown below:
+
+[[☃ grapher 1]]",
+      "images": {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/d7c9612d0f48c1797d3cafdda8ab26f5f2fc3c87": {
+          "height": 424,
+          "width": 424,
+        },
+      },
+      "replace": false,
+      "widgets": {
+        "grapher 1": {
+          "alignment": "default",
+          "graded": true,
+          "options": {
+            "availableTypes": [
+              "linear",
+            ],
+            "correct": {
+              "coords": [
+                [
+                  0,
+                  -6,
+                ],
+                [
+                  5,
+                  0,
+                ],
+              ],
+              "type": "linear",
+            },
+            "graph": {
+              "backgroundImage": {
+                "url": null,
+              },
+              "editableSettings": [
+                "graph",
+                "snap",
+                "image",
+              ],
+              "gridStep": [
+                1,
+                1,
+              ],
+              "labels": [
+                "x",
+                "y",
+              ],
+              "markings": "graph",
+              "range": [
+                [
+                  -10,
+                  10,
+                ],
+                [
+                  -10,
+                  10,
+                ],
+              ],
+              "rulerLabel": "",
+              "rulerTicks": 10,
+              "showProtractor": false,
+              "showRuler": false,
+              "showTooltips": false,
+              "snapStep": [
+                1,
+                1,
+              ],
+              "step": [
+                1,
+                1,
+              ],
+              "valid": true,
+            },
+          },
+          "static": true,
+          "type": "grapher",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+  ],
+  "question": {
+    "content": "**Graph $6x-5y=30$ .**
+
+[[☃ grapher 1]]",
+    "images": {},
+    "widgets": {
+      "grapher 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "availableTypes": [
+            "linear",
+          ],
+          "correct": {
+            "coords": null,
+            "type": "linear",
+          },
+          "graph": {
+            "backgroundImage": {
+              "url": null,
+            },
+            "editableSettings": [
+              "graph",
+              "snap",
+              "image",
+            ],
+            "gridStep": [
+              1,
+              1,
+            ],
+            "labels": [
+              "x",
+              "y",
+            ],
+            "markings": "graph",
+            "range": [
+              [
+                -10,
+                10,
+              ],
+              [
+                -10,
+                10,
+              ],
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "showProtractor": false,
+            "showRuler": false,
+            "showTooltips": false,
+            "snapStep": [
+              1,
+              1,
+            ],
+            "step": [
+              1,
+              1,
+            ],
+            "valid": true,
+          },
+        },
+        "static": false,
+        "type": "grapher",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given grapher-with-null-coords.json returns the same result as before 1`] = `
 {
   "answerArea": {
