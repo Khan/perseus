@@ -1,9 +1,8 @@
 import {
-    ItemExtras,
     type PerseusExpressionWidgetOptions,
     type PerseusItem,
-    type PerseusAnswerArea,
     expressionLogic,
+    getDefaultAnswerArea,
 } from "@khanacademy/perseus-core";
 
 const createItemJson = (
@@ -23,9 +22,7 @@ const createItemJson = (
                 },
             },
         },
-        answerArea: Object.fromEntries(
-            ItemExtras.map((extra) => [extra, false]),
-        ) as PerseusAnswerArea,
+        answerArea: getDefaultAnswerArea(),
         hints: [],
     };
 };
