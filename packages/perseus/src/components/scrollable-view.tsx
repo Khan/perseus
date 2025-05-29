@@ -54,14 +54,20 @@ function ScrollableView({
      * 2. Whether user can scroll towards the start of the content
      * 3. Whether user can scroll towards the end of the content
      *
+     * Visual button representation is always < > in both LTR and RTL modes:
+     *
      * For LTR (left-to-right):
+     * - Button < (scrollStart): Scrolls left towards the start of content
+     * - Button > (scrollEnd): Scrolls right towards the end of content
      * - canScrollStart: true when scrollLeft > 0 (user can scroll left)
      * - canScrollEnd: true when scrollLeft + clientWidth < scrollWidth (user can scroll right)
      *
      * For RTL (right-to-left):
+     * - Button < (scrollEnd): Scrolls left towards the end of content
+     * - Button > (scrollStart): Scrolls right towards the start of content
      * - RTL scrolling works differently across browsers, with scrollLeft potentially being negative
-     * - canScrollStart: true when there's content to the right to scroll to
-     * - canScrollEnd: true when there's content to the left to scroll to
+     * - canScrollStart: true when there's content to the right to scroll to (start of content)
+     * - canScrollEnd: true when there's content to the left to scroll to (end of content)
      */
     const updateScrollState = React.useCallback(() => {
         if (!containerRef.current) {
