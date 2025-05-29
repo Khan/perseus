@@ -32,7 +32,6 @@ export const getChoiceLetter = (
 interface GetOptionStatusTextProps {
     checked: boolean;
     correct: boolean;
-    crossedOut: boolean;
     strings: PerseusStrings;
 }
 
@@ -41,24 +40,19 @@ interface GetOptionStatusTextProps {
  *
  * @param checked - Whether the option is checked.
  * @param correct - Whether the option is correct.
- * @param crossedOut - Whether the option is crossed out.
  * @param strings - The strings for the Radio widget.
  * @returns The appropriate string for the option status.
  */
 export const getOptionStatusText = ({
     checked,
     correct,
-    crossedOut,
     strings,
 }: GetOptionStatusTextProps): string => {
     if (correct) {
-        // For correct answers, we surface checked _or_ crossedOut state,
+        // For correct answers, we surface checked state,
         // because any interaction with the correct answer is noteworthy!
         if (checked) {
             return strings.correctSelected;
-        }
-        if (crossedOut) {
-            return strings.correctCrossedOut;
         }
         return strings.correct;
     }
@@ -113,7 +107,6 @@ interface GetA11yTextProps {
     letter: string;
     checked: boolean;
     correct: boolean;
-    crossedOut: boolean;
     showCorrectness: boolean;
     strings: PerseusStrings;
 }
@@ -136,7 +129,6 @@ export const getA11yText = ({
     letter,
     checked,
     correct,
-    crossedOut,
     showCorrectness,
     strings,
 }: GetA11yTextProps): string => {
@@ -152,11 +144,6 @@ export const getA11yText = ({
                 letter,
             });
         }
-        if (crossedOut) {
-            return strings.choiceCrossedOutCorrect({
-                letter,
-            });
-        }
         return strings.choiceCorrect({
             letter,
         });
@@ -167,22 +154,12 @@ export const getA11yText = ({
                 letter,
             });
         }
-        if (crossedOut) {
-            return strings.choiceCrossedOutIncorrect({
-                letter,
-            });
-        }
         return strings.choiceIncorrect({
             letter,
         });
     }
     if (checked) {
         return strings.choiceChecked({
-            letter,
-        });
-    }
-    if (crossedOut) {
-        return strings.choiceCrossedOut({
             letter,
         });
     }
