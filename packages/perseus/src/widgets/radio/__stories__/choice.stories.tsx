@@ -14,9 +14,8 @@ type StoryArgs = {
     showRationale: boolean;
     showCorrectness: boolean;
     multipleSelect: boolean;
-    crossedOut: boolean;
     previouslyAnswered: boolean;
-    onChange: (newValues: {checked: boolean; crossedOut: boolean}) => void;
+    onChange: (newValues: {checked: boolean}) => void;
 };
 
 type Story = {
@@ -35,7 +34,6 @@ const defaultProps = {
     showRationale: false,
     showCorrectness: false,
     multipleSelect: false,
-    crossedOut: false,
     previouslyAnswered: false,
     onChange: action("changed"),
 } as const;
