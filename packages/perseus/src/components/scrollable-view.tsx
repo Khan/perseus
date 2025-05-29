@@ -77,7 +77,10 @@ function ScrollableView({
         const {scrollLeft, scrollWidth, clientWidth} = containerRef.current;
         setIsRtl(getComputedStyle(containerRef.current).direction === "rtl");
 
-        setIsScrollable(scrollWidth > clientWidth + 1); // 1px tolerance
+        // Only consider content scrollable if there's a meaningful amount to scroll
+        // Using a slightly higher threshold to prevent micro-scrolling issues
+        const scrollableThreshold = 5; // 5px threshold
+        setIsScrollable(scrollWidth > clientWidth + scrollableThreshold);
 
         // In RTL mode, scrollLeft values work differently (can be negative)
         // We need to handle this to ensure the correct buttons are enabled
@@ -85,12 +88,15 @@ function ScrollableView({
             // For RTL, scrollLeft is negative when scrolling to the end (right side in visual terms)
             // Math.abs to get a positive value for comparison
             setCanScrollStart(
-                Math.abs(scrollLeft) < scrollWidth - clientWidth - 1,
+                Math.abs(scrollLeft) <
+                    scrollWidth - clientWidth - scrollableThreshold,
             );
-            setCanScrollEnd(scrollLeft < 0);
+            setCanScrollEnd(scrollLeft < -scrollableThreshold);
         } else {
-            setCanScrollStart(scrollLeft > 0);
-            setCanScrollEnd(scrollLeft + clientWidth < scrollWidth - 1);
+            setCanScrollStart(scrollLeft > scrollableThreshold);
+            setCanScrollEnd(
+                scrollLeft + clientWidth < scrollWidth - scrollableThreshold,
+            );
         }
     }, [isRtl]);
 
@@ -129,8 +135,16 @@ function ScrollableView({
     }, [children, updateScrollState]);
 
     const mergeStyle: React.CSSProperties = {
-        overflowX,
-        overflowY,
+        // For Chrome, we need to explicitly set overflow to 'scroll' when scrollable
+        // rather than using 'auto', to prevent the scrollbar from appearing/disappearing
+        overflowX: isScrollable && overflowX === "auto" ? "scroll" : overflowX,
+        overflowY: isScrollable && overflowY === "auto" ? "scroll" : overflowY,
+        // Firefox scrollbar styles
+        scrollbarWidth: "thin",
+        // IE/Edge scrollbar styles
+        msOverflowStyle: "scrollbar",
+        // Ensure consistent scrollbar appearance
+        WebkitOverflowScrolling: "touch",
         ...style,
     };
 
