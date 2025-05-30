@@ -28,12 +28,15 @@ import type {
 import type {GroupPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 import type {
     PerseusGroupWidgetOptions,
+    ShowSolutions,
     UserInputArray,
     UserInputMap,
 } from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<RenderProps> & {
+    showSolutions?: ShowSolutions; // Provided by the renderer
+};
 type DefaultProps = {
     content: Props["content"];
     widgets: Props["widgets"];
@@ -187,6 +190,7 @@ class Group extends React.Component<Props> implements Widget {
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findWidgets}
                     reviewMode={this.props.reviewMode}
+                    showSolutions={this.props.showSolutions}
                     onInteractWithWidget={onInteractWithWidget}
                     linterContext={this.props.linterContext}
                     strings={this.context.strings}
