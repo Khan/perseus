@@ -29,6 +29,7 @@
         "@khanacademy/wonder-blocks-icon-button": "catalog:",
         "@khanacademy/wonder-blocks-layout": "catalog:",
         "@khanacademy/wonder-blocks-link": "catalog:",
+        "@khanacademy/wonder-blocks-popover": "catalog:",
         "@khanacademy/wonder-blocks-search-field": "catalog:",
         "@khanacademy/wonder-blocks-switch": "catalog:",
         "@khanacademy/wonder-blocks-timing": "catalog:",
