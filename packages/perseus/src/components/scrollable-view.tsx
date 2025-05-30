@@ -149,10 +149,6 @@ function ScrollableView({
         overflowY: isScrollable && overflowY === "auto" ? "scroll" : overflowY,
         // Firefox scrollbar styles
         scrollbarWidth: "thin",
-        // IE/Edge scrollbar styles
-        msOverflowStyle: "scrollbar",
-        // Ensure consistent scrollbar appearance
-        WebkitOverflowScrolling: "touch",
         ...style,
     };
 
