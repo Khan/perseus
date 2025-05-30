@@ -28,7 +28,7 @@ const missingOptions = {
             alignment: "default",
         },
     },
-} as const;
+};
 
 const clonedMissingOptions = JSON.parse(JSON.stringify(missingOptions));
 
@@ -50,7 +50,7 @@ const sampleOptions = {
             alignment: "default",
         },
     },
-} as const;
+};
 
 const clonedSampleOptions = JSON.parse(JSON.stringify(sampleOptions));
 
@@ -87,7 +87,7 @@ const sampleOptions2 = {
             alignment: "default",
         },
     },
-} as const;
+};
 
 const clonedSampleOptions2 = JSON.parse(JSON.stringify(sampleOptions2));
 
@@ -140,7 +140,7 @@ const sampleGroup = {
             alignment: "default",
         },
     },
-} as const;
+};
 
 const clonedSampleGroup = JSON.parse(JSON.stringify(sampleGroup));
 

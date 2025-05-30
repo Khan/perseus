@@ -33,6 +33,26 @@ describe("traverseChildWidgets", () => {
         };
     };
 
+    const validRadioWidget = {
+        type: "radio",
+        options: {
+            choices: [
+                {content: "A", correct: true},
+                {content: "B", correct: false},
+            ],
+            randomize: false,
+            multipleSelect: false,
+            displayCount: null,
+            noneOfTheAbove: false,
+            deselectEnabled: false,
+            countChoices: false,
+        },
+        graded: true,
+        static: false,
+        version: {major: 0, minor: 0},
+        alignment: "default",
+    };
+
     beforeEach(() => {
         registerWidget(mockWidgetType, {
             name: mockWidgetType,
@@ -41,9 +61,9 @@ describe("traverseChildWidgets", () => {
     });
 
     it("throws if traverseRenderer is not provided", () => {
-        expect(() =>
-            traverseChildWidgets({type: "radio", options: {}}, undefined),
-        ).toThrow("traverseRenderer must be provided, but was not");
+        expect(() => traverseChildWidgets(validRadioWidget, undefined)).toThrow(
+            "traverseRenderer must be provided, but was not",
+        );
     });
 
     it("returns the widget unchanged if widget type is unregistered", () => {
@@ -54,7 +74,7 @@ describe("traverseChildWidgets", () => {
     });
 
     it("returns the widget unchanged if widget has no traverseChildWidgets", () => {
-        const widget = {type: "radio", options: {foo: 1}};
+        const widget = validRadioWidget;
         const traverseRenderer = jest.fn();
 
         const result = traverseChildWidgets(widget, traverseRenderer);
