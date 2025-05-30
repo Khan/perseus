@@ -10,10 +10,11 @@ import * as React from "react";
 
 import {mapErrorToString, mockStrings} from "../packages/perseus/src/strings";
 
-import type {KEScore} from "@khanacademy/perseus-core";
+import type {KEScore, ShowSolutions} from "@khanacademy/perseus-core";
 
 type DebugCheckAnswerFooterProps = {
     state: KEScore | null | undefined;
+    showSolutions: ShowSolutions;
     popover: {
         isOpen: boolean;
         setOpen: (open: boolean) => void;
@@ -30,6 +31,7 @@ type DebugCheckAnswerFooterProps = {
  */
 export const DebugCheckAnswerFooter = ({
     state,
+    showSolutions,
     popover,
     actions,
 }: DebugCheckAnswerFooterProps): React.ReactElement => {
@@ -92,7 +94,7 @@ export const DebugCheckAnswerFooter = ({
     };
 
     // Determine if buttons should be disabled
-    const isCheckDisabled = Boolean(state?.correct);
+    const isCheckDisabled = Boolean(state?.correct) || showSolutions === "all";
 
     return (
         <View
@@ -114,7 +116,6 @@ export const DebugCheckAnswerFooter = ({
             <View>
                 <Button
                     kind="tertiary"
-                    color="destructive"
                     onClick={actions.reset}
                     aria-label="Reset state"
                 >
