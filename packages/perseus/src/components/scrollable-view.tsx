@@ -112,6 +112,14 @@ function ScrollableView({
             ? -SCROLL_DISTANCE
             : SCROLL_DISTANCE;
 
+        /**
+         * Note on Chrome browser scroll behavior:
+         * Chrome handles smooth scrolling differently than other browsers.
+         * The scrollbar may briefly disappear when scrolling from extreme
+         * positions (beginning or end of scroll area).
+         * This occurs both when starting the initial scroll from position 0 and
+         * when scrolling back to the start from the end position.
+         */
         containerRef.current.scrollBy({
             left: scrollAmount,
             behavior: "smooth",
