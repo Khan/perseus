@@ -13,6 +13,7 @@ const measurerWidgetLogic: WidgetLogic = {
     version: currentVersion,
     widgetOptionsUpgrades: widgetOptionsUpgrades,
     defaultWidgetOptions: defaultWidgetOptions,
+    accessible: false,
 };
 
 export default measurerWidgetLogic;

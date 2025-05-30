@@ -29,6 +29,7 @@ const csProgramWidgetLogic: WidgetLogic = {
     defaultWidgetOptions,
     supportedAlignments: ["block", "full-width"],
     getPublicWidgetOptions: getCSProgramPublicWidgetOptions,
+    accessible: false,
 };
 
 export default csProgramWidgetLogic;

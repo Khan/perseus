@@ -104,7 +104,6 @@ const styles = {
 export default {
     name: "definition",
     displayName: "Definition",
-    accessible: true,
     widget: Definition,
     transform: (x: any) => x,
 } satisfies WidgetExports<typeof Definition>;

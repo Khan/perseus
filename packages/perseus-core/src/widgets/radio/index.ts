@@ -15,6 +15,7 @@ const radioWidgetLogic: WidgetLogic = {
     widgetOptionsUpgrades: widgetOptionsUpgrades,
     defaultWidgetOptions: defaultWidgetOptions,
     getPublicWidgetOptions: getRadioPublicWidgetOptions,
+    accessible: true,
 };
 
 export default radioWidgetLogic;

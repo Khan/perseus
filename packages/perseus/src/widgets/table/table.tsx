@@ -324,7 +324,6 @@ function propTransform(options: Props): RenderProps {
 export default {
     name: "table",
     displayName: "Table (deprecated - use markdown table instead)",
-    accessible: true,
     widget: Table,
     transform: propTransform,
     hidden: true,

@@ -19,6 +19,7 @@ import ImageInTable from "./image-in-table";
 import ImageSpacesAroundUrls from "./image-spaces-around-urls";
 import ImageUrlEmpty from "./image-url-empty";
 import ImageWidget from "./image-widget";
+import InaccessibleWidget from "./inaccessible-widget";
 import LinkClickHere from "./link-click-here";
 import LongParagraph from "./long-paragraph";
 import MathAdjacent from "./math-adjacent";
@@ -70,4 +71,5 @@ export default [
     UnbalancedCodeDelimiters,
     ImageSpacesAroundUrls,
     ImageWidget,
+    InaccessibleWidget,
 ];

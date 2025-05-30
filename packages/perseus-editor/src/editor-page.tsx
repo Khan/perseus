@@ -7,6 +7,7 @@ import ViewportResizer from "./components/viewport-resizer";
 import CombinedHintsEditor from "./hint-editor";
 import ItemEditor from "./item-editor";
 
+import type {Issue} from "./issues-panel";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
@@ -44,16 +45,20 @@ type Props = {
     // showing the editor itself with the rendering
     // Only used in the perseus demos. Consider removing.
     jsonMode: boolean;
-    // A function which is called with the new JSON blob of content
+    // A function which is called with the new JSON blob of content.
     onChange: ChangeHandler;
     onPreviewDeviceChange: (arg1: DeviceType) => unknown;
     previewDevice: DeviceType;
     // A global control to expand/collapse all widget editors on a page.
     widgetsAreOpen?: boolean;
-    // Initial value of the question being edited
+    // Initial value of the question being edited.
     question?: PerseusRenderer;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
+    // Additional issues that the host application would like to display
+    //  within the Perseus Editor. This allows the hosts to present issues
+    // with the content that aren't linted/detected by Perseus itself.
+    issues?: Issue[];
 };
 
 type DefaultProps = {
@@ -282,6 +287,7 @@ class EditorPage extends React.Component<Props, State> {
                         widgetIsOpen={this.state.widgetsAreOpen}
                         apiOptions={deviceBasedApiOptions}
                         previewURL={this.props.previewURL}
+                        issues={this.props.issues}
                     />
                 )}
 

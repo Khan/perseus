@@ -19,6 +19,7 @@ const ordererWidgetLogic: WidgetLogic = {
     name: "orderer",
     defaultWidgetOptions,
     getPublicWidgetOptions: getOrdererPublicWidgetOptions,
+    accessible: false,
 };
 
 export default ordererWidgetLogic;

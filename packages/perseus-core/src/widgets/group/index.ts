@@ -14,9 +14,15 @@ const defaultWidgetOptions: GroupDefaultWidgetOptions = {
     images: {},
 };
 
+const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
+    return {...props, ...traverseRenderer(props)};
+};
+
 const groupWidgetLogic: WidgetLogic = {
     name: "group",
     defaultWidgetOptions,
+    accessible: false,
+    traverseChildWidgets: traverseChildWidgets,
     getPublicWidgetOptions: getGroupPublicWidgetOptions,
 };
 

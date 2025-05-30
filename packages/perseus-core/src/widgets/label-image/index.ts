@@ -30,6 +30,8 @@ const labelImageWidgetLogic: WidgetLogic = {
     name: "label-image",
     defaultWidgetOptions,
     getPublicWidgetOptions: getLabelImagePublicWidgetOptions,
+    // TODO(LEMS-3103): add partially inaccessible function
+    accessible: true,
 };
 
 export default labelImageWidgetLogic;
