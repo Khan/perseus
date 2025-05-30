@@ -133,7 +133,10 @@ export {
     upgradeWidgetInfoToLatestVersion,
 } from "./widgets/upgrade";
 
-export {default as splitPerseusItem} from "./utils/split-perseus-item";
+export {
+    default as splitPerseusItem,
+    splitPerseusItemJSON,
+} from "./utils/split-perseus-item";
 export {default as Registry} from "./utils/registry";
 
 export type * from "./widgets/logic-export.types";
