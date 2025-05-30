@@ -1,5 +1,36 @@
 # @khanacademy/perseus-editor
 
+## 23.0.0
+
+### Major Changes
+
+-   [#2522](https://github.com/Khan/perseus/pull/2522) [`ff2f1664d`](https://github.com/Khan/perseus/commit/ff2f1664db934d862570fd9b840f799a2f23bbf7) Thanks [@benchristel](https://github.com/benchristel)! - Breaking change: version `^3.0.0` of `@khanacademy/mathjax-renderer` is now
+    required as a peer dep, instead of `^2.1.1`. Clients should update
+    `@khanacademy/mathjax-renderer` at their convenience; nothing will immediately
+    break if you stay on 2.x.x for now.
+
+### Minor Changes
+
+-   [#2531](https://github.com/Khan/perseus/pull/2531) [`7ce293138`](https://github.com/Khan/perseus/commit/7ce29313858dd85570a9888eb32f504fc6a8b03a) Thanks [@aag](https://github.com/aag)! - Fix getSaveWarnings in Free Response widget and unhide it
+
+### Patch Changes
+
+-   [#2519](https://github.com/Khan/perseus/pull/2519) [`cf71982e0`](https://github.com/Khan/perseus/commit/cf71982e0fe9f831456d760fc4e98b1e93748c4f) Thanks [@dependabot](https://github.com/apps/dependabot)! - Updating wonderblock dependencies.
+
+*   [#2512](https://github.com/Khan/perseus/pull/2512) [`a2778ace8`](https://github.com/Khan/perseus/commit/a2778ace85e417b1e7e1c6627ea028cee70273f0) Thanks [@Myranae](https://github.com/Myranae)! - Remove preferred pop-over direction dropdown from Label Image editor
+
+*   Updated dependencies [[`03669d385`](https://github.com/Khan/perseus/commit/03669d385548e1d7ffde28c2210f637cf2b2d16f), [`52ec0bfcb`](https://github.com/Khan/perseus/commit/52ec0bfcbb71242c7a0a0ab34c7da0e9db77ed21), [`d1b6d9a3c`](https://github.com/Khan/perseus/commit/d1b6d9a3cab145267256e3d4acc373361957ffe0), [`7ce293138`](https://github.com/Khan/perseus/commit/7ce29313858dd85570a9888eb32f504fc6a8b03a), [`41fcaa918`](https://github.com/Khan/perseus/commit/41fcaa91845753a87aa0c9c686e6fa5bc2d149b0), [`555d89762`](https://github.com/Khan/perseus/commit/555d897621df124f423bf95bc4c2b8511e4bda6d), [`86ac76f79`](https://github.com/Khan/perseus/commit/86ac76f79c2fd4ee8b822393f89a064af92c0339), [`ff2f1664d`](https://github.com/Khan/perseus/commit/ff2f1664db934d862570fd9b840f799a2f23bbf7), [`6b747d140`](https://github.com/Khan/perseus/commit/6b747d1402cd62d9c59b2fc6f2371ec0a453a63d), [`efb99e901`](https://github.com/Khan/perseus/commit/efb99e9016418875a3b3713c8077a9465a5b41c6), [`3ec658e38`](https://github.com/Khan/perseus/commit/3ec658e387d2f2193f8151a9d4cb285e85f13202), [`3e162e616`](https://github.com/Khan/perseus/commit/3e162e6168960ff1a1c63ec0e982422a113cbe31), [`0913e9397`](https://github.com/Khan/perseus/commit/0913e93973394270a474388f4c1e7c795027b015), [`dc864aca8`](https://github.com/Khan/perseus/commit/dc864aca8ebf3bb442b1519f67d1a095d9f89243), [`8ece223ef`](https://github.com/Khan/perseus/commit/8ece223ef58ce23ccd244b6fb717193019e2c5d0), [`64c89cb15`](https://github.com/Khan/perseus/commit/64c89cb155045bf48248f96891e006a6f48610e5), [`cf71982e0`](https://github.com/Khan/perseus/commit/cf71982e0fe9f831456d760fc4e98b1e93748c4f), [`9c651172d`](https://github.com/Khan/perseus/commit/9c651172dffd7ca9f621e777069f361be05ce049), [`239be3f6c`](https://github.com/Khan/perseus/commit/239be3f6ccbbb89f52acf313bb4afbe359c1cee5), [`0d46a8599`](https://github.com/Khan/perseus/commit/0d46a85999557ca17daad67cb1663fe88a33a3ae), [`1c49ad243`](https://github.com/Khan/perseus/commit/1c49ad243756b4519c57603c9d098cbfe18baa15)]:
+    -   @khanacademy/perseus-core@12.1.0
+    -   @khanacademy/perseus@63.1.0
+    -   @khanacademy/math-input@26.0.0
+    -   @khanacademy/kas@2.0.5
+    -   @khanacademy/keypad-context@3.0.11
+    -   @khanacademy/kmath@2.0.11
+    -   @khanacademy/perseus-linter@3.0.11
+    -   @khanacademy/perseus-score@7.0.1
+    -   @khanacademy/perseus-utils@2.0.4
+    -   @khanacademy/pure-markdown@2.0.5
+
 ## 22.0.1
 
 ### Patch Changes

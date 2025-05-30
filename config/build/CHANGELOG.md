@@ -1,5 +1,13 @@
 # perseus-build-settings
 
+## 0.6.2
+
+### Patch Changes
+
+-   [#2511](https://github.com/Khan/perseus/pull/2511) [`1eaf969b9`](https://github.com/Khan/perseus/commit/1eaf969b9869fc986bced4d743d59b91e90255c0) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Updates TypeScript configuration to target ES2021 instead of ES2016
+
+*   [#2519](https://github.com/Khan/perseus/pull/2519) [`cf71982e0`](https://github.com/Khan/perseus/commit/cf71982e0fe9f831456d760fc4e98b1e93748c4f) Thanks [@dependabot](https://github.com/apps/dependabot)! - Updating wonderblock dependencies.
+
 ## 0.6.1
 
 ### Patch Changes
