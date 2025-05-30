@@ -158,7 +158,6 @@ export const ServerItemRendererWithDebugUI = ({
                             <Button
                                 onClick={() => {
                                     setAnswerless(false);
-                                    ref.current?.showRationalesForCurrentlySelectedChoices();
                                 }}
                             >
                                 Show Rationales
