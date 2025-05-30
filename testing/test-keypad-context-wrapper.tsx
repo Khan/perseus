@@ -9,7 +9,23 @@ import {
 } from "@khanacademy/keypad-context";
 import {MobileKeypad} from "@khanacademy/math-input";
 
-const Footer = (): React.ReactElement => {
+type Props = {
+    children: React.ReactElement;
+    /**
+     * Whether we need to offset the keypad to account for the footer.
+     */
+    hasFooter?: boolean;
+};
+
+const Footer = ({
+    hasFooter = false,
+}: {
+    hasFooter?: boolean;
+}): React.ReactElement => {
+    const keypadStyle = [
+        styles.keypad,
+        hasFooter && styles.keypadWithBottomOffset,
+    ];
     return (
         <View style={styles.keypadContainer}>
             <KeypadContext.Consumer>
@@ -17,7 +33,7 @@ const Footer = (): React.ReactElement => {
                     <MobileKeypad
                         onElementMounted={setKeypadElement}
                         onDismiss={() => renderer?.blur()}
-                        style={styles.keypad}
+                        style={keypadStyle}
                         onAnalyticsEvent={async (e) => {
                             action("onAnalyticsEvent")(e);
                         }}
@@ -28,15 +44,14 @@ const Footer = (): React.ReactElement => {
     );
 };
 
-type Props = {
-    children: React.ReactElement;
-};
-
-const TestKeypadContextWrapper = (props: Props): React.ReactElement => {
+const TestKeypadContextWrapper = ({
+    children,
+    hasFooter,
+}: Props): React.ReactElement => {
     return (
         <StatefulKeypadContextProvider>
-            {props.children}
-            <Footer />
+            {children}
+            <Footer hasFooter={hasFooter} />
         </StatefulKeypadContextProvider>
     );
 };
@@ -49,6 +64,9 @@ const styles = StyleSheet.create({
         // The keypad itself needs to respond to events even though
         // we've set its container to pointer-events: none;
         pointerEvents: "all",
+    },
+    keypadWithBottomOffset: {
+        bottom: 65,
     },
     keypadContainer: {
         position: "absolute",

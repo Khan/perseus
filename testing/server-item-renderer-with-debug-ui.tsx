@@ -60,7 +60,7 @@ export const ServerItemRendererWithDebugUI = ({
 
     return (
         <View>
-            <TestKeypadContextWrapper>
+            <TestKeypadContextWrapper hasFooter={true}>
                 <View
                     style={{
                         paddingBottom: "60px",
@@ -107,9 +107,10 @@ export const ServerItemRendererWithDebugUI = ({
                 </View>
             </TestKeypadContextWrapper>
 
-            {/* Footer with action buttons */}
+            {/* Footer with action buttons - back outside wrapper */}
             <DebugCheckAnswerFooter
                 state={state.score}
+                showSolutions={state.showSolutions || "none"}
                 popover={{
                     isOpen: state.showPopover,
                     setOpen: setShowPopover,

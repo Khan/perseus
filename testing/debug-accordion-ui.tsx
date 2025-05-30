@@ -163,12 +163,7 @@ export const DebugAccordionUI = ({
                           header={<ScoreHeader score={state} />}
                           key="score"
                       >
-                          <KEScoreUI
-                              score={state}
-                              style={{
-                                  padding: `0 ${spacing.medium_16} ${spacing.medium_16}`,
-                              }}
-                          />
+                          <KEScoreUI score={state} />
                       </AccordionSection>,
                   ]
                 : [];
