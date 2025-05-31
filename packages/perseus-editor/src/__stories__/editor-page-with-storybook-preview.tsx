@@ -54,14 +54,6 @@ function EditorPageWithStorybookPreview(props: Props) {
         customKeypad: isMobile,
     };
 
-    // Set up iframe data store for Perseus frame communication
-    React.useEffect(() => {
-        // Check if iframeDataStore exists before setting it up
-        if (typeof window !== "undefined" && !(window as any).iframeDataStore) {
-            (window as any).iframeDataStore = {};
-        }
-    }, []);
-
     return (
         <View>
             <EditorPage
