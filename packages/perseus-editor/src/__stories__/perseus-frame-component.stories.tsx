@@ -10,14 +10,13 @@ const meta: Meta<typeof PerseusFrameComponent> = {
         docs: {
             description: {
                 component:
-                    "Perseus frame component that renders actual Perseus content using Perseus.Renderer. " +
+                    "Perseus frame component that renders actual Perseus content using ServerItemRenderer and HintRenderer. " +
                     "This component implements the iframe communication protocol expected by Perseus EditorPage. " +
                     "\n\n**Communication Pattern:**\n" +
-                    "- Frame receives frameId via postMessage from parent\n" +
-                    "- Frame retrieves data from parent.iframeDataStore[frameId]\n" +
+                    "- Frame extracts frameId from its data-id attribute and sends it to parent to signal readiness\n" +
+                    "- Parent responds with data via postMessage, frame uses response as key for parent.iframeDataStore\n" +
                     "- Frame renders question or hint content using Perseus renderers\n" +
-                    "- Frame reports height changes via postMessage for smooth resizing\n" +
-                    "- Height updates occur both on DOM changes (MutationObserver) and periodically (500ms) for animations\n\n" +
+                    "- Frame reports height changes for smooth resizing via MutationObserver and periodic updates\n" +
                     "**Global Setup:**\n" +
                     "- Creates window.KhanUtil and window.Exercises objects to match webapp environment\n" +
                     "- Sets up iframe-specific styles to prevent scrollbar issues\n" +

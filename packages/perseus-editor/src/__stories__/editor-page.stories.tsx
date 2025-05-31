@@ -13,8 +13,7 @@ const meta: Meta<typeof EditorPageWithStorybookPreview> = {
         docs: {
             description: {
                 component:
-                    "Perseus EditorPage with built-in preview functionality using Storybook iframe. " +
-                    "This replicates the exact communication patterns used in the Khan Academy webapp.",
+                    "Perseus EditorPage with built-in preview functionality using Storybook iframe. ",
             },
         },
     },
