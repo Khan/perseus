@@ -39,16 +39,13 @@ function EditorPageWithStorybookPreview(props: Props) {
         props.hints,
     );
 
-    // Memoize apiOptions to fix dependency warnings
-    const apiOptions = React.useMemo(() => {
-        const isMobile =
-            previewDevice === "phone" || previewDevice === "tablet";
-        return {
-            ...props.apiOptions,
-            isMobile,
-            customKeypad: isMobile, // webapp pattern: customKeypad matches isMobile
-        };
-    }, [props.apiOptions, previewDevice]);
+    // Create apiOptions fresh each render (like webapp EditorPage does)
+    const isMobile = previewDevice === "phone" || previewDevice === "tablet";
+    const apiOptions = {
+        ...props.apiOptions,
+        isMobile,
+        customKeypad: isMobile, // webapp pattern: customKeypad matches isMobile
+    };
 
     // Set up iframe data store for Perseus frame communication
     React.useEffect(() => {
