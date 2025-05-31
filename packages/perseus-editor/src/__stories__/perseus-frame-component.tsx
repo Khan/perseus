@@ -1,105 +1,78 @@
 import {
-    Renderer,
+    ServerItemRenderer,
     HintRenderer,
     PerseusI18nContextProvider,
+    type SharedRendererProps,
 } from "@khanacademy/perseus";
 import * as React from "react";
 
-// eslint-disable-next-line import/no-relative-packages
+import {testDependenciesV2} from "../../../../testing/test-dependencies";
 import {mockStrings} from "../../../perseus/src/strings";
 
 import type {PerseusItem, Hint} from "@khanacademy/perseus-core";
 
-// EditorPage data structure (from editor-page.tsx updateRenderer)
-type EditorPageFrameData = {
-    type: "question" | "hint";
-    data: {
-        item?: PerseusItem;
-        hint?: Hint;
-        pos?: number;
-        apiOptions: {
-            customKeypad: boolean;
-            isMobile: boolean;
-            [key: string]: any;
-        };
-        initialHintsVisible?: number;
-        device?: string;
-        linterContext?: {
-            contentType: "exercise" | "hint";
-            highlightLint?: boolean;
-            paths?: any;
-        };
-        reviewMode?: boolean;
-        legacyPerseusLint?: any;
-        bold?: boolean; // For hints
-    };
-};
+type PerseusFrameData =
+    | {
+          type: "question";
+          data: SharedRendererProps & {
+              item: PerseusItem;
+              initialHintsVisible?: number;
+              device?: string;
+              reviewMode?: boolean;
+              legacyPerseusLint?: any;
+          };
+      }
+    | {
+          type: "hint";
+          data: SharedRendererProps & {
+              hint: Hint;
+              pos?: number;
+              bold?: boolean;
+          };
+      };
 
-declare global {
-    interface Window {
-        KhanUtil: {
-            localeToFixed: (num: number, precision: number) => string;
-        };
-        Exercises: {
-            localMode: boolean;
-            khanExercisesUrlBase: string;
-            getCurrentFramework: () => string;
-            PerseusBridge: {
-                cleanupProblem: () => boolean;
-            };
-        };
-        iframeDataStore: Record<string, any>;
-    }
-}
+/**
+ * PerseusFrameComponent is a component that renders Perseus content in an iframe.
+ * It is used to render the content of the EditorPage in order to provide previews
+ * of the questions and hints.
+ *
+ * @returns A PerseusFrameComponent that renders the content of the EditorPage.
+ */
+const PerseusFrameComponent = () => {
+    const [frameData, setFrameData] = React.useState<PerseusFrameData | null>(
+        null,
+    );
 
-const PerseusFrameComponent = React.memo(() => {
-    const [frameData, setFrameData] =
-        React.useState<EditorPageFrameData | null>(null);
-    const [frameError, setFrameError] = React.useState<string | null>(null);
-
-    // Handle messages from EditorPage (current EditorPage pattern)
+    // Handle messages from EditorPage
     const handleMessage = React.useCallback((event: MessageEvent) => {
-        try {
-            if (window.parent?.iframeDataStore?.[event.data]) {
-                const editorData: EditorPageFrameData =
-                    window.parent.iframeDataStore[event.data];
+        // Validate message origin for security
+        if (event.origin !== window.location.origin) {
+            return;
+        }
+        if (window.parent?.iframeDataStore?.[event.data]) {
+            const editorData: PerseusFrameData =
+                window.parent.iframeDataStore[event.data];
 
-                // Validate data structure and set directly (no conversion needed)
-                if (
-                    editorData.type === "question" &&
-                    editorData.data?.item?.question
-                ) {
-                    setFrameData(editorData);
-                    setFrameError(null);
-                } else if (
-                    editorData.type === "hint" &&
-                    editorData.data?.hint
-                ) {
-                    setFrameData(editorData);
-                    setFrameError(null);
-                }
-            }
-        } catch (error) {
-            setFrameError(
-                error instanceof Error ? error.message : String(error),
-            );
+            setFrameData(editorData);
         }
     }, []);
 
     React.useEffect(() => {
-        // Setup iframe styles to prevent double scrollbars
+        // Setup basic iframe styles to prevent double scrollbars
         document.documentElement.style.overflow = "hidden";
         document.body.style.overflow = "hidden";
         document.body.style.margin = "0";
         document.body.style.padding = "0";
 
         // Setup Perseus globals (matches webapp exactly)
+        // @ts-expect-error - TS2339 - Property 'KhanUtil' does not exist on type 'Window & typeof globalThis'.
         window.KhanUtil = {
             localeToFixed: function (num: number, precision: number) {
                 return num.toFixed(precision);
             },
         };
 
+        // @ts-expect-error - TS2339 - Property 'Exercises' does not exist on type 'Window & typeof globalThis'.
         window.Exercises = {
             localMode: true,
             khanExercisesUrlBase: "../",
@@ -115,28 +88,45 @@ const PerseusFrameComponent = React.memo(() => {
 
         window.addEventListener("message", handleMessage);
 
-        // Tell parent we're ready (webapp pattern)
+        // Tell the EditorPage that we're ready
         const frameId = window.frameElement?.getAttribute("data-id");
         if (frameId) {
             window.parent.postMessage(frameId, "*");
         }
 
-        // Height reporting with proper cleanup (webapp pattern)
+        // Height reporting to match upstream implementations
         let observer: MutationObserver | null = null;
         let interval: ReturnType<typeof setInterval> | null = null;
 
         const updateParentHeight = () => {
-            const measured = document.getElementById("measured");
-            const frameId = window.frameElement?.getAttribute("data-id");
-            if (measured && frameId) {
-                window.parent.postMessage(
-                    {
-                        id: frameId,
-                        height: measured.scrollHeight, // Remove extra padding per guide
-                    },
-                    "*",
-                );
+            if (!frameId) {
+                return;
             }
+
+            // Use webapp's multi-selector height calculation
+            let lowest = 0;
+            ["#content-container", ".preview-measure", "#measured"].forEach(
+                (selector) => {
+                    Array.from(document.querySelectorAll(selector)).forEach(
+                        (element) => {
+                            lowest = Math.max(
+                                lowest,
+                                element.getBoundingClientRect().bottom,
+                            );
+                        },
+                    );
+                },
+            );
+
+            const bottomMargin = 30;
+
+            window.parent.postMessage(
+                {
+                    id: frameId,
+                    height: lowest + bottomMargin,
+                },
+                "*",
+            );
         };
 
         // Setup MutationObserver for content changes
@@ -151,7 +141,7 @@ const PerseusFrameComponent = React.memo(() => {
             });
         }
 
-        // Periodic height updates for animations (webapp uses 500ms - "twice a second")
+        // Periodic height updates for animations that matches upstream implementations
         interval = setInterval(updateParentHeight, 500);
 
         return () => {
@@ -164,24 +154,6 @@ const PerseusFrameComponent = React.memo(() => {
             }
         };
     }, [handleMessage]);
-
-    // Show communication errors
-    if (frameError) {
-        return (
-            <div
-                style={{
-                    padding: "20px",
-                    border: "1px solid orange",
-                    borderRadius: "4px",
-                    fontFamily: "sans-serif",
-                }}
-            >
-                <h3>Frame Communication Error</h3>
-                <p>{frameError}</p>
-                <button onClick={() => setFrameError(null)}>Retry</button>
-            </div>
-        );
-    }
 
     // Return null if no content to render
     if (!frameData) {
@@ -205,18 +177,19 @@ const PerseusFrameComponent = React.memo(() => {
                 }}
             >
                 {/* Render question content */}
-                {type === "question" && data.item && (
+                {type === "question" && (
                     <div id="exercise-content">
-                        <Renderer
-                            {...data.item.question}
-                            strings={mockStrings}
+                        <ServerItemRenderer
+                            item={data.item}
                             apiOptions={apiOptions}
+                            hintsVisible={0}
+                            dependencies={testDependenciesV2}
                         />
                     </div>
                 )}
 
                 {/* Render hint content */}
-                {type === "hint" && data.hint && (
+                {type === "hint" && (
                     <div id="hint-content">
                         <HintRenderer
                             hint={data.hint}
@@ -228,6 +201,6 @@ const PerseusFrameComponent = React.memo(() => {
             </div>
         </PerseusI18nContextProvider>
     );
-});
+};
 
 export default PerseusFrameComponent;
