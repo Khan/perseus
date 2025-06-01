@@ -208,6 +208,7 @@ const RadioComponent = ({
                 revealNoneOfTheAbove: !!(questionCompleted && selected),
                 highlighted,
                 previouslyAnswered,
+                id: choice.id || `choice-number-${i}`,
             };
         });
     };
