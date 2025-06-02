@@ -173,3 +173,76 @@ export const AnswerlessMultiSelect = {
         startAnswerless: true,
     },
 };
+
+// RTL Variants
+export const SelectWithImagesAndScrollRTL = {
+    args: {
+        item: generateTestPerseusItem({
+            question: SingleSelectOverflowImageContent,
+        }),
+    },
+    decorators: [
+        (Story) => {
+            // Set RTL for testing
+            document.body.setAttribute("dir", "rtl");
+
+            return (
+                <div style={{direction: "rtl"}}>
+                    <Story />
+                </div>
+            );
+        },
+    ],
+    play: async () => {
+        // Reset the direction after the story
+        document.body.removeAttribute("dir");
+    },
+};
+
+export const SingleSelectWithScrollRTL = {
+    args: {
+        item: generateTestPerseusItem({
+            question: SingleSelectOverflowContent,
+        }),
+    },
+    decorators: [
+        (Story) => {
+            // Set RTL for testing
+            document.body.setAttribute("dir", "rtl");
+
+            return (
+                <div style={{direction: "rtl"}}>
+                    <Story />
+                </div>
+            );
+        },
+    ],
+    play: async () => {
+        // Reset the direction after the story
+        document.body.removeAttribute("dir");
+    },
+};
+
+export const MultiSelectWithScrollRTL = {
+    args: {
+        item: generateTestPerseusItem({
+            question: multiChoiceQuestionSimpleOverflowContent,
+        }),
+    },
+    decorators: [
+        (Story) => {
+            // Set RTL for testing
+            document.body.setAttribute("dir", "rtl");
+
+            return (
+                <div style={{direction: "rtl"}}>
+                    <Story />
+                </div>
+            );
+        },
+    ],
+    play: async () => {
+        // Reset the direction after the story
+        document.body.removeAttribute("dir");
+    },
+};
