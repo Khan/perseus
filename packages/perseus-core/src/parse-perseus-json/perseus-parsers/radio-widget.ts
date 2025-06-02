@@ -162,6 +162,34 @@ const parseRadioWidgetV0 = parseWidgetWithVersion(
 );
 
 // migrate functions
+
+/**
+ * Simple hash function to create a short hash from a string
+ * Uses a more robust algorithm for better distribution
+ */
+function simpleHash(str: string): string {
+    let hash = 5381; // Use djb2 hash algorithm
+    if (str.length === 0) return "empty";
+
+    for (let i = 0; i < str.length; i++) {
+        const char = str.charCodeAt(i);
+        hash = ((hash << 5) + hash) + char; // hash * 33 + char
+    }
+
+    return Math.abs(hash).toString(36).substring(0, 8); // Base36 for shorter string, 8 chars for better uniqueness
+}
+
+/**
+ * Create a normalized version of content for hashing
+ * This removes extra whitespace and normalizes the text to ensure consistent hashing
+ */
+function normalizeContent(content: string): string {
+    return content
+        .trim()
+        .replace(/\s+/g, ' ') // Replace multiple whitespace with single space
+        .toLowerCase(); // Normalize case for consistency
+}
+
 export function migrateV3ToV4(
     widget: ParsedValue<typeof parseRadioWidgetV3>,
 ): ParsedValue<typeof parseRadioWidgetV4> {
@@ -178,7 +206,10 @@ export function migrateV3ToV4(
             multipleSelect: options.multipleSelect,
             deselectEnabled: options.deselectEnabled,
             choices: options.choices.map((choice, index) => {
-                const choiceId = `choice-${index + 1}`;
+                // Create a more unique ID using normalized content hash and index
+                const normalizedContent = normalizeContent(choice.content || "");
+                const contentHash = simpleHash(normalizedContent);
+                const choiceId = `choice-${index}-${contentHash}`;
                 return {
                     content: choice.content,
                     rationale: choice.rationale,
