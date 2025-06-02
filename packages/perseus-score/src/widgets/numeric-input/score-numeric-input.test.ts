@@ -554,6 +554,7 @@ describe("scoreNumericInput", () => {
         ${null}       | ${"invalid"}
         ${false}      | ${"invalid"}
         ${true}       | ${"invalid"}
+        ${"true"}     | ${"invalid"}
     `("with simplify: $simplify", ({simplify, unsimplifiedFractionScore}) => {
         it(`marks unsimplified fractions ${unsimplifiedFractionScore}`, () => {
             const answerMatchers = {

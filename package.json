@@ -148,7 +148,6 @@
     "packageManager": "pnpm@10.8.0",
     "pnpm": {
         "onlyBuiltDependencies": [
-            "core-js",
             "cypress",
             "esbuild",
             "@swc/core"

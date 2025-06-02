@@ -26,6 +26,8 @@ import type {
     UserInputArray,
     UserInputMap,
     Relationship,
+    LabelImageMarkerPublicData,
+    PerseusLabelImageMarker,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
@@ -110,7 +112,6 @@ export type EditorMode = "edit" | "preview" | "json";
 
 export type ChoiceState = {
     selected: boolean;
-    crossedOut: boolean;
     highlighted: boolean;
     rationaleShown: boolean;
     correctnessShown: boolean;
@@ -150,6 +151,8 @@ export type ChangeHandler = (
         numLinePosition?: number;
         // widgets/number-line.ts
         rel?: Relationship;
+        // widgets/label-image.tsx
+        markers?: Array<LabelImageMarkerPublicData | PerseusLabelImageMarker>;
     },
     callback?: () => void,
     silent?: boolean,
@@ -284,15 +287,6 @@ export type APIOptions = Readonly<{
      * Defaults to `false`.
      */
     canScrollPage?: boolean;
-    /**
-     * Whether to enable the cross-out feature on multiple-choice radio
-     * widgets. This allows users to note which answers they believe to
-     * be incorrect, to find the answer by process of elimination.
-     *
-     * We plan to roll this out to all call sites eventually, but for
-     * now we have this flag, to add it to Generalized Test Prep first.
-     */
-    crossOutEnabled?: boolean;
     /**
      * The value in milliseconds by which the local state of content
      * in a editor is delayed before propagated to a prop. For example,
@@ -444,7 +438,6 @@ export type APIOptionsWithDefaults = Readonly<
     APIOptions & {
         baseElements: NonNullable<APIOptions["baseElements"]>;
         canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
-        crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
         editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
         groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;

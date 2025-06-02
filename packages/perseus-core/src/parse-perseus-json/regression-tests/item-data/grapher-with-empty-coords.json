@@ -1,0 +1,184 @@
+{
+  "question": {
+    "content": "**Graph $6x-5y=30$ .**\n\n[[☃ grapher 1]]",
+    "images": {},
+    "widgets": {
+      "grapher 1": {
+        "type": "grapher",
+        "alignment": "default",
+        "static": false,
+        "graded": true,
+        "options": {
+          "correct": {
+            "type": "linear",
+            "coords": []
+          },
+          "graph": {
+            "editableSettings": [
+              "graph",
+              "snap",
+              "image"
+            ],
+            "range": [
+              [
+                -10,
+                10
+              ],
+              [
+                -10,
+                10
+              ]
+            ],
+            "labels": [
+              "x",
+              "y"
+            ],
+            "step": [
+              1,
+              1
+            ],
+            "gridStep": [
+              1,
+              1
+            ],
+            "snapStep": [
+              1,
+              1
+            ],
+            "valid": true,
+            "backgroundImage": {
+              "url": null
+            },
+            "markings": "graph",
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "showTooltips": false,
+            "showProtractor": false,
+            "showRuler": false
+          },
+          "availableTypes": [
+            "linear"
+          ]
+        },
+        "version": {
+          "major": 0,
+          "minor": 0
+        }
+      }
+    }
+  },
+  "answerArea": {
+    "zTable": false,
+    "calculator": true,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTotalAmount": false,
+    "financialCalculatorTimeToPayOff": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false
+  },
+  "hints": [
+    {
+      "replace": false,
+      "content": "This is a linear equation given in *standard form*: $Ax+By=C$. A common way of graphing an equation of this form is to find the $x$- and $y$-intercepts of the graph.",
+      "images": {},
+      "widgets": {}
+    },
+    {
+      "replace": false,
+      "content": "To find the $y$-intercept, let's substitute $\\blueD{x}=\\blueD{0}$ into the equation and solve for $y$:\n\n$\\begin{align}\n6\\blueD{x}-5y&=30\n\\\\\\\\\n6\\cdot\\blueD{0}-5y&=30\n\\\\\\\\\n-5y&=30\n\\\\\\\\\ny&=-6\n\\end{align}$\n\nSo the $y$-intercept is $(0,-6)$.",
+      "images": {},
+      "widgets": {}
+    },
+    {
+      "replace": false,
+      "content": "To find the $x$-intercept, let's substitute $\\maroonD{y}=\\maroonD{0}$ into the equation and solve for $x$:\n\n$\\begin{align}\n6x-5\\maroonD{y}&=30\n\\\\\\\\\n6x-5\\cdot\\maroonD{0}&=30\n\\\\\\\\\n6x&=30\n\\\\\\\\\nx&=5\n\\end{align}$\n\nSo the $x$-intercept is $(5,0)$.",
+      "images": {},
+      "widgets": {}
+    },
+    {
+      "replace": false,
+      "content": "We can graph the linear equation using these two points, as shown below:\n\n[[☃ grapher 1]]",
+      "images": {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/d7c9612d0f48c1797d3cafdda8ab26f5f2fc3c87": {
+          "width": 424,
+          "height": 424
+        }
+      },
+      "widgets": {
+        "grapher 1": {
+          "type": "grapher",
+          "alignment": "default",
+          "static": true,
+          "graded": true,
+          "options": {
+            "correct": {
+              "type": "linear",
+              "coords": [
+                [
+                  0,
+                  -6
+                ],
+                [
+                  5,
+                  0
+                ]
+              ]
+            },
+            "availableTypes": [
+              "linear"
+            ],
+            "graph": {
+              "editableSettings": [
+                "graph",
+                "snap",
+                "image"
+              ],
+              "range": [
+                [
+                  -10,
+                  10
+                ],
+                [
+                  -10,
+                  10
+                ]
+              ],
+              "labels": [
+                "x",
+                "y"
+              ],
+              "step": [
+                1,
+                1
+              ],
+              "gridStep": [
+                1,
+                1
+              ],
+              "snapStep": [
+                1,
+                1
+              ],
+              "valid": true,
+              "backgroundImage": {
+                "url": null
+              },
+              "markings": "graph",
+              "rulerLabel": "",
+              "rulerTicks": 10,
+              "showTooltips": false,
+              "showProtractor": false,
+              "showRuler": false
+            }
+          },
+          "version": {
+            "major": 0,
+            "minor": 0
+          }
+        }
+      }
+    }
+  ]
+}

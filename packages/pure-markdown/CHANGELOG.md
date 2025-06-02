@@ -1,5 +1,15 @@
 # @khanacademy/pure-markdown
 
+## 2.0.5
+
+### Patch Changes
+
+-   [#2519](https://github.com/Khan/perseus/pull/2519) [`cf71982e0`](https://github.com/Khan/perseus/commit/cf71982e0fe9f831456d760fc4e98b1e93748c4f) Thanks [@dependabot](https://github.com/apps/dependabot)! - Updating wonderblock dependencies.
+
+-   Updated dependencies [[`cf71982e0`](https://github.com/Khan/perseus/commit/cf71982e0fe9f831456d760fc4e98b1e93748c4f)]:
+    -   @khanacademy/perseus-utils@2.0.4
+    -   @khanacademy/simple-markdown@2.0.5
+
 ## 2.0.4
 
 ### Patch Changes

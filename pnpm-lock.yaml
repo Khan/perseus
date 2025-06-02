@@ -7,8 +7,8 @@ settings:
 catalogs:
   default:
     '@khanacademy/mathjax-renderer':
-      specifier: ^2.1.1
-      version: 2.1.1
+      specifier: ^3.0.0
+      version: 3.0.0
     '@khanacademy/wonder-blocks-accordion':
       specifier: 3.1.14
       version: 3.1.14
@@ -142,7 +142,7 @@ importers:
         version: 3.1.2(eslint@8.57.1)(typescript@5.7.2)
       '@khanacademy/mathjax-renderer':
         specifier: 'catalog:'
-        version: 2.1.1(@khanacademy/wonder-blocks-i18n@2.0.2(react@18.3.1))
+        version: 3.0.0
       '@khanacademy/wonder-blocks-button':
         specifier: 'catalog:'
         version: 10.0.1(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@5.3.4(react@18.3.1))(react@18.3.1)
@@ -596,7 +596,7 @@ importers:
     devDependencies:
       '@khanacademy/mathjax-renderer':
         specifier: 'catalog:'
-        version: 2.1.1(@khanacademy/wonder-blocks-i18n@2.0.2(react@18.3.1))
+        version: 3.0.0
       '@khanacademy/wonder-blocks-clickable':
         specifier: 'catalog:'
         version: 7.1.2(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
@@ -860,7 +860,7 @@ importers:
     devDependencies:
       '@khanacademy/mathjax-renderer':
         specifier: 'catalog:'
-        version: 2.1.1(@khanacademy/wonder-blocks-i18n@2.0.2(react@18.3.1))
+        version: 3.0.0
       '@khanacademy/wonder-blocks-accordion':
         specifier: 'catalog:'
         version: 3.1.14(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)
@@ -2269,10 +2269,8 @@ packages:
   '@khanacademy/eslint-plugin@3.1.2':
     resolution: {integrity: sha512-+9ohgHE6R0ox98rcfh28D4Hmue4acL3fUh8wZ7JwVBXE9JWBRWaehWRwYyKi71rUI9g2ierY4Gu5qbPx2LhOpQ==}
 
-  '@khanacademy/mathjax-renderer@2.1.1':
-    resolution: {integrity: sha512-jRllWTEOHEr7d0gOGPsd6D4WvZmVCWzUbPdsdOzgxgBZXDTIG0yq9ZpxWnJ+9lMGCY5SOBeMYSvhBluiibXZSw==}
-    peerDependencies:
-      '@khanacademy/wonder-blocks-i18n': ^2.0.2
+  '@khanacademy/mathjax-renderer@3.0.0':
+    resolution: {integrity: sha512-sY6v+ZqAqdjNj1vEhidym0bQfCN9n7kPOJJy2ShZ+f3QCIMKNdDEs9X7PEK2Tcei0jLdwzI2SZmAakKnyqjHiQ==}
 
   '@khanacademy/wonder-blocks-accordion@3.1.14':
     resolution: {integrity: sha512-yhbX5a82kyetM24vyDqb+XPf1KJgc8P0LFz84rrY8Z6L4xBR7je28KWkftE4K36356IIwZSR57QIJ6MXG4XlTg==}
@@ -2370,12 +2368,6 @@ packages:
       '@phosphor-icons/core': ^2.0.2
       aphrodite: ^1.2.5
       react: 18.2.0
-
-  '@khanacademy/wonder-blocks-i18n@2.0.2':
-    resolution: {integrity: sha512-0eqlleTbNDWGZiJuisVxI9UbIk5mcXxAA8mT9Sus6VE/3gkBbNtUaAfA5muuF2Hlu5K2Jzsz8/TEOXmGQ+HR1Q==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
-    peerDependencies:
-      react: 16.14.0
 
   '@khanacademy/wonder-blocks-icon-button@10.0.0':
     resolution: {integrity: sha512-vS/Er2HTzcbrEESE3cDmPx6w6NS0NFbpTvALS7CaCkBTC0zcdpLaTRIlX5UTAbjmMUqIMyBhR/UcNSO5Wky5cQ==}
@@ -10717,9 +10709,8 @@ snapshots:
       - supports-color
       - typescript
 
-  '@khanacademy/mathjax-renderer@2.1.1(@khanacademy/wonder-blocks-i18n@2.0.2(react@18.3.1))':
+  '@khanacademy/mathjax-renderer@3.0.0':
     dependencies:
-      '@khanacademy/wonder-blocks-i18n': 2.0.2(react@18.3.1)
       mathjax-full: 3.2.2
       mu-lambda: 0.0.3
 
@@ -10945,11 +10936,6 @@ snapshots:
       - react-router
       - react-router-dom
       - react-router-dom-v5-compat
-
-  '@khanacademy/wonder-blocks-i18n@2.0.2(react@18.3.1)':
-    dependencies:
-      '@babel/runtime': 7.27.1
-      react: 18.3.1
 
   '@khanacademy/wonder-blocks-icon-button@10.0.0(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.3.1(react@18.3.1))(react-router-dom-v5-compat@6.30.0(react-dom@18.3.1(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react@18.3.1))(react-router-dom@5.3.4(react@18.3.1))(react-router@6.30.0(react@18.3.1))(react@18.3.1)':
     dependencies:
