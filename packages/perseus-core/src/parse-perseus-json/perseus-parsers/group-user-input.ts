@@ -1,3 +1,7 @@
 import {parseUserInputMap} from "./user-input-map";
 
-export const parseGroupUserInput = parseUserInputMap;
+import type {PerseusGroupUserInput} from "../../validation.types";
+import type {Parser} from "../parser-types";
+
+export const parseGroupUserInput: Parser<PerseusGroupUserInput> =
+    parseUserInputMap;
