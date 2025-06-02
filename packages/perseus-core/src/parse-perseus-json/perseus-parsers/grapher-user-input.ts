@@ -1,56 +1,57 @@
 import {
-    enumeration,
+    constant,
     nullable,
     number,
     object,
     pair,
-    union,
 } from "../general-purpose-parsers";
+import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
 
 const coord = pair(number, number);
 const coordPair = pair(coord, coord);
 
-export const parseGrapherUserInput = union(
-    object({
-        type: enumeration("absolute_value"),
-        coords: nullable(coordPair),
-    }),
-)
-    .or(
-        object({
-            type: enumeration("exponential"),
-            asymptote: coordPair,
-            coords: nullable(coordPair),
-        }),
-    )
-    .or(
-        object({
-            type: enumeration("linear"),
-            coords: nullable(coordPair),
-        }),
-    )
-    .or(
-        object({
-            type: enumeration("logarithm"),
-            asymptote: coordPair,
-            coords: nullable(coordPair),
-        }),
-    )
-    .or(
-        object({
-            type: enumeration("quadratic"),
-            coords: nullable(coordPair),
-        }),
-    )
-    .or(
-        object({
-            type: enumeration("sinusoid"),
-            coords: nullable(coordPair),
-        }),
-    )
-    .or(
-        object({
-            type: enumeration("tangent"),
-            coords: nullable(coordPair),
-        }),
-    ).parser;
+const parseAbsoluteValueBranch = object({
+    type: constant("absolute_value"),
+    coords: nullable(coordPair),
+});
+
+const parseExponentialBranch = object({
+    type: constant("exponential"),
+    asymptote: coordPair,
+    coords: nullable(coordPair),
+});
+
+const parseLinearBranch = object({
+    type: constant("linear"),
+    coords: nullable(coordPair),
+});
+
+const parseLogarithmBranch = object({
+    type: constant("logarithm"),
+    asymptote: coordPair,
+    coords: nullable(coordPair),
+});
+
+const parseQuadraticBranch = object({
+    type: constant("quadratic"),
+    coords: nullable(coordPair),
+});
+
+const parseSinusoidBranch = object({
+    type: constant("sinusoid"),
+    coords: nullable(coordPair),
+});
+
+const parseTangentBranch = object({
+    type: constant("tangent"),
+    coords: nullable(coordPair),
+});
+
+export const parseGrapherUserInput = discriminatedUnionOn("type")
+    .withBranch("absolute_value", parseAbsoluteValueBranch)
+    .withBranch("exponential", parseExponentialBranch)
+    .withBranch("linear", parseLinearBranch)
+    .withBranch("logarithm", parseLogarithmBranch)
+    .withBranch("quadratic", parseQuadraticBranch)
+    .withBranch("sinusoid", parseSinusoidBranch)
+    .withBranch("tangent", parseTangentBranch).parser;
