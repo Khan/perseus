@@ -1,5 +1,6 @@
 import {traverse} from "./traversal";
 import {registerCoreWidgets} from "./widgets/core-widget-registry";
+
 import type {PerseusRenderer} from "./data-schema";
 
 const missingOptions = {
