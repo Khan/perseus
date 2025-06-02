@@ -1,5 +1,6 @@
 import {traverse} from "./traversal";
 import {registerCoreWidgets} from "./widgets/core-widget-registry";
+import type {PerseusRenderer} from "./data-schema";
 
 const missingOptions = {
     content: "[[☃ radio 1]]\n\n",
@@ -32,7 +33,7 @@ const missingOptions = {
 
 const clonedMissingOptions = JSON.parse(JSON.stringify(missingOptions));
 
-const sampleOptions = {
+const sampleOptions: PerseusRenderer = {
     content: "[[☃ mock-widget 1]]",
     images: {},
     widgets: {
@@ -54,7 +55,7 @@ const sampleOptions = {
 
 const clonedSampleOptions = JSON.parse(JSON.stringify(sampleOptions));
 
-const sampleOptions2 = {
+const sampleOptions2: PerseusRenderer = {
     content: "[[☃ radio 1]]\n\n",
     images: {},
     widgets: {
@@ -91,7 +92,7 @@ const sampleOptions2 = {
 
 const clonedSampleOptions2 = JSON.parse(JSON.stringify(sampleOptions2));
 
-const sampleGroup = {
+const sampleGroup: PerseusRenderer = {
     content: "[[☃ group 1]]\n\n",
     images: {},
     widgets: {
@@ -100,38 +101,9 @@ const sampleGroup = {
             graded: true,
             static: false,
             options: {
-                content: "[[☃ radio 1]]\n\n",
+                content: sampleOptions2.content,
                 images: {},
-                widgets: {
-                    "radio 1": {
-                        type: "radio",
-                        graded: true,
-                        static: false,
-                        options: {
-                            choices: [
-                                {
-                                    content: "A",
-                                    correct: true,
-                                },
-                                {
-                                    correct: false,
-                                    content: "B",
-                                },
-                            ],
-                            randomize: false,
-                            multipleSelect: false,
-                            displayCount: null,
-                            noneOfTheAbove: false,
-                            deselectEnabled: false,
-                            countChoices: false,
-                        },
-                        version: {
-                            major: 0,
-                            minor: 0,
-                        },
-                        alignment: "default",
-                    },
-                },
+                widgets: sampleOptions2.widgets,
             },
             version: {
                 major: 0,

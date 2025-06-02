@@ -1,5 +1,6 @@
 import * as CoreWidgetRegistry from "./core-widget-registry";
 import {registerWidget, traverseChildWidgets} from "./core-widget-registry";
+import type {PerseusWidget} from "../data-schema";
 
 const registryFnNames = [
     "isWidgetRegistered",
@@ -51,7 +52,7 @@ describe("traverseChildWidgets", () => {
         static: false,
         version: {major: 0, minor: 0},
         alignment: "default",
-    };
+    } as unknown as PerseusWidget;
 
     beforeEach(() => {
         registerWidget(mockWidgetType, {
@@ -67,7 +68,7 @@ describe("traverseChildWidgets", () => {
     });
 
     it("returns the widget unchanged if widget type is unregistered", () => {
-        const widget = {type: "non-existent-widget", options: {foo: 1}};
+        const widget = {type: "non-existent-widget", options: {foo: 1}} as unknown as PerseusWidget;
         const traverseRenderer = jest.fn();
 
         expect(traverseChildWidgets(widget, traverseRenderer)).toBe(widget);
@@ -82,7 +83,10 @@ describe("traverseChildWidgets", () => {
     });
 
     it("calls traverseChildWidgets when defined and returns updated widget", () => {
-        const widget = {type: mockWidgetType, options: {foo: 1}};
+        const widget: PerseusWidget = {
+            type: mockWidgetType as any,
+            options: {foo: 1},
+        };
         const traverseRenderer = jest.fn();
 
         const result = traverseChildWidgets(widget, traverseRenderer);
