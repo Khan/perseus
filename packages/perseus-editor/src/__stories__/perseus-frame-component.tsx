@@ -64,28 +64,6 @@ const PerseusFrameComponent = () => {
         document.body.style.margin = "0";
         document.body.style.padding = "0";
 
-        // Setup Perseus globals (matches webapp exactly)
-        // @ts-expect-error - TS2339 - Property 'KhanUtil' does not exist on type 'Window & typeof globalThis'.
-        window.KhanUtil = {
-            localeToFixed: function (num: number, precision: number) {
-                return num.toFixed(precision);
-            },
-        };
-
-        // @ts-expect-error - TS2339 - Property 'Exercises' does not exist on type 'Window & typeof globalThis'.
-        window.Exercises = {
-            localMode: true,
-            khanExercisesUrlBase: "../",
-            getCurrentFramework: function () {
-                return "khan-exercises";
-            },
-            PerseusBridge: {
-                cleanupProblem: function () {
-                    return false;
-                },
-            },
-        };
-
         window.addEventListener("message", handleMessage);
 
         // Tell the EditorPage that we're ready
@@ -103,7 +81,7 @@ const PerseusFrameComponent = () => {
                 return;
             }
 
-            // Use webapp's multi-selector height calculation
+            // Calculate the height of the content
             let lowest = 0;
             ["#content-container", ".preview-measure", "#measured"].forEach(
                 (selector) => {
