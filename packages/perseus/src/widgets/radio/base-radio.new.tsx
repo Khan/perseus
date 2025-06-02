@@ -403,8 +403,8 @@ const styles: StyleDeclaration = StyleSheet.create({
         borderTop: `1px solid ${styleConstants.radioBorderColor}`,
         scrollbarWidth: "thin",
         [mediaQueries.smOrSmaller]: {
-            marginLeft: styleConstants.negativePhoneMargin,
-            marginRight: styleConstants.negativePhoneMargin,
+            marginInlineStart: styleConstants.negativePhoneMargin,
+            marginInlineEnd: styleConstants.negativePhoneMargin,
         },
     },
 
@@ -421,11 +421,11 @@ const styles: StyleDeclaration = StyleSheet.create({
     },
 
     item: {
-        marginLeft: 20,
+        marginInlineStart: 20,
     },
 
     responsiveItem: {
-        marginLeft: 0,
+        marginInlineStart: 0,
         padding: 0,
 
         ":not(:last-child)": {
@@ -462,13 +462,13 @@ const styles: StyleDeclaration = StyleSheet.create({
 
     responsiveContainer: {
         overflow: "auto",
-        marginLeft: styleConstants.negativePhoneMargin,
-        paddingLeft: styleConstants.phoneMargin,
+        marginInlineStart: styleConstants.negativePhoneMargin,
+        paddingInlineStart: styleConstants.phoneMargin,
         // paddingRight is handled by responsiveFieldset
     },
 
     responsiveFieldset: {
-        paddingRight: styleConstants.phoneMargin,
+        paddingInlineEnd: styleConstants.phoneMargin,
         minWidth: "auto",
     },
 });
