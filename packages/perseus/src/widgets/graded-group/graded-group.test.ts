@@ -162,7 +162,7 @@ describe("graded-group", () => {
             ).not.toBeInTheDocument();
         });
 
-        it("should show solutions (clues) when answer is correct", async () => {
+        it("should show rationales when answer is correct", async () => {
             // Arrange
             renderQuestion(groupedRadioQuestion);
 
@@ -180,7 +180,7 @@ describe("graded-group", () => {
             ).toBeVisible();
         });
 
-        it("should not show solutions (clues) when answer is incorrect", async () => {
+        it("should not show rationales when answer is incorrect", async () => {
             // Arrange
             renderQuestion(groupedRadioQuestion);
 

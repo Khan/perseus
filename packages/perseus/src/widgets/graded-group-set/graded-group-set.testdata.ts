@@ -388,25 +388,25 @@ export const groupSetRadioQuestion: PerseusRenderer = {
                                         {
                                             content: "$-8$ and $8$",
                                             correct: false,
-                                            clue: "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
+                                            clue: "This is not the correct answer.",
                                         },
                                         {
                                             content: "$-8$",
                                             correct: false,
-                                            clue: "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
+                                            clue: "This is not the correct answer.",
                                         },
                                         {
                                             content: "$8$",
                                             correct: true,
                                             isNoneOfTheAbove: false,
-                                            clue: "$8$ is the positive square root of $64$.",
+                                            clue: "This is the correct answer.",
                                         },
                                         {
                                             content:
                                                 "No value of $x$ satisfies the equation.",
                                             correct: false,
                                             isNoneOfTheAbove: false,
-                                            clue: "$8$ satisfies the equation.",
+                                            clue: "This is not the correct answer.",
                                         },
                                     ],
                                     countChoices: false,
@@ -527,25 +527,25 @@ export const groupedRadioQuestion: PerseusRenderer = {
                                 {
                                     content: "$-8$ and $8$",
                                     correct: false,
-                                    clue: "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
+                                    clue: "This is not the correct answer.",
                                 },
                                 {
                                     content: "$-8$",
                                     correct: false,
-                                    clue: "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
+                                    clue: "This is not the correct answer.",
                                 },
                                 {
                                     content: "$8$",
                                     correct: true,
                                     isNoneOfTheAbove: false,
-                                    clue: "$8$ is the positive square root of $64$.",
+                                    clue: "This is the correct answer.",
                                 },
                                 {
                                     content:
                                         "No value of $x$ satisfies the equation.",
                                     correct: false,
                                     isNoneOfTheAbove: false,
-                                    clue: "$8$ satisfies the equation.",
+                                    clue: "This is not the correct answer.",
                                 },
                             ],
                             countChoices: false,
