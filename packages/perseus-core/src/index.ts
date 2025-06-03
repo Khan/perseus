@@ -133,6 +133,7 @@ export {
     applyDefaultsToWidget,
 } from "./widgets/apply-defaults";
 
+export {default as getDefaultAnswerArea} from "./utils/get-default-answer-area";
 export {
     default as splitPerseusItem,
     splitPerseusItemJSON,
