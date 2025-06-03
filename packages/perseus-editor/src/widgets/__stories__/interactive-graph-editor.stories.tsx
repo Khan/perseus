@@ -1,5 +1,5 @@
-import {action} from "storybook/actions";
 import * as React from "react";
+import {action} from "storybook/actions";
 
 import InteractiveGraphEditor from "../interactive-graph-editor/interactive-graph-editor";
 

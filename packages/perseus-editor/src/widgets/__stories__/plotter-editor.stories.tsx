@@ -1,6 +1,6 @@
 import {ApiOptions} from "@khanacademy/perseus";
-import {action} from "storybook/actions";
 import * as React from "react";
+import {action} from "storybook/actions";
 
 import PlotterEditor from "../plotter-editor";
 
