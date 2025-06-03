@@ -1,0 +1,1 @@
+import{c as r}from"./index-KqUcn8N7.js";import{w as e}from"./all-widgets-NwzzdrYk.js";import{r as s,g as i}from"./renderer-u-vUuhtp.js";const o="@khanacademy/perseus",a="__lib_version__";r(o,a);s(e);i();
