@@ -83,7 +83,7 @@ function dedent(s: string): string {
     return s
         .trimStart()
         .split("\n")
-        .map((s) => s.trimStart())
+        .map((line) => line.trimStart())
         .join("\n");
 }
 
@@ -126,6 +126,8 @@ function main(argv: string[]) {
         }
     }
 
+    // TODO(LEMS-3169): update the path to services/static/package.json to the
+    // new location, once the frontend moves to its own repo.
     const comment = dedent(`
         # NOTE: The \`devDeps\` and \`peerDeps\` catalogs in this file are
         # generated from webapp's package.json. To update them, run:
