@@ -79,6 +79,14 @@ function unique<T extends Primitive>(array: readonly T[]): T[] {
     return [...new Set(array)];
 }
 
+function dedent(s: string): string {
+    return s
+        .trimStart()
+        .split("\n")
+        .map((s) => s.trimStart())
+        .join("\n");
+}
+
 function main(argv: string[]) {
     // The first arg is the node binary running this script, the second arg is
     // this script itself. So, we strip these two args off so that all that's
@@ -118,9 +126,17 @@ function main(argv: string[]) {
         }
     }
 
+    const comment = dedent(`
+        # NOTE: The \`devDeps\` and \`peerDeps\` catalogs in this file are
+        # generated from webapp's package.json. To update them, run:
+        #
+        #     utils/sync-dependencies.ts ../webapp/services/static/package.json
+        #
+    `);
+
     fs.writeFileSync(
         "pnpm-workspace.yaml",
-        yaml.stringify(workspace, {indent: 4}),
+        comment + yaml.stringify(workspace, {indent: 4}),
         {
             encoding: "utf-8",
         },

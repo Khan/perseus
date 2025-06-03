@@ -1,3 +1,8 @@
+# NOTE: The `devDeps` and `peerDeps` catalogs in this file are
+# generated from webapp's package.json. To update them, run:
+#
+#     utils/sync-dependencies.ts ../webapp/services/static/package.json
+#
 packages:
     - config/build
     - dev
