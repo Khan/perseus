@@ -1,11 +1,12 @@
+import {
+    registerCoreWidgets,
+    type DropdownWidget,
+    type PerseusWidgetsMap,
+    type UserInputMap,
+} from "@khanacademy/perseus-core";
+
 import {flattenScores, scorePerseusItem, scoreWidgetsFunctional} from "./score";
 import {getExpressionWidget, getTestDropdownWidget} from "./util/test-helpers";
-
-import type {
-    DropdownWidget,
-    PerseusWidgetsMap,
-    UserInputMap,
-} from "@khanacademy/perseus-core";
 
 describe("flattenScores", () => {
     it("defaults to an empty score", () => {
@@ -123,6 +124,10 @@ describe("flattenScores", () => {
 });
 
 describe("scoreWidgetsFunctional", () => {
+    beforeAll(() => {
+        registerCoreWidgets();
+    });
+
     it("returns an empty object when there's no widgets", () => {
         // Arrange / Act
         const result = scoreWidgetsFunctional({}, [], {}, "en");

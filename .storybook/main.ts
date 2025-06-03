@@ -48,12 +48,21 @@ const config: StorybookConfig = {
     // NOTE(kevinb): We customize the padding a bit so that so that stories
     // using the on-screen keypad render correctly.  Storybook adds its own
     // padding as a class to <body> so we use !important to override that.
+    // NOTE(jandrade): We also need to set the font size to 62.5% so that the
+    // font size is consistent with the rest of the codebase. This is because
+    // all Khan frontends now use rems as the default unit for measurements, and
+    // we have defined the base font size to be 10px (62.5% of 16px). We set a
+    // percentage instead of a pixel value so that it scales correctly when the
+    // user changes their font size in the browser.
     previewHead: (head) => `
         ${head}
         <style>
-        html, body {
-            padding: ${spacing.xSmall_8}px !important;
-            padding-left: ${spacing.large_24}px !important;
+        html {
+            font-size: 62.5%;
+        }
+        body {
+            font-size: 1.4rem;
+            padding: 1.6rem 1.6rem 1.6rem 4.8rem !important;
         }
         </style>
     `,

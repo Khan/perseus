@@ -97,6 +97,9 @@ export const ApiOptions = {
         // Indicates whether or not to use mobile styling.
         isMobile: PropTypes.bool,
 
+        // Indicates whether or not to use mobile app styling.
+        isMobileApp: PropTypes.bool,
+
         // A function, called with a bool indicating whether use of the
         // drawing area (scratchpad) should be allowed/disallowed.
         // Previously handled by `Khan.scratchpad.enable/disable`
@@ -112,15 +115,6 @@ export const ApiOptions = {
         //
         // Defaults to `false`.
         canScrollPage: PropTypes.bool,
-
-        // Whether to enable the cross-out feature on multiple-choice radio
-        // widgets. This allows users to note which answers they believe to
-        // be incorrect, to find the answer by process of elimination.
-        //
-        // We plan to roll this out to all call sites eventually, but for
-        // now we have this flag, to add it to Generalized Test Prep first.
-        crossOutEnabled: PropTypes.bool,
-
         // The value in milliseconds by which the local state of content
         // in a editor is delayed before propagated to a prop. For example,
         // when text is typed in the text area of an Editor component,
@@ -136,6 +130,7 @@ export const ApiOptions = {
     defaults: {
         isArticle: false,
         isMobile: false,
+        isMobileApp: false,
         onFocusChange: function () {},
         GroupMetadataEditor: StubTagEditor,
         showAlignmentOptions: false,
@@ -153,7 +148,6 @@ export const ApiOptions = {
         },
         setDrawingAreaAvailable: function () {},
         canScrollPage: false,
-        crossOutEnabled: false,
         editorChangeDelay: 0,
     } as APIOptionsWithDefaults,
 } as const;

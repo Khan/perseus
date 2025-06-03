@@ -1,7 +1,7 @@
 import {
     any,
     pair,
-    isObject,
+    isPlainObject,
     string,
     object,
     constant,
@@ -14,6 +14,7 @@ import {parseDefinitionWidget} from "./definition-widget";
 import {parseDropdownWidget} from "./dropdown-widget";
 import {parseExplanationWidget} from "./explanation-widget";
 import {parseExpressionWidget} from "./expression-widget";
+import {parseFreeResponseWidget} from "./free-response-widget";
 import {parseGradedGroupSetWidget} from "./graded-group-set-widget";
 import {parseGradedGroupWidget} from "./graded-group-widget";
 import {parseGrapherWidget} from "./grapher-widget";
@@ -49,7 +50,7 @@ import type {
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
 
 export const parseWidgetsMap: Parser<PerseusWidgetsMap> = (rawValue, ctx) => {
-    if (!isObject(rawValue)) {
+    if (!isPlainObject(rawValue)) {
         return ctx.failure("PerseusWidgetsMap", rawValue);
     }
 
@@ -110,6 +111,11 @@ const parseWidgetsMapEntry: (
             return parseAndAssign(`explanation ${n}`, parseExplanationWidget);
         case "expression":
             return parseAndAssign(`expression ${n}`, parseExpressionWidget);
+        case "free-response":
+            return parseAndAssign(
+                `free-response ${n}`,
+                parseFreeResponseWidget,
+            );
         case "grapher":
             return parseAndAssign(`grapher ${n}`, parseGrapherWidget);
         case "group":

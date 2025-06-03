@@ -1,6 +1,7 @@
 {
   "name": "jsdiff",
   "private": true,
-  "version": "1.0.0",
-  "main": "jsdiff.js"
+  "version": "1.0.2",
+  "main": "jsdiff.js",
+  "types": "jsdiff.d.ts"
 }

@@ -28,6 +28,8 @@
  *      the new format _as well as_ the old format.
  */
 
+// TODO(LEMS-3080): Don't import KeypadKey here; data-schema.ts is supposed to
+// be independent of everything else.
 import type {KeypadKey} from "./keypad";
 
 // TODO(FEI-4010): Remove `Perseus` prefix for all types here
@@ -134,6 +136,7 @@ export interface PerseusWidgetTypes {
     dropdown: DropdownWidget;
     explanation: ExplanationWidget;
     expression: ExpressionWidget;
+    "free-response": FreeResponseWidget;
     grapher: GrapherWidget;
     "graded-group-set": GradedGroupSetWidget;
     "graded-group": GradedGroupWidget;
@@ -330,6 +333,8 @@ export type DropdownWidget = WidgetOptions<'dropdown', PerseusDropdownWidgetOpti
 export type ExplanationWidget = WidgetOptions<'explanation', PerseusExplanationWidgetOptions>;
 // prettier-ignore
 export type ExpressionWidget = WidgetOptions<'expression', PerseusExpressionWidgetOptions>;
+// prettier-ignore
+export type FreeResponseWidget = WidgetOptions<'free-response', PerseusFreeResponseWidgetOptions>;
 // prettier-ignore
 export type GradedGroupSetWidget = WidgetOptions<'graded-group-set', PerseusGradedGroupSetWidgetOptions>;
 // prettier-ignore
@@ -1250,6 +1255,7 @@ export type PerseusNumberLineWidgetOptions = {
     labelTicks: boolean;
     // Show tick controller
     isTickCtrl?: boolean | null;
+    isInequality: boolean;
     // The range of divisions within the line
     divisionRange: number[];
     // This controls the number (and position) of the tick marks. The number of divisions is constrained to the division range. Note:  The user will be able to specify the number of divisions in a number input.
@@ -1258,8 +1264,10 @@ export type PerseusNumberLineWidgetOptions = {
     snapDivisions: number;
     // This controls the number (and position) of the tick marks; you can either set the number of divisions (2 divisions would split the entire range in two halves), or the tick step (the distance between ticks) and the other value will be updated accordingly. Note:  There is no check to see if labels coordinate with the tick marks, which may be confusing for users if the blue labels and black ticks are off-step.
     tickStep?: number | null;
-    // The correct relative value. default: "eq". options: "eq", "lt", "gt", "le", "ge"
-    correctRel?: string | null;
+    // The answer to a NumberLine widget is a set of real numbers.
+    // `correctRel` expresses the relationship between the numbers in that set
+    // and the value of `correctX`.
+    correctRel?: "eq" | "lt" | "gt" | "le" | "ge";
     // This is the correct answer. The answer is validated (as right or wrong) by using only the end position of the point and the relation (=, &lt;, &gt;, ≤, ≥).
     correctX: number | null;
     // This controls the initial position of the point along the number line
@@ -1678,6 +1686,28 @@ export type PerseusPythonProgramWidgetOptions = {
     height: number;
 };
 
+// This is an object instead of just a string because we think we'll want to add more
+// fields in the future, like a weight, which would allow us to give partial credit
+// and weight each criterion separately.
+export type PerseusFreeResponseWidgetScoringCriterion = {
+    // An English-language description of how to score the response for this criterion.
+    text: string;
+};
+
+export type PerseusFreeResponseWidgetOptions = {
+    // Whether to allow the user to enter an unlimited number of characters.
+    allowUnlimitedCharacters: boolean;
+    // The maximum number of characters that the user can enter.
+    characterLimit: number;
+    // The placeholder text that will be displayed to the user in the text input field.
+    placeholder: string;
+    // The question text that will be displayed to the user.
+    question: string;
+    // A list of scoring criteria for the free response question. This is a list
+    // of things the answer should contain to be considered correct.
+    scoringCriteria: ReadonlyArray<PerseusFreeResponseWidgetScoringCriterion>;
+};
+
 export type PerseusIFrameWidgetOptions = {
     // A URL to display OR a CS Program ID
     url: string;
@@ -1743,6 +1773,7 @@ export type PerseusWidgetOptions =
     | PerseusDropdownWidgetOptions
     | PerseusExplanationWidgetOptions
     | PerseusExpressionWidgetOptions
+    | PerseusFreeResponseWidgetOptions
     | PerseusGradedGroupSetWidgetOptions
     | PerseusGradedGroupWidgetOptions
     | PerseusIFrameWidgetOptions

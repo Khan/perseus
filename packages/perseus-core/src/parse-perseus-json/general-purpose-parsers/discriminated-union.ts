@@ -1,4 +1,4 @@
-import {isObject} from "./is-object";
+import {isPlainObject} from "./is-plain-object";
 
 import type {ParseContext, Parser} from "../parser-types";
 
@@ -13,7 +13,7 @@ type Primitive = number | string | boolean | null | undefined;
  */
 export function discriminatedUnionOn<DK extends string>(discriminantKey: DK) {
     const noMoreBranches: Parser<never> = (raw: unknown, ctx: ParseContext) => {
-        if (!isObject(raw)) {
+        if (!isPlainObject(raw)) {
             return ctx.failure("object", raw);
         }
         return ctx
@@ -63,7 +63,7 @@ function discriminatedUnionBranch<
     parseOtherBranches: Parser<Rest>,
 ): Parser<Variant | Rest> {
     return (raw: unknown, ctx: ParseContext) => {
-        if (!isObject(raw)) {
+        if (!isPlainObject(raw)) {
             return ctx.failure("object", raw);
         }
 

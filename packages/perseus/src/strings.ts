@@ -5,6 +5,9 @@ import type {ErrorCodes} from "@khanacademy/perseus-score";
  * The translated strings that are used to render Perseus.
  */
 export type PerseusStrings = {
+    // `num` is a special variable name that is used to determine the plurality
+    // of the translated string.
+    characterCount: ({used, num}: {used: number; num: number}) => string;
     closeKeypad: string;
     openKeypad: string;
     mathInputBox: string;
@@ -22,6 +25,8 @@ export type PerseusStrings = {
     invalidSelection: string;
     ERROR_TITLE: string;
     ERROR_MESSAGE: string;
+    USER_INPUT_EMPTY: string;
+    USER_INPUT_TOO_LONG: string;
     hints: string;
     getAnotherHint: string;
     deprecatedStandin: string;
@@ -34,7 +39,6 @@ export type PerseusStrings = {
     current: string;
     correct: string;
     correctSelected: string;
-    correctCrossedOut: string;
     incorrect: string;
     incorrectSelected: string;
     hideExplanation: string;
@@ -102,20 +106,17 @@ export type PerseusStrings = {
     chooseAllAnswers: string;
     chooseOneAnswer: string;
     choiceCheckedCorrect: ({letter}: {letter: string}) => string;
-    choiceCrossedOutCorrect: ({letter}: {letter: string}) => string;
     choiceCorrect: ({letter}: {letter: string}) => string;
     choiceCheckedIncorrect: ({letter}: {letter: string}) => string;
-    choiceCrossedOutIncorrect: ({letter}: {letter: string}) => string;
     choiceIncorrect: ({letter}: {letter: string}) => string;
     choiceChecked: ({letter}: {letter: string}) => string;
-    choiceCrossedOut: ({letter}: {letter: string}) => string;
     choice: ({letter}: {letter: string}) => string;
-    crossOut: string;
-    crossOutOption: string;
-    crossOutChoice: ({letter}: {letter: string}) => string;
     bringBack: string;
     openMenuForChoice: ({letter}: {letter: string}) => string;
     letters: string;
+    scrollAnswers: string;
+    scrollStart: string;
+    scrollEnd: string;
     rightArrow: string;
     dontUnderstandUnits: string;
     checkSigFigs: string;
@@ -512,6 +513,12 @@ export type PerseusStrings = {
  * !! Note: Ensure that all escape sequences are double-escaped. (e.g. `\\text` -> `\\\\text`)
  */
 export const strings = {
+    // `num` is a special variable name that is used to determine the plurality
+    // of the translated string.
+    characterCount: {
+        one: "%(used)s / %(num)s Character",
+        other: "%(used)s / %(num)s Characters",
+    },
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
     mathInputBox: "Math input box",
@@ -539,6 +546,8 @@ export const strings = {
         "I'm a computer. I only understand " +
         "multiplication if you use an asterisk " +
         "(*) as the multiplication sign.",
+    USER_INPUT_EMPTY: "Your answer is empty.",
+    USER_INPUT_TOO_LONG: "Please shorten your response.",
     WRONG_CASE_ERROR:
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
@@ -558,7 +567,6 @@ export const strings = {
     current: "Current",
     correct: "Correct",
     correctSelected: "Correct (selected)",
-    correctCrossedOut: "Correct (but you crossed it out)",
     incorrect: "Incorrect",
     incorrectSelected: "Incorrect (selected)",
     hideExplanation: "Hide explanation",
@@ -635,17 +643,11 @@ export const strings = {
     chooseAllAnswers: "Choose all answers that apply:",
     chooseOneAnswer: "Choose 1 answer:",
     choiceCheckedCorrect: "(Choice %(letter)s, Checked, Correct)",
-    choiceCrossedOutCorrect: "(Choice %(letter)s, Crossed out, Correct)",
     choiceCorrect: "(Choice %(letter)s, Correct)",
     choiceCheckedIncorrect: "(Choice %(letter)s, Checked, Incorrect)",
-    choiceCrossedOutIncorrect: "(Choice %(letter)s, Crossed out, Incorrect)",
     choiceIncorrect: "(Choice %(letter)s, Incorrect)",
     choiceChecked: "(Choice %(letter)s, Checked)",
-    choiceCrossedOut: "(Choice %(letter)s, Crossed out)",
     choice: "(Choice %(letter)s)",
-    crossOut: "Cross out",
-    crossOutOption: "Cross out option",
-    crossOutChoice: "Cross out Choice %(letter)s",
     bringBack: "Bring back",
     openMenuForChoice: "Open menu for Choice %(letter)s",
     letters: {
@@ -653,6 +655,9 @@ export const strings = {
             "This is a list of single-character labels that will appear in front of multiple-choice options. For instance, a multiple-choice question with three options would display (A) first option (B) second option (C) third option. There must be spaces between each of the different characters. The characters will show up next to options in the order that they are listed here. Most multiple choice questions have 5 or fewer options.",
         message: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",
     },
+    scrollAnswers: "Scroll Answers",
+    scrollStart: "Scroll to view start of the content",
+    scrollEnd: "Scroll to view the end of the content",
     rightArrow: "Reaction arrow pointing to the right.",
     dontUnderstandUnits: "I couldn't understand those units.",
     checkSigFigs: "Check your significant figures.",
@@ -1112,6 +1117,10 @@ export const strings = {
  * Mock strings for the Perseus package, to be used for tests and Storybook.
  */
 export const mockStrings: PerseusStrings = {
+    characterCount: ({used, num}) =>
+        num === 1
+            ? `${used} / ${num} Character`
+            : `${used} / ${num} Characters`,
     closeKeypad: "close math keypad",
     openKeypad: "open math keypad",
     mathInputBox: "Math input box",
@@ -1139,6 +1148,8 @@ export const mockStrings: PerseusStrings = {
         "I'm a computer. I only understand " +
         "multiplication if you use an asterisk " +
         "(*) as the multiplication sign.",
+    USER_INPUT_EMPTY: "Your answer is empty.",
+    USER_INPUT_TOO_LONG: "Please shorten your response.",
     WRONG_CASE_ERROR:
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
@@ -1158,7 +1169,6 @@ export const mockStrings: PerseusStrings = {
     current: "Current",
     correct: "Correct",
     correctSelected: "Correct (selected)",
-    correctCrossedOut: "Correct (but you crossed it out)",
     incorrect: "Incorrect",
     incorrectSelected: "Incorrect (selected)",
     hideExplanation: "Hide explanation",
@@ -1226,23 +1236,18 @@ export const mockStrings: PerseusStrings = {
     chooseAllAnswers: "Choose all answers that apply:",
     chooseOneAnswer: "Choose 1 answer:",
     choiceCheckedCorrect: ({letter}) => `(Choice ${letter}, Checked, Correct)`,
-    choiceCrossedOutCorrect: ({letter}) =>
-        `(Choice ${letter}, Crossed out, Correct)`,
     choiceCorrect: ({letter}) => `(Choice ${letter}, Correct)`,
     choiceCheckedIncorrect: ({letter}) =>
         `(Choice ${letter}, Checked, Incorrect)`,
-    choiceCrossedOutIncorrect: ({letter}) =>
-        `(Choice ${letter}, Crossed out, Incorrect)`,
     choiceIncorrect: ({letter}) => `(Choice ${letter}, Incorrect)`,
     choiceChecked: ({letter}) => `(Choice ${letter}, Checked)`,
-    choiceCrossedOut: ({letter}) => `(Choice ${letter}, Crossed out)`,
     choice: ({letter}) => `(Choice ${letter})`,
-    crossOut: "Cross out",
-    crossOutOption: "Cross out option",
-    crossOutChoice: ({letter}) => `Cross out Choice ${letter}`,
     bringBack: "Bring back",
     openMenuForChoice: ({letter}) => `Open menu for Choice ${letter}`,
     letters: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",
+    scrollAnswers: "Scroll Answers",
+    scrollStart: "Scroll to view start of the content",
+    scrollEnd: "Scroll to view the end of the content",
     rightArrow: "Reaction arrow pointing to the right.",
     dontUnderstandUnits: "I couldn't understand those units.",
     checkSigFigs: "Check your significant figures.",
@@ -1459,6 +1464,8 @@ const errorToString: ErrorStringMap = {
     CHOOSE_CORRECT_NUM_ERROR: "chooseCorrectNum",
     NOT_NONE_ABOVE_ERROR: "notNoneOfTheAbove",
     FILL_ALL_CELLS_ERROR: "fillAllCells",
+    USER_INPUT_EMPTY: "USER_INPUT_EMPTY",
+    USER_INPUT_TOO_LONG: "USER_INPUT_TOO_LONG",
 };
 
 export function mapErrorToString(

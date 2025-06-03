@@ -4,7 +4,11 @@
 
 import _ from "underscore";
 
-type RNG = () => number;
+/**
+ * A random number generator. Should return floats in the interval [0, 1), like
+ * Math.random().
+ */
+export type RNG = () => number;
 
 export const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
     let randomSeed = seed;
@@ -22,28 +26,16 @@ export const seededRNG: (seed: number) => RNG = function (seed: number): RNG {
     };
 };
 
-// Shuffle an array using a given random seed or function.
-// If `ensurePermuted` is true, the input and output are guaranteed to be
-// distinct permutations.
+/**
+ * Shuffle an array using a given random seed or function.
+ * If `ensurePermuted` is true, the input and output are guaranteed to be
+ * distinct permutations.
+ */
 export function shuffle<T>(
     array: ReadonlyArray<T>,
     randomSeed: number | RNG,
     ensurePermuted = false,
 ): T[] {
-    // Always return a copy of the input array
-    const shuffled = [...array];
-
-    // Handle edge cases (input array is empty or uniform)
-    if (
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        !shuffled.length ||
-        _.all(shuffled, function (value) {
-            return _.isEqual(value, shuffled[0]);
-        })
-    ) {
-        return shuffled;
-    }
-
     let random;
     if (typeof randomSeed === "function") {
         random = randomSeed;
@@ -51,18 +43,55 @@ export function shuffle<T>(
         random = seededRNG(randomSeed);
     }
 
-    do {
-        // Fischer-Yates shuffle
-        for (let top = shuffled.length; top > 0; top--) {
-            const newEnd = Math.floor(random() * top);
-            const temp = shuffled[newEnd];
+    function isValidShuffle(shuffled: readonly T[]) {
+        return ensurePermuted ? !_.isEqual(array, shuffled) : true;
+    }
 
-            shuffled[newEnd] = shuffled[top - 1];
-            shuffled[top - 1] = temp;
+    return constrainedShuffle(array, random, isValidShuffle);
+}
+
+export function constrainedShuffle<T>(
+    array: readonly T[],
+    random: RNG,
+    isValidShuffle: (shuffled: readonly T[]) => boolean,
+): T[] {
+    const maxIterations = 100;
+    const shuffled = [...array];
+
+    // Return early if all elements are equal -- both for performance, and
+    // to avoid going into an infinite loop in the (common) case where
+    // isValidShuffle is checking the order of the values.
+    if (shuffled.every((value) => _.isEqual(value, shuffled[0]))) {
+        return shuffled;
+    }
+
+    for (let i = 0; i < maxIterations; i++) {
+        shuffleInPlace(shuffled, random);
+        if (isValidShuffle(shuffled)) {
+            return shuffled;
         }
-    } while (ensurePermuted && _.isEqual(array, shuffled));
+    }
 
-    return shuffled;
+    throw new Error(
+        `constrainedShuffle: constraint not met after ${maxIterations} attempts`,
+    );
+}
+
+function shuffleInPlace<T>(a: T[], random: RNG): void {
+    // The Fisher-Yates shuffling algorithm. See:
+    // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+    for (let i = a.length - 1; i > 0; i--) {
+        const k = randomIntInRange(0, i, random);
+        [a[k], a[i]] = [a[i], a[k]];
+    }
+}
+
+export function randomIntInRange(
+    min: number,
+    max: number,
+    random: RNG,
+): number {
+    return Math.floor(random() * (max - min + 1)) + min;
 }
 
 export const random: RNG = seededRNG(new Date().getTime() & 0xffffffff);

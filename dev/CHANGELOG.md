@@ -1,5 +1,86 @@
 # @khanacademy/perseus-dev-ui
 
+## 5.4.12
+
+### Patch Changes
+
+-   [#2519](https://github.com/Khan/perseus/pull/2519) [`cf71982e0`](https://github.com/Khan/perseus/commit/cf71982e0fe9f831456d760fc4e98b1e93748c4f) Thanks [@dependabot](https://github.com/apps/dependabot)! - Updating wonderblock dependencies.
+
+-   Updated dependencies [[`03669d385`](https://github.com/Khan/perseus/commit/03669d385548e1d7ffde28c2210f637cf2b2d16f), [`52ec0bfcb`](https://github.com/Khan/perseus/commit/52ec0bfcbb71242c7a0a0ab34c7da0e9db77ed21), [`d1b6d9a3c`](https://github.com/Khan/perseus/commit/d1b6d9a3cab145267256e3d4acc373361957ffe0), [`86ac76f79`](https://github.com/Khan/perseus/commit/86ac76f79c2fd4ee8b822393f89a064af92c0339), [`ff2f1664d`](https://github.com/Khan/perseus/commit/ff2f1664db934d862570fd9b840f799a2f23bbf7), [`6b747d140`](https://github.com/Khan/perseus/commit/6b747d1402cd62d9c59b2fc6f2371ec0a453a63d), [`efb99e901`](https://github.com/Khan/perseus/commit/efb99e9016418875a3b3713c8077a9465a5b41c6), [`3ec658e38`](https://github.com/Khan/perseus/commit/3ec658e387d2f2193f8151a9d4cb285e85f13202), [`3e162e616`](https://github.com/Khan/perseus/commit/3e162e6168960ff1a1c63ec0e982422a113cbe31), [`0913e9397`](https://github.com/Khan/perseus/commit/0913e93973394270a474388f4c1e7c795027b015), [`dc864aca8`](https://github.com/Khan/perseus/commit/dc864aca8ebf3bb442b1519f67d1a095d9f89243), [`8ece223ef`](https://github.com/Khan/perseus/commit/8ece223ef58ce23ccd244b6fb717193019e2c5d0), [`cf71982e0`](https://github.com/Khan/perseus/commit/cf71982e0fe9f831456d760fc4e98b1e93748c4f), [`239be3f6c`](https://github.com/Khan/perseus/commit/239be3f6ccbbb89f52acf313bb4afbe359c1cee5), [`0d46a8599`](https://github.com/Khan/perseus/commit/0d46a85999557ca17daad67cb1663fe88a33a3ae), [`1c49ad243`](https://github.com/Khan/perseus/commit/1c49ad243756b4519c57603c9d098cbfe18baa15)]:
+    -   @khanacademy/perseus-core@12.1.0
+    -   @khanacademy/math-input@26.0.0
+    -   @khanacademy/kas@2.0.5
+    -   @khanacademy/kmath@2.0.11
+    -   @khanacademy/perseus-linter@3.0.11
+    -   @khanacademy/pure-markdown@2.0.5
+    -   @khanacademy/simple-markdown@2.0.5
+
+## 5.4.11
+
+### Patch Changes
+
+-   Updated dependencies [[`998d12113`](https://github.com/Khan/perseus/commit/998d121139c4017e557c0bd33a63fa9154119d6f)]:
+    -   @khanacademy/math-input@25.1.6
+
+## 5.4.10
+
+### Patch Changes
+
+-   Updated dependencies [[`25b24e04c`](https://github.com/Khan/perseus/commit/25b24e04c992b3993315a7af6b330b3aef2e8698), [`2f6d2d042`](https://github.com/Khan/perseus/commit/2f6d2d0424940fd54e6ba4970f6f70bee38935f8), [`fc4e00e75`](https://github.com/Khan/perseus/commit/fc4e00e75e7633f396245dd08126023f255676ed), [`15025d441`](https://github.com/Khan/perseus/commit/15025d4412617a83c4cdf553be7e6aff9f3101ab), [`8f3a7c5b4`](https://github.com/Khan/perseus/commit/8f3a7c5b4a2c57f5b0e55f2804980e77418e37e8), [`6b3bc5c51`](https://github.com/Khan/perseus/commit/6b3bc5c51f6024442469753a68f36d2b8b8885bd), [`89d7c5a2f`](https://github.com/Khan/perseus/commit/89d7c5a2ff3bfc30a9fbaf5b470330952dac0702), [`68de23d36`](https://github.com/Khan/perseus/commit/68de23d361b369a9b437f2908f06013e46c07fd7), [`3cb963b9f`](https://github.com/Khan/perseus/commit/3cb963b9f786f97ace092318fd14fd677ceb9f2f)]:
+    -   @khanacademy/perseus-core@12.0.0
+    -   @khanacademy/kmath@2.0.10
+    -   @khanacademy/math-input@25.1.5
+    -   @khanacademy/perseus-linter@3.0.10
+
+## 5.4.9
+
+### Patch Changes
+
+-   [#2472](https://github.com/Khan/perseus/pull/2472) [`3389e0611`](https://github.com/Khan/perseus/commit/3389e06111b2c801fba6c34ed4e5bdc747ef1ed1) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Remove eslint-plugin-functional linter
+
+-   Updated dependencies [[`536de9b97`](https://github.com/Khan/perseus/commit/536de9b973a72841c1e7db9398510781bf2deea4), [`b5f1af8fc`](https://github.com/Khan/perseus/commit/b5f1af8fc66ae0be2b2aa89ffe4f47c87b050309), [`4fae24098`](https://github.com/Khan/perseus/commit/4fae24098a0aa73f1ad6b3f0545381c199c9df25), [`6e3991082`](https://github.com/Khan/perseus/commit/6e3991082cf41d6dcf397adcc288a966091a9569), [`3389e0611`](https://github.com/Khan/perseus/commit/3389e06111b2c801fba6c34ed4e5bdc747ef1ed1), [`7611266b8`](https://github.com/Khan/perseus/commit/7611266b853b68fee3e13a4ea28c2dcfb97b3d1e), [`077d2d60e`](https://github.com/Khan/perseus/commit/077d2d60e96ef77e7cae87cf0244b5c5f073e534)]:
+    -   @khanacademy/perseus-core@11.0.0
+    -   @khanacademy/kas@2.0.4
+    -   @khanacademy/kmath@2.0.9
+    -   @khanacademy/math-input@25.1.4
+    -   @khanacademy/perseus-linter@3.0.9
+    -   @khanacademy/pure-markdown@2.0.4
+    -   @khanacademy/simple-markdown@2.0.4
+
+## 5.4.8
+
+### Patch Changes
+
+-   Updated dependencies [[`a87ba4e37`](https://github.com/Khan/perseus/commit/a87ba4e3762bd8b5d670a6320f3d8190f2e0da29)]:
+    -   @khanacademy/perseus-core@10.1.0
+    -   @khanacademy/kmath@2.0.8
+    -   @khanacademy/math-input@25.1.3
+    -   @khanacademy/perseus-linter@3.0.8
+
+## 5.4.7
+
+### Patch Changes
+
+-   Updated dependencies [[`4c8030081`](https://github.com/Khan/perseus/commit/4c803008155f7c20c88949c9caf4f9c9a2fd399e)]:
+    -   @khanacademy/math-input@25.1.2
+
+## 5.4.6
+
+### Patch Changes
+
+-   [#2414](https://github.com/Khan/perseus/pull/2414) [`e7807485e`](https://github.com/Khan/perseus/commit/e7807485e0d33621efa4468933e6c77ce9a53def) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix dependencies so that the package correctly depends on all of the packages it uses
+
+*   [#2438](https://github.com/Khan/perseus/pull/2438) [`3f32593c9`](https://github.com/Khan/perseus/commit/3f32593c9dd46140b4d8891d50e34f97e751783f) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Add a linter to prevent accidental mutation of object and array values
+
+*   Updated dependencies [[`a2701f002`](https://github.com/Khan/perseus/commit/a2701f00214499cc7ab7730407f70e957d1adf7b), [`558cc1cc6`](https://github.com/Khan/perseus/commit/558cc1cc6ad468ba6538648c57d47df5704e6858), [`79a84d31b`](https://github.com/Khan/perseus/commit/79a84d31b54289ea69454db7f857896330c1c5d8), [`ca4df1cf8`](https://github.com/Khan/perseus/commit/ca4df1cf8c6c28cfb1d45dc94ec7eee61dfef777), [`4282de2b2`](https://github.com/Khan/perseus/commit/4282de2b214e15a7043ee3786c1df11b346c2e97), [`e7807485e`](https://github.com/Khan/perseus/commit/e7807485e0d33621efa4468933e6c77ce9a53def), [`4184314fe`](https://github.com/Khan/perseus/commit/4184314fe3e1e48ea81429ff78184530d90d31ee), [`1f88cc191`](https://github.com/Khan/perseus/commit/1f88cc1912d9b33b899512ee9052bec10227a4c1), [`22e7de307`](https://github.com/Khan/perseus/commit/22e7de307d3662181890abed0723e463b15fcd5a), [`c27162249`](https://github.com/Khan/perseus/commit/c271622490d64f359b8ff8e2fcafc35229c60832), [`28c395f8e`](https://github.com/Khan/perseus/commit/28c395f8e0a7f9c11b85fd42ce854fcb931a3b89), [`bfa5ce68a`](https://github.com/Khan/perseus/commit/bfa5ce68a2c7854261f3f49822fdc159fca07993), [`b7d3b9eaf`](https://github.com/Khan/perseus/commit/b7d3b9eafd9cfddc46931c4591de36c9097ec6be), [`f1662239e`](https://github.com/Khan/perseus/commit/f1662239e40b0db4fd75823746a7fc37662f7494), [`aa7b1b621`](https://github.com/Khan/perseus/commit/aa7b1b621efd75b54419b21bc998caa2e241097f), [`1b773e2a0`](https://github.com/Khan/perseus/commit/1b773e2a0bff73072515649027066d498d33a931), [`3f32593c9`](https://github.com/Khan/perseus/commit/3f32593c9dd46140b4d8891d50e34f97e751783f)]:
+    -   @khanacademy/perseus-core@10.0.0
+    -   @khanacademy/kas@2.0.3
+    -   @khanacademy/kmath@2.0.7
+    -   @khanacademy/math-input@25.1.1
+    -   @khanacademy/perseus-linter@3.0.7
+    -   @khanacademy/pure-markdown@2.0.3
+    -   @khanacademy/simple-markdown@2.0.3
+
 ## 5.4.5
 
 ### Patch Changes

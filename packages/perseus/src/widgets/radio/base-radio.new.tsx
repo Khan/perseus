@@ -1,8 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {
-    usesNumCorrect,
-    type PerseusRadioWidgetOptions,
-} from "@khanacademy/perseus-core";
+import {type PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
@@ -11,6 +8,7 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
+import ScrollableView from "../../components/scrollable-view";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
 import * as styleConstants from "../../styles/constants";
 import mediaQueries from "../../styles/media-queries";
@@ -19,8 +17,8 @@ import {scrollElementIntoView} from "../../util/scroll-utils";
 
 import ChoiceNoneAbove from "./choice-none-above.new";
 import Choice from "./choice.new";
+import {getInstructionsText} from "./utils/string-utils";
 
-import type {PerseusStrings} from "../../strings";
 import type {APIOptions} from "../../types";
 import type {StyleDeclaration} from "aphrodite";
 
@@ -29,7 +27,6 @@ const {captureScratchpadTouchStart} = Util;
 // exported for tests
 export type ChoiceType = {
     checked: boolean;
-    crossedOut: boolean;
     content: React.ReactNode;
     rationale: React.ReactNode;
     hasRationale: boolean;
@@ -42,10 +39,6 @@ export type ChoiceType = {
     revealNoneOfTheAbove: boolean;
     disabled: boolean;
 };
-
-export type FocusFunction = (
-    choiceIndex?: number | null | undefined,
-) => boolean;
 
 type Props = {
     apiOptions: APIOptions;
@@ -61,39 +54,14 @@ type Props = {
     reviewModeRubric?: PerseusRadioWidgetOptions | null;
     reviewMode: boolean;
     // A callback indicating that this choice has changed. Its argument is
-    // an object with two keys: `checked` and `crossedOut`. Each contains
-    // an array of boolean values, specifying the new checked and
-    // crossed-out value of each choice.
-    onChange: (newValues: {
-        checked: ReadonlyArray<boolean>;
-        crossedOut: ReadonlyArray<boolean>;
-    }) => void;
-    registerFocusFunction?: (arg1: FocusFunction) => void;
+    // an object with a `checked` key. It contains an array of boolean values,
+    // specifying the new checked value of each choice.
+    onChange: (newValues: {checked: ReadonlyArray<boolean>}) => void;
     // Whether this widget was the most recently used widget in this
     // Renderer. Determines whether we'll auto-scroll the page upon
     // entering review mode.
     isLastUsedWidget?: boolean;
 };
-
-function getInstructionsText(
-    multipleSelect: boolean,
-    countChoices: boolean | null | undefined,
-    numCorrect: number,
-    strings: PerseusStrings,
-): string {
-    if (multipleSelect) {
-        // using usesNumCorrect to make sure this logic stays in sync
-        // with getRadioPublicWidgetOptions logic
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (usesNumCorrect(multipleSelect, !!countChoices, numCorrect)) {
-            return strings.chooseNumAnswers({
-                numCorrect: String(numCorrect),
-            });
-        }
-        return strings.chooseAllAnswers;
-    }
-    return strings.chooseOneAnswer;
-}
 
 /**
  * The BaseRadio component is the core component for the radio widget.
@@ -105,7 +73,7 @@ function getInstructionsText(
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-const BaseRadio = function ({
+const BaseRadio = ({
     apiOptions,
     reviewModeRubric,
     reviewMode,
@@ -117,13 +85,14 @@ const BaseRadio = function ({
     numCorrect,
     isLastUsedWidget,
     onChange,
-    registerFocusFunction,
-}: Props): React.ReactElement {
+}: Props): React.ReactElement => {
     const {strings} = usePerseusI18n();
 
     // useEffect doesn't have previous props
-    const prevReviewModeRubric = useRef();
-    const choiceRefs = useRef([]);
+    const prevReviewModeRubric = useRef<
+        PerseusRadioWidgetOptions | undefined | null
+    >();
+    const choiceRefs = useRef<Array<React.RefObject<HTMLButtonElement>>>([]);
 
     useEffect(() => {
         // Switching into review mode can sometimes cause the selected answer
@@ -143,7 +112,6 @@ const BaseRadio = function ({
             apiOptions.canScrollPage &&
             isLastUsedWidget &&
             reviewModeRubric &&
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             !prevReviewModeRubric.current
         ) {
             const checkedIndex = choices.findIndex((c) => c.checked);
@@ -152,9 +120,7 @@ const BaseRadio = function ({
                 // note(matthew): we know this is only getting passed
                 // to a WB Clickable button, so we force it to be of
                 // type HTMLButtonElement
-                // @ts-expect-error - TS2339 - Property 'current' does not exist on type 'never'.
-                const anyNode = ReactDOM.findDOMNode(ref.current) as any;
-                const buttonNode = anyNode as
+                const buttonNode = ReactDOM.findDOMNode(ref.current) as
                     | HTMLButtonElement
                     | null
                     | undefined;
@@ -164,7 +130,6 @@ const BaseRadio = function ({
             }
         }
 
-        // @ts-expect-error - TS2322 - Type 'PerseusRadioWidgetOptions | undefined' is not assignable to type 'undefined'.
         prevReviewModeRubric.current = reviewModeRubric;
     }, [apiOptions, choices, isLastUsedWidget, reviewModeRubric]);
 
@@ -179,14 +144,12 @@ const BaseRadio = function ({
     // So, given the new values for a particular choice, compute the new values
     // for all choices, and pass them to `onChange`.
     //
-    // `newValues` is an object with two keys: `checked` and `crossedOut`. Each
-    // contains a boolean value specifying the new checked and crossed-out
-    // value of this choice.
+    // `newValues` is an object with a `checked` key. It contains a boolean value
+    // specifying the new checked value of this choice.
     function updateChoice(
         choiceIndex: number,
         newValues: Readonly<{
             checked: boolean;
-            crossedOut: boolean;
         }>,
     ): void {
         // Get the baseline `checked` values. If we're checking a new answer
@@ -199,37 +162,13 @@ const BaseRadio = function ({
             newCheckedList = choices.map((c) => c.checked);
         }
 
-        // Get the baseline `crossedOut` values.
-        const newCrossedOutList = choices.map((c) => c.crossedOut);
-
-        // Update this choice's `checked` and `crossedOut` values.
+        // Update this choice's `checked` values.
         newCheckedList[choiceIndex] = newValues.checked;
-        newCrossedOutList[choiceIndex] = newValues.crossedOut;
 
         onChange({
             checked: newCheckedList,
-            crossedOut: newCrossedOutList,
         });
     }
-
-    // register a callback with the parent that allows
-    // the parent to focus an individual choice
-    registerFocusFunction?.((choiceIndex: number | null | undefined) => {
-        const ref = choiceRefs.current[choiceIndex || 0];
-        // note(matthew): we know this is only getting passed
-        // to a WB Clickable button, so we force it to be of
-        // type HTMLButtonElement
-        // @ts-expect-error - TS2339 - Property 'current' does not exist on type 'never'.
-        const anyNode = ReactDOM.findDOMNode(ref.current) as any;
-        const buttonNode = anyNode as HTMLButtonElement | null | undefined;
-
-        if (buttonNode) {
-            buttonNode.focus();
-        } else {
-            return false;
-        }
-        return true;
-    });
 
     // some commonly used shorthands
     const isMobile = apiOptions.isMobile;
@@ -256,12 +195,12 @@ const BaseRadio = function ({
         "instructions",
         css(styles.instructions, isMobile && styles.instructionsMobile),
     );
-    const instructions = getInstructionsText(
+    const instructions = getInstructionsText({
         multipleSelect,
         countChoices,
         numCorrect,
         strings,
-    );
+    });
 
     const responsiveClassName = css(styles.responsiveFieldset);
     const fieldset = (
@@ -273,145 +212,149 @@ const BaseRadio = function ({
             <div className={instructionsClassName} aria-hidden="true">
                 {instructions}
             </div>
-            <ul className={className} style={{listStyle: "none"}}>
-                {choices.map((choice, i) => {
-                    let Element = Choice;
-                    const ref = React.createRef<any>();
-                    // @ts-expect-error - TS2322 - Type 'RefObject<unknown>' is not assignable to type 'never'.
-                    choiceRefs.current[i] = ref;
-                    const elementProps = {
-                        apiOptions: apiOptions,
-                        multipleSelect: multipleSelect,
-                        checked: choice.checked,
-                        crossedOut: choice.crossedOut,
-                        previouslyAnswered: choice.previouslyAnswered,
-                        reviewMode,
-                        correct: choice.correct,
-                        rationale: choice.rationale,
-                        content: choice.content,
-                        disabled: apiOptions.readOnly || choice.disabled,
-                        showCorrectness: reviewMode || !!choice.showCorrectness,
-                        showRationale:
-                            choice.hasRationale &&
-                            (reviewMode || choice.showRationale),
-                        pos: i,
-                        onChange: (newValues) => {
-                            // editMode selection is handled in clickHandler
-                            if (editMode) {
-                                return;
-                            }
+            <ScrollableView overflowX="auto">
+                <ul className={className} style={styles.fieldSetContent}>
+                    {choices.map((choice, i) => {
+                        let Element = Choice;
+                        const ref = React.createRef<any>();
 
-                            updateChoice(i, newValues);
-                        },
-                    } as const;
+                        choiceRefs.current[i] = ref;
 
-                    if (choice.isNoneOfTheAbove) {
-                        Element = ChoiceNoneAbove;
-                        _.extend(elementProps, {
-                            showContent: choice.revealNoneOfTheAbove,
-                        });
-                    }
-
-                    const nextChoice = choices[i + 1];
-                    const nextChoiceHighlighted =
-                        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                        !!nextChoice && nextChoice.highlighted;
-
-                    const aphroditeClassName = (checked: boolean) => {
-                        // Whether or not to show correctness borders
-                        // for this choice and the next choice.
-                        return css(
-                            styles.item,
-                            styles.responsiveItem,
-                            checked && styles.selectedItem,
-                            checked &&
-                                choice.highlighted &&
-                                styles.aboveBackdrop,
-                            checked &&
-                                choice.highlighted &&
-                                apiOptions.isMobile &&
-                                styles.aboveBackdropMobile,
-                            nextChoiceHighlighted &&
-                                apiOptions.isMobile &&
-                                styles.nextHighlighted,
-                        );
-                    };
-
-                    // HACK(abdulrahman): Preloads the selection-state
-                    // css because of a bug that causes iOS to lag
-                    // when selecting the button for the first time.
-                    aphroditeClassName(true);
-
-                    let correctnessClass;
-                    // reviewMode is only true if there's a rubric
-                    // but TypeScript doesn't understand that
-                    if (reviewMode && reviewModeRubric) {
-                        correctnessClass = reviewModeRubric.choices[i].correct
-                            ? ApiClassNames.CORRECT
-                            : ApiClassNames.INCORRECT;
-                    }
-                    const className = classNames(
-                        aphroditeClassName(choice.checked),
-                        // TODO(aria): Make test case for these API
-                        // classNames
-                        ApiClassNames.RADIO.OPTION,
-                        choice.checked && ApiClassNames.RADIO.SELECTED,
-                        correctnessClass,
-                    );
-
-                    // In edit mode, the Choice renders a Div in order to
-                    // allow for the contentEditable area to be selected
-                    // (label forces any clicks inside to select the input
-                    // element) We have to add some extra behavior to make
-                    // sure that we can still check the choice.
-                    let listElem: HTMLLIElement | null = null;
-                    let clickHandler:
-                        | React.MouseEventHandler<HTMLLIElement>
-                        | undefined;
-                    if (editMode) {
-                        clickHandler = (e: any) => {
-                            // Traverse the parent nodes of the clicked
-                            // element.
-                            let elem = e.target;
-                            while (elem && elem !== listElem) {
-                                // If the clicked element is inside of the
-                                // radio icon, then we want to trigger the
-                                // check by flipping the choice of the icon.
-                                if (elem.getAttribute("data-is-radio-icon")) {
-                                    updateChoice(i, {
-                                        checked: !choice.checked,
-                                        crossedOut: choice.crossedOut,
-                                    });
+                        const elementProps = {
+                            apiOptions: apiOptions,
+                            multipleSelect: multipleSelect,
+                            checked: choice.checked,
+                            previouslyAnswered: choice.previouslyAnswered,
+                            reviewMode,
+                            correct: choice.correct,
+                            rationale: choice.rationale,
+                            content: choice.content,
+                            disabled: apiOptions.readOnly || choice.disabled,
+                            showCorrectness:
+                                reviewMode || !!choice.showCorrectness,
+                            showRationale:
+                                choice.hasRationale &&
+                                (reviewMode || choice.showRationale),
+                            pos: i,
+                            onChange: (newValues) => {
+                                // editMode selection is handled in clickHandler
+                                if (editMode) {
                                     return;
                                 }
-                                elem = elem.parentNode;
-                            }
-                        };
-                    }
 
-                    // TODO(mattdr): Index isn't a *good* choice of key
-                    // here; is there a better one? Can we use choice
-                    // content somehow? Would changing our choice of key
-                    // somehow break something happening inside a choice's
-                    // child Renderers, by changing when we mount/unmount?
-                    return (
-                        // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
-                        <li
-                            key={i}
-                            ref={(e) => (listElem = e)}
-                            className={className}
-                            onClick={clickHandler}
-                            onTouchStart={
-                                labelWrap
-                                    ? undefined
-                                    : captureScratchpadTouchStart
-                            }
-                        >
-                            <Element {...elementProps} ref={ref} />
-                        </li>
-                    );
-                })}
-            </ul>
+                                updateChoice(i, newValues);
+                            },
+                        } as const;
+
+                        if (choice.isNoneOfTheAbove) {
+                            Element = ChoiceNoneAbove;
+                            _.extend(elementProps, {
+                                showContent: choice.revealNoneOfTheAbove,
+                            });
+                        }
+
+                        const nextChoice = choices[i + 1];
+                        const nextChoiceHighlighted =
+                            nextChoice?.highlighted || false;
+
+                        const aphroditeClassName = (checked: boolean) => {
+                            // Whether or not to show correctness borders
+                            // for this choice and the next choice.
+                            return css(
+                                styles.item,
+                                styles.responsiveItem,
+                                checked && styles.selectedItem,
+                                checked &&
+                                    choice.highlighted &&
+                                    styles.aboveBackdrop,
+                                checked &&
+                                    choice.highlighted &&
+                                    apiOptions.isMobile &&
+                                    styles.aboveBackdropMobile,
+                                nextChoiceHighlighted &&
+                                    apiOptions.isMobile &&
+                                    styles.nextHighlighted,
+                            );
+                        };
+
+                        // HACK(abdulrahman): Preloads the selection-state
+                        // css because of a bug that causes iOS to lag
+                        // when selecting the button for the first time.
+                        aphroditeClassName(true);
+
+                        let correctnessClass;
+                        // reviewMode is only true if there's a rubric
+                        // but TypeScript doesn't understand that
+                        if (reviewMode && reviewModeRubric) {
+                            correctnessClass = reviewModeRubric.choices[i]
+                                .correct
+                                ? ApiClassNames.CORRECT
+                                : ApiClassNames.INCORRECT;
+                        }
+                        const className = classNames(
+                            aphroditeClassName(choice.checked),
+                            // TODO(aria): Make test case for these API
+                            // classNames
+                            ApiClassNames.RADIO.OPTION,
+                            choice.checked && ApiClassNames.RADIO.SELECTED,
+                            correctnessClass,
+                        );
+
+                        // In edit mode, the Choice renders a Div in order to
+                        // allow for the contentEditable area to be selected
+                        // (label forces any clicks inside to select the input
+                        // element) We have to add some extra behavior to make
+                        // sure that we can still check the choice.
+                        let listElem: HTMLLIElement | null = null;
+                        let clickHandler:
+                            | React.MouseEventHandler<HTMLLIElement>
+                            | undefined;
+                        if (editMode) {
+                            clickHandler = (e: any) => {
+                                // Traverse the parent nodes of the clicked
+                                // element.
+                                let elem = e.target;
+                                while (elem && elem !== listElem) {
+                                    // If the clicked element is inside of the
+                                    // radio icon, then we want to trigger the
+                                    // check by flipping the choice of the icon.
+                                    if (
+                                        elem.getAttribute("data-is-radio-icon")
+                                    ) {
+                                        updateChoice(i, {
+                                            checked: !choice.checked,
+                                        });
+                                        return;
+                                    }
+                                    elem = elem.parentNode;
+                                }
+                            };
+                        }
+
+                        // TODO(mattdr): Index isn't a *good* choice of key
+                        // here; is there a better one? Can we use choice
+                        // content somehow? Would changing our choice of key
+                        // somehow break something happening inside a choice's
+                        // child Renderers, by changing when we mount/unmount?
+                        return (
+                            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
+                            <li
+                                key={i}
+                                ref={(e) => (listElem = e)}
+                                className={className}
+                                onClick={clickHandler}
+                                onTouchStart={
+                                    labelWrap
+                                        ? undefined
+                                        : captureScratchpadTouchStart
+                                }
+                            >
+                                <Element {...elementProps} ref={ref} />
+                            </li>
+                        );
+                    })}
+                </ul>
+            </ScrollableView>
         </fieldset>
     );
 
@@ -419,6 +362,8 @@ const BaseRadio = function ({
     // an issue especially on phones.
     return <div className={css(styles.responsiveContainer)}>{fieldset}</div>;
 };
+
+export default BaseRadio;
 
 const styles: StyleDeclaration = StyleSheet.create({
     instructions: {
@@ -451,13 +396,20 @@ const styles: StyleDeclaration = StyleSheet.create({
     },
 
     responsiveRadioContainer: {
+        display: "inline-block",
+        minWidth: "max-content",
+        width: "100%",
         borderBottom: `1px solid ${styleConstants.radioBorderColor}`,
         borderTop: `1px solid ${styleConstants.radioBorderColor}`,
-        width: "auto",
+        scrollbarWidth: "thin",
         [mediaQueries.smOrSmaller]: {
-            marginLeft: styleConstants.negativePhoneMargin,
-            marginRight: styleConstants.negativePhoneMargin,
+            marginInlineStart: styleConstants.negativePhoneMargin,
+            marginInlineEnd: styleConstants.negativePhoneMargin,
         },
+    },
+
+    fieldSetContent: {
+        listStyle: "none",
     },
 
     radioContainerFirstHighlighted: {
@@ -469,11 +421,11 @@ const styles: StyleDeclaration = StyleSheet.create({
     },
 
     item: {
-        marginLeft: 20,
+        marginInlineStart: 20,
     },
 
     responsiveItem: {
-        marginLeft: 0,
+        marginInlineStart: 0,
         padding: 0,
 
         ":not(:last-child)": {
@@ -510,15 +462,13 @@ const styles: StyleDeclaration = StyleSheet.create({
 
     responsiveContainer: {
         overflow: "auto",
-        marginLeft: styleConstants.negativePhoneMargin,
-        paddingLeft: styleConstants.phoneMargin,
+        marginInlineStart: styleConstants.negativePhoneMargin,
+        paddingInlineStart: styleConstants.phoneMargin,
         // paddingRight is handled by responsiveFieldset
     },
 
     responsiveFieldset: {
-        paddingRight: styleConstants.phoneMargin,
+        paddingInlineEnd: styleConstants.phoneMargin,
         minWidth: "auto",
     },
 });
-
-export default BaseRadio;

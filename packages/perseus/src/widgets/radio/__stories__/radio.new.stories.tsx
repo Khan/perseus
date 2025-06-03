@@ -7,6 +7,9 @@ import {
     choicesWithImages,
     multiChoiceQuestionSimple,
     multiChoiceQuestion,
+    multiChoiceQuestionSimpleOverflowContent,
+    SingleSelectOverflowContent,
+    SingleSelectOverflowImageContent,
 } from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
@@ -18,8 +21,6 @@ type StoryArgs = {
     item: PerseusItem;
     // Radio Options
     static: boolean;
-    // API Options
-    crossOutEnabled: boolean;
     // Testing Options
     startAnswerless: boolean;
 } & Pick<
@@ -40,7 +41,6 @@ export default {
         static: false,
         // Requires a page refresh for toggling this to affect the story
         startAnswerless: false,
-        crossOutEnabled: false,
         reviewMode: false,
         showSolutions: "none",
         item: generateTestPerseusItem({
@@ -89,7 +89,6 @@ const applyStoryArgs = (args: StoryArgs): PerseusItem => {
 };
 
 const buildApiOptions = (args: StoryArgs): APIOptions => ({
-    crossOutEnabled: args.crossOutEnabled,
     flags: {
         "new-radio-widget": true,
     },
@@ -111,6 +110,22 @@ export const SelectWithImages = {
     },
 };
 
+export const SelectWithImagesAndScroll = {
+    args: {
+        item: generateTestPerseusItem({
+            question: SingleSelectOverflowImageContent,
+        }),
+    },
+};
+
+export const SingleSelectWithScroll = {
+    args: {
+        item: generateTestPerseusItem({
+            question: SingleSelectOverflowContent,
+        }),
+    },
+};
+
 export const MultiSelectSimple = {
     args: {
         item: generateTestPerseusItem({
@@ -123,6 +138,14 @@ export const MultiSelect = {
     args: {
         item: generateTestPerseusItem({
             question: multiChoiceQuestion,
+        }),
+    },
+};
+
+export const MultiSelectWithScroll = {
+    args: {
+        item: generateTestPerseusItem({
+            question: multiChoiceQuestionSimpleOverflowContent,
         }),
     },
 };
@@ -148,5 +171,78 @@ export const AnswerlessMultiSelect = {
             question: multiChoiceQuestion,
         }),
         startAnswerless: true,
+    },
+};
+
+// RTL Variants
+export const SelectWithImagesAndScrollRTL = {
+    args: {
+        item: generateTestPerseusItem({
+            question: SingleSelectOverflowImageContent,
+        }),
+    },
+    decorators: [
+        (Story) => {
+            // Set RTL for testing
+            document.body.setAttribute("dir", "rtl");
+
+            return (
+                <div style={{direction: "rtl"}}>
+                    <Story />
+                </div>
+            );
+        },
+    ],
+    play: async () => {
+        // Reset the direction after the story
+        document.body.removeAttribute("dir");
+    },
+};
+
+export const SingleSelectWithScrollRTL = {
+    args: {
+        item: generateTestPerseusItem({
+            question: SingleSelectOverflowContent,
+        }),
+    },
+    decorators: [
+        (Story) => {
+            // Set RTL for testing
+            document.body.setAttribute("dir", "rtl");
+
+            return (
+                <div style={{direction: "rtl"}}>
+                    <Story />
+                </div>
+            );
+        },
+    ],
+    play: async () => {
+        // Reset the direction after the story
+        document.body.removeAttribute("dir");
+    },
+};
+
+export const MultiSelectWithScrollRTL = {
+    args: {
+        item: generateTestPerseusItem({
+            question: multiChoiceQuestionSimpleOverflowContent,
+        }),
+    },
+    decorators: [
+        (Story) => {
+            // Set RTL for testing
+            document.body.setAttribute("dir", "rtl");
+
+            return (
+                <div style={{direction: "rtl"}}>
+                    <Story />
+                </div>
+            );
+        },
+    ],
+    play: async () => {
+        // Reset the direction after the story
+        document.body.removeAttribute("dir");
     },
 };

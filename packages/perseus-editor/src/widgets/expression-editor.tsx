@@ -6,16 +6,17 @@ import {
     expressionLogic,
 } from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox, LabeledTextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {color, sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {
     HeadingSmall,
     HeadingXSmall,
+    Caption,
 } from "@khanacademy/wonder-blocks-typography";
 import {isTruthy} from "@khanacademy/wonder-stuff-core";
 import {css, StyleSheet} from "aphrodite";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import * as React from "react";
 import _ from "underscore";
 
@@ -25,8 +26,9 @@ import type {
     ExpressionDefaultWidgetOptions,
     PerseusExpressionAnswerForm,
 } from "@khanacademy/perseus-core";
+import type {CSSProperties} from "aphrodite";
 
-const {InfoTip} = components;
+const {ButtonGroup, InfoTip} = components;
 
 type Props = {
     widgetId?: string;
@@ -353,80 +355,89 @@ class ExpressionEditor extends React.Component<Props, State> {
         );
 
         return (
-            <div>
+            <View>
                 <HeadingSmall>Global Options</HeadingSmall>
 
                 <div className={css(styles.paddedY)}>
                     <LabeledTextField
-                        label="Visible label"
+                        label={
+                            <>
+                                Visible label
+                                <InfoTip>
+                                    Optional visible text; strongly encouraged
+                                    to help learners using dictation software,
+                                    but can be omitted if the surrounding
+                                    content provides enough context.
+                                </InfoTip>
+                            </>
+                        }
                         value={this.props.visibleLabel || ""}
                         onChange={this.handleVisibleLabel}
                     />
-                    <InfoTip>
-                        <p>
-                            Optional visible text; strongly encouraged to help
-                            learners using dictation software, but can be
-                            omitted if the surrounding content provides enough
-                            context.
-                        </p>
-                    </InfoTip>
                 </div>
 
                 <div className={css(styles.paddedY)}>
                     <LabeledTextField
-                        label="Aria label"
+                        label={
+                            <>
+                                Aria label
+                                <InfoTip>
+                                    Label text that&apos;s read by screen
+                                    readers. Highly recommend adding a label
+                                    here to ensure your exercise is accessible.
+                                    For more information on writting accessible
+                                    labels, please see{" "}
+                                    <a
+                                        href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        this article.
+                                    </a>
+                                </InfoTip>
+                            </>
+                        }
                         value={this.props.ariaLabel || ""}
                         onChange={this.handleAriaLabel}
                     />
-                    <InfoTip>
-                        <p>
-                            Label text that&apos;s read by screen readers.
-                            Highly recommend adding a label here to ensure your
-                            exercise is accessible. For more information on
-                            writting accessible labels, please see{" "}
-                            <a
-                                href="https://www.w3.org/WAI/tips/designing/#ensure-that-form-elements-include-clearly-associated-labels"
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                this article.
-                            </a>
-                        </p>
-                    </InfoTip>
                 </div>
 
                 <div className={css(styles.paddedY)}>
                     <LabeledTextField
-                        label="Function variables"
+                        label={
+                            <>
+                                Function variables
+                                <InfoTip>
+                                    Single-letter variables listed here will be
+                                    interpreted as functions. This let us know
+                                    that f(x) means &quot;f of x&quot; and not
+                                    &quot;f times x&quot;.
+                                </InfoTip>
+                            </>
+                        }
                         value={this.state.functionsInternal}
                         onChange={this.handleFunctions}
                     />
-                    <InfoTip>
-                        <p>
-                            Single-letter variables listed here will be
-                            interpreted as functions. This let us know that f(x)
-                            means &quot;f of x&quot; and not &quot;f times
-                            x&quot;.
-                        </p>
-                    </InfoTip>
                 </div>
 
                 <div className={css(styles.paddedY)}>
                     <Checkbox
-                        label="Use × instead of ⋅ for multiplication"
+                        label={
+                            <>
+                                Use × instead of ⋅ for multiplication
+                                <InfoTip>
+                                    For pre-algebra problems this option
+                                    displays multiplication as \times instead of
+                                    \cdot in both the rendered output and the
+                                    acceptable formats examples.
+                                </InfoTip>
+                            </>
+                        }
                         checked={this.props.times}
                         onChange={(newCheckedState) => {
                             this.changeTimes(newCheckedState);
                         }}
                     />
-                    <InfoTip>
-                        <p>
-                            For pre-algebra problems this option displays
-                            multiplication as \times instead of \cdot in both
-                            the rendered output and the acceptable formats
-                            examples.
-                        </p>
-                    </InfoTip>
                 </div>
 
                 <div className={css(styles.paddedY)}>
@@ -436,19 +447,18 @@ class ExpressionEditor extends React.Component<Props, State> {
 
                 <HeadingSmall>Answers</HeadingSmall>
 
-                <p style={{margin: "4px 0"}}>
+                <Caption style={styles.answersSubtitle}>
                     student responses area matched against these from top to
                     bottom
-                </p>
+                </Caption>
 
-                {answerOptions}
+                <View style={{gap: spacing.xSmall_8}}>{answerOptions}</View>
 
-                <div>
-                    <Button size="small" onClick={this.newAnswer}>
-                        Add new answer
-                    </Button>
-                </div>
-            </div>
+                <Strut size={spacing.small_12} />
+                <Button size="small" onClick={this.newAnswer}>
+                    Add new answer
+                </Button>
+            </View>
         );
     }
 }
@@ -514,12 +524,16 @@ class AnswerOption extends React.Component<
                 <Button
                     size="small"
                     onClick={this.handleImSure}
-                    color="destructive"
+                    actionType="destructive"
                 >
                     I&apos;m sure!
                 </Button>
                 <Strut size={spacing.small_12} />
-                <Button size="small" onClick={this.handleCancelDelete} light>
+                <Button
+                    size="small"
+                    onClick={this.handleCancelDelete}
+                    kind="secondary"
+                >
                     Cancel
                 </Button>
             </>
@@ -527,71 +541,72 @@ class AnswerOption extends React.Component<
             <Button
                 size="small"
                 onClick={this.handleDelete}
-                color="destructive"
-                light
+                actionType="destructive"
+                kind="tertiary"
+                style={styles.deleteButton}
             >
                 Delete
             </Button>
         );
 
-        const answerStatusCss = css(
-            styles.answerStatus,
-            this.props.considered === "wrong" && styles.answerStatusWrong,
-            this.props.considered === "correct" && styles.answerStatusCorrect,
-            this.props.considered === "ungraded" && styles.answerStatusUngraded,
-        );
-
         return (
             <div className={css(styles.answerOption)}>
-                <div className={css(styles.answerBody)}>
-                    <div>
-                        <button
-                            onClick={this.toggleConsidered}
-                            className={answerStatusCss}
-                        >
-                            {this.props.considered}
-                        </button>
+                <ButtonGroup
+                    onChange={this.toggleConsidered}
+                    allowEmpty={false}
+                    value={this.props.considered}
+                    selectedButtonStyle={
+                        consideredButtonStyles[this.props.considered]
+                    }
+                    buttons={PerseusExpressionAnswerFormConsidered.map((c) => ({
+                        value: c,
+                        content: c,
+                        title: `This answer will be considered ${c}`,
+                    }))}
+                />
 
-                        <div>
-                            <Expression {...this.props.expressionProps} />
-                        </div>
-                    </div>
+                <Expression {...this.props.expressionProps} />
 
-                    <div className={css(styles.paddedY, styles.paddedX)}>
-                        <Checkbox
-                            label="Answer expression must have the same form."
-                            checked={this.props.form}
-                            onChange={this.props.onChangeForm}
-                        />
-                        <InfoTip>
-                            <p>
-                                The student&apos;s answer must be in the same
-                                form. Commutativity and excess negative signs
-                                are ignored.
-                            </p>
-                        </InfoTip>
-                    </div>
+                <div className={css(styles.paddedY, styles.paddedX)}>
+                    <Checkbox
+                        label={
+                            <>
+                                Answer expression must have the same form.
+                                <InfoTip>
+                                    The student&apos;s answer must be in the
+                                    same form. Commutativity and excess negative
+                                    signs are ignored.
+                                </InfoTip>
+                            </>
+                        }
+                        checked={this.props.form}
+                        onChange={this.props.onChangeForm}
+                    />
+                </div>
 
-                    <div className={css(styles.paddedY, styles.paddedX)}>
-                        <Checkbox
-                            label="Answer expression must be fully expanded and simplified."
-                            checked={this.props.simplify}
-                            onChange={this.props.onChangeSimplify}
-                        />
-                        <InfoTip>
-                            <p>
-                                The student&apos;s answer must be fully expanded
-                                and simplified. Answering this equation
-                                (x^2+2x+1) with this factored equation (x+1)^2
-                                will render this response &quot;Your answer is
-                                not fully expanded and simplified.&quot;
-                            </p>
-                        </InfoTip>
-                    </div>
+                <div className={css(styles.paddedY, styles.paddedX)}>
+                    <Checkbox
+                        label={
+                            <>
+                                Answer expression must be fully expanded and
+                                simplified.
+                                <InfoTip>
+                                    The student&apos;s answer must be fully
+                                    expanded and simplified. Answering this
+                                    equation (x^2+2x+1) with this factored
+                                    equation (x+1)^2 will render this response
+                                    &quot;Your answer is not fully expanded and
+                                    simplified.&quot;
+                                </InfoTip>
+                            </>
+                        }
+                        checked={this.props.simplify}
+                        onChange={this.props.onChangeSimplify}
+                    />
+                </div>
 
-                    <div className={css(styles.buttonRow, styles.paddedY)}>
-                        {removeButton}
-                    </div>
+                <div className={css(styles.buttonRow, styles.paddedY)}>
+                    {removeButton}
                 </div>
             </div>
         );
@@ -609,17 +624,12 @@ const styles = StyleSheet.create({
         paddingTop: spacing.xxSmall_6,
         paddingBottom: spacing.xxSmall_6,
     },
+    answersSubtitle: {fontStyle: "italic"},
     answerOption: {
         border: "1px solid #ddd",
         borderRadius: "3px",
         display: "flex",
-    },
-    answerStatus: {
-        border: "none",
-        userSelect: "none",
-        width: "100px",
-        paddingTop: spacing.small_12,
-        paddingBottom: spacing.small_12,
+        flexDirection: "column",
     },
     answerStatusWrong: {
         backgroundColor: color.fadedRed16,
@@ -630,8 +640,19 @@ const styles = StyleSheet.create({
     answerStatusUngraded: {
         backgroundColor: color.fadedBlue16,
     },
-    answerBody: {},
     buttonRow: {
         display: "flex",
     },
+    deleteButton: {
+        paddingInline: sizing.size_160,
+    },
 });
+
+const consideredButtonStyles: Record<
+    (typeof PerseusExpressionAnswerFormConsidered)[number],
+    CSSProperties
+> = {
+    wrong: styles.answerStatusWrong,
+    correct: styles.answerStatusCorrect,
+    ungraded: styles.answerStatusUngraded,
+};

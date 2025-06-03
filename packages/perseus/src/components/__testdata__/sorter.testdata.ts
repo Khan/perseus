@@ -1,8 +1,7 @@
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {
-    content:
-        "**Arrange the following measurements in order from smallest to largest.**\n\n[[\u2603 sorter 1]]",
+    content: "[[\u2603 sorter 1]]",
     images: {},
     widgets: {
         "sorter 1": {
@@ -12,7 +11,7 @@ export const question1: PerseusRenderer = {
             options: {
                 padding: true,
                 layout: "horizontal",
-                correct: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],
+                correct: ["Zeroth", "First", "Second", "Third", "Fourth"],
             },
         },
     },

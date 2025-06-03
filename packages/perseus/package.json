@@ -3,7 +3,7 @@
     "description": "Core Perseus API (includes renderers and widgets)",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "61.0.3",
+    "version": "63.1.0",
     "publishConfig": {
         "access": "public"
     },
@@ -52,6 +52,7 @@
         "@khanacademy/simple-markdown": "workspace:*",
         "@use-gesture/react": "^10.2.27",
         "mafs": "0.19.0",
+        "tiny-invariant": "catalog:",
         "uuid": "^10.0.0"
     },
     "devDependencies": {
@@ -64,6 +65,7 @@
         "@khanacademy/wonder-blocks-form": "catalog:",
         "@khanacademy/wonder-blocks-icon-button": "catalog:",
         "@khanacademy/wonder-blocks-icon": "catalog:",
+        "@khanacademy/wonder-blocks-labeled-field": "catalog:",
         "@khanacademy/wonder-blocks-layout": "catalog:",
         "@khanacademy/wonder-blocks-link": "catalog:",
         "@khanacademy/wonder-blocks-pill": "catalog:",
@@ -84,6 +86,7 @@
         "lodash.debounce": "^4.0.8",
         "perseus-build-settings": "workspace:*",
         "prop-types": "catalog:",
+        "raphael": "workspace:*",
         "react": "catalog:",
         "react-dom": "catalog:",
         "react-popper": "^2.2.5",
@@ -99,6 +102,7 @@
         "@khanacademy/wonder-blocks-form": "catalog:",
         "@khanacademy/wonder-blocks-icon": "catalog:",
         "@khanacademy/wonder-blocks-icon-button": "catalog:",
+        "@khanacademy/wonder-blocks-labeled-field": "catalog:",
         "@khanacademy/wonder-blocks-layout": "catalog:",
         "@khanacademy/wonder-blocks-link": "catalog:",
         "@khanacademy/wonder-blocks-pill": "catalog:",

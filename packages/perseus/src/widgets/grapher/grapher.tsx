@@ -3,9 +3,8 @@ import {
     vector as kvector,
     point as kpoint,
 } from "@khanacademy/kmath";
-import {GrapherUtil} from "@khanacademy/perseus-core";
+import {deepClone, GrapherUtil} from "@khanacademy/perseus-core";
 import * as React from "react";
-import _ from "underscore";
 
 import ButtonGroup from "../../components/button-group";
 import Graphie from "../../components/graphie";
@@ -37,9 +36,9 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GridDimensions} from "../../util";
 import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
 import type {
-    MarkingsType,
     PerseusGrapherWidgetOptions,
     PerseusGrapherUserInput,
+    GrapherPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -160,7 +159,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     onMove={(newCoord, oldCoord) => {
                         // Calculate and apply displacement
                         const delta = kvector.subtract(newCoord, oldCoord);
-                        const newAsymptote = _.map(this._asymptote(), (coord) =>
+                        const newAsymptote = this._asymptote().map((coord) =>
                             kvector.add(coord, delta),
                         );
                         this.props.onChange({
@@ -175,8 +174,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                         (newCoord, oldCoord: any) => {
                             // Calculate and apply proposed displacement
                             const delta = kvector.subtract(newCoord, oldCoord);
-                            const proposedAsymptote = _.map(
-                                this._asymptote(),
+                            const proposedAsymptote = this._asymptote().map(
                                 (coord) => kvector.add(coord, delta),
                             );
                             // Verify that resulting asymptote is valid for graph
@@ -195,7 +193,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                     normalStyle={dashed}
                     highlightStyle={dashed}
                 >
-                    {_.map(asymptote, (coord, i) => (
+                    {asymptote.map((coord, i) => (
                         <MovablePoint
                             key={`asymptoteCoord-${i}`}
                             coord={coord}
@@ -225,8 +223,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                         Interactive2.MovablePoint.constraints.snap(),
                         (coord: any) => {
                             // Always enforce that this is a function
-                            const isFunction = _.all(
-                                this._coords(),
+                            const isFunction = this._coords().every(
                                 (otherCoord, j) => {
                                     return (
                                         i === j ||
@@ -250,10 +247,12 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                             ) {
                                 const extraConstraint =
                                     this.props.model.extraCoordConstraint;
-                                // Calculat resulting coords and verify that
+                                // Calculate resulting coords and verify that
                                 // they're valid for this graph
-                                const proposedCoords = _.clone(this._coords());
-                                const oldCoord = _.clone(proposedCoords[i]);
+                                const proposedCoords = deepClone(
+                                    this._coords(),
+                                );
+                                const oldCoord = deepClone(proposedCoords[i]);
                                 proposedCoords[i] = coord;
                                 return extraConstraint(
                                     coord,
@@ -276,11 +275,11 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                             this.props.model.allowReflectOverAsymptote &&
                             isFlipped(newCoord, oldCoord, asymptote)
                         ) {
-                            coords = _.map(this._coords(), (coord) => {
+                            coords = this._coords().map((coord) => {
                                 return kpoint.reflectOverLine(coord, asymptote);
                             });
                         } else {
-                            coords = _.clone(this._coords());
+                            coords = deepClone(this._coords());
                         }
                         coords[i] = newCoord;
                         this.props.onChange({
@@ -294,7 +293,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
                 />
             );
         };
-        const points = _.map(this._coords(), pointForCoord);
+        const points = this._coords().map(pointForCoord);
         const box = this.props.graph.box;
 
         const imageDescription = this.props.graph.backgroundImage;
@@ -346,10 +345,11 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     }
 }
 
-type RenderProps = {
-    availableTypes: PerseusGrapherWidgetOptions["availableTypes"];
-    graph: PerseusGrapherWidgetOptions["graph"];
-    plot?: any;
+type RenderProps = Pick<
+    GrapherPublicWidgetOptions,
+    "availableTypes" | "graph"
+> & {
+    plot?: PerseusGrapherWidgetOptions["correct"];
 };
 
 type ExternalProps = WidgetProps<RenderProps>;
@@ -357,9 +357,6 @@ type ExternalProps = WidgetProps<RenderProps>;
 type Props = ExternalProps & {
     // plot is always provided by default props
     plot: NonNullable<RenderProps["plot"]>;
-    // NOTE(jeremy): This prop exists in the `graph` prop value. Unsure what
-    // passes it down as a top-level prop (I suspect the editor?)
-    markings: MarkingsType;
 };
 
 type DefaultProps = {
@@ -379,7 +376,7 @@ class Grapher extends React.Component<Props> implements Widget {
     }
 
     handlePlotChanges: (arg1: any) => any = (newPlot) => {
-        const plot = _.extend({}, this.props.plot, newPlot);
+        const plot = {...this.props.plot, ...newPlot};
         this.props.onChange({
             plot: plot,
         });
@@ -388,11 +385,10 @@ class Grapher extends React.Component<Props> implements Widget {
 
     handleActiveTypeChange: (arg1: any) => any = (newType) => {
         const graph = this.props.graph;
-        const plot = _.extend(
-            {},
-            this.props.plot,
-            defaultPlotProps(newType, graph),
-        );
+        const plot = {
+            ...this.props.plot,
+            ...defaultPlotProps(newType, graph),
+        };
         this.props.onChange({
             plot: plot,
         });
@@ -436,7 +432,7 @@ class Grapher extends React.Component<Props> implements Widget {
         if (options.markings === "graph") {
             graphie.graphInit({
                 range: options.range,
-                scale: _.pluck(options.gridConfig, "scale"),
+                scale: options.gridConfig.map((e) => e.scale),
                 axisArrows: "<->",
                 labelFormat: function (s) {
                     return "\\small{" + s + "}";
@@ -449,9 +445,9 @@ class Grapher extends React.Component<Props> implements Widget {
                           options.step,
                           options.range,
                       )
-                    : _.pluck(options.gridConfig, "tickStep"),
+                    : options.gridConfig.map((e) => e.tickStep),
                 labelStep: 1,
-                unityLabels: _.pluck(options.gridConfig, "unityLabel"),
+                unityLabels: options.gridConfig.map((e) => e.unityLabel),
                 isMobile: isMobile,
             });
             graphie.label(
@@ -467,7 +463,7 @@ class Grapher extends React.Component<Props> implements Widget {
         } else if (options.markings === "grid") {
             graphie.graphInit({
                 range: options.range,
-                scale: _.pluck(options.gridConfig, "scale"),
+                scale: options.gridConfig.map((e) => e.scale),
                 gridStep: options.gridStep,
                 axes: false,
                 ticks: false,
@@ -477,7 +473,7 @@ class Grapher extends React.Component<Props> implements Widget {
         } else if (options.markings === "none") {
             graphie.init({
                 range: options.range,
-                scale: _.pluck(options.gridConfig, "scale"),
+                scale: options.gridConfig.map((e) => e.scale),
             });
         }
 
@@ -513,7 +509,7 @@ class Grapher extends React.Component<Props> implements Widget {
     };
 
     showHairlines: (arg1: Coord) => void = (point) => {
-        if (this.props.apiOptions.isMobile && this.props.markings !== "none") {
+        if (this.props.apiOptions.isMobile) {
             // Hairlines are already initialized when the graph is loaded, so
             // here we just move them to the updated location and make them
             // visible.
@@ -551,14 +547,17 @@ class Grapher extends React.Component<Props> implements Widget {
     render(): React.ReactNode {
         const type = this.props.plot.type;
         const coords = this.props.plot.coords;
-        const asymptote = this.props.plot.asymptote;
+        const asymptote =
+            "asymptote" in this.props.plot
+                ? this.props.plot.asymptote
+                : undefined;
 
         const typeSelector = (
             <div style={typeSelectorStyle}>
                 <ButtonGroup
                     value={type}
                     allowEmpty={true}
-                    buttons={_.map(this.props.availableTypes, typeToButton)}
+                    buttons={this.props.availableTypes.map(typeToButton)}
                     onChange={this.handleActiveTypeChange}
                 />
             </div>
@@ -617,7 +616,7 @@ class Grapher extends React.Component<Props> implements Widget {
     }
 }
 
-const propTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
+const transform: (arg1: GrapherPublicWidgetOptions) => RenderProps = (
     editorProps,
 ) => {
     const widgetProps: RenderProps = {
@@ -642,7 +641,7 @@ const staticTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
     editorProps,
 ) => {
     return {
-        ...propTransform(editorProps),
+        ...transform(editorProps),
         // Don't display graph type choices if we're in static mode
         availableTypes: [editorProps.correct.type],
         // Display the same graph marked as correct in the widget editor.
@@ -650,11 +649,19 @@ const staticTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
     };
 };
 
+0 as any as WidgetProps<PerseusGrapherWidgetOptions> satisfies PropsFor<
+    typeof Grapher
+>;
+
+0 as any as WidgetProps<GrapherPublicWidgetOptions> satisfies PropsFor<
+    typeof Grapher
+>;
+
 export default {
     name: "grapher",
     displayName: "Grapher",
     hidden: true,
     widget: Grapher,
-    transform: propTransform,
-    staticTransform: staticTransform,
+    transform,
+    staticTransform,
 } satisfies WidgetExports<typeof Grapher>;

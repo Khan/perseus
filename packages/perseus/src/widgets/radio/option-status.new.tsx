@@ -12,44 +12,17 @@ import * as React from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 
-import type {PerseusStrings} from "../../strings";
+import {getOptionStatusText} from "./utils/string-utils";
 
 type Props = {
     // Was this option the correct answer?
     correct: boolean;
     // Did the user select this option as the answer?
     checked: boolean;
-    // Did the user cross out this option?
-    crossedOut: boolean;
     // Did the user select this option as the answer earlier?
     previouslyAnswered: boolean;
     reviewMode: boolean;
 };
-
-function renderText(
-    checked: boolean,
-    correct: boolean,
-    crossedOut: boolean,
-    strings: PerseusStrings,
-): string {
-    if (correct) {
-        // For correct answers, we surface checked _or_ crossedOut state,
-        // because any interaction with the correct answer is noteworthy!
-        if (checked) {
-            return strings.correctSelected;
-        }
-        if (crossedOut) {
-            return strings.correctCrossedOut;
-        }
-        return strings.correct;
-    }
-    // But, for incorrect answers, we only surface checked state,
-    // because crossing out an incorrect answer is not noteworthy.
-    if (checked) {
-        return strings.incorrectSelected;
-    }
-    return strings.incorrect;
-}
 
 /**
  * This component is a duplicate of the OptionStatus component in option-status.tsx
@@ -58,16 +31,17 @@ function renderText(
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-const OptionStatus = function (props: Props): React.ReactElement {
-    const {checked, correct, crossedOut, previouslyAnswered, reviewMode} =
-        props;
-
+const OptionStatus = ({
+    checked,
+    correct,
+    previouslyAnswered,
+    reviewMode,
+}: Props): React.ReactElement | null => {
     const {strings} = usePerseusI18n();
 
     // Option status is shown only in review mode, or for incorrectly
     // answered items.
     if (!reviewMode && !previouslyAnswered) {
-        // @ts-expect-error - TS2322 - Type 'null' is not assignable to type 'ReactElement<any, string | JSXElementConstructor<any>>'.
         return null;
     }
 
@@ -84,7 +58,11 @@ const OptionStatus = function (props: Props): React.ReactElement {
 
     return (
         <div className={css(styles.text, textStyle)}>
-            {renderText(checked, correct, crossedOut, strings)}
+            {getOptionStatusText({
+                checked,
+                correct,
+                strings,
+            })}
         </div>
     );
 };
@@ -96,6 +74,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         height: 32,
         textTransform: "uppercase",
+        textAlign: "start",
     },
     correct: {
         color: color.green,

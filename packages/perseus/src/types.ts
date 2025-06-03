@@ -24,6 +24,9 @@ import type {
     UserInput,
     UserInputArray,
     UserInputMap,
+    Relationship,
+    LabelImageMarkerPublicData,
+    PerseusLabelImageMarker,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
@@ -108,7 +111,6 @@ export type EditorMode = "edit" | "preview" | "json";
 
 export type ChoiceState = {
     selected: boolean;
-    crossedOut: boolean;
     highlighted: boolean;
     rationaleShown: boolean;
     correctnessShown: boolean;
@@ -140,6 +142,16 @@ export type ChangeHandler = (
         plot?: any;
         // Interactive Graph callback (see legacy: interactive-graph.tsx)
         graph?: PerseusGraphType;
+        // widgets/number-line.tsx
+        divisionRange?: number[];
+        // widgets/number-line.ts
+        numDivisions?: number;
+        // widgets/number-line.ts
+        numLinePosition?: number;
+        // widgets/number-line.ts
+        rel?: Relationship;
+        // widgets/label-image.tsx
+        markers?: Array<LabelImageMarkerPublicData | PerseusLabelImageMarker>;
     },
     callback?: () => void,
     silent?: boolean,
@@ -255,6 +267,8 @@ export type APIOptions = Readonly<{
     nativeKeypadProxy?: (blur: () => void) => KeypadAPI;
     /** Indicates whether or not to use mobile styling. */
     isMobile?: boolean;
+    /** Indicates whether or not to use mobile app styling. */
+    isMobileApp?: boolean;
     /** A function, called with a bool indicating whether use of the
      * drawing area (scratchpad) should be allowed/disallowed.
      *
@@ -272,15 +286,6 @@ export type APIOptions = Readonly<{
      * Defaults to `false`.
      */
     canScrollPage?: boolean;
-    /**
-     * Whether to enable the cross-out feature on multiple-choice radio
-     * widgets. This allows users to note which answers they believe to
-     * be incorrect, to find the answer by process of elimination.
-     *
-     * We plan to roll this out to all call sites eventually, but for
-     * now we have this flag, to add it to Generalized Test Prep first.
-     */
-    crossOutEnabled?: boolean;
     /**
      * The value in milliseconds by which the local state of content
      * in a editor is delayed before propagated to a prop. For example,
@@ -432,11 +437,11 @@ export type APIOptionsWithDefaults = Readonly<
     APIOptions & {
         baseElements: NonNullable<APIOptions["baseElements"]>;
         canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
-        crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
         editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
         groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
         isMobile: NonNullable<APIOptions["isMobile"]>;
+        isMobileApp: NonNullable<APIOptions["isMobileApp"]>;
         onFocusChange: NonNullable<APIOptions["onFocusChange"]>;
         readOnly: NonNullable<APIOptions["readOnly"]>;
         setDrawingAreaAvailable: NonNullable<
@@ -547,7 +552,21 @@ export type WidgetProps<
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
-> = RenderProps & {
+> = RenderProps & UniversalWidgetProps<Rubric, TrackingExtraArgs>;
+
+/**
+ * The props passed to every widget, regardless of its `type`.
+ */
+export type UniversalWidgetProps<
+    ReviewModeRubric = Empty,
+    TrackingExtraArgs = Empty,
+> = {
+    reviewModeRubric?: ReviewModeRubric | null | undefined;
+    // This is slightly different from the `trackInteraction` function in
+    // APIOptions. This provides the widget an easy way to notify the renderer
+    // of an interaction. The Renderer then enriches the data provided with the
+    // widget's id and type before calling APIOptions.trackInteraction.
+    trackInteraction: (extraData?: TrackingExtraArgs) => void;
     // provided by renderer.jsx#getWidgetProps()
     widgetId: string;
     alignment: string | null | undefined;
@@ -564,14 +583,8 @@ export type WidgetProps<
     onFocus: (blurPath: FocusPath) => void;
     onBlur: (blurPath: FocusPath) => void;
     findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
-    reviewModeRubric?: Rubric | null | undefined;
     reviewMode: boolean;
     onChange: ChangeHandler;
-    // This is slightly different from the `trackInteraction` function in
-    // APIOptions. This provides the widget an easy way to notify the renderer
-    // of an interaction. The Renderer then enriches the data provided with the
-    // widget's id and type before calling APIOptions.trackInteraction.
-    trackInteraction: (extraData?: TrackingExtraArgs) => void;
     isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
     linterContext: LinterContextProps;
@@ -587,9 +600,14 @@ export type ChangeFn = (
           },
     propValue?: any,
     callback?: () => unknown,
-) => any | null | undefined;
+) => any;
 
 export type SharedRendererProps = {
     apiOptions: APIOptions;
     linterContext: LinterContextProps;
 };
+
+export interface Focusable {
+    focus: () => void;
+    blur: () => void;
+}

@@ -16,6 +16,7 @@ import type {
 } from "@khanacademy/perseus";
 import type {
     Hint,
+    PerseusAnswerArea,
     PerseusItem,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -24,7 +25,7 @@ const {HUD} = components;
 
 type Props = {
     apiOptions?: APIOptions;
-    answerArea?: any; // related to the question,
+    answerArea?: PerseusAnswerArea | null; // related to the question,
     // TODO(CP-4838): Should this be a required prop?
     contentPaths?: ReadonlyArray<string>;
     // "Power user" mode. Shows the raw JSON of the question.
@@ -55,26 +56,25 @@ type Props = {
     previewURL: string;
 };
 
+type DefaultProps = {
+    developerMode: Props["developerMode"];
+    jsonMode: Props["jsonMode"];
+    onChange: Props["onChange"];
+};
+
 type State = {
     json: PerseusItem;
-    gradeMessage: string;
-    wasAnswered: boolean;
     highlightLint: boolean;
     widgetsAreOpen: boolean;
 };
 
 class EditorPage extends React.Component<Props, State> {
     _isMounted: boolean;
-    renderer: any;
 
     itemEditor = React.createRef<ItemEditor>();
     hintsEditor = React.createRef<CombinedHintsEditor>();
 
-    static defaultProps: {
-        developerMode: boolean;
-        jsonMode: boolean;
-        onChange: () => void;
-    } = {
+    static defaultProps: DefaultProps = {
         developerMode: false,
         jsonMode: false,
         onChange: () => {},
@@ -166,14 +166,7 @@ class EditorPage extends React.Component<Props, State> {
                 },
                 reviewMode: true,
                 legacyPerseusLint: this.itemEditor.current?.getSaveWarnings(),
-            }).extend(
-                _(this.props).pick(
-                    "workAreaSelector",
-                    "solutionAreaSelector",
-                    "hintsAreaSelector",
-                    "problemNum",
-                ),
-            ),
+            }).extend(_(this.props).pick("problemNum")),
         });
     }
 
@@ -285,8 +278,6 @@ class EditorPage extends React.Component<Props, State> {
                         answerArea={this.props.answerArea}
                         imageUploader={this.props.imageUploader}
                         onChange={this.handleChange}
-                        wasAnswered={this.state.wasAnswered}
-                        gradeMessage={this.state.gradeMessage}
                         deviceType={this.props.previewDevice}
                         widgetIsOpen={this.state.widgetsAreOpen}
                         apiOptions={deviceBasedApiOptions}
@@ -305,6 +296,7 @@ class EditorPage extends React.Component<Props, State> {
                         apiOptions={deviceBasedApiOptions}
                         previewURL={this.props.previewURL}
                         highlightLint={this.state.highlightLint}
+                        widgetIsOpen={this.state.widgetsAreOpen}
                     />
                 )}
             </div>

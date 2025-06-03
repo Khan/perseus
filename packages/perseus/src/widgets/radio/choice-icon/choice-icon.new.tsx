@@ -1,7 +1,7 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* Component for rendering a letter icon in a library radio choice */
 
-import {color as WBColor} from "@khanacademy/wonder-blocks-tokens";
+import {color, color as WBColor} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
@@ -12,13 +12,11 @@ import * as styleConstants from "../../../styles/constants";
 import FocusRing from "../focus-ring";
 import {getChoiceLetter} from "../util";
 
-import CrossOutLine from "./cross-out-line";
-import sharedStyles, {CHOICE_ICON_SIZE} from "./shared-styles";
+import choiceIconStyles, {CHOICE_ICON_SIZE} from "./choice-icon-styles";
 
 type ChoiceIconProps = {
     pos: number;
     checked: boolean;
-    crossedOut: boolean;
     focused: boolean;
     hovered: boolean;
     pressed: boolean;
@@ -67,7 +65,6 @@ function ChoiceInner(props: ChoiceInnerProps) {
 const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
     const {
         checked,
-        crossedOut,
         showCorrectness,
         correct,
         focused,
@@ -95,29 +92,23 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
     // MC icon styles are constant, but we do allow the caller
     // to specify the selected color, and thus must control styles
     // related to the selected state dynamically.
-    let crossOutColor: string;
     if (showCorrectness && correct && checked) {
         choiceStyling.push(styles.choiceCorrect);
-        crossOutColor = WBColor.green;
     } else if (showCorrectness && !correct && (checked || previouslyAnswered)) {
         choiceStyling.push(styles.choiceIncorrect);
-        crossOutColor = WBColor.red;
     } else if (checked) {
         // Show filled neutral blue color (showCorrectness is false)
         choiceStyling.push(styles.choiceNeutral);
-        crossOutColor = WBColor.blue;
     } else if (pressed) {
         // Show outlined neutral blue color (showCorrectness is false)
         choiceStyling.push(styles.activeNeutral);
-        crossOutColor = WBColor.blue;
     } else {
         // choice is not checked
         choiceStyling.push(styles.uncheckedColors);
-        crossOutColor = WBColor.offBlack64;
     }
 
     return (
-        <div className={css(sharedStyles.iconWrapper)}>
+        <div style={choiceIconStyles.iconWrapper}>
             <FocusRing
                 color={WBColor.blue}
                 visible={focused || hovered}
@@ -139,7 +130,6 @@ const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
                     </div>
                 </div>
             </FocusRing>
-            {crossedOut && <CrossOutLine color={crossOutColor} />}
         </div>
     );
 };
@@ -172,6 +162,9 @@ const styles = StyleSheet.create({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+
+        // TODO: LEMS-3108 address light/dark mode theme
+        background: color.white,
     },
 
     choiceHasLetter: {
