@@ -8,6 +8,7 @@
 
 import fs from "node:fs";
 
+import semver from "semver";
 import yaml from "yaml";
 
 function printHelp() {
@@ -72,6 +73,12 @@ function filterUnusableTargetVersions(
     );
 }
 
+type Primitive = string | number | boolean | null | undefined;
+
+function unique<T extends Primitive>(array: readonly T[]): T[] {
+    return [...new Set(array)];
+}
+
 function main(argv: string[]) {
     // The first arg is the node binary running this script, the second arg is
     // this script itself. So, we strip these two args off so that all that's
@@ -81,20 +88,33 @@ function main(argv: string[]) {
         printHelp();
         process.exit(1);
     }
+    const clientPackageJson = args[0];
 
     const workspace = yaml.parse(
         fs.readFileSync("pnpm-workspace.yaml", "utf-8"),
     );
-    const packageNamesInRepo = Object.keys(workspace.catalog);
+    const packageNamesInRepo = unique(
+        Object.values(workspace.catalogs).flatMap(Object.keys),
+    );
 
     const targetVersions = filterUnusableTargetVersions(
-        JSON.parse(fs.readFileSync(args[0]).toString()).dependencies,
+        JSON.parse(fs.readFileSync(clientPackageJson).toString()).dependencies,
         packageNamesInRepo,
     );
 
     for (const pkgName of packageNamesInRepo) {
         if (pkgName in targetVersions) {
-            workspace.catalog[pkgName] = targetVersions[pkgName];
+            const minVersion = semver.minVersion(
+                targetVersions[pkgName],
+            ).version;
+            // In development, install the minimum version of each package
+            // required by the client application. This ensures we don't
+            // accidentally depend on features of the package added after that
+            // version.
+            workspace.catalogs.devDeps[pkgName] = minVersion;
+            // In our peer dependencies, declare that Perseus will work with
+            // any package version compatible with the one we install in dev.
+            workspace.catalogs.peerDeps[pkgName] = `^${minVersion}`;
         }
     }
 

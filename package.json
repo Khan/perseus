@@ -103,6 +103,7 @@
         "rollup-plugin-filesize": "^10.0.0",
         "rollup-plugin-preserve-shebangs": "^0.2.0",
         "rollup-plugin-styles": "^4.0.0",
+        "semver": "^7.7.2",
         "sloc": "^0.2.1",
         "storybook": "^9.0.4",
         "style-loader": "^3.3.3",
