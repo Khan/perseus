@@ -1,0 +1,1 @@
+import"./index-default-BcKQpA1a.js";import{c as t}from"./index-C-7MqfDi.js";import{u as r}from"./util-sPnaD2Np.js";function m(s){const e=t(s);return{...e,question:r(e.question),hints:[]}}export{m as s};

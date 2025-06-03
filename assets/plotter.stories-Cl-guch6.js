@@ -1,0 +1,28 @@
+import"./index-default-BcKQpA1a.js";import{g as n}from"./index-C-7MqfDi.js";import{S as c}from"./server-item-renderer-with-debug-ui-UbJcjfLA.js";import"./jsx-runtime-BT65X5dW.js";import"./index-C6mWTJJr.js";import"./_commonjsHelpers-BosuxZz1.js";import"./no-important-DlFk8a1I.js";import"./index-BN1f3DJf.js";import"./index-B1Gws05u.js";import"./index-C0xJ1VDw.js";import"./index-BfjDPqC2.js";import"./split-view-Bj3Zehqg.js";import"./index-B_N1aciG.js";import"./index-DyG-XbLr.js";import"./index-BDsoIsav.js";import"./index-BPL71wmx.js";import"./test-keypad-context-wrapper-Bx5C8wkW.js";import"./index-B-lxVbXh.js";import"./v4-CtRu48qb.js";import"./mobile-keypad-BHpB2siZ.js";import"./index-3H81sEQ1.js";import"./index-BzwLglMS.js";import"./assertThisInitialized-B_E71Lmv.js";import"./tabbar-CdwZ7NtL.js";import"./item-CU19aERO.js";import"./button-assets-CvhnJ8JL.js";import"./get-decimal-separator-B2cicA45.js";import"./keypad-button-CSDOBlEE.js";import"./operators-page-DFf9ti8m.js";import"./navigation-pad-CkimEBwh.js";import"./prop-types-BvCFrmT7.js";import"./key-translator-DURLLdBI.js";import"./index-CrGd2QqM.js";import"./split-perseus-item-CKpgeqUf.js";import"./util-sPnaD2Np.js";import"./perseus-error-CSETqePQ.js";import"./jquery-CkHB0_Mt.js";import"./server-item-renderer-f2Loqclb.js";import"./renderer-P3vol8Hh.js";import"./index-D7h-teXI.js";import"./zoomable-tex-Dy-nElJT.js";import"./tex-BONImhZG.js";import"./dependencies-BsVPGK1s.js";import"./zoomable-C_CCSKDG.js";import"./i18n-context-BlpvwUdd.js";import"./svg-image-tOD9ENIR.js";import"./index-DD9muzfp.js";import"./fixed-to-responsive-CTsII9Xx.js";import"./constants-BIpV3g0K.js";import"./client-CAS5PaPY.js";import"./inline-icon-AJRwMA4Z.js";import"./icon-paths-C3bPmxpL.js";import"./image-loader-CdkY-jNs.js";import"./perseus-api-fTM3z0tF.js";import"./stub-tag-editor-CZXxAW63.js";import"./text-list-editor-C2gddtxS.js";import"./lint-D0FI20JF.js";import"./hints-renderer-DlON21tI.js";import"./media-queries-D4w_O5TS.js";import"./shared-Dtpp87RV.js";import"./test-dependencies-MrLk2jwP.js";import"./all-widgets-B4Wu3Z6X.js";import"./index-DsTg7R03.js";import"./index-BsVzSXL3.js";import"./index-gdjMQqRz.js";import"./index-BWwc-H8c.js";import"./Popper-Bj3TCzZA.js";import"./math-input-COLK-7WA.js";import"./index-DMlccmQw.js";import"./simple-keypad-input-Dem2a--N.js";import"./input-with-examples-Ym9-Px-2.js";import"./text-input-DtjuhGyQ.js";import"./index-6t7BHVg9.js";import"./base-radio-DlUdDsvv.js";import"./choice-BliUEeWf.js";import"./choice-icon-CxMgSXH9.js";import"./focus-ring-CuRoZzyy.js";import"./option-status-s0oq-B2K.js";import"./choice-none-above-DmJVaaHi.js";import"./phet-simulation-BaMZDrAC.js";import"./index-DE1wyAWu.js";import"./warning-circle-BLJ1dLdU.js";import"./answer-choices-BZdbOh4u.js";import"./index-MxyfnP9n.js";import"./free-response-CSaI50Qh.js";import"./index-BMWTWptC.js";import"./button-group-B24xCvY2.js";import"./index-Dd-cahjY.js";import"./tiny-invariant-CopsF_GD.js";import"./hud-CP_ly967.js";import"./icon-BfyZ3piz.js";import"./index-DsINhqRJ.js";import"./multi-button-group-U6RQwTwG.js";import"./number-input-BAk8q4hD.js";import"./range-input-B2cglmng.js";import"./marker-C0s2NM6Q.js";import"./answer-pill-BWG-4c9z.js";import"./sortable-BkOR-YuH.js";import"./video-transcript-link-RsYwKknS.js";const a={content:`The elementary school principal asked teachers to report the number of students absent in each grade during the past week.
+
+**Create a bar graph to show how many students were absent in each grade.**
+
+School grade | Number of absent students  
+:- | :-: 
+$1^{\\text{st}} \\text{ grade}$ | $15$ 
+$2^{\\text{nd}} \\text{ grade}$ |$25$ 
+$3^{\\text{rd}} \\text{ grade}$ | $5$  
+$4^{\\text{th}} \\text{ grade}$ | $10$  
+$5^{\\text{th}} \\text{ grade}$ | $10$  
+
+[[☃ plotter 1]]
+
+`,images:{},widgets:{"plotter 1":{alignment:"default",graded:!0,options:{categories:["$1^{\\text{st}} \\text{}$","$2^{\\text{nd}} \\text{}$","$3^{\\text{rd}} \\text{}$","$4^{\\text{th}} \\text{}$","$5^{\\text{th}} \\text{}$"],picBoxHeight:300,picSize:300,picUrl:"",plotDimensions:[380,300],correct:[15,25,5,10,10],labelInterval:1,labels:["School grade","Number of absent students"],maxY:30,scaleY:5,snapsPerLine:1,starting:[0,0,0,0,0],type:"bar"},static:!1,type:"plotter",version:{major:0,minor:0}}}},er={title:"Perseus/Widgets/Plotter",component:c},t={args:{item:n({question:a})}},r={args:{item:n({question:a}),startAnswerless:!0}};var e,o,i;t.parameters={...t.parameters,docs:{...(e=t.parameters)==null?void 0:e.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: question1
+    })
+  }
+}`,...(i=(o=t.parameters)==null?void 0:o.docs)==null?void 0:i.source}}};var m,p,s;r.parameters={...r.parameters,docs:{...(m=r.parameters)==null?void 0:m.docs,source:{originalSource:`{
+  args: {
+    item: generateTestPerseusItem({
+      question: question1
+    }),
+    startAnswerless: true
+  }
+}`,...(s=(p=r.parameters)==null?void 0:p.docs)==null?void 0:s.source}}};const or=["Basic","AnswerlessPlotter"];export{r as AnswerlessPlotter,t as Basic,or as __namedExportsOrder,er as default};
