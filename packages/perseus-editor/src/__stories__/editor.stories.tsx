@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import {ApiOptions} from "@khanacademy/perseus";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {action} from "@storybook/addon-actions";
 import * as React from "react";
+import {action} from "storybook/actions";
 
 import {Editor} from "..";
 import SplitView from "../../../../testing/split-view";
