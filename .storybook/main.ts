@@ -39,11 +39,7 @@ const config: StorybookConfig = {
         "../packages/*/src/**/*@(.stories|.fixturestories).@(ts|tsx)",
     ],
 
-    addons: [
-        "@storybook/addon-links",
-        "@storybook/addon-essentials",
-        "@storybook/addon-a11y",
-    ],
+    addons: ["@storybook/addon-links", "@storybook/addon-a11y"],
 
     // NOTE(kevinb): We customize the padding a bit so that so that stories
     // using the on-screen keypad render correctly.  Storybook adds its own

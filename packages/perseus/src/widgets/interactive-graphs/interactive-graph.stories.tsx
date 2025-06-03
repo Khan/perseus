@@ -29,7 +29,7 @@ import {
     unlimitedPolygonQuestion,
 } from "./interactive-graph.testdata";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const defaultApiOptions = ApiOptions.defaults;
 
