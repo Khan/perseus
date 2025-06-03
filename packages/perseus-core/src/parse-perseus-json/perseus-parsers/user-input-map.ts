@@ -17,7 +17,7 @@ import {parsePlotterUserInput} from "./plotter-user-input";
 import {parseRadioUserInput} from "./radio-user-input";
 import {parseSorterUserInput} from "./sorter-user-input";
 import {parseTableUserInput} from "./table-user-input";
-import {parseWidgetIdComponents} from "./widgets-map";
+import {parseWidgetIdComponents} from "./widget-id-components";
 
 import type {UserInputMap} from "../../validation.types";
 import type {ParseContext, Parser, ParseResult} from "../parser-types";
