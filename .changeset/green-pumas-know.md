@@ -1,5 +1,5 @@
 ---
-"@khanacademy/perseus-core": major
+"@khanacademy/perseus-core": patch
 ---
 
-Move traversal tests from perseus-editor and perseus into perseus-core
+Move deleted traversal tests into perseus-core
