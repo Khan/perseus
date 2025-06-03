@@ -9,6 +9,7 @@
 import fs from "node:fs";
 
 import semver from "semver";
+import invariant from "tiny-invariant";
 import yaml from "yaml";
 
 function printHelp() {
@@ -102,7 +103,13 @@ function main(argv: string[]) {
         fs.readFileSync("pnpm-workspace.yaml", "utf-8"),
     );
     const packageNamesInRepo = unique(
-        Object.values(workspace.catalogs).flatMap(Object.keys),
+        Object.values(workspace.catalogs).flatMap((packages) => {
+            invariant(
+                packages != null,
+                "catalogs contained a nullish value; expected an object",
+            );
+            return Object.keys(packages);
+        }),
     );
 
     const targetVersions = filterUnusableTargetVersions(
