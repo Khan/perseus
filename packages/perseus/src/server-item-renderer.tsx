@@ -394,7 +394,9 @@ export class ServerItemRenderer
     }
 
     showRationalesForCurrentlySelectedChoices() {
-        this.questionRenderer.showRationalesForCurrentlySelectedChoices();
+        this.setState({renderAnswerless: false}, () => {
+            this.questionRenderer.showRationalesForCurrentlySelectedChoices();
+        });
     }
 
     deselectIncorrectSelectedChoices() {
@@ -414,6 +416,10 @@ export class ServerItemRenderer
         } as const;
         this.setState({assetStatuses});
     };
+
+    useAnswerful(): void {
+        this.setState({renderAnswerless: false});
+    }
 
     shouldUseAnswerless(): boolean {
         return (
@@ -465,9 +471,7 @@ export class ServerItemRenderer
                         "question",
                     )}
                     strings={this.context.strings}
-                    useAnswerful={() =>
-                        this.setState({renderAnswerless: false})
-                    }
+                    useAnswerful={() => this.useAnswerful()}
                     {...this.props.dependencies}
                 />
             </AssetContext.Provider>

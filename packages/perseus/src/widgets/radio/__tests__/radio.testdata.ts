@@ -583,3 +583,50 @@ export const shuffledNoneQuestion: PerseusRenderer = {
         } as RadioWidget,
     },
 };
+
+export const rationalesQuestion: PerseusRenderer = {
+    content:
+        "Example of the Radio Widget with:\n\n- Multiple selections on\n- Specify number correct on\n- Randomize off \n- With Rationales \n\n[[☃ radio 1]]\n\n",
+    images: {},
+    widgets: {
+        "radio 1": {
+            alignment: "default",
+            graded: true,
+            options: {
+                choices: [
+                    {
+                        clue: "It's just not correct.",
+                        content: "Wrong",
+                    },
+                    {
+                        clue: "It says it right in the answer! ",
+                        content: "Right",
+                        correct: true,
+                    },
+                    {
+                        clue: "Nope.",
+                        content: "Wrong",
+                    },
+                    {
+                        clue: "That's it! ",
+                        content: "Right",
+                        correct: true,
+                    },
+                ],
+                countChoices: true,
+                deselectEnabled: false,
+                displayCount: null,
+                hasNoneOfTheAbove: false,
+                multipleSelect: true,
+                numCorrect: 2,
+                randomize: false,
+            },
+            static: false,
+            type: "radio",
+            version: {
+                major: 2,
+                minor: 0,
+            },
+        },
+    },
+};

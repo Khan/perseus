@@ -419,8 +419,9 @@ class Renderer
         // they are re-rendered, so even if they've been
         // re-rendered we need to call these methods on them.
         this.widgetIds.forEach((id) => {
+            const props = this.getWidgetProps(id);
             const container = this._widgetContainers.get(makeContainerId(id));
-            container?.replaceWidgetProps(this.getWidgetProps(id));
+            container?.replaceWidgetProps(props);
         });
 
         if (
