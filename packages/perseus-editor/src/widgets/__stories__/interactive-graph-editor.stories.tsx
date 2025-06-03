@@ -1,9 +1,9 @@
-import {action} from "@storybook/addon-actions";
 import * as React from "react";
+import {action} from "storybook/actions";
 
 import InteractiveGraphEditor from "../interactive-graph-editor/interactive-graph-editor";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "PerseusEditor/Widgets/Interactive Graph Editor",

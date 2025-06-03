@@ -4,7 +4,7 @@ import * as React from "react";
 
 import ScrolllessNumberTextField from "../scrollless-number-text-field";
 
-import type {StoryObj, Meta} from "@storybook/react";
+import type {StoryObj, Meta} from "@storybook/react-vite";
 
 export default {
     title: "PerseusEditor/Components/Scrollless Number Text Field",
