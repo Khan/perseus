@@ -3,6 +3,24 @@
 #
 #     utils/sync-dependencies.ts ../webapp/services/static/package.json
 #
+# We have two separate catalogs for dev deps and peer deps to ensure
+# that:
+#
+# - we know exactly which version of each package we're installing in
+#   dev. That way, we can truthfully claim to support all versions
+#   compatible with that one.
+# - our peer dependencies can specify a range of versions. For peer
+#   deps, want to accept any version compatible with the one we
+#   installed in dev. For example, if we installed version 1.2.3 in
+#   dev, then we want to accept ^1.2.3 (which means "any 1.x.x version
+#   equal to or later than 1.2.3") as a peer dep. We want peer deps
+#   to be specified as a range so clients don't get spurious warnings
+#   if their dependency versions are slightly different than the ones
+#   we use.
+#
+# The sync-dependencies.ts script ensures that peer deps are always
+# specified as a range, and the dev deps are always pinned to the
+# version at the bottom of that range.
 packages:
     - config/build
     - dev
