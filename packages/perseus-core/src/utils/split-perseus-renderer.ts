@@ -1,7 +1,7 @@
 import _ from "underscore";
 
+import {applyDefaultsToWidgets} from "../widgets/apply-defaults";
 import {getPublicWidgetOptionsFunction} from "../widgets/core-widget-registry";
-import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
 import deepClone from "./deep-clone";
 
@@ -18,7 +18,7 @@ export default function splitPerseusRenderer(
     const clone = deepClone(original);
     const originalWidgets = clone.widgets ?? {};
 
-    const upgradedWidgets = getUpgradedWidgetOptions(originalWidgets);
+    const upgradedWidgets = applyDefaultsToWidgets(originalWidgets);
     const splitWidgets = {};
 
     for (const [id, widget] of Object.entries(upgradedWidgets)) {
