@@ -1,13 +1,10 @@
 import {
-    ItemExtras,
-    type PerseusAnswerArea,
+    getDefaultAnswerArea,
     type PerseusItem,
 } from "@khanacademy/perseus-core";
 
 export const itemWithPieChart: PerseusItem = {
-    answerArea: Object.fromEntries(
-        ItemExtras.map((extra) => [extra, false]),
-    ) as PerseusAnswerArea,
+    answerArea: getDefaultAnswerArea(),
     hints: [],
     question: {
         content: "[[☃ image 1]]",

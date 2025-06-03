@@ -20,7 +20,6 @@ import type {
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
     Version,
-    WidgetOptionsUpgradeMap,
     Rubric,
     UserInput,
     UserInputArray,
@@ -500,7 +499,7 @@ export type WidgetExports<
     hidden?: boolean;
     /**
      * The widget version. Any time the _major_ version changes, the widget
-     * should provide a new entry in the propUpgrades map to migrate from the
+     * should provide a new entry in the widget parser to migrate from the
      * older version to the current (new) version. Minor version changes must
      * be backwards compatible with previous minor versions widget options.
      *
@@ -525,19 +524,6 @@ export type WidgetExports<
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,
     ) => string | null | undefined;
-
-    /**
-     * A map of major version numbers (as a string, eg "1") to a function that
-     * migrates from the _previous_ major version.
-     *
-     * Example:
-     * ```
-     * propUpgrades: {'1': (options) => ({...options})}
-     * ```
-     *
-     * This configuration would migrate options from major version 0 to 1.
-     */
-    propUpgrades?: WidgetOptionsUpgradeMap;
 }>;
 
 export type FilterCriterion =
@@ -553,8 +539,8 @@ export type FilterCriterion =
  * `RenderProps` generic argument are the widget-specific props that originate
  * from the stored PerseusItem. Note that they may not match the serialized
  * widget options exactly as they are the result of running the options through
- * any `propUpgrades` the widget defines as well as its `transform` or
- * `staticTransform` functions (depending on the options `static` flag).
+ * the parser as well as its `transform` or `staticTransform` functions
+ * (depending on the options `static` flag).
  */
 // NOTE: Rubric should always be the corresponding widget options type for the component.
 // TODO: in fact, is it really the rubric? WidgetOptions is what we use to configure the widget

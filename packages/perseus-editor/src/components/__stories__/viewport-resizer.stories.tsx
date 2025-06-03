@@ -1,10 +1,10 @@
-import {action} from "@storybook/addon-actions";
 import * as React from "react";
+import {action} from "storybook/actions";
 
 import ViewportResizer from "../viewport-resizer";
 
 import type {DeviceType} from "@khanacademy/perseus";
-import type {Meta, StoryFn} from "@storybook/react";
+import type {Meta, StoryFn} from "@storybook/react-vite";
 
 const meta: Meta<typeof ViewportResizer> = {
     component: ViewportResizer,

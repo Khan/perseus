@@ -10,7 +10,7 @@ import {
     inlineDropdownWithVisibleLabel,
 } from "./dropdown.testdata";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Perseus/Widgets/Dropdown",
