@@ -44,7 +44,7 @@ import type {Alignment} from "../types";
 
 const widgets = new Registry<WidgetLogic>("Core widget registry");
 
-function registerWidget(type: string, logic: WidgetLogic) {
+export function registerWidget(type: string, logic: WidgetLogic) {
     widgets.set(type, logic);
 }
 
