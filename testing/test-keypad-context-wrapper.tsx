@@ -1,5 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {action} from "@storybook/addon-actions";
+import {action} from "storybook/actions";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 

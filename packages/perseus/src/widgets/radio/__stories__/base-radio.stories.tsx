@@ -1,4 +1,4 @@
-import {action} from "@storybook/addon-actions";
+import {action} from "storybook/actions";
 import * as React from "react";
 
 import {generateChoice} from "../__tests__/base-radio.testdata";

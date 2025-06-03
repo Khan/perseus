@@ -13,7 +13,7 @@ import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-buil
 import {sinusoidWithPiTicks} from "./interactive-graph.testdata";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 type Story = StoryObj<typeof MafsQuestionRenderer>;
 

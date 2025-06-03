@@ -1,4 +1,4 @@
-import {action} from "@storybook/addon-actions";
+import {action} from "storybook/actions";
 import * as React from "react";
 import {useState} from "react";
 
@@ -14,7 +14,7 @@ import {
 } from "../__testdata__/server-item-renderer.testdata";
 import {ServerItemRenderer} from "../server-item-renderer";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Perseus/Renderers/Server Item Renderer",

@@ -1,4 +1,4 @@
-import {action} from "@storybook/addon-actions";
+import {action} from "storybook/actions";
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 

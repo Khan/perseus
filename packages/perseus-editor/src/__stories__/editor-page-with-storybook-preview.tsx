@@ -11,7 +11,7 @@ import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import xIcon from "@phosphor-icons/core/regular/x.svg";
-import {action} from "@storybook/addon-actions";
+import {action} from "storybook/actions";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 

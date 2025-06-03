@@ -1,4 +1,4 @@
-import {action} from "@storybook/addon-actions";
+import {action} from "storybook/actions";
 
 import {ArticleRendererWithDebugUI} from "../../../../testing/article-renderer-with-debug-ui";
 import {
@@ -9,7 +9,7 @@ import {
     multiSectionArticleWithExpression,
 } from "../__testdata__/article-renderer.testdata";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Perseus/Renderers/Article Renderer",
