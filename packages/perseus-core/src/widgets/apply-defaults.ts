@@ -8,7 +8,6 @@ import {
     getCurrentVersion,
     getDefaultWidgetOptions,
     getSupportedAlignments,
-    getWidgetOptionsUpgrades,
     isWidgetRegistered,
 } from "./core-widget-registry";
 
@@ -16,7 +15,7 @@ import type {PerseusWidget, PerseusWidgetsMap} from "../data-schema";
 
 const DEFAULT_STATIC = false;
 
-export const upgradeWidgetInfoToLatestVersion = (
+export const applyDefaultsToWidget = (
     oldWidgetInfo: PerseusWidget,
 ): PerseusWidget => {
     const type = oldWidgetInfo.type;
@@ -52,50 +51,7 @@ export const upgradeWidgetInfoToLatestVersion = (
         return oldWidgetInfo;
     }
 
-    // We do a clone here so that it's safe to mutate the input parameter
-    // in propUpgrades functions (which I will probably accidentally do at
-    // some point, and we would like to not break when that happens).
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    let newEditorOptions = _.clone(oldWidgetInfo.options) || {};
-
-    const upgradePropsMap = getWidgetOptionsUpgrades(type);
-
-    // Empty props usually mean a newly created widget by the editor,
-    // and are always considerered up-to-date.
-    // Mostly, we'd rather not run upgrade functions on props that are
-    // not complete.
-    if (_.keys(newEditorOptions).length !== 0) {
-        // We loop through all the versions after the current version of
-        // the loaded widget, up to and including the latest version of the
-        // loaded widget, and run the upgrade function to bring our loaded
-        // widget's props up to that version.
-        // There is a little subtlety here in that we call
-        // upgradePropsMap[1] to upgrade *to* version 1,
-        // (not from version 1).
-        for (
-            let nextVersion = initialVersion.major + 1;
-            nextVersion <= latestVersion.major;
-            nextVersion++
-        ) {
-            if (upgradePropsMap[String(nextVersion)] != null) {
-                newEditorOptions =
-                    upgradePropsMap[String(nextVersion)](newEditorOptions);
-            } else {
-                throw new PerseusError(
-                    "No upgrade found for widget. Cannot render.",
-                    Errors.Internal,
-                    {
-                        metadata: {
-                            type,
-                            fromMajorVersion: nextVersion - 1,
-                            toMajorVersion: nextVersion,
-                            oldWidgetInfo: JSON.stringify(oldWidgetInfo),
-                        },
-                    },
-                );
-            }
-        }
-    }
+    let newEditorOptions = _.clone(oldWidgetInfo.options) ?? {};
 
     // Minor version upgrades (eg. new optional props) don't have
     // transform functions. Instead, we fill in the new props with their
@@ -142,7 +98,7 @@ export const upgradeWidgetInfoToLatestVersion = (
     } as any;
 };
 
-export function getUpgradedWidgetOptions(
+export function applyDefaultsToWidgets(
     oldWidgetOptions: PerseusWidgetsMap,
 ): PerseusWidgetsMap {
     return mapObject(oldWidgetOptions, (widgetInfo, widgetId) => {
@@ -163,6 +119,6 @@ export function getUpgradedWidgetOptions(
             widgetInfo = {...widgetInfo, ...newValues};
         }
 
-        return upgradeWidgetInfoToLatestVersion(widgetInfo) as any;
+        return applyDefaultsToWidget(widgetInfo) as any;
     });
 }

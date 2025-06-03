@@ -5,7 +5,6 @@ describe("core-widget-registry", () => {
         "isWidgetRegistered",
         "getCurrentVersion",
         "getPublicWidgetOptionsFunction",
-        "getWidgetOptionsUpgrades",
         "getDefaultWidgetOptions",
         "getSupportedAlignments",
         "getDefaultAlignment",
