@@ -31,10 +31,10 @@
     "devDependencies": {
         "@khanacademy/pure-markdown": "workspace:*",
         "perseus-build-settings": "workspace:*",
-        "prop-types": "catalog:"
+        "prop-types": "catalog:devDeps"
     },
     "peerDependencies": {
-        "prop-types": "catalog:"
+        "prop-types": "catalog:peerDeps"
     },
     "keywords": []
 }
