@@ -12,6 +12,7 @@ const missingOptions = {
             graded: true,
             static: false,
             options: {
+                numCorrect: 1,
                 choices: [
                     {
                         content: "A",
@@ -159,9 +160,9 @@ const sampleGroup = {
                             randomize: false,
                             multipleSelect: false,
                             displayCount: null,
-                            noneOfTheAbove: false,
                             deselectEnabled: false,
                             countChoices: false,
+                            numCorrect: 1,
                         },
                         version: {
                             major: 0,
@@ -308,12 +309,6 @@ describe("Traversal", () => {
         });
         expect(newOptions.content).toBe("[[☃ mock-widget 1]]\n\nnew content!");
         expect(newOptions.widgets).toEqual(sampleOptions.widgets);
-        assertNonMutative();
-    });
-
-    it("should upgrade widgets automagickally", () => {
-        const newOptions = traverse(sampleOptions2);
-        expect(newOptions).toEqual(sampleOptions2Upgraded);
         assertNonMutative();
     });
 

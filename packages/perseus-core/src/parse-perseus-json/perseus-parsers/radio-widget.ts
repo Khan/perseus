@@ -1,4 +1,4 @@
-import {deriveNumCorrect} from "../../widgets/radio/radio-upgrade";
+import {deriveNumCorrect} from "../../widgets/radio/derive-num-correct";
 import {
     any,
     array,
@@ -25,65 +25,78 @@ const parseWidgetsMapOrUndefined = defaulted(
     () => undefined,
 );
 
+function getDefaultOptions() {
+    // See parse-perseus-json/README.md for why we want these defaults here.
+    return {
+        choices: [{content: ""}, {content: ""}, {content: ""}, {content: ""}],
+    };
+}
+
 const version2 = optional(object({major: constant(2), minor: number}));
 const parseRadioWidgetV2 = parseWidgetWithVersion(
     version2,
     constant("radio"),
-    object({
-        numCorrect: optional(number),
-        choices: array(
-            object({
-                content: defaulted(string, () => ""),
-                clue: optional(string),
-                correct: optional(boolean),
-                isNoneOfTheAbove: optional(boolean),
-                // deprecated
-                widgets: parseWidgetsMapOrUndefined,
-            }),
-        ),
-        hasNoneOfTheAbove: optional(boolean),
-        countChoices: optional(boolean),
-        randomize: optional(boolean),
-        multipleSelect: optional(boolean),
-        deselectEnabled: optional(boolean),
-        // deprecated
-        onePerLine: optional(boolean),
-        // deprecated
-        displayCount: optional(any),
-        // v0 props
-        // `noneOfTheAbove` is still in use (but only set to `false`).
-        noneOfTheAbove: optional(constant(false)),
-    }),
+    defaulted(
+        object({
+            numCorrect: optional(number),
+            choices: array(
+                object({
+                    content: defaulted(string, () => ""),
+                    clue: optional(string),
+                    correct: optional(boolean),
+                    isNoneOfTheAbove: optional(boolean),
+                    // deprecated
+                    widgets: parseWidgetsMapOrUndefined,
+                }),
+            ),
+            hasNoneOfTheAbove: optional(boolean),
+            countChoices: optional(boolean),
+            randomize: optional(boolean),
+            multipleSelect: optional(boolean),
+            deselectEnabled: optional(boolean),
+            // deprecated
+            onePerLine: optional(boolean),
+            // deprecated
+            displayCount: optional(any),
+            // v0 props
+            // `noneOfTheAbove` is still in use (but only set to `false`).
+            noneOfTheAbove: optional(constant(false)),
+        }),
+        getDefaultOptions,
+    ),
 );
 
 const version1 = optional(object({major: constant(1), minor: number}));
 const parseRadioWidgetV1 = parseWidgetWithVersion(
     version1,
     constant("radio"),
-    object({
-        choices: array(
-            object({
-                content: defaulted(string, () => ""),
-                clue: optional(string),
-                correct: optional(boolean),
-                isNoneOfTheAbove: optional(boolean),
-                // deprecated
-                widgets: parseWidgetsMapOrUndefined,
-            }),
-        ),
-        hasNoneOfTheAbove: optional(boolean),
-        countChoices: optional(boolean),
-        randomize: optional(boolean),
-        multipleSelect: optional(boolean),
-        deselectEnabled: optional(boolean),
-        // deprecated
-        onePerLine: optional(boolean),
-        // deprecated
-        displayCount: optional(any),
-        // v0 props
-        // `noneOfTheAbove` is still in use (but only set to `false`).
-        noneOfTheAbove: optional(constant(false)),
-    }),
+    defaulted(
+        object({
+            choices: array(
+                object({
+                    content: defaulted(string, () => ""),
+                    clue: optional(string),
+                    correct: optional(boolean),
+                    isNoneOfTheAbove: optional(boolean),
+                    // deprecated
+                    widgets: parseWidgetsMapOrUndefined,
+                }),
+            ),
+            hasNoneOfTheAbove: optional(boolean),
+            countChoices: optional(boolean),
+            randomize: optional(boolean),
+            multipleSelect: optional(boolean),
+            deselectEnabled: optional(boolean),
+            // deprecated
+            onePerLine: optional(boolean),
+            // deprecated
+            displayCount: optional(any),
+            // v0 props
+            // `noneOfTheAbove` is still in use (but only set to `false`).
+            noneOfTheAbove: optional(constant(false)),
+        }),
+        getDefaultOptions,
+    ),
 );
 
 function migrateV1ToV2(
@@ -104,30 +117,33 @@ const version0 = optional(object({major: constant(0), minor: number}));
 const parseRadioWidgetV0 = parseWidgetWithVersion(
     version0,
     constant("radio"),
-    object({
-        choices: array(
-            object({
-                content: defaulted(string, () => ""),
-                clue: optional(string),
-                correct: optional(boolean),
-                isNoneOfTheAbove: optional(boolean),
-                // deprecated
-                widgets: parseWidgetsMapOrUndefined,
-            }),
-        ),
-        hasNoneOfTheAbove: optional(boolean),
-        countChoices: optional(boolean),
-        randomize: optional(boolean),
-        multipleSelect: optional(boolean),
-        deselectEnabled: optional(boolean),
-        // deprecated
-        onePerLine: optional(boolean),
-        // deprecated
-        displayCount: optional(any),
-        // v0 props
-        // `noneOfTheAbove` is still in use (but only set to `false`).
-        noneOfTheAbove: optional(constant(false)),
-    }),
+    defaulted(
+        object({
+            choices: array(
+                object({
+                    content: defaulted(string, () => ""),
+                    clue: optional(string),
+                    correct: optional(boolean),
+                    isNoneOfTheAbove: optional(boolean),
+                    // deprecated
+                    widgets: parseWidgetsMapOrUndefined,
+                }),
+            ),
+            hasNoneOfTheAbove: optional(boolean),
+            countChoices: optional(boolean),
+            randomize: optional(boolean),
+            multipleSelect: optional(boolean),
+            deselectEnabled: optional(boolean),
+            // deprecated
+            onePerLine: optional(boolean),
+            // deprecated
+            displayCount: optional(any),
+            // v0 props
+            // `noneOfTheAbove` is still in use (but only set to `false`).
+            noneOfTheAbove: optional(constant(false)),
+        }),
+        getDefaultOptions,
+    ),
 );
 
 function migrateV0ToV1(

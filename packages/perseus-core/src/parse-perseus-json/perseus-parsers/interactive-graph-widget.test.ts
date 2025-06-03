@@ -140,6 +140,54 @@ describe("parseInteractiveGraphWidget", () => {
         );
     });
 
+    it("parses empty strings as onAxis", () => {
+        const emptyLabelLocationResult = parse(
+            {
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    correct: {
+                        type: "linear",
+                    },
+                    graph: {
+                        type: "linear",
+                    },
+                    labelLocation: "",
+                },
+            },
+            parseInteractiveGraphWidget,
+        );
+
+        expect(emptyLabelLocationResult).toEqual(
+            success({
+                type: "interactive-graph",
+                options: {
+                    step: [1, 1],
+                    markings: "grid",
+                    showProtractor: false,
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    correct: {
+                        type: "linear",
+                    },
+                    graph: {
+                        type: "linear",
+                    },
+                    labelLocation: "onAxis",
+                    lockedFigures: [],
+                },
+            }),
+        );
+    });
+
     it("rejects invalid labelLocation values", () => {
         const invalidResult = parse(
             {

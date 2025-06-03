@@ -186,5 +186,4 @@ export default {
     hidden: true,
     widget: Measurer,
     version: measurerLogic.version,
-    propUpgrades: measurerLogic.widgetOptionsUpgrades,
 } satisfies WidgetExports<typeof Measurer>;
