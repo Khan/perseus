@@ -2,9 +2,13 @@ import {any, isPlainObject} from "../general-purpose-parsers";
 import {isFailure} from "../result";
 
 import {parseCategorizerUserInput} from "./categorizer-user-input";
+import {parseCSProgramUserInput} from "./cs-program-user-input";
 import {parseDropdownUserInput} from "./dropdown-user-input";
 import {parseExpressionUserInput} from "./expression-user-input";
+import {parseFreeResponseUserInput} from "./free-response-user-input";
+import {parseGrapherUserInput} from "./grapher-user-input";
 import {parseGroupUserInput} from "./group-user-input";
+import {parseIFrameUserInput} from "./iframe-user-input";
 import {parseInputNumberUserInput} from "./input-number-user-input";
 import {parseInteractiveGraphUserInput} from "./interactive-graph-user-input";
 import {parseLabelImageUserInput} from "./label-image-user-input";
@@ -107,24 +111,23 @@ const parseUserInputMapEntry: (
                 parseCategorizerUserInput,
             );
         case "cs-program":
-            // TODO: Add cs-program user input parser
-            return parseAndAssign(`cs-program ${n}`, any);
+            return parseAndAssign(`cs-program ${n}`, parseCSProgramUserInput);
         case "dropdown":
             return parseAndAssign(`dropdown ${n}`, parseDropdownUserInput);
         case "expression":
             return parseAndAssign(`expression ${n}`, parseExpressionUserInput);
         case "free-response":
-            // TODO: Add free-response user input parser
-            return parseAndAssign(`free-response ${n}`, any);
+            return parseAndAssign(
+                `free-response ${n}`,
+                parseFreeResponseUserInput,
+            );
         case "grapher":
-            // TODO: Add grapher user input parser
-            return parseAndAssign(`grapher ${n}`, any);
+            return parseAndAssign(`grapher ${n}`, parseGrapherUserInput);
         case "group":
             // Recursive case: group user input is itself a UserInputMap
             return parseAndAssign(`group ${n}`, parseGroupUserInput);
         case "iframe":
-            // TODO: Add iframe user input parser
-            return parseAndAssign(`iframe ${n}`, any);
+            return parseAndAssign(`iframe ${n}`, parseIFrameUserInput);
         case "input-number":
             return parseAndAssign(
                 `input-number ${n}`,
