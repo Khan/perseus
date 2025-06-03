@@ -1,6 +1,9 @@
 import getLabelImagePublicWidgetOptions from "./label-image-util";
 
-import type {PerseusLabelImageWidgetOptions} from "../../data-schema";
+import type {
+    PerseusLabelImageWidgetOptions,
+    PerseusWidgetOptions,
+} from "../../data-schema";
 import type {WidgetLogic} from "../logic-export.types";
 
 export type LabelImageDefaultWidgetOptions = Pick<
@@ -30,8 +33,21 @@ const labelImageWidgetLogic: WidgetLogic = {
     name: "label-image",
     defaultWidgetOptions,
     getPublicWidgetOptions: getLabelImagePublicWidgetOptions,
-    // TODO(LEMS-3103): add partially inaccessible function
-    accessible: true,
+    // Function determining if a label image is accessible.
+    // Label Images is inaccessible if it does not have alt text for the image.
+    accessible: (widgetOptions: PerseusWidgetOptions): boolean => {
+        const labelImageOptions =
+            widgetOptions as PerseusLabelImageWidgetOptions;
+
+        if (
+            labelImageOptions.imageUrl !== "" &&
+            labelImageOptions.imageAlt === ""
+        ) {
+            return false;
+        }
+
+        return true;
+    },
 };
 
 export default labelImageWidgetLogic;
