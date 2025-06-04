@@ -26,7 +26,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
             type="button"
           >
             <span
-              class="text_f1191h-o_O-LabelSmall_b0rx6x-o_O-text_1s96g1x-o_O-smallText_9bce1o-o_O-inlineStyles_egvfd8"
+              class="text_f1191h-o_O-LabelSmall_94fo23-o_O-text_phc3wp-o_O-smallText_1eoioz7-o_O-inlineStyles_egvfd8"
             >
               Hide explanation!
             </span>
@@ -99,7 +99,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
             type="button"
           >
             <span
-              class="text_f1191h-o_O-LabelSmall_b0rx6x-o_O-text_1s96g1x-o_O-smallText_9bce1o-o_O-inlineStyles_egvfd8"
+              class="text_f1191h-o_O-LabelSmall_94fo23-o_O-text_phc3wp-o_O-smallText_1eoioz7-o_O-inlineStyles_egvfd8"
             >
               Explanation
             </span>
