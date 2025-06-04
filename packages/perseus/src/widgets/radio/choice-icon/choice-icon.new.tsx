@@ -14,7 +14,7 @@ import {getChoiceLetter} from "../util";
 
 import choiceIconStyles, {CHOICE_ICON_SIZE} from "./choice-icon-styles";
 
-type ChoiceIconProps = {
+interface ChoiceIconProps {
     pos: number;
     checked: boolean;
     focused: boolean;
@@ -25,13 +25,13 @@ type ChoiceIconProps = {
     multipleSelect: boolean;
     reviewMode: boolean;
     previouslyAnswered: boolean;
-};
+}
 
-type ChoiceInnerProps = {
+interface ChoiceInnerProps {
     pos: number;
     showCorrectness: boolean;
     correct: boolean | null | undefined;
-};
+}
 
 function ChoiceInner(props: ChoiceInnerProps) {
     const {pos, showCorrectness, correct} = props;

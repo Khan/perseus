@@ -14,7 +14,7 @@ import {usePerseusI18n} from "../../components/i18n-context";
 
 import {getOptionStatusText} from "./utils/string-utils";
 
-type Props = {
+interface OptionStatusProps {
     // Was this option the correct answer?
     correct: boolean;
     // Did the user select this option as the answer?
@@ -22,7 +22,7 @@ type Props = {
     // Did the user select this option as the answer earlier?
     previouslyAnswered: boolean;
     reviewMode: boolean;
-};
+}
 
 /**
  * This component is a duplicate of the OptionStatus component in option-status.tsx
@@ -36,7 +36,7 @@ const OptionStatus = ({
     correct,
     previouslyAnswered,
     reviewMode,
-}: Props): React.ReactElement | null => {
+}: OptionStatusProps): React.ReactElement | null => {
     const {strings} = usePerseusI18n();
 
     // Option status is shown only in review mode, or for incorrectly

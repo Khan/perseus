@@ -7,7 +7,7 @@ import * as React from "react";
 
 import * as styleConstants from "../../styles/constants";
 
-type Props = {
+interface FocusRingProps {
     children?: React.ReactNode;
     // Whether the focus ring is visible. Allows for positioning
     // the child identically regardless of whether the ring is visible.
@@ -16,7 +16,7 @@ type Props = {
     color?: string;
     // Whether a user can select multiple options or not
     multipleSelect?: boolean;
-};
+}
 
 /**
  * This component is a duplicate of the FocusRing component in focus-ring.tsx
@@ -30,7 +30,7 @@ const FocusRing = ({
     color = styleConstants.kaGreen,
     multipleSelect = false,
     children,
-}: Props): React.ReactElement => {
+}: FocusRingProps): React.ReactElement => {
     const borderColor = visible ? color : "transparent";
     const borderRadius = multipleSelect ? 5 : "50%";
     const style = {
