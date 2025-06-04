@@ -52,6 +52,7 @@ const renderQuestion = (
                 apiOptions={apiOptions}
                 item={question}
                 problemNum={0}
+                hintsVisible={0}
                 reviewMode={false}
                 dependencies={testDependenciesV2}
                 {...optionalProps}
@@ -448,14 +449,18 @@ describe("server item renderer", () => {
     describe("state serialization", () => {
         it("should serialize the current state", async () => {
             // Arrange
-            const {renderer} = renderQuestion({
-                ...itemWithMockWidget,
-                hints: [
-                    {content: "Hint #1", images: {}, widgets: {}},
-                    {content: "Hint #2", images: {}, widgets: {}},
-                    {content: "Hint #3", images: {}, widgets: {}},
-                ],
-            });
+            const {renderer} = renderQuestion(
+                {
+                    ...itemWithMockWidget,
+                    hints: [
+                        {content: "Hint #1", images: {}, widgets: {}},
+                        {content: "Hint #2", images: {}, widgets: {}},
+                        {content: "Hint #3", images: {}, widgets: {}},
+                    ],
+                },
+                undefined,
+                {startAnswerless: false, hintsVisible: undefined},
+            );
             await userEvent.type(screen.getByRole("textbox"), "-42");
 
             // Act

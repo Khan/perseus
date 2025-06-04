@@ -183,6 +183,7 @@ class EditorPage extends React.Component<Props, State> {
         return issues1.concat(issues2);
     }
 
+    // @deprecated use `onChange` instead
     serialize(options?: {keepDeletedWidgets?: boolean}): any | PerseusItem {
         if (this.props.jsonMode) {
             return this.state.json;
