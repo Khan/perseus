@@ -94,6 +94,134 @@ describe("parseUserInputMap", () => {
             expect(result).toEqual(anyFailure);
         });
 
+        it("rejects invalid free-response user input", () => {
+            const userInputMap = {
+                "free-response 1": {currentValue: 123}, // should be string
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid categorizer user input structure", () => {
+            const userInputMap = {
+                "categorizer 1": {values: ["string", "not", "numbers"]},
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid matrix user input", () => {
+            const userInputMap = {
+                "matrix 1": {answers: "not an array"},
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid table user input", () => {
+            const userInputMap = {
+                "table 1": "not an array",
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid plotter user input", () => {
+            const userInputMap = {
+                "plotter 1": ["not", "numbers"],
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid number-line user input", () => {
+            const userInputMap = {
+                "number-line 1": {numLinePosition: "not a number"},
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid expression user input", () => {
+            const userInputMap = {
+                "expression 1": 123, // should be string
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid input-number user input", () => {
+            const userInputMap = {
+                "input-number 1": {currentValue: 123}, // should be string
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid interactive-graph user input", () => {
+            const userInputMap = {
+                "interactive-graph 1": "not a valid graph object",
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid grapher user input", () => {
+            const userInputMap = {
+                "grapher 1": "not a valid grapher object",
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid orderer user input", () => {
+            const userInputMap = {
+                "orderer 1": {current: "not an array"},
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid matcher user input", () => {
+            const userInputMap = {
+                "matcher 1": {left: "not an array"},
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid sorter user input", () => {
+            const userInputMap = {
+                "sorter 1": {options: "not an array"},
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid label-image user input", () => {
+            const userInputMap = {
+                "label-image 1": {markers: "not an array"},
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid cs-program user input", () => {
+            const userInputMap = {
+                "cs-program 1": {code: 123}, // should be "correct", "incorrect", or "incomplete"
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
+        it("rejects invalid iframe user input", () => {
+            const userInputMap = {
+                "iframe 1": {status: 123}, // should be "correct", "incorrect", or "incomplete"
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(anyFailure);
+        });
+
         it("rejects missing required fields in known widget types", () => {
             const userInputMap = {
                 "dropdown 1": {}, // missing required 'value' field
@@ -115,14 +243,6 @@ describe("parseUserInputMap", () => {
                     badValue: "not a number",
                 }),
             );
-        });
-
-        it("rejects invalid categorizer user input structure", () => {
-            const userInputMap = {
-                "categorizer 1": {values: ["string", "not", "numbers"]},
-            };
-            const result = parseUserInputMap(userInputMap, ctx());
-            expect(result).toEqual(anyFailure);
         });
 
         it("stops at first invalid widget and provides appropriate error", () => {
