@@ -1,5 +1,22 @@
 # @khanacademy/perseus-editor
 
+## 23.0.1
+
+### Patch Changes
+
+-   [#2551](https://github.com/Khan/perseus/pull/2551) [`414abda7a`](https://github.com/Khan/perseus/commit/414abda7a80fc482e93ab064ff34ef540cd9eae7) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - 🛠️ Upgrade all packages to use Storybook v9 for development
+
+*   [#2419](https://github.com/Khan/perseus/pull/2419) [`843d66257`](https://github.com/Khan/perseus/commit/843d66257ceb32b7c3d3eea4dea47dfda58e7945) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove the `propUpgrades` API from widgets as they're considered obsolete with the new parser
+
+*   Updated dependencies [[`404bde44d`](https://github.com/Khan/perseus/commit/404bde44dc6f8b6d5cbc8593c10b47f5f65d7eeb), [`d4720c470`](https://github.com/Khan/perseus/commit/d4720c4706888c922e3111c11f121a730d592aaf), [`414abda7a`](https://github.com/Khan/perseus/commit/414abda7a80fc482e93ab064ff34ef540cd9eae7), [`35e4d13d9`](https://github.com/Khan/perseus/commit/35e4d13d9f6e49996e149950024a87f1601c2e43), [`6bc9cc667`](https://github.com/Khan/perseus/commit/6bc9cc667c5bf2e48bfc5d036f11ba2285730839), [`843d66257`](https://github.com/Khan/perseus/commit/843d66257ceb32b7c3d3eea4dea47dfda58e7945), [`074775b1f`](https://github.com/Khan/perseus/commit/074775b1ff0dc830a3d66030a14b776b0f631003)]:
+    -   @khanacademy/perseus-core@13.0.0
+    -   @khanacademy/math-input@26.0.1
+    -   @khanacademy/perseus@64.0.0
+    -   @khanacademy/perseus-score@7.0.2
+    -   @khanacademy/keypad-context@3.0.12
+    -   @khanacademy/kmath@2.0.12
+    -   @khanacademy/perseus-linter@3.0.12
+
 ## 23.0.0
 
 ### Major Changes
