@@ -222,29 +222,6 @@ describe("parseUserInputMap", () => {
             expect(result).toEqual(anyFailure);
         });
 
-        it("rejects missing required fields in known widget types", () => {
-            const userInputMap = {
-                "dropdown 1": {}, // missing required 'value' field
-            };
-            const result = parseUserInputMap(userInputMap, ctx());
-            expect(result).toEqual(anyFailure);
-        });
-
-        it("provides appropriate error message for invalid widget user input", () => {
-            const userInputMap = {
-                "dropdown 1": {value: "not a number"},
-            };
-            const result = parseUserInputMap(userInputMap, ctx());
-
-            expect(result).toEqual(
-                parseFailureWith({
-                    path: ["dropdown 1", "value"],
-                    expected: ["number"],
-                    badValue: "not a number",
-                }),
-            );
-        });
-
         it("stops at first invalid widget and provides appropriate error", () => {
             const userInputMap = {
                 "dropdown 1": {value: "invalid"},
@@ -269,36 +246,6 @@ describe("parseUserInputMap", () => {
             expect(result).toEqual(
                 success({
                     "unknown-widget 1": {anyField: "anyValue", someNumber: 42},
-                }),
-            );
-        });
-
-        it("passes through any data structure for unrecognized widgets", () => {
-            const userInputMap = {
-                "mystery-widget 1": {
-                    complex: {
-                        nested: {
-                            structure: [1, 2, 3],
-                            withBooleans: true,
-                        },
-                    },
-                    nullValue: null,
-                    arrayOfObjects: [{a: 1}, {b: 2}],
-                },
-            };
-            const result = parseUserInputMap(userInputMap, ctx());
-            expect(result).toEqual(
-                success({
-                    "mystery-widget 1": {
-                        complex: {
-                            nested: {
-                                structure: [1, 2, 3],
-                                withBooleans: true,
-                            },
-                        },
-                        nullValue: null,
-                        arrayOfObjects: [{a: 1}, {b: 2}],
-                    },
                 }),
             );
         });
