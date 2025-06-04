@@ -7,6 +7,7 @@ import {parseDropdownUserInput} from "./dropdown-user-input";
 import {parseExpressionUserInput} from "./expression-user-input";
 import {parseFreeResponseUserInput} from "./free-response-user-input";
 import {parseGrapherUserInput} from "./grapher-user-input";
+import {parseGroupUserInput} from "./group-user-input";
 import {parseIFrameUserInput} from "./iframe-user-input";
 import {parseInputNumberUserInput} from "./input-number-user-input";
 import {parseInteractiveGraphUserInput} from "./interactive-graph-user-input";
@@ -124,7 +125,7 @@ const parseUserInputMapEntry: (
             return parseAndAssign(`grapher ${n}`, parseGrapherUserInput);
         case "group":
             // Recursive case: group user input is itself a UserInputMap
-            return parseAndAssign(`group ${n}`, parseUserInputMap);
+            return parseAndAssign(`group ${n}`, parseGroupUserInput);
         case "iframe":
             return parseAndAssign(`iframe ${n}`, parseIFrameUserInput);
         case "input-number":

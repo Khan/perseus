@@ -4,4 +4,4 @@ import type {PerseusGroupUserInput} from "../../validation.types";
 import type {Parser} from "../parser-types";
 
 export const parseGroupUserInput: Parser<PerseusGroupUserInput> =
-    parseUserInputMap;
+    (rawVal, ctx) => parseUserInputMap(rawVal, ctx);
