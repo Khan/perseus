@@ -23,7 +23,7 @@ describe("hashBasedShuffle", () => {
 
     it("returns the same order for the same seed", () => {
         const choices = createChoices();
-        const seed = 12345;
+        const seed = `12345`;
 
         const result1 = hashBasedShuffle(choices, seed);
         const result2 = hashBasedShuffle(choices, seed);
@@ -36,8 +36,8 @@ describe("hashBasedShuffle", () => {
     it("returns different orders for different seeds", () => {
         const choices = createChoices();
 
-        const result1 = hashBasedShuffle(choices, 12345);
-        const result2 = hashBasedShuffle(choices, 67890);
+        const result1 = hashBasedShuffle(choices, `12345`);
+        const result2 = hashBasedShuffle(choices, `67890`);
 
         expect(result1.map(c => c.originalIndex)).not.toEqual(
             result2.map(c => c.originalIndex)
@@ -57,8 +57,8 @@ describe("hashBasedShuffle", () => {
             createChoice("choice-2-different3", 2),
         ];
 
-        const result1 = hashBasedShuffle(choicesWithIds, 12345);
-        const result2 = hashBasedShuffle(choicesWithDifferentIds, 12345);
+        const result1 = hashBasedShuffle(choicesWithIds, `12345`);
+        const result2 = hashBasedShuffle(choicesWithDifferentIds, `12345`);
 
         // Different IDs should produce different shuffle orders
         expect(result1.map(c => c.originalIndex)).not.toEqual(
@@ -73,7 +73,7 @@ describe("hashBasedShuffle", () => {
             {originalIndex: 2, content: "Third", correct: false},
         ];
 
-        const result = hashBasedShuffle(choicesWithoutIds, 12345);
+        const result = hashBasedShuffle(choicesWithoutIds, `12345`);
 
         // Should not throw and should return all choices
         expect(result).toHaveLength(3);
@@ -82,7 +82,7 @@ describe("hashBasedShuffle", () => {
 
     it("preserves all choices in the result", () => {
         const choices = createChoices();
-        const result = hashBasedShuffle(choices, 12345);
+        const result = hashBasedShuffle(choices, `12345`);
 
         expect(result).toHaveLength(choices.length);
 
@@ -95,7 +95,7 @@ describe("hashBasedShuffle", () => {
     it("produces different orders than the original for most seeds", () => {
         const choices = createChoices();
         let differentOrderCount = 0;
-        const testSeeds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        const testSeeds = [`1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`];
 
         testSeeds.forEach(seed => {
             const result = hashBasedShuffle(choices, seed);
@@ -120,7 +120,7 @@ describe("hashBasedShuffle", () => {
             createChoice("choice-3-3m4n5o6p", 3, "The answer is D"),
         ];
 
-        const seed = 42;
+        const seed = `42`;
         const result1 = hashBasedShuffle(realisticChoices, seed);
         const result2 = hashBasedShuffle(realisticChoices, seed);
 
