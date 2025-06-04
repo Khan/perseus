@@ -12,6 +12,7 @@ const missingOptions = {
             graded: true,
             static: false,
             options: {
+                numCorrect: 1,
                 choices: [
                     {
                         content: "A",
@@ -78,9 +79,9 @@ const sampleOptions2: PerseusRenderer = {
                 randomize: false,
                 multipleSelect: false,
                 displayCount: null,
-                noneOfTheAbove: false,
                 deselectEnabled: false,
                 countChoices: false,
+                numCorrect: 1,
             },
             version: {
                 major: 0,

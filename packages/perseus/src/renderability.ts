@@ -10,7 +10,6 @@
 import {
     Errors,
     PerseusError,
-    upgradeWidgetInfoToLatestVersion,
     traverse,
     applyDefaultsToWidget,
 } from "@khanacademy/perseus-core";
