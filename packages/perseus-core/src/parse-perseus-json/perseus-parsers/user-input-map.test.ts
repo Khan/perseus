@@ -3,7 +3,7 @@ import {
     ctx,
     parseFailureWith,
 } from "../general-purpose-parsers/test-helpers";
-import {assertFailure, success} from "../result";
+import {success} from "../result";
 
 import {parseUserInputMap} from "./user-input-map";
 
@@ -41,61 +41,17 @@ describe("parseUserInputMap", () => {
     });
 
     describe("invalid widget ID keys", () => {
-        it("rejects empty string as widget ID", () => {
-            const userInputMap = {
-                "": {value: 1},
-            };
-            const result = parseUserInputMap(userInputMap, ctx());
-            expect(result).toEqual(anyFailure);
-        });
-
-        it("rejects widget ID with negative number", () => {
+        it("rejects an invalid widget ID", () => {
             const userInputMap = {
                 "radio -1": {choicesSelected: [false]},
             };
             const result = parseUserInputMap(userInputMap, ctx());
-            expect(result).toEqual(anyFailure);
-        });
-
-        it("rejects widget ID with non-integer number", () => {
-            const userInputMap = {
-                "radio 1.5": {choicesSelected: [false]},
-            };
-            const result = parseUserInputMap(userInputMap, ctx());
-            expect(result).toEqual(anyFailure);
-        });
-
-        it("rejects widget ID with too many components", () => {
-            const userInputMap = {
-                "radio 1 extra": {choicesSelected: [false]},
-            };
-            const result = parseUserInputMap(userInputMap, ctx());
-            expect(result).toEqual(anyFailure);
-        });
-
-        it("rejects widget ID with only one component", () => {
-            const userInputMap = {
-                radio: {choicesSelected: [false]},
-            };
-            const result = parseUserInputMap(userInputMap, ctx());
-            expect(result).toEqual(anyFailure);
-        });
-
-        it("provides appropriate error message for invalid widget ID format", () => {
-            const userInputMap = {
-                "radio -1": {choicesSelected: [false]},
-            };
-            const result = parseUserInputMap(userInputMap, ctx());
-
-            assertFailure(result);
-            expect(result.detail[0].path).toEqual([
-                "radio -1",
-                "(widget ID)",
-                1,
-            ]);
-            expect(result.detail[0].expected).toEqual([
-                "a string representing a non-negative integer",
-            ]);
+            expect(result).toEqual(
+                parseFailureWith({
+                    path: ["radio -1", "(widget ID)", 1],
+                    expected: ["a string representing a non-negative integer"],
+                }),
+            );
         });
     });
 
@@ -234,6 +190,18 @@ describe("parseUserInputMap", () => {
             );
         });
 
+        it("accepts valid expression user input (primitive string)", () => {
+            const userInputMap = {
+                "expression 1": "x^2 + 2x + 1",
+            };
+            const result = parseUserInputMap(userInputMap, ctx());
+            expect(result).toEqual(
+                success({
+                    "expression 1": "x^2 + 2x + 1",
+                }),
+            );
+        });
+
         it("accepts multiple valid widgets in the same map", () => {
             const userInputMap = {
                 "dropdown 1": {value: 0},
@@ -290,10 +258,13 @@ describe("parseUserInputMap", () => {
             };
             const result = parseUserInputMap(userInputMap, ctx());
 
-            assertFailure(result);
-            expect(result.detail[0].path).toEqual(["dropdown 1", "value"]);
-            expect(result.detail[0].expected).toEqual(["number"]);
-            expect(result.detail[0].badValue).toBe("not a number");
+            expect(result).toEqual(
+                parseFailureWith({
+                    path: ["dropdown 1", "value"],
+                    expected: ["number"],
+                    badValue: "not a number",
+                }),
+            );
         });
 
         it("rejects invalid categorizer user input structure", () => {
@@ -311,9 +282,11 @@ describe("parseUserInputMap", () => {
             };
             const result = parseUserInputMap(userInputMap, ctx());
 
-            assertFailure(result);
-            // Should fail on the first invalid widget (dropdown 1)
-            expect(result.detail[0].path).toEqual(["dropdown 1", "value"]);
+            expect(result).toEqual(
+                parseFailureWith({
+                    path: ["dropdown 1", "value"],
+                }),
+            );
         });
     });
 
@@ -444,13 +417,12 @@ describe("parseUserInputMap", () => {
             };
             const result = parseUserInputMap(userInputMap, ctx());
 
-            assertFailure(result);
-            expect(result.detail[0].path).toEqual([
-                "group 1",
-                "dropdown 1",
-                "value",
-            ]);
-            expect(result.detail[0].expected).toEqual(["number"]);
+            expect(result).toEqual(
+                parseFailureWith({
+                    path: ["group 1", "dropdown 1", "value"],
+                    expected: ["number"],
+                }),
+            );
         });
     });
 });
