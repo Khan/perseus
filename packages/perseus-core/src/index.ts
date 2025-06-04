@@ -190,3 +190,11 @@ export {registerCoreWidgets} from "./widgets/core-widget-registry";
 
 export {traverse} from "./traversal";
 export {isItemAccessible, violatingWidgets} from "./accessibility";
+export {
+    isLabeledSVG,
+    getRealImageUrl,
+    getBaseUrl,
+    getSvgUrl,
+    getDataUrl,
+    getImageSizeModern,
+} from "./utils/util.graphie";

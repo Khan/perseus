@@ -1,3 +1,5 @@
+import {isLabeledSVG} from "../../utils/util.graphie";
+
 import getInteractiveGraphPublicWidgetOptions from "./interactive-graph-util";
 
 import type {
@@ -63,7 +65,10 @@ const interactiveGraphWidgetLogic: WidgetLogic = {
 
         // Return false (inaccessible) if the interactive graph contains
         // a graphie background image.
-        if (interactiveGraphOptions.backgroundImage?.url?.includes("graphie")) {
+        if (
+            interactiveGraphOptions.backgroundImage?.url &&
+            isLabeledSVG(interactiveGraphOptions.backgroundImage?.url)
+        ) {
             return false;
         }
 
