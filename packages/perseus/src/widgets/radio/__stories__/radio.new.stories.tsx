@@ -14,15 +14,13 @@ import {
 
 import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
-import type {Meta} from "@storybook/react";
+import type {Meta} from "@storybook/react-vite";
 
 type StoryArgs = {
     // Story Option
     item: PerseusItem;
     // Radio Options
     static: boolean;
-    // API Options
-    crossOutEnabled: boolean;
     // Testing Options
     startAnswerless: boolean;
 } & Pick<
@@ -43,7 +41,6 @@ export default {
         static: false,
         // Requires a page refresh for toggling this to affect the story
         startAnswerless: false,
-        crossOutEnabled: false,
         reviewMode: false,
         showSolutions: "none",
         item: generateTestPerseusItem({
@@ -92,7 +89,6 @@ const applyStoryArgs = (args: StoryArgs): PerseusItem => {
 };
 
 const buildApiOptions = (args: StoryArgs): APIOptions => ({
-    crossOutEnabled: args.crossOutEnabled,
     flags: {
         "new-radio-widget": true,
     },
@@ -175,5 +171,78 @@ export const AnswerlessMultiSelect = {
             question: multiChoiceQuestion,
         }),
         startAnswerless: true,
+    },
+};
+
+// RTL Variants
+export const SelectWithImagesAndScrollRTL = {
+    args: {
+        item: generateTestPerseusItem({
+            question: SingleSelectOverflowImageContent,
+        }),
+    },
+    decorators: [
+        (Story) => {
+            // Set RTL for testing
+            document.body.setAttribute("dir", "rtl");
+
+            return (
+                <div style={{direction: "rtl"}}>
+                    <Story />
+                </div>
+            );
+        },
+    ],
+    play: async () => {
+        // Reset the direction after the story
+        document.body.removeAttribute("dir");
+    },
+};
+
+export const SingleSelectWithScrollRTL = {
+    args: {
+        item: generateTestPerseusItem({
+            question: SingleSelectOverflowContent,
+        }),
+    },
+    decorators: [
+        (Story) => {
+            // Set RTL for testing
+            document.body.setAttribute("dir", "rtl");
+
+            return (
+                <div style={{direction: "rtl"}}>
+                    <Story />
+                </div>
+            );
+        },
+    ],
+    play: async () => {
+        // Reset the direction after the story
+        document.body.removeAttribute("dir");
+    },
+};
+
+export const MultiSelectWithScrollRTL = {
+    args: {
+        item: generateTestPerseusItem({
+            question: multiChoiceQuestionSimpleOverflowContent,
+        }),
+    },
+    decorators: [
+        (Story) => {
+            // Set RTL for testing
+            document.body.setAttribute("dir", "rtl");
+
+            return (
+                <div style={{direction: "rtl"}}>
+                    <Story />
+                </div>
+            );
+        },
+    ],
+    play: async () => {
+        // Reset the direction after the story
+        document.body.removeAttribute("dir");
     },
 };

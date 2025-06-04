@@ -4,7 +4,7 @@ import InteractiveGraphSettings from "../../widgets/interactive-graph-editor/com
 
 import InteractiveGraphSettingsArgTypes from "./interactive-graph-settings.argtypes";
 
-import type {StoryObj} from "@storybook/react";
+import type {StoryObj} from "@storybook/react-vite";
 
 export default {
     title: "PerseusEditor/Components/Interactive Graph Settings",
