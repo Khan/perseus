@@ -44,6 +44,8 @@ function renderPassage(
         isLastUsedWidget: false,
         onBlur: () => {},
         onChange: () => {},
+        handleUserInput: () => {},
+        userInput: {},
         onFocus: () => {},
         problemNum: 1,
         static: true,

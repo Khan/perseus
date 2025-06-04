@@ -69,6 +69,7 @@ import type {
     UserInputArray,
     UserInputMap,
     PerseusItem,
+    UserInput,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -168,6 +169,7 @@ type State = {
     widgetProps: Readonly<{
         [id: string]: any | null | undefined;
     }>;
+    userInput: UserInputMap;
     jiptContent: any;
     lastUsedWidgetId: string | null | undefined;
 };
@@ -301,6 +303,8 @@ class Renderer
             lastUsedWidgetId: null,
 
             ...this._getInitialWidgetState(props),
+
+            userInput: {},
         };
     }
 
@@ -629,6 +633,15 @@ class Renderer
             onChange: (newProps, cb, silent = false) => {
                 this._setWidgetProps(widgetId, newProps, cb, silent);
             },
+            handleUserInput: (newUserInput: UserInput) => {
+                this.setState({
+                    userInput: {
+                        ...this.state.userInput,
+                        [widgetId]: newUserInput,
+                    },
+                });
+            },
+            userInput: this.state.userInput[widgetId],
             trackInteraction: interactionTracker.track,
             isLastUsedWidget: widgetId === this.state.lastUsedWidgetId,
         };
@@ -1718,13 +1731,18 @@ class Renderer
         const userInputMap = {};
         this.widgetIds.forEach((id: string) => {
             const widget = this.getWidgetInstance(id);
-            // Handle Groups, which have their own sets of widgets
-            if (widget?.getUserInputMap) {
+            if (this.state.userInput[id]) {
+                // Get user input from Renderer state if possible
+                userInputMap[id] = this.state.userInput[id];
+            } else if (widget?.getUserInputMap) {
+                // Handle Groups, which have their own sets of widgets
                 userInputMap[id] = widget.getUserInputMap();
             } else if (widget?.getUserInput) {
+                // Legacy method of getting user input
                 userInputMap[id] = widget.getUserInput();
             }
         });
+
         return userInputMap;
     }
 

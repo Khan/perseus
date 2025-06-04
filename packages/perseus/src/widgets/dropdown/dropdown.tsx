@@ -17,15 +17,24 @@ import type {
     PerseusDropdownUserInput,
 } from "@khanacademy/perseus-core";
 
+type RenderProps = {
+    placeholder: PerseusDropdownWidgetOptions["placeholder"];
+    visibleLabel: PerseusDropdownWidgetOptions["visibleLabel"];
+    ariaLabel: PerseusDropdownWidgetOptions["ariaLabel"];
+    choices: ReadonlyArray<string>;
+};
+
 type Props = WidgetProps<RenderProps> & {
-    selected: number;
+    // TODO: UniversalWidgetProps should have a generic type arg
+    // to determine this type for us and this should be removed
+    userInput: PerseusDropdownUserInput;
 };
 
 type DefaultProps = {
     choices: Props["choices"];
-    selected: Props["selected"];
     placeholder: Props["placeholder"];
     apiOptions: Props["apiOptions"];
+    userInput: PerseusDropdownUserInput;
 };
 
 class Dropdown extends React.Component<Props> implements Widget {
@@ -34,9 +43,9 @@ class Dropdown extends React.Component<Props> implements Widget {
 
     static defaultProps: DefaultProps = {
         choices: [],
-        selected: 0,
         placeholder: "",
         apiOptions: ApiOptions.defaults,
+        userInput: {value: 0},
     };
 
     focus: () => boolean = () => {
@@ -54,17 +63,21 @@ class Dropdown extends React.Component<Props> implements Widget {
         this._handleChange(parseInt(e.target.value));
     };
 
-    _handleChange: (arg1: number) => void = (selected) => {
+    _handleChange(selected: number): void {
         this.props.trackInteraction();
-        this.props.onChange({selected: selected});
-    };
+        this.props.handleUserInput({value: selected});
+    }
 
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     getUserInput(): PerseusDropdownUserInput {
-        return {value: this.props.selected};
+        return this.props.userInput;
     }
 
     getPromptJSON(): DropdownPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props, this.props.userInput);
     }
 
     render(): React.ReactNode {
@@ -121,7 +134,7 @@ class Dropdown extends React.Component<Props> implements Widget {
                             onChange={(value) =>
                                 this._handleChange(parseInt(value))
                             }
-                            selectedValue={String(this.props.selected)}
+                            selectedValue={String(this.props.userInput.value)}
                             disabled={this.props.apiOptions.readOnly}
                             aria-label={
                                 this.props.ariaLabel ||
@@ -138,13 +151,6 @@ class Dropdown extends React.Component<Props> implements Widget {
         );
     }
 }
-
-type RenderProps = {
-    placeholder: PerseusDropdownWidgetOptions["placeholder"];
-    visibleLabel: PerseusDropdownWidgetOptions["visibleLabel"];
-    ariaLabel: PerseusDropdownWidgetOptions["ariaLabel"];
-    choices: ReadonlyArray<string>;
-};
 
 function transform(widgetOptions: DropdownPublicWidgetOptions): RenderProps {
     return {

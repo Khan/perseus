@@ -35,6 +35,8 @@ export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
                 findWidgets={(callback) => []}
                 isLastUsedWidget={false}
                 onChange={() => {}}
+                handleUserInput={() => {}}
+                userInput={{}}
                 problemNum={1}
                 static={false}
                 trackInteraction={() => {}}
