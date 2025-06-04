@@ -4,7 +4,7 @@ import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-
 
 import {question1} from "./python-program.testdata";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Perseus/Widgets/Python Program",

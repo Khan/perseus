@@ -5,7 +5,7 @@ import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-
 import {storybookDependenciesV2} from "../../../../../testing/test-dependencies";
 import ArticleRenderer from "../../article-renderer";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Perseus/Widgets/Definition",

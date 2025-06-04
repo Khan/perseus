@@ -2,9 +2,9 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Body, LabelLarge} from "@khanacademy/wonder-blocks-typography";
-import {action} from "@storybook/addon-actions";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+import {action} from "storybook/actions";
 
 import {EditorPage} from "..";
 import {interactiveGraphQuestionBuilder} from "../../../perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";

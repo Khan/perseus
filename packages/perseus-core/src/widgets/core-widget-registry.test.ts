@@ -7,7 +7,6 @@ const registryFnNames = [
     "isWidgetRegistered",
     "getCurrentVersion",
     "getPublicWidgetOptionsFunction",
-    "getWidgetOptionsUpgrades",
     "getDefaultWidgetOptions",
     "getSupportedAlignments",
     "getDefaultAlignment",

@@ -12,7 +12,10 @@
  * from that. We might eventually expose this, but I'd like to be
  * more confident in the interface provided first.
  */
+
 import _ from "underscore";
+
+import {mapObject, applyDefaultsToWidget} from "@khanacademy/perseus-core";
 
 import {mapObject} from "./utils/objective_";
 import * as Widgets from "./widgets/core-widget-registry";
@@ -27,18 +30,47 @@ const deepCallbackFor = function (
     optionsCallback: (arg1: any) => void,
 ) {
     const deepCallback = function (widgetInfo: any, widgetId: string) {
-        const newWidgetInfo = Widgets.traverseChildWidgets(
-            widgetInfo,
-            (rendererOptions) => {
-                return traverseRenderer(
-                    rendererOptions,
-                    contentCallback,
-                    // so that we traverse grandchildren, too:
-                    deepCallback,
-                    optionsCallback,
-                );
-            },
-        );
+        // This doesn't modify the widget info if the widget info
+        // is at a later version than is supported, which is important
+        // for our latestVersion test below.
+        const upgradedWidgetInfo = applyDefaultsToWidget(widgetInfo);
+        const latestVersion = Widgets.getVersion(upgradedWidgetInfo.type);
+
+        // Only traverse our children if we can understand this version
+        // of the widget props.
+        // TODO(aria): This will break if the traversal code assumes that
+        // any props that usually get defaulted in are present. That is,
+        // it can fail on minor version upgrades.
+        // For this reason, and because the upgrade code doesn't handle
+        // minor versions correctly (it doesn't report anything useful
+        // about what minor version a widget is actually at, since it
+        // doesn't have meaning in the context of upgrades), we
+        // just check the major version here.
+        // TODO(aria): This is seriously quirky and would be unpleasant
+        // to think about while writing traverseChildWidgets code. Please
+        // make all of this a little tighter.
+        // I think once we use react class defaultProps instead of relying
+        // on getDefaultProps, this will become easier.
+        let newWidgetInfo;
+        if (
+            latestVersion &&
+            upgradedWidgetInfo.version?.major === latestVersion.major
+        ) {
+            newWidgetInfo = Widgets.traverseChildWidgets(
+                upgradedWidgetInfo,
+                (rendererOptions) => {
+                    return traverseRenderer(
+                        rendererOptions,
+                        contentCallback,
+                        // so that we traverse grandchildren, too:
+                        deepCallback,
+                        optionsCallback,
+                    );
+                },
+            );
+        } else {
+            newWidgetInfo = upgradedWidgetInfo;
+        }
 
         const userWidgetInfo = widgetCallback(newWidgetInfo, widgetId);
         if (userWidgetInfo !== undefined) {

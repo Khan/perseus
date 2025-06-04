@@ -66,11 +66,6 @@ export const getPublicWidgetOptionsFunction = (
     return widgets.get(type)?.getPublicWidgetOptions ?? ((i: any) => i);
 };
 
-export function getWidgetOptionsUpgrades(type: string) {
-    const widgetLogic = widgets.get(type);
-    return widgetLogic?.widgetOptionsUpgrades || {};
-}
-
 export function getDefaultWidgetOptions(type: string) {
     const widgetLogic = widgets.get(type);
     return widgetLogic?.defaultWidgetOptions || {};

@@ -7,7 +7,7 @@ import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-
 
 import {generateTableRenderer} from "./test-util";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Perseus/Widgets/Table",

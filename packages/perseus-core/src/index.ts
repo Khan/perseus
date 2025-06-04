@@ -130,10 +130,11 @@ export {default as videoLogic} from "./widgets/video";
 export type {VideoDefaultWidgetOptions} from "./widgets/video";
 
 export {
-    getUpgradedWidgetOptions,
-    upgradeWidgetInfoToLatestVersion,
-} from "./widgets/upgrade";
+    applyDefaultsToWidgets,
+    applyDefaultsToWidget,
+} from "./widgets/apply-defaults";
 
+export {default as getDefaultAnswerArea} from "./utils/get-default-answer-area";
 export {
     default as splitPerseusItem,
     splitPerseusItemJSON,
@@ -171,7 +172,7 @@ export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-i
 export {default as getNumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
 export type {NumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
 export {default as getRadioPublicWidgetOptions} from "./widgets/radio/radio-util";
-export {deriveNumCorrect} from "./widgets/radio/radio-upgrade";
+export {deriveNumCorrect} from "./widgets/radio/derive-num-correct";
 export {default as getTablePublicWidgetOptions} from "./widgets/table/table-util";
 export {default as getIFramePublicWidgetOptions} from "./widgets/iframe/iframe-util";
 export {default as getMatrixPublicWidgetOptions} from "./widgets/matrix/matrix-util";

@@ -464,7 +464,6 @@ export default {
         };
     },
     version: expressionLogic.version,
-    propUpgrades: expressionLogic.widgetOptionsUpgrades,
 
     // For use by the editor
     isLintable: true,

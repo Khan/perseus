@@ -57,7 +57,6 @@ export type PublicWidgetOptionsFunction =
 export type WidgetLogic = {
     name: string;
     version?: Version;
-    widgetOptionsUpgrades?: WidgetOptionsUpgradeMap;
     defaultWidgetOptions?: any;
     supportedAlignments?: ReadonlyArray<Alignment>;
     defaultAlignment?: Alignment;
