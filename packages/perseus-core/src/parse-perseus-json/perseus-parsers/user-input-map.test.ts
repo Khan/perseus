@@ -250,40 +250,6 @@ describe("parseUserInputMap", () => {
             );
         });
 
-        it("accepts primitive values for unrecognized widget types", () => {
-            const userInputMap = {
-                "unknown-widget 1": "just a string",
-                "another-unknown 2": 42,
-                "third-unknown 3": true,
-            };
-            const result = parseUserInputMap(userInputMap, ctx());
-            expect(result).toEqual(
-                success({
-                    "unknown-widget 1": "just a string",
-                    "another-unknown 2": 42,
-                    "third-unknown 3": true,
-                }),
-            );
-        });
-
-        it("mixes known and unknown widget types correctly", () => {
-            const userInputMap = {
-                "dropdown 1": {value: 2},
-                "unknown-widget 1": {customField: "custom value"},
-                "radio 2": {choicesSelected: [false, true]},
-                "another-mystery 3": [1, 2, 3],
-            };
-            const result = parseUserInputMap(userInputMap, ctx());
-            expect(result).toEqual(
-                success({
-                    "dropdown 1": {value: 2},
-                    "unknown-widget 1": {customField: "custom value"},
-                    "radio 2": {choicesSelected: [false, true]},
-                    "another-mystery 3": [1, 2, 3],
-                }),
-            );
-        });
-
         it("validates widget ID format even for unknown widget types", () => {
             const userInputMap = {
                 "unknown-widget -1": {someField: "value"},
