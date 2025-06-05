@@ -8,6 +8,8 @@
 
 import fs from "node:fs";
 
+import semver from "semver";
+import invariant from "tiny-invariant";
 import yaml from "yaml";
 
 function printHelp() {
@@ -72,6 +74,20 @@ function filterUnusableTargetVersions(
     );
 }
 
+type Primitive = string | number | boolean | null | undefined;
+
+function unique<T extends Primitive>(array: readonly T[]): T[] {
+    return [...new Set(array)];
+}
+
+function dedent(s: string): string {
+    return s
+        .trimStart()
+        .split("\n")
+        .map((line) => line.trimStart())
+        .join("\n");
+}
+
 function main(argv: string[]) {
     // The first arg is the node binary running this script, the second arg is
     // this script itself. So, we strip these two args off so that all that's
@@ -81,26 +97,73 @@ function main(argv: string[]) {
         printHelp();
         process.exit(1);
     }
+    const clientPackageJson = args[0];
 
     const workspace = yaml.parse(
         fs.readFileSync("pnpm-workspace.yaml", "utf-8"),
     );
-    const packageNamesInRepo = Object.keys(workspace.catalog);
+    const packageNamesInRepo = unique(
+        Object.values(workspace.catalogs).flatMap((packages) => {
+            invariant(
+                packages != null,
+                "catalogs contained a nullish value; expected an object",
+            );
+            return Object.keys(packages);
+        }),
+    );
 
     const targetVersions = filterUnusableTargetVersions(
-        JSON.parse(fs.readFileSync(args[0]).toString()).dependencies,
+        JSON.parse(fs.readFileSync(clientPackageJson).toString()).dependencies,
         packageNamesInRepo,
     );
 
     for (const pkgName of packageNamesInRepo) {
         if (pkgName in targetVersions) {
-            workspace.catalog[pkgName] = targetVersions[pkgName];
+            const minVersion = semver.minVersion(
+                targetVersions[pkgName],
+            ).version;
+            // In development, install the minimum version of each package
+            // required by the client application. This ensures we don't
+            // accidentally depend on features of the package added after that
+            // version.
+            workspace.catalogs.devDeps[pkgName] = minVersion;
+            // In our peer dependencies, declare that Perseus will work with
+            // any package version compatible with the one we install in dev.
+            workspace.catalogs.peerDeps[pkgName] = `^${minVersion}`;
         }
     }
 
+    // TODO(LEMS-3169): update the path to services/static/package.json to the
+    // new location, once the frontend moves to its own repo.
+    const comment = dedent(`
+        # NOTE: The \`devDeps\` and \`peerDeps\` catalogs in this file are
+        # generated from webapp's package.json. To update them, run:
+        #
+        #     utils/sync-dependencies.ts ../webapp/services/static/package.json
+        #
+        # We have two separate catalogs for dev deps and peer deps to ensure
+        # that:
+        #
+        # - we know exactly which version of each package we're installing in
+        #   dev. That way, we can truthfully claim to support all versions
+        #   compatible with that one.
+        # - our peer dependencies can specify a range of versions. For peer
+        #   deps, want to accept any version compatible with the one we
+        #   installed in dev. For example, if we installed version 1.2.3 in
+        #   dev, then we want to accept ^1.2.3 (which means "any 1.x.x version
+        #   equal to or later than 1.2.3") as a peer dep. We want peer deps
+        #   to be specified as a range so clients don't get spurious warnings
+        #   if their dependency versions are slightly different than the ones
+        #   we use.
+        #
+        # The sync-dependencies.ts script ensures that peer deps are always
+        # specified as a range, and the dev deps are always pinned to the
+        # version at the bottom of that range.
+    `);
+
     fs.writeFileSync(
         "pnpm-workspace.yaml",
-        yaml.stringify(workspace, {indent: 4}),
+        comment + yaml.stringify(workspace, {indent: 4}),
         {
             encoding: "utf-8",
         },

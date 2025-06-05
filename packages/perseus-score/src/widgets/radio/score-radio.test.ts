@@ -6,7 +6,7 @@ import type {
 } from "@khanacademy/perseus-core";
 
 describe("scoreRadio", () => {
-    it("is invalid when number selected does not match number correct", () => {
+    it("is invalid when number selected does not match number correct and countChoices is true", () => {
         const userInput: PerseusRadioUserInput = {
             choicesSelected: [true, false, false, false],
         };
@@ -18,11 +18,32 @@ describe("scoreRadio", () => {
                 {content: "Choice 3", correct: false},
                 {content: "Choice 4", correct: false},
             ],
+            countChoices: true,
         };
 
         const score = scoreRadio(userInput, rubric);
 
         expect(score).toHaveInvalidInput();
+    });
+
+    it("is incorrect when number selected does not match number correct and countChoices is false", () => {
+        const userInput: PerseusRadioUserInput = {
+            choicesSelected: [true, false, false, false],
+        };
+
+        const rubric: PerseusRadioRubric = {
+            choices: [
+                {content: "Choice 1", correct: true},
+                {content: "Choice 2", correct: true},
+                {content: "Choice 3", correct: false},
+                {content: "Choice 4", correct: false},
+            ],
+            countChoices: false,
+        };
+
+        const score = scoreRadio(userInput, rubric);
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
     it("is invalid when none of the above and an answer are both selected", () => {
