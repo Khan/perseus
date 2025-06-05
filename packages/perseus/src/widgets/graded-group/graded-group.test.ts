@@ -6,7 +6,10 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {question1, groupedRadioQuestion} from "./graded-group.testdata";
+import {
+    question1,
+    groupedRadioRationaleQuestion,
+} from "./graded-group.testdata";
 
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -164,7 +167,7 @@ describe("graded-group", () => {
 
         it("should show rationales when answer is correct", async () => {
             // Arrange
-            renderQuestion(groupedRadioQuestion);
+            renderQuestion(groupedRadioRationaleQuestion);
 
             // Select the correct answer: "$8$" (index 2)
             await userEvent.click(screen.getAllByRole("radio")[2]);
@@ -182,7 +185,7 @@ describe("graded-group", () => {
 
         it("should not show rationales when answer is incorrect", async () => {
             // Arrange
-            renderQuestion(groupedRadioQuestion);
+            renderQuestion(groupedRadioRationaleQuestion);
 
             // Select an incorrect answer: "$-8$" (index 1)
             await userEvent.click(screen.getAllByRole("radio")[1]);

@@ -5,7 +5,10 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {article1, groupSetRadioQuestion} from "./graded-group-set.testdata";
+import {
+    article1,
+    groupSetRadioRationaleQuestion,
+} from "./graded-group-set.testdata";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
@@ -315,7 +318,7 @@ describe("graded group widget", () => {
 
     it("should show rationales when answer is correct", async () => {
         // Arrange
-        renderQuestion(groupSetRadioQuestion);
+        renderQuestion(groupSetRadioRationaleQuestion);
 
         // Select the correct answer: "$8$" (index 2)
         await userEvent.click(screen.getAllByRole("radio")[2]);
@@ -331,7 +334,7 @@ describe("graded group widget", () => {
 
     it("should not show rationales when answer is incorrect", async () => {
         // Arrange
-        renderQuestion(groupSetRadioQuestion);
+        renderQuestion(groupSetRadioRationaleQuestion);
 
         // Select an incorrect answer: "$-8$" (index 1)
         await userEvent.click(screen.getAllByRole("radio")[1]);

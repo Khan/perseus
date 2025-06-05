@@ -67,7 +67,7 @@ export const question1: PerseusRenderer = {
     },
 };
 
-export const groupedRadioQuestion: PerseusRenderer = {
+export const groupedRadioRationaleQuestion: PerseusRenderer = {
     content: "---\n\n##Check your understanding!\n\n[[☃ graded-group 1]]\n\n",
     images: {},
     widgets: {
@@ -95,24 +95,23 @@ export const groupedRadioQuestion: PerseusRenderer = {
                             onePerLine: false,
                             choices: [
                                 {
-                                    content: "$-8$ and $8$",
+                                    content: "Incorrect",
                                     correct: false,
                                     clue: "This is not the correct answer.",
                                 },
                                 {
-                                    content: "$-8$",
+                                    content: "Incorrect",
                                     correct: false,
                                     clue: "This is not the correct answer.",
                                 },
                                 {
-                                    content: "$8$",
+                                    content: "Correct",
                                     correct: true,
                                     isNoneOfTheAbove: false,
                                     clue: "This is the correct answer.",
                                 },
                                 {
-                                    content:
-                                        "No value of $x$ satisfies the equation.",
+                                    content: "Incorrect",
                                     correct: false,
                                     isNoneOfTheAbove: false,
                                     clue: "This is not the correct answer.",

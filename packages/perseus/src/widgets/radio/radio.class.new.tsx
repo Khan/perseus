@@ -9,7 +9,6 @@ import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
-    ShowSolutions,
     PerseusRadioRubric,
     PerseusRadioUserInput,
 } from "@khanacademy/perseus-core";
@@ -23,7 +22,6 @@ export type RenderProps = {
     deselectEnabled?: boolean;
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
     selectedChoices: ReadonlyArray<PerseusRadioChoice["correct"]>;
-    showSolutions?: ShowSolutions;
     choiceStates?: ReadonlyArray<ChoiceState>;
     // Depreciated; support for legacy way of handling changes
     // Adds proptype for prop that is used but was lacking type
@@ -117,31 +115,6 @@ class Radio extends React.Component<Props> implements Widget {
         const userInput = Radio.getUserInputFromProps(this.props, false);
         return _getPromptJSON(this.props, userInput);
     }
-
-    /**
-     * Deselects any currently-selected choices that are not correct choices.
-     */
-    deselectIncorrectSelectedChoices: () => void = () => {
-        if (this.props.choiceStates) {
-            const newStates: ReadonlyArray<ChoiceState> =
-                this.props.choiceStates.map(
-                    (state: ChoiceState, i): ChoiceState => ({
-                        ...state,
-                        selected:
-                            state.selected && !!this.props.choices[i].correct,
-                        highlighted: false,
-                    }),
-                );
-
-            this.props.onChange(
-                {
-                    choiceStates: newStates,
-                },
-                () => {}, // cb
-                false, // silent
-            );
-        }
-    };
 
     render(): React.ReactNode {
         return <RadioComponent {...this.props} />;

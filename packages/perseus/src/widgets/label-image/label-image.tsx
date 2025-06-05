@@ -83,7 +83,6 @@ type Props = WidgetProps<Options> &
         // preferred placement for popover (preference, not MUST)
         // TODO: this is sus, probably never passed in
         preferredPopoverDirection?: PreferredPopoverDirection;
-        showSolutions?: ShowSolutions;
     };
 
 type LabelImageState = {
@@ -99,6 +98,40 @@ function isAnswerful(
     marker: OptionalAnswersMarkerType | InteractiveMarkerType,
 ): marker is InteractiveMarkerType {
     return marker.answers != null;
+}
+
+/**
+ * Get marker with the appropriate selection state for current display mode.
+ * When showing solutions, it auto-selects correct answers, or clears
+ * selections for markers without answers.
+ *
+ * @param marker - The marker to update.
+ * @returns The updated marker state.
+ */
+export function getUpdatedMarkerState(
+    marker: OptionalAnswersMarkerType,
+    reviewMode: boolean,
+    showSolutions?: ShowSolutions,
+): OptionalAnswersMarkerType {
+    const shouldShowFeedback = showSolutions === "all" || reviewMode;
+
+    if (!shouldShowFeedback) {
+        return marker;
+    }
+
+    if (isAnswerful(marker)) {
+        // Auto-select correct answers when feedback should be shown
+        return {
+            ...marker,
+            selected: marker.answers,
+        };
+    } else {
+        // For markers without answers, ensure no selection when showing feedback
+        return {
+            ...marker,
+            selected: undefined,
+        };
+    }
 }
 
 export class LabelImage
@@ -435,39 +468,6 @@ export class LabelImage
         });
     }
 
-    /**
-     * Get marker with the appropriate selection state for current display mode.
-     * When showing solutions, it auto-selects correct answers, or clears
-     * selections for markers without answers.
-     *
-     * @param marker - The marker to update.
-     * @returns The updated marker state.
-     */
-    getUpdatedMarkerState(
-        marker: OptionalAnswersMarkerType,
-    ): OptionalAnswersMarkerType {
-        const shouldShowFeedback =
-            this.props.showSolutions === "all" || this.props.reviewMode;
-
-        if (!shouldShowFeedback) {
-            return marker;
-        }
-
-        if (isAnswerful(marker)) {
-            // Auto-select correct answers when feedback should be shown
-            return {
-                ...marker,
-                selected: marker.answers,
-            };
-        } else {
-            // For markers without answers, ensure no selection when showing feedback
-            return {
-                ...marker,
-                selected: undefined,
-            };
-        }
-    }
-
     renderMarkers(): ReadonlyArray<React.ReactNode> {
         const {markers, preferredPopoverDirection} = this.props;
         const {markersInteracted, activeMarkerIndex} = this.state;
@@ -512,7 +512,11 @@ export class LabelImage
 
             // Get the updated marker state depending on whether the question
             // has been answered or skipped by the user.
-            const updatedMarkerState = this.getUpdatedMarkerState(marker);
+            const updatedMarkerState = getUpdatedMarkerState(
+                marker,
+                this.props.reviewMode,
+                this.props.showSolutions,
+            );
 
             let score: InteractiveMarkerScore;
             if (isAnswerful(updatedMarkerState)) {

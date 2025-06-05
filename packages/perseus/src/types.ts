@@ -27,6 +27,7 @@ import type {
     Relationship,
     LabelImageMarkerPublicData,
     PerseusLabelImageMarker,
+    ShowSolutions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
@@ -73,7 +74,6 @@ export interface Widget {
           }
         | boolean;
     getDOMNodeForPath?: (path: FocusPath) => Element | Text | null;
-    deselectIncorrectSelectedChoices?: () => void;
 
     /**
      * Returns widget state that can be passed back to `restoreSerializedState`
@@ -580,6 +580,7 @@ export type UniversalWidgetProps<
     onBlur: (blurPath: FocusPath) => void;
     findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
     reviewMode: boolean;
+    showSolutions?: ShowSolutions;
     onChange: ChangeHandler;
     isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
