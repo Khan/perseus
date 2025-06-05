@@ -142,15 +142,19 @@ describe("LabelImage AI utils", () => {
                 markers: [
                     {
                         label: "The fourth unlabeled bar line.",
+                        rationale: ["SUVs"],
                     },
                     {
                         label: "The third unlabeled bar line.",
+                        rationale: ["Trucks"],
                     },
                     {
                         label: "The second unlabeled bar line.",
+                        rationale: ["Cars"],
                     },
                     {
                         label: "The first unlabeled bar line.",
+                        rationale: ["Vans"],
                     },
                 ],
                 choices: ["Trucks", "Vans", "Cars", "SUVs"],
@@ -211,15 +215,19 @@ describe("LabelImage AI utils", () => {
                         markers: [
                             {
                                 label: "The fourth unlabeled bar line.",
+                                rationale: ["SUVs"],
                             },
                             {
                                 label: "The third unlabeled bar line.",
+                                rationale: ["Trucks"],
                             },
                             {
                                 label: "The second unlabeled bar line.",
+                                rationale: ["Cars"],
                             },
                             {
                                 label: "The first unlabeled bar line.",
+                                rationale: ["Vans"],
                             },
                         ],
                     },
