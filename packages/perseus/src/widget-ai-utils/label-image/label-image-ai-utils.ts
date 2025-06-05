@@ -8,7 +8,7 @@ type BaseMarker = {
 
 type UserInputMarker = {
     label: string;
-    rationale?: string[];
+    answers?: string[];
     selected?: ReadonlyArray<string>;
 };
 
@@ -34,7 +34,7 @@ export const getPromptJSON = (
             label: marker.label,
         };
         if (marker.answers?.length) {
-            userInputMarker.rationale = marker.answers;
+            userInputMarker.answers = marker.answers;
         }
         return userInputMarker;
     });

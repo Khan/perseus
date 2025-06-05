@@ -142,19 +142,19 @@ describe("LabelImage AI utils", () => {
                 markers: [
                     {
                         label: "The fourth unlabeled bar line.",
-                        rationale: ["SUVs"],
+                        answers: ["SUVs"],
                     },
                     {
                         label: "The third unlabeled bar line.",
-                        rationale: ["Trucks"],
+                        answers: ["Trucks"],
                     },
                     {
                         label: "The second unlabeled bar line.",
-                        rationale: ["Cars"],
+                        answers: ["Cars"],
                     },
                     {
                         label: "The first unlabeled bar line.",
-                        rationale: ["Vans"],
+                        answers: ["Vans"],
                     },
                 ],
                 choices: ["Trucks", "Vans", "Cars", "SUVs"],
@@ -215,19 +215,19 @@ describe("LabelImage AI utils", () => {
                         markers: [
                             {
                                 label: "The fourth unlabeled bar line.",
-                                rationale: ["SUVs"],
+                                answers: ["SUVs"],
                             },
                             {
                                 label: "The third unlabeled bar line.",
-                                rationale: ["Trucks"],
+                                answers: ["Trucks"],
                             },
                             {
                                 label: "The second unlabeled bar line.",
-                                rationale: ["Cars"],
+                                answers: ["Cars"],
                             },
                             {
                                 label: "The first unlabeled bar line.",
-                                rationale: ["Vans"],
+                                answers: ["Vans"],
                             },
                         ],
                     },
