@@ -191,6 +191,10 @@ export class Expression
         }
     };
 
+    getUserInput(): PerseusExpressionUserInput {
+        return Expression.getUserInputFromProps(this.props);
+    }
+
     /**
      * @deprecated and likely very broken API
      * [LEMS-3185] do not trust serializedState/restoreSerializedState

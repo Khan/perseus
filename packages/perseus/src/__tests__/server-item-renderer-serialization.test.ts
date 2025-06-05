@@ -260,7 +260,7 @@ describe("ServerItemRenderer state serialization/restoration", () => {
             const {renderer} = renderQuestion(generateBasicExpression());
 
             let userInput = renderer.getUserInput();
-            expect(userInput).toEqual({});
+            expect(userInput).toEqual({"expression 1": ""});
 
             // Act
             act(() =>
