@@ -31,6 +31,7 @@ const radioWidgetLogic: WidgetLogic = {
     version: currentVersion,
     defaultWidgetOptions: defaultWidgetOptions,
     getPublicWidgetOptions: getRadioPublicWidgetOptions,
+    accessible: true,
 };
 
 export default radioWidgetLogic;

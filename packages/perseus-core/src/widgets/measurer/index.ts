@@ -30,6 +30,7 @@ const measurerWidgetLogic: WidgetLogic = {
     name: "measurer",
     version: currentVersion,
     defaultWidgetOptions: defaultWidgetOptions,
+    accessible: false,
 };
 
 export default measurerWidgetLogic;

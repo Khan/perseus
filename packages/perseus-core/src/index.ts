@@ -26,6 +26,7 @@ export {
     getWidgetIdsFromContent,
     getWidgetIdsFromContentByType,
 } from "./utils/widget-id-utils";
+
 export {default as deepClone} from "./utils/deep-clone";
 export * as GrapherUtil from "./utils/grapher-util";
 export {
@@ -187,3 +188,14 @@ export {shuffle, seededRNG, random} from "./utils/random-util";
 export {default as PerseusFeatureFlags} from "./feature-flags";
 
 export {registerCoreWidgets} from "./widgets/core-widget-registry";
+
+export {traverse} from "./traversal";
+export {isItemAccessible, violatingWidgets} from "./accessibility";
+export {
+    isLabeledSVG,
+    getRealImageUrl,
+    getBaseUrl,
+    getSvgUrl,
+    getDataUrl,
+    getImageSizeModern,
+} from "./utils/util.graphie";

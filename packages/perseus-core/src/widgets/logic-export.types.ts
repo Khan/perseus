@@ -18,7 +18,7 @@ import type getPlotterPublicWidgetOptions from "./plotter/plotter-util";
 import type getRadioPublicWidgetOptions from "./radio/radio-util";
 import type getSorterPublicWidgetOptions from "./sorter/sorter-util";
 import type getTablePublicWidgetOptions from "./table/table-util";
-import type {Version} from "../data-schema";
+import type {PerseusWidgetOptions, Version} from "../data-schema";
 import type {Alignment} from "../types";
 
 export type WidgetOptionsUpgradeMap = {
@@ -60,6 +60,8 @@ export type WidgetLogic = {
     defaultWidgetOptions?: any;
     supportedAlignments?: ReadonlyArray<Alignment>;
     defaultAlignment?: Alignment;
+    accessible?: boolean | ((options: PerseusWidgetOptions) => boolean);
+    traverseChildWidgets?: (props: any, traverseRenderer: any) => any;
 
     /**
      * A function that provides a public version of the widget options that can

@@ -31,6 +31,7 @@ const numericInputWidgetLogic: WidgetLogic = {
     defaultWidgetOptions,
     defaultAlignment: "inline-block",
     getPublicWidgetOptions: getNumericInputPublicWidgetOptions,
+    accessible: true,
 };
 
 export default numericInputWidgetLogic;

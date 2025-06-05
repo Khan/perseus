@@ -801,6 +801,5 @@ export default {
     name: "label-image",
     displayName: "Label Image",
     widget: LabelImageWithDependencies,
-    accessible: true,
     isLintable: true,
 } satisfies WidgetExports<typeof LabelImageWithDependencies>;

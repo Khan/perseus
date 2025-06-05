@@ -423,13 +423,6 @@ export class GradedGroup
     }
 }
 
-const traverseChildWidgets: (arg1: any, arg2: any) => any = function (
-    props,
-    traverseRenderer,
-) {
-    return _.extend({}, props, traverseRenderer(props));
-};
-
 const styles = StyleSheet.create({
     gradedGroupInSet: {
         // Reset a few desktop-only styles that come from graded-group.less
@@ -488,7 +481,6 @@ export default {
     name: "graded-group",
     displayName: "Graded group (articles only)",
     widget: GradedGroup,
-    traverseChildWidgets: traverseChildWidgets,
     // TODO(aasmund): This widget should be available for articles only
     hidden: false,
     tracking: "all",
