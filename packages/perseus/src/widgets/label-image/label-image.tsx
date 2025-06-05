@@ -529,13 +529,6 @@ export class LabelImage
                     hasAnswers: false,
                     isCorrect: false,
                 };
-                // For markers without answers, mark as correct when showing feedback
-                if (
-                    this.props.showSolutions === "all" ||
-                    this.props.reviewMode
-                ) {
-                    score.isCorrect = true;
-                }
             }
 
             // Once the question has been answered or skipped, show the markers
