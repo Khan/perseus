@@ -72,16 +72,22 @@ const replacePxWithRem = (cssString) => {
 const validFileExtensions = ["js", "jsx", "ts", "tsx"];
 const getFilePath = (rawFilePath) => {
     let filePath = path.join(fileDirectory, rawFilePath);
+    if (rawFilePath.startsWith("@")) {
+        filePath = path.join(
+            process.cwd(),
+            "node_modules",
+            rawFilePath,
+            "dist",
+            "index",
+        );
+    }
     if (!fs.existsSync(filePath)) {
         filePath = validFileExtensions.reduce(
             (matchedExtension, possibleExtension) => {
                 if (matchedExtension) {
                     return matchedExtension;
                 } else {
-                    const possibleFilePath = path.join(
-                        fileDirectory,
-                        `${rawFilePath}.${possibleExtension}`,
-                    );
+                    const possibleFilePath = `${filePath}.${possibleExtension}`;
                     return fs.existsSync(possibleFilePath)
                         ? possibleFilePath
                         : null;
@@ -115,16 +121,34 @@ const mapVariables = (parsedCode) => {
                 .filter(isExportNamedDeclaration)
                 .map((node) => node.declaration),
         );
+
     return variableDeclarations
         .flatMap((node) => node.declarations)
         .filter(
             (node) =>
                 node.init.type === "NumericLiteral" ||
                 node.init.type === "StringLiteral" ||
+                node.init.type === "ObjectExpression" ||
                 node.init.type === "UnaryExpression", // UnaryExpression is used for negative numbers
         )
         .reduce((mappedVariables, node) => {
-            if (node.init.type === "UnaryExpression") {
+            if (node.init.type === "ObjectExpression") {
+                const objectProperties = node.init.properties.reduce(
+                    (allProperties, property) => {
+                        if (property.type === "SpreadElement") {
+                            const referencedObject =
+                                mappedVariables[property.argument.name];
+                            Object.assign(allProperties, referencedObject);
+                        } else {
+                            allProperties[property.key.name] =
+                                property.value.value;
+                        }
+                        return allProperties;
+                    },
+                    {},
+                );
+                mappedVariables[node.id.name] = objectProperties;
+            } else if (node.init.type === "UnaryExpression") {
                 mappedVariables[node.id.name] =
                     `${node.init.operator}${node.init.argument.value}`;
             } else {
@@ -340,7 +364,12 @@ const getImportedValues = (sourceName) => {
             .forEach((node) => {
                 const filePath = getFilePath(node.source.value);
                 const {_, parsedCode} = getCode(filePath);
-                importedModules[sourceName] = mapVariables(parsedCode);
+                const variablesFromCode = mapVariables(parsedCode);
+                if (variablesFromCode[sourceName] === undefined) {
+                    importedModules[sourceName] = variablesFromCode;
+                } else {
+                    importedModules[sourceName] = variablesFromCode[sourceName];
+                }
             });
     }
     return importedModules[sourceName];
@@ -358,7 +387,7 @@ const getBinaryExpressionValue = (expressionNode) => {
 };
 
 const getMemberExpressionValue = (objectName, variableName) => {
-    const errorMessage = `/* ${objectName} is not defined */`;
+    const errorMessage = `/* ${objectName}.${variableName} is not defined */`;
     const importedValues = getImportedValues(objectName);
     if (importedValues === undefined) {
         return errorMessage;
@@ -381,7 +410,7 @@ const isStylesheetNode = (node) => {
 
 const stringifyComments = (commentLines, indentationCount) => {
     const indent = indentation.repeat(indentationCount);
-    const comments = commentLines.map((line) => line.value.trim());
+    const comments = commentLines?.map((line) => line.value.trim()) ?? [];
     return comments.length === 0
         ? ""
         : comments.length === 1
@@ -407,7 +436,9 @@ const stringifyCssRuleset = (selector, ruleset, indentationCount = 0) => {
         .filter((property) => property.nestedRuleSet === null)
         .map((property) => stringifyCssProperty(property, indentationCount + 1))
         .join("");
-    const nestedRulesets = ruleset.filter((property) => property.nestedRuleSet !== null);
+    const nestedRulesets = ruleset.filter(
+        (property) => property.nestedRuleSet !== null,
+    );
     if (stringifiedRuleset.length !== 0) {
         const rulesetSelector = `${indentation.repeat(indentationCount)}${selector} {${"\n"}`;
         const rulesetEnd = `${indentation.repeat(indentationCount)}}${"\n"}`;
@@ -495,10 +526,19 @@ parsedCode.program.body
     .filter((node) => !isStylesheetNode(node.declaration))
     .filter((node) => node.declaration.id.name?.toLowerCase().includes("style"))
     .forEach((node) => {
-        cssRules[getClassName(node.declaration)] = {
-            comments: node.comments,
-            properties: node.declaration.init.properties,
-        };
+        if (node.declaration.init.properties) {
+            cssRules[getClassName(node.declaration)] = {
+                comments: node.comments,
+                properties: node.declaration.init.properties,
+            };
+        } else if (Array.isArray(node.declaration.init.expression.properties)) {
+            node.declaration.init.expression.properties.forEach((node) => {
+                cssRules[getClassName(node)] = {
+                    comments: node.comments,
+                    properties: node.value.properties,
+                };
+            });
+        }
         codeBlocksToDelete.push(node.declaration);
     });
 
@@ -507,6 +547,9 @@ const cssStringified = Object.keys(cssRules)
     .sort()
     .map((className) => {
         const comments = stringifyComments(cssRules[className].comments, 0);
+        if (cssRules[className].properties === undefined) {
+            console.log(`Unable to find CSS properties for class: `, className);
+        }
         const ruleSet = getCssRuleSet(cssRules[className].properties);
         return `${comments}${stringifyCssRuleset(`.${className}`, ruleSet)}`;
     })
@@ -520,7 +563,7 @@ fs.writeFileSync(cssFilePath, cssStringified);
  *********************/
 // Include any leading comments
 Object.keys(cssRules).forEach((className) => {
-    cssRules[className].comments.forEach((comment) => {
+    cssRules[className].comments?.forEach((comment) => {
         codeBlocksToDelete.push(comment);
     });
 });
@@ -536,14 +579,26 @@ const cleanedCode = codeBlocksToDelete
         return `${revisedCode.substring(0, precedingBreakIndex).trim()}${"\n\n"}${remainingCode}`;
     }, code);
 
+let updatedCode = cleanedCode;
 const aphroditeImport = parsedCode.program.body.filter(
     (node) =>
         node.type === "ImportDeclaration" && node.source.value === "aphrodite",
 )[0];
-
-const updatedCode = `${cleanedCode.substring(0, aphroditeImport.start - 1)}
+if (aphroditeImport) {
+    updatedCode = `${cleanedCode.substring(0, aphroditeImport.start - 1)}
 import ${aphroditeDeclaration.id.name} from "./${cssFileName}";
 ${cleanedCode.substring(aphroditeImport.end).trim()}
 `;
+} else {
+    const lastImport = parsedCode.program.body.filter(
+        (node) => node.type === "ImportDeclaration",
+    );
+    if (lastImport.length > 0) {
+        updatedCode = `${cleanedCode.substring(0, lastImport[lastImport.length - 1].end)}
+import styles from "./${cssFileName}";
+
+${cleanedCode.substring(lastImport[lastImport.length - 1].end).trim()}`;
+    }
+}
 
 fs.writeFileSync(filePath, updatedCode);
