@@ -28,8 +28,8 @@ describe("hashBasedShuffle", () => {
         const result1 = hashBasedShuffle(choices, seed);
         const result2 = hashBasedShuffle(choices, seed);
 
-        expect(result1.map(c => c.originalIndex)).toEqual(
-            result2.map(c => c.originalIndex)
+        expect(result1.map((c) => c.originalIndex)).toEqual(
+            result2.map((c) => c.originalIndex),
         );
     });
 
@@ -39,8 +39,8 @@ describe("hashBasedShuffle", () => {
         const result1 = hashBasedShuffle(choices, `12345`);
         const result2 = hashBasedShuffle(choices, `67890`);
 
-        expect(result1.map(c => c.originalIndex)).not.toEqual(
-            result2.map(c => c.originalIndex)
+        expect(result1.map((c) => c.originalIndex)).not.toEqual(
+            result2.map((c) => c.originalIndex),
         );
     });
 
@@ -61,8 +61,8 @@ describe("hashBasedShuffle", () => {
         const result2 = hashBasedShuffle(choicesWithDifferentIds, `12345`);
 
         // Different IDs should produce different shuffle orders
-        expect(result1.map(c => c.originalIndex)).not.toEqual(
-            result2.map(c => c.originalIndex)
+        expect(result1.map((c) => c.originalIndex)).not.toEqual(
+            result2.map((c) => c.originalIndex),
         );
     });
 
@@ -77,7 +77,9 @@ describe("hashBasedShuffle", () => {
 
         // Should not throw and should return all choices
         expect(result).toHaveLength(3);
-        expect(result.every(choice => choicesWithoutIds.includes(choice))).toBe(true);
+        expect(
+            result.every((choice) => choicesWithoutIds.includes(choice)),
+        ).toBe(true);
     });
 
     it("preserves all choices in the result", () => {
@@ -87,7 +89,7 @@ describe("hashBasedShuffle", () => {
         expect(result).toHaveLength(choices.length);
 
         // Check that all original choices are present
-        choices.forEach(originalChoice => {
+        choices.forEach((originalChoice) => {
             expect(result).toContainEqual(originalChoice);
         });
     });
@@ -97,10 +99,10 @@ describe("hashBasedShuffle", () => {
         let differentOrderCount = 0;
         const testSeeds = [`1`, `2`, `3`, `4`, `5`, `6`, `7`, `8`, `9`, `10`];
 
-        testSeeds.forEach(seed => {
+        testSeeds.forEach((seed) => {
             const result = hashBasedShuffle(choices, seed);
             const originalOrder = [0, 1, 2, 3];
-            const shuffledOrder = result.map(c => c.originalIndex);
+            const shuffledOrder = result.map((c) => c.originalIndex);
 
             if (!arraysEqual(originalOrder, shuffledOrder)) {
                 differentOrderCount++;
@@ -125,13 +127,13 @@ describe("hashBasedShuffle", () => {
         const result2 = hashBasedShuffle(realisticChoices, seed);
 
         // Should be deterministic
-        expect(result1.map(c => c.originalIndex)).toEqual(
-            result2.map(c => c.originalIndex)
+        expect(result1.map((c) => c.originalIndex)).toEqual(
+            result2.map((c) => c.originalIndex),
         );
 
         // Should actually shuffle (not be in original order)
         const originalOrder = [0, 1, 2, 3];
-        const shuffledOrder = result1.map(c => c.originalIndex);
+        const shuffledOrder = result1.map((c) => c.originalIndex);
         expect(shuffledOrder).not.toEqual(originalOrder);
     });
 });

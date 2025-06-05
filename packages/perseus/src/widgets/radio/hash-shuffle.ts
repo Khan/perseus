@@ -10,7 +10,7 @@ function hashString(str: string): number {
 
     for (let i = 0; i < str.length; i++) {
         const char = str.charCodeAt(i);
-        hash = ((hash << 5) + hash) + char; // hash * 33 + char
+        hash = (hash << 5) + hash + char; // hash * 33 + char
     }
 
     // murmur inspired hash used to improve distribution and avoid relative ordering collisions
@@ -31,9 +31,13 @@ function hashString(str: string): number {
 /**
  * Creates a hash-based shuffle key for a choice
  */
-function createShuffleKey(choice: RadioChoiceWithMetadata, seed: string): string {
+function createShuffleKey(
+    choice: RadioChoiceWithMetadata,
+    seed: string,
+): string {
     // Use choice ID if available, otherwise use content + originalIndex for better distribution
-    const choiceIdentifier = choice.id || `${choice.content}-${choice.originalIndex}`;
+    const choiceIdentifier =
+        choice.id || `${choice.content}-${choice.originalIndex}`;
 
     // Simple combination that ensures choice ID differences are preserved
     return `${seed}|${choiceIdentifier}`;
@@ -68,16 +72,19 @@ export function hashBasedShuffle(
     choicesWithKeys.sort((a, b) => a.sortKey - b.sortKey);
 
     // Extract just the choices from the sorted array
-    return choicesWithKeys.map(item => item.choice);
+    return choicesWithKeys.map((item) => item.choice);
 }
 
-export function getWidgetSeed(random: number | (()=> number), problemNum?: number | null): string {
-    if(problemNum !== null && problemNum !== undefined) {
-        return `${problemNum}`
+export function getWidgetSeed(
+    random: number | (() => number),
+    problemNum?: number | null,
+): string {
+    if (problemNum !== null && problemNum !== undefined) {
+        return `${problemNum}`;
     }
-    if(typeof random === "number") {
-        return `${random}`
+    if (typeof random === "number") {
+        return `${random}`;
     }
-    const randomSeed = random()
-    return `radio-${randomSeed}`
+    const randomSeed = random();
+    return `radio-${randomSeed}`;
 }

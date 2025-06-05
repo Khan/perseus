@@ -169,11 +169,13 @@ const parseRadioWidgetV0 = parseWidgetWithVersion(
  */
 function simpleHash(str: string): string {
     let hash = 5381; // Use djb2 hash algorithm
-    if (str.length === 0) return "empty";
+    if (str.length === 0) {
+        return "empty";
+    }
 
     for (let i = 0; i < str.length; i++) {
         const char = str.charCodeAt(i);
-        hash = ((hash << 5) + hash) + char; // hash * 33 + char
+        hash = (hash << 5) + hash + char; // hash * 33 + char
     }
 
     return Math.abs(hash).toString(36).substring(0, 8); // Base36 for shorter string, 8 chars for better uniqueness
@@ -186,7 +188,7 @@ function simpleHash(str: string): string {
 function normalizeContent(content: string): string {
     return content
         .trim()
-        .replace(/\s+/g, ' ') // Replace multiple whitespace with single space
+        .replace(/\s+/g, " ") // Replace multiple whitespace with single space
         .toLowerCase(); // Normalize case for consistency
 }
 
@@ -207,7 +209,9 @@ export function migrateV3ToV4(
             deselectEnabled: options.deselectEnabled,
             choices: options.choices.map((choice, index) => {
                 // Create a more unique ID using normalized content hash and index
-                const normalizedContent = normalizeContent(choice.content || "");
+                const normalizedContent = normalizeContent(
+                    choice.content || "",
+                );
                 const contentHash = simpleHash(normalizedContent);
                 const choiceId = `choice-${index}-${contentHash}`;
                 return {

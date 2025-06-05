@@ -59,7 +59,6 @@ export default {
 } satisfies Meta<StoryArgs>;
 
 const applyStoryArgs = (args: StoryArgs): PerseusItem => {
-    console.log("applyStoryArgs input:", args.item);
     const storyItem = {
         ...args.item,
         question: {
@@ -70,19 +69,16 @@ const applyStoryArgs = (args: StoryArgs): PerseusItem => {
     for (const [widgetId, widget] of Object.entries(
         args.item.question.widgets,
     )) {
-        console.log(`Processing widget ${widgetId}:`, widget);
         storyItem.question.widgets[widgetId] = {
             ...widget,
             static: args.static,
             // Preserve the original options but allow static override
             options: {
                 ...widget.options,
-            }
+            },
         };
-        console.log(`Result widget ${widgetId}:`, storyItem.question.widgets[widgetId]);
     }
 
-    console.log("applyStoryArgs output:", storyItem);
     return storyItem;
 };
 
@@ -141,62 +137,5 @@ export const AnswerlessMultiSelect = {
             question: multiChoiceQuestion,
         }),
         startAnswerless: true,
-    },
-};
-
-export const ShuffleTest = {
-    args: {
-        item: generateTestPerseusItem({
-            question: {
-                content: "Test hash-based shuffle with multiple choices:\n\n[[\u2603 radio 1]]\n\n",
-                images: {},
-                widgets: {
-                    "radio 1": {
-                        graded: true,
-                        version: {
-                            major: 1,
-                            minor: 0,
-                        },
-                        static: false,
-                        type: "radio",
-                        options: {
-                            choices: [
-                                {
-                                    id: "choice-a",
-                                    content: "Choice A - First",
-                                    correct: false,
-                                },
-                                {
-                                    id: "choice-b",
-                                    content: "Choice B - Second",
-                                    correct: false,
-                                },
-                                {
-                                    id: "choice-c",
-                                    content: "Choice C - Third",
-                                    correct: true,
-                                },
-                                {
-                                    id: "choice-d",
-                                    content: "Choice D - Fourth",
-                                    correct: false,
-                                },
-                                {
-                                    id: "choice-e",
-                                    content: "Choice E - Fifth",
-                                    correct: false,
-                                },
-                            ],
-                            countChoices: false,
-                            hasNoneOfTheAbove: false,
-                            multipleSelect: false,
-                            randomize: true, // This is the key - enable randomization!
-                            deselectEnabled: false,
-                        },
-                        alignment: "default",
-                    },
-                },
-            },
-        }),
     },
 };

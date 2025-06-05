@@ -1,13 +1,13 @@
 import {radioLogic, random} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
+import {getWidgetSeed, hashBasedShuffle} from "./hash-shuffle";
 import Radio from "./radio.ff";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetExports} from "../../types";
 import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
-import { getWidgetSeed, hashBasedShuffle } from "./hash-shuffle";
 
 // Transforms the choices for display.
 const _choiceTransform = (
@@ -18,20 +18,16 @@ const _choiceTransform = (
     const _maybeRandomize = function (
         array: ReadonlyArray<RadioChoiceWithMetadata>,
     ) {
-        const randomSeed = getWidgetSeed(random, problemNum)
+        const randomSeed = getWidgetSeed(random, problemNum);
         // NOTE: `problemNum` will only be set when the radio widget is
         // rendered at the root of an exercise question. It will be `undefined`
         // if it's rendered embedded in another widget, such as `graded-group`,
         // or if rendered within an article. This results in a predictable
         // shuffle order. To avoid this we use a random seed when `problemNum`
         // is `undefined`.
-        console.log(`__ randomSeed: ${randomSeed} __`)
-        console.log(`__ randomize enabled: ${widgetOptions.randomize} __`)
-        console.log(`__ before shuffle:`, array.map(c => c.content))
         const result = widgetOptions.randomize
             ? hashBasedShuffle(array, randomSeed)
             : array;
-        console.log(`__ after shuffle:`, result.map(c => c.content))
         return result;
     };
 
@@ -70,19 +66,15 @@ const _choiceTransform = (
             [strings.no, strings.yes],
         ];
         const content = choices.map((c) => c.content);
-        console.log(`__ enforceOrdering input:`, content)
         if (ReversedChoices.some((reversed) => _.isEqual(content, reversed))) {
-            console.log(`__ enforceOrdering: swapping order`)
             return [choices[1], choices[0]];
         }
-        console.log(`__ enforceOrdering: no change`)
         return choices;
     };
 
     // Add meta-information to choices
     const choices: ReadonlyArray<RadioChoiceWithMetadata> =
         widgetOptions.choices.map((choice, i): RadioChoiceWithMetadata => {
-            console.log(`choice ${i}:`, choice, `id: ${choice.id}`)
             return {
                 ...choice,
                 originalIndex: i,
