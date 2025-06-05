@@ -28,6 +28,7 @@ const {captureScratchpadTouchStart} = Util;
 
 // exported for tests
 export type ChoiceType = {
+    id: string;
     checked: boolean;
     content: React.ReactNode;
     rationale: React.ReactNode;
@@ -370,7 +371,7 @@ const BaseRadio = function ({
                     return (
                         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
                         <li
-                            key={i}
+                            key={choice.id}
                             ref={(e) => (listElem = e)}
                             className={className}
                             onClick={clickHandler}
