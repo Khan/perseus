@@ -212,28 +212,48 @@ describe("ServerItemRenderer state serialization/restoration", () => {
             const {renderer} = renderQuestion(generateBasicExpression());
 
             await userEvent.type(screen.getByRole("textbox"), "42");
+            act(() => jest.runOnlyPendingTimers());
 
             // Act
             const state = renderer.getSerializedState();
+            const userInput = renderer.getUserInput();
 
             // Assert
+            expect(userInput).toEqual({"expression 1": "42"});
             expect(state).toEqual({
                 question: {
                     "expression 1": {
-                        buttonSets: [],
-                        functions: [],
                         keypadConfiguration: {
                             keypadType: "EXPRESSION",
                             times: false,
                         },
                         times: false,
+                        functions: [],
+                        buttonSets: [],
+                        analytics: {
+                            onAnalyticsEvent: expect.any(Function),
+                        },
+                        handleUserInput: expect.any(Function),
+                        alignment: "default",
+                        static: false,
+                        showSolutions: "none",
+                        reviewModeRubric: null,
+                        reviewMode: false,
+                        isLastUsedWidget: false,
+                        linterContext: {
+                            contentType: "",
+                            highlightLint: false,
+                            paths: [],
+                            stack: ["question", "widget"],
+                        },
+                        value: "42",
                     },
                 },
                 hints: [],
             });
         });
 
-        it.skip("should restore serialized state", () => {
+        it("should restore serialized state", () => {
             // Arrange
             const {renderer} = renderQuestion(generateBasicExpression());
 
@@ -241,10 +261,30 @@ describe("ServerItemRenderer state serialization/restoration", () => {
             act(() =>
                 renderer.restoreSerializedState({
                     question: {
-                        "dropdown 1": {
-                            choices: ["Correct", "Incorrect"],
-                            placeholder: "Choose",
-                            selected: 2,
+                        "expression 1": {
+                            keypadConfiguration: {
+                                keypadType: "EXPRESSION",
+                                times: false,
+                            },
+                            times: false,
+                            functions: [],
+                            buttonSets: [],
+                            analytics: {
+                                onAnalyticsEvent: expect.any(Function),
+                            },
+                            alignment: "default",
+                            static: false,
+                            showSolutions: "none",
+                            reviewModeRubric: null,
+                            reviewMode: false,
+                            isLastUsedWidget: false,
+                            linterContext: {
+                                contentType: "",
+                                highlightLint: false,
+                                paths: [],
+                                stack: ["question", "widget"],
+                            },
+                            value: "42",
                         },
                     },
                     hints: [],
@@ -254,8 +294,8 @@ describe("ServerItemRenderer state serialization/restoration", () => {
             const userInput = renderer.getUserInput();
 
             // Assert
-            // `value` would be 0 if we didn't properly restore serialized state
-            expect(userInput).toEqual({"dropdown 1": {value: 2}});
+            // user input would be "" if we didn't properly restore serialized state
+            expect(userInput).toEqual({"expression 1": "42"});
         });
     });
 });
