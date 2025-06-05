@@ -65,7 +65,7 @@ export const DebugCheckAnswerFooter = ({
         if (state.correct === false && !state.empty) {
             return (
                 <View>
-                    <LabelLarge style={{marginBottom: spacing.xxSmall_6}}>
+                    <LabelLarge style={styles.incorrectLabel}>
                         {mockStrings.incorrect}
                     </LabelLarge>
                     <View>{mockStrings.tryAgain}</View>
@@ -85,9 +85,7 @@ export const DebugCheckAnswerFooter = ({
 
         return (
             <View>
-                <LabelLarge style={{marginBottom: spacing.xSmall_8}}>
-                    {title}
-                </LabelLarge>
+                <LabelLarge style={styles.errorLabel}>{title}</LabelLarge>
                 <Body>{errorMessage}</Body>
             </View>
         );
@@ -98,18 +96,7 @@ export const DebugCheckAnswerFooter = ({
 
     return (
         <View
-            style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-                position: "fixed",
-                bottom: 0,
-                left: 0,
-                right: 0,
-                padding: `${spacing.small_12}px ${spacing.medium_16}px`,
-                backgroundColor: color.white,
-                border: `1px solid ${color.offBlack8}`,
-            }}
+            style={styles.container}
             aria-label="Debug controls"
             role="region"
         >
@@ -122,7 +109,7 @@ export const DebugCheckAnswerFooter = ({
                     Reset State
                 </Button>
             </View>
-            <View style={{display: "flex", flexDirection: "row"}}>
+            <View style={styles.buttonContainer}>
                 <Button
                     disabled={isCheckDisabled}
                     kind="tertiary"
@@ -138,12 +125,7 @@ export const DebugCheckAnswerFooter = ({
                     showTail={false}
                     content={
                         <PopoverContentCore
-                            style={{
-                                alignItems: "flex-start",
-                                flexDirection: "row",
-                                gap: spacing.medium_16,
-                                paddingRight: spacing.xxLarge_48,
-                            }}
+                            style={styles.popoverContent}
                             closeButtonVisible
                         >
                             {getPopoverContent(state)}
@@ -162,3 +144,34 @@ export const DebugCheckAnswerFooter = ({
         </View>
     );
 };
+
+const styles = {
+    container: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+        position: "fixed",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        padding: `${spacing.small_12}px ${spacing.medium_16}px`,
+        backgroundColor: color.white,
+        border: `1px solid ${color.offBlack8}`,
+    },
+    buttonContainer: {
+        display: "flex",
+        flexDirection: "row",
+    },
+    incorrectLabel: {
+        marginBottom: spacing.xxSmall_6,
+    },
+    errorLabel: {
+        marginBottom: spacing.xSmall_8,
+    },
+    popoverContent: {
+        alignItems: "flex-start",
+        flexDirection: "row",
+        gap: spacing.medium_16,
+        paddingRight: spacing.xxLarge_48,
+    },
+} as const;

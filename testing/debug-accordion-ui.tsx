@@ -3,11 +3,11 @@ import {
     AccordionSection,
 } from "@khanacademy/wonder-blocks-accordion";
 import Button from "@khanacademy/wonder-blocks-button";
-import {View} from "@khanacademy/wonder-blocks-core";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
+import styles from "./debug-accordion-ui.module.css";
 import KEScoreUI from "./ke-score-ui";
 
 import type {KEScore, PerseusItem} from "@khanacademy/perseus-core";
@@ -32,17 +32,8 @@ const ScoreHeader = ({score}: {score: KEScore}): React.ReactElement => {
         value: boolean;
         success: boolean;
     }) => (
-        <View
-            style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                gap: spacing.xxSmall_6,
-                backgroundColor: color.offWhite,
-                borderRadius: 4,
-                padding: `${spacing.xSmall_8}px ${spacing.xSmall_8}px`,
-                border: `1px solid ${success ? color.green : color.red}`,
-            }}
+        <div
+            className={`${styles["status-badge"]} ${success ? styles["status-badge-success"] : styles["status-badge-error"]}`}
         >
             <LabelSmall>{label}:</LabelSmall>
             <LabelSmall
@@ -53,19 +44,13 @@ const ScoreHeader = ({score}: {score: KEScore}): React.ReactElement => {
             >
                 {value.toString()}
             </LabelSmall>
-        </View>
+        </div>
     );
 
+    console.log("styles.scoreHeaderContainer", styles);
+
     return (
-        <View
-            style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                padding: spacing.small_12,
-                gap: spacing.medium_16,
-            }}
-        >
+        <div className={styles["score-header-container"]}>
             Score
             <StatusBadge
                 label="Empty"
@@ -77,7 +62,7 @@ const ScoreHeader = ({score}: {score: KEScore}): React.ReactElement => {
                 value={score?.correct}
                 success={score?.correct}
             />
-        </View>
+        </div>
     );
 };
 
@@ -119,26 +104,22 @@ const JsonEditor = ({
     };
 
     return (
-        <View style={{padding: spacing.medium_16}}>
+        <div className={styles["json-editor-container"]}>
             <textarea
                 wrap="off"
                 rows={10}
-                style={{
-                    width: "100%",
-                    height: 400,
-                    marginBottom: spacing.medium_16,
-                }}
+                className={styles["textarea"]}
                 value={jsonText}
                 onChange={handleTextareaChange}
             />
-            <View style={{display: "flex", justifyContent: "flex-end"}}>
+            <div className={styles["button-container"]}>
                 <Button onClick={handleUpdateJson} disabled={hasInvalidJson}>
                     {hasInvalidJson
                         ? "Invalid JSON. Please fix and then try again."
                         : "Update JSON"}
                 </Button>
-            </View>
-        </View>
+            </div>
+        </div>
     );
 };
 
@@ -180,7 +161,7 @@ export const DebugAccordionUI = ({
     };
 
     return (
-        <Accordion style={{margin: `${spacing.medium_16} 0`}}>
+        <Accordion style={{margin: `${spacing.medium_16}px 0`}}>
             {getAccordionSections()}
         </Accordion>
     );
