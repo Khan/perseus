@@ -158,6 +158,9 @@ describe("ServerItemRenderer state serialization/restoration", () => {
             // Arrange
             const {renderer} = renderQuestion(generateBasicDropdown());
 
+            let userInput = renderer.getUserInput();
+            expect(userInput).toEqual({"dropdown 1": {value: 0}});
+
             // Act
             act(() =>
                 renderer.restoreSerializedState({
@@ -172,10 +175,9 @@ describe("ServerItemRenderer state serialization/restoration", () => {
                 }),
             );
 
-            const userInput = renderer.getUserInput();
+            userInput = renderer.getUserInput();
 
             // Assert
-            // `value` would be 0 if we didn't properly restore serialized state
             expect(userInput).toEqual({"dropdown 1": {value: 2}});
         });
     });
@@ -257,6 +259,9 @@ describe("ServerItemRenderer state serialization/restoration", () => {
             // Arrange
             const {renderer} = renderQuestion(generateBasicExpression());
 
+            let userInput = renderer.getUserInput();
+            expect(userInput).toEqual({"expression 1": ""});
+
             // Act
             act(() =>
                 renderer.restoreSerializedState({
@@ -291,7 +296,7 @@ describe("ServerItemRenderer state serialization/restoration", () => {
                 }),
             );
 
-            const userInput = renderer.getUserInput();
+            userInput = renderer.getUserInput();
 
             // Assert
             // user input would be "" if we didn't properly restore serialized state

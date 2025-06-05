@@ -14,7 +14,6 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import MathInput from "../../components/math-input";
 import {useDependencies} from "../../dependencies";
-import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
@@ -69,7 +68,9 @@ type RenderProps = {
     keypadConfiguration: KeypadConfiguration;
 };
 
-type ExternalProps = WidgetProps<RenderProps>;
+type ExternalProps = WidgetProps<RenderProps> & {
+    userInput: string;
+};
 
 type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -190,17 +191,19 @@ export class Expression
         }
     };
 
-    getUserInput(): PerseusExpressionUserInput {
-        return Expression.getUserInputFromProps(this.props);
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getUserInputFromSerializedState(
+        serialized: any,
+    ): PerseusExpressionUserInput {
+        return Expression.getUserInputFromProps(serialized);
     }
 
     getPromptJSON(): ExpressionPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props, this.props.userInput);
     }
-
-    change: (...args: any) => any | undefined = (...args: any) => {
-        return Changeable.change.apply(this, args);
-    };
 
     parse: (value: string, props: Props) => any = (
         value: string,
@@ -216,13 +219,47 @@ export class Expression
         return KAS.parse(normalizeTex(value), options);
     };
 
-    changeAndTrack: (e: any, cb: () => void) => void = (
-        e: any,
-        cb: () => void,
-    ) => {
-        this.change("value", e, cb);
+    changeAndTrack: (e: any) => void = (e: any) => {
+        this.props.handleUserInput(normalizeTex(e));
         this.props.trackInteraction();
     };
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState(): any {
+        const {
+            keypadConfiguration,
+            times,
+            functions,
+            buttonSets,
+            analytics,
+            handleUserInput,
+            alignment,
+            reviewModeRubric,
+            reviewMode,
+            isLastUsedWidget,
+            linterContext,
+        } = this.props;
+
+        return {
+            keypadConfiguration,
+            times,
+            functions,
+            buttonSets,
+            analytics,
+            handleUserInput,
+            alignment,
+            static: this.props.static,
+            showSolutions: (this.props as any).showSolutions,
+            reviewModeRubric,
+            reviewMode,
+            isLastUsedWidget,
+            linterContext,
+            value: this.props.userInput,
+        };
+    }
 
     _handleFocus: () => void = () => {
         this.props.analytics?.onAnalyticsEvent({
@@ -311,7 +348,7 @@ export class Expression
                             this.props.ariaLabel ||
                             this.context.strings.mathInputBox
                         }
-                        value={this.props.value}
+                        value={this.props.userInput}
                         keypadElement={this.props.keypadElement}
                         onChange={this.changeAndTrack}
                         onFocus={() => {

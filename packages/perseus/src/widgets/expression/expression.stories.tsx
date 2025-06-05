@@ -36,7 +36,7 @@ export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
                 isLastUsedWidget={false}
                 onChange={() => {}}
                 handleUserInput={() => {}}
-                userInput={{}}
+                userInput={""}
                 problemNum={1}
                 static={false}
                 trackInteraction={() => {}}

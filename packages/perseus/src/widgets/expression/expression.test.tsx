@@ -57,10 +57,8 @@ const assertCorrect = async (
         input,
         true,
     );
-    const score = scorePerseusItemTesting(
-        itemData.question,
-        renderer.getUserInputMap(),
-    );
+    const userInput = renderer.getUserInputMap();
+    const score = scorePerseusItemTesting(itemData.question, userInput);
     expect(score).toHaveBeenAnsweredCorrectly();
 };
 
