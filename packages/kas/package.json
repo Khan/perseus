@@ -31,10 +31,10 @@
     "devDependencies": {
         "jison": "0.4.15",
         "perseus-build-settings": "workspace:*",
-        "underscore": "catalog:"
+        "underscore": "catalog:devDeps"
     },
     "peerDependencies": {
-        "underscore": "catalog:"
+        "underscore": "catalog:peerDeps"
     },
     "keywords": [
         "parsing",
