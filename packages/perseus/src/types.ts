@@ -84,7 +84,20 @@ export interface Widget {
     // TODO(jeremy): I think this return value is wrong. The widget
     // getSerializedState should just return _its_ serialized state, not a
     // key/value list of all widget states (i think!)
+    /**
+     * @deprecated and likely very broken API
+     * do not trust serializedState/restoreSerializedState
+     */
     getSerializedState?: () => SerializedState; // SUSPECT,
+    /**
+     * @deprecated and likely very broken API
+     * do not trust serializedState/restoreSerializedState
+     */
+    getUserInputFromSerializedState?: (state: any) => UserInput;
+    /**
+     * @deprecated and likely very broken API
+     * do not trust serializedState/restoreSerializedState
+     */
     restoreSerializedState?: (props: any, callback: () => void) => any;
 
     blurInputPath?: (path: FocusPath) => void;

@@ -80,6 +80,28 @@ class Dropdown extends React.Component<Props> implements Widget {
         return _getPromptJSON(this.props, this.props.userInput);
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState(): any {
+        return {
+            choices: this.props.choices,
+            placeholder: this.props.placeholder,
+            selected: this.props.userInput.value,
+        };
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * do not trust serializedState/restoreSerializedState
+     */
+    getUserInputFromSerializedState(serialized: any): PerseusDropdownUserInput {
+        return {
+            value: serialized.selected,
+        };
+    }
+
     render(): React.ReactNode {
         const children = [
             <OptionItem
