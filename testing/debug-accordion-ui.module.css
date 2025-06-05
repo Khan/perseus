@@ -1,0 +1,51 @@
+/* ScoreHeader styles */
+.score-header-container {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 1.2rem !important;
+    gap: 1.6rem !important;
+}
+
+.status-badge {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+    background-color: #f7f8fa;
+    border-radius: 0.4rem !important;
+    padding: 0.8rem 0.8rem !important;
+}
+
+.status-badge-success {
+    border: 0.1rem solid #00af26 !important;
+}
+
+.status-badge-error {
+    border: 0.1rem solid #d92916 !important;
+}
+
+.status-label {
+    font-weight: bold;
+}
+
+/* JsonEditor styles */
+.json-editor-container {
+    padding: 1.6rem;
+}
+
+/* JsonEditor textarea styles */
+.textarea {
+    width: 100%;
+    height: 40rem;
+    margin-bottom: 1.6rem;
+}
+.button-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* DebugAccordionUI styles */
+.accordion {
+    margin: 1.6rem 0;
+}
