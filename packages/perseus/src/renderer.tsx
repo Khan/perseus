@@ -658,7 +658,7 @@ class Renderer
      */
     /**
      * @deprecated and likely very broken API
-     * do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     getSerializedState: (widgetProps?: any) => {
         [id: string]: any;
@@ -681,7 +681,7 @@ class Renderer
 
     /**
      * @deprecated and likely very broken API
-     * do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     restoreSerializedState: (
         serializedState: SerializedState,

@@ -82,7 +82,7 @@ class Dropdown extends React.Component<Props> implements Widget {
 
     /**
      * @deprecated and likely very broken API
-     * do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     getSerializedState(): any {
         return {
@@ -94,7 +94,7 @@ class Dropdown extends React.Component<Props> implements Widget {
 
     /**
      * @deprecated and likely very broken API
-     * do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     getUserInputFromSerializedState(serialized: any): PerseusDropdownUserInput {
         return {

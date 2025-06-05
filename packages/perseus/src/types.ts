@@ -86,17 +86,17 @@ export interface Widget {
     // key/value list of all widget states (i think!)
     /**
      * @deprecated and likely very broken API
-     * do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     getSerializedState?: () => SerializedState; // SUSPECT,
     /**
      * @deprecated and likely very broken API
-     * do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     getUserInputFromSerializedState?: (state: any) => UserInput;
     /**
      * @deprecated and likely very broken API
-     * do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     restoreSerializedState?: (props: any, callback: () => void) => any;
 
