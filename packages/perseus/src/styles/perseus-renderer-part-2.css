@@ -1,0 +1,189 @@
+.perseus-widget-container.widget-nohighlight {
+    transition: all 0.15s;
+}
+.perseus-widget-container.widget-highlight {
+    box-shadow: 0px 0px 0px 2px #ffa500;
+    transition: all 0.15s;
+}
+.perseus-widget-container.widget-inline {
+    display: inline;
+}
+.perseus-widget-container.widget-inline-block {
+    display: inline-block;
+    vertical-align: bottom;
+}
+.bibliotron-exercise .perseus-hint-renderer {
+    border-left: 4px solid #f6f7f7;
+    padding-left: 16px;
+    position: relative;
+}
+.bibliotron-exercise .perseus-hint-renderer:focus {
+    border-left-color: #d6d8da;
+    outline: none;
+}
+.bibliotron-exercise .perseus-hint-renderer:before,
+.bibliotron-exercise .perseus-hint-renderer:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.bibliotron-exercise .perseus-hint-renderer div.paragraph {
+    margin-top: 0px;
+    margin-bottom: 16px;
+}
+.bibliotron-exercise .perseus-hint-renderer.last-hint {
+    margin-bottom: 32px;
+}
+@media (max-width: 767px) {
+    .bibliotron-exercise .perseus-hint-renderer.last-hint {
+        margin-bottom: 0;
+    }
+}
+.perseus-hint-label {
+    color: #00457c;
+    display: none;
+    font-weight: 600;
+    margin-right: 13px;
+    position: absolute;
+    right: 100%;
+    white-space: nowrap;
+}
+.perseus-domain-science .perseus-hint-label {
+    color: #9e034e;
+}
+.perseus-domain-math .perseus-hint-label {
+    color: #007d96;
+}
+.perseus-domain-economics .perseus-hint-label {
+    color: #a75a05;
+}
+.perseus-domain-partner .perseus-hint-label {
+    color: #208170;
+}
+.perseus-domain-humanities .perseus-hint-label {
+    color: #be2612;
+}
+.perseus-domain-test-prep .perseus-hint-label {
+    color: #543b78;
+}
+.perseus-domain-cs .perseus-hint-label {
+    color: #0d923f;
+}
+.bibliotron-exercise .perseus-hint-renderer.last-rendered .perseus-hint-label {
+    display: block;
+}
+@media (max-width: 767px) {
+    .bibliotron-exercise
+        .perseus-hint-renderer.last-rendered
+        .perseus-hint-label {
+        display: none;
+    }
+}
+/*
+    Extra specificity needed to override other styles that are too broad.
+    Once we get a better framework in place (like CSS Modules), we can fix this selector.
+*/
+.framework-perseus .perseus-formats-tooltip .paragraph,
+.framework-perseus .tooltipContainer .perseus-formats-tooltip .paragraph ul {
+    margin: 0;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode {
+    background-color: transparent;
+    font-size: 18px;
+    min-width: 100px;
+    border: unset;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode.mq-focused {
+    box-shadow: unset;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode > .mq-root-block {
+    padding: 4px;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode .mq-cursor {
+    padding-left: 0;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode .mq-paren.mq-ghost {
+    color: inherit;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode .mq-paren + span {
+    margin: 0;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode .mq-binary-operator {
+    font-family: KaTeX_Main !important;
+}
+.perseus-math-input.mq-editable-field.mq-math-mode sup {
+    line-height: normal;
+}
+.perseus-widget-editor
+    .perseus-math-input.mq-editable-field.mq-math-mode
+    > .mq-root-block {
+    border-radius: 0;
+}
+.math-input-buttons {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    margin-top: 5px;
+    padding: 2px;
+    width: 201px;
+}
+.math-input-buttons.absolute {
+    left: -2px;
+    position: absolute;
+    top: -3px;
+    z-index: 5;
+}
+.tex-button {
+    display: block;
+    float: left;
+    width: 35px;
+    height: 35px;
+    margin: 2px;
+    border: 1px solid #1c758a;
+    background-color: white;
+    border-radius: 5px;
+}
+.tex-button:hover {
+    cursor: pointer;
+    background-color: #f0f0f0;
+}
+.tex-button:focus {
+    border: 2px solid #1c758a;
+    outline: none;
+}
+.tex-button-row {
+    margin: 5px 0;
+}
+.tex-button-row:first-child {
+    margin-top: 0;
+}
+.tex-button-row:last-child {
+    margin-bottom: 0;
+}
+.renderer-widget-error {
+    background-color: #fcc;
+}
+.perseus-error {
+    background: #ffbaba;
+    border: 2px solid red;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 15px 0 10px;
+}
+@media (max-width: 767px) {
+    .perseus-renderer-responsive {
+        margin: 0 16px;
+    }
+    .perseus-renderer-responsive .perseus-renderer-responsive {
+        margin: 0;
+    }
+}
+@media (max-width: 767px) {
+    .perseus-mobile .perseus-block-math {
+        font-size: 18px;
+    }
+}
+.perseus-widget-editor-content .perseus-editor-accordion h2 {
+    padding-top: 0;
+}

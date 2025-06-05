@@ -5,7 +5,7 @@ import ItemExtrasEditor from "../item-extras-editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-import "../styles/perseus-editor.less";
+import "../styles/perseus-editor.css";
 
 type Props = React.ComponentProps<typeof ItemExtrasEditor>;
 
