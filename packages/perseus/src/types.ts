@@ -493,9 +493,6 @@ export type WidgetTransform = (
     widgetOptions: WidgetOptions,
     strings: PerseusStrings,
     problemNumber?: number,
-    // TODO-1 make this generic so we have properly typed UserInput
-    // TODO-2 move this after `widgetOptions`
-    userInput?: UserInput,
 ) => any;
 
 export type WidgetExports<
