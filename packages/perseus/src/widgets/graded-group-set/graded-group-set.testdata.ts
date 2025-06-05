@@ -355,7 +355,7 @@ export const article1: PerseusRenderer = {
     },
 };
 
-export const groupSetRadioQuestion: PerseusRenderer = {
+export const groupSetRadioRationaleQuestion: PerseusRenderer = {
     content:
         "#Section 1: Adding tenths less than one\n\n[[☃ graded-group-set 1]]\n\n\nBeautiful, let's move on to problems with whole numbers and tenths.",
     images: {},
@@ -370,7 +370,7 @@ export const groupSetRadioQuestion: PerseusRenderer = {
                     {
                         title: "Question 1",
                         content:
-                            "Which of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
+                            "Select the correct answer.\n\n[[\u2603 radio 1]]\n\n",
                         images: {},
                         widgets: {
                             "radio 1": {
@@ -386,24 +386,23 @@ export const groupSetRadioQuestion: PerseusRenderer = {
                                     onePerLine: false,
                                     choices: [
                                         {
-                                            content: "$-8$ and $8$",
+                                            content: "Incorrect",
                                             correct: false,
                                             clue: "This is not the correct answer.",
                                         },
                                         {
-                                            content: "$-8$",
+                                            content: "Incorrect",
                                             correct: false,
                                             clue: "This is not the correct answer.",
                                         },
                                         {
-                                            content: "$8$",
+                                            content: "Correct",
                                             correct: true,
                                             isNoneOfTheAbove: false,
                                             clue: "This is the correct answer.",
                                         },
                                         {
-                                            content:
-                                                "No value of $x$ satisfies the equation.",
+                                            content: "Incorrect",
                                             correct: false,
                                             isNoneOfTheAbove: false,
                                             clue: "This is not the correct answer.",

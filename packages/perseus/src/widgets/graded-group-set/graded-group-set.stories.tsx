@@ -1,6 +1,9 @@
 import {ArticleRendererWithDebugUI} from "../../../../../testing/article-renderer-with-debug-ui";
 
-import {article1, groupSetRadioQuestion} from "./graded-group-set.testdata";
+import {
+    article1,
+    groupSetRadioRationaleQuestion,
+} from "./graded-group-set.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -20,6 +23,6 @@ export const Article1: Story = {
 
 export const GroupSetRadioQuestion: Story = {
     args: {
-        json: groupSetRadioQuestion,
+        json: groupSetRadioRationaleQuestion,
     },
 };

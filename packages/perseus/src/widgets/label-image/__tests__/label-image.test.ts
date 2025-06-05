@@ -13,7 +13,7 @@ import {
 import * as Dependencies from "../../../dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
-import {LabelImage} from "../label-image";
+import {LabelImage, getUpdatedMarkerState} from "../label-image";
 
 import {shortTextQuestion, textQuestion} from "./label-image.testdata";
 
@@ -55,9 +55,6 @@ describe("LabelImage", function () {
     describe("getUpdatedMarkerState", function () {
         it("should return original marker when feedback is not shown", function () {
             // Arrange
-            const {renderer} = renderQuestion(shortTextQuestion);
-            const widget = renderer.findWidgets("label-image")[0] as LabelImage;
-
             const marker: OptionalAnswersMarkerType = {
                 label: "Test marker",
                 x: 50,
@@ -65,9 +62,15 @@ describe("LabelImage", function () {
                 selected: ["User Choice"],
                 answers: ["Correct Answer"],
             };
+            const reviewMode = false;
+            const showSolutions = undefined;
 
             // Act
-            const result = widget.getUpdatedMarkerState(marker);
+            const result = getUpdatedMarkerState(
+                marker,
+                reviewMode,
+                showSolutions,
+            );
 
             // Assert - Should return unchanged since showSolutions and reviewMode are false
             expect(result).toEqual(marker);
@@ -75,13 +78,6 @@ describe("LabelImage", function () {
 
         it("should auto-select correct answers when showSolutions is 'all'", function () {
             // Arrange
-            const {renderer} = renderQuestion(
-                shortTextQuestion,
-                {},
-                {showSolutions: "all"}, // re-render with showSolutions
-            );
-            const widget = renderer.findWidgets("label-image")[0] as LabelImage;
-
             const marker: OptionalAnswersMarkerType = {
                 label: "Test marker",
                 x: 50,
@@ -89,9 +85,15 @@ describe("LabelImage", function () {
                 selected: ["Answer C"],
                 answers: ["Answer A", "Answer B"],
             };
+            const reviewMode = false;
+            const showSolutions = "all";
 
             // Act
-            const result = widget.getUpdatedMarkerState(marker);
+            const result = getUpdatedMarkerState(
+                marker,
+                reviewMode,
+                showSolutions,
+            );
 
             // Assert
             expect(result).toEqual({
@@ -102,13 +104,6 @@ describe("LabelImage", function () {
 
         it("should auto-select correct answers when reviewMode is true", function () {
             // Arrange
-            const {renderer} = renderQuestion(
-                shortTextQuestion,
-                {},
-                {reviewMode: true}, // re-render with reviewMode
-            );
-            const widget = renderer.findWidgets("label-image")[0] as LabelImage;
-
             const marker: OptionalAnswersMarkerType = {
                 label: "Test marker",
                 x: 50,
@@ -116,9 +111,15 @@ describe("LabelImage", function () {
                 selected: ["Answer C"],
                 answers: ["Answer A", "Answer B"],
             };
+            const reviewMode = true;
+            const showSolutions = undefined;
 
             // Act
-            const result = widget.getUpdatedMarkerState(marker);
+            const result = getUpdatedMarkerState(
+                marker,
+                reviewMode,
+                showSolutions,
+            );
 
             // Assert
             expect(result).toEqual({
@@ -129,13 +130,6 @@ describe("LabelImage", function () {
 
         it("should clear selection for answerless markers when showing feedback", function () {
             // Arrange
-            const {renderer} = renderQuestion(
-                shortTextQuestion,
-                {},
-                {showSolutions: "all"}, // re-render with showSolutions
-            );
-            const widget = renderer.findWidgets("label-image")[0] as LabelImage;
-
             const marker: OptionalAnswersMarkerType = {
                 label: "Test marker",
                 x: 50,
@@ -143,9 +137,15 @@ describe("LabelImage", function () {
                 selected: ["Some Choice"],
                 // No answers property - this is an answerless marker
             };
+            const reviewMode = false;
+            const showSolutions = "all";
 
             // Act
-            const result = widget.getUpdatedMarkerState(marker);
+            const result = getUpdatedMarkerState(
+                marker,
+                reviewMode,
+                showSolutions,
+            );
 
             // Assert
             expect(result).toEqual({
@@ -156,13 +156,6 @@ describe("LabelImage", function () {
 
         it("should handle markers with empty answers array", function () {
             // Arrange
-            const {renderer} = renderQuestion(
-                shortTextQuestion,
-                {},
-                {reviewMode: true}, // re-render with reviewMode
-            );
-            const widget = renderer.findWidgets("label-image")[0] as LabelImage;
-
             const marker: OptionalAnswersMarkerType = {
                 label: "Test marker",
                 x: 50,
@@ -170,9 +163,15 @@ describe("LabelImage", function () {
                 selected: ["User Choice"],
                 answers: [],
             };
+            const reviewMode = true;
+            const showSolutions = undefined;
 
             // Act
-            const result = widget.getUpdatedMarkerState(marker);
+            const result = getUpdatedMarkerState(
+                marker,
+                reviewMode,
+                showSolutions,
+            );
 
             // Assert
             expect(result).toEqual({

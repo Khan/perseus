@@ -2,7 +2,10 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
-import {groupedRadioQuestion, question1} from "./graded-group.testdata";
+import {
+    groupedRadioRationaleQuestion,
+    question1,
+} from "./graded-group.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -19,5 +22,9 @@ export const Question1: Story = {
 };
 
 export const WithRadioWidget: Story = {
-    args: {item: generateTestPerseusItem({question: groupedRadioQuestion})},
+    args: {
+        item: generateTestPerseusItem({
+            question: groupedRadioRationaleQuestion,
+        }),
+    },
 };
