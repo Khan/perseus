@@ -179,4 +179,83 @@ describe("ServerItemRenderer state serialization/restoration", () => {
             expect(userInput).toEqual({"dropdown 1": {value: 2}});
         });
     });
+
+    describe("Expression", () => {
+        function generateBasicExpression(): PerseusItem {
+            const question = generateTestPerseusRenderer({
+                content: "[[☃ expression 1]]",
+                widgets: {
+                    "expression 1": {
+                        type: "expression",
+                        options: {
+                            answerForms: [
+                                {
+                                    considered: "correct",
+                                    form: true,
+                                    simplify: false,
+                                    value: "42",
+                                },
+                            ],
+                            buttonSets: [],
+                            functions: [],
+                            times: false,
+                        },
+                    },
+                },
+            });
+            const item = generateTestPerseusItem({question});
+            return item;
+        }
+
+        it("should serialize the current state", async () => {
+            // Arrange
+            const {renderer} = renderQuestion(generateBasicExpression());
+
+            await userEvent.type(screen.getByRole("textbox"), "42");
+
+            // Act
+            const state = renderer.getSerializedState();
+
+            // Assert
+            expect(state).toEqual({
+                question: {
+                    "expression 1": {
+                        buttonSets: [],
+                        functions: [],
+                        keypadConfiguration: {
+                            keypadType: "EXPRESSION",
+                            times: false,
+                        },
+                        times: false,
+                    },
+                },
+                hints: [],
+            });
+        });
+
+        it.skip("should restore serialized state", () => {
+            // Arrange
+            const {renderer} = renderQuestion(generateBasicExpression());
+
+            // Act
+            act(() =>
+                renderer.restoreSerializedState({
+                    question: {
+                        "dropdown 1": {
+                            choices: ["Correct", "Incorrect"],
+                            placeholder: "Choose",
+                            selected: 2,
+                        },
+                    },
+                    hints: [],
+                }),
+            );
+
+            const userInput = renderer.getUserInput();
+
+            // Assert
+            // `value` would be 0 if we didn't properly restore serialized state
+            expect(userInput).toEqual({"dropdown 1": {value: 2}});
+        });
+    });
 });
