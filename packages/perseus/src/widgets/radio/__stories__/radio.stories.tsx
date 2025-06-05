@@ -69,14 +69,7 @@ const applyStoryArgs = (args: StoryArgs): PerseusItem => {
     for (const [widgetId, widget] of Object.entries(
         args.item.question.widgets,
     )) {
-        storyItem.question.widgets[widgetId] = {
-            ...widget,
-            static: args.static,
-            // Preserve the original options but allow static override
-            options: {
-                ...widget.options,
-            },
-        };
+        storyItem.question.widgets[widgetId] = {...widget, static: args.static};
     }
 
     return storyItem;
