@@ -91,9 +91,6 @@ export const useItemRenderer = (
         [apiOptions, state.isMobile, state.showPopover, state.score],
     );
 
-    /**
-     * Get the score for the current user input
-     */
     const getScore = React.useCallback((): KEScore | undefined => {
         const renderer = ref.current;
         if (!renderer) {
@@ -123,9 +120,6 @@ export const useItemRenderer = (
         return keScore;
     }, [state.perseusItem]);
 
-    /**
-     * Update the Perseus item from JSON text
-     */
     const updateJson = React.useCallback((json: string): boolean => {
         try {
             const parsed = JSON.parse(json);
@@ -137,30 +131,18 @@ export const useItemRenderer = (
         }
     }, []);
 
-    /**
-     * Handle mobile toggle
-     */
     const toggleMobile = React.useCallback((isMobile: boolean) => {
         dispatch({type: "TOGGLE_MOBILE", payload: isMobile});
     }, []);
 
-    /**
-     * Handle reset action
-     */
     const handleReset = React.useCallback(() => {
         dispatch({type: "RESET_STATE"});
     }, []);
 
-    /**
-     * Handle skip to solution action
-     */
     const handleSkip = React.useCallback(() => {
         dispatch({type: "SKIP_TO_SOLUTION"});
     }, []);
 
-    /**
-     * Handle check answer action
-     */
     const handleCheck = React.useCallback(() => {
         dispatch({type: "SET_ANSWERLESS", payload: false});
         const score = getScore();
@@ -169,9 +151,6 @@ export const useItemRenderer = (
         }
     }, [getScore]);
 
-    /**
-     * Toggle popover visibility
-     */
     const setShowPopover = React.useCallback((show: boolean) => {
         dispatch({type: "TOGGLE_POPOVER", payload: show});
     }, []);
