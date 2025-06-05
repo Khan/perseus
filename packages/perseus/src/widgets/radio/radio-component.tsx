@@ -430,7 +430,7 @@ class Radio extends React.Component<Props> implements Widget {
                     ),
                     highlighted,
                     previouslyAnswered: previouslyAnswered,
-                    id: choice.id || `choice-number-${i}`
+                    id: choice.id || `choice-number-${i}`,
                 };
             },
         );
