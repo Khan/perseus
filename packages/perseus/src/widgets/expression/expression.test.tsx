@@ -461,9 +461,13 @@ describe("Expression Widget", function () {
                 renderer.setInputValue(["expression 1"], "123-x", () => {}),
             );
             act(() => jest.runOnlyPendingTimers());
+
+            const userInput = renderer.getUserInputMap();
+            expect(userInput).toEqual({"expression 1": "123-x"});
+
             const score = scorePerseusItem(
                 expressionItem2.question,
-                renderer.getUserInputMap(),
+                userInput,
                 "en",
             );
 
@@ -510,14 +514,17 @@ describe("Expression Widget", function () {
         it("shows error text in tooltip", async () => {
             // Arrange
             const {renderer} = renderQuestion(expressionItem2.question);
-            const expression = renderer.findWidgets("expression 1")[0];
 
             // Act
             // Note(jeremy): You might think you could collapse all of these calls
             // inside a single act() block, but that didn't work. The only way this
             // test passes is with each statement in its own act() call. :/
-            act(() => expression.insert("x&&&&&^1"));
+            await userEvent.type(screen.getByRole("textbox"), "x&&&&&^1");
             act(() => jest.runOnlyPendingTimers());
+            expect(renderer.getUserInputMap()).toEqual({
+                "expression 1": "x\\&\\&\\&\\&\\&^{1}",
+            });
+
             act(() => screen.getByRole("textbox").blur());
             act(() => jest.runOnlyPendingTimers());
 

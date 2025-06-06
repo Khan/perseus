@@ -83,7 +83,6 @@ type Props = ExternalProps &
         times: NonNullable<ExternalProps["times"]>;
         visibleLabel: PerseusExpressionWidgetOptions["visibleLabel"];
         ariaLabel: PerseusExpressionWidgetOptions["ariaLabel"];
-        value: string;
     };
 
 type ExpressionState = {
@@ -100,7 +99,7 @@ type DefaultProps = {
     onBlur: Props["onBlur"];
     onFocus: Props["onFocus"];
     times: Props["times"];
-    value: Props["value"];
+    userInput: Props["userInput"];
 };
 
 // The new, MathQuill input expression widget
@@ -114,12 +113,19 @@ export class Expression
     _textareaId = `expression_textarea_${Date.now()}`;
     _isMounted = false;
 
-    static getUserInputFromProps(props: Props): PerseusExpressionUserInput {
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     *
+     * getUserInputFromProps seems to only be used by the problematic props
+     * serialization APIs.
+     */
+    static getUserInputFromProps(props: any): PerseusExpressionUserInput {
         return normalizeTex(props.value);
     }
 
     static defaultProps: DefaultProps = {
-        value: "",
+        userInput: "",
         times: false,
         functions: [],
         buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
@@ -163,7 +169,7 @@ export class Expression
     // if it fails.
     componentDidUpdate: (prevProps: Props) => void = (prevProps) => {
         if (
-            !_.isEqual(this.props.value, prevProps.value) ||
+            !_.isEqual(this.props.userInput, prevProps.userInput) ||
             !_.isEqual(this.props.functions, prevProps.functions)
         ) {
             this.setState({
@@ -171,7 +177,7 @@ export class Expression
                 showErrorTooltip: false,
                 showErrorStyle: false,
             });
-            if (!this.parse(this.props.value, this.props).parsed) {
+            if (!this.parse(this.props.userInput, this.props).parsed) {
                 this.setState({
                     invalid: true,
                 });
@@ -192,7 +198,7 @@ export class Expression
     };
 
     getUserInput(): PerseusExpressionUserInput {
-        return Expression.getUserInputFromProps(this.props);
+        return this.props.userInput;
     }
 
     /**
@@ -224,7 +230,7 @@ export class Expression
     };
 
     changeAndTrack: (e: any) => void = (e: any) => {
-        this.props.handleUserInput(normalizeTex(e));
+        this._handleUserInput(e);
         this.props.trackInteraction();
     };
 
@@ -280,6 +286,10 @@ export class Expression
         this.props.onBlur([]);
     };
 
+    _handleUserInput(userInput: PerseusExpressionUserInput) {
+        this.props.handleUserInput(normalizeTex(userInput));
+    }
+
     focus: () => boolean = () => {
         if (this.props.apiOptions.customKeypad) {
             // eslint-disable-next-line react/no-string-refs
@@ -328,12 +338,7 @@ export class Expression
     };
 
     setInputValue(path: FocusPath, newValue: string, cb?: () => void) {
-        this.props.onChange(
-            {
-                value: newValue,
-            },
-            cb,
-        );
+        this._handleUserInput(newValue);
     }
 
     render() {
@@ -421,7 +426,7 @@ export class Expression
                         <MathInput
                             // eslint-disable-next-line react/no-string-refs
                             ref="input"
-                            value={this.props.value}
+                            value={this.props.userInput}
                             onChange={this.changeAndTrack}
                             convertDotToTimes={this.props.times}
                             buttonSets={this.props.buttonSets}

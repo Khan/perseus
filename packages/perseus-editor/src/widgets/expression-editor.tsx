@@ -280,7 +280,7 @@ class ExpressionEditor extends React.Component<Props, State> {
     ) => void = (index, props) => {
         const answerForm: AnswerForm = {
             ...this.props.answerForms[index],
-            value: props.value,
+            value: (props as any).value,
         };
         this.updateAnswerForm(index, answerForm);
     };
@@ -297,7 +297,7 @@ class ExpressionEditor extends React.Component<Props, State> {
                         functions: this.props.functions,
                         buttonSets: this.props.buttonSets,
                         buttonsVisible: "focused",
-                        value: ans.value,
+                        userInput: ans.value,
                         // @ts-expect-error: Type '(props: React.ComponentProps<typeof Expression>) => void' is not assignable to type 'ChangeHandler'. Types of parameters 'props' and 'arg1' are incompatible.
                         onChange: (
                             props: React.ComponentProps<typeof Expression>,
