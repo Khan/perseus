@@ -1,5 +1,4 @@
 import {
-    registerCoreWidgets,
     type DropdownWidget,
     type PerseusWidgetsMap,
     type UserInputMap,
@@ -124,10 +123,6 @@ describe("flattenScores", () => {
 });
 
 describe("scoreWidgetsFunctional", () => {
-    beforeAll(() => {
-        registerCoreWidgets();
-    });
-
     it("returns an empty object when there's no widgets", () => {
         // Arrange / Act
         const result = scoreWidgetsFunctional({}, [], {}, "en");
