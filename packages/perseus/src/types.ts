@@ -84,7 +84,20 @@ export interface Widget {
     // TODO(jeremy): I think this return value is wrong. The widget
     // getSerializedState should just return _its_ serialized state, not a
     // key/value list of all widget states (i think!)
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     getSerializedState?: () => SerializedState; // SUSPECT,
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getUserInputFromSerializedState?: (state: any) => UserInput;
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     restoreSerializedState?: (props: any, callback: () => void) => any;
 
     blurInputPath?: (path: FocusPath) => void;
@@ -477,7 +490,7 @@ type WidgetOptions = any;
 // TODO(jeremy): Make this generic so that the WidgetOptions and output type
 // become strongly typed.
 export type WidgetTransform = (
-    arg1: WidgetOptions,
+    widgetOptions: WidgetOptions,
     strings: PerseusStrings,
     problemNumber?: number,
 ) => any;
@@ -582,6 +595,10 @@ export type UniversalWidgetProps<
     findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
     reviewMode: boolean;
     onChange: ChangeHandler;
+    // TODO: Widget should have a widget type arg,
+    // to be used to determine the return type of handleUserInput
+    handleUserInput: (newUserInput: UserInput) => void;
+    userInput: UserInput;
     isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
     linterContext: LinterContextProps;
