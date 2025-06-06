@@ -24,8 +24,9 @@ import type {StyleDeclaration} from "aphrodite";
 
 const {captureScratchpadTouchStart} = Util;
 
+// TODO(LEMS-3170): Simplify the ChoiceType by using ChoiceProps directly.
 // exported for tests
-export type ChoiceType = {
+export interface ChoiceType {
     checked: boolean;
     content: React.ReactNode;
     rationale: React.ReactNode;
@@ -38,9 +39,9 @@ export type ChoiceType = {
     previouslyAnswered: boolean;
     revealNoneOfTheAbove: boolean;
     disabled: boolean;
-};
+}
 
-type Props = {
+interface BaseRadioProps {
     apiOptions: APIOptions;
     choices: ReadonlyArray<ChoiceType>;
     deselectEnabled?: boolean;
@@ -61,7 +62,7 @@ type Props = {
     // Renderer. Determines whether we'll auto-scroll the page upon
     // entering review mode.
     isLastUsedWidget?: boolean;
-};
+}
 
 /**
  * The BaseRadio component is the core component for the radio widget.
@@ -85,7 +86,7 @@ const BaseRadio = ({
     numCorrect,
     isLastUsedWidget,
     onChange,
-}: Props): React.ReactElement => {
+}: BaseRadioProps): React.ReactElement => {
     const {strings} = usePerseusI18n();
 
     // useEffect doesn't have previous props
