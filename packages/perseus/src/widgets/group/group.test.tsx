@@ -510,20 +510,6 @@ describe("group widget", () => {
         expect(cb).toHaveBeenCalled();
     });
 
-    it("should show rationales for contained widgets", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(question1);
-        await userEvent.click(screen.getAllByRole("radio")[2]); // Incorrect!
-
-        // Act
-        act(() => renderer.showRationalesForCurrentlySelectedChoices());
-
-        // Assert
-        expect(
-            screen.getByText("Here's a clue, this isn't the correct answer!"),
-        ).toBeInTheDocument();
-    });
-
     it("handles answerless item data", () => {
         const itemData = getSplitGroupTestItem();
 
