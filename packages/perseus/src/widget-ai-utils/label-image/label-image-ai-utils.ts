@@ -8,6 +8,7 @@ type BaseMarker = {
 
 type UserInputMarker = {
     label: string;
+    answers?: string[];
     selected?: ReadonlyArray<string>;
 };
 
@@ -29,9 +30,13 @@ export const getPromptJSON = (
     userInput: PerseusLabelImageUserInput,
 ): LabelImagePromptJSON => {
     const propMarkers = renderProps.markers.map((marker) => {
-        return {
+        const userInputMarker: UserInputMarker = {
             label: marker.label,
         };
+        if (marker.answers?.length) {
+            userInputMarker.answers = marker.answers;
+        }
+        return userInputMarker;
     });
 
     const inputMarkers = userInput.markers.map((marker) => {
