@@ -1,18 +1,19 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* Component for rendering a letter icon in a library radio choice */
 
-import {color, color as WBColor} from "@khanacademy/wonder-blocks-tokens";
-import {StyleSheet, css} from "aphrodite";
+import Button from "@khanacademy/wonder-blocks-button";
+import {
+    border,
+    sizing,
+    color,
+    semanticColor,
+} from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
 import {usePerseusI18n} from "../../../components/i18n-context";
-import InlineIcon from "../../../components/inline-icon";
-import {iconCheck, iconMinus} from "../../../icon-paths";
-import * as styleConstants from "../../../styles/constants";
-import FocusRing from "../focus-ring";
 import {getChoiceLetter} from "../util";
 
-import choiceIconStyles, {CHOICE_ICON_SIZE} from "./choice-icon-styles";
+import "./choice-icon.new.css";
 
 interface ChoiceIconProps {
     pos: number;
@@ -27,194 +28,96 @@ interface ChoiceIconProps {
     previouslyAnswered: boolean;
 }
 
-interface ChoiceInnerProps {
-    pos: number;
-    showCorrectness: boolean;
-    correct: boolean | null | undefined;
-}
-
-function ChoiceInner(props: ChoiceInnerProps) {
-    const {pos, showCorrectness, correct} = props;
-    const {strings} = usePerseusI18n();
-    const letter = getChoiceLetter(pos, strings);
-
-    if (!showCorrectness) {
-        return <span>{letter}</span>;
-    }
-    if (correct) {
-        return (
-            <InlineIcon
-                {...iconCheck}
-                style={{
-                    position: "relative",
-                    top: -1,
-                }}
-            />
-        );
-    }
-    return <InlineIcon {...iconMinus} />;
-}
-
 /**
- * This component is a duplicate of the ChoiceIcon component in choice-icon.tsx
- * for the Radio Revitalization Project. (LEMS-2933)
- * This component will eventually replace choice-icon.tsx when the feature flag is no longer needed.
- *
- * TODO(LEMS-2994): Clean up this file.
+ * A simplified radio/checkbox choice icon with multiple states
+ * including checked/unchecked, correct/incorrect, and focus states.
+ * Uses Wonder Blocks Button for more consistent design.
  */
-const ChoiceIcon = function (props: ChoiceIconProps): React.ReactElement {
-    const {
-        checked,
-        showCorrectness,
-        correct,
-        focused,
-        hovered,
-        multipleSelect,
-        pos,
-        previouslyAnswered, // Used in "review mode"/"show rationale" to show that option was previously chosen
-        pressed,
-    } = props;
+const ChoiceIcon = ({
+    checked,
+    showCorrectness,
+    correct,
+    focused,
+    hovered,
+    multipleSelect,
+    pos,
+    previouslyAnswered,
+    pressed,
+}: ChoiceIconProps): React.ReactElement => {
+    const {strings} = usePerseusI18n();
 
-    // Accounts for incorrect choice still displaying as learner tries again
-    const choiceIsChecked =
+    // Determine visualization state for icon
+    const showAsChecked =
         checked || (showCorrectness && !correct && previouslyAnswered);
 
-    // Core styling
-    const choiceStyling = [
-        styles.choiceBase,
-        multipleSelect ? styles.multiSelectShape : styles.singleSelectShape,
-        showCorrectness ? styles.choiceHasIcon : styles.choiceHasLetter,
-        choiceIsChecked ? styles.choiceIsChecked : styles.choiceIsUnchecked,
-    ];
+    // Get the letter for the choice (e.g., A, B, C)
+    const letter = getChoiceLetter(pos, strings);
 
-    // Color styling
-    // Handle dynamic styling of the multiple choice icon. Most
-    // MC icon styles are constant, but we do allow the caller
-    // to specify the selected color, and thus must control styles
-    // related to the selected state dynamically.
-    if (showCorrectness && correct && checked) {
-        choiceStyling.push(styles.choiceCorrect);
-    } else if (showCorrectness && !correct && (checked || previouslyAnswered)) {
-        choiceStyling.push(styles.choiceIncorrect);
-    } else if (checked) {
-        // Show filled neutral blue color (showCorrectness is false)
-        choiceStyling.push(styles.choiceNeutral);
-    } else if (pressed) {
-        // Show outlined neutral blue color (showCorrectness is false)
-        choiceStyling.push(styles.activeNeutral);
-    } else {
-        // choice is not checked
-        choiceStyling.push(styles.uncheckedColors);
+    // Determine button appearance based on state
+    const kind = showAsChecked ? "primary" : "secondary";
+
+    // WB Button only supports neutral, progressive, and destructive
+    let actionType: "neutral" | "progressive" | "destructive" = "neutral";
+
+    if (showCorrectness) {
+        // For correctness, use destructive for wrong answers
+        // The correct answers will use custom styling for green
+        if (!correct && (showAsChecked || previouslyAnswered)) {
+            actionType = "destructive"; // Red for incorrect answers
+        }
+    } else if (showAsChecked || hovered) {
+        // Only show progressive style when not showing correctness
+        actionType = "progressive";
     }
 
+    // Determine the content to display
+    let content = letter;
+
+    if (showCorrectness) {
+        if (correct) {
+            content = "✓"; // checkmark symbol
+        } else {
+            content = "—"; // minus symbol
+        }
+    }
+
+    // Button style based on circle or square shape
+    const buttonStyle = {
+        borderRadius: multipleSelect
+            ? border.radius.radius_040
+            : border.radius.radius_full,
+        width: sizing.size_240,
+        height: sizing.size_240,
+        padding: 0,
+        minWidth: "unset",
+        fontSize: "12px", // Smaller font size for the letter/symbol
+        borderWidth: "2px", // Thicker border for better visibility
+        boxShadow: "none",
+        fontWeight: "bold",
+        // Custom styling for correctness states
+        ...(showCorrectness && {
+            pointerEvents: "none", // Disable hover effects when showing correctness
+            ...(correct && {
+                // For correct answers, use semantic success background color
+                backgroundColor: semanticColor.core.background.success.default,
+                borderColor: semanticColor.core.background.success.default,
+                color: semanticColor.text.inverse,
+            }),
+        }),
+    };
+
     return (
-        <div style={choiceIconStyles.iconWrapper}>
-            <FocusRing
-                color={WBColor.blue}
-                visible={focused || hovered}
-                multipleSelect={multipleSelect}
+        <div className="choice-icon-wrapper">
+            <Button
+                kind={kind as "primary" | "secondary"}
+                actionType={actionType}
+                size="small"
+                style={buttonStyle}
             >
-                <div
-                    data-testid="choice-icon__library-choice-icon"
-                    className={css(...choiceStyling)}
-                    // used in BaseRadio editMode to check
-                    // if we actually clicked on the radio icon
-                    data-is-radio-icon={true}
-                >
-                    <div className={css(styles.innerWrapper)}>
-                        <ChoiceInner
-                            pos={pos}
-                            showCorrectness={showCorrectness}
-                            correct={correct}
-                        />
-                    </div>
-                </div>
-            </FocusRing>
+                {content}
+            </Button>
         </div>
     );
 };
-
-const styles = StyleSheet.create({
-    innerWrapper: {
-        width: CHOICE_ICON_SIZE,
-        height: CHOICE_ICON_SIZE,
-
-        // Center the contents of the icon.
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-    },
-    choiceBase: {
-        width: CHOICE_ICON_SIZE,
-        height: CHOICE_ICON_SIZE,
-        boxSizing: "border-box",
-        borderStyle: "solid",
-        borderWidth: 2,
-
-        // The default icons have letters in them. Style those letters.
-        fontFamily: styleConstants.baseFontFamily,
-        // NOTE(emily): We explicitly set the font weight instead of using the
-        // "bold font family" so that characters which fall back to the default
-        // font get bolded too.
-        fontWeight: "bold",
-
-        // Center the icon wrapper.
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-
-        // TODO: LEMS-3108 address light/dark mode theme
-        background: color.white,
-    },
-
-    choiceHasLetter: {
-        fontSize: 12,
-    },
-
-    choiceHasIcon: {
-        fontSize: CHOICE_ICON_SIZE,
-    },
-
-    choiceIsChecked: {
-        color: WBColor.white,
-    },
-
-    choiceIsUnchecked: {
-        color: WBColor.offBlack64,
-    },
-
-    choiceCorrect: {
-        backgroundColor: WBColor.green,
-        borderColor: WBColor.green,
-    },
-
-    choiceIncorrect: {
-        backgroundColor: WBColor.red,
-        borderColor: WBColor.red,
-    },
-
-    choiceNeutral: {
-        backgroundColor: WBColor.blue,
-        borderColor: WBColor.blue,
-    },
-
-    activeNeutral: {
-        color: WBColor.blue,
-        borderColor: WBColor.blue,
-        backgroundColor: "transparent",
-    },
-
-    multiSelectShape: {
-        borderRadius: 3,
-    },
-
-    singleSelectShape: {
-        borderRadius: CHOICE_ICON_SIZE,
-    },
-
-    uncheckedColors: {
-        borderColor: WBColor.offBlack64,
-    },
-});
 
 export default ChoiceIcon;

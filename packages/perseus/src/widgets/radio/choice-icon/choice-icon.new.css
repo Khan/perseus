@@ -1,0 +1,105 @@
+:root {
+    --choice-icon-size: 24px;
+    /* Use Wonder Blocks semantic color tokens */
+    --focus-ring-color: var(--wb-semantic-core-action-active);
+}
+
+.choice-icon-wrapper {
+    display: inline-block;
+    position: relative;
+    /* This will ensure content will be scrolled behind the ChoiceIcon and will not be visible */
+    background: linear-gradient(to right, var(--wb-semantic-core-background-default) 10%, transparent);
+}
+
+[dir="rtl"] .choice-icon-wrapper {
+    background: linear-gradient(to left, var(--wb-semantic-core-background-default) 10%, transparent);
+}
+
+/* Focus ring */
+.focus-ring {
+    margin: auto;
+    display: inline-block;
+    border-width: 2px;
+    padding: 2px;
+    border-style: solid;
+    border-color: transparent;
+    border-radius: 50%;
+    transition: border-color 0.15s ease;
+}
+
+.focus-ring.visible {
+    border-color: var(--focus-ring-color, var(--wb-semantic-core-action-active));
+}
+
+.focus-ring.square {
+    border-radius: 5px;
+}
+
+/* Base icon styles */
+.choice-icon {
+    width: var(--choice-icon-size);
+    height: var(--choice-icon-size);
+    box-sizing: border-box;
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--wb-semantic-core-text-secondary);
+    background-color: var(--wb-semantic-core-background-default);
+    font-family: inherit;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+/* Shape variants */
+.choice-icon.circle {
+    border-radius: 50%;
+}
+
+.choice-icon.square {
+    border-radius: 3px;
+}
+
+/* Letter vs Icon size */
+.choice-icon.has-letter {
+    font-size: 12px;
+    color: var(--wb-semantic-core-text-secondary);
+}
+
+.choice-icon.has-icon {
+    font-size: var(--choice-icon-size);
+}
+
+/* States */
+.choice-icon.checked {
+    color: var(--wb-semantic-text-inverse);
+    background-color: var(--wb-semantic-core-action-active);
+    border-color: var(--wb-semantic-core-action-active);
+}
+
+.choice-icon.pressed:not(.checked) {
+    color: var(--wb-semantic-core-action-active);
+    border-color: var(--wb-semantic-core-action-active);
+}
+
+/* With correctness feedback */
+.choice-icon.checked.correct {
+    background-color: var(--wb-semantic-core-background-success-default);
+    border-color: var(--wb-semantic-core-background-success-default);
+}
+
+.choice-icon.checked.incorrect,
+.choice-icon.previously-answered.incorrect {
+    background-color: var(--wb-semantic-core-background-error-default);
+    border-color: var(--wb-semantic-core-background-error-default);
+}
+
+/* Inner container for content */
+.choice-icon-inner {
+    width: var(--choice-icon-size);
+    height: var(--choice-icon-size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
