@@ -28,7 +28,6 @@ export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
         <div style={{padding: "2rem"}}>
             <expressionExport.widget
                 alignment={null}
-                value=""
                 visibleLabel=""
                 ariaLabel=""
                 containerSizeClass="small"
@@ -36,7 +35,7 @@ export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
                 isLastUsedWidget={false}
                 onChange={() => {}}
                 handleUserInput={() => {}}
-                userInput={{}}
+                userInput={""}
                 problemNum={1}
                 static={false}
                 trackInteraction={() => {}}

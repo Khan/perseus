@@ -14,7 +14,6 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import MathInput from "../../components/math-input";
 import {useDependencies} from "../../dependencies";
-import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
@@ -69,7 +68,9 @@ type RenderProps = {
     keypadConfiguration: KeypadConfiguration;
 };
 
-type ExternalProps = WidgetProps<RenderProps>;
+type ExternalProps = WidgetProps<RenderProps> & {
+    userInput: string;
+};
 
 type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -82,7 +83,6 @@ type Props = ExternalProps &
         times: NonNullable<ExternalProps["times"]>;
         visibleLabel: PerseusExpressionWidgetOptions["visibleLabel"];
         ariaLabel: PerseusExpressionWidgetOptions["ariaLabel"];
-        value: string;
     };
 
 type ExpressionState = {
@@ -99,7 +99,7 @@ type DefaultProps = {
     onBlur: Props["onBlur"];
     onFocus: Props["onFocus"];
     times: Props["times"];
-    value: Props["value"];
+    userInput: Props["userInput"];
 };
 
 // The new, MathQuill input expression widget
@@ -113,12 +113,19 @@ export class Expression
     _textareaId = `expression_textarea_${Date.now()}`;
     _isMounted = false;
 
-    static getUserInputFromProps(props: Props): PerseusExpressionUserInput {
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     *
+     * getUserInputFromProps seems to only be used by the problematic props
+     * serialization APIs.
+     */
+    static getUserInputFromProps(props: any): PerseusExpressionUserInput {
         return normalizeTex(props.value);
     }
 
     static defaultProps: DefaultProps = {
-        value: "",
+        userInput: "",
         times: false,
         functions: [],
         buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
@@ -162,7 +169,7 @@ export class Expression
     // if it fails.
     componentDidUpdate: (prevProps: Props) => void = (prevProps) => {
         if (
-            !_.isEqual(this.props.value, prevProps.value) ||
+            !_.isEqual(this.props.userInput, prevProps.userInput) ||
             !_.isEqual(this.props.functions, prevProps.functions)
         ) {
             this.setState({
@@ -170,7 +177,7 @@ export class Expression
                 showErrorTooltip: false,
                 showErrorStyle: false,
             });
-            if (!this.parse(this.props.value, this.props).parsed) {
+            if (!this.parse(this.props.userInput, this.props).parsed) {
                 this.setState({
                     invalid: true,
                 });
@@ -191,16 +198,22 @@ export class Expression
     };
 
     getUserInput(): PerseusExpressionUserInput {
-        return Expression.getUserInputFromProps(this.props);
+        return this.props.userInput;
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getUserInputFromSerializedState(
+        serialized: any,
+    ): PerseusExpressionUserInput {
+        return Expression.getUserInputFromProps(serialized);
     }
 
     getPromptJSON(): ExpressionPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props, this.props.userInput);
     }
-
-    change: (...args: any) => any | undefined = (...args: any) => {
-        return Changeable.change.apply(this, args);
-    };
 
     parse: (value: string, props: Props) => any = (
         value: string,
@@ -216,13 +229,47 @@ export class Expression
         return KAS.parse(normalizeTex(value), options);
     };
 
-    changeAndTrack: (e: any, cb: () => void) => void = (
-        e: any,
-        cb: () => void,
-    ) => {
-        this.change("value", e, cb);
+    changeAndTrack: (e: any) => void = (e: any) => {
+        this._handleUserInput(e);
         this.props.trackInteraction();
     };
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState(): any {
+        const {
+            keypadConfiguration,
+            times,
+            functions,
+            buttonSets,
+            analytics,
+            handleUserInput,
+            alignment,
+            reviewModeRubric,
+            reviewMode,
+            isLastUsedWidget,
+            linterContext,
+        } = this.props;
+
+        return {
+            keypadConfiguration,
+            times,
+            functions,
+            buttonSets,
+            analytics,
+            handleUserInput,
+            alignment,
+            static: this.props.static,
+            showSolutions: (this.props as any).showSolutions,
+            reviewModeRubric,
+            reviewMode,
+            isLastUsedWidget,
+            linterContext,
+            value: this.props.userInput,
+        };
+    }
 
     _handleFocus: () => void = () => {
         this.props.analytics?.onAnalyticsEvent({
@@ -238,6 +285,10 @@ export class Expression
         /* c8 ignore next */
         this.props.onBlur([]);
     };
+
+    _handleUserInput(userInput: PerseusExpressionUserInput) {
+        this.props.handleUserInput(normalizeTex(userInput));
+    }
 
     focus: () => boolean = () => {
         if (this.props.apiOptions.customKeypad) {
@@ -287,12 +338,7 @@ export class Expression
     };
 
     setInputValue(path: FocusPath, newValue: string, cb?: () => void) {
-        this.props.onChange(
-            {
-                value: newValue,
-            },
-            cb,
-        );
+        this._handleUserInput(newValue);
     }
 
     render() {
@@ -311,7 +357,7 @@ export class Expression
                             this.props.ariaLabel ||
                             this.context.strings.mathInputBox
                         }
-                        value={this.props.value}
+                        value={this.props.userInput}
                         keypadElement={this.props.keypadElement}
                         onChange={this.changeAndTrack}
                         onFocus={() => {
@@ -380,7 +426,7 @@ export class Expression
                         <MathInput
                             // eslint-disable-next-line react/no-string-refs
                             ref="input"
-                            value={this.props.value}
+                            value={this.props.userInput}
                             onChange={this.changeAndTrack}
                             convertDotToTimes={this.props.times}
                             buttonSets={this.props.buttonSets}
