@@ -210,14 +210,13 @@ export class Expression
         return KAS.parse(normalizeTex(value), options);
     };
 
-    changeAndTrack: (userInput: string) => void = (userInput: string) => {
-        this._handleUserInput(userInput);
+    changeAndTrack: (userInput: string, cb: () => void) => void = (
+        userInput: string,
+        cb: () => void,
+    ) => {
+        this.props.handleUserInput(normalizeTex(userInput), cb);
         this.props.trackInteraction();
     };
-
-    _handleUserInput(userInput: PerseusExpressionUserInput) {
-        this.props.handleUserInput(normalizeTex(userInput));
-    }
 
     _handleFocus: () => void = () => {
         this.props.analytics?.onAnalyticsEvent({
@@ -285,8 +284,8 @@ export class Expression
      * TODO: remove this when everything is pulling from Renderer state
      * @deprecated set user input in a parent component
      */
-    setInputValue(path: FocusPath, newValue: string) {
-        this.props.handleUserInput(newValue);
+    setInputValue(path: FocusPath, newValue: string, cb?: any) {
+        this.props.handleUserInput(newValue, cb);
     }
 
     /**
