@@ -352,7 +352,7 @@ type RenderProps = Pick<
     plot?: PerseusGrapherWidgetOptions["correct"];
 };
 
-type ExternalProps = WidgetProps<RenderProps>;
+type ExternalProps = WidgetProps<RenderProps, PerseusGrapherUserInput>;
 
 type Props = ExternalProps & {
     // plot is always provided by default props
@@ -655,13 +655,15 @@ function getUserInputFromSerializedState(
     return serializedState.plot;
 }
 
-0 as any as WidgetProps<PerseusGrapherWidgetOptions> satisfies PropsFor<
-    typeof Grapher
->;
+0 as any as WidgetProps<
+    PerseusGrapherWidgetOptions,
+    PerseusGrapherUserInput
+> satisfies PropsFor<typeof Grapher>;
 
-0 as any as WidgetProps<GrapherPublicWidgetOptions> satisfies PropsFor<
-    typeof Grapher
->;
+0 as any as WidgetProps<
+    GrapherPublicWidgetOptions,
+    PerseusGrapherUserInput
+> satisfies PropsFor<typeof Grapher>;
 
 export default {
     name: "grapher",

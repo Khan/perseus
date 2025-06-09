@@ -32,7 +32,11 @@ export type RenderProps = {
     values?: ReadonlyArray<boolean>;
 };
 
-type Props = WidgetProps<RenderProps, PerseusRadioRubric>;
+type Props = WidgetProps<
+    RenderProps,
+    PerseusRadioUserInput,
+    PerseusRadioRubric
+>;
 
 type DefaultProps = Required<
     Pick<

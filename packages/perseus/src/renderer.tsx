@@ -594,7 +594,9 @@ class Renderer
         return null;
     };
 
-    getWidgetProps(widgetId: string): WidgetProps<any, PerseusWidgetOptions> {
+    getWidgetProps(
+        widgetId: string,
+    ): WidgetProps<any, any, PerseusWidgetOptions> {
         const apiOptions = this.getApiOptions();
         const widgetProps = this.state.widgetProps[widgetId] || {};
 

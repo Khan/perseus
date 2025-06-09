@@ -23,7 +23,7 @@ const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
 type RenderProps = PerseusMatcherWidgetOptions;
 
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<RenderProps, PerseusMatcherUserInput>;
 
 type DefaultProps = {
     left: Props["left"];

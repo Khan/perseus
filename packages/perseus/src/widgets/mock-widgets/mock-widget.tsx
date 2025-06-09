@@ -10,7 +10,7 @@ import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
 import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
 
-type ExternalProps = WidgetProps<MockWidgetOptions>;
+type ExternalProps = WidgetProps<MockWidgetOptions, PerseusMockWidgetUserInput>;
 
 type DefaultProps = {
     currentValue: Props["currentValue"];

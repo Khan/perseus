@@ -55,7 +55,7 @@ type RenderProps = Pick<
     "simplify" | "size" | "answerType" | "rightAlign"
 >;
 
-type ExternalProps = WidgetProps<RenderProps>;
+type ExternalProps = WidgetProps<RenderProps, PerseusInputNumberUserInput>;
 type Props = ExternalProps & {
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     linterContext: NonNullable<ExternalProps["linterContext"]>;

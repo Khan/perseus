@@ -25,7 +25,7 @@ type EditorProps = {
 
 type RenderProps = PerseusTableWidgetOptions & EditorProps;
 
-type Props = WidgetProps<PerseusTableWidgetOptions> &
+type Props = WidgetProps<PerseusTableWidgetOptions, PerseusTableUserInput> &
     ChangeableProps &
     EditorProps;
 

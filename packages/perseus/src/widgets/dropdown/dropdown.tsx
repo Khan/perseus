@@ -17,7 +17,7 @@ import type {
     PerseusDropdownUserInput,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<RenderProps> & {
+type Props = WidgetProps<RenderProps, PerseusDropdownUserInput> & {
     selected: number;
 };
 

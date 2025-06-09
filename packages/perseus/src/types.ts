@@ -577,17 +577,19 @@ export type FilterCriterion =
 // and Rubric is what we use to score the widgets (which not all widgets need validation)
 export type WidgetProps<
     RenderProps,
+    TUserInput = Empty,
     Rubric = Empty,
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
-> = RenderProps & UniversalWidgetProps<Rubric, TrackingExtraArgs>;
+> = RenderProps & UniversalWidgetProps<Rubric, TUserInput, TrackingExtraArgs>;
 
 /**
  * The props passed to every widget, regardless of its `type`.
  */
 export type UniversalWidgetProps<
     ReviewModeRubric = Empty,
+    TUserInput = Empty,
     TrackingExtraArgs = Empty,
 > = {
     reviewModeRubric?: ReviewModeRubric | null | undefined;
@@ -614,10 +616,8 @@ export type UniversalWidgetProps<
     findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
     reviewMode: boolean;
     onChange: ChangeHandler;
-    // TODO: Widget should have a widget type arg,
-    // to be used to determine the return type of handleUserInput
-    handleUserInput: (newUserInput: UserInput, cb?: any) => void;
-    userInput: UserInput;
+    handleUserInput: (newUserInput: TUserInput, cb?: any) => void;
+    userInput: TUserInput;
     isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
     linterContext: LinterContextProps;
