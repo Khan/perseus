@@ -116,26 +116,58 @@ describe("Widget API support", () => {
     ])(
         "%s widget should provide static getUserInputFromProps function",
         (widgetType) => {
-            const Widget = Widgets.getWidget(widgetType);
-            expect(Widget).toHaveProperty("getUserInputFromProps");
+            const WidgetExport = Widgets.getWidgetExport(widgetType);
+            expect(WidgetExport).toHaveProperty(
+                "getUserInputFromSerializedState",
+            );
+        },
+    );
+
+    it.each([
+        {
+            type: "categorizer",
+            input: {
+                values: [0, 1, 0, 1, 2],
+            },
+            expected: {
+                values: [0, 1, 0, 1, 2],
+            },
+        },
+    ])(
+        "%s widget should provide static getUserInputFromProps function",
+        (widgetData) => {
+            const WidgetExport = Widgets.getWidgetExport(widgetData.type);
+
+            if (WidgetExport?.getUserInputFromSerializedState) {
+                const userInput = WidgetExport.getUserInputFromSerializedState(
+                    widgetData.input,
+                );
+                expect(userInput).toEqual(widgetData.expected);
+            } else {
+                throw new Error(
+                    "Widget does not have getUserInputFromSerializedState",
+                );
+            }
         },
     );
 
     it("categorizer widget getUserInputFromProps should return the correct user input", () => {
-        const Widget = Widgets.getWidget("categorizer");
+        const WidgetExport = Widgets.getWidgetExport("categorizer");
 
-        if (Widget && "getUserInputFromProps" in Widget) {
+        if (WidgetExport?.getUserInputFromSerializedState) {
             const props = {
                 values: [0, 1, 0, 1, 2],
             };
 
-            // @ts-expect-error - TS2339 - Property 'getUserInputFromProps' does not exist on type 'ComponentType<any>'.
-            const userInput = Widget.getUserInputFromProps(props);
+            const userInput =
+                WidgetExport.getUserInputFromSerializedState(props);
             expect(userInput).toEqual({
                 values: [0, 1, 0, 1, 2],
             });
         } else {
-            throw new Error("Widget does not have getUserInputFromProps");
+            throw new Error(
+                "Widget does not have getUserInputFromSerializedState",
+            );
         }
     });
 
