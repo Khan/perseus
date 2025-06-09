@@ -289,6 +289,18 @@ export class Expression
         this.props.handleUserInput(newValue);
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState() {
+        const {userInput: _, ...rest} = this.props;
+        return {
+            ...rest,
+            value: this.props.userInput,
+        };
+    }
+
     render() {
         if (this.props.apiOptions.customKeypad) {
             return (
