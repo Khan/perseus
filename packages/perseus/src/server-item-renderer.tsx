@@ -277,7 +277,12 @@ export class ServerItemRenderer
      * for the whole answer area (if the answer area is a single widget).
      */
     _setWidgetProps(widgetId: string, newProps: Props, callback: any) {
-        this.questionRenderer._setWidgetProps(widgetId, newProps, callback);
+        this.questionRenderer._setWidgetProps(
+            widgetId,
+            newProps,
+            null,
+            callback,
+        );
     }
 
     setInputValue(path: FocusPath, newValue: any, focus: () => void): void {
