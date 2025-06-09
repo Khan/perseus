@@ -102,7 +102,7 @@ describe("Widget API support", () => {
         });
     });
 
-    // This list is mirrored in Khan Academy's webapp for the coach reports.
+    // This list is mirrored in Khan Academy's frontend for the coach reports.
     // If you change this, be sure to double-check that consuming applications
     // agree on this list of supported widgets.
     it.each([

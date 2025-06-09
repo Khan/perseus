@@ -1,7 +1,7 @@
 # NOTE: The `devDeps` and `peerDeps` catalogs in this file are
-# generated from webapp's package.json. To update them, run:
+# generated from khan/frontend's package.json. To update them, run:
 #
-#     utils/sync-dependencies.ts ../webapp/services/static/package.json
+#     utils/sync-dependencies.ts ../frontend/package.json
 #
 # We have two separate catalogs for dev deps and peer deps to ensure
 # that:

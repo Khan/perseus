@@ -56,8 +56,6 @@ class CursorHandle extends React.Component<Props> {
 
         const outerStyle = {
             position: "absolute",
-            // This is essentially webapp's interactiveComponent + 1.
-            // TODO(charlie): Pull in those styles somehow to avoid breakages.
             zIndex: 4,
             left: -touchTargetWidthPx / 2,
             top: 0,
