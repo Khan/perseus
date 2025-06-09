@@ -34,6 +34,7 @@ import ErrorBoundary from "./error-boundary";
 import InteractionTracker from "./interaction-tracker";
 import JiptParagraphs from "./jipt-paragraphs";
 import {Log} from "./logging/log";
+import {excludeDenylistKeys} from "./mixins/widget-prop-denylist";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
@@ -686,7 +687,7 @@ class Renderer
             (props, widgetId) => {
                 const widget = this.getWidgetInstance(widgetId);
                 if (widget && widget.getSerializedState) {
-                    return widget.getSerializedState();
+                    return excludeDenylistKeys(widget.getSerializedState());
                 }
                 return props;
             },
@@ -1636,7 +1637,12 @@ class Renderer
         }
     };
 
-    // Serializes widget state. Seems to be used only by editors though.
+    /**
+     * Serializes widget state. Seems to be used only by editors though.
+     *
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     serialize: () => Record<any, any> = () => {
         const state: Record<string, any> = {};
         _.each(
