@@ -169,9 +169,20 @@ function transform(widgetOptions: DropdownPublicWidgetOptions): RenderProps {
     };
 }
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusDropdownUserInput {
+    return {value: serializedState.selected};
+}
+
 export default {
     name: "dropdown",
     displayName: "Drop down",
     widget: Dropdown,
     transform,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Dropdown>;
