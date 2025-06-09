@@ -37,6 +37,21 @@ const denylist = [
     "onFocus",
     "trackInteraction",
     "keypadElement",
+    "linterContext",
+    "isLastUsedWidget",
+    "handleUserInput",
+    "analytics",
+    "showSolutions",
 ];
+
+export function excludeDenylistKeys(obj: Record<any, any>) {
+    const rv = {};
+    for (const k of Object.keys(obj)) {
+        if (!denylist.includes(k)) {
+            rv[k] = obj[k];
+        }
+    }
+    return rv;
+}
 
 export default denylist;
