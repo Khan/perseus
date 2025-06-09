@@ -1,4 +1,4 @@
-import {normalizeContent, simpleHash} from "../../utils/content-hash";
+import {normalizeContent, convertStringToHash} from "../../utils/content-hash";
 import {deriveNumCorrect} from "../../widgets/radio/radio-upgrade";
 import {
     any,
@@ -183,7 +183,7 @@ export function migrateV3ToV4(
                 const normalizedContent = normalizeContent(
                     choice.content || "",
                 );
-                const contentHash = simpleHash(normalizedContent);
+                const contentHash = convertStringToHash(normalizedContent);
                 const choiceId = `choice-${index}-${contentHash}`;
                 return {
                     content: choice.content,

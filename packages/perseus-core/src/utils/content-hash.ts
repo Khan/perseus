@@ -1,16 +1,15 @@
 /**
- * Simple hash function to create a short hash from a string
- * Uses a more robust algorithm for better distribution
+ * Hash function to create a short hash from a string
+ * Based on djb2 hash algo for better distribution
  */
-export function simpleHash(str: string): string {
+export function convertStringToHash(str: string): string {
     let hash = 5381; // Use djb2 hash algorithm constant
     if (str.length === 0) {
         return "empty";
     }
 
     for (let i = 0; i < str.length; i++) {
-        const char = str.charCodeAt(i);
-        hash = (hash << 5) + hash + char; // hash * 33 + char
+        hash = (hash * 33) ^ str.charCodeAt(i);
     }
 
     // Base36 for shorter string, 8 chars for consistent, short IDs
