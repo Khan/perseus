@@ -30,7 +30,7 @@ type DefaultProps = {
     choices: Props["choices"];
     placeholder: Props["placeholder"];
     apiOptions: Props["apiOptions"];
-    userInput: PerseusDropdownUserInput;
+    userInput: Props["userInput"];
 };
 
 class Dropdown extends React.Component<Props> implements Widget {
