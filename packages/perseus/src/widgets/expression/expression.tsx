@@ -68,12 +68,7 @@ type RenderProps = {
     keypadConfiguration: KeypadConfiguration;
 };
 
-type ExternalProps = WidgetProps<RenderProps> & {
-    // TODO: UniversalWidgetProps should have a generic type arg
-    // to determine these types for us and these should be removed
-    userInput: PerseusExpressionUserInput;
-    handleUserInput: (userInput: PerseusExpressionUserInput) => void;
-};
+type ExternalProps = WidgetProps<RenderProps, PerseusExpressionUserInput>;
 
 type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {

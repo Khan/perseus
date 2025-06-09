@@ -87,6 +87,9 @@ const preview: Preview = {
                 value,
             })),
         },
+        docs: {
+            toc: true,
+        },
     },
     tags: [
         //👇 Enables auto-generated documentation for all stories

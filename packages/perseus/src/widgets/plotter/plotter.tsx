@@ -20,9 +20,10 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {PlotterPublicWidgetOptions} from "@khanacademy/perseus-core/src/widgets/plotter/plotter-util";
 
-type RenderProps = PlotterPublicWidgetOptions;
-
-type Props = WidgetProps<RenderProps> & {
+type Props = WidgetProps<
+    PlotterPublicWidgetOptions,
+    PerseusPlotterUserInput
+> & {
     labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
     picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
 };
