@@ -298,7 +298,7 @@ type RenderProps = OrdererPublicWidgetOptions & {
     current: any;
 };
 
-type OrdererProps = WidgetProps<RenderProps>;
+type OrdererProps = WidgetProps<RenderProps, PerseusOrdererUserInput>;
 
 type OrdererDefaultProps = Pick<
     OrdererProps,
@@ -321,13 +321,15 @@ type OrdererState = {
     onAnimationEnd?: (arg1: any) => void;
 };
 
-0 as any as WidgetProps<PerseusOrdererWidgetOptions> satisfies PropsFor<
-    typeof Orderer
->;
+0 as any as WidgetProps<
+    PerseusOrdererWidgetOptions,
+    PerseusOrdererUserInput
+> satisfies PropsFor<typeof Orderer>;
 
-0 as any as WidgetProps<OrdererPublicWidgetOptions> satisfies PropsFor<
-    typeof Orderer
->;
+0 as any as WidgetProps<
+    OrdererPublicWidgetOptions,
+    PerseusOrdererUserInput
+> satisfies PropsFor<typeof Orderer>;
 
 class Orderer
     extends React.Component<OrdererProps, OrdererState>

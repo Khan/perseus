@@ -24,12 +24,7 @@ type RenderProps = {
     choices: ReadonlyArray<string>;
 };
 
-type Props = WidgetProps<RenderProps> & {
-    // TODO: UniversalWidgetProps should have a generic type arg
-    // to determine these types for us and these should be removed
-    userInput: PerseusDropdownUserInput;
-    handleUserInput: (userInput: PerseusDropdownUserInput) => void;
-};
+type Props = WidgetProps<RenderProps, PerseusDropdownUserInput>;
 
 type DefaultProps = {
     choices: Props["choices"];
