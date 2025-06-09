@@ -69,6 +69,7 @@ import type {
     UserInputArray,
     UserInputMap,
     PerseusItem,
+    UserInput,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -140,10 +141,20 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
      */
     showSolutions?: ShowSolutions;
     content: PerseusRenderer["content"];
+
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     serializedState?: any;
+
     /**
      * Callback which is called when serialized state changes with the new
      * serialized state.
+     */
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     onSerializedStateUpdated: (serializedState: {
         [key: string]: any;
@@ -168,6 +179,7 @@ type State = {
     widgetProps: Readonly<{
         [id: string]: any | null | undefined;
     }>;
+    userInput: UserInputMap;
     jiptContent: any;
     lastUsedWidgetId: string | null | undefined;
 };
@@ -301,6 +313,10 @@ class Renderer
             lastUsedWidgetId: null,
 
             ...this._getInitialWidgetState(props),
+
+            // TODO: should we be generating initial user input state
+            // when changing Perseus data like we do with _getInitialWidgetState?
+            userInput: {},
         };
     }
 
@@ -613,6 +629,15 @@ class Renderer
 
         return {
             ...widgetProps,
+            handleUserInput: (newUserInput: UserInput) => {
+                this.setState({
+                    userInput: {
+                        ...this.state.userInput,
+                        [widgetId]: newUserInput,
+                    },
+                });
+            },
+            userInput: this.state.userInput[widgetId],
             widgetId: widgetId,
             alignment: widgetInfo && widgetInfo.alignment,
             static: widgetInfo?.static,
@@ -643,6 +668,10 @@ class Renderer
      * If an instance of widgetProps is passed in, it generates the serialized
      * state from that instead of the current widget props.
      */
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     getSerializedState: (widgetProps?: any) => {
         [id: string]: any;
     } = (
@@ -662,6 +691,10 @@ class Renderer
         );
     };
 
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     restoreSerializedState: (
         serializedState: SerializedState,
         callback?: () => void,

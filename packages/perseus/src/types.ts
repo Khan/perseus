@@ -48,6 +48,10 @@ export type DeviceType = "phone" | "tablet" | "desktop";
  * In that case, the `Renderer` just returns the widget's render props as the
  * serialized state.
  */
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
 export type SerializedState = Record<string, any>;
 
 /**
@@ -84,7 +88,15 @@ export interface Widget {
     // TODO(jeremy): I think this return value is wrong. The widget
     // getSerializedState should just return _its_ serialized state, not a
     // key/value list of all widget states (i think!)
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     getSerializedState?: () => SerializedState; // SUSPECT,
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     restoreSerializedState?: (props: any, callback: () => void) => any;
 
     blurInputPath?: (path: FocusPath) => void;

@@ -9,7 +9,10 @@
  *
  * This blocks things that we know don't need to be serialized.
  */
-
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
 const denylist = [
     // standard props "added" by react
     // (technically the renderer still adds them)

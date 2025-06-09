@@ -80,10 +80,18 @@ class Group extends React.Component<Props> implements Widget {
         return _getPromptJSON(this.rendererRef?.getPromptJSON());
     }
 
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     getSerializedState: () => any = () => {
         return this.rendererRef?.getSerializedState();
     };
 
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     restoreSerializedState: (arg1: any, arg2: any) => null = (
         state,
         callback,

@@ -33,12 +33,20 @@ class HintRenderer extends React.Component<Props> {
         linterContext: PerseusLinter.linterContextDefault,
     };
 
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     getSerializedState: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'getSerializedState' does not exist on type 'ReactInstance'.
         return this.refs.renderer.getSerializedState();
     };
 
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     restoreSerializedState: (
         arg1: any,
         arg2: (...args: ReadonlyArray<any>) => unknown,

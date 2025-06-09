@@ -7,7 +7,15 @@ type State = any;
 // Interfact currently only implemented by
 // ServerItemRenderer
 export interface RendererInterface {
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     getSerializedState(): State;
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     restoreSerializedState(state: State, callback?: () => void): void;
     blur(): void;
     focus(): boolean | null | undefined;
