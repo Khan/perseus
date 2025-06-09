@@ -462,7 +462,8 @@ const styles: StyleDeclaration = StyleSheet.create({
         // HACK(emily): We want selected choices to show up above our
         // exercise backdrop, but below the exercise footer and
         // "feedback popover" that shows up. This z-index is carefully
-        // coordinated between here and webapp. :(
+        // coordinated between here and khan/frontend. :(
+        // See: https://github.com/khan/frontend/blob/f46d475b7684287bfa57ed9a40e846754f1d0a4d/apps/khanacademy/src/exercises-components-package/style-constants.ts#L27-L28
         zIndex: 1062,
     },
 
