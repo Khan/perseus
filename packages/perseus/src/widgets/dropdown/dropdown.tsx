@@ -81,10 +81,10 @@ class Dropdown extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     getSerializedState(): any {
+        const {userInput, ...rest} = this.props;
         return {
-            choices: this.props.choices,
-            placeholder: this.props.placeholder,
-            selected: this.props.userInput.value,
+            ...rest,
+            selected: userInput.value,
         };
     }
 
