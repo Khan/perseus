@@ -38,11 +38,6 @@ export type NumericInputProps = ExternalProps & {
     answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
     labelText: string;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
-} & {
-    // TODO: UniversalWidgetProps should have a generic type arg
-    // to determine these types for us and these should be removed
-    userInput: PerseusNumericInputUserInput;
-    handleUserInput: (userInput: PerseusNumericInputUserInput) => void;
 };
 
 type DefaultProps = Pick<
