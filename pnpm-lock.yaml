@@ -247,6 +247,9 @@ importers:
       '@types/react-dom':
         specifier: ~18.2.19
         version: 18.2.25
+      '@types/semver':
+        specifier: 7.7.0
+        version: 7.7.0
       '@types/underscore':
         specifier: ^1.11.4
         version: 1.11.4
@@ -3208,8 +3211,8 @@ packages:
   '@types/semver@6.2.3':
     resolution: {integrity: sha512-KQf+QAMWKMrtBMsB8/24w53tEsxllMj6TuA80TT/5igJalLI/zm0L3oXRbIAl4Ohfc85gyHX/jhMwsVkmhLU4A==}
 
-  '@types/semver@7.3.13':
-    resolution: {integrity: sha512-21cFJr9z3g5dW8B0CVI9g2O9beqaThGQ6ZFBqHfwhzLDKUxaqTIy3vnfah/UPkfOiF2pLq+tGz+W8RyCskuslw==}
+  '@types/semver@7.7.0':
+    resolution: {integrity: sha512-k107IF4+Xr7UHjwDc7Cfd6PRQfbdkiRabXGRjo07b4WyPahFBZCZ1sE+BNxYIJPPg73UkfOsVOLwqVc/6ETrIA==}
 
   '@types/sinonjs__fake-timers@8.1.1':
     resolution: {integrity: sha512-0kSuKjAS0TrGLJ0M/+8MaFkGsQhZpB6pxOmvS3K8FYI72K//YmdfoW9X2qPsAKh1mkwxGD5zib9s1FIFed6E8g==}
@@ -11864,7 +11867,7 @@ snapshots:
 
   '@types/semver@6.2.3': {}
 
-  '@types/semver@7.3.13': {}
+  '@types/semver@7.7.0': {}
 
   '@types/sinonjs__fake-timers@8.1.1': {}
 
@@ -12026,7 +12029,7 @@ snapshots:
     dependencies:
       '@eslint-community/eslint-utils': 4.4.0(eslint@8.57.1)
       '@types/json-schema': 7.0.14
-      '@types/semver': 7.3.13
+      '@types/semver': 7.7.0
       '@typescript-eslint/scope-manager': 5.62.0
       '@typescript-eslint/types': 5.62.0
       '@typescript-eslint/typescript-estree': 5.62.0(typescript@5.7.2)
