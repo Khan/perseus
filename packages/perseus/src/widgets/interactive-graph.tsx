@@ -37,7 +37,6 @@ import type {
     LockedFigure,
     PerseusImageBackground,
     MarkingsType,
-    PerseusInteractiveGraphRubric,
     PerseusInteractiveGraphUserInput,
     AxisLabelLocation,
 } from "@khanacademy/perseus-core";
@@ -176,7 +175,7 @@ type RenderProps = {
      */
     fullGraphAriaDescription?: string;
 }; // There's no transform function in exports
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<RenderProps, PerseusInteractiveGraphUserInput>;
 type State = any;
 type DefaultProps = {
     labels: string[];
@@ -198,12 +197,12 @@ type DefaultProps = {
 // which receive defaults via defaultProps.
 0 as any as WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
-    PerseusInteractiveGraphRubric
+    PerseusInteractiveGraphUserInput
 > satisfies PropsFor<typeof InteractiveGraph>;
 
 0 as any as WidgetProps<
     InteractiveGraphPublicWidgetOptions,
-    PerseusInteractiveGraphRubric
+    PerseusInteractiveGraphUserInput
 > satisfies PropsFor<typeof InteractiveGraph>;
 
 // TODO: there's another, very similar getSinusoidCoefficients function

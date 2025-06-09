@@ -23,7 +23,7 @@ import type {
     CategorizerPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<RenderProps> & {
+type Props = WidgetProps<RenderProps, PerseusCategorizerUserInput> & {
     values: ReadonlyArray<string>;
 };
 

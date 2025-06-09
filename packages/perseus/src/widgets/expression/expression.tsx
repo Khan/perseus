@@ -69,7 +69,7 @@ type RenderProps = {
     keypadConfiguration: KeypadConfiguration;
 };
 
-type ExternalProps = WidgetProps<RenderProps>;
+type ExternalProps = WidgetProps<RenderProps, PerseusExpressionUserInput>;
 
 type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {

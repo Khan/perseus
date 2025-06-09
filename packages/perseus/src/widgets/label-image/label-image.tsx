@@ -77,7 +77,7 @@ type Options = Omit<PerseusLabelImageWidgetOptions, "markers"> & {
     markers: ReadonlyArray<OptionalAnswersMarkerType>;
 };
 
-type Props = WidgetProps<Options> &
+type Props = WidgetProps<Options, PerseusLabelImageUserInput> &
     DependencyProps & {
         // preferred placement for popover (preference, not MUST)
         // TODO: this is sus, probably never passed in
@@ -789,13 +789,15 @@ const LabelImageWithDependencies = React.forwardRef<
     return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
 });
 
-({}) as WidgetProps<PerseusLabelImageWidgetOptions> satisfies PropsFor<
-    typeof LabelImage
->;
+({}) as WidgetProps<
+    PerseusLabelImageWidgetOptions,
+    PerseusLabelImageUserInput
+> satisfies PropsFor<typeof LabelImage>;
 
-({}) as WidgetProps<LabelImagePublicWidgetOptions> satisfies PropsFor<
-    typeof LabelImage
->;
+({}) as WidgetProps<
+    LabelImagePublicWidgetOptions,
+    PerseusLabelImageUserInput
+> satisfies PropsFor<typeof LabelImage>;
 
 export default {
     name: "label-image",
