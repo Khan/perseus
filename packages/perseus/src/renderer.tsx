@@ -41,6 +41,7 @@ import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
+import {getWidgetTypeByWidgetId} from "./widget-type-utils";
 import * as Widgets from "./widgets";
 
 import type {DependenciesContext} from "./dependencies";
@@ -737,32 +738,48 @@ class Renderer
             }
         };
 
+        const restoredWidgetProps = {};
+        const restoredUserInput = {};
+        Object.entries(serializedState).forEach(([widgetId, props]) => {
+            const widget = this.getWidgetInstance(widgetId);
+            const widgetType = getWidgetTypeByWidgetId(
+                widgetId,
+                this.props.widgets,
+            );
+            const widgetExport = Widgets.getWidgetExport(widgetType as string);
+            if (widget?.restoreSerializedState) {
+                // Note that we probably can't call
+                // `this.change()/this.props.onChange()` in this
+                // function, so we take the return value and use
+                // that as props if necessary so that
+                // `restoreSerializedState` in a widget can
+                // change the props as well as state.
+                // If a widget has no props to change, it can
+                // safely return null.
+                ++numCallbacks;
+                const restoreResult = widget.restoreSerializedState(
+                    props,
+                    fireCallback,
+                );
+                restoredWidgetProps[widgetId] = {
+                    ...this.state.widgetProps[widgetId],
+                    ...restoreResult,
+                };
+            } else {
+                restoredWidgetProps[widgetId] = props;
+            }
+
+            if (widgetExport?.getUserInputFromSerializedState) {
+                const restoreResult =
+                    widgetExport.getUserInputFromSerializedState(props);
+                restoredUserInput[widgetId] = restoreResult;
+            }
+        });
+
         this.setState(
             {
-                widgetProps: mapObject(serializedState, (props, widgetId) => {
-                    const widget = this.getWidgetInstance(widgetId);
-                    if (widget && widget.restoreSerializedState) {
-                        // Note that we probably can't call
-                        // `this.change()/this.props.onChange()` in this
-                        // function, so we take the return value and use
-                        // that as props if necessary so that
-                        // `restoreSerializedState` in a widget can
-                        // change the props as well as state.
-                        // If a widget has no props to change, it can
-                        // safely return null.
-                        ++numCallbacks;
-                        const restoreResult = widget.restoreSerializedState(
-                            props,
-                            fireCallback,
-                        );
-                        return _.extend(
-                            {},
-                            this.state.widgetProps[widgetId],
-                            restoreResult,
-                        );
-                    }
-                    return props;
-                }),
+                widgetProps: restoredWidgetProps,
+                userInput: restoredUserInput,
             },
             () => {
                 // Wait until all components have rendered. In React 16 setState
