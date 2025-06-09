@@ -121,7 +121,13 @@ function main(argv: string[]) {
         if (pkgName in targetVersions) {
             const minVersion = semver.minVersion(
                 targetVersions[pkgName],
-            ).version;
+            )?.version;
+            if (!minVersion) {
+                throw new Error(
+                    `Package ${pkgName} does not have a min version!`,
+                );
+            }
+
             // In development, install the minimum version of each package
             // required by the client application. This ensures we don't
             // accidentally depend on features of the package added after that

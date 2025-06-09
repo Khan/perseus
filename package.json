@@ -47,6 +47,7 @@
         "@types/node": "^20.11.1",
         "@types/react": "~18.2.64",
         "@types/react-dom": "~18.2.19",
+        "@types/semver": "7.7.0",
         "@types/underscore": "^1.11.4",
         "@typescript-eslint/eslint-plugin": "^8.18.0",
         "@typescript-eslint/parser": "^8.18.0",
