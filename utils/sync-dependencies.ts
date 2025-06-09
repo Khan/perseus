@@ -112,19 +112,22 @@ function main(argv: string[]) {
         }),
     );
 
-    const targetVersions = filterUnusableTargetVersions(
+    // Dependency ranges used by the consumer of Perseus (like Webapp)
+    const clientVersionRanges = filterUnusableTargetVersions(
         JSON.parse(fs.readFileSync(clientPackageJson).toString()).dependencies,
         packageNamesInRepo,
     );
 
     for (const pkgName of packageNamesInRepo) {
-        if (pkgName in targetVersions) {
+        if (pkgName in clientVersionRanges) {
             const minVersion = semver.minVersion(
-                targetVersions[pkgName],
+                clientVersionRanges[pkgName],
             )?.version;
             if (!minVersion) {
                 throw new Error(
-                    `Package ${pkgName} does not have a min version!`,
+                    `Package ${pkgName} does not have a min version!\n\n` +
+                        `Listed range is ${clientVersionRanges[pkgName]}\n\n` +
+                        "We don't know what dev dependency to install!",
                 );
             }
 
