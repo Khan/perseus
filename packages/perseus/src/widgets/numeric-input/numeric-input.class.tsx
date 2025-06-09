@@ -35,12 +35,15 @@ export type NumericInputProps = ExternalProps & {
     answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
     labelText: string;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
-    currentValue: string;
+} & {
+    // TODO: UniversalWidgetProps should have a generic type arg
+    // to determine these types for us and these should be removed
+    userInput: PerseusNumericInputUserInput;
+    handleUserInput: (userInput: PerseusNumericInputUserInput) => void;
 };
 
 type DefaultProps = Pick<
     NumericInputProps,
-    | "currentValue"
     | "size"
     | "rightAlign"
     | "apiOptions"
@@ -48,6 +51,7 @@ type DefaultProps = Pick<
     | "answerForms"
     | "labelText"
     | "linterContext"
+    | "userInput"
 >;
 
 type RenderProps = {
@@ -84,7 +88,6 @@ export class NumericInput
     inputRef = React.createRef<Focusable>();
 
     static defaultProps: DefaultProps = {
-        currentValue: "",
         size: "normal",
         rightAlign: false,
         apiOptions: ApiOptions.defaults,
@@ -92,6 +95,9 @@ export class NumericInput
         answerForms: [],
         labelText: "",
         linterContext: linterContextDefault,
+        userInput: {
+            currentValue: "",
+        },
     };
 
     focus: () => boolean = () => {
@@ -127,11 +133,12 @@ export class NumericInput
 
     /**
      * Returns the value the user has currently input for this widget.
+     *
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
      */
     getUserInput(): PerseusNumericInputUserInput {
-        return {
-            currentValue: this.props.currentValue,
-        };
+        return this.props.userInput;
     }
 
     /**
@@ -178,7 +185,7 @@ const propsTransform = function (
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
  */
 function getUserInputFromSerializedState(
-    serializedState: NumericInputProps,
+    serializedState: any,
 ): PerseusNumericInputUserInput {
     return {
         currentValue: serializedState.currentValue,
