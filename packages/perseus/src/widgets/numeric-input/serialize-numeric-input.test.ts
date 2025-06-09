@@ -98,7 +98,6 @@ describe("NumericInput serialization", () => {
                     labelText: "",
                     rightAlign: false,
                     size: "normal",
-                    static: false,
                     // currentValue is added to NumericInput props and
                     // represents user input
                     currentValue: "42",

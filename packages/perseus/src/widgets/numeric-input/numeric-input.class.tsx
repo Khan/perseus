@@ -126,13 +126,16 @@ export class NumericInput
 
     /**
      * Sets the value of the input at the given path.
+     *
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated set user input in Renderer state
      */
     setInputValue: (
         path: FocusPath,
         newValue: string,
         cb?: () => unknown | null | undefined,
     ) => void = (path, newValue, cb) => {
-        this.props.onChange({currentValue: newValue}, cb);
+        this.props.handleUserInput({currentValue: newValue}, cb);
     };
 
     /**
@@ -151,6 +154,18 @@ export class NumericInput
      */
     getPromptJSON(): NumericInputPromptJSON {
         return _getPromptJSON(this.props, this.getUserInput());
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState() {
+        const {userInput, ...rest} = this.props;
+        return {
+            ...rest,
+            currentValue: userInput.currentValue,
+        };
     }
 
     render(): React.ReactNode {
