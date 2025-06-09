@@ -1,31 +1,34 @@
 import type {RadioChoiceWithMetadata} from "./radio-component";
 
 /**
- * Simple hash function that converts a string to a 32-bit integer
- * Uses djb2 + murmur hash algorithms for improved distribution
+ * MumurHash3 32-bit implementation
+ * Implementation reference: https://mojoauth.com/hashing/murmurhash-in-typescript
+ * Optimized for string inputs without external dependencies
  */
-function hashString(str: string): number {
-    // djb2
-    let hash = 5381;
+function hashString(key: string): number {
+    // djb2 constant
+    let hashConstant = 5381;
 
-    for (let i = 0; i < str.length; i++) {
-        const char = str.charCodeAt(i);
-        hash = (hash << 5) + hash + char; // hash * 33 + char
+    let h1 = hashConstant ^ key.length;
+    const c1 = 0xcc9e2d51;
+    const c2 = 0x1b873593;
+
+    for (let i = 0; i < key.length; i++) {
+        let k1 = key.charCodeAt(i);
+        k1 = k1 * c1;
+        k1 = (k1 << 15) | (k1 >>> 17); // Rotate left
+        k1 = k1 * c2;
+        h1 ^= k1;
+        h1 = (h1 << 13) | (h1 >>> 19); // Rotate left
+        h1 = h1 * 5 + 0xe6546b64; // Mix
     }
-
-    // murmur inspired hash used to improve distribution and avoid relative ordering collisions
-    hash = hash ^ (hash >>> 16);
-    hash = hash * 0x85ebca6b;
-    hash = hash ^ (hash >>> 13);
-    hash = hash * 0xc2b2ae35;
-    hash = hash ^ (hash >>> 16);
-
-    // Additional mixing step to further break up patterns
-    hash = hash + (hash << 3);
-    hash = hash ^ (hash >>> 11);
-    hash = hash + (hash << 15);
-
-    return hash >>> 0;
+    h1 ^= key.length;
+    h1 ^= h1 >>> 16; // Finalization
+    h1 = h1 * 0x85ebca6b;
+    h1 ^= h1 >>> 13;
+    h1 = h1 * 0xc2b2ae35;
+    h1 ^= h1 >>> 16;
+    return h1 >>> 0;
 }
 
 /**
@@ -75,16 +78,28 @@ export function hashBasedShuffle(
     return choicesWithKeys.map((item) => item.choice);
 }
 
+/**
+ * Generates a deterministic seed string for widget shuffling.
+ *
+ * The seed determines the shuffle order and ensures consistent behavior:
+ * - When problemNum is available, uses it for consistent shuffling across users
+ * - Falls back to random value when problemNum is null or undefined (e.g., in embedded widgets)
+ * - Ensures the seed is always a string for consistent hashing
+ *
+ * @param random - Random number or function, used as fallback when problemNum is unavailable
+ * @param problemNum - Problem number from exercise context, preferred seed source
+ * @returns Deterministic seed string for shuffling
+ */
 export function getWidgetSeed(
     random: number | (() => number),
     problemNum?: number | null,
 ): string {
+    // Use problemNum when available for consistent cross-user shuffling
     if (problemNum !== null && problemNum !== undefined) {
         return `${problemNum}`;
     }
-    if (typeof random === "number") {
-        return `${random}`;
-    }
-    const randomSeed = random();
-    return `radio-${randomSeed}`;
+
+    // Fall back to random value for embedded widgets or articles
+    const randomValue = typeof random === "function" ? random() : random;
+    return `radio-${randomValue}`;
 }
