@@ -533,6 +533,12 @@ export type WidgetExports<
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,
     ) => string | null | undefined;
+
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getUserInputFromSerializedState?: (props: any) => UserInput;
 }>;
 
 export type FilterCriterion =

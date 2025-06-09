@@ -371,10 +371,6 @@ class Grapher extends React.Component<Props> implements Widget {
 
     static defaultProps: DefaultProps = DEFAULT_GRAPHER_PROPS;
 
-    static getUserInputFromProps(props: Props): PerseusGrapherUserInput {
-        return props.plot;
-    }
-
     handlePlotChanges: (arg1: any) => any = (newPlot) => {
         const plot = {...this.props.plot, ...newPlot};
         this.props.onChange({
@@ -537,7 +533,7 @@ class Grapher extends React.Component<Props> implements Widget {
     };
 
     getUserInput(): PerseusGrapherUserInput {
-        return Grapher.getUserInputFromProps(this.props);
+        return this.props.plot;
     }
 
     getPromptJSON(): GrapherPromptJSON {
@@ -649,6 +645,16 @@ const staticTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
     };
 };
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: Props,
+): PerseusGrapherUserInput {
+    return serializedState.plot;
+}
+
 0 as any as WidgetProps<PerseusGrapherWidgetOptions> satisfies PropsFor<
     typeof Grapher
 >;
@@ -664,4 +670,5 @@ export default {
     widget: Grapher,
     transform,
     staticTransform,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Grapher>;

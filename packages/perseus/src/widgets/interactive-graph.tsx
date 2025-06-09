@@ -814,18 +814,25 @@ class InteractiveGraph extends React.Component<Props, State> {
             ")"
         );
     }
-
-    static getUserInputFromProps(props: Props): PerseusGraphType {
-        return props.graph;
-    }
 }
 
 // We don't need to change any of the original props for static mode
 const staticTransform = _.identity;
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: Props,
+): PerseusInteractiveGraphUserInput {
+    return serializedState.graph;
+}
+
 export default {
     name: "interactive-graph",
     displayName: "Interactive graph",
     widget: InteractiveGraph,
-    staticTransform: staticTransform,
+    staticTransform,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof InteractiveGraph>;

@@ -113,10 +113,6 @@ export class Expression
     _textareaId = `expression_textarea_${Date.now()}`;
     _isMounted = false;
 
-    static getUserInputFromProps(props: Props): PerseusExpressionUserInput {
-        return normalizeTex(props.value);
-    }
-
     static defaultProps: DefaultProps = {
         value: "",
         times: false,
@@ -191,7 +187,7 @@ export class Expression
     };
 
     getUserInput(): PerseusExpressionUserInput {
-        return Expression.getUserInputFromProps(this.props);
+        return normalizeTex(this.props.value);
     }
 
     getPromptJSON(): ExpressionPromptJSON {
@@ -423,13 +419,15 @@ const ExpressionWithDependencies = React.forwardRef<
     return <Expression ref={ref} analytics={deps.analytics} {...props} />;
 });
 
-// HACK: Propogate "static" methods onto our wrapper component.
-// In the future we should adjust client apps to not depend on these static
-// methods and instead adjust Perseus to provide these facilities through
-// instance methods on our Renderers.
-// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
-ExpressionWithDependencies.getUserInputFromProps =
-    Expression.getUserInputFromProps;
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: Props,
+): PerseusExpressionUserInput {
+    return normalizeTex(serializedState.value);
+}
 
 export default {
     name: "expression",
@@ -482,4 +480,5 @@ export default {
         }
         return correctAnswers[0].value;
     },
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof ExpressionWithDependencies>;
