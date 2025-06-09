@@ -50,6 +50,7 @@ import type {
     APIOptionsWithDefaults,
     FilterCriterion,
     FocusPath,
+    // eslint-disable-next-line import/no-deprecated
     SerializedState,
     Widget,
     WidgetProps,
@@ -696,8 +697,10 @@ class Renderer
      * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     restoreSerializedState: (
+        // eslint-disable-next-line import/no-deprecated
         serializedState: SerializedState,
         callback?: () => void,
+        // eslint-disable-next-line import/no-deprecated
     ) => void = (serializedState: SerializedState, callback?: () => void) => {
         // Do some basic validation on the serialized state (just make sure the
         // widget IDs are what we expect).
