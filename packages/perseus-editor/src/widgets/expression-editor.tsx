@@ -25,6 +25,7 @@ import type {
     LegacyButtonSets,
     ExpressionDefaultWidgetOptions,
     PerseusExpressionAnswerForm,
+    PerseusExpressionUserInput,
 } from "@khanacademy/perseus-core";
 import type {CSSProperties} from "aphrodite";
 
@@ -276,11 +277,11 @@ class ExpressionEditor extends React.Component<Props, State> {
 
     changeExpressionWidget: (
         index: number,
-        props: React.ComponentProps<typeof Expression>,
-    ) => void = (index, props) => {
+        input: PerseusExpressionUserInput,
+    ) => void = (index, input) => {
         const answerForm: AnswerForm = {
             ...this.props.answerForms[index],
-            value: props.value,
+            value: input,
         };
         this.updateAnswerForm(index, answerForm);
     };
@@ -288,31 +289,32 @@ class ExpressionEditor extends React.Component<Props, State> {
     render(): React.ReactNode {
         const answerOptions: React.JSX.Element[] = this.props.answerForms.map(
             (ans: AnswerForm, index: number) => {
-                const expressionProps: React.ComponentProps<typeof Expression> =
-                    {
-                        // note we're using
-                        // *this.props*.{times,functions,buttonSets} since each
-                        // answer area has the same settings for those
-                        times: this.props.times,
-                        functions: this.props.functions,
-                        buttonSets: this.props.buttonSets,
-                        buttonsVisible: "focused",
-                        value: ans.value,
-                        // @ts-expect-error: Type '(props: React.ComponentProps<typeof Expression>) => void' is not assignable to type 'ChangeHandler'. Types of parameters 'props' and 'arg1' are incompatible.
-                        onChange: (
-                            props: React.ComponentProps<typeof Expression>,
-                        ) => this.changeExpressionWidget(index, props),
-                        trackInteraction: () => {},
-                        widgetId: this.props.widgetId + "-" + ans.key,
-                        visibleLabel: this.props.visibleLabel,
-                        ariaLabel: this.props.ariaLabel,
-                    } as const;
+                const expressionProps: Partial<
+                    React.ComponentProps<typeof Expression>
+                > = {
+                    // note we're using
+                    // *this.props*.{times,functions,buttonSets} since each
+                    // answer area has the same settings for those
+                    times: this.props.times,
+                    functions: this.props.functions,
+                    buttonSets: this.props.buttonSets,
+                    buttonsVisible: "focused",
+                    userInput: ans.value,
+                    // TODO: UniversalWidgetProps should have a generic type arg
+                    // to help scope what user input a widget consumes
+                    handleUserInput: ((input: PerseusExpressionUserInput) =>
+                        this.changeExpressionWidget(index, input)) as any,
+                    trackInteraction: () => {},
+                    widgetId: this.props.widgetId + "-" + ans.key,
+                    visibleLabel: this.props.visibleLabel,
+                    ariaLabel: this.props.ariaLabel,
+                } as const;
 
                 return (
                     <AnswerOption
                         key={ans.key}
                         considered={ans.considered}
-                        expressionProps={expressionProps}
+                        expressionProps={expressionProps as any}
                         form={ans.form}
                         simplify={ans.simplify}
                         onDelete={() => this.handleRemoveForm(index)}
