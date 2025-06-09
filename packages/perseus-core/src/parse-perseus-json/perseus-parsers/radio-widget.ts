@@ -1,3 +1,4 @@
+import {normalizeContent, simpleHash} from "../../utils/content-hash";
 import {deriveNumCorrect} from "../../widgets/radio/radio-upgrade";
 import {
     any,
@@ -14,7 +15,6 @@ import {defaulted} from "../general-purpose-parsers/defaulted";
 import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
 import {parseWidgetsMap} from "./widgets-map";
-import { normalizeContent, simpleHash } from "../../utils/content-hash";
 
 import type {ParsedValue} from "../parser-types";
 

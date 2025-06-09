@@ -7,7 +7,7 @@ import type {RadioChoiceWithMetadata} from "./radio-component";
  */
 function hashString(key: string): number {
     // djb2 constant
-    let hashConstant = 5381;
+    const hashConstant = 5381;
 
     let h1 = hashConstant ^ key.length;
     const c1 = 0xcc9e2d51;
