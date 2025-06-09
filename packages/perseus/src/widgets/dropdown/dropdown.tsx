@@ -76,6 +76,18 @@ class Dropdown extends React.Component<Props> implements Widget {
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState(): any {
+        return {
+            choices: this.props.choices,
+            placeholder: this.props.placeholder,
+            selected: this.props.userInput.value,
+        };
+    }
+
     render(): React.ReactNode {
         const children = [
             <OptionItem
