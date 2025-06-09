@@ -45,6 +45,10 @@ const denylist = [
 ];
 
 export function excludeDenylistKeys(obj: Record<any, any>) {
+    if (!(obj as any)) {
+        return obj;
+    }
+
     const rv = {};
     for (const k of Object.keys(obj)) {
         if (!denylist.includes(k)) {
