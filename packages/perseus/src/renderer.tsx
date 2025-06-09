@@ -116,15 +116,6 @@ type WidgetState = {
     baseElements?: any;
 };
 
-type SetWidgetPropsFn = (
-    id: string,
-    newProps: any,
-    cb: () => boolean,
-    // Widgets can call `onChange` with `silent` set to `true` to prevent
-    // interaction events from being triggered in listeners.
-    silent?: boolean,
-) => void;
-
 type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     apiOptions?: APIOptions;
     alwaysUpdate?: boolean;
@@ -632,14 +623,6 @@ class Renderer
 
         return {
             ...widgetProps,
-            handleUserInput: (newUserInput: UserInput) => {
-                this.setState({
-                    userInput: {
-                        ...this.state.userInput,
-                        [widgetId]: newUserInput,
-                    },
-                });
-            },
             userInput: this.state.userInput[widgetId],
             widgetId: widgetId,
             alignment: widgetInfo && widgetInfo.alignment,
@@ -655,7 +638,10 @@ class Renderer
             reviewModeRubric: reviewModeRubric,
             reviewMode: this.props.reviewMode,
             onChange: (newProps, cb, silent = false) => {
-                this._setWidgetProps(widgetId, newProps, cb, silent);
+                this._setWidgetProps(widgetId, newProps, null, cb, silent);
+            },
+            handleUserInput: (newUserInput, cb, silent = false) => {
+                this._setWidgetProps(widgetId, null, newUserInput, cb, silent);
             },
             trackInteraction: interactionTracker.track,
             isLastUsedWidget: widgetId === this.state.lastUsedWidgetId,
@@ -1677,16 +1663,32 @@ class Renderer
         );
     }
 
-    _setWidgetProps: SetWidgetPropsFn = (id, newProps, cb, silent) => {
+    _setWidgetProps(
+        id: string,
+        nextWidgetProps: any,
+        nextUserInput: UserInput | null,
+        cb: () => boolean,
+        silent?: boolean,
+    ) {
         this.setState(
             (prevState) => {
-                const widgetProps = {
-                    ...prevState.widgetProps,
-                    [id]: {
-                        ...prevState.widgetProps[id],
-                        ...newProps,
-                    },
-                } as const;
+                const widgetProps = nextWidgetProps
+                    ? {
+                          ...prevState.widgetProps,
+                          [id]: {
+                              ...prevState.widgetProps[id],
+                              ...nextWidgetProps,
+                          },
+                      }
+                    : prevState.widgetProps;
+
+                const userInput =
+                    nextUserInput != null
+                        ? {
+                              ...this.state.userInput,
+                              [id]: nextUserInput,
+                          }
+                        : prevState.userInput;
 
                 // Update the `lastUsedWidgetId` to this widget - unless we're
                 // in silent mode. We only want to track the last widget that
@@ -1698,13 +1700,14 @@ class Renderer
 
                 if (!silent) {
                     this.props.onSerializedStateUpdated(
-                        this.getSerializedState(widgetProps),
+                        this.getSerializedState(this.state.widgetProps),
                     );
                 }
 
                 return {
                     lastUsedWidgetId,
                     widgetProps,
+                    userInput,
                 };
             },
             () => {
@@ -1736,7 +1739,7 @@ class Renderer
                 }, 0);
             },
         );
-    };
+    }
 
     setInputValue: (
         path: FocusPath,

@@ -616,7 +616,7 @@ export type UniversalWidgetProps<
     onChange: ChangeHandler;
     // TODO: Widget should have a widget type arg,
     // to be used to determine the return type of handleUserInput
-    handleUserInput: (newUserInput: UserInput) => void;
+    handleUserInput: (newUserInput: UserInput, cb?: any) => void;
     userInput: UserInput;
     isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
