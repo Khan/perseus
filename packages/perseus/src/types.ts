@@ -102,6 +102,11 @@ export interface Widget {
     blurInputPath?: (path: FocusPath) => void;
     focusInputPath?: (path: FocusPath) => void;
     getInputPaths?: () => ReadonlyArray<FocusPath>;
+
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     setInputValue?: (
         path: FocusPath,
         newValue: string,
