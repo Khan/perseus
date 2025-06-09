@@ -298,13 +298,13 @@ class ExpressionEditor extends React.Component<Props, State> {
                         buttonSets: this.props.buttonSets,
                         buttonsVisible: "focused",
                         userInput: ans.value,
-                        // @ts-expect-error: Type '(props: React.ComponentProps<typeof Expression>) => void' is not assignable to type 'ChangeHandler'. Types of parameters 'props' and 'arg1' are incompatible.
-                        onChange: (
+                        onChange: ((
                             props: React.ComponentProps<typeof Expression>,
-                        ) => this.changeExpressionWidget(index, props),
-                        // @ts-expect-error: Type '(props: React.ComponentProps<typeof Expression>) => void' is not assignable to type 'ChangeHandler'. Types of parameters 'props' and 'arg1' are incompatible.
-                        handleUserInput: (value: string) =>
-                            this.changeExpressionWidget(index, {value} as any),
+                        ) => this.changeExpressionWidget(index, props)) as any,
+                        handleUserInput: ((value: string) =>
+                            this.changeExpressionWidget(index, {
+                                value,
+                            } as any)) as any,
                         trackInteraction: () => {},
                         widgetId: this.props.widgetId + "-" + ans.key,
                         visibleLabel: this.props.visibleLabel,
