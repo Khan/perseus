@@ -295,7 +295,7 @@ describe("renderer", () => {
         });
 
         // [LEMS-3185] deprecate serializedState / restoreSerializedState
-        it.skip("should restore serialized state on mount if provided in prop", async () => {
+        it("should restore serialized state on mount if provided in prop", async () => {
             // Arrange
             renderQuestion(
                 question1,
@@ -1326,7 +1326,7 @@ describe("renderer", () => {
         });
 
         // [LEMS-3185] deprecate serializedState / restoreSerializedState
-        it.skip("should use new serializedState if getSerializedState is different", () => {
+        it("should use new serializedState if getSerializedState is different", () => {
             // Act
             // Render with serialized state
             const {rerender} = renderQuestion(

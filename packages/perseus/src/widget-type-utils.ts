@@ -15,10 +15,10 @@ import {
  * @returns {string} the widget type (ie "radio")
  */
 export function getWidgetTypeByWidgetId(
-    WidgetId: string,
+    widgetId: string,
     widgetMap: PerseusWidgetsMap,
 ): string | null {
-    const widget = widgetMap[WidgetId];
+    const widget = widgetMap[widgetId];
     return widget?.type ?? null;
 }
 
