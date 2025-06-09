@@ -489,7 +489,7 @@ type WidgetOptions = any;
 // TODO(jeremy): Make this generic so that the WidgetOptions and output type
 // become strongly typed.
 export type WidgetTransform = (
-    arg1: WidgetOptions,
+    widgetOptions: WidgetOptions,
     strings: PerseusStrings,
     problemNumber?: number,
 ) => any;
@@ -594,6 +594,10 @@ export type UniversalWidgetProps<
     findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
     reviewMode: boolean;
     onChange: ChangeHandler;
+    // TODO: Widget should have a widget type arg,
+    // to be used to determine the return type of handleUserInput
+    handleUserInput: (newUserInput: UserInput) => void;
+    userInput: UserInput;
     isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
     linterContext: LinterContextProps;

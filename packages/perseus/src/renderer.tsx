@@ -1754,10 +1754,14 @@ class Renderer
         const userInputMap = {};
         this.widgetIds.forEach((id: string) => {
             const widget = this.getWidgetInstance(id);
-            // Handle Groups, which have their own sets of widgets
-            if (widget?.getUserInputMap) {
+            if (this.state.userInput[id]) {
+                // Get user input from Renderer state if possible
+                userInputMap[id] = this.state.userInput[id];
+            } else if (widget?.getUserInputMap) {
+                // Handle Groups, which have their own sets of widgets
                 userInputMap[id] = widget.getUserInputMap();
             } else if (widget?.getUserInput) {
+                // Legacy method of getting user input
                 userInputMap[id] = widget.getUserInput();
             }
         });
