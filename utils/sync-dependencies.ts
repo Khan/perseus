@@ -112,7 +112,7 @@ function main(argv: string[]) {
         }),
     );
 
-    // Dependency ranges used by the consumer of Perseus (like Webapp)
+    // Dependency ranges used by the consumer of Perseus (like khan/frontend)
     const clientVersionRanges = filterUnusableTargetVersions(
         JSON.parse(fs.readFileSync(clientPackageJson).toString()).dependencies,
         packageNamesInRepo,
