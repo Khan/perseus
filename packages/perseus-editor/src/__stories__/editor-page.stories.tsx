@@ -2,7 +2,7 @@ import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widge
 
 import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
