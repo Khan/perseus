@@ -5,8 +5,8 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {
     border,
     sizing,
-    color,
     semanticColor,
+    font,
 } from "@khanacademy/wonder-blocks-tokens";
 import * as React from "react";
 
@@ -90,10 +90,10 @@ const ChoiceIcon = ({
         height: sizing.size_240,
         padding: 0,
         minWidth: "unset",
-        fontSize: "12px", // Smaller font size for the letter/symbol
-        borderWidth: "2px", // Thicker border for better visibility
+        fontSize: font.body.size.xsmall,
+        borderWidth: border.width.medium,
         boxShadow: "none",
-        fontWeight: "bold",
+        fontWeight: font.weight.bold,
         // Custom styling for correctness states
         ...(showCorrectness && {
             pointerEvents: "none", // Disable hover effects when showing correctness

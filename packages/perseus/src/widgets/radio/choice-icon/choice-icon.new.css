@@ -1,6 +1,5 @@
 :root {
-    --choice-icon-size: 24px;
-    /* Use Wonder Blocks semantic color tokens */
+    --choice-icon-size: var(--wb-sizing-size_240);
     --focus-ring-color: var(--wb-semantic-core-action-active);
 }
 
@@ -19,11 +18,11 @@
 .focus-ring {
     margin: auto;
     display: inline-block;
-    border-width: 2px;
-    padding: 2px;
+    border-width: var(--wb-border-width-medium);
+    padding: var(-wb-sizing-size_020);
     border-style: solid;
     border-color: transparent;
-    border-radius: 50%;
+    border-radius: var(--wb-border-radius-radius_full);
     transition: border-color 0.15s ease;
 }
 
@@ -32,7 +31,7 @@
 }
 
 .focus-ring.square {
-    border-radius: 5px;
+    border-radius: var(-wb-border-radius-radius_040);
 }
 
 /* Base icon styles */
@@ -41,7 +40,7 @@
     height: var(--choice-icon-size);
     box-sizing: border-box;
     border-style: solid;
-    border-width: 2px;
+    border-width: var(--wb-border-width-medium);
     border-color: var(--wb-semantic-core-text-secondary);
     background-color: var(--wb-semantic-core-background-default);
     font-family: inherit;
@@ -54,16 +53,16 @@
 
 /* Shape variants */
 .choice-icon.circle {
-    border-radius: 50%;
+    border-radius: var(--wb-border-radius-radius_full);
 }
 
 .choice-icon.square {
-    border-radius: 3px;
+    border-radius: var(--wb-border-radius-radius_040);
 }
 
 /* Letter vs Icon size */
 .choice-icon.has-letter {
-    font-size: 12px;
+    font-size: var(--wb-sizing-size_120);
     color: var(--wb-semantic-core-text-secondary);
 }
 
