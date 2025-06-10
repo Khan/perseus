@@ -307,10 +307,6 @@ class Renderer
             lastUsedWidgetId: null,
 
             ...this._getInitialWidgetState(props),
-
-            // TODO: should we be generating initial user input state
-            // when changing Perseus data like we do with _getInitialWidgetState?
-            userInput: {},
         };
     }
 
@@ -482,13 +478,29 @@ class Renderer
     _getInitialWidgetState: (props: Props) => {
         widgetInfo: State["widgetInfo"];
         widgetProps: State["widgetProps"];
+        userInput: State["userInput"];
     } = (props: Props) => {
         const allWidgetInfo = applyDefaultsToWidgets(props.widgets);
         return {
             widgetInfo: allWidgetInfo,
             widgetProps: this._getAllWidgetsStartProps(allWidgetInfo, props),
+            userInput: this._getAllWidgetsStartUserInput(props),
         };
     };
+
+    _getAllWidgetsStartUserInput(props: Props): UserInputMap {
+        const widgetMap = props.widgets;
+        const startUserInput: UserInputMap = {};
+        entries(widgetMap).forEach(([id, widgetInfo]) => {
+            const widgetExports = Widgets.getWidgetExport(widgetInfo.type);
+            if (widgetInfo.static && widgetExports?.getCorrectUserInput) {
+                startUserInput[id] = widgetExports.getCorrectUserInput(
+                    widgetInfo.options,
+                );
+            }
+        });
+        return startUserInput;
+    }
 
     _getAllWidgetsStartProps: (
         allWidgetInfo: PerseusWidgetsMap,

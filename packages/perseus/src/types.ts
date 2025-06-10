@@ -334,6 +334,9 @@ export type APIOptions = Readonly<{
      * after they have been transformed by the widget's transform function.
      * This is useful for when we need to know how a widget has shuffled its
      * the available choices.
+     *
+     * @deprecated [LEMS-3185] this is externalizing an internal implementation
+     * detail similar to serialized state
      */
     onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
 }>;
@@ -510,6 +513,7 @@ export type WidgetTransform = (
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
+    TUserInput = Empty,
 > = Readonly<{
     name: string;
     displayName: string;
@@ -552,7 +556,9 @@ export type WidgetExports<
      * @deprecated and likely a very broken API
      * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
-    getUserInputFromSerializedState?: (props: any) => UserInput;
+    getUserInputFromSerializedState?: (props: any) => TUserInput;
+
+    getCorrectUserInput?: (widgetOptions: any) => TUserInput;
 }>;
 
 export type FilterCriterion =
