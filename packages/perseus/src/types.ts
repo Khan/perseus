@@ -559,6 +559,8 @@ export type WidgetExports<
     getUserInputFromSerializedState?: (props: any) => TUserInput;
 
     getCorrectUserInput?: (widgetOptions: any) => TUserInput;
+
+    getStartUserInput?: (widgetOptions: any) => TUserInput;
 }>;
 
 export type FilterCriterion =
