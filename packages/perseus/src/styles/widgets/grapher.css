@@ -1,0 +1,7 @@
+.perseus-widget-grapher > .graphie-container {
+    position: relative;
+}
+.perseus-widget-grapher > .graphie-container > img,
+.perseus-widget-grapher > .graphie-container .svg-image {
+    position: absolute;
+}
