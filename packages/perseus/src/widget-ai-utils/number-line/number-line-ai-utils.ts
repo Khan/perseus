@@ -12,6 +12,7 @@ export type NumberLinePromptJSON = {
     userInput: {
         numLinePosition: number;
         numDivisions: number;
+        rel: string;
     };
 };
 
@@ -29,6 +30,7 @@ export const getPromptJSON = (
         userInput: {
             numLinePosition: userInput.numLinePosition,
             numDivisions: userInput.numDivisions,
+            rel: userInput.rel,
         },
     };
 };
