@@ -6,12 +6,12 @@
  * animated into view.
  *
  * TODO(charlie): Move this scroll logic out of our components and into a higher
- * level in the component tree--perhaps even into webapp, beyond Perseus.
+ * level in the component tree--perhaps even into khan/frontend, beyond Perseus.
  */
 
 // HACK(charlie): This should be injected by webapp somehow.
-// TODO(charlie): Add a link to the webapp location as soon as the footer
-// has settled down.
+// TODO(charlie): Add a link to the khan/frontend location as soon as the
+// footer has settled down.
 const toolbarHeightPx = 60;
 
 export const scrollIntoView = (containerNode, keypadNode) => {

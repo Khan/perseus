@@ -39,8 +39,8 @@ We use [changesets](https://github.com/changesets/changesets) to help manage our
 ### Updating Dependencies
 
 If you want to use another library in Perseus, you will need up update the dependencies.
-Use `peerDependencies` and `devDependencies` for dependencies that webapp is already using, such as
-Wonder Blocks or React.
+Use `peerDependencies` and `devDependencies` for dependencies that
+khan/frontend is already using, such as Wonder Blocks or React.
 
 1. `cd` into to the package in which you would like to update the dependency.
 ```
@@ -54,7 +54,7 @@ cd packages/perseus-editor
 ```
 // All dependencies
 pnpm add --dev [dependency name]
-// Include this too if webapp is using this dependency
+// Include this too if khan/frontend is using this dependency
 pnpm add --peer [dependency name]
 
 // Example

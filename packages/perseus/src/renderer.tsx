@@ -976,7 +976,7 @@ class Renderer
         props: Props,
         state: State,
     ): boolean => {
-        // TODO(aria): Pass this in via webapp as an apiOption
+        // TODO(aria): Pass this in via khan/frontend as an apiOption
         return (
             getDependencies().JIPT.useJIPT &&
             state.jiptContent == null &&
