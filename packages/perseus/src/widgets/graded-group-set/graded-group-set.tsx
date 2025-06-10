@@ -46,7 +46,7 @@ class Indicators extends React.Component<IndicatorsProps> {
     render(): React.ReactNode {
         return (
             <ul
-                // reduntantly add class name for use in .less files--
+                // reduntantly add class name for use in .css files--
                 //   the styles object key gets hashed
                 className={classNames(
                     css(styles.indicatorContainer),

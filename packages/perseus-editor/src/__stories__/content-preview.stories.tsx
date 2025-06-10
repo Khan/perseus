@@ -15,7 +15,7 @@ import ContentPreview from "../content-preview";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-import "../styles/perseus-editor.less";
+import "../styles/perseus-editor.css";
 
 const PreviewWrapper = (props) => {
     const [previewDevice, setPreviewDevice] =
