@@ -361,12 +361,6 @@ importers:
       knip:
         specifier: ^5.33.3
         version: 5.33.3(@types/node@20.17.6)(typescript@5.7.2)
-      less:
-        specifier: ^4.2.0
-        version: 4.2.0
-      less-loader:
-        specifier: ^11.1.3
-        version: 11.1.3(less@4.2.0)(webpack@5.97.1(@swc/core@1.11.13(@swc/helpers@0.5.17))(esbuild@0.24.0))
       nyc:
         specifier: ^15.1.0
         version: 15.1.0
@@ -6388,13 +6382,6 @@ packages:
   lazy-ass@1.6.0:
     resolution: {integrity: sha512-cc8oEVoctTvsFZ/Oje/kGnHbpWHYBe8IAJe4C0QNc3t8uM/0Y8+erSz/7Y1ALuXTEZTMvxXwO6YbX1ey3ujiZw==}
     engines: {node: '> 0.8'}
-
-  less-loader@11.1.3:
-    resolution: {integrity: sha512-A5b7O8dH9xpxvkosNrP0dFp2i/dISOJa9WwGF3WJflfqIERE2ybxh1BFDj5CovC2+jCE4M354mk90hN6ziXlVw==}
-    engines: {node: '>= 14.15.0'}
-    peerDependencies:
-      less: ^3.5.0 || ^4.0.0
-      webpack: ^5.0.0
 
   less@4.2.0:
     resolution: {integrity: sha512-P3b3HJDBtSzsXUl0im2L7gTO5Ubg8mEN6G8qoTS77iXxXX4Hvu4Qj540PZDvQ8V6DmX6iXo98k7Md0Cm1PrLaA==}
@@ -13032,6 +13019,7 @@ snapshots:
   copy-anything@2.0.6:
     dependencies:
       is-what: 3.14.1
+    optional: true
 
   copy-descriptor@0.1.1: {}
 
@@ -15137,7 +15125,8 @@ snapshots:
       call-bound: 1.0.3
       get-intrinsic: 1.2.7
 
-  is-what@3.14.1: {}
+  is-what@3.14.1:
+    optional: true
 
   is-windows@1.0.2: {}
 
@@ -15898,16 +15887,11 @@ snapshots:
 
   lazy-ass@1.6.0: {}
 
-  less-loader@11.1.3(less@4.2.0)(webpack@5.97.1(@swc/core@1.11.13(@swc/helpers@0.5.17))(esbuild@0.24.0)):
-    dependencies:
-      less: 4.2.0
-      webpack: 5.97.1(@swc/core@1.11.13(@swc/helpers@0.5.17))(esbuild@0.24.0)
-
   less@4.2.0:
     dependencies:
       copy-anything: 2.0.6
       parse-node-version: 1.0.1
-      tslib: 2.6.2
+      tslib: 2.8.1
     optionalDependencies:
       errno: 0.1.8
       graceful-fs: 4.2.11
@@ -15918,6 +15902,7 @@ snapshots:
       source-map: 0.6.1
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   leven@3.1.0: {}
 
@@ -16737,7 +16722,8 @@ snapshots:
 
   parse-ms@4.0.0: {}
 
-  parse-node-version@1.0.1: {}
+  parse-node-version@1.0.1:
+    optional: true
 
   parse-package-name@0.1.0: {}
 

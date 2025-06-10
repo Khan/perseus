@@ -18,7 +18,7 @@ import * as numberLine from "../packages/perseus/src/widgets/number-line/number-
 import {Header} from "./header";
 
 import type {APIOptions} from "../packages/perseus/src";
-import "../packages/perseus/src/styles/perseus-renderer.less";
+import "../packages/perseus/src/styles/perseus-renderer.css";
 import type {PerseusRenderer} from "../packages/perseus-core/src/data-schema";
 
 const questions: [PerseusRenderer, number][] = pairWithIndices([

@@ -11,7 +11,7 @@ import {
     storybookDependenciesV2,
 } from "../testing/test-dependencies";
 
-import "./global.less";
+import "./global.css";
 import "./reset.css";
 
 // Import the Wonder Blocks CSS variables

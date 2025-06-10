@@ -132,7 +132,7 @@ class FixedToResponsive extends React.Component<Props, State> {
             maxHeight: height,
         } as const;
 
-        // NOTE(jeremy): This depends on styles defined in perseus-renderer.less
+        // NOTE(jeremy): This depends on styles defined in perseus-renderer.css
         const className = classNames(
             "fixed-to-responsive",
             this.props.className,
