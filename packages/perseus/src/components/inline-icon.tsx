@@ -14,8 +14,7 @@ type InlineIconProps = {
 };
 
 /**
- * A stripped version of Icon.jsx from webapp. Takes an SVG icon and renders it
- * inline like Font Awesome did.
+ * Takes an SVG icon and renders it inline.
  *
  * You can refer to `icon-paths.ts` for all available SVG icons.
  *

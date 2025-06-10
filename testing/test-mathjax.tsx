@@ -33,7 +33,7 @@ export function TestMathjax({children: tex, onRender}: Props) {
     React.useLayoutEffect(() => {
         if (ref.current) {
             // TODO(LEMS-3157): this `if (isPresentationalForSR()) addLabel()`
-            // duplicates logic in webapp that adds an aria label to the
+            // duplicates logic in khan/frontend that adds an aria label to the
             // rendered math. We don't need to (and can't really) test this
             // behavior within Perseus. Consider removing this code.
             if (isPresentationalForSR(ref.current)) {

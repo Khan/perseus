@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         // Prevent container from swallowing events that the exercise
         // below it needs to respond to.
         pointerEvents: "none",
-        // NOTE: in webapp we normally get this from problemProgress
+        // NOTE: in khan/frontend we normally get this from problemProgress
         // from the exercise state store.
         height: 255,
     },
