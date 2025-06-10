@@ -47,8 +47,6 @@ const ScoreHeader = ({score}: {score: KEScore}): React.ReactElement => {
         </div>
     );
 
-    console.log("styles.scoreHeaderContainer", styles);
-
     return (
         <div className={styles["score-header-container"]}>
             Score
