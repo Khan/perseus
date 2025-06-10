@@ -20,12 +20,13 @@ import type {
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
     Version,
-    WidgetOptionsUpgradeMap,
     Rubric,
     UserInput,
     UserInputArray,
     UserInputMap,
     Relationship,
+    LabelImageMarkerPublicData,
+    PerseusLabelImageMarker,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
@@ -110,7 +111,6 @@ export type EditorMode = "edit" | "preview" | "json";
 
 export type ChoiceState = {
     selected: boolean;
-    crossedOut: boolean;
     highlighted: boolean;
     rationaleShown: boolean;
     correctnessShown: boolean;
@@ -150,6 +150,8 @@ export type ChangeHandler = (
         numLinePosition?: number;
         // widgets/number-line.ts
         rel?: Relationship;
+        // widgets/label-image.tsx
+        markers?: Array<LabelImageMarkerPublicData | PerseusLabelImageMarker>;
     },
     callback?: () => void,
     silent?: boolean,
@@ -284,15 +286,6 @@ export type APIOptions = Readonly<{
      * Defaults to `false`.
      */
     canScrollPage?: boolean;
-    /**
-     * Whether to enable the cross-out feature on multiple-choice radio
-     * widgets. This allows users to note which answers they believe to
-     * be incorrect, to find the answer by process of elimination.
-     *
-     * We plan to roll this out to all call sites eventually, but for
-     * now we have this flag, to add it to Generalized Test Prep first.
-     */
-    crossOutEnabled?: boolean;
     /**
      * The value in milliseconds by which the local state of content
      * in a editor is delayed before propagated to a prop. For example,
@@ -444,7 +437,6 @@ export type APIOptionsWithDefaults = Readonly<
     APIOptions & {
         baseElements: NonNullable<APIOptions["baseElements"]>;
         canScrollPage: NonNullable<APIOptions["canScrollPage"]>;
-        crossOutEnabled: NonNullable<APIOptions["crossOutEnabled"]>;
         editorChangeDelay: NonNullable<APIOptions["editorChangeDelay"]>;
         groupAnnotator: NonNullable<APIOptions["groupAnnotator"]>;
         isArticle: NonNullable<APIOptions["isArticle"]>;
@@ -502,12 +494,11 @@ export type WidgetExports<
     getWidget?: () => T;
     widget: T;
 
-    accessible?: boolean | ((props: any) => boolean);
     /** Supresses widget from showing up in the dropdown in the content editor */
     hidden?: boolean;
     /**
      * The widget version. Any time the _major_ version changes, the widget
-     * should provide a new entry in the propUpgrades map to migrate from the
+     * should provide a new entry in the widget parser to migrate from the
      * older version to the current (new) version. Minor version changes must
      * be backwards compatible with previous minor versions widget options.
      *
@@ -516,8 +507,6 @@ export type WidgetExports<
     version?: Version;
     isLintable?: boolean;
     tracking?: Tracking;
-
-    traverseChildWidgets?: any; // (Props, traverseRenderer) => NewProps,
 
     /**
      * Transforms the widget options to the props used to render the widget.
@@ -532,19 +521,6 @@ export type WidgetExports<
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,
     ) => string | null | undefined;
-
-    /**
-     * A map of major version numbers (as a string, eg "1") to a function that
-     * migrates from the _previous_ major version.
-     *
-     * Example:
-     * ```
-     * propUpgrades: {'1': (options) => ({...options})}
-     * ```
-     *
-     * This configuration would migrate options from major version 0 to 1.
-     */
-    propUpgrades?: WidgetOptionsUpgradeMap;
 }>;
 
 export type FilterCriterion =
@@ -560,8 +536,8 @@ export type FilterCriterion =
  * `RenderProps` generic argument are the widget-specific props that originate
  * from the stored PerseusItem. Note that they may not match the serialized
  * widget options exactly as they are the result of running the options through
- * any `propUpgrades` the widget defines as well as its `transform` or
- * `staticTransform` functions (depending on the options `static` flag).
+ * the parser as well as its `transform` or `staticTransform` functions
+ * (depending on the options `static` flag).
  */
 // NOTE: Rubric should always be the corresponding widget options type for the component.
 // TODO: in fact, is it really the rubric? WidgetOptions is what we use to configure the widget

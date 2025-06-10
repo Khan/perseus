@@ -14,17 +14,15 @@ import {usePerseusI18n} from "../../components/i18n-context";
 
 import {getOptionStatusText} from "./utils/string-utils";
 
-type Props = {
+interface OptionStatusProps {
     // Was this option the correct answer?
     correct: boolean;
     // Did the user select this option as the answer?
     checked: boolean;
-    // Did the user cross out this option?
-    crossedOut: boolean;
     // Did the user select this option as the answer earlier?
     previouslyAnswered: boolean;
     reviewMode: boolean;
-};
+}
 
 /**
  * This component is a duplicate of the OptionStatus component in option-status.tsx
@@ -36,10 +34,9 @@ type Props = {
 const OptionStatus = ({
     checked,
     correct,
-    crossedOut,
     previouslyAnswered,
     reviewMode,
-}: Props): React.ReactElement | null => {
+}: OptionStatusProps): React.ReactElement | null => {
     const {strings} = usePerseusI18n();
 
     // Option status is shown only in review mode, or for incorrectly
@@ -64,7 +61,6 @@ const OptionStatus = ({
             {getOptionStatusText({
                 checked,
                 correct,
-                crossedOut,
                 strings,
             })}
         </div>
@@ -78,6 +74,7 @@ const styles = StyleSheet.create({
         fontSize: 12,
         height: 32,
         textTransform: "uppercase",
+        textAlign: "start",
     },
     correct: {
         color: color.green,

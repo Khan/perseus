@@ -13,15 +13,13 @@ import {
 } from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
-import type {Meta} from "@storybook/react";
+import type {Meta} from "@storybook/react-vite";
 
 type StoryArgs = {
     // Story Option
     item: PerseusItem;
     // Radio Options
     static: boolean;
-    // API Options
-    crossOutEnabled: boolean;
     // Testing Options
     startAnswerless: boolean;
 } & Pick<
@@ -35,7 +33,6 @@ export default {
         static: false,
         // Requires a page refresh for toggling this to affect the story
         startAnswerless: false,
-        crossOutEnabled: false,
         reviewMode: false,
         showSolutions: "none",
         item: generateTestPerseusItem({
@@ -78,9 +75,7 @@ const applyStoryArgs = (args: StoryArgs): PerseusItem => {
     return storyItem;
 };
 
-const buildApiOptions = (args: StoryArgs): APIOptions => ({
-    crossOutEnabled: args.crossOutEnabled,
-});
+const buildApiOptions = (args: StoryArgs): APIOptions => ({});
 
 export const SingleSelect = {
     args: {

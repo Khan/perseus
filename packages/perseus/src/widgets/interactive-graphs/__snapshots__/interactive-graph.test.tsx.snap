@@ -2134,14 +2134,14 @@ exports[`Interactive Graph question Should render predictably: after interaction
             >
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-default_yxotth-o_O-inlineStyles_16y2sco"
+                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_14wd1lh-o_O-default_16o44nj-o_O-inlineStyles_16y2sco"
                 id="perseus_mafs_remove_button"
                 role="button"
                 tabindex="-1"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class="text_f1191h-o_O-LabelLarge_16mkhxv-o_O-text_1kowsup"
                 >
                   Remove Point
                 </span>
@@ -2400,27 +2400,27 @@ exports[`Interactive Graph question Should render predictably: after interaction
             >
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-disabled_mqm918-o_O-default_yxotth-o_O-disabled_vmsefw-o_O-inlineStyles_1kc2paq"
+                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_14wd1lh-o_O-default_16o44nj-o_O-disabled_1cc878w-o_O-inlineStyles_1kc2paq"
                 id="perseus_mafs_remove_button"
                 role="button"
                 tabindex="-1"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class="text_f1191h-o_O-LabelLarge_16mkhxv-o_O-text_1kowsup"
                 >
                   Remove Point
                 </span>
               </button>
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-disabled_mqm918-o_O-default_hrw3a6-o_O-disabled_ebci8n-o_O-inlineStyles_1kc2paq"
+                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_14wd1lh-o_O-default_1aph7tw-o_O-disabled_1cc878w-o_O-inlineStyles_1kc2paq"
                 role="button"
                 tabindex="-1"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class="text_f1191h-o_O-LabelLarge_16mkhxv-o_O-text_1kowsup"
                 >
                   Close shape
                 </span>
@@ -3526,14 +3526,14 @@ exports[`Interactive Graph question Should render predictably: first render 3`] 
             >
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-default_yxotth-o_O-inlineStyles_16y2sco"
+                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_14wd1lh-o_O-default_16o44nj-o_O-inlineStyles_16y2sco"
                 id="perseus_mafs_remove_button"
                 role="button"
                 tabindex="-1"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class="text_f1191h-o_O-LabelLarge_16mkhxv-o_O-text_1kowsup"
                 >
                   Remove Point
                 </span>
@@ -3792,27 +3792,27 @@ exports[`Interactive Graph question Should render predictably: first render 4`] 
             >
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-disabled_mqm918-o_O-default_yxotth-o_O-disabled_vmsefw-o_O-inlineStyles_1kc2paq"
+                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_14wd1lh-o_O-default_16o44nj-o_O-disabled_1cc878w-o_O-inlineStyles_1kc2paq"
                 id="perseus_mafs_remove_button"
                 role="button"
                 tabindex="-1"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class="text_f1191h-o_O-LabelLarge_16mkhxv-o_O-text_1kowsup"
                 >
                   Remove Point
                 </span>
               </button>
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-shared_11fo0od-o_O-disabled_mqm918-o_O-default_hrw3a6-o_O-disabled_ebci8n-o_O-inlineStyles_1kc2paq"
+                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_14wd1lh-o_O-default_1aph7tw-o_O-disabled_1cc878w-o_O-inlineStyles_1kc2paq"
                 role="button"
                 tabindex="-1"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                  class="text_f1191h-o_O-LabelLarge_16mkhxv-o_O-text_1kowsup"
                 >
                   Close shape
                 </span>

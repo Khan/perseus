@@ -29,7 +29,6 @@ const {captureScratchpadTouchStart} = Util;
 // exported for tests
 export type ChoiceType = {
     checked: boolean;
-    crossedOut: boolean;
     content: React.ReactNode;
     rationale: React.ReactNode;
     hasRationale: boolean;
@@ -61,13 +60,9 @@ type Props = {
     reviewModeRubric?: PerseusRadioWidgetOptions | null;
     reviewMode: boolean;
     // A callback indicating that this choice has changed. Its argument is
-    // an object with two keys: `checked` and `crossedOut`. Each contains
-    // an array of boolean values, specifying the new checked and
-    // crossed-out value of each choice.
-    onChange: (newValues: {
-        checked: ReadonlyArray<boolean>;
-        crossedOut: ReadonlyArray<boolean>;
-    }) => void;
+    // an object with a `checked` key. It contains an array of boolean values,
+    // specifying the new checked value of each choice.
+    onChange: (newValues: {checked: ReadonlyArray<boolean>}) => void;
     registerFocusFunction?: (arg1: FocusFunction) => void;
     // Whether this widget was the most recently used widget in this
     // Renderer. Determines whether we'll auto-scroll the page upon
@@ -169,15 +164,11 @@ const BaseRadio = function ({
     // So, given the new values for a particular choice, compute the new values
     // for all choices, and pass them to `onChange`.
     //
-    // `newValues` is an object with two keys: `checked` and `crossedOut`. Each
-    // contains a boolean value specifying the new checked and crossed-out
-    // value of this choice.
+    // `newValues` is an object with a `checked` key. It contains a boolean value
+    // specifying the new checked value of this choice.
     function updateChoice(
         choiceIndex: number,
-        newValues: Readonly<{
-            checked: boolean;
-            crossedOut: boolean;
-        }>,
+        newValues: Readonly<{checked: boolean}>,
     ): void {
         // Get the baseline `checked` values. If we're checking a new answer
         // and multiple-select is not on, we should clear all choices to be
@@ -189,16 +180,11 @@ const BaseRadio = function ({
             newCheckedList = choices.map((c) => c.checked);
         }
 
-        // Get the baseline `crossedOut` values.
-        const newCrossedOutList = choices.map((c) => c.crossedOut);
-
-        // Update this choice's `checked` and `crossedOut` values.
+        // Update this choice's `checked` values.
         newCheckedList[choiceIndex] = newValues.checked;
-        newCrossedOutList[choiceIndex] = newValues.crossedOut;
 
         onChange({
             checked: newCheckedList,
-            crossedOut: newCrossedOutList,
         });
     }
 
@@ -272,7 +258,6 @@ const BaseRadio = function ({
                         apiOptions: apiOptions,
                         multipleSelect: multipleSelect,
                         checked: choice.checked,
-                        crossedOut: choice.crossedOut,
                         previouslyAnswered: choice.previouslyAnswered,
                         reviewMode,
                         correct: choice.correct,
@@ -369,7 +354,6 @@ const BaseRadio = function ({
                                 if (elem.getAttribute("data-is-radio-icon")) {
                                     updateChoice(i, {
                                         checked: !choice.checked,
-                                        crossedOut: choice.crossedOut,
                                     });
                                     return;
                                 }
@@ -478,7 +462,8 @@ const styles: StyleDeclaration = StyleSheet.create({
         // HACK(emily): We want selected choices to show up above our
         // exercise backdrop, but below the exercise footer and
         // "feedback popover" that shows up. This z-index is carefully
-        // coordinated between here and webapp. :(
+        // coordinated between here and khan/frontend. :(
+        // See: https://github.com/khan/frontend/blob/f46d475b7684287bfa57ed9a40e846754f1d0a4d/apps/khanacademy/src/exercises-components-package/style-constants.ts#L27-L28
         zIndex: 1062,
     },
 

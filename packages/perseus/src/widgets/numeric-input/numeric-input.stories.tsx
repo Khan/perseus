@@ -19,7 +19,7 @@ import {
     withCoefficient,
 } from "./numeric-input.testdata";
 
-import type {Meta} from "@storybook/react";
+import type {Meta} from "@storybook/react-vite";
 
 // We're using this format as storybook was not able to infer the type of the options.
 // It also gives us a lovely hover view of the JSON structure.

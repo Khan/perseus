@@ -5,7 +5,7 @@ import type {
 } from "@khanacademy/perseus-core";
 
 // Question state for marker as result of user selected answers.
-type InteractiveMarkerScore = {
+export type InteractiveMarkerScore = {
     // Whether user selected answers for the marker.
     hasAnswers: boolean;
     // Whether user (answer) selection answered the question correctly.

@@ -17,18 +17,18 @@ import {scrollElementIntoView} from "../../util/scroll-utils";
 
 import ChoiceNoneAbove from "./choice-none-above.new";
 import Choice from "./choice.new";
-import {getInstructionsText} from "./utils/string-utils";
 import testStyles from "./radio-test.module.css";
+import {getInstructionsText} from "./utils/string-utils";
 
 import type {APIOptions} from "../../types";
 import type {StyleDeclaration} from "aphrodite";
 
 const {captureScratchpadTouchStart} = Util;
 
+// TODO(LEMS-3170): Simplify the ChoiceType by using ChoiceProps directly.
 // exported for tests
-export type ChoiceType = {
+export interface ChoiceType {
     checked: boolean;
-    crossedOut: boolean;
     content: React.ReactNode;
     rationale: React.ReactNode;
     hasRationale: boolean;
@@ -40,9 +40,9 @@ export type ChoiceType = {
     previouslyAnswered: boolean;
     revealNoneOfTheAbove: boolean;
     disabled: boolean;
-};
+}
 
-type Props = {
+interface BaseRadioProps {
     apiOptions: APIOptions;
     choices: ReadonlyArray<ChoiceType>;
     deselectEnabled?: boolean;
@@ -56,18 +56,14 @@ type Props = {
     reviewModeRubric?: PerseusRadioWidgetOptions | null;
     reviewMode: boolean;
     // A callback indicating that this choice has changed. Its argument is
-    // an object with two keys: `checked` and `crossedOut`. Each contains
-    // an array of boolean values, specifying the new checked and
-    // crossed-out value of each choice.
-    onChange: (newValues: {
-        checked: ReadonlyArray<boolean>;
-        crossedOut: ReadonlyArray<boolean>;
-    }) => void;
+    // an object with a `checked` key. It contains an array of boolean values,
+    // specifying the new checked value of each choice.
+    onChange: (newValues: {checked: ReadonlyArray<boolean>}) => void;
     // Whether this widget was the most recently used widget in this
     // Renderer. Determines whether we'll auto-scroll the page upon
     // entering review mode.
     isLastUsedWidget?: boolean;
-};
+}
 
 /**
  * The BaseRadio component is the core component for the radio widget.
@@ -91,7 +87,7 @@ const BaseRadio = ({
     numCorrect,
     isLastUsedWidget,
     onChange,
-}: Props): React.ReactElement => {
+}: BaseRadioProps): React.ReactElement => {
     const {strings} = usePerseusI18n();
 
     // useEffect doesn't have previous props
@@ -150,14 +146,12 @@ const BaseRadio = ({
     // So, given the new values for a particular choice, compute the new values
     // for all choices, and pass them to `onChange`.
     //
-    // `newValues` is an object with two keys: `checked` and `crossedOut`. Each
-    // contains a boolean value specifying the new checked and crossed-out
-    // value of this choice.
+    // `newValues` is an object with a `checked` key. It contains a boolean value
+    // specifying the new checked value of this choice.
     function updateChoice(
         choiceIndex: number,
         newValues: Readonly<{
             checked: boolean;
-            crossedOut: boolean;
         }>,
     ): void {
         // Get the baseline `checked` values. If we're checking a new answer
@@ -170,16 +164,11 @@ const BaseRadio = ({
             newCheckedList = choices.map((c) => c.checked);
         }
 
-        // Get the baseline `crossedOut` values.
-        const newCrossedOutList = choices.map((c) => c.crossedOut);
-
-        // Update this choice's `checked` and `crossedOut` values.
+        // Update this choice's `checked` values.
         newCheckedList[choiceIndex] = newValues.checked;
-        newCrossedOutList[choiceIndex] = newValues.crossedOut;
 
         onChange({
             checked: newCheckedList,
-            crossedOut: newCrossedOutList,
         });
     }
 
@@ -216,8 +205,7 @@ const BaseRadio = ({
     });
 
     const responsiveClassName = css(styles.responsiveFieldset);
-    // TEST
-    console.log(`Styles: `, testStyles);
+
     const fieldset = (
         <fieldset
             className={`perseus-widget-radio-fieldset ${responsiveClassName} ${testStyles.cssModulesTest}`}
@@ -239,7 +227,6 @@ const BaseRadio = ({
                             apiOptions: apiOptions,
                             multipleSelect: multipleSelect,
                             checked: choice.checked,
-                            crossedOut: choice.crossedOut,
                             previouslyAnswered: choice.previouslyAnswered,
                             reviewMode,
                             correct: choice.correct,
@@ -339,7 +326,6 @@ const BaseRadio = ({
                                     ) {
                                         updateChoice(i, {
                                             checked: !choice.checked,
-                                            crossedOut: choice.crossedOut,
                                         });
                                         return;
                                     }
@@ -420,8 +406,8 @@ const styles: StyleDeclaration = StyleSheet.create({
         borderTop: `1px solid ${styleConstants.radioBorderColor}`,
         scrollbarWidth: "thin",
         [mediaQueries.smOrSmaller]: {
-            marginLeft: styleConstants.negativePhoneMargin,
-            marginRight: styleConstants.negativePhoneMargin,
+            marginInlineStart: styleConstants.negativePhoneMargin,
+            marginInlineEnd: styleConstants.negativePhoneMargin,
         },
     },
 
@@ -438,11 +424,11 @@ const styles: StyleDeclaration = StyleSheet.create({
     },
 
     item: {
-        marginLeft: 20,
+        marginInlineStart: 20,
     },
 
     responsiveItem: {
-        marginLeft: 0,
+        marginInlineStart: 0,
         padding: 0,
 
         ":not(:last-child)": {
@@ -458,7 +444,8 @@ const styles: StyleDeclaration = StyleSheet.create({
         // HACK(emily): We want selected choices to show up above our
         // exercise backdrop, but below the exercise footer and
         // "feedback popover" that shows up. This z-index is carefully
-        // coordinated between here and webapp. :(
+        // coordinated between here and khan/frontend. :(
+        // See: https://github.com/khan/frontend/blob/f46d475b7684287bfa57ed9a40e846754f1d0a4d/apps/khanacademy/src/exercises-components-package/style-constants.ts#L27-L28
         zIndex: 1062,
     },
 
@@ -479,13 +466,13 @@ const styles: StyleDeclaration = StyleSheet.create({
 
     responsiveContainer: {
         overflow: "auto",
-        marginLeft: styleConstants.negativePhoneMargin,
-        paddingLeft: styleConstants.phoneMargin,
+        marginInlineStart: styleConstants.negativePhoneMargin,
+        paddingInlineStart: styleConstants.phoneMargin,
         // paddingRight is handled by responsiveFieldset
     },
 
     responsiveFieldset: {
-        paddingRight: styleConstants.phoneMargin,
+        paddingInlineEnd: styleConstants.phoneMargin,
         minWidth: "auto",
     },
 });

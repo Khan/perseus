@@ -5,6 +5,7 @@ import DeprecatedStandinEditor from "./widgets/deprecated-standin-editor";
 import DropdownEditor from "./widgets/dropdown-editor";
 import ExplanationEditor from "./widgets/explanation-editor";
 import ExpressionEditor from "./widgets/expression-editor";
+import FreeResponseEditor from "./widgets/free-response-editor";
 import GradedGroupEditor from "./widgets/graded-group-editor";
 import GradedGroupSetEditor from "./widgets/graded-group-set-editor";
 import GrapherEditor from "./widgets/grapher-editor";
@@ -40,6 +41,7 @@ export default [
     DropdownEditor,
     ExplanationEditor,
     ExpressionEditor,
+    FreeResponseEditor,
     GradedGroupEditor,
     GradedGroupSetEditor,
     GrapherEditor,

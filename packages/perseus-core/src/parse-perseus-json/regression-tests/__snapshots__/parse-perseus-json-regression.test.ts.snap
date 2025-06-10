@@ -1906,6 +1906,221 @@ $ \\text{H}=\\left[\\begin{array}{rr}4 & -1 \\\\ 4 & 0\\end{array}\\right]$ ",
 }
 `;
 
+exports[`parseAndMigratePerseusItem given grapher-with-empty-coords.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": true,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "This is a linear equation given in *standard form*: $Ax+By=C$. A common way of graphing an equation of this form is to find the $x$- and $y$-intercepts of the graph.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "To find the $y$-intercept, let's substitute $\\blueD{x}=\\blueD{0}$ into the equation and solve for $y$:
+
+$\\begin{align}
+6\\blueD{x}-5y&=30
+\\\\\\\\
+6\\cdot\\blueD{0}-5y&=30
+\\\\\\\\
+-5y&=30
+\\\\\\\\
+y&=-6
+\\end{align}$
+
+So the $y$-intercept is $(0,-6)$.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "To find the $x$-intercept, let's substitute $\\maroonD{y}=\\maroonD{0}$ into the equation and solve for $x$:
+
+$\\begin{align}
+6x-5\\maroonD{y}&=30
+\\\\\\\\
+6x-5\\cdot\\maroonD{0}&=30
+\\\\\\\\
+6x&=30
+\\\\\\\\
+x&=5
+\\end{align}$
+
+So the $x$-intercept is $(5,0)$.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "We can graph the linear equation using these two points, as shown below:
+
+[[☃ grapher 1]]",
+      "images": {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/d7c9612d0f48c1797d3cafdda8ab26f5f2fc3c87": {
+          "height": 424,
+          "width": 424,
+        },
+      },
+      "replace": false,
+      "widgets": {
+        "grapher 1": {
+          "alignment": "default",
+          "graded": true,
+          "options": {
+            "availableTypes": [
+              "linear",
+            ],
+            "correct": {
+              "coords": [
+                [
+                  0,
+                  -6,
+                ],
+                [
+                  5,
+                  0,
+                ],
+              ],
+              "type": "linear",
+            },
+            "graph": {
+              "backgroundImage": {
+                "url": null,
+              },
+              "editableSettings": [
+                "graph",
+                "snap",
+                "image",
+              ],
+              "gridStep": [
+                1,
+                1,
+              ],
+              "labels": [
+                "x",
+                "y",
+              ],
+              "markings": "graph",
+              "range": [
+                [
+                  -10,
+                  10,
+                ],
+                [
+                  -10,
+                  10,
+                ],
+              ],
+              "rulerLabel": "",
+              "rulerTicks": 10,
+              "showProtractor": false,
+              "showRuler": false,
+              "showTooltips": false,
+              "snapStep": [
+                1,
+                1,
+              ],
+              "step": [
+                1,
+                1,
+              ],
+              "valid": true,
+            },
+          },
+          "static": true,
+          "type": "grapher",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+  ],
+  "question": {
+    "content": "**Graph $6x-5y=30$ .**
+
+[[☃ grapher 1]]",
+    "images": {},
+    "widgets": {
+      "grapher 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "availableTypes": [
+            "linear",
+          ],
+          "correct": {
+            "coords": null,
+            "type": "linear",
+          },
+          "graph": {
+            "backgroundImage": {
+              "url": null,
+            },
+            "editableSettings": [
+              "graph",
+              "snap",
+              "image",
+            ],
+            "gridStep": [
+              1,
+              1,
+            ],
+            "labels": [
+              "x",
+              "y",
+            ],
+            "markings": "graph",
+            "range": [
+              [
+                -10,
+                10,
+              ],
+              [
+                -10,
+                10,
+              ],
+            ],
+            "rulerLabel": "",
+            "rulerTicks": 10,
+            "showProtractor": false,
+            "showRuler": false,
+            "showTooltips": false,
+            "snapStep": [
+              1,
+              1,
+            ],
+            "step": [
+              1,
+              1,
+            ],
+            "valid": true,
+          },
+        },
+        "static": false,
+        "type": "grapher",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given grapher-with-null-coords.json returns the same result as before 1`] = `
 {
   "answerArea": {
@@ -6017,6 +6232,51 @@ exports[`parseAndMigratePerseusItem given lights-puzzle.json returns the same re
 }
 `;
 
+exports[`parseAndMigratePerseusItem given matcher-with-null-options.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "
+[[☃ matcher 1]]",
+    "images": {},
+    "widgets": {
+      "matcher 1": {
+        "options": {
+          "labels": [
+            "test",
+            "label",
+          ],
+          "left": [
+            "$x$",
+            "$y$",
+            "$z$",
+          ],
+          "orderMatters": false,
+          "padding": true,
+          "right": [
+            "$1$",
+            "$2$",
+            "$3$",
+          ],
+        },
+        "type": "matcher",
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given matrix-missing-version.json returns the same result as before 1`] = `
 {
   "answerArea": {
@@ -8403,6 +8663,146 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.json
 }
 `;
 
+exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-string.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "We can use the given information to write down two equations that describe the ages of Michael and Brandon.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "Let Michael's current age be $m$ and Brandon's current age be $b$.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "The information in the first sentence can be expressed in the following equation:
+
+ $\\blue{m = b + 12}$
+",
+      "images": {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/ca9d3feac6a8385bbb89193669b96559b861d979": {
+          "height": 342,
+          "width": 400,
+        },
+      },
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "Seventeen years ago, Michael was $m - 17$ years old, and Brandon was $b - 17$ years old.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "The information in the second sentence can be expressed in the following equation:
+
+ $\\red{m - 17 = 4(b - 17)}$
+",
+      "images": {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/36c5150b272beb2433a9c77b262bbc89c5a03f83": {
+          "height": 342,
+          "width": 400,
+        },
+      },
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "Now we have two independent equations, and we can solve for our two unknowns.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "Because we are looking for $m$, it might be easiest to solve our first equation for $b$ and substitute it into our second equation.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "Solving our first equation for $b$, we get: $\\blue{b = m - 12}$. Substituting this into our second equation, we get the equation: 
+
+  $\\red{m - 17 = 4(} \\blue{(m - 12)}\\red{ - 17)}$ 
+
+ which combines the information about $m$ from both of our original equations.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "Simplifying the right side of this equation, we get: $m - 17 = 4m - 116$.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "Solving for $m$, we get: $3 m = 99$.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "$m = 33$.",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "Michael is $12$ years older than Brandon. Seventeen years ago, Michael was $4$ times as old as Brandon. 
+
+ **How old is Michael now?**
+
+[[☃ numeric-input 1]]",
+    "images": {},
+    "widgets": {
+      "numeric-input 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "answers": [
+            {
+              "maxError": 0,
+              "message": "",
+              "simplify": "required",
+              "status": "correct",
+              "strict": false,
+              "value": 33,
+            },
+          ],
+          "coefficient": false,
+          "labelText": "",
+          "size": "normal",
+          "static": false,
+        },
+        "static": false,
+        "type": "numeric-input",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given orderer-option-missing-images.json returns the same result as before 1`] = `
 {
   "answerArea": {
@@ -10409,6 +10809,111 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
           "multipleSelect": false,
           "numCorrect": 1,
           "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 2,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "The description gives us three clues.\\n\\n**Clue 1: \\\\\\"polynomial of the $\\\\blueD{5}^\\\\text{th}$ degree\\\\\\"**\\n\\nThe degree of a polynomial is the highest degree of its terms.\\n\\nSo our highest degree term looks like $kx^\\\\blueD{5}$, where $k$ is a constant coefficient.[[☃ explanation 1]]",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {
+        "explanation 1": {
+          "alignment": "default",
+          "graded": true,
+          "id": null,
+          "key": null,
+          "options": {
+            "explanation": "Suppose we have the polynomial $4x + 2x^6 -7x^3 + 3$.\\n\\nLook for the exponent of the variable in each term.\\n\\n**Term** | $4x$ | $2x^6$ | $-7x^3$ | $3$\\n:- | :-: | :-: | :-: | :-:\\n**Degree** | $1$ | $6$ | $3$ | $0$\\n\\nThe term with the highest degree is $2x^\\\\maroonD{6}$, so the degree of the polynomial is $\\\\maroonD{6}$.",
+            "hidePrompt": "Hide explanation",
+            "showPrompt": "Explain",
+            "static": false,
+            "widgets": {},
+          },
+          "static": false,
+          "type": "explanation",
+          "version": {
+            "major": 0,
+            "minor": 0,
+          },
+        },
+      },
+    },
+    {
+      "content": "**Clue 2: \\\\\\"leading coefficient of $\\\\goldD{7}$\\\\\\"**\\n\\nA *leading coefficient* is the coefficient of the highest-degree term.\\n\\nSo our highest degree term looks like $\\\\goldD{7} x^\\\\blueD{5}$.",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "**Clue 3: \\\\\\"constant term of $\\\\greenD{6}$\\\\\\"**\\n\\nA *constant term* is a term without a variable part.\\n\\nSo our expression must contain the terms $\\\\goldD{7} x^\\\\blueD{5}$ and $\\\\greenD{6}$.",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+    {
+      "content": "Only one expression matches all three clues in the description:\\n\\n$\\\\goldD{7}x^\\\\blueD{5}+2x^2+\\\\greenD{6}$",
+      "images": {},
+      "metadata": null,
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "**Pick the expression that matches this description:**\\n\\nA polynomial of the $3^{\\text{th}}$ degree with a leading coefficient of $5$ and a constant term of $-2$
+
+[[☃ radio 1]]",
+    "images": {},
+    "metadata": null,
+    "replace": null,
+    "widgets": {
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "id": null,
+        "key": null,
+        "options": {
+          "choices": [
+            {
+              "content": "",
+            },
+            {
+              "content": "",
+            },
+            {
+              "content": "",
+            },
+            {
+              "content": "",
+            },
+          ],
+          "numCorrect": 0,
         },
         "static": false,
         "type": "radio",

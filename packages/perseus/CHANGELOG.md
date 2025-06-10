@@ -1,5 +1,134 @@
 # @khanacademy/perseus
 
+## 65.0.0
+
+### Major Changes
+
+-   [#2485](https://github.com/Khan/perseus/pull/2485) [`cea05d9e6`](https://github.com/Khan/perseus/commit/cea05d9e6c629db6c14ed43dba085e215d006a1e) Thanks [@tatianasnook](https://github.com/tatianasnook)! - Migrate accessibility logic from perseus to perseus-core
+
+### Minor Changes
+
+-   [#2553](https://github.com/Khan/perseus/pull/2553) [`f5d08b79a`](https://github.com/Khan/perseus/commit/f5d08b79aca6d56ba7bdc3d47429c449645f75f9) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding partically accessible widget function to interactive graph and label image.
+
+*   [#2518](https://github.com/Khan/perseus/pull/2518) [`0eba51c67`](https://github.com/Khan/perseus/commit/0eba51c67e1e67a11e425cb772194a44857eae0f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updates to Radio Scoring to ensure non-specific multiselect questions are marked correctly.
+
+### Patch Changes
+
+-   [#2517](https://github.com/Khan/perseus/pull/2517) [`6da29d18b`](https://github.com/Khan/perseus/commit/6da29d18b8c1041b0db6e70d008706640349e819) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Removed unnecessary logic.
+
+-   Updated dependencies [[`f5d08b79a`](https://github.com/Khan/perseus/commit/f5d08b79aca6d56ba7bdc3d47429c449645f75f9), [`cea05d9e6`](https://github.com/Khan/perseus/commit/cea05d9e6c629db6c14ed43dba085e215d006a1e), [`e60f6ac50`](https://github.com/Khan/perseus/commit/e60f6ac50a28d0664bfc211c9c655651719e3309), [`75f1d1f53`](https://github.com/Khan/perseus/commit/75f1d1f53fe173f9275a213376c2497b5762ce0a), [`0eba51c67`](https://github.com/Khan/perseus/commit/0eba51c67e1e67a11e425cb772194a44857eae0f), [`59a2e87a8`](https://github.com/Khan/perseus/commit/59a2e87a83ef08a151552c7922bddfcbf1c73cf2), [`ab2861d83`](https://github.com/Khan/perseus/commit/ab2861d8335e7ef1800dd5c6754616192b53073b), [`cec57bbc6`](https://github.com/Khan/perseus/commit/cec57bbc6cf32cdce5a6b764b7399f69f87b4a89)]:
+    -   @khanacademy/perseus-core@14.0.0
+    -   @khanacademy/perseus-linter@4.0.0
+    -   @khanacademy/perseus-score@7.1.0
+    -   @khanacademy/keypad-context@3.0.13
+    -   @khanacademy/kmath@2.0.13
+    -   @khanacademy/math-input@26.0.2
+
+## 64.0.0
+
+### Major Changes
+
+-   [#2419](https://github.com/Khan/perseus/pull/2419) [`843d66257`](https://github.com/Khan/perseus/commit/843d66257ceb32b7c3d3eea4dea47dfda58e7945) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove the `propUpgrades` API from widgets as they're considered obsolete with the new parser
+
+### Patch Changes
+
+-   [#2551](https://github.com/Khan/perseus/pull/2551) [`414abda7a`](https://github.com/Khan/perseus/commit/414abda7a80fc482e93ab064ff34ef540cd9eae7) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - 🛠️ Upgrade all packages to use Storybook v9 for development
+
+*   [#2479](https://github.com/Khan/perseus/pull/2479) [`074775b1f`](https://github.com/Khan/perseus/commit/074775b1ff0dc830a3d66030a14b776b0f631003) Thanks [@handeyeco](https://github.com/handeyeco)! - LEMS-2948: tweak how we determine when to wipe widget state clean (answerless/answerful)
+
+*   Updated dependencies [[`404bde44d`](https://github.com/Khan/perseus/commit/404bde44dc6f8b6d5cbc8593c10b47f5f65d7eeb), [`d4720c470`](https://github.com/Khan/perseus/commit/d4720c4706888c922e3111c11f121a730d592aaf), [`414abda7a`](https://github.com/Khan/perseus/commit/414abda7a80fc482e93ab064ff34ef540cd9eae7), [`35e4d13d9`](https://github.com/Khan/perseus/commit/35e4d13d9f6e49996e149950024a87f1601c2e43), [`6bc9cc667`](https://github.com/Khan/perseus/commit/6bc9cc667c5bf2e48bfc5d036f11ba2285730839), [`843d66257`](https://github.com/Khan/perseus/commit/843d66257ceb32b7c3d3eea4dea47dfda58e7945), [`074775b1f`](https://github.com/Khan/perseus/commit/074775b1ff0dc830a3d66030a14b776b0f631003)]:
+    -   @khanacademy/perseus-core@13.0.0
+    -   @khanacademy/math-input@26.0.1
+    -   @khanacademy/perseus-score@7.0.2
+    -   @khanacademy/keypad-context@3.0.12
+    -   @khanacademy/kmath@2.0.12
+    -   @khanacademy/perseus-linter@3.0.12
+
+## 63.1.0
+
+### Minor Changes
+
+-   [#2531](https://github.com/Khan/perseus/pull/2531) [`7ce293138`](https://github.com/Khan/perseus/commit/7ce29313858dd85570a9888eb32f504fc6a8b03a) Thanks [@aag](https://github.com/aag)! - Fix getSaveWarnings in Free Response widget and unhide it
+
+*   [#2495](https://github.com/Khan/perseus/pull/2495) [`86ac76f79`](https://github.com/Khan/perseus/commit/86ac76f79c2fd4ee8b822393f89a064af92c0339) Thanks [@Myranae](https://github.com/Myranae)! - Update label image widget to handle answerless data and do some cleanup
+
+### Patch Changes
+
+-   [#2510](https://github.com/Khan/perseus/pull/2510) [`41fcaa918`](https://github.com/Khan/perseus/commit/41fcaa91845753a87aa0c9c686e6fa5bc2d149b0) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add tab navigation to new radio widget
+
+*   [#2527](https://github.com/Khan/perseus/pull/2527) [`555d89762`](https://github.com/Khan/perseus/commit/555d897621df124f423bf95bc4c2b8511e4bda6d) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Support RTL in new radio widget
+
+-   [#2443](https://github.com/Khan/perseus/pull/2443) [`64c89cb15`](https://github.com/Khan/perseus/commit/64c89cb155045bf48248f96891e006a6f48610e5) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Remove deprecated cross out functionality for Radio Choices
+
+*   [#2519](https://github.com/Khan/perseus/pull/2519) [`cf71982e0`](https://github.com/Khan/perseus/commit/cf71982e0fe9f831456d760fc4e98b1e93748c4f) Thanks [@dependabot](https://github.com/apps/dependabot)! - Updating wonderblock dependencies.
+
+-   [#2515](https://github.com/Khan/perseus/pull/2515) [`9c651172d`](https://github.com/Khan/perseus/commit/9c651172dffd7ca9f621e777069f361be05ce049) Thanks [@aag](https://github.com/aag)! - Add validation for inputs that are too long to the Free Response widget
+
+*   [#2509](https://github.com/Khan/perseus/pull/2509) [`0d46a8599`](https://github.com/Khan/perseus/commit/0d46a85999557ca17daad67cb1663fe88a33a3ae) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Ensure that Interactive Graph's labelLocation property can be parsed properly
+
+*   Updated dependencies [[`03669d385`](https://github.com/Khan/perseus/commit/03669d385548e1d7ffde28c2210f637cf2b2d16f), [`52ec0bfcb`](https://github.com/Khan/perseus/commit/52ec0bfcbb71242c7a0a0ab34c7da0e9db77ed21), [`d1b6d9a3c`](https://github.com/Khan/perseus/commit/d1b6d9a3cab145267256e3d4acc373361957ffe0), [`86ac76f79`](https://github.com/Khan/perseus/commit/86ac76f79c2fd4ee8b822393f89a064af92c0339), [`ff2f1664d`](https://github.com/Khan/perseus/commit/ff2f1664db934d862570fd9b840f799a2f23bbf7), [`6b747d140`](https://github.com/Khan/perseus/commit/6b747d1402cd62d9c59b2fc6f2371ec0a453a63d), [`efb99e901`](https://github.com/Khan/perseus/commit/efb99e9016418875a3b3713c8077a9465a5b41c6), [`3ec658e38`](https://github.com/Khan/perseus/commit/3ec658e387d2f2193f8151a9d4cb285e85f13202), [`3e162e616`](https://github.com/Khan/perseus/commit/3e162e6168960ff1a1c63ec0e982422a113cbe31), [`0913e9397`](https://github.com/Khan/perseus/commit/0913e93973394270a474388f4c1e7c795027b015), [`dc864aca8`](https://github.com/Khan/perseus/commit/dc864aca8ebf3bb442b1519f67d1a095d9f89243), [`8ece223ef`](https://github.com/Khan/perseus/commit/8ece223ef58ce23ccd244b6fb717193019e2c5d0), [`cf71982e0`](https://github.com/Khan/perseus/commit/cf71982e0fe9f831456d760fc4e98b1e93748c4f), [`9c651172d`](https://github.com/Khan/perseus/commit/9c651172dffd7ca9f621e777069f361be05ce049), [`239be3f6c`](https://github.com/Khan/perseus/commit/239be3f6ccbbb89f52acf313bb4afbe359c1cee5), [`0d46a8599`](https://github.com/Khan/perseus/commit/0d46a85999557ca17daad67cb1663fe88a33a3ae), [`1c49ad243`](https://github.com/Khan/perseus/commit/1c49ad243756b4519c57603c9d098cbfe18baa15)]:
+    -   @khanacademy/perseus-core@12.1.0
+    -   @khanacademy/math-input@26.0.0
+    -   @khanacademy/kas@2.0.5
+    -   @khanacademy/keypad-context@3.0.11
+    -   @khanacademy/kmath@2.0.11
+    -   @khanacademy/perseus-linter@3.0.11
+    -   @khanacademy/perseus-score@7.0.1
+    -   @khanacademy/perseus-utils@2.0.4
+    -   @khanacademy/pure-markdown@2.0.5
+    -   @khanacademy/simple-markdown@2.0.5
+
+## 63.0.1
+
+### Patch Changes
+
+-   [#2494](https://github.com/Khan/perseus/pull/2494) [`670b695e4`](https://github.com/Khan/perseus/commit/670b695e4dac6b7d795e8e3502032caa50d36b29) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add story for radio widget single select with images and scroll
+
+*   [#2455](https://github.com/Khan/perseus/pull/2455) [`998d12113`](https://github.com/Khan/perseus/commit/998d121139c4017e557c0bd33a63fa9154119d6f) Thanks [@marcysutton](https://github.com/marcysutton)! - Update to latest WB typography and tokens packages, using REM font sizing
+
+-   [#2491](https://github.com/Khan/perseus/pull/2491) [`69c12a0fa`](https://github.com/Khan/perseus/commit/69c12a0fa0c5a9454f88f6b61ebb48dc0a217bc7) Thanks [@jandrade](https://github.com/jandrade)! - Updates WB Button instances to match new API (color -> actionType)
+
+-   Updated dependencies [[`998d12113`](https://github.com/Khan/perseus/commit/998d121139c4017e557c0bd33a63fa9154119d6f)]:
+    -   @khanacademy/math-input@25.1.6
+
+## 63.0.0
+
+### Major Changes
+
+-   [#2501](https://github.com/Khan/perseus/pull/2501) [`8f3a7c5b4`](https://github.com/Khan/perseus/commit/8f3a7c5b4a2c57f5b0e55f2804980e77418e37e8) Thanks [@aag](https://github.com/aag)! - Release the new Free Response Widget
+
+### Minor Changes
+
+-   [#2332](https://github.com/Khan/perseus/pull/2332) [`2f6d2d042`](https://github.com/Khan/perseus/commit/2f6d2d0424940fd54e6ba4970f6f70bee38935f8) Thanks [@rgpass](https://github.com/rgpass)! - Add optional character limit support
+
+*   [#2297](https://github.com/Khan/perseus/pull/2297) [`fc4e00e75`](https://github.com/Khan/perseus/commit/fc4e00e75e7633f396245dd08126023f255676ed) Thanks [@rgpass](https://github.com/rgpass)! - Add ability to customize the placeholder text in a Free Response widget
+
+-   [#2273](https://github.com/Khan/perseus/pull/2273) [`15025d441`](https://github.com/Khan/perseus/commit/15025d4412617a83c4cdf553be7e6aff9f3101ab) Thanks [@aag](https://github.com/aag)! - Add a basic version of the new FreeResponse widget
+
+### Patch Changes
+
+-   [#2498](https://github.com/Khan/perseus/pull/2498) [`25b24e04c`](https://github.com/Khan/perseus/commit/25b24e04c992b3993315a7af6b330b3aef2e8698) Thanks [@aag](https://github.com/aag)! - Add scoring and validation functions for the Free Response Widget
+
+*   [#2492](https://github.com/Khan/perseus/pull/2492) [`dd6916b31`](https://github.com/Khan/perseus/commit/dd6916b3133d325602b8ce31a01f3de3a5eeca14) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Standardization of New Radio Widget functional component declarations and utility functions.
+
+-   [#2286](https://github.com/Khan/perseus/pull/2286) [`6b3bc5c51`](https://github.com/Khan/perseus/commit/6b3bc5c51f6024442469753a68f36d2b8b8885bd) Thanks [@aag](https://github.com/aag)! - Add scoring criteria to the Free Response Widget
+
+*   [#2453](https://github.com/Khan/perseus/pull/2453) [`89d7c5a2f`](https://github.com/Khan/perseus/commit/89d7c5a2ff3bfc30a9fbaf5b470330952dac0702) Thanks [@aag](https://github.com/aag)! - Add LaTeX rendering to Free Response Widget questions
+
+-   [#2481](https://github.com/Khan/perseus/pull/2481) [`4d6debc84`](https://github.com/Khan/perseus/commit/4d6debc84d539578b883ef8b89658d2aa33f6445) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add Horizontal Scrollbar for New Radio Widget to allow users to visually scroll a long radio option content
+
+*   [#2486](https://github.com/Khan/perseus/pull/2486) [`68de23d36`](https://github.com/Khan/perseus/commit/68de23d361b369a9b437f2908f06013e46c07fd7) Thanks [@aag](https://github.com/aag)! - Update visual styling and a11y features
+
+-   [#2493](https://github.com/Khan/perseus/pull/2493) [`3cb963b9f`](https://github.com/Khan/perseus/commit/3cb963b9f786f97ace092318fd14fd677ceb9f2f) Thanks [@aag](https://github.com/aag)! - Refactor rendering of FreeResponseEditor
+
+-   Updated dependencies [[`25b24e04c`](https://github.com/Khan/perseus/commit/25b24e04c992b3993315a7af6b330b3aef2e8698), [`2f6d2d042`](https://github.com/Khan/perseus/commit/2f6d2d0424940fd54e6ba4970f6f70bee38935f8), [`fc4e00e75`](https://github.com/Khan/perseus/commit/fc4e00e75e7633f396245dd08126023f255676ed), [`15025d441`](https://github.com/Khan/perseus/commit/15025d4412617a83c4cdf553be7e6aff9f3101ab), [`8f3a7c5b4`](https://github.com/Khan/perseus/commit/8f3a7c5b4a2c57f5b0e55f2804980e77418e37e8), [`6b3bc5c51`](https://github.com/Khan/perseus/commit/6b3bc5c51f6024442469753a68f36d2b8b8885bd), [`89d7c5a2f`](https://github.com/Khan/perseus/commit/89d7c5a2ff3bfc30a9fbaf5b470330952dac0702), [`68de23d36`](https://github.com/Khan/perseus/commit/68de23d361b369a9b437f2908f06013e46c07fd7), [`3cb963b9f`](https://github.com/Khan/perseus/commit/3cb963b9f786f97ace092318fd14fd677ceb9f2f)]:
+    -   @khanacademy/perseus-core@12.0.0
+    -   @khanacademy/perseus-score@7.0.0
+    -   @khanacademy/keypad-context@3.0.10
+    -   @khanacademy/kmath@2.0.10
+    -   @khanacademy/math-input@25.1.5
+    -   @khanacademy/perseus-linter@3.0.10
+
 ## 62.0.0
 
 ### Major Changes

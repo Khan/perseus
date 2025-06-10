@@ -2,7 +2,7 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Perseus/Widgets/Deprecated Standin",

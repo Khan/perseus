@@ -43,6 +43,7 @@ import type {
     PerseusRadioChoice,
     PerseusGraphCorrectType,
     MakeWidgetMap,
+    PerseusFreeResponseWidgetScoringCriterion,
 } from "./data-schema";
 import type {Relationship} from "./types";
 
@@ -225,6 +226,15 @@ export type PerseusNumericInputUserInput = {
     currentValue: string;
 };
 
+export type PerseusFreeResponseUserInput = {
+    currentValue: string;
+};
+
+export type PerseusFreeResponseRubric = {
+    question: string;
+    scoringCriteria: ReadonlyArray<PerseusFreeResponseWidgetScoringCriterion>;
+};
+
 export type PerseusOrdererRubric = PerseusOrdererWidgetOptions;
 
 export type PerseusOrdererUserInput = {
@@ -246,6 +256,8 @@ export type PerseusPlotterUserInput = number[];
 export type PerseusRadioRubric = {
     // The choices provided to the user.
     choices: PerseusRadioChoice[];
+    // If true, the number of choices selected must match the number of correct choices.
+    countChoices?: boolean;
 };
 
 export type PerseusRadioUserInput = {
@@ -321,6 +333,7 @@ interface UserInputRegistry {
     "cs-program": PerseusCSProgramUserInput;
     dropdown: PerseusDropdownUserInput;
     expression: PerseusExpressionUserInput;
+    "free-response": PerseusFreeResponseUserInput;
     grapher: PerseusGrapherUserInput;
     group: PerseusGroupUserInput;
     iframe: PerseusIFrameUserInput;

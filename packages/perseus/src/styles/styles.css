@@ -974,6 +974,9 @@
 /* Derived from the MIT-licensed zoom.js:
    https://github.com/fat/zoom.js/blob/fd4f3e43153da7596da0bade198e99f98b47791e/
 */
+:root {
+    --perseus-zoom-overlay-z-index: 9000;
+}
 .zoomable {
     cursor: pointer;
     cursor: -webkit-zoom-in;
@@ -982,7 +985,7 @@
 .zoom-img {
     background-color: white;
     position: absolute;
-    z-index: 9001;
+    z-index: calc(var(--perseus-zoom-overlay-z-index) + 1);
 }
 img.zoom-img {
     cursor: pointer;
@@ -993,7 +996,7 @@ img.zoom-img {
     transition: transform 300ms ease;
 }
 .zoom-overlay {
-    z-index: 9000;
+    z-index: var(--perseus-zoom-overlay-z-index);
     position: fixed;
     top: 0;
     left: 0;
@@ -1011,7 +1014,7 @@ img.zoom-img {
     overflow: hidden;
 }
 .zoom-backdrop {
-    z-index: 8999;
+    z-index: calc(var(--perseus-zoom-overlay-z-index) - 1);
     position: fixed;
     top: 0;
     left: 0;

@@ -103,7 +103,6 @@ const InputWithExamples = forwardRef<Focusable, Props>(
             const examplesAria = shouldShowExamples
                 ? `${props.examples[0]}
                    ${props.examples.slice(1).join(", or\n")}`
-                      // @ts-expect-error TS2550: Property replaceAll does not exist on type string.
                       .replaceAll("*", "")
                       .replaceAll("$", "")
                       .replaceAll("\\ \\text{pi}", " pi")

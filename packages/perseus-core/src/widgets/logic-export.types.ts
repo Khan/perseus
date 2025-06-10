@@ -2,6 +2,7 @@ import type getCategorizerPublicWidgetOptions from "./categorizer/categorizer-ut
 import type getCSProgramPublicWidgetOptions from "./cs-program/cs-program-util";
 import type getDropdownPublicWidgetOptions from "./dropdown/dropdown-util";
 import type getExpressionPublicWidgetOptions from "./expression/expression-util";
+import type getFreeResponsePublicWidgetOptions from "./free-response/free-response-util";
 import type getGrapherPublicWidgetOptions from "./grapher/grapher-util";
 import type getGroupPublicWidgetOptions from "./group/group-util";
 import type getIFramePublicWidgetOptions from "./iframe/iframe-util";
@@ -17,7 +18,7 @@ import type getPlotterPublicWidgetOptions from "./plotter/plotter-util";
 import type getRadioPublicWidgetOptions from "./radio/radio-util";
 import type getSorterPublicWidgetOptions from "./sorter/sorter-util";
 import type getTablePublicWidgetOptions from "./table/table-util";
-import type {Version} from "../data-schema";
+import type {PerseusWidgetOptions, Version} from "../data-schema";
 import type {Alignment} from "../types";
 
 export type WidgetOptionsUpgradeMap = {
@@ -36,6 +37,7 @@ export type PublicWidgetOptionsFunction =
     | typeof getCSProgramPublicWidgetOptions
     | typeof getDropdownPublicWidgetOptions
     | typeof getExpressionPublicWidgetOptions
+    | typeof getFreeResponsePublicWidgetOptions
     | typeof getGrapherPublicWidgetOptions
     | typeof getGroupPublicWidgetOptions
     | typeof getIFramePublicWidgetOptions
@@ -55,10 +57,11 @@ export type PublicWidgetOptionsFunction =
 export type WidgetLogic = {
     name: string;
     version?: Version;
-    widgetOptionsUpgrades?: WidgetOptionsUpgradeMap;
     defaultWidgetOptions?: any;
     supportedAlignments?: ReadonlyArray<Alignment>;
     defaultAlignment?: Alignment;
+    accessible?: boolean | ((options: PerseusWidgetOptions) => boolean);
+    traverseChildWidgets?: (props: any, traverseRenderer: any) => any;
 
     /**
      * A function that provides a public version of the widget options that can

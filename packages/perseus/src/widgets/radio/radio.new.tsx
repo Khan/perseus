@@ -131,7 +131,6 @@ const RadioComponent = ({
     const updateChoices = (
         newValueLists: Readonly<{
             checked: ReadonlyArray<boolean>;
-            crossedOut: ReadonlyArray<boolean>;
         }>,
     ) => {
         // Construct the baseline `choiceStates` objects. If this is the user's
@@ -143,7 +142,6 @@ const RadioComponent = ({
             ? choiceStates.map((state: ChoiceState) => ({...state}))
             : choices.map(() => ({
                   selected: false,
-                  crossedOut: false,
                   highlighted: false,
                   rationaleShown: false,
                   correctnessShown: false,
@@ -152,10 +150,9 @@ const RadioComponent = ({
               }));
 
         // Mutate the new `choiceState` objects, according to the new `checked`
-        // and `crossedOut` values provided in `newValueLists`.
+        // value provided in `newValueLists`.
         newChoiceStates.forEach((choiceState: ChoiceState, i) => {
             choiceState.selected = newValueLists.checked[i];
-            choiceState.crossedOut = newValueLists.crossedOut[i];
         });
 
         // Call the onChange function to pass the new choice states to the renderer.
@@ -181,7 +178,6 @@ const RadioComponent = ({
             // Extract the choice state for the choice.
             const {
                 selected,
-                crossedOut,
                 rationaleShown,
                 correctnessShown,
                 readOnly,
@@ -210,7 +206,6 @@ const RadioComponent = ({
                 showCorrectness: correctnessShown,
                 isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
                 revealNoneOfTheAbove: !!(questionCompleted && selected),
-                crossedOut,
                 highlighted,
                 previouslyAnswered,
             };

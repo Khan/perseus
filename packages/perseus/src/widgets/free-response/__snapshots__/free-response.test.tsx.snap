@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`free-response widget should snapshot on mobile: first mobile render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="default_xu2jcg-o_O-container_lci7r free-response"
+          >
+            <div
+              class="default_xu2jcg"
+            >
+              <label
+                class="text_f1191h-o_O-LabelMedium_455tor-o_O-textWordBreak_6z3til-o_O-label_wdxvi6-o_O-labelWithNoDescription_p67whi-o_O-questionLabel_shsy80"
+                for=":r2:-labeled-field-field"
+                id=":r2:-labeled-field-label"
+              >
+                <div
+                  class="default_xu2jcg free-response-question"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        test-question
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+              <div
+                class="default_xu2jcg-o_O-inlineStyles_zdxht7"
+              >
+                <textarea
+                  aria-describedby=""
+                  aria-invalid="false"
+                  aria-required="false"
+                  class="textarea_u55hlb-o_O-LabelMedium_455tor-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-textarea_1x0fg6n"
+                  id=":r2:-labeled-field-field"
+                  placeholder="test-placeholder"
+                />
+              </div>
+              <div
+                aria-atomic="true"
+                aria-live="assertive"
+                class="default_xu2jcg-o_O-errorSection_375epe"
+                id=":r2:-labeled-field-error"
+              />
+            </div>
+            <div
+              class="default_xu2jcg"
+            >
+              <span
+                class="text_f1191h-o_O-characterCountText_1shcjz1"
+                role="status"
+              >
+                0 / 500 Characters
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`free-response widget should snapshot: first render 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="default_xu2jcg-o_O-container_lci7r free-response"
+          >
+            <div
+              class="default_xu2jcg"
+            >
+              <label
+                class="text_f1191h-o_O-LabelMedium_455tor-o_O-textWordBreak_6z3til-o_O-label_wdxvi6-o_O-labelWithNoDescription_p67whi-o_O-questionLabel_shsy80"
+                for=":r0:-labeled-field-field"
+                id=":r0:-labeled-field-label"
+              >
+                <div
+                  class="default_xu2jcg free-response-question"
+                >
+                  <div
+                    class="perseus-renderer perseus-renderer-responsive"
+                  >
+                    <div
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
+                    >
+                      <div
+                        class="paragraph"
+                      >
+                        test-question
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+              <div
+                class="default_xu2jcg-o_O-inlineStyles_zdxht7"
+              >
+                <textarea
+                  aria-describedby=""
+                  aria-invalid="false"
+                  aria-required="false"
+                  class="textarea_u55hlb-o_O-LabelMedium_455tor-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-textarea_1x0fg6n"
+                  id=":r0:-labeled-field-field"
+                  placeholder="test-placeholder"
+                />
+              </div>
+              <div
+                aria-atomic="true"
+                aria-live="assertive"
+                class="default_xu2jcg-o_O-errorSection_375epe"
+                id=":r0:-labeled-field-error"
+              />
+            </div>
+            <div
+              class="default_xu2jcg"
+            >
+              <span
+                class="text_f1191h-o_O-characterCountText_1shcjz1"
+                role="status"
+              >
+                0 / 500 Characters
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

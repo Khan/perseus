@@ -21,7 +21,6 @@ describe("getChoiceStates", () => {
 
     const defaultState: ChoiceState = {
         selected: false,
-        crossedOut: false,
         readOnly: false,
         highlighted: false,
         rationaleShown: false,
@@ -75,7 +74,6 @@ describe("getChoiceStates", () => {
         it("preserves user's current choice states", () => {
             // Arrange
             const userChoiceStates: ChoiceState[] = [
-                {...defaultState, selected: false, crossedOut: true},
                 {...defaultState, selected: true},
                 {...defaultState, selected: false},
             ];

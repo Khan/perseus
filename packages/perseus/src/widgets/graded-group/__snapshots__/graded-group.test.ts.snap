@@ -408,12 +408,12 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
             />
             <button
               aria-disabled="false"
-              class="button_vr44p2-o_O-shared_11fo0od-o_O-default_hrw3a6"
+              class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_14wd1lh-o_O-default_1aph7tw"
               role="button"
               type="button"
             >
               <span
-                class="text_f1191h-o_O-LabelLarge_5s82ln-o_O-text_1awp0u1"
+                class="text_f1191h-o_O-LabelLarge_16mkhxv-o_O-text_1kowsup"
               >
                 Check
               </span>

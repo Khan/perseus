@@ -1,5 +1,5 @@
-import {action} from "@storybook/addon-actions";
 import * as React from "react";
+import {action} from "storybook/actions";
 
 import Behavior from "../behavior";
 
@@ -27,5 +27,5 @@ export const Default = (args: StoryArgs): React.ReactElement => {
             setState({...state, ...newState});
         },
     } as const;
-    return <Behavior preferredPopoverDirection="NONE" {...props} />;
+    return <Behavior {...props} />;
 };

@@ -34,7 +34,6 @@ export const getChoiceStates = ({
     // The default state for a choice state object.
     const defaultState: ChoiceState = {
         selected: false,
-        crossedOut: false,
         readOnly: false,
         highlighted: false,
         rationaleShown: false,

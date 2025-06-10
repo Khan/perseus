@@ -171,7 +171,7 @@ specific render props the widget uses).
 ### `RenderProps`
 
 The `RenderProps` type defines the props that are returned by the widget's
-`transform` and `staticTransform` functions. If these fucntions are not defined
+`transform` and `staticTransform` functions. If these functions are not defined
 on the widget's `WidgetExport<T>` object, then `RenderProps` is synonymous with
 the widgets options type (ie. the type `T` wrapped in `WidgetOptions<T>` from
 `perseus-types.ts`).

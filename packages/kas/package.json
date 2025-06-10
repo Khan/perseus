@@ -3,7 +3,7 @@
     "description": "A lightweight JavaScript CAS for comparing expressions and equations.",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "publishConfig": {
         "access": "public"
     },
@@ -31,10 +31,10 @@
     "devDependencies": {
         "jison": "0.4.15",
         "perseus-build-settings": "workspace:*",
-        "underscore": "catalog:"
+        "underscore": "catalog:devDeps"
     },
     "peerDependencies": {
-        "underscore": "catalog:"
+        "underscore": "catalog:peerDeps"
     },
     "keywords": [
         "parsing",

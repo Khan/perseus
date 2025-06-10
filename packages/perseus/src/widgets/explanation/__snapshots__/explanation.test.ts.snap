@@ -21,17 +21,17 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
             aria-controls=":r1:"
             aria-disabled="false"
             aria-expanded="true"
-            class="button_vr44p2-o_O-shared_11fo0od-o_O-default_1dlh9ep-o_O-small_1rcykji-o_O-inlineStyles_1s8anjv"
+            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_14wd1lh-o_O-default_ejemin-o_O-small_1hll8b3-o_O-inlineStyles_1s8anjv"
             role="button"
             type="button"
           >
             <span
-              class="text_f1191h-o_O-LabelSmall_hl4zs1-o_O-text_1awp0u1-o_O-smallText_arcskg-o_O-textWithFocus_e296pg-o_O-inlineStyles_egvfd8"
+              class="text_f1191h-o_O-LabelSmall_94fo23-o_O-text_1kowsup-o_O-smallText_v9nlfb-o_O-inlineStyles_egvfd8"
             >
               Hide explanation!
             </span>
             <div
-              class="default_xu2jcg-o_O-iconWrapper_h4cn9t-o_O-endIconWrapper_l32m71-o_O-endIconWrapperTertiary_10fyztj"
+              class="default_xu2jcg-o_O-iconWrapper_1xbs5sz-o_O-endIconWrapper_weejk7-o_O-endIconWrapperTertiary_9p0zpt"
             >
               <span
                 aria-hidden="true"
@@ -94,17 +94,17 @@ exports[`Explanation should snapshot: initial render 1`] = `
             aria-controls=":r0:"
             aria-disabled="false"
             aria-expanded="false"
-            class="button_vr44p2-o_O-shared_11fo0od-o_O-default_1dlh9ep-o_O-small_1rcykji-o_O-inlineStyles_1s8anjv"
+            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_14wd1lh-o_O-default_ejemin-o_O-small_1hll8b3-o_O-inlineStyles_1s8anjv"
             role="button"
             type="button"
           >
             <span
-              class="text_f1191h-o_O-LabelSmall_hl4zs1-o_O-text_1awp0u1-o_O-smallText_arcskg-o_O-textWithFocus_e296pg-o_O-inlineStyles_egvfd8"
+              class="text_f1191h-o_O-LabelSmall_94fo23-o_O-text_1kowsup-o_O-smallText_v9nlfb-o_O-inlineStyles_egvfd8"
             >
               Explanation
             </span>
             <div
-              class="default_xu2jcg-o_O-iconWrapper_h4cn9t-o_O-endIconWrapper_l32m71-o_O-endIconWrapperTertiary_10fyztj"
+              class="default_xu2jcg-o_O-iconWrapper_1xbs5sz-o_O-endIconWrapper_weejk7-o_O-endIconWrapperTertiary_9p0zpt"
             >
               <span
                 aria-hidden="true"

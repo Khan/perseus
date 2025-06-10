@@ -20,7 +20,6 @@ function renderChoice(options) {
         showRationale: false,
         showCorrectness: false,
         multipleSelect: false,
-        crossedOut: false,
         previouslyAnswered: false,
         ref: {current: null},
     } as const;
@@ -132,7 +131,6 @@ describe("choice button", () => {
             // Assert
             expect(onChangeSpy).toHaveBeenCalledWith({
                 checked: true,
-                crossedOut: false,
             });
         },
     );
@@ -222,7 +220,6 @@ describe("choice input (screen reader only)", () => {
             // Assert
             expect(onChangeSpy).toHaveBeenCalledWith({
                 checked: true,
-                crossedOut: false,
             });
         },
     );
@@ -251,36 +248,12 @@ describe("choice input (screen reader only)", () => {
         expect(input).toBeChecked();
     });
 
-    it("has correct a11y text when crossed out", () => {
+    it("has correct a11y text when incorrect, and showCorrectness is true", () => {
         // Arrange / Act
-        renderChoice({crossedOut: true});
+        renderChoice({correct: false, showCorrectness: true});
 
         const input = screen.getByRole("radio", {
-            name: "(Choice A, Crossed out) This is a possible choice",
-        });
-
-        // Assert
-        expect(input).toBeVisible();
-    });
-
-    it("has correct a11y text when incorrect, crossed out, and showCorrectness is true", () => {
-        // Arrange / Act
-        renderChoice({crossedOut: true, correct: false, showCorrectness: true});
-
-        const input = screen.getByRole("radio", {
-            name: "(Choice A, Crossed out, Incorrect) This is a possible choice",
-        });
-
-        // Assert
-        expect(input).toBeVisible();
-    });
-
-    it("has correct a11y text when correct, crossed out, and showCorrectness is true", () => {
-        // Arrange / Act
-        renderChoice({crossedOut: true, correct: true, showCorrectness: true});
-
-        const input = screen.getByRole("radio", {
-            name: "(Choice A, Crossed out, Correct) This is a possible choice",
+            name: "(Choice A, Incorrect) This is a possible choice",
         });
 
         // Assert

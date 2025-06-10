@@ -1,11 +1,10 @@
 import {
-    ItemExtras,
     type LabelImageWidget,
     type PerseusItem,
-    type PerseusAnswerArea,
     type ExpressionWidget,
     type RadioWidget,
     type NumericInputWidget,
+    getDefaultAnswerArea,
 } from "@khanacademy/perseus-core";
 
 import type {MockWidget} from "../widgets/mock-widgets/mock-widget-types";
@@ -260,9 +259,7 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
 };
 
 export const labelImageItem: PerseusItem = {
-    answerArea: Object.fromEntries(
-        ItemExtras.map((extra) => [extra, false]),
-    ) as PerseusAnswerArea,
+    answerArea: getDefaultAnswerArea(),
     hints: [],
     question: {
         content:
