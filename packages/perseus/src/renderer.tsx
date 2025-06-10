@@ -1133,7 +1133,7 @@ class Renderer
             }
             // Widgets can contain text nodes, so we don't center them with
             // markdown magic here.
-            // Instead, we center them with css magic in styles.less
+            // Instead, we center them with css magic in styles.css
             // /cry(aria)
             this._foundTextNodes = true;
 

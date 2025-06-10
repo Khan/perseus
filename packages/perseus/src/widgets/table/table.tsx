@@ -217,7 +217,7 @@ class Table extends React.Component<Props> implements Widget {
         if (this.props.apiOptions.customKeypad) {
             InputComponent = SimpleKeypadInput;
             // NOTE(charlie): This is intended to match the "width: 80px" in
-            // input in table.less. Those values should be kept in-sync.
+            // input in table.css. Those values should be kept in-sync.
             inputStyle = {width: 80};
             extraInputProps.keypadElement = this.props.keypadElement;
         } else {
