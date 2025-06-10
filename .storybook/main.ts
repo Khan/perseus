@@ -3,21 +3,28 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 
 import type {StorybookConfig} from "@storybook/react-vite";
 
+const excludedCssFiles = ["lato.css", "protractor.css", "mafs-styles.css"];
 // This is a temporary plugin option to mimic what is in PROD in regard to cascade layers.
-// Perseus LESS files are wrapped in the 'shared' layer in khan/frontend.
-// To get the same ordering of precedence in Storybook, the imported LESS files need to be wrapped accordingly.
-// Once the LESS files have cascade layers included (LEMS-2801),
+// Perseus CSS files are wrapped in the 'shared' layer in khan/frontend.
+// To get the same ordering of precedence in Storybook, the imported CSS files need to be wrapped accordingly.
+// Once the CSS files have cascade layers included (LEMS-2801),
 //     then the following plugin option should be removed.
-const lessWrapper = {
-    name: "wrap-less-in-layer",
+const cssWrapper = {
+    name: "wrap-css-in-layer",
     transform: (code: string, pathname: string) => {
-        if (pathname.endsWith(".less")) {
-            const layerStatements =
-                "@layer reset, shared, legacy;\n@layer shared";
-            return {
-                code: `${layerStatements} { ${code} }`,
-                map: null,
-            };
+        if (pathname.endsWith(".css")) {
+            // Exclude the CSS files that are not part of the shared layer.
+            if (!excludedCssFiles.some((file) => pathname.endsWith(file))) {
+                // Exclude any CSS file that already has a layer statement.
+                if (!code.includes("@layer")) {
+                    const layerStatements =
+                        "@layer reset, shared, legacy;\n@layer shared";
+                    return {
+                        code: `${layerStatements} { ${code} }`,
+                        map: null,
+                    };
+                }
+            }
         }
     },
 };
@@ -84,7 +91,7 @@ const config: StorybookConfig = {
                     return !file.endsWith(".svg");
                 },
             },
-            plugins: [lessWrapper],
+            plugins: [cssWrapper],
         });
     },
     staticDirs: ["../static"],

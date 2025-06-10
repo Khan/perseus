@@ -74,8 +74,8 @@ module.exports = {
     moduleNameMapper: {
         ...pkgMap,
         ...vendorMap,
-        // Load a .js file with no exports whenever a .css or .less file is requested.
-        "\\.(css|less)$": "<rootDir>/config/test/style-mock.js",
+        // Load a .js file with no exports whenever a .css file is requested.
+        "\\.(css)$": "<rootDir>/config/test/style-mock.js",
     },
     coverageDirectory: "<rootDir>/coverage/jest/",
     collectCoverageFrom: [
