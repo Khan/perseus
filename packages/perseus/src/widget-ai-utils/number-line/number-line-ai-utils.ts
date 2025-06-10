@@ -6,7 +6,6 @@ export type NumberLinePromptJSON = {
     type: "number-line";
     options: {
         range: ReadonlyArray<number>;
-        numDivisions: number;
         snapDivisions: number;
     };
     userInput: {
@@ -24,7 +23,6 @@ export const getPromptJSON = (
         type: "number-line",
         options: {
             range: renderProps.range,
-            numDivisions: renderProps.numDivisions,
             snapDivisions: renderProps.snapDivisions,
         },
         userInput: {
