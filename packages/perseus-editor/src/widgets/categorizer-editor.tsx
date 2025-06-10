@@ -90,7 +90,7 @@ class CategorizerEditor extends React.Component<Props> {
                     apiOptions={this.props.apiOptions}
                     items={this.props.items}
                     categories={this.props.categories}
-                    values={this.props.values}
+                    userInput={{values: this.props.values}}
                     onChange={(newProps) => {
                         this.props.onChange(newProps);
                     }}
