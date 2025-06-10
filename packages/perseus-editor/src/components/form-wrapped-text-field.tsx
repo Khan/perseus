@@ -43,7 +43,7 @@ type Props = {
     //   _definition: CSSProperties,
     // }
     // TODO(WB-1026): Update StyleType to reflect the aphrodite type
-    // TODO(FEI-3282): Update uses of StyleType in webapp to be correct
+    // TODO(FEI-3282): Update uses of StyleType in khan/frontend to be correct
     style?: React.CSSProperties | undefined;
     className?: string;
     width?: number | string;

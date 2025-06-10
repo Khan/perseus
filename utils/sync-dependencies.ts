@@ -3,7 +3,7 @@
  * A script that syncs the version of all Wonder Blocks and Wonder Stuff
  * packages in this repo using the given `package.json` file as a reference.
  * This helps with the task of keeping Perseus' peer dependencies in line with
- * the webapp host application.
+ * the khan/frontend host application.
  */
 
 import fs from "node:fs";
@@ -23,7 +23,7 @@ function printHelp() {
     This tool expects to be provided with a path to a package.json that defines
     the version of each of Perseus' peer and dev dependencies. Typically, this
     would be the package.json file from the hosting web application
-    (ie. webapp).
+    (ie. khan/frontend).
 `);
     console.log("usage: sync-dependencies <package.json>");
 }
@@ -37,7 +37,7 @@ const RestrictedPackageVersions = [
     /hot-loader\/react-dom/,
     // Our pnpm workspace can't reference itself (I don't think)
     // TODO(LEMS-2903): figure out a way to sync peer deps that are
-    // set to "workspace:*" in Webapp's package.json
+    // set to "workspace:*" in khan/frontend's package.json
     /workspace/,
 ];
 
@@ -146,9 +146,9 @@ function main(argv: string[]) {
     // new location, once the frontend moves to its own repo.
     const comment = dedent(`
         # NOTE: The \`devDeps\` and \`peerDeps\` catalogs in this file are
-        # generated from webapp's package.json. To update them, run:
+        # generated from khan/frontend's package.json. To update them, run:
         #
-        #     utils/sync-dependencies.ts ../webapp/services/static/package.json
+        #     utils/sync-dependencies.ts ../frontend/package.json
         #
         # We have two separate catalogs for dev deps and peer deps to ensure
         # that:
