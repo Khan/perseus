@@ -1,0 +1,31 @@
+@import "./util.css";
+@import "./styles.css";
+@import "./perseus-renderer-part-1.css";
+@import "widgets/categorizer.css";
+@import "widgets/dropdown.css";
+@import "widgets/expression.css";
+@import "widgets/free-response.css";
+@import "widgets/grapher.css";
+@import "widgets/graded-group.css";
+@import "widgets/group.css";
+@import "widgets/image.css";
+@import "widgets/interactive-graph.css";
+@import "widgets/label-image.css";
+@import "widgets/matcher.css";
+@import "widgets/matrix.css";
+@import "widgets/measurer.css";
+@import "widgets/numeric.css";
+@import "widgets/orderer.css";
+@import "widgets/passage.css";
+@import "widgets/plotter.css";
+@import "widgets/radio.css";
+@import "widgets/sortable.css";
+@import "widgets/table.css";
+@import "./perseus-renderer-part-2.css";
+/*
+  This file replicates the definition order of our styling when it was in LESS format.
+  The styling in the original perseus-renderer.less had import statements interspersed among style definitions
+    (which you can't do in regular CSS - https://developer.mozilla.org/en-US/docs/Web/CSS/@import).
+  Therefore, the definitions are broken out into two separate CSS files (-part-1.css and -part-2.css)
+    and the import order is structured to mirror the original file.
+ */
