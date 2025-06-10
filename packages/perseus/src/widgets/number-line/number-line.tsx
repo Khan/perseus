@@ -647,6 +647,24 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState() {
+        const {userInput, ...rest} = this.props;
+        return {
+            ...rest,
+            numDivisions: userInput.numDivisions,
+            numLinePosition: userInput.numLinePosition,
+            // this seems like a bug, but I'm maintaining the
+            // existing behavior on a deprecated API. Probably
+            // should be:
+            // rel: userInput.rel,
+            rel: "ge",
+        };
+    }
+
     render(): React.ReactNode {
         const {strings} = this.context;
         const divisionRange = this.props.divisionRange;
@@ -787,6 +805,24 @@ function staticTransform(
     };
 }
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusNumberLineUserInput {
+    return {
+        numDivisions: serializedState.numDivisions,
+        numLinePosition: serializedState.numLinePosition,
+        // this seems like a bug, but I'm maintaining the
+        // existing behavior on a deprecated API. Probably
+        // should be:
+        // rel: serializedState.rel,
+        rel: "eq",
+    };
+}
+
 function getStartNumDivisions(options: NumberLinePublicWidgetOptions) {
     const width = options.range[1] - options.range[0];
 
@@ -837,4 +873,5 @@ export default {
     staticTransform: staticTransform,
     getCorrectUserInput,
     getStartUserInput,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof NumberLine>;
