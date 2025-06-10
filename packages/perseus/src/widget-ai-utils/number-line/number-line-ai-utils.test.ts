@@ -91,6 +91,7 @@ describe("NumberLine AI utils", () => {
                     userInput: {
                         numLinePosition: -2.5,
                         numDivisions: 6,
+                        rel: "eq",
                     },
                 },
             },

@@ -631,7 +631,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
             numLinePosition: this.props.numLinePosition,
             rel: this.props.isInequality ? this.props.rel : "eq",
             numDivisions: this.props.numDivisions,
-            divisionRange: this.props.divisionRange,
         };
     }
 
