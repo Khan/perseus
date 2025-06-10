@@ -497,6 +497,10 @@ class Renderer
                 startUserInput[id] = widgetExports.getCorrectUserInput(
                     widgetInfo.options,
                 );
+            } else if (widgetExports?.getStartUserInput) {
+                startUserInput[id] = widgetExports.getStartUserInput(
+                    widgetInfo.options,
+                );
             }
         });
         return startUserInput;
