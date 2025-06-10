@@ -500,6 +500,7 @@ class Renderer
             } else if (widgetExports?.getStartUserInput) {
                 startUserInput[id] = widgetExports.getStartUserInput(
                     widgetInfo.options,
+                    props.problemNum ?? 0,
                 );
             }
         });

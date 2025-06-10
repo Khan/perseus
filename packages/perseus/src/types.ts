@@ -560,7 +560,7 @@ export type WidgetExports<
 
     getCorrectUserInput?: (widgetOptions: any) => TUserInput;
 
-    getStartUserInput?: (widgetOptions: any) => TUserInput;
+    getStartUserInput?: (widgetOptions: any, problemNum: number) => TUserInput;
 }>;
 
 export type FilterCriterion =
