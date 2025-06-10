@@ -1,11 +1,4 @@
-import {
-    any,
-    pair,
-    isPlainObject,
-    string,
-    object,
-    constant,
-} from "../general-purpose-parsers";
+import {any, isPlainObject, object, constant} from "../general-purpose-parsers";
 import {isFailure} from "../result";
 
 import {parseCategorizerWidget} from "./categorizer-widget";
@@ -42,6 +35,7 @@ import {parseSorterWidget} from "./sorter-widget";
 import {parseTableWidget} from "./table-widget";
 import {parseVideoWidget} from "./video-widget";
 import {parseWidget} from "./widget";
+import {parseWidgetIdComponents} from "./widget-id-components";
 
 import type {
     DeprecatedStandinWidget,
@@ -216,19 +210,3 @@ const parseDeprecatedWidget: Parser<DeprecatedStandinWidget> = parseWidget(
     // Allow any widget options
     object({}),
 );
-
-const parseStringToNonNegativeInt: Parser<number> = (rawValue, ctx) => {
-    // The article renderer seems to allow the numeric part of a widget ID to
-    // be 0, at least for image widgets. However, if widget IDs in an exercise
-    // contain 0, the exercise renderer will blow up. We allow 0 here for
-    // compatibility with articles.
-    if (typeof rawValue !== "string" || !/^(0|[1-9][0-9]*)$/.test(rawValue)) {
-        return ctx.failure(
-            "a string representing a non-negative integer",
-            rawValue,
-        );
-    }
-    return ctx.success(+rawValue);
-};
-
-const parseWidgetIdComponents = pair(string, parseStringToNonNegativeInt);

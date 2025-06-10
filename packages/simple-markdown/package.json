@@ -31,8 +31,8 @@
         "perseus-build-settings": "workspace:*"
     },
     "peerDependencies": {
-        "react": "catalog:",
-        "react-dom": "catalog:"
+        "react": "catalog:peerDeps",
+        "react-dom": "catalog:peerDeps"
     },
     "keywords": [
         "markdown"

@@ -3,7 +3,7 @@ import * as React from "react";
 
 import ItemExtrasEditor from "../item-extras-editor";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 import "../styles/perseus-editor.css";
 

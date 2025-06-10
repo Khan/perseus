@@ -13,7 +13,7 @@ import {
 } from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
-import type {Meta} from "@storybook/react";
+import type {Meta} from "@storybook/react-vite";
 
 type StoryArgs = {
     // Story Option

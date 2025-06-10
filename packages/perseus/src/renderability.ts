@@ -7,15 +7,13 @@
  * This supports widgets that contain renderers, such as the
  * group or sequence widgets.
  */
-
 import {
     Errors,
     PerseusError,
-    upgradeWidgetInfoToLatestVersion,
+    traverse,
+    applyDefaultsToWidget,
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
-
-import {traverse} from "./traversal";
 
 import type {PerseusWidget} from "@khanacademy/perseus-core";
 
@@ -55,7 +53,7 @@ const isRawWidgetInfoRenderableBy = function (
 
     // NOTE: This doesn't modify the widget info if the widget info
     // is at a later version than is supported.
-    const upgradedWidgetInfo = upgradeWidgetInfoToLatestVersion(widgetInfo);
+    const upgradedWidgetInfo = applyDefaultsToWidget(widgetInfo);
     return isUpgradedWidgetInfoRenderableBy(
         upgradedWidgetInfo,
         rendererContentVersion[upgradedWidgetInfo.type],
@@ -65,9 +63,14 @@ const isRawWidgetInfoRenderableBy = function (
 const isRendererContentRenderableBy = function (
     rendererOptions,
     rendererContentVersion: any,
-) {
+): boolean {
     let isRenderable = true;
     traverse(rendererOptions, null, function (widgetInfo) {
+        // If already determined to be unrenderable, skip further checks
+        if (!isRenderable) {
+            return;
+        }
+
         isRenderable =
             isRenderable &&
             isRawWidgetInfoRenderableBy(widgetInfo, rendererContentVersion);

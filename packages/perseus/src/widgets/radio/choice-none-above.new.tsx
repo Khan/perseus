@@ -7,7 +7,7 @@ import Choice from "./choice.new";
 
 import type {ChoiceProps} from "./choice.new";
 
-interface Props extends ChoiceProps {
+interface ChoiceNoneAboveProps extends ChoiceProps {
     showContent?: boolean;
 }
 
@@ -18,7 +18,10 @@ interface Props extends ChoiceProps {
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-const ChoiceNoneAbove = React.forwardRef<HTMLButtonElement, Props>(
+const ChoiceNoneAbove = React.forwardRef<
+    HTMLButtonElement,
+    ChoiceNoneAboveProps
+>(
     (
         {content, showContent = true, ...otherChoiceProps},
         forwardedRef,

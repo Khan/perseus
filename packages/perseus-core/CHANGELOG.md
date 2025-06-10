@@ -1,5 +1,47 @@
 # @khanacademy/perseus-core
 
+## 14.0.0
+
+### Major Changes
+
+-   [#2485](https://github.com/Khan/perseus/pull/2485) [`cea05d9e6`](https://github.com/Khan/perseus/commit/cea05d9e6c629db6c14ed43dba085e215d006a1e) Thanks [@tatianasnook](https://github.com/tatianasnook)! - Migrate accessibility logic from perseus to perseus-core
+
+*   [#2474](https://github.com/Khan/perseus/pull/2474) [`59a2e87a8`](https://github.com/Khan/perseus/commit/59a2e87a83ef08a151552c7922bddfcbf1c73cf2) Thanks [@tatianasnook](https://github.com/tatianasnook)! - Moved checkAccessibilityAndWarn logic into a custom linter rule
+
+### Minor Changes
+
+-   [#2553](https://github.com/Khan/perseus/pull/2553) [`f5d08b79a`](https://github.com/Khan/perseus/commit/f5d08b79aca6d56ba7bdc3d47429c449645f75f9) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding partically accessible widget function to interactive graph and label image.
+
+*   [#2532](https://github.com/Khan/perseus/pull/2532) [`75f1d1f53`](https://github.com/Khan/perseus/commit/75f1d1f53fe173f9275a213376c2497b5762ce0a) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add isItemAccessible helper which simplifies common usages of the violatingWidgets() function
+
+-   [#2518](https://github.com/Khan/perseus/pull/2518) [`0eba51c67`](https://github.com/Khan/perseus/commit/0eba51c67e1e67a11e425cb772194a44857eae0f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updates to Radio Scoring to ensure non-specific multiselect questions are marked correctly.
+
+*   [#2526](https://github.com/Khan/perseus/pull/2526) [`ab2861d83`](https://github.com/Khan/perseus/commit/ab2861d8335e7ef1800dd5c6754616192b53073b) Thanks [@tatianasnook](https://github.com/tatianasnook)! - Pass data between EditorPage and ItemEditor via new props
+
+### Patch Changes
+
+-   [#2544](https://github.com/Khan/perseus/pull/2544) [`e60f6ac50`](https://github.com/Khan/perseus/commit/e60f6ac50a28d0664bfc211c9c655651719e3309) Thanks [@tatianasnook](https://github.com/tatianasnook)! - Move deleted traversal tests into perseus-core
+
+*   [#2545](https://github.com/Khan/perseus/pull/2545) [`cec57bbc6`](https://github.com/Khan/perseus/commit/cec57bbc6cf32cdce5a6b764b7399f69f87b4a89) Thanks [@Myranae](https://github.com/Myranae)! - Add recursive typesafe parser for Group's user input type with supporting utilities and widget ID parsing refactor
+
+## 13.0.0
+
+### Major Changes
+
+-   [#2419](https://github.com/Khan/perseus/pull/2419) [`843d66257`](https://github.com/Khan/perseus/commit/843d66257ceb32b7c3d3eea4dea47dfda58e7945) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove the `propUpgrades` API from widgets as they're considered obsolete with the new parser
+
+### Patch Changes
+
+-   [#2549](https://github.com/Khan/perseus/pull/2549) [`404bde44d`](https://github.com/Khan/perseus/commit/404bde44dc6f8b6d5cbc8593c10b47f5f65d7eeb) Thanks [@Myranae](https://github.com/Myranae)! - Add typesafe parser for the Free Response widget's user input type
+
+*   [#2541](https://github.com/Khan/perseus/pull/2541) [`d4720c470`](https://github.com/Khan/perseus/commit/d4720c4706888c922e3111c11f121a730d592aaf) Thanks [@Myranae](https://github.com/Myranae)! - Add typesafe parser for Grapher's user input type
+
+-   [#2550](https://github.com/Khan/perseus/pull/2550) [`35e4d13d9`](https://github.com/Khan/perseus/commit/35e4d13d9f6e49996e149950024a87f1601c2e43) Thanks [@Myranae](https://github.com/Myranae)! - Add typesafe parser for CS Program's user input type
+
+*   [#2548](https://github.com/Khan/perseus/pull/2548) [`6bc9cc667`](https://github.com/Khan/perseus/commit/6bc9cc667c5bf2e48bfc5d036f11ba2285730839) Thanks [@Myranae](https://github.com/Myranae)! - Add typesafe parser for Iframe's user input type
+
+-   [#2479](https://github.com/Khan/perseus/pull/2479) [`074775b1f`](https://github.com/Khan/perseus/commit/074775b1ff0dc830a3d66030a14b776b0f631003) Thanks [@handeyeco](https://github.com/handeyeco)! - LEMS-2948: tweak how we determine when to wipe widget state clean (answerless/answerful)
+
 ## 12.1.0
 
 ### Minor Changes

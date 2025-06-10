@@ -4,8 +4,10 @@
 import {
     Errors,
     PerseusError,
-    getUpgradedWidgetOptions,
+    getDefaultAnswerArea,
+    applyDefaultsToWidgets,
     mapObject,
+    splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {
@@ -66,6 +68,7 @@ import type {
     PerseusScore,
     UserInputArray,
     UserInputMap,
+    PerseusItem,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -75,8 +78,6 @@ const rContainsNonWhitespace = /\S/;
 const rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
 
 const noopOnRender = () => {};
-
-const SHOULD_CLEAR_WIDGETS_PROP_LIST = ["content", "problemNum", "widgets"];
 
 const makeContainerId = (id: string) => "container:" + id;
 
@@ -199,6 +200,37 @@ type DefaultProps = Required<
     >
 >;
 
+/**
+ * We want to be able to reset the question state when we go
+ * from one question to another question. However it's kind of tricky:
+ * 1. Content could be the same
+ * 2. Problem number could be the same
+ * 3. We don't want to reset when going from answerless to answerful data
+ * So compare the prev props to the next props, but use
+ * answerless for both for the comparison
+ */
+function isDifferentQuestion(prev: Props, next: Props): boolean {
+    if (prev.problemNum !== next.problemNum) {
+        return true;
+    }
+
+    function answerlessStringified(props: Props): string {
+        const answerful: PerseusItem = {
+            question: {
+                content: props.content,
+                widgets: props.widgets,
+                images: {},
+            },
+            hints: [],
+            answerArea: getDefaultAnswerArea(),
+        };
+        const answerless = splitPerseusItem(answerful);
+        return JSON.stringify(answerless);
+    }
+
+    return answerlessStringified(prev) !== answerlessStringified(next);
+}
+
 class Renderer
     extends React.Component<Props, State>
     implements GetPromptJSONInterface
@@ -298,12 +330,7 @@ class Renderer
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        if (
-            !_.isEqual(
-                _.pick(this.props, SHOULD_CLEAR_WIDGETS_PROP_LIST),
-                _.pick(nextProps, SHOULD_CLEAR_WIDGETS_PROP_LIST),
-            )
-        ) {
+        if (isDifferentQuestion(this.props, nextProps)) {
             this.setState(this._getInitialWidgetState(nextProps));
         }
     }
@@ -446,7 +473,7 @@ class Renderer
         widgetInfo: State["widgetInfo"];
         widgetProps: State["widgetProps"];
     } = (props: Props) => {
-        const allWidgetInfo = getUpgradedWidgetOptions(props.widgets);
+        const allWidgetInfo = applyDefaultsToWidgets(props.widgets);
         return {
             widgetInfo: allWidgetInfo,
             widgetProps: this._getAllWidgetsStartProps(allWidgetInfo, props),
@@ -895,7 +922,7 @@ class Renderer
         props: Props,
         state: State,
     ): boolean => {
-        // TODO(aria): Pass this in via webapp as an apiOption
+        // TODO(aria): Pass this in via khan/frontend as an apiOption
         return (
             getDependencies().JIPT.useJIPT &&
             state.jiptContent == null &&

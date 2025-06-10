@@ -5,7 +5,7 @@ import type {StorybookConfig} from "@storybook/react-vite";
 
 const excludedCssFiles = ["lato.css", "protractor.css", "mafs-styles.css"];
 // This is a temporary plugin option to mimic what is in PROD in regard to cascade layers.
-// Perseus CSS files are wrapped in the 'shared' layer in Webapp.
+// Perseus CSS files are wrapped in the 'shared' layer in khan/frontend.
 // To get the same ordering of precedence in Storybook, the imported CSS files need to be wrapped accordingly.
 // Once the CSS files have cascade layers included (LEMS-2801),
 //     then the following plugin option should be removed.
@@ -45,11 +45,10 @@ const config: StorybookConfig = {
         // dir.
         "../packages/*/src/**/*@(.stories|.fixturestories).@(ts|tsx)",
     ],
-
     addons: [
-        "@storybook/addon-links",
-        "@storybook/addon-essentials",
         "@storybook/addon-a11y",
+        "@storybook/addon-docs",
+        "@storybook/addon-links",
     ],
 
     // NOTE(kevinb): We customize the padding a bit so that so that stories

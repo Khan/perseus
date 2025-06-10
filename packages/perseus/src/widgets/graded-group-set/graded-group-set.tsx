@@ -246,21 +246,10 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
     }
 }
 
-const traverseChildWidgets: (arg1: any, arg2: any) => any = function (
-    props,
-    traverseRenderer,
-) {
-    // NOTE(jared): I have no idea how this works
-    return {
-        groups: props.gradedGroups.map(traverseRenderer),
-    };
-};
-
 export default {
     name: "graded-group-set",
     displayName: "Graded group set (articles only)",
     widget: GradedGroupSet,
-    traverseChildWidgets: traverseChildWidgets,
     // TODO(michaelpolyak): This widget should be available for articles only
     hidden: false,
     tracking: "all",

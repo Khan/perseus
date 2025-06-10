@@ -1,5 +1,47 @@
 # @khanacademy/perseus-editor
 
+## 24.0.0
+
+### Major Changes
+
+-   [#2474](https://github.com/Khan/perseus/pull/2474) [`59a2e87a8`](https://github.com/Khan/perseus/commit/59a2e87a83ef08a151552c7922bddfcbf1c73cf2) Thanks [@tatianasnook](https://github.com/tatianasnook)! - Moved checkAccessibilityAndWarn logic into a custom linter rule
+
+*   [#2377](https://github.com/Khan/perseus/pull/2377) [`8a15c154b`](https://github.com/Khan/perseus/commit/8a15c154b8cd596167f399de0882572d9a8bc54b) Thanks [@tatianasnook](https://github.com/tatianasnook)! - This change introduces the Issues Panel container (LEMS-2925), which displays a list of accessibility warnings in the editor. Each warning includes a title, description, impact, and message. The panel also uses icons to indicate whether there are issues or if all checks have passed, improving visibility and clarity for content creators.
+
+-   [#2526](https://github.com/Khan/perseus/pull/2526) [`ab2861d83`](https://github.com/Khan/perseus/commit/ab2861d8335e7ef1800dd5c6754616192b53073b) Thanks [@tatianasnook](https://github.com/tatianasnook)! - Pass data between EditorPage and ItemEditor via new props
+
+### Minor Changes
+
+-   [#2553](https://github.com/Khan/perseus/pull/2553) [`f5d08b79a`](https://github.com/Khan/perseus/commit/f5d08b79aca6d56ba7bdc3d47429c449645f75f9) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding partically accessible widget function to interactive graph and label image.
+
+### Patch Changes
+
+-   Updated dependencies [[`f5d08b79a`](https://github.com/Khan/perseus/commit/f5d08b79aca6d56ba7bdc3d47429c449645f75f9), [`cea05d9e6`](https://github.com/Khan/perseus/commit/cea05d9e6c629db6c14ed43dba085e215d006a1e), [`e60f6ac50`](https://github.com/Khan/perseus/commit/e60f6ac50a28d0664bfc211c9c655651719e3309), [`75f1d1f53`](https://github.com/Khan/perseus/commit/75f1d1f53fe173f9275a213376c2497b5762ce0a), [`0eba51c67`](https://github.com/Khan/perseus/commit/0eba51c67e1e67a11e425cb772194a44857eae0f), [`59a2e87a8`](https://github.com/Khan/perseus/commit/59a2e87a83ef08a151552c7922bddfcbf1c73cf2), [`ab2861d83`](https://github.com/Khan/perseus/commit/ab2861d8335e7ef1800dd5c6754616192b53073b), [`6da29d18b`](https://github.com/Khan/perseus/commit/6da29d18b8c1041b0db6e70d008706640349e819), [`cec57bbc6`](https://github.com/Khan/perseus/commit/cec57bbc6cf32cdce5a6b764b7399f69f87b4a89)]:
+    -   @khanacademy/perseus@65.0.0
+    -   @khanacademy/perseus-core@14.0.0
+    -   @khanacademy/perseus-linter@4.0.0
+    -   @khanacademy/perseus-score@7.1.0
+    -   @khanacademy/keypad-context@3.0.13
+    -   @khanacademy/kmath@2.0.13
+    -   @khanacademy/math-input@26.0.2
+
+## 23.0.1
+
+### Patch Changes
+
+-   [#2551](https://github.com/Khan/perseus/pull/2551) [`414abda7a`](https://github.com/Khan/perseus/commit/414abda7a80fc482e93ab064ff34ef540cd9eae7) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - 🛠️ Upgrade all packages to use Storybook v9 for development
+
+*   [#2419](https://github.com/Khan/perseus/pull/2419) [`843d66257`](https://github.com/Khan/perseus/commit/843d66257ceb32b7c3d3eea4dea47dfda58e7945) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove the `propUpgrades` API from widgets as they're considered obsolete with the new parser
+
+*   Updated dependencies [[`404bde44d`](https://github.com/Khan/perseus/commit/404bde44dc6f8b6d5cbc8593c10b47f5f65d7eeb), [`d4720c470`](https://github.com/Khan/perseus/commit/d4720c4706888c922e3111c11f121a730d592aaf), [`414abda7a`](https://github.com/Khan/perseus/commit/414abda7a80fc482e93ab064ff34ef540cd9eae7), [`35e4d13d9`](https://github.com/Khan/perseus/commit/35e4d13d9f6e49996e149950024a87f1601c2e43), [`6bc9cc667`](https://github.com/Khan/perseus/commit/6bc9cc667c5bf2e48bfc5d036f11ba2285730839), [`843d66257`](https://github.com/Khan/perseus/commit/843d66257ceb32b7c3d3eea4dea47dfda58e7945), [`074775b1f`](https://github.com/Khan/perseus/commit/074775b1ff0dc830a3d66030a14b776b0f631003)]:
+    -   @khanacademy/perseus-core@13.0.0
+    -   @khanacademy/math-input@26.0.1
+    -   @khanacademy/perseus@64.0.0
+    -   @khanacademy/perseus-score@7.0.2
+    -   @khanacademy/keypad-context@3.0.12
+    -   @khanacademy/kmath@2.0.12
+    -   @khanacademy/perseus-linter@3.0.12
+
 ## 23.0.0
 
 ### Major Changes
