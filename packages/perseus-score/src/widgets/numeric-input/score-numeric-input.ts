@@ -1,3 +1,5 @@
+import {getDecimalSeparator} from "@khanacademy/perseus-core";
+
 import KhanAnswerTypes from "../../util/answer-types";
 import {parseTex} from "../../util/tex-wrangler";
 
@@ -66,6 +68,7 @@ export function maybeParsePercentInput(
 function scoreNumericInput(
     userInput: PerseusNumericInputUserInput,
     rubric: PerseusNumericInputRubric,
+    locale?: string,
 ): PerseusScore {
     const defaultAnswerForms = answerFormButtons
         .map((e) => e["value"])
@@ -95,6 +98,8 @@ function scoreNumericInput(
             inexact: true, // TODO(merlob) backfill / delete
             maxError: answer.maxError,
             forms: validatorForms,
+            // Pass locale-specific decimal separator like expression scorer does
+            ...(locale && {decimal_separator: getDecimalSeparator(locale)}),
         });
     };
 
