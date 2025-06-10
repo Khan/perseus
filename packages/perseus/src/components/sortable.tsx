@@ -339,7 +339,7 @@ class Draggable extends React.Component<DraggableProps, DraggableState> {
 
         // We need to keep backwards compatbility with rules specified directly
         // in CSS. Hence the hacky tacking on of manual classNames.
-        // See sortable.less for details.
+        // See sortable.css for details.
         let className =
             css(
                 styles.card,
@@ -802,7 +802,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
 
         const {layout} = this.props;
         // We need to keep backwards compatbility with rules specified directly
-        // in CSS. See sortable.less for details.
+        // in CSS. See sortable.css for details.
         const className = css(styles.sortable) + " perseus-sortable";
 
         const syncWidth =
