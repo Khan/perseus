@@ -4,7 +4,7 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import type {StorybookConfig} from "@storybook/react-vite";
 
 // This is a temporary plugin option to mimic what is in PROD in regard to cascade layers.
-// Perseus LESS files are wrapped in the 'shared' layer in Webapp.
+// Perseus LESS files are wrapped in the 'shared' layer in khan/frontend.
 // To get the same ordering of precedence in Storybook, the imported LESS files need to be wrapped accordingly.
 // Once the LESS files have cascade layers included (LEMS-2801),
 //     then the following plugin option should be removed.
