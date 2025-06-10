@@ -1,0 +1,11 @@
+.framework-perseus .perseus-group {
+    position: relative;
+    width: 100%;
+}
+.framework-perseus .perseus-group .group-icon {
+    font-size: 14px;
+    position: absolute;
+    top: 50%;
+    top: calc(50% - 7px);
+    margin-left: -20px;
+}

@@ -4,29 +4,22 @@
  * .storybook/preview.js file so that the components can have the same
  * styles as prod when viewed within Storybook.
  */
-
-// Variables
-@offBlack: #21242c;
-@wonderBlocksFontFamily: "Lato", "Noto Sans", "Helvetica", "Corbel", sans-serif;
-
 html,
 body {
     height: 100%;
 }
-
 body {
-    font-family: @wonderBlocksFontFamily, "Helvetica", "Corbel", sans-serif;
+    font-family: "Lato", "Noto Sans", "Helvetica", "Corbel", sans-serif,
+        "Helvetica", "Corbel", sans-serif;
     font-size: 14px;
     margin: 0;
-    color: @offBlack;
+    color: var(--wb-semanticColor-text-primary);
     line-height: 1.4;
     min-width: 0;
 }
-
 .box-sizing-border-box-reset {
     box-sizing: border-box;
 }
-
 .box-sizing-border-box-reset * {
     box-sizing: inherit;
 }

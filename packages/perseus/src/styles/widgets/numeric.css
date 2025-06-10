@@ -1,0 +1,16 @@
+.input-with-examples-tooltip {
+    font-size: 18px;
+    line-height: 28px;
+    color: #717378;
+    background: #fff;
+}
+.input-with-examples-tooltip ul {
+    list-style-type: disc;
+    margin-left: 30px;
+}
+.input-with-examples-tooltip strong {
+    font-weight: 700;
+}
+.input-with-examples-tooltip em {
+    font-style: italic;
+}
