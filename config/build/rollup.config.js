@@ -9,10 +9,10 @@ import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import swc from "@rollup/plugin-swc";
 import ancesdir from "ancesdir";
+import postcssImport from "postcss-import";
 import autoExternal from "rollup-plugin-auto-external";
 import filesize from "rollup-plugin-filesize";
 import postcss from "rollup-plugin-postcss";
-import postcssImport from "postcss-import";
 
 const rootDir = ancesdir(__dirname);
 
