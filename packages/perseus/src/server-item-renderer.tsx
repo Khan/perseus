@@ -132,6 +132,9 @@ export class ServerItemRenderer
         // In cases where we are rendering content that doesn't have any assets
         // (things that are async loaded/rendered, such as images or TeX), we
         // want to ensure that we fire the onRendered callback at least once.
+        // By the time the component mounts, assets will already be registered,
+        // but may not be loaded. So we will know if all assets are loaded at
+        // this point in the component lifecycle.
         this.maybeCallOnRendered();
     }
 
