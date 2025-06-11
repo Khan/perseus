@@ -67,7 +67,8 @@ type Point = {
 
 export type OptionalAnswersMarkerType = Omit<
     InteractiveMarkerType,
-    "answers"
+    | "selected" // get selected from user input
+    | "answers"
 > & {
     answers?: string[];
 };
@@ -77,12 +78,12 @@ type Options = Omit<PerseusLabelImageWidgetOptions, "markers"> & {
     markers: ReadonlyArray<OptionalAnswersMarkerType>;
 };
 
-type Props = WidgetProps<Options, PerseusLabelImageUserInput> &
-    DependencyProps & {
-        // preferred placement for popover (preference, not MUST)
-        // TODO: this is sus, probably never passed in
-        preferredPopoverDirection?: PreferredPopoverDirection;
-    };
+type Props = WidgetProps<Options, PerseusLabelImageUserInput> & {
+    analytics: DependencyProps["analytics"];
+    // preferred placement for popover (preference, not MUST)
+    // TODO: this is sus, probably never passed in
+    preferredPopoverDirection?: PreferredPopoverDirection;
+};
 
 type LabelImageState = {
     // The user selected marker index, defaults to -1, no selection.
@@ -321,13 +322,12 @@ export class LabelImage
         this._mounted = false;
     }
 
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     getUserInput(): PerseusLabelImageUserInput {
-        return {
-            markers: this.props.markers.map((marker) => ({
-                selected: marker.selected,
-                label: marker.label,
-            })),
-        };
+        return this.props.userInput;
     }
 
     getPromptJSON(): LabelImagePromptJSON {
@@ -335,13 +335,12 @@ export class LabelImage
     }
 
     showRationalesForCurrentlySelectedChoices() {
-        const {markers} = this.props;
-        const {onChange} = this.props;
+        const {markers, userInput, onChange} = this.props;
 
-        const updatedMarkers = markers.map((marker) => {
+        const updatedMarkers = markers.map((marker, index) => {
             if (isAnswerful(marker)) {
                 const score = scoreLabelImageMarker(
-                    marker.selected,
+                    userInput[index].selected,
                     marker.answers,
                 );
 
@@ -368,14 +367,17 @@ export class LabelImage
         onChange({markers: updatedMarkers}, undefined, true);
     }
 
-    handleMarkerChange(index: number, marker: Props["markers"][number]) {
-        const {markers, onChange} = this.props;
+    handleMarkerChange(
+        index: number,
+        marker: PerseusLabelImageUserInput["markers"][number],
+    ) {
+        const {markers, userInput, onChange, handleUserInput} = this.props;
 
-        // Replace marker with a changed version at the specified index.
-        const updatedMarkers = [
+        // Update the RenderProps version of the marker (display)
+        const updatedRenderProps = [
             ...markers.slice(0, index),
             {
-                ...marker,
+                ...markers[index],
                 // Do not show correctness state if user changes answer
                 // selection for marker.
                 showCorrectness: undefined,
@@ -383,8 +385,18 @@ export class LabelImage
             ...markers.slice(index + 1),
         ];
 
-        // Update Perseus widget state with user selected answers.
-        onChange({markers: updatedMarkers});
+        // Update UserInput verions of the marker
+        const updatedUserInput = [
+            ...userInput.markers.slice(0, index),
+            {
+                label: marker.label,
+                selected: marker.selected,
+            },
+            ...userInput.markers.slice(index + 1),
+        ];
+
+        onChange({markers: updatedRenderProps});
+        handleUserInput({markers: updatedUserInput});
     }
 
     activateMarker(index: number, opened: boolean) {
@@ -462,13 +474,17 @@ export class LabelImage
 
         this.handleMarkerChange(index, {
             ...markers[index],
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            selected: selected.length ? selected : undefined,
+            selected: selected.length > 0 ? selected : undefined,
         });
     }
+
     renderMarkers(): ReadonlyArray<React.ReactNode> {
-        const {markers, questionCompleted, preferredPopoverDirection} =
-            this.props;
+        const {
+            markers,
+            questionCompleted,
+            preferredPopoverDirection,
+            userInput,
+        } = this.props;
 
         const {activeMarkerIndex, markersInteracted} = this.state;
 
@@ -483,6 +499,7 @@ export class LabelImage
 
         // Render all markers for widget.
         return markers.map((marker, index): React.ReactElement => {
+            const userInputMarker = userInput.markers[index];
             let side: "bottom" | "left" | "right" | "top";
             let markerPosition;
             // Position popup closest to the center, preferring it renders
@@ -540,7 +557,7 @@ export class LabelImage
             const answerChoicesActive = index === activeMarkerIndex;
 
             const showAnswerChoice =
-                marker.selected &&
+                userInputMarker.selected &&
                 !answerChoicesActive &&
                 !this.state.hideAnswers;
 
@@ -559,8 +576,8 @@ export class LabelImage
                         key={`answers-${marker.x}.${marker.y}`}
                         choices={this.props.choices.map((choice) => ({
                             content: choice,
-                            checked: marker.selected
-                                ? marker.selected.includes(choice)
+                            checked: userInputMarker.selected
+                                ? userInputMarker.selected.includes(choice)
                                 : false,
                         }))}
                         multipleSelect={this.props.multipleAnswers}
@@ -604,7 +621,7 @@ export class LabelImage
                                         answerStyles={adjustPillDistance}
                                         focused={focused || pressed}
                                         hovered={hovered}
-                                        selected={marker.selected}
+                                        selected={userInputMarker.selected}
                                     />
                                 )}
                             </Clickable>
@@ -723,6 +740,42 @@ export class LabelImage
     }
 }
 
+const LabelImageWithDependencies = React.forwardRef<
+    LabelImage,
+    Omit<PropsFor<typeof LabelImage>, keyof ReturnType<typeof useDependencies>>
+>((props, ref) => {
+    const deps = useDependencies();
+    return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
+});
+
+({}) as WidgetProps<
+    PerseusLabelImageWidgetOptions,
+    PerseusLabelImageUserInput
+> satisfies PropsFor<typeof LabelImageWithDependencies>;
+
+({}) as WidgetProps<
+    LabelImagePublicWidgetOptions,
+    PerseusLabelImageUserInput
+> satisfies PropsFor<typeof LabelImageWithDependencies>;
+
+function getStartUserInput(
+    options: LabelImagePublicWidgetOptions,
+): PerseusLabelImageUserInput {
+    return {
+        markers: options.markers.map((m) => ({
+            label: m.label,
+        })),
+    };
+}
+
+export default {
+    name: "label-image",
+    displayName: "Label Image",
+    widget: LabelImageWithDependencies,
+    isLintable: true,
+    getStartUserInput,
+} satisfies WidgetExports<typeof LabelImageWithDependencies>;
+
 const styles = StyleSheet.create({
     instructions: {
         paddingBottom: 16,
@@ -780,28 +833,3 @@ const styles = StyleSheet.create({
         pointerEvents: "none",
     },
 });
-
-const LabelImageWithDependencies = React.forwardRef<
-    LabelImage,
-    Omit<PropsFor<typeof LabelImage>, keyof ReturnType<typeof useDependencies>>
->((props, ref) => {
-    const deps = useDependencies();
-    return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
-});
-
-({}) as WidgetProps<
-    PerseusLabelImageWidgetOptions,
-    PerseusLabelImageUserInput
-> satisfies PropsFor<typeof LabelImage>;
-
-({}) as WidgetProps<
-    LabelImagePublicWidgetOptions,
-    PerseusLabelImageUserInput
-> satisfies PropsFor<typeof LabelImage>;
-
-export default {
-    name: "label-image",
-    displayName: "Label Image",
-    widget: LabelImageWithDependencies,
-    isLintable: true,
-} satisfies WidgetExports<typeof LabelImageWithDependencies>;
