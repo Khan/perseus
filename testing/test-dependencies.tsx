@@ -125,7 +125,7 @@ export const storybookDependenciesV2: PerseusDependenciesV2 = {
     ...testDependenciesV2,
     analytics: {
         onAnalyticsEvent: async (event) => {
-            console.log("⚡️ Sending analytics event:", event);
+            console.info("⚡️ Sending analytics event:", event);
         },
     },
 };

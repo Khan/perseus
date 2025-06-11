@@ -815,9 +815,6 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 }
 
-// We don't need to change any of the original props for static mode
-const staticTransform = _.identity;
-
 /**
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
@@ -832,6 +829,5 @@ export default {
     name: "interactive-graph",
     displayName: "Interactive graph",
     widget: InteractiveGraph,
-    staticTransform,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof InteractiveGraph>;

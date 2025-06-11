@@ -870,7 +870,7 @@ export default {
     displayName: "Number line",
     widget: NumberLine,
     transform,
-    staticTransform: staticTransform,
+    staticTransform,
     getCorrectUserInput,
     getStartUserInput,
     getUserInputFromSerializedState,
