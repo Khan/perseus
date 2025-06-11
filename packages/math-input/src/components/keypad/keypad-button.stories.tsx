@@ -1,5 +1,5 @@
-import {action} from "@storybook/addon-actions";
 import * as React from "react";
+import {action} from "storybook/actions";
 
 import KeyConfigs from "../../data/key-configs";
 import {mockStrings} from "../../strings";

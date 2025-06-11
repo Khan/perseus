@@ -169,14 +169,6 @@ export const getPublicWidgets = (): Record<string, WidgetExports> => {
     }, {});
 };
 
-export const isAccessible = (widgetInfo: PerseusWidget): boolean => {
-    const accessible = widgets.get(widgetInfo.type)?.accessible;
-    if (typeof accessible === "function") {
-        return accessible(widgetInfo.options);
-    }
-    return !!accessible;
-};
-
 export const getAllWidgetTypes = (): ReadonlyArray<string> => {
     return widgets.keys();
 };
@@ -207,41 +199,6 @@ export const getRendererPropsForWidgetInfo = (
     }
     // widgetInfo.options are the widgetEditor's props:
     return transform(widgetInfo.options, strings, problemNum);
-};
-
-export const traverseChildWidgets = (
-    widgetInfo: PerseusWidget,
-    traverseRenderer: any,
-): PerseusWidget => {
-    if (!traverseRenderer) {
-        throw new PerseusError(
-            "traverseRenderer must be provided, but was not",
-            Errors.Internal,
-        );
-    }
-
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (!widgetInfo || !widgetInfo.type) {
-        return widgetInfo;
-    }
-
-    const widget = widgets.get(widgetInfo.type);
-
-    if (widget == null) {
-        return widgetInfo;
-    }
-
-    const props = widgetInfo.options;
-
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (widget.traverseChildWidgets && props) {
-        const newProps = widget.traverseChildWidgets(props, traverseRenderer);
-        return {
-            ...widgetInfo,
-            options: newProps,
-        };
-    }
-    return widgetInfo;
 };
 
 /**

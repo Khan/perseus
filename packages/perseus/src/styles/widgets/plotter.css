@@ -1,0 +1,22 @@
+.perseus-widget-plotter svg,
+.perseus-widget-plotter vml {
+    position: absolute;
+}
+.perseus-widget-plotter span.rotate {
+    transform: rotate(-90deg);
+}
+.set-from-scale-box {
+    border: 2px solid #eeeeee;
+    border-radius: 3px;
+    padding: 3px;
+}
+.categories-title {
+    font-size: 14px;
+}
+.perseus-mobile .perseus-widget-plotter {
+    border: solid 0.5px #babec2;
+    border-radius: 4px;
+}
+.perseus-mobile .perseus-widget-plotter .graphie-label mjx-container {
+    color: #626569;
+}

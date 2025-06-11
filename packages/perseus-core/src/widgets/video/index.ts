@@ -15,6 +15,7 @@ const videoWidgetLogic: WidgetLogic = {
     defaultWidgetOptions,
     supportedAlignments: ["block", "float-left", "float-right", "full-width"],
     defaultAlignment: "block",
+    accessible: false,
 };
 
 export default videoWidgetLogic;

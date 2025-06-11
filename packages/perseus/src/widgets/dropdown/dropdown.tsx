@@ -158,7 +158,6 @@ function transform(widgetOptions: DropdownPublicWidgetOptions): RenderProps {
 export default {
     name: "dropdown",
     displayName: "Drop down",
-    accessible: true,
     widget: Dropdown,
     transform,
 } satisfies WidgetExports<typeof Dropdown>;

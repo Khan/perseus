@@ -30,6 +30,7 @@ export const parseSimplify = pipeParsers(
     union(constant(null))
         .or(constant(undefined))
         .or(boolean)
+        .or(constant("true"))
         .or(constant("required"))
         .or(constant("correct"))
         .or(constant("enforced"))
@@ -39,24 +40,25 @@ export const parseSimplify = pipeParsers(
 
 function deprecatedSimplifyValuesToRequired(
     simplify:
+        | null
+        | undefined
+        | boolean
+        | "true"
         | "required"
         | "correct"
         | "enforced"
         | "optional"
-        | "accepted"
-        | null
-        | undefined
-        | boolean,
+        | "accepted",
 ): "enforced" | "required" | "optional" {
     switch (simplify) {
         case "enforced":
         case "required":
         case "optional":
             return simplify;
-        // NOTE(benchristel): "accepted", "correct", true, false, undefined, and
-        // null are all treated the same as "required" during scoring, so we
-        // convert them to "required" here to preserve behavior. See the tests
-        // in score-numeric-input.test.ts
+        // NOTE(benchristel): "accepted", "correct", "true", true, false,
+        // undefined, and null are all treated the same as "required" during
+        // scoring, so we convert them to "required" here to preserve
+        // behavior. See the tests in score-numeric-input.test.ts.
         default:
             return "required";
     }

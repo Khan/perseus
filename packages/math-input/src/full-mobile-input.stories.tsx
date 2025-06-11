@@ -2,8 +2,8 @@ import {
     StatefulKeypadContextProvider,
     KeypadContext,
 } from "@khanacademy/keypad-context";
-import {action} from "@storybook/addon-actions";
 import * as React from "react";
+import {action} from "storybook/actions";
 
 import {KeypadInput, MobileKeypad} from "./index";
 

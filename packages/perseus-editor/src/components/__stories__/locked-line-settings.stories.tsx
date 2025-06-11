@@ -3,7 +3,7 @@ import * as React from "react";
 import LockedLineSettings from "../../widgets/interactive-graph-editor/locked-figures/locked-line-settings";
 import {getDefaultFigureForType} from "../../widgets/interactive-graph-editor/locked-figures/util";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 export default {
     title: "PerseusEditor/Components/Locked Line Settings",

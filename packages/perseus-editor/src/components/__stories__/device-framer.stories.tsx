@@ -3,7 +3,7 @@ import * as React from "react";
 
 import DeviceFramer from "../device-framer";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof DeviceFramer> = {
     component: DeviceFramer,

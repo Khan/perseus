@@ -14,7 +14,7 @@ import {
 
 import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
-import type {Meta} from "@storybook/react";
+import type {Meta} from "@storybook/react-vite";
 
 type StoryArgs = {
     // Story Option
@@ -171,5 +171,30 @@ export const AnswerlessMultiSelect = {
             question: multiChoiceQuestion,
         }),
         startAnswerless: true,
+    },
+};
+
+// RTL Variants
+export const SelectWithImagesAndScrollRTL = {
+    args: {
+        item: generateTestPerseusItem({
+            question: SingleSelectOverflowImageContent,
+        }),
+    },
+};
+
+export const SingleSelectWithScrollRTL = {
+    args: {
+        item: generateTestPerseusItem({
+            question: SingleSelectOverflowContent,
+        }),
+    },
+};
+
+export const MultiSelectWithScrollRTL = {
+    args: {
+        item: generateTestPerseusItem({
+            question: multiChoiceQuestionSimpleOverflowContent,
+        }),
     },
 };

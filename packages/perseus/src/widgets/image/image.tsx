@@ -247,13 +247,6 @@ class ImageWidget extends React.Component<Props> implements Widget {
 
 export default {
     name: "image",
-    // This widget's accessibility depends on its contents: if the image has
-    // has a background but no alt text, it is not accessible
-    accessible: (widgetOptions: PerseusImageWidgetOptions): boolean => {
-        const bgImage = widgetOptions.backgroundImage;
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        return !(bgImage && bgImage.url && !widgetOptions.alt);
-    },
     displayName: "Image",
     widget: ImageWidget,
     isLintable: true,

@@ -122,11 +122,9 @@ const transform = (
 export default {
     name: "radio",
     displayName: "Radio / Multiple choice",
-    accessible: true,
     widget: Radio,
     transform: transform,
     staticTransform: transform,
     version: radioLogic.version,
-    propUpgrades: radioLogic.widgetOptionsUpgrades,
     isLintable: true,
 } satisfies WidgetExports<typeof Radio>;

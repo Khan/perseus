@@ -13,9 +13,9 @@ import DeviceFramer from "../components/device-framer";
 import ViewportResizer from "../components/viewport-resizer";
 import ContentPreview from "../content-preview";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-import "../styles/perseus-editor.less";
+import "../styles/perseus-editor.css";
 
 const PreviewWrapper = (props) => {
     const [previewDevice, setPreviewDevice] =

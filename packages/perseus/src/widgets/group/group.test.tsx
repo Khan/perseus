@@ -10,7 +10,6 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
-import {traverse} from "../../traversal";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -525,54 +524,6 @@ describe("group widget", () => {
                 "Here's some rationale, this isn't the correct answer!",
             ),
         ).toBeInTheDocument();
-    });
-
-    describe("traverseChildWidgets", () => {
-        it("should call the contentCallback for each top-level piece of content", () => {
-            // Arrange
-            const contentCallback = jest.fn();
-
-            // Act
-            traverse(question1, contentCallback);
-
-            // Assert
-            // This callback does not get deep traversal!
-            expect(contentCallback).toHaveBeenCalledTimes(3);
-        });
-
-        it("should call the widgetCallback for every widget anywhere in the tree", () => {
-            // Arrange
-            const widgetIds = [];
-            const widgetCallback = (_: any, widgetId: string) =>
-                // @ts-expect-error - TS2345 - Argument of type 'string' is not assignable to parameter of type 'never'.
-                widgetIds.push(widgetId);
-
-            // Act
-            traverse(question1, null, widgetCallback);
-
-            // Assert
-            expect(widgetIds).toEqual([
-                "radio 1",
-                "group 1",
-                "image 1",
-                "numeric-input 1",
-                "numeric-input 2",
-                "group 2",
-                "radio 1",
-            ]);
-        });
-
-        it("should call the optionsCallback for each top-level widget options", async () => {
-            // Arrange
-            const optionsCallback = jest.fn();
-
-            // Act
-            traverse(question1, null, null, optionsCallback);
-
-            // Assert
-            // This callback does not get deep traversal!
-            expect(optionsCallback).toHaveBeenCalledTimes(3);
-        });
     });
 
     it("handles answerless item data", () => {

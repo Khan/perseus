@@ -7,6 +7,7 @@ import type React from "react";
 
 type BasicOption = {
     value: string;
+    rationale?: string;
 };
 
 export type RadioPromptJSON = {
@@ -26,9 +27,13 @@ export const getPromptJSON = (
     const choices = renderProps.choices || [];
 
     const options = choices.map((choice) => {
-        return {
+        const option: BasicOption = {
             value: choice.content,
         };
+        if (choice.clue) {
+            option.rationale = choice.clue;
+        }
+        return option;
     });
 
     return {

@@ -12,7 +12,12 @@ export const question1: PerseusRenderer = {
             options: {
                 padding: true,
                 layout: "horizontal",
-                correct: ["$0.005$ kilograms", "$15$ grams", "$55$ grams"],
+                correct: [
+                    "$20000$ micrograms",
+                    "$15$ grams",
+                    "$0.05$ kilograms",
+                    "$100$ grams",
+                ],
             },
         },
     },

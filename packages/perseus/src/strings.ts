@@ -26,6 +26,7 @@ export type PerseusStrings = {
     ERROR_TITLE: string;
     ERROR_MESSAGE: string;
     USER_INPUT_EMPTY: string;
+    USER_INPUT_TOO_LONG: string;
     hints: string;
     getAnotherHint: string;
     deprecatedStandin: string;
@@ -114,8 +115,8 @@ export type PerseusStrings = {
     openMenuForChoice: ({letter}: {letter: string}) => string;
     letters: string;
     scrollAnswers: string;
-    scrollLeft: string;
-    scrollRight: string;
+    scrollStart: string;
+    scrollEnd: string;
     rightArrow: string;
     dontUnderstandUnits: string;
     checkSigFigs: string;
@@ -546,6 +547,7 @@ export const strings = {
         "multiplication if you use an asterisk " +
         "(*) as the multiplication sign.",
     USER_INPUT_EMPTY: "Your answer is empty.",
+    USER_INPUT_TOO_LONG: "Please shorten your response.",
     WRONG_CASE_ERROR:
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
@@ -654,8 +656,8 @@ export const strings = {
         message: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",
     },
     scrollAnswers: "Scroll Answers",
-    scrollLeft: "Scroll left",
-    scrollRight: "Scroll right",
+    scrollStart: "Scroll to view start of the content",
+    scrollEnd: "Scroll to view the end of the content",
     rightArrow: "Reaction arrow pointing to the right.",
     dontUnderstandUnits: "I couldn't understand those units.",
     checkSigFigs: "Check your significant figures.",
@@ -1147,6 +1149,7 @@ export const mockStrings: PerseusStrings = {
         "multiplication if you use an asterisk " +
         "(*) as the multiplication sign.",
     USER_INPUT_EMPTY: "Your answer is empty.",
+    USER_INPUT_TOO_LONG: "Please shorten your response.",
     WRONG_CASE_ERROR:
         "Your answer includes use of a variable with the wrong case.",
     WRONG_LETTER_ERROR: "Your answer includes a wrong variable letter.",
@@ -1243,8 +1246,8 @@ export const mockStrings: PerseusStrings = {
     openMenuForChoice: ({letter}) => `Open menu for Choice ${letter}`,
     letters: "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z",
     scrollAnswers: "Scroll Answers",
-    scrollLeft: "Scroll left",
-    scrollRight: "Scroll right",
+    scrollStart: "Scroll to view start of the content",
+    scrollEnd: "Scroll to view the end of the content",
     rightArrow: "Reaction arrow pointing to the right.",
     dontUnderstandUnits: "I couldn't understand those units.",
     checkSigFigs: "Check your significant figures.",
@@ -1462,6 +1465,7 @@ const errorToString: ErrorStringMap = {
     NOT_NONE_ABOVE_ERROR: "notNoneOfTheAbove",
     FILL_ALL_CELLS_ERROR: "fillAllCells",
     USER_INPUT_EMPTY: "USER_INPUT_EMPTY",
+    USER_INPUT_TOO_LONG: "USER_INPUT_TOO_LONG",
 };
 
 export function mapErrorToString(

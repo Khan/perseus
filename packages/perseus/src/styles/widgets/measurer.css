@@ -1,0 +1,12 @@
+.perseus-widget-measurer {
+    position: relative;
+}
+.perseus-widget-measurer img {
+    position: absolute;
+}
+.perseus-widget-measurer-url {
+    width: 70%;
+}
+#translations-dashboard .perseus-widget-measurer > .graphie {
+    z-index: -1;
+}
