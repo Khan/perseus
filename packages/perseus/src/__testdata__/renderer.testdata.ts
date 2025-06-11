@@ -234,7 +234,6 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
                 correct: true,
                 originalIndex: 0,
             },
-
             {
                 content: "Content 3",
                 correct: false,
@@ -265,7 +264,6 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
                 correct: true,
                 originalIndex: 0,
             },
-
             {
                 content: "Content 3",
                 correct: false,

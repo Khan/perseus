@@ -1,4 +1,5 @@
-import {deriveNumCorrect} from "../../widgets/radio/derive-num-correct";
+import {normalizeContent, convertStringToHash} from "../../utils/content-hash";
+import {deriveNumCorrect} from "../../widgets/radio/radio-upgrade";
 import {
     any,
     array,
@@ -194,7 +195,12 @@ export function migrateV3ToV4(
             multipleSelect: options.multipleSelect,
             deselectEnabled: options.deselectEnabled,
             choices: options.choices.map((choice, index) => {
-                const choiceId = `choice-${index + 1}`;
+                // Create a unique ID using normalized content hash and index
+                const normalizedContent = normalizeContent(
+                    choice.content || "",
+                );
+                const contentHash = convertStringToHash(normalizedContent);
+                const choiceId = `choice-${index}-${contentHash}`;
                 return {
                     content: choice.content,
                     rationale: choice.rationale,
