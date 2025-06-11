@@ -224,7 +224,6 @@ export const SingleSelectOverflowImageContent: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
                 choices: [
                     {
                         content:
@@ -270,7 +269,6 @@ export const SingleSelectOverflowContent: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
                 choices: [
                     {
                         content:
@@ -436,7 +434,6 @@ export const multiChoiceQuestionSimpleOverflowContent: PerseusRenderer = {
             type: "radio",
             options: {
                 onePerLine: true,
-                displayCount: null,
                 choices: [
                     {
                         content:
