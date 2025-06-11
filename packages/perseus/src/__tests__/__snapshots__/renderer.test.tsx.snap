@@ -349,7 +349,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
             class="default_xu2jcg"
           >
             <label
-              class="text_f1191h-o_O-LabelLarge_16mkhxv"
+              class="text_f1191h-o_O-LabelLarge_142uijh"
               for=":r3:"
             >
               Test visible label
@@ -370,7 +370,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelMedium_455tor-o_O-text_16ujc3c"
+                  class="text_f1191h-o_O-LabelMedium_1voxh4u-o_O-text_16ujc3c"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -434,7 +434,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
             class="default_xu2jcg"
           >
             <label
-              class="text_f1191h-o_O-LabelLarge_16mkhxv"
+              class="text_f1191h-o_O-LabelLarge_142uijh"
               for=":r6:"
             >
               Test visible label
@@ -455,7 +455,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelMedium_455tor-o_O-text_16ujc3c"
+                  class="text_f1191h-o_O-LabelMedium_1voxh4u-o_O-text_16ujc3c"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -519,7 +519,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
             class="default_xu2jcg"
           >
             <label
-              class="text_f1191h-o_O-LabelLarge_16mkhxv"
+              class="text_f1191h-o_O-LabelLarge_142uijh"
               for=":r0:"
             >
               Test visible label
@@ -540,7 +540,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelMedium_455tor-o_O-text_16ujc3c"
+                  class="text_f1191h-o_O-LabelMedium_1voxh4u-o_O-text_16ujc3c"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -625,7 +625,7 @@ exports[`renderer snapshots renders a placeholder for a deprecated widget: depre
                     class="default_xu2jcg-o_O-labelContainer_1fjq5ke"
                   >
                     <span
-                      class="text_f1191h-o_O-LabelSmall_94fo23"
+                      class="text_f1191h-o_O-LabelSmall_b0rx6x"
                     >
                       Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!
                     </span>
