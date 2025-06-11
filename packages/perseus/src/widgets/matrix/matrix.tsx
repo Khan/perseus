@@ -578,6 +578,6 @@ export default {
     hidden: true,
     widget: Matrix,
     transform,
-    staticTransform: staticTransform,
+    staticTransform,
     isLintable: true,
 } satisfies WidgetExports<typeof Matrix>;

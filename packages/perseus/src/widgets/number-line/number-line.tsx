@@ -824,5 +824,5 @@ export default {
     displayName: "Number line",
     widget: NumberLine,
     transform: numberLineTransform,
-    staticTransform: staticTransform,
+    staticTransform,
 } satisfies WidgetExports<typeof NumberLine>;
