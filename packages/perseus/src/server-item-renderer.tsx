@@ -37,7 +37,6 @@ import type {
     KeypadContextRendererInterface,
     RendererInterface,
     KEScore,
-    UserInputArray,
     UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -329,17 +328,6 @@ export class ServerItemRenderer
 
     getPromptJSON(): RendererPromptJSON {
         return this.questionRenderer.getPromptJSON();
-    }
-
-    /**
-     * Returns an array of the widget `.getUserInput()` results
-     *
-     * TODO: can we remove this? Seems to be just for backwards
-     * compatibility with old Perseus Chrome logging
-     * @deprecated use getUserInput
-     */
-    getUserInputLegacy(): UserInputArray {
-        return this.questionRenderer.getUserInput();
     }
 
     /**

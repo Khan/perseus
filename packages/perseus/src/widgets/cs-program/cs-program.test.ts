@@ -45,8 +45,9 @@ describe("cs-program widget", () => {
         } as const;
 
         const {renderer} = renderQuestion(question1, apiOptions);
-        const userInput =
-            renderer.getUserInput()[0] as PerseusCSProgramUserInput;
+        const userInput = renderer.getUserInputMap()[
+            "cs-program 1"
+        ] as PerseusCSProgramUserInput;
 
         expect(userInput.status).toBe("incomplete");
         expect(userInput.message).toBe(null);

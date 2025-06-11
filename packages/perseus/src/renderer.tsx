@@ -66,7 +66,6 @@ import type {
     PerseusWidgetsMap,
     ShowSolutions,
     PerseusScore,
-    UserInputArray,
     UserInputMap,
     PerseusItem,
 } from "@khanacademy/perseus-core";
@@ -1693,23 +1692,6 @@ class Renderer
         // Widget handles parsing of the interWidgetPath.
         widget?.setInputValue?.(interWidgetPath, newValue, cb);
     };
-
-    /**
-     * Returns an array of the widget `.getUserInput()` results
-     *
-     * TODO: can we remove this?
-     * @deprecated use getUserInputMap
-     */
-    getUserInput(): UserInputArray {
-        return this.widgetIds.map((id: string) => {
-            const widget = this.getWidgetInstance(id);
-            if (widget && widget.getUserInput) {
-                // TODO(Jeremy): Add the widget ID in here so we can more
-                // easily correlate it to the widget state.
-                return widget.getUserInput();
-            }
-        });
-    }
 
     /**
      * Returns an object of the widget `.getUserInput()` results

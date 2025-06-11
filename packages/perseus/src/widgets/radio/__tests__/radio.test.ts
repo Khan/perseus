@@ -807,8 +807,9 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /Correct Choice$/}),
             );
 
-            const userInput =
-                renderer.getUserInput()[0] as PerseusRadioUserInput;
+            const userInput = renderer.getUserInputMap()[
+                "radio 1"
+            ] as PerseusRadioUserInput;
             const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
@@ -835,8 +836,9 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /Incorrect Choice 1$/}),
             );
 
-            const userInput =
-                renderer.getUserInput()[0] as PerseusRadioUserInput;
+            const userInput = renderer.getUserInputMap()[
+                "radio 1"
+            ] as PerseusRadioUserInput;
             const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
@@ -863,8 +865,9 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /None of the above$/}),
             );
 
-            const userInput =
-                renderer.getUserInput()[0] as PerseusRadioUserInput;
+            const userInput = renderer.getUserInputMap()[
+                "radio 1"
+            ] as PerseusRadioUserInput;
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
@@ -891,8 +894,9 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /Incorrect Choice 1$/}),
             );
 
-            const userInput =
-                renderer.getUserInput()[0] as PerseusRadioUserInput;
+            const userInput = renderer.getUserInputMap()[
+                "radio 1"
+            ] as PerseusRadioUserInput;
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(

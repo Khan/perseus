@@ -101,8 +101,9 @@ describe("Perseus API", function () {
                 const {renderer} = renderQuestion(mockWidget1Item.question);
                 act(() =>
                     renderer.setInputValue(["mock-widget 1"], "3", function () {
-                        const guess =
-                            renderer.getUserInput()[0] as PerseusMockWidgetUserInput;
+                        const guess = renderer.getUserInputMap()[
+                            "mock-widget 1"
+                        ] as PerseusMockWidgetUserInput;
                         expect(guess?.currentValue).toBe("3");
                         resolve(null);
                     }),
