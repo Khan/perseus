@@ -67,8 +67,7 @@ type Point = {
 
 export type OptionalAnswersMarkerType = Omit<
     InteractiveMarkerType,
-    | "selected" // get selected from user input
-    | "answers"
+    "answers"
 > & {
     answers?: string[];
 };
@@ -529,7 +528,10 @@ export class LabelImage
 
             let score: InteractiveMarkerScore;
             if (isAnswerful(marker)) {
-                score = scoreLabelImageMarker(marker.selected, marker.answers);
+                score = scoreLabelImageMarker(
+                    userInputMarker.selected,
+                    marker.answers,
+                );
             } else {
                 score = {
                     hasAnswers: false,

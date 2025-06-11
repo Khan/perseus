@@ -24,7 +24,6 @@ import type {UserEvent} from "@testing-library/user-event";
 const emptyMarker: InteractiveMarkerType = {
     label: "",
     answers: [],
-    selected: [],
     x: 0,
     y: 0,
 };
