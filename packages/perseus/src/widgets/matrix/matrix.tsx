@@ -7,7 +7,6 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import NumberInput from "../../components/number-input";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import TextInput from "../../components/text-input";
 import InteractiveUtil from "../../interactive2/interactive-util";
@@ -73,22 +72,6 @@ const getRefForPath = function (path: FocusPath) {
     return "answer" + row + "," + column;
 };
 
-type ExternalProps = WidgetProps<
-    {
-        // Translatable Text; Shown before the matrix
-        prefix: string;
-        // Translatable Text; Shown after the matrix
-        suffix: string;
-        // The coordinate location of the cursor position at start. default: [0, 0]
-        cursorPosition: ReadonlyArray<number>;
-        // The coordinate size of the matrix.  Only supports 2-dimensional matrix.  default: [3, 3]
-        matrixBoardSize: ReadonlyArray<number>;
-        // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
-        static?: boolean | undefined;
-    },
-    PerseusMatrixUserInput
->;
-
 // Assert that the PerseusMatrixWidgetOptions parsed from JSON can be passed
 // as props to this component. This ensures that the PerseusMatrixWidgetOptions
 // stays in sync with the prop types. The PropsFor<Component> type takes
@@ -100,16 +83,22 @@ type ExternalProps = WidgetProps<
     PerseusMatrixUserInput
 > satisfies PropsFor<typeof Matrix>;
 
-type RenderProps = MatrixPublicWidgetOptions;
+// type RenderProps = MatrixPublicWidgetOptions;
 
-type Props = ExternalProps & {
+type RenderProps = Pick<
+    PerseusMatrixWidgetOptions,
+    "matrixBoardSize" | "prefix" | "suffix"
+>;
+
+type Props = WidgetProps<RenderProps, PerseusMatrixUserInput> & {
+    // The coordinate location of the cursor position at start. default: [0, 0]
+    cursorPosition: ReadonlyArray<number>;
     onChange: (
-        arg1: {
+        nextProps: {
             cursorPosition?: ReadonlyArray<number>;
         },
-        arg2: () => boolean,
+        cb: () => boolean,
     ) => void;
-    numericInput?: boolean;
 };
 
 type DefaultProps = {
@@ -328,6 +317,18 @@ class Matrix extends React.Component<Props, State> implements Widget {
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState(): any {
+        const {userInput, ...rest} = this.props;
+        return {
+            ...rest,
+            answers: userInput.answers,
+        };
+    }
+
     render(): React.ReactNode {
         // Set the input sizes through JS so we can control the size of the
         // brackets. (If we set them in CSS we won't know values until the
@@ -487,10 +488,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                                 }
                                             />
                                         );
-                                    } else if (this.props.numericInput) {
-                                        MatrixInput = (
-                                            <NumberInput {...inputProps} />
-                                        );
                                     } else {
                                         const updatedProps = {
                                             ...inputProps,
@@ -561,6 +558,15 @@ function getCorrectUserInput(
         answers: options.answers,
     };
 }
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusMatrixUserInput {
+    return {answers: serializedState.answers};
+}
 
 export default {
     name: "matrix",
@@ -571,4 +577,5 @@ export default {
     staticTransform: transform,
     isLintable: true,
     getCorrectUserInput,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Matrix>;
