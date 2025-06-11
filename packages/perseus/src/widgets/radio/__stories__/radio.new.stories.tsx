@@ -181,22 +181,6 @@ export const SelectWithImagesAndScrollRTL = {
             question: SingleSelectOverflowImageContent,
         }),
     },
-    decorators: [
-        (Story) => {
-            // Set RTL for testing
-            document.body.setAttribute("dir", "rtl");
-
-            return (
-                <div style={{direction: "rtl"}}>
-                    <Story />
-                </div>
-            );
-        },
-    ],
-    play: async () => {
-        // Reset the direction after the story
-        document.body.removeAttribute("dir");
-    },
 };
 
 export const SingleSelectWithScrollRTL = {
@@ -205,22 +189,6 @@ export const SingleSelectWithScrollRTL = {
             question: SingleSelectOverflowContent,
         }),
     },
-    decorators: [
-        (Story) => {
-            // Set RTL for testing
-            document.body.setAttribute("dir", "rtl");
-
-            return (
-                <div style={{direction: "rtl"}}>
-                    <Story />
-                </div>
-            );
-        },
-    ],
-    play: async () => {
-        // Reset the direction after the story
-        document.body.removeAttribute("dir");
-    },
 };
 
 export const MultiSelectWithScrollRTL = {
@@ -228,21 +196,5 @@ export const MultiSelectWithScrollRTL = {
         item: generateTestPerseusItem({
             question: multiChoiceQuestionSimpleOverflowContent,
         }),
-    },
-    decorators: [
-        (Story) => {
-            // Set RTL for testing
-            document.body.setAttribute("dir", "rtl");
-
-            return (
-                <div style={{direction: "rtl"}}>
-                    <Story />
-                </div>
-            );
-        },
-    ],
-    play: async () => {
-        // Reset the direction after the story
-        document.body.removeAttribute("dir");
     },
 };
