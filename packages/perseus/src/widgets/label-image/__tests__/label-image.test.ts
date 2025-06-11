@@ -31,7 +31,6 @@ const emptyMarker: InteractiveMarkerType = {
 
 const emptyAnswerlessMarker: OptionalAnswersMarkerType = {
     label: "",
-    selected: [],
     x: 0,
     y: 0,
 };
