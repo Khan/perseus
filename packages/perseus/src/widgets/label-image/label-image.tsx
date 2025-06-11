@@ -737,6 +737,21 @@ export class LabelImage
         );
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState(): any {
+        const {userInput, markers, ...rest} = this.props;
+        return {
+            ...rest,
+            markers: markers.map((m, i) => ({
+                ...m,
+                selected: userInput.markers[i].selected,
+            })),
+        };
+    }
+
     render(): React.ReactNode {
         const {imageAlt, imageUrl, imageWidth, imageHeight} = this.props;
 
@@ -827,12 +842,28 @@ function getStartUserInput(
     };
 }
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusLabelImageUserInput {
+    return {
+        markers: serializedState.markers.map((m) => ({
+            label: m.label,
+            selected: m.selected,
+        })),
+    };
+}
+
 export default {
     name: "label-image",
     displayName: "Label Image",
     widget: LabelImageWithDependencies,
     isLintable: true,
     getStartUserInput,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof LabelImageWithDependencies>;
 
 const styles = StyleSheet.create({
