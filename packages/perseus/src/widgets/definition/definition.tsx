@@ -105,5 +105,4 @@ export default {
     name: "definition",
     displayName: "Definition",
     widget: Definition,
-    transform: (x: any) => x,
 } satisfies WidgetExports<typeof Definition>;
