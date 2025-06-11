@@ -1,5 +1,35 @@
 # @khanacademy/perseus
 
+## 65.1.0
+
+### Minor Changes
+
+-   [#2557](https://github.com/Khan/perseus/pull/2557) [`b2647ed0a`](https://github.com/Khan/perseus/commit/b2647ed0a74da2a81af1a682aa1444b885b7a8fc) Thanks [@marekweb](https://github.com/marekweb)! - Add rationales to the getPromptJSON output of Radio widget and Label Image widget
+
+### Patch Changes
+
+-   [#2489](https://github.com/Khan/perseus/pull/2489) [`d8c99f629`](https://github.com/Khan/perseus/commit/d8c99f629c9439cdf56e96f6a53f6bb28f278e07) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Convert LESS files to pre-built CSS files to simplify our styling framework
+
+*   [#2554](https://github.com/Khan/perseus/pull/2554) [`b83bdf3ef`](https://github.com/Khan/perseus/commit/b83bdf3ef47e235b67dc16254fb66843efde6ea2) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Update new radio types to interface
+
+-   [#2579](https://github.com/Khan/perseus/pull/2579) [`2fcb3b03a`](https://github.com/Khan/perseus/commit/2fcb3b03ab63c39d86787150fb3029c38f4ca039) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Fix a bug where the ServerItemRenderer and LoadingContext did not fire the `onRendered` prop callback when the PerseusItem being rendered did not have any assets.
+
+*   [#2576](https://github.com/Khan/perseus/pull/2576) [`4862aa4ad`](https://github.com/Khan/perseus/commit/4862aa4ad756f58ea6a98d3b994207ab184905e6) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Temporary remove RTL display in New Radio Widget to unblock Perseus from displaying the stories in RTL
+
+-   [#2570](https://github.com/Khan/perseus/pull/2570) [`69d7ff811`](https://github.com/Khan/perseus/commit/69d7ff811503164a50257a6fba2bf83cacd04efb) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Update comments to refer to khan/frontend instead of webapp. Khan Academy's frontend code has moved.
+
+-   Updated dependencies [[`d8c99f629`](https://github.com/Khan/perseus/commit/d8c99f629c9439cdf56e96f6a53f6bb28f278e07), [`69d7ff811`](https://github.com/Khan/perseus/commit/69d7ff811503164a50257a6fba2bf83cacd04efb)]:
+    -   @khanacademy/math-input@26.0.3
+    -   @khanacademy/perseus-core@14.0.1
+    -   @khanacademy/kas@2.0.6
+    -   @khanacademy/keypad-context@3.0.14
+    -   @khanacademy/kmath@2.0.14
+    -   @khanacademy/perseus-linter@4.0.1
+    -   @khanacademy/perseus-score@7.1.1
+    -   @khanacademy/perseus-utils@2.0.4
+    -   @khanacademy/pure-markdown@2.0.6
+    -   @khanacademy/simple-markdown@2.0.6
+
 ## 65.0.0
 
 ### Major Changes
