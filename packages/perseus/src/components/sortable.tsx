@@ -647,8 +647,9 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         // @ts-expect-error - TS2551 - Property 'splice' does not exist on type 'readonly SortableItem[]'. Did you mean 'slice'?
         nextItems.splice(index, 0, item);
 
-        this.setState({items: nextItems});
-        this.props.onChange?.({});
+        this.setState({items: nextItems}, () => {
+            this.props.onChange?.({});
+        });
     }
 
     onMouseMove(key: SortableItem["key"]) {
@@ -735,11 +736,12 @@ class Sortable extends React.Component<SortableProps, SortableState> {
                 this,
             );
 
-            this.setState({items: items});
-            // HACK: We need to know *that* the widget changed, but currently it's
-            // not set up in a nice way to tell us *how* it changed, since the
-            // permutation of the items is stored in state.
-            this.props.onChange?.({});
+            this.setState({items: items}, () => {
+                // HACK: We need to know *that* the widget changed, but currently it's
+                // not set up in a nice way to tell us *how* it changed, since the
+                // permutation of the items is stored in state.
+                this.props.onChange?.({});
+            });
         });
 
         // @ts-expect-error - TS2339 - Property 'animationFrameRequest' does not exist on type 'Sortable'.

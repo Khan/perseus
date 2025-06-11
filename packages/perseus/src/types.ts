@@ -540,11 +540,15 @@ export type WidgetExports<
 
     /**
      * Transforms the widget options to the props used to render the widget.
+     *
+     * @deprecated see LEMS-3199
      */
     transform?: WidgetTransform;
     /**
      * Transforms the widget options to the props used to render the widget for
      * static renders.
+     *
+     * @deprecated see LEMS-3199
      */
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
@@ -624,7 +628,11 @@ export type UniversalWidgetProps<
     findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
     reviewMode: boolean;
     onChange: ChangeHandler;
-    handleUserInput: (newUserInput: TUserInput, cb?: any) => void;
+    handleUserInput: (
+        newUserInput: TUserInput,
+        cb?: any,
+        silent?: boolean,
+    ) => void;
     userInput: TUserInput;
     isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
