@@ -337,14 +337,13 @@ describe("server item renderer", () => {
         // Act
         render(
             <RenderStateRoot>
-                <LoadingContext.Provider value={{onRendered}}>
-                    <WrappedServerItemRenderer
-                        item={content}
-                        problemNum={0}
-                        reviewMode={false}
-                        dependencies={testDependenciesV2}
-                    />
-                </LoadingContext.Provider>
+                <ServerItemRenderer
+                    item={content}
+                    problemNum={0}
+                    reviewMode={false}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
             </RenderStateRoot>,
         );
 
