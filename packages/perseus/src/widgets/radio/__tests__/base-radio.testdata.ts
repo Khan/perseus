@@ -15,6 +15,7 @@ export function generateChoice(options: Partial<ChoiceType>): ChoiceType {
         previouslyAnswered: false,
         revealNoneOfTheAbove: false,
         disabled: false,
+        id: ""
     } as const;
 
     return {...base, ...options};
