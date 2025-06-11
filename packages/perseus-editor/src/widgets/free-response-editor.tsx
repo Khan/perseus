@@ -28,7 +28,7 @@ class FreeResponseEditor extends React.Component<Props> {
 
     static widgetName = "free-response" as const;
 
-    serialize(): PerseusFreeResponseWidgetOptions {
+    serialize: () => PerseusFreeResponseWidgetOptions = () => {
         return {
             allowUnlimitedCharacters: this.props.allowUnlimitedCharacters,
             characterLimit: this.props.characterLimit,
@@ -36,9 +36,9 @@ class FreeResponseEditor extends React.Component<Props> {
             question: this.props.question,
             scoringCriteria: this.props.scoringCriteria,
         };
-    }
+    };
 
-    getSaveWarnings(): Array<string> {
+    getSaveWarnings: () => Array<string> = () => {
         const warnings: Array<string> = [];
         if (!this.props.question) {
             warnings.push("The question is empty");
@@ -47,7 +47,7 @@ class FreeResponseEditor extends React.Component<Props> {
             warnings.push("The question contains a widget");
         }
         return warnings;
-    }
+    };
 
     handleUpdateCharacterLimit: ChangeEventHandler<HTMLInputElement> = (e) => {
         const val = parseInt(e.target.value);
@@ -74,7 +74,7 @@ class FreeResponseEditor extends React.Component<Props> {
         });
     };
 
-    handleDeleteCriterion = (index: number) => {
+    handleDeleteCriterion: (index: number) => void = (index: number) => {
         this.props.onChange({
             scoringCriteria: this.props.scoringCriteria.filter(
                 (_, i) => i !== index,
@@ -82,13 +82,13 @@ class FreeResponseEditor extends React.Component<Props> {
         });
     };
 
-    handleAddCriterion = () => {
+    handleAddCriterion: () => void = () => {
         this.props.onChange({
             scoringCriteria: [...this.props.scoringCriteria, {text: ""}],
         });
     };
 
-    renderCriteriaList = () => {
+    renderCriteriaList: () => React.ReactNode = () => {
         const isDeletable = this.props.scoringCriteria.length > 1;
 
         return this.props.scoringCriteria.map((criterion, index) => {

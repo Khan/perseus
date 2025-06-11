@@ -147,6 +147,7 @@ export const mockedRandomItem: PerseusRenderer = {
                 hasNoneOfTheAbove: false,
                 multipleSelect: false,
                 randomize: true,
+                numCorrect: 1,
                 choices: [
                     {
                         content: "Content 1",
@@ -185,6 +186,7 @@ export const mockedRandomItem: PerseusRenderer = {
                 hasNoneOfTheAbove: false,
                 multipleSelect: false,
                 randomize: true,
+                numCorrect: 1,
                 choices: [
                     {
                         content: "Content 1",

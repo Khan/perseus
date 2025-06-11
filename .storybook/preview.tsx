@@ -11,13 +11,13 @@ import {
     storybookDependenciesV2,
 } from "../testing/test-dependencies";
 
-import "./global.less";
+import "./global.css";
 import "./reset.css";
 
 // Import the Wonder Blocks CSS variables
 import "@khanacademy/wonder-blocks-tokens/styles.css";
 
-import type {Preview} from "@storybook/react";
+import type {Preview} from "@storybook/react-vite";
 
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.
@@ -86,6 +86,9 @@ const preview: Preview = {
                 name,
                 value,
             })),
+        },
+        docs: {
+            toc: true,
         },
     },
     tags: [

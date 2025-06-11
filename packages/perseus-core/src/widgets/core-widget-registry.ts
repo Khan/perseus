@@ -1,3 +1,5 @@
+import {Errors} from "../error/errors";
+import {PerseusError} from "../error/perseus-error";
 import Registry from "../utils/registry";
 
 import categorizerWidgetLogic from "./categorizer";
@@ -37,17 +39,18 @@ import type {
     PublicWidgetOptionsFunction,
     WidgetLogic,
 } from "./logic-export.types";
+import type {PerseusWidgetOptions, PerseusWidget} from "../data-schema";
 import type {Alignment} from "../types";
 
 const widgets = new Registry<WidgetLogic>("Core widget registry");
 
-function registerWidget(type: string, logic: WidgetLogic) {
+export function registerWidget(type: string, logic: WidgetLogic) {
     widgets.set(type, logic);
 }
 
 export function isWidgetRegistered(type: string) {
     const widgetLogic = widgets.get(type);
-    return !!widgetLogic;
+    return Boolean(widgetLogic);
 }
 
 export function getCurrentVersion(type: string) {
@@ -63,15 +66,49 @@ export const getPublicWidgetOptionsFunction = (
     return widgets.get(type)?.getPublicWidgetOptions ?? ((i: any) => i);
 };
 
-export function getWidgetOptionsUpgrades(type: string) {
-    const widgetLogic = widgets.get(type);
-    return widgetLogic?.widgetOptionsUpgrades || {};
-}
-
 export function getDefaultWidgetOptions(type: string) {
     const widgetLogic = widgets.get(type);
     return widgetLogic?.defaultWidgetOptions || {};
 }
+
+export function isAccessible(
+    type: string,
+    widgetOptions: PerseusWidgetOptions,
+): boolean {
+    const accessible = widgets.get(type)?.accessible;
+    return typeof accessible === "function"
+        ? accessible(widgetOptions)
+        : !!accessible;
+}
+
+export const traverseChildWidgets = (
+    widgetInfo: PerseusWidget,
+    traverseRenderer: any,
+): PerseusWidget => {
+    if (!traverseRenderer) {
+        throw new PerseusError(
+            "traverseRenderer must be provided, but was not",
+            Errors.Internal,
+        );
+    }
+
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (!widgetInfo || !widgetInfo.type || !widgets.get(widgetInfo.type)) {
+        return widgetInfo;
+    }
+
+    const widgetExports = widgets.get(widgetInfo.type);
+    const props = widgetInfo.options;
+
+    if (widgetExports?.traverseChildWidgets != null && props != null) {
+        const newProps = widgetExports.traverseChildWidgets(
+            props,
+            traverseRenderer,
+        );
+        return {...widgetInfo, options: newProps};
+    }
+    return widgetInfo;
+};
 
 /**
  * Handling for the optional alignments for widgets

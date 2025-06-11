@@ -1,15 +1,33 @@
+import {applyDefaultsToWidgets} from "../widgets/apply-defaults";
 import {registerCoreWidgets} from "../widgets/core-widget-registry";
-import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
-import splitPerseusItem from "./split-perseus-item";
+import splitPerseusItem, {splitPerseusItemJSON} from "./split-perseus-item";
 import {generateTestPerseusItem} from "./test-utils";
 
-import type {PerseusRenderer, RadioWidget} from "../data-schema";
+import type {PerseusItem, PerseusRenderer, RadioWidget} from "../data-schema";
 
 describe("splitPerseusItem", () => {
     beforeAll(() => {
         registerCoreWidgets();
     });
+
+    function getFullRadio(): RadioWidget {
+        return {
+            type: "radio",
+            options: {
+                choices: [
+                    {
+                        content: "Correct",
+                        correct: true,
+                    },
+                    {
+                        content: "Incorrect",
+                        correct: false,
+                    },
+                ],
+            },
+        };
+    }
 
     it("doesn't do anything with an empty item", () => {
         // Arrange
@@ -32,7 +50,7 @@ describe("splitPerseusItem", () => {
             content: "[[☃ passage 1]]",
             // calling the upgrader here so I don't
             // bog down the test with default properties
-            widgets: getUpgradedWidgetOptions({
+            widgets: applyDefaultsToWidgets({
                 "passage 1": {
                     type: "passage",
                     options: {
@@ -180,6 +198,7 @@ describe("splitPerseusItem", () => {
                             },
                         ],
                         buttonSets: ["basic"],
+                        extraKeys: ["PI"],
                         functions: [],
                         times: true,
                     },
@@ -245,7 +264,7 @@ describe("splitPerseusItem", () => {
             images: {},
             // calling the upgrader here so I don't
             // bog down the test with default properties
-            widgets: getUpgradedWidgetOptions({
+            widgets: applyDefaultsToWidgets({
                 "dropdown 1": {
                     type: "dropdown",
                     options: {
@@ -340,31 +359,13 @@ describe("splitPerseusItem", () => {
     });
 
     it("handles multiple widgets", () => {
-        function getFullRadio(): RadioWidget {
-            return {
-                type: "radio",
-                options: {
-                    choices: [
-                        {
-                            content: "Correct",
-                            correct: true,
-                        },
-                        {
-                            content: "Incorrect",
-                            correct: false,
-                        },
-                    ],
-                },
-            };
-        }
-
         // Arrange
         const question: PerseusRenderer = {
             content: "[[☃ radio 1]] [[☃ radio 2]]",
             images: {},
             // calling the upgrader here so I don't
             // bog down the test with default properties
-            widgets: getUpgradedWidgetOptions({
+            widgets: applyDefaultsToWidgets({
                 "radio 1": getFullRadio(),
                 "radio 2": getFullRadio(),
             }),
@@ -468,5 +469,90 @@ describe("splitPerseusItem", () => {
 
         expect(item.hints[0]).toEqual(hint);
         expect(rv.hints).toEqual([]);
+    });
+});
+
+describe("splitPerseusItemJSON", () => {
+    function getBlankItem(): PerseusItem {
+        return {
+            question: {
+                content: "",
+                widgets: {},
+                images: {},
+            },
+            hints: [],
+            answerArea: {
+                calculator: false,
+                chi2Table: false,
+                financialCalculatorMonthlyPayment: false,
+                financialCalculatorTotalAmount: false,
+                financialCalculatorTimeToPayOff: false,
+                periodicTable: false,
+                periodicTableWithKey: false,
+                tTable: false,
+                zTable: false,
+            },
+        };
+    }
+
+    it("accepts JSON", () => {
+        // Arrange
+        const item = getBlankItem();
+        const json = JSON.stringify(item);
+
+        // Act
+        const rv = splitPerseusItemJSON(json);
+
+        // Assert
+        expect(JSON.parse(rv)).toEqual(item);
+    });
+
+    it("accepts an object", () => {
+        // Arrange
+        const item = getBlankItem();
+
+        // Act
+        const rv = splitPerseusItemJSON(item);
+
+        // Assert
+        expect(JSON.parse(rv)).toEqual(item);
+    });
+
+    it("is idempotent", () => {
+        // Arrange
+        const item = getBlankItem();
+
+        // Act
+        const rv1 = splitPerseusItemJSON(item);
+        const rv2 = splitPerseusItemJSON(rv1);
+
+        // Assert
+        expect(rv1).toBe(rv2);
+    });
+
+    it("removes answer-revealing information, e.g. hints", () => {
+        // Arrange
+        const item: PerseusItem = {
+            ...getBlankItem(),
+            hints: [{content: "a hint", widgets: {}, images: {}}],
+        };
+
+        // Act
+        const rv = splitPerseusItemJSON(item);
+
+        // Assert
+        expect(JSON.parse(rv).hints).toEqual([]);
+    });
+
+    it("throws given an invalid PerseusItem", () => {
+        expect(() => splitPerseusItemJSON(`"not an item"`)).toThrow(
+            new SyntaxError(
+                `At (root) -- expected object, but got "not an item"`,
+            ),
+        );
+    });
+
+    it("throws on a JSON parse error", () => {
+        expect(() => splitPerseusItemJSON("")).toThrow(SyntaxError);
     });
 });

@@ -1,8 +1,8 @@
-import {action} from "@storybook/addon-actions";
+import {action} from "storybook/actions";
 
 import StubTagEditor from "../stub-tag-editor";
 
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Perseus/Components/Stub Tag Editor",

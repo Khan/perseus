@@ -6,7 +6,7 @@ import expressionExport from "./expression";
 import {expressionItem2, expressionItem3} from "./expression.testdata";
 
 import type {KeypadConfiguration} from "@khanacademy/perseus-core";
-import type {Meta, StoryObj} from "@storybook/react";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Perseus/Widgets/Expression",

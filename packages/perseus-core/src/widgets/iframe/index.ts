@@ -26,6 +26,7 @@ const iframeWidgetLogic: WidgetLogic = {
     name: "iframe",
     defaultWidgetOptions,
     getPublicWidgetOptions: getIFramePublicWidgetOptions,
+    accessible: false,
 };
 
 export default iframeWidgetLogic;

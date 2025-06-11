@@ -46,7 +46,7 @@ class Indicators extends React.Component<IndicatorsProps> {
     render(): React.ReactNode {
         return (
             <ul
-                // reduntantly add class name for use in .less files--
+                // reduntantly add class name for use in .css files--
                 //   the styles object key gets hashed
                 className={classNames(
                     css(styles.indicatorContainer),
@@ -246,21 +246,10 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
     }
 }
 
-const traverseChildWidgets: (arg1: any, arg2: any) => any = function (
-    props,
-    traverseRenderer,
-) {
-    // NOTE(jared): I have no idea how this works
-    return {
-        groups: props.gradedGroups.map(traverseRenderer),
-    };
-};
-
 export default {
     name: "graded-group-set",
     displayName: "Graded group set (articles only)",
     widget: GradedGroupSet,
-    traverseChildWidgets: traverseChildWidgets,
     // TODO(michaelpolyak): This widget should be available for articles only
     hidden: false,
     tracking: "all",

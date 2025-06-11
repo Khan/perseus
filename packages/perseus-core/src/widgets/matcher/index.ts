@@ -20,6 +20,7 @@ const matcherWidgetLogic: WidgetLogic = {
     name: "matcher",
     defaultWidgetOptions,
     getPublicWidgetOptions: getMatcherPublicWidgetOptions,
+    accessible: false,
 };
 
 export default matcherWidgetLogic;

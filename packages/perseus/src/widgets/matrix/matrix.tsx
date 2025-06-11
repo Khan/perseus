@@ -31,7 +31,7 @@ const {assert} = InteractiveUtil;
 // We store two sets of dimensions for the brackets, for our two types of
 // inputs, which vary in formatting: (1) the normal inputs rendered on
 // desktop and (2) the keypad-based inputs newly rendered for the mobile apps
-// and mobile web. These sets of dimensions come from `matrix.less`;
+// and mobile web. These sets of dimensions come from `matrix.css`;
 // the keypad-based input's dimensions are provided to the component itself,
 // below.
 const NORMAL_DIMENSIONS = {
