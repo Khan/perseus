@@ -3,7 +3,6 @@ import {within, render, screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
-import {LoadingContext} from "..";
 import {
     testDependencies,
     testDependenciesV2,
@@ -275,48 +274,9 @@ describe("server item renderer", () => {
     it("should call the onRendered callback with no assets in content", () => {
         const content: PerseusItem = {
             question: {
-                content:
-                    "\n**What is the meaning of *intrigued*, as it is used in paragraph 2?**\n\n[[☃ radio 1]]\n\n\n\n\n\n",
+                content: "Content without any assets",
                 images: {},
-                widgets: {
-                    "radio 1": {
-                        type: "radio",
-                        alignment: "default",
-                        static: false,
-                        graded: true,
-                        options: {
-                            choices: [
-                                {
-                                    content: "inventive",
-                                    correct: false,
-                                },
-                                {
-                                    content: "easily distracted",
-                                    correct: false,
-                                },
-                                {
-                                    content: "very interested",
-                                    correct: true,
-                                },
-                                {
-                                    content: "competitive",
-                                    correct: false,
-                                },
-                            ],
-                            randomize: false,
-                            multipleSelect: false,
-                            countChoices: false,
-                            displayCount: null,
-                            hasNoneOfTheAbove: false,
-                            deselectEnabled: false,
-                            numCorrect: 1,
-                        },
-                        version: {
-                            major: 2,
-                            minor: 0,
-                        },
-                    },
-                },
+                widgets: {},
             },
             answerArea: {
                 zTable: false,
