@@ -272,7 +272,7 @@ describe("server item renderer", () => {
         expect(onRendered).toHaveBeenCalledWith(true);
     });
 
-    it("should call the onRendered callback when if no assets in content", () => {
+    it("should call the onRendered callback with no assets in content", () => {
         const content: PerseusItem = {
             question: {
                 content:
