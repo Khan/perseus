@@ -1,31 +1,24 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {
-    components,
-    Widgets,
-    WIDGET_PROP_DENYLIST,
-    iconChevronDown,
-    iconTrash,
-} from "@khanacademy/perseus";
+import {Widgets, WIDGET_PROP_DENYLIST, iconTrash} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     applyDefaultsToWidget,
 } from "@khanacademy/perseus-core";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
+import caretRight from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
 import {useId} from "react";
 import _ from "underscore";
-
-import {iconChevronRight} from "../styles/icon-paths";
 
 import SectionControlButton from "./section-control-button";
 
 import type Editor from "../editor";
 import type {APIOptions} from "@khanacademy/perseus";
 import type {Alignment, PerseusWidget} from "@khanacademy/perseus-core";
-
-const {InlineIcon} = components;
 
 type WidgetEditorProps = {
     // Unserialized props
@@ -165,6 +158,12 @@ class WidgetEditor extends React.Component<
 
         const supportsStaticMode = Widgets.supportsStaticMode(widgetInfo.type);
 
+        const toggleIcon = this.state.showWidget ? caretDown : caretRight;
+        const buttonStyle = {
+            marginRight: 0,
+            flexGrow: 0,
+        };
+
         return (
             <div className="perseus-widget-editor">
                 <div
@@ -173,19 +172,17 @@ class WidgetEditor extends React.Component<
                         (this.state.showWidget ? "open" : "closed")
                     }
                 >
-                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a
-                        className="perseus-widget-editor-title-id"
-                        href="#"
-                        onClick={this._toggleWidget}
-                    >
-                        {this.props.id}
-                        {this.state.showWidget ? (
-                            <InlineIcon {...iconChevronDown} />
-                        ) : (
-                            <InlineIcon {...iconChevronRight} />
-                        )}
-                    </a>
+                    <div className="perseus-widget-editor-title-id">
+                        <IconButton
+                            icon={toggleIcon}
+                            kind="tertiary"
+                            size="small"
+                            onClick={this._toggleWidget}
+                            actionType="neutral"
+                            style={buttonStyle}
+                        />
+                        <span>{this.props.id}</span>
+                    </div>
 
                     {supportsStaticMode && (
                         <LabeledSwitch

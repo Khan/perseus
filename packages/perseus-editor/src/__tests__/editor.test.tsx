@@ -84,9 +84,7 @@ describe("Editor", () => {
         render(<Harnessed />);
 
         // Act
-        const widgetDisclosure = screen.getByRole("link", {
-            name: "image 1",
-        });
+        const widgetDisclosure = screen.getByText("image 1");
         await userEvent.click(widgetDisclosure);
 
         // Assert
@@ -105,9 +103,7 @@ describe("Editor", () => {
         render(<Harnessed onChange={changeFn} />);
 
         // Act
-        const widgetDisclosure = screen.getByRole("link", {
-            name: "image 1",
-        });
+        const widgetDisclosure = screen.getByText("image 1");
         await userEvent.click(widgetDisclosure);
 
         const captionInput = screen.getByLabelText(/Caption:/);

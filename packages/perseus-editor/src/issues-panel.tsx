@@ -1,15 +1,14 @@
-import {components, iconChevronDown} from "@khanacademy/perseus";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import iconPass from "@phosphor-icons/core/fill/check-circle-fill.svg";
 import iconWarning from "@phosphor-icons/core/fill/warning-fill.svg";
+import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
+import caretRight from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
 import {useState} from "react";
 
 import IssueDetails from "./issue-details";
-import {iconChevronRight} from "./styles/icon-paths";
-
-const {InlineIcon} = components;
 
 export type IssueImpact = "low" | "medium" | "high";
 export type Issue = {
@@ -34,7 +33,7 @@ const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
         issues.length === 1 ? "" : "s"
     }`;
 
-    const editorClasses = `perseus-widget-editor${showPanel ? " perseus-widget-editor-open" : ""}`;
+    const toggleIcon = showPanel ? caretDown : caretRight;
 
     const togglePanel = () => {
         if (hasWarnings) {
@@ -43,26 +42,17 @@ const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
     };
 
     return (
-        <div className={editorClasses}>
+        <div className="perseus-widget-editor">
             <div className="perseus-widget-editor-title">
                 <div className="perseus-widget-editor-title-id">
-                    <button
+                    <IconButton
+                        icon={toggleIcon}
+                        kind="tertiary"
+                        size="small"
                         onClick={togglePanel}
-                        disabled={!hasWarnings}
-                        style={{
-                            marginInlineEnd: 0,
-                            flexGrow: 0,
-                            border: "none",
-                            backgroundColor: "transparent",
-                            cursor: hasWarnings ? "pointer" : "not-allowed",
-                        }}
-                    >
-                        {showPanel ? (
-                            <InlineIcon {...iconChevronDown} />
-                        ) : (
-                            <InlineIcon {...iconChevronRight} />
-                        )}
-                    </button>
+                        actionType="neutral"
+                        style={{marginRight: 0, flexGrow: 0}}
+                    />
                     <span>Issues</span>
                 </div>
                 <PhosphorIcon
