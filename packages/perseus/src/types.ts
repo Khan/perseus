@@ -540,11 +540,15 @@ export type WidgetExports<
 
     /**
      * Transforms the widget options to the props used to render the widget.
+     *
+     * @deprecated see LEMS-3199
      */
     transform?: WidgetTransform;
     /**
      * Transforms the widget options to the props used to render the widget for
      * static renders.
+     *
+     * @deprecated see LEMS-3199
      */
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
