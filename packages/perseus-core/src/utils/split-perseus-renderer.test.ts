@@ -1,5 +1,5 @@
+import {applyDefaultsToWidgets} from "../widgets/apply-defaults";
 import {registerCoreWidgets} from "../widgets/core-widget-registry";
-import {getUpgradedWidgetOptions} from "../widgets/upgrade";
 
 import splitPerseusRenderer from "./split-perseus-renderer";
 
@@ -31,7 +31,7 @@ describe("splitPerseusRenderer", () => {
             content: "[[☃ passage 1]]",
             // calling the upgrader here so I don't
             // bog down the test with default properties
-            widgets: getUpgradedWidgetOptions({
+            widgets: applyDefaultsToWidgets({
                 "passage 1": {
                     type: "passage",
                     options: {
@@ -179,6 +179,7 @@ describe("splitPerseusRenderer", () => {
                             },
                         ],
                         buttonSets: ["basic"],
+                        extraKeys: ["PI"],
                         functions: [],
                         times: true,
                     },
@@ -244,7 +245,7 @@ describe("splitPerseusRenderer", () => {
             images: {},
             // calling the upgrader here so I don't
             // bog down the test with default properties
-            widgets: getUpgradedWidgetOptions({
+            widgets: applyDefaultsToWidgets({
                 "dropdown 1": {
                     type: "dropdown",
                     options: {
@@ -363,7 +364,7 @@ describe("splitPerseusRenderer", () => {
             images: {},
             // calling the upgrader here so I don't
             // bog down the test with default properties
-            widgets: getUpgradedWidgetOptions({
+            widgets: applyDefaultsToWidgets({
                 "radio 1": getFullRadio(),
                 "radio 2": getFullRadio(),
             }),

@@ -39,7 +39,7 @@ describe("parseWidgetsMap", () => {
 
     it("accepts a widget ID numbered 0", () => {
         // Widget IDs with 0 cause a full-page crash when an exercise is
-        // rendered in webapp! However, they do not cause a crash in in
+        // rendered in khan/frontend! However, they do not cause a crash in
         // articles, so we allow them.
 
         const widgetsMap: unknown = {

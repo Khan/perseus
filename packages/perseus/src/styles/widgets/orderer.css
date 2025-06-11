@@ -1,0 +1,78 @@
+.orderer {
+    position: relative;
+}
+.orderer.layout-horizontal .draggable-box {
+    margin-left: 0;
+    margin-top: 30px;
+    padding: 13px;
+}
+.orderer .card {
+    padding: 0 10px;
+    cursor: pointer;
+    position: relative;
+    -webkit-user-select: none;
+    user-select: none;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.orderer.height-normal.layout-horizontal .card {
+    height: 65px;
+}
+.orderer.height-normal.layout-vertical .card {
+    padding: 5px;
+}
+.orderer.height-auto .card {
+    padding: 0;
+}
+.orderer.height-auto.layout-horizontal .drag-hint {
+    min-height: 65px;
+    min-width: 22px;
+}
+.orderer.layout-horizontal .bank {
+    padding: 0;
+    margin: 0px 13px;
+}
+.orderer div.paragraph {
+    margin: 0;
+}
+.orderer .card-wrap {
+    width: auto;
+}
+.orderer.layout-horizontal .card-wrap {
+    float: left;
+}
+.orderer.layout-horizontal .card-wrap:not(:first-child) {
+    margin-left: 8px;
+}
+.orderer.layout-vertical .card-wrap {
+    float: none;
+    text-align: center;
+}
+.orderer.layout-vertical .card-wrap:not(:first-child) {
+    margin-top: 8px;
+}
+.orderer.layout-vertical .bank,
+.orderer.layout-vertical .draggable-box {
+    box-sizing: border-box;
+    float: left;
+    max-width: 50%;
+}
+.orderer.layout-vertical .bank {
+    padding: 11px 20px 11px 0;
+    margin: 0;
+}
+.orderer.layout-vertical .draggable-box {
+    margin-top: 0;
+    padding: 10px;
+    min-height: 170px;
+}
+.orderer.layout-vertical .draggable-box .drag-hint {
+    box-sizing: border-box;
+    min-width: 140px;
+    min-height: 34px;
+}
+.orderer.layout-vertical .draggable-box .placeholder {
+    box-sizing: border-box;
+}

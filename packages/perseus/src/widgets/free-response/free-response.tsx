@@ -144,8 +144,7 @@ export default {
     accessible: true,
     displayName: "Free Response",
     widget: FreeResponse,
-    // Hides widget from content creators until full release
-    hidden: true,
+    hidden: false,
 } as WidgetExports<typeof FreeResponse>;
 
 const styles = StyleSheet.create({

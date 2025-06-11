@@ -19,12 +19,14 @@ function scoreRadio(
         return currentChoice.correct ? sum + 1 : sum;
     }, 0);
 
-    if (numCorrect > 1 && numSelected !== numCorrect) {
+    // If the number of correct answers is greater than 1 and the number of
+    // selected answers is not equal to the number of correct answers, and
+    // the countChoices option is true, then return an invalid score.
+    if (numCorrect > 1 && numSelected !== numCorrect && rubric.countChoices) {
         return {
             type: "invalid",
             message: ErrorCodes.CHOOSE_CORRECT_NUM_ERROR,
         };
-        // If NOTA and some other answer are checked, ...
     }
 
     const noneOfTheAboveSelected = rubric.choices.some(

@@ -127,7 +127,11 @@ describe("Group AI utils", () => {
                             options: [
                                 {value: "$45$"},
                                 {value: "$42$"},
-                                {value: "$30$"},
+                                {
+                                    value: "$30$",
+                                    rationale:
+                                        "Here's a clue, this isn't the correct answer!",
+                                },
                                 {value: "$18$"},
                                 {value: "$15$"},
                             ],

@@ -14,9 +14,15 @@ const defaultWidgetOptions: GradedGroupDefaultWidgetOptions = {
     hint: null,
 };
 
+const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
+    return {...props, ...traverseRenderer(props)};
+};
+
 const gradedGroupWidgetLogic: WidgetLogic = {
     name: "graded-group",
     defaultWidgetOptions,
+    accessible: false,
+    traverseChildWidgets: traverseChildWidgets,
 };
 
 export default gradedGroupWidgetLogic;

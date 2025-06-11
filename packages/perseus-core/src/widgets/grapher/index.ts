@@ -36,6 +36,7 @@ const grapherWidgetLogic: WidgetLogic = {
     name: "grapher",
     defaultWidgetOptions,
     getPublicWidgetOptions: getGrapherPublicWidgetOptions,
+    accessible: false,
 };
 
 export default grapherWidgetLogic;

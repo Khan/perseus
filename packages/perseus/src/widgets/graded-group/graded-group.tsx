@@ -267,7 +267,7 @@ export class GradedGroup
 
         let gradeStatus: string | null = null;
         let icon = null;
-        // Colors are 10% darker than the colors in graded-group.less
+        // Colors are 10% darker than the colors in graded-group.css
         if (this.state.status === GRADING_STATUSES.correct) {
             // TODO(jeremy): update to a WB colour
             // @ts-expect-error - TS2322 - Type 'Element' is not assignable to type 'null'.
@@ -423,16 +423,9 @@ export class GradedGroup
     }
 }
 
-const traverseChildWidgets: (arg1: any, arg2: any) => any = function (
-    props,
-    traverseRenderer,
-) {
-    return _.extend({}, props, traverseRenderer(props));
-};
-
 const styles = StyleSheet.create({
     gradedGroupInSet: {
-        // Reset a few desktop-only styles that come from graded-group.less
+        // Reset a few desktop-only styles that come from graded-group.css
         marginLeft: 0,
         paddingLeft: 0,
     },
@@ -488,7 +481,6 @@ export default {
     name: "graded-group",
     displayName: "Graded group (articles only)",
     widget: GradedGroup,
-    traverseChildWidgets: traverseChildWidgets,
     // TODO(aasmund): This widget should be available for articles only
     hidden: false,
     tracking: "all",
