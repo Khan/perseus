@@ -624,7 +624,11 @@ export type UniversalWidgetProps<
     findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
     reviewMode: boolean;
     onChange: ChangeHandler;
-    handleUserInput: (newUserInput: TUserInput, cb?: any) => void;
+    handleUserInput: (
+        newUserInput: TUserInput,
+        cb?: any,
+        silent?: boolean,
+    ) => void;
     userInput: TUserInput;
     isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
