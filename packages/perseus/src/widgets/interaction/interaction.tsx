@@ -809,6 +809,5 @@ export default {
     name: "interaction",
     displayName: "Interaction",
     widget: Interaction,
-    transform: _.identity,
     hidden: true,
 } satisfies WidgetExports<typeof Interaction>;

@@ -224,8 +224,7 @@ export const getStaticTransform = (
     type: string,
 ): WidgetTransform | null | undefined => {
     const widgetInfo = widgets.get(type);
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    return widgetInfo && widgetInfo.staticTransform;
+    return widgetInfo?.staticTransform;
 };
 
 /**
