@@ -1008,7 +1008,7 @@ describe("Interactive Graph", function () {
             expect(label).toHaveTextContent("E");
             expect(label).toHaveStyle({
                 color: lockedFigureColors["grayH"],
-                fontSize: "1.6rem",
+                fontSize: "var(--wb-font-size-medium)",
                 left: "200px",
                 top: "200px",
             });
@@ -1227,19 +1227,19 @@ describe("Interactive Graph", function () {
             // styles
             expect(labels[0]).toHaveStyle({
                 color: lockedFigureColors["pink"],
-                fontSize: "1.4rem", // small
+                fontSize: "var(--wb-font-size-small)",
                 left: "80px",
                 top: "160px",
             });
             expect(labels[1]).toHaveStyle({
                 color: lockedFigureColors["blue"],
-                fontSize: "1.6rem", // medium
+                fontSize: "var(--wb-font-size-medium)",
                 left: "220px",
                 top: "160px",
             });
             expect(labels[2]).toHaveStyle({
                 color: lockedFigureColors["green"],
-                fontSize: "2rem", // large
+                fontSize: "var(--wb-font-size-large)",
                 left: "140px",
                 top: "240px",
             });
@@ -1262,7 +1262,7 @@ describe("Interactive Graph", function () {
             expect(label).toHaveTextContent("A");
             expect(label).toHaveStyle({
                 color: lockedFigureColors["grayH"],
-                fontSize: "1.6rem",
+                fontSize: "var(--wb-font-size-medium)",
                 left: "210px",
                 top: "200px",
             });
@@ -1284,7 +1284,7 @@ describe("Interactive Graph", function () {
             expect(label).toHaveTextContent("B");
             expect(label).toHaveStyle({
                 color: lockedFigureColors["grayH"],
-                fontSize: "1.6rem",
+                fontSize: "var(--wb-font-size-medium)",
                 left: "150px",
                 top: "280px",
             });
@@ -1348,7 +1348,7 @@ describe("Interactive Graph", function () {
             expect(label).toHaveTextContent("C");
             expect(label).toHaveStyle({
                 color: lockedFigureColors["grayH"],
-                fontSize: "1.6rem",
+                fontSize: "var(--wb-font-size-medium)",
                 left: "280px",
                 top: "180px",
             });
@@ -1371,7 +1371,7 @@ describe("Interactive Graph", function () {
             expect(label).toHaveTextContent("D");
             expect(label).toHaveStyle({
                 color: lockedFigureColors["grayH"],
-                fontSize: "1.6rem",
+                fontSize: "var(--wb-font-size-medium)",
                 left: "200px",
                 top: "200px",
             });
@@ -1394,7 +1394,7 @@ describe("Interactive Graph", function () {
             expect(label).toHaveTextContent("F");
             expect(label).toHaveStyle({
                 color: lockedFigureColors["grayH"],
-                fontSize: "1.6rem",
+                fontSize: "var(--wb-font-size-medium)",
                 left: "200px",
                 top: "200px",
             });

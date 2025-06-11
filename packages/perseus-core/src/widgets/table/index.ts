@@ -28,6 +28,7 @@ const tableWidgetLogic: WidgetLogic = {
     name: "table",
     defaultWidgetOptions,
     getPublicWidgetOptions: getTablePublicWidgetOptions,
+    accessible: true,
 };
 
 export default tableWidgetLogic;

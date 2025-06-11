@@ -1,0 +1,22 @@
+.perseus-sr-only {
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+    font-size: 0;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+.perseus-clearfix {
+    *zoom: 1;
+}
+.perseus-clearfix:before,
+.perseus-clearfix:after {
+    content: "";
+    display: table;
+}
+.perseus-clearfix:after {
+    clear: both;
+}

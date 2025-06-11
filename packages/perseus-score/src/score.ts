@@ -1,6 +1,6 @@
 import {
     Errors,
-    getUpgradedWidgetOptions,
+    applyDefaultsToWidgets,
     getWidgetIdsFromContent,
     PerseusError,
 } from "@khanacademy/perseus-core";
@@ -157,7 +157,7 @@ export function scoreWidgetsFunctional(
     userInputMap: UserInputMap,
     locale: string,
 ): {[widgetId: string]: PerseusScore} {
-    const upgradedWidgets = getUpgradedWidgetOptions(widgets);
+    const upgradedWidgets = applyDefaultsToWidgets(widgets);
 
     const gradedWidgetIds = widgetIds.filter((id) => {
         const props = upgradedWidgets[id];

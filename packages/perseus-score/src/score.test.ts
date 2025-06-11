@@ -6,11 +6,7 @@ import {
 } from "@khanacademy/perseus-core";
 
 import {flattenScores, scorePerseusItem, scoreWidgetsFunctional} from "./score";
-import {
-    getExpressionWidget,
-    getLegacyExpressionWidget,
-    getTestDropdownWidget,
-} from "./util/test-helpers";
+import {getExpressionWidget, getTestDropdownWidget} from "./util/test-helpers";
 
 describe("flattenScores", () => {
     it("defaults to an empty score", () => {
@@ -395,72 +391,6 @@ describe("scoreWidgetsFunctional", () => {
 
         // Assert
         expect(result["expression 1"]).toHaveBeenAnsweredCorrectly();
-    });
-
-    it("can handle a correct legacy Expression widget", () => {
-        // Arrange
-        const widgets: PerseusWidgetsMap = {
-            "expression 1": getLegacyExpressionWidget() as any,
-        };
-        const widgetIds: Array<string> = ["expression 1"];
-        const userInputMap: UserInputMap = {
-            "expression 1": "2+2",
-        };
-
-        // Act
-        const result = scoreWidgetsFunctional(
-            widgets,
-            widgetIds,
-            userInputMap,
-            "en",
-        );
-
-        // Assert
-        expect(result["expression 1"]).toHaveBeenAnsweredCorrectly();
-    });
-
-    it("can handle an incorrect modern Expression widget", () => {
-        // Arrange
-        const widgets: PerseusWidgetsMap = {
-            "expression 1": getExpressionWidget(),
-        };
-        const widgetIds: Array<string> = ["expression 1"];
-        const userInputMap: UserInputMap = {
-            "expression 1": "2+42",
-        };
-
-        // Act
-        const result = scoreWidgetsFunctional(
-            widgets,
-            widgetIds,
-            userInputMap,
-            "en",
-        );
-
-        // Assert
-        expect(result["expression 1"]).toHaveBeenAnsweredIncorrectly();
-    });
-
-    it("can handle an incorrect legacy Expression widget", () => {
-        // Arrange
-        const widgets: PerseusWidgetsMap = {
-            "expression 1": getLegacyExpressionWidget() as any,
-        };
-        const widgetIds: Array<string> = ["expression 1"];
-        const userInputMap: UserInputMap = {
-            "expression 1": "2+42",
-        };
-
-        // Act
-        const result = scoreWidgetsFunctional(
-            widgets,
-            widgetIds,
-            userInputMap,
-            "en",
-        );
-
-        // Assert
-        expect(result["expression 1"]).toHaveBeenAnsweredIncorrectly();
     });
 });
 

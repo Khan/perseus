@@ -1,42 +1,104 @@
+# NOTE: The `devDeps` and `peerDeps` catalogs in this file are
+# generated from khan/frontend's package.json. To update them, run:
+#
+#     utils/sync-dependencies.ts ../frontend/package.json
+#
+# We have two separate catalogs for dev deps and peer deps to ensure
+# that:
+#
+# - we know exactly which version of each package we're installing in
+#   dev. That way, we can truthfully claim to support all versions
+#   compatible with that one.
+# - our peer dependencies can specify a range of versions. For peer
+#   deps, want to accept any version compatible with the one we
+#   installed in dev. For example, if we installed version 1.2.3 in
+#   dev, then we want to accept ^1.2.3 (which means "any 1.x.x version
+#   equal to or later than 1.2.3") as a peer dep. We want peer deps
+#   to be specified as a range so clients don't get spurious warnings
+#   if their dependency versions are slightly different than the ones
+#   we use.
+#
+# The sync-dependencies.ts script ensures that peer deps are always
+# specified as a range, and the dev deps are always pinned to the
+# version at the bottom of that range.
 packages:
     - config/build
     - dev
     - packages/*
     - vendor/*
-catalog:
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    aphrodite: ^1.2.5
-    classnames: 1.1.4
-    jquery: ^2.1.1
-    prop-types: 15.6.1
-    tiny-invariant: ^1.3.1
-    underscore: ^1.4.4
-    vite: 5.1.0
-    "@khanacademy/mathjax-renderer": ^3.0.0
-    "@khanacademy/wonder-blocks-accordion": 3.1.14
-    "@khanacademy/wonder-blocks-banner": 4.1.16
-    "@khanacademy/wonder-blocks-button": 10.0.1
-    "@khanacademy/wonder-blocks-clickable": 7.1.2
-    "@khanacademy/wonder-blocks-core": 12.2.1
-    "@khanacademy/wonder-blocks-data": 14.1.3
-    "@khanacademy/wonder-blocks-dropdown": 10.1.1
-    "@khanacademy/wonder-blocks-form": 7.1.14
-    "@khanacademy/wonder-blocks-icon-button": 10.0.0
-    "@khanacademy/wonder-blocks-icon": 5.1.3
-    "@khanacademy/wonder-blocks-labeled-field": 3.0.9
-    "@khanacademy/wonder-blocks-layout": 3.1.13
-    "@khanacademy/wonder-blocks-link": 9.1.2
-    "@khanacademy/wonder-blocks-pill": 3.1.14
-    "@khanacademy/wonder-blocks-popover": 6.1.2
-    "@khanacademy/wonder-blocks-progress-spinner": 3.1.13
-    "@khanacademy/wonder-blocks-search-field": 5.1.16
-    "@khanacademy/wonder-blocks-switch": 3.2.6
-    "@khanacademy/wonder-blocks-timing": 7.0.2
-    "@khanacademy/wonder-blocks-tokens": 10.2.0
-    "@khanacademy/wonder-blocks-toolbar": 5.1.13
-    "@khanacademy/wonder-blocks-tooltip": 4.1.16
-    "@khanacademy/wonder-blocks-typography": 3.2.3
-    "@khanacademy/wonder-stuff-core": 1.5.4
-    "@phosphor-icons/core": ^2.0.2
-    "@popperjs/core": ^2.10.2
+catalogs:
+    peerDeps:
+        react: ^18.2.0
+        react-dom: ^18.2.0
+        aphrodite: ^1.2.5
+        classnames: ^1.1.4
+        jquery: ^2.1.1
+        prop-types: ^15.6.1
+        tiny-invariant: ^1.3.1
+        underscore: ^1.4.4
+        "@phosphor-icons/core": ^2.0.2
+        "@popperjs/core": ^2.10.2
+        "@khanacademy/mathjax-renderer": ^3.0.0
+        "@khanacademy/wonder-blocks-accordion": ^3.1.18
+        "@khanacademy/wonder-blocks-banner": ^4.1.21
+        "@khanacademy/wonder-blocks-button": ^10.0.5
+        "@khanacademy/wonder-blocks-clickable": ^7.1.5
+        "@khanacademy/wonder-blocks-core": ^12.3.0
+        "@khanacademy/wonder-blocks-data": ^14.1.4
+        "@khanacademy/wonder-blocks-dropdown": ^10.1.5
+        "@khanacademy/wonder-blocks-form": ^7.1.18
+        "@khanacademy/wonder-blocks-icon-button": ^10.2.1
+        "@khanacademy/wonder-blocks-icon": ^5.1.4
+        "@khanacademy/wonder-blocks-labeled-field": ^3.0.13
+        "@khanacademy/wonder-blocks-layout": ^3.1.16
+        "@khanacademy/wonder-blocks-link": ^9.1.5
+        "@khanacademy/wonder-blocks-pill": ^3.1.18
+        "@khanacademy/wonder-blocks-popover": ^6.1.6
+        "@khanacademy/wonder-blocks-progress-spinner": ^3.1.16
+        "@khanacademy/wonder-blocks-search-field": ^5.1.20
+        "@khanacademy/wonder-blocks-switch": ^3.2.9
+        "@khanacademy/wonder-blocks-timing": ^7.0.2
+        "@khanacademy/wonder-blocks-tokens": ^10.4.0
+        "@khanacademy/wonder-blocks-toolbar": ^5.1.17
+        "@khanacademy/wonder-blocks-tooltip": ^4.1.20
+        "@khanacademy/wonder-blocks-typography": ^4.2.0
+        "@khanacademy/wonder-stuff-core": ^1.5.4
+    devDeps:
+        react: 18.2.0
+        react-dom: 18.2.0
+        aphrodite: 1.2.5
+        classnames: 1.1.4
+        jquery: 2.1.1
+        prop-types: 15.6.1
+        tiny-invariant: 1.3.1
+        underscore: 1.4.4
+        vite: 5.1.0
+        "@phosphor-icons/core": 2.0.2
+        "@popperjs/core": 2.10.2
+        "@khanacademy/mathjax-renderer": 3.0.0
+        "@khanacademy/wonder-blocks-accordion": 3.1.18
+        "@khanacademy/wonder-blocks-banner": 4.1.21
+        "@khanacademy/wonder-blocks-button": 10.0.5
+        "@khanacademy/wonder-blocks-clickable": 7.1.5
+        "@khanacademy/wonder-blocks-core": 12.3.0
+        "@khanacademy/wonder-blocks-data": 14.1.4
+        "@khanacademy/wonder-blocks-dropdown": 10.1.5
+        "@khanacademy/wonder-blocks-form": 7.1.18
+        "@khanacademy/wonder-blocks-icon-button": 10.2.1
+        "@khanacademy/wonder-blocks-icon": 5.1.4
+        "@khanacademy/wonder-blocks-labeled-field": 3.0.13
+        "@khanacademy/wonder-blocks-layout": 3.1.16
+        "@khanacademy/wonder-blocks-link": 9.1.5
+        "@khanacademy/wonder-blocks-pill": 3.1.18
+        "@khanacademy/wonder-blocks-popover": 6.1.6
+        "@khanacademy/wonder-blocks-progress-spinner": 3.1.16
+        "@khanacademy/wonder-blocks-search-field": 5.1.20
+        "@khanacademy/wonder-blocks-switch": 3.2.9
+        "@khanacademy/wonder-blocks-timing": 7.0.2
+        "@khanacademy/wonder-blocks-tokens": 10.4.0
+        "@khanacademy/wonder-blocks-toolbar": 5.1.17
+        "@khanacademy/wonder-blocks-tooltip": 4.1.20
+        "@khanacademy/wonder-blocks-typography": 4.2.0
+        "@khanacademy/wonder-stuff-core": 1.5.4
+    prodDeps:
+        tiny-invariant: 1.3.1

@@ -434,7 +434,6 @@ ExpressionWithDependencies.getUserInputFromProps =
 export default {
     name: "expression",
     displayName: "Expression / Equation",
-    accessible: true,
     widget: ExpressionWithDependencies,
     transform: (
         widgetOptions:
@@ -465,7 +464,6 @@ export default {
         };
     },
     version: expressionLogic.version,
-    propUpgrades: expressionLogic.widgetOptionsUpgrades,
 
     // For use by the editor
     isLintable: true,
