@@ -156,6 +156,10 @@ const createConfig = (
                 modules: {
                     localsConvention: "camelCase",
                     generateScopedName: function (name, filename, css) {
+                        /*  This function generates the class name for the compiled index.css file.
+                            It generates a hash that uses the path of the filename along with the class name.
+                            The resulting class name is "perseus_<8-digit-hash>".
+                         */
                         if (filename.endsWith(".module.css")) {
                             const hash = crypto
                                 .createHash("sha256")

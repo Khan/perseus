@@ -1,7 +1,18 @@
+const {exec} = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
 const {parse} = require("@babel/parser");
+
+/**
+ * Extracts style information from JS and Aphrodite objects and writes them to a
+ *      CSS Modules (*.module.css) file.
+ * @example
+ *      node utils/extract-css.js <name-of-tsx-file>
+ * @param {string} name-of-tsx-file Pathname of file to convert (from project root)
+ * @return Writes a new file (name-of-tsx-file.module.css) with converted style information.
+ *         Removes style information from the original TSX file.
+ */
 
 /*************
  * Constants *
@@ -10,6 +21,7 @@ const fileToExtract = process.argv.length > 2 ? process.argv[2] : "";
 const filePath = path.join(process.cwd(), fileToExtract);
 const fileDirectory = path.dirname(filePath);
 const fileNameParts = path.basename(filePath).split(".");
+const archiveFile = process.argv.includes("--archive");
 const archivedFileName = `${fileNameParts[0]}.OLD.${fileNameParts[1]}`;
 const archivedFilePath = path.join(fileDirectory, archivedFileName);
 const cssFileName = `${fileNameParts[0]}.module.css`;
@@ -158,15 +170,17 @@ const mapVariables = (parsedCode) => {
         }, {});
 };
 
-// Archive the original file in case something doesn't quite go right.
-fs.copyFile(filePath, archivedFilePath, (error) => {
-    if (error) {
-        console.error(
-            `Error while archiving ${fileNameParts.join(".")}: `,
-            error,
-        );
-    }
-});
+// Archive the original file (if requested) in case something doesn't quite go right.
+if (archiveFile && fs.existsSync(filePath)) {
+    fs.copyFile(filePath, archivedFilePath, (error) => {
+        if (error) {
+            console.error(
+                `Error while archiving ${fileNameParts.join(".")}: `,
+                error,
+            );
+        }
+    });
+}
 
 // Parse the code in order to extract and replace the CSS parts.
 const {code, parsedCode} = getCode(filePath);
@@ -557,6 +571,12 @@ const cssStringified = Object.keys(cssRules)
 
 // Write the CSS to its own file.
 fs.writeFileSync(cssFilePath, cssStringified);
+exec(`git add ${cssFilePath}`, (error, stdout, stderr) => {
+    if (error) {
+        console.error(`Error: ${error}`);
+        return;
+    }
+});
 
 /*********************
  * Replace Aphrodite *

@@ -118,8 +118,9 @@
         "tiny-invariant": "catalog:devDeps",
         "typescript": "5.7.2",
         "typescript-coverage-report": "^0.7.0",
+        "typescript-plugin-css-modules": "^5.1.0",
         "vite": "catalog:devDeps",
-        "vite-css-modules": "catalog:devDeps",
+        "vite-css-modules": "1.8.6",
         "vite-plugin-istanbul": "^5.0.0",
         "winston": "^3.7.2",
         "yaml": "^2.7.0"
