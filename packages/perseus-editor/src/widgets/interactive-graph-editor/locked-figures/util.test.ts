@@ -93,6 +93,7 @@ describe("getDefaultFigureForType", () => {
             showVertices: false,
             fillStyle: "none",
             strokeStyle: "solid",
+            weight: "medium",
             labels: [],
         });
     });

@@ -873,6 +873,7 @@ export type LockedPolygonType = {
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
+    weight?: "thin" | "medium" | "thick";
     labels: LockedLabelType[];
     ariaLabel?: string;
 };

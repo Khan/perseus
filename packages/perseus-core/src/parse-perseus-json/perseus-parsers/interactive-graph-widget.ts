@@ -137,6 +137,8 @@ const parseLockedFigureFillType = enumeration(
 
 const parseLockedLineStyle = enumeration("solid", "dashed");
 
+const parseStrokeWeight = optional(enumeration("medium", "thin", "thick"));
+
 const parseLockedLabelType = object({
     type: constant("label"),
     coord: pairOfNumbers,
@@ -193,6 +195,7 @@ const parseLockedPolygonType = object({
     showVertices: boolean,
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
+    weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
