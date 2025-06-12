@@ -1,13 +1,12 @@
+import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import iconPass from "@phosphor-icons/core/fill/check-circle-fill.svg";
 import iconWarning from "@phosphor-icons/core/fill/warning-fill.svg";
-import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
-import caretRight from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
 import {useState} from "react";
 
+import ToggleableCaret from "./components/toggleable-caret";
 import IssueDetails from "./issue-details";
 
 export type IssueImpact = "low" | "medium" | "high";
@@ -25,15 +24,15 @@ type IssuesPanelProps = {
 };
 
 const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
-    const hasWarnings = issues.length > 0;
     const [showPanel, setShowPanel] = useState(false);
-    const icon = hasWarnings ? iconWarning : iconPass;
-    const iconColor = hasWarnings ? wbColor.gold : wbColor.green;
+
+    const hasWarnings = issues.length > 0;
     const issuesCount = `${issues.length} issue${
         issues.length === 1 ? "" : "s"
     }`;
 
-    const toggleIcon = showPanel ? caretDown : caretRight;
+    const icon = hasWarnings ? iconWarning : iconPass;
+    const iconColor = hasWarnings ? wbColor.gold : wbColor.green;
 
     const togglePanel = () => {
         if (hasWarnings) {
@@ -45,14 +44,13 @@ const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
         <div className="perseus-widget-editor">
             <div className="perseus-widget-editor-title">
                 <div className="perseus-widget-editor-title-id">
-                    <IconButton
-                        icon={toggleIcon}
-                        kind="tertiary"
-                        size="small"
+                    <View
+                        style={{marginRight: 5, flexGrow: 0}}
                         onClick={togglePanel}
-                        actionType="neutral"
-                        style={{marginRight: 0, flexGrow: 0}}
-                    />
+                        testId="issues-toggle-caret"
+                    >
+                        <ToggleableCaret isExpanded={showPanel} />
+                    </View>
                     <span>Issues</span>
                 </div>
                 <PhosphorIcon

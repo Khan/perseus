@@ -4,17 +4,16 @@ import {
     CoreWidgetRegistry,
     applyDefaultsToWidget,
 } from "@khanacademy/perseus-core";
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
-import caretDown from "@phosphor-icons/core/regular/caret-down.svg";
-import caretRight from "@phosphor-icons/core/regular/caret-right.svg";
 import * as React from "react";
 import {useId} from "react";
 import _ from "underscore";
 
 import SectionControlButton from "./section-control-button";
+import ToggleableCaret from "./toggleable-caret";
 
 import type Editor from "../editor";
 import type {APIOptions} from "@khanacademy/perseus";
@@ -158,12 +157,6 @@ class WidgetEditor extends React.Component<
 
         const supportsStaticMode = Widgets.supportsStaticMode(widgetInfo.type);
 
-        const toggleIcon = this.state.showWidget ? caretDown : caretRight;
-        const buttonStyle = {
-            marginRight: 0,
-            flexGrow: 0,
-        };
-
         return (
             <div className="perseus-widget-editor">
                 <div
@@ -173,14 +166,14 @@ class WidgetEditor extends React.Component<
                     }
                 >
                     <div className="perseus-widget-editor-title-id">
-                        <IconButton
-                            icon={toggleIcon}
-                            kind="tertiary"
-                            size="small"
+                        <View
+                            style={{marginRight: 5, flexGrow: 0}}
                             onClick={this._toggleWidget}
-                            actionType="neutral"
-                            style={buttonStyle}
-                        />
+                        >
+                            <ToggleableCaret
+                                isExpanded={this.state.showWidget}
+                            />
+                        </View>
                         <span>{this.props.id}</span>
                     </div>
 
