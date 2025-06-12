@@ -1,5 +1,15 @@
 # @khanacademy/perseus-core
 
+## 14.0.1
+
+### Patch Changes
+
+-   [#2570](https://github.com/Khan/perseus/pull/2570) [`69d7ff811`](https://github.com/Khan/perseus/commit/69d7ff811503164a50257a6fba2bf83cacd04efb) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Update comments to refer to khan/frontend instead of webapp. Khan Academy's frontend code has moved.
+
+-   Updated dependencies []:
+    -   @khanacademy/kas@2.0.6
+    -   @khanacademy/perseus-utils@2.0.4
+
 ## 14.0.0
 
 ### Major Changes
