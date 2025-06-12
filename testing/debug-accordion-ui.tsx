@@ -3,7 +3,7 @@ import {
     AccordionSection,
 } from "@khanacademy/wonder-blocks-accordion";
 import Button from "@khanacademy/wonder-blocks-button";
-import {color, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
@@ -38,7 +38,9 @@ const ScoreHeader = ({score}: {score: KEScore}): React.ReactElement => {
             <LabelSmall>{label}:</LabelSmall>
             <LabelSmall
                 style={{
-                    color: success ? color.green : color.red,
+                    color: success
+                        ? semanticColor.core.foreground.success.subtle
+                        : semanticColor.core.foreground.critical.subtle,
                     fontWeight: "bold",
                 }}
             >

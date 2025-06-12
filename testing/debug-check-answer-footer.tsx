@@ -5,7 +5,7 @@ import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
 import {
     border,
-    color,
+    semanticColor,
     sizing,
     spacing,
 } from "@khanacademy/wonder-blocks-tokens";
@@ -55,7 +55,7 @@ export const DebugCheckAnswerFooter = ({
                     <PhosphorIcon
                         size="large"
                         icon={checkCircle}
-                        color={color.green}
+                        color={semanticColor.core.foreground.success.subtle}
                         aria-hidden="true"
                     />
                     <View>
@@ -160,8 +160,8 @@ const styles = {
         left: 0,
         right: 0,
         padding: `${sizing.size_120} ${sizing.size_160}`,
-        backgroundColor: color.white,
-        border: `${border.width.thin} solid ${color.offBlack8}`,
+        backgroundColor: semanticColor.core.foreground.inverse.strong,
+        border: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
     },
     buttonContainer: {
         display: "flex",
