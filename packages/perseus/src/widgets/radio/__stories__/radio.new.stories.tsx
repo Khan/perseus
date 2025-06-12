@@ -1,6 +1,7 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {rtlStoryRenderer} from "../../../../../../testing/rtl-story-renderer";
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {
     questionWithPassage,
@@ -181,6 +182,11 @@ export const SelectWithImagesAndScrollRTL = {
             question: SingleSelectOverflowImageContent,
         }),
     },
+    parameters: {
+        direction: "rtl",
+    },
+    render: (args: StoryArgs) =>
+        rtlStoryRenderer(args, applyStoryArgs, buildApiOptions),
 };
 
 export const SingleSelectWithScrollRTL = {
@@ -189,6 +195,11 @@ export const SingleSelectWithScrollRTL = {
             question: SingleSelectOverflowContent,
         }),
     },
+    parameters: {
+        direction: "rtl",
+    },
+    render: (args: StoryArgs) =>
+        rtlStoryRenderer(args, applyStoryArgs, buildApiOptions),
 };
 
 export const MultiSelectWithScrollRTL = {
@@ -197,4 +208,9 @@ export const MultiSelectWithScrollRTL = {
             question: multiChoiceQuestionSimpleOverflowContent,
         }),
     },
+    parameters: {
+        direction: "rtl",
+    },
+    render: (args: StoryArgs) =>
+        rtlStoryRenderer(args, applyStoryArgs, buildApiOptions),
 };
