@@ -186,7 +186,11 @@ describe("InteractiveGraph serialization", () => {
                         graph: {
                             type: "linear",
                             startCoords: [
-                                [4, 1], // <= important
+                                [3, 0],
+                                [3, 3],
+                            ],
+                            coords: [
+                                [4, 1], // <= important, it's different
                                 [3, 3],
                             ],
                         },
@@ -214,7 +218,11 @@ describe("InteractiveGraph serialization", () => {
             "interactive-graph 1": {
                 type: "linear",
                 startCoords: [
-                    [4, 1], // <= important
+                    [3, 0],
+                    [3, 3],
+                ],
+                coords: [
+                    [4, 1], // <= important, it's different
                     [3, 3],
                 ],
             },

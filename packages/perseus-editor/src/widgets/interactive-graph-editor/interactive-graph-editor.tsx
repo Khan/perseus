@@ -153,7 +153,7 @@ export type Props = {
     /**
      * The graph to display in the graph area.
      */
-    graph: InteractiveGraphProps["graph"];
+    graph: InteractiveGraphProps["userInput"];
     onChange: (props: Partial<Props>) => void;
     // Whether the graph has been set to static mode.
     // Graphs in static mode are not interactive, and their coords are
@@ -309,7 +309,6 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 step: this.props.step,
                 gridStep: gridStep,
                 snapStep: snapStep,
-                graph: correct,
                 backgroundImage: this.props.backgroundImage,
                 markings: this.props.markings,
                 showProtractor: this.props.showProtractor,
@@ -318,7 +317,10 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 fullGraphAriaLabel: this.props.fullGraphAriaLabel,
                 fullGraphAriaDescription: this.props.fullGraphAriaDescription,
                 trackInteraction: function () {},
-                onChange: ({graph: newGraph}: InteractiveGraphProps) => {
+                userInput: correct,
+                handleUserInput: (
+                    newGraph: InteractiveGraphProps["userInput"],
+                ) => {
                     let correct = this.props.correct;
                     // TODO(benchristel): can we improve the type of onChange
                     // so this invariant isn't necessary?
@@ -366,12 +368,12 @@ class InteractiveGraphEditor extends React.Component<Props> {
                             <GraphTypeSelector
                                 graphType={
                                     this.props.graph?.type ??
-                                    InteractiveGraph.defaultProps.graph.type
+                                    InteractiveGraph.defaultProps.userInput.type
                                 }
                                 // TODO(LEMS-2656): remove TS suppression
                                 onChange={
                                     ((
-                                        type: Required<InteractiveGraphProps>["graph"]["type"],
+                                        type: Required<InteractiveGraphProps>["userInput"]["type"],
                                     ) => {
                                         this.props.onChange({
                                             graph: {type},
