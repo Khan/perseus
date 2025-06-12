@@ -778,6 +778,8 @@ class Editor extends React.Component<Props, State> {
                 "7 & \\text{if }x=1 \\\\\n" +
                 "f(x-1)+5 & \\text{if }x > 1\n" +
                 "\\end{cases}$";
+        } else if (templateType === "sideBySide") {
+            template = "Left hand side\n" + "=====" + "\nRight hand side";
         } else if (templateType === "allWidgets") {
             template = Widgets.getAllWidgetTypes()
                 .map((type) => `[[${Util.snowman} ${type} 1]]`)
@@ -995,6 +997,7 @@ class Editor extends React.Component<Props, State> {
                     <option value="titledTable">Titled table</option>
                     <option value="alignment">Aligned equations</option>
                     <option value="piecewise">Piecewise function</option>
+                    <option value="sideBySide">Side by side</option>
                     <option disabled>--</option>
                     <option value="allWidgets">
                         All widgets (for testing)
