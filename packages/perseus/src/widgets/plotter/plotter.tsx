@@ -1165,9 +1165,16 @@ export class Plotter extends React.Component<Props, State> implements Widget {
     }
 }
 
+function getStartUserInput(
+    options: PlotterPublicWidgetOptions,
+): PerseusPlotterUserInput {
+    return options.starting;
+}
+
 export default {
     name: "plotter",
     displayName: "Plotter",
     hidden: true,
     widget: Plotter,
+    // getStartUserInput,
 } satisfies WidgetExports<typeof Plotter>;
