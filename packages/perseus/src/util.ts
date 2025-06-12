@@ -1,7 +1,13 @@
+import {
+    getRealImageUrl,
+    getBaseUrl,
+    getSvgUrl,
+    getDataUrl,
+    getImageSizeModern,
+    isLabeledSVG,
+} from "@khanacademy/perseus-core";
 import {KhanAnswerTypes} from "@khanacademy/perseus-score";
 import _ from "underscore";
-
-import * as GraphieUtil from "./util.graphie";
 
 import type {Range} from "@khanacademy/perseus-core";
 import type * as React from "react";
@@ -537,7 +543,7 @@ function getImageSize(
         }
     };
 
-    img.src = GraphieUtil.getRealImageUrl(url);
+    img.src = getRealImageUrl(url);
 }
 
 /**
@@ -618,12 +624,12 @@ const Util = {
     supportsPassiveEvents,
     captureScratchpadTouchStart,
     getImageSize,
-    getImageSizeModern: GraphieUtil.getImageSizeModern,
-    getRealImageUrl: GraphieUtil.getRealImageUrl,
-    isLabeledSVG: GraphieUtil.isLabeledSVG,
-    getBaseUrl: GraphieUtil.getBaseUrl,
-    getSvgUrl: GraphieUtil.getSvgUrl,
-    getDataUrl: GraphieUtil.getDataUrl,
+    getImageSizeModern: getImageSizeModern,
+    getRealImageUrl: getRealImageUrl,
+    isLabeledSVG: isLabeledSVG,
+    getBaseUrl: getBaseUrl,
+    getSvgUrl: getSvgUrl,
+    getDataUrl: getDataUrl,
     textarea,
     unescapeMathMode,
 } as const;

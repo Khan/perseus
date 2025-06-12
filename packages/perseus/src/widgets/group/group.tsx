@@ -197,15 +197,10 @@ class Group extends React.Component<Props> implements Widget {
     }
 }
 
-const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
-    return {...props, ...traverseRenderer(props)};
-};
-
 export default {
     name: "group",
     displayName: "Group (SAT only)",
     widget: Group,
-    traverseChildWidgets: traverseChildWidgets,
     hidden: true,
     isLintable: true,
 } satisfies WidgetExports<typeof Group>;

@@ -1,5 +1,27 @@
 # @khanacademy/perseus-score
 
+## 7.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`69d7ff811`](https://github.com/Khan/perseus/commit/69d7ff811503164a50257a6fba2bf83cacd04efb)]:
+    -   @khanacademy/perseus-core@14.0.1
+    -   @khanacademy/kas@2.0.6
+    -   @khanacademy/kmath@2.0.14
+    -   @khanacademy/perseus-utils@2.0.4
+
+## 7.1.0
+
+### Minor Changes
+
+-   [#2518](https://github.com/Khan/perseus/pull/2518) [`0eba51c67`](https://github.com/Khan/perseus/commit/0eba51c67e1e67a11e425cb772194a44857eae0f) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updates to Radio Scoring to ensure non-specific multiselect questions are marked correctly.
+
+### Patch Changes
+
+-   Updated dependencies [[`f5d08b79a`](https://github.com/Khan/perseus/commit/f5d08b79aca6d56ba7bdc3d47429c449645f75f9), [`cea05d9e6`](https://github.com/Khan/perseus/commit/cea05d9e6c629db6c14ed43dba085e215d006a1e), [`e60f6ac50`](https://github.com/Khan/perseus/commit/e60f6ac50a28d0664bfc211c9c655651719e3309), [`75f1d1f53`](https://github.com/Khan/perseus/commit/75f1d1f53fe173f9275a213376c2497b5762ce0a), [`0eba51c67`](https://github.com/Khan/perseus/commit/0eba51c67e1e67a11e425cb772194a44857eae0f), [`59a2e87a8`](https://github.com/Khan/perseus/commit/59a2e87a83ef08a151552c7922bddfcbf1c73cf2), [`ab2861d83`](https://github.com/Khan/perseus/commit/ab2861d8335e7ef1800dd5c6754616192b53073b), [`cec57bbc6`](https://github.com/Khan/perseus/commit/cec57bbc6cf32cdce5a6b764b7399f69f87b4a89)]:
+    -   @khanacademy/perseus-core@14.0.0
+    -   @khanacademy/kmath@2.0.13
+
 ## 7.0.2
 
 ### Patch Changes

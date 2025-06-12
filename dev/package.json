@@ -3,7 +3,7 @@
     "description": "Perseus dev UI",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "5.4.13",
+    "version": "5.4.15",
     "private": true,
     "repository": {
         "type": "git",

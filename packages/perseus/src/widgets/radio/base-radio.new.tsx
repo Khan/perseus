@@ -24,8 +24,9 @@ import type {StyleDeclaration} from "aphrodite";
 
 const {captureScratchpadTouchStart} = Util;
 
+// TODO(LEMS-3170): Simplify the ChoiceType by using ChoiceProps directly.
 // exported for tests
-export type ChoiceType = {
+export interface ChoiceType {
     checked: boolean;
     content: React.ReactNode;
     rationale: React.ReactNode;
@@ -38,9 +39,9 @@ export type ChoiceType = {
     previouslyAnswered: boolean;
     revealNoneOfTheAbove: boolean;
     disabled: boolean;
-};
+}
 
-type Props = {
+interface BaseRadioProps {
     apiOptions: APIOptions;
     choices: ReadonlyArray<ChoiceType>;
     deselectEnabled?: boolean;
@@ -61,7 +62,7 @@ type Props = {
     // Renderer. Determines whether we'll auto-scroll the page upon
     // entering review mode.
     isLastUsedWidget?: boolean;
-};
+}
 
 /**
  * The BaseRadio component is the core component for the radio widget.
@@ -85,7 +86,7 @@ const BaseRadio = ({
     numCorrect,
     isLastUsedWidget,
     onChange,
-}: Props): React.ReactElement => {
+}: BaseRadioProps): React.ReactElement => {
     const {strings} = usePerseusI18n();
 
     // useEffect doesn't have previous props
@@ -441,7 +442,8 @@ const styles: StyleDeclaration = StyleSheet.create({
         // HACK(emily): We want selected choices to show up above our
         // exercise backdrop, but below the exercise footer and
         // "feedback popover" that shows up. This z-index is carefully
-        // coordinated between here and webapp. :(
+        // coordinated between here and khan/frontend. :(
+        // See: https://github.com/khan/frontend/blob/f46d475b7684287bfa57ed9a40e846754f1d0a4d/apps/khanacademy/src/exercises-components-package/style-constants.ts#L27-L28
         zIndex: 1062,
     },
 

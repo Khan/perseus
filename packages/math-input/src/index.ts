@@ -2,7 +2,7 @@
  * A single entry-point for all of the external-facing functionality.
  */
 
-import "../less/main.less";
+import "../styles/main.css";
 
 export {libVersion} from "./version";
 

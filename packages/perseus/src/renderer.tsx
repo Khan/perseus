@@ -71,7 +71,7 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-import "./styles/perseus-renderer.less";
+import "./styles/perseus-renderer.css";
 
 const rContainsNonWhitespace = /\S/;
 const rImageURL = /(web\+graphie|https):\/\/[^\s]*/;
@@ -921,7 +921,7 @@ class Renderer
         props: Props,
         state: State,
     ): boolean => {
-        // TODO(aria): Pass this in via webapp as an apiOption
+        // TODO(aria): Pass this in via khan/frontend as an apiOption
         return (
             getDependencies().JIPT.useJIPT &&
             state.jiptContent == null &&
@@ -1132,7 +1132,7 @@ class Renderer
             }
             // Widgets can contain text nodes, so we don't center them with
             // markdown magic here.
-            // Instead, we center them with css magic in styles.less
+            // Instead, we center them with css magic in styles.css
             // /cry(aria)
             this._foundTextNodes = true;
 

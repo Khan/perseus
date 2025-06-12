@@ -208,7 +208,7 @@ class ArticleRenderer
             "framework-perseus": true,
             "perseus-article": true,
             // NOTE(charlie): For exercises, this is applied outside of Perseus
-            // (in webapp).
+            // (in khan/frontend).
             [ApiClassNames.MOBILE]: apiOptions.isMobile,
         });
 

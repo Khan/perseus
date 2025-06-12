@@ -3,7 +3,6 @@ import {describe, beforeEach, it} from "@jest/globals";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {scorePerseusItemTesting} from "../../util/test-utils";
-import {isAccessible} from "../../widgets";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question} from "./image.testdata";
@@ -49,26 +48,5 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
 
         // Assert
         expect(score).toHaveBeenAnsweredIncorrectly();
-    });
-
-    it("should be accessible if background has 'alt' prop", () => {
-        // Arrange, Act, and Assert
-        expect(isAccessible(question.widgets["image 1"])).toBe(true);
-    });
-
-    it("should be inaccessible if background is missing 'alt' prop", () => {
-        // Arrange
-        const imageWidget = question.widgets["image 1"];
-        const options = imageWidget.options;
-        const inaccessibleWidgetInfo = {
-            ...imageWidget,
-            options: {
-                ...options,
-                alt: "",
-            },
-        };
-
-        // Act and Assert
-        expect(isAccessible(inaccessibleWidgetInfo)).toBe(false);
     });
 });

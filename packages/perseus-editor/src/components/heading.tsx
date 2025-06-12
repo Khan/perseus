@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     container: {
         marginTop: spacing.small_12,
         // NOTE(jeremy): This is the inverse of the @editorPadding CSS
-        // variable found in perseus-editor.less. For now, it must
+        // variable found in perseus-editor.css. For now, it must
         // match otherwise there's a gap from this header to the edge
         // of the editor borders.
         marginInline: -10,

@@ -1,0 +1,84 @@
+@import "mathquill/build/mathquill.css";
+.keypad-input {
+    outline: none !important;
+}
+.keypad-input .mq-editable-field .mq-root-block {
+    overflow-x: auto;
+}
+.keypad-input .mq-editable-field .mq-cursor:not(:only-child),
+.keypad-input
+    .mq-editable-field
+    .mq-root-block.mq-hasCursor
+    > .mq-cursor:only-child {
+    /* HACK(charlie): Magic numbers to properly size and position the vertical
+               cursor, which is visible whenever the cursor is not alone in its parent,
+               with the exception that it's also visible when the entire input is
+               empty. */
+    height: 20px !important;
+    width: 2px;
+    margin-top: -5px !important;
+    vertical-align: middle !important;
+    border-radius: 1px !important;
+}
+.keypad-input .mq-editable-field .mq-cursor {
+    border-left: 2px solid #1865f2 !important;
+    margin-left: -1px !important;
+    margin-right: -1px !important;
+    opacity: 1 !important;
+    transition: opacity 300ms ease !important;
+    visibility: visible !important;
+}
+.keypad-input .mq-editable-field .mq-cursor.mq-blink {
+    opacity: 0 !important;
+    visibility: visible !important;
+}
+.keypad-input .mq-editable-field .mq-non-leaf .mq-cursor:only-child {
+    border: 2px solid !important;
+    border-color: #1865f2 !important;
+    border-radius: 1px;
+    opacity: 1 !important;
+    padding: 0 4px 0 4px;
+    transition: border-color 300ms ease !important;
+}
+.keypad-input .mq-editable-field .mq-non-leaf .mq-cursor:only-child.mq-blink {
+    border-color: #1865f2 !important;
+    opacity: 1 !important;
+}
+.keypad-input .mq-empty {
+    background: transparent !important;
+}
+.keypad-input .mq-empty:not(.mq-root-block):after,
+.keypad-input .mq-hasCursor:empty:not(.mq-root-block):after {
+    border: 2px solid rgba(33, 36, 44, 0.16);
+    border-radius: 1px;
+    color: transparent;
+    display: inline-block;
+    margin-left: -1px;
+    margin-right: -1px;
+    padding: 0 4px 0 4px;
+    visibility: visible !important;
+}
+.keypad-input .mq-selection .mq-empty:not(.mq-root-block):after {
+    border-color: white;
+}
+.keypad-input .mq-hasCursor:empty:not(.mq-root-block):after {
+    content: "c";
+}
+.keypad-input .mq-math-mode .mq-selection .mq-non-leaf,
+.keypad-input .mq-editable-field .mq-selection .mq-non-leaf {
+    background: #1865f2 !important;
+    border-color: white !important;
+    color: white !important;
+}
+.keypad-input .mq-math-mode .mq-selection .mq-scaled,
+.keypad-input .mq-editable-field .mq-selection .mq-scaled {
+    background: transparent !important;
+    border-color: transparent !important;
+    color: white !important;
+}
+.keypad-input .mq-selection {
+    background: #1865f2 !important;
+    border-color: white !important;
+    color: white !important;
+    display: inline-block !important;
+}

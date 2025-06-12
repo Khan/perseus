@@ -18,7 +18,7 @@ import type {APIOptions} from "../../types";
 const intermediateCheckboxPadding = `16px 16px`;
 const intermediateCheckboxPaddingPhone = `12px 16px`;
 
-export type ChoiceProps = {
+export interface ChoiceProps {
     apiOptions?: APIOptions;
     checked?: boolean;
     rationale: React.ReactNode;
@@ -41,7 +41,7 @@ export type ChoiceProps = {
     // an object with a `checked` key. It contains a boolean value specifying
     // the new checked value of this choice.
     onChange?: (newValues: {checked: boolean}) => void;
-};
+}
 
 /**
  * This component is a duplicate of the Choice component in choice.tsx

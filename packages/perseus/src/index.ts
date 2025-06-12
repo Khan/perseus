@@ -70,9 +70,7 @@ export {Log} from "./logging/log";
 export {default as JiptParagraphs} from "./jipt-paragraphs";
 export {default as LoadingContext} from "./loading-context";
 export {default as PerseusMarkdown} from "./perseus-markdown";
-export {traverse} from "./traversal";
 export {isItemRenderableByVersion} from "./renderability";
-export {violatingWidgets} from "./a11y";
 export {interactiveSizes} from "./styles/constants";
 export {displaySigFigs} from "./sigfigs";
 
