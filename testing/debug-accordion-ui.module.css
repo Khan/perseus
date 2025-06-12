@@ -1,28 +1,30 @@
 /* ScoreHeader styles */
 .score-header-container {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    padding: 1.2rem !important;
-    gap: 1.6rem !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: var(--wb-sizing-size_120);
+    gap: var(--wb-sizing-size_160);
 }
 
 .status-badge {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    gap: 0.6rem !important;
-    background-color: #f7f8fa;
-    border-radius: 0.4rem !important;
-    padding: 0.8rem 0.8rem !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--wb-sizing-size_060);
+    background-color: var(--wb-semanticColor-core-foreground-inverse-default);
+    border-radius: var(--wb-border-radius-radius_040);
+    padding: var(--wb-sizing-size_080) var(--wb-sizing-size_080);
 }
 
 .status-badge-success {
-    border: 0.1rem solid #00af26 !important;
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-success-default);
 }
 
 .status-badge-error {
-    border: 0.1rem solid #d92916 !important;
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-critical-default);
 }
 
 .status-label {
@@ -31,14 +33,14 @@
 
 /* JsonEditor styles */
 .json-editor-container {
-    padding: 1.6rem;
+    padding: var(--wb-sizing-size_160);
 }
 
 /* JsonEditor textarea styles */
 .textarea {
     width: 100%;
     height: 40rem;
-    margin-bottom: 1.6rem;
+    margin-bottom: var(--wb-sizing-size_160);
 }
 .button-container {
     display: flex;
@@ -47,5 +49,5 @@
 
 /* DebugAccordionUI styles */
 .accordion {
-    margin: 1.6rem 0;
+    margin: var(--wb-sizing-size_160) 0;
 }

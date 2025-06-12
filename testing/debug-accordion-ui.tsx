@@ -159,7 +159,7 @@ export const DebugAccordionUI = ({
     };
 
     return (
-        <Accordion style={{margin: `${spacing.medium_16}px 0`}}>
+        <Accordion style={{margin: `${spacing.medium_16} 0`}}>
             {getAccordionSections()}
         </Accordion>
     );

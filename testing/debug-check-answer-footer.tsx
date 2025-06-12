@@ -3,7 +3,12 @@ import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {Popover, PopoverContentCore} from "@khanacademy/wonder-blocks-popover";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {
+    border,
+    color,
+    sizing,
+    spacing,
+} from "@khanacademy/wonder-blocks-tokens";
 import {Body, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import checkCircle from "@phosphor-icons/core/regular/check-circle.svg";
 import * as React from "react";
@@ -154,24 +159,24 @@ const styles = {
         bottom: 0,
         left: 0,
         right: 0,
-        padding: `${spacing.small_12}px ${spacing.medium_16}px`,
+        padding: `${sizing.size_120} ${sizing.size_160}`,
         backgroundColor: color.white,
-        border: `1px solid ${color.offBlack8}`,
+        border: `${border.width.thin} solid ${color.offBlack8}`,
     },
     buttonContainer: {
         display: "flex",
         flexDirection: "row",
     },
     incorrectLabel: {
-        marginBottom: spacing.xxSmall_6,
+        marginBottom: sizing.size_060,
     },
     errorLabel: {
-        marginBottom: spacing.xSmall_8,
+        marginBottom: sizing.size_080,
     },
     popoverContent: {
         alignItems: "flex-start",
         flexDirection: "row",
-        gap: spacing.medium_16,
-        paddingRight: spacing.xxLarge_48,
+        gap: sizing.size_160,
+        paddingRight: sizing.size_480,
     },
 } as const;
