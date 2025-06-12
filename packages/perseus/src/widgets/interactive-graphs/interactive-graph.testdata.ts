@@ -987,7 +987,6 @@ export const staticGraphQuestionWithAnotherWidget: () => PerseusRenderer =
                 static: false,
                 type: "radio",
                 options: {
-                    displayCount: null,
                     choices: [
                         {
                             content: "$-8$ and $8$",

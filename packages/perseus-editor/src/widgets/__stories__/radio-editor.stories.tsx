@@ -40,8 +40,6 @@ const question: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
-                onePerLine: false,
                 choices: [
                     {
                         content: "$-8$ and $8$",
@@ -100,8 +98,6 @@ class WithState extends React.Component<Empty, PerseusRadioWidgetOptions> {
                             ...props,
                         });
                     }}
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'RadioEditor | null' is not assignable to type 'RadioEditor'.
-                    ref={(widget) => (this._widget = widget)}
                     static={false}
                 />
             </div>

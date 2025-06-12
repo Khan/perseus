@@ -18,8 +18,6 @@ export const question: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
-                onePerLine: false,
                 choices: [
                     {
                         content: "$-8$ and $8$",
@@ -77,7 +75,6 @@ export const questionWithPassage: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
                 choices: [
                     {
                         content: "$-8$ and $8$",
@@ -144,7 +141,6 @@ export const choicesWithImages: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
                 choices: [
                     {
                         content:
@@ -338,8 +334,6 @@ export const multiChoiceQuestion: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                onePerLine: true,
-                displayCount: null,
                 choices: [
                     {
                         content: "$x=-6$",
@@ -383,8 +377,6 @@ export const multiChoiceQuestionSimple: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                onePerLine: true,
-                displayCount: null,
                 choices: [
                     {
                         content: "Hola",
@@ -513,8 +505,6 @@ export const shuffledQuestion: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
-                onePerLine: false,
                 choices: [
                     {
                         content: "Incorrect Choice 1",
@@ -557,8 +547,6 @@ export const shuffledNoneQuestion: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
-                onePerLine: false,
                 choices: [
                     {
                         content: "Incorrect Choice 1",

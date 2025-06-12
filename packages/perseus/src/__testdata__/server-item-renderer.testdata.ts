@@ -189,7 +189,6 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
                     static: false,
                     countChoices: false,
                     deselectEnabled: false,
-                    displayCount: null,
                     hasNoneOfTheAbove: false,
                     multipleSelect: false,
                     randomize: true,
