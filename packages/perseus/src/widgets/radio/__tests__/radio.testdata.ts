@@ -18,30 +18,30 @@ export const question: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
-                onePerLine: false,
                 choices: [
                     {
                         content: "$-8$ and $8$",
                         correct: false,
-                        clue: "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
+                        rationale:
+                            "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
                     },
                     {
                         content: "$-8$",
                         correct: false,
-                        clue: "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
+                        rationale:
+                            "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
                     },
                     {
                         content: "$8$",
                         correct: true,
                         isNoneOfTheAbove: false,
-                        clue: "$8$ is the positive square root of $64$.",
+                        rationale: "$8$ is the positive square root of $64$.",
                     },
                     {
                         content: "No value of $x$ satisfies the equation.",
                         correct: false,
                         isNoneOfTheAbove: false,
-                        clue: "$8$ satisfies the equation.",
+                        rationale: "$8$ satisfies the equation.",
                     },
                 ],
                 countChoices: false,
@@ -75,29 +75,30 @@ export const questionWithPassage: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
                 choices: [
                     {
                         content: "$-8$ and $8$",
                         correct: false,
-                        clue: "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
+                        rationale:
+                            "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
                     },
                     {
                         content: "$-8$",
                         correct: false,
-                        clue: "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
+                        rationale:
+                            "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
                     },
                     {
                         content: "$8$ {{passage-ref 1 1}}\n\n",
                         correct: true,
                         isNoneOfTheAbove: false,
-                        clue: "$8$ is the positive square root of $64$.",
+                        rationale: "$8$ is the positive square root of $64$.",
                     },
                     {
                         content: "No value of $x$ satisfies the equation.",
                         correct: false,
                         isNoneOfTheAbove: false,
-                        clue: "$8$ satisfies the equation.",
+                        rationale: "$8$ satisfies the equation.",
                     },
                 ],
                 countChoices: false,
@@ -140,43 +141,48 @@ export const choicesWithImages: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
                 choices: [
                     {
                         content:
                             "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
                         correct: false,
-                        clue: "The markdown only has single lines between each item, so they should be treated as one complete line.",
+                        rationale:
+                            "The markdown only has single lines between each item, so they should be treated as one complete line.",
                     },
                     {
                         content:
                             "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
-                        clue: "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
+                        rationale:
+                            "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
                     },
                     {
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
                         correct: false,
-                        clue: "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
+                        rationale:
+                            "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
                     },
                     {
                         content:
                             "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
                         correct: false,
-                        clue: "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
+                        rationale:
+                            "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
                     },
                     {
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
-                        clue: "The markdown only has an image (no text), so nothing should be adjusted.",
+                        rationale:
+                            "The markdown only has an image (no text), so nothing should be adjusted.",
                     },
                     {
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
-                        clue: "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
+                        rationale:
+                            "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
                     },
                 ],
                 countChoices: false,
@@ -218,26 +224,25 @@ export const SingleSelectOverflowImageContent: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
                 choices: [
                     {
                         content:
                             "![A row of 9 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/63a8f980544375ed1bb2540d9f48e8ac3716abc9.png)",
                         correct: true,
-                        clue: "Count the ponies in the image.",
+                        rationale: "Count the ponies in the image.",
                     },
                     {
                         content:
                             "![A row of 2 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/019ec3915127c42fc055132f7cd35c56e6276216.png)",
                         correct: false,
-                        clue: "Count the ponies in the image.",
+                        rationale: "Count the ponies in the image.",
                     },
                     {
                         content:
                             "![A row of 5 ponies.](https://ka-perseus-graphie.s3.amazonaws.com/0be0944c8e2d0c23612d6709640c0f93feabbd76.png)",
                         correct: false,
                         isNoneOfTheAbove: false,
-                        clue: "Count the ponies in the image.",
+                        rationale: "Count the ponies in the image.",
                     },
                 ],
                 countChoices: false,
@@ -264,30 +269,29 @@ export const SingleSelectOverflowContent: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
                 choices: [
                     {
                         content:
                             "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
                         correct: true,
-                        clue: "Add the following numbers to get 75.",
+                        rationale: "Add the following numbers to get 75.",
                     },
                     {
                         content: "$100-50$",
                         correct: false,
-                        clue: "Subtract the following numbers.",
+                        rationale: "Subtract the following numbers.",
                     },
                     {
                         content: "$200-125+10$",
                         correct: false,
                         isNoneOfTheAbove: false,
-                        clue: "Calculate the following numbers.",
+                        rationale: "Calculate the following numbers.",
                     },
                     {
                         content: "$10+10+10+10$",
                         correct: false,
                         isNoneOfTheAbove: false,
-                        clue: "Add the following numbers.",
+                        rationale: "Add the following numbers.",
                     },
                 ],
                 countChoices: false,
@@ -330,8 +334,6 @@ export const multiChoiceQuestion: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                onePerLine: true,
-                displayCount: null,
                 choices: [
                     {
                         content: "$x=-6$",
@@ -375,32 +377,32 @@ export const multiChoiceQuestionSimple: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                onePerLine: true,
-                displayCount: null,
                 choices: [
                     {
                         content: "Hola",
                         isNoneOfTheAbove: false,
                         correct: true,
-                        clue: "The Spanish-speaking countries typically say Hola.",
+                        rationale:
+                            "The Spanish-speaking countries typically say Hola.",
                     },
                     {
                         content: "Hey",
                         isNoneOfTheAbove: false,
                         correct: true,
-                        clue: "This is used to attract someone's attention.",
+                        rationale:
+                            "This is used to attract someone's attention.",
                     },
                     {
                         content: "Hi",
                         isNoneOfTheAbove: false,
                         correct: true,
-                        clue: "This is used as friendly greeting.",
+                        rationale: "This is used as friendly greeting.",
                     },
                     {
                         content: "Goodbye",
                         isNoneOfTheAbove: false,
                         correct: false,
-                        clue: "Some people like to say Goodbye.",
+                        rationale: "Some people like to say Goodbye.",
                     },
                     {
                         content: "None of these",
@@ -432,33 +434,32 @@ export const multiChoiceQuestionSimpleOverflowContent: PerseusRenderer = {
             type: "radio",
             options: {
                 onePerLine: true,
-                displayCount: null,
                 choices: [
                     {
                         content:
                             "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
                         isNoneOfTheAbove: false,
                         correct: true,
-                        clue: "Add the following numbers to get 75.",
+                        rationale: "Add the following numbers to get 75.",
                     },
                     {
                         content:
                             "$5+4+1+9+1+2+2+2+2+2+3+3+3+1+4+4+2+5+5+10+3+2$",
                         isNoneOfTheAbove: false,
                         correct: true,
-                        clue: "Add the following numbers to get 75.",
+                        rationale: "Add the following numbers to get 75.",
                     },
                     {
                         content: "$10+10+10+10+10+10+10+5$",
                         isNoneOfTheAbove: false,
                         correct: true,
-                        clue: "Add the following numbers to get 75.",
+                        rationale: "Add the following numbers to get 75.",
                     },
                     {
                         content: "$10+10+10+10+10+10+10+3+2$",
                         isNoneOfTheAbove: false,
                         correct: false,
-                        clue: "Add the following numbers to get 75.",
+                        rationale: "Add the following numbers to get 75.",
                     },
                     {
                         content: "None of these",
@@ -504,8 +505,6 @@ export const shuffledQuestion: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
-                onePerLine: false,
                 choices: [
                     {
                         content: "Incorrect Choice 1",
@@ -548,8 +547,6 @@ export const shuffledNoneQuestion: PerseusRenderer = {
             static: false,
             type: "radio",
             options: {
-                displayCount: null,
-                onePerLine: false,
                 choices: [
                     {
                         content: "Incorrect Choice 1",
