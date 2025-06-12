@@ -45,6 +45,7 @@ export const ServerItemRendererWithDebugUI = ({
         state,
         options,
         toggleMobile,
+        toggleRtl,
         updateJson,
         handleReset,
         handleSkip,
@@ -70,11 +71,16 @@ export const ServerItemRendererWithDebugUI = ({
                     <DebugHeader
                         title={title}
                         isMobile={state.isMobile}
+                        isRtl={state.isRtl}
+                        onToggleRtl={toggleRtl}
                         onToggleMobile={toggleMobile}
                     />
 
                     {/* Item renderer */}
-                    <View className={state.isMobile ? "perseus-mobile" : ""}>
+                    <div
+                        className={state.isMobile ? "perseus-mobile" : ""}
+                        dir={state.isRtl ? "rtl" : "ltr"}
+                    >
                         <KeypadContext.Consumer>
                             {({keypadElement}) => (
                                 <ServerItemRenderer
@@ -96,7 +102,7 @@ export const ServerItemRendererWithDebugUI = ({
                                 />
                             )}
                         </KeypadContext.Consumer>
-                    </View>
+                    </div>
 
                     {/* Debug accordion UI */}
                     <DebugAccordionUI

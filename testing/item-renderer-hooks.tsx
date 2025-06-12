@@ -33,6 +33,7 @@ export const useItemRenderer = (
             item,
             startAnswerless,
             apiOptions.isMobile ?? false,
+            false, // isRtl defaults to false
             reviewMode,
             showSolutions,
         ),
@@ -135,6 +136,10 @@ export const useItemRenderer = (
         dispatch({type: "TOGGLE_MOBILE", payload: isMobile});
     }, []);
 
+    const toggleRtl = React.useCallback((isRtl: boolean) => {
+        dispatch({type: "TOGGLE_RTL", payload: isRtl});
+    }, []);
+
     const handleReset = React.useCallback(() => {
         dispatch({type: "RESET_STATE"});
     }, []);
@@ -160,6 +165,7 @@ export const useItemRenderer = (
         state,
         options,
         toggleMobile,
+        toggleRtl,
         updateJson,
         handleReset,
         handleSkip,
