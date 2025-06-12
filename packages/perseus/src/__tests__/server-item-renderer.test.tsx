@@ -26,6 +26,7 @@ import {renderQuestion} from "./test-utils";
 
 import type {MockAssetLoadingWidget} from "../widgets/mock-widgets/mock-asset-loading-widget";
 import type {KeypadAPI} from "@khanacademy/math-input";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("server item renderer", () => {
@@ -229,6 +230,46 @@ describe("server item renderer", () => {
         // this test.
         const widget = mockedWidget as MockAssetLoadingWidget;
         act(() => widget.setAssetStatus?.("ABC", true));
+
+        // Assert
+        expect(onRendered).toHaveBeenCalledWith(true);
+    });
+
+    it("should call the onRendered callback with no assets in content", () => {
+        const content: PerseusItem = {
+            question: {
+                content: "Content without any assets",
+                images: {},
+                widgets: {},
+            },
+            answerArea: {
+                zTable: false,
+                calculator: false,
+                chi2Table: false,
+                financialCalculatorMonthlyPayment: false,
+                financialCalculatorTotalAmount: false,
+                financialCalculatorTimeToPayOff: false,
+                periodicTable: false,
+                periodicTableWithKey: false,
+                tTable: false,
+            },
+            hints: [],
+        };
+
+        const onRendered = jest.fn();
+
+        // Act
+        render(
+            <RenderStateRoot>
+                <ServerItemRenderer
+                    item={content}
+                    problemNum={0}
+                    reviewMode={false}
+                    dependencies={testDependenciesV2}
+                    onRendered={onRendered}
+                />
+            </RenderStateRoot>,
+        );
 
         // Assert
         expect(onRendered).toHaveBeenCalledWith(true);
