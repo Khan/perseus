@@ -553,10 +553,7 @@ describe("Radio Widget", () => {
                 name: "(Choice D) None of the above",
             });
             await userEvent.click(noneOption);
-            const score = scorePerseusItemTesting(
-                q,
-                renderer.getUserInput(),
-            );
+            const score = scorePerseusItemTesting(q, renderer.getUserInput());
 
             // Assert
             expect(score).toHaveBeenAnsweredCorrectly();
