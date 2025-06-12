@@ -97,29 +97,23 @@ const LockedLineSettings = (props: Props) => {
             `$${point2.coord[1]}$`,
         );
 
+        // "THROUGH point1 AND point2" for LINE.
         // "FROM point1 THROUGH point2" for RAY.
         // "FROM point1 TO point2" for SEGMENT.
-        // "THROUGH point1 AND point2" for LINE.
-        let connector1: string;
-        let connector2: string;
+        let str: string;
         switch (kind) {
             case "line":
-                connector1 = "through";
-                connector2 = "and";
+                str = `${capitalizeKind}${visiblelabel} through point${point1VisibleLabel} at ${spokenPoint1X} comma ${spokenPoint1Y} and point${point2VisibleLabel} at ${spokenPoint2X} comma ${spokenPoint2Y}`;
                 break;
             case "ray":
-                connector1 = "from";
-                connector2 = "through";
+                str = `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at ${spokenPoint1X} comma ${spokenPoint1Y} through point${point2VisibleLabel} at ${spokenPoint2X} comma ${spokenPoint2Y}`;
                 break;
             case "segment":
-                connector1 = "from";
-                connector2 = "to";
+                str = `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at ${spokenPoint1X} comma ${spokenPoint1Y} to point${point2VisibleLabel} at ${spokenPoint2X} comma ${spokenPoint2Y}`;
                 break;
             default:
                 throw new UnreachableCaseError(kind, "Unknown line kind");
         }
-
-        let str = `${capitalizeKind}${visiblelabel} ${connector1} point${point1VisibleLabel} at ${spokenPoint1X} comma ${spokenPoint1Y} ${connector2} point${point2VisibleLabel} at ${spokenPoint2X} comma ${spokenPoint2Y}`;
 
         const lineAppearance = generateLockedFigureAppearanceDescription(
             lineColor,
