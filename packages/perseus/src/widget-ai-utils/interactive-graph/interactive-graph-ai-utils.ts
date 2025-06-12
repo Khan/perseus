@@ -159,66 +159,66 @@ export const getPromptJSON = (
 const getGraphOptionsForProps = (
     props: React.ComponentProps<typeof interactiveGraph.widget>,
 ): GraphOptions => {
-    const type = props.graph.type;
+    const type = props.userInput.type;
 
     switch (type) {
         case "angle":
             return {
-                type: props.graph.type,
-                angleOffsetDegrees: props.graph.angleOffsetDeg,
-                startCoords: props.graph.startCoords,
+                type: props.userInput.type,
+                angleOffsetDegrees: props.userInput.angleOffsetDeg,
+                startCoords: props.userInput.startCoords,
             };
         case "circle":
             return {
-                type: props.graph.type,
+                type: props.userInput.type,
                 startParams: {
-                    center: props.graph.startCoords?.center,
-                    radius: props.graph.startCoords?.radius,
+                    center: props.userInput.startCoords?.center,
+                    radius: props.userInput.startCoords?.radius,
                 },
             };
         case "linear":
             return {
-                type: props.graph.type,
-                startCoords: props.graph.startCoords,
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
             };
         case "linear-system":
             return {
-                type: props.graph.type,
-                startCoords: props.graph.startCoords,
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
             };
         case "point":
             return {
-                type: props.graph.type,
-                numPoints: props.graph.numPoints,
-                startCoords: props.graph.startCoords,
+                type: props.userInput.type,
+                numPoints: props.userInput.numPoints,
+                startCoords: props.userInput.startCoords,
             };
         case "polygon":
             return {
-                type: props.graph.type,
-                match: props.graph.match,
-                numSides: props.graph.numSides,
-                startCoords: props.graph.startCoords,
+                type: props.userInput.type,
+                match: props.userInput.match,
+                numSides: props.userInput.numSides,
+                startCoords: props.userInput.startCoords,
             };
         case "quadratic":
             return {
-                type: props.graph.type,
-                startCoords: props.graph.startCoords,
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
             };
         case "ray":
             return {
-                type: props.graph.type,
-                startCoords: props.graph.startCoords,
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
             };
         case "segment":
             return {
-                type: props.graph.type,
-                numSegments: props.graph.numSegments,
-                startCoords: props.graph.startCoords,
+                type: props.userInput.type,
+                numSegments: props.userInput.numSegments,
+                startCoords: props.userInput.startCoords,
             };
         case "sinusoid":
             return {
-                type: props.graph.type,
-                startCoords: props.graph.startCoords,
+                type: props.userInput.type,
+                startCoords: props.userInput.startCoords,
             };
         case "none":
             return {};
