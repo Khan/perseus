@@ -43,7 +43,6 @@ type DefaultProps = {
 };
 
 type State = {
-    values: number[];
     categoryHeights: Record<string, number>;
 };
 
@@ -77,9 +76,6 @@ export class Plotter extends React.Component<Props, State> implements Widget {
     };
 
     state: State = {
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        values: this.props.starting || [1],
-
         // The measured rendered height of category strings. Used to calculate
         // bottom padding of plot, to prevent categories from overlapping the
         // bottom label.
@@ -113,10 +109,10 @@ export class Plotter extends React.Component<Props, State> implements Widget {
 
         if (
             !_.isEqual(this.props.starting, nextProps.starting) &&
-            !_.isEqual(this.state.values, nextProps.starting)
+            !_.isEqual(this.props.userInput, nextProps.starting)
         ) {
             this.shouldSetupGraphie = true;
-            this.setState({values: nextProps.starting});
+            this.props.handleUserInput(nextProps.starting);
         }
     }
 
@@ -343,7 +339,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         }
 
         if (isTiledPlot) {
-            self.drawPicHeights(self.state.values, prevState.values);
+            self.drawPicHeights(self.props.userInput, prevState.values);
         }
 
         graphie.style(
@@ -537,7 +533,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
             _.times(self.props.categories.length - 1, function (i) {
                 self.setupBar({
                     index: i,
-                    startHeight: self.state.values[i],
+                    startHeight: self.props.userInput[i],
                     config: config,
                     isHistogram: true,
                 });
@@ -563,7 +559,8 @@ export class Plotter extends React.Component<Props, State> implements Widget {
             });
         } else {
             _.each(self.props.categories, function (category, i) {
-                const startHeight = self.state.values[i];
+                const startHeight = self.props.userInput[i];
+
                 let x;
 
                 if (self.props.type === "bar") {
@@ -700,7 +697,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
 
                 if (leftDivider) {
                     const divHeight = Math.min(
-                        self.state.values[i - 1],
+                        self.props.userInput[i - 1],
                         height,
                     );
                     leftDivider.scale(
@@ -713,7 +710,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
 
                 if (rightDivider) {
                     const divHeight = Math.min(
-                        self.state.values[i + 1],
+                        self.props.userInput[i + 1],
                         height,
                     );
                     rightDivider.scale(
@@ -790,10 +787,9 @@ export class Plotter extends React.Component<Props, State> implements Widget {
                     onMove: function () {
                         const y = config.graph.lines[i].coord()[1];
 
-                        const values = [...self.state.values];
+                        const values = [...self.props.userInput];
                         values[i] = y;
-                        self.setState({values: values});
-                        self.changeAndTrack({values: values});
+                        self.changeAndTrack(values);
 
                         self._maybeHideDragPrompt();
 
@@ -837,10 +833,9 @@ export class Plotter extends React.Component<Props, State> implements Widget {
                     this.transform();
                 }
 
-                const values = [...self.state.values];
+                const values = [...self.props.userInput];
                 values[i] = y;
-                self.setState({values: values});
-                self.changeAndTrack({values: values});
+                self.changeAndTrack(values);
 
                 scaleBar(i, y);
             };
@@ -887,10 +882,9 @@ export class Plotter extends React.Component<Props, State> implements Widget {
                 onMove: function () {
                     const y = c.graph.points[i].coord()[1];
 
-                    const values = [...self.state.values];
+                    const values = [...self.props.userInput];
                     values[i] = y;
-                    self.setState({values: values});
-                    self.changeAndTrack({values: values});
+                    self.changeAndTrack(values);
 
                     self._maybeHideDragPrompt();
                 },
@@ -926,10 +920,9 @@ export class Plotter extends React.Component<Props, State> implements Widget {
             });
             c.graph.points[i].onMove = function (x, y) {
                 y = Math.min(Math.max(y, 0), c.dimY);
-                const values = [...self.state.values];
+                const values = [...self.props.userInput];
                 values[i] = y;
-                self.setState({values: values});
-                self.changeAndTrack({values: values});
+                self.changeAndTrack(values);
                 return [x, y];
             };
 
@@ -1080,17 +1073,29 @@ export class Plotter extends React.Component<Props, State> implements Widget {
     };
 
     setPicHeight: (arg1: number, arg2: number) => void = (i, y) => {
-        const values = [...this.state.values];
+        const values = [...this.props.userInput];
         values[i] = y;
-        this.drawPicHeights(values, this.state.values);
-        this.setState({values: values});
-        this.changeAndTrack({values: values});
+        this.drawPicHeights(values, this.props.userInput);
+        this.changeAndTrack(values);
     };
 
-    changeAndTrack: (arg1: any) => void = (data) => {
-        this.props.onChange(data);
+    changeAndTrack: (userInput: PerseusPlotterUserInput) => void = (
+        userInput,
+    ) => {
+        this.props.handleUserInput(userInput);
         this.props.trackInteraction();
     };
+
+    /**
+     * Plotter uses Graphie and Graphie is inaccessible,
+     * this helps us populate user input in tests
+     * (not great, but not a lot of options)
+     *
+     * @internal
+     */
+    _testInsertUserInput(userInput: PerseusPlotterUserInput) {
+        this.props.handleUserInput(userInput);
+    }
 
     drawPicHeights: (arg1: any, arg2: any) => void = (values, prevValues) => {
         const self = this;
@@ -1139,11 +1144,23 @@ export class Plotter extends React.Component<Props, State> implements Widget {
     };
 
     getUserInput(): PerseusPlotterUserInput {
-        return this.state.values;
+        return this.props.userInput;
     }
 
     getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState() {
+        const {userInput: _, ...rest} = this.props;
+        return {
+            ...rest,
+            values: this.props.userInput,
+        };
     }
 
     render(): React.ReactNode {
@@ -1171,10 +1188,21 @@ function getStartUserInput(
     return options.starting;
 }
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusPlotterUserInput {
+    return serializedState.values;
+}
+
 export default {
     name: "plotter",
     displayName: "Plotter",
     hidden: true,
     widget: Plotter,
-    // getStartUserInput,
+    getStartUserInput,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Plotter>;
