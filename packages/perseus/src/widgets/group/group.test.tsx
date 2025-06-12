@@ -187,7 +187,7 @@ describe("group widget", () => {
         await userEvent.type(screen.getAllByRole("textbox")[0], "99");
 
         // Act
-        const userInput = renderer.getUserInputMap();
+        const userInput = renderer.getUserInput();
 
         // Assert
         expect(userInput).toMatchInlineSnapshot(`
@@ -430,9 +430,9 @@ describe("group widget", () => {
             "200",
         );
 
-        const guess = renderer.getUserInputMap();
+        const guess = renderer.getUserInput();
         const score = scorePerseusItem(question1, guess, "en");
-        const guessAndScore = [renderer.getUserInputMap(), score];
+        const guessAndScore = [renderer.getUserInput(), score];
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
@@ -564,7 +564,7 @@ describe("group widget", () => {
             );
 
             // Assert
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
             expect(userInput).toEqual({
                 "group 1": {
                     "dropdown 1": {
@@ -585,7 +585,7 @@ describe("group widget", () => {
                 screen.getByRole("option", {name: "Correct"}),
             );
 
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
             const score = scorePerseusItemTesting(
                 getFullGroupTestItem().question,
                 userInput,
@@ -606,7 +606,7 @@ describe("group widget", () => {
                 screen.getByRole("option", {name: "Incorrect"}),
             );
 
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
             const score = scorePerseusItemTesting(
                 getFullGroupTestItem().question,
                 userInput,
@@ -620,7 +620,7 @@ describe("group widget", () => {
             // Act
             const {renderer} = renderQuestion(question);
 
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
             const score = scorePerseusItemTesting(
                 getFullGroupTestItem().question,
                 userInput,

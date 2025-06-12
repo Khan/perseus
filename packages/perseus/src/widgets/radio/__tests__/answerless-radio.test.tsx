@@ -129,7 +129,7 @@ describe("interactive: full vs answerless", () => {
             // assert that functionality previous based on answers still works
             expect(screen.getByRole("group", {name: "Choose 2 answers:"}));
 
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
             const score = scorePerseusItem(
                 getAnswerfulItem().question,
                 userInput,

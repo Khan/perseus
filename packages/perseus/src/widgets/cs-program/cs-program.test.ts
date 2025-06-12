@@ -45,7 +45,7 @@ describe("cs-program widget", () => {
         } as const;
 
         const {renderer} = renderQuestion(question1, apiOptions);
-        const userInput = renderer.getUserInputMap()[
+        const userInput = renderer.getUserInput()[
             "cs-program 1"
         ] as PerseusCSProgramUserInput;
 

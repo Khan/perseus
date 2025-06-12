@@ -129,7 +129,7 @@ describe("matcher widget", () => {
             });
             const score = scorePerseusItemTesting(
                 answerfulItem.question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // assert
@@ -155,7 +155,7 @@ describe("matcher widget", () => {
             });
             const score = scorePerseusItemTesting(
                 answerfulItem.question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -176,7 +176,7 @@ describe("matcher widget", () => {
             const {renderer} = renderQuestion(question);
             const score = scorePerseusItemTesting(
                 answerfulItem.question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert

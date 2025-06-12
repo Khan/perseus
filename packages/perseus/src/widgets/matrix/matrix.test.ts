@@ -71,7 +71,7 @@ describe("matrix widget", () => {
         }
         const score = scorePerseusItemTesting(
             question1,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // assert
@@ -92,7 +92,7 @@ describe("matrix widget", () => {
         }
         const score = scorePerseusItemTesting(
             question1,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert
@@ -131,7 +131,7 @@ describe("matrix widget", () => {
             await userEvent.type(screen.getAllByRole("textbox")[0], "5");
             await userEvent.type(screen.getAllByRole("textbox")[1], "-2");
 
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
             const score = scorePerseusItem(
                 getAnswerfulItem("matrix", matrixOptions).question,
                 userInput,

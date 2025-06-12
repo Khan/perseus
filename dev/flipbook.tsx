@@ -321,7 +321,7 @@ function GradableRenderer(props: QuestionRendererProps) {
                             if (rendererRef.current) {
                                 const score = scorePerseusItem(
                                     question,
-                                    rendererRef.current.getUserInputMap(),
+                                    rendererRef.current.getUserInput(),
                                     "en",
                                 );
                                 setScore(score);

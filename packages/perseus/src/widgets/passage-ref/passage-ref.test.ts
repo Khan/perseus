@@ -163,7 +163,7 @@ describe("passage-ref widget", () => {
         act(() => jest.runOnlyPendingTimers());
         const score = scorePerseusItemTesting(
             question1,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert

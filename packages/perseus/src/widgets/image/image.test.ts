@@ -43,7 +43,7 @@ describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
         const {renderer} = renderQuestion(question, apiOptions);
         const score = scorePerseusItemTesting(
             question,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert

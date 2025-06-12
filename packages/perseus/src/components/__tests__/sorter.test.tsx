@@ -95,7 +95,7 @@ describe("sorter widget", () => {
             // Act
             const score = scorePerseusItemTesting(
                 answerfulItem.question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -117,7 +117,7 @@ describe("sorter widget", () => {
 
             const score = scorePerseusItemTesting(
                 answerfulItem.question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -134,7 +134,7 @@ describe("sorter widget", () => {
 
             const score = scorePerseusItemTesting(
                 answerfulItem.question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert

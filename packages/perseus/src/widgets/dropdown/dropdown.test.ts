@@ -72,7 +72,7 @@ describe("Dropdown widget", () => {
         await userEvent.click(screen.getByText("less than or equal to"));
         const score = scorePerseusItemTesting(
             basicDropdown,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert
@@ -90,7 +90,7 @@ describe("Dropdown widget", () => {
         await userEvent.click(screen.getByText("greater than or equal to"));
         const score = scorePerseusItemTesting(
             basicDropdown,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert
@@ -105,7 +105,7 @@ describe("Dropdown widget", () => {
         // Act
         const score = scorePerseusItemTesting(
             basicDropdown,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert
@@ -214,7 +214,7 @@ describe("Dropdown widget", () => {
                     screen.getByRole("option", {name: "Correct"}),
                 );
 
-                const userInput = renderer.getUserInputMap();
+                const userInput = renderer.getUserInput();
                 const score = scorePerseusItem(
                     getAnswerfulItem().question,
                     userInput,

@@ -107,7 +107,7 @@ describe("Radio Widget", () => {
                     await selectOption(userEvent, correct);
                     const score = scorePerseusItemTesting(
                         question,
-                        renderer.getUserInputMap(),
+                        renderer.getUserInput(),
                     );
 
                     // Assert
@@ -129,7 +129,7 @@ describe("Radio Widget", () => {
                     fireEvent.click(correctRadio);
                     const score = scorePerseusItemTesting(
                         question,
-                        renderer.getUserInputMap(),
+                        renderer.getUserInput(),
                     );
 
                     // Assert
@@ -146,7 +146,7 @@ describe("Radio Widget", () => {
                         await selectOption(userEvent, incorrect);
                         const score = scorePerseusItemTesting(
                             question,
-                            renderer.getUserInputMap(),
+                            renderer.getUserInput(),
                         );
 
                         // Assert
@@ -317,7 +317,7 @@ describe("Radio Widget", () => {
                 await userEvent.click(screen.getAllByRole("radio")[0]);
                 const score = scorePerseusItemTesting(
                     q,
-                    renderer.getUserInputMap(),
+                    renderer.getUserInput(),
                 );
 
                 // Assert
@@ -470,7 +470,7 @@ describe("Radio Widget", () => {
             const {renderer} = renderQuestion(question, apiOptions);
             const score = scorePerseusItemTesting(
                 question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -555,7 +555,7 @@ describe("Radio Widget", () => {
             await userEvent.click(noneOption);
             const score = scorePerseusItemTesting(
                 q,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -580,7 +580,7 @@ describe("Radio Widget", () => {
             }
             const score = scorePerseusItemTesting(
                 question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -693,7 +693,7 @@ describe("Radio Widget", () => {
             const {renderer} = renderQuestion(question, apiOptions);
             const score = scorePerseusItemTesting(
                 question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -742,7 +742,7 @@ describe("Radio Widget", () => {
             await userEvent.click(option[2]); // incorrect
             const score = scorePerseusItemTesting(
                 multipleCorrectChoicesQuestion,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -762,7 +762,7 @@ describe("Radio Widget", () => {
                 }
                 const score = scorePerseusItemTesting(
                     question,
-                    renderer.getUserInputMap(),
+                    renderer.getUserInput(),
                 );
 
                 // Assert
@@ -783,7 +783,7 @@ describe("Radio Widget", () => {
                 }
                 const score = scorePerseusItemTesting(
                     question,
-                    renderer.getUserInputMap(),
+                    renderer.getUserInput(),
                 );
 
                 // Assert
@@ -807,14 +807,14 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /Correct Choice$/}),
             );
 
-            const userInput = renderer.getUserInputMap()[
+            const userInput = renderer.getUserInput()[
                 "radio 1"
             ] as PerseusRadioUserInput;
             const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
                 shuffledQuestion,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -836,14 +836,14 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /Incorrect Choice 1$/}),
             );
 
-            const userInput = renderer.getUserInputMap()[
+            const userInput = renderer.getUserInput()[
                 "radio 1"
             ] as PerseusRadioUserInput;
             const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
                 shuffledQuestion,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -865,14 +865,14 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /None of the above$/}),
             );
 
-            const userInput = renderer.getUserInputMap()[
+            const userInput = renderer.getUserInput()[
                 "radio 1"
             ] as PerseusRadioUserInput;
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
                 shuffledNoneQuestion,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -894,14 +894,14 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /Incorrect Choice 1$/}),
             );
 
-            const userInput = renderer.getUserInputMap()[
+            const userInput = renderer.getUserInput()[
                 "radio 1"
             ] as PerseusRadioUserInput;
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
                 shuffledQuestion,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert

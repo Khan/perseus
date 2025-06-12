@@ -866,7 +866,7 @@ describe("renderer", () => {
         await userEvent.click(screen.getByRole("combobox"));
         await userEvent.click(screen.getAllByRole("option")[1]);
 
-        expect(renderer.getUserInputMap()).toEqual({
+        expect(renderer.getUserInput()).toEqual({
             "dropdown 1": {
                 value: 1,
             },
@@ -876,7 +876,7 @@ describe("renderer", () => {
         rerender(answerful.question);
 
         // Assert
-        expect(renderer.getUserInputMap()).toEqual({
+        expect(renderer.getUserInput()).toEqual({
             "dropdown 1": {
                 value: 1,
             },
@@ -1698,7 +1698,7 @@ describe("renderer", () => {
         });
     });
 
-    describe("getUserInputMap", () => {
+    describe("getUserInput", () => {
         it("should return user input for all rendered widgets", async () => {
             // Arrange
             const {renderer} = renderQuestion({
@@ -1724,7 +1724,7 @@ describe("renderer", () => {
             await userEvent.click(screen.getAllByRole("option")[1]);
 
             // Act
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
 
             // Assert
             expect(userInput).toMatchInlineSnapshot(`

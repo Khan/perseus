@@ -67,7 +67,7 @@ describe("categorizer widget", () => {
         // Act
         const score = scorePerseusItem(
             question1,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
             "en",
         );
 
@@ -90,7 +90,7 @@ describe("categorizer widget", () => {
         // act
         const score = scorePerseusItem(
             question1,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
             "en",
         );
 
@@ -129,7 +129,7 @@ describe("categorizer widget", () => {
 
         const score = scorePerseusItemTesting(
             question1,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // assert
@@ -203,7 +203,7 @@ describe("categorizer widget", () => {
                 })[1],
             );
 
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
             const score = scorePerseusItem(
                 getAnswerfulItem("categorizer", options).question,
                 userInput,

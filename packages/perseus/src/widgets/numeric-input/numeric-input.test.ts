@@ -57,7 +57,7 @@ describe("numeric-input widget", () => {
         );
         const score = scorePerseusItemTesting(
             question,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert
@@ -75,7 +75,7 @@ describe("numeric-input widget", () => {
         );
         const score = scorePerseusItemTesting(
             question,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert
@@ -315,7 +315,7 @@ describe("Numeric input widget", () => {
         await userEvent.type(screen.getByRole("textbox", {hidden: true}), "1");
         const score = scorePerseusItemTesting(
             multipleAnswers,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert
@@ -330,7 +330,7 @@ describe("Numeric input widget", () => {
         await userEvent.type(screen.getByRole("textbox", {hidden: true}), "2");
         const score = scorePerseusItemTesting(
             multipleAnswers,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert
@@ -348,7 +348,7 @@ describe("Numeric input widget", () => {
         );
         const score = scorePerseusItemTesting(
             duplicatedAnswers,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert
@@ -366,7 +366,7 @@ describe("Numeric input widget", () => {
         );
         const score = scorePerseusItemTesting(
             withCoefficient,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert
@@ -384,7 +384,7 @@ describe("Numeric input widget", () => {
         );
         const score = scorePerseusItemTesting(
             percentageProblem,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert
@@ -402,7 +402,7 @@ describe("Numeric input widget", () => {
         );
         const score = scorePerseusItemTesting(
             multipleAnswersWithDecimals,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert
@@ -603,7 +603,7 @@ describe("interactive: full vs answerless", () => {
                 "42",
             );
 
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
             const score = scorePerseusItem(
                 getAnswerfulItem().question,
                 userInput,
