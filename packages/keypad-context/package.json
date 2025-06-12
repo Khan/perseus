@@ -3,7 +3,7 @@
     "description": "Perseus keypad context",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "3.0.13",
+    "version": "3.0.15",
     "publishConfig": {
         "access": "public"
     },

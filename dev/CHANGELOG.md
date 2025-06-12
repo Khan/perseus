@@ -1,5 +1,30 @@
 # @khanacademy/perseus-dev-ui
 
+## 5.4.16
+
+### Patch Changes
+
+-   Updated dependencies [[`a512f3a07`](https://github.com/Khan/perseus/commit/a512f3a0716e1aeaf835c67dcacc5bcb131339a7)]:
+    -   @khanacademy/perseus-core@14.0.2
+    -   @khanacademy/kmath@2.0.15
+    -   @khanacademy/math-input@26.0.4
+    -   @khanacademy/perseus-linter@4.0.2
+
+## 5.4.15
+
+### Patch Changes
+
+-   [#2489](https://github.com/Khan/perseus/pull/2489) [`d8c99f629`](https://github.com/Khan/perseus/commit/d8c99f629c9439cdf56e96f6a53f6bb28f278e07) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Convert LESS files to pre-built CSS files to simplify our styling framework
+
+-   Updated dependencies [[`d8c99f629`](https://github.com/Khan/perseus/commit/d8c99f629c9439cdf56e96f6a53f6bb28f278e07), [`69d7ff811`](https://github.com/Khan/perseus/commit/69d7ff811503164a50257a6fba2bf83cacd04efb)]:
+    -   @khanacademy/math-input@26.0.3
+    -   @khanacademy/perseus-core@14.0.1
+    -   @khanacademy/kas@2.0.6
+    -   @khanacademy/kmath@2.0.14
+    -   @khanacademy/perseus-linter@4.0.1
+    -   @khanacademy/pure-markdown@2.0.6
+    -   @khanacademy/simple-markdown@2.0.6
+
 ## 5.4.14
 
 ### Patch Changes
