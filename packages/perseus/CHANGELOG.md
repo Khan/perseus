@@ -1,5 +1,19 @@
 # @khanacademy/perseus
 
+## 65.1.1
+
+### Patch Changes
+
+-   [#2435](https://github.com/Khan/perseus/pull/2435) [`a512f3a07`](https://github.com/Khan/perseus/commit/a512f3a0716e1aeaf835c67dcacc5bcb131339a7) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Removes deprecated options using perseus parser
+
+-   Updated dependencies [[`a512f3a07`](https://github.com/Khan/perseus/commit/a512f3a0716e1aeaf835c67dcacc5bcb131339a7)]:
+    -   @khanacademy/perseus-core@14.0.2
+    -   @khanacademy/keypad-context@3.0.15
+    -   @khanacademy/kmath@2.0.15
+    -   @khanacademy/math-input@26.0.4
+    -   @khanacademy/perseus-linter@4.0.2
+    -   @khanacademy/perseus-score@7.1.2
+
 ## 65.1.0
 
 ### Minor Changes
