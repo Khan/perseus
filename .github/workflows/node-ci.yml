@@ -331,10 +331,14 @@ jobs:
                       steps.publish-snapshot.outputs.npm_snapshot_tag }}
                       ```
 
-                      If you are working in Khan Academy's webapp, you can run the below command. 
-                      If this is for backend code, change the static flag (-s) from y/yes to n/no.
+                      If you are working in Khan Academy's frontend, you can run the below command.
                       ```sh
-                      ./dev/tools/bump_perseus_version.js -s y -t PR${{ github.event.pull_request.number }}
+                      ./tools/bump_perseus_version.js -t PR${{ github.event.pull_request.number }}
+                      ```
+
+                      If you are working in Khan Academy's webapp, you can run the below command.
+                      ```sh
+                      ./dev/tools/bump_perseus_version.js -s n -t PR${{ github.event.pull_request.number }}
                       ```
 
             - name: Create or update npm snapshot comment - failure, snapshot publish failed
