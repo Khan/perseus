@@ -1,5 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
@@ -17,15 +17,21 @@ export default function KEScoreUI({score}: Props) {
 
     return (
         <View
-            style={{padding: `0 ${spacing.medium_16}px ${spacing.medium_16}px`}}
+            style={{
+                padding: `0 ${sizing.size_160} ${sizing.size_160}`,
+            }}
         >
-            <HeadingSmall style={{marginTop: "10px"}}>Guess</HeadingSmall>
+            <HeadingSmall style={{marginTop: sizing.size_100}}>
+                Guess
+            </HeadingSmall>
             <ReactJson
                 quotesOnKeys={false}
                 enableClipboard={false}
                 src={score.guess}
             />
-            <HeadingSmall style={{marginTop: "10px"}}>State</HeadingSmall>
+            <HeadingSmall style={{marginTop: sizing.size_100}}>
+                State
+            </HeadingSmall>
             <ReactJson
                 quotesOnKeys={false}
                 enableClipboard={false}

@@ -3,7 +3,7 @@ import {
     AccordionSection,
 } from "@khanacademy/wonder-blocks-accordion";
 import Button from "@khanacademy/wonder-blocks-button";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {color, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
@@ -159,7 +159,7 @@ export const DebugAccordionUI = ({
     };
 
     return (
-        <Accordion style={{margin: `${spacing.medium_16} 0`}}>
+        <Accordion style={{margin: `${sizing.size_160} 0`}}>
             {getAccordionSections()}
         </Accordion>
     );
