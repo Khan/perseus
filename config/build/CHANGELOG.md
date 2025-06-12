@@ -1,5 +1,11 @@
 # perseus-build-settings
 
+## 0.7.0
+
+### Minor Changes
+
+-   [#2489](https://github.com/Khan/perseus/pull/2489) [`d8c99f629`](https://github.com/Khan/perseus/commit/d8c99f629c9439cdf56e96f6a53f6bb28f278e07) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Convert LESS files to pre-built CSS files to simplify our styling framework
+
 ## 0.6.2
 
 ### Patch Changes

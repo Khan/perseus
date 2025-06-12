@@ -1,5 +1,18 @@
 # @khanacademy/math-input
 
+## 26.0.3
+
+### Patch Changes
+
+-   [#2489](https://github.com/Khan/perseus/pull/2489) [`d8c99f629`](https://github.com/Khan/perseus/commit/d8c99f629c9439cdf56e96f6a53f6bb28f278e07) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Convert LESS files to pre-built CSS files to simplify our styling framework
+
+*   [#2570](https://github.com/Khan/perseus/pull/2570) [`69d7ff811`](https://github.com/Khan/perseus/commit/69d7ff811503164a50257a6fba2bf83cacd04efb) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Update comments to refer to khan/frontend instead of webapp. Khan Academy's frontend code has moved.
+
+*   Updated dependencies [[`69d7ff811`](https://github.com/Khan/perseus/commit/69d7ff811503164a50257a6fba2bf83cacd04efb)]:
+    -   @khanacademy/perseus-core@14.0.1
+    -   @khanacademy/keypad-context@3.0.14
+    -   @khanacademy/perseus-utils@2.0.4
+
 ## 26.0.2
 
 ### Patch Changes
