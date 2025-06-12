@@ -232,7 +232,7 @@ describe("number-line widget", () => {
             act(() => numberLine.movePosition(-2.5));
             const score = scorePerseusItemTesting(
                 correctAnswer,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // assert
@@ -251,7 +251,7 @@ describe("number-line widget", () => {
             act(() => numberLine.movePosition(3.5));
             const score = scorePerseusItemTesting(
                 correctAnswer,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -268,7 +268,7 @@ describe("number-line widget", () => {
             // Act
             const score = scorePerseusItemTesting(
                 correctAnswer,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert

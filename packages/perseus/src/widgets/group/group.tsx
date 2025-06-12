@@ -65,7 +65,7 @@ class Group extends React.Component<Props> implements Widget {
     };
 
     getUserInputMap(): UserInputMap | undefined {
-        return this.rendererRef?.getUserInputMap();
+        return this.rendererRef?.getUserInput();
     }
 
     getPromptJSON(): GroupPromptJSON {

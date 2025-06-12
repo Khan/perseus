@@ -110,7 +110,7 @@ describe("plotter widget", () => {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
             const score = scorePerseusItem(
                 getAnswerfulItem("plotter", plotterOptions).question,
                 userInput,
@@ -130,7 +130,7 @@ describe("plotter widget", () => {
             const [plotter] = renderer.findWidgets("plotter 1");
 
             act(() => plotter.setState({values: [15]}));
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
 
             const score = scorePerseusItem(
                 getAnswerfulItem("plotter", plotterOptions).question,
@@ -151,7 +151,7 @@ describe("plotter widget", () => {
             const [plotter] = renderer.findWidgets("plotter 1");
 
             act(() => plotter.setState({values: [7]})); // mock user entering a value
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
 
             const score = scorePerseusItem(
                 getAnswerfulItem("plotter", plotterOptions).question,

@@ -50,7 +50,7 @@ describe("Perseus API", function () {
 
             const score = scorePerseusItemTesting(
                 mockWidget1Item.question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -66,7 +66,7 @@ describe("Perseus API", function () {
 
             const score = scorePerseusItemTesting(
                 mockWidget1Item.question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -81,7 +81,7 @@ describe("Perseus API", function () {
 
             let score = scorePerseusItemTesting(
                 mockWidget1Item.question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             expect(score).toHaveBeenAnsweredIncorrectly();
@@ -90,7 +90,7 @@ describe("Perseus API", function () {
 
             score = scorePerseusItemTesting(
                 mockWidget1Item.question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             expect(score).toHaveInvalidInput();
@@ -101,7 +101,7 @@ describe("Perseus API", function () {
                 const {renderer} = renderQuestion(mockWidget1Item.question);
                 act(() =>
                     renderer.setInputValue(["mock-widget 1"], "3", function () {
-                        const guess = renderer.getUserInputMap()[
+                        const guess = renderer.getUserInput()[
                             "mock-widget 1"
                         ] as PerseusMockWidgetUserInput;
                         expect(guess?.currentValue).toBe("3");
