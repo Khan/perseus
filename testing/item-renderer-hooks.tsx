@@ -80,22 +80,10 @@ export const useItemRenderer = (
             interactionCallback: () => {
                 if (state.showPopover) {
                     dispatch({type: "TOGGLE_POPOVER", payload: false});
-                    // Only deselect incorrect choices when the score is not empty
-                    // This prevents deselection when clicking a new answer after
-                    // receiving an empty score
-                    if (state.score && !state.score.empty) {
-                        ref.current?.deselectIncorrectSelectedChoices();
-                    }
                 }
             },
         }),
-        [
-            apiOptions,
-            state.isMobile,
-            state.showPopover,
-            state.score,
-            state.showSolutions,
-        ],
+        [apiOptions, state.isMobile, state.showPopover, state.showSolutions],
     );
 
     const getScore = React.useCallback((): KEScore | undefined => {
