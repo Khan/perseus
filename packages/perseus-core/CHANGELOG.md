@@ -1,5 +1,13 @@
 # @khanacademy/perseus-core
 
+## 14.0.3
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/kas@2.0.7
+    -   @khanacademy/perseus-utils@2.0.4
+
 ## 14.0.2
 
 ### Patch Changes

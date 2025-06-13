@@ -1,5 +1,25 @@
 # @khanacademy/perseus
 
+## 65.1.2
+
+### Patch Changes
+
+-   [#2431](https://github.com/Khan/perseus/pull/2431) [`218eb4cb1`](https://github.com/Khan/perseus/commit/218eb4cb1b0dc29094919b6d0867fc48fab99d83) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Add CSS Modules for styling, and a converter for Aphrodite code
+
+*   [#2603](https://github.com/Khan/perseus/pull/2603) [`c2a31923c`](https://github.com/Khan/perseus/commit/c2a31923c8e535f28d17d87216e88cf25ac8792e) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Remove findDomNode from Radio Widget as it is deprecated.
+
+*   Updated dependencies []:
+    -   @khanacademy/kas@2.0.7
+    -   @khanacademy/keypad-context@3.0.16
+    -   @khanacademy/kmath@2.0.16
+    -   @khanacademy/math-input@26.0.5
+    -   @khanacademy/perseus-core@14.0.3
+    -   @khanacademy/perseus-linter@4.0.3
+    -   @khanacademy/perseus-score@7.1.3
+    -   @khanacademy/perseus-utils@2.0.4
+    -   @khanacademy/pure-markdown@2.0.7
+    -   @khanacademy/simple-markdown@2.0.7
+
 ## 65.1.1
 
 ### Patch Changes
