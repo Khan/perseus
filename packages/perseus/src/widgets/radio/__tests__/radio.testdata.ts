@@ -580,3 +580,41 @@ export const shuffledNoneQuestion: PerseusRenderer = {
         } as RadioWidget,
     },
 };
+
+export const questionWithUndefinedCorrect: PerseusRenderer = {
+    content:
+        "**Select the correct choice. This tests the LEMS-2909 bug fix.**\n\n[[\u2603 radio 1]]",
+    images: {},
+    widgets: {
+        "radio 1": {
+            graded: true,
+            version: {
+                major: 1,
+                minor: 0,
+            },
+            static: false,
+            type: "radio",
+            options: {
+                choices: [
+                    {
+                        content: "Choice A",
+                        correct: undefined,
+                    },
+                    {
+                        content: "Choice B",
+                        correct: true,
+                    },
+                    {
+                        content: "Choice C",
+                        correct: undefined,
+                    },
+                ],
+                hasNoneOfTheAbove: false,
+                multipleSelect: true,
+                randomize: true,
+                deselectEnabled: false,
+            },
+            alignment: "default",
+        } as RadioWidget,
+    },
+};
