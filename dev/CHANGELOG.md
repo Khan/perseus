@@ -1,5 +1,22 @@
 # @khanacademy/perseus-dev-ui
 
+## 5.5.0
+
+### Minor Changes
+
+-   [#2542](https://github.com/Khan/perseus/pull/2542) [`0729817a7`](https://github.com/Khan/perseus/commit/0729817a75c999c1ac751abd33e0484afbd5c296) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Overhaul of ServerItemRendererWithDebugUI to better mock actual implementation
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/kas@2.0.7
+    -   @khanacademy/kmath@2.0.16
+    -   @khanacademy/math-input@26.0.5
+    -   @khanacademy/perseus-core@14.0.3
+    -   @khanacademy/perseus-linter@4.0.3
+    -   @khanacademy/pure-markdown@2.0.7
+    -   @khanacademy/simple-markdown@2.0.7
+
 ## 5.4.16
 
 ### Patch Changes
