@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 14.0.2
+
+### Patch Changes
+
+-   [#2435](https://github.com/Khan/perseus/pull/2435) [`a512f3a07`](https://github.com/Khan/perseus/commit/a512f3a0716e1aeaf835c67dcacc5bcb131339a7) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Removes deprecated options using perseus parser
+
 ## 14.0.1
 
 ### Patch Changes
