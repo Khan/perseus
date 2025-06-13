@@ -294,19 +294,16 @@ class Card extends React.Component<CardProps, CardState> {
     }
 }
 
-type RenderProps = OrdererPublicWidgetOptions & {
-    current: any;
-};
+type RenderProps = OrdererPublicWidgetOptions;
 
 type OrdererProps = WidgetProps<RenderProps, PerseusOrdererUserInput>;
 
 type OrdererDefaultProps = Pick<
     OrdererProps,
-    "current" | "options" | "height" | "layout" | "linterContext"
+    "options" | "height" | "layout" | "linterContext" | "userInput"
 >;
 
 type OrdererState = {
-    current: ReadonlyArray<any>;
     dragging: boolean;
     placeholderIndex: number | null | undefined;
     dragKey: string | null | undefined;
@@ -336,15 +333,16 @@ class Orderer
     implements Widget
 {
     static defaultProps: OrdererDefaultProps = {
-        current: [],
         options: [],
         height: "normal",
         layout: "horizontal",
         linterContext: linterContextDefault,
+        userInput: {
+            current: [],
+        },
     };
 
     state: OrdererState = {
-        current: [],
         dragging: false,
         placeholderIndex: null,
         dragKey: null,
@@ -357,11 +355,11 @@ class Orderer
         grabPos: null,
     };
 
-    UNSAFE_componentWillReceiveProps(nextProps: OrdererProps) {
-        if (!_.isEqual(this.props.current, nextProps.current)) {
-            this.setState({current: nextProps.current});
-        }
-    }
+    // UNSAFE_componentWillReceiveProps(nextProps: OrdererProps) {
+    //     if (!_.isEqual(this.props.current, nextProps.current)) {
+    //         this.setState({current: nextProps.current});
+    //     }
+    // }
 
     onClick: (arg1: string, arg2: number, arg3: any, arg4: Element) => void = (
         type,
@@ -371,7 +369,7 @@ class Orderer
     ) => {
         // @ts-expect-error - TS2769 - No overload matches this call.
         const $draggable = $(ReactDOM.findDOMNode(draggable));
-        const list = this.state.current.slice();
+        const list = this.props.userInput.current.slice();
 
         let opt;
         let placeholderIndex = null;
@@ -380,15 +378,15 @@ class Orderer
             // If this is coming from the original list, remove the original
             // card from the list
             list.splice(index, 1);
-            opt = this.state.current[index];
+            opt = this.props.userInput.current[index];
             // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'null'.
             placeholderIndex = index;
         } else if (type === "bank") {
             opt = this.props.options[index];
         }
 
+        this.props.handleUserInput({current: list});
         this.setState({
-            current: list,
             dragging: true,
             placeholderIndex: placeholderIndex,
             dragKey: opt.key,
@@ -416,7 +414,7 @@ class Orderer
         // Here, we build a callback function for the card to call when it is
         // done animating
         const onAnimationEnd = () => {
-            const list = this.state.current.slice();
+            const list = this.props.userInput.current.slice();
 
             if (!inCardBank) {
                 // Insert the new card into the position
@@ -426,15 +424,13 @@ class Orderer
                     width: this.state.dragWidth,
                 } as const;
 
-                list.splice(index, 0, newCard);
+                list.splice(index, 0, newCard.content);
             }
 
-            this.props.onChange({
-                // @ts-expect-error - TS2345 - Argument of type '{ current: any[]; }' is not assignable to parameter of type '{ hints?: readonly Hint[] | undefined; replace?: boolean | undefined; content?: string | undefined; widgets?: PerseusWidgetsMap | undefined; images?: ImageDict | undefined; ... 13 more ...; plot?: any; }'.
+            this.props.handleUserInput({
                 current: list,
             });
             this.setState({
-                current: list,
                 dragging: false,
                 placeholderIndex: null,
                 animating: false,
@@ -498,7 +494,10 @@ class Orderer
         if (this.isCardInBank(draggable)) {
             index = null;
         } else {
-            index = this.findCorrectIndex(draggable, this.state.current);
+            index = this.findCorrectIndex(
+                draggable,
+                this.props.userInput.current,
+            );
         }
 
         this.setState({
@@ -597,28 +596,28 @@ class Orderer
     // This component makes use of a lot of DOM manipulation
     // For testing and direct manipulation of values there's a function
     // to directly set the list value
-    setListValues: (arg1: ReadonlyArray<string>) => void = (values) => {
-        const list = values.map((value: string) => {
-            return {content: value};
-        });
-        this.props.onChange({
-            // @ts-expect-error - TS2345 - Argument of type '{ current: { content: string; }[]; }' is not assignable to parameter of type '{ hints?: readonly Hint[] | undefined; replace?: boolean | undefined; content?: string | undefined; widgets?: PerseusWidgetsMap | undefined; images?: ImageDict | undefined; ... 13 more ...; plot?: any; }'.
-            current: list,
-        });
-
-        this.setState({current: list});
+    setListValues: (values: string[]) => void = (values) => {
+        this.props.handleUserInput({current: values});
     };
 
     getUserInput(): PerseusOrdererUserInput {
-        return {
-            current: this.props.current.map(function (v) {
-                return v.content;
-            }),
-        };
+        return this.props.userInput;
     }
 
     getPromptJSON(): OrdererPromptJSON {
         return _getPromptJSON(this.props, this.getUserInput());
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState(): any {
+        const {userInput, ...rest} = this.props;
+        return {
+            ...rest,
+            current: userInput.current.map((e) => ({content: e})),
+        };
     }
 
     render(): React.ReactNode {
@@ -656,15 +655,14 @@ class Orderer
         );
 
         // This is the list of draggable, rearrangable cards
-        const sortableCards = this.state.current.map((opt, i) => {
+        const sortableCards = this.props.userInput.current.map((opt, i) => {
             return (
                 <Card
                     key={`sortableCard${i}`}
                     ref={"sortable" + i}
                     fakeRef={"sortable" + i}
                     floating={false}
-                    content={opt.content}
-                    width={opt.width}
+                    content={opt}
                     linterContext={this.props.linterContext}
                     onMouseDown={
                         this.state.animating
@@ -751,10 +749,21 @@ class Orderer
     }
 }
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusOrdererUserInput {
+    return {current: serializedState.current.map((e) => e.content)};
+}
+
 export default {
     name: "orderer",
     displayName: "Orderer",
     hidden: true,
     widget: Orderer,
     isLintable: true,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Orderer>;
