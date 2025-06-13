@@ -913,7 +913,7 @@ describe("Radio Widget", () => {
          * use the reviewChoice to determine correctness, but the choices were already shuffled
          * while the reviewChoice order remained the same.
          *
-         * The fix is to explicitly set choice.correct to a boolean value in radio.ts:
+         * The fix was to explicitly set choice.correct to a boolean value in radio.ts:
          * correct: Boolean(choice.correct)
          */
         it("handles undefined choice.correct properly when multipleSelect and randomize are enabled", async () => {
