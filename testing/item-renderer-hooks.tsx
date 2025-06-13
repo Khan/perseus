@@ -76,7 +76,7 @@ export const useItemRenderer = (
             ...apiOptions,
             isMobile: state.isMobile,
             customKeypad: state.isMobile, // Use the mobile keypad for mobile
-            showSolutions: undefined,
+            showSolutions: state.showSolutions,
             interactionCallback: () => {
                 if (state.showPopover) {
                     dispatch({type: "TOGGLE_POPOVER", payload: false});
@@ -89,7 +89,13 @@ export const useItemRenderer = (
                 }
             },
         }),
-        [apiOptions, state.isMobile, state.showPopover, state.score],
+        [
+            apiOptions,
+            state.isMobile,
+            state.showPopover,
+            state.score,
+            state.showSolutions,
+        ],
     );
 
     const getScore = React.useCallback((): KEScore | undefined => {
@@ -115,7 +121,8 @@ export const useItemRenderer = (
         );
 
         if (!keScore.empty) {
-            ref.current?.showRationalesForCurrentlySelectedChoices();
+            // Show solutions for selected answers when the score is not empty
+            dispatch({type: "SET_SHOW_SOLUTIONS", payload: "selected"});
         }
 
         return keScore;
@@ -145,6 +152,7 @@ export const useItemRenderer = (
     }, []);
 
     const handleSkip = React.useCallback(() => {
+        dispatch({type: "SET_ANSWERLESS", payload: false});
         dispatch({type: "SKIP_TO_SOLUTION"});
     }, []);
 
