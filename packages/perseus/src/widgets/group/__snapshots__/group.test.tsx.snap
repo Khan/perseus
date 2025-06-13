@@ -65,7 +65,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                 class="perseus-widget-container widget-nohighlight widget-block"
               >
                 <div
-                  class="perseus-group perseus-group-invalid-answer"
+                  class="perseus-group"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -707,7 +707,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                 class="perseus-widget-container widget-nohighlight widget-block"
               >
                 <div
-                  class="perseus-group perseus-group-invalid-answer"
+                  class="perseus-group"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
