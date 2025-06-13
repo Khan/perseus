@@ -28,7 +28,6 @@ export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
         <div style={{padding: "2rem"}}>
             <expressionExport.widget
                 alignment={null}
-                value=""
                 visibleLabel=""
                 ariaLabel=""
                 containerSizeClass="small"
