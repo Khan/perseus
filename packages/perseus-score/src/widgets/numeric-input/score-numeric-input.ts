@@ -98,7 +98,8 @@ function scoreNumericInput(
             inexact: true, // TODO(merlob) backfill / delete
             maxError: answer.maxError,
             forms: validatorForms,
-            // Pass locale-specific decimal separator like expression scorer does
+            // Pass locale-specific decimal separator to ensure that
+            // we're properly parsing numbers according to the locale.
             ...(locale && {decimal_separator: getDecimalSeparator(locale)}),
         });
     };
