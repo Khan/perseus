@@ -12,6 +12,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import type {CategorizerDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {TextListEditor} = components;
 const Categorizer = CategorizerWidget.widget;
@@ -42,6 +43,17 @@ class CategorizerEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
+        const categorizerProps: Partial<PropsFor<typeof Categorizer>> = {
+            items: this.props.items,
+            categories: this.props.categories,
+            userInput: {values: this.props.values},
+            handleUserInput: (userInput) => {
+                this.props.onChange({values: userInput.values});
+            },
+            apiOptions: this.props.apiOptions,
+            trackInteraction: function () {},
+        };
+
         return (
             <div>
                 <div className="perseus-widget-row">
@@ -85,17 +97,8 @@ class CategorizerEditor extends React.Component<Props> {
                 {/* There are a bunch of props that renderer.jsx passes to each widget
                     via widget-container.jsx that we aren't passing to Categorizer here.
                     See perseus-all-package/types.js#WidgetProps for details. */}
-                {/* @ts-expect-error - TS2769 - No overload matches this call. */}
                 <Categorizer
-                    apiOptions={this.props.apiOptions}
-                    items={this.props.items}
-                    categories={this.props.categories}
-                    userInput={{values: this.props.values}}
-                    onChange={(newProps) => {
-                        this.props.onChange(newProps);
-                    }}
-                    // eslint-disable-next-line react/jsx-no-bind
-                    trackInteraction={function () {}}
+                    {...(categorizerProps as PropsFor<typeof Categorizer>)}
                 />
             </div>
         );
