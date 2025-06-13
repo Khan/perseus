@@ -29,7 +29,6 @@ export interface RenderProps {
     deselectEnabled?: boolean;
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
     selectedChoices: ReadonlyArray<PerseusRadioChoice["correct"]>;
-    showSolutions?: ShowSolutions;
     choiceStates?: ReadonlyArray<ChoiceState>;
     // Depreciated; support for legacy way of handling changes
     // Adds proptype for prop that is used but was lacking type
