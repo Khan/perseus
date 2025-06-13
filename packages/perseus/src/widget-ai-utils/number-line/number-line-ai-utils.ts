@@ -6,12 +6,12 @@ export type NumberLinePromptJSON = {
     type: "number-line";
     options: {
         range: ReadonlyArray<number>;
-        numDivisions: number;
         snapDivisions: number;
     };
     userInput: {
         numLinePosition: number;
         numDivisions: number;
+        rel: string;
     };
 };
 
@@ -23,12 +23,12 @@ export const getPromptJSON = (
         type: "number-line",
         options: {
             range: renderProps.range,
-            numDivisions: renderProps.numDivisions,
             snapDivisions: renderProps.snapDivisions,
         },
         userInput: {
             numLinePosition: userInput.numLinePosition,
             numDivisions: userInput.numDivisions,
+            rel: userInput.rel,
         },
     };
 };

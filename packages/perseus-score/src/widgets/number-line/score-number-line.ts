@@ -10,6 +10,18 @@ function scoreNumberLine(
     userInput: PerseusNumberLineUserInput,
     rubric: PerseusNumberLineRubric,
 ): PerseusScore {
+    const divisionRange = rubric.divisionRange;
+    const outsideAllowedRange =
+        userInput.numDivisions > divisionRange[1] ||
+        userInput.numDivisions < divisionRange[0];
+
+    if (rubric.isTickCtrl && outsideAllowedRange) {
+        return {
+            type: "invalid",
+            message: "Number of divisions is outside the allowed range.",
+        };
+    }
+
     const range = rubric.range;
     const start = rubric.initialX != null ? rubric.initialX : range[0];
     const startRel = rubric.isInequality ? "ge" : "eq";
