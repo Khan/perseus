@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 65.1.3
+
+### Patch Changes
+
+-   [#2601](https://github.com/Khan/perseus/pull/2601) [`bb34a5f28`](https://github.com/Khan/perseus/commit/bb34a5f287970f694e30b0d5bb6d0a4db2234e8b) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Add test for protecting against edgecase regressions regarding undefined correct value in Radio Widget.
+
 ## 65.1.2
 
 ### Patch Changes
