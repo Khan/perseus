@@ -1441,50 +1441,6 @@ describe("renderer", () => {
             );
         });
 
-        it("[DEPRECATED] should return user input array", async () => {
-            // Arrange
-            const {renderer} = renderQuestion({
-                ...question2,
-                content:
-                    "Input 1: [[☃ mock-widget 1]]\n\n" +
-                    "Input 2: [[☃ mock-widget 2]]\n\n" +
-                    "A widget that doesn't implement getUserInput: [[☃ image 1]]",
-                widgets: {
-                    ...question2.widgets,
-                    "mock-widget 2": {
-                        ...question2.widgets["mock-widget 1"],
-                        static: true,
-                    },
-                    "image 1": {
-                        type: "image",
-                        graded: false,
-                        options: {
-                            backgroundImage: {
-                                url: "https://example.com/cat.png",
-                                width: 100,
-                                height: 100,
-                            },
-                        },
-                    },
-                },
-            });
-
-            const textboxes = screen.getAllByRole("textbox");
-            for (let i = 0; i < textboxes.length; i++) {
-                await userEvent.type(textboxes[i], i.toString());
-            }
-
-            // Act
-            const input = renderer.getUserInput();
-
-            // Assert
-            expect(input).toStrictEqual([
-                {currentValue: "0"},
-                {currentValue: "1"},
-                undefined, // image widget doesn't implement getUserinput
-            ]);
-        });
-
         it("should return all widget IDs that were rendererd", () => {
             // Arrange
             const {renderer} = renderQuestion({

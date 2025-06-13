@@ -70,13 +70,9 @@ export const ServerItemRendererWithDebugUI = ({
         const userInput = renderer.getUserInput();
         const score = scorePerseusItem(item.question, userInput, "en");
 
-        // Continue to include an empty guess for the now defunct answer area.
-        // TODO(alex): Check whether we rely on the format here for
-        //             analyzing ProblemLogs. If not, remove this layer.
-        const maxCompatGuess = [renderer.getUserInputLegacy(), []];
         return keScoreFromPerseusScore(
             score,
-            maxCompatGuess,
+            userInput,
             renderer.getSerializedState().question,
         );
     };
