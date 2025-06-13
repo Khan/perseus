@@ -369,4 +369,38 @@ export const multipleAvailableTypesQuestion: PerseusRenderer = {
     },
 };
 
-// export const tangentQuestion:PerseusRenderer = {}
+export const simpleQuestion: PerseusRenderer = {
+    content:
+        "Put one dot on { x:0, y:0 } and one dot on { x:5, y:5 }\n\n[[☃ grapher 1]]",
+    widgets: {
+        "grapher 1": {
+            type: "grapher",
+            options: {
+                correct: {
+                    type: "linear",
+                    coords: [
+                        [0, 0],
+                        [5, 5],
+                    ],
+                },
+                availableTypes: ["linear"],
+                graph: {
+                    range: [
+                        [-10, 10],
+                        [-10, 10],
+                    ],
+                    labels: ["x", "y"],
+                    step: [1, 1],
+                    snapStep: [1, 1],
+                    backgroundImage: {
+                        url: null,
+                    },
+                    markings: "graph",
+                    rulerLabel: "",
+                    rulerTicks: 10,
+                },
+            },
+        },
+    },
+    images: {},
+};
