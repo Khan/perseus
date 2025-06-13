@@ -173,28 +173,3 @@ export const AnswerlessMultiSelect = {
         startAnswerless: true,
     },
 };
-
-// RTL Variants
-export const SelectWithImagesAndScrollRTL = {
-    args: {
-        item: generateTestPerseusItem({
-            question: SingleSelectOverflowImageContent,
-        }),
-    },
-};
-
-export const SingleSelectWithScrollRTL = {
-    args: {
-        item: generateTestPerseusItem({
-            question: SingleSelectOverflowContent,
-        }),
-    },
-};
-
-export const MultiSelectWithScrollRTL = {
-    args: {
-        item: generateTestPerseusItem({
-            question: multiChoiceQuestionSimpleOverflowContent,
-        }),
-    },
-};
