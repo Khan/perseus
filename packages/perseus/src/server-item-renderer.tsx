@@ -86,6 +86,10 @@ type State = {
     };
 };
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
 type SerializedState = {
     question: any;
     hints: any;
@@ -286,7 +290,12 @@ export class ServerItemRenderer
      * for the whole answer area (if the answer area is a single widget).
      */
     _setWidgetProps(widgetId: string, newProps: Props, callback: any) {
-        this.questionRenderer._setWidgetProps(widgetId, newProps, callback);
+        this.questionRenderer._setWidgetProps(
+            widgetId,
+            newProps,
+            null,
+            callback,
+        );
     }
 
     setInputValue(path: FocusPath, newValue: any, focus: () => void): void {
@@ -373,6 +382,10 @@ export class ServerItemRenderer
     /**
      * Get a representation of the current state of the item.
      */
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     getSerializedState(): SerializedState {
         return {
             question: this.questionRenderer.getSerializedState(),
@@ -380,6 +393,10 @@ export class ServerItemRenderer
         };
     }
 
+    /**
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     restoreSerializedState(state: SerializedState, callback?: () => void) {
         // We need to wait for both the question renderer and the hints
         // renderer to finish restoring their states.

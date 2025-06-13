@@ -32,7 +32,7 @@ type RenderProps = Pick<
     PerseusFreeResponseWidgetOptions,
     "allowUnlimitedCharacters" | "characterLimit" | "placeholder" | "question"
 >;
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<RenderProps, PerseusFreeResponseUserInput>;
 
 type State = {
     currentValue: string;
