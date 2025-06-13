@@ -15,6 +15,7 @@ import {
     multiChoiceQuestionAndAnswer,
     shuffledQuestion,
     shuffledNoneQuestion,
+    questionWithUndefinedCorrect,
 } from "./radio.testdata";
 
 import type {APIOptions} from "../../../types";
@@ -903,6 +904,46 @@ describe("Radio Widget", () => {
             // Assert
             expect(widgetScore).toHaveBeenAnsweredIncorrectly();
             expect(rendererScore).toHaveBeenAnsweredIncorrectly();
+        });
+
+        /**
+         * (LEMS-2909) This test verifies the fix for a bug where choices with undefined
+         * 'correct' property would incorrectly show as correct when both multipleSelect
+         * and randomize were enabled. The issue was that the radio-component.tsx would
+         * use the reviewChoice to determine correctness, but the choices were already shuffled
+         * while the reviewChoice order remained the same.
+         *
+         * The fix is to explicitly set choice.correct to a boolean value in radio.ts:
+         * correct: Boolean(choice.correct)
+         */
+        it("handles undefined choice.correct properly when multipleSelect and randomize are enabled", async () => {
+            // Arrange
+            renderQuestion(
+                questionWithUndefinedCorrect,
+                {},
+                {
+                    reviewMode: true,
+                },
+            );
+
+            // Act
+            // Find all list items that represent choices, and count how many are marked as correct
+            const listItems = screen.getAllByRole("listitem");
+            let correctCount = 0;
+            let correctChoiceContent = "";
+            for (const item of listItems) {
+                const content = item.textContent || "";
+                if (content.includes("Correct")) {
+                    correctCount++;
+                    correctChoiceContent = content;
+                }
+            }
+
+            // Assert
+            // With the fix in place, only one choice should be marked as correct,
+            // and that correct choice should be Choice B
+            expect(correctCount).toBe(1);
+            expect(correctChoiceContent).toContain("Choice B");
         });
     });
 });
