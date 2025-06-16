@@ -987,29 +987,31 @@ export const staticGraphQuestionWithAnotherWidget: () => PerseusRenderer =
                 static: false,
                 type: "radio",
                 options: {
-                    displayCount: null,
                     choices: [
                         {
                             content: "$-8$ and $8$",
                             correct: false,
-                            clue: "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
+                            rationale:
+                                "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
                         },
                         {
                             content: "$-8$",
                             correct: false,
-                            clue: "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
+                            rationale:
+                                "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
                         },
                         {
                             content: "The right answer !!!\n\n",
                             correct: true,
                             isNoneOfTheAbove: false,
-                            clue: "$8$ is the positive square root of $64$.",
+                            rationale:
+                                "$8$ is the positive square root of $64$.",
                         },
                         {
                             content: "No value of $x$ satisfies the equation.",
                             correct: false,
                             isNoneOfTheAbove: false,
-                            clue: "$8$ satisfies the equation.",
+                            rationale: "$8$ satisfies the equation.",
                         },
                     ],
                     countChoices: false,
