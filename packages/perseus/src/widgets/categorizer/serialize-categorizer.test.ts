@@ -90,9 +90,9 @@ describe("Categorizer serialization", () => {
                     items: ["uno", "dos", "tres"],
                     randomizeItems: true,
                     /**
-                     * values is the user input;
-                     * the index of the array represents which item the answer if for,
-                     * the number at the index represents which category is selected for that item
+                     * values is the user input
+                     * - index: represents which item the answer is for,
+                     * - value: represents which category is selected for that item
                      */
                     values: [undefined, 0],
                 },
