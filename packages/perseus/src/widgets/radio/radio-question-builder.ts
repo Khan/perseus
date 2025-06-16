@@ -1,6 +1,7 @@
 import type {
     PerseusRadioChoice,
     PerseusRenderer,
+    RadioWidget,
 } from "@khanacademy/perseus-core";
 
 export function radioQuestionBuilder(): RadioQuestionBuilder {
@@ -33,7 +34,7 @@ class RadioQuestionBuilder {
                         countChoices: this.countChoices,
                         randomize: this.randomize,
                     },
-                },
+                } satisfies RadioWidget,
             },
         };
     }
