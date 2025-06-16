@@ -75,7 +75,7 @@ describe("splitPerseusItem", () => {
     it("doesn't strip static widgets", () => {
         // Arrange
         const question: PerseusRenderer = {
-            content: "[[☃ radio 1]]",
+            content: "[[☃ radio 1]]\n\n[[☃ radio 2]]",
             widgets: {
                 "radio 1": {
                     ...getFullRadio(),
@@ -117,7 +117,7 @@ describe("splitPerseusItem", () => {
                 "group 1": {
                     type: "group",
                     options: {
-                        content: "[[☃ radio 1]]",
+                        content: "[[☃ radio 1]]\n\n[[☃ radio 2]]",
                         widgets: {
                             "radio 1": {
                                 ...getFullRadio(),
