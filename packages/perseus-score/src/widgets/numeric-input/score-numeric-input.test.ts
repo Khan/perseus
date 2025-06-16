@@ -128,6 +128,32 @@ describe("scoreNumericInput", () => {
         expect(score).toHaveInvalidInput("EXTRA_SYMBOLS_ERROR");
     });
 
+    it("should still accept commas as thousands separator in US locale", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 16500,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: false,
+        };
+
+        const userInput = {
+            currentValue: "16,500.00",
+        } as const;
+
+        // Using US locale where comma is thousands separator
+        const score = scoreNumericInput(userInput, rubric, "en");
+
+        // "16,500.00" is valid input in US locale
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
     it("with nonsense", () => {
         const rubric: PerseusNumericInputRubric = {
             answers: [
