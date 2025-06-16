@@ -171,7 +171,6 @@ export class GradedGroup
     };
 
     _checkAnswer: () => void = () => {
-        this.rendererRef.current?.showRationalesForCurrentlySelectedChoices();
         const score: PerseusScore = this.rendererRef.current?.score() || {
             type: "invalid",
         };
@@ -304,6 +303,9 @@ export class GradedGroup
         const readOnly =
             apiOptions.readOnly || (apiOptions.isMobile && isCorrect);
 
+        // We only want to show the solutions and rationale if the answer is correct
+        const showSolutions = isCorrect ? "all" : "none";
+
         return (
             <div className={classes}>
                 {!!this.props.title && (
@@ -320,6 +322,7 @@ export class GradedGroup
                     {...this.props}
                     ref={this.rendererRef}
                     apiOptions={{...apiOptions, readOnly}}
+                    showSolutions={showSolutions}
                     onInteractWithWidget={this._onInteractWithWidget}
                     linterContext={this.props.linterContext}
                     strings={this.context.strings}
@@ -392,6 +395,7 @@ export class GradedGroup
                                 apiOptions={apiOptions}
                                 linterContext={this.props.linterContext}
                                 strings={this.context.strings}
+                                showSolutions={showSolutions}
                             />
                         </div>
                     ) : (

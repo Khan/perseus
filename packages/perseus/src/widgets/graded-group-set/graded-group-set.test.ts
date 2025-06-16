@@ -5,7 +5,10 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {article1} from "./graded-group-set.testdata";
+import {
+    article1,
+    groupSetRadioRationaleQuestion,
+} from "./graded-group-set.testdata";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
@@ -310,6 +313,40 @@ describe("graded group widget", () => {
         expect(screen.getByRole("button", {name: "Explain"})).toBeVisible();
         expect(
             screen.queryByRole("button", {name: "Hide explanation"}),
+        ).not.toBeInTheDocument();
+    });
+
+    it("should show rationales when answer is correct", async () => {
+        // Arrange
+        renderQuestion(groupSetRadioRationaleQuestion);
+
+        // Select the correct answer: "$8$" (index 2)
+        await userEvent.click(screen.getAllByRole("radio")[2]);
+
+        // Act
+        await userEvent.click(screen.getByRole("button", {name: "Check"}));
+
+        // Assert
+        expect(screen.getByRole("alert", {name: "Correct"})).toBeVisible();
+        // Verify the rationale for the correct answer is shown
+        expect(screen.getByText("This is the correct answer.")).toBeVisible();
+    });
+
+    it("should not show rationales when answer is incorrect", async () => {
+        // Arrange
+        renderQuestion(groupSetRadioRationaleQuestion);
+
+        // Select an incorrect answer: "$-8$" (index 1)
+        await userEvent.click(screen.getAllByRole("radio")[1]);
+
+        // Act
+        await userEvent.click(screen.getByRole("button", {name: "Check"}));
+
+        // Assert
+        expect(screen.getByRole("alert", {name: "Incorrect"})).toBeVisible();
+        // Verify that rationales are not shown
+        expect(
+            screen.queryByText("This is not the correct answer."),
         ).not.toBeInTheDocument();
     });
 });
