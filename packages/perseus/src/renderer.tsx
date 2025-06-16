@@ -657,10 +657,10 @@ class Renderer
             reviewModeRubric: reviewModeRubric,
             reviewMode: this.props.reviewMode,
             onChange: (newProps, cb, silent = false) => {
-                this._setWidgetProps(widgetId, newProps, null, cb, silent);
+                this._setWidgetProps(widgetId, newProps, cb, silent);
             },
             handleUserInput: (newUserInput, cb, silent = false) => {
-                this._setWidgetProps(widgetId, null, newUserInput, cb, silent);
+                this._setUserInput(widgetId, newUserInput, cb, silent);
             },
             trackInteraction: interactionTracker.track,
             isLastUsedWidget: widgetId === this.state.lastUsedWidgetId,
@@ -1682,33 +1682,9 @@ class Renderer
         );
     }
 
-    _setWidgetProps(
-        id: string,
-        nextWidgetProps: any,
-        nextUserInput: UserInput | null,
-        cb: () => boolean,
-        silent?: boolean,
-    ) {
+    handleStateUpdate(id: string, cb: () => boolean, silent?: boolean) {
         this.setState(
             (prevState) => {
-                const widgetProps = nextWidgetProps
-                    ? {
-                          ...prevState.widgetProps,
-                          [id]: {
-                              ...prevState.widgetProps[id],
-                              ...nextWidgetProps,
-                          },
-                      }
-                    : prevState.widgetProps;
-
-                const userInput =
-                    nextUserInput != null
-                        ? {
-                              ...this.state.userInput,
-                              [id]: nextUserInput,
-                          }
-                        : prevState.userInput;
-
                 // Update the `lastUsedWidgetId` to this widget - unless we're
                 // in silent mode. We only want to track the last widget that
                 // was actually _used_, and silent updates generally don't come
@@ -1717,19 +1693,17 @@ class Renderer
                     ? prevState.lastUsedWidgetId
                     : id;
 
+                return {
+                    lastUsedWidgetId,
+                };
+            },
+            () => {
                 if (!silent) {
                     this.props.onSerializedStateUpdated(
                         this.getSerializedState(this.state.widgetProps),
                     );
                 }
 
-                return {
-                    lastUsedWidgetId,
-                    widgetProps,
-                    userInput,
-                };
-            },
-            () => {
                 // Wait until all components have rendered. In React 16 setState
                 // callback fires immediately after this componentDidUpdate, and
                 // there is no guarantee that parent/siblings components have
@@ -1756,6 +1730,60 @@ class Renderer
                         this._setCurrentFocus([id]);
                     }
                 }, 0);
+            },
+        );
+    }
+
+    _setUserInput(
+        id: string,
+        nextUserInput: UserInput | null,
+        cb: () => boolean,
+        silent?: boolean,
+    ) {
+        this.setState(
+            (prevState) => {
+                const userInput =
+                    nextUserInput != null
+                        ? {
+                              ...this.state.userInput,
+                              [id]: nextUserInput,
+                          }
+                        : prevState.userInput;
+
+                return {
+                    userInput,
+                };
+            },
+            () => {
+                this.handleStateUpdate(id, cb, silent);
+            },
+        );
+    }
+
+    _setWidgetProps(
+        id: string,
+        nextWidgetProps: any,
+        cb: () => boolean,
+        silent?: boolean,
+    ) {
+        this.setState(
+            (prevState) => {
+                const widgetProps = nextWidgetProps
+                    ? {
+                          ...prevState.widgetProps,
+                          [id]: {
+                              ...prevState.widgetProps[id],
+                              ...nextWidgetProps,
+                          },
+                      }
+                    : prevState.widgetProps;
+
+                return {
+                    widgetProps,
+                };
+            },
+            () => {
+                this.handleStateUpdate(id, cb, silent);
             },
         );
     }
