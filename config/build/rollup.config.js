@@ -1,4 +1,5 @@
 /* eslint-disable import/no-commonjs */
+import crypto from "crypto";
 import fs from "fs";
 import path from "path";
 
@@ -8,9 +9,10 @@ import resolve from "@rollup/plugin-node-resolve";
 import replace from "@rollup/plugin-replace";
 import swc from "@rollup/plugin-swc";
 import ancesdir from "ancesdir";
+import postcssImport from "postcss-import";
 import autoExternal from "rollup-plugin-auto-external";
 import filesize from "rollup-plugin-filesize";
-import styles from "rollup-plugin-styles";
+import postcss from "rollup-plugin-postcss";
 
 const rootDir = ancesdir(__dirname);
 
@@ -146,17 +148,30 @@ const createConfig = (
                     raphael: path.join(rootDir, "vendor", "raphael"),
                 },
             }),
-            styles({
-                mode: ["extract", "index.css"],
+            postcss({
+                extract: "index.css",
                 minimize: true,
-                url: {
-                    // We need to specify a custom publicPath here because we
-                    // override the default `output.assetFileNames` elsewhere
-                    // in this file. If you change one, you should ensure that
-                    // a new build correctly places font files in the right dir
-                    // and that the generated CSS contains valid relative urls
-                    // to those fonts!
-                    publicPath: "assets",
+                sourceMap: true,
+                plugins: [postcssImport()],
+                modules: {
+                    localsConvention: "camelCase",
+                    generateScopedName: function (name, filename, css) {
+                        /*  This function generates the class name for the compiled index.css file.
+                            It generates a hash that uses the path of the filename along with the class name.
+                            The resulting class name is "perseus_<8-digit-hash>".
+                         */
+                        if (filename.endsWith(".module.css")) {
+                            const hash = crypto
+                                .createHash("sha256")
+                                .update(`${filename}:${name}`)
+                                .digest("base64")
+                                .replace(/[/+=]/g, "-") // Remove special characters for CSS compatibility
+                                .slice(0, 8); // Limit to 8 characters
+                            return `perseus_${hash}`;
+                        } else {
+                            return name;
+                        }
+                    },
                 },
             }),
             swc({
