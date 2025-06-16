@@ -1,5 +1,6 @@
 .scroll-buttons-container {
     align-items: center;
+    display: flex;
     flex-direction: row;
     gap: 0.8rem;
     padding: 1.2rem;
@@ -17,10 +18,18 @@
 
 .scroll-fade-left {
     left: 0;
-    background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0)
+    );
 }
 
 .scroll-fade-right {
     right: 0;
-    background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+    background: linear-gradient(
+        to left,
+        rgba(255, 255, 255, 1),
+        rgba(255, 255, 255, 0)
+    );
 }
