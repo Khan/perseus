@@ -1,5 +1,11 @@
 # perseus-build-settings
 
+## 0.8.0
+
+### Minor Changes
+
+-   [#2431](https://github.com/Khan/perseus/pull/2431) [`218eb4cb1`](https://github.com/Khan/perseus/commit/218eb4cb1b0dc29094919b6d0867fc48fab99d83) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Add CSS Modules for styling, and a converter for Aphrodite code
+
 ## 0.7.0
 
 ### Minor Changes
