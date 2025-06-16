@@ -9,6 +9,7 @@ import {
     Util,
 } from "@khanacademy/perseus";
 import Banner from "@khanacademy/wonder-blocks-banner";
+import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -364,20 +365,48 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     changeRange = (i, values) => {
         const ranges = this.state.rangeTextbox.slice();
         ranges[i] = values;
+
+        this.setState(
+            {
+                rangeTextbox: ranges as [[number, number], [number, number]],
+            },
+            this.changeGraph,
+        );
+    };
+
+    changeStepsBasedOnRange = () => {
+        const ranges = this.state.rangeTextbox.slice();
+
         const step = this.state.stepTextbox.slice();
         const gridStep = this.state.gridStepTextbox.slice();
         const snapStep = this.state.snapStepTextbox.slice();
-        const scale = Util.scaleFromExtent(ranges[i], this.props.box[i]);
-        if (this.validRange(ranges[i]) === true) {
-            step[i] = Util.tickStepFromExtent(ranges[i], this.props.box[i]);
 
-            const gridStepValue = Util.gridStepFromTickStep(step[i], scale);
+        // Update values based on X range
+        const scaleX = Util.scaleFromExtent(ranges[0], this.props.box[0]);
+        if (this.validRange(ranges[0]) === true) {
+            step[0] = Util.tickStepFromExtent(ranges[0], this.props.box[0]);
+
+            const gridStepValue = Util.gridStepFromTickStep(step[0], scaleX);
             if (gridStepValue) {
-                gridStep[i] = gridStepValue;
+                gridStep[0] = gridStepValue;
             }
 
-            snapStep[i] = gridStep[i] / 2;
+            snapStep[0] = gridStep[0] / 2;
         }
+
+        // Update values based on Y range
+        const scaleY = Util.scaleFromExtent(ranges[1], this.props.box[1]);
+        if (this.validRange(ranges[1]) === true) {
+            step[1] = Util.tickStepFromExtent(ranges[1], this.props.box[1]);
+
+            const gridStepValue = Util.gridStepFromTickStep(step[1], scaleY);
+            if (gridStepValue) {
+                gridStep[1] = gridStepValue;
+            }
+
+            snapStep[1] = gridStep[1] / 2;
+        }
+
         this.setState(
             {
                 stepTextbox: step as [number, number],
@@ -574,6 +603,32 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                             allowPiTruncation={true}
                                         />
                                     </LabeledRow>
+                                </div>
+                                <div className="perseus-widget-right-col">
+                                    <Button
+                                        size="small"
+                                        kind="tertiary"
+                                        onClick={() => {
+                                            this.changeStepsBasedOnRange();
+                                        }}
+                                    >
+                                        Auto-adjust steps
+                                    </Button>
+                                    <InfoTip>
+                                        <p>
+                                            Use the "Auto-adjust" steps button
+                                            to update the tick step, grid step,
+                                            and snap step to values that are
+                                            valid for the current range.
+                                        </p>
+                                        <br />
+                                        <p>
+                                            This is useful when the range is
+                                            changed, and the graph errors due to
+                                            the step sizes being too large or
+                                            too small.
+                                        </p>
+                                    </InfoTip>
                                 </div>
                             </div>
                             <div className="perseus-widget-row">
