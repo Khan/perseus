@@ -1,5 +1,13 @@
 # @khanacademy/pure-markdown
 
+## 2.0.7
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/perseus-utils@2.0.4
+    -   @khanacademy/simple-markdown@2.0.7
+
 ## 2.0.6
 
 ### Patch Changes
