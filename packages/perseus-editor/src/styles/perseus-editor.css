@@ -117,6 +117,7 @@ code {
     display: flex;
     align-items: center;
     position: relative;
+    cursor: pointer;
 }
 .perseus-widget-editor .perseus-widget-editor-title.closed {
     border-radius: 3px;
