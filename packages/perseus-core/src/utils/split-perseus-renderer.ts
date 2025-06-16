@@ -22,13 +22,17 @@ export default function splitPerseusRenderer(
     const splitWidgets = {};
 
     for (const [id, widget] of Object.entries(upgradedWidgets)) {
-        const publicWidgetOptionsFun = getPublicWidgetOptionsFunction(
-            widget.type,
-        );
-        splitWidgets[id] = {
-            ...widget,
-            options: publicWidgetOptionsFun(widget.options as any),
-        };
+        if (widget.static) {
+            splitWidgets[id] = widget;
+        } else {
+            const publicWidgetOptionsFun = getPublicWidgetOptionsFunction(
+                widget.type,
+            );
+            splitWidgets[id] = {
+                ...widget,
+                options: publicWidgetOptionsFun(widget.options as any),
+            };
+        }
     }
 
     return {

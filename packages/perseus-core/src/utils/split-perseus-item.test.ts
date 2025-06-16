@@ -72,6 +72,92 @@ describe("splitPerseusItem", () => {
         expect(rv.question).toEqual(question);
     });
 
+    it("doesn't strip static widgets", () => {
+        // Arrange
+        const question: PerseusRenderer = {
+            content: "[[☃ radio 1]]",
+            widgets: {
+                "radio 1": {
+                    ...getFullRadio(),
+                    static: true,
+                },
+                "radio 2": {
+                    ...getFullRadio(),
+                    static: false,
+                },
+            },
+            images: {},
+        };
+
+        // Act
+        const rv = splitPerseusItem(generateTestPerseusItem({question}));
+
+        // Assert
+        // `radio 1` is static, so we don't want to remove answerful data
+        expect(rv.question.widgets["radio 1"].options.choices[0].correct).toBe(
+            true,
+        );
+        expect(rv.question.widgets["radio 1"].options.choices[1].correct).toBe(
+            false,
+        );
+        // `radio 2` is not static, so we do want to remove answerful data
+        expect(
+            rv.question.widgets["radio 2"].options.choices[0].correct,
+        ).toBeUndefined();
+        expect(
+            rv.question.widgets["radio 2"].options.choices[1].correct,
+        ).toBeUndefined();
+    });
+
+    it("doesn't strip static widgets in groups", () => {
+        // Arrange
+        const question: PerseusRenderer = {
+            content: "[[☃ group 1]]",
+            widgets: {
+                "group 1": {
+                    type: "group",
+                    options: {
+                        content: "[[☃ radio 1]]",
+                        widgets: {
+                            "radio 1": {
+                                ...getFullRadio(),
+                                static: true,
+                            },
+                            "radio 2": {
+                                ...getFullRadio(),
+                                static: false,
+                            },
+                        },
+                        images: {},
+                    },
+                },
+            },
+            images: {},
+        };
+        // Act
+        const rv = splitPerseusItem(generateTestPerseusItem({question}));
+
+        // Assert
+        // `radio 1` is static, so we don't want to remove answerful data
+        expect(
+            rv.question.widgets["group 1"].options.widgets["radio 1"].options
+                .choices[0].correct,
+        ).toBe(true);
+        expect(
+            rv.question.widgets["group 1"].options.widgets["radio 1"].options
+                .choices[1].correct,
+        ).toBe(false);
+        // `radio 2` is not static, so we do want to remove answerful data
+        expect(
+            rv.question.widgets["group 1"].options.widgets["radio 2"].options
+                .choices[0].correct,
+        ).toBeUndefined();
+        expect(
+            rv.question.widgets["group 1"].options.widgets["radio 2"].options
+                .choices[1].correct,
+        ).toBeUndefined();
+    });
+
     it("strips Radio widgets", () => {
         // Arrange
         const question: PerseusRenderer = {
