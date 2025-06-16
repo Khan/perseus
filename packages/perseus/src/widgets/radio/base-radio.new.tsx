@@ -4,7 +4,6 @@ import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import {useRef, useEffect} from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
@@ -119,15 +118,9 @@ const BaseRadio = ({
             const checkedIndex = choices.findIndex((c) => c.checked);
             if (checkedIndex >= 0) {
                 const ref = choiceRefs.current[checkedIndex];
-                // note(matthew): we know this is only getting passed
-                // to a WB Clickable button, so we force it to be of
-                // type HTMLButtonElement
-                const buttonNode = ReactDOM.findDOMNode(ref.current) as
-                    | HTMLButtonElement
-                    | null
-                    | undefined;
-                if (buttonNode) {
-                    scrollElementIntoView(buttonNode);
+
+                if (ref.current) {
+                    scrollElementIntoView(ref.current);
                 }
             }
         }

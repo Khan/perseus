@@ -1,5 +1,30 @@
 # @khanacademy/perseus-editor
 
+## 24.0.4
+
+### Patch Changes
+
+-   Updated dependencies [[`bb34a5f28`](https://github.com/Khan/perseus/commit/bb34a5f287970f694e30b0d5bb6d0a4db2234e8b)]:
+    -   @khanacademy/perseus@65.1.3
+
+## 24.0.3
+
+### Patch Changes
+
+-   [#2597](https://github.com/Khan/perseus/pull/2597) [`0c2beadca`](https://github.com/Khan/perseus/commit/0c2beadca8d23373eb83b71d2bf15e5787e5926e) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Update autogen labels to correctly reflect locked line vs segment vs ray
+
+-   Updated dependencies [[`218eb4cb1`](https://github.com/Khan/perseus/commit/218eb4cb1b0dc29094919b6d0867fc48fab99d83), [`c2a31923c`](https://github.com/Khan/perseus/commit/c2a31923c8e535f28d17d87216e88cf25ac8792e)]:
+    -   @khanacademy/perseus@65.1.2
+    -   @khanacademy/kas@2.0.7
+    -   @khanacademy/keypad-context@3.0.16
+    -   @khanacademy/kmath@2.0.16
+    -   @khanacademy/math-input@26.0.5
+    -   @khanacademy/perseus-core@14.0.3
+    -   @khanacademy/perseus-linter@4.0.3
+    -   @khanacademy/perseus-score@7.1.3
+    -   @khanacademy/perseus-utils@2.0.4
+    -   @khanacademy/pure-markdown@2.0.7
+
 ## 24.0.2
 
 ### Patch Changes
