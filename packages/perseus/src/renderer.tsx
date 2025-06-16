@@ -136,9 +136,9 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     showSolutions?: ShowSolutions;
     content: PerseusRenderer["content"];
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     serializedState?: any;
 
@@ -146,9 +146,9 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
      * Callback which is called when serialized state changes with the new
      * serialized state.
      */
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     onSerializedStateUpdated: (serializedState: {
         [key: string]: any;
@@ -676,9 +676,9 @@ class Renderer
      * If an instance of widgetProps is passed in, it generates the serialized
      * state from that instead of the current widget props.
      */
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     getSerializedState: (widgetProps?: any) => {
         [id: string]: any;
@@ -699,9 +699,9 @@ class Renderer
         );
     };
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     restoreSerializedState: (
         // eslint-disable-next-line import/no-deprecated

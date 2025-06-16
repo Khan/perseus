@@ -128,9 +128,9 @@ export default {
     version: radioLogic.version,
     isLintable: true,
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     getUserInputFromSerializedState: Radio.getUserInputFromProps,
 } satisfies WidgetExports<typeof Radio>;

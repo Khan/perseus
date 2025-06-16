@@ -33,9 +33,9 @@ class HintRenderer extends React.Component<Props> {
         linterContext: PerseusLinter.linterContextDefault,
     };
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     getSerializedState: () => void = () => {
         // eslint-disable-next-line react/no-string-refs
@@ -43,9 +43,9 @@ class HintRenderer extends React.Component<Props> {
         return this.refs.renderer.getSerializedState();
     };
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     restoreSerializedState: (
         arg1: any,

@@ -129,9 +129,9 @@ class HintsRenderer extends React.Component<Props, State> {
         };
     };
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     getSerializedState: () => any = () => {
         return _.times(this._hintsVisible(), (i) => {
@@ -141,9 +141,9 @@ class HintsRenderer extends React.Component<Props, State> {
         });
     };
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     restoreSerializedState: (
         arg1: any,

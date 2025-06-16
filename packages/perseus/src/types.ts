@@ -88,14 +88,14 @@ export interface Widget {
     // TODO(jeremy): I think this return value is wrong. The widget
     // getSerializedState should just return _its_ serialized state, not a
     // key/value list of all widget states (i think!)
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     getSerializedState?: () => SerializedState; // SUSPECT,
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     restoreSerializedState?: (props: any, callback: () => void) => any;
 
@@ -556,9 +556,9 @@ export type WidgetExports<
         rubric: Rubric,
     ) => string | null | undefined;
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     getUserInputFromSerializedState?: (props: any) => TUserInput;
 
