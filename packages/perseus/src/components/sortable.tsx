@@ -648,6 +648,9 @@ class Sortable extends React.Component<SortableProps, SortableState> {
         nextItems.splice(index, 0, item);
 
         this.setState({items: nextItems}, () => {
+            // HACK (LEMS-3224) We need to know *that* the widget changed, but currently it's
+            // not set up in a nice way to tell us *how* it changed, since the
+            // permutation of the items is stored in state.
             this.props.onChange?.({});
         });
     }
@@ -737,7 +740,7 @@ class Sortable extends React.Component<SortableProps, SortableState> {
             );
 
             this.setState({items: items}, () => {
-                // HACK: We need to know *that* the widget changed, but currently it's
+                // HACK (LEMS-3224) We need to know *that* the widget changed, but currently it's
                 // not set up in a nice way to tell us *how* it changed, since the
                 // permutation of the items is stored in state.
                 this.props.onChange?.({});
