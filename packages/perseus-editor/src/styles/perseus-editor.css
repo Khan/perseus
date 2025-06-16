@@ -117,6 +117,7 @@ code {
     display: flex;
     align-items: center;
     position: relative;
+    cursor: pointer;
 }
 .perseus-widget-editor .perseus-widget-editor-title.closed {
     border-radius: 3px;
@@ -165,6 +166,10 @@ code {
 .perseus-widget-editor .delete-item-button {
     align-self: center;
     padding-right: 0.5em;
+}
+.perseus-widget-editor-title-id {
+    display: inline-flex;
+    align-items: center;
 }
 .perseus-widget-editor-title-id > svg {
     float: left;
