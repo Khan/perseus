@@ -2,7 +2,7 @@ import {itemHasRationales} from "./item-has-rationales";
 import {generateTestPerseusItem} from "./test-utils";
 
 describe("itemHasRationales", () => {
-    it("returns true when item has radio widget with clues", () => {
+    it("returns true when item has radio widget with rationales", () => {
         // Arrange
         const item = generateTestPerseusItem({
             question: {
@@ -19,7 +19,7 @@ describe("itemHasRationales", () => {
                                 {
                                     content: "Choice 2",
                                     correct: false,
-                                    clue: "This is a clue",
+                                    rationale: "This is some rationale",
                                 },
                             ],
                         },
@@ -92,7 +92,8 @@ describe("itemHasRationales", () => {
                                             {
                                                 content: "Choice 1",
                                                 correct: false,
-                                                clue: "This is a clue",
+                                                rationale:
+                                                    "This is some rationale",
                                             },
                                         ],
                                     },
@@ -132,7 +133,8 @@ describe("itemHasRationales", () => {
                                             {
                                                 content: "Choice 1",
                                                 correct: false,
-                                                clue: "This is a clue",
+                                                rationale:
+                                                    "This is a rationale",
                                             },
                                         ],
                                     },
