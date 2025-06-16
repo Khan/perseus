@@ -8,7 +8,6 @@ export const currentVersion = {major: 2, minor: 0};
 export type RadioDefaultWidgetOptions = Pick<
     PerseusRadioWidgetOptions,
     | "choices"
-    | "displayCount"
     | "randomize"
     | "hasNoneOfTheAbove"
     | "multipleSelect"
@@ -18,7 +17,6 @@ export type RadioDefaultWidgetOptions = Pick<
 
 export const defaultWidgetOptions: RadioDefaultWidgetOptions = {
     choices: [{}, {}, {}, {}] as any,
-    displayCount: null,
     randomize: false,
     hasNoneOfTheAbove: false,
     multipleSelect: false,
