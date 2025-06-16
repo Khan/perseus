@@ -27,6 +27,15 @@
             "@khanacademy/pure-markdown": ["./packages/pure-markdown/src"],
             "@khanacademy/simple-markdown": ["./packages/simple-markdown/src"]
         },
+        "plugins": [
+            {
+                "name": "typescript-plugin-css-modules",
+                "options": {
+                    "classnameTransform": "camelCase",
+                    "goToDefinition": true
+                },
+            }
+        ],
 
         /* Preference */
         // If this is disabled, TS will sometimes just delete dead code, which
