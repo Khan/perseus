@@ -45,13 +45,17 @@ const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
             <div className="perseus-widget-editor-title">
                 <div className="perseus-widget-editor-title-id">
                     <View
-                        style={{marginRight: 5, flexGrow: 0}}
+                        style={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: "0.25em",
+                        }}
                         onClick={togglePanel}
-                        testId="issues-toggle-caret"
                     >
                         <ToggleableCaret isExpanded={showPanel} />
+                        <span>Issues</span>
                     </View>
-                    <span>Issues</span>
                 </div>
                 <PhosphorIcon
                     icon={icon}

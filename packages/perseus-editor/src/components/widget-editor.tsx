@@ -167,14 +167,19 @@ class WidgetEditor extends React.Component<
                 >
                     <div className="perseus-widget-editor-title-id">
                         <View
-                            style={{marginRight: 5, flexGrow: 0}}
+                            style={{
+                                display: "flex",
+                                flexDirection: "row",
+                                alignItems: "center",
+                                gap: "0.25em",
+                            }}
                             onClick={this._toggleWidget}
                         >
                             <ToggleableCaret
                                 isExpanded={this.state.showWidget}
                             />
+                            <span>{this.props.id}</span>
                         </View>
-                        <span>{this.props.id}</span>
                     </div>
 
                     {supportsStaticMode && (
