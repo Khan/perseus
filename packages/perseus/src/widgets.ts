@@ -161,17 +161,13 @@ export const getVersionVector = (): {
 };
 
 export const getPublicWidgets = (): Record<string, WidgetExports> => {
-    /**
-     * Even though we don't want content creators adding new "hidden" widgets,
-     * we still have to maintain editors for hidden widgets in order to support
-     * old content. So this lets us use hidden widgets in tests/Storybook.
-     */
-    const showHidden: boolean = !!(
-        process.env.NODE_ENV === "test" || process.env.STORYBOOK
-    );
-
     return widgets.entries().reduce((acc, [key, value]) => {
-        if (showHidden || !value.hidden) {
+        /**
+         * Even though we don't want content creators adding new "hidden" widgets,
+         * we still have to maintain editors for hidden widgets in order to support
+         * old content. So this lets us use hidden widgets in Storybook.
+         */
+        if (process.env.STORYBOOK || !value.hidden) {
             acc[key] = value;
         }
         return acc;
