@@ -30,8 +30,8 @@ export const getPromptJSON = (
         const option: BasicOption = {
             value: choice.content,
         };
-        if (choice.clue) {
-            option.rationale = choice.clue;
+        if (choice.rationale) {
+            option.rationale = choice.rationale;
         }
         return option;
     });
