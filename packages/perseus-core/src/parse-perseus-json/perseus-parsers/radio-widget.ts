@@ -51,6 +51,7 @@ const parseRadioWidgetV3 = parseWidgetWithVersion(
         randomize: optional(boolean),
         multipleSelect: optional(boolean),
         deselectEnabled: optional(boolean),
+        noneOfTheAbove: optional(constant(false)),
     }),
 );
 
