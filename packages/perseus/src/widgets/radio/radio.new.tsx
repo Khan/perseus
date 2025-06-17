@@ -29,6 +29,7 @@ export interface RenderProps {
     deselectEnabled?: boolean;
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
     selectedChoices: ReadonlyArray<PerseusRadioChoice["correct"]>;
+    showSolutions?: ShowSolutions;
     choiceStates?: ReadonlyArray<ChoiceState>;
     // Depreciated; support for legacy way of handling changes
     // Adds proptype for prop that is used but was lacking type
@@ -198,9 +199,9 @@ const RadioComponent = ({
                         ? !!reviewChoice && !!reviewChoice.correct
                         : choice.correct,
                 disabled: readOnly,
-                hasRationale: !!choice.rationale,
+                hasRationale: !!choice.clue,
                 // Render the rationale for the choice, as it may contain subwidgets as well.
-                rationale: renderRenderer(choice.rationale),
+                rationale: renderRenderer(choice.clue),
                 showRationale: rationaleShown,
                 showCorrectness: correctnessShown,
                 isNoneOfTheAbove: !!choice.isNoneOfTheAbove,

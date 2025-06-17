@@ -226,139 +226,139 @@ describe("group widget", () => {
 
         // Assert
         expect(state).toMatchInlineSnapshot(`
-{
-  "group 1": {
-    "radio 1": {
-      "choices": [
-        {
-          "content": "$45$",
-          "correct": false,
-          "originalIndex": 0,
-        },
-        {
-          "content": "$42$",
-          "correct": false,
-          "originalIndex": 1,
-        },
-        {
-          "content": "$30$",
-          "correct": false,
-          "originalIndex": 2,
-          "rationale": "Here's some rationale, this isn't the correct answer!",
-        },
-        {
-          "content": "$18$",
-          "correct": false,
-          "originalIndex": 3,
-        },
-        {
-          "content": "$15$",
-          "correct": true,
-          "originalIndex": 4,
-        },
-      ],
-      "countChoices": false,
-      "deselectEnabled": false,
-      "hasNoneOfTheAbove": false,
-      "multipleSelect": false,
-      "numCorrect": 1,
-      "selectedChoices": [
-        false,
-        false,
-        false,
-        false,
-        true,
-      ],
-    },
-  },
-  "group 2": {
-    "image 1": {
-      "alt": "A number line labeled 200 to 300 with tick marks at every 5 units. The tick marks at 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, and 300 are labeled. A red circle labeled A is between 220 tick mark and 230 tick mark.",
-      "backgroundImage": {
-        "height": 80,
-        "url": "web+graphie://ka-perseus-graphie.s3.amazonaws.com/3351ccf19e60c28a1d08664f5c16defa76ed0348",
-        "width": 380,
-      },
-      "box": [
-        380,
-        80,
-      ],
-      "caption": "",
-      "labels": [],
-      "range": [
-        [
-          0,
-          10,
-        ],
-        [
-          0,
-          10,
-        ],
-      ],
-      "static": false,
-      "title": "",
-    },
-    "numeric-input 1": {
-      "answerForms": [],
-      "coefficient": false,
-      "currentValue": "99",
-      "labelText": "value rounded to the nearest ten",
-      "rightAlign": false,
-      "size": "normal",
-      "static": false,
-    },
-    "numeric-input 2": {
-      "answerForms": [],
-      "coefficient": false,
-      "labelText": "value rounded to the nearest hundred",
-      "rightAlign": false,
-      "size": "normal",
-      "static": false,
-    },
-  },
-  "radio 1": {
-    "choices": [
-      {
-        "content": "",
-        "correct": false,
-        "originalIndex": 0,
-      },
-      {
-        "content": "",
-        "correct": false,
-        "originalIndex": 1,
-      },
-      {
-        "content": "",
-        "correct": false,
-        "originalIndex": 2,
-      },
-      {
-        "content": "",
-        "correct": false,
-        "originalIndex": 3,
-      },
-      {
-        "content": "",
-        "correct": true,
-        "originalIndex": 4,
-      },
-    ],
-    "countChoices": false,
-    "deselectEnabled": false,
-    "hasNoneOfTheAbove": false,
-    "multipleSelect": false,
-    "numCorrect": 1,
-    "selectedChoices": [
-      false,
-      false,
-      false,
-      false,
-      true,
-    ],
-  },
-}
-`);
+            {
+              "group 1": {
+                "radio 1": {
+                  "choices": [
+                    {
+                      "content": "$45$",
+                      "correct": false,
+                      "originalIndex": 0,
+                    },
+                    {
+                      "content": "$42$",
+                      "correct": false,
+                      "originalIndex": 1,
+                    },
+                    {
+                      "clue": "Here's a clue, this isn't the correct answer!",
+                      "content": "$30$",
+                      "correct": false,
+                      "originalIndex": 2,
+                    },
+                    {
+                      "content": "$18$",
+                      "correct": false,
+                      "originalIndex": 3,
+                    },
+                    {
+                      "content": "$15$",
+                      "correct": true,
+                      "originalIndex": 4,
+                    },
+                  ],
+                  "countChoices": false,
+                  "deselectEnabled": false,
+                  "hasNoneOfTheAbove": false,
+                  "multipleSelect": false,
+                  "numCorrect": 1,
+                  "selectedChoices": [
+                    false,
+                    false,
+                    false,
+                    false,
+                    true,
+                  ],
+                },
+              },
+              "group 2": {
+                "image 1": {
+                  "alt": "A number line labeled 200 to 300 with tick marks at every 5 units. The tick marks at 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, and 300 are labeled. A red circle labeled A is between 220 tick mark and 230 tick mark.",
+                  "backgroundImage": {
+                    "height": 80,
+                    "url": "web+graphie://ka-perseus-graphie.s3.amazonaws.com/3351ccf19e60c28a1d08664f5c16defa76ed0348",
+                    "width": 380,
+                  },
+                  "box": [
+                    380,
+                    80,
+                  ],
+                  "caption": "",
+                  "labels": [],
+                  "range": [
+                    [
+                      0,
+                      10,
+                    ],
+                    [
+                      0,
+                      10,
+                    ],
+                  ],
+                  "static": false,
+                  "title": "",
+                },
+                "numeric-input 1": {
+                  "answerForms": [],
+                  "coefficient": false,
+                  "currentValue": "99",
+                  "labelText": "value rounded to the nearest ten",
+                  "rightAlign": false,
+                  "size": "normal",
+                  "static": false,
+                },
+                "numeric-input 2": {
+                  "answerForms": [],
+                  "coefficient": false,
+                  "labelText": "value rounded to the nearest hundred",
+                  "rightAlign": false,
+                  "size": "normal",
+                  "static": false,
+                },
+              },
+              "radio 1": {
+                "choices": [
+                  {
+                    "content": "",
+                    "correct": false,
+                    "originalIndex": 0,
+                  },
+                  {
+                    "content": "",
+                    "correct": false,
+                    "originalIndex": 1,
+                  },
+                  {
+                    "content": "",
+                    "correct": false,
+                    "originalIndex": 2,
+                  },
+                  {
+                    "content": "",
+                    "correct": false,
+                    "originalIndex": 3,
+                  },
+                  {
+                    "content": "",
+                    "correct": true,
+                    "originalIndex": 4,
+                  },
+                ],
+                "countChoices": false,
+                "deselectEnabled": false,
+                "hasNoneOfTheAbove": false,
+                "multipleSelect": false,
+                "numCorrect": 1,
+                "selectedChoices": [
+                  false,
+                  false,
+                  false,
+                  false,
+                  true,
+                ],
+              },
+            }
+        `);
     });
 
     it("should be able to restore serialized state", async () => {
@@ -508,6 +508,20 @@ describe("group widget", () => {
             expect(screen.getAllByRole("textbox")[1]).toHaveValue("2021");
         });
         expect(cb).toHaveBeenCalled();
+    });
+
+    it("should show rationales for contained widgets", async () => {
+        // Arrange
+        const {renderer} = renderQuestion(question1);
+        await userEvent.click(screen.getAllByRole("radio")[2]); // Incorrect!
+
+        // Act
+        act(() => renderer.showRationalesForCurrentlySelectedChoices());
+
+        // Assert
+        expect(
+            screen.getByText("Here's a clue, this isn't the correct answer!"),
+        ).toBeInTheDocument();
     });
 
     it("handles answerless item data", () => {

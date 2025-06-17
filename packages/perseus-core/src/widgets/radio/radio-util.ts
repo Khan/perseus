@@ -15,6 +15,9 @@ type RadioPublicWidgetOptions = {
     randomize?: PerseusRadioWidgetOptions["randomize"];
     multipleSelect?: PerseusRadioWidgetOptions["multipleSelect"];
     deselectEnabled?: PerseusRadioWidgetOptions["deselectEnabled"];
+    onePerLine?: PerseusRadioWidgetOptions["onePerLine"];
+    displayCount?: PerseusRadioWidgetOptions["displayCount"];
+    noneOfTheAbove?: PerseusRadioWidgetOptions["noneOfTheAbove"];
 };
 
 /**
@@ -22,7 +25,7 @@ type RadioPublicWidgetOptions = {
  */
 type RadioChoicePublicData = Pick<
     PerseusRadioChoice,
-    "content" | "isNoneOfTheAbove"
+    "content" | "isNoneOfTheAbove" | "widgets"
 >;
 
 /**
@@ -32,10 +35,11 @@ type RadioChoicePublicData = Pick<
 function getRadioChoicePublicData(
     choice: PerseusRadioChoice,
 ): RadioChoicePublicData {
-    const {content, isNoneOfTheAbove} = choice;
+    const {content, isNoneOfTheAbove, widgets} = choice;
     return {
         content,
         isNoneOfTheAbove,
+        widgets,
     };
 }
 

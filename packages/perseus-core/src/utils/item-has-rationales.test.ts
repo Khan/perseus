@@ -2,7 +2,7 @@ import {itemHasRationales} from "./item-has-rationales";
 import {generateTestPerseusItem} from "./test-utils";
 
 describe("itemHasRationales", () => {
-    it("returns true when item has radio widget with rationales", () => {
+    it("returns true when item has radio widget with clues", () => {
         // Arrange
         const item = generateTestPerseusItem({
             question: {
@@ -19,7 +19,7 @@ describe("itemHasRationales", () => {
                                 {
                                     content: "Choice 2",
                                     correct: false,
-                                    rationale: "This is some rationale",
+                                    clue: "This is a clue",
                                 },
                             ],
                         },
@@ -92,8 +92,8 @@ describe("itemHasRationales", () => {
                                             {
                                                 content: "Choice 1",
                                                 correct: false,
-                                                rationale:
-                                                    "This is some rationale",
+                                                clue:
+                                                    "This is a clue",
                                             },
                                         ],
                                     },
@@ -133,8 +133,8 @@ describe("itemHasRationales", () => {
                                             {
                                                 content: "Choice 1",
                                                 correct: false,
-                                                rationale:
-                                                    "This is a rationale",
+                                                clue:
+                                                    "This is a clue",
                                             },
                                         ],
                                     },

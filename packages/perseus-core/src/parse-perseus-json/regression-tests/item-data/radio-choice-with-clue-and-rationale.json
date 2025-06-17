@@ -1,0 +1,33 @@
+{
+    "question": {
+        "content": "[[☃ radio 1]]",
+        "widgets": {
+            "radio 1": {
+                "type": "radio",
+                "version": {"major": 1, "minor": 0},
+                "options": {
+                    "choices": [
+                        {
+                            "content": "Content",
+                            "rationale": "",
+                            "correct": false,
+                            "isNoneOfTheAbove": false,
+                            "id": "",
+                            "widgets": null,
+                            "clue": "Clue"
+                        }
+                    ],
+                    "numCorrect": 0,
+                    "hasNoneOfTheAbove": false,
+                    "countChoices": true,
+                    "deselectEnabled": false,
+                    "randomize": false,
+                    "multipleSelect": false,
+                    "displayCount": null,
+                    "noneOfTheAbove": null,
+                    "onePerLine": null
+                }
+        }
+    }
+}
+}

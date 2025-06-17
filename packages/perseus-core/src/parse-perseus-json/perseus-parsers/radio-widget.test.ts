@@ -5,20 +5,18 @@ import {failure, success} from "../result";
 import {
     migrateV0ToV1,
     migrateV1ToV2,
-    migrateV2toV3,
     parseRadioWidget,
 } from "./radio-widget";
-import {v0Widget, v1Widget, v2Widget, v3Widget} from "./radio-widget.mockData";
+import {v0Widget, v1Widget, v2Widget} from "./radio-widget.mockData";
 
 describe("parseRadioWidget", () => {
-    const LATEST_VERSION = {major: 3, minor: 0};
-    const LATEST_OPTIONS = v3Widget;
+    const LATEST_VERSION = {major: 2, minor: 0};
+    const LATEST_OPTIONS = v2Widget;
 
     describe.each([
         ["v0", v0Widget],
         ["v1", v1Widget],
         ["v2", v2Widget],
-        ["v3", v3Widget],
     ])("Radio %s", (_, inputData) => {
         it(`migrates to the latest version, ${LATEST_VERSION.major}.${LATEST_VERSION.minor}`, () => {
             expect(parse(inputData, parseRadioWidget)).toEqual(
@@ -117,9 +115,5 @@ describe("migration functions", () => {
 
     it("migrates v1 to v2", () => {
         expect(migrateV1ToV2(v1Widget)).toEqual(v2Widget);
-    });
-
-    it("migrates v2 to v3", () => {
-        expect(migrateV2toV3(v2Widget)).toEqual(v3Widget);
     });
 });

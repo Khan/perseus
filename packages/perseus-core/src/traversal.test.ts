@@ -78,6 +78,7 @@ const sampleOptions2: PerseusRenderer = {
                 ],
                 randomize: false,
                 multipleSelect: false,
+                displayCount: null,
                 deselectEnabled: false,
                 countChoices: false,
                 numCorrect: 1,

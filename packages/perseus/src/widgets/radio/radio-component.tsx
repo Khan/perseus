@@ -1,4 +1,5 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
+import {scoreRadio} from "@khanacademy/perseus-score";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -14,6 +15,8 @@ import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
     PerseusRadioChoice,
+    PerseusRadioWidgetOptions,
+    ShowSolutions,
     PerseusRadioRubric,
     PerseusRadioUserInput,
 } from "@khanacademy/perseus-core";
@@ -27,6 +30,7 @@ export type RenderProps = {
     deselectEnabled?: boolean;
     choices: RadioChoiceWithMetadata[];
     selectedChoices: PerseusRadioChoice["correct"][];
+    showSolutions?: ShowSolutions;
     choiceStates?: ChoiceState[];
     // Depreciated; support for legacy way of handling changes
     // Adds proptype for prop that is used but was lacking type
@@ -108,6 +112,15 @@ class Radio extends React.Component<Props> implements Widget {
         return {
             choicesSelected: props.choices.map(() => false),
         };
+    }
+
+    componentDidUpdate(prevProps: Props) {
+        if (
+            this.props.showSolutions === "selected" &&
+            prevProps.showSolutions !== "selected"
+        ) {
+            this.showRationalesForCurrentlySelectedChoices(this.props);
+        }
     }
 
     _renderRenderer: (content?: string) => React.ReactElement = (
@@ -243,6 +256,84 @@ class Radio extends React.Component<Props> implements Widget {
         return _getPromptJSON(this.props, userInput);
     }
 
+    /**
+     * Turn on rationale display for the currently selected choices. Note that
+     * this leaves rationales on for choices that are already showing
+     * rationales.
+     * @deprecated Internal only. Use `showSolutions` prop instead.
+     */
+    showRationalesForCurrentlySelectedChoices: (
+        arg1: PerseusRadioWidgetOptions,
+    ) => void = (rubric) => {
+        const {choiceStates} = this.props;
+        if (choiceStates) {
+            const score = scoreRadio(this.getUserInput(), rubric);
+            const widgetCorrect =
+                score.type === "points" && score.total === score.earned;
+
+            const newStates: ReadonlyArray<ChoiceState> = choiceStates.map(
+                (state: ChoiceState): ChoiceState => ({
+                    ...state,
+                    highlighted: state.selected,
+                    // If the choice is selected, show the rationale now
+                    rationaleShown:
+                        state.selected ||
+                        // If the choice already had a rationale, keep it shown
+                        state.rationaleShown ||
+                        // If the widget is correctly answered, show the rationale
+                        // for all the choices
+                        widgetCorrect,
+                    // We use the same behavior for the readOnly flag as for
+                    // rationaleShown, but we keep it separate in case other
+                    // behaviors want to disable choices without showing rationales.
+                    readOnly:
+                        state.selected ||
+                        state.readOnly ||
+                        widgetCorrect ||
+                        this.props.showSolutions !== "none",
+                    correctnessShown: state.selected || state.correctnessShown,
+                    previouslyAnswered:
+                        state.previouslyAnswered || state.selected,
+                }),
+            );
+
+            this.props.onChange(
+                {
+                    choiceStates: newStates,
+                },
+                // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
+                null, // cb
+                true, // silent
+            );
+        }
+    };
+
+    /**
+     * Deselects any currently-selected choices that are not correct choices.
+     */
+    deselectIncorrectSelectedChoices: () => void = () => {
+        if (this.props.choiceStates) {
+            const newStates: ReadonlyArray<ChoiceState> =
+                this.props.choiceStates.map(
+                    (state: ChoiceState, i): ChoiceState => ({
+                        ...state,
+                        selected:
+                            state.selected && !!this.props.choices[i].correct,
+                        highlighted: false,
+                    }),
+                );
+
+            this.props.onChange(
+                {
+                    choiceStates: newStates,
+                },
+                // @ts-expect-error - TS2345 - Argument of type 'null' is not assignable to parameter of type '(() => unknown) | undefined'.
+                null, // cb
+                false, // silent
+            );
+        }
+    };
+
     render(): React.ReactNode {
         const {choices} = this.props;
         const {strings} = this.context;
@@ -329,8 +420,8 @@ class Radio extends React.Component<Props> implements Widget {
                             ? !!reviewChoice && !!reviewChoice.correct
                             : choice.correct,
                     disabled: readOnly,
-                    hasRationale: !!choice.rationale,
-                    rationale: this._renderRenderer(choice.rationale),
+                    hasRationale: !!choice.clue,
+                    rationale: this._renderRenderer(choice.clue),
                     showRationale: rationaleShown,
                     showCorrectness: correctnessShown,
                     isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
