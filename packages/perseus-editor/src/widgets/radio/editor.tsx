@@ -1,14 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {
-    components,
-    BaseRadio,
-    Changeable,
-    iconTrash,
-} from "@khanacademy/perseus";
+import {BaseRadio, Changeable} from "@khanacademy/perseus";
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import Link from "@khanacademy/wonder-blocks-link";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import plusIcon from "@phosphor-icons/core/regular/plus.svg";
@@ -23,8 +19,6 @@ import type {
     PerseusRadioChoice,
     RadioDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
-
-const {InlineIcon} = components;
 
 type Contentful = {content?: string};
 type ChoiceEditorProps = {
@@ -294,18 +288,13 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         );
         return (
             <div>
+                <Link
+                    href="https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems"
+                    target="_blank"
+                >
+                    Multiple choice best practices
+                </Link>
                 <div className="perseus-widget-row">
-                    <a
-                        href={
-                            // This is an editor component, not user-facing.
-                            "https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems"
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Multiple choice best practices
-                    </a>
-                    <br />
                     <div className="perseus-widget-left-col">
                         <Checkbox
                             label="Multiple selections"
