@@ -25,6 +25,9 @@ import type {
 const {HUD} = components;
 
 type Props = {
+    // Additional templates that the host application would like to display
+    // within the Perseus Editor.
+    additionalTemplates?: Record<string, string>;
     apiOptions?: APIOptions;
     answerArea?: PerseusAnswerArea | null; // related to the question,
     // TODO(CP-4838): Should this be a required prop?
@@ -288,6 +291,7 @@ class EditorPage extends React.Component<Props, State> {
                         apiOptions={deviceBasedApiOptions}
                         previewURL={this.props.previewURL}
                         issues={this.props.issues}
+                        additionalTemplates={this.props.additionalTemplates}
                     />
                 )}
 

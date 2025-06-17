@@ -112,6 +112,7 @@ const imageUrlsFromContent = function (content: string) {
 };
 
 type Props = Readonly<{
+    additionalTemplates?: Record<string, string>;
     apiOptions: any;
     className?: string;
     content: string;
@@ -778,12 +779,15 @@ class Editor extends React.Component<Props, State> {
                 "7 & \\text{if }x=1 \\\\\n" +
                 "f(x-1)+5 & \\text{if }x > 1\n" +
                 "\\end{cases}$";
-        } else if (templateType === "sideBySide") {
-            template = "Left hand side\n" + "=====" + "\nRight hand side";
         } else if (templateType === "allWidgets") {
             template = Widgets.getAllWidgetTypes()
                 .map((type) => `[[${Util.snowman} ${type} 1]]`)
                 .join("\n\n");
+        } else if (
+            this.props?.additionalTemplates &&
+            templateType in this.props.additionalTemplates
+        ) {
+            template = this.props.additionalTemplates[templateType];
         } else {
             throw new PerseusError(
                 "Invalid template type: " + templateType,
@@ -997,11 +1001,18 @@ class Editor extends React.Component<Props, State> {
                     <option value="titledTable">Titled table</option>
                     <option value="alignment">Aligned equations</option>
                     <option value="piecewise">Piecewise function</option>
-                    <option value="sideBySide">Side by side</option>
                     <option disabled>--</option>
                     <option value="allWidgets">
                         All widgets (for testing)
                     </option>
+                    {this.props.additionalTemplates &&
+                        Object.entries(this.props.additionalTemplates).map(
+                            ([key, value]) => (
+                                <option value={key} key={key}>
+                                    {key}
+                                </option>
+                            ),
+                        )}
                 </select>
             );
 

@@ -24,6 +24,9 @@ import type {
 } from "@khanacademy/perseus-core";
 
 type Props = {
+    // Additional templates that the host application would like to display
+    // within the Perseus Editor.
+    additionalTemplates?: Record<string, string>;
     apiOptions?: APIOptions;
     deviceType?: DeviceType;
     widgetIsOpen?: boolean;
@@ -164,6 +167,7 @@ class ItemEditor extends React.Component<Props, State> {
                             apiOptions={this.props.apiOptions}
                             showWordCount={true}
                             widgetIsOpen={this.props.widgetIsOpen}
+                            additionalTemplates={this.props.additionalTemplates}
                             {...this.props.question}
                         />
                     </div>
