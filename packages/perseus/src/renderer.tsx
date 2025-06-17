@@ -143,17 +143,6 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     serializedState?: any;
 
     /**
-     * Callback which is called when serialized state changes with the new
-     * serialized state.
-     */
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
-    /**
-     * @deprecated - do not use in new code.
-     */
-    onSerializedStateUpdated: (serializedState: {
-        [key: string]: any;
-    }) => unknown;
-    /**
      * If linterContext.highlightLint is true, then content will be passed to
      * the linter and any warnings will be highlighted in the rendered output.
      */
@@ -197,7 +186,6 @@ type DefaultProps = Required<
         | "linterContext"
         | "onInteractWithWidget"
         | "onRender"
-        | "onSerializedStateUpdated"
         | "questionCompleted"
         | "showSolutions"
         | "reviewMode"
@@ -285,7 +273,6 @@ class Renderer
         alwaysUpdate: false,
         reviewMode: false,
         serializedState: null,
-        onSerializedStateUpdated: () => {},
         linterContext: PerseusLinter.linterContextDefault,
     };
 
@@ -659,7 +646,11 @@ class Renderer
             onChange: (newProps, cb, silent = false) => {
                 this._setWidgetProps(widgetId, newProps, cb, silent);
             },
-            handleUserInput: (newUserInput, cb, silent = false) => {
+            handleUserInput: (
+                newUserInput: UserInput,
+                cb: () => boolean,
+                silent: boolean = false,
+            ) => {
                 this._setUserInput(widgetId, newUserInput, cb, silent);
             },
             trackInteraction: interactionTracker.track,
@@ -1698,12 +1689,6 @@ class Renderer
                 };
             },
             () => {
-                if (!silent) {
-                    this.props.onSerializedStateUpdated(
-                        this.getSerializedState(this.state.widgetProps),
-                    );
-                }
-
                 // Wait until all components have rendered. In React 16 setState
                 // callback fires immediately after this componentDidUpdate, and
                 // there is no guarantee that parent/siblings components have
@@ -1736,7 +1721,7 @@ class Renderer
 
     _setUserInput(
         id: string,
-        nextUserInput: UserInput | null,
+        nextUserInput: UserInput,
         cb: () => boolean,
         silent?: boolean,
     ) {

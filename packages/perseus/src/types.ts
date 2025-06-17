@@ -630,7 +630,7 @@ export type UniversalWidgetProps<
     onChange: ChangeHandler;
     handleUserInput: (
         newUserInput: TUserInput,
-        cb?: any,
+        cb?: () => void,
         silent?: boolean,
     ) => void;
     userInput: TUserInput;
