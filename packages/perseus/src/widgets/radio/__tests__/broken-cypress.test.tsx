@@ -7,31 +7,17 @@ const item = {
         widgets: {
             "radio 1": {
                 type: "radio",
-                static: false,
-                graded: true,
-                alignment: "default",
-                id: null,
-                key: null,
-                version: {major: 1, minor: 0},
+                version: {major: 1, minor: 0}, // <= important
                 options: {
                     choices: [
                         {
-                            content: "Content 1",
-                            rationale: "",
+                            content: "Content",
+                            rationale: "", // <= important
                             correct: false,
                             isNoneOfTheAbove: false,
                             id: "",
                             widgets: null,
-                            clue: "Clue 1",
-                        },
-                        {
-                            content: "Content 2",
-                            rationale: "",
-                            correct: false,
-                            isNoneOfTheAbove: false,
-                            id: "",
-                            widgets: null,
-                            clue: "Clue 2",
+                            clue: "Clue", // <= important
                         },
                     ],
                     numCorrect: 0,
@@ -46,9 +32,6 @@ const item = {
                 },
             },
         },
-        replace: null,
-        metadata: null,
-        images: {},
     },
 };
 
@@ -62,7 +45,7 @@ describe("Broken Cypress", () => {
         assertSuccess(rv);
         expect(
             rv.value.question.widgets["radio 1"].options.choices[0].rationale,
-        ).toBe("Clue 1");
+        ).toBe("Clue");
         expect(
             (rv.value.question.widgets["radio 1"].options.choices[0] as any)
                 .clue,
