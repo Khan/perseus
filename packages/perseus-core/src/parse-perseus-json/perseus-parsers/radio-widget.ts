@@ -4,6 +4,7 @@ import {
     array,
     boolean,
     constant,
+    nullable,
     number,
     object,
     optional,
@@ -110,12 +111,12 @@ const parseRadioWidgetV1 = parseWidgetWithVersion(
             multipleSelect: optional(boolean),
             deselectEnabled: optional(boolean),
             // deprecated
-            onePerLine: optional(boolean),
+            onePerLine: optional(nullable(boolean)),
             // deprecated
             displayCount: optional(any),
             // v0 props
             // `noneOfTheAbove` is still in use (but only set to `false`).
-            noneOfTheAbove: optional(constant(false)),
+            noneOfTheAbove: optional(nullable(constant(false))),
         }),
         getDefaultOptions,
     ),
