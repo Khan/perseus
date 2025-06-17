@@ -6,7 +6,10 @@ import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {question1} from "./graded-group.testdata";
+import {
+    question1,
+    groupedRadioRationaleQuestion,
+} from "./graded-group.testdata";
 
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
@@ -159,6 +162,44 @@ describe("graded-group", () => {
             // Assert
             expect(
                 screen.queryByText(/Some bacteria synthesize their own fuel/),
+            ).not.toBeInTheDocument();
+        });
+
+        it("should show rationales when answer is correct", async () => {
+            // Arrange
+            renderQuestion(groupedRadioRationaleQuestion);
+
+            // Select the correct answer: "$8$" (index 2)
+            await userEvent.click(screen.getAllByRole("radio")[2]);
+
+            // Act
+            await checkAnswer(userEvent);
+
+            // Assert
+            expect(screen.getByRole("alert", {name: "Correct"})).toBeVisible();
+            // Verify the rationale for the correct answer is shown
+            expect(
+                screen.getByText("This is the correct answer."),
+            ).toBeVisible();
+        });
+
+        it("should not show rationales when answer is incorrect", async () => {
+            // Arrange
+            renderQuestion(groupedRadioRationaleQuestion);
+
+            // Select an incorrect answer: "$-8$" (index 1)
+            await userEvent.click(screen.getAllByRole("radio")[1]);
+
+            // Act
+            await checkAnswer(userEvent);
+
+            // Assert
+            expect(
+                screen.getByRole("alert", {name: "Incorrect"}),
+            ).toBeVisible();
+            // Verify that rationales are not shown
+            expect(
+                screen.queryByText("This is not the correct answer."),
             ).not.toBeInTheDocument();
         });
     });
