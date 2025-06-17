@@ -221,9 +221,7 @@ describe("radio-editor", () => {
          * not some other part of the radio choice.
          * It's just a div, hence the test ID.
          */
-        const choices = screen.getAllByTestId(
-            "choice-icon__library-choice-icon",
-        );
+        const choices = screen.getAllByRole("button", {name: "Correct"});
 
         // switch an incorrect answer into a correct answer
         await userEvent.click(choices[0]);

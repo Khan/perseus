@@ -1,17 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {BaseRadio, Changeable} from "@khanacademy/perseus";
+import {Changeable} from "@khanacademy/perseus";
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Link from "@khanacademy/wonder-blocks-link";
 import {spacing, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {Caption} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
-import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 import _ from "underscore";
 
 import LabeledSwitch from "../../components/labeled-switch";
-import Editor from "../../editor";
+
+import {RadioOptionSettings} from "./radio-option-settings";
 
 import type {APIOptions} from "@khanacademy/perseus";
 import type {
@@ -19,78 +20,6 @@ import type {
     PerseusRadioChoice,
     RadioDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
-
-type Contentful = {content?: string};
-type ChoiceEditorProps = {
-    apiOptions: APIOptions;
-    choice: PerseusRadioChoice;
-    showDelete: boolean;
-    onClueChange: (newProps: Contentful) => void;
-    onContentChange: (newProps: Contentful) => void;
-    onDelete: () => void;
-};
-
-class ChoiceEditor extends React.Component<ChoiceEditorProps> {
-    render(): React.ReactNode {
-        const checkedClass = this.props.choice.correct
-            ? "correct"
-            : "incorrect";
-        let placeholder = "Type a choice here...";
-
-        if (this.props.choice.isNoneOfTheAbove) {
-            placeholder = this.props.choice.correct
-                ? "Type the answer to reveal to the user..."
-                : "None of the above";
-        }
-
-        const editor = (
-            <Editor
-                // eslint-disable-next-line react/no-string-refs
-                ref="content-editor"
-                apiOptions={this.props.apiOptions}
-                content={this.props.choice.content || ""}
-                widgetEnabled={false}
-                placeholder={placeholder}
-                disabled={
-                    this.props.choice.isNoneOfTheAbove &&
-                    !this.props.choice.correct
-                }
-                onChange={this.props.onContentChange}
-            />
-        );
-
-        const clueEditor = (
-            <Editor
-                // eslint-disable-next-line react/no-string-refs
-                ref="clue-editor"
-                apiOptions={this.props.apiOptions}
-                content={this.props.choice.clue || ""}
-                widgetEnabled={false}
-                placeholder={`Why is this choice ${checkedClass}?`}
-                onChange={this.props.onClueChange}
-            />
-        );
-
-        const deleteButton = (
-            <Button
-                size="small"
-                kind="tertiary"
-                startIcon={trashIcon}
-                onClick={this.props.onDelete}
-            >
-                Remove this choice
-            </Button>
-        );
-
-        return (
-            <div className="choice-clue-editors">
-                <div className={`choice-editor ${checkedClass}`}>{editor}</div>
-                <div className="clue-editor">{clueEditor}</div>
-                {this.props.showDelete && deleteButton}
-            </div>
-        );
-    }
-}
 
 type RadioEditorProps = {
     apiOptions: APIOptions;
@@ -115,6 +44,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         return Changeable.change.apply(this, args);
     };
 
+    // Called when the "Multiple selections" checkbox is toggled,
+    // allowing the content author to specifiy multiple correct answers.
     onMultipleSelectChange: (arg1: any) => any = (allowMultiple) => {
         allowMultiple = allowMultiple.multipleSelect;
 
@@ -146,11 +77,15 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         }
     };
 
+    // Called when the "Specify number correct" checkbox is toggled,
+    // making it so that the title reads "Choose [number] answers"
     onCountChoicesChange: (arg1: any) => void = (count) => {
         count = count.countChoices;
         this.props.onChange({countChoices: count});
     };
 
+    // Updates the `correct` values for each choice, as well as the new
+    // `numCorrect` value as a result. Updates the props with the new values.
     onChange: (arg1: any) => void = ({checked}) => {
         const choices = this.props.choices.map((choice, i) => {
             return {
@@ -172,6 +107,32 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                 // as it has changed.
                 numCorrect: undefined,
             }),
+        });
+    };
+
+    // Called when there is a change to which choice(s) are correct to
+    // calculate the new list of correct choices.
+    // Calls `onChange` to update the props.
+    onStatusChange: (choiceIndex: number, correct: boolean) => void = (
+        choiceIndex,
+        correct,
+    ) => {
+        // If we're checking a new answer and multiple-select is not on,
+        // we should clear all choices to be unchecked. Otherwise, we should
+        // copy the old checked values.
+        let newCheckedList;
+
+        if (correct && !this.props.multipleSelect) {
+            newCheckedList = this.props.choices.map((_) => false);
+        } else {
+            newCheckedList = this.props.choices.map((c) => c.correct);
+        }
+
+        // Update these options' `correct` values.
+        newCheckedList[choiceIndex] = correct;
+
+        this.onChange({
+            checked: newCheckedList,
         });
     };
 
@@ -321,60 +282,37 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                         style={{marginBlockEnd: sizing.size_060}}
                     />
                     {this.props.multipleSelect && (
-                        <LabeledSwitch
-                            label="Specify number correct"
-                            checked={this.props.countChoices}
-                            onChange={(value) => {
-                                this.onCountChoicesChange({
-                                    countChoices: value,
-                                });
-                            }}
-                            style={{marginBlockEnd: sizing.size_060}}
-                        />
+                        <>
+                            <LabeledSwitch
+                                label="Specify number correct"
+                                checked={this.props.countChoices}
+                                onChange={(value) => {
+                                    this.onCountChoicesChange({
+                                        countChoices: value,
+                                    });
+                                }}
+                                style={{marginBlockEnd: sizing.size_060}}
+                            />
+                            <Caption>
+                                Current number correct: {numCorrect}
+                            </Caption>
+                        </>
                     )}
                 </div>
 
-                <BaseRadio
-                    multipleSelect={this.props.multipleSelect}
-                    countChoices={this.props.countChoices}
-                    numCorrect={numCorrect}
-                    editMode={true}
-                    labelWrap={false}
-                    apiOptions={this.props.apiOptions}
-                    reviewMode={false}
-                    choices={this.props.choices.map((choice, i) => {
-                        return {
-                            content: (
-                                <ChoiceEditor
-                                    ref={`choice-editor${i}`}
-                                    apiOptions={this.props.apiOptions}
-                                    choice={choice}
-                                    onContentChange={(newProps) => {
-                                        if (newProps.content != null) {
-                                            this.onContentChange(
-                                                i,
-                                                newProps.content,
-                                            );
-                                        }
-                                    }}
-                                    onClueChange={(newProps) => {
-                                        if (newProps.content != null) {
-                                            this.onClueChange(
-                                                i,
-                                                newProps.content,
-                                            );
-                                        }
-                                    }}
-                                    onDelete={() => this.onDelete(i)}
-                                    showDelete={this.props.choices.length >= 2}
-                                />
-                            ),
-                            isNoneOfTheAbove: choice.isNoneOfTheAbove,
-                            checked: choice.correct,
-                        } as any;
-                    }, this)}
-                    onChange={this.onChange}
-                />
+                {this.props.choices.map((choice, index) => (
+                    <RadioOptionSettings
+                        key={`choice-${index}-${choice.content}`}
+                        index={index}
+                        choice={choice}
+                        multipleSelect={this.props.multipleSelect}
+                        onStatusChange={this.onStatusChange}
+                        onContentChange={this.onContentChange}
+                        onRationaleChange={this.onClueChange}
+                        onDelete={() => this.onDelete(index)}
+                        showDelete={this.props.choices.length >= 2}
+                    />
+                ))}
 
                 <div className="add-choice-container">
                     <Button
