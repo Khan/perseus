@@ -690,6 +690,8 @@ code {
 }
 .perseus-widget-radio .perseus-textarea-pair,
 .perseus-widget-radio .perseus-textarea-underlay {
+    /* Wrap when text area has a long image link that overflows. */
+    overflow-wrap: anywhere;
     display: block;
 }
 .perseus-widget-radio .perseus-textarea-pair > textarea,
