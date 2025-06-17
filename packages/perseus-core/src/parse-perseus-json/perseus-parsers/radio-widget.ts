@@ -51,6 +51,7 @@ const parseRadioWidgetV3 = parseWidgetWithVersion(
         randomize: optional(boolean),
         multipleSelect: optional(boolean),
         deselectEnabled: optional(boolean),
+        noneOfTheAbove: optional(constant(false)),
     }),
 );
 
@@ -169,6 +170,7 @@ export function migrateV2toV3(
             randomize: options.randomize,
             multipleSelect: options.multipleSelect,
             deselectEnabled: options.deselectEnabled,
+            noneOfTheAbove: false,
             choices: options.choices.map((choice) => ({
                 content: choice.content,
                 rationale: choice.clue,
