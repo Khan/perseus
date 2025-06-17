@@ -6,12 +6,15 @@ import {
     iconTrash,
 } from "@khanacademy/perseus";
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
+import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import plusIcon from "@phosphor-icons/core/regular/plus.svg";
 import * as React from "react";
 import _ from "underscore";
 
 import Editor from "../../editor";
-import {iconPlus} from "../../styles/icon-paths";
 
 import type {APIOptions} from "@khanacademy/perseus";
 import type {
@@ -384,25 +387,23 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                 />
 
                 <div className="add-choice-container">
-                    <a
-                        className="simple-button orange"
-                        href="#"
-                        // eslint-disable-next-line react/jsx-no-bind
+                    <Button
+                        size="small"
+                        kind="tertiary"
+                        startIcon={plusIcon}
                         onClick={this.addChoice.bind(this, false)}
                     >
-                        <InlineIcon {...iconPlus} /> Add a choice{" "}
-                    </a>
-
-                    {!this.props.hasNoneOfTheAbove && (
-                        <a
-                            className="simple-button"
-                            href="#"
-                            // eslint-disable-next-line react/jsx-no-bind
-                            onClick={this.addChoice.bind(this, true)}
-                        >
-                            <InlineIcon {...iconPlus} /> None of the above{" "}
-                        </a>
-                    )}
+                        Add a choice
+                    </Button>
+                    <Strut size={spacing.large_24} />
+                    <Button
+                        size="small"
+                        kind="tertiary"
+                        startIcon={plusIcon}
+                        onClick={this.addChoice.bind(this, true)}
+                    >
+                        None of the above
+                    </Button>
                 </div>
             </div>
         );

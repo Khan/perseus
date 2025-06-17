@@ -246,6 +246,8 @@ code {
 }
 #perseus .add-choice-container,
 #perseus .add-hint-container {
+    display: flex;
+    flex-direction: row;
     margin-bottom: 20px;
     text-align: left;
 }
