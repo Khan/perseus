@@ -386,27 +386,27 @@ export const groupSetRadioRationaleQuestion: PerseusRenderer = {
                                         {
                                             content: "Incorrect",
                                             correct: false,
-                                            rationale:
+                                            clue:
                                                 "This is not the correct answer.",
                                         },
                                         {
                                             content: "Incorrect",
                                             correct: false,
-                                            rationale:
+                                            clue:
                                                 "This is not the correct answer.",
                                         },
                                         {
                                             content: "Correct",
                                             correct: true,
                                             isNoneOfTheAbove: false,
-                                            rationale:
+                                            clue:
                                                 "This is the correct answer.",
                                         },
                                         {
                                             content: "Incorrect",
                                             correct: false,
                                             isNoneOfTheAbove: false,
-                                            rationale:
+                                            clue:
                                                 "This is not the correct answer.",
                                         },
                                     ],
@@ -447,28 +447,28 @@ export const groupSetRadioRationaleQuestion: PerseusRenderer = {
                                             content: "Hola",
                                             isNoneOfTheAbove: false,
                                             correct: true,
-                                            rationale:
+                                            clue:
                                                 "The Spanish-speaking countries typically say Hola.",
                                         },
                                         {
                                             content: "Hey",
                                             isNoneOfTheAbove: false,
                                             correct: true,
-                                            rationale:
+                                            clue:
                                                 "This is used to attract someone's attention.",
                                         },
                                         {
                                             content: "Hi",
                                             isNoneOfTheAbove: false,
                                             correct: true,
-                                            rationale:
+                                            clue:
                                                 "This is used as friendly greeting.",
                                         },
                                         {
                                             content: "Goodbye",
                                             isNoneOfTheAbove: false,
                                             correct: false,
-                                            rationale:
+                                            clue:
                                                 "Some people like to say Goodbye.",
                                         },
                                         {
@@ -528,27 +528,27 @@ export const groupedRadioQuestion: PerseusRenderer = {
                                 {
                                     content: "$-8$ and $8$",
                                     correct: false,
-                                    rationale:
+                                    clue:
                                         "This is not the correct answer.",
                                 },
                                 {
                                     content: "$-8$",
                                     correct: false,
-                                    rationale:
+                                    clue:
                                         "This is not the correct answer.",
                                 },
                                 {
                                     content: "$8$",
                                     correct: true,
                                     isNoneOfTheAbove: false,
-                                    rationale: "This is the correct answer.",
+                                    clue: "This is the correct answer.",
                                 },
                                 {
                                     content:
                                         "No value of $x$ satisfies the equation.",
                                     correct: false,
                                     isNoneOfTheAbove: false,
-                                    rationale:
+                                    clue:
                                         "This is not the correct answer.",
                                 },
                             ],
