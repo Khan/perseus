@@ -295,38 +295,32 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                     Multiple choice best practices
                 </Link>
                 <div className="perseus-widget-row">
-                    <div className="perseus-widget-left-col">
+                    <Checkbox
+                        label="Randomize order"
+                        checked={this.props.randomize}
+                        onChange={(value) => {
+                            this.props.onChange({randomize: value});
+                        }}
+                    />
+                    <Checkbox
+                        label="Multiple selections"
+                        checked={this.props.multipleSelect}
+                        onChange={(value) => {
+                            this.onMultipleSelectChange({
+                                multipleSelect: value,
+                            });
+                        }}
+                    />
+                    {this.props.multipleSelect && (
                         <Checkbox
-                            label="Multiple selections"
-                            checked={this.props.multipleSelect}
+                            label="Specify number correct"
+                            checked={this.props.countChoices}
                             onChange={(value) => {
-                                this.onMultipleSelectChange({
-                                    multipleSelect: value,
+                                this.onCountChoicesChange({
+                                    countChoices: value,
                                 });
                             }}
                         />
-                    </div>
-                    <div className="perseus-widget-right-col">
-                        <Checkbox
-                            label="Randomize order"
-                            checked={this.props.randomize}
-                            onChange={(value) => {
-                                this.props.onChange({randomize: value});
-                            }}
-                        />
-                    </div>
-                    {this.props.multipleSelect && (
-                        <div className="perseus-widget-left-col">
-                            <Checkbox
-                                label="Specify number correct"
-                                checked={this.props.countChoices}
-                                onChange={(value) => {
-                                    this.onCountChoicesChange({
-                                        countChoices: value,
-                                    });
-                                }}
-                            />
-                        </div>
                     )}
                 </div>
 
