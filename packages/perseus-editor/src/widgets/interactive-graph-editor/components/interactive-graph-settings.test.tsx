@@ -7,6 +7,7 @@ import {testDependencies} from "../../../../../../testing/test-dependencies";
 
 import InteractiveGraphSettings from "./interactive-graph-settings";
 
+import type {Range} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
@@ -578,4 +579,61 @@ describe("InteractiveGraphSettings", () => {
             ),
         );
     });
+
+    test.each`
+        rangeXYIndex | rangeMinMaxIndex
+        ${0}         | ${0}
+        ${0}         | ${1}
+        ${1}         | ${0}
+        ${1}         | ${1}
+    `(
+        "Auto-updates steps when range is changed (range[$rangeXYIndex][$rangeMinMaxIndex])",
+        async ({rangeXYIndex, rangeMinMaxIndex}) => {
+            // Arrange
+            const inputRange: [Range, Range] = [
+                [-10, 10],
+                [-10, 10],
+            ];
+            // Multiply the input in question by 10 to make it large enough
+            // to make the step values invalid.
+            inputRange[rangeXYIndex][rangeMinMaxIndex] =
+                10 * inputRange[rangeXYIndex][rangeMinMaxIndex];
+
+            const onChange = jest.fn();
+            render(
+                <InteractiveGraphSettings
+                    range={inputRange}
+                    onChange={onChange}
+                />,
+            );
+
+            // Act
+            const button = screen.getByRole("button", {
+                name: "Auto-adjust steps",
+            });
+            await userEvent.click(button);
+
+            // Assert
+            const expectedStep = [2, 2];
+            expectedStep[rangeXYIndex] = 20;
+            const expectedGridStep = [1, 1];
+            expectedGridStep[rangeXYIndex] = 5;
+            const expectedSnapStep = [0.5, 0.5];
+            expectedSnapStep[rangeXYIndex] = 2.5;
+
+            await waitFor(() =>
+                expect(onChange).toHaveBeenCalledWith(
+                    expect.objectContaining({
+                        range: inputRange,
+                        step: expectedStep,
+                        gridStep: expectedGridStep,
+                        snapStep: expectedSnapStep,
+                    }),
+                    undefined,
+                ),
+            );
+        },
+    );
+
+    test("Auto-updates steps (y) when range is changed", async () => {});
 });
