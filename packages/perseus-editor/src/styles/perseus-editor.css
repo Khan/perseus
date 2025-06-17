@@ -677,10 +677,6 @@ code {
     display: inline-block;
     width: 100%;
 }
-.perseus-widget-radio .delete-choice {
-    margin-left: 5px;
-    padding: 5px;
-}
 .perseus-widget-radio .perseus-single-editor {
     border: 0;
     display: inline-block;
@@ -706,8 +702,7 @@ code {
 .perseus-widget-editor-content .perseus-widget-radio {
     position: static;
 }
-.perseus-widget-editor-content .perseus-widget-radio .checkbox,
-.perseus-widget-editor-content .perseus-widget-radio .delete-choice {
+.perseus-widget-editor-content .perseus-widget-radio .checkbox {
     position: relative;
     top: -10px;
 }

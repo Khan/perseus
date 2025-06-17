@@ -10,6 +10,7 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import plusIcon from "@phosphor-icons/core/regular/plus.svg";
 import * as React from "react";
 import _ from "underscore";
@@ -76,26 +77,22 @@ class ChoiceEditor extends React.Component<ChoiceEditorProps> {
             />
         );
 
-        const deleteLink = (
-            <a
-                className="simple-button orange delete-choice"
-                href="#"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    this.props.onDelete();
-                }}
-                title="Remove this choice"
+        const deleteButton = (
+            <Button
+                size="small"
+                kind="tertiary"
+                startIcon={trashIcon}
+                onClick={this.props.onDelete}
             >
-                <InlineIcon {...iconTrash} />
-            </a>
+                Remove this choice
+            </Button>
         );
 
         return (
             <div className="choice-rationale-editors">
                 <div className={`choice-editor ${checkedClass}`}>{editor}</div>
                 <div className="rationale-editor">{rationaleEditor}</div>
-                {this.props.showDelete && deleteLink}
+                {this.props.showDelete && deleteButton}
             </div>
         );
     }
