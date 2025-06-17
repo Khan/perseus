@@ -136,23 +136,12 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     showSolutions?: ShowSolutions;
     content: PerseusRenderer["content"];
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     serializedState?: any;
 
-    /**
-     * Callback which is called when serialized state changes with the new
-     * serialized state.
-     */
-    /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
-     */
-    onSerializedStateUpdated: (serializedState: {
-        [key: string]: any;
-    }) => unknown;
     /**
      * If linterContext.highlightLint is true, then content will be passed to
      * the linter and any warnings will be highlighted in the rendered output.
@@ -197,7 +186,6 @@ type DefaultProps = Required<
         | "linterContext"
         | "onInteractWithWidget"
         | "onRender"
-        | "onSerializedStateUpdated"
         | "questionCompleted"
         | "showSolutions"
         | "reviewMode"
@@ -285,7 +273,6 @@ class Renderer
         alwaysUpdate: false,
         reviewMode: false,
         serializedState: null,
-        onSerializedStateUpdated: () => {},
         linterContext: PerseusLinter.linterContextDefault,
     };
 
@@ -657,10 +644,14 @@ class Renderer
             reviewModeRubric: reviewModeRubric,
             reviewMode: this.props.reviewMode,
             onChange: (newProps, cb, silent = false) => {
-                this._setWidgetProps(widgetId, newProps, null, cb, silent);
+                this._setWidgetProps(widgetId, newProps, cb, silent);
             },
-            handleUserInput: (newUserInput, cb, silent = false) => {
-                this._setWidgetProps(widgetId, null, newUserInput, cb, silent);
+            handleUserInput: (
+                newUserInput: UserInput,
+                cb: () => boolean,
+                silent: boolean = false,
+            ) => {
+                this._setUserInput(widgetId, newUserInput, cb, silent);
             },
             trackInteraction: interactionTracker.track,
             isLastUsedWidget: widgetId === this.state.lastUsedWidgetId,
@@ -676,9 +667,9 @@ class Renderer
      * If an instance of widgetProps is passed in, it generates the serialized
      * state from that instead of the current widget props.
      */
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     getSerializedState: (widgetProps?: any) => {
         [id: string]: any;
@@ -699,9 +690,9 @@ class Renderer
         );
     };
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     restoreSerializedState: (
         // eslint-disable-next-line import/no-deprecated
@@ -797,38 +788,6 @@ class Renderer
                 setTimeout(fireCallback, 0);
             },
         );
-    };
-
-    /**
-     * Tell each of the radio widgets to show rationales for each of the
-     * currently selected choices inside of them. If the widget is correct, it
-     * shows rationales for all of the choices. This also disables interaction
-     * with the choices that we show rationales for.
-     */
-    showRationalesForCurrentlySelectedChoices: () => void = () => {
-        Object.keys(this.props.widgets).forEach((widgetId) => {
-            const widget = this.getWidgetInstance(widgetId);
-            if (widget && widget.showRationalesForCurrentlySelectedChoices) {
-                widget.showRationalesForCurrentlySelectedChoices(
-                    this._getWidgetInfo(widgetId).options,
-                );
-            }
-        });
-    };
-
-    /**
-     * Tells each of the radio widgets to deselect any of the incorrect choices
-     * that are currently selected (leaving correct choices still selected).
-     */
-    deselectIncorrectSelectedChoices: () => void = () => {
-        // TODO(emily): this has the exact same structure as
-        // showRationalesForCurrentlySelectedChoices above. Maybe DRY this up.
-        Object.keys(this.props.widgets).forEach((widgetId) => {
-            const widget = this.getWidgetInstance(widgetId);
-            if (widget && widget.deselectIncorrectSelectedChoices) {
-                widget.deselectIncorrectSelectedChoices();
-            }
-        });
     };
 
     /**
@@ -1682,33 +1641,9 @@ class Renderer
         );
     }
 
-    _setWidgetProps(
-        id: string,
-        nextWidgetProps: any,
-        nextUserInput: UserInput | null,
-        cb: () => boolean,
-        silent?: boolean,
-    ) {
+    handleStateUpdate(id: string, cb: () => boolean, silent?: boolean) {
         this.setState(
             (prevState) => {
-                const widgetProps = nextWidgetProps
-                    ? {
-                          ...prevState.widgetProps,
-                          [id]: {
-                              ...prevState.widgetProps[id],
-                              ...nextWidgetProps,
-                          },
-                      }
-                    : prevState.widgetProps;
-
-                const userInput =
-                    nextUserInput != null
-                        ? {
-                              ...this.state.userInput,
-                              [id]: nextUserInput,
-                          }
-                        : prevState.userInput;
-
                 // Update the `lastUsedWidgetId` to this widget - unless we're
                 // in silent mode. We only want to track the last widget that
                 // was actually _used_, and silent updates generally don't come
@@ -1717,16 +1652,8 @@ class Renderer
                     ? prevState.lastUsedWidgetId
                     : id;
 
-                if (!silent) {
-                    this.props.onSerializedStateUpdated(
-                        this.getSerializedState(this.state.widgetProps),
-                    );
-                }
-
                 return {
                     lastUsedWidgetId,
-                    widgetProps,
-                    userInput,
                 };
             },
             () => {
@@ -1756,6 +1683,60 @@ class Renderer
                         this._setCurrentFocus([id]);
                     }
                 }, 0);
+            },
+        );
+    }
+
+    _setUserInput(
+        id: string,
+        nextUserInput: UserInput,
+        cb: () => boolean,
+        silent?: boolean,
+    ) {
+        this.setState(
+            (prevState) => {
+                const userInput =
+                    nextUserInput != null
+                        ? {
+                              ...this.state.userInput,
+                              [id]: nextUserInput,
+                          }
+                        : prevState.userInput;
+
+                return {
+                    userInput,
+                };
+            },
+            () => {
+                this.handleStateUpdate(id, cb, silent);
+            },
+        );
+    }
+
+    _setWidgetProps(
+        id: string,
+        nextWidgetProps: any,
+        cb: () => boolean,
+        silent?: boolean,
+    ) {
+        this.setState(
+            (prevState) => {
+                const widgetProps = nextWidgetProps
+                    ? {
+                          ...prevState.widgetProps,
+                          [id]: {
+                              ...prevState.widgetProps[id],
+                              ...nextWidgetProps,
+                          },
+                      }
+                    : prevState.widgetProps;
+
+                return {
+                    widgetProps,
+                };
+            },
+            () => {
+                this.handleStateUpdate(id, cb, silent);
             },
         );
     }
