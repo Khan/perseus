@@ -80,17 +80,17 @@ class Group extends React.Component<Props> implements Widget {
         return _getPromptJSON(this.rendererRef?.getPromptJSON());
     }
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     getSerializedState: () => any = () => {
         return this.rendererRef?.getSerializedState();
     };
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     restoreSerializedState: (arg1: any, arg2: any) => null = (
         state,
@@ -125,10 +125,6 @@ class Group extends React.Component<Props> implements Widget {
 
     blurInputPath: (arg1: FocusPath) => void = (path) => {
         this.rendererRef?.blurPath(path);
-    };
-
-    showRationalesForCurrentlySelectedChoices: () => void = () => {
-        this.rendererRef?.showRationalesForCurrentlySelectedChoices();
     };
 
     render(): React.ReactNode {
@@ -199,6 +195,7 @@ class Group extends React.Component<Props> implements Widget {
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findWidgets}
                     reviewMode={this.props.reviewMode}
+                    showSolutions={this.props.showSolutions}
                     onInteractWithWidget={onInteractWithWidget}
                     linterContext={this.props.linterContext}
                     strings={this.context.strings}
