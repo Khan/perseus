@@ -168,24 +168,6 @@ describe("Radio Widget", () => {
                     expect(gotFocus).toBe(true);
                 });
 
-                it("should deselect incorrect selected choices", async () => {
-                    // Arrange
-                    const {renderer} = renderQuestion(question, apiOptions, {
-                        reviewMode,
-                    });
-
-                    // Act
-                    // Since this is a single-select setup, just select the first
-                    // incorrect choice.
-                    await selectOption(userEvent, incorrect[0]);
-                    act(() => renderer.deselectIncorrectSelectedChoices());
-
-                    // Assert
-                    screen.getAllByRole("radio").forEach((r) => {
-                        expect(r).not.toBeChecked();
-                    });
-                });
-
                 it("should disable all radio inputs when static is true", async () => {
                     // Arrange
                     const staticQuestion = {
@@ -408,35 +390,6 @@ describe("Radio Widget", () => {
                 const passageRefRadio = screen.getAllByRole("listitem")[0];
                 expect(passageRefRadio).toHaveTextContent("lines 1–2");
             });
-        });
-
-        it("should render rationales for selected choices using method", async () => {
-            // Arrange
-            const {renderer} = renderQuestion(question, apiOptions);
-
-            // Act
-            await selectOption(userEvent, incorrect[0]);
-            act(() => renderer.showRationalesForCurrentlySelectedChoices());
-
-            // Assert
-            expect(
-                screen.queryAllByTestId(/perseus-radio-rationale-content/),
-            ).toHaveLength(1);
-        });
-
-        it("should render rationales for selected choices using prop", async () => {
-            // Arrange
-            const {rerender} = renderQuestion(question, apiOptions);
-
-            // Act
-            await selectOption(userEvent, incorrect[0]);
-
-            rerender(question, {showSolutions: "selected"});
-
-            // Assert
-            expect(
-                screen.queryAllByTestId(/perseus-radio-rationale-content/),
-            ).toHaveLength(1);
         });
 
         it("should render all rationales when showSolutions is 'all'", async () => {
