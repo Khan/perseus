@@ -2,4 +2,4 @@
 "@khanacademy/perseus-editor": patch
 ---
 
-[Radio] | (CX) | Update the style guide link
+[Radio] | (CX) | Update the style guide link in the Radio widget editor
