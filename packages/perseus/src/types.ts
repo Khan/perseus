@@ -27,6 +27,7 @@ import type {
     Relationship,
     LabelImageMarkerPublicData,
     PerseusLabelImageMarker,
+    ShowSolutions,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 import type {Result} from "@khanacademy/wonder-blocks-data";
@@ -77,7 +78,6 @@ export interface Widget {
           }
         | boolean;
     getDOMNodeForPath?: (path: FocusPath) => Element | Text | null;
-    deselectIncorrectSelectedChoices?: () => void;
 
     /**
      * Returns widget state that can be passed back to `restoreSerializedState`
@@ -88,14 +88,14 @@ export interface Widget {
     // TODO(jeremy): I think this return value is wrong. The widget
     // getSerializedState should just return _its_ serialized state, not a
     // key/value list of all widget states (i think!)
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     getSerializedState?: () => SerializedState; // SUSPECT,
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     restoreSerializedState?: (props: any, callback: () => void) => any;
 
@@ -125,7 +125,6 @@ export interface Widget {
      */
     getUserInput?: () => UserInputArray | UserInput | undefined;
 
-    showRationalesForCurrentlySelectedChoices?: (options?: any) => void;
     getPromptJSON?: () => WidgetPromptJSON;
 }
 
@@ -556,9 +555,9 @@ export type WidgetExports<
         rubric: Rubric,
     ) => string | null | undefined;
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     getUserInputFromSerializedState?: (props: any) => TUserInput;
 
@@ -627,10 +626,11 @@ export type UniversalWidgetProps<
     onBlur: (blurPath: FocusPath) => void;
     findWidgets: (criterion: FilterCriterion) => ReadonlyArray<Widget>;
     reviewMode: boolean;
+    showSolutions?: ShowSolutions;
     onChange: ChangeHandler;
     handleUserInput: (
         newUserInput: TUserInput,
-        cb?: any,
+        cb?: () => void,
         silent?: boolean,
     ) => void;
     userInput: TUserInput;
