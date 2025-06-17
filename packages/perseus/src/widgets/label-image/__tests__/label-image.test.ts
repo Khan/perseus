@@ -13,7 +13,7 @@ import {
 import * as Dependencies from "../../../dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
-import {LabelImage} from "../label-image";
+import {LabelImage, getUpdatedMarkerState} from "../label-image";
 
 import {shortTextQuestion, textQuestion} from "./label-image.testdata";
 
@@ -50,6 +50,135 @@ describe("LabelImage", function () {
                 ok: true,
             }),
         ) as jest.Mock;
+    });
+
+    describe("getUpdatedMarkerState", function () {
+        it("should return original marker when feedback is not shown", function () {
+            // Arrange
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                selected: ["User Choice"],
+                answers: ["Correct Answer"],
+            };
+            const reviewMode = false;
+            const showSolutions = undefined;
+
+            // Act
+            const result = getUpdatedMarkerState(
+                marker,
+                reviewMode,
+                showSolutions,
+            );
+
+            // Assert - Should return unchanged since showSolutions and reviewMode are false
+            expect(result).toEqual(marker);
+        });
+
+        it("should auto-select correct answers when showSolutions is 'all'", function () {
+            // Arrange
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                selected: ["Answer C"],
+                answers: ["Answer A", "Answer B"],
+            };
+            const reviewMode = false;
+            const showSolutions = "all";
+
+            // Act
+            const result = getUpdatedMarkerState(
+                marker,
+                reviewMode,
+                showSolutions,
+            );
+
+            // Assert
+            expect(result).toEqual({
+                ...marker,
+                selected: ["Answer A", "Answer B"],
+            });
+        });
+
+        it("should auto-select correct answers when reviewMode is true", function () {
+            // Arrange
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                selected: ["Answer C"],
+                answers: ["Answer A", "Answer B"],
+            };
+            const reviewMode = true;
+            const showSolutions = undefined;
+
+            // Act
+            const result = getUpdatedMarkerState(
+                marker,
+                reviewMode,
+                showSolutions,
+            );
+
+            // Assert
+            expect(result).toEqual({
+                ...marker,
+                selected: ["Answer A", "Answer B"],
+            });
+        });
+
+        it("should clear selection for answerless markers when showing feedback", function () {
+            // Arrange
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                selected: ["Some Choice"],
+                // No answers property - this is an answerless marker
+            };
+            const reviewMode = false;
+            const showSolutions = "all";
+
+            // Act
+            const result = getUpdatedMarkerState(
+                marker,
+                reviewMode,
+                showSolutions,
+            );
+
+            // Assert
+            expect(result).toEqual({
+                ...marker,
+                selected: undefined,
+            });
+        });
+
+        it("should handle markers with empty answers array", function () {
+            // Arrange
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                selected: ["User Choice"],
+                answers: [],
+            };
+            const reviewMode = true;
+            const showSolutions = undefined;
+
+            // Act
+            const result = getUpdatedMarkerState(
+                marker,
+                reviewMode,
+                showSolutions,
+            );
+
+            // Assert
+            expect(result).toEqual({
+                ...marker,
+                selected: [],
+            });
+        });
     });
 
     describe("imageSideForMarkerPosition", function () {
