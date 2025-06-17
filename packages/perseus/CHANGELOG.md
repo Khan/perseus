@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 65.2.0
+
+### Minor Changes
+
+-   [#2540](https://github.com/Khan/perseus/pull/2540) [`8875779b2`](https://github.com/Khan/perseus/commit/8875779b20b7177e8c7603bd589e42fe02e60643) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Removal of the showRationalesForCurrentlySelectedChoices option from Perseus
+
 ## 65.1.3
 
 ### Patch Changes

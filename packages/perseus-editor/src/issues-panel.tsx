@@ -1,4 +1,4 @@
-import {components, iconChevronDown} from "@khanacademy/perseus";
+import {View} from "@khanacademy/wonder-blocks-core";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import iconPass from "@phosphor-icons/core/fill/check-circle-fill.svg";
@@ -6,10 +6,8 @@ import iconWarning from "@phosphor-icons/core/fill/warning-fill.svg";
 import * as React from "react";
 import {useState} from "react";
 
+import ToggleableCaret from "./components/toggleable-caret";
 import IssueDetails from "./issue-details";
-import {iconChevronRight} from "./styles/icon-paths";
-
-const {InlineIcon} = components;
 
 export type IssueImpact = "low" | "medium" | "high";
 export type Issue = {
@@ -26,15 +24,15 @@ type IssuesPanelProps = {
 };
 
 const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
-    const hasWarnings = issues.length > 0;
     const [showPanel, setShowPanel] = useState(false);
-    const icon = hasWarnings ? iconWarning : iconPass;
-    const iconColor = hasWarnings ? wbColor.gold : wbColor.green;
+
+    const hasWarnings = issues.length > 0;
     const issuesCount = `${issues.length} issue${
         issues.length === 1 ? "" : "s"
     }`;
 
-    const editorClasses = `perseus-widget-editor${showPanel ? " perseus-widget-editor-open" : ""}`;
+    const icon = hasWarnings ? iconWarning : iconPass;
+    const iconColor = hasWarnings ? wbColor.gold : wbColor.green;
 
     const togglePanel = () => {
         if (hasWarnings) {
@@ -43,27 +41,21 @@ const IssuesPanel = ({issues = []}: IssuesPanelProps) => {
     };
 
     return (
-        <div className={editorClasses}>
+        <div className="perseus-widget-editor">
             <div className="perseus-widget-editor-title">
                 <div className="perseus-widget-editor-title-id">
-                    <button
-                        onClick={togglePanel}
-                        disabled={!hasWarnings}
+                    <View
                         style={{
-                            marginInlineEnd: 0,
-                            flexGrow: 0,
-                            border: "none",
-                            backgroundColor: "transparent",
-                            cursor: hasWarnings ? "pointer" : "not-allowed",
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: "0.25em",
                         }}
+                        onClick={togglePanel}
                     >
-                        {showPanel ? (
-                            <InlineIcon {...iconChevronDown} />
-                        ) : (
-                            <InlineIcon {...iconChevronRight} />
-                        )}
-                    </button>
-                    <span>Issues</span>
+                        <ToggleableCaret isExpanded={showPanel} />
+                        <span>Issues</span>
+                    </View>
                 </div>
                 <PhosphorIcon
                     icon={icon}
