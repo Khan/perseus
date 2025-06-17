@@ -290,12 +290,7 @@ export class ServerItemRenderer
      * for the whole answer area (if the answer area is a single widget).
      */
     _setWidgetProps(widgetId: string, newProps: Props, callback: any) {
-        this.questionRenderer._setWidgetProps(
-            widgetId,
-            newProps,
-            null,
-            callback,
-        );
+        this.questionRenderer._setWidgetProps(widgetId, newProps, callback);
     }
 
     setInputValue(path: FocusPath, newValue: any, focus: () => void): void {
@@ -382,9 +377,9 @@ export class ServerItemRenderer
     /**
      * Get a representation of the current state of the item.
      */
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     getSerializedState(): SerializedState {
         return {
@@ -393,9 +388,9 @@ export class ServerItemRenderer
         };
     }
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * @deprecated - do not use in new code.
      */
     restoreSerializedState(state: SerializedState, callback?: () => void) {
         // We need to wait for both the question renderer and the hints
