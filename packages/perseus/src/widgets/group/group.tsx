@@ -127,10 +127,6 @@ class Group extends React.Component<Props> implements Widget {
         this.rendererRef?.blurPath(path);
     };
 
-    showRationalesForCurrentlySelectedChoices: () => void = () => {
-        this.rendererRef?.showRationalesForCurrentlySelectedChoices();
-    };
-
     render(): React.ReactNode {
         const apiOptions: APIOptions = {
             ...ApiOptions.defaults,
@@ -199,6 +195,7 @@ class Group extends React.Component<Props> implements Widget {
                     apiOptions={apiOptions}
                     findExternalWidgets={this.props.findWidgets}
                     reviewMode={this.props.reviewMode}
+                    showSolutions={this.props.showSolutions}
                     onInteractWithWidget={onInteractWithWidget}
                     linterContext={this.props.linterContext}
                     strings={this.context.strings}
