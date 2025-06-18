@@ -1,5 +1,15 @@
 # @khanacademy/kmath
 
+## 2.0.18
+
+### Patch Changes
+
+-   [#2624](https://github.com/Khan/perseus/pull/2624) [`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Sync dev dependencies with frontend
+
+-   Updated dependencies [[`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6)]:
+    -   @khanacademy/perseus-core@14.1.1
+    -   @khanacademy/perseus-utils@2.0.5
+
 ## 2.0.17
 
 ### Patch Changes

@@ -1,5 +1,27 @@
 # @khanacademy/perseus-editor
 
+## 25.0.1
+
+### Patch Changes
+
+-   [#2619](https://github.com/Khan/perseus/pull/2619) [`7ab0d7501`](https://github.com/Khan/perseus/commit/7ab0d7501e88d05a3f1654f9dc6c9fac62ae7c5d) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Convert editor buttons to use Wonder Blocks equivalents
+
+*   [#2618](https://github.com/Khan/perseus/pull/2618) [`4b1e184ab`](https://github.com/Khan/perseus/commit/4b1e184abc27114786a4ea6b808d57cc67673f62) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Resize question box height when a word is too long in the editor
+
+-   [#2624](https://github.com/Khan/perseus/pull/2624) [`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Sync dev dependencies with frontend
+
+-   Updated dependencies [[`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6)]:
+    -   @khanacademy/kas@2.0.8
+    -   @khanacademy/keypad-context@3.0.18
+    -   @khanacademy/kmath@2.0.18
+    -   @khanacademy/math-input@26.0.7
+    -   @khanacademy/perseus@65.3.1
+    -   @khanacademy/perseus-core@14.1.1
+    -   @khanacademy/perseus-linter@4.0.5
+    -   @khanacademy/perseus-score@7.1.5
+    -   @khanacademy/perseus-utils@2.0.5
+    -   @khanacademy/pure-markdown@2.0.8
+
 ## 25.0.0
 
 ### Major Changes
