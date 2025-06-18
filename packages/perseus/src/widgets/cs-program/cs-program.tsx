@@ -8,7 +8,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import {getDependencies} from "../../dependencies";
-import * as Changeable from "../../mixins/changeable";
 import {articleMaxWidthInPx} from "../../styles/constants";
 import Util from "../../util";
 import {isFileProtocol} from "../../util/mobile-native-utils";
@@ -24,16 +23,14 @@ import type {
 
 const {updateQueryString} = Util;
 
-type RenderProps = PerseusCSProgramWidgetOptions & PerseusCSProgramUserInput;
+type RenderProps = PerseusCSProgramWidgetOptions;
 
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<RenderProps, PerseusCSProgramUserInput>;
 
 type DefaultProps = {
     showEditor: Props["showEditor"];
     showButtons: Props["showButtons"];
-    status: Props["status"];
-    // optional message
-    message: Props["message"];
+    userInput: Props["userInput"];
 };
 
 function getUrlFromProgramID(programID: any) {
@@ -58,9 +55,10 @@ class CSProgram extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         showEditor: false,
         showButtons: false,
-        status: "incomplete",
-        // optional message
-        message: null,
+        userInput: {
+            status: "incomplete",
+            message: null,
+        },
     };
 
     componentDidMount() {
@@ -87,22 +85,14 @@ class CSProgram extends React.Component<Props> implements Widget {
         }
 
         const status = data.testsPassed ? "correct" : "incorrect";
-        this.change({
+        this.props.handleUserInput({
             status: status,
             message: data.message,
         });
     };
 
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
-    };
-
     getUserInput(): PerseusCSProgramUserInput {
-        return {
-            status: this.props.status,
-            message: this.props.message,
-        };
+        return this.props.userInput;
     }
 
     getPromptJSON(): UnsupportedWidgetPromptJSON {
@@ -198,9 +188,20 @@ const styles = StyleSheet.create({
     },
 });
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusCSProgramUserInput {
+    return {status: serializedState.status, message: serializedState.message};
+}
+
 export default {
     name: "cs-program",
     displayName: "CS Program",
     widget: CSProgram,
     hidden: true,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof CSProgram>;
