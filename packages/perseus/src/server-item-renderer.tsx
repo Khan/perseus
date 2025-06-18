@@ -86,6 +86,10 @@ type State = {
     };
 };
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
 type SerializedState = {
     question: any;
     hints: any;
@@ -373,6 +377,10 @@ export class ServerItemRenderer
     /**
      * Get a representation of the current state of the item.
      */
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
     getSerializedState(): SerializedState {
         return {
             question: this.questionRenderer.getSerializedState(),
@@ -380,6 +388,10 @@ export class ServerItemRenderer
         };
     }
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
     restoreSerializedState(state: SerializedState, callback?: () => void) {
         // We need to wait for both the question renderer and the hints
         // renderer to finish restoring their states.

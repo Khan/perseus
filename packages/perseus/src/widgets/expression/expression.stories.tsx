@@ -37,6 +37,8 @@ export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
                 onChange={() => {}}
                 problemNum={1}
                 static={false}
+                handleUserInput={() => {}}
+                userInput=""
                 trackInteraction={() => {}}
                 widgetId="expression"
                 keypadConfiguration={keypadConfiguration}

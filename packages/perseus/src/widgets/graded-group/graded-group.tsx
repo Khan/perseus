@@ -104,6 +104,7 @@ type State = {
 // via defaultProps.
 0 as any as WidgetProps<
     PerseusGradedGroupWidgetOptions,
+    undefined,
     undefined
 > satisfies PropsFor<typeof GradedGroup>;
 
