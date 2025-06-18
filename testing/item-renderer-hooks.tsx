@@ -99,12 +99,9 @@ export const useItemRenderer = (
             "en",
         );
 
-        // Continue to include an empty guess for the now defunct answer area.
-        const maxCompatGuess = [renderer.getUserInputLegacy(), []];
-
         const keScore = keScoreFromPerseusScore(
             score,
-            maxCompatGuess,
+            userInput,
             renderer.getSerializedState().question,
         );
 
