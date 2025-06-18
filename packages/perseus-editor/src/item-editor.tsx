@@ -11,6 +11,7 @@ import ItemExtrasEditor from "./item-extras-editor";
 import {WARNINGS} from "./messages";
 
 import type {Issue} from "./issues-panel";
+import type {SerializeOptions} from "./types";
 import type {
     APIOptions,
     ImageUploader,
@@ -130,7 +131,7 @@ class ItemEditor extends React.Component<Props, State> {
         return this.questionEditor.current?.getSaveWarnings();
     };
 
-    serialize: (options?: any) => {
+    serialize: (options?: SerializeOptions) => {
         answerArea: PerseusAnswerArea | undefined;
         question: any;
     } = (options: any) => {
