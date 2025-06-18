@@ -11,6 +11,7 @@ import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
+import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
 import {vec} from "mafs";
@@ -96,7 +97,23 @@ const LockedLineSettings = (props: Props) => {
             `$${point2.coord[1]}$`,
         );
 
-        let str = `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at ${spokenPoint1X} comma ${spokenPoint1Y} to point${point2VisibleLabel} at ${spokenPoint2X} comma ${spokenPoint2Y}`;
+        // "THROUGH point1 AND point2" for LINE.
+        // "FROM point1 THROUGH point2" for RAY.
+        // "FROM point1 TO point2" for SEGMENT.
+        let str: string;
+        switch (kind) {
+            case "line":
+                str = `${capitalizeKind}${visiblelabel} through point${point1VisibleLabel} at ${spokenPoint1X} comma ${spokenPoint1Y} and point${point2VisibleLabel} at ${spokenPoint2X} comma ${spokenPoint2Y}`;
+                break;
+            case "ray":
+                str = `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at ${spokenPoint1X} comma ${spokenPoint1Y} through point${point2VisibleLabel} at ${spokenPoint2X} comma ${spokenPoint2Y}`;
+                break;
+            case "segment":
+                str = `${capitalizeKind}${visiblelabel} from point${point1VisibleLabel} at ${spokenPoint1X} comma ${spokenPoint1Y} to point${point2VisibleLabel} at ${spokenPoint2X} comma ${spokenPoint2Y}`;
+                break;
+            default:
+                throw new UnreachableCaseError(kind, "Unknown line kind");
+        }
 
         const lineAppearance = generateLockedFigureAppearanceDescription(
             lineColor,

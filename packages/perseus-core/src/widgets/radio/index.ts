@@ -8,12 +8,12 @@ export const currentVersion = {major: 2, minor: 0};
 export type RadioDefaultWidgetOptions = Pick<
     PerseusRadioWidgetOptions,
     | "choices"
-    | "displayCount"
     | "randomize"
     | "hasNoneOfTheAbove"
     | "multipleSelect"
     | "countChoices"
     | "deselectEnabled"
+    | "displayCount"
 >;
 
 export const defaultWidgetOptions: RadioDefaultWidgetOptions = {

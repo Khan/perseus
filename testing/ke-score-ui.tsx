@@ -1,3 +1,5 @@
+import {View} from "@khanacademy/wonder-blocks-core";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 import ReactJson from "react-json-view";
@@ -14,36 +16,27 @@ export default function KEScoreUI({score}: Props) {
     }
 
     return (
-        <>
-            <table style={{marginTop: "20px"}}>
-                <thead>
-                    <tr style={{fontWeight: "bold"}}>
-                        <td>Empty</td>
-                        <td>Correct</td>
-                        <td style={{width: "100%"}}>Message</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>{score.empty.toString()}</td>
-                        <td>{score.correct.toString()}</td>
-                        <td>{score.message}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <HeadingSmall style={{marginTop: "10px"}}>Guess</HeadingSmall>
+        <View
+            style={{
+                padding: `0 ${sizing.size_160} ${sizing.size_160}`,
+            }}
+        >
+            <HeadingSmall style={{marginTop: sizing.size_100}}>
+                Guess
+            </HeadingSmall>
             <ReactJson
                 quotesOnKeys={false}
                 enableClipboard={false}
                 src={score.guess}
             />
-            <HeadingSmall style={{marginTop: "10px"}}>State</HeadingSmall>
+            <HeadingSmall style={{marginTop: sizing.size_100}}>
+                State
+            </HeadingSmall>
             <ReactJson
                 quotesOnKeys={false}
                 enableClipboard={false}
                 src={score.state}
             />
-        </>
+        </View>
     );
 }
