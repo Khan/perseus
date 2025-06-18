@@ -1,6 +1,4 @@
-import {View} from "@khanacademy/wonder-blocks-core";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import caretLeftIcon from "@phosphor-icons/core/regular/caret-left.svg";
 import caretRightIcon from "@phosphor-icons/core/regular/caret-right.svg";
@@ -8,6 +6,7 @@ import * as React from "react";
 import {useEffect, useRef, useState} from "react";
 
 import {usePerseusI18n} from "./i18n-context";
+import styles from "./scrollable-view.module.css";
 
 type ScrollAxisX = {
     overflowX: React.CSSProperties["overflowX"];
@@ -34,6 +33,7 @@ function ScrollableView({
     overflowX,
     overflowY,
     children,
+    className,
     scrollDescription,
     style,
     role = "group",
@@ -156,27 +156,18 @@ function ScrollableView({
         <>
             {canScrollEnd && (
                 <div
-                    style={{
-                        ...styles.scrollFade,
-                        ...(isRtl
-                            ? styles.scrollFadeRight
-                            : styles.scrollFadeLeft),
-                    }}
+                    className={`${styles.scrollFade} ${isRtl ? styles.scrollFadeRight : styles.scrollFadeLeft}`}
                 />
             )}
             {canScrollStart && (
                 <div
-                    style={{
-                        ...styles.scrollFade,
-                        ...(isRtl
-                            ? styles.scrollFadeLeft
-                            : styles.scrollFadeRight),
-                    }}
+                    className={`${styles.scrollFade} ${isRtl ? styles.scrollFadeLeft : styles.scrollFadeRight}`}
                 />
             )}
             <div
                 {...additionalProps}
                 role={role}
+                className={className}
                 style={mergeStyle}
                 ref={containerRef}
             >
@@ -224,7 +215,7 @@ function ScrollButtons({
     const {strings} = usePerseusI18n();
 
     return (
-        <View style={styles.scrollButtonsContainer}>
+        <div className={styles.scrollButtonsContainer}>
             <IconButton
                 icon={isRTL ? caretRightIcon : caretLeftIcon}
                 actionType="neutral"
@@ -244,39 +235,8 @@ function ScrollButtons({
                 disabled={isRTL ? !canScrollStart : !canScrollEnd}
             />
             <LabelSmall>{scrollDescription}</LabelSmall>
-        </View>
+        </div>
     );
 }
-
-const styles = {
-    scrollButtonsContainer: {
-        alignItems: "center",
-        flexDirection: "row",
-        gap: spacing.xSmall_8,
-        padding: spacing.small_12,
-    },
-
-    scrollFade: {
-        position: "absolute",
-        top: 0,
-        height: "100%",
-        width: "max-content",
-        pointerEvents: "none",
-        zIndex: 1,
-        transition: "opacity 0.3s ease",
-    },
-
-    scrollFadeRight: {
-        right: 0,
-        background:
-            "linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))",
-    },
-
-    scrollFadeLeft: {
-        left: 0,
-        background:
-            "linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))",
-    },
-} as const;
 
 export default ScrollableView;
