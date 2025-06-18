@@ -16,7 +16,11 @@ import _ from "underscore";
 
 import GraphSettings from "../components/graph-settings";
 
-import type {GrapherDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    GrapherAnswerTypes,
+    GrapherDefaultWidgetOptions,
+} from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip, MultiButtonGroup} = components;
 const Grapher = GrapherWidget.widget;
@@ -67,35 +71,34 @@ class GrapherEditor extends React.Component<Props> {
         let equationString;
         let graph;
         if (this.props.graph.valid === true) {
-            const graphProps = {
+            const graphProps: Partial<PropsFor<typeof Grapher>> = {
+                apiOptions: this.props.apiOptions,
+                containerSizeClass: sizeClass,
                 graph: this.props.graph,
-                plot: this.props.correct,
-                availableTypes: this.props.availableTypes,
-                onChange: (newProps, cb) => {
+                userInput: this.props.correct,
+                handleUserInput: (userInput, cb) => {
                     let correct = this.props.correct;
-                    if (correct.type === newProps.plot?.type) {
-                        correct = _.extend({}, correct, newProps.plot);
+                    if (correct.type === userInput?.type) {
+                        correct = _.extend({}, correct, userInput);
                     } else {
                         // Clear options from previous graph
-                        correct = newProps.plot;
+                        correct = userInput;
                     }
                     this.props.onChange({correct: correct}, cb);
                 },
+                availableTypes: this.props.availableTypes,
                 trackInteraction: function () {},
-            } as const;
+            };
 
             graph = (
                 // NOTE(jeremy): This editor doesn't pass in a bunch of
                 // standard props that the Renderer provides normally (eg.
                 // alignment, findWidgets, etc).
-                // @ts-expect-error - TS2769 - No overload matches this call.
-                <Grapher
-                    {...graphProps}
-                    apiOptions={this.props.apiOptions}
-                    containerSizeClass={sizeClass}
-                />
+                <Grapher {...(graphProps as PropsFor<typeof Grapher>)} />
             );
-            equationString = getEquationString(graphProps);
+            equationString = getEquationString(
+                graphProps.userInput as GrapherAnswerTypes,
+            );
         } else {
             graph = (
                 <div className="perseus-error">{this.props.graph.valid}</div>

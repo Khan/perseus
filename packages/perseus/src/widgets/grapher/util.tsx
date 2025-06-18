@@ -8,7 +8,10 @@ import {getDependencies} from "../../dependencies";
 import Util from "../../util";
 
 import type {Coord} from "../../interactive2/types";
-import type {FunctionTypeMappingKeys} from "@khanacademy/perseus-core";
+import type {
+    FunctionTypeMappingKeys,
+    GrapherAnswerTypes,
+} from "@khanacademy/perseus-core";
 
 type MovableMap = {
     [K in keyof typeof GrapherUtil.MOVABLES]: any;
@@ -26,11 +29,14 @@ const DEFAULT_BACKGROUND_IMAGE = {
     url: null,
 } as const;
 
-export const getEquationString = (props: any): string => {
-    const plot = props.plot;
+export const getEquationString = (plot: GrapherAnswerTypes): string => {
     if (plot.type && plot.coords) {
         const handler = GrapherUtil.functionForType(plot.type);
-        const result = handler.getEquationString(plot.coords, plot.asymptote);
+        const result = handler.getEquationString(
+            plot.coords,
+            // some graph types don't have this
+            (plot as any).asymptote,
+        );
         return result || "";
     }
     return "";
