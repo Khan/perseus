@@ -2,27 +2,24 @@ import {constrainedShuffle, seededRNG} from "../../utils/random-util";
 
 import type {PerseusMatcherWidgetOptions} from "../../data-schema";
 import type {RNG} from "../../utils/random-util";
-
-// TODO(LEMS-2841): Should be able to remove once getPublicWidgetOptions is hooked up
-type MatcherInfo = {
-    left: ReadonlyArray<string>;
-    right: ReadonlyArray<string>;
-    orderMatters: boolean;
-    problemNum: number | null | undefined;
-};
+import type {PerseusMatcherUserInput} from "../../validation.types";
 
 export const shuffleMatcher = (
-    props: MatcherInfo,
-): {left: ReadonlyArray<string>; right: ReadonlyArray<string>} => {
+    options: Pick<
+        MatcherPublicWidgetOptions,
+        "left" | "right" | "orderMatters"
+    >,
+    problemNum: number,
+): PerseusMatcherUserInput => {
     // Use the same random() function to shuffle both columns sequentially
-    const rng = seededRNG(props.problemNum as number);
+    const rng = seededRNG(problemNum);
 
     return {
         // If the order of rows doesn't matter, don't shuffle the left column
-        left: !props.orderMatters
-            ? props.left
-            : shuffleDisplacingFirst(props.left, rng),
-        right: shuffleDisplacingFirst(props.right, rng),
+        left: !options.orderMatters
+            ? options.left
+            : shuffleDisplacingFirst(options.left, rng),
+        right: shuffleDisplacingFirst(options.right, rng),
     };
 };
 
