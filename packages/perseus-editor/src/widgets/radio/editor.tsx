@@ -147,7 +147,10 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         this.props.onChange({choices: choices});
     };
 
-    onClueChange(choiceIndex: number, newClue: string): void {
+    onClueChange: (choiceIndex: number, newClue: string) => void = (
+        choiceIndex,
+        newClue,
+    ) => {
         const choices = this.props.choices.slice();
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
             clue: newClue,
@@ -156,7 +159,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             delete choices[choiceIndex].clue;
         }
         this.props.onChange({choices: choices});
-    }
+    };
 
     onDelete: (arg1: number) => void = (choiceIndex) => {
         const choices = this.props.choices.slice();

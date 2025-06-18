@@ -45,7 +45,7 @@ export const RadioOptionSettings = (props: Props) => {
     const {content, clue, correct, isNoneOfTheAbove} = choice;
 
     const [contentInput, setContentInput] = React.useState(content);
-    const [rationaleInput, setRationaleInput] = React.useState(clue);
+    const [rationaleInput, setRationaleInput] = React.useState(clue ?? "");
 
     return (
         <PerseusEditorAccordion
@@ -139,7 +139,7 @@ export const RadioOptionSettings = (props: Props) => {
             <LabelMedium tag="label">
                 Rationale
                 <TextArea
-                    value={rationaleInput || ""}
+                    value={rationaleInput}
                     placeholder="Why is this choice correct?"
                     // This unfortunately doesn't match the dynamic resizing
                     // behavior that it had before, but we should be able to add
@@ -149,7 +149,7 @@ export const RadioOptionSettings = (props: Props) => {
                         setRationaleInput(value);
                     }}
                     onBlur={() => {
-                        onRationaleChange(index, rationaleInput || "");
+                        onRationaleChange(index, rationaleInput);
                     }}
                 />
             </LabelMedium>
