@@ -9,7 +9,7 @@ import {
     spacing,
     border,
 } from "@khanacademy/wonder-blocks-tokens";
-import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
+import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import checkIcon from "@phosphor-icons/core/bold/check-bold.svg";
 import minusCircleIcon from "@phosphor-icons/core/bold/minus-circle-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
@@ -44,12 +44,9 @@ export const RadioOptionSettings = (props: Props) => {
 
     const {content, clue, correct, isNoneOfTheAbove} = choice;
 
-    const [contentInput, setContentInput] = React.useState(content);
-    const [rationaleInput, setRationaleInput] = React.useState(clue ?? "");
-
     return (
         <PerseusEditorAccordion
-            key={choice.content}
+            key={index}
             header={
                 <div
                     style={{
@@ -76,6 +73,8 @@ export const RadioOptionSettings = (props: Props) => {
                             borderRadius: multipleSelect
                                 ? border.radius.radius_040
                                 : sizing.size_240,
+                            border: `1px solid ${correct ? color.activeGreen : color.red}`,
+                            width: sizing.size_560,
                         }}
                     >
                         <span style={{display: "flex", alignItems: "center"}}>
@@ -88,13 +87,20 @@ export const RadioOptionSettings = (props: Props) => {
                             {String.fromCharCode(65 + index)}
                         </span>
                     </Pill>
-                    {content ?? ""}
+                    {isNoneOfTheAbove ? "None of the above" : content}
                 </div>
             }
             expanded={true}
         >
-            <fieldset className="perseus-widget-row direction-row">
-                <legend className="inline-options">Status</legend>
+            <fieldset className="perseus-widget-row">
+                <HeadingXSmall
+                    style={{
+                        display: "inline",
+                        marginInlineEnd: sizing.size_080,
+                    }}
+                >
+                    Status
+                </HeadingXSmall>
                 <Pill
                     kind={correct ? "accent" : "transparent"}
                     onClick={() => {
@@ -115,12 +121,10 @@ export const RadioOptionSettings = (props: Props) => {
                 </Pill>
             </fieldset>
 
-            <LabelMedium tag="label">
-                Choice label
+            <HeadingXSmall tag="label">
+                Content
                 <TextArea
-                    value={
-                        isNoneOfTheAbove ? "None of the above" : contentInput
-                    }
+                    value={isNoneOfTheAbove ? "None of the above" : content}
                     disabled={isNoneOfTheAbove}
                     placeholder="Type a choice here..."
                     // This unfortunately doesn't match the dynamic resizing
@@ -128,37 +132,32 @@ export const RadioOptionSettings = (props: Props) => {
                     // that in after WB-1843 is completed.
                     resizeType="vertical"
                     onChange={(value) => {
-                        setContentInput(value);
-                    }}
-                    onBlur={() => {
-                        onContentChange(index, contentInput);
+                        onContentChange(index, value);
                     }}
                 />
-            </LabelMedium>
+            </HeadingXSmall>
             <Strut size={spacing.small_12} />
-            <LabelMedium tag="label">
+            <HeadingXSmall tag="label">
                 Rationale
                 <TextArea
-                    value={rationaleInput}
+                    value={clue ?? ""}
                     placeholder="Why is this choice correct?"
                     // This unfortunately doesn't match the dynamic resizing
                     // behavior that it had before, but we should be able to add
                     // that in after WB-1843 is completed.
                     resizeType="vertical"
                     onChange={(value) => {
-                        setRationaleInput(value);
-                    }}
-                    onBlur={() => {
-                        onRationaleChange(index, rationaleInput);
+                        onRationaleChange(index, value);
                     }}
                 />
-            </LabelMedium>
+            </HeadingXSmall>
             {showDelete && (
                 <Button
                     size="small"
                     kind="tertiary"
                     startIcon={trashIcon}
                     onClick={onDelete}
+                    style={{alignSelf: "flex-start"}}
                 >
                     Remove this choice
                 </Button>

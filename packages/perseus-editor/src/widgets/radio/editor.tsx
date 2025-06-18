@@ -5,7 +5,7 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Link from "@khanacademy/wonder-blocks-link";
 import {spacing, sizing} from "@khanacademy/wonder-blocks-tokens";
-import {Caption} from "@khanacademy/wonder-blocks-typography";
+import {Footnote} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
 import _ from "underscore";
@@ -140,10 +140,11 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         choiceIndex,
         newContent,
     ) => {
-        const choices = this.props.choices.slice();
-        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+        const choices = [...this.props.choices];
+        choices[choiceIndex] = {
+            ...choices[choiceIndex],
             content: newContent,
-        });
+        };
         this.props.onChange({choices: choices});
     };
 
@@ -151,10 +152,11 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         choiceIndex,
         newClue,
     ) => {
-        const choices = this.props.choices.slice();
-        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+        const choices = [...this.props.choices];
+        choices[choiceIndex] = {
+            ...choices[choiceIndex],
             clue: newClue,
-        });
+        };
         if (newClue === "") {
             delete choices[choiceIndex].clue;
         }
@@ -296,16 +298,16 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                                 }}
                                 style={{marginBlockEnd: sizing.size_060}}
                             />
-                            <Caption>
+                            <Footnote>
                                 Current number correct: {numCorrect}
-                            </Caption>
+                            </Footnote>
                         </>
                     )}
                 </div>
 
                 {this.props.choices.map((choice, index) => (
                     <RadioOptionSettings
-                        key={`choice-${index}-${choice.content}`}
+                        key={`choice-${index}}`}
                         index={index}
                         choice={choice}
                         multipleSelect={this.props.multipleSelect}
