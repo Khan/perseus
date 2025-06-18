@@ -164,6 +164,7 @@ export {
     default as getSorterPublicWidgetOptions,
     shuffleSorter,
 } from "./widgets/sorter/sorter-util";
+export type {SorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
 export type {LabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
 export type {LabelImageMarkerPublicData} from "./widgets/label-image/label-image-util";
 export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
