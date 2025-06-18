@@ -21,7 +21,7 @@ const traverseChildWidgets = function (props: any, traverseRenderer: any): any {
 const gradedGroupWidgetLogic: WidgetLogic = {
     name: "graded-group",
     defaultWidgetOptions,
-    accessible: false,
+    accessible: true,
     traverseChildWidgets: traverseChildWidgets,
 };
 
