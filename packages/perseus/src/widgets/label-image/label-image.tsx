@@ -535,7 +535,6 @@ export class LabelImage
             );
 
             let score: InteractiveMarkerScore;
-
             if (isAnswerful(marker)) {
                 score = scoreLabelImageMarker(
                     computedSelectedState.selected,
