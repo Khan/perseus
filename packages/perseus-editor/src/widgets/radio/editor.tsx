@@ -308,7 +308,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                         onChange={(value) => {
                             this.props.onChange({randomize: value});
                         }}
-                        style={{marginBottom: sizing.size_060}}
+                        style={{marginBlockEnd: sizing.size_060}}
                     />
                     <LabeledSwitch
                         label="Multiple selections"
@@ -318,7 +318,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                                 multipleSelect: value,
                             });
                         }}
-                        style={{marginBottom: sizing.size_060}}
+                        style={{marginBlockEnd: sizing.size_060}}
                     />
                     {this.props.multipleSelect && (
                         <LabeledSwitch
@@ -329,7 +329,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                                     countChoices: value,
                                 });
                             }}
-                            style={{marginBottom: sizing.size_060}}
+                            style={{marginBlockEnd: sizing.size_060}}
                         />
                     )}
                 </div>
