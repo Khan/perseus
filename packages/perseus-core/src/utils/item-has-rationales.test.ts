@@ -92,8 +92,7 @@ describe("itemHasRationales", () => {
                                             {
                                                 content: "Choice 1",
                                                 correct: false,
-                                                clue:
-                                                    "This is a clue",
+                                                clue: "This is a clue",
                                             },
                                         ],
                                     },
@@ -133,8 +132,7 @@ describe("itemHasRationales", () => {
                                             {
                                                 content: "Choice 1",
                                                 correct: false,
-                                                clue:
-                                                    "This is a clue",
+                                                clue: "This is a clue",
                                             },
                                         ],
                                     },

@@ -123,43 +123,37 @@ export const choicesWithImages: PerseusRenderer = {
                         content:
                             "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
                         correct: false,
-                        clue:
-                            "The markdown only has single lines between each item, so they should be treated as one complete line.",
+                        clue: "The markdown only has single lines between each item, so they should be treated as one complete line.",
                     },
                     {
                         content:
                             "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
-                        clue:
-                            "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
+                        clue: "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
                     },
                     {
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
                         correct: false,
-                        clue:
-                            "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
+                        clue: "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
                     },
                     {
                         content:
                             "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
                         correct: false,
-                        clue:
-                            "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
+                        clue: "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
                     },
                     {
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
-                        clue:
-                            "The markdown only has an image (no text), so nothing should be adjusted.",
+                        clue: "The markdown only has an image (no text), so nothing should be adjusted.",
                     },
                     {
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
-                        clue:
-                            "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
+                        clue: "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
                     },
                 ],
                 countChoices: false,

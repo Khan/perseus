@@ -2,11 +2,7 @@ import {anySuccess} from "../general-purpose-parsers/test-helpers";
 import {parse} from "../parse";
 import {failure, success} from "../result";
 
-import {
-    migrateV0ToV1,
-    migrateV1ToV2,
-    parseRadioWidget,
-} from "./radio-widget";
+import {migrateV0ToV1, migrateV1ToV2, parseRadioWidget} from "./radio-widget";
 import {v0Widget, v1Widget, v2Widget} from "./radio-widget.mockData";
 
 describe("parseRadioWidget", () => {
