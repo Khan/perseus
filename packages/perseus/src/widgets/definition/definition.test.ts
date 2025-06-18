@@ -130,7 +130,7 @@ describe("Definition widget", () => {
         // Act
         const score = scorePerseusItemTesting(
             question,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert

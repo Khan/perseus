@@ -1580,7 +1580,7 @@ class Renderer
         return emptyWidgetsFunctional(
             this.state.widgetInfo,
             this.widgetIds,
-            this.getUserInputMap(),
+            this.getUserInput(),
             this.context.locale,
         );
     }
@@ -1664,7 +1664,7 @@ class Renderer
     /**
      * Returns an object of the widget `.getUserInput()` results
      */
-    getUserInputMap(): UserInputMap {
+    getUserInput(): UserInputMap {
         const userInputMap = {};
         this.widgetIds.forEach((id: string) => {
             const widget = this.getWidgetInstance(id);
@@ -1715,7 +1715,7 @@ class Renderer
         const scores = scoreWidgetsFunctional(
             this.state.widgetInfo,
             this.widgetIds,
-            this.getUserInputMap(),
+            this.getUserInput(),
             this.context.locale,
         );
         const combinedScore = flattenScores(scores);

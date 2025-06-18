@@ -871,7 +871,7 @@ describe("LabelImage", function () {
             // render component
             const {renderer} = renderQuestion(textQuestion);
 
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
 
             expect(userInput).toEqual({
                 "label-image 1": {
@@ -906,7 +906,7 @@ describe("LabelImage", function () {
             // Act
             const score = scorePerseusItemTesting(
                 textQuestion,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -956,7 +956,7 @@ describe("LabelImage", function () {
             const choice = screen.getByRole("option", {name: "SUVs"});
             await userEvent.click(choice);
 
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
 
             // Assert
             expect(userInput).toEqual({
@@ -976,7 +976,7 @@ describe("LabelImage", function () {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
             const score = scorePerseusItem(
                 answerfulItem.question,
                 userInput,
@@ -1002,7 +1002,7 @@ describe("LabelImage", function () {
 
             const score = scorePerseusItemTesting(
                 answerfulItem.question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -1024,7 +1024,7 @@ describe("LabelImage", function () {
 
             const score = scorePerseusItemTesting(
                 answerfulItem.question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert

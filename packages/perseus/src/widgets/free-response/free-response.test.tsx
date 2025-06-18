@@ -124,7 +124,7 @@ describe("free-response widget", () => {
         );
 
         // Act
-        const userInput = renderer.getUserInputMap();
+        const userInput = renderer.getUserInput();
 
         // Assert
         expect(userInput).toMatchObject({
