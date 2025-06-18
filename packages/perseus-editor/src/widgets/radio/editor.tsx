@@ -27,7 +27,7 @@ type ChoiceEditorProps = {
     apiOptions: APIOptions;
     choice: PerseusRadioChoice;
     showDelete: boolean;
-    onRationaleChange: (newProps: Contentful) => void;
+    onClueChange: (newProps: Contentful) => void;
     onContentChange: (newProps: Contentful) => void;
     onDelete: () => void;
 };
@@ -61,15 +61,15 @@ class ChoiceEditor extends React.Component<ChoiceEditorProps> {
             />
         );
 
-        const rationaleEditor = (
+        const clueEditor = (
             <Editor
                 // eslint-disable-next-line react/no-string-refs
-                ref="rationale-editor"
+                ref="clue-editor"
                 apiOptions={this.props.apiOptions}
-                content={this.props.choice.rationale || ""}
+                content={this.props.choice.clue || ""}
                 widgetEnabled={false}
                 placeholder={`Why is this choice ${checkedClass}?`}
-                onChange={this.props.onRationaleChange}
+                onChange={this.props.onClueChange}
             />
         );
 
@@ -89,9 +89,9 @@ class ChoiceEditor extends React.Component<ChoiceEditorProps> {
         );
 
         return (
-            <div className="choice-rationale-editors">
+            <div className="choice-clue-editors">
                 <div className={`choice-editor ${checkedClass}`}>{editor}</div>
-                <div className="rationale-editor">{rationaleEditor}</div>
+                <div className="clue-editor">{clueEditor}</div>
                 {this.props.showDelete && deleteLink}
             </div>
         );
@@ -102,6 +102,7 @@ type RadioEditorProps = {
     apiOptions: APIOptions;
     countChoices: boolean;
     choices: PerseusRadioChoice[];
+    displayCount: number;
     randomize: boolean;
     hasNoneOfTheAbove: boolean;
     multipleSelect: boolean;
@@ -191,13 +192,13 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         this.props.onChange({choices: choices});
     };
 
-    onRationaleChange(choiceIndex: number, newRationale: string): void {
+    onClueChange(choiceIndex: number, newClue: string): void {
         const choices = this.props.choices.slice();
         choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
-            rationale: newRationale,
+            clue: newClue,
         });
-        if (newRationale === "") {
-            delete choices[choiceIndex].rationale;
+        if (newClue === "") {
+            delete choices[choiceIndex].clue;
         }
         this.props.onChange({choices: choices});
     }
@@ -244,6 +245,10 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         );
     };
 
+    setDisplayCount: (arg1: number) => void = (num) => {
+        this.props.onChange({displayCount: num});
+    };
+
     focus: () => boolean = () => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
@@ -264,6 +269,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             randomize,
             multipleSelect,
             countChoices,
+            displayCount,
             hasNoneOfTheAbove,
             deselectEnabled,
         } = this.props;
@@ -273,6 +279,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             randomize,
             multipleSelect,
             countChoices,
+            displayCount,
             hasNoneOfTheAbove,
             deselectEnabled,
             numCorrect: deriveNumCorrect({
@@ -364,9 +371,9 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                                             );
                                         }
                                     }}
-                                    onRationaleChange={(newProps) => {
+                                    onClueChange={(newProps) => {
                                         if (newProps.content != null) {
-                                            this.onRationaleChange(
+                                            this.onClueChange(
                                                 i,
                                                 newProps.content,
                                             );
