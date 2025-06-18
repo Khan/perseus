@@ -1,5 +1,15 @@
 # @khanacademy/perseus-core
 
+## 14.1.0
+
+### Minor Changes
+
+-   [#2621](https://github.com/Khan/perseus/pull/2621) [`401ab009b`](https://github.com/Khan/perseus/commit/401ab009b1650b5752b4bad77d874eec16ebcec3) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Reverts changes introduced by LEMS-3061: deprecate options in radio, update clue to be rationale
+
+### Patch Changes
+
+-   [#2620](https://github.com/Khan/perseus/pull/2620) [`48fc42775`](https://github.com/Khan/perseus/commit/48fc427750810566f05586550fdc5596e1c79762) Thanks [@tatianasnook](https://github.com/tatianasnook)! - Update accessibility status for Perseus Widgets previously inaccessible
+
 ## 14.0.3
 
 ### Patch Changes
