@@ -35,6 +35,8 @@ import type {
     PerseusLabelImageWidgetOptions,
     PerseusLabelImageUserInput,
     LabelImagePublicWidgetOptions,
+    ShowSolutions,
+    PerseusLabelImageUserInputMarker,
 } from "@khanacademy/perseus-core";
 import type {InteractiveMarkerScore} from "@khanacademy/perseus-score/src/widgets/label-image/score-label-image";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -97,6 +99,42 @@ function isAnswerful(
     marker: OptionalAnswersMarkerType | InteractiveMarkerType,
 ): marker is InteractiveMarkerType {
     return marker.answers != null;
+}
+
+/**
+ * Get marker with the appropriate selection state for current display mode.
+ * When showing solutions, it auto-selects correct answers, or clears
+ * selections for markers without answers.
+ *
+ * @param marker - The widget options marker (possibly with answer).
+ * @param userInputMarker - The user input marker (with user selection).
+ * @returns A modified version of user input, possibly with correct answer.
+ */
+export function getComputedSelectedState(
+    marker: OptionalAnswersMarkerType,
+    userInputMarker: PerseusLabelImageUserInputMarker,
+    reviewMode: boolean,
+    showSolutions?: ShowSolutions,
+): PerseusLabelImageUserInputMarker {
+    const shouldShowFeedback = showSolutions === "all" || reviewMode;
+
+    if (!shouldShowFeedback) {
+        return userInputMarker;
+    }
+
+    if (isAnswerful(marker)) {
+        // Auto-select correct answers when feedback should be shown
+        return {
+            ...userInputMarker,
+            selected: marker.answers,
+        };
+    } else {
+        // For markers without answers, ensure no selection when showing feedback
+        return {
+            ...userInputMarker,
+            selected: undefined,
+        };
+    }
 }
 
 export class LabelImage
@@ -333,44 +371,11 @@ export class LabelImage
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
-    showRationalesForCurrentlySelectedChoices() {
-        const {markers, userInput, onChange} = this.props;
-
-        const updatedMarkers = markers.map((marker, index) => {
-            if (isAnswerful(marker)) {
-                const score = scoreLabelImageMarker(
-                    userInput[index].selected,
-                    marker.answers,
-                );
-
-                return {
-                    ...marker,
-                    // Reveal correctness state for markers with answers.
-                    showCorrectness: score.hasAnswers
-                        ? score.isCorrect
-                            ? "correct"
-                            : "incorrect"
-                        : undefined,
-                };
-            }
-            // If the marker doesn't have answers, retain its current state
-            // or set showCorrectness to undefined.
-            return {
-                ...marker,
-                showCorrectness: undefined,
-            };
-        });
-
-        // Update Perseus widget state with user selected answers without
-        // triggering interaction events for listeners.
-        onChange({markers: updatedMarkers}, undefined, true);
-    }
-
     handleMarkerChange(
         index: number,
         marker: PerseusLabelImageUserInput["markers"][number],
     ) {
-        const {markers, userInput, onChange, handleUserInput} = this.props;
+        const {markers, onChange, userInput, handleUserInput} = this.props;
 
         // Update the RenderProps version of the marker (display)
         const updatedRenderProps = [
@@ -384,7 +389,7 @@ export class LabelImage
             ...markers.slice(index + 1),
         ];
 
-        // Update UserInput verions of the marker
+        // Update UserInput version of the marker
         const updatedUserInput = [
             ...userInput.markers.slice(0, index),
             {
@@ -477,15 +482,17 @@ export class LabelImage
         });
     }
 
-    renderMarkers(): ReadonlyArray<React.ReactNode> {
-        const {
-            markers,
-            questionCompleted,
-            preferredPopoverDirection,
-            userInput,
-        } = this.props;
+    // renderMarkers(): ReadonlyArray<React.ReactNode> {
+    //     const {
+    //         markers,
+    //         questionCompleted,
+    //         preferredPopoverDirection,
+    //         userInput,
+    //     } = this.props;
 
-        const {activeMarkerIndex, markersInteracted} = this.state;
+    renderMarkers(): ReadonlyArray<React.ReactNode> {
+        const {markers, preferredPopoverDirection, userInput} = this.props;
+        const {markersInteracted, activeMarkerIndex} = this.state;
 
         // Determine whether page is rendered in a narrow browser window.
         const isNarrowPage =
@@ -526,10 +533,25 @@ export class LabelImage
                 }[markerPosition];
             }
 
+            // Get the updated marker state depending on whether the question
+            // has been answered or skipped by the user.
+            const computedSelectedState = getComputedSelectedState(
+                marker,
+                userInputMarker,
+                this.props.reviewMode,
+                this.props.showSolutions,
+            );
+
             let score: InteractiveMarkerScore;
+
+            // if (isAnswerful(marker)) {
+            //     score = scoreLabelImageMarker(
+            //         userInputMarker.selected,
+            //         marker.answers,
+
             if (isAnswerful(marker)) {
                 score = scoreLabelImageMarker(
-                    userInputMarker.selected,
+                    computedSelectedState.selected,
                     marker.answers,
                 );
             } else {
@@ -538,16 +560,28 @@ export class LabelImage
                     isCorrect: false,
                 };
             }
-            // Once the question is answered, show markers
-            // with correct answers, otherwise passthrough
-            // the correctness state.
+
+            // Once the question has been answered or skipped, show the markers
+            // with their correct answers. Otherwise passthrough the correctness state.
+            const shouldShowFeedback =
+                this.props.showSolutions === "all" || this.props.reviewMode;
             const showCorrectness =
-                questionCompleted && score.hasAnswers && score.isCorrect
+                shouldShowFeedback && score.isCorrect
                     ? "correct"
                     : marker.showCorrectness;
 
-            // Disable marker interaction once the question is answered correctly.
-            const disabled = showCorrectness === "correct";
+            // Disable marker interaction once the question has been answered or skipped.
+            const disabled = shouldShowFeedback;
+
+            // Determine whether the marker is currently being interacted with.
+            const isActiveAnswerChoice = activeMarkerIndex === index;
+
+            // Show the selected answer choices, if available, when they have not been manually hidden.
+            // The correct answers will be automatically selected when the question is answered/skipped.
+            const showAnswerChoice =
+                computedSelectedState.selected &&
+                !this.state.hideAnswers &&
+                !isActiveAnswerChoice;
 
             const adjustPillDistance: CSSProperties = {
                 [`margin${
@@ -556,12 +590,12 @@ export class LabelImage
                 }`]: 10, // move pill further from marker
             };
 
-            const answerChoicesActive = index === activeMarkerIndex;
+            // const answerChoicesActive = index === activeMarkerIndex;
 
-            const showAnswerChoice =
-                userInputMarker.selected &&
-                !answerChoicesActive &&
-                !this.state.hideAnswers;
+            // const showAnswerChoice =
+            //     userInputMarker.selected &&
+            //     !answerChoicesActive &&
+            //     !this.state.hideAnswers;
 
             return (
                 <View
@@ -578,8 +612,14 @@ export class LabelImage
                         key={`answers-${marker.x}.${marker.y}`}
                         choices={this.props.choices.map((choice) => ({
                             content: choice,
-                            checked: userInputMarker.selected
-                                ? userInputMarker.selected.includes(choice)
+
+                            // checked: userInputMarker.selected
+                            //     ? userInputMarker.selected.includes(choice)
+
+                            checked: computedSelectedState.selected
+                                ? computedSelectedState.selected.includes(
+                                      choice,
+                                  )
                                 : false,
                         }))}
                         multipleSelect={this.props.multipleAnswers}
@@ -623,7 +663,9 @@ export class LabelImage
                                         answerStyles={adjustPillDistance}
                                         focused={focused || pressed}
                                         hovered={hovered}
-                                        selected={userInputMarker.selected}
+                                        selected={
+                                            computedSelectedState.selected
+                                        }
                                     />
                                 )}
                             </Clickable>

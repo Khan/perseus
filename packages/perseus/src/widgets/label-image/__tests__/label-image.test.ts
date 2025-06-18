@@ -13,12 +13,15 @@ import {
 import * as Dependencies from "../../../dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
-import {LabelImage} from "../label-image";
+import {LabelImage, getComputedSelectedState} from "../label-image";
 
 import {shortTextQuestion, textQuestion} from "./label-image.testdata";
 
 import type {OptionalAnswersMarkerType} from "../label-image";
-import type {InteractiveMarkerType} from "@khanacademy/perseus-core";
+import type {
+    InteractiveMarkerType,
+    PerseusLabelImageUserInputMarker,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const emptyMarker: InteractiveMarkerType = {
@@ -48,6 +51,155 @@ describe("LabelImage", function () {
                 ok: true,
             }),
         ) as jest.Mock;
+    });
+
+    describe("getComputedSelectedState", function () {
+        it("should return original marker when feedback is not shown", function () {
+            // Arrange
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                answers: ["Correct Answer"],
+            };
+            const userInputMarker: PerseusLabelImageUserInputMarker = {
+                label: "Test marker",
+                selected: ["User Choice"],
+            };
+            const reviewMode = false;
+            const showSolutions = undefined;
+
+            // Act
+            const result = getComputedSelectedState(
+                marker,
+                userInputMarker,
+                reviewMode,
+                showSolutions,
+            );
+
+            // Assert - Should return unchanged since showSolutions and reviewMode are false
+            expect(result).toEqual(userInputMarker);
+        });
+
+        it("should auto-select correct answers when showSolutions is 'all'", function () {
+            // Arrange
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                answers: ["Answer A", "Answer B"],
+            };
+            const userInputMarker: PerseusLabelImageUserInputMarker = {
+                label: "Test marker",
+                selected: ["Answer C"],
+            };
+            const reviewMode = false;
+            const showSolutions = "all";
+
+            // Act
+            const result = getComputedSelectedState(
+                marker,
+                userInputMarker,
+                reviewMode,
+                showSolutions,
+            );
+
+            // Assert
+            expect(result).toEqual({
+                ...userInputMarker,
+                selected: ["Answer A", "Answer B"],
+            });
+        });
+
+        it("should auto-select correct answers when reviewMode is true", function () {
+            // Arrange
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                answers: ["Answer A", "Answer B"],
+            };
+            const userInputMarker: PerseusLabelImageUserInputMarker = {
+                label: "Test marker",
+                selected: ["Answer C"],
+            };
+            const reviewMode = true;
+            const showSolutions = undefined;
+
+            // Act
+            const result = getComputedSelectedState(
+                marker,
+                userInputMarker,
+                reviewMode,
+                showSolutions,
+            );
+
+            // Assert
+            expect(result).toEqual({
+                ...userInputMarker,
+                selected: ["Answer A", "Answer B"],
+            });
+        });
+
+        it("should clear selection for answerless markers when showing feedback", function () {
+            // Arrange
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                // No answers property - this is an answerless marker
+            };
+            const userInputMarker: PerseusLabelImageUserInputMarker = {
+                label: "Test marker",
+                selected: ["Some Choice"],
+            };
+            const reviewMode = false;
+            const showSolutions = "all";
+
+            // Act
+            const result = getComputedSelectedState(
+                marker,
+                userInputMarker,
+                reviewMode,
+                showSolutions,
+            );
+
+            // Assert
+            expect(result).toEqual({
+                ...userInputMarker,
+                selected: undefined,
+            });
+        });
+
+        it("should handle markers with empty answers array", function () {
+            // Arrange
+            const marker: OptionalAnswersMarkerType = {
+                label: "Test marker",
+                x: 50,
+                y: 50,
+                answers: [],
+            };
+            const userInputMarker: PerseusLabelImageUserInputMarker = {
+                label: "Test marker",
+                selected: ["User Choice"],
+            };
+            const reviewMode = true;
+            const showSolutions = undefined;
+
+            // Act
+            const result = getComputedSelectedState(
+                marker,
+                userInputMarker,
+                reviewMode,
+                showSolutions,
+            );
+
+            // Assert
+            expect(result).toEqual({
+                ...userInputMarker,
+                selected: [],
+            });
+        });
     });
 
     describe("imageSideForMarkerPosition", function () {
