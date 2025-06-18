@@ -14,7 +14,7 @@ const defaultWidgetOptions: PythonProgramDefaultWidgetOptions = {
 const pythonProgramWidgetLogic: WidgetLogic = {
     name: "python-program",
     defaultWidgetOptions,
-    accessible: false,
+    accessible: true,
 };
 
 export default pythonProgramWidgetLogic;
