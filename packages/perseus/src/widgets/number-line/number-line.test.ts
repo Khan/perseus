@@ -16,11 +16,6 @@ import type {PerseusNumberLineWidgetOptions} from "@khanacademy/perseus-core";
 
 describe("number-line widget", () => {
     beforeEach(() => {
-        // This module complains but doesn't have a real problem
-        // with displaying the graphie
-        jest.spyOn(console, "log").mockImplementation(() => {});
-        jest.spyOn(console, "error").mockImplementation(() => {});
-
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -225,15 +220,13 @@ describe("number-line widget", () => {
             const apiOptions: APIOptions = {
                 isMobile: false,
             };
-            const {renderer} = renderQuestion(question, apiOptions);
+            const {renderer} = renderQuestion(correctAnswer, apiOptions);
 
             // Act
             const [numberLine] = renderer.findWidgets("number-line 1");
             act(() => numberLine.movePosition(-2.5));
-            const score = scorePerseusItemTesting(
-                correctAnswer,
-                renderer.getUserInputMap(),
-            );
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItemTesting(correctAnswer, userInput);
 
             // assert
             expect(score).toHaveBeenAnsweredCorrectly();
