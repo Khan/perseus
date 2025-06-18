@@ -38,12 +38,10 @@ export type NumericInputProps = ExternalProps & {
     answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
     labelText: string;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
-    currentValue: string;
 };
 
 type DefaultProps = Pick<
     NumericInputProps,
-    | "currentValue"
     | "size"
     | "rightAlign"
     | "apiOptions"
@@ -51,6 +49,7 @@ type DefaultProps = Pick<
     | "answerForms"
     | "labelText"
     | "linterContext"
+    | "userInput"
 >;
 
 type RenderProps = {
@@ -88,7 +87,6 @@ export class NumericInput
     inputRef = React.createRef<Focusable>();
 
     static defaultProps: DefaultProps = {
-        currentValue: "",
         size: "normal",
         rightAlign: false,
         apiOptions: ApiOptions.defaults,
@@ -96,6 +94,9 @@ export class NumericInput
         answerForms: [],
         labelText: "",
         linterContext: linterContextDefault,
+        userInput: {
+            currentValue: "",
+        },
     };
 
     focus: () => boolean = () => {
@@ -120,22 +121,26 @@ export class NumericInput
 
     /**
      * Sets the value of the input at the given path.
+     *
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated set user input in Renderer state
      */
     setInputValue: (
         path: FocusPath,
         newValue: string,
         cb?: () => unknown | null | undefined,
     ) => void = (path, newValue, cb) => {
-        this.props.onChange({currentValue: newValue}, cb);
+        this.props.handleUserInput({currentValue: newValue}, cb);
     };
 
     /**
      * Returns the value the user has currently input for this widget.
+     *
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
      */
     getUserInput(): PerseusNumericInputUserInput {
-        return {
-            currentValue: this.props.currentValue,
-        };
+        return this.props.userInput;
     }
 
     /**
@@ -144,6 +149,18 @@ export class NumericInput
      */
     getPromptJSON(): NumericInputPromptJSON {
         return _getPromptJSON(this.props, this.getUserInput());
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState() {
+        const {userInput, ...rest} = this.props;
+        return {
+            ...rest,
+            currentValue: userInput.currentValue,
+        };
     }
 
     render(): React.ReactNode {
@@ -182,7 +199,7 @@ const propsTransform = function (
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
  */
 function getUserInputFromSerializedState(
-    serializedState: NumericInputProps,
+    serializedState: any,
 ): PerseusNumericInputUserInput {
     return {
         currentValue: serializedState.currentValue,

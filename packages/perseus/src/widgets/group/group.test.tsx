@@ -305,15 +305,14 @@ describe("group widget", () => {
       "labelText": "value rounded to the nearest ten",
       "rightAlign": false,
       "size": "normal",
-      "static": false,
     },
     "numeric-input 2": {
       "answerForms": [],
       "coefficient": false,
+      "currentValue": "",
       "labelText": "value rounded to the nearest hundred",
       "rightAlign": false,
       "size": "normal",
-      "static": false,
     },
   },
   "radio 1": {
