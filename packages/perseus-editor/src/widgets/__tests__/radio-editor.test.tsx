@@ -73,7 +73,7 @@ describe("radio-editor", () => {
         renderRadioEditor(onChangeMock);
 
         await userEvent.click(
-            screen.getAllByRole("link", {
+            screen.getAllByRole("button", {
                 name: "Add a choice",
             })[0],
         );
@@ -100,7 +100,7 @@ describe("radio-editor", () => {
         renderRadioEditor(onChangeMock);
 
         await userEvent.click(
-            screen.getAllByRole("link", {
+            screen.getAllByRole("button", {
                 name: "Remove this choice",
             })[0],
         );
