@@ -101,7 +101,7 @@ function isAnswerful(
 }
 
 /**
- * Get marker with the appropriate selection state for current display mode.
+ * Get user input marker with the appropriate selection state for current display mode.
  * When showing solutions, it auto-selects correct answers, or clears
  * selections for markers without answers.
  *
@@ -513,14 +513,6 @@ export class LabelImage
     }
 
     renderMarkers(): ReadonlyArray<React.ReactNode> {
-        const {
-            markers,
-            questionCompleted,
-            preferredPopoverDirection,
-            userInput,
-        } = this.props;
-
-    renderMarkers(): ReadonlyArray<React.ReactNode> {
         const {markers, preferredPopoverDirection} = this.props;
         const {markersInteracted, activeMarkerIndex} = this.state;
 
@@ -613,13 +605,6 @@ export class LabelImage
                 }`]: 10, // move pill further from marker
             };
 
-            const answerChoicesActive = index === activeMarkerIndex;
-
-            const showAnswerChoice =
-                userInputMarker.selected &&
-                !answerChoicesActive &&
-                !this.state.hideAnswers;
-
             return (
                 <View
                     key={index}
@@ -635,8 +620,10 @@ export class LabelImage
                         key={`answers-${marker.x}.${marker.y}`}
                         choices={this.props.choices.map((choice) => ({
                             content: choice,
-                            checked: userInputMarker.selected
-                                ? userInputMarker.selected.includes(choice)
+                            checked: computedSelectedState.selected
+                                ? computedSelectedState.selected.includes(
+                                      choice,
+                                  )
                                 : false,
                         }))}
                         multipleSelect={this.props.multipleAnswers}
