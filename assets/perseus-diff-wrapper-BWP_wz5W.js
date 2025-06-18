@@ -1,0 +1,1 @@
+import{j as r}from"./iframe-BrZ1H8ZK.js";const s=({children:e})=>r.jsx("div",{className:"perseus-diff",children:e});s.__docgenInfo={description:"",methods:[],displayName:"Wrapper",props:{children:{required:!0,tsType:{name:"ReactReactNode",raw:"React.ReactNode"},description:""}}};export{s as W};
