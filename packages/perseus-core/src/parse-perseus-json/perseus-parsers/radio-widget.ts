@@ -32,6 +32,12 @@ function getDefaultOptions() {
     };
 }
 
+const parseOnePerLine = defaulted(optional(boolean), () => undefined);
+const parseNoneOfTheAbove = defaulted(
+    optional(constant(false)),
+    () => undefined,
+);
+
 const version3 = optional(object({major: constant(3), minor: number}));
 const parseRadioWidgetV3 = parseWidgetWithVersion(
     version3,
@@ -77,12 +83,12 @@ const parseRadioWidgetV2 = parseWidgetWithVersion(
             multipleSelect: optional(boolean),
             deselectEnabled: optional(boolean),
             // deprecated
-            onePerLine: optional(boolean),
+            onePerLine: parseOnePerLine,
             // deprecated
             displayCount: optional(any),
             // v0 props
             // `noneOfTheAbove` is still in use (but only set to `false`).
-            noneOfTheAbove: optional(constant(false)),
+            noneOfTheAbove: parseNoneOfTheAbove,
         }),
         getDefaultOptions,
     ),
@@ -110,12 +116,12 @@ const parseRadioWidgetV1 = parseWidgetWithVersion(
             multipleSelect: optional(boolean),
             deselectEnabled: optional(boolean),
             // deprecated
-            onePerLine: optional(boolean),
+            onePerLine: parseOnePerLine,
             // deprecated
             displayCount: optional(any),
             // v0 props
             // `noneOfTheAbove` is still in use (but only set to `false`).
-            noneOfTheAbove: optional(constant(false)),
+            noneOfTheAbove: parseNoneOfTheAbove,
         }),
         getDefaultOptions,
     ),
@@ -143,12 +149,12 @@ const parseRadioWidgetV0 = parseWidgetWithVersion(
             multipleSelect: optional(boolean),
             deselectEnabled: optional(boolean),
             // deprecated
-            onePerLine: optional(boolean),
+            onePerLine: parseOnePerLine,
             // deprecated
             displayCount: optional(any),
             // v0 props
             // `noneOfTheAbove` is still in use (but only set to `false`).
-            noneOfTheAbove: optional(constant(false)),
+            noneOfTheAbove: parseNoneOfTheAbove,
         }),
         getDefaultOptions,
     ),
