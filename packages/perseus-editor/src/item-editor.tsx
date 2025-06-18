@@ -24,8 +24,9 @@ import type {
 } from "@khanacademy/perseus-core";
 
 type Props = {
-    // Additional templates that the host application would like to display
-    // within the Perseus Editor.
+    /** Additional templates that the host application would like to display
+     * within the Perseus Editor.
+     */
     additionalTemplates?: Record<string, string>;
     apiOptions?: APIOptions;
     deviceType?: DeviceType;
@@ -33,11 +34,12 @@ type Props = {
     imageUploader?: ImageUploader;
     question?: PerseusRenderer;
     answerArea?: PerseusAnswerArea | null;
-    // URL of the route to show on initial load of the preview frames.
+    /** URL of the route to show on initial load of the preview frames. */
     previewURL: string;
     onChange: ChangeHandler;
-    // The content ID of the AssessmentItem being edited. It may not be set
-    // for non-content library exercise questions.
+    /** The content ID of the AssessmentItem being edited. It may not be set
+     * for non-content library exercise questions.
+     */
     itemId?: string;
     issues?: Issue[];
 };
