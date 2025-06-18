@@ -80,6 +80,9 @@ function EditorPageWithStorybookPreview(props: Props) {
                         setHints(props.hints);
                     }
                 }}
+                additionalTemplates={{
+                    "Side by Side": "Left hand side\n=====\nRight hand side",
+                }}
             />
 
             {/* Button to open panel */}

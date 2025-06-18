@@ -112,6 +112,7 @@ const imageUrlsFromContent = function (content: string) {
 };
 
 type Props = Readonly<{
+    additionalTemplates: Record<string, string>;
     apiOptions: any;
     className?: string;
     content: string;
@@ -143,6 +144,7 @@ type DefaultProps = {
     widgets: {
         [name: string]: PerseusWidget;
     };
+    additionalTemplates: Props["additionalTemplates"];
 };
 
 type State = {
@@ -169,6 +171,7 @@ class Editor extends React.Component<Props, State> {
         showWordCount: false,
         warnNoPrompt: false,
         warnNoWidgets: false,
+        additionalTemplates: {},
     };
 
     state: State = {
@@ -782,6 +785,9 @@ class Editor extends React.Component<Props, State> {
             template = Widgets.getAllWidgetTypes()
                 .map((type) => `[[${Util.snowman} ${type} 1]]`)
                 .join("\n\n");
+        }
+        if (templateType in this.props.additionalTemplates) {
+            template = this.props.additionalTemplates[templateType];
         } else {
             throw new PerseusError(
                 "Invalid template type: " + templateType,
@@ -995,6 +1001,14 @@ class Editor extends React.Component<Props, State> {
                     <option value="titledTable">Titled table</option>
                     <option value="alignment">Aligned equations</option>
                     <option value="piecewise">Piecewise function</option>
+                    <option disabled>--</option>
+                    {Object.entries(this.props.additionalTemplates).map(
+                        ([key]) => (
+                            <option value={key} key={key}>
+                                {key}
+                            </option>
+                        ),
+                    )}
                     <option disabled>--</option>
                     <option value="allWidgets">
                         All widgets (for testing)
