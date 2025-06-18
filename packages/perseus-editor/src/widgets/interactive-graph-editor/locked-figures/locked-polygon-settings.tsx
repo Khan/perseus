@@ -23,10 +23,10 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
+import LabeledSwitch from "../../../components/labeled-switch";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 
 import ColorSelect from "./color-select";
-import LabeledSwitch from "./labeled-switch";
 import LineStrokeSelect from "./line-stroke-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
