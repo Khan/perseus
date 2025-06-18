@@ -1002,9 +1002,6 @@ class Editor extends React.Component<Props, State> {
                     <option value="alignment">Aligned equations</option>
                     <option value="piecewise">Piecewise function</option>
                     <option disabled>--</option>
-                    <option value="allWidgets">
-                        All widgets (for testing)
-                    </option>
                     {this.props.additionalTemplates &&
                         Object.entries(this.props.additionalTemplates).map(
                             ([key, value]) => (
@@ -1013,6 +1010,10 @@ class Editor extends React.Component<Props, State> {
                                 </option>
                             ),
                         )}
+                    <option disabled>--</option>
+                    <option value="allWidgets">
+                        All widgets (for testing)
+                    </option>
                 </select>
             );
 
