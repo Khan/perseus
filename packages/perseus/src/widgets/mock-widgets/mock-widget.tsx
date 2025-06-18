@@ -12,12 +12,10 @@ import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
 
 type ExternalProps = WidgetProps<MockWidgetOptions, PerseusMockWidgetUserInput>;
 
-type DefaultProps = {
-    currentValue: Props["currentValue"];
-};
+type Props = ExternalProps;
 
-type Props = ExternalProps & {
-    currentValue: string;
+type DefaultProps = {
+    userInput: Props["userInput"];
 };
 
 /**
@@ -34,7 +32,9 @@ type Props = ExternalProps & {
  */
 class MockWidgetComponent extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
-        currentValue: "",
+        userInput: {
+            currentValue: "",
+        },
     };
 
     inputRef: HTMLElement | null = null;
@@ -44,11 +44,11 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
     }
 
     setInputValue: (
-        arg1: FocusPath,
-        arg2: string,
-        arg3?: () => unknown | null | undefined,
+        path: FocusPath,
+        newValue: string,
+        cb?: () => unknown | null | undefined,
     ) => void = (path, newValue, cb) => {
-        this.props.onChange(
+        this.props.handleUserInput(
             {
                 currentValue: newValue,
             },
@@ -77,19 +77,33 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
         return [[]];
     };
 
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     getUserInput(): PerseusMockWidgetUserInput {
-        return {
-            currentValue: this.props.currentValue,
-        };
+        return this.props.userInput;
     }
 
     handleChange: (
-        arg1: string,
-        arg2?: () => unknown | null | undefined,
+        newValue: string,
+        cb?: () => unknown | null | undefined,
     ) => void = (newValue, cb) => {
-        this.props.onChange({currentValue: newValue}, cb);
+        this.props.handleUserInput({currentValue: newValue}, cb);
         this.props.trackInteraction();
     };
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState() {
+        const {userInput, ...rest} = this.props;
+        return {
+            ...rest,
+            currentValue: userInput.currentValue,
+        };
+    }
 
     render(): React.ReactNode {
         return (
@@ -98,7 +112,7 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
                 <TextField
                     ref={(ref) => (this.inputRef = ref)}
                     aria-label="Mock Widget"
-                    value={this.props.currentValue}
+                    value={this.props.userInput.currentValue}
                     onChange={this.handleChange}
                     id={this.props.widgetId}
                     role="textbox"
@@ -115,7 +129,7 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
  */
 function getUserInputFromSerializedState(
-    serializedState: Props,
+    serializedState: any,
 ): PerseusMockWidgetUserInput {
     return {
         currentValue: serializedState.currentValue,
