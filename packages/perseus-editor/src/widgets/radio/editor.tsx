@@ -2,7 +2,6 @@
 import {BaseRadio, Changeable} from "@khanacademy/perseus";
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
-import {Checkbox} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Link from "@khanacademy/wonder-blocks-link";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
@@ -11,6 +10,7 @@ import plusIcon from "@phosphor-icons/core/regular/plus.svg";
 import * as React from "react";
 import _ from "underscore";
 
+import LabeledSwitch from "../../components/labeled-switch";
 import Editor from "../../editor";
 
 import type {APIOptions} from "@khanacademy/perseus";
@@ -302,14 +302,15 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                     Multiple choice best practices
                 </Link>
                 <div className="perseus-widget-row">
-                    <Checkbox
+                    <LabeledSwitch
                         label="Randomize order"
                         checked={this.props.randomize}
                         onChange={(value) => {
                             this.props.onChange({randomize: value});
                         }}
+                        style={{marginBottom: spacing.xxSmall_6}}
                     />
-                    <Checkbox
+                    <LabeledSwitch
                         label="Multiple selections"
                         checked={this.props.multipleSelect}
                         onChange={(value) => {
@@ -317,9 +318,10 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                                 multipleSelect: value,
                             });
                         }}
+                        style={{marginBottom: spacing.xxSmall_6}}
                     />
                     {this.props.multipleSelect && (
-                        <Checkbox
+                        <LabeledSwitch
                             label="Specify number correct"
                             checked={this.props.countChoices}
                             onChange={(value) => {
@@ -327,6 +329,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                                     countChoices: value,
                                 });
                             }}
+                            style={{marginBottom: spacing.xxSmall_6}}
                         />
                     )}
                 </div>

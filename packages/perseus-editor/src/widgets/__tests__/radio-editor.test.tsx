@@ -45,7 +45,7 @@ describe("radio-editor", () => {
         renderRadioEditor(onChangeMock);
 
         await userEvent.click(
-            screen.getByRole("checkbox", {
+            screen.getByRole("switch", {
                 name: "Multiple selections",
             }),
         );
@@ -59,7 +59,7 @@ describe("radio-editor", () => {
         renderRadioEditor(onChangeMock);
 
         await userEvent.click(
-            screen.getByRole("checkbox", {
+            screen.getByRole("switch", {
                 name: "Randomize order",
             }),
         );
