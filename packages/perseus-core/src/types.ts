@@ -43,9 +43,8 @@ export type MarkerType = {
 };
 
 // Additional props that are set when user interacts with the marker.
+// TODO(LEMS-3199): don't mash together UI state with widget options
 export type InteractiveMarkerType = MarkerType & {
-    // The user selected list of answers, used to grade the question.
-    selected?: string[];
     // Reveal the correctness state of the user selected answers for the marker.
     showCorrectness?: "correct" | "incorrect";
     focused?: boolean;

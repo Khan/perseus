@@ -169,11 +169,13 @@ export type PerseusLabelImageRubric = {
     }>;
 };
 
+export type PerseusLabelImageUserInputMarker = {
+    selected?: string[];
+    label: string;
+};
+
 export type PerseusLabelImageUserInput = {
-    markers: Array<{
-        selected?: string[];
-        label: string;
-    }>;
+    markers: PerseusLabelImageUserInputMarker[];
 };
 
 export type PerseusMatcherRubric = {
