@@ -13,6 +13,7 @@ export const PerseusItemWithRadioWidget = generateTestPerseusItem({
                 options: {
                     countChoices: false,
                     deselectEnabled: false,
+                    displayCount: null,
                     hasNoneOfTheAbove: false,
                     multipleSelect: false,
                     randomize: true,
@@ -46,6 +47,7 @@ export const PerseusItemWithRadioWidget = generateTestPerseusItem({
                 options: {
                     countChoices: false,
                     deselectEnabled: false,
+                    displayCount: null,
                     hasNoneOfTheAbove: false,
                     multipleSelect: false,
                     randomize: true,

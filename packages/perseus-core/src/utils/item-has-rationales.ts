@@ -30,7 +30,7 @@ const widgetHasRationales = (widget: PerseusWidget): boolean => {
 };
 
 const radioWidgetHasRationales = (widget: RadioWidget): boolean => {
-    return widget.options.choices.some((choice) => !!choice.rationale);
+    return widget.options.choices.some((choice) => !!choice.clue);
 };
 
 const labelImageWidgetHasRationales = (widget: LabelImageWidget): boolean => {

@@ -1,5 +1,25 @@
 # @khanacademy/perseus
 
+## 65.3.0
+
+### Minor Changes
+
+-   [#2621](https://github.com/Khan/perseus/pull/2621) [`401ab009b`](https://github.com/Khan/perseus/commit/401ab009b1650b5752b4bad77d874eec16ebcec3) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Reverts changes introduced by LEMS-3061: deprecate options in radio, update clue to be rationale
+
+### Patch Changes
+
+-   [#2609](https://github.com/Khan/perseus/pull/2609) [`43bc193aa`](https://github.com/Khan/perseus/commit/43bc193aaccae07a6ebfd9b981f0c6f3e13fe4df) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (DX) | Create a question builder for the Radio widget
+
+*   [#2611](https://github.com/Khan/perseus/pull/2611) [`0432b74d7`](https://github.com/Khan/perseus/commit/0432b74d70a30821d8faa0a274b8e773b23925a1) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (DX) | Use the new question builder in testdata file
+
+*   Updated dependencies [[`401ab009b`](https://github.com/Khan/perseus/commit/401ab009b1650b5752b4bad77d874eec16ebcec3), [`48fc42775`](https://github.com/Khan/perseus/commit/48fc427750810566f05586550fdc5596e1c79762)]:
+    -   @khanacademy/perseus-core@14.1.0
+    -   @khanacademy/keypad-context@3.0.17
+    -   @khanacademy/kmath@2.0.17
+    -   @khanacademy/math-input@26.0.6
+    -   @khanacademy/perseus-linter@4.0.4
+    -   @khanacademy/perseus-score@7.1.4
+
 ## 65.2.0
 
 ### Minor Changes
