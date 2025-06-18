@@ -5,8 +5,8 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Link from "@khanacademy/wonder-blocks-link";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
-import plusIcon from "@phosphor-icons/core/regular/plus.svg";
 import * as React from "react";
 import _ from "underscore";
 
