@@ -1,17 +1,17 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {
-    components,
-    BaseRadio,
-    Changeable,
-    iconTrash,
-} from "@khanacademy/perseus";
+import {BaseRadio, Changeable} from "@khanacademy/perseus";
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
-import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import Button from "@khanacademy/wonder-blocks-button";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import Link from "@khanacademy/wonder-blocks-link";
+import {spacing, sizing} from "@khanacademy/wonder-blocks-tokens";
+import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
+import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 import _ from "underscore";
 
+import LabeledSwitch from "../../components/labeled-switch";
 import Editor from "../../editor";
-import {iconPlus} from "../../styles/icon-paths";
 
 import type {APIOptions} from "@khanacademy/perseus";
 import type {
@@ -19,8 +19,6 @@ import type {
     PerseusRadioChoice,
     RadioDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
-
-const {InlineIcon} = components;
 
 type Contentful = {content?: string};
 type ChoiceEditorProps = {
@@ -73,26 +71,22 @@ class ChoiceEditor extends React.Component<ChoiceEditorProps> {
             />
         );
 
-        const deleteLink = (
-            <a
-                className="simple-button orange delete-choice"
-                href="#"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    this.props.onDelete();
-                }}
-                title="Remove this choice"
+        const deleteButton = (
+            <Button
+                size="small"
+                kind="tertiary"
+                startIcon={trashIcon}
+                onClick={this.props.onDelete}
             >
-                <InlineIcon {...iconTrash} />
-            </a>
+                Remove this choice
+            </Button>
         );
 
         return (
             <div className="choice-clue-editors">
                 <div className={`choice-editor ${checkedClass}`}>{editor}</div>
                 <div className="clue-editor">{clueEditor}</div>
-                {this.props.showDelete && deleteLink}
+                {this.props.showDelete && deleteButton}
             </div>
         );
     }
@@ -301,50 +295,42 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         );
         return (
             <div>
+                <Link
+                    href="https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems"
+                    target="_blank"
+                >
+                    Multiple choice best practices
+                </Link>
                 <div className="perseus-widget-row">
-                    <a
-                        href={
-                            // This is an editor component, not user-facing.
-                            "https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems"
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Multiple choice best practices
-                    </a>
-                    <br />
-                    <div className="perseus-widget-left-col">
-                        <Checkbox
-                            label="Multiple selections"
-                            checked={this.props.multipleSelect}
+                    <LabeledSwitch
+                        label="Randomize order"
+                        checked={this.props.randomize}
+                        onChange={(value) => {
+                            this.props.onChange({randomize: value});
+                        }}
+                        style={{marginBlockEnd: sizing.size_060}}
+                    />
+                    <LabeledSwitch
+                        label="Multiple selections"
+                        checked={this.props.multipleSelect}
+                        onChange={(value) => {
+                            this.onMultipleSelectChange({
+                                multipleSelect: value,
+                            });
+                        }}
+                        style={{marginBlockEnd: sizing.size_060}}
+                    />
+                    {this.props.multipleSelect && (
+                        <LabeledSwitch
+                            label="Specify number correct"
+                            checked={this.props.countChoices}
                             onChange={(value) => {
-                                this.onMultipleSelectChange({
-                                    multipleSelect: value,
+                                this.onCountChoicesChange({
+                                    countChoices: value,
                                 });
                             }}
+                            style={{marginBlockEnd: sizing.size_060}}
                         />
-                    </div>
-                    <div className="perseus-widget-right-col">
-                        <Checkbox
-                            label="Randomize order"
-                            checked={this.props.randomize}
-                            onChange={(value) => {
-                                this.props.onChange({randomize: value});
-                            }}
-                        />
-                    </div>
-                    {this.props.multipleSelect && (
-                        <div className="perseus-widget-left-col">
-                            <Checkbox
-                                label="Specify number correct"
-                                checked={this.props.countChoices}
-                                onChange={(value) => {
-                                    this.onCountChoicesChange({
-                                        countChoices: value,
-                                    });
-                                }}
-                            />
-                        </div>
                     )}
                 </div>
 
@@ -391,25 +377,23 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                 />
 
                 <div className="add-choice-container">
-                    <a
-                        className="simple-button orange"
-                        href="#"
-                        // eslint-disable-next-line react/jsx-no-bind
+                    <Button
+                        size="small"
+                        kind="tertiary"
+                        startIcon={plusIcon}
                         onClick={this.addChoice.bind(this, false)}
                     >
-                        <InlineIcon {...iconPlus} /> Add a choice{" "}
-                    </a>
-
-                    {!this.props.hasNoneOfTheAbove && (
-                        <a
-                            className="simple-button"
-                            href="#"
-                            // eslint-disable-next-line react/jsx-no-bind
-                            onClick={this.addChoice.bind(this, true)}
-                        >
-                            <InlineIcon {...iconPlus} /> None of the above{" "}
-                        </a>
-                    )}
+                        Add a choice
+                    </Button>
+                    <Strut size={spacing.large_24} />
+                    <Button
+                        size="small"
+                        kind="tertiary"
+                        startIcon={plusIcon}
+                        onClick={this.addChoice.bind(this, true)}
+                    >
+                        None of the above
+                    </Button>
                 </div>
             </div>
         );
