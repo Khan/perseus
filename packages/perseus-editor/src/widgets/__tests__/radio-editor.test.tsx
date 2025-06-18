@@ -133,8 +133,8 @@ describe("radio-editor", () => {
             randomize: false,
             multipleSelect: false,
             countChoices: false,
-            displayCount: null,
             hasNoneOfTheAbove: false,
+            displayCount: null,
             deselectEnabled: false,
             numCorrect: 0,
         });

@@ -48,10 +48,8 @@ export default defineConfig({
         ],
     },
     css: {
-        preprocessorOptions: {
-            less: {
-                math: "always",
-            },
+        modules: {
+            localsConvention: "camelCase",
         },
     },
 });

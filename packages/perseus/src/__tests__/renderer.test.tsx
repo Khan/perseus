@@ -1392,55 +1392,6 @@ describe("renderer", () => {
             expect(el).not.toBeNull();
         });
 
-        it("should ask each widget to show rationales", () => {
-            // Arrange
-            const {renderer} = renderQuestion(definitionItem);
-            const widgets = renderer.findWidgets(
-                (_, info) => info.type === "definition",
-            );
-            widgets.forEach(
-                (w) =>
-                    (w.showRationalesForCurrentlySelectedChoices = jest.fn()),
-            );
-
-            // Guard: If our test data were to cause this to return an empty
-            // array, the rest of the assertions in this test would pass.
-            expect(widgets.length).toBeGreaterThan(0);
-
-            // Act
-            act(() => renderer.showRationalesForCurrentlySelectedChoices());
-
-            // Assert
-            widgets.forEach((w) =>
-                expect(
-                    w.showRationalesForCurrentlySelectedChoices,
-                ).toHaveBeenCalled(),
-            );
-        });
-
-        it("should ask each widget to deselect incorrect choices", () => {
-            // Arrange
-            const {renderer} = renderQuestion(definitionItem);
-            const widgets = renderer.findWidgets(
-                (_, info) => info.type === "definition",
-            );
-            widgets.forEach(
-                (w) => (w.deselectIncorrectSelectedChoices = jest.fn()),
-            );
-
-            // Guard: If our test data were to cause this to return an empty
-            // array, the rest of the assertions in this test would pass.
-            expect(widgets.length).toBeGreaterThan(0);
-
-            // Act
-            act(() => renderer.deselectIncorrectSelectedChoices());
-
-            // Assert
-            widgets.forEach((w) =>
-                expect(w.deselectIncorrectSelectedChoices).toHaveBeenCalled(),
-            );
-        });
-
         it("should return all widget IDs that were rendererd", () => {
             // Arrange
             const {renderer} = renderQuestion({

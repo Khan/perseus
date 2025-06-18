@@ -66,3 +66,71 @@ export const question1: PerseusRenderer = {
         },
     },
 };
+
+export const groupedRadioRationaleQuestion: PerseusRenderer = {
+    content: "---\n\n##Check your understanding!\n\n[[☃ graded-group 1]]\n\n",
+    images: {},
+    widgets: {
+        "graded-group 1": {
+            type: "graded-group",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                title: "Metabolic strategies of bacteria",
+                content:
+                    "Which of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
+                images: {},
+                widgets: {
+                    "radio 1": {
+                        graded: true,
+                        version: {
+                            major: 1,
+                            minor: 0,
+                        },
+                        static: false,
+                        type: "radio",
+                        options: {
+                            choices: [
+                                {
+                                    content: "Incorrect",
+                                    correct: false,
+                                    clue: "This is not the correct answer.",
+                                },
+                                {
+                                    content: "Incorrect",
+                                    correct: false,
+                                    clue: "This is not the correct answer.",
+                                },
+                                {
+                                    content: "Correct",
+                                    correct: true,
+                                    isNoneOfTheAbove: false,
+                                    clue: "This is the correct answer.",
+                                },
+                                {
+                                    content: "Incorrect",
+                                    correct: false,
+                                    isNoneOfTheAbove: false,
+                                    clue: "This is not the correct answer.",
+                                },
+                            ],
+                            countChoices: false,
+                            hasNoneOfTheAbove: false,
+                            multipleSelect: false,
+                            randomize: false,
+                            deselectEnabled: false,
+                        },
+                        alignment: "default",
+                    },
+                },
+                hint: {
+                    content: "This is an example hint.",
+                    images: {},
+                    widgets: {},
+                },
+            },
+            version: {major: 0, minor: 0},
+        },
+    },
+};

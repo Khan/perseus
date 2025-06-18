@@ -82,24 +82,24 @@ describe("IssuesPanel", () => {
     it("opens the panel when the heading is clicked", async () => {
         // Arrange
         render(<IssuesPanel issues={[makeIssue("warn1")]} />);
-        const headingButton = screen.getByRole("button"); // The button in the heading
+        const toggleHeader = screen.getByText("Issues");
 
         //Act
-        await userEvent.click(headingButton); // Simulate click to open panel
+        await userEvent.click(toggleHeader); // Simulate click to open panel
 
         //Assert
         expect(screen.getByText("Warning: warn1")).toBeInTheDocument();
     });
 
-    it("closes the panel when the heading icon is clicked again", async () => {
+    it("closes the panel when the heading is clicked again", async () => {
         //Arrange
         render(<IssuesPanel issues={[makeIssue("warn1")]} />);
-        const headingButton = screen.getByRole("button");
-        await userEvent.click(headingButton);
+        const toggleHeader = screen.getByText("Issues");
+        await userEvent.click(toggleHeader);
         expect(screen.getByText("Warning: warn1")).toBeInTheDocument();
 
         //Act
-        await userEvent.click(headingButton);
+        await userEvent.click(toggleHeader);
 
         //Assert
         expect(screen.queryByText("Warning: warn1")).not.toBeInTheDocument();

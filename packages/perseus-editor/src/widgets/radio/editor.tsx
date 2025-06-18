@@ -305,12 +305,12 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                     <a
                         href={
                             // This is an editor component, not user-facing.
-                            "https://docs.google.com/document/d/1frZf7yrWVWb1n4tVjqlzqVUiv1pn4cZXbxgP62-JDBY/edit#heading=h.8ng1isya19nu"
+                            "https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems"
                         }
                         target="_blank"
                         rel="noreferrer"
                     >
-                        Multiple choice style guide
+                        Multiple choice best practices
                     </a>
                     <br />
                     <div className="perseus-widget-left-col">
