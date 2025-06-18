@@ -4,7 +4,7 @@ import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Link from "@khanacademy/wonder-blocks-link";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {spacing, sizing} from "@khanacademy/wonder-blocks-tokens";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
@@ -308,7 +308,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                         onChange={(value) => {
                             this.props.onChange({randomize: value});
                         }}
-                        style={{marginBottom: spacing.xxSmall_6}}
+                        style={{marginBottom: sizing.size_060}}
                     />
                     <LabeledSwitch
                         label="Multiple selections"
@@ -318,7 +318,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                                 multipleSelect: value,
                             });
                         }}
-                        style={{marginBottom: spacing.xxSmall_6}}
+                        style={{marginBottom: sizing.size_060}}
                     />
                     {this.props.multipleSelect && (
                         <LabeledSwitch
@@ -329,7 +329,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                                     countChoices: value,
                                 });
                             }}
-                            style={{marginBottom: spacing.xxSmall_6}}
+                            style={{marginBottom: sizing.size_060}}
                         />
                     )}
                 </div>
