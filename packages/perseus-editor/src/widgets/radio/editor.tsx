@@ -21,7 +21,8 @@ import type {
     RadioDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type RadioEditorProps = {
+// Exported for testing
+export type RadioEditorProps = {
     apiOptions: APIOptions;
     countChoices: boolean;
     choices: PerseusRadioChoice[];
@@ -203,10 +204,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                 ].focus();
             },
         );
-    };
-
-    setDisplayCount: (arg1: number) => void = (num) => {
-        this.props.onChange({displayCount: num});
     };
 
     focus: () => boolean = () => {
