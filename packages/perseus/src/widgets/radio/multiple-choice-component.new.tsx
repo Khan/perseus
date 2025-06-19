@@ -24,8 +24,9 @@ import type {StyleDeclaration} from "aphrodite";
 
 const {captureScratchpadTouchStart} = Util;
 
-// TODO(LEMS-3170): Simplify the ChoiceType by using ChoiceProps directly.
-// exported for tests
+/**
+ * Represents a single choice in the multiple choice component
+ */
 export interface ChoiceType {
     checked: boolean;
     content: React.ReactNode;
@@ -41,59 +42,54 @@ export interface ChoiceType {
     disabled: boolean;
 }
 
-interface BaseRadioProps {
+/**
+ * Props for the MultipleChoiceComponent
+ */
+interface MultipleChoiceComponentProps {
     apiOptions: APIOptions;
     choices: ReadonlyArray<ChoiceType>;
-    deselectEnabled?: boolean;
-    editMode?: boolean;
-    labelWrap: boolean;
     countChoices: boolean | null | undefined;
-    numCorrect: number;
-    multipleSelect?: boolean;
-    // the logic checks whether this exists,
-    // so it must be optional
-    reviewModeRubric?: PerseusRadioWidgetOptions | null;
-    reviewMode: boolean;
-    // A callback indicating that this choice has changed. Its argument is
-    // an object with a `checked` key. It contains an array of boolean values,
-    // specifying the new checked value of each choice.
-    onChange: (newValues: {checked: ReadonlyArray<boolean>}) => void;
-    // Whether this widget was the most recently used widget in this
-    // Renderer. Determines whether we'll auto-scroll the page upon
-    // entering review mode.
+    editMode?: boolean;
     isLastUsedWidget?: boolean;
+    labelWrap: boolean;
+    multipleSelect?: boolean;
+    numCorrect: number;
+    onChoiceChange: (choiceIndex: number, newCheckedState: boolean) => void;
+    // Review mode is used when the user has successfully answered the question
+    // and is now reviewing their answer.
+    reviewMode: boolean;
+    reviewModeRubric?: PerseusRadioWidgetOptions | null;
 }
 
 /**
- * The BaseRadio component is the core component for the radio widget.
+ * The MultipleChoiceComponent is the core component for the radio widget.
  * It is responsible for rendering the radio choices and handling user interactions.
  *
- * This component is a duplicate of the BaseRadio component in base-radio.tsx for the
- * Radio Revitalization Project. (LEMS-2933) This component will eventually replace
- * base-radio.tsx when the feature flag is no longer needed.
- *
- * TODO(LEMS-2994): Clean up this file.
+ * This component is a consolidation of the BaseRadio and RadioComponent components
+ * from the Radio Revitalization Project (LEMS-2933).
  */
-const BaseRadio = ({
+const MultipleChoiceComponent = ({
     apiOptions,
     reviewModeRubric,
     reviewMode,
-    choices,
     editMode = false,
     multipleSelect = false,
     labelWrap,
     countChoices,
     numCorrect,
     isLastUsedWidget,
-    onChange,
-}: BaseRadioProps): React.ReactElement => {
+    choices,
+    onChoiceChange,
+}: MultipleChoiceComponentProps): React.ReactElement => {
     const {strings} = usePerseusI18n();
+    const isMobile = apiOptions.isMobile;
 
-    // useEffect doesn't have previous props
+    const choiceRefs = useRef<Array<React.RefObject<HTMLButtonElement>>>([]);
+    // Keep track of the previous review mode rubric to avoid unnecessary
+    // scrolling when switching between review mode and edit mode.
     const prevReviewModeRubric = useRef<
         PerseusRadioWidgetOptions | undefined | null
     >();
-    const choiceRefs = useRef<Array<React.RefObject<HTMLButtonElement>>>([]);
 
     useEffect(() => {
         // Switching into review mode can sometimes cause the selected answer
@@ -126,50 +122,10 @@ const BaseRadio = ({
         }
 
         prevReviewModeRubric.current = reviewModeRubric;
-    }, [apiOptions, choices, isLastUsedWidget, reviewModeRubric]);
+    }, [apiOptions, isLastUsedWidget, reviewModeRubric, choices]);
 
-    // When a particular choice's `onChange` handler is called, indicating a
-    // change in a single choice's values, we need to call our `onChange`
-    // handler in order to notify our parent. However, our API with our parent
-    // is that we always provide *all* values for *all* choices, even if just
-    // one choice's values changed. (This is because sometimes an interaction
-    // with one choice can affect many choices, like how checking a new answer
-    // will usually cause the old answer to become unchecked.)
-    //
-    // So, given the new values for a particular choice, compute the new values
-    // for all choices, and pass them to `onChange`.
-    //
-    // `newValues` is an object with a `checked` key. It contains a boolean value
-    // specifying the new checked value of this choice.
-    function updateChoice(
-        choiceIndex: number,
-        newValues: Readonly<{
-            checked: boolean;
-        }>,
-    ): void {
-        // Get the baseline `checked` values. If we're checking a new answer
-        // and multiple-select is not on, we should clear all choices to be
-        // unchecked. Otherwise, we should copy the old checked values.
-        let newCheckedList;
-        if (newValues.checked && !multipleSelect) {
-            newCheckedList = choices.map((_) => false);
-        } else {
-            newCheckedList = choices.map((c) => c.checked);
-        }
-
-        // Update this choice's `checked` values.
-        newCheckedList[choiceIndex] = newValues.checked;
-
-        onChange({
-            checked: newCheckedList,
-        });
-    }
-
-    // some commonly used shorthands
-    const isMobile = apiOptions.isMobile;
-
-    const firstChoiceHighlighted = choices[0].highlighted;
-    const lastChoiceHighlighted = choices[choices.length - 1].highlighted;
+    const firstChoiceHighlighted = choices[0]?.highlighted;
+    const lastChoiceHighlighted = choices[choices.length - 1]?.highlighted;
 
     const className = classNames(
         "perseus-widget-radio",
@@ -238,7 +194,7 @@ const BaseRadio = ({
                                     return;
                                 }
 
-                                updateChoice(i, newValues);
+                                onChoiceChange(i, newValues.checked);
                             },
                         } as const;
 
@@ -317,9 +273,7 @@ const BaseRadio = ({
                                     if (
                                         elem.getAttribute("data-is-radio-icon")
                                     ) {
-                                        updateChoice(i, {
-                                            checked: !choice.checked,
-                                        });
+                                        onChoiceChange(i, !choice.checked);
                                         return;
                                     }
                                     elem = elem.parentNode;
@@ -359,7 +313,7 @@ const BaseRadio = ({
     return <div className={css(styles.responsiveContainer)}>{fieldset}</div>;
 };
 
-export default BaseRadio;
+export default MultipleChoiceComponent;
 
 const styles: StyleDeclaration = StyleSheet.create({
     instructions: {
