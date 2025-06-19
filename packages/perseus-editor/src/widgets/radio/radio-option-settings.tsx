@@ -41,7 +41,7 @@ export const RadioOptionSettings = (props: Props) => {
 
     return (
         <PerseusEditorAccordion
-            key={index}
+            key={`choice-accordion-${index}`}
             header={
                 <div className={styles.accordionHeader}>
                     <RadioStatusPill
