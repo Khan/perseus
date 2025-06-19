@@ -4,13 +4,13 @@ import {useState} from "react";
 
 import styles from "./multiple-choice-indicator.module.css";
 
-export type IndicatorProps = {
+export interface IndicatorProps {
     checked: boolean;
     content: string;
     shape: "circle" | "square";
     showCorrectness?: "correct" | "wrong";
     updateChecked: (isChecked: boolean) => void;
-};
+}
 
 const Indicator = (props: IndicatorProps) => {
     const [isChecked, setIsChecked] = useState(props.checked);
