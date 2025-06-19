@@ -1,21 +1,16 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
-import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Pill from "@khanacademy/wonder-blocks-pill";
-import {
-    color,
-    sizing,
-    spacing,
-    border,
-} from "@khanacademy/wonder-blocks-tokens";
+import {sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
-import checkIcon from "@phosphor-icons/core/bold/check-bold.svg";
-import minusCircleIcon from "@phosphor-icons/core/bold/minus-circle-bold.svg";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 
 import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
+
+import styles from "./radio-option-settings.module.css";
+import {RadioStatusPill} from "./radio-status-pill";
 
 import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
 
@@ -48,50 +43,18 @@ export const RadioOptionSettings = (props: Props) => {
         <PerseusEditorAccordion
             key={index}
             header={
-                <div
-                    style={{
-                        // display, overflow, and whiteSpace are needed
-                        // for ellipsis text overflow to work.
-                        display: "block",
-                        overflow: "hidden",
-                        whiteSpace: "nowrap",
-                        textOverflow: "ellipsis",
-                        // Space between text and the close icon
-                        marginInlineEnd: sizing.size_080,
-                    }}
-                >
-                    <Pill
-                        size="large"
-                        style={{
-                            // Space between the pill and the text
-                            marginInlineEnd: sizing.size_080,
-                            color: correct ? color.white : color.red,
-                            backgroundColor: correct
-                                ? color.activeGreen
-                                : color.fadedRed8,
-                            // Round for single select, square for multiple select
-                            borderRadius: multipleSelect
-                                ? border.radius.radius_040
-                                : sizing.size_240,
-                            border: `1px solid ${correct ? color.activeGreen : color.red}`,
-                            width: sizing.size_560,
-                        }}
-                    >
-                        <span style={{display: "flex", alignItems: "center"}}>
-                            <PhosphorIcon
-                                size="small"
-                                icon={correct ? checkIcon : minusCircleIcon}
-                                style={{marginInlineEnd: sizing.size_060}}
-                                color={correct ? color.white : color.red}
-                            />
-                            {String.fromCharCode(65 + index)}
-                        </span>
-                    </Pill>
+                <div className={styles.accordionHeader}>
+                    <RadioStatusPill
+                        index={index}
+                        correct={correct}
+                        multipleSelect={multipleSelect}
+                    />
                     {isNoneOfTheAbove ? "None of the above" : content}
                 </div>
             }
             expanded={true}
         >
+            {/* Incorrect / Wrong status selection */}
             <fieldset className="perseus-widget-row">
                 <HeadingXSmall
                     style={{
@@ -121,6 +84,7 @@ export const RadioOptionSettings = (props: Props) => {
                 </Pill>
             </fieldset>
 
+            {/* Content and rationale text areas */}
             <HeadingXSmall tag="label">
                 Content
                 <TextArea
@@ -151,6 +115,8 @@ export const RadioOptionSettings = (props: Props) => {
                     }}
                 />
             </HeadingXSmall>
+
+            {/* Delete button */}
             {showDelete && (
                 <Button
                     size="small"

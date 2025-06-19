@@ -1,0 +1,10 @@
+.accordion-header {
+    /* display, overflow, and whiteSpace are needed
+    for ellipsis text overflow to work. */
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    /* Space between text and the close icon */
+    margin-inline-end: 8px;
+}
