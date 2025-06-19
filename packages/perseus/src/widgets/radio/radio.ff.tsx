@@ -5,8 +5,8 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import RadioNew from "./multiple-choice-widget.new";
 import RadioOld from "./radio-component";
-import RadioNew from "./radio.class.new";
 import {getUserInputFromSerializedState} from "./util";
 
 import type {RenderProps} from "./radio-component";
