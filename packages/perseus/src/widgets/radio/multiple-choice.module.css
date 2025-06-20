@@ -1,0 +1,114 @@
+/* CSS module for MultipleChoiceComponent */
+
+.instructions {
+    display: block;
+    color: var(--wb-semanticColor-core-foreground-instructive-strong);
+    font-size: 14px;
+    line-height: 1.25;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: bold;
+    margin-bottom: var(--wb-sizing-size_160);
+}
+
+.instructionsMobile {
+    font-size: 18px;
+}
+
+@media screen and (max-width: 681px) {
+    .instructionsMobile {
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .instructionsMobile {
+        font-size: 20px;
+    }
+}
+
+.radio {
+    padding: 0;
+}
+
+.responsiveRadioContainer {
+    display: inline-block;
+    min-width: max-content;
+    width: 100%;
+    border-bottom: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    border-top: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    scrollbar-width: thin;
+}
+
+@media screen and (max-width: 681px) {
+    .responsiveRadioContainer {
+        margin-left: calc(-1 * var(--wb-sizing-size_160));
+        margin-right: calc(-1 * var(--wb-sizing-size_160));
+    }
+}
+
+.fieldSetContent {
+    list-style: none;
+}
+
+.radioContainerFirstHighlighted {
+    border-top: var(--wb-border-width-thin) solid transparent;
+}
+
+.radioContainerLastHighlighted {
+    border-bottom: var(--wb-border-width-thin) solid transparent;
+}
+
+.item {
+    margin-left: var(--wb-sizing-size_200);
+}
+
+.responsiveItem {
+    margin-left: 0;
+    padding: 0;
+}
+
+.responsiveItem:not(:last-child) {
+    border-bottom: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+.selectedItem {
+    background: var(--wb-semanticColor-core-foreground-inverse-strong);
+}
+
+.aboveBackdrop {
+    position: relative;
+    /* HACK(emily): We want selected choices to show up above our
+       exercise backdrop, but below the exercise footer and
+       "feedback popover" that shows up. This z-index is carefully
+       coordinated between here and khan/frontend. :( */
+    z-index: 1062;
+}
+
+.aboveBackdropMobile {
+    box-shadow:
+        0 0 4px 0 var(--wb-semanticColor-core-shadow-chonky-neutral-subtle),
+        0 0 2px 0 var(--wb-semanticColor-core-shadow-transparent);
+}
+
+.aboveBackdropMobile:not(:last-child) {
+    border-bottom: var(--wb-border-width-thin) solid transparent;
+}
+
+.nextHighlighted:not(:last-child) {
+    border-bottom: var(--wb-border-width-thin) solid transparent;
+}
+
+.responsiveContainer {
+    overflow: auto;
+    margin-left: calc(-1 * var(--wb-sizing-size_160));
+    padding-left: var(--wb-sizing-size_160);
+}
+
+.responsiveFieldset {
+    padding-right: var(--wb-sizing-size_160);
+    min-width: auto;
+}
