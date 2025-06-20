@@ -20,6 +20,7 @@ import type {APIOptions} from "../../types";
 
 const {captureScratchpadTouchStart} = Util;
 
+// TODO(LEMS-3170): Simplify the ChoiceType by using ChoiceProps directly.
 /**
  * Represents a single choice in the MultipleChoiceComponent
  */
