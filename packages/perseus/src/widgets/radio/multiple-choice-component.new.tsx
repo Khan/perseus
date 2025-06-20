@@ -21,7 +21,7 @@ import type {APIOptions} from "../../types";
 const {captureScratchpadTouchStart} = Util;
 
 /**
- * Represents a single choice in the multiple choice component
+ * Represents a single choice in the MultipleChoiceComponent
  */
 export interface ChoiceType {
     checked: boolean;
@@ -58,11 +58,15 @@ interface MultipleChoiceComponentProps {
 }
 
 /**
- * The MultipleChoiceComponent is the core component for the radio widget.
- * It is responsible for rendering the radio choices and handling user interactions.
+ * The MultipleChoiceComponent renders the UI for multiple choice questions.
  *
- * This component is a consolidation of the BaseRadio and RadioComponent components
- * from the Radio Revitalization Project (LEMS-2933).
+ * This component handles the presentation of choices, user interactions,
+ * and accessibility features, while the MultipleChoiceWidget manages the
+ * underlying logic and state.
+ *
+ * Supports both radio button (single select) and checkbox (multiple select) modes.
+ *
+ * Created as part of the Radio Revitalization Project (LEMS-2933).
  */
 const MultipleChoiceComponent = ({
     apiOptions,
