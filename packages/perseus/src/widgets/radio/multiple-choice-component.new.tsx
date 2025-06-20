@@ -1,6 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {type PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
-import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import {useRef, useEffect} from "react";
@@ -9,18 +8,15 @@ import _ from "underscore";
 import {usePerseusI18n} from "../../components/i18n-context";
 import ScrollableView from "../../components/scrollable-view";
 import {ClassNames as ApiClassNames} from "../../perseus-api";
-import * as styleConstants from "../../styles/constants";
-import mediaQueries from "../../styles/media-queries";
 import Util from "../../util";
 import {scrollElementIntoView} from "../../util/scroll-utils";
 
 import ChoiceNoneAbove from "./choice-none-above.new";
 import Choice from "./choice.new";
-import testStyles from "./radio-test.module.css";
+import styles from "./multiple-choice.module.css";
 import {getInstructionsText} from "./utils/string-utils";
 
 import type {APIOptions} from "../../types";
-import type {StyleDeclaration} from "aphrodite";
 
 const {captureScratchpadTouchStart} = Util;
 
@@ -130,21 +126,19 @@ const MultipleChoiceComponent = ({
     const className = classNames(
         "perseus-widget-radio",
         !editMode && "perseus-rendered-radio",
-        css(
-            styles.radio,
-            styles.responsiveRadioContainer,
-            firstChoiceHighlighted &&
-                isMobile &&
-                styles.radioContainerFirstHighlighted,
-            lastChoiceHighlighted &&
-                isMobile &&
-                styles.radioContainerLastHighlighted,
-        ),
+        styles.radio,
+        styles.responsiveRadioContainer,
+        firstChoiceHighlighted &&
+            isMobile &&
+            styles.radioContainerFirstHighlighted,
+        lastChoiceHighlighted &&
+            isMobile &&
+            styles.radioContainerLastHighlighted,
     );
 
     const instructionsClassName = classNames(
-        "instructions",
-        css(styles.instructions, isMobile && styles.instructionsMobile),
+        styles.instructions,
+        isMobile && styles.instructionsMobile,
     );
     const instructions = getInstructionsText({
         multipleSelect,
@@ -153,11 +147,9 @@ const MultipleChoiceComponent = ({
         strings,
     });
 
-    const responsiveClassName = css(styles.responsiveFieldset);
-
     const fieldset = (
         <fieldset
-            className={`perseus-widget-radio-fieldset ${responsiveClassName} ${testStyles.cssModulesTest}`}
+            className={`perseus-widget-radio-fieldset ${styles.responsiveFieldset}`}
             data-feature-flag="feature flag is ON"
         >
             <legend className="perseus-sr-only">{instructions}</legend>
@@ -165,7 +157,7 @@ const MultipleChoiceComponent = ({
                 {instructions}
             </div>
             <ScrollableView overflowX="auto">
-                <ul className={className} style={styles.fieldSetContent}>
+                <ul className={className} style={{listStyle: "none"}}>
                     {choices.map((choice, i) => {
                         let Element = Choice;
                         const ref = React.createRef<any>();
@@ -209,30 +201,23 @@ const MultipleChoiceComponent = ({
                         const nextChoiceHighlighted =
                             nextChoice?.highlighted || false;
 
-                        const aphroditeClassName = (checked: boolean) => {
-                            // Whether or not to show correctness borders
-                            // for this choice and the next choice.
-                            return css(
-                                styles.item,
-                                styles.responsiveItem,
-                                checked && styles.selectedItem,
-                                checked &&
-                                    choice.highlighted &&
-                                    styles.aboveBackdrop,
-                                checked &&
-                                    choice.highlighted &&
-                                    apiOptions.isMobile &&
-                                    styles.aboveBackdropMobile,
-                                nextChoiceHighlighted &&
-                                    apiOptions.isMobile &&
-                                    styles.nextHighlighted,
-                            );
-                        };
-
-                        // HACK(abdulrahman): Preloads the selection-state
-                        // css because of a bug that causes iOS to lag
-                        // when selecting the button for the first time.
-                        aphroditeClassName(true);
+                        // Whether or not to show correctness borders
+                        // for this choice and the next choice.
+                        const itemClassName = classNames(
+                            styles.item,
+                            styles.responsiveItem,
+                            choice.checked && styles.selectedItem,
+                            choice.checked &&
+                                choice.highlighted &&
+                                styles.aboveBackdrop,
+                            choice.checked &&
+                                choice.highlighted &&
+                                apiOptions.isMobile &&
+                                styles.aboveBackdropMobile,
+                            nextChoiceHighlighted &&
+                                apiOptions.isMobile &&
+                                styles.nextHighlighted,
+                        );
 
                         let correctnessClass;
                         // reviewMode is only true if there's a rubric
@@ -244,7 +229,7 @@ const MultipleChoiceComponent = ({
                                 : ApiClassNames.INCORRECT;
                         }
                         const className = classNames(
-                            aphroditeClassName(choice.checked),
+                            itemClassName,
                             // TODO(aria): Make test case for these API
                             // classNames
                             ApiClassNames.RADIO.OPTION,
@@ -310,116 +295,7 @@ const MultipleChoiceComponent = ({
 
     // Allow for horizontal scrolling if content is too wide, which may be
     // an issue especially on phones.
-    return <div className={css(styles.responsiveContainer)}>{fieldset}</div>;
+    return <div className={styles.responsiveContainer}>{fieldset}</div>;
 };
 
 export default MultipleChoiceComponent;
-
-const styles: StyleDeclaration = StyleSheet.create({
-    instructions: {
-        display: "block",
-        color: styleConstants.gray17,
-        fontSize: 14,
-        lineHeight: 1.25,
-        fontFamily: "inherit",
-        fontStyle: "normal",
-        fontWeight: "bold",
-        marginBottom: 16,
-    },
-
-    instructionsMobile: {
-        fontSize: 18,
-        [mediaQueries.smOrSmaller]: {
-            fontSize: 16,
-        },
-        // TODO(emily): We want this to match choice text, which turns
-        // to 20px at min-width 1200px, but this media query is
-        // min-width 1280px because our media queries don't exactly
-        // match pure. Make those match up.
-        [mediaQueries.xl]: {
-            fontSize: 20,
-        },
-    },
-
-    radio: {
-        padding: 0,
-    },
-
-    responsiveRadioContainer: {
-        display: "inline-block",
-        minWidth: "max-content",
-        width: "100%",
-        borderBottom: `1px solid ${styleConstants.radioBorderColor}`,
-        borderTop: `1px solid ${styleConstants.radioBorderColor}`,
-        scrollbarWidth: "thin",
-        [mediaQueries.smOrSmaller]: {
-            marginInlineStart: styleConstants.negativePhoneMargin,
-            marginInlineEnd: styleConstants.negativePhoneMargin,
-        },
-    },
-
-    fieldSetContent: {
-        listStyle: "none",
-    },
-
-    radioContainerFirstHighlighted: {
-        borderTop: `1px solid rgba(0, 0, 0, 0)`,
-    },
-
-    radioContainerLastHighlighted: {
-        borderBottom: `1px solid rgba(0, 0, 0, 0)`,
-    },
-
-    item: {
-        marginInlineStart: 20,
-    },
-
-    responsiveItem: {
-        marginInlineStart: 0,
-        padding: 0,
-
-        ":not(:last-child)": {
-            borderBottom: `1px solid ${styleConstants.radioBorderColor}`,
-        },
-    },
-    selectedItem: {
-        background: "white",
-    },
-
-    aboveBackdrop: {
-        position: "relative",
-        // HACK(emily): We want selected choices to show up above our
-        // exercise backdrop, but below the exercise footer and
-        // "feedback popover" that shows up. This z-index is carefully
-        // coordinated between here and khan/frontend. :(
-        // See: https://github.com/khan/frontend/blob/f46d475b7684287bfa57ed9a40e846754f1d0a4d/apps/khanacademy/src/exercises-components-package/style-constants.ts#L27-L28
-        zIndex: 1062,
-    },
-
-    aboveBackdropMobile: {
-        boxShadow:
-            "0 0 4px 0 rgba(0, 0, 0, 0.2)," + "0 0 2px 0 rgba(0, 0, 0, 0.1)",
-
-        ":not(:last-child)": {
-            borderBottom: `1px solid rgba(0, 0, 0, 0)`,
-        },
-    },
-
-    nextHighlighted: {
-        ":not(:last-child)": {
-            borderBottom: `1px solid rgba(0, 0, 0, 0)`,
-        },
-    },
-
-    responsiveContainer: {
-        overflow: "auto",
-        marginInlineStart: styleConstants.negativePhoneMargin,
-        paddingInlineStart: styleConstants.phoneMargin,
-        // paddingRight is handled by responsiveFieldset
-    },
-
-    responsiveFieldset: {
-        paddingInlineEnd: styleConstants.phoneMargin,
-        minWidth: "auto",
-    },
-});
