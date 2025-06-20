@@ -21,8 +21,9 @@ describe("getChoiceStates", () => {
 
     const defaultState: ChoiceState = {
         selected: false,
-        readOnly: false,
+        // TODO(third): Remove this field when we remove the old Radio files (LEMS-2994)
         highlighted: false,
+        readOnly: false,
         rationaleShown: false,
         correctnessShown: false,
         previouslyAnswered: false,

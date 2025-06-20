@@ -32,7 +32,6 @@ export interface ChoiceType {
     showCorrectness: boolean;
     correct: boolean;
     isNoneOfTheAbove: boolean;
-    highlighted: boolean;
     previouslyAnswered: boolean;
     revealNoneOfTheAbove: boolean;
     disabled: boolean;
@@ -124,20 +123,10 @@ const MultipleChoiceComponent = ({
         prevReviewModeRubric.current = reviewModeRubric;
     }, [apiOptions, isLastUsedWidget, reviewModeRubric, choices]);
 
-    const firstChoiceHighlighted = choices[0]?.highlighted;
-    const lastChoiceHighlighted = choices[choices.length - 1]?.highlighted;
-
-    const className = classNames(
+    const choiceListClassName = classNames(
         "perseus-widget-radio",
-        !editMode && "perseus-rendered-radio",
-        styles.radio,
-        styles.responsiveRadioContainer,
-        firstChoiceHighlighted &&
-            isMobile &&
-            styles.radioContainerFirstHighlighted,
-        lastChoiceHighlighted &&
-            isMobile &&
-            styles.radioContainerLastHighlighted,
+        !editMode && "perseus-rendered-radio", // Styles to be applied in the Editor
+        styles.choiceList, // Main class for the choice list
     );
 
     const instructionsClassName = classNames(
@@ -161,7 +150,7 @@ const MultipleChoiceComponent = ({
                 {instructions}
             </div>
             <ScrollableView overflowX="auto">
-                <ul className={className} style={{listStyle: "none"}}>
+                <ul className={choiceListClassName}>
                     {choices.map((choice, i) => {
                         let Element = Choice;
                         const ref = React.createRef<any>();
@@ -201,26 +190,12 @@ const MultipleChoiceComponent = ({
                             });
                         }
 
-                        const nextChoice = choices[i + 1];
-                        const nextChoiceHighlighted =
-                            nextChoice?.highlighted || false;
-
                         // Whether or not to show correctness borders
                         // for this choice and the next choice.
                         const itemClassName = classNames(
                             styles.item,
                             styles.responsiveItem,
                             choice.checked && styles.selectedItem,
-                            choice.checked &&
-                                choice.highlighted &&
-                                styles.aboveBackdrop,
-                            choice.checked &&
-                                choice.highlighted &&
-                                apiOptions.isMobile &&
-                                styles.aboveBackdropMobile,
-                            nextChoiceHighlighted &&
-                                apiOptions.isMobile &&
-                                styles.nextHighlighted,
                         );
 
                         let correctnessClass;
