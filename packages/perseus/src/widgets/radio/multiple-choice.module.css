@@ -27,11 +27,10 @@
     }
 }
 
-.radio {
+/* Consolidated class for the choice list */
+.choiceList {
     padding: 0;
-}
-
-.responsiveRadioContainer {
+    list-style: none;
     display: inline-block;
     min-width: max-content;
     width: 100%;
@@ -43,22 +42,10 @@
 }
 
 @media screen and (max-width: 681px) {
-    .responsiveRadioContainer {
+    .choiceList {
         margin-left: calc(-1 * var(--wb-sizing-size_160));
         margin-right: calc(-1 * var(--wb-sizing-size_160));
     }
-}
-
-.fieldSetContent {
-    list-style: none;
-}
-
-.radioContainerFirstHighlighted {
-    border-top: var(--wb-border-width-thin) solid transparent;
-}
-
-.radioContainerLastHighlighted {
-    border-bottom: var(--wb-border-width-thin) solid transparent;
 }
 
 .item {
@@ -77,29 +64,6 @@
 
 .selectedItem {
     background: var(--wb-semanticColor-core-foreground-inverse-strong);
-}
-
-.aboveBackdrop {
-    position: relative;
-    /* HACK(emily): We want selected choices to show up above our
-       exercise backdrop, but below the exercise footer and
-       "feedback popover" that shows up. This z-index is carefully
-       coordinated between here and khan/frontend. :( */
-    z-index: 1062;
-}
-
-.aboveBackdropMobile {
-    box-shadow:
-        0 0 4px 0 var(--wb-semanticColor-core-shadow-chonky-neutral-subtle),
-        0 0 2px 0 var(--wb-semanticColor-core-shadow-transparent);
-}
-
-.aboveBackdropMobile:not(:last-child) {
-    border-bottom: var(--wb-border-width-thin) solid transparent;
-}
-
-.nextHighlighted:not(:last-child) {
-    border-bottom: var(--wb-border-width-thin) solid transparent;
 }
 
 .responsiveContainer {
