@@ -64,10 +64,16 @@ type DefaultProps = Required<
 >;
 
 /**
- * This component implements the Widget interface for the multiple choice (radio) widget.
- * It handles the Perseus-specific logic and renders the MultipleChoiceComponent for UI.
+ * MultipleChoiceWidget implements the Widget interface for multiple choice questions.
  *
- * This was created as part of the Radio Revitalization Project (LEMS-2933).
+ * It handles Perseus-specific logic and state management while delegating
+ * UI rendering to the MultipleChoiceComponent.
+ *
+ * This class is exported as "Radio" for backwards compatibility with existing content,
+ * though it supports both radio-button (single select) and checkbox (multiple select) modes.
+ * Eventually, when Content Backfills are set up, we will officially rename the Radio Widget to MultipleChoiceWidget.
+ *
+ * Created as part of the Radio Revitalization Project (LEMS-2933).
  */
 class MultipleChoiceWidget extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
@@ -134,17 +140,17 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
     /**
      * Gets the current user input from this widget.
      *
-     * This is part of the Widget interface implementation and is used by Perseus
+     * Implements the required Widget interface method that Perseus uses
      * to retrieve the user's current selections.
      *
-     * @returns The user's current input in the form {choicesSelected: [boolean]}
+     * @returns The user's selections as {choicesSelected: [boolean]}
      */
     getUserInput(): PerseusRadioUserInput {
         return MultipleChoiceWidget.getUserInputFromProps(this.props);
     }
 
     /**
-     * Gets the JSON representation of the prompt for AI assistance.
+     * Gets the JSON representation of the User Input for AI assistance.
      *
      * This method is used to provide structured data about the widget's state
      * to AI systems that can help users with answering questions.
@@ -160,10 +166,11 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
     }
 
     /**
-     * Creates a renderer for content and rationales that may contain nested widgets.
-     * Currently only supports passage-ref widgets.
+     * Renders content that may contain nested widgets (currently only passage-refs).
+     * Parses the content, extracts any widgets, and returns a Renderer component
+     * configured with the appropriate context.
      *
-     * @param content - The content to render
+     * @param content - The content to render (defaults to empty string)
      * @returns A React element with the rendered content
      */
     renderContent = (content = ""): React.ReactNode => {
@@ -200,10 +207,13 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
     };
 
     /**
-     * Handles a change in a choice's selection state.
+     * Handles a user's selection of a choice.
+     *
+     * Updates choice states based on the selection, handles single/multiple
+     * selection logic, and notifies Perseus of the interaction.
      *
      * @param choiceIndex - The index of the choice that changed
-     * @param newCheckedState - The new checked state for the choice
+     * @param newCheckedState - Whether the choice is now selected
      */
     handleChoiceChange = (
         choiceIndex: number,
@@ -259,10 +269,16 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
     };
 
     /**
-     * Builds the choice props for the MultipleChoiceComponent from the current state.
+     * Transforms choice states into component-ready props for the MultipleChoiceComponent.
+     *
+     * This method:
+     * 1. Processes each choice's content
+     * 2. Maps state properties (selected, rationaleShown, etc.) to component props
+     * 3. Renders content and rationales with nested widget support
+     * 4. Determines correctness display based on choice data or review rubric
      *
      * @param choiceStates - The current state of each choice
-     * @returns An array of choice props for the MultipleChoiceComponent
+     * @returns An array of formatted choice props ready for the MultipleChoiceComponent
      */
     buildChoiceProps = (
         choiceStates: ReadonlyArray<ChoiceState>,
@@ -316,11 +332,17 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
     };
 
     /**
-     * Processes the widget props to prepare data for the component.
+     * Prepares the choice props for rendering in the MultipleChoiceComponent.
      *
-     * @returns An object containing the processed choice states and props
+     * This method:
+     * 1. Uses getChoiceStates() to determine the appropriate state for each choice
+     *    based on widget mode (review/static) and user selections
+     * 2. Transforms these states into component props via buildChoiceProps(),
+     *    including rendered content, correctness indicators, and rationales
+     *
+     * @returns An array of choice props ready for the component
      */
-    getProcessedProps = () => {
+    prepareChoicesProps = () => {
         const {choices, showSolutions, choiceStates, values} = this.props;
 
         // Get the updated choice states based on the current props
@@ -333,12 +355,9 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
         });
 
         // Build the choice props from the updated choice states
-        const choiceProps = this.buildChoiceProps(processedChoiceStates);
+        const choicesProps = this.buildChoiceProps(processedChoiceStates);
 
-        return {
-            choiceStates: processedChoiceStates,
-            choiceProps,
-        };
+        return choicesProps;
     };
 
     /**
@@ -347,7 +366,7 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
      * @returns The rendered React component
      */
     render(): React.ReactNode {
-        const {choiceProps} = this.getProcessedProps();
+        const choicesProps = this.prepareChoicesProps();
 
         // Extract props that need to be passed to the component
         const {
@@ -373,7 +392,7 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
                 countChoices={countChoices}
                 numCorrect={numCorrect}
                 isLastUsedWidget={isLastUsedWidget}
-                choices={choiceProps}
+                choices={choicesProps}
                 onChoiceChange={this.handleChoiceChange}
             />
         );
