@@ -111,9 +111,9 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
             return {
                 choicesSelected,
             };
-            // Support legacy choiceState implementation
         }
 
+        // Support legacy choiceState implementation
         const {values} = props;
         if (values) {
             const choicesSelected = [...values];
@@ -127,6 +127,7 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
                 choicesSelected,
             };
         }
+
         // Nothing checked
         return {
             choicesSelected: props.choices.map(() => false),
