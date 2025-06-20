@@ -9,9 +9,6 @@
     position: absolute;
     width: 1px;
 }
-.perseus-clearfix {
-    *zoom: 1;
-}
 .perseus-clearfix:before,
 .perseus-clearfix:after {
     content: "";
