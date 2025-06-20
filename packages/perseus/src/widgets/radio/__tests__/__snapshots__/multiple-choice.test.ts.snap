@@ -61,7 +61,6 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
               >
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio"
-                  style="list-style: none;"
                 >
                   <li
                     class="perseus-radio-option perseus-radio-selected"
@@ -629,7 +628,6 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
               >
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio"
-                  style="list-style: none;"
                 >
                   <li
                     class="perseus-radio-option"
@@ -1213,7 +1211,6 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
               >
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio"
-                  style="list-style: none;"
                 >
                   <li
                     class="perseus-radio-option perseus-radio-selected"
@@ -1797,7 +1794,6 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
               >
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio"
-                  style="list-style: none;"
                 >
                   <li
                     class="perseus-radio-option"
@@ -2381,7 +2377,6 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
               >
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio"
-                  style="list-style: none;"
                 >
                   <li
                     class="perseus-radio-option"
@@ -2965,7 +2960,6 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
               >
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio"
-                  style="list-style: none;"
                 >
                   <li
                     class="perseus-radio-option perseus-radio-selected"
@@ -3549,7 +3543,6 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
               >
                 <ul
                   class="perseus-widget-radio perseus-rendered-radio"
-                  style="list-style: none;"
                 >
                   <li
                     class="perseus-radio-option perseus-incorrect"
