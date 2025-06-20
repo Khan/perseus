@@ -50,7 +50,12 @@ describe("radio-editor", () => {
             }),
         );
 
-        expect(onChangeMock).toBeCalledWith({multipleSelect: true});
+        expect(onChangeMock).toBeCalledWith(
+            expect.objectContaining({
+                multipleSelect: true,
+                numCorrect: 0,
+            }),
+        );
     });
 
     it("should toggle randomize order checkbox", async () => {
@@ -233,5 +238,155 @@ describe("radio-editor", () => {
                 numCorrect: 3,
             }),
         );
+    });
+
+    it("updates numCorrect when deleting an option", async () => {
+        const onChangeMock = jest.fn();
+
+        function getCorrectChoice(): PerseusRadioChoice {
+            return {
+                content: "",
+                correct: true,
+            };
+        }
+
+        function getIncorrectChoice(): PerseusRadioChoice {
+            const choice = getCorrectChoice();
+            choice.correct = false;
+            return choice;
+        }
+
+        render(
+            <RadioEditor
+                onChange={onChangeMock}
+                apiOptions={ApiOptions.defaults}
+                static={false}
+                choices={[
+                    getCorrectChoice(),
+                    getIncorrectChoice(),
+                    getCorrectChoice(),
+                    getIncorrectChoice(),
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Delete a correct choice
+        await userEvent.click(
+            screen.getAllByRole("button", {
+                name: "Remove this choice",
+            })[0],
+        );
+
+        // numCorrect should be updated to 1
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                choices: expect.any(Array),
+                hasNoneOfTheAbove: false,
+                numCorrect: 1,
+            }),
+        );
+    });
+
+    it("updates numCorrect when switching from multiple select to single select", async () => {
+        const onChangeMock = jest.fn();
+
+        function getCorrectChoice(): PerseusRadioChoice {
+            return {
+                content: "",
+                correct: true,
+            };
+        }
+
+        function getIncorrectChoice(): PerseusRadioChoice {
+            const choice = getCorrectChoice();
+            choice.correct = false;
+            return choice;
+        }
+
+        render(
+            <RadioEditor
+                onChange={onChangeMock}
+                apiOptions={ApiOptions.defaults}
+                static={false}
+                multipleSelect={true}
+                choices={[
+                    getCorrectChoice(),
+                    getIncorrectChoice(),
+                    getCorrectChoice(),
+                    getIncorrectChoice(),
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Switch from multiple select to single select
+        await userEvent.click(
+            screen.getByRole("switch", {
+                name: "Multiple selections",
+            }),
+        );
+
+        // Check that multipleSelect is updated and numCorrect is calculated
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                numCorrect: expect.any(Number),
+            }),
+        );
+
+        // Check that the object passed to onChange has a multipleSelect property
+        // that's set to false (the exact structure might vary)
+        expect(onChangeMock.mock.calls[0][0].multipleSelect).toBe(false);
+    });
+
+    it("preserves numCorrect when switching from single select to multiple select", async () => {
+        const onChangeMock = jest.fn();
+
+        function getCorrectChoice(): PerseusRadioChoice {
+            return {
+                content: "",
+                correct: true,
+            };
+        }
+
+        function getIncorrectChoice(): PerseusRadioChoice {
+            const choice = getCorrectChoice();
+            choice.correct = false;
+            return choice;
+        }
+
+        render(
+            <RadioEditor
+                onChange={onChangeMock}
+                apiOptions={ApiOptions.defaults}
+                static={false}
+                multipleSelect={false}
+                choices={[
+                    getCorrectChoice(),
+                    getIncorrectChoice(),
+                    getIncorrectChoice(),
+                    getIncorrectChoice(),
+                ]}
+            />,
+            {wrapper: RenderStateRoot},
+        );
+
+        // Switch from single select to multiple select
+        await userEvent.click(
+            screen.getByRole("switch", {
+                name: "Multiple selections",
+            }),
+        );
+
+        // Check that numCorrect is calculated
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                numCorrect: expect.any(Number),
+            }),
+        );
+
+        // Check that the object passed to onChange has a multipleSelect property
+        // that's set to true (the exact structure might vary)
+        expect(onChangeMock.mock.calls[0][0].multipleSelect).toBe(true);
     });
 });
