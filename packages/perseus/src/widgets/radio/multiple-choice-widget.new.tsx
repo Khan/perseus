@@ -248,6 +248,7 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
             ? choiceStates.map((state) => ({...state}))
             : choices.map(() => ({
                   selected: false,
+                  // TODO(third): Remove this field when we remove the old Radio files (LEMS-2994)
                   highlighted: false,
                   rationaleShown: false,
                   correctnessShown: false,
@@ -300,7 +301,6 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
                 rationaleShown,
                 correctnessShown,
                 readOnly,
-                highlighted,
                 previouslyAnswered,
             } = choiceStates[i];
 
@@ -321,7 +321,6 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
                 showCorrectness: correctnessShown,
                 isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
                 revealNoneOfTheAbove: !!(questionCompleted && selected),
-                highlighted,
                 previouslyAnswered,
             };
         });
