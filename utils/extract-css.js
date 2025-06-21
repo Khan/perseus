@@ -29,10 +29,10 @@ const cssFilePath = path.join(fileDirectory, cssFileName);
 const indentation = "    ";
 const wbColorValues = {
     // from node_modules/@khanacademy/wonder-blocks-tokens/dist/css/index.css
-    "#21242c": "--wb-semanticColor-text-primary",
-    "#5f6167": "--wb-semanticColor-text-secondary",
-    "#b8b9bb": "--wb-semanticColor-text-disabled",
-    "#ffffff": "--wb-semanticColor-text-inverse",
+    "#21242c": "--wb-semanticColor-core-foreground-neutral-strong",
+    "#5f6167": "--wb-semanticColor-core-foreground-neutral-default",
+    "#b8b9bb": "--wb-semanticColor-core-foreground-disabled-default",
+    "#ffffff": "--wb-semanticColor-core-foreground-inverse-strong",
 };
 const mediaQueries = {
     // from packages/perseus/src/styles/media-queries.ts

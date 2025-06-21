@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         gap: spacing.xSmall_8,
     },
     characterCountText: {
-        color: semanticColor.text.secondary,
+        color: semanticColor.core.foreground.neutral.default,
         fontSize: font.size.small,
     },
     overCharacterLimit: {

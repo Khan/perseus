@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
     criterionContainer: {
         paddingTop: spacing.xSmall_8,
         paddingBottom: spacing.xSmall_8,
-        borderBottom: `1px solid ${semanticColor.border.primary}`,
+        borderBottom: `1px solid ${semanticColor.core.border.neutral.subtle}`,
         ":last-child": {
             borderBottom: "none",
         },

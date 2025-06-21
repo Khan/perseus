@@ -68,7 +68,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
               class="default_xu2jcg"
             >
               <span
-                class="text_f1191h-o_O-characterCountText_1shcjz1"
+                class="text_f1191h-o_O-characterCountText_1iy49wk"
                 role="status"
               >
                 0 / 500 Characters
@@ -150,7 +150,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
               class="default_xu2jcg"
             >
               <span
-                class="text_f1191h-o_O-characterCountText_1shcjz1"
+                class="text_f1191h-o_O-characterCountText_1iy49wk"
                 role="status"
               >
                 0 / 500 Characters
