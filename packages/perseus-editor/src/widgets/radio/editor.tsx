@@ -70,23 +70,26 @@ class ChoiceEditor extends React.Component<ChoiceEditorProps> {
                 onChange={this.props.onClueChange}
             />
         );
-
-        const deleteButton = (
-            <Button
-                size="small"
-                kind="tertiary"
-                startIcon={trashIcon}
-                onClick={this.props.onDelete}
+        const deleteLink = (
+            <a
+                className="simple-button orange delete-choice"
+                href="#"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    this.props.onDelete();
+                }}
+                title="Remove this choice"
             >
                 Remove this choice
-            </Button>
+            </a>
         );
 
         return (
             <div className="choice-clue-editors">
                 <div className={`choice-editor ${checkedClass}`}>{editor}</div>
                 <div className="clue-editor">{clueEditor}</div>
-                {this.props.showDelete && deleteButton}
+                {this.props.showDelete && deleteLink}
             </div>
         );
     }
