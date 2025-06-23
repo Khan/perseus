@@ -1806,6 +1806,7 @@ The other entries of $\\text{H}$ can be found similarly.
                 "options": {
                   "choices": [
                     {
+                      "clue": undefined,
                       "content": "$1 \\cdot 4 + 3\\cdot 0 = 4$",
                       "correct": true,
                       "id": "bwh8670",
@@ -1813,6 +1814,7 @@ The other entries of $\\text{H}$ can be found similarly.
                       "rationale": undefined,
                     },
                     {
+                      "clue": undefined,
                       "content": "$4 \\cdot 4 + 3\\cdot 3= 25$",
                       "correct": false,
                       "id": "nfxqdw1",
@@ -1820,6 +1822,7 @@ The other entries of $\\text{H}$ can be found similarly.
                       "rationale": undefined,
                     },
                     {
+                      "clue": undefined,
                       "content": "$1 \\cdot 3 + 4\\cdot -1 = -1$",
                       "correct": undefined,
                       "id": "w2lj2d2",
@@ -1831,6 +1834,7 @@ The other entries of $\\text{H}$ can be found similarly.
                   "deselectEnabled": false,
                   "hasNoneOfTheAbove": false,
                   "multipleSelect": false,
+                  "noneOfTheAbove": undefined,
                   "numCorrect": 1,
                   "randomize": true,
                 },
@@ -3208,6 +3212,7 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.json r
               "rationale": "You might have made a sign error.",
             },
             {
+              "clue": undefined,
               "content": "There are no solutions.",
               "correct": true,
               "id": "1e5h603",
@@ -5195,6 +5200,7 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "$B_E\\ \\cos{45\\degree} \\uparrow$",
               "correct": false,
               "id": "lh9c430",
@@ -5202,6 +5208,7 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "$B_E\\ \\cos{45\\degree} \\downarrow$",
               "correct": false,
               "id": "zahmre1",
@@ -5209,6 +5216,7 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "$B_E\\ \\sin{45\\degree} \\downarrow$",
               "correct": true,
               "id": "6qxwdr2",
@@ -5216,6 +5224,7 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "$B_E\\ \\sin{45\\degree}\\uparrow$",
               "correct": false,
               "id": "sf795m3",
@@ -5223,6 +5232,7 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "$B_E\\ \\tan {45\\degree} \\uparrow$",
               "correct": false,
               "id": "domo1j4",
@@ -5230,6 +5240,7 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "$B_E\\ \\tan {45\\degree} \\downarrow$",
               "correct": false,
               "id": "6bndum5",
@@ -5241,7 +5252,9 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
           "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
+          "noneOfTheAbove": undefined,
           "numCorrect": 1,
+          "onePerLine": undefined,
           "randomize": false,
         },
         "static": false,
@@ -5845,6 +5858,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "Less than halfway through the race",
               "correct": false,
               "id": "mhhlrw0",
@@ -5852,6 +5866,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "Halfway through the race",
               "correct": true,
               "id": "2tbyke1",
@@ -5859,6 +5874,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "More than halfway through the race",
               "correct": undefined,
               "id": "mrjpi02",
@@ -5870,7 +5886,9 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
           "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
+          "noneOfTheAbove": undefined,
           "numCorrect": 1,
+          "onePerLine": undefined,
           "randomize": false,
         },
         "static": false,
@@ -7295,6 +7313,7 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": " $\\,-1\\,\\,\\,<\\,-10$",
               "correct": false,
               "id": "tptu870",
@@ -7302,6 +7321,7 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": " $-10\\,\\,\\,<\\,\\,\\,1$",
               "correct": true,
               "id": "uwpp1g1",
@@ -7309,6 +7329,7 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "  $\\,\\,\\,\\,\\,10\\,\\,\\,< \\,-1$",
               "correct": false,
               "id": "btzzmc2",
@@ -9405,6 +9426,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                 "options": {
                   "choices": [
                     {
+                      "clue": undefined,
                       "content": "$\\dfrac19+\\dfrac19$",
                       "correct": true,
                       "id": "uvzbo20",
@@ -9412,6 +9434,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                       "rationale": undefined,
                     },
                     {
+                      "clue": undefined,
                       "content": "$\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12$",
                       "correct": false,
                       "id": "g7v7ew1",
@@ -9419,6 +9442,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                       "rationale": undefined,
                     },
                     {
+                      "clue": undefined,
                       "content": "$\\dfrac19+\\dfrac29$",
                       "correct": false,
                       "id": "uvzcib2",
@@ -9430,6 +9454,7 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                   "deselectEnabled": false,
                   "hasNoneOfTheAbove": false,
                   "multipleSelect": false,
+                  "noneOfTheAbove": undefined,
                   "numCorrect": 1,
                   "randomize": false,
                 },
@@ -9714,6 +9739,7 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "a.	the rate of extinction that balances the rate of speciation",
               "correct": false,
               "id": "x7rm2e0",
@@ -9721,6 +9747,7 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "b.	the average rate at which extinctions have occurred naturally in the geologic past, without human involvement",
               "correct": true,
               "id": "et4q8p1",
@@ -9728,6 +9755,7 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "c.	the rate of extinction that is currently occurring in protected areas like national parks and marine sanctuaries",
               "correct": false,
               "id": "jl97tw2",
@@ -9735,6 +9763,7 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "d.	the rate of extinction that can be determined by using Geiger counters and detecting radiation",
               "correct": false,
               "id": "5cvbe13",
@@ -10013,7 +10042,9 @@ A free body diagram of the **box** is shown below.
           "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": true,
+          "noneOfTheAbove": undefined,
           "numCorrect": 4,
+          "onePerLine": undefined,
           "randomize": true,
         },
         "static": false,
@@ -10247,6 +10278,7 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "Members of the high nobility and the wealthiest of the knightly class",
               "correct": false,
               "id": "xuw27w0",
@@ -10254,6 +10286,7 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "Soldiers, members of the civilian militia, and mercenaries",
               "correct": false,
               "id": "z80nd41",
@@ -10261,6 +10294,7 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "Horses and dogs",
               "correct": false,
               "id": "cz5kin2",
@@ -10293,6 +10327,7 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "",
               "correct": undefined,
               "id": "empty0",
@@ -10300,6 +10335,7 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "",
               "correct": undefined,
               "id": "empty1",
@@ -10549,6 +10585,7 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "15 N",
               "correct": true,
               "id": "yhvlrj0",
@@ -10556,6 +10593,7 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "30 N",
               "correct": false,
               "id": "yhx6081",
@@ -10563,6 +10601,7 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "60 N",
               "correct": undefined,
               "id": "yhtczx2",
@@ -10570,6 +10609,7 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "180 N",
               "correct": undefined,
               "id": "1wddci3",
@@ -10660,6 +10700,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               "options": {
                 "choices": [
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty0",
@@ -10667,6 +10708,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty1",
@@ -10674,6 +10716,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty2",
@@ -10681,6 +10724,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty3",
@@ -10722,6 +10766,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               "options": {
                 "choices": [
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty0",
@@ -10729,6 +10774,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty1",
@@ -10736,6 +10782,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty2",
@@ -10743,6 +10790,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty3",
@@ -10784,6 +10832,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               "options": {
                 "choices": [
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty0",
@@ -10791,6 +10840,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty1",
@@ -10798,6 +10848,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty2",
@@ -10805,6 +10856,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty3",
@@ -10846,6 +10898,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               "options": {
                 "choices": [
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty0",
@@ -10853,6 +10906,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty1",
@@ -10860,6 +10914,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty2",
@@ -10867,6 +10922,7 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
+                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty3",
@@ -10936,6 +10992,7 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "Yes",
               "correct": false,
               "id": "375zxm0",
@@ -10943,6 +11000,7 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "No",
               "correct": true,
               "id": "3hmis1",
@@ -10954,7 +11012,9 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
           "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
+          "noneOfTheAbove": undefined,
           "numCorrect": 1,
+          "onePerLine": undefined,
           "randomize": false,
         },
         "static": false,
@@ -11281,6 +11341,7 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
         "options": {
           "choices": [
             {
+              "clue": undefined,
               "content": "",
               "correct": undefined,
               "id": "empty0",
@@ -11288,6 +11349,7 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "",
               "correct": undefined,
               "id": "empty1",
@@ -11295,6 +11357,7 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "",
               "correct": undefined,
               "id": "empty2",
@@ -11302,6 +11365,7 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
               "rationale": undefined,
             },
             {
+              "clue": undefined,
               "content": "",
               "correct": undefined,
               "id": "empty3",
