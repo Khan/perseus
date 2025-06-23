@@ -1,5 +1,15 @@
 # @khanacademy/perseus-core
 
+## 15.0.0
+
+### Major Changes
+
+-   [#2563](https://github.com/Khan/perseus/pull/2563) [`0e535feb7`](https://github.com/Khan/perseus/commit/0e535feb76f753db3f7cda1c753d79ca067ca372) Thanks [@benchristel](https://github.com/benchristel)! - Remove `registerCoreWidgets` function from `@khanacademy/perseus-core`. This function is not needed anymore and clients can safely delete their calls to it.
+
+### Patch Changes
+
+-   [#2608](https://github.com/Khan/perseus/pull/2608) [`8be4625c9`](https://github.com/Khan/perseus/commit/8be4625c950e73482aec055e2aed8b102283c950) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: don't strip static widgets
+
 ## 14.1.1
 
 ### Patch Changes
