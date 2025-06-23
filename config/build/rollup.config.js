@@ -10,6 +10,7 @@ import replace from "@rollup/plugin-replace";
 import swc from "@rollup/plugin-swc";
 import ancesdir from "ancesdir";
 import postcssImport from "postcss-import";
+import postcssUrl from "postcss-url";
 import autoExternal from "rollup-plugin-auto-external";
 import filesize from "rollup-plugin-filesize";
 import postcss from "rollup-plugin-postcss";
@@ -116,9 +117,10 @@ const createConfig = (
     }
 
     const extensions = [".js", ".jsx", ".ts", ".tsx"];
+    const outputConfig = createOutputConfig(name, format, file);
 
     const config = {
-        output: createOutputConfig(name, format, file),
+        output: outputConfig,
         input: makePackageBasedPath(name, inputFile),
         external: [/@phosphor-icons\/core\/.*/],
         plugins: [
@@ -152,7 +154,38 @@ const createConfig = (
                 extract: "index.css",
                 minimize: true,
                 sourceMap: true,
-                plugins: [postcssImport()],
+                plugins: [
+                    postcssImport(),
+                    // The postcssUrl() plugin is used to re-write relative
+                    // paths in `url(...)` statements in our CSS to be relative
+                    // to the `dist/` output folder. It also copies the files
+                    // referenced by these `url()`s to the `dist/` folder also.
+                    // This is mostly for the Symbola fonts referenced by
+                    // Mathquill CSS.
+                    //
+                    // CAUTION: This PostCSS plugin is patched (using `pnpm
+                    // patch`). You can see the patch in this repo at
+                    // `patches/postcss-url.patch`. If you ever upgrade to a
+                    // newer version of this plugin, please double-check that:
+                    //   a) the font file copying still works (ie. the fonts are
+                    //      copied to the `math-input/dist/assets` folder and/or
+                    //   b) if the patch is even needed anymore)
+                    postcssUrl({
+                        url: "copy",
+                        // The postcssUrl() plugin doesn't know anything about
+                        // the Rollup build context. PostCSS doesn't pass it
+                        // down, either. So we have to resort to giving it an
+                        // absolute path so that the font files are copied to
+                        // the correct place (the dist/ folder)
+                        assetsPath: path.join(
+                            rootDir,
+                            path.join(
+                                path.dirname(outputConfig.file),
+                                "assets",
+                            ),
+                        ),
+                    }),
+                ],
                 modules: {
                     localsConvention: "camelCase",
                     generateScopedName: function (name, filename, css) {
