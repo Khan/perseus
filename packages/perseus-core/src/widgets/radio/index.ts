@@ -13,6 +13,7 @@ export type RadioDefaultWidgetOptions = Pick<
     | "multipleSelect"
     | "countChoices"
     | "deselectEnabled"
+    | "displayCount"
 >;
 
 export const defaultWidgetOptions: RadioDefaultWidgetOptions = {

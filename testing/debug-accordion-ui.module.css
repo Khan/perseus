@@ -1,0 +1,53 @@
+/* ScoreHeader styles */
+.score-header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: var(--wb-sizing-size_120);
+    gap: var(--wb-sizing-size_160);
+}
+
+.status-badge {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--wb-sizing-size_060);
+    background-color: var(--wb-semanticColor-core-foreground-inverse-default);
+    border-radius: var(--wb-border-radius-radius_040);
+    padding: var(--wb-sizing-size_080) var(--wb-sizing-size_080);
+}
+
+.status-badge-success {
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-success-default);
+}
+
+.status-badge-error {
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-critical-default);
+}
+
+.status-label {
+    font-weight: bold;
+}
+
+/* JsonEditor styles */
+.json-editor-container {
+    padding: var(--wb-sizing-size_160);
+}
+
+/* JsonEditor textarea styles */
+.textarea {
+    width: 100%;
+    height: 40rem;
+    margin-bottom: var(--wb-sizing-size_160);
+}
+.button-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/* DebugAccordionUI styles */
+.accordion {
+    margin: var(--wb-sizing-size_160) 0;
+}

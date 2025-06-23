@@ -1,4 +1,3 @@
-import {registerCoreWidgets} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
@@ -22,10 +21,6 @@ import {
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("group widget", () => {
-    beforeAll(() => {
-        registerCoreWidgets();
-    });
-
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -241,10 +236,10 @@ describe("group widget", () => {
           "originalIndex": 1,
         },
         {
+          "clue": "Here's a clue, this isn't the correct answer!",
           "content": "$30$",
           "correct": false,
           "originalIndex": 2,
-          "rationale": "Here's some rationale, this isn't the correct answer!",
         },
         {
           "content": "$18$",
@@ -508,22 +503,6 @@ describe("group widget", () => {
             expect(screen.getAllByRole("textbox")[1]).toHaveValue("2021");
         });
         expect(cb).toHaveBeenCalled();
-    });
-
-    it("should show rationales for contained widgets", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(question1);
-        await userEvent.click(screen.getAllByRole("radio")[2]); // Incorrect!
-
-        // Act
-        act(() => renderer.showRationalesForCurrentlySelectedChoices());
-
-        // Assert
-        expect(
-            screen.getByText(
-                "Here's some rationale, this isn't the correct answer!",
-            ),
-        ).toBeInTheDocument();
     });
 
     it("handles answerless item data", () => {

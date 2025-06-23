@@ -2,31 +2,17 @@ import {anySuccess} from "../general-purpose-parsers/test-helpers";
 import {parse} from "../parse";
 import {failure, success} from "../result";
 
-import {
-    migrateV0ToV1,
-    migrateV1ToV2,
-    migrateV2ToV3,
-    migrateV3ToV4,
-    parseRadioWidget,
-} from "./radio-widget";
-import {
-    v0Widget,
-    v1Widget,
-    v2Widget,
-    v3Widget,
-    v4Widget,
-} from "./radio-widget.mockData";
+import {migrateV0ToV1, migrateV1ToV2, parseRadioWidget} from "./radio-widget";
+import {v0Widget, v1Widget, v2Widget} from "./radio-widget.mockData";
 
 describe("parseRadioWidget", () => {
-    const LATEST_VERSION = {major: 4, minor: 0};
-    const LATEST_OPTIONS = v4Widget;
+    const LATEST_VERSION = {major: 2, minor: 0};
+    const LATEST_OPTIONS = v2Widget;
 
     describe.each([
         ["v0", v0Widget],
         ["v1", v1Widget],
         ["v2", v2Widget],
-        ["v3", v3Widget],
-        ["v4", v4Widget],
     ])("Radio %s", (_, inputData) => {
         it(`migrates to the latest version, ${LATEST_VERSION.major}.${LATEST_VERSION.minor}`, () => {
             expect(parse(inputData, parseRadioWidget)).toEqual(
@@ -125,13 +111,5 @@ describe("migration functions", () => {
 
     it("migrates v1 to v2", () => {
         expect(migrateV1ToV2(v1Widget)).toEqual(v2Widget);
-    });
-
-    it("migrates v2 to v3", () => {
-        expect(migrateV2ToV3(v2Widget)).toEqual(v3Widget);
-    });
-
-    it("migrates v3 to v4", () => {
-        expect(migrateV3ToV4(v3Widget)).toEqual(v4Widget);
     });
 });

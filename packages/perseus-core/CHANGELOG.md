@@ -1,5 +1,59 @@
 # @khanacademy/perseus-core
 
+## 15.0.0
+
+### Major Changes
+
+-   [#2563](https://github.com/Khan/perseus/pull/2563) [`0e535feb7`](https://github.com/Khan/perseus/commit/0e535feb76f753db3f7cda1c753d79ca067ca372) Thanks [@benchristel](https://github.com/benchristel)! - Remove `registerCoreWidgets` function from `@khanacademy/perseus-core`. This function is not needed anymore and clients can safely delete their calls to it.
+
+### Patch Changes
+
+-   [#2608](https://github.com/Khan/perseus/pull/2608) [`8be4625c9`](https://github.com/Khan/perseus/commit/8be4625c950e73482aec055e2aed8b102283c950) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: don't strip static widgets
+
+## 14.1.1
+
+### Patch Changes
+
+-   [#2624](https://github.com/Khan/perseus/pull/2624) [`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Sync dev dependencies with frontend
+
+-   Updated dependencies [[`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6)]:
+    -   @khanacademy/kas@2.0.8
+    -   @khanacademy/perseus-utils@2.0.5
+
+## 14.1.0
+
+### Minor Changes
+
+-   [#2621](https://github.com/Khan/perseus/pull/2621) [`401ab009b`](https://github.com/Khan/perseus/commit/401ab009b1650b5752b4bad77d874eec16ebcec3) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Reverts changes introduced by LEMS-3061: deprecate options in radio, update clue to be rationale
+
+### Patch Changes
+
+-   [#2620](https://github.com/Khan/perseus/pull/2620) [`48fc42775`](https://github.com/Khan/perseus/commit/48fc427750810566f05586550fdc5596e1c79762) Thanks [@tatianasnook](https://github.com/tatianasnook)! - Update accessibility status for Perseus Widgets previously inaccessible
+
+## 14.0.3
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/kas@2.0.7
+    -   @khanacademy/perseus-utils@2.0.4
+
+## 14.0.2
+
+### Patch Changes
+
+-   [#2435](https://github.com/Khan/perseus/pull/2435) [`a512f3a07`](https://github.com/Khan/perseus/commit/a512f3a0716e1aeaf835c67dcacc5bcb131339a7) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Removes deprecated options using perseus parser
+
+## 14.0.1
+
+### Patch Changes
+
+-   [#2570](https://github.com/Khan/perseus/pull/2570) [`69d7ff811`](https://github.com/Khan/perseus/commit/69d7ff811503164a50257a6fba2bf83cacd04efb) Thanks [@benchristel](https://github.com/benchristel)! - Internal: Update comments to refer to khan/frontend instead of webapp. Khan Academy's frontend code has moved.
+
+-   Updated dependencies []:
+    -   @khanacademy/kas@2.0.6
+    -   @khanacademy/perseus-utils@2.0.4
+
 ## 14.0.0
 
 ### Major Changes

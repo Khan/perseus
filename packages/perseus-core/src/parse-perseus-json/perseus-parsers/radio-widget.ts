@@ -178,59 +178,6 @@ const parseRadioWidgetV0 = parseWidgetWithVersion(
 );
 
 // migrate functions
-export function migrateV3ToV4(
-    widget: ParsedValue<typeof parseRadioWidgetV3>,
-): ParsedValue<typeof parseRadioWidgetV4> {
-    const {options} = widget;
-
-    return {
-        ...widget,
-        version: {major: 4, minor: 0},
-        options: {
-            numCorrect: options.numCorrect,
-            hasNoneOfTheAbove: options.hasNoneOfTheAbove,
-            countChoices: options.countChoices,
-            randomize: options.randomize,
-            multipleSelect: options.multipleSelect,
-            deselectEnabled: options.deselectEnabled,
-            choices: options.choices.map((choice, index) => {
-                const choiceId = `choice-${index + 1}`;
-                return {
-                    content: choice.content,
-                    rationale: choice.rationale,
-                    correct: choice.correct,
-                    isNoneOfTheAbove: choice.isNoneOfTheAbove,
-                    id: choiceId,
-                };
-            }),
-        },
-    };
-}
-
-export function migrateV2ToV3(
-    widget: ParsedValue<typeof parseRadioWidgetV2>,
-): ParsedValue<typeof parseRadioWidgetV3> {
-    const {options} = widget;
-    return {
-        ...widget,
-        version: {major: 3, minor: 0},
-        options: {
-            numCorrect: options.numCorrect,
-            hasNoneOfTheAbove: options.hasNoneOfTheAbove,
-            countChoices: options.countChoices,
-            randomize: options.randomize,
-            multipleSelect: options.multipleSelect,
-            deselectEnabled: options.deselectEnabled,
-            choices: options.choices.map((choice) => ({
-                content: choice.content,
-                rationale: choice.clue,
-                correct: choice.correct,
-                isNoneOfTheAbove: choice.isNoneOfTheAbove,
-            })),
-        },
-    };
-}
-
 export function migrateV1ToV2(
     widget: ParsedValue<typeof parseRadioWidgetV1>,
 ): ParsedValue<typeof parseRadioWidgetV2> {

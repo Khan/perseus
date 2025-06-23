@@ -45,7 +45,7 @@ describe("radio-editor", () => {
         renderRadioEditor(onChangeMock);
 
         await userEvent.click(
-            screen.getByRole("checkbox", {
+            screen.getByRole("switch", {
                 name: "Multiple selections",
             }),
         );
@@ -59,7 +59,7 @@ describe("radio-editor", () => {
         renderRadioEditor(onChangeMock);
 
         await userEvent.click(
-            screen.getByRole("checkbox", {
+            screen.getByRole("switch", {
                 name: "Randomize order",
             }),
         );
@@ -73,7 +73,7 @@ describe("radio-editor", () => {
         renderRadioEditor(onChangeMock);
 
         await userEvent.click(
-            screen.getAllByRole("link", {
+            screen.getAllByRole("button", {
                 name: "Add a choice",
             })[0],
         );
@@ -100,7 +100,7 @@ describe("radio-editor", () => {
         renderRadioEditor(onChangeMock);
 
         await userEvent.click(
-            screen.getAllByRole("link", {
+            screen.getAllByRole("button", {
                 name: "Remove this choice",
             })[0],
         );
@@ -134,6 +134,7 @@ describe("radio-editor", () => {
             multipleSelect: false,
             countChoices: false,
             hasNoneOfTheAbove: false,
+            displayCount: null,
             deselectEnabled: false,
             numCorrect: 0,
         });

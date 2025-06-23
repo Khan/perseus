@@ -1,5 +1,61 @@
 # @khanacademy/perseus-score
 
+## 7.1.6
+
+### Patch Changes
+
+-   Updated dependencies [[`0e535feb7`](https://github.com/Khan/perseus/commit/0e535feb76f753db3f7cda1c753d79ca067ca372), [`8be4625c9`](https://github.com/Khan/perseus/commit/8be4625c950e73482aec055e2aed8b102283c950)]:
+    -   @khanacademy/perseus-core@15.0.0
+    -   @khanacademy/kmath@2.0.19
+
+## 7.1.5
+
+### Patch Changes
+
+-   [#2624](https://github.com/Khan/perseus/pull/2624) [`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Sync dev dependencies with frontend
+
+-   Updated dependencies [[`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6)]:
+    -   @khanacademy/kas@2.0.8
+    -   @khanacademy/kmath@2.0.18
+    -   @khanacademy/perseus-core@14.1.1
+    -   @khanacademy/perseus-utils@2.0.5
+
+## 7.1.4
+
+### Patch Changes
+
+-   Updated dependencies [[`401ab009b`](https://github.com/Khan/perseus/commit/401ab009b1650b5752b4bad77d874eec16ebcec3), [`48fc42775`](https://github.com/Khan/perseus/commit/48fc427750810566f05586550fdc5596e1c79762)]:
+    -   @khanacademy/perseus-core@14.1.0
+    -   @khanacademy/kmath@2.0.17
+
+## 7.1.3
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/kas@2.0.7
+    -   @khanacademy/kmath@2.0.16
+    -   @khanacademy/perseus-core@14.0.3
+    -   @khanacademy/perseus-utils@2.0.4
+
+## 7.1.2
+
+### Patch Changes
+
+-   Updated dependencies [[`a512f3a07`](https://github.com/Khan/perseus/commit/a512f3a0716e1aeaf835c67dcacc5bcb131339a7)]:
+    -   @khanacademy/perseus-core@14.0.2
+    -   @khanacademy/kmath@2.0.15
+
+## 7.1.1
+
+### Patch Changes
+
+-   Updated dependencies [[`69d7ff811`](https://github.com/Khan/perseus/commit/69d7ff811503164a50257a6fba2bf83cacd04efb)]:
+    -   @khanacademy/perseus-core@14.0.1
+    -   @khanacademy/kas@2.0.6
+    -   @khanacademy/kmath@2.0.14
+    -   @khanacademy/perseus-utils@2.0.4
+
 ## 7.1.0
 
 ### Minor Changes

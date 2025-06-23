@@ -1,5 +1,17 @@
 # perseus-build-settings
 
+## 0.8.0
+
+### Minor Changes
+
+-   [#2431](https://github.com/Khan/perseus/pull/2431) [`218eb4cb1`](https://github.com/Khan/perseus/commit/218eb4cb1b0dc29094919b6d0867fc48fab99d83) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Add CSS Modules for styling, and a converter for Aphrodite code
+
+## 0.7.0
+
+### Minor Changes
+
+-   [#2489](https://github.com/Khan/perseus/pull/2489) [`d8c99f629`](https://github.com/Khan/perseus/commit/d8c99f629c9439cdf56e96f6a53f6bb28f278e07) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Convert LESS files to pre-built CSS files to simplify our styling framework
+
 ## 0.6.2
 
 ### Patch Changes

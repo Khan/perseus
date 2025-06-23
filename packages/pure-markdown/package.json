@@ -3,7 +3,7 @@
     "description": "SimpleMarkdown instance with non-react Perseus rules",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "2.0.5",
+    "version": "2.0.8",
     "publishConfig": {
         "access": "public"
     },

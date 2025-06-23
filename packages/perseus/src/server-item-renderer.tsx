@@ -128,6 +128,14 @@ export class ServerItemRenderer
     componentDidMount() {
         this._currentFocus = null;
         this._fullyRendered = false;
+
+        // In cases where we are rendering content that doesn't have any assets
+        // (things that are async loaded/rendered, such as images or TeX), we
+        // want to ensure that we fire the onRendered callback at least once.
+        // By the time the component mounts, assets will already be registered,
+        // but may not be loaded. So we will know if all assets are loaded at
+        // this point in the component lifecycle.
+        this.maybeCallOnRendered();
     }
 
     // eslint-disable-next-line react/no-unsafe
@@ -145,15 +153,7 @@ export class ServerItemRenderer
             answerableCallback(isAnswerable);
         }
 
-        if (!this._fullyRendered) {
-            const assetsLoaded = Object.values(this.state.assetStatuses).every(
-                Boolean,
-            );
-            if (assetsLoaded) {
-                this._fullyRendered = true;
-                this.props.onRendered(true);
-            }
-        }
+        this.maybeCallOnRendered();
 
         if (this.props.score && this.props.score !== prevProps.score) {
             const emptyQuestionAreaWidgets =
@@ -172,6 +172,19 @@ export class ServerItemRenderer
             // eslint-disable-next-line no-restricted-syntax
             clearTimeout(this.blurTimeoutID);
             this.blurTimeoutID = null;
+        }
+    }
+
+    maybeCallOnRendered() {
+        if (!this._fullyRendered) {
+            const assetsLoaded = Object.values(this.state.assetStatuses).every(
+                Boolean,
+            );
+
+            if (assetsLoaded) {
+                this._fullyRendered = true;
+                this.props.onRendered(true);
+            }
         }
     }
 
@@ -383,14 +396,6 @@ export class ServerItemRenderer
             fireCallback,
         );
         this.hintsRenderer.restoreSerializedState(state.hints, fireCallback);
-    }
-
-    showRationalesForCurrentlySelectedChoices() {
-        this.questionRenderer.showRationalesForCurrentlySelectedChoices();
-    }
-
-    deselectIncorrectSelectedChoices() {
-        this.questionRenderer.deselectIncorrectSelectedChoices();
     }
 
     // This must be pre-bound otherwise SvgImage's shouldComponentUpdate

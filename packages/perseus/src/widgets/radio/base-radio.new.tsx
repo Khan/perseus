@@ -4,7 +4,6 @@ import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
 import {useRef, useEffect} from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {usePerseusI18n} from "../../components/i18n-context";
@@ -17,6 +16,7 @@ import {scrollElementIntoView} from "../../util/scroll-utils";
 
 import ChoiceNoneAbove from "./choice-none-above.new";
 import Choice from "./choice.new";
+import testStyles from "./radio-test.module.css";
 import {getInstructionsText} from "./utils/string-utils";
 
 import type {APIOptions} from "../../types";
@@ -118,15 +118,9 @@ const BaseRadio = ({
             const checkedIndex = choices.findIndex((c) => c.checked);
             if (checkedIndex >= 0) {
                 const ref = choiceRefs.current[checkedIndex];
-                // note(matthew): we know this is only getting passed
-                // to a WB Clickable button, so we force it to be of
-                // type HTMLButtonElement
-                const buttonNode = ReactDOM.findDOMNode(ref.current) as
-                    | HTMLButtonElement
-                    | null
-                    | undefined;
-                if (buttonNode) {
-                    scrollElementIntoView(buttonNode);
+
+                if (ref.current) {
+                    scrollElementIntoView(ref.current);
                 }
             }
         }
@@ -204,9 +198,10 @@ const BaseRadio = ({
     });
 
     const responsiveClassName = css(styles.responsiveFieldset);
+
     const fieldset = (
         <fieldset
-            className={`perseus-widget-radio-fieldset ${responsiveClassName}`}
+            className={`perseus-widget-radio-fieldset ${responsiveClassName} ${testStyles.cssModulesTest}`}
             data-feature-flag="feature flag is ON"
         >
             <legend className="perseus-sr-only">{instructions}</legend>

@@ -599,31 +599,38 @@ describe("LockedLineSettings", () => {
             });
         });
 
-        test("aria label auto-generates with different kind", async () => {
-            // Arrange
-            const onChangeProps = jest.fn();
-            render(
-                <LockedLineSettings
-                    {...defaultProps}
-                    ariaLabel={undefined}
-                    onChangeProps={onChangeProps}
-                    kind="segment"
-                />,
-                {wrapper: RenderStateRoot},
-            );
+        test.each`
+            kind         | label        | connector1   | connector2
+            ${"line"}    | ${"Line"}    | ${"through"} | ${"and"}
+            ${"segment"} | ${"Segment"} | ${"from"}    | ${"to"}
+            ${"ray"}     | ${"Ray"}     | ${"from"}    | ${"through"}
+        `(
+            "aria label auto-generates with different kind ($kind)",
+            async ({kind, label, connector1, connector2}) => {
+                // Arrange
+                const onChangeProps = jest.fn();
+                render(
+                    <LockedLineSettings
+                        {...defaultProps}
+                        ariaLabel={undefined}
+                        onChangeProps={onChangeProps}
+                        kind={kind}
+                    />,
+                    {wrapper: RenderStateRoot},
+                );
 
-            // Act
-            const autoGenButton = screen.getByRole("button", {
-                name: "Auto-generate",
-            });
-            await userEvent.click(autoGenButton);
+                // Act
+                const autoGenButton = screen.getByRole("button", {
+                    name: "Auto-generate",
+                });
+                await userEvent.click(autoGenButton);
 
-            // Assert
-            expect(onChangeProps).toHaveBeenCalledWith({
-                ariaLabel:
-                    "Segment from point at spoken $0$ comma spoken $0$ to point at spoken $2$ comma spoken $2$. Appearance solid gray.",
-            });
-        });
+                // Assert
+                expect(onChangeProps).toHaveBeenCalledWith({
+                    ariaLabel: `${label} ${connector1} point at spoken $0$ comma spoken $0$ ${connector2} point at spoken $2$ comma spoken $2$. Appearance solid gray.`,
+                });
+            },
+        );
 
         test("aria label auto-generates (no labels)", async () => {
             // Arrange
@@ -647,7 +654,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Line from point at spoken $0$ comma spoken $0$ to point at spoken $2$ comma spoken $2$. Appearance solid gray.",
+                    "Line through point at spoken $0$ comma spoken $0$ and point at spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
 
@@ -678,7 +685,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Line spoken A from point at spoken $0$ comma spoken $0$ to point at spoken $2$ comma spoken $2$. Appearance solid gray.",
+                    "Line spoken A through point at spoken $0$ comma spoken $0$ and point at spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
 
@@ -713,7 +720,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Line spoken A, spoken B from point at spoken $0$ comma spoken $0$ to point at spoken $2$ comma spoken $2$. Appearance solid gray.",
+                    "Line spoken A, spoken B through point at spoken $0$ comma spoken $0$ and point at spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
 
@@ -754,7 +761,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Line spoken A from point spoken C at spoken $0$ comma spoken $0$ to point spoken D at spoken $2$ comma spoken $2$. Appearance solid gray.",
+                    "Line spoken A through point spoken C at spoken $0$ comma spoken $0$ and point spoken D at spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
 
@@ -805,7 +812,7 @@ describe("LockedLineSettings", () => {
             // Assert
             expect(onChangeProps).toHaveBeenCalledWith({
                 ariaLabel:
-                    "Line spoken A, spoken B from point spoken C, spoken C2 at spoken $0$ comma spoken $0$ to point spoken D, spoken D2 at spoken $2$ comma spoken $2$. Appearance solid gray.",
+                    "Line spoken A, spoken B through point spoken C, spoken C2 at spoken $0$ comma spoken $0$ and point spoken D, spoken D2 at spoken $2$ comma spoken $2$. Appearance solid gray.",
             });
         });
     });
