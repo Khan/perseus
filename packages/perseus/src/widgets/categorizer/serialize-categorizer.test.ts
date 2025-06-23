@@ -113,6 +113,11 @@ describe("Categorizer serialization", () => {
                         categories: ["one", "two", "three"],
                         items: ["uno", "dos", "tres"],
                         randomizeItems: true,
+                        /**
+                         * `values` is the user input
+                         * - index: represents which item the answer is for
+                         * - value: represents which category is selected for that item
+                         */
                         values: [undefined, 0],
                     },
                 },
