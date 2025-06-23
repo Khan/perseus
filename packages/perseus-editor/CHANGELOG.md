@@ -1,5 +1,65 @@
 # @khanacademy/perseus-editor
 
+## 25.0.2
+
+### Patch Changes
+
+-   Updated dependencies [[`0e535feb7`](https://github.com/Khan/perseus/commit/0e535feb76f753db3f7cda1c753d79ca067ca372), [`8be4625c9`](https://github.com/Khan/perseus/commit/8be4625c950e73482aec055e2aed8b102283c950), [`04503796f`](https://github.com/Khan/perseus/commit/04503796f209504e65e26bbcc955ee0be958e7e4)]:
+    -   @khanacademy/perseus-core@15.0.0
+    -   @khanacademy/perseus@65.3.2
+    -   @khanacademy/keypad-context@3.0.19
+    -   @khanacademy/kmath@2.0.19
+    -   @khanacademy/math-input@26.0.8
+    -   @khanacademy/perseus-linter@4.0.6
+    -   @khanacademy/perseus-score@7.1.6
+
+## 25.0.1
+
+### Patch Changes
+
+-   [#2619](https://github.com/Khan/perseus/pull/2619) [`7ab0d7501`](https://github.com/Khan/perseus/commit/7ab0d7501e88d05a3f1654f9dc6c9fac62ae7c5d) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Convert editor buttons to use Wonder Blocks equivalents
+
+*   [#2618](https://github.com/Khan/perseus/pull/2618) [`4b1e184ab`](https://github.com/Khan/perseus/commit/4b1e184abc27114786a4ea6b808d57cc67673f62) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Resize question box height when a word is too long in the editor
+
+-   [#2624](https://github.com/Khan/perseus/pull/2624) [`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Sync dev dependencies with frontend
+
+-   Updated dependencies [[`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6)]:
+    -   @khanacademy/kas@2.0.8
+    -   @khanacademy/keypad-context@3.0.18
+    -   @khanacademy/kmath@2.0.18
+    -   @khanacademy/math-input@26.0.7
+    -   @khanacademy/perseus@65.3.1
+    -   @khanacademy/perseus-core@14.1.1
+    -   @khanacademy/perseus-linter@4.0.5
+    -   @khanacademy/perseus-score@7.1.5
+    -   @khanacademy/perseus-utils@2.0.5
+    -   @khanacademy/pure-markdown@2.0.8
+
+## 25.0.0
+
+### Major Changes
+
+-   [#2583](https://github.com/Khan/perseus/pull/2583) [`b13149eac`](https://github.com/Khan/perseus/commit/b13149eac54fb78512cc14bbf8605436779829d7) Thanks [@tatianasnook](https://github.com/tatianasnook)! - Unify chevrons in Perseus Editor using WB components
+
+### Minor Changes
+
+-   [#2621](https://github.com/Khan/perseus/pull/2621) [`401ab009b`](https://github.com/Khan/perseus/commit/401ab009b1650b5752b4bad77d874eec16ebcec3) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Reverts changes introduced by LEMS-3061: deprecate options in radio, update clue to be rationale
+
+### Patch Changes
+
+-   [#2614](https://github.com/Khan/perseus/pull/2614) [`821d24104`](https://github.com/Khan/perseus/commit/821d24104715035895bf93e99f638fb2599d79e0) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Update the style guide link in the Radio widget editor
+
+*   [#2605](https://github.com/Khan/perseus/pull/2605) [`bc7bf8a85`](https://github.com/Khan/perseus/commit/bc7bf8a855faf17a1ab71adf1830eb69f20261b8) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive graph editor] Stop steps from auto-updating when range is changed
+
+*   Updated dependencies [[`43bc193aa`](https://github.com/Khan/perseus/commit/43bc193aaccae07a6ebfd9b981f0c6f3e13fe4df), [`401ab009b`](https://github.com/Khan/perseus/commit/401ab009b1650b5752b4bad77d874eec16ebcec3), [`0432b74d7`](https://github.com/Khan/perseus/commit/0432b74d70a30821d8faa0a274b8e773b23925a1), [`48fc42775`](https://github.com/Khan/perseus/commit/48fc427750810566f05586550fdc5596e1c79762)]:
+    -   @khanacademy/perseus@65.3.0
+    -   @khanacademy/perseus-core@14.1.0
+    -   @khanacademy/keypad-context@3.0.17
+    -   @khanacademy/kmath@2.0.17
+    -   @khanacademy/math-input@26.0.6
+    -   @khanacademy/perseus-linter@4.0.4
+    -   @khanacademy/perseus-score@7.1.4
+
 ## 24.0.5
 
 ### Patch Changes

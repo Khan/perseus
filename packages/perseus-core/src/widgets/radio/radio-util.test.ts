@@ -10,24 +10,34 @@ describe("getRadioPublicWidgetOptions", () => {
                 {
                     content: "$-8$ and $8$",
                     correct: false,
-                    rationale:
-                        "The square root operation ($\\sqrt{\\phantom{x}}$)...",
+                    clue: "The square root operation ($\\sqrt{\\phantom{x}}$)...",
+                    widgets: {},
                 },
                 {
                     content: "$-8$",
                     correct: false,
-                    rationale:
-                        "While $(-8)^2=64$, the square root operation...",
+                    clue: "While $(-8)^2=64$, the square root operation...",
+                    widgets: {},
                 },
                 {
                     content: "There is no such input value.",
                     isNoneOfTheAbove: true,
                     correct: true,
-                    rationale: "This is a none of the above option.",
+                    clue: "This is a none of the above option.",
                     // Note(tamara): Choices in a Radio don't use the widgets key, but
                     // the key exists in prod so we want to make sure we don't
                     // break things (unknown things) by confirming it passes
                     // through the getPulicWidgetOptions function unchanged.
+                    widgets: {
+                        "sorter 1": {
+                            type: "sorter",
+                            options: {
+                                correct: ["test"],
+                                padding: true,
+                                layout: "horizontal",
+                            },
+                        },
+                    },
                 },
             ],
             hasNoneOfTheAbove: false,
@@ -35,6 +45,9 @@ describe("getRadioPublicWidgetOptions", () => {
             randomize: false,
             multipleSelect: false,
             deselectEnabled: false,
+            onePerLine: false,
+            displayCount: null,
+            noneOfTheAbove: false,
         };
 
         // Act
@@ -45,13 +58,25 @@ describe("getRadioPublicWidgetOptions", () => {
             choices: [
                 {
                     content: "$-8$ and $8$",
+                    widgets: {},
                 },
                 {
                     content: "$-8$",
+                    widgets: {},
                 },
                 {
                     content: "There is no such input value.",
                     isNoneOfTheAbove: true,
+                    widgets: {
+                        "sorter 1": {
+                            type: "sorter",
+                            options: {
+                                correct: ["test"],
+                                padding: true,
+                                layout: "horizontal",
+                            },
+                        },
+                    },
                 },
             ],
             hasNoneOfTheAbove: false,
@@ -59,6 +84,9 @@ describe("getRadioPublicWidgetOptions", () => {
             randomize: false,
             multipleSelect: false,
             deselectEnabled: false,
+            onePerLine: false,
+            displayCount: null,
+            noneOfTheAbove: false,
         });
     });
 
@@ -69,14 +97,17 @@ describe("getRadioPublicWidgetOptions", () => {
                 {
                     content: "1 Incorrect",
                     correct: false,
+                    widgets: {},
                 },
                 {
                     content: "2 Incorrect",
                     correct: true,
+                    widgets: {},
                 },
                 {
                     content: "3 Correct",
                     correct: true,
+                    widgets: {},
                 },
             ],
             numCorrect: 2,
@@ -92,12 +123,15 @@ describe("getRadioPublicWidgetOptions", () => {
             choices: [
                 {
                     content: "1 Incorrect",
+                    widgets: {},
                 },
                 {
                     content: "2 Incorrect",
+                    widgets: {},
                 },
                 {
                     content: "3 Correct",
+                    widgets: {},
                 },
             ],
             numCorrect: 2,
@@ -113,14 +147,17 @@ describe("getRadioPublicWidgetOptions", () => {
                 {
                     content: "1 Incorrect",
                     correct: false,
+                    widgets: {},
                 },
                 {
                     content: "2 Incorrect",
                     correct: true,
+                    widgets: {},
                 },
                 {
                     content: "3 Correct",
                     correct: true,
+                    widgets: {},
                 },
             ],
             numCorrect: 2,
@@ -136,12 +173,15 @@ describe("getRadioPublicWidgetOptions", () => {
             choices: [
                 {
                     content: "1 Incorrect",
+                    widgets: {},
                 },
                 {
                     content: "2 Incorrect",
+                    widgets: {},
                 },
                 {
                     content: "3 Correct",
+                    widgets: {},
                 },
             ],
             countChoices: false,

@@ -187,8 +187,6 @@ export type {MatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
 export {shuffle, seededRNG, random} from "./utils/random-util";
 export {default as PerseusFeatureFlags} from "./feature-flags";
 
-export {registerCoreWidgets} from "./widgets/core-widget-registry";
-
 export {traverse} from "./traversal";
 export {isItemAccessible, violatingWidgets} from "./accessibility";
 export {
@@ -199,3 +197,7 @@ export {
     getDataUrl,
     getImageSizeModern,
 } from "./utils/util.graphie";
+
+import {registerCoreWidgets} from "./widgets/core-widget-registry";
+
+registerCoreWidgets();
