@@ -209,6 +209,20 @@ export const MafsWithXAxisOffTop: Story = {
 export const MafsWithLabelsAlongEdge: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withAxisLabels(
+                "Video Game Hours per Week",
+                "Reaction Time (milliseconds)",
+            )
+            .withLabelLocation("alongEdge")
+            .build(),
+    },
+};
+
+export const MafsWithLabelsAlongEdgeAtLeft: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
             .withXRange(0, 10)
             .withYRange(0, 10)
             .withAxisLabels(
@@ -225,6 +239,22 @@ export const MafsWithLabelsAlongEdgeJustOverLeft: Story = {
         question: interactiveGraphQuestionBuilder()
             .withXRange(-1, 10)
             .withYRange(-1, 10)
+            .withAxisLabels(
+                "Video Game Hours per Week",
+                "Reaction Time (milliseconds)",
+            )
+            .withLabelLocation("alongEdge")
+            .build(),
+    },
+};
+
+export const MafsWithLabelsAlongEdgeAtRight: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withXRange(0, 0.01)
+            .withYRange(0, 0.01)
+            .withTickStep(0.001, 0.001)
+            .withGridStep(0.001, 0.001)
             .withAxisLabels(
                 "Video Game Hours per Week",
                 "Reaction Time (milliseconds)",
