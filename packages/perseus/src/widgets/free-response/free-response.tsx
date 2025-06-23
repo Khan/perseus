@@ -142,7 +142,7 @@ export class FreeResponse
 export default {
     name: "free-response",
     accessible: true,
-    displayName: "Free Response (beta)",
+    displayName: "Free Response (Assessments only)",
     widget: FreeResponse,
     hidden: false,
 } as WidgetExports<typeof FreeResponse>;
