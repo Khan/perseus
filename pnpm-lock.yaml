@@ -128,7 +128,7 @@ catalogs:
 
 patchedDependencies:
   postcss-url:
-    hash: de67f462cd3f1e375e397396dbe570daba93f37107d6a9bf6090bdf52f01f3a3
+    hash: 9ed04fd8f92f38a55172f74546f12b763813134ad7811e835329479f8a3b8a06
     path: patches/postcss-url.patch
 
 importers:
@@ -401,7 +401,7 @@ importers:
         version: 16.1.0(postcss@8.5.4)
       postcss-url:
         specifier: ^10.1.3
-        version: 10.1.3(patch_hash=de67f462cd3f1e375e397396dbe570daba93f37107d6a9bf6090bdf52f01f3a3)(postcss@8.5.4)
+        version: 10.1.3(patch_hash=9ed04fd8f92f38a55172f74546f12b763813134ad7811e835329479f8a3b8a06)(postcss@8.5.4)
       prettier:
         specifier: ^3
         version: 3.2.5
@@ -17405,7 +17405,7 @@ snapshots:
       postcss: 8.5.4
       postcss-selector-parser: 6.0.13
 
-  postcss-url@10.1.3(patch_hash=de67f462cd3f1e375e397396dbe570daba93f37107d6a9bf6090bdf52f01f3a3)(postcss@8.5.4):
+  postcss-url@10.1.3(patch_hash=9ed04fd8f92f38a55172f74546f12b763813134ad7811e835329479f8a3b8a06)(postcss@8.5.4):
     dependencies:
       make-dir: 3.1.0
       mime: 2.5.2

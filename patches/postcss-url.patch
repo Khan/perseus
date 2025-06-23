@@ -1,11 +1,3 @@
-diff --git a/.editorconfig b/.editorconfig
-new file mode 100644
-index 0000000000000000000000000000000000000000..c9408f245562b64b901e3ee86e09e271b741ef8f
---- /dev/null
-+++ b/.editorconfig
-@@ -0,0 +1,2 @@
-+[*]
-+tab_width = 4
 diff --git a/CHANGELOG.md b/CHANGELOG.md
 deleted file mode 100644
 index a883b63ffe9325fdbc397758d4ead499ba8b6138..0000000000000000000000000000000000000000
