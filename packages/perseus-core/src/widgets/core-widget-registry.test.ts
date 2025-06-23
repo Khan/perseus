@@ -42,6 +42,8 @@ describe("core-widget-registry", () => {
                 ],
                 randomize: false,
                 multipleSelect: false,
+                displayCount: null,
+                noneOfTheAbove: false,
                 deselectEnabled: false,
                 countChoices: false,
             },

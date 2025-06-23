@@ -58,7 +58,7 @@ describe("parseWidgetsMap", () => {
             success({
                 "radio 0": {
                     type: "radio",
-                    version: {major: 3, minor: 0},
+                    version: {major: 2, minor: 0},
                     options: {
                         choices: [],
                         hasNoneOfTheAbove: false,
@@ -687,10 +687,11 @@ describe("parseWidgetsMap", () => {
         const widgetsMap: unknown = {
             "radio 1": {
                 type: "radio",
-                version: {major: 3, minor: 0},
+                version: {major: 2, minor: 0},
                 options: {
                     choices: [],
                     numCorrect: 0,
+                    noneOfTheAbove: false,
                 },
             },
         };

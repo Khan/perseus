@@ -1,5 +1,59 @@
 # @khanacademy/perseus
 
+## 65.3.2
+
+### Patch Changes
+
+-   [#2563](https://github.com/Khan/perseus/pull/2563) [`0e535feb7`](https://github.com/Khan/perseus/commit/0e535feb76f753db3f7cda1c753d79ca067ca372) Thanks [@benchristel](https://github.com/benchristel)! - Remove `registerCoreWidgets` function from `@khanacademy/perseus-core`. This function is not needed anymore and clients can safely delete their calls to it.
+
+*   [#2602](https://github.com/Khan/perseus/pull/2602) [`04503796f`](https://github.com/Khan/perseus/commit/04503796f209504e65e26bbcc955ee0be958e7e4) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove dead code in Group widget
+
+*   Updated dependencies [[`0e535feb7`](https://github.com/Khan/perseus/commit/0e535feb76f753db3f7cda1c753d79ca067ca372), [`8be4625c9`](https://github.com/Khan/perseus/commit/8be4625c950e73482aec055e2aed8b102283c950)]:
+    -   @khanacademy/perseus-core@15.0.0
+    -   @khanacademy/keypad-context@3.0.19
+    -   @khanacademy/kmath@2.0.19
+    -   @khanacademy/math-input@26.0.8
+    -   @khanacademy/perseus-linter@4.0.6
+    -   @khanacademy/perseus-score@7.1.6
+
+## 65.3.1
+
+### Patch Changes
+
+-   [#2624](https://github.com/Khan/perseus/pull/2624) [`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Sync dev dependencies with frontend
+
+-   Updated dependencies [[`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6)]:
+    -   @khanacademy/kas@2.0.8
+    -   @khanacademy/keypad-context@3.0.18
+    -   @khanacademy/kmath@2.0.18
+    -   @khanacademy/math-input@26.0.7
+    -   @khanacademy/perseus-core@14.1.1
+    -   @khanacademy/perseus-linter@4.0.5
+    -   @khanacademy/perseus-score@7.1.5
+    -   @khanacademy/perseus-utils@2.0.5
+    -   @khanacademy/pure-markdown@2.0.8
+    -   @khanacademy/simple-markdown@2.0.8
+
+## 65.3.0
+
+### Minor Changes
+
+-   [#2621](https://github.com/Khan/perseus/pull/2621) [`401ab009b`](https://github.com/Khan/perseus/commit/401ab009b1650b5752b4bad77d874eec16ebcec3) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Reverts changes introduced by LEMS-3061: deprecate options in radio, update clue to be rationale
+
+### Patch Changes
+
+-   [#2609](https://github.com/Khan/perseus/pull/2609) [`43bc193aa`](https://github.com/Khan/perseus/commit/43bc193aaccae07a6ebfd9b981f0c6f3e13fe4df) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (DX) | Create a question builder for the Radio widget
+
+*   [#2611](https://github.com/Khan/perseus/pull/2611) [`0432b74d7`](https://github.com/Khan/perseus/commit/0432b74d70a30821d8faa0a274b8e773b23925a1) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (DX) | Use the new question builder in testdata file
+
+*   Updated dependencies [[`401ab009b`](https://github.com/Khan/perseus/commit/401ab009b1650b5752b4bad77d874eec16ebcec3), [`48fc42775`](https://github.com/Khan/perseus/commit/48fc427750810566f05586550fdc5596e1c79762)]:
+    -   @khanacademy/perseus-core@14.1.0
+    -   @khanacademy/keypad-context@3.0.17
+    -   @khanacademy/kmath@2.0.17
+    -   @khanacademy/math-input@26.0.6
+    -   @khanacademy/perseus-linter@4.0.4
+    -   @khanacademy/perseus-score@7.1.4
+
 ## 65.2.0
 
 ### Minor Changes

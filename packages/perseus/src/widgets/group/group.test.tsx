@@ -1,4 +1,3 @@
-import {registerCoreWidgets} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
@@ -22,10 +21,6 @@ import {
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("group widget", () => {
-    beforeAll(() => {
-        registerCoreWidgets();
-    });
-
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -241,10 +236,10 @@ describe("group widget", () => {
           "originalIndex": 1,
         },
         {
+          "clue": "Here's a clue, this isn't the correct answer!",
           "content": "$30$",
           "correct": false,
           "originalIndex": 2,
-          "rationale": "Here's some rationale, this isn't the correct answer!",
         },
         {
           "content": "$18$",

@@ -74,7 +74,7 @@ export const questionWithPassage: PerseusRenderer = {
                         content: "No value of $x$ satisfies the equation.",
                         correct: false,
                         isNoneOfTheAbove: false,
-                        rationale: "$8$ satisfies the equation.",
+                        clue: "$8$ satisfies the equation.",
                     },
                 ],
                 countChoices: false,
@@ -123,43 +123,37 @@ export const choicesWithImages: PerseusRenderer = {
                         content:
                             "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
                         correct: false,
-                        rationale:
-                            "The markdown only has single lines between each item, so they should be treated as one complete line.",
+                        clue: "The markdown only has single lines between each item, so they should be treated as one complete line.",
                     },
                     {
                         content:
                             "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
-                        rationale:
-                            "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
+                        clue: "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
                     },
                     {
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
                         correct: false,
-                        rationale:
-                            "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
+                        clue: "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
                     },
                     {
                         content:
                             "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
                         correct: false,
-                        rationale:
-                            "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
+                        clue: "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
                     },
                     {
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
-                        rationale:
-                            "The markdown only has an image (no text), so nothing should be adjusted.",
+                        clue: "The markdown only has an image (no text), so nothing should be adjusted.",
                     },
                     {
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
-                        rationale:
-                            "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
+                        clue: "The markdown has two images (no text) with two 'new line' characters between them, so they should be on their own lines.",
                     },
                 ],
                 countChoices: false,
@@ -224,24 +218,24 @@ export const SingleSelectOverflowContent: PerseusRenderer = {
                         content:
                             "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
                         correct: true,
-                        rationale: "Add the following numbers to get 75.",
+                        clue: "Add the following numbers to get 75.",
                     },
                     {
                         content: "$100-50$",
                         correct: false,
-                        rationale: "Subtract the following numbers.",
+                        clue: "Subtract the following numbers.",
                     },
                     {
                         content: "$200-125+10$",
                         correct: false,
                         isNoneOfTheAbove: false,
-                        rationale: "Calculate the following numbers.",
+                        clue: "Calculate the following numbers.",
                     },
                     {
                         content: "$10+10+10+10$",
                         correct: false,
                         isNoneOfTheAbove: false,
-                        rationale: "Add the following numbers.",
+                        clue: "Add the following numbers.",
                     },
                 ],
                 countChoices: false,
