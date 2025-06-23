@@ -732,9 +732,9 @@ export class LabelImage
         const {userInput, markers, ...rest} = this.props;
         return {
             ...rest,
-            markers: markers.map((m, i) => ({
-                ...m,
-                selected: userInput.markers[i].selected,
+            markers: markers.map((marker, index) => ({
+                ...marker,
+                selected: userInput.markers[index].selected,
             })),
         };
     }
