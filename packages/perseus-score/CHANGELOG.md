@@ -1,5 +1,15 @@
 # @khanacademy/perseus-score
 
+## 7.1.7
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/kas@2.0.9
+    -   @khanacademy/kmath@2.0.20
+    -   @khanacademy/perseus-core@15.0.1
+    -   @khanacademy/perseus-utils@2.0.5
+
 ## 7.1.6
 
 ### Patch Changes

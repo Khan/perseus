@@ -1,5 +1,11 @@
 # perseus-build-settings
 
+## 0.9.0
+
+### Minor Changes
+
+-   [#2634](https://github.com/Khan/perseus/pull/2634) [`17b5206fa`](https://github.com/Khan/perseus/commit/17b5206faaeddeb0be3eefb92f205e401142111b) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Use postcss-url plugin to rebase and copy font files during build
+
 ## 0.8.0
 
 ### Minor Changes

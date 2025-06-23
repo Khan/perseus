@@ -1,5 +1,13 @@
 # @khanacademy/kmath
 
+## 2.0.20
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/perseus-core@15.0.1
+    -   @khanacademy/perseus-utils@2.0.5
+
 ## 2.0.19
 
 ### Patch Changes
