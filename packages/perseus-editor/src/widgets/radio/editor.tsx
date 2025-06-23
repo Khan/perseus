@@ -59,12 +59,12 @@ class ChoiceEditor extends React.Component<ChoiceEditorProps> {
             />
         );
 
-        const rationaleEditor = (
+        const clueEditor = (
             <Editor
                 // eslint-disable-next-line react/no-string-refs
                 ref="rationale-editor"
                 apiOptions={this.props.apiOptions}
-                content={this.props.choice.rationale || ""}
+                content={this.props.choice.clue || ""}
                 widgetEnabled={false}
                 placeholder={`Why is this choice ${checkedClass}?`}
                 onChange={this.props.onRationaleChange}
@@ -191,7 +191,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             rationale: newRationale,
         });
         if (newRationale === "") {
-            delete choices[choiceIndex].rationale;
+            delete choices[choiceIndex].clue;
         }
         this.props.onChange({choices: choices});
     }
