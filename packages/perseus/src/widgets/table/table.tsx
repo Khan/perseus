@@ -314,6 +314,10 @@ function getStartUserInput(
     return Util.stringArrayOfSize2D({rows, columns});
 }
 
+// TODO(LEMS-3185): remove serializedState/restoreSerializedState
+/**
+ * @deprecated - do not use in new code.
+ */
 function getUserInputFromSerializedState(
     serializedState: any,
 ): PerseusTableUserInput {
