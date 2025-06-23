@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 65.3.3
+
+### Patch Changes
+
+-   [#2616](https://github.com/Khan/perseus/pull/2616) [`04da9f04b`](https://github.com/Khan/perseus/commit/04da9f04bb8ce5e8ffa34e753a28d378dc5e64c7) Thanks [@aag](https://github.com/aag)! - Include "(Assessments only)" in the display name of the Free Response widget
+
+-   Updated dependencies []:
+    -   @khanacademy/kas@2.0.9
+    -   @khanacademy/keypad-context@3.0.20
+    -   @khanacademy/kmath@2.0.20
+    -   @khanacademy/math-input@26.0.9
+    -   @khanacademy/perseus-core@15.0.1
+    -   @khanacademy/perseus-linter@4.0.7
+    -   @khanacademy/perseus-score@7.1.7
+    -   @khanacademy/perseus-utils@2.0.5
+    -   @khanacademy/pure-markdown@2.0.9
+    -   @khanacademy/simple-markdown@2.0.9
+
 ## 65.3.2
 
 ### Patch Changes
