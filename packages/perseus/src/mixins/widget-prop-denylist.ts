@@ -49,7 +49,7 @@ const denylist = [
 ];
 
 export function excludeDenylistKeys(obj: Record<any, any>) {
-    if (!(obj as any)) {
+    if (obj == null) {
         return obj;
     }
 

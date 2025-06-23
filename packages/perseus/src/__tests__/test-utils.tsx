@@ -14,7 +14,7 @@ import type {APIOptions} from "../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-// This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
+// This looks alot like `widgets/__tests__/renderQuestion.tsx', except we use
 // the ServerItemRenderer instead of Renderer
 export const renderQuestion = (
     question: PerseusItem,
