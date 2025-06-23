@@ -355,12 +355,6 @@ class Orderer
         grabPos: null,
     };
 
-    // UNSAFE_componentWillReceiveProps(nextProps: OrdererProps) {
-    //     if (!_.isEqual(this.props.current, nextProps.current)) {
-    //         this.setState({current: nextProps.current});
-    //     }
-    // }
-
     onClick: (arg1: string, arg2: number, arg3: any, arg4: Element) => void = (
         type,
         index,
