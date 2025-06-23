@@ -83,8 +83,6 @@ const getRefForPath = function (path: FocusPath) {
     PerseusMatrixUserInput
 > satisfies PropsFor<typeof Matrix>;
 
-// type RenderProps = MatrixPublicWidgetOptions;
-
 type RenderProps = Pick<
     PerseusMatrixWidgetOptions,
     "matrixBoardSize" | "prefix" | "suffix"
