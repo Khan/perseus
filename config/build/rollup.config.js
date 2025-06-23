@@ -168,8 +168,8 @@ const createConfig = (
                     // `patches/postcss-url.patch`. If you ever upgrade to a
                     // newer version of this plugin, please double-check that:
                     //   a) the font file copying still works (ie. the fonts are
-                    //      copied to the `math-input/dist/assets` folder and/or
-                    //   b) if the patch is even needed anymore)
+                    //      copied to the `math-input/dist/assets` folder) and/or
+                    //   b) if the patch is even needed anymore
                     postcssUrl({
                         url: "copy",
                         // The postcssUrl() plugin doesn't know anything about
