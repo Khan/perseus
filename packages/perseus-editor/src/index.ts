@@ -7,6 +7,7 @@ export {default as ArticleDiff} from "./diffs/article-diff";
 export {default as ItemDiff} from "./diffs/item-diff";
 export {default as EditorPage} from "./editor-page";
 export {default as Editor} from "./editor";
+export {default as EditorWithLayout} from "./editor-with-layout";
 export {default as IframeContentRenderer} from "./iframe-content-renderer";
 export {default as ContentPreview} from "./content-preview";
 export type {Issue} from "./issues-panel.tsx";
