@@ -13,12 +13,15 @@ import {
 import * as Dependencies from "../../../dependencies";
 import {scorePerseusItemTesting} from "../../../util/test-utils";
 import {renderQuestion} from "../../__testutils__/renderQuestion";
-import {LabelImage, getUpdatedMarkerState} from "../label-image";
+import {LabelImage, getComputedSelectedState} from "../label-image";
 
 import {shortTextQuestion, textQuestion} from "./label-image.testdata";
 
 import type {OptionalAnswersMarkerType} from "../label-image";
-import type {InteractiveMarkerType} from "@khanacademy/perseus-core";
+import type {
+    InteractiveMarkerType,
+    PerseusLabelImageUserInputMarker,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const emptyMarker: InteractiveMarkerType = {
@@ -50,28 +53,32 @@ describe("LabelImage", function () {
         ) as jest.Mock;
     });
 
-    describe("getUpdatedMarkerState", function () {
+    describe("getComputedSelectedState", function () {
         it("should return original marker when feedback is not shown", function () {
             // Arrange
             const marker: OptionalAnswersMarkerType = {
                 label: "Test marker",
                 x: 50,
                 y: 50,
-                selected: ["User Choice"],
                 answers: ["Correct Answer"],
+            };
+            const userInputMarker: PerseusLabelImageUserInputMarker = {
+                label: "Test marker",
+                selected: ["User Choice"],
             };
             const reviewMode = false;
             const showSolutions = undefined;
 
             // Act
-            const result = getUpdatedMarkerState(
+            const result = getComputedSelectedState(
                 marker,
+                userInputMarker,
                 reviewMode,
                 showSolutions,
             );
 
             // Assert - Should return unchanged since showSolutions and reviewMode are false
-            expect(result).toEqual(marker);
+            expect(result).toEqual(userInputMarker);
         });
 
         it("should auto-select correct answers when showSolutions is 'all'", function () {
@@ -80,22 +87,26 @@ describe("LabelImage", function () {
                 label: "Test marker",
                 x: 50,
                 y: 50,
-                selected: ["Answer C"],
                 answers: ["Answer A", "Answer B"],
+            };
+            const userInputMarker: PerseusLabelImageUserInputMarker = {
+                label: "Test marker",
+                selected: ["Answer C"],
             };
             const reviewMode = false;
             const showSolutions = "all";
 
             // Act
-            const result = getUpdatedMarkerState(
+            const result = getComputedSelectedState(
                 marker,
+                userInputMarker,
                 reviewMode,
                 showSolutions,
             );
 
             // Assert
             expect(result).toEqual({
-                ...marker,
+                ...userInputMarker,
                 selected: ["Answer A", "Answer B"],
             });
         });
@@ -106,22 +117,26 @@ describe("LabelImage", function () {
                 label: "Test marker",
                 x: 50,
                 y: 50,
-                selected: ["Answer C"],
                 answers: ["Answer A", "Answer B"],
+            };
+            const userInputMarker: PerseusLabelImageUserInputMarker = {
+                label: "Test marker",
+                selected: ["Answer C"],
             };
             const reviewMode = true;
             const showSolutions = undefined;
 
             // Act
-            const result = getUpdatedMarkerState(
+            const result = getComputedSelectedState(
                 marker,
+                userInputMarker,
                 reviewMode,
                 showSolutions,
             );
 
             // Assert
             expect(result).toEqual({
-                ...marker,
+                ...userInputMarker,
                 selected: ["Answer A", "Answer B"],
             });
         });
@@ -132,22 +147,26 @@ describe("LabelImage", function () {
                 label: "Test marker",
                 x: 50,
                 y: 50,
-                selected: ["Some Choice"],
                 // No answers property - this is an answerless marker
+            };
+            const userInputMarker: PerseusLabelImageUserInputMarker = {
+                label: "Test marker",
+                selected: ["Some Choice"],
             };
             const reviewMode = false;
             const showSolutions = "all";
 
             // Act
-            const result = getUpdatedMarkerState(
+            const result = getComputedSelectedState(
                 marker,
+                userInputMarker,
                 reviewMode,
                 showSolutions,
             );
 
             // Assert
             expect(result).toEqual({
-                ...marker,
+                ...userInputMarker,
                 selected: undefined,
             });
         });
@@ -158,22 +177,26 @@ describe("LabelImage", function () {
                 label: "Test marker",
                 x: 50,
                 y: 50,
-                selected: ["User Choice"],
                 answers: [],
+            };
+            const userInputMarker: PerseusLabelImageUserInputMarker = {
+                label: "Test marker",
+                selected: ["User Choice"],
             };
             const reviewMode = true;
             const showSolutions = undefined;
 
             // Act
-            const result = getUpdatedMarkerState(
+            const result = getComputedSelectedState(
                 marker,
+                userInputMarker,
                 reviewMode,
                 showSolutions,
             );
 
             // Assert
             expect(result).toEqual({
-                ...marker,
+                ...userInputMarker,
                 selected: [],
             });
         });
