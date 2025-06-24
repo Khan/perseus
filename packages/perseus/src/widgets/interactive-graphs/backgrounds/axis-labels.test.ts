@@ -100,7 +100,7 @@ describe("getLabelPosition", () => {
         const labelLocation = "alongEdge";
         const expected = [
             [200, 400 + fontSize * 1.5], // X Label at [Horizontal center of the graph, 1x fontSize below the bottom edge]
-            [-fontSize * 2, 200 - fontSize], // Y label at [1x fontSize to the left of the left edge, vertical center of the graph]
+            [-fontSize * 1.5, 200 - fontSize], // Y label at [1x fontSize to the left of the left edge, vertical center of the graph]
         ];
 
         expect(getLabelPosition(graphInfo, labelLocation, [1, 1])).toEqual(
@@ -120,7 +120,7 @@ describe("getLabelPosition", () => {
         const labelLocation = "alongEdge";
         const expected = [
             [200, 400 + fontSize * 1.5], // X Label at [Horizontal center of the graph, 1x fontSize below the bottom edge]
-            [-fontSize * 2, 200 - fontSize], // Y label at [1x fontSize to the left of the left edge, vertical center of the graph]
+            [-fontSize * 1.5, 200 - fontSize], // Y label at [1x fontSize to the left of the left edge, vertical center of the graph]
         ];
 
         expect(getLabelPosition(graphInfo, labelLocation, [1, 1])).toEqual(
@@ -140,7 +140,7 @@ describe("getLabelPosition", () => {
         const labelLocation = "alongEdge";
         const expected = [
             [200, 400 + 3 * fontSize], // X Label at [Horizontal center of the graph, 3x fontSize below the bottom edge]
-            [-3.5 * fontSize, 200 - fontSize], // Y label at [3x fontSize to the left of the left edge, vertical center of the graph]
+            [-3 * fontSize, 200 - fontSize], // Y label at [3x fontSize to the left of the left edge, vertical center of the graph]
         ];
 
         expect(getLabelPosition(graphInfo, labelLocation, [1, 1])).toEqual(
@@ -161,7 +161,7 @@ describe("getLabelPosition", () => {
         const labelLocation = "alongEdge";
         const expected = [
             [200, 400 + 3 * fontSize], // X Label at [Horizontal center of the graph, 3x fontSize below the bottom edge]
-            [-3.5 * fontSize, 200 - fontSize], // Y label at [3x fontSize to the left of the left edge, vertical center of the graph]
+            [-3 * fontSize, 200 - fontSize], // Y label at [3x fontSize to the left of the left edge, vertical center of the graph]
         ];
 
         expect(getLabelPosition(graphInfo, labelLocation, [1, 1])).toEqual(

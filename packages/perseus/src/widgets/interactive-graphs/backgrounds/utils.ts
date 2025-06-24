@@ -114,8 +114,8 @@ export const getLabelPosition = (
 
         const yAxisLabelOffset: [number, number] =
             graphInfo.range[X][MIN] >= 0
-                ? [-fontSize * 2 - estimatedTickLabelWidth, -fontSize] // Move the label left by 2.5 font sizes if the x-axis min is positive
-                : [-estimatedTickLabelWidth, -fontSize]; // Dynamic offset based on tick label width
+                ? [-fontSize * 1.5 - estimatedTickLabelWidth, -fontSize] // Move the label left by 2.5 font sizes if the x-axis min is positive
+                : [-fontSize * 1.5, -fontSize]; // Dynamic offset based on tick label width
 
         // Calculate the location of the labels to be halfway between the min and max values of the axes
         const xAxisLabelLocation: vec.Vector2 = [
