@@ -127,7 +127,7 @@ export type PerseusGrapherRubric = {
     correct: GrapherAnswerTypes;
 };
 
-export type PerseusGrapherUserInput = PerseusGrapherRubric["correct"];
+export type PerseusGrapherUserInput = GrapherAnswerTypes;
 
 export type PerseusIFrameUserInput = {
     status: UserInputStatus;
