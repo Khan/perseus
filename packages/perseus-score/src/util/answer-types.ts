@@ -225,6 +225,8 @@ const KhanAnswerTypes = {
                     if (
                         (decimal[0]?.value != null &&
                             decimal[0].value === rounded[0]?.value) ||
+                        // decimal[1] may be undefined if the user is not in a locale that
+                        // supports commas as decimal separators.
                         (decimal[1]?.value != null &&
                             decimal[1].value === rounded[1]?.value)
                     ) {
