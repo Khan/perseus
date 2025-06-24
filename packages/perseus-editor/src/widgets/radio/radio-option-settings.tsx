@@ -2,7 +2,11 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Pill from "@khanacademy/wonder-blocks-pill";
-import {sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {
+    semanticColor,
+    sizing,
+    spacing,
+} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
@@ -52,6 +56,9 @@ export const RadioOptionSettings = (props: Props) => {
                     {isNoneOfTheAbove ? "None of the above" : content}
                 </div>
             }
+            panelStyle={{
+                paddingBottom: !showDelete ? sizing.size_120 : sizing.size_040,
+            }}
             expanded={true}
         >
             {/* Incorrect / Wrong status selection */}
@@ -69,7 +76,14 @@ export const RadioOptionSettings = (props: Props) => {
                     onClick={() => {
                         onStatusChange(index, true);
                     }}
-                    style={{marginInlineEnd: sizing.size_080}}
+                    style={{
+                        marginInlineEnd: sizing.size_080,
+                        // Higher contrast on the default outline for
+                        // secondary pills
+                        outlineColor: correct
+                            ? semanticColor.core.background.instructive.default
+                            : semanticColor.core.border.neutral.default,
+                    }}
                 >
                     Correct
                 </Pill>
@@ -78,7 +92,14 @@ export const RadioOptionSettings = (props: Props) => {
                     onClick={() => {
                         onStatusChange(index, false);
                     }}
-                    style={{marginInlineEnd: sizing.size_080}}
+                    style={{
+                        marginInlineEnd: sizing.size_080,
+                        // Higher contrast on the default outline for
+                        // secondary pills
+                        outlineColor: !correct
+                            ? semanticColor.core.background.instructive.default
+                            : semanticColor.core.border.neutral.default,
+                    }}
                 >
                     Wrong
                 </Pill>
@@ -122,7 +143,16 @@ export const RadioOptionSettings = (props: Props) => {
                     size="small"
                     kind="tertiary"
                     startIcon={trashIcon}
-                    onClick={onDelete}
+                    onClick={() => {
+                        if (
+                            // eslint-disable-next-line no-alert
+                            window.confirm(
+                                `Are you sure you want to remove this choice? \n\n${content}`,
+                            )
+                        ) {
+                            onDelete();
+                        }
+                    }}
                     style={{alignSelf: "flex-start"}}
                 >
                     Remove this choice

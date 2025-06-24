@@ -117,6 +117,10 @@ describe("radio-editor", () => {
     });
 
     it("should be possible to delete answer", async () => {
+        const confirmSpy = jest.spyOn(window, "confirm").mockImplementation(
+            // Confirm button clicked
+            () => true,
+        );
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
@@ -136,6 +140,7 @@ describe("radio-editor", () => {
             })[0],
         );
 
+        expect(confirmSpy).toBeCalled();
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
                 choices: [
@@ -150,6 +155,10 @@ describe("radio-editor", () => {
 
     it("removes noneOfTheAbove when a 'none of the above' choice is deleted", async () => {
         const onChangeMock = jest.fn();
+        const confirmSpy = jest.spyOn(window, "confirm").mockImplementation(
+            // Confirm button clicked
+            () => true,
+        );
 
         renderRadioEditor(onChangeMock, {
             choices: [
@@ -168,6 +177,7 @@ describe("radio-editor", () => {
             })[3],
         );
 
+        expect(confirmSpy).toBeCalled();
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
                 choices: [
@@ -178,6 +188,34 @@ describe("radio-editor", () => {
                 hasNoneOfTheAbove: false,
             }),
         );
+    });
+
+    it("should not delete answer if the user cancels the confirmation", async () => {
+        const confirmSpy = jest.spyOn(window, "confirm").mockImplementation(
+            // Confirm button clicked
+            () => false,
+        );
+        const onChangeMock = jest.fn();
+
+        renderRadioEditor(onChangeMock, {
+            choices: [
+                {content: "Choice 1"},
+                {content: "Choice 2", correct: true},
+                {content: "Choice 3"},
+                {content: "None of the above", isNoneOfTheAbove: true},
+            ],
+            hasNoneOfTheAbove: true,
+        });
+
+        // Remove first choice
+        await userEvent.click(
+            screen.getAllByRole("button", {
+                name: "Remove this choice",
+            })[0],
+        );
+
+        expect(confirmSpy).toBeCalled();
+        expect(onChangeMock).not.toBeCalled();
     });
 
     it("serializes", () => {
