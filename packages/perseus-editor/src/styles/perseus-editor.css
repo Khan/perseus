@@ -668,12 +668,12 @@ code {
 .perseus-widget-radio textarea::placeholder {
     color: #777;
 }
-.perseus-widget-radio .clue-editor .perseus-textarea-pair {
+.perseus-widget-radio .rationale-editor .perseus-textarea-pair {
     border-top: 0;
 }
-.perseus-widget-radio .choice-clue-editors,
+.perseus-widget-radio .choice-rationale-editors,
 .perseus-widget-radio .choice-editor,
-.perseus-widget-radio .clue-editor {
+.perseus-widget-radio .rationale-editor {
     display: inline-block;
     width: 100%;
 }
