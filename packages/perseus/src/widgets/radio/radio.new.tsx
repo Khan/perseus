@@ -187,6 +187,7 @@ const RadioComponent = ({
 
             // Get the reviewChoice from the rubric, if it exists.
             const reviewChoice = reviewModeRubric?.choices[i];
+            const choiceId = choice.id || `radio-choice-${i + 1}`;
 
             return {
                 // Render the content of the choice, as it may contain subwidgets such as
@@ -208,7 +209,7 @@ const RadioComponent = ({
                 revealNoneOfTheAbove: !!(questionCompleted && selected),
                 highlighted,
                 previouslyAnswered,
-                id: choice.id || `radio-choice-${i + 1}`,
+                id: choiceId,
             };
         });
     };
