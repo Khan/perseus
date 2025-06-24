@@ -96,7 +96,7 @@ describe("RadioQuestionBuilder", () => {
             {
                 content: "choice 1",
                 correct: true,
-                clue: "rationale",
+                rationale: "rationale",
                 isNoneOfTheAbove: false,
             },
         ]);
@@ -127,11 +127,11 @@ describe("RadioQuestionBuilder", () => {
             {
                 content: "choice 1",
                 correct: true,
-                clue: "This one is correct",
+                rationale: "This one is correct",
             },
             {
                 content: "choice 2",
-                clue: "This one is incorrect",
+                rationale: "This one is incorrect",
             },
         ]);
     });

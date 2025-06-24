@@ -95,24 +95,27 @@ export const groupedRadioRationaleQuestion: PerseusRenderer = {
                                 {
                                     content: "Incorrect",
                                     correct: false,
-                                    clue: "This is not the correct answer.",
+                                    rationale:
+                                        "This is not the correct answer.",
                                 },
                                 {
                                     content: "Incorrect",
                                     correct: false,
-                                    clue: "This is not the correct answer.",
+                                    rationale:
+                                        "This is not the correct answer.",
                                 },
                                 {
                                     content: "Correct",
                                     correct: true,
                                     isNoneOfTheAbove: false,
-                                    clue: "This is the correct answer.",
+                                    rationale: "This is the correct answer.",
                                 },
                                 {
                                     content: "Incorrect",
                                     correct: false,
                                     isNoneOfTheAbove: false,
-                                    clue: "This is not the correct answer.",
+                                    rationale:
+                                        "This is not the correct answer.",
                                 },
                             ],
                             countChoices: false,
