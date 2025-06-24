@@ -26,7 +26,6 @@ export type RadioEditorProps = {
     apiOptions: APIOptions;
     countChoices: boolean;
     choices: PerseusRadioChoice[];
-    displayCount: number;
     randomize: boolean;
     hasNoneOfTheAbove: boolean;
     multipleSelect: boolean;
@@ -226,7 +225,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             randomize,
             multipleSelect,
             countChoices,
-            displayCount,
             hasNoneOfTheAbove,
             deselectEnabled,
         } = this.props;
@@ -236,7 +234,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             randomize,
             multipleSelect,
             countChoices,
-            displayCount,
             hasNoneOfTheAbove,
             deselectEnabled,
             numCorrect: deriveNumCorrect({

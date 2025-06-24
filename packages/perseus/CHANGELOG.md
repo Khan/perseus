@@ -1,5 +1,21 @@
 # @khanacademy/perseus
 
+## 65.3.5
+
+### Patch Changes
+
+-   [#2639](https://github.com/Khan/perseus/pull/2639) [`7b37ac7ea`](https://github.com/Khan/perseus/commit/7b37ac7ea5df5ea4a4b70a6e325df3f44cb0308b) Thanks [@benchristel](https://github.com/benchristel)! - Update Wonder Blocks peer dependencies
+
+*   [#2640](https://github.com/Khan/perseus/pull/2640) [`fd30e9518`](https://github.com/Khan/perseus/commit/fd30e9518cc88004955fcc3bb8d77b41c18342b8) Thanks [@benchristel](https://github.com/benchristel)! - Remove deprecated fields from Radio widget (`onePerLine`, `displayCount`, `noneOfTheAbove`, and `widgets`) and rename `clue` to `rationale` in Radio widget options. Clients may need to update their test data with the new field names. As always, data in the old format can be safely migrated to the latest by calling `parseAndMigratePerseusItem` or `parseAndMigratePerseusArticle`.
+
+*   Updated dependencies [[`7b37ac7ea`](https://github.com/Khan/perseus/commit/7b37ac7ea5df5ea4a4b70a6e325df3f44cb0308b), [`fd30e9518`](https://github.com/Khan/perseus/commit/fd30e9518cc88004955fcc3bb8d77b41c18342b8)]:
+    -   @khanacademy/math-input@26.0.10
+    -   @khanacademy/perseus-core@16.0.0
+    -   @khanacademy/keypad-context@3.0.21
+    -   @khanacademy/kmath@2.0.21
+    -   @khanacademy/perseus-linter@4.0.8
+    -   @khanacademy/perseus-score@7.1.8
+
 ## 65.3.4
 
 ### Patch Changes
