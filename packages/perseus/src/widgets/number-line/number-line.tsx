@@ -8,7 +8,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import NumberInput from "../../components/number-input";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import InteractiveUtil from "../../interactive2/interactive-util";
-import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
@@ -126,8 +125,7 @@ const _label = (
     }
 };
 
-// @ts-expect-error - TS2339 - Property 'createSimpleClass' does not exist on type 'typeof Graphie'.
-const TickMarks: any = Graphie.createSimpleClass((graphie, props) => {
+const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
     // Avoid infinite loop
     if (!_.isFinite(props.tickStep) || props.tickStep <= 0) {
         return []; // this has screwed me for the last time!
@@ -209,16 +207,17 @@ type Props = WidgetProps<
         labelStyle: string;
         labelTicks: boolean;
         divisionRange: number[];
-        numDivisions: number;
         snapDivisions: number;
         isTickCtrl: boolean;
         isInequality: boolean;
-        numLinePosition: number;
-        rel: Relationship;
         showTooltips?: boolean;
     },
     PerseusNumberLineUserInput
 >;
+
+type CalculatedProps = Props & {
+    tickStep: number;
+};
 
 type DefaultProps = {
     range: Props["range"];
@@ -228,10 +227,8 @@ type DefaultProps = {
     labelTicks: Props["labelTicks"];
     isTickCtrl: Props["isTickCtrl"];
     isInequality: Props["isInequality"];
-    numLinePosition: Props["numLinePosition"];
     snapDivisions: Props["snapDivisions"];
     showTooltips: Props["showTooltips"];
-    rel: Props["rel"];
     apiOptions: Props["apiOptions"];
 };
 
@@ -258,10 +255,8 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         labelTicks: true,
         isTickCtrl: false,
         isInequality: false,
-        numLinePosition: 0,
         snapDivisions: 2,
         showTooltips: false,
-        rel: "ge",
         apiOptions: ApiOptions.defaults,
     };
 
@@ -269,14 +264,9 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         numDivisionsEmpty: false,
     };
 
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
-    };
-
     isValid: () => boolean = () => {
         const range = this.props.range;
-        let initialX = this.props.numLinePosition;
+        let initialX = this.props.userInput.numLinePosition;
         const divisionRange = this.props.divisionRange;
 
         initialX = initialX == null ? range[0] : initialX;
@@ -286,7 +276,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
             knumber.sign(initialX - range[0]) >= 0 &&
             knumber.sign(initialX - range[1]) <= 0 &&
             divisionRange[0] < divisionRange[1] &&
-            0 < this.props.numDivisions &&
+            0 < this.props.userInput.numDivisions &&
             0 < this.props.snapDivisions
         );
     };
@@ -307,13 +297,11 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         // If the number of divisions isn't blank, update the number line
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (numDivisions) {
-            const nextProps = _.extend({}, this.props, {
-                tickStep: width / numDivisions,
-            });
+            const nextProps = {...this.props, tickStep: width / numDivisions};
 
             const newNumLinePosition = this.snapNumLinePosition(
                 nextProps,
-                this.props.numLinePosition,
+                this.props.userInput.numLinePosition,
             );
 
             this.setState(
@@ -321,9 +309,16 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                     numDivisionsEmpty: false,
                 },
                 () => {
+                    // Not sure this is still needed
                     this.props.onChange(
                         {
                             divisionRange: divRange,
+                        },
+                        cb,
+                    );
+                    this.props.handleUserInput(
+                        {
+                            ...this.props.userInput,
                             numDivisions: numDivisions,
                             numLinePosition: newNumLinePosition,
                         },
@@ -405,12 +400,15 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         const range = this.props.range;
         const width = range[1] - range[0];
 
-        const options = _.pick(this.props, ["range", "isTickCtrl"]);
+        const options = {
+            range: this.props.range,
+            isTickCtrl: this.props.isTickCtrl,
+        };
 
-        // TODO(aria): Maybe save this as `this.calculatedProps`?
-        const props = _.extend({}, this.props, {
-            tickStep: width / this.props.numDivisions,
-        });
+        const props: CalculatedProps = {
+            ...this.props,
+            tickStep: width / this.props.userInput.numDivisions,
+        };
 
         return (
             <Graphie
@@ -435,15 +433,13 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                 isMobile={this.props.apiOptions.isMobile}
             >
                 <TickMarks
-                    {..._.pick(props, [
-                        "range",
-                        "numDivisions",
-                        "labelTicks",
-                        "labelStyle",
-                        "labelRange",
-                        "tickStep",
-                    ])}
-                    isMobile={this.props.apiOptions.isMobile}
+                    range={props.range}
+                    labelTicks={props.labelTicks}
+                    labelStyle={props.labelStyle}
+                    labelRange={props.labelRange}
+                    tickStep={props.tickStep}
+                    numDivisions={props.userInput.numDivisions}
+                    isMobile={props.apiOptions.isMobile}
                 />
                 {this._renderInequality(props)}
                 {this._renderNumberLinePoint(props)}
@@ -469,12 +465,17 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     // and by test code to directly set the target number line
     // position
     movePosition: (arg1: number) => void = (targetPosition) => {
-        this.change({numLinePosition: targetPosition});
+        this.props.handleUserInput({
+            ...this.props.userInput,
+            numLinePosition: targetPosition,
+        });
         this.props.trackInteraction();
     };
 
-    _renderNumberLinePoint: (arg1: any) => React.ReactElement = (props) => {
-        const isOpen = _(["lt", "gt"]).contains(props.rel);
+    _renderNumberLinePoint: (arg1: CalculatedProps) => React.ReactElement = (
+        props,
+    ) => {
+        const isOpen = _(["lt", "gt"]).contains(props.userInput.rel);
 
         // In static mode the point's fill and stroke is blue to signify that
         // it can't be interacted with.
@@ -508,7 +509,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                 // eslint-disable-next-line react/no-string-refs
                 ref="numberLinePoint"
                 pointSize={6}
-                coord={[props.numLinePosition, 0]}
+                coord={[props.userInput.numLinePosition, 0]}
                 constraints={[
                     (coord: any, prevCoord) => {
                         // constrain-y
@@ -534,13 +535,19 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     };
 
     handleReverse: () => void = () => {
-        const newRel = reverseRel[this.props.rel];
-        this.props.onChange({rel: newRel});
+        const newRel = reverseRel[this.props.userInput.rel];
+        this.props.handleUserInput({
+            ...this.props.userInput,
+            rel: newRel,
+        });
     };
 
     handleToggleStrict: () => void = () => {
-        const newRel = toggleStrictRel[this.props.rel];
-        this.props.onChange({rel: newRel});
+        const newRel = toggleStrictRel[this.props.userInput.rel];
+        this.props.handleUserInput({
+            ...this.props.userInput,
+            rel: newRel,
+        });
     };
 
     // @ts-expect-error - TS2322 - Type '(props: any) => any[]' is not assignable to type '(arg1: any) => [number, number]'.
@@ -556,8 +563,9 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         return end;
     };
 
-    // @ts-expect-error - TS2322 - Type '(props: any) => Element | null' is not assignable to type '(arg1: any) => ReactElement<any, string | JSXElementConstructor<any>>'.
-    _renderInequality: (arg1: any) => React.ReactElement = (props) => {
+    _renderInequality: (arg1: CalculatedProps) => React.ReactElement | null = (
+        props,
+    ) => {
         if (props.isInequality) {
             const end = this._getInequalityEndpoint(props);
             const style = {
@@ -568,14 +576,15 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                 strokeWidth: 3.5,
             } as const;
 
-            const isGreater = ["ge", "gt"].includes(props.rel);
+            const isGreater = ["ge", "gt"].includes(props.userInput.rel);
 
             return (
                 <Line
                     // We shift the line to either side of the dot so they don't
                     // intersect
                     start={[
-                        (isGreater ? 0.4 : -0.4) + props.numLinePosition,
+                        (isGreater ? 0.4 : -0.4) +
+                            props.userInput.numLinePosition,
                         0,
                     ]}
                     end={end}
@@ -626,17 +635,34 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         graphie.line([center, 0], [left, 0], {arrows: "->"});
     };
 
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     getUserInput(): PerseusNumberLineUserInput {
-        return {
-            numLinePosition: this.props.numLinePosition,
-            rel: this.props.isInequality ? this.props.rel : "eq",
-            numDivisions: this.props.numDivisions,
-            divisionRange: this.props.divisionRange,
-        };
+        return this.props.userInput;
     }
 
     getPromptJSON(): NumberLinePromptJSON {
         return _getPromptJSON(this.props, this.getUserInput());
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState() {
+        const {userInput, ...rest} = this.props;
+        return {
+            ...rest,
+            numDivisions: userInput.numDivisions,
+            numLinePosition: userInput.numLinePosition,
+            // this seems like a bug, but I'm maintaining the
+            // existing behavior on a deprecated API. Probably
+            // should be:
+            // rel: userInput.rel,
+            rel: "ge",
+        };
     }
 
     render(): React.ReactNode {
@@ -644,8 +670,8 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         const divisionRange = this.props.divisionRange;
         const divRangeString = divisionRange[0] + EN_DASH + divisionRange[1];
         const invalidNumDivisions =
-            this.props.numDivisions < divisionRange[0] ||
-            this.props.numDivisions > divisionRange[1];
+            this.props.userInput.numDivisions < divisionRange[0] ||
+            this.props.userInput.numDivisions > divisionRange[1];
 
         const inequalityControls = (
             <div>
@@ -659,7 +685,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                     type="button"
                     className="simple-button"
                     value={
-                        _(["le", "ge"]).contains(this.props.rel)
+                        ["le", "ge"].includes(this.props.userInput.rel)
                             ? strings.circleOpen
                             : strings.circleFilled
                     }
@@ -686,7 +712,8 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                             this.state.numDivisionsEmpty
                                 ? null
                                 : // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                                  this.props.numDivisions || divisionRange[0]
+                                  this.props.userInput.numDivisions ||
+                                  divisionRange[0]
                         }
                         checkValidity={(val) =>
                             val >= divisionRange[0] && val <= divisionRange[1]
@@ -727,9 +754,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     }
 }
 
-function numberLineTransform(
-    editorProps: NumberLinePublicWidgetOptions,
-): RenderProps {
+function transform(editorProps: NumberLinePublicWidgetOptions): RenderProps {
     const props = _.pick(editorProps, [
         "range",
 
@@ -746,27 +771,9 @@ function numberLineTransform(
         "showTooltips",
     ]);
 
-    const numLinePosition =
-        editorProps.initialX != null
-            ? editorProps.initialX
-            : editorProps.range[0];
-
-    const width = editorProps.range[1] - editorProps.range[0];
-
-    let numDivisions;
-    if (editorProps.numDivisions != null) {
-        numDivisions = editorProps.numDivisions;
-    } else if (editorProps.tickStep != null) {
-        numDivisions = width / editorProps.tickStep;
-    } else {
-        numDivisions = undefined; // send to getDefaultProps()
-    }
-
     return {
         ...props,
         isTickCtrl: editorProps.isTickCtrl ?? undefined,
-        numLinePosition: numLinePosition,
-        numDivisions: numDivisions,
         // Use getDefaultProps value if null
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         snapDivisions: props.snapDivisions || undefined,
@@ -790,32 +797,71 @@ function staticTransform(
         "isInequality",
     ]);
 
-    // The correct x is the initial position of the point
-    const numLinePosition =
-        editorProps.correctX != null
-            ? editorProps.correctX
-            : editorProps.range[0];
-
-    const width = editorProps.range[1] - editorProps.range[0];
-
-    let numDivisions;
-    if (editorProps.numDivisions != null) {
-        numDivisions = editorProps.numDivisions;
-    } else if (editorProps.tickStep != null) {
-        numDivisions = width / editorProps.tickStep;
-    } else {
-        numDivisions = undefined; // send to getDefaultProps()
-    }
-
     return {
         ...props,
-        numLinePosition: numLinePosition,
-        numDivisions: numDivisions,
-        // Render the relation in the correct answer
-        rel: editorProps.isInequality ? editorProps.correctRel : undefined,
         // Use getDefaultProps value if null
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         snapDivisions: props.snapDivisions || undefined,
+    };
+}
+
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusNumberLineUserInput {
+    return {
+        numDivisions: serializedState.numDivisions,
+        numLinePosition: serializedState.numLinePosition,
+        // this seems like a bug, but I'm maintaining the
+        // existing behavior on a deprecated API. Probably
+        // should be:
+        // rel: serializedState.rel,
+        rel: "eq",
+    };
+}
+
+function getStartNumDivisions(options: NumberLinePublicWidgetOptions) {
+    const width = options.range[1] - options.range[0];
+
+    let numDivisions;
+    if (options.numDivisions != null) {
+        numDivisions = options.numDivisions;
+    } else if (options.tickStep != null) {
+        numDivisions = width / options.tickStep;
+    } else {
+        numDivisions = undefined;
+    }
+
+    return numDivisions;
+}
+
+function getCorrectUserInput(
+    options: PerseusNumberLineWidgetOptions,
+): PerseusNumberLineUserInput {
+    // The correct x is the initial position of the point
+    const numLinePosition =
+        options.correctX != null ? options.correctX : options.range[0];
+
+    return {
+        numDivisions: getStartNumDivisions(options),
+        numLinePosition,
+        rel: (options.isInequality && options.correctRel) || "eq",
+    };
+}
+
+function getStartUserInput(
+    options: NumberLinePublicWidgetOptions,
+): PerseusNumberLineUserInput {
+    const numLinePosition =
+        options.initialX != null ? options.initialX : options.range[0];
+
+    return {
+        numDivisions: getStartNumDivisions(options),
+        numLinePosition,
+        rel: "eq",
     };
 }
 
@@ -823,6 +869,9 @@ export default {
     name: "number-line",
     displayName: "Number line",
     widget: NumberLine,
-    transform: numberLineTransform,
-    staticTransform,
+    transform,
+    staticTransform: staticTransform,
+    getCorrectUserInput,
+    getStartUserInput,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof NumberLine>;

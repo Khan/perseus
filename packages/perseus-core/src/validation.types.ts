@@ -205,14 +205,14 @@ export type PerseusNumberLineRubric = {
     range: number[];
     initialX: number | null | undefined;
     isInequality: boolean;
+    isTickCtrl?: boolean;
+    divisionRange: number[];
 };
 
 export type PerseusNumberLineUserInput = {
-    isTickCrtl?: boolean;
     numLinePosition: number;
     rel: Relationship | "eq";
     numDivisions: number;
-    divisionRange: number[];
 };
 
 export type PerseusNumericInputRubric = {
