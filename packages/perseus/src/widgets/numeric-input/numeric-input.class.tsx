@@ -25,7 +25,10 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
-type ExternalProps = WidgetProps<PerseusNumericInputWidgetOptions>;
+type ExternalProps = WidgetProps<
+    PerseusNumericInputWidgetOptions,
+    PerseusNumericInputUserInput
+>;
 
 export type NumericInputProps = ExternalProps & {
     size: NonNullable<ExternalProps["size"]>;
@@ -60,14 +63,15 @@ type RenderProps = {
 };
 
 // Assert that the PerseusNumericInputWidgetOptions parsed from JSON can be passed
-// as props to this component. This ensures that the PerseusMatrixWidgetOptions
+// as props to this component. This ensures that the PerseusNumericInputWidgetOptions
 // stays in sync with the prop types. The PropsFor<Component> type takes
 // defaultProps into account, which is important because
 // PerseusNumericInputWidgetOptions has optional fields which receive defaults
 // via defaultProps.
-0 as any as WidgetProps<PerseusNumericInputWidgetOptions> satisfies PropsFor<
-    typeof NumericInput
->;
+0 as any as WidgetProps<
+    PerseusNumericInputWidgetOptions,
+    PerseusNumericInputUserInput
+> satisfies PropsFor<typeof NumericInput>;
 
 /**
  * The NumericInput widget is a numeric input field that supports a variety of
@@ -93,14 +97,6 @@ export class NumericInput
         labelText: "",
         linterContext: linterContextDefault,
     };
-
-    static getUserInputFromProps(
-        props: NumericInputProps,
-    ): PerseusNumericInputUserInput {
-        return {
-            currentValue: props.currentValue,
-        };
-    }
 
     focus: () => boolean = () => {
         this.inputRef.current?.focus();
@@ -137,7 +133,9 @@ export class NumericInput
      * Returns the value the user has currently input for this widget.
      */
     getUserInput(): PerseusNumericInputUserInput {
-        return NumericInput.getUserInputFromProps(this.props);
+        return {
+            currentValue: this.props.currentValue,
+        };
     }
 
     /**
@@ -179,6 +177,18 @@ const propsTransform = function (
     return rendererProps;
 };
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: NumericInputProps,
+): PerseusNumericInputUserInput {
+    return {
+        currentValue: serializedState.currentValue,
+    };
+}
+
 export default {
     name: "numeric-input",
     displayName: "Numeric input",
@@ -213,4 +223,5 @@ export default {
         }
         return answerStrings[0];
     },
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof NumericInput>;

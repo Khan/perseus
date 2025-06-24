@@ -14,6 +14,7 @@ import type {
     PerseusRadioChoice,
     ShowSolutions,
     PerseusRadioRubric,
+    PerseusRadioUserInput,
 } from "@khanacademy/perseus-core";
 
 export interface RadioChoiceWithMetadata extends PerseusRadioChoice {
@@ -36,7 +37,11 @@ export interface RenderProps {
     values?: ReadonlyArray<boolean>;
 }
 
-type RadioComponentProps = WidgetProps<RenderProps, PerseusRadioRubric>;
+type RadioComponentProps = WidgetProps<
+    RenderProps,
+    PerseusRadioUserInput,
+    PerseusRadioRubric
+>;
 
 interface DefaultProps {
     choices: ReadonlyArray<RadioChoiceWithMetadata>;

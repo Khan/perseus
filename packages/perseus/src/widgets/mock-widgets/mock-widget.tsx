@@ -10,7 +10,7 @@ import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
 import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
 
-type ExternalProps = WidgetProps<MockWidgetOptions>;
+type ExternalProps = WidgetProps<MockWidgetOptions, PerseusMockWidgetUserInput>;
 
 type DefaultProps = {
     currentValue: Props["currentValue"];
@@ -38,12 +38,6 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
     };
 
     inputRef: HTMLElement | null = null;
-
-    static getUserInputFromProps(props: Props): PerseusMockWidgetUserInput {
-        return {
-            currentValue: props.currentValue,
-        };
-    }
 
     getPromptJSON(): MockWidgetPromptJSON {
         return _getPromptJSON(this.props, this.getUserInput());
@@ -84,7 +78,9 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
     };
 
     getUserInput(): PerseusMockWidgetUserInput {
-        return MockWidgetComponent.getUserInputFromProps(this.props);
+        return {
+            currentValue: this.props.currentValue,
+        };
     }
 
     handleChange: (
@@ -114,6 +110,18 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
     }
 }
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: Props,
+): PerseusMockWidgetUserInput {
+    return {
+        currentValue: serializedState.currentValue,
+    };
+}
+
 const styles = StyleSheet.create({
     widgetContainer: {
         color: "red",
@@ -125,4 +133,5 @@ export default {
     displayName: "Mock Widget",
     widget: MockWidgetComponent,
     isLintable: true,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof MockWidgetComponent>;

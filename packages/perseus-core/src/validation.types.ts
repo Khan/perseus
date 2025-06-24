@@ -289,7 +289,6 @@ export interface RubricRegistry {
     "graded-group": PerseusGradedGroupRubric;
     grapher: PerseusGrapherRubric;
     group: PerseusGroupRubric;
-    image: PerseusLabelImageRubric;
     "input-number": PerseusInputNumberRubric;
     "interactive-graph": PerseusInteractiveGraphRubric;
     "label-image": PerseusLabelImageRubric;

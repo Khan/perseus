@@ -55,7 +55,7 @@ type RenderProps = Pick<
     "simplify" | "size" | "answerType" | "rightAlign"
 >;
 
-type ExternalProps = WidgetProps<RenderProps>;
+type ExternalProps = WidgetProps<RenderProps, PerseusInputNumberUserInput>;
 type Props = ExternalProps & {
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
@@ -91,14 +91,6 @@ class InputNumber extends React.Component<Props> implements Widget {
         apiOptions: ApiOptions.defaults,
         linterContext: linterContextDefault,
     };
-
-    static getUserInputFromProps(props: Props): {
-        currentValue: string;
-    } {
-        return {
-            currentValue: props.currentValue,
-        };
-    }
 
     shouldShowExamples: () => boolean = () => {
         return this.props.answerType !== "number";
@@ -166,7 +158,9 @@ class InputNumber extends React.Component<Props> implements Widget {
     };
 
     getUserInput(): PerseusInputNumberUserInput {
-        return InputNumber.getUserInputFromProps(this.props);
+        return {
+            currentValue: this.props.currentValue,
+        };
     }
 
     getPromptJSON(): InputNumberPromptJSON {
@@ -285,6 +279,18 @@ function getOneCorrectAnswerFromRubric(rubric: any): string | undefined {
     return answerString;
 }
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: Props,
+): PerseusInputNumberUserInput {
+    return {
+        currentValue: serializedState.currentValue,
+    };
+}
+
 export default {
     name: "input-number",
     displayName: "Input number (deprecated - use numeric input instead)",
@@ -293,4 +299,5 @@ export default {
     isLintable: true,
     transform,
     getOneCorrectAnswerFromRubric,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof InputNumber>;

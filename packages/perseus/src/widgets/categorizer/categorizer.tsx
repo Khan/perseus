@@ -23,7 +23,7 @@ import type {
     CategorizerPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<RenderProps> & {
+type Props = WidgetProps<RenderProps, PerseusCategorizerUserInput> & {
     values: ReadonlyArray<string>;
 };
 
@@ -56,17 +56,13 @@ export class Categorizer
         uniqueId: _.uniqueId("perseus_radio_"),
     };
 
-    static getUserInputFromProps(props: Props): PerseusCategorizerUserInput {
-        return {values: props.values};
-    }
-
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
         return Changeable.change.apply(this, args);
     };
 
     getUserInput(): PerseusCategorizerUserInput {
-        return Categorizer.getUserInputFromProps(this.props);
+        return {values: this.props.values};
     }
 
     getPromptJSON(): CategorizerPromptJSON {
@@ -297,6 +293,16 @@ type RenderProps = {
     values?: PerseusCategorizerWidgetOptions["values"];
 };
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: Props,
+): PerseusCategorizerUserInput {
+    return {values: serializedState.values};
+}
+
 export default {
     name: "categorizer",
     displayName: "Categorizer",
@@ -319,5 +325,6 @@ export default {
             randomizeItems: editorProps.randomizeItems,
         };
     },
+    getUserInputFromSerializedState,
     isLintable: true,
 } satisfies WidgetExports<typeof Categorizer>;

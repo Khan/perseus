@@ -13,9 +13,7 @@ import type {
     PerseusSorterUserInput,
 } from "@khanacademy/perseus-core";
 
-type RenderProps = PerseusSorterWidgetOptions;
-
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
 
 type DefaultProps = {
     correct: Props["correct"];

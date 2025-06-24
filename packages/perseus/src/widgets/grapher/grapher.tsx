@@ -352,7 +352,7 @@ type RenderProps = Pick<
     plot?: PerseusGrapherWidgetOptions["correct"];
 };
 
-type ExternalProps = WidgetProps<RenderProps>;
+type ExternalProps = WidgetProps<RenderProps, PerseusGrapherUserInput>;
 
 type Props = ExternalProps & {
     // plot is always provided by default props
@@ -370,10 +370,6 @@ class Grapher extends React.Component<Props> implements Widget {
     vertHairline: any;
 
     static defaultProps: DefaultProps = DEFAULT_GRAPHER_PROPS;
-
-    static getUserInputFromProps(props: Props): PerseusGrapherUserInput {
-        return props.plot;
-    }
 
     handlePlotChanges: (arg1: any) => any = (newPlot) => {
         const plot = {...this.props.plot, ...newPlot};
@@ -537,7 +533,7 @@ class Grapher extends React.Component<Props> implements Widget {
     };
 
     getUserInput(): PerseusGrapherUserInput {
-        return Grapher.getUserInputFromProps(this.props);
+        return this.props.plot;
     }
 
     getPromptJSON(): GrapherPromptJSON {
@@ -649,13 +645,25 @@ const staticTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
     };
 };
 
-0 as any as WidgetProps<PerseusGrapherWidgetOptions> satisfies PropsFor<
-    typeof Grapher
->;
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: Props,
+): PerseusGrapherUserInput {
+    return serializedState.plot;
+}
 
-0 as any as WidgetProps<GrapherPublicWidgetOptions> satisfies PropsFor<
-    typeof Grapher
->;
+0 as any as WidgetProps<
+    PerseusGrapherWidgetOptions,
+    PerseusGrapherUserInput
+> satisfies PropsFor<typeof Grapher>;
+
+0 as any as WidgetProps<
+    GrapherPublicWidgetOptions,
+    PerseusGrapherUserInput
+> satisfies PropsFor<typeof Grapher>;
 
 export default {
     name: "grapher",
@@ -664,4 +672,5 @@ export default {
     widget: Grapher,
     transform,
     staticTransform,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Grapher>;

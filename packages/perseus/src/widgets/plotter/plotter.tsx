@@ -20,9 +20,10 @@ import type {
 } from "@khanacademy/perseus-core";
 import type {PlotterPublicWidgetOptions} from "@khanacademy/perseus-core/src/widgets/plotter/plotter-util";
 
-type RenderProps = PlotterPublicWidgetOptions;
-
-type Props = WidgetProps<RenderProps> & {
+type Props = WidgetProps<
+    PlotterPublicWidgetOptions,
+    PerseusPlotterUserInput
+> & {
     labelInterval: NonNullable<PerseusPlotterWidgetOptions["labelInterval"]>;
     picSize: NonNullable<PerseusPlotterWidgetOptions["picSize"]>;
 };
@@ -1164,13 +1165,9 @@ export class Plotter extends React.Component<Props, State> implements Widget {
     }
 }
 
-// We don't need to change any of the original props for static mode
-const staticTransform = _.identity;
-
 export default {
     name: "plotter",
     displayName: "Plotter",
     hidden: true,
     widget: Plotter,
-    staticTransform: staticTransform,
 } satisfies WidgetExports<typeof Plotter>;
