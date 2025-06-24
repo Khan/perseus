@@ -1,14 +1,11 @@
 import {scorePerseusItem} from "@khanacademy/perseus-score";
-import {act, render, screen, waitFor} from "@testing-library/react";
-import React from "react";
+import {act, screen, waitFor} from "@testing-library/react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
 import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
-
-import {Plotter} from "./plotter";
 
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 
@@ -19,49 +16,73 @@ describe("plotter widget", () => {
         );
     });
 
-    it("should show drag text when not static", async () => {
-        // Arrange and Act
-        render(
-            // @ts-expect-error - TS2769 - test works, but I can't figure out how to make the types happy
-            <Plotter
-                static={false}
-                trackInteraction={() => {}}
-                onChange={() => {}}
-                apiOptions={{
+    describe("drag text", () => {
+        function sharedPlotterOptions(): PerseusPlotterWidgetOptions {
+            return {
+                categories: ["0", "1", "2"],
+                plotDimensions: [300, 300],
+                correct: [0, 1, 2],
+                labels: ["Horizontal", "Vertical"],
+                maxY: 2,
+                scaleY: 1,
+                snapsPerLine: 1,
+                starting: [0, 0, 0],
+                type: "bar",
+            };
+        }
+
+        it("should show drag text when not static", async () => {
+            // Arrange and Act
+            renderQuestion(
+                {
+                    content: "[[☃ plotter 1]]",
+                    images: {},
+                    widgets: {
+                        "plotter 1": {
+                            type: "plotter",
+                            static: false, // <= important
+                            options: sharedPlotterOptions(),
+                        },
+                    },
+                },
+                {
                     ...ApiOptions.defaults,
-                    isMobile: true,
-                }}
-                starting={[0]}
-            />,
-        );
+                    isMobile: true, // <= important
+                },
+            );
 
-        // Assert
-        expect(
-            await screen.findByText("Drag handles to make graph"),
-        ).toBeInTheDocument();
-    });
-
-    it("should not show drag text when static", async () => {
-        // Arrange and Act
-        render(
-            // @ts-expect-error - TS2769 - test works, but I can't figure out how to make the types happy
-            <Plotter
-                static={true}
-                trackInteraction={() => {}}
-                onChange={() => {}}
-                apiOptions={{
-                    ...ApiOptions.defaults,
-                    isMobile: true,
-                }}
-                starting={[0]}
-            />,
-        );
-
-        // Assert
-        await waitFor(() => {
+            // Assert
             expect(
-                screen.queryByText("Drag handles to make graph"),
-            ).not.toBeInTheDocument();
+                await screen.findByText("Drag handles to make graph"),
+            ).toBeInTheDocument();
+        });
+
+        it("should not show drag text when static", async () => {
+            // Arrange and Act
+            renderQuestion(
+                {
+                    content: "[[☃ plotter 1]]",
+                    images: {},
+                    widgets: {
+                        "plotter 1": {
+                            type: "plotter",
+                            static: true, // <= important
+                            options: sharedPlotterOptions(),
+                        },
+                    },
+                },
+                {
+                    ...ApiOptions.defaults,
+                    isMobile: true, // <= important
+                },
+            );
+
+            // Assert
+            await waitFor(() => {
+                expect(
+                    screen.queryByText("Drag handles to make graph"),
+                ).not.toBeInTheDocument();
+            });
         });
     });
 
@@ -129,7 +150,7 @@ describe("plotter widget", () => {
             // Act
             const [plotter] = renderer.findWidgets("plotter 1");
 
-            act(() => plotter.setState({values: [15]}));
+            act(() => plotter._testInsertUserInput([15]));
             const userInput = renderer.getUserInputMap();
 
             const score = scorePerseusItem(
@@ -149,8 +170,7 @@ describe("plotter widget", () => {
 
             // Act
             const [plotter] = renderer.findWidgets("plotter 1");
-
-            act(() => plotter.setState({values: [7]})); // mock user entering a value
+            act(() => plotter._testInsertUserInput([7])); // mock user entering a value
             const userInput = renderer.getUserInputMap();
 
             const score = scorePerseusItem(

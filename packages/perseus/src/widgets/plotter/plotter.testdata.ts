@@ -35,3 +35,24 @@ export const question1: PerseusRenderer = {
         },
     },
 };
+
+export const simple: PerseusRenderer = {
+    content: "Match the horizontal with the vertical.\n\n[[☃ plotter 1]]",
+    images: {},
+    widgets: {
+        "plotter 1": {
+            type: "plotter",
+            options: {
+                categories: ["0", "1", "2"],
+                plotDimensions: [300, 300],
+                correct: [0, 1, 2],
+                labels: ["Horizontal", "Vertical"],
+                maxY: 2,
+                scaleY: 1,
+                snapsPerLine: 1,
+                starting: [0, 0, 0],
+                type: "bar",
+            },
+        },
+    },
+};
