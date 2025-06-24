@@ -127,6 +127,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                               >
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  data-testid="radio-choice-1"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -240,6 +241,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  data-testid="radio-choice-2"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -353,6 +355,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  data-testid="radio-choice-3"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -466,6 +469,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  data-testid="radio-choice-4"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -579,6 +583,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
+                                  data-testid="radio-choice-5"
                                 >
                                   <div
                                     class="description description_psmgei"

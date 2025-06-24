@@ -19,6 +19,7 @@ import type {
 export interface RadioChoiceWithMetadata extends PerseusRadioChoice {
     originalIndex: number;
     correct?: boolean;
+    id: string;
 }
 
 export interface RenderProps {
@@ -208,6 +209,7 @@ const RadioComponent = ({
                 revealNoneOfTheAbove: !!(questionCompleted && selected),
                 highlighted,
                 previouslyAnswered,
+                id: choice.id || `radio-choice-${i + 1}`
             };
         });
     };
