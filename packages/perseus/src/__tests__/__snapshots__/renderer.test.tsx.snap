@@ -603,32 +603,29 @@ exports[`renderer snapshots renders a placeholder for a deprecated widget: depre
             style="padding-top: 8px; padding-bottom: 8px;"
           >
             <div
-              class="default_xu2jcg-o_O-containerOuter_8mi74v-o_O-inlineStyles_1ncl5pu"
+              class="default_xu2jcg-o_O-containerOuter_1fa127e-o_O-infoBanner_rdpfpm"
               role="status"
             >
               <div
-                class="default_xu2jcg-o_O-backgroundColor_10s9e9d-o_O-inlineStyles_q70ec9"
-              />
-              <div
-                class="default_xu2jcg-o_O-containerInner_mm2xcu"
+                class="default_xu2jcg-o_O-containerInner_1lza62o"
               >
                 <span
                   aria-label="info"
-                  class="svg_1q6jc65-o_O-icon_1521uiv-o_O-icon_q8rqgk-o_O-inlineStyles_94g682"
+                  class="svg_1q6jc65-o_O-icon_1c9fkuf-o_O-icon_18itqqa-o_O-infoIcon_cju5w7-o_O-inlineStyles_i5hedm"
                   data-testid="banner-kind-icon"
                   role="img"
                 />
                 <div
-                  class="default_xu2jcg-o_O-labelAndButtonsContainer_14rogkt"
+                  class="default_xu2jcg-o_O-labelAndButtonsContainer_1dntbm4"
                 >
                   <div
-                    class="default_xu2jcg-o_O-labelContainer_1fjq5ke"
+                    class="default_xu2jcg-o_O-labelContainer_14mmd26"
                   >
-                    <span
-                      class="text_f1191h-o_O-LabelSmall_94fo23"
+                    <div
+                      class="labelTypography_1y1267m"
                     >
                       Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!
-                    </span>
+                    </div>
                   </div>
                 </div>
               </div>
