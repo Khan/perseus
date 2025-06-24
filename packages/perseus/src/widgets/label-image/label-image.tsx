@@ -36,6 +36,7 @@ import type {
     PerseusLabelImageUserInput,
     LabelImagePublicWidgetOptions,
     ShowSolutions,
+    PerseusLabelImageUserInputMarker,
 } from "@khanacademy/perseus-core";
 import type {InteractiveMarkerScore} from "@khanacademy/perseus-score/src/widgets/label-image/score-label-image";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -78,12 +79,12 @@ type Options = Omit<PerseusLabelImageWidgetOptions, "markers"> & {
     markers: ReadonlyArray<OptionalAnswersMarkerType>;
 };
 
-type Props = WidgetProps<Options, PerseusLabelImageUserInput> &
-    DependencyProps & {
-        // preferred placement for popover (preference, not MUST)
-        // TODO: this is sus, probably never passed in
-        preferredPopoverDirection?: PreferredPopoverDirection;
-    };
+type Props = WidgetProps<Options, PerseusLabelImageUserInput> & {
+    analytics: DependencyProps["analytics"];
+    // preferred placement for popover (preference, not MUST)
+    // TODO: this is sus, probably never passed in
+    preferredPopoverDirection?: PreferredPopoverDirection;
+};
 
 type LabelImageState = {
     // The user selected marker index, defaults to -1, no selection.
@@ -101,34 +102,36 @@ function isAnswerful(
 }
 
 /**
- * Get marker with the appropriate selection state for current display mode.
+ * Get user input marker with the appropriate selection state for current display mode.
  * When showing solutions, it auto-selects correct answers, or clears
  * selections for markers without answers.
  *
- * @param marker - The marker to update.
- * @returns The updated marker state.
+ * @param marker - The widget options marker (possibly with answer).
+ * @param userInputMarker - The user input marker (with user selection).
+ * @returns A modified version of user input, possibly with correct answer.
  */
-export function getUpdatedMarkerState(
+export function getComputedSelectedState(
     marker: OptionalAnswersMarkerType,
+    userInputMarker: PerseusLabelImageUserInputMarker,
     reviewMode: boolean,
     showSolutions?: ShowSolutions,
-): OptionalAnswersMarkerType {
+): PerseusLabelImageUserInputMarker {
     const shouldShowFeedback = showSolutions === "all" || reviewMode;
 
     if (!shouldShowFeedback) {
-        return marker;
+        return userInputMarker;
     }
 
     if (isAnswerful(marker)) {
         // Auto-select correct answers when feedback should be shown
         return {
-            ...marker,
+            ...userInputMarker,
             selected: marker.answers,
         };
     } else {
         // For markers without answers, ensure no selection when showing feedback
         return {
-            ...marker,
+            ...userInputMarker,
             selected: undefined,
         };
     }
@@ -356,27 +359,29 @@ export class LabelImage
         this._mounted = false;
     }
 
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     getUserInput(): PerseusLabelImageUserInput {
-        return {
-            markers: this.props.markers.map((marker) => ({
-                selected: marker.selected,
-                label: marker.label,
-            })),
-        };
+        return this.props.userInput;
     }
 
     getPromptJSON(): LabelImagePromptJSON {
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
-    handleMarkerChange(index: number, marker: Props["markers"][number]) {
-        const {markers, onChange} = this.props;
+    handleMarkerChange(
+        index: number,
+        marker: PerseusLabelImageUserInput["markers"][number],
+    ) {
+        const {markers, onChange, userInput, handleUserInput} = this.props;
 
-        // Replace marker with a changed version at the specified index.
-        const updatedMarkers = [
+        // Update the RenderProps version of the marker (display)
+        const updatedRenderProps = [
             ...markers.slice(0, index),
             {
-                ...marker,
+                ...markers[index],
                 // Do not show correctness state if user changes answer
                 // selection for marker.
                 showCorrectness: undefined,
@@ -384,8 +389,18 @@ export class LabelImage
             ...markers.slice(index + 1),
         ];
 
-        // Update Perseus widget state with user selected answers.
-        onChange({markers: updatedMarkers});
+        // Update UserInput version of the marker
+        const updatedUserInput = [
+            ...userInput.markers.slice(0, index),
+            {
+                label: marker.label,
+                selected: marker.selected,
+            },
+            ...userInput.markers.slice(index + 1),
+        ];
+
+        onChange({markers: updatedRenderProps});
+        handleUserInput({markers: updatedUserInput});
     }
 
     activateMarker(index: number, opened: boolean) {
@@ -463,13 +478,12 @@ export class LabelImage
 
         this.handleMarkerChange(index, {
             ...markers[index],
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            selected: selected.length ? selected : undefined,
+            selected: selected.length > 0 ? selected : undefined,
         });
     }
 
     renderMarkers(): ReadonlyArray<React.ReactNode> {
-        const {markers, preferredPopoverDirection} = this.props;
+        const {markers, preferredPopoverDirection, userInput} = this.props;
         const {markersInteracted, activeMarkerIndex} = this.state;
 
         // Determine whether page is rendered in a narrow browser window.
@@ -483,6 +497,7 @@ export class LabelImage
 
         // Render all markers for widget.
         return markers.map((marker, index): React.ReactElement => {
+            const userInputMarker = userInput.markers[index];
             let side: "bottom" | "left" | "right" | "top";
             let markerPosition;
             // Position popup closest to the center, preferring it renders
@@ -512,17 +527,18 @@ export class LabelImage
 
             // Get the updated marker state depending on whether the question
             // has been answered or skipped by the user.
-            const updatedMarkerState = getUpdatedMarkerState(
+            const computedSelectedState = getComputedSelectedState(
                 marker,
+                userInputMarker,
                 this.props.reviewMode,
                 this.props.showSolutions,
             );
 
             let score: InteractiveMarkerScore;
-            if (isAnswerful(updatedMarkerState)) {
+            if (isAnswerful(marker)) {
                 score = scoreLabelImageMarker(
-                    updatedMarkerState.selected,
-                    updatedMarkerState.answers,
+                    computedSelectedState.selected,
+                    marker.answers,
                 );
             } else {
                 score = {
@@ -549,7 +565,7 @@ export class LabelImage
             // Show the selected answer choices, if available, when they have not been manually hidden.
             // The correct answers will be automatically selected when the question is answered/skipped.
             const showAnswerChoice =
-                updatedMarkerState.selected &&
+                computedSelectedState.selected &&
                 !this.state.hideAnswers &&
                 !isActiveAnswerChoice;
 
@@ -575,8 +591,10 @@ export class LabelImage
                         key={`answers-${marker.x}.${marker.y}`}
                         choices={this.props.choices.map((choice) => ({
                             content: choice,
-                            checked: updatedMarkerState.selected
-                                ? updatedMarkerState.selected.includes(choice)
+                            checked: computedSelectedState.selected
+                                ? computedSelectedState.selected.includes(
+                                      choice,
+                                  )
                                 : false,
                         }))}
                         multipleSelect={this.props.multipleAnswers}
@@ -620,7 +638,9 @@ export class LabelImage
                                         answerStyles={adjustPillDistance}
                                         focused={focused || pressed}
                                         hovered={hovered}
-                                        selected={updatedMarkerState.selected}
+                                        selected={
+                                            computedSelectedState.selected
+                                        }
                                     />
                                 )}
                             </Clickable>
@@ -675,6 +695,21 @@ export class LabelImage
                 )}
             </div>
         );
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState(): any {
+        const {userInput, markers, ...rest} = this.props;
+        return {
+            ...rest,
+            markers: markers.map((marker, index) => ({
+                ...marker,
+                selected: userInput.markers[index].selected,
+            })),
+        };
     }
 
     render(): React.ReactNode {
@@ -739,6 +774,58 @@ export class LabelImage
     }
 }
 
+const LabelImageWithDependencies = React.forwardRef<
+    LabelImage,
+    Omit<PropsFor<typeof LabelImage>, keyof ReturnType<typeof useDependencies>>
+>((props, ref) => {
+    const deps = useDependencies();
+    return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
+});
+
+({}) as WidgetProps<
+    PerseusLabelImageWidgetOptions,
+    PerseusLabelImageUserInput
+> satisfies PropsFor<typeof LabelImageWithDependencies>;
+
+({}) as WidgetProps<
+    LabelImagePublicWidgetOptions,
+    PerseusLabelImageUserInput
+> satisfies PropsFor<typeof LabelImageWithDependencies>;
+
+function getStartUserInput(
+    options: LabelImagePublicWidgetOptions,
+): PerseusLabelImageUserInput {
+    return {
+        markers: options.markers.map((m) => ({
+            label: m.label,
+        })),
+    };
+}
+
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusLabelImageUserInput {
+    return {
+        markers: serializedState.markers.map((m) => ({
+            label: m.label,
+            selected: m.selected,
+        })),
+    };
+}
+
+export default {
+    name: "label-image",
+    displayName: "Label Image",
+    widget: LabelImageWithDependencies,
+    isLintable: true,
+    getStartUserInput,
+    getUserInputFromSerializedState,
+} satisfies WidgetExports<typeof LabelImageWithDependencies>;
+
 const styles = StyleSheet.create({
     instructions: {
         paddingBottom: 16,
@@ -796,28 +883,3 @@ const styles = StyleSheet.create({
         pointerEvents: "none",
     },
 });
-
-const LabelImageWithDependencies = React.forwardRef<
-    LabelImage,
-    Omit<PropsFor<typeof LabelImage>, keyof ReturnType<typeof useDependencies>>
->((props, ref) => {
-    const deps = useDependencies();
-    return <LabelImage ref={ref} analytics={deps.analytics} {...props} />;
-});
-
-({}) as WidgetProps<
-    PerseusLabelImageWidgetOptions,
-    PerseusLabelImageUserInput
-> satisfies PropsFor<typeof LabelImage>;
-
-({}) as WidgetProps<
-    LabelImagePublicWidgetOptions,
-    PerseusLabelImageUserInput
-> satisfies PropsFor<typeof LabelImage>;
-
-export default {
-    name: "label-image",
-    displayName: "Label Image",
-    widget: LabelImageWithDependencies,
-    isLintable: true,
-} satisfies WidgetExports<typeof LabelImageWithDependencies>;
