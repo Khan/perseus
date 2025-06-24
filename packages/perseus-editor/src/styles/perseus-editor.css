@@ -246,6 +246,8 @@ code {
 }
 #perseus .add-choice-container,
 #perseus .add-hint-container {
+    display: flex;
+    flex-direction: row;
     margin-bottom: 20px;
     text-align: left;
 }
@@ -675,10 +677,6 @@ code {
     display: inline-block;
     width: 100%;
 }
-.perseus-widget-radio .delete-choice {
-    margin-left: 5px;
-    padding: 5px;
-}
 .perseus-widget-radio .perseus-single-editor {
     border: 0;
     display: inline-block;
@@ -690,6 +688,8 @@ code {
 }
 .perseus-widget-radio .perseus-textarea-pair,
 .perseus-widget-radio .perseus-textarea-underlay {
+    /* Wrap when text area has a long image link that overflows. */
+    overflow-wrap: anywhere;
     display: block;
 }
 .perseus-widget-radio .perseus-textarea-pair > textarea,
@@ -702,8 +702,7 @@ code {
 .perseus-widget-editor-content .perseus-widget-radio {
     position: static;
 }
-.perseus-widget-editor-content .perseus-widget-radio .checkbox,
-.perseus-widget-editor-content .perseus-widget-radio .delete-choice {
+.perseus-widget-editor-content .perseus-widget-radio .checkbox {
     position: relative;
     top: -10px;
 }

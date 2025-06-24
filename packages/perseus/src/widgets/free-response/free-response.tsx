@@ -142,7 +142,7 @@ export class FreeResponse
 export default {
     name: "free-response",
     accessible: true,
-    displayName: "Free Response",
+    displayName: "Free Response (Assessments only)",
     widget: FreeResponse,
     hidden: false,
 } as WidgetExports<typeof FreeResponse>;
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
         gap: spacing.xSmall_8,
     },
     characterCountText: {
-        color: semanticColor.text.secondary,
+        color: semanticColor.core.foreground.neutral.default,
         fontSize: font.size.small,
     },
     overCharacterLimit: {
