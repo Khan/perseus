@@ -1,5 +1,12 @@
 # @khanacademy/kas
 
+## 2.0.9
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/perseus-utils@2.0.5
+
 ## 2.0.8
 
 ### Patch Changes

@@ -1,5 +1,32 @@
 # @khanacademy/perseus-editor
 
+## 25.0.4
+
+### Patch Changes
+
+-   [#2627](https://github.com/Khan/perseus/pull/2627) [`4788af376`](https://github.com/Khan/perseus/commit/4788af3762553fe67f99c54fe703994db8693a63) Thanks [@jandrade](https://github.com/jandrade)! - Updates styles to use `semanticColor.core` WB tokens instead of the now deprecated sc.text and sc.border tokens
+
+-   Updated dependencies [[`4788af376`](https://github.com/Khan/perseus/commit/4788af3762553fe67f99c54fe703994db8693a63)]:
+    -   @khanacademy/perseus@65.3.4
+
+## 25.0.3
+
+### Patch Changes
+
+-   [#2631](https://github.com/Khan/perseus/pull/2631) [`b0ee68fef`](https://github.com/Khan/perseus/commit/b0ee68fef17b5759df5df5aa706d2e963087ff3b) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Temporarily revert a button to a link while we investigate a better solution.
+
+-   Updated dependencies [[`04da9f04b`](https://github.com/Khan/perseus/commit/04da9f04bb8ce5e8ffa34e753a28d378dc5e64c7)]:
+    -   @khanacademy/perseus@65.3.3
+    -   @khanacademy/kas@2.0.9
+    -   @khanacademy/keypad-context@3.0.20
+    -   @khanacademy/kmath@2.0.20
+    -   @khanacademy/math-input@26.0.9
+    -   @khanacademy/perseus-core@15.0.1
+    -   @khanacademy/perseus-linter@4.0.7
+    -   @khanacademy/perseus-score@7.1.7
+    -   @khanacademy/perseus-utils@2.0.5
+    -   @khanacademy/pure-markdown@2.0.9
+
 ## 25.0.2
 
 ### Patch Changes
