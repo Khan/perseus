@@ -1,4 +1,3 @@
-import {registerCoreWidgets} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
@@ -22,10 +21,6 @@ import {
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("group widget", () => {
-    beforeAll(() => {
-        registerCoreWidgets();
-    });
-
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
