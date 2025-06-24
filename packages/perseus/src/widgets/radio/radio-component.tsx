@@ -52,7 +52,6 @@ type DefaultProps = Required<
 export type RadioChoiceWithMetadata = PerseusRadioChoice & {
     originalIndex: number;
     correct?: boolean;
-    id: string;
 };
 
 class Radio extends React.Component<Props> implements Widget {
@@ -314,7 +313,7 @@ class Radio extends React.Component<Props> implements Widget {
 
                 const reviewChoice = this.props.reviewModeRubric?.choices[i];
 
-                const finalId = choice.id || `fallback-choice-${i + 1}`;
+                const choiceId = choice.id || `radio-choice-${i + 1}`;
 
                 return {
                     content: this._renderRenderer(content),
@@ -344,7 +343,7 @@ class Radio extends React.Component<Props> implements Widget {
                     ),
                     highlighted,
                     previouslyAnswered: previouslyAnswered,
-                    id: finalId,
+                    id: choiceId,
                 };
             },
         );

@@ -19,7 +19,6 @@ import type {
 export interface RadioChoiceWithMetadata extends PerseusRadioChoice {
     originalIndex: number;
     correct?: boolean;
-    id: string;
 }
 
 export interface RenderProps {
