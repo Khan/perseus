@@ -7,13 +7,11 @@ import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import NumberInput from "../../components/number-input";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
 import TextInput from "../../components/text-input";
 import InteractiveUtil from "../../interactive2/interactive-util";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
-import {stringArrayOfSize2D} from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-utils";
 
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
@@ -21,7 +19,6 @@ import type {MatrixPromptJSON} from "../../widget-ai-utils/matrix/matrix-ai-util
 import type {
     MatrixPublicWidgetOptions,
     PerseusMatrixUserInput,
-    PerseusMatrixWidgetAnswers,
     PerseusMatrixWidgetOptions,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -75,24 +72,6 @@ const getRefForPath = function (path: FocusPath) {
     return "answer" + row + "," + column;
 };
 
-type ExternalProps = WidgetProps<
-    {
-        // Translatable Text; Shown before the matrix
-        prefix: string;
-        // Translatable Text; Shown after the matrix
-        suffix: string;
-        // A data matrix representing the "correct" answers to be entered into the matrix
-        answers: PerseusMatrixWidgetAnswers;
-        // The coordinate location of the cursor position at start. default: [0, 0]
-        cursorPosition: ReadonlyArray<number>;
-        // The coordinate size of the matrix.  Only supports 2-dimensional matrix.  default: [3, 3]
-        matrixBoardSize: ReadonlyArray<number>;
-        // Whether this is meant to statically display the answers (true) or be used as an input field, graded against the answers
-        static?: boolean | undefined;
-    },
-    PerseusMatrixUserInput
->;
-
 // Assert that the PerseusMatrixWidgetOptions parsed from JSON can be passed
 // as props to this component. This ensures that the PerseusMatrixWidgetOptions
 // stays in sync with the prop types. The PropsFor<Component> type takes
@@ -104,29 +83,30 @@ type ExternalProps = WidgetProps<
     PerseusMatrixUserInput
 > satisfies PropsFor<typeof Matrix>;
 
-type RenderProps = MatrixPublicWidgetOptions & {
-    emptyMatrix: ReadonlyArray<ReadonlyArray<string>>;
-};
+type RenderProps = Pick<
+    PerseusMatrixWidgetOptions,
+    "matrixBoardSize" | "prefix" | "suffix"
+>;
 
-type Props = ExternalProps & {
+type Props = WidgetProps<RenderProps, PerseusMatrixUserInput> & {
+    // The coordinate location of the cursor position at start. default: [0, 0]
+    cursorPosition: ReadonlyArray<number>;
     onChange: (
-        arg1: {
+        nextProps: {
             cursorPosition?: ReadonlyArray<number>;
-            answers?: ReadonlyArray<ReadonlyArray<number | string>>;
         },
-        arg2: () => boolean,
+        cb: () => boolean,
     ) => void;
-    numericInput?: boolean;
 };
 
 type DefaultProps = {
     matrixBoardSize: Props["matrixBoardSize"];
-    answers: Props["answers"];
     prefix: string;
     suffix: string;
     cursorPosition: ReadonlyArray<number>;
     apiOptions: Props["apiOptions"];
     linterContext: Props["linterContext"];
+    userInput: PerseusMatrixUserInput;
 };
 
 type State = {
@@ -141,12 +121,14 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
     static defaultProps: DefaultProps = {
         matrixBoardSize: [3, 3],
-        answers: [[]],
         prefix: "",
         suffix: "",
         cursorPosition: [0, 0],
         apiOptions: ApiOptions.defaults,
         linterContext: linterContextDefault,
+        userInput: {
+            answers: [[]],
+        },
     };
 
     state: State = {
@@ -304,13 +286,15 @@ class Matrix extends React.Component<Props, State> implements Widget {
         value,
         cb,
     ) => {
-        const answers = this.props.answers.map((answer) => [...answer]);
+        const answers = this.props.userInput.answers.map((answer) => [
+            ...answer,
+        ]);
         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
         if (!answers[row]) {
             answers[row] = [];
         }
         answers[row][column] = value;
-        this.props.onChange(
+        this.props.handleUserInput(
             {
                 answers,
             },
@@ -319,14 +303,28 @@ class Matrix extends React.Component<Props, State> implements Widget {
         this.props.trackInteraction();
     };
 
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     getUserInput(): PerseusMatrixUserInput {
-        return {
-            answers: this.props.answers,
-        };
+        return this.props.userInput;
     }
 
     getPromptJSON(): MatrixPromptJSON {
         return _getPromptJSON(this.props, this.getUserInput());
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState(): any {
+        const {userInput, ...rest} = this.props;
+        return {
+            ...rest,
+            answers: userInput.answers,
+        };
     }
 
     render(): React.ReactNode {
@@ -341,7 +339,7 @@ class Matrix extends React.Component<Props, State> implements Widget {
         }
         const {INPUT_MARGIN, INPUT_HEIGHT, INPUT_WIDTH} = dimensions;
 
-        const matrixSize = getMatrixSize(this.props.answers);
+        const matrixSize = getMatrixSize(this.props.userInput.answers);
         const maxRows = this.props.matrixBoardSize[0];
         const maxCols = this.props.matrixBoardSize[1];
         const cursorRow = this.props.cursorPosition[0];
@@ -386,7 +384,7 @@ class Matrix extends React.Component<Props, State> implements Widget {
                         }}
                     />
                     {_(maxRows).times((row) => {
-                        const rowVals = this.props.answers[row];
+                        const rowVals = this.props.userInput.answers[row];
                         return (
                             <div className="matrix-row" key={row}>
                                 {_(maxCols).times((col) => {
@@ -488,10 +486,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                                 }
                                             />
                                         );
-                                    } else if (this.props.numericInput) {
-                                        MatrixInput = (
-                                            <NumberInput {...inputProps} />
-                                        );
                                     } else {
                                         const updatedProps = {
                                             ...inputProps,
@@ -540,37 +534,37 @@ class Matrix extends React.Component<Props, State> implements Widget {
     }
 }
 
+/**
+ * TODO: I don't really think we need this. The default for a transform
+ * is an identity function and all this is doing is taking a selection from
+ * widget options; it's probably fine to pass all widget options down.
+ * @deprecated [LEMS-3199]
+ */
 function transform(widgetOptions: MatrixPublicWidgetOptions): RenderProps {
-    // Remove answers before passing to widget
-    const rows = widgetOptions.matrixBoardSize[0];
-    const columns = widgetOptions.matrixBoardSize[1];
-    const blankInput = stringArrayOfSize2D({rows, columns});
-
     const {matrixBoardSize, prefix, suffix} = widgetOptions;
     return {
         matrixBoardSize,
         prefix,
         suffix,
-        emptyMatrix: blankInput,
     };
 }
 
-const staticTransform: (arg1: any) => any = (editorProps) => {
-    const widgetProps = _.pick(
-        editorProps,
-        "matrixBoardSize",
-        "prefix",
-        "suffix",
-    );
-    // We convert matrix cells from numbers to string to match the expected
-    // input into the rendered widget.
-    // @ts-expect-error - TS2339 - Property 'answers' does not exist on type 'Pick<any, "suffix" | "prefix" | "matrixBoardSize">'.
-    widgetProps.answers = _.map(editorProps.answers, (row) => {
-        // Replace null values with empty string
-        return _.map(row, (cell) => (cell != null ? String(cell) : ""));
-    });
-    return widgetProps;
-};
+function getCorrectUserInput(
+    options: PerseusMatrixWidgetOptions,
+): PerseusMatrixUserInput {
+    return {
+        answers: options.answers,
+    };
+}
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusMatrixUserInput {
+    return {answers: serializedState.answers};
+}
 
 export default {
     name: "matrix",
@@ -578,6 +572,8 @@ export default {
     hidden: true,
     widget: Matrix,
     transform,
-    staticTransform,
+    staticTransform: transform,
     isLintable: true,
+    getCorrectUserInput,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Matrix>;
