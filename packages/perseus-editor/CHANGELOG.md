@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 25.0.4
+
+### Patch Changes
+
+-   [#2627](https://github.com/Khan/perseus/pull/2627) [`4788af376`](https://github.com/Khan/perseus/commit/4788af3762553fe67f99c54fe703994db8693a63) Thanks [@jandrade](https://github.com/jandrade)! - Updates styles to use `semanticColor.core` WB tokens instead of the now deprecated sc.text and sc.border tokens
+
+-   Updated dependencies [[`4788af376`](https://github.com/Khan/perseus/commit/4788af3762553fe67f99c54fe703994db8693a63)]:
+    -   @khanacademy/perseus@65.3.4
+
 ## 25.0.3
 
 ### Patch Changes
