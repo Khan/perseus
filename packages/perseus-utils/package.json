@@ -3,7 +3,7 @@
     "description": "Miscellaneous utilities used by the Khan Academy Perseus ecosystem",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "publishConfig": {
         "access": "public"
     },
