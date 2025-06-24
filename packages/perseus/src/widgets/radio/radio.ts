@@ -73,7 +73,7 @@ const _choiceTransform = (
     // Add meta-information to choices
     const choices: ReadonlyArray<RadioChoiceWithMetadata> =
         widgetOptions.choices.map((choice, i): RadioChoiceWithMetadata => {
-            const choiceId = choice.id || `radio-choice-${i+1}`
+            const choiceId = choice.id || `radio-choice-${i + 1}`;
             return {
                 ...choice,
                 originalIndex: i,

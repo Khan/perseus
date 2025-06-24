@@ -344,7 +344,7 @@ class Radio extends React.Component<Props> implements Widget {
                     ),
                     highlighted,
                     previouslyAnswered: previouslyAnswered,
-                    id: finalId
+                    id: finalId,
                 };
             },
         );

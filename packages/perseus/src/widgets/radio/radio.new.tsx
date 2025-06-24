@@ -209,7 +209,7 @@ const RadioComponent = ({
                 revealNoneOfTheAbove: !!(questionCompleted && selected),
                 highlighted,
                 previouslyAnswered,
-                id: choice.id || `radio-choice-${i + 1}`
+                id: choice.id || `radio-choice-${i + 1}`,
             };
         });
     };
