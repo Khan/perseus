@@ -143,12 +143,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     onCountChoicesChange: (arg1: any) => void = (count) => {
         const countChoices = count.countChoices;
         this.props.onChange({
-            countChoices: countChoices,
-            numCorrect: deriveNumCorrect({
-                ...this.props,
-                countChoices,
-                numCorrect: undefined,
-            }),
+            countChoices,
         });
     };
 
@@ -169,9 +164,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             numCorrect: deriveNumCorrect({
                 ...this.props,
                 choices,
-                // When deriving numCorrect, we don't want to pass the current value,
-                // as it has changed.
-                numCorrect: undefined,
             }),
         });
     };
