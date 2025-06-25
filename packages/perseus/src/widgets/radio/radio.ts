@@ -1,4 +1,4 @@
-import {radioLogic, random, shuffle} from "@khanacademy/perseus-core";
+import {generateChoiceId, radioLogic, random} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import Radio from "./radio.ff";
@@ -17,7 +17,6 @@ const _choiceTransform = (
     const _maybeRandomize = function (
         array: ReadonlyArray<RadioChoiceWithMetadata>,
     ) {
-        const randomSeed = problemNum === undefined ? random : problemNum;
         // NOTE: `problemNum` will only be set when the radio widget is
         // rendered at the root of an exercise question. It will be `undefined`
         // if it's rendered embedded in another widget, such as `graded-group`,
@@ -73,7 +72,7 @@ const _choiceTransform = (
     // Add meta-information to choices
     const choices: ReadonlyArray<RadioChoiceWithMetadata> =
         widgetOptions.choices.map((choice, i): RadioChoiceWithMetadata => {
-            const choiceId = choice.id || `radio-choice-${i + 1}`;
+            const choiceId = choice.id || generateChoiceId(choice.content, i);
             return {
                 ...choice,
                 originalIndex: i,

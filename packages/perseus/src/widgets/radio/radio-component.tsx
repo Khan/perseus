@@ -1,3 +1,4 @@
+import {generateChoiceId} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
@@ -313,7 +314,9 @@ class Radio extends React.Component<Props> implements Widget {
 
                 const reviewChoice = this.props.reviewModeRubric?.choices[i];
 
-                const choiceId = choice.id || `radio-choice-${i + 1}`;
+                const choiceId =
+                    choice.id ||
+                    generateChoiceId(choice.content, choice.originalIndex);
 
                 return {
                     content: this._renderRenderer(content),

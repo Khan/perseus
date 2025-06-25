@@ -1,3 +1,4 @@
+import {generateChoiceId} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 import {useContext, useEffect} from "react";
@@ -187,7 +188,9 @@ const RadioComponent = ({
 
             // Get the reviewChoice from the rubric, if it exists.
             const reviewChoice = reviewModeRubric?.choices[i];
-            const choiceId = choice.id || `radio-choice-${i + 1}`;
+            const choiceId =
+                choice.id ||
+                generateChoiceId(choice.content, choice.originalIndex);
 
             return {
                 // Render the content of the choice, as it may contain subwidgets such as
