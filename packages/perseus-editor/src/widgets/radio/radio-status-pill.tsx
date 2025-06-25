@@ -5,15 +5,17 @@ import checkIcon from "@phosphor-icons/core/bold/check-bold.svg";
 import minusCircleIcon from "@phosphor-icons/core/bold/minus-circle-bold.svg";
 import * as React from "react";
 
-type Props = {
+interface RadioStatusPillProps {
     index: number;
     correct?: boolean;
     multipleSelect: boolean;
-};
+}
 
-export const RadioStatusPill = (props: Props) => {
-    const {index, correct, multipleSelect} = props;
-
+export function RadioStatusPill({
+    index,
+    correct,
+    multipleSelect,
+}: RadioStatusPillProps) {
     return (
         <Pill
             size="large"
@@ -44,4 +46,4 @@ export const RadioStatusPill = (props: Props) => {
             </>
         </Pill>
     );
-};
+}

@@ -18,7 +18,7 @@ import {RadioStatusPill} from "./radio-status-pill";
 
 import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
 
-type Props = {
+interface RadioOptionSettingsProps {
     index: number;
     choice: PerseusRadioChoice;
     multipleSelect: boolean;
@@ -27,20 +27,18 @@ type Props = {
     onRationaleChange: (choiceIndex: number, rationale: string) => void;
     showDelete: boolean;
     onDelete: () => void;
-};
+}
 
-export const RadioOptionSettings = (props: Props) => {
-    const {
-        index,
-        choice,
-        multipleSelect,
-        onStatusChange,
-        onContentChange,
-        onRationaleChange,
-        showDelete,
-        onDelete,
-    } = props;
-
+export function RadioOptionSettings({
+    index,
+    choice,
+    multipleSelect,
+    onStatusChange,
+    onContentChange,
+    onRationaleChange,
+    showDelete,
+    onDelete,
+}: RadioOptionSettingsProps) {
     const {content, clue, correct, isNoneOfTheAbove} = choice;
 
     return (
@@ -160,4 +158,4 @@ export const RadioOptionSettings = (props: Props) => {
             )}
         </PerseusEditorAccordion>
     );
-};
+}
