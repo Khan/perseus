@@ -1,10 +1,14 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextField, TextArea} from "@khanacademy/wonder-blocks-form";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
+import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
+import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
+import pencilIcon from "@phosphor-icons/core/bold/pencil-bold.svg";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
+
+import styles from "./radio-option-image-adder.module.css";
 
 type Props = {
     index: number;
@@ -33,19 +37,35 @@ export const RadioOptionImageAdder = (props: Props) => {
 
     return (
         <>
-            {!addingImage && (
-                <Button
-                    startIcon={plusIcon}
-                    size="small"
-                    kind="tertiary"
-                    style={{alignSelf: "flex-start"}}
-                    onClick={() => {
-                        setAddingImage(true);
-                    }}
-                >
-                    Add image
-                </Button>
-            )}
+            <span className={styles.rowDirection}>
+                {!addingImage && (
+                    <Button
+                        startIcon={plusIcon}
+                        size="small"
+                        kind="tertiary"
+                        style={{alignSelf: "flex-start"}}
+                        onClick={() => {
+                            setAddingImage(true);
+                        }}
+                    >
+                        Add image
+                    </Button>
+                )}
+                <Spring />
+                <ModalLauncher>
+                    {({openModal}) => (
+                        <Button
+                            startIcon={pencilIcon}
+                            size="small"
+                            kind="tertiary"
+                            style={{alignSelf: "flex-start"}}
+                            onClick={openModal}
+                        >
+                            Edit images
+                        </Button>
+                    )}
+                </ModalLauncher>
+            </span>
             {addingImage && (
                 <>
                     <HeadingXSmall tag="label">
