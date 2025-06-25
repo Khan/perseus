@@ -102,8 +102,8 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
         // Return checked inputs in the form {choicesSelected: [bool]}. (Dear
         // future timeline implementers: this used to be {value: i} before
         // multiple select was added)
-        if (props.choiceStates) {
-            const choiceStates = props.choiceStates;
+        const choiceStates = props.choiceStates;
+        if (choiceStates) {
             const choicesSelected = choiceStates.map(() => false);
 
             for (let i = 0; i < choicesSelected.length; i++) {
