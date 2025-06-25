@@ -129,7 +129,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             }
         }
 
-        // Update with the updated choices and recalculate numCorrect
+        // Update with the recalculated numCorrect and choices
         this.props.onChange({
             multipleSelect: isMultipleSelect,
             choices,
