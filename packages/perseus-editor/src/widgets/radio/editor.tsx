@@ -122,7 +122,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         // choices if more than one choice is currently selected as correct.
         let choices = this.props.choices;
         if (!isMultipleSelect) {
-            const numCorrect = deriveNumCorrect(this.props);
+            const numCorrect = deriveNumCorrect(choices);
             if (numCorrect > 1) {
                 choices = choices.map((choice) => {
                     return {
@@ -137,10 +137,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         this.props.onChange({
             multipleSelect: isMultipleSelect,
             choices,
-            numCorrect: deriveNumCorrect({
-                ...this.props,
-                choices,
-            }),
+            numCorrect: deriveNumCorrect(choices),
         });
     };
 
@@ -164,11 +161,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         });
 
         this.props.onChange({
-            choices: choices,
-            numCorrect: deriveNumCorrect({
-                ...this.props,
-                choices,
-            }),
+            choices,
+            numCorrect: deriveNumCorrect(choices),
         });
     };
 
@@ -201,13 +195,10 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         choices.splice(choiceIndex, 1);
 
         this.props.onChange({
-            choices: choices,
+            choices,
             hasNoneOfTheAbove:
                 this.props.hasNoneOfTheAbove && !deleted.isNoneOfTheAbove,
-            numCorrect: deriveNumCorrect({
-                ...this.props,
-                choices,
-            }),
+            numCorrect: deriveNumCorrect(choices),
         });
     };
 
@@ -277,12 +268,12 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             displayCount,
             hasNoneOfTheAbove,
             deselectEnabled,
-            numCorrect: deriveNumCorrect(this.props),
+            numCorrect: deriveNumCorrect(choices),
         };
     }
 
     render(): React.ReactNode {
-        const numCorrect = deriveNumCorrect(this.props);
+        const numCorrect = deriveNumCorrect(this.props.choices);
         return (
             <div>
                 <Link
