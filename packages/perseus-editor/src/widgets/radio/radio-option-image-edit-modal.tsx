@@ -4,11 +4,9 @@ import * as React from "react";
 import ImageEditorAccordion from "./image-editor-accordion";
 import RadioOptionContentField from "./radio-option-content-field";
 
-const imageRegex = /!\[(.*?)\]\((.*?)\)/g;
-
-const setNiceContentAndImages = (
+function setNiceContentAndImages(
     content: string,
-): [string, {url: string; altText: string}[]] => {
+): [string, {url: string; altText: string}[]] {
     // Replace the hard-to-read image markdown with a nice placeholder
     // ex. "![abc](https://...) -> "![Image 1]"
 
@@ -65,7 +63,23 @@ const setNiceContentAndImages = (
     }
 
     return [newContent, images];
-};
+}
+
+function setContentFromNiceContentAndImages(
+    niceContent: string,
+    images: {url: string; altText: string}[],
+) {
+    let newContent = niceContent;
+    for (let i = 0; i < images.length; i++) {
+        const image = images[i];
+        newContent = newContent.replace(
+            `![Image ${i + 1}]`,
+            `![${image.altText}](${image.url})`,
+        );
+    }
+
+    return newContent;
+}
 
 type Props = {
     content: string;
@@ -78,7 +92,7 @@ export const RadioOptionImageEditModal = (props: Props) => {
 
     const inputRef = React.useRef<HTMLTextAreaElement>(null);
 
-    const [niceContent, setNiceContent] = React.useState<string | null>(null);
+    const [niceContent, setNiceContent] = React.useState<string>("");
     const [images, setImages] = React.useState<
         {url: string; altText: string}[]
     >([]);
@@ -90,8 +104,15 @@ export const RadioOptionImageEditModal = (props: Props) => {
     }, [content]);
 
     const handleDeleteImage = (imageIndex: number) => {
-        console.log("delete image", imageIndex);
-        return;
+        const substr = `![Image ${imageIndex + 1}]`;
+        const newNiceContent = niceContent.replace(substr, "");
+        setNiceContent(newNiceContent);
+
+        const newContent = setContentFromNiceContentAndImages(
+            newNiceContent,
+            images,
+        );
+        onContentChange(choiceIndex, newContent);
     };
 
     const handleUpdateImage = (
@@ -99,15 +120,34 @@ export const RadioOptionImageEditModal = (props: Props) => {
         url: string,
         altText: string,
     ) => {
-        console.log("update image", imageIndex, url, altText);
-        return;
+        const newImages = [...images];
+        newImages[imageIndex] = {url, altText};
+        setImages(newImages);
+
+        const newNiceContent = setContentFromNiceContentAndImages(
+            niceContent,
+            newImages,
+        );
+        setNiceContent(newNiceContent);
+
+        const newContent = setContentFromNiceContentAndImages(
+            newNiceContent,
+            newImages,
+        );
+        onContentChange(choiceIndex, newContent);
     };
 
-    const handleContentChange = (choiceIndex: number, newContent: string) => {
-        // Set the nice content
-        setNiceContent(newContent);
+    const handleContentChange = (
+        choiceIndex: number,
+        newNiceContent: string,
+    ) => {
+        setNiceContent(newNiceContent);
 
-        // Update the actual props
+        const newContent = setContentFromNiceContentAndImages(
+            newNiceContent,
+            images,
+        );
+        onContentChange(choiceIndex, newContent);
     };
 
     return (
