@@ -53,7 +53,6 @@ type DefaultProps = Required<
 export type RadioChoiceWithMetadata = PerseusRadioChoice & {
     originalIndex: number;
     correct?: boolean;
-    id: string;
 };
 
 class Radio extends React.Component<Props> implements Widget {

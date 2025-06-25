@@ -45,7 +45,6 @@ type DefaultProps = Required<
 export interface RadioChoiceWithMetadata extends PerseusRadioChoice {
     originalIndex: number;
     correct?: boolean;
-    id: string;
 }
 
 /**
