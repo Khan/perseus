@@ -220,16 +220,10 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
         multipleSelect: false,
         choices: [
             {
-                content: "Content 1",
-                correct: true,
-                originalIndex: 0,
-                id: "v1u4sd0",
-            },
-            {
-                content: "Content 3",
+                content: "Content 4",
                 correct: false,
-                originalIndex: 2,
-                id: "v1u4sf2",
+                originalIndex: 3,
+                id: "v1u4s83",
             },
             {
                 content: "Content 2",
@@ -238,22 +232,6 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
                 id: "v1u4se1",
             },
             {
-                content: "Content 4",
-                correct: false,
-                originalIndex: 3,
-                id: "v1u4s83",
-            },
-        ],
-        selectedChoices: [true, false, false, false],
-    },
-    "radio 2": {
-        numCorrect: 1,
-        countChoices: false,
-        deselectEnabled: false,
-        hasNoneOfTheAbove: false,
-        multipleSelect: false,
-        choices: [
-            {
                 content: "Content 1",
                 correct: true,
                 originalIndex: 0,
@@ -265,6 +243,16 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
                 originalIndex: 2,
                 id: "v1u4sf2",
             },
+        ],
+        selectedChoices: [false, false, true, false],
+    },
+    "radio 2": {
+        numCorrect: 1,
+        countChoices: false,
+        deselectEnabled: false,
+        hasNoneOfTheAbove: false,
+        multipleSelect: false,
+        choices: [
             {
                 content: "Different Content",
                 correct: false,
@@ -277,7 +265,19 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
                 originalIndex: 1,
                 id: "v1u4se1",
             },
+            {
+                content: "Content 1",
+                correct: true,
+                originalIndex: 0,
+                id: "v1u4sd0",
+            },
+            {
+                content: "Content 3",
+                correct: false,
+                originalIndex: 2,
+                id: "v1u4sf2",
+            },
         ],
-        selectedChoices: [true, false, false, false],
+        selectedChoices: [false, false, true, false],
     },
 };

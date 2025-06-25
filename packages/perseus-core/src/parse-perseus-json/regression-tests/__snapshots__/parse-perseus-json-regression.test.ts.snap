@@ -1806,7 +1806,6 @@ The other entries of $\\text{H}$ can be found similarly.
                 "options": {
                   "choices": [
                     {
-                      "clue": undefined,
                       "content": "$1 \\cdot 4 + 3\\cdot 0 = 4$",
                       "correct": true,
                       "id": "bwh8670",
@@ -1814,7 +1813,6 @@ The other entries of $\\text{H}$ can be found similarly.
                       "rationale": undefined,
                     },
                     {
-                      "clue": undefined,
                       "content": "$4 \\cdot 4 + 3\\cdot 3= 25$",
                       "correct": false,
                       "id": "nfxqdw1",
@@ -1822,7 +1820,6 @@ The other entries of $\\text{H}$ can be found similarly.
                       "rationale": undefined,
                     },
                     {
-                      "clue": undefined,
                       "content": "$1 \\cdot 3 + 4\\cdot -1 = -1$",
                       "correct": undefined,
                       "id": "w2lj2d2",
@@ -1834,7 +1831,6 @@ The other entries of $\\text{H}$ can be found similarly.
                   "deselectEnabled": false,
                   "hasNoneOfTheAbove": false,
                   "multipleSelect": false,
-                  "noneOfTheAbove": undefined,
                   "numCorrect": 1,
                   "randomize": true,
                 },
@@ -3212,7 +3208,6 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.json r
               "rationale": "You might have made a sign error.",
             },
             {
-              "clue": undefined,
               "content": "There are no solutions.",
               "correct": true,
               "id": "1e5h603",
@@ -5200,7 +5195,6 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "$B_E\\ \\cos{45\\degree} \\uparrow$",
               "correct": false,
               "id": "lh9c430",
@@ -5208,7 +5202,6 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "$B_E\\ \\cos{45\\degree} \\downarrow$",
               "correct": false,
               "id": "zahmre1",
@@ -5216,7 +5209,6 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "$B_E\\ \\sin{45\\degree} \\downarrow$",
               "correct": true,
               "id": "6qxwdr2",
@@ -5224,7 +5216,6 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "$B_E\\ \\sin{45\\degree}\\uparrow$",
               "correct": false,
               "id": "sf795m3",
@@ -5232,7 +5223,6 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "$B_E\\ \\tan {45\\degree} \\uparrow$",
               "correct": false,
               "id": "domo1j4",
@@ -5240,7 +5230,6 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "$B_E\\ \\tan {45\\degree} \\downarrow$",
               "correct": false,
               "id": "6bndum5",
@@ -5252,9 +5241,7 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
           "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
-          "noneOfTheAbove": undefined,
           "numCorrect": 1,
-          "onePerLine": undefined,
           "randomize": false,
         },
         "static": false,
@@ -5858,7 +5845,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "Less than halfway through the race",
               "correct": false,
               "id": "mhhlrw0",
@@ -5866,7 +5852,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "Halfway through the race",
               "correct": true,
               "id": "2tbyke1",
@@ -5874,7 +5859,6 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "More than halfway through the race",
               "correct": undefined,
               "id": "mrjpi02",
@@ -5886,9 +5870,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
           "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
-          "noneOfTheAbove": undefined,
           "numCorrect": 1,
-          "onePerLine": undefined,
           "randomize": false,
         },
         "static": false,
@@ -7313,7 +7295,6 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": " $\\,-1\\,\\,\\,<\\,-10$",
               "correct": false,
               "id": "tptu870",
@@ -7321,7 +7302,6 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": " $-10\\,\\,\\,<\\,\\,\\,1$",
               "correct": true,
               "id": "uwpp1g1",
@@ -7329,7 +7309,6 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "  $\\,\\,\\,\\,\\,10\\,\\,\\,< \\,-1$",
               "correct": false,
               "id": "btzzmc2",
@@ -9426,7 +9405,6 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                 "options": {
                   "choices": [
                     {
-                      "clue": undefined,
                       "content": "$\\dfrac19+\\dfrac19$",
                       "correct": true,
                       "id": "uvzbo20",
@@ -9434,7 +9412,6 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                       "rationale": undefined,
                     },
                     {
-                      "clue": undefined,
                       "content": "$\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12$",
                       "correct": false,
                       "id": "g7v7ew1",
@@ -9442,7 +9419,6 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                       "rationale": undefined,
                     },
                     {
-                      "clue": undefined,
                       "content": "$\\dfrac19+\\dfrac29$",
                       "correct": false,
                       "id": "uvzcib2",
@@ -9454,7 +9430,6 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                   "deselectEnabled": false,
                   "hasNoneOfTheAbove": false,
                   "multipleSelect": false,
-                  "noneOfTheAbove": undefined,
                   "numCorrect": 1,
                   "randomize": false,
                 },
@@ -9739,7 +9714,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "a.	the rate of extinction that balances the rate of speciation",
               "correct": false,
               "id": "x7rm2e0",
@@ -9747,7 +9721,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "b.	the average rate at which extinctions have occurred naturally in the geologic past, without human involvement",
               "correct": true,
               "id": "et4q8p1",
@@ -9755,7 +9728,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "c.	the rate of extinction that is currently occurring in protected areas like national parks and marine sanctuaries",
               "correct": false,
               "id": "jl97tw2",
@@ -9763,7 +9735,6 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "d.	the rate of extinction that can be determined by using Geiger counters and detecting radiation",
               "correct": false,
               "id": "5cvbe13",
@@ -10042,9 +10013,7 @@ A free body diagram of the **box** is shown below.
           "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": true,
-          "noneOfTheAbove": undefined,
           "numCorrect": 4,
-          "onePerLine": undefined,
           "randomize": true,
         },
         "static": false,
@@ -10278,7 +10247,6 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "Members of the high nobility and the wealthiest of the knightly class",
               "correct": false,
               "id": "xuw27w0",
@@ -10286,7 +10254,6 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "Soldiers, members of the civilian militia, and mercenaries",
               "correct": false,
               "id": "z80nd41",
@@ -10294,7 +10261,6 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "Horses and dogs",
               "correct": false,
               "id": "cz5kin2",
@@ -10327,7 +10293,6 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "",
               "correct": undefined,
               "id": "empty0",
@@ -10335,7 +10300,6 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "",
               "correct": undefined,
               "id": "empty1",
@@ -10585,7 +10549,6 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "15 N",
               "correct": true,
               "id": "yhvlrj0",
@@ -10593,7 +10556,6 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "30 N",
               "correct": false,
               "id": "yhx6081",
@@ -10601,7 +10563,6 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "60 N",
               "correct": undefined,
               "id": "yhtczx2",
@@ -10609,7 +10570,6 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "180 N",
               "correct": undefined,
               "id": "1wddci3",
@@ -10700,7 +10660,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               "options": {
                 "choices": [
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty0",
@@ -10708,7 +10667,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty1",
@@ -10716,7 +10674,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty2",
@@ -10724,7 +10681,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty3",
@@ -10766,7 +10722,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               "options": {
                 "choices": [
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty0",
@@ -10774,7 +10729,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty1",
@@ -10782,7 +10736,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty2",
@@ -10790,7 +10743,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty3",
@@ -10832,7 +10784,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               "options": {
                 "choices": [
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty0",
@@ -10840,7 +10791,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty1",
@@ -10848,7 +10798,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty2",
@@ -10856,7 +10805,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty3",
@@ -10898,7 +10846,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
               "options": {
                 "choices": [
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty0",
@@ -10906,7 +10853,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty1",
@@ -10914,7 +10860,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty2",
@@ -10922,7 +10867,6 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                     "rationale": undefined,
                   },
                   {
-                    "clue": undefined,
                     "content": "",
                     "correct": undefined,
                     "id": "empty3",
@@ -10992,7 +10936,6 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "Yes",
               "correct": false,
               "id": "375zxm0",
@@ -11000,7 +10943,6 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "No",
               "correct": true,
               "id": "3hmis1",
@@ -11012,242 +10954,7 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
           "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
-          "noneOfTheAbove": undefined,
           "numCorrect": 1,
-          "onePerLine": undefined,
-          "randomize": false,
-        },
-        "static": false,
-        "type": "radio",
-        "version": {
-          "major": 4,
-          "minor": 0,
-        },
-      },
-    },
-  },
-}
-`;
-
-exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema.json returns the same result as before 1`] = `
-{
-  "_multi": null,
-  "answer": null,
-  "answerArea": {
-    "calculator": false,
-    "chi2Table": false,
-    "financialCalculatorMonthlyPayment": false,
-    "financialCalculatorTimeToPayOff": false,
-    "financialCalculatorTotalAmount": false,
-    "periodicTable": false,
-    "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
-  },
-  "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
-  "question": {
-    "content": "
-[[☃ image 1]]
-
-##A seriously play-ful(l) proposal
-
-1. The United Nations has declared that playing is a basic human right. Yet we, the children of the United States, have been told that recess isn’t important and needs to be cut in favor of more class time. The average kid in the U.S. gets just 27 minutes of recess a day. This is unacceptable! Recess is important for developing students’ healthy habits alongside a wide range of skills.
-
-###Recess improves our [[☃ definition 1]] and [[☃ definition 3]] health
-
-2. Research shows that exercise makes people healthier and happier. So, by giving students enough time to move their bodies, schools would make their bodies stronger and improve their mental wellbeing. The Center for Disease Control recommends that kids get 60 minutes of active play a day, yet schools give many of us 20 minutes or less of recess! And the practices we develop now affect us far into the future—research has found that the most active kids remain active as adults. If schools cared about the health of our bodies and our minds, they would make sure we had time to develop the healthy habits we need for success.
-
-###Free play builds soft skills
-
-3. 	Some people might wonder: What about gym class? That could help students develop healthy habits.
-
-4. 	I agree that gym class can be important, but it’s no replacement for free play. Study after study has shown that play develops creativity, flexibility, and social skills. When we organize a game with friends, play by ourselves, or resolve a conflict with peers, we’re building our abilities to work together and be creative. These are the skills we need to deal with challenges later in life. These skills will help us be ready to be successful in 21st-century careers. Memorizing facts won’t be enough to prepare us to be engineers, scientists, and leaders–we also need to learn to critically think and collaborate.
-
-###Recess increases learning
-
-5. 	As the amount of time we spend taking standardized tests has grown, our recess has shrunk. School leaders tell us that we need the time for English class. We need the time for math class. There’s no benefit to recess. These are the untruths they’ve pushed on us.
-
-6. 	Because the research is clear: Recess has been linked to higher grades and higher standardized test scores. Furthermore, several studies show that students focus better in class when they have recess during the school day. So, if we really want students to succeed on tests, they need more time at recess, not less.
-
-###Looking to the world
-
-7. 	There are many places in the world where students get more recess than we do here in the United States. We should look to those countries and align our efforts with theirs. For example, in Finland, where students get some of the top scores on world tests, kids get a 15-minute recess after each 45 minutes of instruction. That means they get a total of 75 minutes of recess a day! In Uganda, students get a half hour of recess in the morning and 1.5 hours of choice activity, including free play, in the afternoon. And in Costa Rica, students get short breaks after every two classes and a longer recess after lunch. These countries, and many others, show that it is possible for the United States to do better. For the sake of our physical and mental health, we deserve the right to play that the United Nations has promised us. Let’s stand up for our right to recess!
-
-
-[[☃ explanation 1]]=====
-**Eliana infers that the author believes recess can help students develop [[☃ definition 2]] healthy habits. Which line from paragraph 2 best supports this inference?**
-
-[[☃ radio 1]]
-
-",
-    "images": {},
-    "metadata": null,
-    "replace": null,
-    "widgets": {
-      "definition 1": {
-        "alignment": "default",
-        "graded": true,
-        "id": null,
-        "key": null,
-        "options": {
-          "definition": "Phy·si·cal (fih-sic-ull): Having to do with the body",
-          "static": false,
-          "togglePrompt": "physical",
-        },
-        "static": false,
-        "type": "definition",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-      "definition 2": {
-        "alignment": "default",
-        "graded": true,
-        "id": null,
-        "key": null,
-        "options": {
-          "definition": "Life·long (life-long): Lasting your whole life",
-          "static": false,
-          "togglePrompt": "lifelong",
-        },
-        "static": false,
-        "type": "definition",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-      "definition 3": {
-        "alignment": "default",
-        "graded": true,
-        "id": null,
-        "key": null,
-        "options": {
-          "definition": "Men·tal (men-tull): Having to do with the mind",
-          "static": false,
-          "togglePrompt": "mental",
-        },
-        "static": false,
-        "type": "definition",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-      "explanation 1": {
-        "alignment": "default",
-        "graded": true,
-        "id": null,
-        "key": null,
-        "options": {
-          "explanation": "Public domain image provided by [Pxhere](https://pxhere.com/en/photo/1033461)",
-          "hidePrompt": "Hide attribution",
-          "showPrompt": "Attribution",
-          "static": false,
-          "widgets": {},
-        },
-        "static": false,
-        "type": "explanation",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-      "image 1": {
-        "alignment": "block",
-        "graded": true,
-        "id": null,
-        "key": null,
-        "options": {
-          "alt": "Empty swings",
-          "backgroundImage": {
-            "bottom": undefined,
-            "height": 3448,
-            "left": undefined,
-            "scale": undefined,
-            "top": 0,
-            "url": "https://cdn.kastatic.org/ka-content-images/4a9f1e5d57a20ab339b1d69734b9289f042a373b.jpg",
-            "width": 4592,
-          },
-          "box": [
-            4592,
-            3448,
-          ],
-          "caption": "",
-          "labels": [],
-          "range": [
-            [
-              0,
-              10,
-            ],
-            [
-              0,
-              10,
-            ],
-          ],
-          "static": false,
-          "title": "",
-        },
-        "static": false,
-        "type": "image",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-      "radio 1": {
-        "alignment": "default",
-        "graded": true,
-        "id": null,
-        "key": null,
-        "options": {
-          "choices": [
-            {
-              "content": "“Research shows that exercise makes people healthier and happier.” 
-",
-              "correct": false,
-              "id": "choice-1",
-              "isNoneOfTheAbove": false,
-              "rationale": "This choice doesn’t support Eliana’s inference. It mentions that exercise can make people healthier and happier but doesn’t suggest that  students would keep exercising later in life.
-",
-            },
-            {
-              "content": "“So, by giving students enough time to move their bodies, schools would make their bodies stronger and improve their mental wellbeing.”",
-              "correct": false,
-              "id": "choice-2",
-              "isNoneOfTheAbove": false,
-              "rationale": "This choice doesn’t support Eliana’s inference. It mentions that exercise can make people healthier in their bodies and minds but doesn’t suggest that students would keep exercising later in life.
-",
-            },
-            {
-              "content": "“The Center for Disease Control recommends that kids get 60 minutes of active play a day, yet, for many of us, schools give us 20 minutes or less of recess!” 
-",
-              "correct": false,
-              "id": "choice-3",
-              "isNoneOfTheAbove": false,
-              "rationale": "This choice doesn’t support Eliana’s inference. It mentions how much exercise the Center for Disease Control recommends but doesn’t suggest this would lead to lifelong healthy habits.
-",
-            },
-            {
-              "content": "“And the practices we develop now affect us far into the future– research has found that the most active kids remain active as adults.”
-",
-              "correct": true,
-              "id": "choice-4",
-              "isNoneOfTheAbove": false,
-              "rationale": "**This is the best choice.** It mentions that “research has found that the most active kids remain active as adults,” which shows that kids who exercise are likely to keep up this healthy habit later in their lives.
-",
-            },
-          ],
-          "countChoices": false,
-          "deselectEnabled": false,
-          "hasNoneOfTheAbove": false,
-          "multipleSelect": false,
-          "numCorrect": 0,
           "randomize": false,
         },
         "static": false,
@@ -11574,7 +11281,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
         "options": {
           "choices": [
             {
-              "clue": undefined,
               "content": "",
               "correct": undefined,
               "id": "empty0",
@@ -11582,7 +11288,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "",
               "correct": undefined,
               "id": "empty1",
@@ -11590,7 +11295,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "",
               "correct": undefined,
               "id": "empty2",
@@ -11598,7 +11302,6 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
               "rationale": undefined,
             },
             {
-              "clue": undefined,
               "content": "",
               "correct": undefined,
               "id": "empty3",
