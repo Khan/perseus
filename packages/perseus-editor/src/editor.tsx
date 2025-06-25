@@ -28,6 +28,7 @@ import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
 
+// eslint-disable-next-line import/no-deprecated
 import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
 import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
@@ -127,6 +128,7 @@ type Props = Readonly<{
     warnNoWidgets: boolean;
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
+    // eslint-disable-next-line import/no-deprecated
     onChange: ChangeHandler;
 }>;
 

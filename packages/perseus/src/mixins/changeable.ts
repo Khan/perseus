@@ -79,8 +79,11 @@ const _changeSingle = function (
  *
  * this.change(propName) -> returns a lambda that takes a prop value to
  * set and a callback to call after having set that value.
+ *
+ * TODO(LEMS-3245) remove Changeable
+ *
+ * @deprecated
  */
-// TODO(WEB-1727): use proper TypeScript syntax for overloaded functions
 export const change: ChangeFn = function (
     newPropsOrSinglePropName,
     propValue,
@@ -116,10 +119,20 @@ export const change: ChangeFn = function (
     );
 };
 
+/**
+ * TODO(LEMS-3245) remove Changeable
+ *
+ * @deprecated
+ */
 export const propTypes = {
     onChange: PropTypes.func.isRequired,
 } as const;
 
+/**
+ * TODO(LEMS-3245) remove Changeable
+ *
+ * @deprecated
+ */
 export type ChangeableProps = {
     onChange: (
         values: {

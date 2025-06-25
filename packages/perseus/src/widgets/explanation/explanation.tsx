@@ -69,6 +69,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
     }
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
+        // eslint-disable-next-line import/no-deprecated
         return Changeable.change.apply(this, args);
     };
 

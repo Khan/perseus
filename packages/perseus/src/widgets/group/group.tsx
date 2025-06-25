@@ -62,6 +62,7 @@ class Group extends React.Component<Props> implements Widget {
     }
 
     change: ChangeFn = (...args) => {
+        // eslint-disable-next-line import/no-deprecated
         return Changeable.change.apply(this, args);
     };
 

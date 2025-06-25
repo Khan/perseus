@@ -9,6 +9,7 @@ import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
+// eslint-disable-next-line import/no-deprecated
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
@@ -26,6 +27,7 @@ type EditorProps = {
 type RenderProps = Omit<PerseusTableWidgetOptions, "answers">;
 
 type Props = WidgetProps<RenderProps, PerseusTableUserInput> &
+    // eslint-disable-next-line import/no-deprecated
     ChangeableProps &
     EditorProps;
 

@@ -144,8 +144,8 @@ export class GradedGroup
     }
 
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
+        // eslint-disable-next-line import/no-deprecated
+        return Changeable.change.apply(this, args as any);
     };
 
     // This is a little strange because the id of the widget that actually

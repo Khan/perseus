@@ -6,7 +6,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import Graphie from "../../components/graphie";
-import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/interaction/interaction-ai-utils";
 
@@ -244,10 +243,6 @@ class Interaction extends React.Component<Props, State> implements Widget {
             vars.push(expr.prettyPrint());
         }
         return vars;
-    };
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
     };
 
     getPromptJSON(): UnsupportedWidgetPromptJSON {

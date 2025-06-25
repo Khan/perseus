@@ -11,7 +11,6 @@ import Graphie from "../../components/graphie";
 import SvgImage from "../../components/svg-image";
 import Interactive2 from "../../interactive2";
 import WrappedLine from "../../interactive2/wrapped-line";
-import * as Changeable from "../../mixins/changeable";
 import {interactiveSizes} from "../../styles/constants";
 import Util from "../../util";
 import KhanColors from "../../util/colors";
@@ -31,6 +30,7 @@ import {
 } from "./util";
 
 import type {Coord, Line} from "../../interactive2/types";
+// eslint-disable-next-line import/no-deprecated
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GridDimensions} from "../../util";
@@ -62,6 +62,7 @@ const typeSelectorStyle = {
     padding: "5px 5px",
 } as const;
 
+// eslint-disable-next-line import/no-deprecated
 type FunctionGrapherProps = ChangeableProps & {
     graph: any;
     coords: any;
@@ -109,12 +110,6 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     _asymptote = () => {
         // Unlike coords, asymptotes are never null; see defaultPlotProps.
         return this.props.asymptote;
-    };
-
-    change = (...args) => {
-        // TODO(LEMS-2656): remove TS suppression
-        // @ts-expect-error: Argument of type 'any[]' is not assignable to parameter of type '[newPropsOrSinglePropName: string | { [key: string]: any; }, propValue?: any, callback?: (() => unknown) | undefined]'. Target requires 1 element(s) but source may have fewer.
-        return Changeable.change.apply(this, args);
     };
 
     renderPlot = () => {
