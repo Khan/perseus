@@ -63,6 +63,17 @@ const RadioOptionContentField = (props: Props) => {
                     onChange={(value) => {
                         onContentChange(index, value);
                     }}
+                    onPaste={(e) => {
+                        const imageURL = e.clipboardData.getData("text");
+
+                        if (
+                            imageURL.includes("cdn.kastatic.org") ||
+                            imageURL.includes("graphie")
+                        ) {
+                            e.preventDefault();
+                            handleAddImage(index, imageURL, "");
+                        }
+                    }}
                 />
             </HeadingXSmall>
             {!isNoneOfTheAbove && (
