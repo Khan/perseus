@@ -201,7 +201,7 @@ export const mockedRandomItem: PerseusRenderer = {
                         correct: false,
                     },
                     {
-                        content: "Content 4",
+                        content: "Different Content",
                         correct: false,
                     },
                 ],
@@ -223,22 +223,25 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
                 content: "Content 4",
                 correct: false,
                 originalIndex: 3,
+                id: "v1u4s83",
             },
             {
                 content: "Content 2",
                 correct: false,
                 originalIndex: 1,
+                id: "v1u4se1",
             },
             {
                 content: "Content 1",
                 correct: true,
                 originalIndex: 0,
+                id: "v1u4sd0",
             },
-
             {
                 content: "Content 3",
                 correct: false,
                 originalIndex: 2,
+                id: "v1u4sf2",
             },
         ],
         selectedChoices: [false, false, true, false],
@@ -251,25 +254,28 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
         multipleSelect: false,
         choices: [
             {
-                content: "Content 4",
+                content: "Different Content",
                 correct: false,
                 originalIndex: 3,
+                id: "zfec953",
             },
             {
                 content: "Content 2",
                 correct: false,
                 originalIndex: 1,
+                id: "v1u4se1",
             },
             {
                 content: "Content 1",
                 correct: true,
                 originalIndex: 0,
+                id: "v1u4sd0",
             },
-
             {
                 content: "Content 3",
                 correct: false,
                 originalIndex: 2,
+                id: "v1u4sf2",
             },
         ],
         selectedChoices: [false, false, true, false],

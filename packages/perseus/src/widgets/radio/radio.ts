@@ -1,4 +1,9 @@
-import {radioLogic, random, shuffle} from "@khanacademy/perseus-core";
+import {
+    generateChoiceId,
+    radioLogic,
+    random,
+    shuffle,
+} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import Radio from "./radio.ff";
@@ -73,10 +78,12 @@ const _choiceTransform = (
     // Add meta-information to choices
     const choices: ReadonlyArray<RadioChoiceWithMetadata> =
         widgetOptions.choices.map((choice, i): RadioChoiceWithMetadata => {
+            const choiceId = choice.id || generateChoiceId(choice.content, i);
             return {
                 ...choice,
                 originalIndex: i,
                 correct: Boolean(choice.correct),
+                id: choiceId,
             };
         });
 

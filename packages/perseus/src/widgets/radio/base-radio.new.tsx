@@ -27,6 +27,7 @@ const {captureScratchpadTouchStart} = Util;
 // TODO(LEMS-3170): Simplify the ChoiceType by using ChoiceProps directly.
 // exported for tests
 export interface ChoiceType {
+    id: string;
     checked: boolean;
     content: React.ReactNode;
     rationale: React.ReactNode;
@@ -218,6 +219,7 @@ const BaseRadio = ({
 
                         const elementProps = {
                             apiOptions: apiOptions,
+                            id: choice.id,
                             multipleSelect: multipleSelect,
                             checked: choice.checked,
                             previouslyAnswered: choice.previouslyAnswered,
@@ -335,7 +337,7 @@ const BaseRadio = ({
                         return (
                             // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
                             <li
-                                key={i}
+                                key={choice.id}
                                 ref={(e) => (listElem = e)}
                                 className={className}
                                 onClick={clickHandler}
@@ -344,6 +346,7 @@ const BaseRadio = ({
                                         ? undefined
                                         : captureScratchpadTouchStart
                                 }
+                                data-testid={choice.id}
                             >
                                 <Element {...elementProps} ref={ref} />
                             </li>
