@@ -82,7 +82,6 @@ const MultipleChoiceComponent = ({
     onChoiceChange,
 }: MultipleChoiceComponentProps): React.ReactElement => {
     const {strings} = usePerseusI18n();
-    const isMobile = apiOptions.isMobile;
 
     const choiceRefs = useRef<Array<React.RefObject<HTMLButtonElement>>>([]);
     // Keep track of the previous review mode rubric to avoid unnecessary
@@ -130,10 +129,7 @@ const MultipleChoiceComponent = ({
         styles.choiceList, // Main class for the choice list
     );
 
-    const instructionsClassName = classNames(
-        styles.instructions,
-        isMobile && styles.instructionsMobile,
-    );
+    const instructionsClassName = classNames(styles.instructions);
     const instructions = getInstructionsText({
         multipleSelect,
         countChoices,
