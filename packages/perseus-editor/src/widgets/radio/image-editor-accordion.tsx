@@ -10,8 +10,9 @@ const ImageEditorAccordion = (props: {
     image: {altText: string; url: string};
     imageIndex: number;
     onDeleteImage: (imageIndex: number) => void;
+    onUpdateImage: (imageIndex: number, url: string, altText: string) => void;
 }) => {
-    const {image, imageIndex, onDeleteImage} = props;
+    const {image, imageIndex, onDeleteImage, onUpdateImage} = props;
 
     const [url, setUrl] = React.useState(image.url);
     const [altText, setAltText] = React.useState(image.altText);
@@ -30,6 +31,7 @@ const ImageEditorAccordion = (props: {
                     placeholder="cdn.kastatic.org/..."
                     onChange={(value) => {
                         setUrl(value);
+                        onUpdateImage(imageIndex, value, altText);
                     }}
                     // Usually the size of an image URL takes up 3 rows
                     rows={3}
@@ -42,6 +44,7 @@ const ImageEditorAccordion = (props: {
                     placeholder="The Moon appears as a bright gray circle in black space..."
                     onChange={(value) => {
                         setAltText(value);
+                        onUpdateImage(imageIndex, url, value);
                     }}
                 />
             </HeadingXSmall>
