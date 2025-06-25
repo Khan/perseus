@@ -550,22 +550,19 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         });
     };
 
-    // @ts-expect-error - TS2322 - Type '(props: any) => any[]' is not assignable to type '(arg1: any) => [number, number]'.
-    _getInequalityEndpoint: (arg1: any) => [number, number] = (props) => {
-        const isGreater = _(["ge", "gt"]).contains(props.rel);
+    _getInequalityEndpoint(props: CalculatedProps): [number, number] {
+        const isGreater = _(["ge", "gt"]).contains(this.props.userInput.rel);
         const widthInPixels = 400;
         const range = props.range;
         const scale = (range[1] - range[0]) / widthInPixels;
         const buffer = horizontalPadding * scale;
         const left = range[0] - buffer;
         const right = range[1] + buffer;
-        const end = isGreater ? [right, 0] : [left, 0];
+        const end: [number, number] = isGreater ? [right, 0] : [left, 0];
         return end;
-    };
+    }
 
-    _renderInequality: (arg1: CalculatedProps) => React.ReactElement | null = (
-        props,
-    ) => {
+    _renderInequality(props: CalculatedProps): React.ReactElement | null {
         if (props.isInequality) {
             const end = this._getInequalityEndpoint(props);
             const style = {
@@ -576,24 +573,18 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                 strokeWidth: 3.5,
             } as const;
 
-            const isGreater = ["ge", "gt"].includes(props.userInput.rel);
-
             return (
                 <Line
                     // We shift the line to either side of the dot so they don't
                     // intersect
-                    start={[
-                        (isGreater ? 0.4 : -0.4) +
-                            props.userInput.numLinePosition,
-                        0,
-                    ]}
+                    start={[props.userInput.numLinePosition, 0]}
                     end={end}
                     style={style}
                 />
             );
         }
         return null;
-    };
+    }
 
     _setupGraphie: (arg1: any, arg2: any) => void = (graphie, options) => {
         // Ensure a sane configuration to avoid infinite loops
@@ -861,7 +852,7 @@ function getStartUserInput(
     return {
         numDivisions: getStartNumDivisions(options),
         numLinePosition,
-        rel: "eq",
+        rel: options.isInequality ? "ge" : "eq",
     };
 }
 
