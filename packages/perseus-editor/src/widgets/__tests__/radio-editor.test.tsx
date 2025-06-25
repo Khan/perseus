@@ -23,6 +23,19 @@ function renderRadioEditor(onChangeMock = () => undefined) {
 
 describe("radio-editor", () => {
     let userEvent: UserEvent;
+    function getCorrectChoice(): PerseusRadioChoice {
+        return {
+            content: "",
+            correct: true,
+        };
+    }
+
+    function getIncorrectChoice(): PerseusRadioChoice {
+        const choice = getCorrectChoice();
+        choice.correct = false;
+        return choice;
+    }
+
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -148,19 +161,6 @@ describe("radio-editor", () => {
     it("derives num correct when serializing", () => {
         const editorRef = React.createRef<RadioEditor>();
 
-        function getCorrectChoice(): PerseusRadioChoice {
-            return {
-                content: "",
-                correct: true,
-            };
-        }
-
-        function getIncorrectChoice(): PerseusRadioChoice {
-            const choice = getCorrectChoice();
-            choice.correct = false;
-            return choice;
-        }
-
         render(
             <RadioEditor
                 ref={editorRef}
@@ -184,19 +184,6 @@ describe("radio-editor", () => {
 
     it("derives num correct when calling onChange", async () => {
         const onChangeMock = jest.fn();
-
-        function getCorrectChoice(): PerseusRadioChoice {
-            return {
-                content: "",
-                correct: true,
-            };
-        }
-
-        function getIncorrectChoice(): PerseusRadioChoice {
-            const choice = getCorrectChoice();
-            choice.correct = false;
-            return choice;
-        }
 
         render(
             <RadioEditor
@@ -244,19 +231,6 @@ describe("radio-editor", () => {
     it("updates numCorrect when deleting an option", async () => {
         const onChangeMock = jest.fn();
 
-        function getCorrectChoice(): PerseusRadioChoice {
-            return {
-                content: "",
-                correct: true,
-            };
-        }
-
-        function getIncorrectChoice(): PerseusRadioChoice {
-            const choice = getCorrectChoice();
-            choice.correct = false;
-            return choice;
-        }
-
         render(
             <RadioEditor
                 onChange={onChangeMock}
@@ -272,7 +246,7 @@ describe("radio-editor", () => {
             {wrapper: RenderStateRoot},
         );
 
-        // Delete a correct choice
+        // Delete the first correct choice
         await userEvent.click(
             screen.getAllByRole("button", {
                 name: "Remove this choice",
@@ -282,28 +256,13 @@ describe("radio-editor", () => {
         // numCorrect should be updated to 1
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
-                choices: expect.any(Array),
-                hasNoneOfTheAbove: false,
                 numCorrect: 1,
             }),
         );
     });
 
-    it("updates numCorrect when switching from multiple select to single select", async () => {
+    it("resets numCorrect when switching from multiple select to single select", async () => {
         const onChangeMock = jest.fn();
-
-        function getCorrectChoice(): PerseusRadioChoice {
-            return {
-                content: "",
-                correct: true,
-            };
-        }
-
-        function getIncorrectChoice(): PerseusRadioChoice {
-            const choice = getCorrectChoice();
-            choice.correct = false;
-            return choice;
-        }
 
         render(
             <RadioEditor
@@ -328,16 +287,16 @@ describe("radio-editor", () => {
             }),
         );
 
-        // Check that multipleSelect is updated and numCorrect is calculated
-        expect(onChangeMock).toHaveBeenCalledWith(
-            expect.objectContaining({
-                numCorrect: expect.any(Number),
-            }),
-        );
-
         // Check that the object passed to onChange has a multipleSelect property
         // that's set to false (the exact structure might vary)
         expect(onChangeMock.mock.calls[0][0].multipleSelect).toBe(false);
+
+        // Ensure that numCorrect is reset (0) when switching from multiple select to single select
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                numCorrect: 0,
+            }),
+        );
     });
 
     it("preserves numCorrect when switching from single select to multiple select", async () => {
@@ -379,15 +338,15 @@ describe("radio-editor", () => {
             }),
         );
 
-        // Check that numCorrect is calculated
-        expect(onChangeMock).toHaveBeenCalledWith(
-            expect.objectContaining({
-                numCorrect: expect.any(Number),
-            }),
-        );
-
         // Check that the object passed to onChange has a multipleSelect property
         // that's set to true (the exact structure might vary)
         expect(onChangeMock.mock.calls[0][0].multipleSelect).toBe(true);
+
+        // Check that numCorrect still has the same value
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                numCorrect: 1,
+            }),
+        );
     });
 });
