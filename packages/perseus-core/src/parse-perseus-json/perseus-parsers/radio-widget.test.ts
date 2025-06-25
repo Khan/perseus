@@ -8,7 +8,13 @@ import {
     migrateV2toV3,
     parseRadioWidget,
 } from "./radio-widget";
-import {v0Widget, v1Widget, v2Widget, v3Widget} from "./radio-widget.mockData";
+import {
+    v0Widget,
+    v1Widget,
+    v2Widget,
+    v3Widget,
+    v4Widget,
+} from "./radio-widget.mockData";
 
 describe("parseRadioWidget", () => {
     const LATEST_VERSION = {major: 3, minor: 0};
