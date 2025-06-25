@@ -13,14 +13,19 @@ import type {PerseusStrings} from "../../strings";
 import type {WidgetExports} from "../../types";
 import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
 
-// Transforms the choices for display.
+/**
+ * Transforms the choices for display
+ */
 const _choiceTransform = (
     widgetOptions: PerseusRadioWidgetOptions,
     strings: PerseusStrings,
     problemNum?: number | null,
 ) => {
+    // Generate the seed first so it's available for choice ID generation
+    const randomSeed = getWidgetSeed(random, problemNum);
+
     const _maybeRandomize = function (
-        array: ReadonlyArray<RadioChoiceWithMetadata>,
+        choiceArray: ReadonlyArray<RadioChoiceWithMetadata>,
     ) {
         const randomSeed = problemNum === undefined ? random : problemNum;
         // NOTE: `problemNum` will only be set when the radio widget is
@@ -30,8 +35,8 @@ const _choiceTransform = (
         // shuffle order. To avoid this we use a random seed when `problemNum`
         // is `undefined`.
         return widgetOptions.randomize
-            ? shuffle(array, randomSeed ?? 0)
-            : array;
+            ? hashBasedShuffle(choiceArray, randomSeed)
+            : choiceArray;
     };
 
     const _addNoneOfAbove = function (
