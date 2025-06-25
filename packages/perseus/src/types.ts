@@ -14,7 +14,6 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     Hint,
     PerseusAnswerArea,
-    PerseusGraphType,
     PerseusFeatureFlags,
     PerseusWidget,
     PerseusWidgetsMap,
@@ -24,7 +23,6 @@ import type {
     UserInput,
     UserInputArray,
     UserInputMap,
-    Relationship,
     LabelImageMarkerPublicData,
     PerseusLabelImageMarker,
     ShowSolutions,
@@ -143,6 +141,11 @@ export type ChoiceState = {
     readOnly: boolean;
 };
 
+/**
+ * TODO(LEMS-3245) remove ChangeHandler
+ *
+ * @deprecated
+ */
 export type ChangeHandler = (
     arg1: {
         hints?: ReadonlyArray<Hint>;
@@ -155,26 +158,10 @@ export type ChangeHandler = (
         answerArea?: PerseusAnswerArea | null;
         editorMode?: EditorMode;
         jsonMode?: boolean;
-        // perseus-all-package/widgets/unit.jsx
-        value?: any;
         // widgets/radio/widget.jsx
         choiceStates?: ReadonlyArray<ChoiceState>;
-        // widgets/numeric-input.jsx
-        currentValue?: string;
-        // perseus-all-package/widgets/dropdown.jsx
-        selected?: number;
-        // perseus-all-package/widgets/grapher.jsx
-        plot?: any;
-        // Interactive Graph callback (see legacy: interactive-graph.tsx)
-        graph?: PerseusGraphType;
         // widgets/number-line.tsx
         divisionRange?: number[];
-        // widgets/number-line.ts
-        numDivisions?: number;
-        // widgets/number-line.ts
-        numLinePosition?: number;
-        // widgets/number-line.ts
-        rel?: Relationship;
         // widgets/label-image.tsx
         markers?: Array<LabelImageMarkerPublicData | PerseusLabelImageMarker>;
     },

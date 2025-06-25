@@ -1,6 +1,6 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
 /* eslint-disable react/forbid-prop-types */
-import {ApiOptions, Changeable} from "@khanacademy/perseus";
+import {ApiOptions} from "@khanacademy/perseus";
 import {
     groupLogic,
     type GroupDefaultWidgetOptions,
@@ -15,7 +15,6 @@ type Props = any;
 
 class GroupEditor extends React.Component<Props> {
     static propTypes = {
-        ...Changeable.propTypes,
         content: PropTypes.string,
         widgets: PropTypes.object,
         images: PropTypes.object,
@@ -28,10 +27,6 @@ class GroupEditor extends React.Component<Props> {
         groupLogic.defaultWidgetOptions;
 
     editor = React.createRef<Editor>();
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
 
     getSaveWarnings: () => ReadonlyArray<any> = () => {
         return this.editor.current?.getSaveWarnings();
