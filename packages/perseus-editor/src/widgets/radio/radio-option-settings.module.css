@@ -8,3 +8,7 @@
     /* Space between text and the close icon */
     margin-inline-end: 0.8rem;
 }
+
+.content-heading {
+    margin-block-end: 1.2rem;
+}

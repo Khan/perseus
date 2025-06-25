@@ -2,9 +2,8 @@
 import {Changeable} from "@khanacademy/perseus";
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Link from "@khanacademy/wonder-blocks-link";
-import {spacing, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {Footnote} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
@@ -319,10 +318,10 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                         kind="tertiary"
                         startIcon={plusIcon}
                         onClick={this.addChoice.bind(this, false)}
+                        style={{marginInlineEnd: "2.4rem"}}
                     >
                         Add a choice
                     </Button>
-                    <Strut size={spacing.large_24} />
                     <Button
                         size="small"
                         kind="tertiary"

@@ -1,12 +1,7 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Pill from "@khanacademy/wonder-blocks-pill";
-import {
-    semanticColor,
-    sizing,
-    spacing,
-} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
@@ -104,7 +99,7 @@ export function RadioOptionSettings({
             </fieldset>
 
             {/* Content and rationale text areas */}
-            <HeadingXSmall tag="label">
+            <HeadingXSmall tag="label" className={styles.contentHeading}>
                 Content
                 <TextArea
                     value={isNoneOfTheAbove ? "None of the above" : content}
@@ -119,7 +114,6 @@ export function RadioOptionSettings({
                     }}
                 />
             </HeadingXSmall>
-            <Strut size={spacing.small_12} />
             <HeadingXSmall tag="label">
                 Rationale
                 <TextArea
