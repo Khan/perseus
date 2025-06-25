@@ -6,5 +6,5 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     /* Space between text and the close icon */
-    margin-inline-end: 8px;
+    margin-inline-end: 0.8rem;
 }
