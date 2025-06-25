@@ -494,7 +494,7 @@ describe("radio-editor", () => {
         );
     });
 
-    it("calls onChange when the clue is changed", async () => {
+    it("calls onChange when the rationale is changed", async () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
@@ -513,7 +513,7 @@ describe("radio-editor", () => {
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 choices: [
-                    {content: "Choice 1", clue: "A"},
+                    {content: "Choice 1", rationale: "A"},
                     {content: "Choice 2"},
                     {content: "Choice 3"},
                     {content: "Choice 4"},
@@ -522,12 +522,12 @@ describe("radio-editor", () => {
         );
     });
 
-    it("calls onChange when the clue is cleared", async () => {
+    it("calls onChange when the rationale is cleared", async () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
             choices: [
-                {content: "Choice 1", clue: "A"},
+                {content: "Choice 1", rationale: "A"},
                 {content: "Choice 2"},
                 {content: "Choice 3"},
                 {content: "Choice 4"},
@@ -541,7 +541,7 @@ describe("radio-editor", () => {
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 choices: [
-                    // Clue is deleted if it's an empty string.
+                    // Rationale is deleted if it's an empty string.
                     {content: "Choice 1"},
                     {content: "Choice 2"},
                     {content: "Choice 3"},
