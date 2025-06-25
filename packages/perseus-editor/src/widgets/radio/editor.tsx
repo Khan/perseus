@@ -112,41 +112,30 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         radioLogic.defaultWidgetOptions;
 
     onMultipleSelectChange: (arg1: any) => any = (allowMultiple) => {
-        const multipleSelect = allowMultiple.multipleSelect;
+        const isMultipleSelect = allowMultiple.multipleSelect;
 
-        // When switching to single-select mode, if multiple options are selected,
-        // we need to deselect all options
+        // When switching to single-select mode, we want to deselect all
+        // choices if more than one choice is currently selected as correct.
         let choices = this.props.choices;
-        if (!multipleSelect) {
-            const numCorrect = _.reduce(
-                this.props.choices,
-                function (memo, choice) {
-                    return choice.correct ? memo + 1 : memo;
-                },
-                0,
-            );
-
+        if (!isMultipleSelect) {
+            const numCorrect = deriveNumCorrect(this.props);
             if (numCorrect > 1) {
-                choices = _.map(this.props.choices, function (choice) {
-                    return _.defaults(
-                        {
-                            correct: false,
-                        },
-                        choice,
-                    );
+                choices = choices.map((choice) => {
+                    return {
+                        ...choice,
+                        correct: false,
+                    };
                 });
             }
         }
 
-        // Update with the new settings and recalculate numCorrect
+        // Update with the updated choices and recalculate numCorrect
         this.props.onChange({
-            multipleSelect: multipleSelect,
-            choices: choices,
+            multipleSelect: isMultipleSelect,
+            choices,
             numCorrect: deriveNumCorrect({
                 ...this.props,
                 choices,
-                multipleSelect: multipleSelect,
-                numCorrect: undefined,
             }),
         });
     };
@@ -287,23 +276,12 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             countChoices,
             hasNoneOfTheAbove,
             deselectEnabled,
-            numCorrect: deriveNumCorrect({
-                ...this.props,
-                // When deriving numCorrect, we don't want to pass the current value,
-                // as it has changed.
-                numCorrect: undefined,
-            }),
+            numCorrect: deriveNumCorrect(this.props),
         };
     }
 
     render(): React.ReactNode {
-        const numCorrect = _.reduce(
-            this.props.choices,
-            function (memo, choice) {
-                return choice.correct ? memo + 1 : memo;
-            },
-            0,
-        );
+        const numCorrect = deriveNumCorrect(this.props);
         return (
             <div>
                 <Link
