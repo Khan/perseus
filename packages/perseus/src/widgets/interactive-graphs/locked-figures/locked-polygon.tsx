@@ -1,5 +1,6 @@
 import {
     lockedFigureColors,
+    lockedFigureWeights,
     lockedFigureFillStyles,
 } from "@khanacademy/perseus-core";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
@@ -9,12 +10,6 @@ import * as React from "react";
 import {X, Y} from "../math";
 
 import type {LockedPolygonType} from "@khanacademy/perseus-core";
-
-const weightMap = {
-    thin: 1,
-    medium: 2,
-    thick: 4,
-};
 
 const LockedPolygon = (props: LockedPolygonType) => {
     const {
@@ -40,7 +35,7 @@ const LockedPolygon = (props: LockedPolygonType) => {
                 fillOpacity={lockedFigureFillStyles[fillStyle]}
                 strokeStyle={strokeStyle}
                 color={lockedFigureColors[color]}
-                weight={weightMap[weight]}
+                weight={lockedFigureWeights[weight]}
                 // We need to override the svg props if we want to have a
                 // different fill color than the stroke color (specifically,
                 // in the case where the fillStyle is "white").

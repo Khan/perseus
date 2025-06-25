@@ -70,6 +70,7 @@ import type {Coord} from "../../interactive2/types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
 import type {
+    LockedFigureWeight,
     PerseusGraphType,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -932,11 +933,12 @@ describe("Interactive Graph", function () {
         });
 
         it.each([
+            {weight: undefined, expectedStrokeWidth: 2},
             {weight: "thin", expectedStrokeWidth: 1},
             {weight: "medium", expectedStrokeWidth: 2},
             {weight: "thick", expectedStrokeWidth: 4},
         ] as {
-            weight: "thin" | "medium" | "thick";
+            weight: LockedFigureWeight | undefined;
             expectedStrokeWidth: number;
         }[])(
             "should render locked polygons with specific weight",
