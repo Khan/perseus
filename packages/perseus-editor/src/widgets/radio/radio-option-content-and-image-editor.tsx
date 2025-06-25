@@ -51,7 +51,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
         imageAltText: string,
     ) => {
         const caretPosition = inputRef.current?.selectionStart;
-        const newContent = `${content.slice(0, caretPosition)} ![${imageAltText}](${imageUrl}) ${content.slice(caretPosition)}`;
+        const newContent = `${content.slice(0, caretPosition)}![${imageAltText}](${imageUrl})${content.slice(caretPosition)}`;
         onContentChange(choiceIndex, newContent);
     };
 
