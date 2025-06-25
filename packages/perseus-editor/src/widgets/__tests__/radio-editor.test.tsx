@@ -330,7 +330,7 @@ describe("radio-editor", () => {
         );
     });
 
-    it("resets numCorrect when switching from multiple select to single select with a single correct choice", async () => {
+    it("preserves numCorrect when switching from multiple select to single select with a single correct choice", async () => {
         const onChangeMock = jest.fn();
 
         render(
