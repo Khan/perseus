@@ -25,8 +25,6 @@ type Props = {
 export const RadioOptionContentAndImageEditor = (props: Props) => {
     const {content, choiceIndex, onContentChange, isNoneOfTheAbove} = props;
 
-    const inputRef = React.useRef<HTMLTextAreaElement>(null);
-
     // States for updating content and images
     const [niceContent, setNiceContent] = React.useState<string>("");
     const [images, setImages] = React.useState<
@@ -39,7 +37,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
     const [imageAltText, setImageAltText] = React.useState("");
 
     React.useEffect(() => {
-        const [niceContent, images] = setNiceContentAndImages(content);
+        const [niceContent, images] = setNiceContentAndImages(content ?? "");
         setNiceContent(niceContent);
         setImages(images);
     }, [content]);
@@ -50,8 +48,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
         imageUrl: string,
         imageAltText: string,
     ) => {
-        const caretPosition = inputRef.current?.selectionStart;
-        const newContent = `${content.slice(0, caretPosition)}![${imageAltText}](${imageUrl})${content.slice(caretPosition)}`;
+        const newContent = `${content} ![${imageAltText}](${imageUrl})`;
         onContentChange(choiceIndex, newContent);
     };
 
@@ -120,7 +117,6 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
             <HeadingXSmall tag="label">
                 Content
                 <TextArea
-                    ref={inputRef}
                     value={niceContent}
                     placeholder="Type a choice here..."
                     // This unfortunately doesn't match the dynamic resizing
