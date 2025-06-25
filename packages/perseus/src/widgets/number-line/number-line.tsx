@@ -852,7 +852,7 @@ function getStartUserInput(
     return {
         numDivisions: getStartNumDivisions(options),
         numLinePosition,
-        rel: "ge",
+        rel: options.isInequality ? "ge" : "eq",
     };
 }
 

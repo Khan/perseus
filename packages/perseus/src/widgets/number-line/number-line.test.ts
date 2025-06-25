@@ -193,9 +193,8 @@ describe("number-line widget", () => {
             });
         });
 
-        // Regression (LEMS-3247)
-        test("can switch directions", async () => {
-            const options: PerseusNumberLineWidgetOptions = {
+        function getInequalityOptions(): PerseusNumberLineWidgetOptions {
+            return {
                 static: false, // <= important
                 isInequality: true, // <= important
                 correctRel: "le",
@@ -211,8 +210,14 @@ describe("number-line widget", () => {
                 snapDivisions: 1,
                 tickStep: 1,
             };
+        }
 
-            const item = getAnswerfulItem("number-line", options);
+        // Regression (LEMS-3247)
+        test("can switch directions", async () => {
+            const item = getAnswerfulItem(
+                "number-line",
+                getInequalityOptions(),
+            );
 
             const {renderer} = renderQuestion(item.question);
 
@@ -232,24 +237,10 @@ describe("number-line widget", () => {
 
         // Regression (LEMS-3247)
         test("can change circle fill", async () => {
-            const options: PerseusNumberLineWidgetOptions = {
-                static: false, // <= important
-                isInequality: true, // <= important
-                correctRel: "le",
-                correctX: -1,
-                divisionRange: [1, 12],
-                initialX: -5,
-                labelRange: [null, null],
-                labelStyle: "decimal",
-                labelTicks: true,
-                numDivisions: null,
-                range: [-5, 5],
-                showTooltips: false,
-                snapDivisions: 1,
-                tickStep: 1,
-            };
-
-            const item = getAnswerfulItem("number-line", options);
+            const item = getAnswerfulItem(
+                "number-line",
+                getInequalityOptions(),
+            );
 
             const {renderer} = renderQuestion(item.question);
 
@@ -300,7 +291,7 @@ describe("number-line widget", () => {
             numberLineOptions,
         ).question;
 
-        it.only("can be answered correctly", () => {
+        it("can be answered correctly", () => {
             // Arrange
             const apiOptions: APIOptions = {
                 isMobile: false,
