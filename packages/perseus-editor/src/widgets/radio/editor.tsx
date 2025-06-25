@@ -203,7 +203,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             numCorrect: deriveNumCorrect({
                 ...this.props,
                 choices,
-                numCorrect: undefined,
             }),
         });
     };
