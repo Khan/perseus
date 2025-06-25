@@ -7,6 +7,7 @@ import {
 import _ from "underscore";
 
 import Radio from "./radio.ff";
+import {getWidgetSeed, hashBasedShuffle} from "./utils/hash-shuffle";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusStrings} from "../../strings";
