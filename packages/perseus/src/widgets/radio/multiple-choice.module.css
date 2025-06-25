@@ -3,28 +3,12 @@
 .instructions {
     display: block;
     color: var(--wb-semanticColor-core-foreground-instructive-strong);
-    font-size: 14px;
+    font-size: 1.8rem;
     line-height: 1.25;
     font-family: inherit;
     font-style: normal;
     font-weight: bold;
     margin-bottom: var(--wb-sizing-size_160);
-}
-
-.instructionsMobile {
-    font-size: 18px;
-}
-
-@media screen and (max-width: 681px) {
-    .instructionsMobile {
-        font-size: 16px;
-    }
-}
-
-@media screen and (min-width: 1024px) {
-    .instructionsMobile {
-        font-size: 20px;
-    }
 }
 
 /* Consolidated class for the choice list */
@@ -43,17 +27,17 @@
 
 @media screen and (max-width: 681px) {
     .choiceList {
-        margin-left: calc(-1 * var(--wb-sizing-size_160));
-        margin-right: calc(-1 * var(--wb-sizing-size_160));
+        margin-inline-start: calc(-1 * var(--wb-sizing-size_160));
+        margin-inline-end: calc(-1 * var(--wb-sizing-size_160));
     }
 }
 
 .item {
-    margin-left: var(--wb-sizing-size_200);
+    margin-inline-start: var(--wb-sizing-size_200);
 }
 
 .responsiveItem {
-    margin-left: 0;
+    margin-inline-start: 0;
     padding: 0;
 }
 
@@ -68,11 +52,11 @@
 
 .responsiveContainer {
     overflow: auto;
-    margin-left: calc(-1 * var(--wb-sizing-size_160));
-    padding-left: var(--wb-sizing-size_160);
+    margin-inline-start: calc(-1 * var(--wb-sizing-size_160));
+    padding-inline-start: var(--wb-sizing-size_160);
 }
 
 .responsiveFieldset {
-    padding-right: var(--wb-sizing-size_160);
+    padding-inline-end: var(--wb-sizing-size_160);
     min-width: auto;
 }
