@@ -148,17 +148,17 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         this.props.onChange({choices: choices});
     };
 
-    onClueChange: (choiceIndex: number, newClue: string) => void = (
+    onRationaleChange: (choiceIndex: number, newRationale: string) => void = (
         choiceIndex,
-        newClue,
+        newRationale,
     ) => {
         const choices = [...this.props.choices];
         choices[choiceIndex] = {
             ...choices[choiceIndex],
-            clue: newClue,
+            rationale: newRationale,
         };
-        if (newClue === "") {
-            delete choices[choiceIndex].clue;
+        if (newRationale === "") {
+            delete choices[choiceIndex].rationale;
         }
         this.props.onChange({choices: choices});
     };
@@ -307,7 +307,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                         multipleSelect={this.props.multipleSelect}
                         onStatusChange={this.onStatusChange}
                         onContentChange={this.onContentChange}
-                        onRationaleChange={this.onClueChange}
+                        onRationaleChange={this.onRationaleChange}
                         onDelete={() => this.onDelete(index)}
                         showDelete={this.props.choices.length >= 2}
                     />

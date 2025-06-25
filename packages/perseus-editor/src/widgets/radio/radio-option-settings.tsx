@@ -39,7 +39,7 @@ export function RadioOptionSettings({
     showDelete,
     onDelete,
 }: RadioOptionSettingsProps) {
-    const {content, clue, correct, isNoneOfTheAbove} = choice;
+    const {content, rationale, correct, isNoneOfTheAbove} = choice;
 
     return (
         <PerseusEditorAccordion
@@ -123,7 +123,7 @@ export function RadioOptionSettings({
             <HeadingXSmall tag="label">
                 Rationale
                 <TextArea
-                    value={clue ?? ""}
+                    value={rationale ?? ""}
                     placeholder="Why is this choice correct?"
                     // This unfortunately doesn't match the dynamic resizing
                     // behavior that it had before, but we should be able to add
