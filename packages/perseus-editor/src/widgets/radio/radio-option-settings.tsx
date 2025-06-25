@@ -8,7 +8,7 @@ import * as React from "react";
 
 import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 
-import RadioOptionContentField from "./radio-option-content-field";
+import {RadioOptionContentAndImageEditor} from "./radio-option-content-and-image-editor";
 import styles from "./radio-option-settings.module.css";
 import {RadioStatusPill} from "./radio-status-pill";
 
@@ -36,9 +36,6 @@ export function RadioOptionSettings({
     onDelete,
 }: RadioOptionSettingsProps) {
     const {content, rationale, correct, isNoneOfTheAbove} = choice;
-
-    // Use the inputRef to get the caret position when adding an image.
-    const inputRef = React.useRef<HTMLTextAreaElement>(null);
 
     return (
         <PerseusEditorAccordion
@@ -102,10 +99,9 @@ export function RadioOptionSettings({
                 </Pill>
             </fieldset>
 
-            <RadioOptionContentField
-                index={index}
-                inputRef={inputRef}
+            <RadioOptionContentAndImageEditor
                 content={content}
+                choiceIndex={index}
                 isNoneOfTheAbove={isNoneOfTheAbove ?? false}
                 onContentChange={onContentChange}
             />

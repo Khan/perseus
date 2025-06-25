@@ -1,5 +1,6 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
@@ -21,10 +22,19 @@ const ImageEditorAccordion = (props: {
         <PerseusEditorAccordion
             key={image.url}
             header={`Image ${imageIndex + 1}`}
-            expanded={true}
+            containerStyle={{
+                backgroundColor: semanticColor.surface.primary,
+            }}
         >
-            <img src={image.url} alt={image.altText} />
-            <HeadingXSmall tag="label">
+            <img
+                src={image.url}
+                alt={image.altText}
+                style={{marginBlockEnd: sizing.size_080}}
+            />
+            <HeadingXSmall
+                tag="label"
+                style={{marginBlockEnd: sizing.size_080}}
+            >
                 Image URL
                 <TextArea
                     value={url}

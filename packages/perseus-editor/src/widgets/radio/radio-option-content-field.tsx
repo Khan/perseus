@@ -1,36 +1,25 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import {TextField, TextArea} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {Spring, Strut} from "@khanacademy/wonder-blocks-layout";
-import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
-import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import {Spring} from "@khanacademy/wonder-blocks-layout";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
-import pencilIcon from "@phosphor-icons/core/bold/pencil-bold.svg";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import xIcon from "@phosphor-icons/core/regular/x.svg";
 import * as React from "react";
 
 import styles from "./radio-option-content-field.module.css";
-import {RadioOptionImageEditModal} from "./radio-option-image-edit-modal";
 
 type Props = {
     index: number;
     inputRef: React.RefObject<HTMLTextAreaElement>;
     content: string;
     isNoneOfTheAbove: boolean;
-    inModal?: boolean;
     onContentChange: (choiceIndex: number, newContent: string) => void;
 };
 
 const RadioOptionContentField = (props: Props) => {
-    const {
-        index,
-        inputRef,
-        content,
-        isNoneOfTheAbove,
-        inModal,
-        onContentChange,
-    } = props;
+    const {index, inputRef, content, isNoneOfTheAbove, onContentChange} = props;
 
     const [addingImage, setAddingImage] = React.useState(false);
     const [imageUrl, setImageUrl] = React.useState("");
@@ -91,30 +80,6 @@ const RadioOptionContentField = (props: Props) => {
                             Add image
                         </Button>
                     )}
-                    <Spring />
-                    {!inModal && (
-                        <ModalLauncher
-                            modal={
-                                <RadioOptionImageEditModal
-                                    content={content}
-                                    choiceIndex={index}
-                                    onContentChange={onContentChange}
-                                />
-                            }
-                        >
-                            {({openModal}) => (
-                                <Button
-                                    startIcon={pencilIcon}
-                                    size="small"
-                                    kind="tertiary"
-                                    style={{alignSelf: "flex-start"}}
-                                    onClick={openModal}
-                                >
-                                    Edit images
-                                </Button>
-                            )}
-                        </ModalLauncher>
-                    )}
                 </span>
             )}
             {addingImage && !isNoneOfTheAbove && (
@@ -129,7 +94,10 @@ const RadioOptionContentField = (props: Props) => {
                             }}
                         />
                     </HeadingXSmall>
-                    <HeadingXSmall tag="label">
+                    <HeadingXSmall
+                        tag="label"
+                        style={{marginBlockEnd: sizing.size_080}}
+                    >
                         Image Alt Text
                         <TextArea
                             value={imageAltText}
@@ -139,7 +107,6 @@ const RadioOptionContentField = (props: Props) => {
                             }}
                         />
                     </HeadingXSmall>
-                    <Strut size={spacing.small_12} />
                     <span className={styles.rowDirection}>
                         <Button
                             size="small"
