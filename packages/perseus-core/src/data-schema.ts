@@ -1385,7 +1385,7 @@ export type PerseusRadioChoice = {
     // If this is none of the above, override the content with "None of the above"
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     isNoneOfTheAbove?: boolean;
-    id?: string
+    id?: string;
 };
 
 export type PerseusSorterWidgetOptions = {

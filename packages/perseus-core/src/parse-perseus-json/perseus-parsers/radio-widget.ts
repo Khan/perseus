@@ -38,6 +38,32 @@ const parseNoneOfTheAbove = defaulted(
     () => undefined,
 );
 
+const version4 = optional(object({major: constant(4), minor: number}));
+const parseRadioWidgetV4 = parseWidgetWithVersion(
+    version4,
+    constant("radio"),
+    defaulted(
+        object({
+            numCorrect: optional(number),
+            choices: array(
+                object({
+                    content: defaulted(string, () => ""),
+                    rationale: optional(string),
+                    correct: optional(boolean),
+                    isNoneOfTheAbove: optional(boolean),
+                    id: optional(string),
+                }),
+            ),
+            hasNoneOfTheAbove: optional(boolean),
+            countChoices: optional(boolean),
+            randomize: optional(boolean),
+            multipleSelect: optional(boolean),
+            deselectEnabled: optional(boolean),
+        }),
+        getDefaultOptions,
+    ),
+);
+
 const version3 = optional(object({major: constant(3), minor: number}));
 const parseRadioWidgetV3 = parseWidgetWithVersion(
     version3,
@@ -55,8 +81,8 @@ const parseRadioWidgetV3 = parseWidgetWithVersion(
         hasNoneOfTheAbove: optional(boolean),
         countChoices: optional(boolean),
         randomize: optional(boolean),
-        multipleSelect: optional(boolean),
         deselectEnabled: optional(boolean),
+        multipleSelect: optional(boolean),
     }),
 );
 
@@ -161,7 +187,35 @@ const parseRadioWidgetV0 = parseWidgetWithVersion(
 );
 
 // migrate functions
-export function migrateV2toV3(
+export function migrateV3ToV4(
+    widget: ParsedValue<typeof parseRadioWidgetV3>,
+): ParsedValue<typeof parseRadioWidgetV4> {
+    const {options} = widget;
+    return {
+        ...widget,
+        version: {major: 4, minor: 0},
+        options: {
+            numCorrect: options.numCorrect,
+            hasNoneOfTheAbove: options.hasNoneOfTheAbove,
+            countChoices: options.countChoices,
+            randomize: options.randomize,
+            multipleSelect: options.multipleSelect,
+            deselectEnabled: options.deselectEnabled,
+            choices: options.choices.map((choice, index) => {
+                const choiceId = `choice-${index + 1}`;
+                return {
+                    content: choice.content,
+                    rationale: choice.rationale,
+                    correct: choice.correct,
+                    isNoneOfTheAbove: choice.isNoneOfTheAbove,
+                    id: choiceId,
+                };
+            }),
+        },
+    };
+}
+
+export function migrateV2ToV3(
     widget: ParsedValue<typeof parseRadioWidgetV2>,
 ): ParsedValue<typeof parseRadioWidgetV3> {
     const {options} = widget;
@@ -215,7 +269,8 @@ export function migrateV0ToV1(
     };
 }
 
-export const parseRadioWidget = versionedWidgetOptions(3, parseRadioWidgetV3)
-    .withMigrationFrom(2, parseRadioWidgetV2, migrateV2toV3)
+export const parseRadioWidget = versionedWidgetOptions(4, parseRadioWidgetV4)
+    .withMigrationFrom(3, parseRadioWidgetV3, migrateV3ToV4)
+    .withMigrationFrom(2, parseRadioWidgetV2, migrateV2ToV3)
     .withMigrationFrom(1, parseRadioWidgetV1, migrateV1ToV2)
     .withMigrationFrom(0, parseRadioWidgetV0, migrateV0ToV1).parser;
