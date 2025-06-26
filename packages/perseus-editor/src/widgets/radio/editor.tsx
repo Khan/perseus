@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {BaseRadio, Changeable} from "@khanacademy/perseus";
+import {BaseRadio} from "@khanacademy/perseus";
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
@@ -12,7 +12,7 @@ import _ from "underscore";
 import LabeledSwitch from "../../components/labeled-switch";
 import Editor from "../../editor";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {APIOptions, Changeable} from "@khanacademy/perseus";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRadioChoice,
@@ -110,11 +110,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
     static defaultProps: RadioDefaultWidgetOptions =
         radioLogic.defaultWidgetOptions;
-
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
-    };
 
     onMultipleSelectChange: (arg1: any) => any = (allowMultiple) => {
         allowMultiple = allowMultiple.multipleSelect;

@@ -2,7 +2,7 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
-import {question1} from "./plotter.testdata";
+import {dotPlotter, question1, simple} from "./plotter.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -23,6 +23,20 @@ export const Basic: Story = {
 export const AnswerlessPlotter: Story = {
     args: {
         item: generateTestPerseusItem({question: question1}),
+        startAnswerless: true,
+    },
+};
+
+export const SimplePlotter: Story = {
+    args: {
+        item: generateTestPerseusItem({question: simple}),
+        startAnswerless: true,
+    },
+};
+
+export const DotPlotter: Story = {
+    args: {
+        item: generateTestPerseusItem({question: dotPlotter}),
         startAnswerless: true,
     },
 };

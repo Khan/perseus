@@ -11,6 +11,7 @@ import type {Issue} from "./issues-panel";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
+    // eslint-disable-next-line import/no-deprecated
     ChangeHandler,
     DeviceType,
     ImageUploader,
@@ -46,6 +47,7 @@ type Props = {
     // Only used in the perseus demos. Consider removing.
     jsonMode: boolean;
     // A function which is called with the new JSON blob of content.
+    // eslint-disable-next-line import/no-deprecated
     onChange: ChangeHandler;
     onPreviewDeviceChange: (arg1: DeviceType) => unknown;
     previewDevice: DeviceType;
@@ -197,6 +199,7 @@ class EditorPage extends React.Component<Props, State> {
         });
     }
 
+    // eslint-disable-next-line import/no-deprecated
     handleChange: ChangeHandler = (toChange, cb, silent) => {
         const newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);

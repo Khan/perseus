@@ -14,6 +14,7 @@ import {question1} from "../__testdata__/sorter.testdata";
 
 import type {APIOptions} from "../../types";
 
+// TODO, this is in the wrong spot; it's in the "components" dir and not the "widgets" dir
 describe("sorter widget", () => {
     beforeEach(() => {
         /*
@@ -93,9 +94,10 @@ describe("sorter widget", () => {
             const {renderer} = renderQuestion(question);
 
             // Act
+            const userInput = renderer.getUserInputMap();
             const score = scorePerseusItemTesting(
                 answerfulItem.question,
-                renderer.getUserInputMap(),
+                userInput,
             );
 
             // Assert
@@ -110,14 +112,15 @@ describe("sorter widget", () => {
             // Act
             // Put the options in the correct order
             ["Zeroth", "First", "Second", "Third", "Fourth"].forEach(
-                (option) => {
-                    act(() => sorter.moveOptionToIndex(option, 4));
+                (option, index) => {
+                    act(() => sorter.moveOptionToIndex(option, index));
                 },
             );
 
+            const userInput = renderer.getUserInputMap();
             const score = scorePerseusItemTesting(
                 answerfulItem.question,
-                renderer.getUserInputMap(),
+                userInput,
             );
 
             // Assert

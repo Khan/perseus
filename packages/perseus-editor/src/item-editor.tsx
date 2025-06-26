@@ -14,6 +14,7 @@ import type {Issue} from "./issues-panel";
 import type {
     APIOptions,
     ImageUploader,
+    // eslint-disable-next-line import/no-deprecated
     ChangeHandler,
     DeviceType,
 } from "@khanacademy/perseus";
@@ -32,6 +33,7 @@ type Props = {
     answerArea?: PerseusAnswerArea | null;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
+    // eslint-disable-next-line import/no-deprecated
     onChange: ChangeHandler;
     // The content ID of the AssessmentItem being edited. It may not be set
     // for non-content library exercise questions.
@@ -106,6 +108,7 @@ class ItemEditor extends React.Component<Props, State> {
     }
 
     // Notify the parent that the question or answer area has been updated.
+    // eslint-disable-next-line import/no-deprecated
     updateProps: ChangeHandler = (newProps, cb, silent) => {
         const props = _(this.props).pick("question", "answerArea");
 
@@ -116,6 +119,7 @@ class ItemEditor extends React.Component<Props, State> {
         this.frame.current?.sendNewData(newData);
     };
 
+    // eslint-disable-next-line import/no-deprecated
     handleEditorChange: ChangeHandler = (newProps, cb, silent) => {
         const question = _.extend({}, this.props.question, newProps);
         this.updateProps({question}, cb, silent);

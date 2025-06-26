@@ -12,7 +12,7 @@ import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import _ from "underscore";
 
-import WIDGET_PROP_DENYLIST from "./widget-prop-denylist";
+import {excludeDenylistKeys} from "./widget-prop-denylist";
 
 import type {ChangeFn} from "../types";
 
@@ -43,7 +43,7 @@ const _changeMultiple = function (
     //   the conceptual state of our component
     // onChange comes from our parent to allow this modification,
     //   and doesn't conceptually represent the state of our component
-    const currProps = _.omit(component.props, WIDGET_PROP_DENYLIST);
+    const currProps = excludeDenylistKeys(component.props);
     const nextProps = _.extend(currProps, newProps);
     component.props.onChange(nextProps, callback);
 };
@@ -79,8 +79,11 @@ const _changeSingle = function (
  *
  * this.change(propName) -> returns a lambda that takes a prop value to
  * set and a callback to call after having set that value.
+ *
+ * TODO(LEMS-3245) remove Changeable
+ *
+ * @deprecated
  */
-// TODO(WEB-1727): use proper TypeScript syntax for overloaded functions
 export const change: ChangeFn = function (
     newPropsOrSinglePropName,
     propValue,
@@ -116,10 +119,20 @@ export const change: ChangeFn = function (
     );
 };
 
+/**
+ * TODO(LEMS-3245) remove Changeable
+ *
+ * @deprecated
+ */
 export const propTypes = {
     onChange: PropTypes.func.isRequired,
 } as const;
 
+/**
+ * TODO(LEMS-3245) remove Changeable
+ *
+ * @deprecated
+ */
 export type ChangeableProps = {
     onChange: (
         values: {

@@ -47,7 +47,7 @@ const meta: Meta<typeof NumericInput> = {
     title: "Perseus/Widgets/Numeric Input",
     args: {
         coefficient: false,
-        currentValue: "",
+        userInput: {currentValue: ""},
         rightAlign: false,
         size: "normal",
         answers: [
@@ -95,11 +95,13 @@ const meta: Meta<typeof NumericInput> = {
                 },
             },
         },
-        currentValue: {
-            control: {type: "text"},
-            description: "The current value of the input field",
-            table: {
-                type: {summary: "string"},
+        userInput: {
+            currentValue: {
+                control: {type: "text"},
+                description: "The current value of the input field",
+                table: {
+                    type: {summary: "string"},
+                },
             },
         },
         coefficient: {

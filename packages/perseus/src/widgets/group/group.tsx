@@ -62,6 +62,7 @@ class Group extends React.Component<Props> implements Widget {
     }
 
     change: ChangeFn = (...args) => {
+        // eslint-disable-next-line import/no-deprecated
         return Changeable.change.apply(this, args);
     };
 
@@ -80,10 +81,18 @@ class Group extends React.Component<Props> implements Widget {
         return _getPromptJSON(this.rendererRef?.getPromptJSON());
     }
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
     getSerializedState: () => any = () => {
         return this.rendererRef?.getSerializedState();
     };
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
     restoreSerializedState: (arg1: any, arg2: any) => null = (
         state,
         callback,

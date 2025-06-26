@@ -170,7 +170,7 @@ export type {
  */
 export * as Changeable from "./mixins/changeable";
 export {default as EditorJsonify} from "./mixins/editor-jsonify";
-export {default as WIDGET_PROP_DENYLIST} from "./mixins/widget-prop-denylist";
+export {excludeDenylistKeys} from "./mixins/widget-prop-denylist";
 
 /**
  * Types

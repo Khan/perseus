@@ -34,6 +34,7 @@ import ErrorBoundary from "./error-boundary";
 import InteractionTracker from "./interaction-tracker";
 import JiptParagraphs from "./jipt-paragraphs";
 import {Log} from "./logging/log";
+import {excludeDenylistKeys} from "./mixins/widget-prop-denylist";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
@@ -41,6 +42,7 @@ import TranslationLinter from "./translation-linter";
 import Util from "./util";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
+import {getWidgetTypeByWidgetId} from "./widget-type-utils";
 import * as Widgets from "./widgets";
 
 import type {DependenciesContext} from "./dependencies";
@@ -50,6 +52,7 @@ import type {
     APIOptionsWithDefaults,
     FilterCriterion,
     FocusPath,
+    // eslint-disable-next-line import/no-deprecated
     SerializedState,
     Widget,
     WidgetProps,
@@ -69,6 +72,7 @@ import type {
     UserInputArray,
     UserInputMap,
     PerseusItem,
+    UserInput,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -112,15 +116,6 @@ type WidgetState = {
     baseElements?: any;
 };
 
-type SetWidgetPropsFn = (
-    id: string,
-    newProps: any,
-    cb: () => boolean,
-    // Widgets can call `onChange` with `silent` set to `true` to prevent
-    // interaction events from being triggered in listeners.
-    silent?: boolean,
-) => void;
-
 type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     apiOptions?: APIOptions;
     alwaysUpdate?: boolean;
@@ -140,14 +135,13 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
      */
     showSolutions?: ShowSolutions;
     content: PerseusRenderer["content"];
-    serializedState?: any;
+
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
-     * Callback which is called when serialized state changes with the new
-     * serialized state.
+     * @deprecated - do not use in new code.
      */
-    onSerializedStateUpdated: (serializedState: {
-        [key: string]: any;
-    }) => unknown;
+    serializedState?: any;
+
     /**
      * If linterContext.highlightLint is true, then content will be passed to
      * the linter and any warnings will be highlighted in the rendered output.
@@ -168,6 +162,7 @@ type State = {
     widgetProps: Readonly<{
         [id: string]: any | null | undefined;
     }>;
+    userInput: UserInputMap;
     jiptContent: any;
     lastUsedWidgetId: string | null | undefined;
 };
@@ -191,7 +186,6 @@ type DefaultProps = Required<
         | "linterContext"
         | "onInteractWithWidget"
         | "onRender"
-        | "onSerializedStateUpdated"
         | "questionCompleted"
         | "showSolutions"
         | "reviewMode"
@@ -279,7 +273,6 @@ class Renderer
         alwaysUpdate: false,
         reviewMode: false,
         serializedState: null,
-        onSerializedStateUpdated: () => {},
         linterContext: PerseusLinter.linterContextDefault,
     };
 
@@ -472,13 +465,34 @@ class Renderer
     _getInitialWidgetState: (props: Props) => {
         widgetInfo: State["widgetInfo"];
         widgetProps: State["widgetProps"];
+        userInput: State["userInput"];
     } = (props: Props) => {
         const allWidgetInfo = applyDefaultsToWidgets(props.widgets);
         return {
             widgetInfo: allWidgetInfo,
             widgetProps: this._getAllWidgetsStartProps(allWidgetInfo, props),
+            userInput: this._getAllWidgetsStartUserInput(props),
         };
     };
+
+    _getAllWidgetsStartUserInput(props: Props): UserInputMap {
+        const widgetMap = props.widgets;
+        const startUserInput: UserInputMap = {};
+        entries(widgetMap).forEach(([id, widgetInfo]) => {
+            const widgetExports = Widgets.getWidgetExport(widgetInfo.type);
+            if (widgetInfo.static && widgetExports?.getCorrectUserInput) {
+                startUserInput[id] = widgetExports.getCorrectUserInput(
+                    widgetInfo.options,
+                );
+            } else if (widgetExports?.getStartUserInput) {
+                startUserInput[id] = widgetExports.getStartUserInput(
+                    widgetInfo.options,
+                    props.problemNum ?? 0,
+                );
+            }
+        });
+        return startUserInput;
+    }
 
     _getAllWidgetsStartProps: (
         allWidgetInfo: PerseusWidgetsMap,
@@ -584,7 +598,9 @@ class Renderer
         return null;
     };
 
-    getWidgetProps(widgetId: string): WidgetProps<any, PerseusWidgetOptions> {
+    getWidgetProps(
+        widgetId: string,
+    ): WidgetProps<any, any, PerseusWidgetOptions> {
         const apiOptions = this.getApiOptions();
         const widgetProps = this.state.widgetProps[widgetId] || {};
 
@@ -613,6 +629,7 @@ class Renderer
 
         return {
             ...widgetProps,
+            userInput: this.state.userInput[widgetId],
             widgetId: widgetId,
             alignment: widgetInfo && widgetInfo.alignment,
             static: widgetInfo?.static,
@@ -629,6 +646,13 @@ class Renderer
             onChange: (newProps, cb, silent = false) => {
                 this._setWidgetProps(widgetId, newProps, cb, silent);
             },
+            handleUserInput: (
+                newUserInput: UserInput,
+                cb: () => boolean,
+                silent: boolean = false,
+            ) => {
+                this._setUserInput(widgetId, newUserInput, cb, silent);
+            },
             trackInteraction: interactionTracker.track,
             isLastUsedWidget: widgetId === this.state.lastUsedWidgetId,
         };
@@ -643,6 +667,10 @@ class Renderer
      * If an instance of widgetProps is passed in, it generates the serialized
      * state from that instead of the current widget props.
      */
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
     getSerializedState: (widgetProps?: any) => {
         [id: string]: any;
     } = (
@@ -655,16 +683,22 @@ class Renderer
             (props, widgetId) => {
                 const widget = this.getWidgetInstance(widgetId);
                 if (widget && widget.getSerializedState) {
-                    return widget.getSerializedState();
+                    return excludeDenylistKeys(widget.getSerializedState());
                 }
                 return props;
             },
         );
     };
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
     restoreSerializedState: (
+        // eslint-disable-next-line import/no-deprecated
         serializedState: SerializedState,
         callback?: () => void,
+        // eslint-disable-next-line import/no-deprecated
     ) => void = (serializedState: SerializedState, callback?: () => void) => {
         // Do some basic validation on the serialized state (just make sure the
         // widget IDs are what we expect).
@@ -701,32 +735,48 @@ class Renderer
             }
         };
 
+        const restoredWidgetProps = {};
+        const restoredUserInput = {};
+        Object.entries(serializedState).forEach(([widgetId, props]) => {
+            const widget = this.getWidgetInstance(widgetId);
+            const widgetType = getWidgetTypeByWidgetId(
+                widgetId,
+                this.props.widgets,
+            );
+            const widgetExport = Widgets.getWidgetExport(widgetType as string);
+            if (widget?.restoreSerializedState) {
+                // Note that we probably can't call
+                // `this.change()/this.props.onChange()` in this
+                // function, so we take the return value and use
+                // that as props if necessary so that
+                // `restoreSerializedState` in a widget can
+                // change the props as well as state.
+                // If a widget has no props to change, it can
+                // safely return null.
+                ++numCallbacks;
+                const restoreResult = widget.restoreSerializedState(
+                    props,
+                    fireCallback,
+                );
+                restoredWidgetProps[widgetId] = {
+                    ...this.state.widgetProps[widgetId],
+                    ...restoreResult,
+                };
+            } else {
+                restoredWidgetProps[widgetId] = props;
+            }
+
+            if (widgetExport?.getUserInputFromSerializedState) {
+                const restoreResult =
+                    widgetExport.getUserInputFromSerializedState(props);
+                restoredUserInput[widgetId] = restoreResult;
+            }
+        });
+
         this.setState(
             {
-                widgetProps: mapObject(serializedState, (props, widgetId) => {
-                    const widget = this.getWidgetInstance(widgetId);
-                    if (widget && widget.restoreSerializedState) {
-                        // Note that we probably can't call
-                        // `this.change()/this.props.onChange()` in this
-                        // function, so we take the return value and use
-                        // that as props if necessary so that
-                        // `restoreSerializedState` in a widget can
-                        // change the props as well as state.
-                        // If a widget has no props to change, it can
-                        // safely return null.
-                        ++numCallbacks;
-                        const restoreResult = widget.restoreSerializedState(
-                            props,
-                            fireCallback,
-                        );
-                        return _.extend(
-                            {},
-                            this.state.widgetProps[widgetId],
-                            restoreResult,
-                        );
-                    }
-                    return props;
-                }),
+                widgetProps: restoredWidgetProps,
+                userInput: restoredUserInput,
             },
             () => {
                 // Wait until all components have rendered. In React 16 setState
@@ -1551,7 +1601,12 @@ class Renderer
         }
     };
 
-    // Serializes widget state. Seems to be used only by editors though.
+    /**
+     * Serializes widget state. Seems to be used only by editors though.
+     *
+     * @deprecated and likely a very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     serialize: () => Record<any, any> = () => {
         const state: Record<string, any> = {};
         _.each(
@@ -1586,17 +1641,9 @@ class Renderer
         );
     }
 
-    _setWidgetProps: SetWidgetPropsFn = (id, newProps, cb, silent) => {
+    handleStateUpdate(id: string, cb: () => boolean, silent?: boolean) {
         this.setState(
             (prevState) => {
-                const widgetProps = {
-                    ...prevState.widgetProps,
-                    [id]: {
-                        ...prevState.widgetProps[id],
-                        ...newProps,
-                    },
-                } as const;
-
                 // Update the `lastUsedWidgetId` to this widget - unless we're
                 // in silent mode. We only want to track the last widget that
                 // was actually _used_, and silent updates generally don't come
@@ -1605,15 +1652,8 @@ class Renderer
                     ? prevState.lastUsedWidgetId
                     : id;
 
-                if (!silent) {
-                    this.props.onSerializedStateUpdated(
-                        this.getSerializedState(widgetProps),
-                    );
-                }
-
                 return {
                     lastUsedWidgetId,
-                    widgetProps,
                 };
             },
             () => {
@@ -1645,7 +1685,61 @@ class Renderer
                 }, 0);
             },
         );
-    };
+    }
+
+    _setUserInput(
+        id: string,
+        nextUserInput: UserInput,
+        cb: () => boolean,
+        silent?: boolean,
+    ) {
+        this.setState(
+            (prevState) => {
+                const userInput =
+                    nextUserInput != null
+                        ? {
+                              ...this.state.userInput,
+                              [id]: nextUserInput,
+                          }
+                        : prevState.userInput;
+
+                return {
+                    userInput,
+                };
+            },
+            () => {
+                this.handleStateUpdate(id, cb, silent);
+            },
+        );
+    }
+
+    _setWidgetProps(
+        id: string,
+        nextWidgetProps: any,
+        cb: () => boolean,
+        silent?: boolean,
+    ) {
+        this.setState(
+            (prevState) => {
+                const widgetProps = nextWidgetProps
+                    ? {
+                          ...prevState.widgetProps,
+                          [id]: {
+                              ...prevState.widgetProps[id],
+                              ...nextWidgetProps,
+                          },
+                      }
+                    : prevState.widgetProps;
+
+                return {
+                    widgetProps,
+                };
+            },
+            () => {
+                this.handleStateUpdate(id, cb, silent);
+            },
+        );
+    }
 
     setInputValue: (
         path: FocusPath,
@@ -1686,10 +1780,14 @@ class Renderer
         const userInputMap = {};
         this.widgetIds.forEach((id: string) => {
             const widget = this.getWidgetInstance(id);
-            // Handle Groups, which have their own sets of widgets
-            if (widget?.getUserInputMap) {
+            if (this.state.userInput[id]) {
+                // Get user input from Renderer state if possible
+                userInputMap[id] = this.state.userInput[id];
+            } else if (widget?.getUserInputMap) {
+                // Handle Groups, which have their own sets of widgets
                 userInputMap[id] = widget.getUserInputMap();
             } else if (widget?.getUserInput) {
+                // Legacy method of getting user input
                 userInputMap[id] = widget.getUserInput();
             }
         });

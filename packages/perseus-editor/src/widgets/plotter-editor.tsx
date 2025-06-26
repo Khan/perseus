@@ -14,6 +14,7 @@ import type {
     PerseusPlotterWidgetOptions,
     PlotterDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {InfoTip, NumberInput, RangeInput, TextListEditor} = components;
 const Plotter = PlotterWidget.widget;
@@ -285,10 +286,16 @@ class PlotterEditor extends React.Component<Props, State> {
             this.props.type,
         );
         const canChangeSnaps = !_.contains(["pic", "dotplot"], this.props.type);
-        const props = {
-            trackInteraction: () => {},
+        const plotterProps: any = {
             ...this.props,
-        } as const;
+            trackInteraction: () => {},
+            starting: this.props[this.state.editing],
+            onChange: this.handlePlotterChange,
+            userInput: this.props.correct,
+            handleUserInput: (userInput) => {
+                this.props.onChange({correct: userInput});
+            },
+        };
 
         return (
             <div className="perseus-widget-plotter-editor">
@@ -493,12 +500,7 @@ class PlotterEditor extends React.Component<Props, State> {
                         </p>
                     </InfoTip>
                 </div>
-                {/* @ts-expect-error - TS2769 */}
-                <Plotter
-                    {...props}
-                    starting={this.props[this.state.editing]}
-                    onChange={this.handlePlotterChange}
-                />
+                <Plotter {...(plotterProps as PropsFor<typeof Plotter>)} />
             </div>
         );
     }

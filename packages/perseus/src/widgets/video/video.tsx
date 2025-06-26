@@ -9,7 +9,6 @@ import _ from "underscore";
 import FixedToResponsive from "../../components/fixed-to-responsive";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
-import * as Changeable from "../../mixins/changeable";
 import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/video/video-ai-utils";
 
@@ -43,11 +42,6 @@ class Video extends React.Component<Props> implements Widget {
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
     isWidget = true as const;
-
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
-    };
 
     getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();

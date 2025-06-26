@@ -10,6 +10,7 @@ import {
     logarithmQuestion,
     quadraticQuestion,
     sinusoidQuestion,
+    simpleQuestion,
 } from "./grapher.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -70,5 +71,11 @@ export const AnswerlessQuestion: Story = {
     args: {
         item: generateTestPerseusItem({question: absoluteValueQuestion}),
         startAnswerless: true,
+    },
+};
+
+export const SimpleQuestion: Story = {
+    args: {
+        item: generateTestPerseusItem({question: simpleQuestion}),
     },
 };

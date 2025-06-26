@@ -39,7 +39,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should return JSON for an angle graph", () => {
         const renderProps: any = {
-            graph: {
+            userInput: {
                 type: "angle",
                 angleOffsetDeg: 45,
                 startCoords: [
@@ -100,7 +100,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should return JSON for a circle graph", () => {
         const renderProps: any = {
-            graph: {
+            userInput: {
                 type: "circle",
                 startCoords: {
                     center: [0, 0],
@@ -149,7 +149,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should return JSON for a linear graph", () => {
         const renderProps: any = {
-            graph: {
+            userInput: {
                 type: "linear",
                 startCoords: [
                     [0, 0],
@@ -202,7 +202,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should return JSON for a linear system graph", () => {
         const renderProps: any = {
-            graph: {
+            userInput: {
                 type: "linear-system",
                 startCoords: [
                     [
@@ -279,7 +279,11 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should return JSON for a point graph", () => {
         const renderProps: any = {
-            graph: {type: "point", numPoints: "unlimited", startCoords: [1, 1]},
+            userInput: {
+                type: "point",
+                numPoints: "unlimited",
+                startCoords: [1, 1],
+            },
             backgroundImage: {url: "https://example.com/image.png"},
             range: [
                 [-10, 10],
@@ -324,7 +328,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should return JSON for a polygon graph", () => {
         const renderProps: any = {
-            graph: {
+            userInput: {
                 type: "polygon",
                 match: "match",
                 numSides: 3,
@@ -385,7 +389,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should return JSON for a quadratic graph", () => {
         const renderProps: any = {
-            graph: {
+            userInput: {
                 type: "quadratic",
                 startCoords: [
                     [0, 0],
@@ -442,7 +446,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should return JSON for a ray graph", () => {
         const renderProps: any = {
-            graph: {
+            userInput: {
                 type: "ray",
                 startCoords: [
                     [0, 0],
@@ -495,7 +499,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should return JSON for a segment graph", () => {
         const renderProps: any = {
-            graph: {
+            userInput: {
                 type: "segment",
                 numSegments: 1,
                 startCoords: [
@@ -550,7 +554,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should return JSON for a sinusoid graph", () => {
         const renderProps: any = {
-            graph: {
+            userInput: {
                 type: "sinusoid",
                 startCoords: [
                     [0, 0],
@@ -603,7 +607,7 @@ describe("InteractiveGraph AI utils", () => {
 
     it("should throw an exception for an unsupported graph", () => {
         const renderProps: any = {
-            graph: {
+            userInput: {
                 type: "fake-graph-type",
             },
             backgroundImage: {url: "https://example.com/image.png"},

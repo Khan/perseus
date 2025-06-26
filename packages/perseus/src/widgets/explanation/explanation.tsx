@@ -16,7 +16,7 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 
-type RenderProps = PerseusExplanationWidgetOptions; // transform = _.identity
+type RenderProps = PerseusExplanationWidgetOptions;
 
 type Props = WidgetProps<RenderProps>;
 
@@ -69,6 +69,7 @@ class Explanation extends React.Component<Props, State> implements Widget {
     }
 
     change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
+        // eslint-disable-next-line import/no-deprecated
         return Changeable.change.apply(this, args);
     };
 
@@ -222,6 +223,5 @@ export default {
     name: "explanation",
     displayName: "Explanation",
     widget: Explanation,
-    transform: _.identity,
     isLintable: true,
 } satisfies WidgetExports<typeof Explanation>;

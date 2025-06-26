@@ -20,6 +20,7 @@ import {
 import type {
     APIOptions,
     ImageDict,
+    // eslint-disable-next-line import/no-deprecated
     ChangeHandler,
     DeviceType,
     ImageUploader,
@@ -44,6 +45,7 @@ type HintEditorProps = {
     isFirst: boolean;
     onMove: (direction: number) => unknown;
     onRemove: () => unknown;
+    // eslint-disable-next-line import/no-deprecated
     onChange: ChangeHandler;
     __type?: "hint";
     widgetIsOpen?: boolean;
@@ -179,6 +181,7 @@ type CombinedHintEditorProps = {
     previewURL: string;
     onMove: (direction: number) => unknown;
     onRemove: () => unknown;
+    // eslint-disable-next-line import/no-deprecated
     onChange: ChangeHandler;
     widgetIsOpen?: boolean;
 };
@@ -287,6 +290,7 @@ type CombinedHintsEditorProps = {
     hints: ReadonlyArray<Hint>;
     // URL of the route to show on initial load of the preview frames.
     previewURL: string;
+    // eslint-disable-next-line import/no-deprecated
     onChange: ChangeHandler;
     // The content ID of the AssessmentItem being edited. It may not be set
     // for non-content library exercise questions.

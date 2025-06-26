@@ -6,11 +6,10 @@ import _ from "underscore";
 import AssetContext from "../../asset-context";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
-import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
 
-import type {ChangeFn, WidgetExports, WidgetProps, Widget} from "../../types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {ImagePromptJSON} from "../../widget-ai-utils/image/image-ai-utils";
 import type {Range, PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
 
@@ -69,10 +68,6 @@ class ImageWidget extends React.Component<Props> implements Widget {
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
     isWidget = true as const;
-
-    change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
 
     getPromptJSON(): ImagePromptJSON {
         return _getPromptJSON(this.props);

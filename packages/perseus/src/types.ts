@@ -14,7 +14,6 @@ import type {KeypadAPI} from "@khanacademy/math-input";
 import type {
     Hint,
     PerseusAnswerArea,
-    PerseusGraphType,
     PerseusFeatureFlags,
     PerseusWidget,
     PerseusWidgetsMap,
@@ -24,7 +23,6 @@ import type {
     UserInput,
     UserInputArray,
     UserInputMap,
-    Relationship,
     LabelImageMarkerPublicData,
     PerseusLabelImageMarker,
     ShowSolutions,
@@ -48,6 +46,10 @@ export type DeviceType = "phone" | "tablet" | "desktop";
  * note that in most cases the widgets do _not_ implement these functions.
  * In that case, the `Renderer` just returns the widget's render props as the
  * serialized state.
+ */
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
  */
 export type SerializedState = Record<string, any>;
 
@@ -84,19 +86,41 @@ export interface Widget {
     // TODO(jeremy): I think this return value is wrong. The widget
     // getSerializedState should just return _its_ serialized state, not a
     // key/value list of all widget states (i think!)
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
     getSerializedState?: () => SerializedState; // SUSPECT,
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
     restoreSerializedState?: (props: any, callback: () => void) => any;
 
     blurInputPath?: (path: FocusPath) => void;
     focusInputPath?: (path: FocusPath) => void;
     getInputPaths?: () => ReadonlyArray<FocusPath>;
+
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     setInputValue?: (
         path: FocusPath,
         newValue: string,
         // TODO(jeremy): I think this is actually a callback
         focus?: () => unknown,
     ) => void;
+
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     getUserInputMap?: () => UserInputMap | undefined;
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     getUserInput?: () => UserInputArray | UserInput | undefined;
 
     getPromptJSON?: () => WidgetPromptJSON;
@@ -117,6 +141,11 @@ export type ChoiceState = {
     readOnly: boolean;
 };
 
+/**
+ * TODO(LEMS-3245) remove ChangeHandler
+ *
+ * @deprecated
+ */
 export type ChangeHandler = (
     arg1: {
         hints?: ReadonlyArray<Hint>;
@@ -129,26 +158,10 @@ export type ChangeHandler = (
         answerArea?: PerseusAnswerArea | null;
         editorMode?: EditorMode;
         jsonMode?: boolean;
-        // perseus-all-package/widgets/unit.jsx
-        value?: any;
         // widgets/radio/widget.jsx
         choiceStates?: ReadonlyArray<ChoiceState>;
-        // widgets/numeric-input.jsx
-        currentValue?: string;
-        // perseus-all-package/widgets/dropdown.jsx
-        selected?: number;
-        // perseus-all-package/widgets/grapher.jsx
-        plot?: any;
-        // Interactive Graph callback (see legacy: interactive-graph.tsx)
-        graph?: PerseusGraphType;
         // widgets/number-line.tsx
         divisionRange?: number[];
-        // widgets/number-line.ts
-        numDivisions?: number;
-        // widgets/number-line.ts
-        numLinePosition?: number;
-        // widgets/number-line.ts
-        rel?: Relationship;
         // widgets/label-image.tsx
         markers?: Array<LabelImageMarkerPublicData | PerseusLabelImageMarker>;
     },
@@ -307,6 +320,9 @@ export type APIOptions = Readonly<{
      * after they have been transformed by the widget's transform function.
      * This is useful for when we need to know how a widget has shuffled its
      * the available choices.
+     *
+     * @deprecated [LEMS-3185] this is externalizing an internal implementation
+     * detail similar to serialized state
      */
     onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
 }>;
@@ -476,13 +492,14 @@ type WidgetOptions = any;
 // TODO(jeremy): Make this generic so that the WidgetOptions and output type
 // become strongly typed.
 export type WidgetTransform = (
-    arg1: WidgetOptions,
+    widgetOptions: WidgetOptions,
     strings: PerseusStrings,
     problemNumber?: number,
 ) => any;
 
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
+    TUserInput = Empty,
 > = Readonly<{
     name: string;
     displayName: string;
@@ -509,17 +526,31 @@ export type WidgetExports<
 
     /**
      * Transforms the widget options to the props used to render the widget.
+     *
+     * @deprecated see LEMS-3199
      */
     transform?: WidgetTransform;
     /**
      * Transforms the widget options to the props used to render the widget for
      * static renders.
+     *
+     * @deprecated see LEMS-3199
      */
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
     getOneCorrectAnswerFromRubric?: (
         rubric: Rubric,
     ) => string | null | undefined;
+
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
+    getUserInputFromSerializedState?: (props: any) => TUserInput;
+
+    getCorrectUserInput?: (widgetOptions: any) => TUserInput;
+
+    getStartUserInput?: (widgetOptions: any, problemNum: number) => TUserInput;
 }>;
 
 export type FilterCriterion =
@@ -544,17 +575,19 @@ export type FilterCriterion =
 // and Rubric is what we use to score the widgets (which not all widgets need validation)
 export type WidgetProps<
     RenderProps,
+    TUserInput = Empty,
     Rubric = Empty,
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
-> = RenderProps & UniversalWidgetProps<Rubric, TrackingExtraArgs>;
+> = RenderProps & UniversalWidgetProps<Rubric, TUserInput, TrackingExtraArgs>;
 
 /**
  * The props passed to every widget, regardless of its `type`.
  */
 export type UniversalWidgetProps<
     ReviewModeRubric = Empty,
+    TUserInput = Empty,
     TrackingExtraArgs = Empty,
 > = {
     reviewModeRubric?: ReviewModeRubric | null | undefined;
@@ -582,6 +615,12 @@ export type UniversalWidgetProps<
     reviewMode: boolean;
     showSolutions?: ShowSolutions;
     onChange: ChangeHandler;
+    handleUserInput: (
+        newUserInput: TUserInput,
+        cb?: () => void,
+        silent?: boolean,
+    ) => void;
+    userInput: TUserInput;
     isLastUsedWidget: boolean;
     // provided by widget-container.jsx#render()
     linterContext: LinterContextProps;

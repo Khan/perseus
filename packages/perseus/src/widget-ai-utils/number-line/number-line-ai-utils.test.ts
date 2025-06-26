@@ -55,7 +55,6 @@ describe("NumberLine AI utils", () => {
             type: "number-line",
             options: {
                 range: [0, 10],
-                numDivisions: 10,
                 snapDivisions: 2,
             },
             userInput: {
@@ -85,12 +84,12 @@ describe("NumberLine AI utils", () => {
                     type: "number-line",
                     options: {
                         range: [-4, 4],
-                        numDivisions: 6,
                         snapDivisions: 2,
                     },
                     userInput: {
                         numLinePosition: -2.5,
                         numDivisions: 6,
+                        rel: "eq",
                     },
                 },
             },

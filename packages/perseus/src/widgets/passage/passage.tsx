@@ -17,6 +17,7 @@ import {isPassageWidget} from "./utils";
 
 import type {ParseState} from "./passage-markdown";
 import type {SerializedHighlightSet} from "../../components/highlighting/types";
+// eslint-disable-next-line import/no-deprecated
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {PassagePromptJSON} from "../../widget-ai-utils/passage/passage-ai-utils";
@@ -71,6 +72,7 @@ type RenderProps = {
 
 type FindWidgetsCallback = (id: string, widgetInfo: PerseusWidget) => boolean;
 
+// eslint-disable-next-line import/no-deprecated
 type PassageProps = ChangeableProps &
     WidgetProps<RenderProps> & {
         findWidgets: (arg1: FindWidgetsCallback) => ReadonlyArray<Passage>;

@@ -294,6 +294,7 @@ describe("group widget", () => {
       "title": "",
     },
     "numeric-input 1": {
+      "alignment": "default",
       "answerForms": [],
       "coefficient": false,
       "currentValue": "99",
@@ -303,8 +304,10 @@ describe("group widget", () => {
       "static": false,
     },
     "numeric-input 2": {
+      "alignment": "default",
       "answerForms": [],
       "coefficient": false,
+      "currentValue": "",
       "labelText": "value rounded to the nearest hundred",
       "rightAlign": false,
       "size": "normal",
