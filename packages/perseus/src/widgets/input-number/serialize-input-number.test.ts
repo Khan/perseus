@@ -83,6 +83,8 @@ describe("InputNumber serialization", () => {
         expect(state).toEqual({
             question: {
                 "input-number 1": {
+                    alignment: "default",
+                    static: false,
                     simplify: "optional",
                     size: "normal",
                     answerType: "number",

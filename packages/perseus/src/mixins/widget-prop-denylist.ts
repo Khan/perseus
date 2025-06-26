@@ -42,10 +42,8 @@ const denylist = [
     "handleUserInput",
     "analytics",
     "showSolutions",
-    "alignment",
     "reviewMode",
     "reviewModeRubric",
-    "static",
 ];
 
 export function excludeDenylistKeys(obj: Record<any, any>) {

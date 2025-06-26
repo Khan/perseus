@@ -86,6 +86,8 @@ describe("Categorizer serialization", () => {
         expect(state).toEqual({
             question: {
                 "categorizer 1": {
+                    alignment: "default",
+                    static: false,
                     categories: ["one", "two", "three"],
                     items: ["uno", "dos", "tres"],
                     randomizeItems: true,
