@@ -1,0 +1,5 @@
+import{j as o}from"./iframe-D9rAzJ36.js";import{D as a}from"./dropdown-editor-B4TvAPK_.js";import"./item-version-DHULgNSn.js";import"./article-renderer-D103Rxyu.js";import"./server-item-renderer-DPRFYaNi.js";import"./hints-renderer-BOcngWg2.js";import"./components-Br9t_cqf.js";import"./editor-jsonify-DZtytgYZ.js";import"./icon-paths-BU5otBoc.js";const{action:n}=__STORYBOOK_MODULE_ACTIONS__,E={title:"PerseusEditor/Widgets/Dropdown Editor"},r=i=>o.jsx("div",{className:"framework-perseus",children:o.jsx(a,{onChange:n("onChange")})});r.__docgenInfo={description:"",methods:[],displayName:"Default"};var e,t,s;r.parameters={...r.parameters,docs:{...(e=r.parameters)==null?void 0:e.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
+  return <div className="framework-perseus">
+            <DropdownEditor onChange={action("onChange")} />
+        </div>;
+}`,...(s=(t=r.parameters)==null?void 0:t.docs)==null?void 0:s.source}}};const D=["Default"];export{r as Default,D as __namedExportsOrder,E as default};
