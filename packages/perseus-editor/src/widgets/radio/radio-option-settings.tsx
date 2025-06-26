@@ -8,6 +8,7 @@ import * as React from "react";
 
 import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 
+import {RadioOptionContentAndImageEditor} from "./radio-option-content-and-image-editor";
 import styles from "./radio-option-settings.module.css";
 import {RadioStatusPill} from "./radio-status-pill";
 
@@ -98,22 +99,12 @@ export function RadioOptionSettings({
                 </Pill>
             </fieldset>
 
-            {/* Content and rationale text areas */}
-            <HeadingXSmall tag="label" className={styles.contentHeading}>
-                Content
-                <TextArea
-                    value={isNoneOfTheAbove ? "None of the above" : content}
-                    disabled={isNoneOfTheAbove}
-                    placeholder="Type a choice here..."
-                    // This unfortunately doesn't match the dynamic resizing
-                    // behavior that it had before, but we should be able to add
-                    // that in after WB-1843 is completed.
-                    resizeType="vertical"
-                    onChange={(value) => {
-                        onContentChange(index, value);
-                    }}
-                />
-            </HeadingXSmall>
+            <RadioOptionContentAndImageEditor
+                content={content}
+                choiceIndex={index}
+                isNoneOfTheAbove={isNoneOfTheAbove ?? false}
+                onContentChange={onContentChange}
+            />
             <HeadingXSmall tag="label">
                 Rationale
                 <TextArea
