@@ -1,5 +1,14 @@
 # @khanacademy/perseus-editor
 
+## 25.0.6
+
+### Patch Changes
+
+-   [#2657](https://github.com/Khan/perseus/pull/2657) [`d38d83f8d`](https://github.com/Khan/perseus/commit/d38d83f8deb3f96680c0019133732840651040ed) Thanks [@benchristel](https://github.com/benchristel)! - Accept any wonder-blocks-link version compatible with 9.1.9 as a peer dep of perseus-editor
+
+-   Updated dependencies [[`100866524`](https://github.com/Khan/perseus/commit/10086652408464bb863cf82f861686163d030e5c)]:
+    -   @khanacademy/perseus@65.3.6
+
 ## 25.0.5
 
 ### Patch Changes
