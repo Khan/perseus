@@ -4,7 +4,6 @@ import * as React from "react";
 
 import {getDependencies} from "../dependencies";
 
-// eslint-disable-next-line import/no-deprecated
 import reactRender from "./react-render";
 
 function findChildOrAdd(elem: any, className: string) {
@@ -62,7 +61,6 @@ export default {
             const {TeX} = await getDependencies();
             // We use createElement instead of JSX here because we can't name this file tex.tsx;
             // that name is already taken.
-            // eslint-disable-next-line import/no-deprecated
             reactRender(
                 // eslint-disable-next-line react/no-children-prop
                 React.createElement(TeX, {

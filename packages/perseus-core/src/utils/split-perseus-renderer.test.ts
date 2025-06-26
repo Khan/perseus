@@ -413,7 +413,7 @@ describe("splitPerseusRenderer", () => {
                 "radio 1": {
                     type: "radio",
                     version: {
-                        major: 2,
+                        major: 3,
                         minor: 0,
                     },
                     options: {

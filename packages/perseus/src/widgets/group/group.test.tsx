@@ -235,10 +235,10 @@ describe("group widget", () => {
           "originalIndex": 1,
         },
         {
-          "clue": "Here's a clue, this isn't the correct answer!",
           "content": "$30$",
           "correct": false,
           "originalIndex": 2,
+          "rationale": "Here's some rationale, this isn't the correct answer!",
         },
         {
           "content": "$18$",
