@@ -1,11 +1,5 @@
 # @khanacademy/perseus
 
-## 65.3.6
-
-### Patch Changes
-
--   [#2628](https://github.com/Khan/perseus/pull/2628) [`100866524`](https://github.com/Khan/perseus/commit/10086652408464bb863cf82f861686163d030e5c) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove old CSS hack for IE7 and earlier browsers (no longer supported)
-
 ## 65.3.5
 
 ### Patch Changes
