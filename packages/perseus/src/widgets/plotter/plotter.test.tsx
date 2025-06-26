@@ -7,6 +7,8 @@ import {ApiOptions} from "../../perseus-api";
 import {getAnswerfulItem, getAnswerlessItem} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
+import {dotPlotter} from "./plotter.testdata";
+
 import type {PerseusPlotterWidgetOptions} from "@khanacademy/perseus-core";
 
 describe("plotter widget", () => {
@@ -14,6 +16,13 @@ describe("plotter widget", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+    });
+
+    // Regression (LEMS-3251) make sure the dot plotter doesn't crash
+    it("should render dot plotters", () => {
+        renderQuestion(dotPlotter);
+
+        expect(screen.getByText("Average Temp")).toBeInTheDocument();
     });
 
     describe("drag text", () => {
