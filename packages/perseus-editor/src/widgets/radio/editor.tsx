@@ -322,14 +322,16 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                     >
                         Add a choice
                     </Button>
-                    <Button
-                        size="small"
-                        kind="tertiary"
-                        startIcon={plusIcon}
-                        onClick={this.addChoice.bind(this, true)}
-                    >
-                        None of the above
-                    </Button>
+                    {!this.props.hasNoneOfTheAbove && (
+                        <Button
+                            size="small"
+                            kind="tertiary"
+                            startIcon={plusIcon}
+                            onClick={this.addChoice.bind(this, true)}
+                        >
+                            None of the above
+                        </Button>
+                    )}
                 </div>
             </div>
         );
