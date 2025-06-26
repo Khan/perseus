@@ -1,37 +1,37 @@
-import {
-    generateChoiceId,
-    radioLogic,
-    random,
-    shuffle,
-} from "@khanacademy/perseus-core";
+import {generateChoiceId, radioLogic, random} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import Radio from "./radio.ff";
+import {getWidgetSeed, hashBasedShuffle} from "./utils/hash-shuffle";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetExports} from "../../types";
 import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
 
-// Transforms the choices for display.
+/**
+ * Transforms the choices for display
+ */
 const _choiceTransform = (
     widgetOptions: PerseusRadioWidgetOptions,
     strings: PerseusStrings,
     problemNum?: number | null,
 ) => {
+    // Generate the seed first so it's available for choice ID generation
+    // NOTE: `problemNum` will only be set when the radio widget is
+    // rendered at the root of an exercise question. It will be `undefined`
+    // if it's rendered embedded in another widget, such as `graded-group`,
+    // or if rendered within an article. This results in a predictable
+    // shuffle order. To avoid this we use a random seed when `problemNum`
+    // is `undefined`.
+    const randomSeed = getWidgetSeed(random, problemNum);
+
     const _maybeRandomize = function (
-        array: ReadonlyArray<RadioChoiceWithMetadata>,
+        choiceArray: ReadonlyArray<RadioChoiceWithMetadata>,
     ) {
-        const randomSeed = problemNum === undefined ? random : problemNum;
-        // NOTE: `problemNum` will only be set when the radio widget is
-        // rendered at the root of an exercise question. It will be `undefined`
-        // if it's rendered embedded in another widget, such as `graded-group`,
-        // or if rendered within an article. This results in a predictable
-        // shuffle order. To avoid this we use a random seed when `problemNum`
-        // is `undefined`.
         return widgetOptions.randomize
-            ? shuffle(array, randomSeed ?? 0)
-            : array;
+            ? hashBasedShuffle(choiceArray, randomSeed)
+            : choiceArray;
     };
 
     const _addNoneOfAbove = function (
