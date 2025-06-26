@@ -93,6 +93,8 @@ describe("NumericInput serialization", () => {
         expect(state).toEqual({
             question: {
                 "numeric-input 1": {
+                    alignment: "default",
+                    static: false,
                     answerForms: [],
                     coefficient: false,
                     labelText: "",

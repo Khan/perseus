@@ -95,6 +95,8 @@ describe("Expression serialization", () => {
         expect(state).toEqual({
             question: {
                 "expression 1": {
+                    alignment: "default",
+                    static: false,
                     keypadConfiguration: {
                         keypadType: "EXPRESSION",
                         times: false,

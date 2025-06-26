@@ -89,6 +89,8 @@ describe("Matrix serialization", () => {
         expect(state).toEqual({
             question: {
                 "matrix 1": {
+                    alignment: "default",
+                    static: false,
                     matrixBoardSize: [2, 2],
                     prefix: "",
                     suffix: "",

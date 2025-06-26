@@ -88,6 +88,8 @@ describe("Orderer serialization", () => {
         expect(state).toEqual({
             question: {
                 "orderer 1": {
+                    alignment: "default",
+                    static: false,
                     // ???
                     otherOptions: [],
                     // The correct order

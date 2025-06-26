@@ -99,6 +99,8 @@ describe("Table serialization", () => {
         expect(postAnswerState).toEqual({
             question: {
                 "table 1": {
+                    alignment: "default",
+                    static: false,
                     headers: ["Column 1", "Column 2"],
                     rows: 2,
                     columns: 2,

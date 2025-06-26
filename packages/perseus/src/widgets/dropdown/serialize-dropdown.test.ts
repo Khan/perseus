@@ -88,6 +88,8 @@ describe("Dropdown serialization", () => {
         expect(state).toEqual({
             question: {
                 "dropdown 1": {
+                    alignment: "default",
+                    static: false,
                     choices: ["Correct", "Incorrect"],
                     placeholder: "Choose",
                     // selected is added to Dropdown props and

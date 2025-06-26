@@ -95,6 +95,8 @@ describe("Grapher serialization", () => {
         expect(state).toEqual({
             question: {
                 "grapher 1": {
+                    alignment: "default",
+                    static: false,
                     availableTypes: ["linear"],
                     graph: {
                         range: [
