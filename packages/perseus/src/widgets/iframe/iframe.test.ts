@@ -58,7 +58,7 @@ describe("iframe widget", () => {
 
             const score = scorePerseusItemTesting(
                 question1,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
             expect(score).toHaveBeenAnsweredCorrectly();
             expect(score.message).toBe("Nicely done!");
@@ -78,7 +78,7 @@ describe("iframe widget", () => {
 
             const score = scorePerseusItemTesting(
                 question1,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
             expect(score).toHaveBeenAnsweredIncorrectly();
             expect(score.message).toBe("Try again.");
@@ -88,7 +88,7 @@ describe("iframe widget", () => {
             const {renderer} = renderQuestion(question1);
             const initialScore = scorePerseusItemTesting(
                 question1,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
             const expectedInitialMessage = "Keep going, you're not there yet!";
             expect(initialScore).toHaveInvalidInput(expectedInitialMessage);
@@ -106,7 +106,7 @@ describe("iframe widget", () => {
 
             const currentScore = scorePerseusItemTesting(
                 question1,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
             expect(currentScore).toHaveInvalidInput(expectedInitialMessage);
         });
@@ -115,7 +115,7 @@ describe("iframe widget", () => {
             const {renderer} = renderQuestion(question1);
             const initialScore = scorePerseusItemTesting(
                 question1,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
             const expectedInitialMessage = "Keep going, you're not there yet!";
             expect(initialScore).toHaveInvalidInput(expectedInitialMessage);
@@ -129,7 +129,7 @@ describe("iframe widget", () => {
 
             const currentScore = scorePerseusItemTesting(
                 question1,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
             expect(currentScore).toHaveInvalidInput(expectedInitialMessage);
         });

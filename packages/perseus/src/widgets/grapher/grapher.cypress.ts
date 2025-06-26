@@ -82,7 +82,7 @@ describe("Grapher widget", () => {
 
                     // Assert
                     cy.then(() => {
-                        const userInput = getRenderer().getUserInputMap();
+                        const userInput = getRenderer().getUserInput();
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             userInput,
@@ -121,7 +121,7 @@ describe("Grapher widget", () => {
 
                     // Assert
                     cy.then(() => {
-                        const userInput = getRenderer().getUserInputMap();
+                        const userInput = getRenderer().getUserInput();
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             userInput,
@@ -192,7 +192,7 @@ describe("Grapher widget", () => {
 
                     // Assert
                     cy.then(() => {
-                        const userInput = getRenderer().getUserInputMap();
+                        const userInput = getRenderer().getUserInput();
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             userInput,
@@ -236,7 +236,7 @@ describe("Grapher widget", () => {
 
                     // Assert
                     cy.then(() => {
-                        const userInput = getRenderer().getUserInputMap();
+                        const userInput = getRenderer().getUserInput();
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             userInput,
@@ -300,7 +300,7 @@ describe("Grapher widget", () => {
 
                     // Assert
                     cy.then(() => {
-                        const userInput = getRenderer().getUserInputMap();
+                        const userInput = getRenderer().getUserInput();
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             userInput,
@@ -339,7 +339,7 @@ describe("Grapher widget", () => {
 
                     // Assert
                     cy.then(() => {
-                        const userInput = getRenderer().getUserInputMap();
+                        const userInput = getRenderer().getUserInput();
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             userInput,
@@ -420,7 +420,7 @@ describe("Grapher widget", () => {
 
                     // Assert
                     cy.then(() => {
-                        const userInput = getRenderer().getUserInputMap();
+                        const userInput = getRenderer().getUserInput();
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             userInput,
@@ -476,7 +476,7 @@ describe("Grapher widget", () => {
 
                     // Assert
                     cy.then(() => {
-                        const userInput = getRenderer().getUserInputMap();
+                        const userInput = getRenderer().getUserInput();
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             userInput,
@@ -542,7 +542,7 @@ describe("Grapher widget", () => {
 
                     // Assert
                     cy.then(() => {
-                        const userInput = getRenderer().getUserInputMap();
+                        const userInput = getRenderer().getUserInput();
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             userInput,
@@ -583,7 +583,7 @@ describe("Grapher widget", () => {
 
                     // Assert
                     cy.then(() => {
-                        const userInput = getRenderer().getUserInputMap();
+                        const userInput = getRenderer().getUserInput();
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             userInput,
@@ -648,7 +648,7 @@ describe("Grapher widget", () => {
 
                     // Assert
                     cy.then(() => {
-                        const userInput = getRenderer().getUserInputMap();
+                        const userInput = getRenderer().getUserInput();
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             userInput,
@@ -688,7 +688,7 @@ describe("Grapher widget", () => {
 
                     // Assert
                     cy.then(() => {
-                        const userInput = getRenderer().getUserInputMap();
+                        const userInput = getRenderer().getUserInput();
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             userInput,
@@ -757,7 +757,7 @@ describe("Grapher widget", () => {
 
                     // Assert
                     cy.then(() => {
-                        const userInput = getRenderer().getUserInputMap();
+                        const userInput = getRenderer().getUserInput();
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             userInput,
@@ -801,7 +801,7 @@ describe("Grapher widget", () => {
 
                     // Assert
                     cy.then(() => {
-                        const userInput = getRenderer().getUserInputMap();
+                        const userInput = getRenderer().getUserInput();
                         const score = scorePerseusItemTesting(
                             answerful.question,
                             userInput,

@@ -321,7 +321,7 @@ export class ServerItemRenderer
 
         // Call the interactionCallback, if it exists, with the current user input data
         this.props.apiOptions?.interactionCallback?.(
-            this.questionRenderer.getUserInputMap(),
+            this.questionRenderer.getUserInput(),
         );
     };
 
@@ -347,7 +347,7 @@ export class ServerItemRenderer
      * Returns an object of the widget `.getUserInput()` results
      */
     getUserInput(): UserInputMap {
-        return this.questionRenderer.getUserInputMap();
+        return this.questionRenderer.getUserInput();
     }
 
     /**
