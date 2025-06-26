@@ -122,7 +122,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
             !_.isEqual(this.state.categoryHeights, prevState.categoryHeights);
 
         if (this.shouldSetupGraphie) {
-            this.setupGraphie(this.props.userInput);
+            this.setupGraphie(prevProps.userInput);
         }
     }
 
@@ -142,7 +142,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         return 2;
     };
 
-    setupGraphie: (values: number[]) => void = (values) => {
+    setupGraphie(prevValues: number[]): void {
         const self = this;
         self.shouldSetupGraphie = false;
         $(this.graphieDiv.current!).empty();
@@ -339,7 +339,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         }
 
         if (isTiledPlot) {
-            self.drawPicHeights(self.props.userInput, values);
+            self.drawPicHeights(self.props.userInput, prevValues);
         }
 
         graphie.style(
@@ -441,7 +441,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
                 [0, c.dimY],
             ];
         }
-    };
+    }
 
     showHairlines: (arg1: any) => void = (point) => {
         if (this.props.apiOptions.isMobile) {
@@ -1097,10 +1097,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         this.props.handleUserInput(userInput);
     }
 
-    drawPicHeights: (arg1: number[], arg2: number[]) => void = (
-        values,
-        prevValues,
-    ) => {
+    drawPicHeights(values: number[], prevValues: number[]): void {
         const self = this;
         const graphie = self.graphie;
         const pics = graphie.pics;
@@ -1144,7 +1141,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
                     show || !isMobile ? "none" : "inline";
             });
         });
-    };
+    }
 
     getUserInput(): PerseusPlotterUserInput {
         return this.props.userInput;
