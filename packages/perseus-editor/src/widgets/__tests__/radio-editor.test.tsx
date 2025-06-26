@@ -218,6 +218,28 @@ describe("radio-editor", () => {
         expect(onChangeMock).not.toBeCalled();
     });
 
+    it("shows the 'None of the above' button when there is no 'None of the above' choice", async () => {
+        renderRadioEditor();
+        expect(
+            screen.getByRole("button", {name: "None of the above"}),
+        ).toBeInTheDocument();
+    });
+
+    it("hides the 'None of the above' button when there is a 'None of the above' choice", async () => {
+        renderRadioEditor(() => {}, {
+            choices: [
+                {content: "Choice 1", isNoneOfTheAbove: false},
+                {content: "Choice 2", isNoneOfTheAbove: false},
+                {content: "Choice 3", isNoneOfTheAbove: false},
+                {content: "None of the above", isNoneOfTheAbove: true},
+            ],
+            hasNoneOfTheAbove: true,
+        });
+        expect(
+            screen.queryByRole("button", {name: "None of the above"}),
+        ).not.toBeInTheDocument();
+    });
+
     it("serializes", () => {
         const editorRef = React.createRef<RadioEditor>();
 
