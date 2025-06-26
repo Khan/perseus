@@ -393,7 +393,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
               fill="none"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2px"
+              stroke-width="2"
               style="stroke: var(--mafs-blue);"
             />
           </g>
@@ -423,7 +423,7 @@ exports[`Rendering Does render extensions of line when option is enabled 1`] = `
               fill="none"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="2px"
+              stroke-width="2"
               style="stroke: var(--mafs-blue);"
             />
           </g>

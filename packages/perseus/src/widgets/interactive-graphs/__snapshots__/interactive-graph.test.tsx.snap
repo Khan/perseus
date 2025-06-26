@@ -944,7 +944,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                             fill="none"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            stroke-width="2px"
+                            stroke-width="2"
                             style="stroke: var(--mafs-fg);"
                           />
                         </g>
@@ -962,7 +962,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                             fill="none"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            stroke-width="2px"
+                            stroke-width="2"
                             style="stroke: var(--mafs-fg);"
                           />
                         </g>
@@ -980,7 +980,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                             fill="none"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            stroke-width="2px"
+                            stroke-width="2"
                             style="stroke: var(--mafs-fg);"
                           />
                         </g>
@@ -998,7 +998,7 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                             fill="none"
                             stroke-linecap="round"
                             stroke-linejoin="round"
-                            stroke-width="2px"
+                            stroke-width="2"
                             style="stroke: var(--mafs-fg);"
                           />
                         </g>

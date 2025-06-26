@@ -868,6 +868,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 lineStyle: "solid",
                 showPoint1: false,
                 showPoint2: false,
+                weight: "medium",
                 labels: [],
             },
         ]);
@@ -882,6 +883,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 filled: [false, false],
                 showPoint1: true,
                 showPoint2: true,
+                weight: "thin",
                 labels: [{text: "a label"}],
                 ariaLabel: "an aria label",
             })
@@ -912,6 +914,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 lineStyle: "dashed",
                 showPoint1: true,
                 showPoint2: true,
+                weight: "thin",
                 labels: [
                     {
                         type: "label",
@@ -935,6 +938,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 filled: [false, false],
                 showPoint1: true,
                 showPoint2: true,
+                weight: "thick",
                 labels: [{text: "a label", coord: [9, 9], size: "small"}],
             })
             .build();
@@ -964,6 +968,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 lineStyle: "dashed",
                 showPoint1: true,
                 showPoint2: true,
+                weight: "thick",
                 labels: [
                     {
                         type: "label",

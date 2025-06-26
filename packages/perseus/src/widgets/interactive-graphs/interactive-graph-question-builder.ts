@@ -322,6 +322,7 @@ class InteractiveGraphQuestionBuilder {
             filled?: [boolean, boolean];
             showPoint1?: boolean;
             showPoint2?: boolean;
+            weight?: "thin" | "medium" | "thick";
             labels?: LockedFigureLabelOptions[];
             ariaLabel?: string;
         },
@@ -333,6 +334,7 @@ class InteractiveGraphQuestionBuilder {
             showPoint2: options?.showPoint2 ?? false,
             color: options?.color ?? "grayH",
             lineStyle: options?.lineStyle ?? "solid",
+            weight: options?.weight ?? "medium",
             labels:
                 options?.labels?.map((label) => ({
                     type: "label",
