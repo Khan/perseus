@@ -307,7 +307,15 @@ class InteractiveGraph extends React.Component<Props, State> {
         const mafsProps = {
             ...this.props,
             graph: this.props.userInput,
-            onChange: (userInput) => this.props.handleUserInput(userInput),
+            onChange: () =>
+                this.props.handleUserInput(
+                    // StatefulMafsGraph maintains its own internal state
+                    // and manipulates that state when calling getUserInput.
+                    // So we watch for changes in StatefulMafsGraph and call
+                    // getUserInput so we can pass the parent the most up-to-date
+                    // user input.
+                    this.mafsRef.current?.getUserInput() as PerseusGraphType,
+                ),
         };
 
         return (
