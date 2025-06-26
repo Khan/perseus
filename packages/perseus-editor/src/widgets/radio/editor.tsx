@@ -21,7 +21,7 @@ import type {
 } from "@khanacademy/perseus-core";
 
 // Exported for testing
-export type RadioEditorProps = {
+export interface RadioEditorProps extends Changeable.ChangeableProps {
     apiOptions: APIOptions;
     countChoices: boolean;
     choices: PerseusRadioChoice[];
@@ -30,7 +30,7 @@ export type RadioEditorProps = {
     multipleSelect: boolean;
     deselectEnabled: boolean;
     static: boolean;
-} & Changeable.ChangeableProps;
+}
 
 class RadioEditor extends React.Component<RadioEditorProps> {
     static widgetName = "radio" as const;

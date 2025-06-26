@@ -109,7 +109,7 @@ export function RadioOptionSettings({
                 Rationale
                 <TextArea
                     value={rationale ?? ""}
-                    placeholder="Why is this choice correct?"
+                    placeholder={`Why is this choice ${correct ? "correct" : "incorrect"}?`}
                     // This unfortunately doesn't match the dynamic resizing
                     // behavior that it had before, but we should be able to add
                     // that in after WB-1843 is completed.
