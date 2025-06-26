@@ -1,5 +1,15 @@
 # @khanacademy/math-input
 
+## 26.0.10
+
+### Patch Changes
+
+-   [#2639](https://github.com/Khan/perseus/pull/2639) [`7b37ac7ea`](https://github.com/Khan/perseus/commit/7b37ac7ea5df5ea4a4b70a6e325df3f44cb0308b) Thanks [@benchristel](https://github.com/benchristel)! - Update Wonder Blocks peer dependencies
+
+-   Updated dependencies [[`fd30e9518`](https://github.com/Khan/perseus/commit/fd30e9518cc88004955fcc3bb8d77b41c18342b8)]:
+    -   @khanacademy/perseus-core@16.0.0
+    -   @khanacademy/keypad-context@3.0.21
+
 ## 26.0.9
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 16.0.0
+
+### Major Changes
+
+-   [#2640](https://github.com/Khan/perseus/pull/2640) [`fd30e9518`](https://github.com/Khan/perseus/commit/fd30e9518cc88004955fcc3bb8d77b41c18342b8) Thanks [@benchristel](https://github.com/benchristel)! - Remove deprecated fields from Radio widget (`onePerLine`, `displayCount`, `noneOfTheAbove`, and `widgets`) and rename `clue` to `rationale` in Radio widget options. Clients may need to update their test data with the new field names. As always, data in the old format can be safely migrated to the latest by calling `parseAndMigratePerseusItem` or `parseAndMigratePerseusArticle`.
+
 ## 15.0.1
 
 ### Patch Changes

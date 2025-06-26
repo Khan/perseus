@@ -75,7 +75,7 @@ class RadioQuestionBuilder {
         this.choices.push({
             content,
             correct: options?.correct,
-            clue: options?.rationale,
+            rationale: options?.rationale,
             isNoneOfTheAbove: options?.isNoneOfTheAbove,
         });
         return this;
