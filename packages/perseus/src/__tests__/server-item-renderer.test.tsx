@@ -467,22 +467,22 @@ describe("server item renderer", () => {
 
             // Assert
             expect(state).toMatchInlineSnapshot(`
-                {
-                    "hints": [
-                        {},
-                        {},
-                        {},
-                    ],
-                    "question": {
-                        "mock-widget 1": {
-                        "alignment": "default",
-                        "currentValue": "-42",
-                        "static": undefined,
-                        "value": "3",
-                        },
-                    },
-                }
-            `);
+{
+  "hints": [
+    {},
+    {},
+    {},
+  ],
+  "question": {
+    "mock-widget 1": {
+      "alignment": "default",
+      "currentValue": "-42",
+      "static": undefined,
+      "value": "3",
+    },
+  },
+}
+`);
         });
 
         it("should restore serialized state", () => {

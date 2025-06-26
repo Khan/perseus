@@ -12,7 +12,7 @@ import {Errors, PerseusError} from "@khanacademy/perseus-core";
 import PropTypes from "prop-types";
 import _ from "underscore";
 
-import WIDGET_PROP_DENYLIST from "./widget-prop-denylist";
+import {excludeDenylistKeys} from "./widget-prop-denylist";
 
 import type {ChangeFn} from "../types";
 
@@ -43,7 +43,7 @@ const _changeMultiple = function (
     //   the conceptual state of our component
     // onChange comes from our parent to allow this modification,
     //   and doesn't conceptually represent the state of our component
-    const currProps = _.omit(component.props, WIDGET_PROP_DENYLIST);
+    const currProps = excludeDenylistKeys(component.props);
     const nextProps = _.extend(currProps, newProps);
     component.props.onChange(nextProps, callback);
 };
