@@ -85,7 +85,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
     componentDidMount() {
         this._isMounted = true;
 
-        this.setupGraphie(this.state);
+        this.setupGraphie(this.props.userInput);
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
@@ -122,7 +122,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
             !_.isEqual(this.state.categoryHeights, prevState.categoryHeights);
 
         if (this.shouldSetupGraphie) {
-            this.setupGraphie(prevState);
+            this.setupGraphie(prevProps.userInput);
         }
     }
 
@@ -142,7 +142,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         return 2;
     };
 
-    setupGraphie: (arg1: any) => void = (prevState) => {
+    setupGraphie(prevValues: number[]): void {
         const self = this;
         self.shouldSetupGraphie = false;
         $(this.graphieDiv.current!).empty();
@@ -339,7 +339,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         }
 
         if (isTiledPlot) {
-            self.drawPicHeights(self.props.userInput, prevState.values);
+            self.drawPicHeights(self.props.userInput, prevValues);
         }
 
         graphie.style(
@@ -441,7 +441,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
                 [0, c.dimY],
             ];
         }
-    };
+    }
 
     showHairlines: (arg1: any) => void = (point) => {
         if (this.props.apiOptions.isMobile) {
@@ -1097,7 +1097,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         this.props.handleUserInput(userInput);
     }
 
-    drawPicHeights: (arg1: any, arg2: any) => void = (values, prevValues) => {
+    drawPicHeights(values: number[], prevValues: number[]): void {
         const self = this;
         const graphie = self.graphie;
         const pics = graphie.pics;
@@ -1141,7 +1141,7 @@ export class Plotter extends React.Component<Props, State> implements Widget {
                     show || !isMobile ? "none" : "inline";
             });
         });
-    };
+    }
 
     getUserInput(): PerseusPlotterUserInput {
         return this.props.userInput;

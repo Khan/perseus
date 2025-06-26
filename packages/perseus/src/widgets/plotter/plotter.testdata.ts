@@ -56,3 +56,25 @@ export const simple: PerseusRenderer = {
         },
     },
 };
+
+export const dotPlotter: PerseusRenderer = {
+    content: "[[☃ plotter 1]]",
+    images: {},
+    widgets: {
+        "plotter 1": {
+            type: "plotter",
+            options: {
+                correct: [1, 1, 1, 1],
+                starting: [1, 1, 1, 1],
+                type: "dotplot",
+                labels: ["", "Average Temp"],
+                categories: ["Spring", "Summer", "Fall", "Winter"],
+                scaleY: 1,
+                maxY: 10,
+                snapsPerLine: 2,
+                labelInterval: 1,
+                plotDimensions: [380, 300],
+            },
+        },
+    },
+};
