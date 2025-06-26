@@ -149,6 +149,36 @@ type State = {
     textAreaValue: string;
 };
 
+// Utility: Detect support for preventScroll in focus()
+let supportsPreventScroll = false;
+if (typeof window !== "undefined" && typeof document !== "undefined") {
+    try {
+        const opts = {
+            get preventScroll() {
+                supportsPreventScroll = true;
+                return true;
+            },
+        };
+        // Create a dummy element to test
+        const testEl = document.createElement("div");
+        testEl.tabIndex = -1;
+        document.body.appendChild(testEl);
+        testEl.focus(opts);
+        document.body.removeChild(testEl);
+    } catch (e) {
+        // Ignore errors
+    }
+}
+
+// Utility: Focus with preventScroll if supported
+function focusWithPreventScroll(el: HTMLElement) {
+    if (supportsPreventScroll) {
+        el.focus({preventScroll: true});
+    } else {
+        el.focus();
+    }
+}
+
 // eslint-disable-next-line react/no-unsafe
 class Editor extends React.Component<Props, State> {
     lastUserValue: string | null | undefined;
@@ -214,7 +244,7 @@ class Editor extends React.Component<Props, State> {
         // textbox clears the undo stack so we don't get unexpected undo
         // behavior.
         if (this.lastUserValue != null && textarea) {
-            textarea.focus();
+            focusWithPreventScroll(textarea);
             textarea.value = this.lastUserValue;
             textarea.selectionStart = 0;
             textarea.setSelectionRange(0, prevProps.content.length);
