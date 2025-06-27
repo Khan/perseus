@@ -100,7 +100,7 @@ export const getLabelPosition = (
 
         // Determine if the x-axis min is negative and close to zero.
         const isCloseToZero =
-            graphInfo.range[X][MIN] < 0 && graphInfo.range[X][MIN] > -0.04;
+            graphInfo.range[X][MIN] < 0 && graphInfo.range[X][MIN] > -0.05;
 
         // Determine if the tick labels extend beyond the left edge of the graph, either
         // because the x-axis is wholly positive or because the x-axis min is negative and close to zero.
