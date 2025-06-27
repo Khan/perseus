@@ -264,6 +264,20 @@ export const MafsWithLabelsAlongEdgeAtRight: Story = {
     },
 };
 
+export const MafsWithLabelsAlongEdgeWithCloseToZeroXMin: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withXRange(-0.03, 0.84)
+            .withYRange(-2.8, 63)
+            .withTickStep(0.2, 10)
+            .withGridStep(0.05, 5)
+            .withSnapStep(0.025, 2)
+            .withAxisLabels("Time (seconds)", "Distance (meters)")
+            .withLabelLocation("alongEdge")
+            .build(),
+    },
+};
+
 export const MafsWithLabelsAlongEdgeZoomed: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()

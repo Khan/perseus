@@ -76,8 +76,8 @@ export const calculateMaxDigitsInRange = (
     );
 
     // A decimal tick step can result in additional digits, so we need to account for that,
-    // including the leading 0.
-    const tickStepSigFigs = countSignificantDecimals(tickStep) + 1;
+    // including the leading 0 and decimal point.
+    const tickStepSigFigs = countSignificantDecimals(tickStep) + 2;
 
     // Return the maximum of the two
     return Math.max(maxDigitsInRange, tickStepSigFigs);
@@ -98,24 +98,37 @@ export const getLabelPosition = (
                 ? [0, fontSize * 3] // Move the label down by 2 font sizes if the y-axis min is positive
                 : [0, fontSize * 1.5]; // Move the label down by 1.5 font sizes if the y-axis min is negative
 
-        // Calculate the maximum digits needed for tick labels
-        const maxDigits = calculateMaxDigitsInRange(
-            graphInfo.range[Y],
-            tickStep[Y],
-        );
+        // Determine if the x-axis min is negative and close to zero.
+        const isCloseToZero =
+            graphInfo.range[X][MIN] < 0 && graphInfo.range[X][MIN] > -0.04;
 
-        // Simple calculation for tick label width. While this isn't an exact calculation,
-        // it's close enough for our purposes.
-        const estimatedTickLabelWidth =
-            maxDigits * (fontSize * 0.75) +
-            (graphInfo.range[Y][MIN] < 0 && graphInfo.range[X][MIN] <= 0
-                ? fontSize * 0.5
-                : 0); // Add space for negative sign if needed
+        // Determine if the tick labels extend beyond the left edge of the graph, either
+        // because the x-axis is wholly positive or because the x-axis min is negative and close to zero.
+        const needsExtraSpacing = graphInfo.range[X][MIN] >= 0 || isCloseToZero;
 
-        const yAxisLabelOffset: [number, number] =
-            graphInfo.range[X][MIN] >= 0
-                ? [-fontSize * 1.5 - estimatedTickLabelWidth, -fontSize] // Move the label left by 2.5 font sizes if the x-axis min is positive
-                : [-fontSize * 1.5, -fontSize]; // Dynamic offset based on tick label width
+        // When tick labels extend beyond the left edge of the graph, we need to account for their
+        // width to prevent the main axis label from overlapping with them.
+        let paddingRequiredForTickLabels = 0;
+        if (needsExtraSpacing) {
+            // Calculate the maximum digits needed for tick labels
+            const maxDigits = calculateMaxDigitsInRange(
+                graphInfo.range[Y],
+                tickStep[Y],
+            );
+
+            // Estimate the width of the tick labels so that we can ensure
+            // the axis labels do not overlap with the tick labels.
+            paddingRequiredForTickLabels =
+                maxDigits * (fontSize * 0.75) +
+                (graphInfo.range[Y][MIN] < 0 && graphInfo.range[X][MIN] <= 0
+                    ? fontSize * 0.5
+                    : 0); // Add space for negative sign if needed
+        }
+
+        const yAxisLabelOffset: [number, number] = [
+            -fontSize * 1.5 - paddingRequiredForTickLabels,
+            -fontSize,
+        ];
 
         // Calculate the location of the labels to be halfway between the min and max values of the axes
         const xAxisLabelLocation: vec.Vector2 = [
