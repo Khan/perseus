@@ -5,7 +5,6 @@ import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-
 import expressionExport from "./expression";
 import {expressionItem2, expressionItem3} from "./expression.testdata";
 
-import type {KeypadConfiguration} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
@@ -19,11 +18,6 @@ type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 /** This story shows how the expression widget looks when the keypad is
  * configured with _every_ option it supports.  */
 export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
-    const keypadConfiguration: KeypadConfiguration = {
-        keypadType: "EXPRESSION",
-        extraKeys: ["x", "y", "z"],
-    };
-
     return (
         <div style={{padding: "2rem"}}>
             <expressionExport.widget
@@ -40,8 +34,8 @@ export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
                 userInput=""
                 trackInteraction={() => {}}
                 widgetId="expression"
-                keypadConfiguration={keypadConfiguration}
                 reviewMode={false}
+                extraKeys={["x", "y", "z"]}
             />
         </div>
     );

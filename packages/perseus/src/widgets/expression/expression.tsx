@@ -58,17 +58,10 @@ const normalizeTex = (tex: string): string => {
     return anglicizeOperators(tex);
 };
 
-type RenderProps = {
-    buttonSets: PerseusExpressionWidgetOptions["buttonSets"];
-    buttonsVisible?: PerseusExpressionWidgetOptions["buttonsVisible"];
-    functions: PerseusExpressionWidgetOptions["functions"];
-    times: PerseusExpressionWidgetOptions["times"];
-    visibleLabel: PerseusExpressionWidgetOptions["visibleLabel"];
-    ariaLabel: PerseusExpressionWidgetOptions["ariaLabel"];
-    keypadConfiguration: KeypadConfiguration;
-};
-
-type ExternalProps = WidgetProps<RenderProps, PerseusExpressionUserInput>;
+type ExternalProps = WidgetProps<
+    ExpressionPublicWidgetOptions,
+    PerseusExpressionUserInput
+>;
 
 type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -293,14 +286,34 @@ export class Expression
      * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     getSerializedState() {
-        const {userInput: _, ...rest} = this.props;
+        // rather than just use `...this.props`,
+        // by being picky we can prevent accidentally adding new properties
+        const selectedProps = _.pick(
+            this.props,
+            "alignment",
+            "buttonSets",
+            "functions",
+            "static",
+            "times",
+            "value",
+        );
         return {
-            ...rest,
+            ...selectedProps,
             value: this.props.userInput,
+            keypadConfiguration: {
+                keypadType: "EXPRESSION",
+                times: this.props.times,
+            },
         };
     }
 
     render() {
+        const keypadConfiguration: KeypadConfiguration = {
+            keypadType: "EXPRESSION",
+            extraKeys: this.props.extraKeys,
+            times: this.props.times,
+        };
+
         if (this.props.apiOptions.customKeypad) {
             return (
                 <View className={css(styles.mobileLabelInputWrapper)}>
@@ -324,7 +337,7 @@ export class Expression
                             // when apiOptions.customKeypad is set, but how
                             // to convince TypeScript of this?
                             this.props.keypadElement?.configure(
-                                this.props.keypadConfiguration,
+                                keypadConfiguration,
                                 () => {
                                     if (this._isMounted) {
                                         this._handleFocus();
@@ -396,9 +409,7 @@ export class Expression
                                 this.props.ariaLabel ||
                                 this.context.strings.mathInputBox
                             }
-                            extraKeys={
-                                this.props.keypadConfiguration?.extraKeys
-                            }
+                            extraKeys={this.props.extraKeys}
                             onAnalyticsEvent={
                                 this.props.analytics?.onAnalyticsEvent ??
                                 (async () => {})
@@ -442,34 +453,6 @@ export default {
     name: "expression",
     displayName: "Expression / Equation",
     widget: ExpressionWithDependencies,
-    transform: (
-        widgetOptions:
-            | PerseusExpressionWidgetOptions
-            | ExpressionPublicWidgetOptions,
-    ): RenderProps => {
-        const {
-            times,
-            functions,
-            buttonSets,
-            buttonsVisible,
-            visibleLabel,
-            ariaLabel,
-            extraKeys,
-        } = widgetOptions;
-        return {
-            keypadConfiguration: {
-                keypadType: "EXPRESSION",
-                extraKeys,
-                times,
-            },
-            times,
-            functions,
-            buttonSets,
-            buttonsVisible,
-            visibleLabel,
-            ariaLabel,
-        };
-    },
     version: expressionLogic.version,
 
     // For use by the editor
