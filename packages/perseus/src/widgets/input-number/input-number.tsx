@@ -3,6 +3,7 @@ import {inputNumberAnswerTypes} from "@khanacademy/perseus-score";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
+import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
@@ -14,8 +15,8 @@ import type {PerseusStrings} from "../../strings";
 import type {Path, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {InputNumberPromptJSON} from "../../widget-ai-utils/input-number/input-number-ai-utils";
 import type {
-    PerseusInputNumberWidgetOptions,
     PerseusInputNumberUserInput,
+    InputNumberPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 type FormExampleFunction = (options: Props, strings: PerseusStrings) => string;
@@ -50,12 +51,10 @@ const formExamples: Record<string, FormExampleFunction> = {
     },
 } as const;
 
-type RenderProps = Pick<
-    PerseusInputNumberWidgetOptions,
-    "simplify" | "size" | "answerType" | "rightAlign"
+type ExternalProps = WidgetProps<
+    InputNumberPublicWidgetOptions,
+    PerseusInputNumberUserInput
 >;
-
-type ExternalProps = WidgetProps<RenderProps, PerseusInputNumberUserInput>;
 type Props = ExternalProps & {
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
@@ -185,10 +184,19 @@ class InputNumber extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     getSerializedState(): any {
-        const {userInput, ...rest} = this.props;
+        const selectedProps = _.pick(
+            this.props,
+            "alignment",
+            "answerType",
+            "currentValue",
+            "rightAlign",
+            "simplify",
+            "size",
+            "static",
+        );
         return {
-            ...rest,
-            currentValue: userInput.currentValue,
+            ...selectedProps,
+            currentValue: this.props.userInput.currentValue,
         };
     }
 
@@ -269,18 +277,6 @@ const styles = StyleSheet.create({
     },
 });
 
-function transform(
-    widgetOptions: PerseusInputNumberWidgetOptions,
-): RenderProps {
-    const {simplify, size, answerType, rightAlign} = widgetOptions;
-    return {
-        simplify,
-        size,
-        answerType,
-        rightAlign,
-    };
-}
-
 function getOneCorrectAnswerFromRubric(rubric: any): string | undefined {
     if (rubric.value == null) {
         return;
@@ -310,7 +306,6 @@ export default {
     hidden: true,
     widget: InputNumber,
     isLintable: true,
-    transform,
     getOneCorrectAnswerFromRubric,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof InputNumber>;

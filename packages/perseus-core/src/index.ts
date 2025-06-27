@@ -185,6 +185,7 @@ export {
     shuffleMatcher,
 } from "./widgets/matcher/matcher-util";
 export type {MatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
+export type {InputNumberPublicWidgetOptions} from "./widgets/input-number/input-number-util";
 export {shuffle, seededRNG, random} from "./utils/random-util";
 export {default as PerseusFeatureFlags} from "./feature-flags";
 
