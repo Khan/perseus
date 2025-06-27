@@ -21,9 +21,7 @@ const defaultBackgroundImage = {
     height: 0,
 } as const;
 
-type RenderProps = PerseusImageWidgetOptions; // there is no transform as part of exports
-
-type ExternalProps = WidgetProps<RenderProps>;
+type ExternalProps = WidgetProps<PerseusImageWidgetOptions>;
 
 type Props = ExternalProps & {
     alignment: NonNullable<ExternalProps["alignment"]>;

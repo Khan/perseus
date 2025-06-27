@@ -88,9 +88,7 @@ class Indicators extends React.Component<IndicatorsProps> {
     }
 }
 
-type RenderProps = PerseusGradedGroupSetWidgetOptions; // no transform
-
-type Props = WidgetProps<RenderProps> & {
+type Props = WidgetProps<PerseusGradedGroupSetWidgetOptions> & {
     trackInteraction: () => void;
 };
 

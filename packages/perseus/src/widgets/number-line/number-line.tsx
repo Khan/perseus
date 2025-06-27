@@ -809,8 +809,6 @@ export default {
     name: "number-line",
     displayName: "Number line",
     widget: NumberLine,
-    // transform,
-    // staticTransform: staticTransform,
     canBeStatic: true,
     getCorrectUserInput,
     getStartUserInput,

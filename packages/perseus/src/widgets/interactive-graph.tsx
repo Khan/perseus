@@ -147,8 +147,6 @@ type RenderProps = {
      *
      * NOTE(kevinb): perseus_data.go defines this as Array<Array<number>>
      */
-    // TODO(kevinb): Add a transform function to interactive-graph.jsx to
-    // rename `range` to `ranges` so that things are less confusing.
     range: GraphRange;
     /**
      * The correct answer for this widget. Will be undefined if the graph is
@@ -170,7 +168,7 @@ type RenderProps = {
      * Aria description that applies to the entire graph.
      */
     fullGraphAriaDescription?: string;
-}; // There's no transform function in exports
+};
 type Props = WidgetProps<RenderProps, PerseusInteractiveGraphUserInput>;
 type State = any;
 type DefaultProps = {

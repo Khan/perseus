@@ -95,8 +95,7 @@ const KAScompile = (
     return cached;
 };
 
-type RenderProps = PerseusInteractionWidgetOptions; // There's no transform function in exports
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<PerseusInteractionWidgetOptions>;
 
 type DefaultProps = {
     graph: Props["graph"];
