@@ -860,6 +860,7 @@ export default {
     widget: NumberLine,
     transform,
     staticTransform: staticTransform,
+    canBeStatic: true,
     getCorrectUserInput,
     getStartUserInput,
     getUserInputFromSerializedState,
