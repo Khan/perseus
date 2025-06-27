@@ -13,7 +13,11 @@ import SimpleKeypadInput from "../../components/simple-keypad-input";
 
 import InputWithExamples from "./input-with-examples";
 import {type NumericInputProps} from "./numeric-input.class";
-import {generateExamples, shouldShowExamples} from "./utils";
+import {
+    computeAnswerForms,
+    generateExamples,
+    shouldShowExamples,
+} from "./utils";
 
 import type {Focusable} from "../../types";
 
@@ -60,6 +64,8 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
             setIsFocused(false);
         };
 
+        const answerForms = computeAnswerForms(props.answers);
+
         // Styles for the InputWithExamples
         const styles = StyleSheet.create({
             inputWithExamples: {
@@ -101,8 +107,8 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
                 value={props.userInput.currentValue}
                 onChange={handleChange}
                 labelText={props.labelText}
-                examples={generateExamples(props.answerForms, context.strings)}
-                shouldShowExamples={shouldShowExamples(props.answerForms)}
+                examples={generateExamples(answerForms, context.strings)}
+                shouldShowExamples={shouldShowExamples(answerForms)}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
                 id={props.widgetId}

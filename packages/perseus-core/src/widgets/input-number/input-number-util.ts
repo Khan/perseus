@@ -4,7 +4,7 @@ import type {PerseusInputNumberWidgetOptions} from "../../data-schema";
  * For details on the individual options, see the
  * PerseusInputNumberWidgetOptions type
  */
-type InputNumberPublicWidgetOptions = Pick<
+export type InputNumberPublicWidgetOptions = Pick<
     PerseusInputNumberWidgetOptions,
     | "answerType"
     | "inexact"

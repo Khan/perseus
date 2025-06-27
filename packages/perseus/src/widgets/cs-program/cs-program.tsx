@@ -23,9 +23,10 @@ import type {
 
 const {updateQueryString} = Util;
 
-type RenderProps = PerseusCSProgramWidgetOptions;
-
-type Props = WidgetProps<RenderProps, PerseusCSProgramUserInput>;
+type Props = WidgetProps<
+    PerseusCSProgramWidgetOptions,
+    PerseusCSProgramUserInput
+>;
 
 type DefaultProps = {
     showEditor: Props["showEditor"];

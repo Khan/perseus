@@ -294,9 +294,10 @@ class Card extends React.Component<CardProps, CardState> {
     }
 }
 
-type RenderProps = OrdererPublicWidgetOptions;
-
-type OrdererProps = WidgetProps<RenderProps, PerseusOrdererUserInput>;
+type OrdererProps = WidgetProps<
+    OrdererPublicWidgetOptions,
+    PerseusOrdererUserInput
+>;
 
 type OrdererDefaultProps = Pick<
     OrdererProps,

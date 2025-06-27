@@ -15,9 +15,7 @@ import type {
     PerseusDefinitionWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type RenderProps = PerseusDefinitionWidgetOptions;
-
-type DefinitionProps = WidgetProps<RenderProps> & {
+type DefinitionProps = WidgetProps<PerseusDefinitionWidgetOptions> & {
     widgets: PerseusRenderer["widgets"];
 };
 

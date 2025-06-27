@@ -15,19 +15,13 @@ import type {SortableOption} from "../../components/sortable";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-utils";
 import type {
-    PerseusMatcherWidgetOptions,
     PerseusMatcherUserInput,
     MatcherPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
-type RenderProps = Pick<
-    PerseusMatcherWidgetOptions,
-    "labels" | "orderMatters" | "padding"
->;
-
-type Props = WidgetProps<RenderProps, PerseusMatcherUserInput>;
+type Props = WidgetProps<MatcherPublicWidgetOptions, PerseusMatcherUserInput>;
 
 type DefaultProps = {
     labels: Props["labels"];

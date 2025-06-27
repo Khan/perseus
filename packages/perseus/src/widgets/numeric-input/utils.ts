@@ -1,5 +1,8 @@
 import type {PerseusStrings} from "../../strings";
-import type {PerseusNumericInputAnswerForm} from "@khanacademy/perseus-core";
+import type {
+    NumericInputPublicWidgetOptions,
+    PerseusNumericInputAnswerForm,
+} from "@khanacademy/perseus-core";
 
 /**
  * The full list of available strings for the numeric input widget,
@@ -119,3 +122,22 @@ export const unionAnswerForms: (
         );
     });
 };
+
+export function computeAnswerForms(
+    answers: NumericInputPublicWidgetOptions["answers"],
+) {
+    return unionAnswerForms(
+        // Filter out the correct answers and map them to the answer forms
+        // so that we can generate the examples for the widget.
+        answers
+            .filter((answer) => answer.status === "correct")
+            .map((answer) => {
+                return (answer.answerForms || []).map((form) => {
+                    return {
+                        simplify: answer.simplify,
+                        name: form,
+                    };
+                });
+            }),
+    );
+}

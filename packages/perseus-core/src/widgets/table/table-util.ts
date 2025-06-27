@@ -1,6 +1,6 @@
 import type {PerseusTableWidgetOptions} from "../../data-schema";
 
-type TablePublicWidgetOptions = Pick<
+export type TablePublicWidgetOptions = Pick<
     PerseusTableWidgetOptions,
     "headers" | "rows" | "columns"
 >;

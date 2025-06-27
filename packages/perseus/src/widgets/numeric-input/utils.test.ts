@@ -1,8 +1,16 @@
 import {mockStrings} from "../../strings";
 
-import {generateExamples, shouldShowExamples, unionAnswerForms} from "./utils";
+import {
+    computeAnswerForms,
+    generateExamples,
+    shouldShowExamples,
+    unionAnswerForms,
+} from "./utils";
 
-import type {PerseusNumericInputAnswerForm} from "@khanacademy/perseus-core";
+import type {
+    NumericInputPublicWidgetOptions,
+    PerseusNumericInputAnswerForm,
+} from "@khanacademy/perseus-core";
 
 describe("generateExamples", () => {
     it("returns an array of examples", () => {
@@ -189,5 +197,46 @@ describe("unionAnswerForms", () => {
 
         // Assert
         expect(result).toEqual(expected);
+    });
+});
+
+describe("computeAnswerForms", () => {
+    it("extracts the answer forms", () => {
+        const answers: NumericInputPublicWidgetOptions["answers"] = [
+            {
+                status: "correct",
+                simplify: "required",
+                answerForms: ["proper"],
+            },
+        ];
+
+        expect(computeAnswerForms(answers)).toEqual([
+            {
+                simplify: "required",
+                name: "proper",
+            },
+        ]);
+    });
+
+    it("only uses answer forms from correct answers", () => {
+        const answers: NumericInputPublicWidgetOptions["answers"] = [
+            {
+                status: "correct",
+                simplify: "required",
+                answerForms: ["proper"],
+            },
+            {
+                status: "wrong",
+                simplify: "required",
+                answerForms: ["decimal"],
+            },
+        ];
+
+        expect(computeAnswerForms(answers)).toEqual([
+            {
+                simplify: "required",
+                name: "proper",
+            },
+        ]);
     });
 });

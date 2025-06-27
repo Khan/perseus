@@ -1203,7 +1203,7 @@ export default {
     displayName: "Plotter",
     hidden: true,
     widget: Plotter,
-    staticTransform: _.identity,
+    canBeStatic: true,
     getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Plotter>;

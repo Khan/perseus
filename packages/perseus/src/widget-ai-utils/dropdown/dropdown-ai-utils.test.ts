@@ -55,7 +55,12 @@ describe("Dropdown AI utils", () => {
 
     it("it returns JSON with the expected format and fields", () => {
         const renderProps: any = {
-            choices: ["Pickles", "Tomato", "Onion", "Lettuce"],
+            choices: [
+                {content: "Pickles"},
+                {content: "Tomato"},
+                {content: "Onion"},
+                {content: "Lettuce"},
+            ],
         };
 
         const userInput: PerseusDropdownUserInput = {
