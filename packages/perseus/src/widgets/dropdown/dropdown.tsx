@@ -13,18 +13,10 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 import type {
     DropdownPublicWidgetOptions,
-    PerseusDropdownWidgetOptions,
     PerseusDropdownUserInput,
 } from "@khanacademy/perseus-core";
 
-type RenderProps = {
-    placeholder: PerseusDropdownWidgetOptions["placeholder"];
-    visibleLabel: PerseusDropdownWidgetOptions["visibleLabel"];
-    ariaLabel: PerseusDropdownWidgetOptions["ariaLabel"];
-    choices: ReadonlyArray<string>;
-};
-
-type Props = WidgetProps<RenderProps, PerseusDropdownUserInput>;
+type Props = WidgetProps<DropdownPublicWidgetOptions, PerseusDropdownUserInput>;
 
 type DefaultProps = {
     choices: Props["choices"];
@@ -84,7 +76,19 @@ class Dropdown extends React.Component<Props> implements Widget {
         const {userInput, ...rest} = this.props;
         return {
             ...rest,
+            choices: this.props.choices.map((choice) => choice.content),
             selected: userInput.value,
+        };
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    restoreSerializedState(serializedState) {
+        return {
+            ...serializedState,
+            choices: serializedState.choices.map((content) => ({content})),
         };
     }
 
@@ -108,11 +112,11 @@ class Dropdown extends React.Component<Props> implements Widget {
                     value={String(i + 1)}
                     label={
                         <Renderer
-                            content={choice}
+                            content={choice.content}
                             strings={this.context.strings}
                         />
                     }
-                    labelAsText={choice}
+                    labelAsText={choice.content}
                 />
             )),
         ];
@@ -160,15 +164,6 @@ class Dropdown extends React.Component<Props> implements Widget {
     }
 }
 
-function transform(widgetOptions: DropdownPublicWidgetOptions): RenderProps {
-    return {
-        placeholder: widgetOptions.placeholder,
-        visibleLabel: widgetOptions.visibleLabel,
-        ariaLabel: widgetOptions.ariaLabel,
-        choices: widgetOptions.choices.map((choice) => choice.content),
-    };
-}
-
 /**
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
@@ -183,6 +178,5 @@ export default {
     name: "dropdown",
     displayName: "Drop down",
     widget: Dropdown,
-    transform,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Dropdown>;

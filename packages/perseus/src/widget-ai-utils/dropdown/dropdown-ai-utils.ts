@@ -19,7 +19,7 @@ export const getPromptJSON = (
     return {
         type: "dropdown",
         options: {
-            items: renderProps.choices,
+            items: renderProps.choices.map((choice) => choice.content),
         },
         userInput: {
             selectedIndex: userInput.value - 1, // Offset to account for placeholder
