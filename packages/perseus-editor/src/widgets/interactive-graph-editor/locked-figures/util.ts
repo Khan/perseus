@@ -13,6 +13,7 @@ import {
     type LockedPolygonType,
     type LockedVectorType,
     type LockedLineStyle,
+    type LockedFigureWeight,
 } from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
@@ -116,19 +117,22 @@ export function generateLockedFigureAppearanceDescription(
     color: LockedFigureColor,
     strokeStyle: LockedLineStyle = "solid",
     fill?: LockedFigureFillType,
+    weight: LockedFigureWeight = "medium",
 ) {
     const convertedColor = color === "grayH" ? "gray" : color;
+    const weightString = weight === "medium" ? "" : ` ${weight}`;
+    const baseAppearance = `. Appearance${weightString} ${strokeStyle} ${convertedColor}`;
 
     switch (fill) {
         case "none":
-            return `. Appearance ${strokeStyle} ${convertedColor} border, with no fill.`;
+            return `${baseAppearance} border, with no fill.`;
         case "white":
-            return `. Appearance ${strokeStyle} ${convertedColor} border, with a white fill.`;
+            return `${baseAppearance} border, with a white fill.`;
         case "solid":
         case "translucent":
-            return `. Appearance ${strokeStyle} ${convertedColor} border, with a ${fill} ${convertedColor} fill.`;
+            return `${baseAppearance} border, with a ${fill} ${convertedColor} fill.`;
         case undefined:
-            return `. Appearance ${strokeStyle} ${convertedColor}.`;
+            return `${baseAppearance}.`;
         default:
             throw new UnreachableCaseError(fill);
     }

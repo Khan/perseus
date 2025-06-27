@@ -91,6 +91,7 @@ const LockedPolygonSettings = (props: Props) => {
             color,
             strokeStyle,
             fillStyle,
+            weight,
         );
         str += polygonAppearance;
         return str;
