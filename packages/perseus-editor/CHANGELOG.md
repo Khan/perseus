@@ -1,5 +1,18 @@
 # @khanacademy/perseus-editor
 
+## 25.1.0
+
+### Minor Changes
+
+-   [#2580](https://github.com/Khan/perseus/pull/2580) [`98cc8e59d`](https://github.com/Khan/perseus/commit/98cc8e59d2c075be8c22e23a6c7c5a09f3378cae) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - Add `additionalTemplates` prop to EditorPage
+
+### Patch Changes
+
+-   [#2660](https://github.com/Khan/perseus/pull/2660) [`ed51d32db`](https://github.com/Khan/perseus/commit/ed51d32db694ce7c766a0af15934778c3026c7dd) Thanks [@benchristel](https://github.com/benchristel)! - Accept any wonder-blocks-link version compatible with 9.1.9 as a peer dep of perseus-editor
+
+-   Updated dependencies [[`ed51d32db`](https://github.com/Khan/perseus/commit/ed51d32db694ce7c766a0af15934778c3026c7dd)]:
+    -   @khanacademy/perseus@65.3.6
+
 ## 25.0.5
 
 ### Patch Changes
