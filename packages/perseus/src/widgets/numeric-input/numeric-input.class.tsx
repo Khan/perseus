@@ -160,6 +160,21 @@ export class NumericInput
         };
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    restoreSerializedState(serializedState) {
+        return {
+            ...serializedState,
+            answers: serializedState.answerForms.map((form) => ({
+                status: "correct",
+                simplify: form.simplify,
+                answerForms: [form.name],
+            })),
+        };
+    }
+
     render(): React.ReactNode {
         return <NumericInputComponent {...this.props} ref={this.inputRef} />;
     }
