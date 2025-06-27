@@ -22,7 +22,10 @@ import type {
     CategorizerPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<RenderProps, PerseusCategorizerUserInput>;
+type Props = WidgetProps<
+    CategorizerPublicWidgetOptions,
+    PerseusCategorizerUserInput
+>;
 
 type DefaultProps = {
     items: Props["items"];
@@ -293,12 +296,6 @@ const styles = StyleSheet.create({
     },
 });
 
-type RenderProps = {
-    items: PerseusCategorizerWidgetOptions["items"];
-    categories: PerseusCategorizerWidgetOptions["categories"];
-    randomizeItems: PerseusCategorizerWidgetOptions["randomizeItems"];
-};
-
 /**
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
@@ -320,21 +317,12 @@ function getCorrectUserInput(
     return {values: options.values};
 }
 
-function transform(widgetOptions: CategorizerPublicWidgetOptions): RenderProps {
-    return {
-        items: widgetOptions.items,
-        categories: widgetOptions.categories,
-        randomizeItems: widgetOptions.randomizeItems,
-    };
-}
-
 export default {
     name: "categorizer",
     displayName: "Categorizer",
     hidden: true,
     widget: Categorizer,
-    transform,
-    staticTransform: transform,
+    canBeStatic: true,
     getUserInputFromSerializedState,
     getCorrectUserInput,
     isLintable: true,

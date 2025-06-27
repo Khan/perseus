@@ -125,6 +125,7 @@ export default {
     widget: Radio,
     transform,
     staticTransform: transform,
+    canBeStatic: true,
     version: radioLogic.version,
     isLintable: true,
 

@@ -661,6 +661,7 @@ export default {
     widget: Grapher,
     transform,
     staticTransform,
+    canBeStatic: true,
     getUserInputFromSerializedState,
     getStartUserInput,
 } satisfies WidgetExports<typeof Grapher>;

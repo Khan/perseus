@@ -764,10 +764,9 @@ function transform(editorProps: NumberLinePublicWidgetOptions): RenderProps {
 
     return {
         ...props,
-        isTickCtrl: editorProps.isTickCtrl ?? undefined,
         // Use getDefaultProps value if null
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        snapDivisions: props.snapDivisions || undefined,
+        isTickCtrl: editorProps.isTickCtrl ?? undefined,
+        snapDivisions: props.snapDivisions ?? undefined,
     };
 }
 
@@ -791,8 +790,7 @@ function staticTransform(
     return {
         ...props,
         // Use getDefaultProps value if null
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        snapDivisions: props.snapDivisions || undefined,
+        snapDivisions: props.snapDivisions ?? undefined,
     };
 }
 

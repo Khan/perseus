@@ -525,6 +525,14 @@ export type WidgetExports<
     tracking?: Tracking;
 
     /**
+     * Originally we were looking to see if a widget has `staticTransform`
+     * to determine whether or not it could be static; however we'd like
+     * to move away from transforms (especially transforms that aren't
+     * doing anything interesting), so we have a flag for that now.
+     */
+    canBeStatic?: boolean;
+
+    /**
      * Transforms the widget options to the props used to render the widget.
      *
      * @deprecated see LEMS-3199

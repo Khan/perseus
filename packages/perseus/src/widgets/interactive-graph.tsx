@@ -862,7 +862,7 @@ export default {
     name: "interactive-graph",
     displayName: "Interactive graph",
     widget: InteractiveGraph,
-    staticTransform: _.identity,
+    canBeStatic: true,
     getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof InteractiveGraph>;
