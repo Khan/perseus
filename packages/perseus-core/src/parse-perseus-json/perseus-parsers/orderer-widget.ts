@@ -33,8 +33,8 @@ export const parseOrdererWidget = parseWidget(
     constant("orderer"),
     object({
         options: defaulted(array(parseRenderer), () => []),
-        correctOptions: array(parseRenderer),
-        otherOptions: array(parseRenderer),
+        correctOptions: defaulted(array(parseRenderer), () => []),
+        otherOptions: defaulted(array(parseRenderer), () => []),
         height: pipeParsers(enumeration("normal", "auto", "large")).then(
             largeToAuto,
         ).parser,

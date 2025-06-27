@@ -5,6 +5,7 @@ import {
     object,
     string,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
@@ -14,6 +15,6 @@ export const parseTableWidget = parseWidget(
         headers: array(string),
         rows: number,
         columns: number,
-        answers: array(array(string)),
+        answers: defaulted(array(array(string)), () => []),
     }),
 );

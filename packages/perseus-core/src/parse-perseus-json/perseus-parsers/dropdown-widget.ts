@@ -20,7 +20,7 @@ export const parseDropdownWidget = parseWidget(
         choices: array(
             object({
                 content: string,
-                correct: boolean,
+                correct: defaulted(boolean, () => false),
             }),
         ),
     }),

@@ -30,7 +30,7 @@ export const parsePlotterWidget = parseWidget(
         // defaults here.
         snapsPerLine: defaulted(number, () => 2),
         starting: array(number),
-        correct: array(number),
+        correct: defaulted(array(number), () => []),
         picUrl: optional(nullable(string)),
         picSize: optional(nullable(number)),
         picBoxHeight: optional(nullable(number)),

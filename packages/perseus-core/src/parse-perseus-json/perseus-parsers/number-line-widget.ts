@@ -43,7 +43,7 @@ export const parseNumberLineWidget = parseWidget(
             // Convert null to undefined:
             () => undefined,
         ),
-        correctX: nullable(number),
+        correctX: defaulted(nullable(number), () => null),
         initialX: optional(nullable(number)),
         showTooltips: optional(boolean),
         static: defaulted(boolean, () => false),

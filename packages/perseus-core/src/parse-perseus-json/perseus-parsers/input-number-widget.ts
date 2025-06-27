@@ -8,6 +8,7 @@ import {
     string,
     union,
 } from "../general-purpose-parsers";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 
 import {parseWidget} from "./widget";
 
@@ -44,7 +45,10 @@ export const parseInputNumberWidget = parseWidget(
         // boolean, even though that makes no sense. We should figure out if
         // those content items are actually published anywhere, and consider
         // updating them.
-        value: union(number).or(string).or(booleanToString).parser,
+        value: defaulted(
+            union(number).or(string).or(booleanToString).parser,
+            () => 0,
+        ),
         customKeypad: optional(boolean),
     }),
 );

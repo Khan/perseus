@@ -69,7 +69,7 @@ export const parseNumericInputWidget = parseWidget(
     object({
         answers: array(
             object({
-                message: string,
+                message: defaulted(string, () => ""),
                 // TODO(benchristel): value should never be null or undefined,
                 // but we have some content where it is anyway. If we backfill
                 // the data, simplify this.
@@ -79,7 +79,7 @@ export const parseNumericInputWidget = parseWidget(
                     optional(array(parseMathFormat)),
                     () => undefined,
                 ),
-                strict: boolean,
+                strict: defaulted(boolean, () => false),
                 maxError: optional(nullable(number)),
                 // TODO(benchristel): simplify should never be a boolean, but we
                 // have some content where it is anyway. If we ever backfill
