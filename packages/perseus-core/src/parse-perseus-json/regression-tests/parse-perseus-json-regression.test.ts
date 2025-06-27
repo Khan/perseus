@@ -1,8 +1,7 @@
 import * as fs from "fs";
 import {join} from "path";
 
-import {splitPerseusItem} from "@khanacademy/perseus-core";
-
+import splitPerseusItem from "../../utils/split-perseus-item";
 import {anySuccess} from "../general-purpose-parsers/test-helpers";
 import {
     parseAndMigratePerseusArticle,
