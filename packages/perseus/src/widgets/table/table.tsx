@@ -15,6 +15,7 @@ import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusTableWidgetOptions,
     PerseusTableUserInput,
+    TablePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 const {assert} = InteractiveUtil;
@@ -24,9 +25,7 @@ type EditorProps = {
     Editor: any;
 };
 
-type RenderProps = Omit<PerseusTableWidgetOptions, "answers">;
-
-type Props = WidgetProps<RenderProps, PerseusTableUserInput> &
+type Props = WidgetProps<TablePublicWidgetOptions, PerseusTableUserInput> &
     // eslint-disable-next-line import/no-deprecated
     ChangeableProps &
     EditorProps;

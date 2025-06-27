@@ -76,6 +76,7 @@ export {default as deriveExtraKeys} from "./widgets/expression/derive-extra-keys
 export {default as gradedGroupLogic} from "./widgets/graded-group";
 export {default as freeResponseLogic} from "./widgets/free-response";
 export type {FreeResponseDefaultWidgetOptions} from "./widgets/free-response";
+export type {FreeResponsePublicWidgetOptions} from "./widgets/free-response/free-response-util.ts";
 export type {GradedGroupDefaultWidgetOptions} from "./widgets/graded-group";
 export {default as gradedGroupSetLogic} from "./widgets/graded-group-set";
 export type {GradedGroupSetDefaultWidgetOptions} from "./widgets/graded-group-set";
@@ -126,6 +127,7 @@ export {default as sorterLogic} from "./widgets/sorter";
 export type {SorterDefaultWidgetOptions} from "./widgets/sorter";
 export {default as tableLogic} from "./widgets/table";
 export type {TableDefaultWidgetOptions} from "./widgets/table";
+export type {TablePublicWidgetOptions} from "./widgets/table/table-util";
 export {default as videoLogic} from "./widgets/video";
 export type {VideoDefaultWidgetOptions} from "./widgets/video";
 

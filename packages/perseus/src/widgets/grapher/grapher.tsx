@@ -340,9 +340,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     }
 }
 
-type RenderProps = Pick<GrapherPublicWidgetOptions, "availableTypes" | "graph">;
-
-type Props = WidgetProps<RenderProps, PerseusGrapherUserInput>;
+type Props = WidgetProps<GrapherPublicWidgetOptions, PerseusGrapherUserInput>;
 
 /* Widget and editor. */
 class Grapher extends React.Component<Props> implements Widget {
@@ -598,7 +596,7 @@ class Grapher extends React.Component<Props> implements Widget {
     }
 }
 
-function transform(options: GrapherPublicWidgetOptions): RenderProps {
+function transform(options: GrapherPublicWidgetOptions) {
     const {availableTypes, graph} = options;
 
     return {
@@ -611,7 +609,7 @@ function transform(options: GrapherPublicWidgetOptions): RenderProps {
 // mode we set static=true for the graph's handles in FunctionGrapher.
 function staticTransform(options: PerseusGrapherWidgetOptions) {
     return {
-        ...transform(options),
+        ...options,
         // Don't display graph type choices if we're in static mode
         availableTypes: [options.correct.type],
         // Display the same graph marked as correct in the widget editor.

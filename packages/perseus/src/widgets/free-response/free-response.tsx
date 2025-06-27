@@ -24,15 +24,14 @@ import Renderer from "../../renderer";
 
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
+    FreeResponsePublicWidgetOptions,
     PerseusFreeResponseUserInput,
-    PerseusFreeResponseWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type RenderProps = Pick<
-    PerseusFreeResponseWidgetOptions,
-    "allowUnlimitedCharacters" | "characterLimit" | "placeholder" | "question"
+type Props = WidgetProps<
+    FreeResponsePublicWidgetOptions,
+    PerseusFreeResponseUserInput
 >;
-type Props = WidgetProps<RenderProps, PerseusFreeResponseUserInput>;
 
 type DefaultProps = Pick<Props, "userInput">;
 

@@ -23,12 +23,7 @@ import type {
 
 const {updateQueryString} = Util;
 
-type RenderProps = PerseusIFrameWidgetOptions & {
-    width: string;
-    height: string;
-};
-
-type Props = WidgetProps<RenderProps, PerseusIFrameUserInput>;
+type Props = WidgetProps<PerseusIFrameWidgetOptions, PerseusIFrameUserInput>;
 
 type DefaultProps = {
     allowFullScreen: Props["allowFullScreen"];
@@ -110,8 +105,8 @@ class Iframe extends React.Component<Props> implements Widget {
                 "https://www.khanacademy.org/computer-programming/program/" +
                 url +
                 "/embedded?buttons=no&embed=yes&editor=no&author=no";
-            url = updateQueryString(url, "width", this.props.width);
-            url = updateQueryString(url, "height", this.props.height);
+            url = updateQueryString(url, "width", `${this.props.width}`);
+            url = updateQueryString(url, "height", `${this.props.height}`);
             // Origin is used by output.js in deciding to send messages
             url = updateQueryString(url, "origin", InitialRequestUrl.origin);
         }

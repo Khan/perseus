@@ -18,7 +18,7 @@ export const getPromptJSON = (
         options: {
             passageNumber: renderProps.passageNumber,
             referenceNumber: renderProps.referenceNumber,
-            summaryText: renderProps.summaryText,
+            summaryText: renderProps.summaryText ?? "",
         },
     };
 };
