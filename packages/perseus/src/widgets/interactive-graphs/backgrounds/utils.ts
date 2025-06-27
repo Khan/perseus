@@ -126,7 +126,7 @@ export const getLabelPosition = (
         }
 
         const yAxisLabelOffset: [number, number] = [
-            -fontSize * 1.5 - paddingRequiredForTickLabels,
+            -fontSize - paddingRequiredForTickLabels,
             -fontSize,
         ];
 
