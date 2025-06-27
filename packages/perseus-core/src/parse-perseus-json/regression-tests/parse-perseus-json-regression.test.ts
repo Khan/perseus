@@ -1,6 +1,8 @@
 import * as fs from "fs";
 import {join} from "path";
 
+import {splitPerseusItem} from "@khanacademy/perseus-core";
+
 import {anySuccess} from "../general-purpose-parsers/test-helpers";
 import {
     parseAndMigratePerseusArticle,
@@ -53,6 +55,23 @@ describe("parseAndMigratePerseusItem", () => {
             // expectation above.
             assertSuccess(result2);
             expect(result2.value).toEqual(result.value);
+        });
+
+        it("parses the data with answer information removed", () => {
+            assertSuccess(result);
+            const answerlessItem = splitPerseusItem(result.value);
+            expect(parse(answerlessItem, parsePerseusItem)).toEqual(anySuccess);
+        });
+
+        it("returns the same result as before with answer information removed", () => {
+            assertSuccess(result);
+            const answerlessItem = splitPerseusItem(result.value);
+            const answerlessParseResult = parse(
+                answerlessItem,
+                parsePerseusItem,
+            );
+            assertSuccess(answerlessParseResult);
+            expect(answerlessParseResult.value).toMatchSnapshot();
         });
     });
 });
