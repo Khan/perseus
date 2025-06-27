@@ -1,0 +1,62 @@
+/* CSS module for MultipleChoiceComponent */
+
+.instructions {
+    display: block;
+    color: var(--wb-semanticColor-core-foreground-instructive-strong);
+    font-size: 1.8rem;
+    line-height: 1.25;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: bold;
+    margin-bottom: var(--wb-sizing-size_160);
+}
+
+/* Consolidated class for the choice list */
+.choiceList {
+    padding: 0;
+    list-style: none;
+    display: inline-block;
+    min-width: max-content;
+    width: 100%;
+    border-bottom: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    border-top: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    scrollbar-width: thin;
+}
+
+@media screen and (max-width: 681px) {
+    .choiceList {
+        margin-inline-start: calc(-1 * var(--wb-sizing-size_160));
+        margin-inline-end: calc(-1 * var(--wb-sizing-size_160));
+    }
+}
+
+.item {
+    margin-inline-start: var(--wb-sizing-size_200);
+}
+
+.responsiveItem {
+    margin-inline-start: 0;
+    padding: 0;
+}
+
+.responsiveItem:not(:last-child) {
+    border-bottom: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+.selectedItem {
+    background: var(--wb-semanticColor-core-foreground-inverse-strong);
+}
+
+.responsiveContainer {
+    overflow: auto;
+    margin-inline-start: calc(-1 * var(--wb-sizing-size_160));
+    padding-inline-start: var(--wb-sizing-size_160);
+}
+
+.responsiveFieldset {
+    padding-inline-end: var(--wb-sizing-size_160);
+    min-width: auto;
+}
