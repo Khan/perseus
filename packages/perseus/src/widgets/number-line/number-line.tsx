@@ -12,13 +12,7 @@ import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
-import type {
-    WidgetExports,
-    FocusPath,
-    Widget,
-    WidgetProps,
-    UniversalWidgetProps,
-} from "../../types";
+import type {WidgetExports, FocusPath, Widget, WidgetProps} from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {
     Relationship,
@@ -26,7 +20,6 @@ import type {
     PerseusNumberLineWidgetOptions,
     NumberLinePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -79,6 +72,15 @@ function formatMixed(n: number, d: number): string {
 function formatNonReduced(n: number, d: number, base: number): string {
     const factor = Math.floor(base / d);
     return formatImproper(n * factor, base);
+}
+
+/**
+ * The PerseusItem might have `snapDivisions` be `null`,
+ * but default props only get set if something is `undefined`
+ * TODO: maybe this should be handled within the PerseusItem parser?
+ */
+function computeSnapDivisions(original: Props["snapDivisions"]): number {
+    return original ?? NumberLine.defaultProps.snapDivisions;
 }
 
 const _label = (
@@ -201,17 +203,7 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
  * The type of `this.props` inside the NumberLine widget.
  */
 type Props = WidgetProps<
-    {
-        range: number[];
-        labelRange: Array<number | null>;
-        labelStyle: string;
-        labelTicks: boolean;
-        divisionRange: number[];
-        snapDivisions: number;
-        isTickCtrl: boolean;
-        isInequality: boolean;
-        showTooltips?: boolean;
-    },
+    NumberLinePublicWidgetOptions,
     PerseusNumberLineUserInput
 >;
 
@@ -231,14 +223,6 @@ type DefaultProps = {
     showTooltips: Props["showTooltips"];
     apiOptions: Props["apiOptions"];
 };
-
-/**
- * The props returned by the `transform` and `staticTransform` functions.
- */
-type RenderProps = Omit<
-    PropsFor<typeof NumberLine>,
-    keyof UniversalWidgetProps
->;
 
 type State = {
     numDivisionsEmpty: boolean;
@@ -277,7 +261,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
             knumber.sign(initialX - range[1]) <= 0 &&
             divisionRange[0] < divisionRange[1] &&
             0 < this.props.userInput.numDivisions &&
-            0 < this.props.snapDivisions
+            0 < computeSnapDivisions(this.props.snapDivisions)
         );
     };
 
@@ -643,11 +627,27 @@ class NumberLine extends React.Component<Props, State> implements Widget {
      * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     getSerializedState() {
-        const {userInput, ...rest} = this.props;
+        // rather than just use `...this.props`,
+        // by being picky we can prevent accidentally adding new properties
+        const selectedProps = _.pick(
+            this.props,
+            "divisionRange",
+            "alignment",
+            "isInequality",
+            "isTickCtrl",
+            "labelRange",
+            "showTooltips",
+            "snapDivisions",
+            "labelTicks",
+            "labelStyle",
+            "range",
+            "static",
+        );
+
         return {
-            ...rest,
-            numDivisions: userInput.numDivisions,
-            numLinePosition: userInput.numLinePosition,
+            ...selectedProps,
+            numDivisions: this.props.userInput.numDivisions,
+            numLinePosition: this.props.userInput.numLinePosition,
             // this seems like a bug, but I'm maintaining the
             // existing behavior on a deprecated API. Probably
             // should be:
@@ -745,55 +745,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     }
 }
 
-function transform(editorProps: NumberLinePublicWidgetOptions): RenderProps {
-    const props = _.pick(editorProps, [
-        "range",
-
-        "labelRange",
-        "labelStyle",
-        "labelTicks",
-
-        "divisionRange",
-        "snapDivisions",
-
-        "isTickCtrl",
-        "isInequality",
-
-        "showTooltips",
-    ]);
-
-    return {
-        ...props,
-        // Use getDefaultProps value if null
-        isTickCtrl: editorProps.isTickCtrl ?? undefined,
-        snapDivisions: props.snapDivisions ?? undefined,
-    };
-}
-
-function staticTransform(
-    editorProps: PerseusNumberLineWidgetOptions,
-): RenderProps {
-    const props = _.pick(editorProps, [
-        "range",
-
-        "labelRange",
-        "labelStyle",
-        "labelTicks",
-
-        "divisionRange",
-        "snapDivisions",
-
-        // isTickCtrl is ignored since users can't interact with it anyway
-        "isInequality",
-    ]);
-
-    return {
-        ...props,
-        // Use getDefaultProps value if null
-        snapDivisions: props.snapDivisions ?? undefined,
-    };
-}
-
 /**
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
@@ -858,8 +809,8 @@ export default {
     name: "number-line",
     displayName: "Number line",
     widget: NumberLine,
-    transform,
-    staticTransform: staticTransform,
+    // transform,
+    // staticTransform: staticTransform,
     canBeStatic: true,
     getCorrectUserInput,
     getStartUserInput,
