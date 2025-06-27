@@ -170,6 +170,7 @@ export type {LabelImageMarkerPublicData} from "./widgets/label-image/label-image
 export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export type {DropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
 export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";
+export type {NumericInputPublicWidgetOptions} from "./widgets/numeric-input/numeric-input-util";
 export {default as getNumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
 export type {NumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
 export {default as getRadioPublicWidgetOptions} from "./widgets/radio/radio-util";

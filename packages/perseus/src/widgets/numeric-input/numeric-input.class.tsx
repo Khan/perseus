@@ -1,12 +1,13 @@
 import {KhanMath} from "@khanacademy/kmath";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
+import _ from "underscore";
 
 import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
 import {NumericInputComponent} from "./numeric-input";
-import {unionAnswerForms} from "./utils";
+import {computeAnswerForms} from "./utils";
 
 import type {
     FocusPath,
@@ -18,7 +19,6 @@ import type {
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 import type {
     PerseusNumericInputWidgetOptions,
-    PerseusNumericInputAnswerForm,
     MathFormat,
     PerseusNumericInputRubric,
     PerseusNumericInputUserInput,
@@ -35,7 +35,6 @@ export type NumericInputProps = ExternalProps & {
     rightAlign: NonNullable<ExternalProps["rightAlign"]>;
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     coefficient: NonNullable<ExternalProps["coefficient"]>;
-    answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
     labelText: string;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
 };
@@ -46,20 +45,10 @@ type DefaultProps = Pick<
     | "rightAlign"
     | "apiOptions"
     | "coefficient"
-    | "answerForms"
     | "labelText"
     | "linterContext"
     | "userInput"
 >;
-
-type RenderProps = {
-    answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
-    labelText?: string;
-    size: string;
-    coefficient: boolean;
-    rightAlign?: boolean;
-    static: boolean;
-};
 
 // Assert that the PerseusNumericInputWidgetOptions parsed from JSON can be passed
 // as props to this component. This ensures that the PerseusNumericInputWidgetOptions
@@ -91,7 +80,6 @@ export class NumericInput
         rightAlign: false,
         apiOptions: ApiOptions.defaults,
         coefficient: false,
-        answerForms: [],
         labelText: "",
         linterContext: linterContextDefault,
         userInput: {
@@ -156,10 +144,19 @@ export class NumericInput
      * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     getSerializedState() {
-        const {userInput, ...rest} = this.props;
+        const selectedProps = _.pick(
+            this.props,
+            "alignment",
+            "coefficient",
+            "labelText",
+            "rightAlign",
+            "size",
+            "static",
+        );
         return {
-            ...rest,
-            currentValue: userInput.currentValue,
+            ...selectedProps,
+            answerForms: computeAnswerForms(this.props.answers),
+            currentValue: this.props.userInput.currentValue,
         };
     }
 
@@ -167,32 +164,6 @@ export class NumericInput
         return <NumericInputComponent {...this.props} ref={this.inputRef} />;
     }
 }
-// Transforms the widget options to the props used to render the widget.
-const propsTransform = function (
-    widgetOptions: PerseusNumericInputWidgetOptions,
-): RenderProps {
-    // Omit the answers from the widget options since they are
-    // not needed for rendering the widget.
-    const {answers: _, ...rendererProps} = {
-        ...widgetOptions,
-        answerForms: unionAnswerForms(
-            // Filter out the correct answers and map them to the answer forms
-            // so that we can generate the examples for the widget.
-            widgetOptions.answers
-                .filter((answer) => answer.status === "correct")
-                .map((answer) => {
-                    return (answer.answerForms || []).map((form) => {
-                        return {
-                            simplify: answer.simplify,
-                            name: form,
-                        };
-                    });
-                }),
-        ),
-    };
-
-    return rendererProps;
-};
 
 /**
  * @deprecated and likely a very broken API
@@ -206,39 +177,39 @@ function getUserInputFromSerializedState(
     };
 }
 
+function getOneCorrectAnswerFromRubric(
+    rubric: PerseusNumericInputRubric,
+): string | null | undefined {
+    const correctAnswers = rubric.answers.filter(
+        (answer) => answer.status === "correct",
+    );
+    const answerStrings = correctAnswers.map((answer) => {
+        // Either get the first answer form or default to decimal
+        const format: MathFormat =
+            answer.answerForms && answer.answerForms[0]
+                ? answer.answerForms[0]
+                : "decimal";
+
+        let answerString = KhanMath.toNumericString(answer.value!, format);
+        if (answer.maxError) {
+            answerString +=
+                " \u00B1 " + KhanMath.toNumericString(answer.maxError, format);
+        }
+        return answerString;
+    });
+    if (answerStrings.length === 0) {
+        return;
+    }
+    return answerStrings[0];
+}
+
 export default {
     name: "numeric-input",
     displayName: "Numeric input",
     widget: NumericInput,
-    transform: propsTransform,
     isLintable: true,
     // TODO(LEMS-2656): remove TS suppression
     // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusNumericInputRubric'
-    getOneCorrectAnswerFromRubric(
-        rubric: PerseusNumericInputRubric,
-    ): string | null | undefined {
-        const correctAnswers = rubric.answers.filter(
-            (answer) => answer.status === "correct",
-        );
-        const answerStrings = correctAnswers.map((answer) => {
-            // Either get the first answer form or default to decimal
-            const format: MathFormat =
-                answer.answerForms && answer.answerForms[0]
-                    ? answer.answerForms[0]
-                    : "decimal";
-
-            let answerString = KhanMath.toNumericString(answer.value!, format);
-            if (answer.maxError) {
-                answerString +=
-                    " \u00B1 " +
-                    KhanMath.toNumericString(answer.maxError, format);
-            }
-            return answerString;
-        });
-        if (answerStrings.length === 0) {
-            return;
-        }
-        return answerStrings[0];
-    },
+    getOneCorrectAnswerFromRubric,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof NumericInput>;
