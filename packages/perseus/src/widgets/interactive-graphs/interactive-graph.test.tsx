@@ -1057,7 +1057,6 @@ describe("Interactive Graph", function () {
         });
 
         it.each([
-            {weight: undefined, expectedStrokeWidth: 2},
             {weight: "thin", expectedStrokeWidth: 1},
             {weight: "medium", expectedStrokeWidth: 2},
             {weight: "thick", expectedStrokeWidth: 4},

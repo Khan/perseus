@@ -137,7 +137,10 @@ const parseLockedFigureFillType = enumeration(
 
 const parseLockedLineStyle = enumeration("solid", "dashed");
 
-const parseStrokeWeight = optional(enumeration("medium", "thin", "thick"));
+const parseStrokeWeight = defaulted(
+    enumeration("medium", "thin", "thick"),
+    () => "medium" as const,
+);
 
 const parseLockedLabelType = object({
     type: constant("label"),

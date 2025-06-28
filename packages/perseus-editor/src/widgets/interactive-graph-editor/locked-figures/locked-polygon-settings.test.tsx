@@ -377,19 +377,6 @@ describe("LockedPolygonSettings", () => {
         expect(onChangeSpy).toHaveBeenCalledWith({weight: "thick"});
     });
 
-    test("default weight is medium", () => {
-        // Arrange
-
-        // Act - render with undefined weight
-        render(<LockedPolygonSettings {...defaultProps} weight={undefined} />, {
-            wrapper: RenderStateRoot,
-        });
-
-        // Assert - defaults to medium
-        const weightSelect = screen.getByRole("combobox", {name: "weight"});
-        expect(weightSelect).toHaveTextContent("medium");
-    });
-
     describe("Labels", () => {
         test("Renders a label when a label is provided", () => {
             // Arrange
