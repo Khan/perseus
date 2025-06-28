@@ -807,12 +807,6 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
 
 export type LockedFigureWeight = "thin" | "medium" | "thick";
 
-export const lockedFigureWeights: Record<LockedFigureWeight, number> = {
-    thin: 1,
-    medium: 2,
-    thick: 4,
-} as const;
-
 export type LockedFigure =
     | LockedPointType
     | LockedLineType
@@ -881,7 +875,7 @@ export type LockedPolygonType = {
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
-    weight?: LockedFigureWeight;
+    weight: LockedFigureWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };

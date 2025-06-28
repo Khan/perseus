@@ -1,6 +1,5 @@
 import {
     lockedFigureColors,
-    lockedFigureWeights,
     lockedFigureFillStyles,
 } from "@khanacademy/perseus-core";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
@@ -8,6 +7,8 @@ import {Point, Polygon} from "mafs";
 import * as React from "react";
 
 import {X, Y} from "../math";
+
+import {lockedFigureWeights} from "./utils";
 
 import type {LockedPolygonType} from "@khanacademy/perseus-core";
 
