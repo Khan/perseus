@@ -805,6 +805,8 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
     orange: "#946700",
 } as const;
 
+export type LockedFigureWeight = "thin" | "medium" | "thick";
+
 export type LockedFigure =
     | LockedPointType
     | LockedLineType
@@ -873,6 +875,7 @@ export type LockedPolygonType = {
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
+    weight: LockedFigureWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };

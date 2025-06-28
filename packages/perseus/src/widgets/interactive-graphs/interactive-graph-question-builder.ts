@@ -431,6 +431,7 @@ class InteractiveGraphQuestionBuilder {
             showVertices?: boolean;
             fillStyle?: LockedFigureFillType;
             strokeStyle?: "solid" | "dashed";
+            weight?: "thin" | "medium" | "thick";
             labels?: LockedFigureLabelOptions[];
             ariaLabel?: string;
         },
@@ -442,6 +443,7 @@ class InteractiveGraphQuestionBuilder {
             showVertices: false,
             fillStyle: "none",
             strokeStyle: "solid",
+            weight: options?.weight ?? "medium",
             ...options,
             labels:
                 options?.labels?.map((label) => ({

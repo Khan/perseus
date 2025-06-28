@@ -1,3 +1,11 @@
+import type {LockedFigureWeight} from "@khanacademy/perseus-core";
+
+export const lockedFigureWeights: Record<LockedFigureWeight, number> = {
+    thin: 1,
+    medium: 2,
+    thick: 4,
+} as const;
+
 export function clampDomain(
     domain: [number, number],
     graphBounds: [number, number],
