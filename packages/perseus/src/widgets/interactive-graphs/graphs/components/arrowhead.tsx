@@ -9,6 +9,7 @@ type Props = {
     tip: vec.Vector2;
     angle: number; // degrees counterclockwise from the positive x-axis
     color?: string;
+    strokeWidth?: number;
 };
 
 // We use the pathBuilder here to scale up the SVG path coordinates used
@@ -42,7 +43,7 @@ export function Arrowhead(props: Props) {
                     style={{stroke: props.color ?? "inherit"}}
                     strokeLinejoin="round"
                     strokeLinecap="round"
-                    strokeWidth="2px"
+                    strokeWidth={props.strokeWidth ?? 2}
                 />
             </g>
         </g>

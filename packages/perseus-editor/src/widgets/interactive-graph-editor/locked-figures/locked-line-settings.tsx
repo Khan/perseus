@@ -22,6 +22,7 @@ import PerseusEditorAccordion from "../../../components/perseus-editor-accordion
 import ColorSelect from "./color-select";
 import LineStrokeSelect from "./line-stroke-select";
 import LineSwatch from "./line-swatch";
+import LineWeightSelect from "./line-weight-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
@@ -38,6 +39,7 @@ import type {Coord} from "@khanacademy/perseus";
 import type {
     LockedFigure,
     LockedFigureColor,
+    LockedFigureWeight,
     LockedLabelType,
     LockedLineType,
     LockedPointType,
@@ -61,6 +63,7 @@ const LockedLineSettings = (props: Props) => {
         lineStyle = "solid",
         showPoint1,
         showPoint2,
+        weight,
         labels,
         ariaLabel,
         onChangeProps,
@@ -242,7 +245,7 @@ const LockedLineSettings = (props: Props) => {
                 </SingleSelect>
             </LabelMedium>
 
-            <View style={styles.row}>
+            <View style={[styles.row, styles.spaceUnder]}>
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
@@ -259,6 +262,13 @@ const LockedLineSettings = (props: Props) => {
                     }
                 />
             </View>
+            <LineWeightSelect
+                selectedValue={weight ?? "medium"}
+                onChange={
+                    ((value: LockedFigureWeight) =>
+                        onChangeProps({weight: value})) as any
+                }
+            />
 
             {/* Points error message */}
             {isInvalid && (

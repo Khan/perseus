@@ -170,6 +170,42 @@ describe("LockedLineSettings", () => {
         });
     });
 
+    test("calls onChange when the weight is changed", async () => {
+        // Arrange
+        const onChangeSpy = jest.fn();
+        render(
+            <LockedLineSettings
+                {...defaultProps}
+                onChangeProps={onChangeSpy}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const weightSelect = screen.getByRole("combobox", {name: "weight"});
+        await userEvent.click(weightSelect);
+        const weightOption = screen.getByRole("option", {name: "thick"});
+        await userEvent.click(weightOption);
+
+        // Assert
+        expect(onChangeSpy).toHaveBeenCalledWith({weight: "thick"});
+    });
+
+    test("default weight is medium", () => {
+        // Arrange
+
+        // Act - render with undefined weight
+        render(<LockedLineSettings {...defaultProps} weight={undefined} />, {
+            wrapper: RenderStateRoot,
+        });
+
+        // Assert - defaults to medium
+        const weightSelect = screen.getByRole("combobox", {name: "weight"});
+        expect(weightSelect).toHaveTextContent("medium");
+    });
+
     test("updates the defining points' label colors when the line color changes", async () => {
         // Arrange
         const onChangeProps = jest.fn();
