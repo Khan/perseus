@@ -55,10 +55,7 @@ describe("generateTestPerseusItem", () => {
             },
             answerArea: {
                 calculator: false,
-                chi2Table: false,
                 periodicTable: false,
-                tTable: false,
-                zTable: false,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
@@ -85,10 +82,7 @@ describe("generateTestPerseusItem", () => {
             },
             answerArea: {
                 calculator: false,
-                chi2Table: false,
                 periodicTable: false,
-                tTable: false,
-                zTable: false,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,

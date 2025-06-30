@@ -8,10 +8,7 @@ export const basicObject: PerseusItem = {
     },
     answerArea: {
         calculator: false,
-        chi2Table: false,
         periodicTable: false,
-        tTable: false,
-        zTable: false,
         financialCalculatorMonthlyPayment: false,
         financialCalculatorTotalAmount: false,
         financialCalculatorTimeToPayOff: false,
@@ -52,10 +49,7 @@ export const expectedQuestionInfoAdded: PerseusItem = {
     },
     answerArea: {
         calculator: false,
-        chi2Table: false,
         periodicTable: false,
-        tTable: false,
-        zTable: false,
         financialCalculatorMonthlyPayment: false,
         financialCalculatorTotalAmount: false,
         financialCalculatorTimeToPayOff: false,
@@ -67,10 +61,7 @@ export const expectedQuestionInfoAdded: PerseusItem = {
 export const customAnswerAreaInfo: Partial<PerseusItem> = {
     answerArea: {
         calculator: true,
-        chi2Table: true,
         periodicTable: true,
-        tTable: true,
-        zTable: true,
         financialCalculatorMonthlyPayment: true,
         financialCalculatorTotalAmount: true,
         financialCalculatorTimeToPayOff: true,
@@ -86,10 +77,7 @@ export const expectedAnswerAreaInfoAdded: PerseusItem = {
     },
     answerArea: {
         calculator: true,
-        chi2Table: true,
         periodicTable: true,
-        tTable: true,
-        zTable: true,
         financialCalculatorMonthlyPayment: true,
         financialCalculatorTotalAmount: true,
         financialCalculatorTimeToPayOff: true,
@@ -126,10 +114,7 @@ export const expectedHintsInfoAdded: PerseusItem = {
     },
     answerArea: {
         calculator: false,
-        chi2Table: false,
         periodicTable: false,
-        tTable: false,
-        zTable: false,
         financialCalculatorMonthlyPayment: false,
         financialCalculatorTotalAmount: false,
         financialCalculatorTimeToPayOff: false,

@@ -21,15 +21,12 @@ export const parsePerseusAnswerArea = pipeParsers(
 // known ones, and converts `undefined` and `null` values to `false`.
 function toAnswerArea(raw: Record<string, unknown>) {
     return {
-        zTable: !!raw.zTable,
         calculator: !!raw.calculator,
-        chi2Table: !!raw.chi2Table,
         financialCalculatorMonthlyPayment:
             !!raw.financialCalculatorMonthlyPayment,
         financialCalculatorTotalAmount: !!raw.financialCalculatorTotalAmount,
         financialCalculatorTimeToPayOff: !!raw.financialCalculatorTimeToPayOff,
         periodicTable: !!raw.periodicTable,
         periodicTableWithKey: !!raw.periodicTableWithKey,
-        tTable: !!raw.tTable,
     };
 }
