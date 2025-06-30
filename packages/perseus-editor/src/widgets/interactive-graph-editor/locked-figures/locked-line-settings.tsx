@@ -121,6 +121,8 @@ const LockedLineSettings = (props: Props) => {
         const lineAppearance = generateLockedFigureAppearanceDescription(
             lineColor,
             lineStyle,
+            undefined, // No fill style for lines
+            weight,
         );
         str += lineAppearance;
 

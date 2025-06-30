@@ -57,7 +57,7 @@ const LockedPolygonSettings = (props: Props) => {
         showVertices,
         fillStyle,
         strokeStyle,
-        weight = "medium",
+        weight,
         labels,
         ariaLabel,
         expanded,

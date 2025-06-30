@@ -646,7 +646,6 @@ describe("Interactive Graph", function () {
         });
 
         it.each([
-            {weight: undefined, expectedStrokeWidth: 2},
             {weight: "thin", expectedStrokeWidth: 1},
             {weight: "medium", expectedStrokeWidth: 2},
             {weight: "thick", expectedStrokeWidth: 4},
@@ -654,7 +653,7 @@ describe("Interactive Graph", function () {
             weight: StrokeWeight | undefined;
             expectedStrokeWidth: number;
         }[])(
-            "Line (kind line) should render with specific weight",
+            "Line (kind: line) should render with specific weight",
             ({weight, expectedStrokeWidth}) => {
                 // Arrange
                 const {container} = renderQuestion(
@@ -698,7 +697,6 @@ describe("Interactive Graph", function () {
         );
 
         it.each([
-            {weight: undefined, expectedStrokeWidth: 2},
             {weight: "thin", expectedStrokeWidth: 1},
             {weight: "medium", expectedStrokeWidth: 2},
             {weight: "thick", expectedStrokeWidth: 4},
@@ -706,7 +704,7 @@ describe("Interactive Graph", function () {
             weight: StrokeWeight | undefined;
             expectedStrokeWidth: number;
         }[])(
-            "Line (kind segment) should render with specific weight",
+            "Line (kind: segment) should render with specific weight",
             ({weight, expectedStrokeWidth}) => {
                 // Arrange
                 const {container} = renderQuestion(
@@ -735,7 +733,6 @@ describe("Interactive Graph", function () {
         );
 
         it.each([
-            {weight: undefined, expectedStrokeWidth: 2},
             {weight: "thin", expectedStrokeWidth: 1},
             {weight: "medium", expectedStrokeWidth: 2},
             {weight: "thick", expectedStrokeWidth: 4},
@@ -743,7 +740,7 @@ describe("Interactive Graph", function () {
             weight: StrokeWeight | undefined;
             expectedStrokeWidth: number;
         }[])(
-            "Line (kind ray) should render with specific weight",
+            "Line (kind: ray) should render with specific weight",
             ({weight, expectedStrokeWidth}) => {
                 // Arrange
                 const {container} = renderQuestion(

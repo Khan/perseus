@@ -323,7 +323,7 @@ class InteractiveGraphQuestionBuilder {
             filled?: [boolean, boolean];
             showPoint1?: boolean;
             showPoint2?: boolean;
-            weight?: "thin" | "medium" | "thick";
+            weight?: StrokeWeight;
             labels?: LockedFigureLabelOptions[];
             ariaLabel?: string;
         },

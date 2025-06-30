@@ -29,7 +29,7 @@ const LockedLine = (props: Props) => {
         points,
         showPoint1,
         showPoint2,
-        weight = "medium",
+        weight,
         ariaLabel,
         range,
     } = props;
