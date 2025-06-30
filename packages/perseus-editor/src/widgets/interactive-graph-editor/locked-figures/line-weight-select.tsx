@@ -4,11 +4,12 @@ import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
+import type {StrokeWeight} from "@khanacademy/perseus-core";
 import type {StyleType} from "@khanacademy/wonder-blocks-core";
 
 type Props = {
-    selectedValue: "thin" | "medium" | "thick";
-    onChange: (newValue: "thin" | "medium" | "thick") => void;
+    selectedValue: StrokeWeight;
+    onChange: (newValue: StrokeWeight) => void;
     containerStyle?: StyleType;
 };
 
