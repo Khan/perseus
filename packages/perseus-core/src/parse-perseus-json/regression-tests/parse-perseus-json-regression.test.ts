@@ -1,6 +1,8 @@
 import * as fs from "fs";
 import {join} from "path";
 
+import splitPerseusItem from "../../utils/split-perseus-item";
+import {registerCoreWidgets} from "../../widgets/core-widget-registry";
 import {anySuccess} from "../general-purpose-parsers/test-helpers";
 import {
     parseAndMigratePerseusArticle,
@@ -18,6 +20,10 @@ const articleDataDir = join(__dirname, "article-data");
 const articleDataFiles = fs.readdirSync(articleDataDir);
 
 describe("parseAndMigratePerseusItem", () => {
+    beforeAll(() => {
+        registerCoreWidgets();
+    });
+
     describe.each(itemDataFiles)("given %s", (filename) => {
         const json = fs.readFileSync(join(itemDataDir, filename), "utf-8");
         const result = parseAndMigratePerseusItem(json);
@@ -53,6 +59,47 @@ describe("parseAndMigratePerseusItem", () => {
             // expectation above.
             assertSuccess(result2);
             expect(result2.value).toEqual(result.value);
+        });
+
+        it("parses the data with answer information removed", () => {
+            assertSuccess(result);
+            const answerlessItem = splitPerseusItem(result.value);
+            expect(parse(answerlessItem, parsePerseusItem)).toEqual(anySuccess);
+        });
+
+        it("returns the same result as before with answer information removed", () => {
+            assertSuccess(result);
+            const answerlessItem = splitPerseusItem(result.value);
+            const answerlessParseResult = parse(
+                answerlessItem,
+                parsePerseusItem,
+            );
+            assertSuccess(answerlessParseResult);
+            expect(answerlessParseResult.value).toMatchSnapshot();
+        });
+
+        test("answerless data is not changed by a second pass through the parser", () => {
+            assertSuccess(result);
+
+            const answerlessItem = splitPerseusItem(result.value);
+            const answerlessParseResult1 = parse(
+                answerlessItem,
+                parsePerseusItem,
+            );
+            assertSuccess(answerlessParseResult1);
+
+            const answerlessParseResult2 = parse(
+                answerlessParseResult1.value,
+                parsePerseusItem,
+            );
+            expect(answerlessParseResult2).toEqual(anySuccess);
+            // Narrow the type. This assertion should always pass due to the
+            // expectation above.
+            assertSuccess(answerlessParseResult2);
+
+            expect(answerlessParseResult2.value).toEqual(
+                answerlessParseResult1.value,
+            );
         });
     });
 });
