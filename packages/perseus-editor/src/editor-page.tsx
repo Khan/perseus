@@ -26,40 +26,47 @@ import type {
 const {HUD} = components;
 
 type Props = {
+    /** Additional templates that the host application would like to display
+     * within the Perseus Editor.
+     */
+    additionalTemplates?: Record<string, string>;
     apiOptions?: APIOptions;
     answerArea?: PerseusAnswerArea | null; // related to the question,
     // TODO(CP-4838): Should this be a required prop?
     contentPaths?: ReadonlyArray<string>;
-    // "Power user" mode. Shows the raw JSON of the question.
+    /** "Power user" mode. Shows the raw JSON of the question. */
     developerMode: boolean;
-    // Source HTML for the iframe to render
+    /** Source HTML for the iframe to render */
     frameSource: string;
     hints?: ReadonlyArray<Hint>; // related to the question,
-    // A function which takes a file object (guaranteed to be an image) and
-    // a callback, then calls the callback with the url where the image
-    // will be hosted. Image drag and drop is disabled when imageUploader
-    // is null.
+    /** A function which takes a file object (guaranteed to be an image) and
+     * a callback, then calls the callback with the url where the image
+     * will be hosted. Image drag and drop is disabled when imageUploader
+     * is null.
+     */
     imageUploader?: ImageUploader;
-    // The content ID of the AssessmentItem being edited.
+    /** The content ID of the AssessmentItem being edited. */
     itemId: string;
-    // Whether the question is displaying as JSON or if it is
-    // showing the editor itself with the rendering
-    // Only used in the perseus demos. Consider removing.
+    /** Whether the question is displaying as JSON or if it is
+     * showing the editor itself with the rendering
+     * Only used in the perseus demos. Consider removing.
+     */
     jsonMode: boolean;
-    // A function which is called with the new JSON blob of content.
-    // eslint-disable-next-line import/no-deprecated
+    /** A function which is called with the new JSON blob of content. */
     onChange: ChangeHandler;
+    /** A function which is called when the preview device changes. */
     onPreviewDeviceChange: (arg1: DeviceType) => unknown;
     previewDevice: DeviceType;
-    // A global control to expand/collapse all widget editors on a page.
+    /** A global control to expand/collapse all widget editors on a page. */
     widgetsAreOpen?: boolean;
-    // Initial value of the question being edited.
+    /** Initial value of the question being edited. */
     question?: PerseusRenderer;
-    // URL of the route to show on initial load of the preview frames.
+    /** URL of the route to show on initial load of the preview frames. */
     previewURL: string;
-    // Additional issues that the host application would like to display
-    //  within the Perseus Editor. This allows the hosts to present issues
-    // with the content that aren't linted/detected by Perseus itself.
+    /** Additional issues that the host application would like to display
+     * within the Perseus Editor. This allows the hosts to present issues
+     * with the content that aren't linted/detected by Perseus itself.
+     */
     issues?: Issue[];
 };
 
@@ -291,6 +298,7 @@ class EditorPage extends React.Component<Props, State> {
                         apiOptions={deviceBasedApiOptions}
                         previewURL={this.props.previewURL}
                         issues={this.props.issues}
+                        additionalTemplates={this.props.additionalTemplates}
                     />
                 )}
 

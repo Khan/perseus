@@ -11,22 +11,49 @@ Perseus is Khan Academy's exercise system. This repo contains the code needed to
 
 <p align="center"><img src="sample.png" alt="sample of Perseus in use" height="150px"/></p>
 
-This repo is a constellation of sub-repos for showing exercise content. Please see individual projects in in the `packages/` folder for more information about each sub-project.
+## Development
 
-## Getting started
+Perseus is a monorepo - a single repository that ships multiple npm packages. Generally you can treat Perseus as a single code base; things should generally just work as you expect them to during the development process. We use scripts and a tool called changesets to keep package inter-dependencies organized, release the one repo to multiple npm packages, and version changes appropriately.
+
+For a slightly more detailed overview, see the ["Shipping a Change to Perseus"] document in Confluence.
+
+["Shipping a Change to Perseus"]: https://khanacademy.atlassian.net/wiki/spaces/LC/pages/2384887922/Shipping+a+Change+to+Perseus
 
 ### Prerequisites
 
 - [Node.js v20](https://nodejs.org/en/blog/announcements/v20-release-announce)
 - [pnpm](https://pnpm.io/)
 
-### Installation
+### Getting started
 
-To install Perseus, you need to run the following commands:
+```bash
+ka-clone git@github.com:Khan/perseus
+pnpm install
+```
 
-#### `pnpm install`
+### Branching strategy
 
-Installs project dependencies and tooling
+Our shared development branch is `main`. **`main` should always be releasable**. Don't land changes to `main` that you're not ready to ship!
+
+To make changes to Perseus, create a new branch based on `main`, commit your changes, and open a pull request on GitHub.
+
+### Everyday commands
+
+```bash
+pnpm tsc -w     # run the typechecker in watch mode
+pnpm test       # run all tests
+pnpm lint       # find problems
+pnpm lint --fix # fix problems
+pnpm storybook  # open component gallery
+pnpm changeset  # create a changeset file (see below)
+```
+
+Additionally, we use Khan Academy's Git extensions (OLC) to manage pull requests.
+
+```bash
+git pr    # open a pull request for the current branch
+git land  # land the pull request for the current branch
+```
 
 ### Using Storybook
 
@@ -34,73 +61,7 @@ The components and widgets of Perseus are developed using [Storybook](https://gi
 
 ### Using Changesets
 
-We use [changesets](https://github.com/changesets/changesets) to help manage our versioning/releases. Before pushing a new PR, add a changeset by running `pnpm changeset`. Commit and submit that with the PR.
-
-### Updating Dependencies
-
-If you want to use another library in Perseus, you will need up update the dependencies.
-Use `peerDependencies` and `devDependencies` for dependencies that
-khan/frontend is already using, such as Wonder Blocks or React.
-
-1. `cd` into to the package in which you would like to update the dependency.
-```
-cd packages/[package-name]
-
-// Example
-cd packages/perseus-editor
-```
-
-2. Run the following command to update the dev dependencies and the peer dependencies.
-```
-// All dependencies
-pnpm add --dev [dependency name]
-// Include this too if khan/frontend is using this dependency
-pnpm add --peer [dependency name]
-
-// Example
-pnpm add --dev @khanacademy/wonder-blocks-button
-pnpm add --peer @khanacademy/wonder-blocks-button
-```
-
-## Contributing
-
-The Perseus project is not accepting external contributions. We’re releasing the code for others to refer to and learn from, but we are not open to pull requests or issues at this time.
-
-## KA Contribution Guide
-
-For a slightly more detailed overview, see the "Shipping a Change to Perseus" document in Confluence.
-
-Perseus is a monorepo - a single repository that ships multiple npm packages. Generally you can treat Perseus as a single code base; things should generally just work as you expect them to during the development process. We use scripts and a tool called changesets to keep package inter-dependencies organized, release the one repo to multiple npm packages, and version changes appropriately.
-
-### Working
-
-1. `git checkout main; git pull`
-2. `git checkout -b [FEATURE_BRANCH_NAME]`
-3. ☢️ We don’t use deploy branches in Perseus
-4. Start a dev server
-
-    a. `pnpm start` will start [Storybook](https://storybook.js.org/) on [localhost:6006](http://localhost:6006)
-
-    b. `pnpm dev` will start the custom Dev UI on
-    [localhost:5173](http://localhost:5173/)
-
-5. Do stuff
-6. `pnpm test` will run [Jest](https://jestjs.io/)/[RTL](https://testing-library.com/docs/react-testing-library/intro/) tests; `pnpm cypress` will run [Cypress](https://www.cypress.io/) tests
-7. `pnpm changeset` will walk you through creating a [changeset](https://github.com/changesets/changesets) (we generally stick to [semver](https://semver.org/))
-8. ☢️ Empty changesets should be considered an exception to the rule and should generally be avoided
-9. `git add` and `git commit`
-10. `git pull-request` will walk you through creating a pull request
-
-### CI/CD aka Github
-
-1. When you create/update a PR, we run a series of checks against your code
-    - Gerald requests reviewers (there’s a “perseus” user group that primary maintainers are in)
-    - Linting/Types/Tests; checks to make sure code is properly covered
-    - Check for a changeset
-2. 🍀 A [snapshot release](https://github.com/changesets/changesets/blob/main/docs/snapshot-releases.md) is made and can be used to check changes before merging/releasing
-3. Once checks pass and code is approved, land your changes into `main` using `git land`
-4. 🚨 `main` should always be releasable! Don’t land code to main that you’re not ready to ship!
-5. 🍀 Use stacked feature branches if you’re working on a big change that depends on multiple PRs
+We use [changesets](https://github.com/changesets/changesets) to help manage our versioning/releases. Each pull request must include a changeset file stating which packages changed and how their versions should be incremented. Run `pnpm changeset` to generate and commit a changeset file.
 
 ### Releasing Perseus to npm
 
@@ -110,9 +71,13 @@ Perseus is a monorepo - a single repository that ships multiple npm packages. Ge
 3. ☢️ If the CI/CD checks aren’t running, you might need to close and reopen the PR
 4. After the release script runs, you should see the new releases on the [release page](https://github.com/Khan/perseus/releases)
 
-## Random notes
+### Random notes
 
 - We use `v8` to track Jest coverage. There's some old legacy code that we don't want coverage for, so we ignore that with `c8 ignore`. It might look like `c8` isn't be used, but it's used by the `v8` `coverageProvider` (defined in config/test/test.config.js).
+
+## Contributing
+
+The Perseus project is not accepting external contributions. We’re releasing the code for others to refer to and learn from, but we are not open to pull requests or issues at this time.
 
 ## License
 
