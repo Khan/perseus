@@ -333,6 +333,54 @@ export const MafsWithAnswerlessData: Story = {
     },
 };
 
+export const LockedFiguresWithThinWeight: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .addLockedPolygon(
+                [
+                    [0.5, 3.5],
+                    [1.5, 4.5],
+                    [2.5, 3.5],
+                    [1.5, 2.5],
+                ],
+                {weight: "thin", color: "pink"},
+            )
+            .build(),
+    },
+};
+
+export const LockedFiguresWithMediumWeight: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .addLockedPolygon(
+                [
+                    [0.5, 3.5],
+                    [1.5, 4.5],
+                    [2.5, 3.5],
+                    [1.5, 2.5],
+                ],
+                {weight: "medium", color: "pink"},
+            )
+            .build(),
+    },
+};
+
+export const LockedFiguresWithThickWeight: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .addLockedPolygon(
+                [
+                    [0.5, 3.5],
+                    [1.5, 4.5],
+                    [2.5, 3.5],
+                    [1.5, 2.5],
+                ],
+                {weight: "thick", color: "pink"},
+            )
+            .build(),
+    },
+};
+
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (

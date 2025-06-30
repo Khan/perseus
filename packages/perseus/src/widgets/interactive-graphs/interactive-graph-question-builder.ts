@@ -19,6 +19,7 @@ import type {
     MarkingsType,
     PerseusGraphType,
     PerseusRenderer,
+    StrokeWeight,
 } from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
@@ -430,7 +431,8 @@ class InteractiveGraphQuestionBuilder {
             color?: LockedFigureColor;
             showVertices?: boolean;
             fillStyle?: LockedFigureFillType;
-            strokeStyle?: "solid" | "dashed";
+            strokeStyle?: LockedLineStyle;
+            weight?: StrokeWeight;
             labels?: LockedFigureLabelOptions[];
             ariaLabel?: string;
         },
@@ -442,6 +444,7 @@ class InteractiveGraphQuestionBuilder {
             showVertices: false,
             fillStyle: "none",
             strokeStyle: "solid",
+            weight: options?.weight ?? "medium",
             ...options,
             labels:
                 options?.labels?.map((label) => ({
