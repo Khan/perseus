@@ -19,6 +19,10 @@ export class ErrorTrackingParseContext implements ParseContext {
         ]);
     }
 
+    getPath(): PathSegment[] {
+        return this.path;
+    }
+
     forSubtree(key: PathSegment): ParseContext {
         return new ErrorTrackingParseContext([...this.path, key]);
     }

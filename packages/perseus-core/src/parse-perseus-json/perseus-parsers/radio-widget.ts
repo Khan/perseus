@@ -75,6 +75,7 @@ const parseRadioWidgetV2 = parseWidgetWithVersion(
                     isNoneOfTheAbove: optional(boolean),
                     // deprecated
                     widgets: parseWidgetsMapOrUndefined,
+                    id: defaulted(string, (_, ctx) => ctx.getPath().join(".")),
                 }),
             ),
             hasNoneOfTheAbove: optional(boolean),
