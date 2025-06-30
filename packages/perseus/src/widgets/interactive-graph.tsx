@@ -151,11 +151,12 @@ type RenderProps = {
     // rename `range` to `ranges` so that things are less confusing.
     range: GraphRange;
     /**
-     * The correct answer for this widget. Will be undefined if the graph is
-     * being provided answerless data (e.g. because the learner has not yet
-     * submitted their guess).
+     * The type of graph
      */
-    // TODO(LEMS-2344): make the type of `correct` more specific
+    graph: PerseusGraphType;
+    /**
+     * The correct answer for this widget.
+     */
     correct?: PerseusGraphType;
     /**
      * Shapes (points, chords, etc) displayed on the graph that cannot be moved
