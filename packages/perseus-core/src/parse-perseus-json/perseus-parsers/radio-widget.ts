@@ -15,7 +15,7 @@ import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
 import {parseWidgetsMap} from "./widgets-map";
 
-import type {ParsedValue} from "../parser-types";
+import type {ParseContext, ParsedValue} from "../parser-types";
 
 const parseWidgetsMapOrUndefined = defaulted(
     // There is an import cycle between radio-widget.ts and
@@ -50,6 +50,7 @@ const parseRadioWidgetV3 = parseWidgetWithVersion(
                 rationale: optional(string),
                 correct: optional(boolean),
                 isNoneOfTheAbove: optional(boolean),
+                id: defaulted(string, (_, ctx) => ctx.getPath().join(".")),
             }),
         ),
         hasNoneOfTheAbove: optional(boolean),
@@ -75,7 +76,6 @@ const parseRadioWidgetV2 = parseWidgetWithVersion(
                     isNoneOfTheAbove: optional(boolean),
                     // deprecated
                     widgets: parseWidgetsMapOrUndefined,
-                    id: defaulted(string, (_, ctx) => ctx.getPath().join(".")),
                 }),
             ),
             hasNoneOfTheAbove: optional(boolean),
@@ -164,6 +164,7 @@ const parseRadioWidgetV0 = parseWidgetWithVersion(
 // migrate functions
 export function migrateV2toV3(
     widget: ParsedValue<typeof parseRadioWidgetV2>,
+    ctx: ParseContext,
 ): ParsedValue<typeof parseRadioWidgetV3> {
     const {options} = widget;
     return {
@@ -176,11 +177,12 @@ export function migrateV2toV3(
             randomize: options.randomize,
             multipleSelect: options.multipleSelect,
             deselectEnabled: options.deselectEnabled,
-            choices: options.choices.map((choice) => ({
+            choices: options.choices.map((choice, i) => ({
                 content: choice.content,
                 rationale: choice.clue,
                 correct: choice.correct,
                 isNoneOfTheAbove: choice.isNoneOfTheAbove,
+                id: [...ctx.getPath(), "options", "choices", i].join("."),
             })),
         },
     };

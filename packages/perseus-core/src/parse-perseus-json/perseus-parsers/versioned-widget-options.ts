@@ -58,7 +58,10 @@ class VersionedWidgetOptionsParserBuilder<
     constructor(
         majorVersion: number,
         parseThisVersion: Parser<MigratableWidgetOptions>,
-        private migrateToLatest: (m: MigratableWidgetOptions) => Latest,
+        private migrateToLatest: (
+            m: MigratableWidgetOptions,
+            ctx: ParseContext,
+        ) => Latest,
         private parseOtherVersions: Parser<Latest>,
     ) {
         const parseThisVersionAndMigrateToLatest = pipeParsers(
@@ -89,12 +92,15 @@ class VersionedWidgetOptionsParserBuilder<
     withMigrationFrom<Old extends Versioned>(
         majorVersion: number,
         parseOldVersion: Parser<Old>,
-        migrateToNextVersion: (old: Old) => MigratableWidgetOptions,
+        migrateToNextVersion: (
+            old: Old,
+            ctx: ParseContext,
+        ) => MigratableWidgetOptions,
     ): VersionedWidgetOptionsParserBuilder<Latest, Old> {
         const parseOtherVersions = this.parser;
 
-        const migrateToLatest = (old: Old) =>
-            this.migrateToLatest(migrateToNextVersion(old));
+        const migrateToLatest = (old: Old, ctx: ParseContext) =>
+            this.migrateToLatest(migrateToNextVersion(old, ctx), ctx);
 
         return new VersionedWidgetOptionsParserBuilder(
             majorVersion,
