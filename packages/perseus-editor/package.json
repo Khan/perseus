@@ -3,7 +3,7 @@
     "description": "Perseus editors",
     "author": "Khan Academy",
     "license": "MIT",
-    "version": "25.0.5",
+    "version": "25.1.0",
     "publishConfig": {
         "access": "public"
     },
@@ -93,7 +93,7 @@
         "@khanacademy/wonder-blocks-icon-button": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-labeled-field": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-layout": "catalog:peerDeps",
-        "@khanacademy/wonder-blocks-link": "catalog:devDeps",
+        "@khanacademy/wonder-blocks-link": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-pill": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-switch": "catalog:peerDeps",
         "@khanacademy/wonder-blocks-timing": "catalog:peerDeps",
