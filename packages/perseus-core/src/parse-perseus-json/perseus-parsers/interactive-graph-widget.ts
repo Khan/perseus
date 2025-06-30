@@ -266,7 +266,12 @@ export const parseInteractiveGraphWidget = parseWidget(
                 type: "linear" as const,
             }),
         ),
-        correct: parsePerseusGraphType,
+        correct: defaulted(
+            parsePerseusGraphType,
+            (): PerseusGraphTypeLinear => ({
+                type: "linear" as const,
+            }),
+        ),
         lockedFigures: defaulted(array(parseLockedFigure), () => []),
         fullGraphAriaLabel: optional(string),
         fullGraphAriaDescription: optional(string),
