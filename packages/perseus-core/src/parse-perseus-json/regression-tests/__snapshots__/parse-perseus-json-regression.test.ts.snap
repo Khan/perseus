@@ -491,63 +491,6 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.jso
 }
 `;
 
-exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.json returns the same result as before with answer information is removed 1`] = `
-{
-  "answerArea": {
-    "calculator": false,
-    "chi2Table": false,
-    "financialCalculatorMonthlyPayment": false,
-    "financialCalculatorTimeToPayOff": false,
-    "financialCalculatorTotalAmount": false,
-    "periodicTable": false,
-    "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
-  },
-  "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
-  "question": {
-    "content": "
-
-[[☃ categorizer 1]]",
-    "images": {},
-    "widgets": {
-      "categorizer 1": {
-        "alignment": "default",
-        "graded": true,
-        "options": {
-          "categories": [
-            "Non-renewable Energy Sources",
-            "Renewable Energy Sources",
-          ],
-          "items": [
-            "Coal",
-            "Wind",
-            "Oil",
-            "Natural Gas",
-            "Biofuels",
-            "Petroleum",
-            "Solar",
-          ],
-          "randomizeItems": false,
-          "static": false,
-          "values": [],
-        },
-        "static": false,
-        "type": "categorizer",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-    },
-  },
-}
-`;
-
 exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.json returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
@@ -646,60 +589,6 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-static.json return
           "static": false,
           "values": [],
         },
-        "type": "categorizer",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-    },
-  },
-}
-`;
-
-exports[`parseAndMigratePerseusItem given categorizer-missing-static.json returns the same result as before with answer information is removed 1`] = `
-{
-  "answerArea": {
-    "calculator": false,
-    "chi2Table": false,
-    "financialCalculatorMonthlyPayment": false,
-    "financialCalculatorTimeToPayOff": false,
-    "financialCalculatorTotalAmount": false,
-    "periodicTable": false,
-    "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
-  },
-  "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
-  "question": {
-    "content": "
-
-[[☃ categorizer 1]]",
-    "images": {},
-    "widgets": {
-      "categorizer 1": {
-        "alignment": "default",
-        "graded": true,
-        "options": {
-          "categories": [
-            "one",
-            "two",
-            "three",
-          ],
-          "items": [
-            "this",
-            "that",
-            "other",
-          ],
-          "randomizeItems": true,
-          "static": false,
-          "values": [],
-        },
-        "static": false,
         "type": "categorizer",
         "version": {
           "major": 0,
@@ -822,63 +711,6 @@ exports[`parseAndMigratePerseusItem given categorizer-with-null-value.json retur
             2,
             2,
           ],
-        },
-        "static": false,
-        "type": "categorizer",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-    },
-  },
-}
-`;
-
-exports[`parseAndMigratePerseusItem given categorizer-with-null-value.json returns the same result as before with answer information is removed 1`] = `
-{
-  "answerArea": {
-    "calculator": false,
-    "chi2Table": false,
-    "financialCalculatorMonthlyPayment": false,
-    "financialCalculatorTimeToPayOff": false,
-    "financialCalculatorTotalAmount": false,
-    "periodicTable": false,
-    "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
-  },
-  "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
-  "question": {
-    "content": "**Categorise the following into transparent, translucent and opaque objects.**
-
-[[☃ categorizer 1]]",
-    "images": {},
-    "widgets": {
-      "categorizer 1": {
-        "alignment": "default",
-        "graded": true,
-        "options": {
-          "categories": [
-            "Transparent",
-            "Translucent",
-            "Opaque",
-          ],
-          "items": [
-            "Water",
-            "Clean glass",
-            "Tracing paper",
-            "Butter paper",
-            "A sheet of aluminium",
-            "Mirror",
-          ],
-          "randomizeItems": true,
-          "static": false,
-          "values": [],
         },
         "static": false,
         "type": "categorizer",
@@ -1035,95 +867,6 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.json returns
 }
 `;
 
-exports[`parseAndMigratePerseusItem given cs-program-missing-static.json returns the same result as before with answer information is removed 1`] = `
-{
-  "answerArea": {
-    "calculator": false,
-    "chi2Table": false,
-    "financialCalculatorMonthlyPayment": false,
-    "financialCalculatorTimeToPayOff": false,
-    "financialCalculatorTotalAmount": false,
-    "periodicTable": false,
-    "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
-  },
-  "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
-  "question": {
-    "content": "When you run a trial the simulator below, it produces a sequence of four random digits. If at least one of these digits is a zero, the trial is counted as a success.
-
-**Run the simulation to estimate the probability of it generating a successful trial.**  (Your answer will be marked correct if it is within $0.05$ of the true probability.)
-
- [[☃ numeric-input 1]]
-
-[[☃ cs-program 1]]",
-    "images": {
-      "web+graphie://ka-perseus-graphie.s3.amazonaws.com/4559c8e0bd022d37bc3291ef5e600ae917046ab2": {
-        "height": 240,
-        "width": 300,
-      },
-    },
-    "widgets": {
-      "cs-program 1": {
-        "alignment": "block",
-        "graded": true,
-        "options": {
-          "height": 400,
-          "programID": "5900231381221376",
-          "programType": null,
-          "settings": [
-            {
-              "name": "",
-              "value": "",
-            },
-          ],
-          "showButtons": false,
-          "showEditor": false,
-          "static": false,
-          "width": 400,
-        },
-        "static": false,
-        "type": "cs-program",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-      "numeric-input 1": {
-        "alignment": "default",
-        "graded": true,
-        "options": {
-          "answers": [
-            {
-              "answerForms": undefined,
-              "message": "",
-              "simplify": "required",
-              "status": "correct",
-              "strict": false,
-            },
-          ],
-          "coefficient": false,
-          "labelText": "",
-          "rightAlign": false,
-          "size": "normal",
-          "static": false,
-        },
-        "static": false,
-        "type": "numeric-input",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-    },
-  },
-}
-`;
-
 exports[`parseAndMigratePerseusItem given cs-program-missing-static.json returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
@@ -1249,49 +992,6 @@ exports[`parseAndMigratePerseusItem given cs-program-with-null-width.json return
 }
 `;
 
-exports[`parseAndMigratePerseusItem given cs-program-with-null-width.json returns the same result as before with answer information is removed 1`] = `
-{
-  "answerArea": {
-    "calculator": false,
-    "chi2Table": false,
-    "financialCalculatorMonthlyPayment": false,
-    "financialCalculatorTimeToPayOff": false,
-    "financialCalculatorTotalAmount": false,
-    "periodicTable": false,
-    "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
-  },
-  "hints": [],
-  "question": {
-    "content": "[[☃ cs-program 1]]",
-    "images": {},
-    "widgets": {
-      "cs-program 1": {
-        "alignment": "block",
-        "graded": true,
-        "options": {
-          "height": 250,
-          "programID": "4545417404481536",
-          "programType": null,
-          "settings": [],
-          "showButtons": true,
-          "showEditor": true,
-          "static": false,
-          "width": null,
-        },
-        "static": false,
-        "type": "cs-program",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-    },
-  },
-}
-`;
-
 exports[`parseAndMigratePerseusItem given cs-program-with-null-width.json returns the same result as before with answer information removed 1`] = `
 {
   "answerArea": {
@@ -1402,78 +1102,6 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.json returns
           "static": false,
           "togglePrompt": "",
         },
-        "type": "definition",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-    },
-  },
-}
-`;
-
-exports[`parseAndMigratePerseusItem given definition-missing-static.json returns the same result as before with answer information is removed 1`] = `
-{
-  "answerArea": {
-    "calculator": false,
-    "chi2Table": false,
-    "financialCalculatorMonthlyPayment": false,
-    "financialCalculatorTimeToPayOff": false,
-    "financialCalculatorTotalAmount": false,
-    "periodicTable": false,
-    "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
-  },
-  "hints": [],
-  "itemDataVersion": {
-    "major": 0,
-    "minor": 1,
-  },
-  "question": {
-    "content": "An object is released from rest near the surface of the Earth and allowed to fall freely. 
-
-**How does the speed and acceleration of the object change immediately after release?**
-
-[[☃ categorizer 1]]
-
-",
-    "images": {},
-    "widgets": {
-      "categorizer 1": {
-        "alignment": "default",
-        "graded": true,
-        "options": {
-          "categories": [
-            "Increases",
-            "Decreases",
-            "Stays constant",
-          ],
-          "items": [
-            "Speed",
-            "Acceleration",
-          ],
-          "randomizeItems": false,
-          "static": false,
-          "values": [],
-        },
-        "static": false,
-        "type": "categorizer",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-      "definition 1": {
-        "alignment": "default",
-        "graded": true,
-        "options": {
-          "definition": "",
-          "static": false,
-          "togglePrompt": "",
-        },
-        "static": false,
         "type": "definition",
         "version": {
           "major": 0,
