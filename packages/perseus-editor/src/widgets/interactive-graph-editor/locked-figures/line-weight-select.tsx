@@ -34,7 +34,7 @@ const LineWeightSelect = (props: Props) => {
             <Strut size={spacing.xxxSmall_4} />
             <SingleSelect
                 selectedValue={selectedValue}
-                onChange={onChange as any}
+                onChange={(value) => onChange(value as StrokeWeight)}
                 // Placeholder is required, but never gets used.
                 placeholder=""
             >
