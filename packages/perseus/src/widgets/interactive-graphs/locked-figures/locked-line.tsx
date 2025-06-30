@@ -1,8 +1,5 @@
 import {angles} from "@khanacademy/kmath";
-import {
-    lockedFigureColors,
-    lockedFigureWeights,
-} from "@khanacademy/perseus-core";
+import {lockedFigureColors} from "@khanacademy/perseus-core";
 import {color as wbColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {Point, Line, vec} from "mafs";
 import * as React from "react";
@@ -12,6 +9,8 @@ import {Vector} from "../graphs/components/vector";
 import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {getIntersectionOfRayWithBox} from "../graphs/utils";
 import {X, Y} from "../math";
+
+import {strokeWeights} from "./utils";
 
 import type {LockedLineType} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
@@ -52,7 +51,7 @@ const LockedLine = (props: Props) => {
                 tail={point1.coord}
                 tip={extendedPoint}
                 color={lockedFigureColors[color]}
-                strokeWidth={lockedFigureWeights[weight]}
+                strokeWidth={strokeWeights[weight]}
                 style={{
                     strokeDasharray:
                         lineStyle === "dashed"
@@ -84,7 +83,7 @@ const LockedLine = (props: Props) => {
                 angle={angle}
                 tip={arrowTip}
                 color={lockedFigureColors[color]}
-                strokeWidth={lockedFigureWeights[weight]}
+                strokeWidth={strokeWeights[weight]}
             />
         );
 
@@ -102,7 +101,7 @@ const LockedLine = (props: Props) => {
                 angle={angle}
                 tip={arrowTip}
                 color={lockedFigureColors[color]}
-                strokeWidth={lockedFigureWeights[weight]}
+                strokeWidth={strokeWeights[weight]}
             />
         );
 
@@ -113,7 +112,7 @@ const LockedLine = (props: Props) => {
                     point1={point1.coord}
                     point2={point2.coord}
                     color={lockedFigureColors[color]}
-                    weight={lockedFigureWeights[weight]}
+                    weight={strokeWeights[weight]}
                     style={lineStyle}
                 />
                 {endArrowHead}

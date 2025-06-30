@@ -836,7 +836,7 @@ export type LockedLineType = {
     lineStyle: LockedLineStyle;
     showPoint1: boolean;
     showPoint2: boolean;
-    weight?: LockedFigureWeight;
+    weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };

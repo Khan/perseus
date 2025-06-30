@@ -1,6 +1,6 @@
 import type {StrokeWeight} from "@khanacademy/perseus-core";
 
-export const lockedFigureWeights: Record<StrokeWeight, number> = {
+export const strokeWeights: Record<StrokeWeight, number> = {
     thin: 1,
     medium: 2,
     thick: 4,

@@ -7384,6 +7384,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "grayH",
@@ -7417,6 +7418,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "pink",
@@ -7450,6 +7452,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "pink",
@@ -7483,6 +7486,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "red",
@@ -7516,6 +7520,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "red",
@@ -7549,6 +7554,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "blue",
@@ -8078,6 +8084,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "grayH",
@@ -8111,6 +8118,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "pink",
@@ -8144,6 +8152,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "pink",
@@ -8177,6 +8186,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "red",
@@ -8210,6 +8220,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "red",
@@ -8243,6 +8254,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "blue",

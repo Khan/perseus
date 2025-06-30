@@ -651,7 +651,7 @@ describe("Interactive Graph", function () {
             {weight: "medium", expectedStrokeWidth: 2},
             {weight: "thick", expectedStrokeWidth: 4},
         ] satisfies {
-            weight: LockedFigureWeight | undefined;
+            weight: StrokeWeight | undefined;
             expectedStrokeWidth: number;
         }[])(
             "Line (kind line) should render with specific weight",
@@ -703,7 +703,7 @@ describe("Interactive Graph", function () {
             {weight: "medium", expectedStrokeWidth: 2},
             {weight: "thick", expectedStrokeWidth: 4},
         ] satisfies {
-            weight: LockedFigureWeight | undefined;
+            weight: StrokeWeight | undefined;
             expectedStrokeWidth: number;
         }[])(
             "Line (kind segment) should render with specific weight",
@@ -740,7 +740,7 @@ describe("Interactive Graph", function () {
             {weight: "medium", expectedStrokeWidth: 2},
             {weight: "thick", expectedStrokeWidth: 4},
         ] satisfies {
-            weight: LockedFigureWeight | undefined;
+            weight: StrokeWeight | undefined;
             expectedStrokeWidth: number;
         }[])(
             "Line (kind ray) should render with specific weight",

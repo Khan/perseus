@@ -39,7 +39,7 @@ import type {Coord} from "@khanacademy/perseus";
 import type {
     LockedFigure,
     LockedFigureColor,
-    LockedFigureWeight,
+    StrokeWeight,
     LockedLabelType,
     LockedLineType,
     LockedPointType,
@@ -265,7 +265,7 @@ const LockedLineSettings = (props: Props) => {
             <LineWeightSelect
                 selectedValue={weight ?? "medium"}
                 onChange={
-                    ((value: LockedFigureWeight) =>
+                    ((value: StrokeWeight) =>
                         onChangeProps({weight: value})) as any
                 }
             />
