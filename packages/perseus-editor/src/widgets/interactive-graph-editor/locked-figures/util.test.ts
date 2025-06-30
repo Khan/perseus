@@ -8,6 +8,7 @@ import {
 import type {
     LockedFigureColor,
     LockedFigureFillType,
+    StrokeWeight,
     LockedLabelType,
     LockedLineStyle,
 } from "@khanacademy/perseus-core";
@@ -93,6 +94,7 @@ describe("getDefaultFigureForType", () => {
             showVertices: false,
             fillStyle: "none",
             strokeStyle: "solid",
+            weight: "medium",
             labels: [],
         });
     });
@@ -267,6 +269,33 @@ describe("generateLockedFigureAppearanceDescription", () => {
             expect(description).toBe(
                 `. Appearance ${strokeStyle} ${color} border, with a ${fill} ${color} fill.`,
             );
+        },
+    );
+
+    test.each([
+        {
+            weight: "thin",
+            expected: `. Appearance thin solid gray border, with a solid gray fill.`,
+        },
+        {
+            weight: "medium",
+            expected: `. Appearance solid gray border, with a solid gray fill.`,
+        },
+        {
+            weight: "thick",
+            expected: `. Appearance thick solid gray border, with a solid gray fill.`,
+        },
+    ] as {weight: StrokeWeight; expected: string}[])(
+        "should return a string with a %s weight",
+        ({weight, expected}) => {
+            const description = generateLockedFigureAppearanceDescription(
+                "grayH",
+                undefined,
+                "solid",
+                weight,
+            );
+
+            expect(description).toBe(expected);
         },
     );
 });

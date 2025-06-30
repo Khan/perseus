@@ -23,11 +23,12 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
 import CoordinatePairInput from "../../../components/coordinate-pair-input";
+import LabeledSwitch from "../../../components/labeled-switch";
 import PerseusEditorAccordion from "../../../components/perseus-editor-accordion";
 
 import ColorSelect from "./color-select";
-import LabeledSwitch from "./labeled-switch";
 import LineStrokeSelect from "./line-stroke-select";
+import LineWeightSelect from "./line-weight-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
@@ -56,6 +57,7 @@ const LockedPolygonSettings = (props: Props) => {
         showVertices,
         fillStyle,
         strokeStyle,
+        weight = "medium",
         labels,
         ariaLabel,
         expanded,
@@ -89,6 +91,7 @@ const LockedPolygonSettings = (props: Props) => {
             color,
             strokeStyle,
             fillStyle,
+            weight,
         );
         str += polygonAppearance;
         return str;
@@ -225,6 +228,18 @@ const LockedPolygonSettings = (props: Props) => {
             <LineStrokeSelect
                 selectedValue={strokeStyle}
                 onChange={(value) => onChangeProps({strokeStyle: value})}
+                containerStyle={styles.spaceUnder}
+            />
+
+            {/* Weight */}
+            <LineWeightSelect
+                selectedValue={weight}
+                onChange={(value) =>
+                    onChangeProps({
+                        weight: value,
+                    })
+                }
+                containerStyle={styles.spaceUnder}
             />
 
             {/* Show vertices switch */}

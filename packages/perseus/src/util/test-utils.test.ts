@@ -1,7 +1,4 @@
-import {
-    generateTestPerseusItem,
-    registerCoreWidgets,
-} from "@khanacademy/perseus-core";
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {getAnswerfulItem, getAnswerlessItem} from "./test-utils";
 import {
@@ -95,10 +92,6 @@ describe("getAnswerfulItem", () => {
 });
 
 describe("getAnswerlessItem", () => {
-    beforeAll(() => {
-        registerCoreWidgets();
-    });
-
     it("should return an answerless item using the type given with upgraded widget options", () => {
         const answerlessItem = getAnswerlessItem("dropdown", {
             static: false,

@@ -1166,6 +1166,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 showVertices: false,
                 fillStyle: "none",
                 strokeStyle: "solid",
+                weight: "medium",
                 labels: [],
             },
         ]);
@@ -1184,6 +1185,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     showVertices: true,
                     fillStyle: "translucent",
                     strokeStyle: "dashed",
+                    weight: "thin",
                     labels: [{text: "a label"}],
                     ariaLabel: "an aria label",
                 },
@@ -1203,6 +1205,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 showVertices: true,
                 fillStyle: "translucent",
                 strokeStyle: "dashed",
+                weight: "thin",
                 labels: [
                     {
                         type: "label",
@@ -1244,6 +1247,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 showVertices: false,
                 fillStyle: "none",
                 strokeStyle: "solid",
+                weight: "medium",
                 labels: [
                     {
                         type: "label",

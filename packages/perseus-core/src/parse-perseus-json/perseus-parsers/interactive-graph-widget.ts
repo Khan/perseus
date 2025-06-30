@@ -137,6 +137,11 @@ const parseLockedFigureFillType = enumeration(
 
 const parseLockedLineStyle = enumeration("solid", "dashed");
 
+export const parseStrokeWeight = defaulted(
+    enumeration("medium", "thin", "thick"),
+    () => "medium" as const,
+);
+
 const parseLockedLabelType = object({
     type: constant("label"),
     coord: pairOfNumbers,
@@ -193,6 +198,7 @@ const parseLockedPolygonType = object({
     showVertices: boolean,
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
+    weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
@@ -260,7 +266,12 @@ export const parseInteractiveGraphWidget = parseWidget(
                 type: "linear" as const,
             }),
         ),
-        correct: parsePerseusGraphType,
+        correct: defaulted(
+            parsePerseusGraphType,
+            (): PerseusGraphTypeLinear => ({
+                type: "linear" as const,
+            }),
+        ),
         lockedFigures: defaulted(array(parseLockedFigure), () => []),
         fullGraphAriaLabel: optional(string),
         fullGraphAriaDescription: optional(string),

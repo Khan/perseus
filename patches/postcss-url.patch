@@ -1,0 +1,17 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+deleted file mode 100644
+index a883b63ffe9325fdbc397758d4ead499ba8b6138..0000000000000000000000000000000000000000
+diff --git a/src/type/copy.js b/src/type/copy.js
+index f29c26103b9874377562ff9b3f542de7aea18984..03487ee9ab0eddd24c648b0a42c06b345df88a24 100644
+--- a/src/type/copy.js
++++ b/src/type/copy.js
+@@ -60,7 +60,8 @@ module.exports = function processCopy(asset, dir, options, decl, warn, result, a
+ 
+             const assetRelativePath = options.useHash
+                 ? getHashName(file, options.hashOptions)
+-                : asset.relativePath;
++                // Bugfix from: https://github.com/postcss/postcss-url/pull/175
++                : path.basename(file.path);
+ 
+             const targetDir = getTargetDir(dir);
+             const newAssetBaseDir = getAssetsPath(targetDir, options.assetsPath);

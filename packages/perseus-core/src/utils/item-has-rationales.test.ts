@@ -134,7 +134,7 @@ describe("itemHasRationales", () => {
                                                 content: "Choice 1",
                                                 correct: false,
                                                 rationale:
-                                                    "This is a rationale",
+                                                    "This is some rationale",
                                             },
                                         ],
                                     },

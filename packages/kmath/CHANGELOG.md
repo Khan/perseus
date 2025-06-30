@@ -1,5 +1,44 @@
 # @khanacademy/kmath
 
+## 2.0.21
+
+### Patch Changes
+
+-   Updated dependencies [[`fd30e9518`](https://github.com/Khan/perseus/commit/fd30e9518cc88004955fcc3bb8d77b41c18342b8)]:
+    -   @khanacademy/perseus-core@16.0.0
+
+## 2.0.20
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/perseus-core@15.0.1
+    -   @khanacademy/perseus-utils@2.0.5
+
+## 2.0.19
+
+### Patch Changes
+
+-   Updated dependencies [[`0e535feb7`](https://github.com/Khan/perseus/commit/0e535feb76f753db3f7cda1c753d79ca067ca372), [`8be4625c9`](https://github.com/Khan/perseus/commit/8be4625c950e73482aec055e2aed8b102283c950)]:
+    -   @khanacademy/perseus-core@15.0.0
+
+## 2.0.18
+
+### Patch Changes
+
+-   [#2624](https://github.com/Khan/perseus/pull/2624) [`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Sync dev dependencies with frontend
+
+-   Updated dependencies [[`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6)]:
+    -   @khanacademy/perseus-core@14.1.1
+    -   @khanacademy/perseus-utils@2.0.5
+
+## 2.0.17
+
+### Patch Changes
+
+-   Updated dependencies [[`401ab009b`](https://github.com/Khan/perseus/commit/401ab009b1650b5752b4bad77d874eec16ebcec3), [`48fc42775`](https://github.com/Khan/perseus/commit/48fc427750810566f05586550fdc5596e1c79762)]:
+    -   @khanacademy/perseus-core@14.1.0
+
 ## 2.0.16
 
 ### Patch Changes
