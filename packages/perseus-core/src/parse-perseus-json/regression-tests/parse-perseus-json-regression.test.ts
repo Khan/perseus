@@ -2,6 +2,7 @@ import * as fs from "fs";
 import {join} from "path";
 
 import splitPerseusItem from "../../utils/split-perseus-item";
+import {registerCoreWidgets} from "../../widgets/core-widget-registry";
 import {anySuccess} from "../general-purpose-parsers/test-helpers";
 import {
     parseAndMigratePerseusArticle,
@@ -19,6 +20,10 @@ const articleDataDir = join(__dirname, "article-data");
 const articleDataFiles = fs.readdirSync(articleDataDir);
 
 describe("parseAndMigratePerseusItem", () => {
+    beforeAll(() => {
+        registerCoreWidgets();
+    });
+
     describe.each(itemDataFiles)("given %s", (filename) => {
         const json = fs.readFileSync(join(itemDataDir, filename), "utf-8");
         const result = parseAndMigratePerseusItem(json);
