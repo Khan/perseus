@@ -77,6 +77,30 @@ describe("parseAndMigratePerseusItem", () => {
             assertSuccess(answerlessParseResult);
             expect(answerlessParseResult.value).toMatchSnapshot();
         });
+
+        test("answerless data is not changed by a second pass through the parser", () => {
+            assertSuccess(result);
+
+            const answerlessItem = splitPerseusItem(result.value);
+            const answerlessParseResult1 = parse(
+                answerlessItem,
+                parsePerseusItem,
+            );
+            assertSuccess(answerlessParseResult1);
+
+            const answerlessParseResult2 = parse(
+                answerlessParseResult1.value,
+                parsePerseusItem,
+            );
+            expect(answerlessParseResult2).toEqual(anySuccess);
+            // Narrow the type. This assertion should always pass due to the
+            // expectation above.
+            assertSuccess(answerlessParseResult2);
+
+            expect(answerlessParseResult2.value).toEqual(
+                answerlessParseResult1.value,
+            );
+        });
     });
 });
 
