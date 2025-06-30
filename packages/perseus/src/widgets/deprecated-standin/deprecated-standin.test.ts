@@ -48,7 +48,7 @@ describe("Deprecated Standin widget", () => {
         // Act
         const score = scorePerseusItemTesting(
             question,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert

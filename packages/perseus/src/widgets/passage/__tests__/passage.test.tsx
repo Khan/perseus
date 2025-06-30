@@ -136,7 +136,7 @@ describe("passage widget", () => {
         // Act
         const score = scorePerseusItem(
             question2,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
             "en",
         );
 

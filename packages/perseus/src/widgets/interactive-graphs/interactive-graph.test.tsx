@@ -134,7 +134,7 @@ describe("Interactive Graph", function () {
                 );
                 const score = scorePerseusItemTesting(
                     question,
-                    renderer.getUserInputMap(),
+                    renderer.getUserInput(),
                 );
 
                 // Assert
@@ -169,7 +169,7 @@ describe("Interactive Graph", function () {
                 // Act
                 const score = scorePerseusItemTesting(
                     question,
-                    renderer.getUserInputMap(),
+                    renderer.getUserInput(),
                 );
 
                 // Assert
@@ -191,7 +191,7 @@ describe("Interactive Graph", function () {
 
                 const score = scorePerseusItemTesting(
                     question,
-                    renderer.getUserInputMap(),
+                    renderer.getUserInput(),
                 );
 
                 // Assert
@@ -217,7 +217,7 @@ describe("Interactive Graph", function () {
             const {renderer} = renderQuestion(question, blankOptions);
             const score = scorePerseusItemTesting(
                 question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             expect(score).toHaveBeenAnsweredCorrectly({
@@ -286,7 +286,7 @@ describe("Interactive Graph", function () {
                 // Act
                 const score = scorePerseusItemTesting(
                     question,
-                    renderer.getUserInputMap(),
+                    renderer.getUserInput(),
                 );
 
                 // Assert
@@ -319,7 +319,7 @@ describe("Interactive Graph", function () {
                     () => {
                         const score = scorePerseusItemTesting(
                             question,
-                            renderer.getUserInputMap(),
+                            renderer.getUserInput(),
                         );
                         expect(score).toHaveBeenAnsweredIncorrectly();
                     },
@@ -343,7 +343,7 @@ describe("Interactive Graph", function () {
                     () => {
                         const score = scorePerseusItemTesting(
                             question,
-                            renderer.getUserInputMap(),
+                            renderer.getUserInput(),
                         );
                         expect(score).toHaveBeenAnsweredCorrectly();
                     },
@@ -367,7 +367,7 @@ describe("Interactive Graph", function () {
                     () => {
                         const score = scorePerseusItemTesting(
                             question,
-                            renderer.getUserInputMap(),
+                            renderer.getUserInput(),
                         );
                         expect(score).toHaveInvalidInput();
                     },

@@ -94,7 +94,7 @@ describe("orderer widget", () => {
             // Act
             const [orderer] = renderer.findWidgets("orderer 1");
             act(() => orderer.setListValues(["37"]));
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
 
             // Assert
             expect(userInput).toEqual({"orderer 1": {current: ["37"]}});
@@ -105,7 +105,7 @@ describe("orderer widget", () => {
             const {renderer} = renderQuestion(question);
 
             // Act
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
             const score = scorePerseusItem(
                 getAnswerfulItem("orderer", ordererOptions).question,
                 userInput,
@@ -124,7 +124,7 @@ describe("orderer widget", () => {
             const [orderer] = renderer.findWidgets("orderer 1");
 
             act(() => orderer.setListValues(["1", "2", "3"]));
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
 
             const score = scorePerseusItem(
                 getAnswerfulItem("orderer", ordererOptions).question,
@@ -144,7 +144,7 @@ describe("orderer widget", () => {
             const [orderer] = renderer.findWidgets("orderer 1");
 
             act(() => orderer.setListValues(["2", "3", "1"]));
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
 
             const score = scorePerseusItem(
                 getAnswerfulItem("orderer", ordererOptions).question,

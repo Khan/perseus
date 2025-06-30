@@ -59,7 +59,7 @@ const assertCorrect = async (
     );
     const score = scorePerseusItemTesting(
         itemData.question,
-        renderer.getUserInputMap(),
+        renderer.getUserInput(),
     );
     expect(score).toHaveBeenAnsweredCorrectly();
 };
@@ -77,7 +77,7 @@ const assertIncorrect = async (
     );
     const score = scorePerseusItemTesting(
         itemData.question,
-        renderer.getUserInputMap(),
+        renderer.getUserInput(),
     );
     expect(score).toHaveBeenAnsweredIncorrectly();
 };
@@ -98,7 +98,7 @@ const assertInvalid = async (
     act(() => jest.runOnlyPendingTimers());
     const score = scorePerseusItemTesting(
         itemData.question,
-        renderer.getUserInputMap(),
+        renderer.getUserInput(),
     );
     expect(score).toHaveInvalidInput();
 };
@@ -465,7 +465,7 @@ describe("Expression Widget", function () {
             act(() => jest.runOnlyPendingTimers());
             const score = scorePerseusItem(
                 expressionItem2.question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
                 "en",
             );
 
@@ -489,7 +489,7 @@ describe("Expression Widget", function () {
             // act
             const score = scorePerseusItem(
                 expressionItem2.question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
                 "en",
             );
 
@@ -715,7 +715,7 @@ describe("Expression Widget", function () {
                 await userEvent.click(screen.getByRole("button", {name: "i"}));
                 act(() => jest.runOnlyPendingTimers());
 
-                const userInput = renderer.getUserInputMap();
+                const userInput = renderer.getUserInput();
                 const score = scorePerseusItem(
                     getFullItem().question,
                     userInput,

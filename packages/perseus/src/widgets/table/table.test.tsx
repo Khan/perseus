@@ -55,7 +55,7 @@ describe("table", () => {
                 await userEvent.type(inputs[i], "8675309");
             }
 
-            expect(renderer.getUserInputMap()).toEqual({
+            expect(renderer.getUserInput()).toEqual({
                 "table 1": [
                     ["8675309", "8675309"],
                     ["8675309", "8675309"],
@@ -71,7 +71,7 @@ describe("table", () => {
                 await userEvent.type(inputs[i], "42");
             }
 
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
             const answerful = generateTableRenderer();
             const score = scorePerseusItem(answerful, userInput, "en");
 
@@ -86,7 +86,7 @@ describe("table", () => {
                 await userEvent.type(inputs[i], `${i}`);
             }
 
-            const userInput = renderer.getUserInputMap();
+            const userInput = renderer.getUserInput();
             expect(userInput).toEqual({
                 "table 1": [
                     ["0", "1"],

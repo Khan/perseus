@@ -46,7 +46,7 @@ describe("input-number", function () {
             await userEvent.type(textbox, "1/2");
             const score = scorePerseusItemTesting(
                 question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -63,7 +63,7 @@ describe("input-number", function () {
             await userEvent.type(textbox, "0.7");
             const score = scorePerseusItemTesting(
                 question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -80,7 +80,7 @@ describe("input-number", function () {
             await userEvent.type(textbox, "0..7");
             const score = scorePerseusItemTesting(
                 question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -214,7 +214,7 @@ describe("input-number", function () {
             await userEvent.type(textbox, correct);
             const score = scorePerseusItemTesting(
                 question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -231,7 +231,7 @@ describe("input-number", function () {
             await userEvent.type(textbox, incorrect);
             const score = scorePerseusItemTesting(
                 question,
-                renderer.getUserInputMap(),
+                renderer.getUserInput(),
             );
 
             // Assert
@@ -410,7 +410,7 @@ describe.each([
         const {renderer} = renderQuestion(question);
 
         await userEvent.type(screen.getByRole("textbox"), "42");
-        const userInput = renderer.getUserInputMap();
+        const userInput = renderer.getUserInput();
 
         // Assert
         expect(userInput).toEqual({
@@ -425,7 +425,7 @@ describe.each([
         const {renderer} = renderQuestion(question);
 
         await userEvent.type(screen.getByRole("textbox"), "42");
-        const userInput = renderer.getUserInputMap();
+        const userInput = renderer.getUserInput();
         const score = scorePerseusItemTesting(
             getAnswerfulInputNumber().question,
             userInput,
@@ -440,7 +440,7 @@ describe.each([
         const {renderer} = renderQuestion(question);
 
         await userEvent.type(screen.getByRole("textbox"), "8675309");
-        const userInput = renderer.getUserInputMap();
+        const userInput = renderer.getUserInput();
         const score = scorePerseusItemTesting(
             getAnswerfulInputNumber().question,
             userInput,
@@ -454,7 +454,7 @@ describe.each([
         // Act
         const {renderer} = renderQuestion(question);
 
-        const userInput = renderer.getUserInputMap();
+        const userInput = renderer.getUserInput();
         const score = scorePerseusItemTesting(
             getAnswerfulInputNumber().question,
             userInput,

@@ -33,7 +33,7 @@ describe("interaction widget", () => {
         // Act
         const score = scorePerseusItemTesting(
             question1,
-            renderer.getUserInputMap(),
+            renderer.getUserInput(),
         );
 
         // Assert
