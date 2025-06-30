@@ -8,7 +8,7 @@ import {
 import type {
     LockedFigureColor,
     LockedFigureFillType,
-    LockedFigureWeight,
+    StrokeWeight,
     LockedLabelType,
     LockedLineStyle,
 } from "@khanacademy/perseus-core";
@@ -286,7 +286,7 @@ describe("generateLockedFigureAppearanceDescription", () => {
             weight: "thick",
             expected: `. Appearance thick solid gray border, with a solid gray fill.`,
         },
-    ] as {weight: LockedFigureWeight; expected: string}[])(
+    ] as {weight: StrokeWeight; expected: string}[])(
         "should return a string with a %s weight",
         ({weight, expected}) => {
             const description = generateLockedFigureAppearanceDescription(

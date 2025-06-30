@@ -137,7 +137,7 @@ const parseLockedFigureFillType = enumeration(
 
 const parseLockedLineStyle = enumeration("solid", "dashed");
 
-const parseStrokeWeight = defaulted(
+export const parseStrokeWeight = defaulted(
     enumeration("medium", "thin", "thick"),
     () => "medium" as const,
 );

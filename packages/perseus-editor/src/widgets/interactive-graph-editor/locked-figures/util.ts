@@ -13,7 +13,7 @@ import {
     type LockedPolygonType,
     type LockedVectorType,
     type LockedLineStyle,
-    type LockedFigureWeight,
+    type StrokeWeight,
 } from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
@@ -118,7 +118,7 @@ export function generateLockedFigureAppearanceDescription(
     color: LockedFigureColor,
     strokeStyle: LockedLineStyle = "solid",
     fill?: LockedFigureFillType,
-    weight: LockedFigureWeight = "medium",
+    weight: StrokeWeight = "medium",
 ) {
     const convertedColor = color === "grayH" ? "gray" : color;
     const weightString = weight === "medium" ? "" : ` ${weight}`;
