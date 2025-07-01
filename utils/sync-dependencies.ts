@@ -7,6 +7,7 @@
  */
 
 import fs from "node:fs";
+import {dirname, join} from "node:path";
 
 import semver from "semver";
 import invariant from "tiny-invariant";
@@ -97,13 +98,26 @@ function main(argv: string[]) {
         printHelp();
         process.exit(1);
     }
-    const clientPackageJson = args[0];
+    const clientPackageJsonPath = args[0];
+    const clientWorkspaceYamlPath = join(
+        dirname(clientPackageJsonPath),
+        "pnpm-workspace.yaml",
+    );
 
-    const workspace = yaml.parse(
+    const ourWorkspace = yaml.parse(
         fs.readFileSync("pnpm-workspace.yaml", "utf-8"),
     );
+
+    const clientWorkspace = yaml.parse(
+        fs.readFileSync(clientWorkspaceYamlPath, "utf-8"),
+    );
+
+    const clientPackageJson = JSON.parse(
+        fs.readFileSync(clientPackageJsonPath, "utf-8"),
+    );
+
     const packageNamesInRepo = unique(
-        Object.values(workspace.catalogs).flatMap((packages) => {
+        Object.values(ourWorkspace.catalogs).flatMap((packages) => {
             invariant(
                 packages != null,
                 "catalogs contained a nullish value; expected an object",
@@ -114,14 +128,21 @@ function main(argv: string[]) {
 
     // Dependency ranges used by the consumer of Perseus (like khan/frontend)
     const clientVersionRanges = filterUnusableTargetVersions(
-        JSON.parse(fs.readFileSync(clientPackageJson).toString()).dependencies,
+        clientPackageJson.dependencies,
         packageNamesInRepo,
     );
+
+    function getClientVersionRange(pkgName: string) {
+        const versionRangeFromPackageJson = clientVersionRanges[pkgName];
+        return versionRangeFromPackageJson === "catalog:"
+            ? clientWorkspace.catalog[pkgName]
+            : versionRangeFromPackageJson;
+    }
 
     for (const pkgName of packageNamesInRepo) {
         if (pkgName in clientVersionRanges) {
             const minVersion = semver.minVersion(
-                clientVersionRanges[pkgName],
+                getClientVersionRange(pkgName),
             )?.version;
             if (!minVersion) {
                 throw new Error(
@@ -135,10 +156,10 @@ function main(argv: string[]) {
             // required by the client application. This ensures we don't
             // accidentally depend on features of the package added after that
             // version.
-            workspace.catalogs.devDeps[pkgName] = minVersion;
+            ourWorkspace.catalogs.devDeps[pkgName] = minVersion;
             // In our peer dependencies, declare that Perseus will work with
             // any package version compatible with the one we install in dev.
-            workspace.catalogs.peerDeps[pkgName] = `^${minVersion}`;
+            ourWorkspace.catalogs.peerDeps[pkgName] = `^${minVersion}`;
         }
     }
 
@@ -172,7 +193,7 @@ function main(argv: string[]) {
 
     fs.writeFileSync(
         "pnpm-workspace.yaml",
-        comment + yaml.stringify(workspace, {indent: 4}),
+        comment + yaml.stringify(ourWorkspace, {indent: 4}),
         {
             encoding: "utf-8",
         },
