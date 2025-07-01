@@ -265,10 +265,9 @@ const LockedLineSettings = (props: Props) => {
                 />
             </View>
             <LineWeightSelect
-                selectedValue={weight ?? "medium"}
-                onChange={
-                    ((value: StrokeWeight) =>
-                        onChangeProps({weight: value})) as any
+                selectedValue={weight}
+                onChange={(value: StrokeWeight) =>
+                    onChangeProps({weight: value})
                 }
             />
 
