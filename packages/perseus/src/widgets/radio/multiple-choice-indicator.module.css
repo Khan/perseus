@@ -1,16 +1,47 @@
 .base {
-    min-width: var(--wb-c-button-root-sizing-height-small);
-    padding-inline: 0;
+    border-width: 0.2rem !important;
+    min-width: var(--wb-c-button-root-sizing-height-small) !important; /* ensures a square/circle */
+    padding-inline: 0 !important; /* remove WB padding */
 }
 
-.is-correct {
-    background-color: var(--wb-semanticColor-core-background-success-default);
-    color: var(--wb-semanticColor-action-primary-progressive-default-foreground);
+.base[aria-pressed="false"] { /* need stronger color and thicker border than WB */
+    border-color: var(--wb-semanticColor-core-border-neutral-strong) !important;
+    color: var(--wb-semanticColor-core-foreground-neutral-default) !important;
 }
 
-.is-correct:before {
-    content: '✓';
-    display: inline-block;
+.base[aria-pressed="false"]:not(.is-correct,.is-wrong):hover {
+    box-shadow: inset 0 0 0 0.2rem var(--wb-semanticColor-core-border-neutral-strong) !important;
+}
+
+.is-correct[aria-pressed="false"] {
+    background-color: var(--wb-semanticColor-action-primary-progressive-default-background) !important;
+    border-width: 0 !important;
+    color: var(--wb-semanticColor-action-primary-progressive-default-foreground) !important;
+}
+
+.is-correct[aria-pressed="true"] {
+    background-color: var(--wb-semanticColor-core-background-success-default) !important;
+    color: var(--wb-semanticColor-action-primary-progressive-default-foreground) !important;
+    min-width: calc(2rem + var(--wb-c-button-root-sizing-height-small)) !important;
+}
+
+.is-correct:hover,
+.is-wrong:hover {
+    box-shadow: none !important;
+    cursor: default !important;
+    outline-width: 0 !important;
+}
+
+.is-wrong[aria-pressed="false"] {
+    border-color: var(--wb-semanticColor-core-border-disabled-strong) !important;
+    color: var(--wb-semanticColor-core-foreground-disabled-default) !important;
+}
+
+.is-wrong[aria-pressed="true"] {
+    background-color: var(--wb-semanticColor-core-background-critical-subtle) !important;
+    border-color: var(--wb-semanticColor-core-background-critical-subtle) !important;
+    color: var(--wb-semanticColor-status-critical-foreground) !important;
+    min-width: calc(2rem + var(--wb-c-button-root-sizing-height-small)) !important;
 }
 
 .circle-shape{
@@ -24,9 +55,9 @@
            the shape changes from a circle to a gel-capsule.
        This property setting automatically handles that case without the need for JS logic.
     */
-    border-radius: 100vh;
+    border-radius: 100vh !important;
 }
 
 .square-shape {
-    border-radius: 0;
+    border-radius: 0.3rem !important;
 }
