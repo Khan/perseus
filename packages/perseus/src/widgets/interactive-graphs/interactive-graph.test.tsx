@@ -687,11 +687,11 @@ describe("Interactive Graph", function () {
                 );
                 expect(arrowheads[0]).toHaveAttribute(
                     "stroke-width",
-                    `${expectedStrokeWidth}`,
+                    `${expectedStrokeWidth}px`,
                 );
                 expect(arrowheads[1]).toHaveAttribute(
                     "stroke-width",
-                    `${expectedStrokeWidth}`,
+                    `${expectedStrokeWidth}px`,
                 );
             },
         );

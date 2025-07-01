@@ -43,7 +43,7 @@ export function Arrowhead(props: Props) {
                     style={{stroke: props.color ?? "inherit"}}
                     strokeLinejoin="round"
                     strokeLinecap="round"
-                    strokeWidth={props.strokeWidth ?? "2px"}
+                    strokeWidth={`${props.strokeWidth ?? 2}px`}
                 />
             </g>
         </g>
