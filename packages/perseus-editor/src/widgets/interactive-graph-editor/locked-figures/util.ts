@@ -63,6 +63,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                     [2, 2],
                 ],
                 color: DEFAULT_COLOR,
+                weight: "medium",
                 labels: [],
             };
         case "ellipse":

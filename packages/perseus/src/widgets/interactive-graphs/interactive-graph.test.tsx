@@ -892,6 +892,51 @@ describe("Interactive Graph", function () {
             );
         });
 
+        it.each([
+            {weight: "thin", expectedStrokeWidth: 1},
+            {weight: "medium", expectedStrokeWidth: 2},
+            {weight: "thick", expectedStrokeWidth: 4},
+        ] satisfies {
+            weight: StrokeWeight;
+            expectedStrokeWidth: number;
+        }[])(
+            "Vector should render with specific weight",
+            ({weight, expectedStrokeWidth}) => {
+                // Arrange
+                const {container} = renderQuestion(
+                    interactiveGraphQuestionBuilder()
+                        .withMarkings("none")
+                        .addLockedVector([0, 0], [0, 1], {
+                            weight,
+                        })
+                        .build(),
+                    blankOptions,
+                );
+
+                // Act
+                const lines =
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    container.querySelectorAll(`.locked-vector > g`);
+
+                const arrowheads =
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    container.querySelectorAll(
+                        `.interactive-graph-arrowhead path`,
+                    );
+
+                // Assert
+                expect(lines).toHaveLength(1);
+                expect(arrowheads).toHaveLength(1);
+                expect(lines[0]).toHaveStyle({
+                    "stroke-width": expectedStrokeWidth,
+                });
+                expect(arrowheads[0]).toHaveAttribute(
+                    "stroke-width",
+                    `${expectedStrokeWidth}px`,
+                );
+            },
+        );
+
         it("should render locked vector with aria label when one is provided", () => {
             // Arrange
             const lockedVectorWithAriaLabelQuestion =

@@ -845,6 +845,7 @@ export type LockedVectorType = {
     type: "vector";
     points: [tail: Coord, tip: Coord];
     color: LockedFigureColor;
+    weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };
