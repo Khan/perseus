@@ -887,6 +887,7 @@ export type LockedFunctionType = {
     type: "function";
     color: LockedFigureColor;
     strokeStyle: LockedLineStyle;
+    weight: StrokeWeight;
     /**
      * This is the user-defined equation (as it was typed)
      */

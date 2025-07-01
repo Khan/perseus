@@ -1287,6 +1287,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 equation: "x^2",
                 color: "grayH",
                 strokeStyle: "solid",
+                weight: "medium",
                 directionalAxis: "x",
                 domain: [-Infinity, Infinity],
                 labels: [],
@@ -1299,6 +1300,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
             .addLockedFunction("x^2", {
                 color: "green",
                 strokeStyle: "dashed",
+                weight: "thick",
                 directionalAxis: "y",
                 domain: [-5, 5],
                 labels: [{text: "a label"}],
@@ -1313,6 +1315,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 equation: "x^2",
                 color: "green",
                 strokeStyle: "dashed",
+                weight: "thick",
                 directionalAxis: "y",
                 domain: [-5, 5],
                 labels: [
@@ -1343,6 +1346,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 equation: "x^2",
                 color: "grayH",
                 strokeStyle: "solid",
+                weight: "medium",
                 directionalAxis: "x",
                 domain: [-Infinity, Infinity],
                 labels: [

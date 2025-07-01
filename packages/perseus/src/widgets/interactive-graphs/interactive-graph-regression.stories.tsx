@@ -352,6 +352,7 @@ function lockedFiguresQuestionWithWeight(weight: "thin" | "medium" | "thick") {
             ],
             {weight, color: "pink"},
         )
+        .addLockedFunction("x^2", {weight, color: "red"})
         .build();
 }
 

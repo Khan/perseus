@@ -108,6 +108,7 @@ describe("getDefaultFigureForType", () => {
             type: "function",
             color: "grayH",
             strokeStyle: "solid",
+            weight: "medium",
             equation: "x^2",
             directionalAxis: "x",
             domain: [-Infinity, Infinity],
