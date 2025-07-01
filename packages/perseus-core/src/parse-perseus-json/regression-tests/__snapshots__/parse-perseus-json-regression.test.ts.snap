@@ -8289,6 +8289,333 @@ Locked figures:
 }
 `;
 
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-polygon-missing-weight.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [
+    {
+      "content": "You'll want to select "B".",
+      "images": {},
+      "replace": false,
+      "widgets": {},
+    },
+  ],
+  "question": {
+    "content": "**A "none"-type graph. Choose the correct radio button to get a point.**
+
+[[☃ interactive-graph 1]]
+
+[[☃ radio 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "hasBeenInteractedWith": false,
+            "range": [
+              [
+                -10,
+                10,
+              ],
+              [
+                -10,
+                10,
+              ],
+            ],
+            "snapStep": [
+              0.5,
+              0.5,
+            ],
+            "type": "none",
+          },
+          "fullGraphAriaDescription": "A graph on a coordinate plane with two non-interactive closed shapes. One shape is an ellipse and the other shape is a three-sided polygon.",
+          "fullGraphAriaLabel": "A graph on a coordinate plane with non-interactive figures",
+          "graph": {
+            "type": "none",
+          },
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": [
+            {
+              "angle": 0.6981317007977318,
+              "ariaLabel": "Ellipse with x radius 2 and y radius 3, centered at 1 comma 0, rotated by 40 degrees. Appearance dashed red border, with no fill.",
+              "center": [
+                1,
+                0,
+              ],
+              "color": "red",
+              "fillStyle": "none",
+              "labels": [],
+              "radius": [
+                2,
+                3,
+              ],
+              "strokeStyle": "dashed",
+              "type": "ellipse",
+            },
+            {
+              "ariaLabel": "Polygon with 3 sides, vertices at 0 comma 5, negative 2 comma 2, 2 comma 2. Appearance solid purple border, with a translucent purple fill.",
+              "color": "purple",
+              "fillStyle": "translucent",
+              "labels": [],
+              "points": [
+                [
+                  0,
+                  5,
+                ],
+                [
+                  -2,
+                  2,
+                ],
+                [
+                  2,
+                  2,
+                ],
+              ],
+              "showVertices": false,
+              "strokeStyle": "solid",
+              "type": "polygon",
+              "weight": "medium",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "choices": [
+            {
+              "content": "Not this one",
+              "correct": false,
+            },
+            {
+              "content": "This one is correct",
+              "correct": true,
+            },
+            {
+              "content": "Nope",
+              "correct": false,
+            },
+            {
+              "content": "Definitely not",
+              "correct": false,
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "numCorrect": 1,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 3,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-polygon-missing-weight.json returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "chi2Table": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+    "tTable": false,
+    "zTable": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "**A "none"-type graph. Choose the correct radio button to get a point.**
+
+[[☃ interactive-graph 1]]
+
+[[☃ radio 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "linear",
+          },
+          "fullGraphAriaDescription": "A graph on a coordinate plane with two non-interactive closed shapes. One shape is an ellipse and the other shape is a three-sided polygon.",
+          "fullGraphAriaLabel": "A graph on a coordinate plane with non-interactive figures",
+          "graph": {
+            "type": "none",
+          },
+          "labelLocation": "onAxis",
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": [
+            {
+              "angle": 0.6981317007977318,
+              "ariaLabel": "Ellipse with x radius 2 and y radius 3, centered at 1 comma 0, rotated by 40 degrees. Appearance dashed red border, with no fill.",
+              "center": [
+                1,
+                0,
+              ],
+              "color": "red",
+              "fillStyle": "none",
+              "labels": [],
+              "radius": [
+                2,
+                3,
+              ],
+              "strokeStyle": "dashed",
+              "type": "ellipse",
+            },
+            {
+              "ariaLabel": "Polygon with 3 sides, vertices at 0 comma 5, negative 2 comma 2, 2 comma 2. Appearance solid purple border, with a translucent purple fill.",
+              "color": "purple",
+              "fillStyle": "translucent",
+              "labels": [],
+              "points": [
+                [
+                  0,
+                  5,
+                ],
+                [
+                  -2,
+                  2,
+                ],
+                [
+                  2,
+                  2,
+                ],
+              ],
+              "showVertices": false,
+              "strokeStyle": "solid",
+              "type": "polygon",
+              "weight": "medium",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "choices": [
+            {
+              "content": "Not this one",
+              "isNoneOfTheAbove": undefined,
+            },
+            {
+              "content": "This one is correct",
+              "isNoneOfTheAbove": undefined,
+            },
+            {
+              "content": "Nope",
+              "isNoneOfTheAbove": undefined,
+            },
+            {
+              "content": "Definitely not",
+              "isNoneOfTheAbove": undefined,
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "numCorrect": undefined,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 3,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.json returns the same result as before 1`] = `
 {
   "answerArea": {

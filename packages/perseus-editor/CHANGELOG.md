@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 25.1.1
+
+### Patch Changes
+
+-   [#2649](https://github.com/Khan/perseus/pull/2649) [`01cb73bef`](https://github.com/Khan/perseus/commit/01cb73bef9934e36163fa28f315b64b23bd48637) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add `weight` option to locked polygon and locked polygon settings
+
+-   Updated dependencies [[`d1299f6f7`](https://github.com/Khan/perseus/commit/d1299f6f7e5e427c442d39e6cadfa78b5326d4b1), [`01cb73bef`](https://github.com/Khan/perseus/commit/01cb73bef9934e36163fa28f315b64b23bd48637), [`d02d6f9fe`](https://github.com/Khan/perseus/commit/d02d6f9fe8be4228d0143f9487a69183317c61e7)]:
+    -   @khanacademy/perseus-core@16.1.0
+    -   @khanacademy/perseus@65.3.7
+    -   @khanacademy/keypad-context@3.0.22
+    -   @khanacademy/kmath@2.0.22
+    -   @khanacademy/math-input@26.0.11
+    -   @khanacademy/perseus-linter@4.0.9
+    -   @khanacademy/perseus-score@7.1.9
+
 ## 25.1.0
 
 ### Minor Changes

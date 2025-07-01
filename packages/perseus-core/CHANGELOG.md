@@ -1,5 +1,15 @@
 # @khanacademy/perseus-core
 
+## 16.1.0
+
+### Minor Changes
+
+-   [#2663](https://github.com/Khan/perseus/pull/2663) [`d1299f6f7`](https://github.com/Khan/perseus/commit/d1299f6f7e5e427c442d39e6cadfa78b5326d4b1) Thanks [@benchristel](https://github.com/benchristel)! - Enable `parseAndMigratePerseusItem` to parse answerless data, i.e. the return value of `splitPerseusItem`.
+
+### Patch Changes
+
+-   [#2649](https://github.com/Khan/perseus/pull/2649) [`01cb73bef`](https://github.com/Khan/perseus/commit/01cb73bef9934e36163fa28f315b64b23bd48637) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add `weight` option to locked polygon and locked polygon settings
+
 ## 16.0.0
 
 ### Major Changes

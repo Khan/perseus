@@ -70,6 +70,7 @@ import type {Coord} from "../../interactive2/types";
 import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
 import type {
+    StrokeWeight,
     PerseusGraphType,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
@@ -928,6 +929,46 @@ describe("Interactive Graph", function () {
                 stroke: lockedFigureColors["purple"],
             });
         });
+
+        it.each([
+            {weight: "thin", expectedStrokeWidth: 1},
+            {weight: "medium", expectedStrokeWidth: 2},
+            {weight: "thick", expectedStrokeWidth: 4},
+        ] as {
+            weight: StrokeWeight | undefined;
+            expectedStrokeWidth: number;
+        }[])(
+            "should render locked polygons with specific weight",
+            ({weight, expectedStrokeWidth}) => {
+                // Arrange
+                const {container} = renderQuestion(
+                    interactiveGraphQuestionBuilder()
+                        .addLockedPolygon(
+                            [
+                                [0, 0],
+                                [0, 1],
+                                [1, 1],
+                            ],
+                            {weight: weight},
+                        )
+                        .build(),
+                    blankOptions,
+                );
+
+                // Act
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const polygons = container.querySelectorAll(
+                    ".locked-polygon polygon",
+                );
+
+                // Assert
+                expect(polygons).toHaveLength(1);
+                expect(polygons[0]).toHaveAttribute(
+                    "stroke-width",
+                    `${expectedStrokeWidth}`,
+                );
+            },
+        );
 
         it("should render locked polygons with white fill", async () => {
             // Arrange
