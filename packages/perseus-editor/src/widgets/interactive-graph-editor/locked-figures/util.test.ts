@@ -79,6 +79,7 @@ describe("getDefaultFigureForType", () => {
             color: "grayH",
             fillStyle: "none",
             strokeStyle: "solid",
+            weight: "medium",
             labels: [],
         });
     });

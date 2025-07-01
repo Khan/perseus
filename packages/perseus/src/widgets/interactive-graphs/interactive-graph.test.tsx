@@ -1029,6 +1029,40 @@ describe("Interactive Graph", function () {
             });
         });
 
+        it.each([
+            {weight: "thin", expectedStrokeWidth: 1},
+            {weight: "medium", expectedStrokeWidth: 2},
+            {weight: "thick", expectedStrokeWidth: 4},
+        ] satisfies {
+            weight: StrokeWeight;
+            expectedStrokeWidth: number;
+        }[])(
+            "Locked ellipse should render with specific weight",
+            ({weight, expectedStrokeWidth}) => {
+                // Arrange
+                const {container} = renderQuestion(
+                    interactiveGraphQuestionBuilder()
+                        .withMarkings("none")
+                        .addLockedEllipse([0, 0], [1, 1], {
+                            weight,
+                        })
+                        .build(),
+                    blankOptions,
+                );
+
+                // Act
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const circles = container.querySelectorAll("ellipse");
+
+                // Assert
+                expect(circles).toHaveLength(1);
+                expect(circles[0]).toHaveAttribute(
+                    "stroke-width",
+                    `${expectedStrokeWidth}`,
+                );
+            },
+        );
+
         it("should render locked ellipse with aria label when one is provided", () => {
             // Arrange
             const lockedEllipseWithAriaLabelQuestion =

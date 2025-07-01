@@ -866,6 +866,7 @@ export type LockedEllipseType = {
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
+    weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };

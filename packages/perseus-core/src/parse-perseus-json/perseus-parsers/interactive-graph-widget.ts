@@ -189,6 +189,7 @@ const parseLockedEllipseType = object({
     color: parseLockedFigureColor,
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
+    weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
