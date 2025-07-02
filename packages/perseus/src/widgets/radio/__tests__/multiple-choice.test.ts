@@ -48,6 +48,7 @@ const selectOption = async (
 
     await userEvent.click(options[index]);
 };
+
 describe("Multiple Choice Widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -242,13 +243,25 @@ describe("Multiple Choice Widget", () => {
             ).toHaveFocus();
         });
 
-        it("should be able to select an option by keyboard", async () => {
+        it("should be able to select an option by keyboard (space)", async () => {
             // Arrange
             renderQuestion(question, apiOptions);
 
             // Act
             await userEvent.tab();
             await userEvent.keyboard(" ");
+
+            // Assert
+            expect(screen.getAllByRole("radio")[0]).toBeChecked();
+        });
+
+        it("should be able to select an option by keyboard (enter)", async () => {
+            // Arrange
+            renderQuestion(question, apiOptions);
+
+            // Act
+            await userEvent.tab();
+            await userEvent.keyboard("{Enter}");
 
             // Assert
             expect(screen.getAllByRole("radio")[0]).toBeChecked();
