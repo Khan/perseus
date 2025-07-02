@@ -7,7 +7,15 @@ type State = any;
 // Interfact currently only implemented by
 // ServerItemRenderer
 export interface RendererInterface {
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
     getSerializedState(): State;
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
     restoreSerializedState(state: State, callback?: () => void): void;
     blur(): void;
     focus(): boolean | null | undefined;
@@ -35,9 +43,8 @@ export type MarkerType = {
 };
 
 // Additional props that are set when user interacts with the marker.
+// TODO(LEMS-3199): don't mash together UI state with widget options
 export type InteractiveMarkerType = MarkerType & {
-    // The user selected list of answers, used to grade the question.
-    selected?: string[];
     // Reveal the correctness state of the user selected answers for the marker.
     showCorrectness?: "correct" | "incorrect";
     focused?: boolean;

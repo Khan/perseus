@@ -6,7 +6,7 @@ import type {PerseusSorterWidgetOptions} from "../../data-schema";
  * For details on the individual options, see the
  * PerseusSorterWidgetOptions type
  */
-type SorterPublicWidgetOptions = {
+export type SorterPublicWidgetOptions = {
     // TODO(benchristel): rename to `cards`; the whole point of public widget
     // options is that this isn't the correct order!
     correct: PerseusSorterWidgetOptions["correct"];
@@ -31,11 +31,11 @@ function getSorterPublicWidgetOptions(
     };
 }
 
-export function shuffleSorter(props: {
-    correct: string[];
-    problemNum: number | null | undefined;
-}): string[] {
-    const {correct, problemNum} = props;
+export function shuffleSorter(
+    options: Pick<SorterPublicWidgetOptions, "correct">,
+    problemNum: number,
+): string[] {
+    const {correct} = options;
     const rng = seededRNG(problemNum ?? 0);
     // See getSorterPublicWidgetOptions for an explanation of why we need to
     // displace the first card.

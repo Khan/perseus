@@ -34,7 +34,7 @@ function KeypadWithContext() {
         </KeypadContext.Consumer>
     );
 }
-// This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
+// This looks alot like `widgets/__tests__/renderQuestion.tsx', except we use
 // the ArticleRenderer instead of Renderer
 export const RenderArticle = (
     apiOptions: APIOptions = Object.freeze({}),

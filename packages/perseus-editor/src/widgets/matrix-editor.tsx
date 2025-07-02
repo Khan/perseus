@@ -12,6 +12,7 @@ import _ from "underscore";
 import Editor from "../editor";
 
 import type {MatrixDefaultWidgetOptions} from "@khanacademy/perseus-core";
+import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const {RangeInput} = components;
 const Matrix = MatrixWidget.widget;
@@ -37,7 +38,7 @@ class MatrixEditor extends React.Component<Props> {
     static defaultProps: MatrixDefaultWidgetOptions =
         matrixLogic.defaultWidgetOptions;
 
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
+    change: (arg1: any, arg2?: any, arg3?: any) => any = (...args) => {
         return Changeable.change.apply(this, args);
     };
 
@@ -67,15 +68,17 @@ class MatrixEditor extends React.Component<Props> {
     };
 
     render(): React.ReactNode {
-        const matrixProps = _.extend(
-            {
-                numericInput: true,
-                onBlur: () => {},
-                onFocus: () => {},
-                trackInteraction: () => {},
+        const matrixProps: Partial<PropsFor<typeof Matrix>> = {
+            onBlur: () => {},
+            onFocus: () => {},
+            trackInteraction: () => {},
+            userInput: {answers: this.props.answers},
+            handleUserInput: (userInput) => {
+                this.change({answers: userInput.answers});
             },
-            this.props,
-        );
+            ...this.props,
+        };
+
         return (
             <div className="perseus-matrix-editor">
                 <div className="perseus-widget-row">
@@ -89,7 +92,7 @@ class MatrixEditor extends React.Component<Props> {
                     />
                 </div>
                 <div className="perseus-widget-row">
-                    <Matrix {...matrixProps} />
+                    <Matrix {...(matrixProps as PropsFor<typeof Matrix>)} />
                 </div>
                 <div className="perseus-widget-row">
                     {" "}
@@ -101,7 +104,6 @@ class MatrixEditor extends React.Component<Props> {
                         content={this.props.prefix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
-                            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                             this.change({prefix: newProps.content});
                         }}
                     />
@@ -116,7 +118,6 @@ class MatrixEditor extends React.Component<Props> {
                         content={this.props.suffix}
                         widgetEnabled={false}
                         onChange={(newProps) => {
-                            // @ts-expect-error - TS2554 - Expected 3 arguments, but got 1.
                             this.change({suffix: newProps.content});
                         }}
                     />
