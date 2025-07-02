@@ -55,6 +55,10 @@ class Radio extends RadioOld {
         };
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
     getSerializedState() {
         const {userInput: _, ...rest} = this._mergePropsAndState();
         return {
