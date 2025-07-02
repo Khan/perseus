@@ -42,14 +42,18 @@ const RestrictedPackageVersions = [
     /workspace/,
 ];
 
+type PackageJson = {
+    dependencies: Record<string, string>;
+}
+
 // There are some packages and version number constructs that we don't want to
 // bring into Perseus. This function filters out packages by name or version
 // that we can't use locally.
 function filterUnusableTargetVersions(
-    targetVersions: Record<string, string>,
+    packageJson: PackageJson,
 ): Record<string, string> {
     return Object.fromEntries(
-        Object.entries(targetVersions).filter(([_, pkgVersion]) => {
+        Object.entries(packageJson.dependencies).filter(([_, pkgVersion]) => {
             // Eliminate packages whose version we don't/can't use.
             return !RestrictedPackageVersions.some((r) => r.test(pkgVersion));
         }),
@@ -109,7 +113,7 @@ function main(argv: string[]) {
 
     // Dependency ranges used by the consumer of Perseus (like khan/frontend)
     const clientVersionRanges = filterUnusableTargetVersions(
-        clientPackageJson.dependencies,
+        clientPackageJson,
     );
 
     function getClientVersionRange(pkgName: string) {
