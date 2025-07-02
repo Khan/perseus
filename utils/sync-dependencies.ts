@@ -44,11 +44,11 @@ const RestrictedPackageVersions = [
 
 type PackageJson = {
     dependencies: Record<string, string>;
-}
+};
 
 type PnpmWorkspace = {
     catalog: Record<string, string>;
-}
+};
 
 // There are some packages and version number constructs that we don't want to
 // bring into Perseus. This function filters out packages by name or version
@@ -58,16 +58,21 @@ function resolveVersionRangesFromCatalog(
     workspace: PnpmWorkspace,
 ): Record<string, string> {
     return Object.fromEntries(
-        Object.entries(packageJson.dependencies).filter(([_, pkgVersion]) => {
-            // Eliminate packages whose version we don't/can't use.
-            return !RestrictedPackageVersions.some((r) => r.test(pkgVersion));
-        }).map(([pkgName, pkgVersion]) => {
-            const resolvedVersion = pkgVersion === "catalog:"
-                ? workspace.catalog[pkgName]
-                : pkgVersion;
+        Object.entries(packageJson.dependencies)
+            .filter(([_, pkgVersion]) => {
+                // Eliminate packages whose version we don't/can't use.
+                return !RestrictedPackageVersions.some((r) =>
+                    r.test(pkgVersion),
+                );
+            })
+            .map(([pkgName, pkgVersion]) => {
+                const resolvedVersion =
+                    pkgVersion === "catalog:"
+                        ? workspace.catalog[pkgName]
+                        : pkgVersion;
 
-            return [pkgName, resolvedVersion];
-        }),
+                return [pkgName, resolvedVersion];
+            }),
     );
 }
 
@@ -138,8 +143,8 @@ function main(argv: string[]) {
         if (!minVersion) {
             throw new Error(
                 `Package ${pkgName} does not have a min version!\n\n` +
-                `Listed range is ${clientVersionRanges[pkgName]}\n\n` +
-                "We don't know what dev dependency to install!",
+                    `Listed range is ${clientVersionRanges[pkgName]}\n\n` +
+                    "We don't know what dev dependency to install!",
             );
         }
         ourWorkspace.catalogs.devDeps[pkgName] = minVersion;
