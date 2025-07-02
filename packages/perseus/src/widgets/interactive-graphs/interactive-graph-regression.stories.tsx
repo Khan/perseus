@@ -209,6 +209,20 @@ export const MafsWithXAxisOffTop: Story = {
 export const MafsWithLabelsAlongEdge: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withAxisLabels(
+                "Video Game Hours per Week",
+                "Reaction Time (milliseconds)",
+            )
+            .withLabelLocation("alongEdge")
+            .build(),
+    },
+};
+
+export const MafsWithLabelsAlongEdgeAtLeft: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
             .withXRange(0, 10)
             .withYRange(0, 10)
             .withAxisLabels(
@@ -233,6 +247,51 @@ export const MafsWithLabelsAlongEdgeJustOverLeft: Story = {
             .build(),
     },
 };
+
+export const MafsWithLabelsAlongEdgeAtRight: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withXRange(0, 0.01)
+            .withYRange(0, 0.01)
+            .withTickStep(0.001, 0.001)
+            .withGridStep(0.001, 0.001)
+            .withAxisLabels(
+                "Video Game Hours per Week",
+                "Reaction Time (milliseconds)",
+            )
+            .withLabelLocation("alongEdge")
+            .build(),
+    },
+};
+
+export const MafsWithLabelsAlongEdgeWithCloseToZeroXMin: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withXRange(-0.03, 0.84)
+            .withYRange(-2.8, 63)
+            .withTickStep(0.2, 10)
+            .withGridStep(0.05, 5)
+            .withSnapStep(0.025, 2)
+            .withAxisLabels("Time (seconds)", "Distance (meters)")
+            .withLabelLocation("alongEdge")
+            .build(),
+    },
+};
+
+export const MafsWithLabelsAlongEdgeWithCloseToZeroXMinMultipliedBy1000: Story =
+    {
+        args: {
+            question: interactiveGraphQuestionBuilder()
+                .withXRange(-30, 840)
+                .withYRange(-2.8, 63)
+                .withTickStep(200, 10)
+                .withGridStep(50, 5)
+                .withSnapStep(25, 2)
+                .withAxisLabels("Time (seconds)", "Distance (meters)")
+                .withLabelLocation("alongEdge")
+                .build(),
+        },
+    };
 
 export const MafsWithLabelsAlongEdgeZoomed: Story = {
     args: {
