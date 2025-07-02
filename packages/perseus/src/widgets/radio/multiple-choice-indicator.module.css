@@ -1,47 +1,73 @@
 .base {
-    border-width: 0.2rem !important;
-    min-width: var(--wb-c-button-root-sizing-height-small) !important; /* ensures a square/circle */
-    padding-inline: 0 !important; /* remove WB padding */
+    appearance: none;
+    background-color: var(--wb-semanticColor-core-transparent);
+    border: solid 0.2rem var(--wb-semanticColor-core-border-neutral-strong);
+    color: var(--wb-semanticColor-core-foreground-neutral-default);
+    cursor: pointer;
+    font-family: var(--wb-font-family-sans);
+    font-size: var(--wb-font-heading-size-small);
+    height: var(--wb-c-button-root-sizing-height-small);
+    line-height: var(--wb-font-heading-lineHeight-small);
+    outline: 0 solid var(--wb-semanticColor-core-background-instructive-default);
+    outline-offset: 0;
+    padding: 0;
+    width: var(--wb-c-button-root-sizing-height-small); /* using the height value ensures a square/circle */
 }
 
-.base[aria-pressed="false"] { /* need stronger color and thicker border than WB */
-    border-color: var(--wb-semanticColor-core-border-neutral-strong) !important;
-    color: var(--wb-semanticColor-core-foreground-neutral-default) !important;
+@media (prefers-reduced-motion: no-preference) {
+    .base {
+        transition: all 0.2s;
+    }
 }
 
-.base[aria-pressed="false"]:not(.is-correct,.is-wrong):hover {
-    box-shadow: inset 0 0 0 0.2rem var(--wb-semanticColor-core-border-neutral-strong) !important;
+.base:hover,
+.base:focus {
+    outline-offset: 0.2rem;
+    outline-width: 0.2rem;
 }
 
-.is-correct[aria-pressed="false"] {
-    background-color: var(--wb-semanticColor-action-primary-progressive-default-background) !important;
-    border-width: 0 !important;
-    color: var(--wb-semanticColor-action-primary-progressive-default-foreground) !important;
+.base[aria-pressed="true"] { /* button is checked */
+    background-color: var(--wb-semanticColor-core-background-instructive-default);
+    border-width: 0;
+    color: var(--wb-semanticColor-core-foreground-inverse-strong);
 }
 
-.is-correct[aria-pressed="true"] {
-    background-color: var(--wb-semanticColor-core-background-success-default) !important;
-    color: var(--wb-semanticColor-action-primary-progressive-default-foreground) !important;
-    min-width: calc(2rem + var(--wb-c-button-root-sizing-height-small)) !important;
+.base [role="img"] { /* icon inside the button when showing correctness */
+    margin-inline-end: 0.4rem;
+}
+
+.is-correct,
+.is-wrong {
+    cursor: default;
 }
 
 .is-correct:hover,
 .is-wrong:hover {
-    box-shadow: none !important;
-    cursor: default !important;
-    outline-width: 0 !important;
+    outline: none;
+}
+
+.is-correct[aria-pressed="false"] { /* make an unchecked indicator solid so that it better matches styling for the option when correct */
+    background-color: var(--wb-semanticColor-core-background-instructive-default);
+    border-width: 0;
+    color: var(--wb-semanticColor-core-foreground-inverse-strong);
+}
+
+.is-correct[aria-pressed="true"] {
+    background-color: var(--wb-semanticColor-core-background-success-strong);
+    color: var(--wb-semanticColor-action-primary-progressive-default-foreground);
+    width: calc(1.8rem + var(--wb-c-button-root-sizing-height-small)); /* account for the checkmark icon */
 }
 
 .is-wrong[aria-pressed="false"] {
-    border-color: var(--wb-semanticColor-core-border-disabled-strong) !important;
-    color: var(--wb-semanticColor-core-foreground-disabled-default) !important;
+    background-color: var(--wb-semanticColor-core-transparent);
+    border-color: var(--wb-semanticColor-core-border-disabled-strong);
+    color: var(--wb-semanticColor-core-foreground-disabled-strong);
 }
 
 .is-wrong[aria-pressed="true"] {
-    background-color: var(--wb-semanticColor-core-background-critical-subtle) !important;
-    border-color: var(--wb-semanticColor-core-background-critical-subtle) !important;
-    color: var(--wb-semanticColor-status-critical-foreground) !important;
-    min-width: calc(2rem + var(--wb-c-button-root-sizing-height-small)) !important;
+    background-color: var(--wb-semanticColor-core-background-critical-subtle);
+    color: var(--wb-semanticColor-core-foreground-critical-default);
+    width: calc(1.8rem + var(--wb-c-button-root-sizing-height-small)); /* account for the minus-circle icon */
 }
 
 .circle-shape{
@@ -55,9 +81,9 @@
            the shape changes from a circle to a gel-capsule.
        This property setting automatically handles that case without the need for JS logic.
     */
-    border-radius: 100vh !important;
+    border-radius: 100vh;
 }
 
 .square-shape {
-    border-radius: 0.3rem !important;
+    border-radius: 0.4rem;
 }

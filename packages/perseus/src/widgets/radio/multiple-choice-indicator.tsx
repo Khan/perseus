@@ -1,4 +1,4 @@
-import Button from "@khanacademy/wonder-blocks-button";
+import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import checkIcon from "@phosphor-icons/core/bold/check-bold.svg";
 import minusIcon from "@phosphor-icons/core/bold/minus-circle-bold.svg";
 import * as React from "react";
@@ -17,14 +17,20 @@ export type IndicatorProps = {
 const Indicator = (props: IndicatorProps) => {
     const showCorrectness = props.showCorrectness;
     const [isChecked, setIsChecked] = useState(props.checked);
-    const actionType = isChecked ? "progressive" : "neutral";
-    const kind = isChecked ? "primary" : "secondary";
-    const icon =
+    const iconImage =
         isChecked && showCorrectness === "correct"
             ? checkIcon
             : isChecked && showCorrectness === "wrong"
               ? minusIcon
               : undefined;
+    const icon = iconImage ? (
+        <PhosphorIcon
+            aria-hidden={true}
+            icon={iconImage}
+            role="img"
+            style={{width: "1.4rem", height: "1.4rem"}}
+        />
+    ) : undefined;
     const classes = [styles.base, styles[props.shape + "-shape"]];
     if (showCorrectness) {
         classes.push(styles["is-" + showCorrectness]);
@@ -35,19 +41,17 @@ const Indicator = (props: IndicatorProps) => {
               setIsChecked(!isChecked);
               props.updateChecked(isChecked);
           };
+    console.log(`Classes: `, classes);
 
     return (
-        <Button
+        <button
             aria-pressed={isChecked}
-            actionType={actionType}
             className={classes.join(" ")}
-            kind={kind}
-            startIcon={icon}
-            size="small"
             onClick={handleClick}
         >
+            {icon}
             {props.content}
-        </Button>
+        </button>
     );
 };
 
