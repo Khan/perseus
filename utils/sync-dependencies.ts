@@ -129,27 +129,21 @@ function main(argv: string[]) {
     );
 
     for (const pkgName of packageNamesInRepo) {
-        if (pkgName in clientVersionRanges) {
-            const minVersion = semver.minVersion(
-                clientVersionRanges[pkgName],
-            )?.version;
-            if (!minVersion) {
-                throw new Error(
-                    `Package ${pkgName} does not have a min version!\n\n` +
-                        `Listed range is ${clientVersionRanges[pkgName]}\n\n` +
-                        "We don't know what dev dependency to install!",
-                );
-            }
-
-            // In development, install the minimum version of each package
-            // required by the client application. This ensures we don't
-            // accidentally depend on features of the package added after that
-            // version.
-            ourWorkspace.catalogs.devDeps[pkgName] = minVersion;
-            // In our peer dependencies, declare that Perseus will work with
-            // any package version compatible with the one we install in dev.
-            ourWorkspace.catalogs.peerDeps[pkgName] = `^${minVersion}`;
+        if (!(pkgName in clientVersionRanges)) {
+            continue;
         }
+        const minVersion = semver.minVersion(
+            clientVersionRanges[pkgName],
+        )?.version;
+        if (!minVersion) {
+            throw new Error(
+                `Package ${pkgName} does not have a min version!\n\n` +
+                `Listed range is ${clientVersionRanges[pkgName]}\n\n` +
+                "We don't know what dev dependency to install!",
+            );
+        }
+        ourWorkspace.catalogs.devDeps[pkgName] = minVersion;
+        ourWorkspace.catalogs.peerDeps[pkgName] = `^${minVersion}`;
     }
 
     // TODO(LEMS-3169): update the path to services/static/package.json to the
