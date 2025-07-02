@@ -5,7 +5,11 @@ import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
+import {
+    sizing,
+    spacing,
+    color as wbColor,
+} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
@@ -18,6 +22,7 @@ import PerseusEditorAccordion from "../../../components/perseus-editor-accordion
 import ColorSelect from "./color-select";
 import EllipseSwatch from "./ellipse-swatch";
 import LineStrokeSelect from "./line-stroke-select";
+import LineWeightSelect from "./line-weight-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
@@ -58,6 +63,7 @@ const LockedEllipseSettings = (props: Props) => {
         ariaLabel,
         fillStyle,
         strokeStyle,
+        weight,
         expanded,
         onToggle,
         onChangeProps,
@@ -97,6 +103,7 @@ const LockedEllipseSettings = (props: Props) => {
             color,
             strokeStyle,
             fillStyle,
+            weight,
         );
         str += ellipseAppearance;
         return str;
@@ -242,6 +249,13 @@ const LockedEllipseSettings = (props: Props) => {
             <LineStrokeSelect
                 selectedValue={strokeStyle}
                 onChange={(value) => onChangeProps({strokeStyle: value})}
+                containerStyle={{marginBottom: sizing.size_080}}
+            />
+
+            {/* Weight */}
+            <LineWeightSelect
+                selectedValue={weight}
+                onChange={(value) => onChangeProps({weight: value})}
             />
 
             {/* Aria label */}

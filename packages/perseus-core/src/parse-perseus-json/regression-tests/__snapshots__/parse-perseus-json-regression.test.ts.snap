@@ -6657,6 +6657,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
               ],
               "strokeStyle": "solid",
               "type": "ellipse",
+              "weight": "medium",
             },
             {
               "color": "pink",
@@ -6922,6 +6923,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
               ],
               "strokeStyle": "solid",
               "type": "ellipse",
+              "weight": "medium",
             },
             {
               "color": "pink",

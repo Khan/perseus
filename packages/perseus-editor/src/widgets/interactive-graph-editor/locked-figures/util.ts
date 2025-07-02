@@ -75,6 +75,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 color: DEFAULT_COLOR,
                 fillStyle: "none",
                 strokeStyle: "solid",
+                weight: "medium",
                 labels: [],
             };
         case "polygon":

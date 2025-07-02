@@ -1083,6 +1083,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "grayH",
                 fillStyle: "none",
                 strokeStyle: "solid",
+                weight: "medium",
                 labels: [],
             },
         ]);
@@ -1095,6 +1096,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "green",
                 fillStyle: "solid",
                 strokeStyle: "dashed",
+                weight: "thick",
                 labels: [{text: "a label"}],
                 ariaLabel: "an aria label",
             })
@@ -1110,6 +1112,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "green",
                 fillStyle: "solid",
                 strokeStyle: "dashed",
+                weight: "thick",
                 labels: [
                     {
                         type: "label",
@@ -1141,6 +1144,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "grayH",
                 fillStyle: "none",
                 strokeStyle: "solid",
+                weight: "medium",
                 labels: [
                     {
                         type: "label",

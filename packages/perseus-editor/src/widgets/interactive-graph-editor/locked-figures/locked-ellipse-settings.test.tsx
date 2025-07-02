@@ -50,6 +50,30 @@ describe("LockedEllipseSettings", () => {
         expect(titleText).toBeInTheDocument();
     });
 
+    test("calls onChange when the weight is changed", async () => {
+        // Arrange
+        const onChangeSpy = jest.fn();
+        render(
+            <LockedEllipseSettings
+                {...defaultProps}
+                onChangeProps={onChangeSpy}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        // Change the weight
+        const weightSelect = screen.getByRole("combobox", {name: "weight"});
+        await userEvent.click(weightSelect);
+        const weightOption = screen.getByRole("option", {name: "thick"});
+        await userEvent.click(weightOption);
+
+        // Assert
+        expect(onChangeSpy).toHaveBeenCalledWith({weight: "thick"});
+    });
+
     test("summary reflects radius", () => {
         // Arrange
 

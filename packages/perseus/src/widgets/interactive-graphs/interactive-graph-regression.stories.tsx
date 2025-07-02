@@ -342,6 +342,7 @@ function lockedFiguresQuestionWithWeight(weight: "thin" | "medium" | "thick") {
         .addLockedLine([2, 1], [9, 8], {kind: "ray", weight})
         .addLockedLine([2, 0], [9, 7], {kind: "line", weight})
         .addLockedVector([4, -7], [7, -4], {weight, color: "green"})
+        .addLockedEllipse([-5, 5], [1, 1], {weight, color: "blue"})
         .addLockedPolygon(
             [
                 [0.5, 3.5],
