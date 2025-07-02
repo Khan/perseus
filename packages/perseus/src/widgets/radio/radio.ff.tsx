@@ -1,5 +1,4 @@
 import * as React from "react";
-import _ from "underscore";
 
 import RadioOld from "./radio-component";
 import RadioNew from "./radio.class.new";
@@ -66,9 +65,21 @@ class Radio extends RadioOld {
     _handleChange(arg: {choiceStates?: ChoiceState[]}) {
         const choiceStates = arg.choiceStates;
         if (choiceStates) {
-            // split ChoiceState into two pieces:
-            // - UI state
-            // - UserInput state
+            /**
+             * Inside the Radio component(s) we use ChoiceState
+             * which includes both UI state and UserInput state.
+             * After LEMS-3208, we'd like to keep user input state in a
+             * "ready to score" format and ideally we'd like to internalize
+             * UI state (so Renderer doesn't manage state it doesn't need to;
+             * see LEMS-3245). At the time of writing, Radio is in the middle
+             * of a major refactor and SSS needs to move forward with LEMS-3208.
+             *
+             * This code maintains the original Radio props (ChoiceState)
+             * while allowing Renderer to have UserInput in the shape it needs
+             * and for this component to take over managing UI state
+             * (ChoiceStateWithoutSelected). To do that we convert ChoiceState
+             * into those two chunks of data.
+             */
             this.setState(
                 {
                     choiceStates: choiceStates.map((choiceState) => {
@@ -79,6 +90,8 @@ class Radio extends RadioOld {
                     }),
                 },
                 () => {
+                    // Restructure the data in a format that
+                    // getUserInputFromSerializedState will understand
                     const props = this._mergePropsAndState();
                     props.choiceStates = props.choiceStates.map(
                         (choiceState, index) => {
@@ -88,6 +101,8 @@ class Radio extends RadioOld {
                             };
                         },
                     );
+                    // Use getUserInputFromSerializedState to get
+                    // unshuffled user input so that we can score with it
                     const unshuffledUserInput =
                         getUserInputFromSerializedState(props);
                     this.props.handleUserInput(unshuffledUserInput);
@@ -99,6 +114,19 @@ class Radio extends RadioOld {
     }
 
     _mergePropsAndState() {
+        /**
+         * Inside the Radio component(s) we use ChoiceState
+         * which includes both UI state and UserInput state.
+         * After LEMS-3208, we'd like to keep user input state in a
+         * "ready to score" format and ideally we'd like to internalize
+         * UI state (so Renderer doesn't manage state it doesn't need to;
+         * see LEMS-3245). At the time of writing, Radio is in the middle
+         * of a major refactor and SSS needs to move forward with LEMS-3208.
+         *
+         * This code maintains merges the multiple data sources
+         * (WidgetProps, UserInput, and UI state) into a format our
+         * legacy code will understand.
+         */
         return {
             ...this.props,
             choiceStates: this.state.choiceStates?.map((choiceState, index) => {
