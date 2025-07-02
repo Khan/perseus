@@ -98,6 +98,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 type: "function",
                 color: DEFAULT_COLOR,
                 strokeStyle: "solid",
+                weight: "medium",
                 equation: "x^2",
                 domain: [-Infinity, Infinity],
                 directionalAxis: "x",

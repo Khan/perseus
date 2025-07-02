@@ -6693,6 +6693,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
               "labels": [],
               "strokeStyle": "solid",
               "type": "function",
+              "weight": "medium",
             },
             {
               "color": "orange",
@@ -6959,6 +6960,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
               "labels": [],
               "strokeStyle": "solid",
               "type": "function",
+              "weight": "medium",
             },
             {
               "color": "orange",
@@ -7053,6 +7055,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
               "labels": [],
               "strokeStyle": "solid",
               "type": "function",
+              "weight": "medium",
             },
           ],
           "markings": "graph",
@@ -7137,6 +7140,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
               "labels": [],
               "strokeStyle": "solid",
               "type": "function",
+              "weight": "medium",
             },
           ],
           "markings": "graph",

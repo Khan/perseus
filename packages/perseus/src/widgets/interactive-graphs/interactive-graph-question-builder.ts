@@ -26,6 +26,7 @@ import type {Interval} from "mafs";
 export type LockedFunctionOptions = {
     color?: LockedFigureColor;
     strokeStyle?: LockedLineStyle;
+    weight?: StrokeWeight;
     directionalAxis?: "x" | "y";
     domain?: [min: number, max: number];
     labels?: LockedFigureLabelOptions[];
@@ -473,6 +474,7 @@ class InteractiveGraphQuestionBuilder {
             equation,
             color: "grayH",
             strokeStyle: "solid",
+            weight: "medium",
             directionalAxis: "x",
             domain: [-Infinity, Infinity],
             ...options,

@@ -251,6 +251,28 @@ describe("Locked Function Settings", () => {
             expect(onChangeProps).toHaveBeenCalledWith({strokeStyle: "dashed"});
         });
 
+        test("calls 'onChangeProps' when stroke style is changed", async () => {
+            // Arrange
+            render(
+                <LockedFunctionSettings
+                    {...defaultProps}
+                    expanded={true}
+                    onChangeProps={onChangeProps}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Act
+            // Change the stroke
+            const weightSwitch = screen.getByLabelText("weight");
+            await userEvent.click(weightSwitch);
+            const weightOption = screen.getByText("thick");
+            await userEvent.click(weightOption);
+
+            // Assert
+            expect(onChangeProps).toHaveBeenCalledWith({weight: "thick"});
+        });
+
         test("calls 'onChangeProps' when equation is changed (as keys are pressed)", async () => {
             // Arrange
             render(

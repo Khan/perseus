@@ -219,6 +219,7 @@ const parseLockedFunctionType = object({
     type: constant("function"),
     color: parseLockedFigureColor,
     strokeStyle: parseLockedLineStyle,
+    weight: parseStrokeWeight,
     equation: string,
     directionalAxis: enumeration("x", "y"),
     domain: parseLockedFunctionDomain,

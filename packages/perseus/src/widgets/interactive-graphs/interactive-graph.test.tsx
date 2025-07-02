@@ -1403,6 +1403,41 @@ describe("Interactive Graph", function () {
                 );
             });
 
+            it.each([
+                {weight: "thin", expectedStrokeWidth: 1},
+                {weight: "medium", expectedStrokeWidth: 2},
+                {weight: "thick", expectedStrokeWidth: 4},
+            ] satisfies {
+                weight: StrokeWeight;
+                expectedStrokeWidth: number;
+            }[])(
+                "Locked function should render with specific weight",
+                ({weight, expectedStrokeWidth}) => {
+                    // Arrange
+                    const {container} = renderQuestion(
+                        interactiveGraphQuestionBuilder()
+                            .withMarkings("none")
+                            .addLockedFunction("x^2", {
+                                weight,
+                            })
+                            .build(),
+                        blankOptions,
+                    );
+
+                    // Act
+                    const functions =
+                        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                        container.querySelectorAll(`.locked-function > path`);
+
+                    // Assert
+                    expect(functions).toHaveLength(1);
+                    expect(functions[0]).toHaveAttribute(
+                        "stroke-width",
+                        `${expectedStrokeWidth}`,
+                    );
+                },
+            );
+
             it("should render locked function with aria label when one is provided", () => {
                 // Arrange
                 const lockedFunctionWithAriaLabelQuestion =

@@ -6,7 +6,7 @@ import {useState, useEffect} from "react";
 
 import useGraphConfig from "../reducer/use-graph-config";
 
-import {clampDomain} from "./utils";
+import {clampDomain, strokeWeights} from "./utils";
 
 import type {LockedFunctionType} from "@khanacademy/perseus-core";
 
@@ -20,10 +20,11 @@ const LockedFunction = (props: LockedFunctionType) => {
         Equation | undefined,
         React.Dispatch<React.SetStateAction<Equation | undefined>>,
     ] = useState();
-    const {color, strokeStyle, directionalAxis, domain} = props;
+    const {color, strokeStyle, weight, directionalAxis, domain} = props;
     const plotProps = {
         color: lockedFigureColors[color],
         style: strokeStyle,
+        weight: strokeWeights[weight],
     };
 
     const hasAria = !!props.ariaLabel;
