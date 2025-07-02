@@ -42,9 +42,6 @@ const RestrictedPackageVersions = [
     /workspace/,
 ];
 
-// Package names that we don't want to sync in
-const RestrictedPackageNames = ["typescript"];
-
 // There are some packages and version number constructs that we don't want to
 // bring into Perseus. This function filters out packages by name or version
 // that we can't use locally.
@@ -56,11 +53,6 @@ function filterUnusableTargetVersions(
         Object.entries(targetVersions).filter(([pkgName, pkgVersion]) => {
             // Eliminate packages who's version we don't/can't use.
             if (RestrictedPackageVersions.some((r) => r.test(pkgVersion))) {
-                return false;
-            }
-
-            // Eliminate packages that we don't want to sync in.
-            if (RestrictedPackageNames.includes(pkgName)) {
                 return false;
             }
 
