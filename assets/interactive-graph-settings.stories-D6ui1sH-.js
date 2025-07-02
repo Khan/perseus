@@ -1,0 +1,15 @@
+import{j as u,r as f}from"./iframe-D3VzT3LL.js";import{I as t}from"./interactive-graph-settings-D_9QWWWw.js";import"./item-version-m_0hhLH7.js";import"./article-renderer-CT6n8g1l.js";import"./server-item-renderer-TtIqDjpg.js";import"./hints-renderer-C7KhoaEn.js";import"./components-DRJn21hJ.js";import"./heading-BysWKNzT.js";import"./toggleable-caret-CcWTVfgu.js";const x={box:{control:{type:"array"}},labels:{control:{type:"array"},type:{name:"ReadonlyArray<string>",required:!1}},range:{control:{type:"array"},type:{name:"[Range, Range]",required:!1}},step:{control:{type:"array"},type:{name:"[number, number]",required:!1}},gridStep:{control:{type:"array"},type:{name:"[number, number]",required:!0}},snapStep:{control:{type:"array"},type:{name:"[number, number]",required:!0}},valid:{control:{type:"text"},type:{name:"string",required:!1}},backgroundImage:{control:{type:"object"},type:{name:"PerseusImageBackground",required:!1}},markings:{control:{type:"select"},table:{type:{summary:'"graph" | "grid" | "none"'}},type:{name:"enum",value:["graph","grid","none"],required:!1}},showProtractor:{control:{type:"boolean"},type:{name:"boolean",required:!1}},showRuler:{control:{type:"boolean"},type:{name:"boolean",required:!1}},showTooltips:{control:{type:"boolean"},type:{name:"boolean",required:!1}},rulerLabel:{control:{type:"select"},table:{type:{summary:'"mm", "cm", "m", "km", "in", "ft", "yd", "mi"'}},type:{name:"enum",value:["mm","cm","m","km","in","ft","yd","mi"],required:!1}},rulerTicks:{control:{type:"number"},type:{name:"number",required:!1}}},C={title:"PerseusEditor/Components/Interactive Graph Settings",component:t,argTypes:x},e=a=>u.jsx(t,{...a});e.args={box:[288,288],gridStep:[1,1],labels:["x","y"],markings:"graph",range:[[-10,10],[-10,10]],rulerLabel:"",rulerTicks:10,showProtractor:!1,showRuler:!1,showTooltips:!1,snapStep:[1,1],step:[1,1]};const r={render:function(){const d=(h,b)=>({...h,...b}),[y,g]=f.useReducer(d,{});return u.jsx(t,{...y,onChange:g})}};e.__docgenInfo={description:"",methods:[],displayName:"Default"};var n,o,s;e.parameters={...e.parameters,docs:{...(n=e.parameters)==null?void 0:n.docs,source:{originalSource:`(args): React.ReactElement => {
+  return <InteractiveGraphSettings {...args} />;
+}`,...(s=(o=e.parameters)==null?void 0:o.docs)==null?void 0:s.source}}};var p,c,i,l,m;r.parameters={...r.parameters,docs:{...(p=r.parameters)==null?void 0:p.docs,source:{originalSource:`{
+  render: function Render() {
+    const reducer = (state, newState) => {
+      return {
+        ...state,
+        ...newState
+      };
+    };
+    const [state, dispatch] = React.useReducer(reducer, {});
+    return <InteractiveGraphSettings {...state} onChange={dispatch} />;
+  }
+}`,...(i=(c=r.parameters)==null?void 0:c.docs)==null?void 0:i.source},description:{story:`Example of what the InteractiveGraphEditor experience is when all
+props are controlled by the parent. (Checkboxes update when clicked, etc.)`,...(m=(l=r.parameters)==null?void 0:l.docs)==null?void 0:m.description}}};const T=["Default","Controlled"];export{r as Controlled,e as Default,T as __namedExportsOrder,C as default};
