@@ -125,7 +125,7 @@ const MultipleChoiceComponent = ({
 
     const choiceListClassName = classNames(
         "perseus-widget-radio",
-        !editMode && "perseus-rendered-radio", // Styles to be applied in the Editor
+        !editMode && "perseus-rendered-radio", // Styles to be applied when not in the editor
         styles.choiceList, // Main class for the choice list
     );
 
