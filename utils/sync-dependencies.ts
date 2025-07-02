@@ -47,7 +47,6 @@ const RestrictedPackageVersions = [
 // that we can't use locally.
 function filterUnusableTargetVersions(
     targetVersions: Record<string, string>,
-    packagesInThisRepo: ReadonlyArray<string>,
 ): Record<string, string> {
     return Object.fromEntries(
         Object.entries(targetVersions).filter(([_, pkgVersion]) => {
@@ -111,7 +110,6 @@ function main(argv: string[]) {
     // Dependency ranges used by the consumer of Perseus (like khan/frontend)
     const clientVersionRanges = filterUnusableTargetVersions(
         clientPackageJson.dependencies,
-        packageNamesInRepo,
     );
 
     function getClientVersionRange(pkgName: string) {
