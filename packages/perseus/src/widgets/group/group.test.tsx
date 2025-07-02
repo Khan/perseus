@@ -186,28 +186,28 @@ describe("group widget", () => {
 
         // Assert
         expect(userInput).toMatchInlineSnapshot(`
-          [
             [
-              {
-                "choicesSelected": [
-                  false,
-                  false,
-                  false,
-                  false,
-                  false,
-                ],
-              },
-            ],
-            [
-              {
-                "currentValue": "99",
-              },
-              {
-                "currentValue": "",
-              },
-              undefined,
-            ],
-          ]
+              [
+                {
+                  "choicesSelected": [
+                    false,
+                    false,
+                    false,
+                    false,
+                    false,
+                  ],
+                },
+              ],
+              [
+                {
+                  "currentValue": "99",
+                },
+                {
+                  "currentValue": "",
+                },
+                undefined,
+              ],
+            ]
         `);
     });
 
@@ -480,36 +480,36 @@ describe("group widget", () => {
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
         expect(guessAndScore).toMatchInlineSnapshot(`
-          [
             [
               [
-                {
-                  "choicesSelected": [
-                    false,
-                    false,
-                    false,
-                    false,
-                    true,
-                  ],
-                },
+                [
+                  {
+                    "choicesSelected": [
+                      false,
+                      false,
+                      false,
+                      false,
+                      true,
+                    ],
+                  },
+                ],
+                [
+                  {
+                    "currentValue": "230",
+                  },
+                  {
+                    "currentValue": "200",
+                  },
+                  undefined,
+                ],
               ],
-              [
-                {
-                  "currentValue": "230",
-                },
-                {
-                  "currentValue": "200",
-                },
-                undefined,
-              ],
-            ],
-            {
-              "earned": 3,
-              "message": null,
-              "total": 3,
-              "type": "points",
-            },
-          ]
+              {
+                "earned": 3,
+                "message": null,
+                "total": 3,
+                "type": "points",
+              },
+            ]
         `);
     });
 
