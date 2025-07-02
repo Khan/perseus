@@ -278,6 +278,21 @@ export const MafsWithLabelsAlongEdgeWithCloseToZeroXMin: Story = {
     },
 };
 
+export const MafsWithLabelsAlongEdgeWithCloseToZeroXMinMultipliedBy1000: Story =
+    {
+        args: {
+            question: interactiveGraphQuestionBuilder()
+                .withXRange(-30, 840)
+                .withYRange(-2.8, 63)
+                .withTickStep(200, 10)
+                .withGridStep(50, 5)
+                .withSnapStep(25, 2)
+                .withAxisLabels("Time (seconds)", "Distance (meters)")
+                .withLabelLocation("alongEdge")
+                .build(),
+        },
+    };
+
 export const MafsWithLabelsAlongEdgeZoomed: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()

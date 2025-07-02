@@ -98,13 +98,16 @@ export const getLabelPosition = (
                 ? [0, fontSize * 3] // Move the label down by 2 font sizes if the y-axis min is positive
                 : [0, fontSize * 1.5]; // Move the label down by 1.5 font sizes if the y-axis min is negative
 
-        // Determine if the x-axis min is negative and close to zero.
-        const isCloseToZero =
-            graphInfo.range[X][MIN] < 0 && graphInfo.range[X][MIN] > -0.05;
+        // Determine if the x-axis min is negative and relatively close to zero, based on the scale of the x-axis range.
+        const isRelativelyCloseToZero =
+            graphInfo.range[X][MIN] < 0 &&
+            Math.abs(graphInfo.range[X][MIN]) <
+                (graphInfo.range[X][MAX] - graphInfo.range[X][MIN]) * 0.05;
 
         // Determine if the tick labels extend beyond the left edge of the graph, either
         // because the x-axis is wholly positive or because the x-axis min is negative and close to zero.
-        const needsExtraSpacing = graphInfo.range[X][MIN] >= 0 || isCloseToZero;
+        const needsExtraSpacing =
+            graphInfo.range[X][MIN] >= 0 || isRelativelyCloseToZero;
 
         // When tick labels extend beyond the left edge of the graph, we need to account for their
         // width to prevent the main axis label from overlapping with them.
@@ -139,6 +142,13 @@ export const getLabelPosition = (
             graphInfo.range[X][MIN],
             (graphInfo.range[Y][MIN] + graphInfo.range[Y][MAX]) / 2,
         ];
+
+        // If we're VERY close to zero, we want to account for the strange grid offset to avoid
+        // the y-axis label from getting too far from the tick labels.
+        if (isRelativelyCloseToZero) {
+            yAxisLabelLocation[X] =
+                yAxisLabelLocation[X] - graphInfo.range[X][MIN];
+        }
 
         // Convert the Vector2 coordinates to pixel coordinates and add the offsets
         const xLabel = vec.add(
