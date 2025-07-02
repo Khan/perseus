@@ -53,7 +53,7 @@ type PnpmWorkspace = {
 // There are some packages and version number constructs that we don't want to
 // bring into Perseus. This function filters out packages by name or version
 // that we can't use locally.
-function filterUnusableTargetVersions(
+function resolveVersionRangesFromCatalog(
     packageJson: PackageJson,
     workspace: PnpmWorkspace,
 ): Record<string, string> {
@@ -123,7 +123,7 @@ function main(argv: string[]) {
     );
 
     // Dependency ranges used by the consumer of Perseus (like khan/frontend)
-    const clientVersionRanges = filterUnusableTargetVersions(
+    const clientVersionRanges = resolveVersionRangesFromCatalog(
         clientPackageJson,
         clientWorkspace,
     );
