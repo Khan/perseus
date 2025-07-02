@@ -104,16 +104,16 @@ function main(argv: string[]) {
         "pnpm-workspace.yaml",
     );
 
-    const ourWorkspace = yaml.parse(
-        fs.readFileSync("pnpm-workspace.yaml", "utf-8"),
-    );
-
     const clientWorkspace = yaml.parse(
         fs.readFileSync(clientWorkspaceYamlPath, "utf-8"),
     );
 
     const clientPackageJson = JSON.parse(
         fs.readFileSync(clientPackageJsonPath, "utf-8"),
+    );
+
+    const ourWorkspace = yaml.parse(
+        fs.readFileSync("pnpm-workspace.yaml", "utf-8"),
     );
 
     const packageNamesInRepo = unique(
