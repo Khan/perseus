@@ -6,7 +6,11 @@ import Radio from "./radio.ff";
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetExports} from "../../types";
-import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusRadioUserInput,
+    PerseusRadioWidgetOptions,
+    RadioPublicWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 // Transforms the choices for display.
 const _choiceTransform = (
@@ -115,9 +119,18 @@ const transform = (
         countChoices,
         deselectEnabled,
         choices,
+        // doesn't seem used? choiceStates includes selected...
         selectedChoices: _.pluck(choices, "correct"),
     };
 };
+
+function getStartUserInput(
+    options: RadioPublicWidgetOptions,
+): PerseusRadioUserInput {
+    return {
+        choicesSelected: options.choices.map(() => false),
+    };
+}
 
 export default {
     name: "radio",
@@ -125,6 +138,7 @@ export default {
     widget: Radio,
     transform,
     staticTransform: transform,
+    getStartUserInput,
     version: radioLogic.version,
     isLintable: true,
 

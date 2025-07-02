@@ -749,7 +749,7 @@ describe("Radio Widget", () => {
     describe("scoring", () => {
         /**
          * (LEMS-2435) We want to be sure that we're able to score shuffled
-         * Radio widgets outside of the component which means `getUserInput`
+         * Radio widgets outside of the component which means `getUserInputMap`
          * should return the same order that the scoring data provides
          */
         it("can be scored correctly when shuffled", async () => {
@@ -761,8 +761,9 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /Correct Choice$/}),
             );
 
-            const userInput =
-                renderer.getUserInput()[0] as PerseusRadioUserInput;
+            const userInput = renderer.getUserInputMap()[
+                "radio 1"
+            ] as PerseusRadioUserInput;
             const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
@@ -777,7 +778,7 @@ describe("Radio Widget", () => {
 
         /**
          * (LEMS-2435) We want to be sure that we're able to score shuffled
-         * Radio widgets outside of the component which means `getUserInput`
+         * Radio widgets outside of the component which means `getUserInputMap`
          * should return the same order that the scoring data provides
          */
         it("can be scored incorrectly when shuffled", async () => {
@@ -789,8 +790,9 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /Incorrect Choice 1$/}),
             );
 
-            const userInput =
-                renderer.getUserInput()[0] as PerseusRadioUserInput;
+            const userInput = renderer.getUserInputMap()[
+                "radio 1"
+            ] as PerseusRadioUserInput;
             const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
@@ -805,7 +807,7 @@ describe("Radio Widget", () => {
 
         /**
          * (LEMS-2435) We want to be sure that we're able to score shuffled
-         * Radio widgets outside of the component which means `getUserInput`
+         * Radio widgets outside of the component which means `getUserInputMap`
          * should return the same order that the scoring data provides
          */
         it("can be scored correctly when shuffled with none of the above", async () => {
@@ -817,8 +819,9 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /None of the above$/}),
             );
 
-            const userInput =
-                renderer.getUserInput()[0] as PerseusRadioUserInput;
+            const userInput = renderer.getUserInputMap()[
+                "radio 1"
+            ] as PerseusRadioUserInput;
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
@@ -833,7 +836,7 @@ describe("Radio Widget", () => {
 
         /**
          * (LEMS-2435) We want to be sure that we're able to score shuffled
-         * Radio widgets outside of the component which means `getUserInput`
+         * Radio widgets outside of the component which means `getUserInputMap`
          * should return the same order that the scoring data provides
          */
         it("can be scored incorrectly when shuffled with none of the above", async () => {
@@ -845,8 +848,9 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /Incorrect Choice 1$/}),
             );
 
-            const userInput =
-                renderer.getUserInput()[0] as PerseusRadioUserInput;
+            const userInput = renderer.getUserInputMap()[
+                "radio 1"
+            ] as PerseusRadioUserInput;
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(

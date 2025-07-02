@@ -21,6 +21,7 @@ export type RenderProps = {
     countChoices?: boolean;
     deselectEnabled?: boolean;
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
+    // doesn't seem used? choiceStates includes selected...
     selectedChoices: ReadonlyArray<PerseusRadioChoice["correct"]>;
     choiceStates?: ReadonlyArray<ChoiceState>;
     // Depreciated; support for legacy way of handling changes

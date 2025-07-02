@@ -27,6 +27,7 @@ export type RenderProps = {
     countChoices?: boolean;
     deselectEnabled?: boolean;
     choices: RadioChoiceWithMetadata[];
+    // doesn't seem used? choiceStates includes selected...
     selectedChoices: PerseusRadioChoice["correct"][];
     showSolutions?: ShowSolutions;
     choiceStates?: ChoiceState[];
@@ -35,7 +36,7 @@ export type RenderProps = {
     values?: boolean[];
 };
 
-type Props = WidgetProps<
+export type Props = WidgetProps<
     RenderProps,
     PerseusRadioUserInput,
     PerseusRadioRubric
