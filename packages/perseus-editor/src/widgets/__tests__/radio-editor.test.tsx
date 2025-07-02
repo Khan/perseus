@@ -247,7 +247,7 @@ describe("radio-editor", () => {
 
         // Delete the first correct choice
         await userEvent.click(
-            screen.getAllByRole("button", {
+            screen.getAllByRole("link", {
                 name: "Remove this choice",
             })[0],
         );
