@@ -1,7 +1,9 @@
 import * as React from "react";
+import _ from "underscore";
 
 import RadioOld from "./radio-component";
 import RadioNew from "./radio.class.new";
+import {getUserInputFromSerializedState} from "./util";
 
 import type {RenderProps} from "./radio-component";
 import type {ChoiceState, WidgetProps} from "../../types";
@@ -16,8 +18,10 @@ type Props = WidgetProps<
     PerseusRadioRubric
 >;
 
+type ChoiceStateWithoutSelected = Omit<ChoiceState, "selected">;
+
 type State = {
-    choiceStates: ChoiceState[] | undefined;
+    choiceStates: ChoiceStateWithoutSelected[];
 };
 
 /**
@@ -35,23 +39,61 @@ class Radio extends RadioOld {
     radioRef = React.createRef<RadioOld>();
 
     state: State = {
-        choiceStates: undefined,
+        choiceStates: [],
     };
 
     constructor(props: Props) {
         super(props);
         this.ffIsOn = props.apiOptions.flags?.["new-radio-widget"] ?? false;
+
+        this.state = {
+            choiceStates: props.choices.map(() => ({
+                highlighted: false,
+                rationaleShown: false,
+                correctnessShown: false,
+                previouslyAnswered: false,
+                readOnly: false,
+            })),
+        };
     }
 
-    _handleChange(arg: Partial<State>) {
-        this.props.onChange(arg);
-        if (arg.choiceStates) {
-            this.setState({choiceStates: arg.choiceStates}, () => {
-                const props = this._mergePropsAndState();
-                const unshuffledUserInput =
-                    RadioNew.getUserInputFromProps(props);
-                this.props.handleUserInput(unshuffledUserInput);
-            });
+    getSerializedState() {
+        const {userInput: _, ...rest} = this._mergePropsAndState();
+        return {
+            ...rest,
+        };
+    }
+
+    _handleChange(arg: {choiceStates?: ChoiceState[]}) {
+        const choiceStates = arg.choiceStates;
+        if (choiceStates) {
+            // split ChoiceState into two pieces:
+            // - UI state
+            // - UserInput state
+            this.setState(
+                {
+                    choiceStates: choiceStates.map((choiceState) => {
+                        const {selected: _, ...rest} = choiceState;
+                        return {
+                            ...rest,
+                        };
+                    }),
+                },
+                () => {
+                    const props = this._mergePropsAndState();
+                    props.choiceStates = props.choiceStates.map(
+                        (choiceState, index) => {
+                            return {
+                                ...choiceState,
+                                selected: choiceStates[index].selected,
+                            };
+                        },
+                    );
+                    const unshuffledUserInput =
+                        getUserInputFromSerializedState(props);
+                    this.props.handleUserInput(unshuffledUserInput);
+                },
+            );
         } else {
             throw new Error("unhandled onChange call in Radio!");
         }
@@ -60,7 +102,16 @@ class Radio extends RadioOld {
     _mergePropsAndState() {
         return {
             ...this.props,
-            choiceStates: this.state.choiceStates,
+            choiceStates: this.state.choiceStates?.map((choiceState, index) => {
+                const choice = this.props.choices[index];
+                const selected =
+                    this.props.userInput.choicesSelected[choice.originalIndex];
+                // console.log({choice, selected});
+                return {
+                    ...choiceState,
+                    selected,
+                };
+            }),
             onChange: (arg: any) => this._handleChange(arg),
         };
     }

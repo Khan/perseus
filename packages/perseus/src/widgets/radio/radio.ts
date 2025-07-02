@@ -2,6 +2,7 @@ import {radioLogic, random, shuffle} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import Radio from "./radio.ff";
+import {getUserInputFromSerializedState} from "./util";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusStrings} from "../../strings";
@@ -146,5 +147,5 @@ export default {
     /**
      * @deprecated - do not use in new code.
      */
-    getUserInputFromSerializedState: Radio.getUserInputFromProps,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Radio>;
