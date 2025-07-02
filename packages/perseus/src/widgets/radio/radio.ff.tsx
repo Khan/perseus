@@ -33,7 +33,6 @@ type State = {
  *
  * TODO(LEMS-2994): Clean up this file.
  */
-// class Radio extends RadioOld
 class Radio extends RadioOld {
     ffIsOn = false;
     radioRef = React.createRef<RadioOld>();
@@ -106,7 +105,6 @@ class Radio extends RadioOld {
                 const choice = this.props.choices[index];
                 const selected =
                     this.props.userInput.choicesSelected[choice.originalIndex];
-                // console.log({choice, selected});
                 return {
                     ...choiceState,
                     selected,

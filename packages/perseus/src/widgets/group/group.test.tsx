@@ -182,32 +182,33 @@ describe("group widget", () => {
         await userEvent.type(screen.getAllByRole("textbox")[0], "99");
 
         // Act
-        const userInput = renderer.getUserInputMap();
+        const userInput = renderer.getUserInput();
 
         // Assert
         expect(userInput).toMatchInlineSnapshot(`
-{
-  "group 1": {
-    "radio 1": {
-      "choicesSelected": [
-        false,
-        false,
-        false,
-        false,
-        false,
-      ],
-    },
-  },
-  "group 2": {
-    "numeric-input 1": {
-      "currentValue": "99",
-    },
-    "numeric-input 2": {
-      "currentValue": "",
-    },
-  },
-}
-`);
+          [
+            [
+              {
+                "choicesSelected": [
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                ],
+              },
+            ],
+            [
+              {
+                "currentValue": "99",
+              },
+              {
+                "currentValue": "",
+              },
+              undefined,
+            ],
+          ]
+        `);
     });
 
     it("should return contained renderer's getSerializedState", async () => {
@@ -474,41 +475,42 @@ describe("group widget", () => {
 
         const guess = renderer.getUserInputMap();
         const score = scorePerseusItem(question1, guess, "en");
-        const guessAndScore = [renderer.getUserInputMap(), score];
+        const guessAndScore = [renderer.getUserInput(), score];
 
         // Assert
         expect(score).toHaveBeenAnsweredCorrectly();
         expect(guessAndScore).toMatchInlineSnapshot(`
-[
-  {
-    "group 1": {
-      "radio 1": {
-        "choicesSelected": [
-          false,
-          false,
-          false,
-          false,
-          true,
-        ],
-      },
-    },
-    "group 2": {
-      "numeric-input 1": {
-        "currentValue": "230",
-      },
-      "numeric-input 2": {
-        "currentValue": "200",
-      },
-    },
-  },
-  {
-    "earned": 3,
-    "message": null,
-    "total": 3,
-    "type": "points",
-  },
-]
-`);
+          [
+            [
+              [
+                {
+                  "choicesSelected": [
+                    false,
+                    false,
+                    false,
+                    false,
+                    true,
+                  ],
+                },
+              ],
+              [
+                {
+                  "currentValue": "230",
+                },
+                {
+                  "currentValue": "200",
+                },
+                undefined,
+              ],
+            ],
+            {
+              "earned": 3,
+              "message": null,
+              "total": 3,
+              "type": "points",
+            },
+          ]
+        `);
     });
 
     it("should return input paths from contained Renderer", () => {

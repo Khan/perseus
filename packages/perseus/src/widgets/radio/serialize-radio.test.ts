@@ -148,14 +148,6 @@ describe("Radio serialization", () => {
         );
     });
 
-    afterEach(() => {
-        // The Renderer uses a timer to wait for widgets to complete rendering.
-        // If we don't spin the timers here, then the timer fires in the test
-        // _after_ and breaks it because we do setState() in the callback,
-        // and by that point the component has been unmounted.
-        act(() => jest.runOnlyPendingTimers());
-    });
-
     it("should serialize the current state", async () => {
         // Arrange
         const {renderer} = renderQuestion(generateBasicRadio());
