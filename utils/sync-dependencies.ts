@@ -50,13 +50,9 @@ function filterUnusableTargetVersions(
     packagesInThisRepo: ReadonlyArray<string>,
 ): Record<string, string> {
     return Object.fromEntries(
-        Object.entries(targetVersions).filter(([pkgName, pkgVersion]) => {
+        Object.entries(targetVersions).filter(([_, pkgVersion]) => {
             // Eliminate packages whose version we don't/can't use.
-            if (RestrictedPackageVersions.some((r) => r.test(pkgVersion))) {
-                return false;
-            }
-
-            return true;
+            return !RestrictedPackageVersions.some((r) => r.test(pkgVersion));
         }),
     );
 }
