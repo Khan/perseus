@@ -51,7 +51,7 @@ function filterUnusableTargetVersions(
 ): Record<string, string> {
     return Object.fromEntries(
         Object.entries(targetVersions).filter(([pkgName, pkgVersion]) => {
-            // Eliminate packages who's version we don't/can't use.
+            // Eliminate packages whose version we don't/can't use.
             if (RestrictedPackageVersions.some((r) => r.test(pkgVersion))) {
                 return false;
             }
