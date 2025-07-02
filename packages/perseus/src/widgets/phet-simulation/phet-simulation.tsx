@@ -21,8 +21,7 @@ import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {PerseusPhetSimulationWidgetOptions} from "@khanacademy/perseus-core";
 
-type RenderProps = PerseusPhetSimulationWidgetOptions;
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<PerseusPhetSimulationWidgetOptions>;
 
 type State = {
     banner: {

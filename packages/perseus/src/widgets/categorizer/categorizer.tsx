@@ -9,7 +9,6 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import InlineIcon from "../../components/inline-icon";
 import {iconCircle, iconCircleThin} from "../../icon-paths";
-import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
 import mediaQueries from "../../styles/media-queries";
 import sharedStyles from "../../styles/shared";
@@ -23,15 +22,13 @@ import type {
     CategorizerPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<RenderProps> & {
-    values: ReadonlyArray<string>;
-};
+type Props = WidgetProps<RenderProps, PerseusCategorizerUserInput>;
 
 type DefaultProps = {
     items: Props["items"];
     categories: Props["categories"];
-    values: Props["values"];
     linterContext: Props["linterContext"];
+    userInput: Props["userInput"];
 };
 
 type State = {
@@ -48,36 +45,42 @@ export class Categorizer
     static defaultProps: DefaultProps = {
         items: [],
         categories: [],
-        values: [],
         linterContext: linterContextDefault,
+        userInput: {values: []},
     };
 
     state: State = {
         uniqueId: _.uniqueId("perseus_radio_"),
     };
 
-    static getUserInputFromProps(props: Props): PerseusCategorizerUserInput {
-        return {values: props.values};
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
+    getUserInput(): PerseusCategorizerUserInput {
+        return this.props.userInput;
     }
 
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
-    };
-
-    getUserInput(): PerseusCategorizerUserInput {
-        return Categorizer.getUserInputFromProps(this.props);
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState(): any {
+        const {userInput, ...rest} = this.props;
+        return {
+            ...rest,
+            values: userInput.values,
+        };
     }
 
     getPromptJSON(): CategorizerPromptJSON {
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
-    onChange(itemNum, catNum) {
-        const values = [...this.props.values];
-        // @ts-expect-error - TS2322 - Type 'number' is not assignable to type 'never'.
+    _handleUserInput(itemNum, catNum) {
+        const values = [...this.props.userInput.values];
         values[itemNum] = catNum;
-        this.change("values", values);
+        this.props.handleUserInput({values});
         this.props.trackInteraction();
     }
 
@@ -136,8 +139,9 @@ export class Categorizer
                                 {self.props.categories.map(
                                     (catName, catNum) => {
                                         const selected =
-                                            self.props.values[itemNum] ===
-                                            catNum;
+                                            self.props.userInput.values[
+                                                itemNum
+                                            ] === catNum;
                                         return (
                                             <td
                                                 className={
@@ -151,7 +155,7 @@ export class Categorizer
                                                     role="button"
                                                     aria-label={catName}
                                                     onClick={() =>
-                                                        this.onChange(
+                                                        this._handleUserInput(
                                                             itemNum,
                                                             catNum,
                                                         )
@@ -167,7 +171,7 @@ export class Categorizer
                                                             )}
                                                             checked={selected}
                                                             onChange={() =>
-                                                                this.onChange(
+                                                                this._handleUserInput(
                                                                     itemNum,
                                                                     catNum,
                                                                 )
@@ -293,31 +297,45 @@ type RenderProps = {
     items: PerseusCategorizerWidgetOptions["items"];
     categories: PerseusCategorizerWidgetOptions["categories"];
     randomizeItems: PerseusCategorizerWidgetOptions["randomizeItems"];
-    // Depends on whether the widget is in static mode
-    values?: PerseusCategorizerWidgetOptions["values"];
 };
+
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusCategorizerUserInput {
+    return {values: serializedState.values};
+}
+
+/**
+ * you need this along with _getAllWidgetsStartProps
+ * to generate userInput for static widgets since staticTransform
+ * used to populate correct input and now can't
+ */
+function getCorrectUserInput(
+    options: PerseusCategorizerWidgetOptions,
+): PerseusCategorizerUserInput {
+    return {values: options.values};
+}
+
+function transform(widgetOptions: CategorizerPublicWidgetOptions): RenderProps {
+    return {
+        items: widgetOptions.items,
+        categories: widgetOptions.categories,
+        randomizeItems: widgetOptions.randomizeItems,
+    };
+}
 
 export default {
     name: "categorizer",
     displayName: "Categorizer",
     hidden: true,
     widget: Categorizer,
-    transform: (widgetOptions: CategorizerPublicWidgetOptions): RenderProps => {
-        return {
-            items: widgetOptions.items,
-            categories: widgetOptions.categories,
-            randomizeItems: widgetOptions.randomizeItems,
-        };
-    },
-    staticTransform: (
-        editorProps: PerseusCategorizerWidgetOptions,
-    ): RenderProps => {
-        return {
-            items: editorProps.items,
-            categories: editorProps.categories,
-            values: editorProps.values,
-            randomizeItems: editorProps.randomizeItems,
-        };
-    },
+    transform,
+    staticTransform: transform,
+    getUserInputFromSerializedState,
+    getCorrectUserInput,
     isLintable: true,
-} satisfies WidgetExports<typeof Categorizer>;
+} satisfies WidgetExports<typeof Categorizer, PerseusCategorizerUserInput>;

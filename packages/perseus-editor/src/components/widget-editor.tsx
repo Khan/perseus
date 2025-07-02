@@ -1,5 +1,5 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {Widgets, WIDGET_PROP_DENYLIST, iconTrash} from "@khanacademy/perseus";
+import {Widgets, excludeDenylistKeys, iconTrash} from "@khanacademy/perseus";
 import {
     CoreWidgetRegistry,
     applyDefaultsToWidget,
@@ -40,7 +40,7 @@ type WidgetEditorState = {
 const _upgradeWidgetInfo = (props: WidgetEditorProps): PerseusWidget => {
     // We can't call serialize here because this.refs.widget
     // doesn't exist before this component is mounted.
-    const filteredProps = _.omit(props, WIDGET_PROP_DENYLIST);
+    const filteredProps = excludeDenylistKeys(props);
     return applyDefaultsToWidget(filteredProps as any);
 };
 

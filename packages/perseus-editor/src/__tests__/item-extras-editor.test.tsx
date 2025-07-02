@@ -28,17 +28,6 @@ describe("ItemExtrasEditor", () => {
         expect(
             screen.queryByText("Include key/legend with periodic table"),
         ).not.toBeInTheDocument();
-        expect(
-            screen.getByRole("checkbox", {name: "Show z table (statistics)"}),
-        ).not.toBeChecked();
-        expect(
-            screen.getByRole("checkbox", {name: "Show t table (statistics)"}),
-        ).not.toBeChecked();
-        expect(
-            screen.getByRole("checkbox", {
-                name: "Show chi-squared table (statistics)",
-            }),
-        ).not.toBeChecked();
     });
 
     it("should call onChange with updated calculator value", async () => {

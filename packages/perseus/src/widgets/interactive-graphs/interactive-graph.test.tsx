@@ -216,10 +216,8 @@ describe("Interactive Graph", function () {
                 .withNoInteractiveFigure()
                 .build();
             const {renderer} = renderQuestion(question, blankOptions);
-            const score = scorePerseusItemTesting(
-                question,
-                renderer.getUserInputMap(),
-            );
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItemTesting(question, userInput);
 
             expect(score).toHaveBeenAnsweredCorrectly({
                 shouldHavePoints: false,
