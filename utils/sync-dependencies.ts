@@ -147,7 +147,13 @@ function main(argv: string[]) {
                     "We don't know what dev dependency to install!",
             );
         }
+        // In development, install the minimum version of each package
+        // required by the client application. This ensures we don't
+        // accidentally depend on features of the package added after that
+        // version.
         ourWorkspace.catalogs.devDeps[pkgName] = minVersion;
+        // In our peer dependencies, declare that Perseus will work with any
+        // package version compatible with the one we install in dev.
         ourWorkspace.catalogs.peerDeps[pkgName] = `^${minVersion}`;
     }
 
