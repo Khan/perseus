@@ -6,6 +6,7 @@
  * the khan/frontend host application.
  */
 
+import {spawnSync} from "node:child_process";
 import fs from "node:fs";
 import {dirname, join} from "node:path";
 
@@ -198,6 +199,9 @@ function main(argv: string[]) {
             encoding: "utf-8",
         },
     );
+
+    process.stderr.write("> pnpm install\n");
+    spawnSync("pnpm", ["install"], {stdio: "inherit"});
 }
 
 main(process.argv);
