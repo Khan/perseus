@@ -46,16 +46,27 @@ type PackageJson = {
     dependencies: Record<string, string>;
 }
 
+type PnpmWorkspace = {
+    catalog: Record<string, string>;
+}
+
 // There are some packages and version number constructs that we don't want to
 // bring into Perseus. This function filters out packages by name or version
 // that we can't use locally.
 function filterUnusableTargetVersions(
     packageJson: PackageJson,
+    workspace: PnpmWorkspace,
 ): Record<string, string> {
     return Object.fromEntries(
         Object.entries(packageJson.dependencies).filter(([_, pkgVersion]) => {
             // Eliminate packages whose version we don't/can't use.
             return !RestrictedPackageVersions.some((r) => r.test(pkgVersion));
+        }).map(([pkgName, pkgVersion]) => {
+            const resolvedVersion = pkgVersion === "catalog:"
+                ? workspace.catalog[pkgName]
+                : pkgVersion;
+
+            return [pkgName, resolvedVersion];
         }),
     );
 }
@@ -114,19 +125,13 @@ function main(argv: string[]) {
     // Dependency ranges used by the consumer of Perseus (like khan/frontend)
     const clientVersionRanges = filterUnusableTargetVersions(
         clientPackageJson,
+        clientWorkspace,
     );
-
-    function getClientVersionRange(pkgName: string) {
-        const versionRangeFromPackageJson = clientVersionRanges[pkgName];
-        return versionRangeFromPackageJson === "catalog:"
-            ? clientWorkspace.catalog[pkgName]
-            : versionRangeFromPackageJson;
-    }
 
     for (const pkgName of packageNamesInRepo) {
         if (pkgName in clientVersionRanges) {
             const minVersion = semver.minVersion(
-                getClientVersionRange(pkgName),
+                clientVersionRanges[pkgName],
             )?.version;
             if (!minVersion) {
                 throw new Error(
