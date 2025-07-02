@@ -7,15 +7,12 @@ import type {PerseusAnswerArea} from "../../data-schema";
 
 describe("parsePerseusAnswerArea", () => {
     const allFalse: PerseusAnswerArea = {
-        zTable: false,
         calculator: false,
-        chi2Table: false,
         financialCalculatorMonthlyPayment: false,
         financialCalculatorTotalAmount: false,
         financialCalculatorTimeToPayOff: false,
         periodicTable: false,
         periodicTableWithKey: false,
-        tTable: false,
     };
 
     it("fills in missing fields with `false`", () => {
@@ -25,15 +22,12 @@ describe("parsePerseusAnswerArea", () => {
 
     it("keeps `true` values", () => {
         const allTrue: PerseusAnswerArea = {
-            zTable: true,
             calculator: true,
-            chi2Table: true,
             financialCalculatorMonthlyPayment: true,
             financialCalculatorTotalAmount: true,
             financialCalculatorTimeToPayOff: true,
             periodicTable: true,
             periodicTableWithKey: true,
-            tTable: true,
         };
 
         const result = parsePerseusAnswerArea(allTrue, ctx());

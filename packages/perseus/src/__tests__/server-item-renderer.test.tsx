@@ -243,15 +243,12 @@ describe("server item renderer", () => {
                 widgets: {},
             },
             answerArea: {
-                zTable: false,
                 calculator: false,
-                chi2Table: false,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
                 periodicTable: false,
                 periodicTableWithKey: false,
-                tTable: false,
             },
             hints: [],
         };
