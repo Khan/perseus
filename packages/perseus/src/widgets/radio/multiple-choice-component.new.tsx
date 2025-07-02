@@ -45,6 +45,9 @@ interface MultipleChoiceComponentProps {
     apiOptions: APIOptions;
     choices: ReadonlyArray<ChoiceType>;
     countChoices: boolean | null | undefined;
+    // Edit mode is only ever used in the Content Editor, and will be removed
+    // once we stop using BaseRadio in editor.
+    // TODO(LEMS-3229): Remove this prop once we stop using BaseRadio in editor
     editMode?: boolean;
     isLastUsedWidget?: boolean;
     labelWrap: boolean;
@@ -125,6 +128,7 @@ const MultipleChoiceComponent = ({
 
     const choiceListClassName = classNames(
         "perseus-widget-radio",
+        // TODO(LEMS-3229): Remove this line after we stop using BaseRadio in editor
         !editMode && "perseus-rendered-radio", // Styles to be applied when not in the editor
         styles.choiceList, // Main class for the choice list
     );
@@ -187,8 +191,6 @@ const MultipleChoiceComponent = ({
                             });
                         }
 
-                        // Whether or not to show correctness borders
-                        // for this choice and the next choice.
                         const itemClassName = classNames(
                             styles.item,
                             styles.responsiveItem,
