@@ -11,7 +11,6 @@ import Graphie from "../../components/graphie";
 import SvgImage from "../../components/svg-image";
 import Interactive2 from "../../interactive2";
 import WrappedLine from "../../interactive2/wrapped-line";
-import * as Changeable from "../../mixins/changeable";
 import {interactiveSizes} from "../../styles/constants";
 import Util from "../../util";
 import KhanColors from "../../util/colors";
@@ -31,6 +30,7 @@ import {
 } from "./util";
 
 import type {Coord, Line} from "../../interactive2/types";
+// eslint-disable-next-line import/no-deprecated
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GridDimensions} from "../../util";
@@ -62,6 +62,7 @@ const typeSelectorStyle = {
     padding: "5px 5px",
 } as const;
 
+// eslint-disable-next-line import/no-deprecated
 type FunctionGrapherProps = ChangeableProps & {
     graph: any;
     coords: any;
@@ -109,12 +110,6 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     _asymptote = () => {
         // Unlike coords, asymptotes are never null; see defaultPlotProps.
         return this.props.asymptote;
-    };
-
-    change = (...args) => {
-        // TODO(LEMS-2656): remove TS suppression
-        // @ts-expect-error: Argument of type 'any[]' is not assignable to parameter of type '[newPropsOrSinglePropName: string | { [key: string]: any; }, propValue?: any, callback?: (() => unknown) | undefined]'. Target requires 1 element(s) but source may have fewer.
-        return Changeable.change.apply(this, args);
     };
 
     renderPlot = () => {
@@ -345,53 +340,28 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     }
 }
 
-type RenderProps = Pick<
-    GrapherPublicWidgetOptions,
-    "availableTypes" | "graph"
-> & {
-    plot?: PerseusGrapherWidgetOptions["correct"];
-};
+type RenderProps = Pick<GrapherPublicWidgetOptions, "availableTypes" | "graph">;
 
-type ExternalProps = WidgetProps<RenderProps>;
-
-type Props = ExternalProps & {
-    // plot is always provided by default props
-    plot: NonNullable<RenderProps["plot"]>;
-};
-
-type DefaultProps = {
-    plot: RenderProps["plot"];
-    // More?
-};
+type Props = WidgetProps<RenderProps, PerseusGrapherUserInput>;
 
 /* Widget and editor. */
 class Grapher extends React.Component<Props> implements Widget {
     horizHairline: any;
     vertHairline: any;
 
-    static defaultProps: DefaultProps = DEFAULT_GRAPHER_PROPS;
-
-    static getUserInputFromProps(props: Props): PerseusGrapherUserInput {
-        return props.plot;
-    }
-
     handlePlotChanges: (arg1: any) => any = (newPlot) => {
-        const plot = {...this.props.plot, ...newPlot};
-        this.props.onChange({
-            plot: plot,
-        });
+        const plot = {...this.props.userInput, ...newPlot};
+        this.props.handleUserInput(plot);
         this.props.trackInteraction();
     };
 
     handleActiveTypeChange: (arg1: any) => any = (newType) => {
         const graph = this.props.graph;
         const plot = {
-            ...this.props.plot,
+            ...this.props.userInput,
             ...defaultPlotProps(newType, graph),
         };
-        this.props.onChange({
-            plot: plot,
-        });
+        this.props.handleUserInput(plot);
     };
 
     _getGridConfig(
@@ -537,19 +507,31 @@ class Grapher extends React.Component<Props> implements Widget {
     };
 
     getUserInput(): PerseusGrapherUserInput {
-        return Grapher.getUserInputFromProps(this.props);
+        return this.props.userInput;
     }
 
     getPromptJSON(): GrapherPromptJSON {
         return _getPromptJSON(this.props, this.getUserInput());
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState() {
+        const {userInput: _, ...rest} = this.props;
+        return {
+            ...rest,
+            plot: this.props.userInput,
+        };
+    }
+
     render(): React.ReactNode {
-        const type = this.props.plot.type;
-        const coords = this.props.plot.coords;
+        const type = this.props.userInput.type;
+        const coords = this.props.userInput.coords;
         const asymptote =
-            "asymptote" in this.props.plot
-                ? this.props.plot.asymptote
+            "asymptote" in this.props.userInput
+                ? this.props.userInput.asymptote
                 : undefined;
 
         const typeSelector = (
@@ -616,46 +598,61 @@ class Grapher extends React.Component<Props> implements Widget {
     }
 }
 
-const transform: (arg1: GrapherPublicWidgetOptions) => RenderProps = (
-    editorProps,
-) => {
-    const widgetProps: RenderProps = {
-        availableTypes: editorProps.availableTypes,
-        graph: editorProps.graph,
+function transform(options: GrapherPublicWidgetOptions): RenderProps {
+    const {availableTypes, graph} = options;
+
+    return {
+        availableTypes,
+        graph,
     };
-
-    // If there's only one type, the graph type is deterministic
-    if (widgetProps.availableTypes.length === 1) {
-        const graph = widgetProps.graph;
-        const type = chooseType(widgetProps.availableTypes);
-        // @ts-expect-error - TS2345 - Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
-        widgetProps.plot = defaultPlotProps(type, graph);
-    }
-
-    return widgetProps;
-};
+}
 
 // Note that in addition to the standard staticTransform, in static
 // mode we set static=true for the graph's handles in FunctionGrapher.
-const staticTransform: (arg1: PerseusGrapherWidgetOptions) => RenderProps = (
-    editorProps,
-) => {
+function staticTransform(options: PerseusGrapherWidgetOptions) {
     return {
-        ...transform(editorProps),
+        ...transform(options),
         // Don't display graph type choices if we're in static mode
-        availableTypes: [editorProps.correct.type],
+        availableTypes: [options.correct.type],
         // Display the same graph marked as correct in the widget editor.
-        plot: editorProps.correct,
+        plot: options.correct,
     };
-};
+}
 
-0 as any as WidgetProps<PerseusGrapherWidgetOptions> satisfies PropsFor<
-    typeof Grapher
->;
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusGrapherUserInput {
+    return serializedState.plot;
+}
 
-0 as any as WidgetProps<GrapherPublicWidgetOptions> satisfies PropsFor<
-    typeof Grapher
->;
+function getStartUserInput(
+    options: GrapherPublicWidgetOptions,
+): PerseusGrapherUserInput {
+    // If there's only one type, the graph type is deterministic
+    if (options.availableTypes.length === 1) {
+        const graph = options.graph;
+        const type = chooseType(options.availableTypes);
+        if (type) {
+            return defaultPlotProps(type, graph);
+        }
+    }
+
+    return DEFAULT_GRAPHER_PROPS.plot;
+}
+
+0 as any as WidgetProps<
+    PerseusGrapherWidgetOptions,
+    PerseusGrapherUserInput
+> satisfies PropsFor<typeof Grapher>;
+
+0 as any as WidgetProps<
+    GrapherPublicWidgetOptions,
+    PerseusGrapherUserInput
+> satisfies PropsFor<typeof Grapher>;
 
 export default {
     name: "grapher",
@@ -664,4 +661,6 @@ export default {
     widget: Grapher,
     transform,
     staticTransform,
+    getUserInputFromSerializedState,
+    getStartUserInput,
 } satisfies WidgetExports<typeof Grapher>;

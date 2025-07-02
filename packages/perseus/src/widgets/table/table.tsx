@@ -9,6 +9,7 @@ import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
+// eslint-disable-next-line import/no-deprecated
 import type {ChangeableProps} from "../../mixins/changeable";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
@@ -23,9 +24,10 @@ type EditorProps = {
     Editor: any;
 };
 
-type RenderProps = PerseusTableWidgetOptions & EditorProps;
+type RenderProps = Omit<PerseusTableWidgetOptions, "answers">;
 
-type Props = WidgetProps<PerseusTableWidgetOptions> &
+type Props = WidgetProps<RenderProps, PerseusTableUserInput> &
+    // eslint-disable-next-line import/no-deprecated
     ChangeableProps &
     EditorProps;
 
@@ -35,7 +37,6 @@ type DefaultProps = {
     editableHeaders: Props["editableHeaders"];
     rows: Props["rows"];
     columns: Props["columns"];
-    answers: Props["answers"];
     linterContext: Props["linterContext"];
 };
 
@@ -77,35 +78,26 @@ class Table extends React.Component<Props> implements Widget {
     headerRefs: Record<string, any> = {};
     answerRefs: Record<string, any> = {};
 
-    static defaultProps: DefaultProps = (function () {
-        const defaultRows = 4;
-        const defaultColumns = 1;
-        const blankAnswers = Util.stringArrayOfSize2D({
-            rows: defaultRows,
-            columns: defaultColumns,
-        });
-        return {
-            apiOptions: ApiOptions.defaults,
-            headers: [""],
-            editableHeaders: false,
-            rows: defaultRows,
-            columns: defaultColumns,
-            answers: blankAnswers,
-            linterContext: linterContextDefault,
-        };
-    })();
+    static defaultProps: DefaultProps = {
+        apiOptions: ApiOptions.defaults,
+        headers: [""],
+        editableHeaders: false,
+        rows: 4,
+        columns: 1,
+        linterContext: linterContextDefault,
+    };
 
     _getRows(): number {
-        return this.props.answers.length;
+        return this.props.userInput.length;
     }
 
     _getColumns(): number {
-        return this.props.answers[0].length;
+        return this.props.userInput[0].length;
     }
 
     _getAnswersClone(): PerseusTableUserInput {
         return JSON.parse(
-            JSON.stringify(this.props.answers),
+            JSON.stringify(this.props.userInput),
         ) as PerseusTableUserInput;
     }
 
@@ -122,9 +114,7 @@ class Table extends React.Component<Props> implements Widget {
             ? eventOrValue.target.value
             : eventOrValue;
 
-        this.props.onChange({
-            answers: answers,
-        });
+        this.props.handleUserInput(answers);
         this.props.trackInteraction();
     }
 
@@ -200,12 +190,19 @@ class Table extends React.Component<Props> implements Widget {
 
         const answers = this._getAnswersClone();
         answers[row][column] = newValue;
-        this.props.onChange(
-            {
-                answers: answers,
-            },
-            cb,
-        );
+        this.props.handleUserInput(answers, cb);
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState() {
+        const {userInput, editableHeaders: _, ...rest} = this.props;
+        return {
+            ...rest,
+            answers: userInput,
+        };
     }
 
     render(): React.ReactNode {
@@ -262,7 +259,7 @@ class Table extends React.Component<Props> implements Widget {
                     </tr>
                 </thead>
                 <tbody>
-                    {this.props.answers.map((rowArr, r) => {
+                    {this.props.userInput.map((rowArr, r) => {
                         return (
                             <tr key={r}>
                                 {rowArr.map((answer, c) => {
@@ -310,22 +307,31 @@ class Table extends React.Component<Props> implements Widget {
     }
 }
 
-function propTransform(options: Props): RenderProps {
+function getStartUserInput(
+    options: PerseusTableWidgetOptions,
+): PerseusTableUserInput {
     // Remove answers before passing to widget
     const rows = options.rows;
     const columns = options.columns;
-    const blankAnswers = Util.stringArrayOfSize2D({rows, columns});
-    return {
-        ...options,
-        answers: blankAnswers,
-    };
+    return Util.stringArrayOfSize2D({rows, columns});
+}
+
+// TODO(LEMS-3185): remove serializedState/restoreSerializedState
+/**
+ * @deprecated - do not use in new code.
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusTableUserInput {
+    return serializedState.answers;
 }
 
 export default {
     name: "table",
     displayName: "Table (deprecated - use markdown table instead)",
     widget: Table,
-    transform: propTransform,
     hidden: true,
     isLintable: true,
+    getStartUserInput,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Table>;

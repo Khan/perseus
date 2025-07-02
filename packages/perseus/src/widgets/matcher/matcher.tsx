@@ -17,23 +17,26 @@ import type {MatcherPromptJSON} from "../../widget-ai-utils/matcher/matcher-ai-u
 import type {
     PerseusMatcherWidgetOptions,
     PerseusMatcherUserInput,
+    MatcherPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
-type RenderProps = PerseusMatcherWidgetOptions;
+type RenderProps = Pick<
+    PerseusMatcherWidgetOptions,
+    "labels" | "orderMatters" | "padding"
+>;
 
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<RenderProps, PerseusMatcherUserInput>;
 
 type DefaultProps = {
-    left: Props["left"];
-    right: Props["right"];
     labels: Props["labels"];
     orderMatters: Props["orderMatters"];
     padding: Props["padding"];
     problemNum: Props["problemNum"];
     onChange: Props["onChange"];
     linterContext: Props["linterContext"];
+    userInput: Props["userInput"];
 };
 
 type State = {
@@ -47,14 +50,16 @@ export class Matcher extends React.Component<Props, State> implements Widget {
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     static defaultProps: DefaultProps = {
-        left: [],
-        right: [],
         labels: ["", ""],
         orderMatters: false,
         padding: true,
         problemNum: 0,
         onChange: function () {},
         linterContext: linterContextDefault,
+        userInput: {
+            left: [],
+            right: [],
+        },
     };
 
     state: State = {
@@ -63,8 +68,9 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         texRendererLoaded: false,
     };
 
-    changeAndTrack: (arg1: any) => void = (e) => {
-        this.props.onChange(e);
+    changeAndTrack: () => void = () => {
+        const nextUserInput = this._getUserInputFromSortable();
+        this.props.handleUserInput(nextUserInput);
         this.props.trackInteraction();
     };
 
@@ -78,7 +84,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         this.setState({rightHeight: height});
     };
 
-    getUserInput: () => PerseusMatcherUserInput = () => {
+    _getUserInputFromSortable: () => PerseusMatcherUserInput = () => {
         // If the math renderer hasn't loaded then we won't be able to get the
         // contents of the sortables on the left and right, so we just return
         // empty arrays until we render for the first time.
@@ -99,8 +105,16 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         };
     };
 
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
+    getUserInput(): PerseusMatcherUserInput {
+        return this.props.userInput;
+    }
+
     getPromptJSON(): MatcherPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props, this.props.userInput);
     }
 
     // Programatic API for moving options
@@ -155,8 +169,6 @@ export class Matcher extends React.Component<Props, State> implements Widget {
             );
         }
 
-        const {left, right} = shuffleMatcher(this.props);
-
         const showLabels = _.any(this.props.labels);
         const constraints = {
             height: _.max([this.state.leftHeight, this.state.rightHeight]),
@@ -199,7 +211,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
                     <tr className={css(styles.row)}>
                         <td className={css(styles.column)}>
                             <Sortable
-                                options={left}
+                                options={this.props.userInput.left}
                                 layout={"vertical"}
                                 padding={this.props.padding}
                                 disabled={!this.props.orderMatters}
@@ -214,7 +226,7 @@ export class Matcher extends React.Component<Props, State> implements Widget {
                         </td>
                         <td className={css(styles.column, styles.columnRight)}>
                             <Sortable
-                                options={right}
+                                options={this.props.userInput.right}
                                 layout={"vertical"}
                                 padding={this.props.padding}
                                 constraints={constraints}
@@ -232,6 +244,37 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         );
     }
 }
+
+function getStartUserInput(
+    options: MatcherPublicWidgetOptions,
+    problemNum: number,
+): PerseusMatcherUserInput {
+    const shuffled = shuffleMatcher(options, problemNum);
+
+    return shuffled;
+}
+
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusMatcherUserInput {
+    return {
+        left: serializedState.left,
+        right: serializedState.right,
+    };
+}
+
+export default {
+    name: "matcher",
+    displayName: "Matcher (two column)",
+    widget: Matcher,
+    isLintable: true,
+    getStartUserInput,
+    getUserInputFromSerializedState,
+} satisfies WidgetExports<typeof Matcher>;
 
 const padding = 5;
 const border = "1px solid #444";
@@ -267,10 +310,3 @@ const styles = StyleSheet.create({
         textAlign: "center",
     },
 });
-
-export default {
-    name: "matcher",
-    displayName: "Matcher (two column)",
-    widget: Matcher,
-    isLintable: true,
-} satisfies WidgetExports<typeof Matcher>;

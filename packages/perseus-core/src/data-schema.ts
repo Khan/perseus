@@ -276,8 +276,6 @@ export type PerseusImageDetail = {
 export const ItemExtras = [
     // The user might benefit from using a Scientific Calculator.  Provided on Khan Academy when true
     "calculator",
-    // The user might benefit from using a statistics Chi Squared Table like https://people.richland.edu/james/lecture/m170/tbl-chi.html
-    "chi2Table",
     // The user might benefit from a monthly payments calculator.  Provided on Khan Academy when true
     "financialCalculatorMonthlyPayment",
     // The user might benefit from a total amount calculator.  Provided on Khan Academy when true
@@ -288,10 +286,6 @@ export const ItemExtras = [
     "periodicTable",
     // The user might benefit from using a Periodic Table of Elements with key.  Provided on Khan Academy when true
     "periodicTableWithKey",
-    // The user might benefit from using a statistics T Table like https://www.statisticshowto.com/tables/t-distribution-table/
-    "tTable",
-    // The user might benefit from using a statistics Z Table like https://www.ztable.net/
-    "zTable",
 ] as const;
 export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
 

@@ -14,7 +14,6 @@ import _ from "underscore";
 import {PerseusI18nContext} from "../../components/i18n-context";
 import MathInput from "../../components/math-input";
 import {useDependencies} from "../../dependencies";
-import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
@@ -69,7 +68,7 @@ type RenderProps = {
     keypadConfiguration: KeypadConfiguration;
 };
 
-type ExternalProps = WidgetProps<RenderProps>;
+type ExternalProps = WidgetProps<RenderProps, PerseusExpressionUserInput>;
 
 type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -82,7 +81,6 @@ type Props = ExternalProps &
         times: NonNullable<ExternalProps["times"]>;
         visibleLabel: PerseusExpressionWidgetOptions["visibleLabel"];
         ariaLabel: PerseusExpressionWidgetOptions["ariaLabel"];
-        value: string;
     };
 
 type ExpressionState = {
@@ -99,7 +97,7 @@ type DefaultProps = {
     onBlur: Props["onBlur"];
     onFocus: Props["onFocus"];
     times: Props["times"];
-    value: Props["value"];
+    userInput: Props["userInput"];
 };
 
 // The new, MathQuill input expression widget
@@ -113,12 +111,7 @@ export class Expression
     _textareaId = `expression_textarea_${Date.now()}`;
     _isMounted = false;
 
-    static getUserInputFromProps(props: Props): PerseusExpressionUserInput {
-        return normalizeTex(props.value);
-    }
-
     static defaultProps: DefaultProps = {
-        value: "",
         times: false,
         functions: [],
         buttonSets: ["basic", "trig", "prealgebra", "logarithms"],
@@ -126,6 +119,7 @@ export class Expression
         onBlur: () => {},
         apiOptions: ApiOptions.defaults,
         linterContext: linterContextDefault,
+        userInput: "",
     };
 
     displayName = "Expression";
@@ -162,7 +156,7 @@ export class Expression
     // if it fails.
     componentDidUpdate: (prevProps: Props) => void = (prevProps) => {
         if (
-            !_.isEqual(this.props.value, prevProps.value) ||
+            !_.isEqual(this.props.userInput, prevProps.userInput) ||
             !_.isEqual(this.props.functions, prevProps.functions)
         ) {
             this.setState({
@@ -170,7 +164,7 @@ export class Expression
                 showErrorTooltip: false,
                 showErrorStyle: false,
             });
-            if (!this.parse(this.props.value, this.props).parsed) {
+            if (!this.parse(this.props.userInput, this.props).parsed) {
                 this.setState({
                     invalid: true,
                 });
@@ -190,17 +184,17 @@ export class Expression
         }
     };
 
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     getUserInput(): PerseusExpressionUserInput {
-        return Expression.getUserInputFromProps(this.props);
+        return normalizeTex(this.props.userInput);
     }
 
     getPromptJSON(): ExpressionPromptJSON {
         return _getPromptJSON(this.props, this.getUserInput());
     }
-
-    change: (...args: any) => any | undefined = (...args: any) => {
-        return Changeable.change.apply(this, args);
-    };
 
     parse: (value: string, props: Props) => any = (
         value: string,
@@ -216,11 +210,11 @@ export class Expression
         return KAS.parse(normalizeTex(value), options);
     };
 
-    changeAndTrack: (e: any, cb: () => void) => void = (
-        e: any,
+    changeAndTrack: (userInput: string, cb: () => void) => void = (
+        userInput: string,
         cb: () => void,
     ) => {
-        this.change("value", e, cb);
+        this.props.handleUserInput(normalizeTex(userInput), cb);
         this.props.trackInteraction();
     };
 
@@ -286,13 +280,24 @@ export class Expression
         return [[]];
     };
 
-    setInputValue(path: FocusPath, newValue: string, cb?: () => void) {
-        this.props.onChange(
-            {
-                value: newValue,
-            },
-            cb,
-        );
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated set user input in a parent component
+     */
+    setInputValue(path: FocusPath, newValue: string, cb?: any) {
+        this.props.handleUserInput(newValue, cb);
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState() {
+        const {userInput: _, ...rest} = this.props;
+        return {
+            ...rest,
+            value: this.props.userInput,
+        };
     }
 
     render() {
@@ -311,7 +316,7 @@ export class Expression
                             this.props.ariaLabel ||
                             this.context.strings.mathInputBox
                         }
-                        value={this.props.value}
+                        value={this.props.userInput}
                         keypadElement={this.props.keypadElement}
                         onChange={this.changeAndTrack}
                         onFocus={() => {
@@ -380,7 +385,7 @@ export class Expression
                         <MathInput
                             // eslint-disable-next-line react/no-string-refs
                             ref="input"
-                            value={this.props.value}
+                            value={this.props.userInput}
                             onChange={this.changeAndTrack}
                             convertDotToTimes={this.props.times}
                             buttonSets={this.props.buttonSets}
@@ -423,13 +428,15 @@ const ExpressionWithDependencies = React.forwardRef<
     return <Expression ref={ref} analytics={deps.analytics} {...props} />;
 });
 
-// HACK: Propogate "static" methods onto our wrapper component.
-// In the future we should adjust client apps to not depend on these static
-// methods and instead adjust Perseus to provide these facilities through
-// instance methods on our Renderers.
-// @ts-expect-error - TS2339 - Property 'validate' does not exist on type
-ExpressionWithDependencies.getUserInputFromProps =
-    Expression.getUserInputFromProps;
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusExpressionUserInput {
+    return normalizeTex(serializedState.value);
+}
 
 export default {
     name: "expression",
@@ -482,4 +489,5 @@ export default {
         }
         return correctAnswers[0].value;
     },
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof ExpressionWithDependencies>;

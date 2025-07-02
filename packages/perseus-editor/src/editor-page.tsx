@@ -11,6 +11,7 @@ import type {Issue} from "./issues-panel";
 import type {
     APIOptions,
     APIOptionsWithDefaults,
+    // eslint-disable-next-line import/no-deprecated
     ChangeHandler,
     DeviceType,
     ImageUploader,
@@ -205,6 +206,7 @@ class EditorPage extends React.Component<Props, State> {
         });
     }
 
+    // eslint-disable-next-line import/no-deprecated
     handleChange: ChangeHandler = (toChange, cb, silent) => {
         const newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);

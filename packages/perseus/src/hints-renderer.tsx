@@ -129,6 +129,10 @@ class HintsRenderer extends React.Component<Props, State> {
         };
     };
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
     getSerializedState: () => any = () => {
         return _.times(this._hintsVisible(), (i) => {
             // eslint-disable-next-line react/no-string-refs
@@ -137,6 +141,10 @@ class HintsRenderer extends React.Component<Props, State> {
         });
     };
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
     restoreSerializedState: (
         arg1: any,
         arg2: (...args: ReadonlyArray<any>) => unknown,

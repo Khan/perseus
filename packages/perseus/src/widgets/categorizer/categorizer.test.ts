@@ -12,7 +12,7 @@ import {
 } from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import {Categorizer} from "./categorizer";
+import CategorizerExport from "./categorizer";
 import {question1} from "./categorizer.testdata";
 
 import type {APIOptions} from "../../types";
@@ -146,7 +146,8 @@ describe("categorizer widget", () => {
         };
 
         // Act
-        const userInput = Categorizer.getUserInputFromProps(widgetProps);
+        const userInput =
+            CategorizerExport.getUserInputFromSerializedState(widgetProps);
 
         // Assert
         expect(userInput).toEqual({values: [1, 0, 0, 0, 1, 1]});

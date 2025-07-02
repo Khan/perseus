@@ -9,7 +9,6 @@ import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import {getDependencies} from "../../dependencies";
-import * as Changeable from "../../mixins/changeable";
 import {
     gray76,
     tableBackgroundAccent,
@@ -91,10 +90,9 @@ class Indicators extends React.Component<IndicatorsProps> {
 
 type RenderProps = PerseusGradedGroupSetWidgetOptions; // no transform
 
-type Props = Changeable.ChangeableProps &
-    WidgetProps<RenderProps> & {
-        trackInteraction: () => void;
-    };
+type Props = WidgetProps<RenderProps> & {
+    trackInteraction: () => void;
+};
 
 type DefaultProps = {
     gradedGroups: Props["gradedGroups"];
@@ -123,11 +121,6 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
     shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
         return nextProps !== this.props || nextState !== this.state;
     }
-
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
-    };
 
     // Mobile API
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {

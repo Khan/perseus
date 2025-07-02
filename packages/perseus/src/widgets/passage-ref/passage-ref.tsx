@@ -6,12 +6,11 @@ import * as React from "react";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import * as Changeable from "../../mixins/changeable";
 import PerseusMarkdown from "../../perseus-markdown";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
 import {isPassageWidget} from "../passage/utils";
 
-import type {ChangeFn, Widget, WidgetExports, WidgetProps} from "../../types";
+import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {PassageRefPromptJSON} from "../../widget-ai-utils/passage-ref/passage-ref-ai-utils";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -92,10 +91,6 @@ class PassageRef extends React.Component<Props, State> implements Widget {
 
         this._isMounted = false;
     }
-
-    change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
 
     getPromptJSON(): PassageRefPromptJSON {
         return _getPromptJSON(this.props);

@@ -31,23 +31,25 @@ describe("getSorterPublicWidgetOptions", () => {
 
 describe("shuffleSorter", () => {
     it("does nothing given no cards", () => {
-        expect(shuffleSorter({correct: [], problemNum: 0})).toEqual([]);
+        expect(shuffleSorter({correct: []}, 0)).toEqual([]);
     });
 
     describe.each(range(0, 10))("when problemNum is %d", (problemNum) => {
         // problemNum is used as the seed for the shuffle.
 
         it("always moves the first card", () => {
-            const shuffled = shuffleSorter({
-                correct: ["1", "2", "3", "4"],
+            const shuffled = shuffleSorter(
+                {
+                    correct: ["1", "2", "3", "4"],
+                },
                 problemNum,
-            });
+            );
             expect(shuffled[0]).not.toEqual(["1"]);
         });
 
         it("preserves the set of cards", () => {
             const correct = ["1", "2", "3", "4"];
-            const shuffled = shuffleSorter({correct, problemNum});
+            const shuffled = shuffleSorter({correct}, problemNum);
             expect(new Set(shuffled)).toEqual(new Set(correct));
         });
     });
