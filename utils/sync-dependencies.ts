@@ -56,9 +56,7 @@ function filterUnusableTargetVersions(
                 return false;
             }
 
-            // Eliminate any packages within this repo - they're managed by
-            // our `changeset` tooling.
-            return packagesInThisRepo.includes(pkgName);
+            return true;
         }),
     );
 }
