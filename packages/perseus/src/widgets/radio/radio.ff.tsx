@@ -5,9 +5,16 @@ import RadioNew from "./radio.class.new";
 
 import type {RenderProps} from "./radio-component";
 import type {WidgetProps} from "../../types";
-import type {PerseusRadioRubric} from "@khanacademy/perseus-core";
+import type {
+    PerseusRadioRubric,
+    PerseusRadioUserInput,
+} from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<RenderProps, PerseusRadioRubric>;
+type Props = WidgetProps<
+    RenderProps,
+    PerseusRadioUserInput,
+    PerseusRadioRubric
+>;
 
 /**
  * This is a wrapper around the old radio widget that allows us to

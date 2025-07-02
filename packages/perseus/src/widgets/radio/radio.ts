@@ -123,8 +123,14 @@ export default {
     name: "radio",
     displayName: "Radio / Multiple choice",
     widget: Radio,
-    transform: transform,
+    transform,
     staticTransform: transform,
     version: radioLogic.version,
     isLintable: true,
+
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
+    getUserInputFromSerializedState: Radio.getUserInputFromProps,
 } satisfies WidgetExports<typeof Radio>;

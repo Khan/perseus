@@ -1,4 +1,5 @@
-import {act} from "@testing-library/react";
+import {screen, act} from "@testing-library/react";
+import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
@@ -13,14 +14,10 @@ import {question1} from "./number-line.testdata";
 
 import type {APIOptions} from "../../types";
 import type {PerseusNumberLineWidgetOptions} from "@khanacademy/perseus-core";
+import type {UserEvent} from "@testing-library/user-event";
 
 describe("number-line widget", () => {
     beforeEach(() => {
-        // This module complains but doesn't have a real problem
-        // with displaying the graphie
-        jest.spyOn(console, "log").mockImplementation(() => {});
-        jest.spyOn(console, "error").mockImplementation(() => {});
-
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
@@ -188,6 +185,80 @@ describe("number-line widget", () => {
         });
     });
 
+    describe("button controls", () => {
+        let userEvent: UserEvent;
+        beforeEach(() => {
+            userEvent = userEventLib.setup({
+                advanceTimers: jest.advanceTimersByTime,
+            });
+        });
+
+        function getInequalityOptions(): PerseusNumberLineWidgetOptions {
+            return {
+                static: false, // <= important
+                isInequality: true, // <= important
+                correctRel: "le",
+                correctX: -1,
+                divisionRange: [1, 12],
+                initialX: -5,
+                labelRange: [null, null],
+                labelStyle: "decimal",
+                labelTicks: true,
+                numDivisions: null,
+                range: [-5, 5],
+                showTooltips: false,
+                snapDivisions: 1,
+                tickStep: 1,
+            };
+        }
+
+        // Regression (LEMS-3247)
+        test("can switch directions", async () => {
+            const item = getAnswerfulItem(
+                "number-line",
+                getInequalityOptions(),
+            );
+
+            const {renderer} = renderQuestion(item.question);
+
+            const preUserInput = renderer.getUserInputMap();
+
+            await userEvent.click(
+                screen.getByRole("button", {name: "Switch direction"}),
+            );
+
+            const postUserInput = renderer.getUserInputMap();
+
+            // Assert the relationship changes direction
+            // when we hit "switch direction"
+            expect(preUserInput["number-line 1"].rel).toBe("ge");
+            expect(postUserInput["number-line 1"].rel).toBe("le");
+        });
+
+        // Regression (LEMS-3247)
+        test("can change circle fill", async () => {
+            const item = getAnswerfulItem(
+                "number-line",
+                getInequalityOptions(),
+            );
+
+            const {renderer} = renderQuestion(item.question);
+
+            const preUserInput = renderer.getUserInputMap();
+
+            await userEvent.click(
+                screen.getByRole("button", {name: "Make circle open"}),
+            );
+
+            const postUserInput = renderer.getUserInputMap();
+
+            // Assert the relationship changes direction
+            // when we hit "make circle open"
+            expect(preUserInput["number-line 1"].rel).toBe("ge");
+            expect(postUserInput["number-line 1"].rel).toBe("gt");
+        });
+    });
+
     const numberLineOptions: PerseusNumberLineWidgetOptions = {
         labelRange: [null, null],
         initialX: null,
@@ -230,10 +301,8 @@ describe("number-line widget", () => {
             // Act
             const [numberLine] = renderer.findWidgets("number-line 1");
             act(() => numberLine.movePosition(-2.5));
-            const score = scorePerseusItemTesting(
-                correctAnswer,
-                renderer.getUserInputMap(),
-            );
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItemTesting(correctAnswer, userInput);
 
             // assert
             expect(score).toHaveBeenAnsweredCorrectly();
