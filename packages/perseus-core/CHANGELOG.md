@@ -1,5 +1,23 @@
 # @khanacademy/perseus-core
 
+## 16.1.1
+
+### Patch Changes
+
+-   [#2596](https://github.com/Khan/perseus/pull/2596) [`f15a4cc56`](https://github.com/Khan/perseus/commit/f15a4cc56465ada5d8eb5e5f042064421afaa356) Thanks [@handeyeco](https://github.com/handeyeco)! - Grapher: use userInput/handleUserInput
+
+*   [#2575](https://github.com/Khan/perseus/pull/2575) [`f84722b44`](https://github.com/Khan/perseus/commit/f84722b44e45b7e3894b62332525051f930adae9) Thanks [@handeyeco](https://github.com/handeyeco)! - Matcher: use userInput/handleUserInput
+
+-   [#2577](https://github.com/Khan/perseus/pull/2577) [`e2ed14e58`](https://github.com/Khan/perseus/commit/e2ed14e587b85afd72b9f25635060f5f3cf3abc5) Thanks [@handeyeco](https://github.com/handeyeco)! - LabelImage: use userInput/handleUserInput
+
+*   [#2578](https://github.com/Khan/perseus/pull/2578) [`bcf4fd541`](https://github.com/Khan/perseus/commit/bcf4fd5411c7aa8950c775c2a0275575b8731abc) Thanks [@handeyeco](https://github.com/handeyeco)! - Sorter: use userInput/handleUserInput
+
+-   [#2644](https://github.com/Khan/perseus/pull/2644) [`f51181adc`](https://github.com/Khan/perseus/commit/f51181adcd9bbe2160c6ccd7d00ed40b53ed9a95) Thanks [@handeyeco](https://github.com/handeyeco)! - Cleanup some ChangeHandler and Changeable use
+
+*   [#2566](https://github.com/Khan/perseus/pull/2566) [`21f79b664`](https://github.com/Khan/perseus/commit/21f79b664a411c60c62043db25b6493619ba3dbd) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for `userInput` state in Renderer, new user input APIs for WidgetExport
+
+-   [#2573](https://github.com/Khan/perseus/pull/2573) [`3a3f5233b`](https://github.com/Khan/perseus/commit/3a3f5233bf00da47dce9944936eb94b1841a56ed) Thanks [@handeyeco](https://github.com/handeyeco)! - NumberLine: use userInput/handleUserInput
+
 ## 16.1.0
 
 ### Minor Changes
