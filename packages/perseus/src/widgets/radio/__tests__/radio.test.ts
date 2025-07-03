@@ -19,10 +19,7 @@ import {
 } from "./radio.testdata";
 
 import type {APIOptions} from "../../../types";
-import type {
-    PerseusRenderer,
-    PerseusRadioUserInput,
-} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (
@@ -761,9 +758,7 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /Correct Choice$/}),
             );
 
-            const userInput = renderer.getUserInputMap()[
-                "radio 1"
-            ] as PerseusRadioUserInput;
+            const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
@@ -790,9 +785,7 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /Incorrect Choice 1$/}),
             );
 
-            const userInput = renderer.getUserInputMap()[
-                "radio 1"
-            ] as PerseusRadioUserInput;
+            const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
@@ -819,9 +812,7 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /None of the above$/}),
             );
 
-            const userInput = renderer.getUserInputMap()[
-                "radio 1"
-            ] as PerseusRadioUserInput;
+            const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
@@ -848,9 +839,7 @@ describe("Radio Widget", () => {
                 screen.getByRole("radio", {name: /Incorrect Choice 1$/}),
             );
 
-            const userInput = renderer.getUserInputMap()[
-                "radio 1"
-            ] as PerseusRadioUserInput;
+            const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(

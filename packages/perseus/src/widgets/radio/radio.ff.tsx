@@ -1,3 +1,8 @@
+import {
+    deepClone,
+    type PerseusRadioRubric,
+    type PerseusRadioUserInput,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import RadioOld from "./radio-component";
@@ -6,10 +11,6 @@ import {getUserInputFromSerializedState} from "./util";
 
 import type {RenderProps} from "./radio-component";
 import type {ChoiceState, WidgetProps} from "../../types";
-import type {
-    PerseusRadioRubric,
-    PerseusRadioUserInput,
-} from "@khanacademy/perseus-core";
 
 type Props = WidgetProps<
     RenderProps,
@@ -67,8 +68,8 @@ class Radio extends RadioOld {
     }
 
     _handleChange(arg: {choiceStates?: ChoiceState[]}) {
-        const choiceStates = arg.choiceStates;
-        if (choiceStates) {
+        const newChoiceStates = arg.choiceStates;
+        if (newChoiceStates) {
             /**
              * Inside the Radio component(s) we use ChoiceState
              * which includes both UI state and UserInput state.
@@ -86,7 +87,7 @@ class Radio extends RadioOld {
              */
             this.setState(
                 {
-                    choiceStates: choiceStates.map((choiceState) => {
+                    choiceStates: newChoiceStates.map((choiceState) => {
                         const {selected: _, ...rest} = choiceState;
                         return {
                             ...rest,
@@ -96,12 +97,15 @@ class Radio extends RadioOld {
                 () => {
                     // Restructure the data in a format that
                     // getUserInputFromSerializedState will understand
-                    const props = this._mergePropsAndState();
-                    props.choiceStates = props.choiceStates.map(
+                    // (cloning so we don't accidentally mutate this.props)
+                    const props = deepClone(
+                        this._mergePropsAndState(),
+                    ) as Props;
+                    props.choiceStates = props.choiceStates?.map(
                         (choiceState, index) => {
                             return {
                                 ...choiceState,
-                                selected: choiceStates[index].selected,
+                                selected: newChoiceStates[index].selected,
                             };
                         },
                     );
@@ -117,7 +121,7 @@ class Radio extends RadioOld {
         }
     }
 
-    _mergePropsAndState() {
+    _mergePropsAndState(): Readonly<Props> {
         /**
          * Inside the Radio component(s) we use ChoiceState
          * which includes both UI state and UserInput state.
