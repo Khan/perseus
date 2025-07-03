@@ -108,23 +108,16 @@ export default function UserInputManager(props: Props) {
         widgetOptions: PerseusWidgetsMap,
     ) {
         const restoredUserInput = {};
-        Object.entries(serializedState.question).forEach(
-            ([widgetId, props]) => {
-                const widgetType = getWidgetTypeByWidgetId(
-                    widgetId,
-                    widgetOptions,
-                );
-                const widgetExport = Widgets.getWidgetExport(
-                    widgetType as string,
-                );
+        Object.entries(serializedState).forEach(([widgetId, props]) => {
+            const widgetType = getWidgetTypeByWidgetId(widgetId, widgetOptions);
+            const widgetExport = Widgets.getWidgetExport(widgetType as string);
 
-                if (widgetExport?.getUserInputFromSerializedState) {
-                    const restoreResult =
-                        widgetExport.getUserInputFromSerializedState(props);
-                    restoredUserInput[widgetId] = restoreResult;
-                }
-            },
-        );
+            if (widgetExport?.getUserInputFromSerializedState) {
+                const restoreResult =
+                    widgetExport.getUserInputFromSerializedState(props);
+                restoredUserInput[widgetId] = restoreResult;
+            }
+        });
         setUserInput(restoredUserInput);
     }
 
