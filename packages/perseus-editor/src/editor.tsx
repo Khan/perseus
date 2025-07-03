@@ -184,6 +184,8 @@ class Editor extends React.Component<Props, State> {
         // See componentDidUpdate() for how this flag is used
         this.lastUserValue = null;
 
+        this.deferredChange = null;
+
         // This can't be in componentWillMount because that's happening during
         // the middle of our parent's render, so we can't call
         // this.props.onChange during that, since it calls our parent's
@@ -243,18 +245,25 @@ class Editor extends React.Component<Props, State> {
             this._sizeImages(this.props);
         }
 
-        clearTimeout(this.deferredChange);
-        // if (this.state.textAreaValue !== this.props.content) {
-        //     this.props.onChange({content: this.state.textAreaValue});
-        // }
-        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-        // eslint-disable-next-line no-restricted-syntax
-        this.deferredChange = setTimeout(() => {
-            console.log("change event to", this.state.textAreaValue);
-            if (this.state.textAreaValue !== this.props.content) {
-                this.props.onChange({content: this.state.textAreaValue});
+        if (this.state.textAreaValue !== this.props.content) {
+            // clearTimeout(this.deferredChange);
+            // if (this.state.textAreaValue !== this.props.content) {
+            //     this.props.onChange({content: this.state.textAreaValue});
+            // }
+            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+            // eslint-disable-next-line no-restricted-syntax
+            if (this.deferredChange == null) {
+                this.deferredChange = setTimeout(() => {
+                    console.log("change event to", this.state.textAreaValue);
+                    if (this.state.textAreaValue !== this.props.content) {
+                        this.props.onChange({
+                            content: this.state.textAreaValue,
+                        });
+                    }
+                    this.deferredChange = null;
+                }, this.props.apiOptions.editorChangeDelay);
             }
-        }, this.props.apiOptions.editorChangeDelay);
+        }
     }
 
     componentWillUnmount() {
