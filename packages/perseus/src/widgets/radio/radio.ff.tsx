@@ -97,10 +97,7 @@ class Radio extends RadioOld {
                 () => {
                     // Restructure the data in a format that
                     // getUserInputFromSerializedState will understand
-                    // (cloning so we don't accidentally mutate this.props)
-                    const props = deepClone(
-                        this._mergePropsAndState(),
-                    ) as Props;
+                    const props = this._mergePropsAndState();
                     props.choiceStates = props.choiceStates?.map(
                         (choiceState, index) => {
                             return {
@@ -121,7 +118,7 @@ class Radio extends RadioOld {
         }
     }
 
-    _mergePropsAndState(): Readonly<Props> {
+    _mergePropsAndState(): Props {
         /**
          * Inside the Radio component(s) we use ChoiceState
          * which includes both UI state and UserInput state.
@@ -135,12 +132,15 @@ class Radio extends RadioOld {
          * (WidgetProps, UserInput, and UI state) into a format our
          * legacy code will understand.
          */
+        // (cloning so we don't accidentally mutate props/state)
+        const propsCopy = deepClone(this.props);
+        const stateCopy = deepClone(this.state);
         return {
-            ...this.props,
-            choiceStates: this.state.choiceStates?.map((choiceState, index) => {
-                const choice = this.props.choices[index];
+            ...propsCopy,
+            choiceStates: stateCopy.choiceStates?.map((choiceState, index) => {
+                const choice = propsCopy.choices[index];
                 const selected =
-                    this.props.userInput.choicesSelected[choice.originalIndex];
+                    propsCopy.userInput.choicesSelected[choice.originalIndex];
                 return {
                     ...choiceState,
                     selected,
