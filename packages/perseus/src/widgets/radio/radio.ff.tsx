@@ -4,6 +4,7 @@ import {
     type PerseusRadioUserInput,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
+import _ from "underscore";
 
 import RadioOld from "./radio-component";
 import RadioNew from "./radio.class.new";
@@ -98,18 +99,24 @@ class Radio extends RadioOld {
                     // Restructure the data in a format that
                     // getUserInputFromSerializedState will understand
                     const props = this._mergePropsAndState();
-                    props.choiceStates = props.choiceStates?.map(
-                        (choiceState, index) => {
-                            return {
-                                ...choiceState,
-                                selected: newChoiceStates[index].selected,
-                            };
-                        },
-                    );
+
+                    // creating a shallow copy of props and cloning choiceStates
+                    // to minimize the chance of mutating choiceStates
+                    const mergedProps = {
+                        ...props,
+                        choiceStates: deepClone(props.choiceStates || []).map(
+                            (choiceState, index) => {
+                                return {
+                                    ...choiceState,
+                                    selected: newChoiceStates[index].selected,
+                                };
+                            },
+                        ),
+                    };
                     // Use getUserInputFromSerializedState to get
                     // unshuffled user input so that we can score with it
                     const unshuffledUserInput =
-                        getUserInputFromSerializedState(props);
+                        getUserInputFromSerializedState(mergedProps);
                     this.props.handleUserInput(unshuffledUserInput);
                 },
             );
@@ -132,15 +139,12 @@ class Radio extends RadioOld {
          * (WidgetProps, UserInput, and UI state) into a format our
          * legacy code will understand.
          */
-        // (cloning so we don't accidentally mutate props/state)
-        const propsCopy = deepClone(this.props);
-        const stateCopy = deepClone(this.state);
         return {
-            ...propsCopy,
-            choiceStates: stateCopy.choiceStates?.map((choiceState, index) => {
-                const choice = propsCopy.choices[index];
+            ...this.props,
+            choiceStates: this.state.choiceStates?.map((choiceState, index) => {
+                const choice = this.props.choices[index];
                 const selected =
-                    propsCopy.userInput.choicesSelected[choice.originalIndex];
+                    this.props.userInput.choicesSelected[choice.originalIndex];
                 return {
                     ...choiceState,
                     selected,
