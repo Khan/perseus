@@ -7,7 +7,7 @@ import type {
  * For details on the individual options, see the
  * PerseusRadioWidgetOptions type
  */
-type RadioPublicWidgetOptions = {
+export type RadioPublicWidgetOptions = {
     choices: ReadonlyArray<RadioChoicePublicData>;
     hasNoneOfTheAbove?: PerseusRadioWidgetOptions["hasNoneOfTheAbove"];
     countChoices?: PerseusRadioWidgetOptions["countChoices"];

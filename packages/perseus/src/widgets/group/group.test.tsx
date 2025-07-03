@@ -224,6 +224,49 @@ describe("group widget", () => {
 {
   "group 1": {
     "radio 1": {
+      "alignment": "default",
+      "choiceStates": [
+        {
+          "correctnessShown": false,
+          "highlighted": false,
+          "previouslyAnswered": false,
+          "rationaleShown": false,
+          "readOnly": false,
+          "selected": false,
+        },
+        {
+          "correctnessShown": false,
+          "highlighted": false,
+          "previouslyAnswered": false,
+          "rationaleShown": false,
+          "readOnly": false,
+          "selected": false,
+        },
+        {
+          "correctnessShown": false,
+          "highlighted": false,
+          "previouslyAnswered": false,
+          "rationaleShown": false,
+          "readOnly": false,
+          "selected": false,
+        },
+        {
+          "correctnessShown": false,
+          "highlighted": false,
+          "previouslyAnswered": false,
+          "rationaleShown": false,
+          "readOnly": false,
+          "selected": false,
+        },
+        {
+          "correctnessShown": false,
+          "highlighted": false,
+          "previouslyAnswered": false,
+          "rationaleShown": false,
+          "readOnly": false,
+          "selected": false,
+        },
+      ],
       "choices": [
         {
           "content": "$45$",
@@ -264,6 +307,7 @@ describe("group widget", () => {
         false,
         true,
       ],
+      "static": false,
     },
   },
   "group 2": {
