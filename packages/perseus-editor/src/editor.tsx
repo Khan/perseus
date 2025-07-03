@@ -184,6 +184,8 @@ class Editor extends React.Component<Props, State> {
         // See componentDidUpdate() for how this flag is used
         this.lastUserValue = null;
 
+        this.deferredChange = null;
+
         // This can't be in componentWillMount because that's happening during
         // the middle of our parent's render, so we can't call
         // this.props.onChange during that, since it calls our parent's
@@ -202,11 +204,11 @@ class Editor extends React.Component<Props, State> {
 
     // TODO(arun): This is a deprecated method, use the appropriate replacement
     // eslint-disable-next-line react/no-unsafe
-    UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        if (this.props.content !== nextProps.content) {
-            this.setState({textAreaValue: nextProps.content});
-        }
-    }
+    // UNSAFE_componentWillReceiveProps(nextProps: Props) {
+    //     if (this.props.content !== nextProps.content) {
+    //         this.setState({textAreaValue: nextProps.content});
+    //     }
+    // }
 
     componentDidUpdate(prevProps: Props) {
         const textarea = this.textarea.current;
@@ -241,6 +243,26 @@ class Editor extends React.Component<Props, State> {
         // during the middle of our parent's render.
         if (this.props.content !== prevProps.content) {
             this._sizeImages(this.props);
+        }
+
+        if (this.state.textAreaValue !== this.props.content) {
+            // clearTimeout(this.deferredChange);
+            // if (this.state.textAreaValue !== this.props.content) {
+            //     this.props.onChange({content: this.state.textAreaValue});
+            // }
+            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+            // eslint-disable-next-line no-restricted-syntax
+            if (this.deferredChange == null) {
+                this.deferredChange = setTimeout(() => {
+                    console.log("change event to", this.state.textAreaValue);
+                    if (this.state.textAreaValue !== this.props.content) {
+                        this.props.onChange({
+                            content: this.state.textAreaValue,
+                        });
+                    }
+                    this.deferredChange = null;
+                }, this.props.apiOptions.editorChangeDelay);
+            }
         }
     }
 
@@ -434,17 +456,24 @@ class Editor extends React.Component<Props, State> {
     handleChange: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void = (
         e: React.SyntheticEvent<HTMLTextAreaElement>,
     ) => {
+        console.log("handleChange", e.currentTarget.value);
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        clearTimeout(this.deferredChange);
+        // this.props.onChange({content: e.currentTarget.value});
         this.setState({textAreaValue: e.currentTarget.value});
+        // clearTimeout(this.deferredChange);
+        // if (this.state.textAreaValue !== this.props.content) {
+        //     this.props.onChange({content: this.state.textAreaValue});
+        // }
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        this.deferredChange = setTimeout(() => {
-            if (this.state.textAreaValue !== this.props.content) {
-                this.props.onChange({content: this.state.textAreaValue});
-            }
-        }, this.props.apiOptions.editorChangeDelay);
+        // this.deferredChange = setTimeout(() => {
+        //     debugger;
+        //     console.trace();
+        //     if (this.state.textAreaValue !== this.props.content) {
+        //         this.props.onChange({content: this.state.textAreaValue});
+        //     }
+        // }, this.props.apiOptions.editorChangeDelay);
     };
 
     _handleKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void = (
