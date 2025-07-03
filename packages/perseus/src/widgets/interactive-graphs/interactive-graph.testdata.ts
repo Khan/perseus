@@ -187,13 +187,17 @@ export const unlimitedPolygonQuestion: PerseusRenderer =
 
 export const polygonWithStartingCoordsQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
+        .withMarkings("grid")
         .withPolygon("grid", {
             startCoords: [
-                [6, 6],
-                [8, 6],
-                [8, 8],
-                [6, 8],
+                [-7, 5],
+                [1, 5],
+                [6, 0],
+                [1, -5],
+                [-7, -5],
+                [-2, 0],
             ],
+            showAngles: true,
         })
         .build();
 
