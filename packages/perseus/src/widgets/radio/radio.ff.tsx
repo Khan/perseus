@@ -1,7 +1,7 @@
 import * as React from "react";
 
+import RadioNew from "./multiple-choice-widget.new";
 import RadioOld from "./radio-component";
-import RadioNew from "./radio.class.new";
 
 import type {RenderProps} from "./radio-component";
 import type {WidgetProps} from "../../types";
