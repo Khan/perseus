@@ -14,10 +14,16 @@ import {
 } from "../../dependencies";
 import * as Perseus from "../../index";
 import {mockStrings} from "../../strings";
+import UserInputManager from "../../user-input-manager";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {APIOptions} from "../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    HandleUserInputCallback,
+    InitializeUserInputCallback,
+    RestoreUserInputFromSerializedStateCallback,
+} from "../../user-input-manager";
+import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type RenderResult = ReturnType<typeof render>;
@@ -41,15 +47,32 @@ export const renderQuestion = (
     const {container, rerender, unmount} = render(
         <RenderStateRoot>
             <DependenciesContext.Provider value={testDependenciesV2}>
-                <Renderer
-                    ref={(node) => (renderer = node)}
-                    question={question as any}
-                    apiOptions={apiOptions}
-                    extraProps={{
-                        ...extraProps,
-                        strings: mockStrings,
+                <UserInputManager widgets={question.widgets} problemNum={0}>
+                    {({
+                        userInput,
+                        handleUserInput,
+                        initializeUserInput,
+                        restoreUserInputFromSerializedState,
+                    }) => {
+                        return (
+                            <Renderer
+                                userInput={userInput}
+                                handleUserInput={handleUserInput}
+                                initializeUserInput={initializeUserInput}
+                                restoreUserInputFromSerializedState={
+                                    restoreUserInputFromSerializedState
+                                }
+                                ref={(node) => (renderer = node)}
+                                question={question as any}
+                                apiOptions={apiOptions}
+                                extraProps={{
+                                    ...extraProps,
+                                    strings: mockStrings,
+                                }}
+                            />
+                        );
                     }}
-                />
+                </UserInputManager>
             </DependenciesContext.Provider>
         </RenderStateRoot>,
     );
@@ -64,15 +87,32 @@ export const renderQuestion = (
         rerender(
             <RenderStateRoot>
                 <DependenciesContext.Provider value={testDependenciesV2}>
-                    <Renderer
-                        ref={(node) => (renderer = node)}
-                        question={question}
-                        apiOptions={apiOptions}
-                        extraProps={{
-                            ...extraProps,
-                            strings: mockStrings,
+                    <UserInputManager widgets={question.widgets} problemNum={0}>
+                        {({
+                            userInput,
+                            handleUserInput,
+                            initializeUserInput,
+                            restoreUserInputFromSerializedState,
+                        }) => {
+                            return (
+                                <Renderer
+                                    userInput={userInput}
+                                    handleUserInput={handleUserInput}
+                                    initializeUserInput={initializeUserInput}
+                                    restoreUserInputFromSerializedState={
+                                        restoreUserInputFromSerializedState
+                                    }
+                                    ref={(node) => (renderer = node)}
+                                    question={question}
+                                    apiOptions={apiOptions}
+                                    extraProps={{
+                                        ...extraProps,
+                                        strings: mockStrings,
+                                    }}
+                                />
+                            );
                         }}
-                    />
+                    </UserInputManager>
                 </DependenciesContext.Provider>
             </RenderStateRoot>,
         );
@@ -88,6 +128,10 @@ const Renderer = React.forwardRef<
     Perseus.Renderer,
     {
         question: PerseusRenderer;
+        userInput: UserInputMap;
+        handleUserInput: HandleUserInputCallback;
+        initializeUserInput: InitializeUserInputCallback;
+        restoreUserInputFromSerializedState: RestoreUserInputFromSerializedStateCallback;
         apiOptions: APIOptions;
         extraProps?: PropsFor<typeof Perseus.Renderer>;
     }
@@ -96,6 +140,12 @@ const Renderer = React.forwardRef<
     return (
         <Perseus.Renderer
             ref={ref}
+            userInput={props.userInput}
+            handleUserInput={props.handleUserInput}
+            initializeUserInput={props.initializeUserInput}
+            restoreUserInputFromSerializedState={
+                props.restoreUserInputFromSerializedState
+            }
             content={props.question.content}
             images={props.question.images}
             widgets={props.question.widgets}

@@ -441,22 +441,17 @@ export class ServerItemRenderer
 
         const questionRenderer = (
             <AssetContext.Provider value={contextValue}>
-                <UserInputManager>
+                <UserInputManager
+                    widgets={this.props.item.question.widgets}
+                    problemNum={this.props.problemNum ?? 0}
+                >
                     {({
-                        initialized,
                         userInput,
                         handleUserInput,
                         initializeUserInput,
                         restoreUserInputFromSerializedState,
                     }) => {
                         this.userInput = userInput;
-                        if (!initialized) {
-                            initializeUserInput(
-                                this.props.item.question.widgets,
-                                this.props.problemNum ?? 0,
-                            );
-                            return null;
-                        }
                         return (
                             <Renderer
                                 keypadElement={this.props.keypadElement}

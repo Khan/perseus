@@ -80,14 +80,24 @@ describe("UserInputManager", () => {
     });
 
     it("renders", () => {
-        render(<UserInputManager>{() => <p>Hello world</p>}</UserInputManager>);
+        render(
+            <UserInputManager
+                widgets={generateExpressionWidgetsMap()}
+                problemNum={0}
+            >
+                {() => <p>Hello world</p>}
+            </UserInputManager>,
+        );
 
         expect(screen.getByText("Hello world")).toBeInTheDocument();
     });
 
     it("updates user input", async () => {
         render(
-            <UserInputManager>
+            <UserInputManager
+                widgets={generateExpressionWidgetsMap()}
+                problemNum={0}
+            >
                 {({userInput, handleUserInput}) => (
                     <>
                         <button
@@ -113,7 +123,10 @@ describe("UserInputManager", () => {
         let initializeCallback: InitializeUserInputCallback | undefined;
 
         render(
-            <UserInputManager>
+            <UserInputManager
+                widgets={generateExpressionWidgetsMap()}
+                problemNum={0}
+            >
                 {({userInput, handleUserInput, initializeUserInput}) => {
                     initializeCallback = initializeUserInput;
                     return (
@@ -154,7 +167,10 @@ describe("UserInputManager", () => {
             | undefined;
 
         render(
-            <UserInputManager>
+            <UserInputManager
+                widgets={generateExpressionWidgetsMap()}
+                problemNum={0}
+            >
                 {({
                     userInput,
                     handleUserInput,

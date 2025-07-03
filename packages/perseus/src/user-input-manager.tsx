@@ -1,5 +1,5 @@
 import {entries} from "@khanacademy/wonder-stuff-core";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 
 import {getWidgetTypeByWidgetId} from "./widget-type-utils";
 import * as Widgets from "./widgets";
@@ -34,12 +34,20 @@ type WrapperPayload = {
 };
 
 type Props = {
+    widgets: PerseusWidgetsMap;
+    problemNum: number;
     children: (payload: WrapperPayload) => JSX.Element | null;
 };
 
 export default function UserInputManager(props: Props) {
     const [initialized, setInitialized] = useState<boolean>(false);
     const [userInput, setUserInput] = useState<UserInputMap>({});
+
+    useEffect(() => {
+        if (!initialized) {
+            initializeUserInput(props.widgets, props.problemNum ?? 0);
+        }
+    }, [initialized, props.widgets, props.problemNum]);
 
     /**
      * Update userInput state by merging existing full UserInput
@@ -110,6 +118,10 @@ export default function UserInputManager(props: Props) {
             },
         );
         setUserInput(restoredUserInput);
+    }
+
+    if (!initialized) {
+        return null;
     }
 
     return props.children({
