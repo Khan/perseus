@@ -6470,6 +6470,534 @@ $3$ | $8$
 }
 `;
 
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missing-weights.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "Varieties of locked figures
+
+[[☃ interactive-graph 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "none",
+          },
+          "fullGraphAriaDescription": "Graph depicting a variety of locked figures, including points, lines, vector, ellipse, polygon, function, and label.",
+          "fullGraphAriaLabel": "Locked figures",
+          "graph": {
+            "type": "none",
+          },
+          "labelLocation": "onAxis",
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": [
+            {
+              "color": "blue",
+              "coord": [
+                -9,
+                9,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "blue",
+              "coord": [
+                9,
+                -9,
+              ],
+              "filled": false,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "green",
+              "kind": "segment",
+              "labels": [],
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "green",
+                  "coord": [
+                    2,
+                    2,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+                {
+                  "color": "green",
+                  "coord": [
+                    9,
+                    9,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+              ],
+              "showPoint1": false,
+              "showPoint2": false,
+              "type": "line",
+              "weight": "medium",
+            },
+            {
+              "color": "green",
+              "kind": "ray",
+              "labels": [],
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "green",
+                  "coord": [
+                    2,
+                    1,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+                {
+                  "color": "green",
+                  "coord": [
+                    9,
+                    8,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+              ],
+              "showPoint1": false,
+              "showPoint2": false,
+              "type": "line",
+              "weight": "medium",
+            },
+            {
+              "color": "green",
+              "kind": "line",
+              "labels": [],
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "green",
+                  "coord": [
+                    2,
+                    0,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+                {
+                  "color": "green",
+                  "coord": [
+                    9,
+                    7,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+              ],
+              "showPoint1": false,
+              "showPoint2": false,
+              "type": "line",
+              "weight": "medium",
+            },
+            {
+              "color": "grayH",
+              "labels": [],
+              "points": [
+                [
+                  6,
+                  -9,
+                ],
+                [
+                  8,
+                  -7,
+                ],
+              ],
+              "type": "vector",
+            },
+            {
+              "angle": 0,
+              "center": [
+                -5,
+                5,
+              ],
+              "color": "purple",
+              "fillStyle": "none",
+              "labels": [],
+              "radius": [
+                1.5,
+                1,
+              ],
+              "strokeStyle": "solid",
+              "type": "ellipse",
+            },
+            {
+              "color": "pink",
+              "fillStyle": "none",
+              "labels": [],
+              "points": [
+                [
+                  -8,
+                  -7,
+                ],
+                [
+                  -8,
+                  -3,
+                ],
+                [
+                  -4,
+                  -3,
+                ],
+              ],
+              "showVertices": false,
+              "strokeStyle": "solid",
+              "type": "polygon",
+              "weight": "medium",
+            },
+            {
+              "color": "red",
+              "directionalAxis": "x",
+              "domain": [
+                -Infinity,
+                Infinity,
+              ],
+              "equation": "x^2",
+              "labels": [],
+              "strokeStyle": "solid",
+              "type": "function",
+            },
+            {
+              "color": "orange",
+              "coord": [
+                1,
+                -5,
+              ],
+              "size": "medium",
+              "text": "Graphs are cool",
+              "type": "label",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+          "valid": true,
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missing-weights.json returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "Varieties of locked figures
+
+[[☃ interactive-graph 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "linear",
+          },
+          "fullGraphAriaDescription": "Graph depicting a variety of locked figures, including points, lines, vector, ellipse, polygon, function, and label.",
+          "fullGraphAriaLabel": "Locked figures",
+          "graph": {
+            "type": "none",
+          },
+          "labelLocation": "onAxis",
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": [
+            {
+              "color": "blue",
+              "coord": [
+                -9,
+                9,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "blue",
+              "coord": [
+                9,
+                -9,
+              ],
+              "filled": false,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "green",
+              "kind": "segment",
+              "labels": [],
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "green",
+                  "coord": [
+                    2,
+                    2,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+                {
+                  "color": "green",
+                  "coord": [
+                    9,
+                    9,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+              ],
+              "showPoint1": false,
+              "showPoint2": false,
+              "type": "line",
+              "weight": "medium",
+            },
+            {
+              "color": "green",
+              "kind": "ray",
+              "labels": [],
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "green",
+                  "coord": [
+                    2,
+                    1,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+                {
+                  "color": "green",
+                  "coord": [
+                    9,
+                    8,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+              ],
+              "showPoint1": false,
+              "showPoint2": false,
+              "type": "line",
+              "weight": "medium",
+            },
+            {
+              "color": "green",
+              "kind": "line",
+              "labels": [],
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "green",
+                  "coord": [
+                    2,
+                    0,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+                {
+                  "color": "green",
+                  "coord": [
+                    9,
+                    7,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+              ],
+              "showPoint1": false,
+              "showPoint2": false,
+              "type": "line",
+              "weight": "medium",
+            },
+            {
+              "color": "grayH",
+              "labels": [],
+              "points": [
+                [
+                  6,
+                  -9,
+                ],
+                [
+                  8,
+                  -7,
+                ],
+              ],
+              "type": "vector",
+            },
+            {
+              "angle": 0,
+              "center": [
+                -5,
+                5,
+              ],
+              "color": "purple",
+              "fillStyle": "none",
+              "labels": [],
+              "radius": [
+                1.5,
+                1,
+              ],
+              "strokeStyle": "solid",
+              "type": "ellipse",
+            },
+            {
+              "color": "pink",
+              "fillStyle": "none",
+              "labels": [],
+              "points": [
+                [
+                  -8,
+                  -7,
+                ],
+                [
+                  -8,
+                  -3,
+                ],
+                [
+                  -4,
+                  -3,
+                ],
+              ],
+              "showVertices": false,
+              "strokeStyle": "solid",
+              "type": "polygon",
+              "weight": "medium",
+            },
+            {
+              "color": "red",
+              "directionalAxis": "x",
+              "domain": [
+                -Infinity,
+                Infinity,
+              ],
+              "equation": "x^2",
+              "labels": [],
+              "strokeStyle": "solid",
+              "type": "function",
+            },
+            {
+              "color": "orange",
+              "coord": [
+                1,
+                -5,
+              ],
+              "size": "medium",
+              "text": "Graphs are cool",
+              "type": "label",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+          "valid": true,
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with-null-domain-element.json returns the same result as before 1`] = `
 {
   "answerArea": {
@@ -7213,6 +7741,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "grayH",
@@ -7246,6 +7775,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "pink",
@@ -7279,6 +7809,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "pink",
@@ -7312,6 +7843,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "red",
@@ -7345,6 +7877,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "red",
@@ -7378,6 +7911,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "blue",
@@ -7904,6 +8438,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "grayH",
@@ -7937,6 +8472,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "pink",
@@ -7970,6 +8506,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "pink",
@@ -8003,6 +8540,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "red",
@@ -8036,6 +8574,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "red",
@@ -8069,6 +8608,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "blue",
@@ -8107,327 +8647,6 @@ Locked figures:
         "type": "interactive-graph",
         "version": {
           "major": 0,
-          "minor": 0,
-        },
-      },
-    },
-  },
-}
-`;
-
-exports[`parseAndMigratePerseusItem given interactive-graph-locked-polygon-missing-weight.json returns the same result as before 1`] = `
-{
-  "answerArea": {
-    "calculator": false,
-    "financialCalculatorMonthlyPayment": false,
-    "financialCalculatorTimeToPayOff": false,
-    "financialCalculatorTotalAmount": false,
-    "periodicTable": false,
-    "periodicTableWithKey": false,
-  },
-  "hints": [
-    {
-      "content": "You'll want to select "B".",
-      "images": {},
-      "replace": false,
-      "widgets": {},
-    },
-  ],
-  "question": {
-    "content": "**A "none"-type graph. Choose the correct radio button to get a point.**
-
-[[☃ interactive-graph 1]]
-
-[[☃ radio 1]]
-
-",
-    "images": {},
-    "widgets": {
-      "interactive-graph 1": {
-        "alignment": "default",
-        "graded": true,
-        "options": {
-          "backgroundImage": {
-            "url": null,
-          },
-          "correct": {
-            "hasBeenInteractedWith": false,
-            "range": [
-              [
-                -10,
-                10,
-              ],
-              [
-                -10,
-                10,
-              ],
-            ],
-            "snapStep": [
-              0.5,
-              0.5,
-            ],
-            "type": "none",
-          },
-          "fullGraphAriaDescription": "A graph on a coordinate plane with two non-interactive closed shapes. One shape is an ellipse and the other shape is a three-sided polygon.",
-          "fullGraphAriaLabel": "A graph on a coordinate plane with non-interactive figures",
-          "graph": {
-            "type": "none",
-          },
-          "labels": [
-            "x",
-            "y",
-          ],
-          "lockedFigures": [
-            {
-              "angle": 0.6981317007977318,
-              "ariaLabel": "Ellipse with x radius 2 and y radius 3, centered at 1 comma 0, rotated by 40 degrees. Appearance dashed red border, with no fill.",
-              "center": [
-                1,
-                0,
-              ],
-              "color": "red",
-              "fillStyle": "none",
-              "labels": [],
-              "radius": [
-                2,
-                3,
-              ],
-              "strokeStyle": "dashed",
-              "type": "ellipse",
-            },
-            {
-              "ariaLabel": "Polygon with 3 sides, vertices at 0 comma 5, negative 2 comma 2, 2 comma 2. Appearance solid purple border, with a translucent purple fill.",
-              "color": "purple",
-              "fillStyle": "translucent",
-              "labels": [],
-              "points": [
-                [
-                  0,
-                  5,
-                ],
-                [
-                  -2,
-                  2,
-                ],
-                [
-                  2,
-                  2,
-                ],
-              ],
-              "showVertices": false,
-              "strokeStyle": "solid",
-              "type": "polygon",
-              "weight": "medium",
-            },
-          ],
-          "markings": "graph",
-          "range": [
-            [
-              -10,
-              10,
-            ],
-            [
-              -10,
-              10,
-            ],
-          ],
-          "showProtractor": false,
-          "showTooltips": false,
-          "step": [
-            1,
-            1,
-          ],
-        },
-        "static": false,
-        "type": "interactive-graph",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-      "radio 1": {
-        "alignment": "default",
-        "graded": true,
-        "options": {
-          "choices": [
-            {
-              "content": "Not this one",
-              "correct": false,
-            },
-            {
-              "content": "This one is correct",
-              "correct": true,
-            },
-            {
-              "content": "Nope",
-              "correct": false,
-            },
-            {
-              "content": "Definitely not",
-              "correct": false,
-            },
-          ],
-          "countChoices": false,
-          "deselectEnabled": false,
-          "hasNoneOfTheAbove": false,
-          "multipleSelect": false,
-          "numCorrect": 1,
-          "randomize": false,
-        },
-        "static": false,
-        "type": "radio",
-        "version": {
-          "major": 3,
-          "minor": 0,
-        },
-      },
-    },
-  },
-}
-`;
-
-exports[`parseAndMigratePerseusItem given interactive-graph-locked-polygon-missing-weight.json returns the same result as before with answer information removed 1`] = `
-{
-  "answerArea": {
-    "calculator": false,
-    "financialCalculatorMonthlyPayment": false,
-    "financialCalculatorTimeToPayOff": false,
-    "financialCalculatorTotalAmount": false,
-    "periodicTable": false,
-    "periodicTableWithKey": false,
-  },
-  "hints": [],
-  "question": {
-    "content": "**A "none"-type graph. Choose the correct radio button to get a point.**
-
-[[☃ interactive-graph 1]]
-
-[[☃ radio 1]]
-
-",
-    "images": {},
-    "widgets": {
-      "interactive-graph 1": {
-        "alignment": "default",
-        "graded": true,
-        "options": {
-          "backgroundImage": {
-            "url": null,
-          },
-          "correct": {
-            "type": "linear",
-          },
-          "fullGraphAriaDescription": "A graph on a coordinate plane with two non-interactive closed shapes. One shape is an ellipse and the other shape is a three-sided polygon.",
-          "fullGraphAriaLabel": "A graph on a coordinate plane with non-interactive figures",
-          "graph": {
-            "type": "none",
-          },
-          "labelLocation": "onAxis",
-          "labels": [
-            "x",
-            "y",
-          ],
-          "lockedFigures": [
-            {
-              "angle": 0.6981317007977318,
-              "ariaLabel": "Ellipse with x radius 2 and y radius 3, centered at 1 comma 0, rotated by 40 degrees. Appearance dashed red border, with no fill.",
-              "center": [
-                1,
-                0,
-              ],
-              "color": "red",
-              "fillStyle": "none",
-              "labels": [],
-              "radius": [
-                2,
-                3,
-              ],
-              "strokeStyle": "dashed",
-              "type": "ellipse",
-            },
-            {
-              "ariaLabel": "Polygon with 3 sides, vertices at 0 comma 5, negative 2 comma 2, 2 comma 2. Appearance solid purple border, with a translucent purple fill.",
-              "color": "purple",
-              "fillStyle": "translucent",
-              "labels": [],
-              "points": [
-                [
-                  0,
-                  5,
-                ],
-                [
-                  -2,
-                  2,
-                ],
-                [
-                  2,
-                  2,
-                ],
-              ],
-              "showVertices": false,
-              "strokeStyle": "solid",
-              "type": "polygon",
-              "weight": "medium",
-            },
-          ],
-          "markings": "graph",
-          "range": [
-            [
-              -10,
-              10,
-            ],
-            [
-              -10,
-              10,
-            ],
-          ],
-          "showProtractor": false,
-          "showTooltips": false,
-          "step": [
-            1,
-            1,
-          ],
-        },
-        "static": false,
-        "type": "interactive-graph",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-      "radio 1": {
-        "alignment": "default",
-        "graded": true,
-        "options": {
-          "choices": [
-            {
-              "content": "Not this one",
-              "isNoneOfTheAbove": undefined,
-            },
-            {
-              "content": "This one is correct",
-              "isNoneOfTheAbove": undefined,
-            },
-            {
-              "content": "Nope",
-              "isNoneOfTheAbove": undefined,
-            },
-            {
-              "content": "Definitely not",
-              "isNoneOfTheAbove": undefined,
-            },
-          ],
-          "countChoices": false,
-          "deselectEnabled": false,
-          "hasNoneOfTheAbove": false,
-          "multipleSelect": false,
-          "numCorrect": undefined,
-          "randomize": false,
-        },
-        "static": false,
-        "type": "radio",
-        "version": {
-          "major": 3,
           "minor": 0,
         },
       },
