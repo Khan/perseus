@@ -4,10 +4,8 @@
 import {
     Errors,
     PerseusError,
-    getDefaultAnswerArea,
     applyDefaultsToWidgets,
     mapObject,
-    splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {
@@ -40,6 +38,7 @@ import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
+import isDifferentQuestion from "./util/is-different-question";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
 import {getWidgetTypeByWidgetId} from "./widget-type-utils";
@@ -71,7 +70,6 @@ import type {
     PerseusScore,
     UserInputArray,
     UserInputMap,
-    PerseusItem,
     UserInput,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
@@ -194,37 +192,6 @@ type DefaultProps = Required<
     >
 >;
 
-/**
- * We want to be able to reset the question state when we go
- * from one question to another question. However it's kind of tricky:
- * 1. Content could be the same
- * 2. Problem number could be the same
- * 3. We don't want to reset when going from answerless to answerful data
- * So compare the prev props to the next props, but use
- * answerless for both for the comparison
- */
-function isDifferentQuestion(prev: Props, next: Props): boolean {
-    if (prev.problemNum !== next.problemNum) {
-        return true;
-    }
-
-    function answerlessStringified(props: Props): string {
-        const answerful: PerseusItem = {
-            question: {
-                content: props.content,
-                widgets: props.widgets,
-                images: {},
-            },
-            hints: [],
-            answerArea: getDefaultAnswerArea(),
-        };
-        const answerless = splitPerseusItem(answerful);
-        return JSON.stringify(answerless);
-    }
-
-    return answerlessStringified(prev) !== answerlessStringified(next);
-}
-
 class Renderer
     extends React.Component<Props, State>
     implements GetPromptJSONInterface
@@ -323,7 +290,16 @@ class Renderer
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        if (isDifferentQuestion(this.props, nextProps)) {
+        if (
+            isDifferentQuestion(
+                this.props.problemNum ?? 0,
+                nextProps.problemNum ?? 0,
+                this.props.content,
+                nextProps.content,
+                this.props.widgets,
+                nextProps.widgets,
+            )
+        ) {
             this.setState(this._getInitialWidgetState(nextProps));
         }
     }
