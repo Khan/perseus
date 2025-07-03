@@ -400,6 +400,7 @@ function lockedFiguresQuestionWithWeight(weight: "thin" | "medium" | "thick") {
         .addLockedLine([2, 2], [9, 9], {kind: "segment", weight})
         .addLockedLine([2, 1], [9, 8], {kind: "ray", weight})
         .addLockedLine([2, 0], [9, 7], {kind: "line", weight})
+        .addLockedVector([4, -7], [7, -4], {weight, color: "green"})
         .addLockedPolygon(
             [
                 [0.5, 3.5],

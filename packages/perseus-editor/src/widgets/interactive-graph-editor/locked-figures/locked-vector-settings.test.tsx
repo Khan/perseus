@@ -126,6 +126,30 @@ describe("Locked Vector Settings", () => {
             });
         });
 
+        test("calls onChange when the weight is changed", async () => {
+            // Arrange
+            const onChangeSpy = jest.fn();
+            render(
+                <LockedVectorSettings
+                    {...defaultProps}
+                    onChangeProps={onChangeSpy}
+                />,
+                {
+                    wrapper: RenderStateRoot,
+                },
+            );
+
+            // Act
+            // Change the weight
+            const weightSelect = screen.getByRole("combobox", {name: "weight"});
+            await userEvent.click(weightSelect);
+            const weightOption = screen.getByRole("option", {name: "thick"});
+            await userEvent.click(weightOption);
+
+            // Assert
+            expect(onChangeSpy).toHaveBeenCalledWith({weight: "thick"});
+        });
+
         test("shows an error when the vector length is zero", () => {
             // Act
             render(

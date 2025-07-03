@@ -6640,6 +6640,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
                 ],
               ],
               "type": "vector",
+              "weight": "medium",
             },
             {
               "angle": 0,
@@ -6904,6 +6905,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
                 ],
               ],
               "type": "vector",
+              "weight": "medium",
             },
             {
               "angle": 0,

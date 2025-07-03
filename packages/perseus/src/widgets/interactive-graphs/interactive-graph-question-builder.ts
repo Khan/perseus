@@ -370,6 +370,7 @@ class InteractiveGraphQuestionBuilder {
         options?: {
             color?: LockedFigureColor;
             labels?: LockedFigureLabelOptions[];
+            weight?: StrokeWeight;
             ariaLabel?: string;
         },
     ): InteractiveGraphQuestionBuilder {
@@ -377,6 +378,7 @@ class InteractiveGraphQuestionBuilder {
             type: "vector",
             color: options?.color ?? "grayH",
             points: [tail, tip],
+            weight: options?.weight ?? "medium",
             labels:
                 options?.labels?.map((label) => ({
                     type: "label",
