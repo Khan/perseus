@@ -74,34 +74,31 @@ function generateExpressionWidgetsMap(): PerseusWidgetsMap {
 
 function generateExpressionSerializeState() {
     return {
-        question: {
-            "expression 1": {
-                keypadConfiguration: {
-                    keypadType: "EXPRESSION",
-                    times: false,
-                },
+        "expression 1": {
+            keypadConfiguration: {
+                keypadType: "EXPRESSION",
                 times: false,
-                functions: [],
-                buttonSets: [],
-                analytics: {
-                    onAnalyticsEvent: expect.any(Function),
-                },
-                alignment: "default",
-                static: false,
-                showSolutions: "none",
-                reviewModeRubric: null,
-                reviewMode: false,
-                isLastUsedWidget: false,
-                linterContext: {
-                    contentType: "",
-                    highlightLint: false,
-                    paths: [],
-                    stack: ["question", "widget"],
-                },
-                value: "Hello world",
             },
+            times: false,
+            functions: [],
+            buttonSets: [],
+            analytics: {
+                onAnalyticsEvent: expect.any(Function),
+            },
+            alignment: "default",
+            static: false,
+            showSolutions: "none",
+            reviewModeRubric: null,
+            reviewMode: false,
+            isLastUsedWidget: false,
+            linterContext: {
+                contentType: "",
+                highlightLint: false,
+                paths: [],
+                stack: ["question", "widget"],
+            },
+            value: "Hello world",
         },
-        hints: [],
     };
 }
 
