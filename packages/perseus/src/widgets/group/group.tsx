@@ -15,6 +15,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
+import {sharedInitializeUserInput} from "../../user-input-manager";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 
 import type {
@@ -28,12 +29,13 @@ import type {
 import type {GroupPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 import type {
     PerseusGroupWidgetOptions,
+    PerseusRenderer,
     UserInputArray,
     UserInputMap,
 } from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<RenderProps, UserInputMap>;
 type DefaultProps = {
     content: Props["content"];
     widgets: Props["widgets"];
@@ -181,6 +183,13 @@ class Group extends React.Component<Props> implements Widget {
             >
                 {problemNumComponent}
                 <Renderer
+                    userInput={this.props.userInput}
+                    handleUserInput={(widgetId, userInput) => {
+                        this.props.handleUserInput({
+                            ...this.props.userInput,
+                            [widgetId]: userInput,
+                        });
+                    }}
                     content={this.props.content}
                     widgets={this.props.widgets}
                     images={this.props.images}
@@ -198,10 +207,15 @@ class Group extends React.Component<Props> implements Widget {
     }
 }
 
+function getStartUserInput(options: PerseusRenderer, problemNum: number) {
+    return sharedInitializeUserInput(options.widgets, problemNum);
+}
+
 export default {
     name: "group",
     displayName: "Group (SAT only)",
     widget: Group,
     hidden: true,
     isLintable: true,
+    getStartUserInput,
 } satisfies WidgetExports<typeof Group>;

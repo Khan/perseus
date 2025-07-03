@@ -438,6 +438,10 @@ function getUserInputFromSerializedState(
     return normalizeTex(serializedState.value);
 }
 
+function getStartUserInput(): PerseusExpressionUserInput {
+    return "";
+}
+
 export default {
     name: "expression",
     displayName: "Expression / Equation",
@@ -489,5 +493,6 @@ export default {
         }
         return correctAnswers[0].value;
     },
+    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof ExpressionWithDependencies>;

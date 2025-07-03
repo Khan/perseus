@@ -753,11 +753,16 @@ function getUserInputFromSerializedState(
     return {current: serializedState.current.map((e) => e.content)};
 }
 
+function getStartUserInput(): PerseusOrdererUserInput {
+    return {current: []};
+}
+
 export default {
     name: "orderer",
     displayName: "Orderer",
     hidden: true,
     widget: Orderer,
     isLintable: true,
+    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Orderer>;

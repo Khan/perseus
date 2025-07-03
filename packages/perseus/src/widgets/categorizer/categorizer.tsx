@@ -320,6 +320,12 @@ function getCorrectUserInput(
     return {values: options.values};
 }
 
+function getStartUserInput(): PerseusCategorizerUserInput {
+    return {
+        values: [],
+    };
+}
+
 function transform(widgetOptions: CategorizerPublicWidgetOptions): RenderProps {
     return {
         items: widgetOptions.items,
@@ -337,5 +343,6 @@ export default {
     staticTransform: transform,
     getUserInputFromSerializedState,
     getCorrectUserInput,
+    getStartUserInput,
     isLintable: true,
 } satisfies WidgetExports<typeof Categorizer, PerseusCategorizerUserInput>;

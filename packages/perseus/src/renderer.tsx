@@ -4,10 +4,8 @@
 import {
     Errors,
     PerseusError,
-    getDefaultAnswerArea,
     applyDefaultsToWidgets,
     mapObject,
-    splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {
@@ -40,9 +38,9 @@ import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
+import isDifferentQuestion from "./util/is-different-question";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
-import {getWidgetTypeByWidgetId} from "./widget-type-utils";
 import * as Widgets from "./widgets";
 
 import type {DependenciesContext} from "./dependencies";
@@ -58,6 +56,11 @@ import type {
     WidgetProps,
 } from "./types";
 import type {
+    HandleUserInputCallback,
+    InitializeUserInputCallback,
+    RestoreUserInputFromSerializedStateCallback,
+} from "./user-input-manager";
+import type {
     GetPromptJSONInterface,
     RendererPromptJSON,
 } from "./widget-ai-utils/prompt-types";
@@ -69,10 +72,9 @@ import type {
     PerseusWidgetsMap,
     ShowSolutions,
     PerseusScore,
-    UserInputArray,
     UserInputMap,
-    PerseusItem,
     UserInput,
+    UserInputArray,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -117,6 +119,10 @@ type WidgetState = {
 };
 
 type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
+    userInput?: UserInputMap;
+    handleUserInput?: HandleUserInputCallback;
+    initializeUserInput?: InitializeUserInputCallback;
+    restoreUserInputFromSerializedState?: RestoreUserInputFromSerializedStateCallback;
     apiOptions?: APIOptions;
     alwaysUpdate?: boolean;
     findExternalWidgets: any;
@@ -162,7 +168,7 @@ type State = {
     widgetProps: Readonly<{
         [id: string]: any | null | undefined;
     }>;
-    userInput: UserInputMap;
+    // userInput: UserInputMap;
     jiptContent: any;
     lastUsedWidgetId: string | null | undefined;
 };
@@ -193,37 +199,6 @@ type DefaultProps = Required<
         | "widgets"
     >
 >;
-
-/**
- * We want to be able to reset the question state when we go
- * from one question to another question. However it's kind of tricky:
- * 1. Content could be the same
- * 2. Problem number could be the same
- * 3. We don't want to reset when going from answerless to answerful data
- * So compare the prev props to the next props, but use
- * answerless for both for the comparison
- */
-function isDifferentQuestion(prev: Props, next: Props): boolean {
-    if (prev.problemNum !== next.problemNum) {
-        return true;
-    }
-
-    function answerlessStringified(props: Props): string {
-        const answerful: PerseusItem = {
-            question: {
-                content: props.content,
-                widgets: props.widgets,
-                images: {},
-            },
-            hints: [],
-            answerArea: getDefaultAnswerArea(),
-        };
-        const answerless = splitPerseusItem(answerful);
-        return JSON.stringify(answerless);
-    }
-
-    return answerlessStringified(prev) !== answerlessStringified(next);
-}
 
 class Renderer
     extends React.Component<Props, State>
@@ -320,10 +295,28 @@ class Renderer
                 this.handletranslationLintErrors,
             );
         }
+
+        this.props.initializeUserInput?.(
+            this.props.widgets,
+            this.props.problemNum ?? 0,
+        );
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        if (isDifferentQuestion(this.props, nextProps)) {
+        if (
+            isDifferentQuestion(
+                this.props.problemNum ?? 0,
+                nextProps.problemNum ?? 0,
+                this.props.content,
+                nextProps.content,
+                this.props.widgets,
+                nextProps.widgets,
+            )
+        ) {
+            this.props.initializeUserInput?.(
+                nextProps.widgets,
+                nextProps.problemNum ?? 0,
+            );
             this.setState(this._getInitialWidgetState(nextProps));
         }
     }
@@ -465,34 +458,34 @@ class Renderer
     _getInitialWidgetState: (props: Props) => {
         widgetInfo: State["widgetInfo"];
         widgetProps: State["widgetProps"];
-        userInput: State["userInput"];
+        // userInput: State["userInput"];
     } = (props: Props) => {
         const allWidgetInfo = applyDefaultsToWidgets(props.widgets);
         return {
             widgetInfo: allWidgetInfo,
             widgetProps: this._getAllWidgetsStartProps(allWidgetInfo, props),
-            userInput: this._getAllWidgetsStartUserInput(props),
+            // userInput: this._getAllWidgetsStartUserInput(props),
         };
     };
 
-    _getAllWidgetsStartUserInput(props: Props): UserInputMap {
-        const widgetMap = props.widgets;
-        const startUserInput: UserInputMap = {};
-        entries(widgetMap).forEach(([id, widgetInfo]) => {
-            const widgetExports = Widgets.getWidgetExport(widgetInfo.type);
-            if (widgetInfo.static && widgetExports?.getCorrectUserInput) {
-                startUserInput[id] = widgetExports.getCorrectUserInput(
-                    widgetInfo.options,
-                );
-            } else if (widgetExports?.getStartUserInput) {
-                startUserInput[id] = widgetExports.getStartUserInput(
-                    widgetInfo.options,
-                    props.problemNum ?? 0,
-                );
-            }
-        });
-        return startUserInput;
-    }
+    // _getAllWidgetsStartUserInput(props: Props): UserInputMap {
+    //     const widgetMap = props.widgets;
+    //     const startUserInput: UserInputMap = {};
+    //     entries(widgetMap).forEach(([id, widgetInfo]) => {
+    //         const widgetExports = Widgets.getWidgetExport(widgetInfo.type);
+    //         if (widgetInfo.static && widgetExports?.getCorrectUserInput) {
+    //             startUserInput[id] = widgetExports.getCorrectUserInput(
+    //                 widgetInfo.options,
+    //             );
+    //         } else if (widgetExports?.getStartUserInput) {
+    //             startUserInput[id] = widgetExports.getStartUserInput(
+    //                 widgetInfo.options,
+    //                 props.problemNum ?? 0,
+    //             );
+    //         }
+    //     });
+    //     return startUserInput;
+    // }
 
     _getAllWidgetsStartProps: (
         allWidgetInfo: PerseusWidgetsMap,
@@ -629,7 +622,7 @@ class Renderer
 
         return {
             ...widgetProps,
-            userInput: this.state.userInput[widgetId],
+            userInput: this.props.userInput?.[widgetId],
             widgetId: widgetId,
             alignment: widgetInfo && widgetInfo.alignment,
             static: widgetInfo?.static,
@@ -646,12 +639,10 @@ class Renderer
             onChange: (newProps, cb, silent = false) => {
                 this._setWidgetProps(widgetId, newProps, cb, silent);
             },
-            handleUserInput: (
-                newUserInput: UserInput,
-                cb: () => boolean,
-                silent: boolean = false,
-            ) => {
-                this._setUserInput(widgetId, newUserInput, cb, silent);
+            handleUserInput: (newUserInput: UserInput) => {
+                // this._setUserInput(widgetId, newUserInput, cb, silent);
+                // TODO probably need to add cb/silent
+                this.props.handleUserInput?.(widgetId, newUserInput);
             },
             trackInteraction: interactionTracker.track,
             isLastUsedWidget: widgetId === this.state.lastUsedWidgetId,
@@ -736,14 +727,14 @@ class Renderer
         };
 
         const restoredWidgetProps = {};
-        const restoredUserInput = {};
+        // const restoredUserInput = {};
         Object.entries(serializedState).forEach(([widgetId, props]) => {
             const widget = this.getWidgetInstance(widgetId);
-            const widgetType = getWidgetTypeByWidgetId(
-                widgetId,
-                this.props.widgets,
-            );
-            const widgetExport = Widgets.getWidgetExport(widgetType as string);
+            // const widgetType = getWidgetTypeByWidgetId(
+            //     widgetId,
+            //     this.props.widgets,
+            // );
+            // const widgetExport = Widgets.getWidgetExport(widgetType as string);
             if (widget?.restoreSerializedState) {
                 // Note that we probably can't call
                 // `this.change()/this.props.onChange()` in this
@@ -766,17 +757,21 @@ class Renderer
                 restoredWidgetProps[widgetId] = props;
             }
 
-            if (widgetExport?.getUserInputFromSerializedState) {
-                const restoreResult =
-                    widgetExport.getUserInputFromSerializedState(props);
-                restoredUserInput[widgetId] = restoreResult;
-            }
+            // if (widgetExport?.getUserInputFromSerializedState) {
+            //     const restoreResult =
+            //         widgetExport.getUserInputFromSerializedState(props);
+            //     restoredUserInput[widgetId] = restoreResult;
+            // }
         });
 
+        this.props.restoreUserInputFromSerializedState?.(
+            serializedState,
+            this.props.widgets,
+        );
         this.setState(
             {
                 widgetProps: restoredWidgetProps,
-                userInput: restoredUserInput,
+                // userInput: restoredUserInput,
             },
             () => {
                 // Wait until all components have rendered. In React 16 setState
@@ -1633,10 +1628,16 @@ class Renderer
      * empty if the graph is in the starting state.
      */
     emptyWidgets(): ReadonlyArray<string> {
+        if (!this.props.userInput) {
+            throw new Error(
+                `emptyWidgets called without providing userInput to Renderer`,
+            );
+        }
+
         return emptyWidgetsFunctional(
             this.state.widgetInfo,
             this.widgetIds,
-            this.getUserInputMap(),
+            this.props.userInput,
             this.context.locale,
         );
     }
@@ -1687,31 +1688,31 @@ class Renderer
         );
     }
 
-    _setUserInput(
-        id: string,
-        nextUserInput: UserInput,
-        cb: () => boolean,
-        silent?: boolean,
-    ) {
-        this.setState(
-            (prevState) => {
-                const userInput =
-                    nextUserInput != null
-                        ? {
-                              ...this.state.userInput,
-                              [id]: nextUserInput,
-                          }
-                        : prevState.userInput;
+    // _setUserInput(
+    //     id: string,
+    //     nextUserInput: UserInput,
+    //     cb: () => boolean,
+    //     silent?: boolean,
+    // ) {
+    //     this.setState(
+    //         (prevState) => {
+    //             const userInput =
+    //                 nextUserInput != null
+    //                     ? {
+    //                           ...this.state.userInput,
+    //                           [id]: nextUserInput,
+    //                       }
+    //                     : prevState.userInput;
 
-                return {
-                    userInput,
-                };
-            },
-            () => {
-                this.handleStateUpdate(id, cb, silent);
-            },
-        );
-    }
+    //             return {
+    //                 userInput,
+    //             };
+    //         },
+    //         () => {
+    //             this.handleStateUpdate(id, cb, silent);
+    //         },
+    //     );
+    // }
 
     _setWidgetProps(
         id: string,
@@ -1763,13 +1764,21 @@ class Renderer
      * @deprecated use getUserInputMap
      */
     getUserInput(): UserInputArray {
+        const userInput = this.props.userInput;
+        if (!userInput) {
+            throw new Error(
+                `getUserInput called without providing userInput to Renderer`,
+            );
+        }
+
         return this.widgetIds.map((id: string) => {
-            const widget = this.getWidgetInstance(id);
-            if (widget && widget.getUserInput) {
-                // TODO(Jeremy): Add the widget ID in here so we can more
-                // easily correlate it to the widget state.
-                return widget.getUserInput();
-            }
+            // const widget = this.getWidgetInstance(id);
+            // if (widget && widget.getUserInput) {
+            //     // TODO(Jeremy): Add the widget ID in here so we can more
+            //     // easily correlate it to the widget state.
+            //     return widget.getUserInput();
+            // }
+            return userInput[id];
         });
     }
 
@@ -1777,21 +1786,29 @@ class Renderer
      * Returns an object of the widget `.getUserInput()` results
      */
     getUserInputMap(): UserInputMap {
-        const userInputMap = {};
-        this.widgetIds.forEach((id: string) => {
-            const widget = this.getWidgetInstance(id);
-            if (this.state.userInput[id]) {
-                // Get user input from Renderer state if possible
-                userInputMap[id] = this.state.userInput[id];
-            } else if (widget?.getUserInputMap) {
-                // Handle Groups, which have their own sets of widgets
-                userInputMap[id] = widget.getUserInputMap();
-            } else if (widget?.getUserInput) {
-                // Legacy method of getting user input
-                userInputMap[id] = widget.getUserInput();
-            }
-        });
-        return userInputMap;
+        // const userInputMap = {};
+        // this.widgetIds.forEach((id: string) => {
+        //     const widget = this.getWidgetInstance(id);
+        //     if (this.state.userInput[id]) {
+        //         // Get user input from Renderer state if possible
+        //         userInputMap[id] = this.state.userInput[id];
+        //     } else if (widget?.getUserInputMap) {
+        //         // Handle Groups, which have their own sets of widgets
+        //         userInputMap[id] = widget.getUserInputMap();
+        //     } else if (widget?.getUserInput) {
+        //         // Legacy method of getting user input
+        //         userInputMap[id] = widget.getUserInput();
+        //     }
+        // });
+        // return userInputMap;
+
+        const userInput = this.props.userInput;
+        if (!userInput) {
+            throw new Error(
+                `getUserInputMap called without providing userInput to Renderer`,
+            );
+        }
+        return userInput;
     }
 
     /**
@@ -1828,10 +1845,17 @@ class Renderer
      * @deprecated use scorePerseusItem
      */
     score(): PerseusScore {
+        if (!this.props.userInput) {
+            throw new Error(
+                `score called without providing userInput to Renderer`,
+            );
+        }
+
         const scores = scoreWidgetsFunctional(
             this.state.widgetInfo,
             this.widgetIds,
-            this.getUserInputMap(),
+            // this.getUserInputMap(),
+            this.props.userInput,
             this.context.locale,
         );
         const combinedScore = flattenScores(scores);

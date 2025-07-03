@@ -58,7 +58,7 @@ const question: PerseusRenderer = {
                             static: true,
                             graded: true,
                             options: {
-                                static: false,
+                                static: true,
                                 items: [
                                     "Some bacteria conduct photosynthesis and produce oxygen, much like plants.",
                                     "Bacteria are always autotrophic but they may get energy from either light or chemical sources.",

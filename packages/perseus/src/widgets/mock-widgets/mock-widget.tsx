@@ -136,6 +136,12 @@ function getUserInputFromSerializedState(
     };
 }
 
+function getStartUserInput(options: PerseusMockWidgetUserInput) {
+    return {
+        currentValue: "",
+    };
+}
+
 const styles = StyleSheet.create({
     widgetContainer: {
         color: "red",
@@ -147,5 +153,6 @@ export default {
     displayName: "Mock Widget",
     widget: MockWidgetComponent,
     isLintable: true,
+    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof MockWidgetComponent>;
