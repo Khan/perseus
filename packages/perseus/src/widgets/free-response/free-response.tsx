@@ -150,6 +150,10 @@ export default {
     displayName: "Free Response (Assessments only)",
     widget: FreeResponse,
     hidden: false,
+    // FreeResponse doesn't serialize user input,
+    // so just bring up the default user input when restoring
+    // (which we likely never should/will for FreeResponse)
+    getUserInputFromSerializedState: getStartUserInput,
     getStartUserInput,
 } as WidgetExports<typeof FreeResponse>;
 

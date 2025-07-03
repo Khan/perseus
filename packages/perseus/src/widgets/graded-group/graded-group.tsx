@@ -21,7 +21,9 @@ import {
     negativePhoneMargin,
     tableBackgroundAccent,
 } from "../../styles/constants";
-import {sharedInitializeUserInput} from "../../user-input-manager";
+import UserInputManager, {
+    sharedInitializeUserInput,
+} from "../../user-input-manager";
 import a11y from "../../util/a11y";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 
@@ -416,18 +418,44 @@ export class GradedGroup
                             >
                                 {this.context.strings.hideExplanation}
                             </button>
-                            {/**
-                             * We're passing a couple of props to Renderer that it doesn't
-                             * require as part of {...this.props.hint}.
-                             */}
-                            <Renderer
-                                {...this.props.hint}
-                                ref={this.hintRendererRef}
-                                apiOptions={apiOptions}
-                                linterContext={this.props.linterContext}
-                                strings={this.context.strings}
-                                showSolutions={showSolutions}
-                            />
+                            <UserInputManager
+                                widgets={this.props.hint.widgets}
+                                problemNum={this.props.problemNum ?? 0}
+                            >
+                                {({
+                                    userInput,
+                                    handleUserInput,
+                                    initializeUserInput,
+                                    restoreUserInputFromSerializedState,
+                                }) => {
+                                    {
+                                        /**
+                                         * We're passing a couple of props to Renderer that it doesn't
+                                         * require as part of {...this.props.hint}.
+                                         */
+                                    }
+                                    return (
+                                        <Renderer
+                                            {...this.props.hint}
+                                            userInput={userInput}
+                                            handleUserInput={handleUserInput}
+                                            initializeUserInput={
+                                                initializeUserInput
+                                            }
+                                            restoreUserInputFromSerializedState={
+                                                restoreUserInputFromSerializedState
+                                            }
+                                            ref={this.hintRendererRef}
+                                            apiOptions={apiOptions}
+                                            linterContext={
+                                                this.props.linterContext
+                                            }
+                                            strings={this.context.strings}
+                                            showSolutions={showSolutions}
+                                        />
+                                    );
+                                }}
+                            </UserInputManager>
                         </div>
                     ) : (
                         // Not using Button here bc the styles won't work.

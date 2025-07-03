@@ -327,10 +327,12 @@ export class ServerItemRenderer
             questionHighlightedWidgets: withRemoved,
         });
 
-        // Call the interactionCallback, if it exists, with the current user input data
-        this.props.apiOptions?.interactionCallback?.(
-            this.questionRenderer.getUserInputMap(),
-        );
+        setTimeout(() => {
+            // Call the interactionCallback, if it exists, with the current user input data
+            this.props.apiOptions?.interactionCallback?.(
+                this.questionRenderer.getUserInputMap(),
+            );
+        }, 0);
     };
 
     focus(): boolean | null | undefined {
@@ -481,7 +483,10 @@ export class ServerItemRenderer
                                 strings={this.context.strings}
                                 {...this.props.dependencies}
                                 userInput={userInput}
-                                handleUserInput={handleUserInput}
+                                handleUserInput={(id, userInput) => {
+                                    handleUserInput(id, userInput);
+                                    this.handleInteractWithWidget(id);
+                                }}
                                 initializeUserInput={initializeUserInput}
                                 restoreUserInputFromSerializedState={
                                     restoreUserInputFromSerializedState
