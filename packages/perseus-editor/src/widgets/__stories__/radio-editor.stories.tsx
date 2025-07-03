@@ -2,7 +2,7 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import RadioEditor from "../radio/radio-editor";
+import RadioEditor from "../radio/editor";
 
 import type {APIOptions} from "@khanacademy/perseus";
 import type {

@@ -29,7 +29,7 @@ import PassageRefTargetEditor from "./widgets/passage-ref-target-editor";
 import PhetSimulationEditor from "./widgets/phet-simulation-editor";
 import PlotterEditor from "./widgets/plotter-editor";
 import PythonProgramEditor from "./widgets/python-program-editor";
-import RadioEditor from "./widgets/radio/radio-editor";
+import RadioEditor from "./widgets/radio/editor";
 import SorterEditor from "./widgets/sorter-editor";
 import TableEditor from "./widgets/table-editor";
 import VideoEditor from "./widgets/video-editor";
