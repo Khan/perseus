@@ -77,31 +77,6 @@ describe("scoreNumericInput", () => {
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
-    it("should consider commas as a decimal separator in the French locale", () => {
-        const rubric: PerseusNumericInputRubric = {
-            answers: [
-                {
-                    value: 16.5,
-                    status: "correct",
-                    maxError: 0,
-                    simplify: "optional",
-                    strict: false,
-                    message: "",
-                },
-            ],
-            coefficient: false,
-        };
-
-        const userInput = {
-            currentValue: "16,5",
-        } as const;
-
-        // Using French locale where comma is decimal separator
-        const score = scoreNumericInput(userInput, rubric, "fr");
-
-        expect(score).toHaveBeenAnsweredCorrectly();
-    });
-
     it("should reject European decimal format in US locale", () => {
         const rubric: PerseusNumericInputRubric = {
             answers: [
@@ -151,6 +126,57 @@ describe("scoreNumericInput", () => {
         const score = scoreNumericInput(userInput, rubric, "en");
 
         // "16,500.00" is valid input in US locale
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should consider commas as a decimal separator in the French locale", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 16.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: false,
+        };
+
+        const userInput = {
+            currentValue: "16,5",
+        } as const;
+
+        // Using French locale where comma is decimal separator
+        const score = scoreNumericInput(userInput, rubric, "fr");
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should still accept periods as thousands separator in FR locale", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 16500,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: false,
+        };
+
+        const userInput = {
+            currentValue: "16.500,00",
+        } as const;
+
+        // Using US locale where comma is thousands separator
+        const score = scoreNumericInput(userInput, rubric, "fr");
+
+        // "16.500,00" is valid input in FR locale
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
