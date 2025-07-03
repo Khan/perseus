@@ -50,9 +50,6 @@ type PnpmWorkspace = {
     catalog: Record<string, string>;
 };
 
-// There are some packages and version number constructs that we don't want to
-// bring into Perseus. This function filters out packages by name or version
-// that we can't use locally.
 function resolveVersionRangesFromCatalog(
     packageJson: PackageJson,
     workspace: PnpmWorkspace,
