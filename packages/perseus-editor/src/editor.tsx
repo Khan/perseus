@@ -242,6 +242,19 @@ class Editor extends React.Component<Props, State> {
         if (this.props.content !== prevProps.content) {
             this._sizeImages(this.props);
         }
+
+        clearTimeout(this.deferredChange);
+        // if (this.state.textAreaValue !== this.props.content) {
+        //     this.props.onChange({content: this.state.textAreaValue});
+        // }
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+        // eslint-disable-next-line no-restricted-syntax
+        this.deferredChange = setTimeout(() => {
+            console.log("change event to", this.state.textAreaValue);
+            if (this.state.textAreaValue !== this.props.content) {
+                this.props.onChange({content: this.state.textAreaValue});
+            }
+        }, this.props.apiOptions.editorChangeDelay);
     }
 
     componentWillUnmount() {
@@ -437,9 +450,9 @@ class Editor extends React.Component<Props, State> {
         console.log("handleChange", e.currentTarget.value);
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        this.props.onChange({content: e.currentTarget.value});
+        // this.props.onChange({content: e.currentTarget.value});
+        this.setState({textAreaValue: e.currentTarget.value});
         // clearTimeout(this.deferredChange);
-        // this.setState({textAreaValue: e.currentTarget.value});
         // if (this.state.textAreaValue !== this.props.content) {
         //     this.props.onChange({content: this.state.textAreaValue});
         // }
