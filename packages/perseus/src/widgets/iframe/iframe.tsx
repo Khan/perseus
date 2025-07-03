@@ -166,11 +166,19 @@ function getUserInputFromSerializedState(
     return {status: serializedState.status, message: serializedState.message};
 }
 
+function getStartUserInput(): PerseusIFrameUserInput {
+    return {
+        status: "incomplete",
+        message: null,
+    };
+}
+
 export default {
     name: "iframe",
     displayName: "Iframe (deprecated)",
     widget: Iframe,
     // Let's not expose it to all content creators yet
     hidden: true,
+    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Iframe>;

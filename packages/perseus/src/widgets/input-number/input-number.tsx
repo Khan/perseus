@@ -304,6 +304,10 @@ function getUserInputFromSerializedState(
     };
 }
 
+function getStartUserInput(): PerseusInputNumberUserInput {
+    return {currentValue: ""};
+}
+
 export default {
     name: "input-number",
     displayName: "Input number (deprecated - use numeric input instead)",
@@ -312,5 +316,6 @@ export default {
     isLintable: true,
     transform,
     getOneCorrectAnswerFromRubric,
+    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof InputNumber>;

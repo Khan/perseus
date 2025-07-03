@@ -179,10 +179,17 @@ function getUserInputFromSerializedState(
     return {value: serializedState.selected};
 }
 
+function getStartUserInput(): PerseusDropdownUserInput {
+    return {
+        value: 0,
+    };
+}
+
 export default {
     name: "dropdown",
     displayName: "Drop down",
     widget: Dropdown,
     transform,
+    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Dropdown>;

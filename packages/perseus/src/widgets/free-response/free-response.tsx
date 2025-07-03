@@ -138,12 +138,19 @@ export class FreeResponse extends React.Component<Props> implements Widget {
     }
 }
 
+function getStartUserInput(): PerseusFreeResponseUserInput {
+    return {
+        currentValue: "",
+    };
+}
+
 export default {
     name: "free-response",
     accessible: true,
     displayName: "Free Response (Assessments only)",
     widget: FreeResponse,
     hidden: false,
+    getStartUserInput,
 } as WidgetExports<typeof FreeResponse>;
 
 const styles = StyleSheet.create({
