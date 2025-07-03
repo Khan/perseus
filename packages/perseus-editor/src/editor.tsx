@@ -434,17 +434,9 @@ class Editor extends React.Component<Props, State> {
     handleChange: (e: React.SyntheticEvent<HTMLTextAreaElement>) => void = (
         e: React.SyntheticEvent<HTMLTextAreaElement>,
     ) => {
-        // ✅ FIX: Emit any pending change before canceling
-        if (
-            this.deferredChange &&
-            this.state.textAreaValue !== this.props.content
-        ) {
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
-            // eslint-disable-next-line no-restricted-syntax
-            clearTimeout(this.deferredChange);
-            this.props.onChange({content: this.state.textAreaValue});
-        }
-
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
+        // eslint-disable-next-line no-restricted-syntax
+        clearTimeout(this.deferredChange);
         this.setState({textAreaValue: e.currentTarget.value});
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
