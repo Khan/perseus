@@ -35,7 +35,7 @@ import type {
 } from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<RenderProps, UserInputMap>;
 type DefaultProps = {
     content: Props["content"];
     widgets: Props["widgets"];

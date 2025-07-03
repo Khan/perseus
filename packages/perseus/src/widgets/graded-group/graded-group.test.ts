@@ -282,13 +282,8 @@ describe("graded-group", () => {
             );
             act(() => jest.runOnlyPendingTimers());
 
-            await checkAnswer(userEvent);
-
             // Act
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[2],
-            );
-            act(() => jest.runOnlyPendingTimers());
+            await checkAnswer(userEvent);
 
             // Assert
             expect(

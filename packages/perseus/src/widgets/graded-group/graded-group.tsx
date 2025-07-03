@@ -21,6 +21,7 @@ import {
     negativePhoneMargin,
     tableBackgroundAccent,
 } from "../../styles/constants";
+import {sharedInitializeUserInput} from "../../user-input-manager";
 import a11y from "../../util/a11y";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 
@@ -37,7 +38,9 @@ import type {
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 import type {
     PerseusGradedGroupWidgetOptions,
+    PerseusRenderer,
     PerseusScore,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -72,7 +75,7 @@ type RenderProps = PerseusGradedGroupWidgetOptions; // exports has no 'transform
 
 type Props = WidgetProps<
     RenderProps,
-    undefined,
+    UserInputMap,
     TrackingGradedGroupExtraArguments
 > & {
     inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,
@@ -104,7 +107,7 @@ type State = {
 // via defaultProps.
 0 as any as WidgetProps<
     PerseusGradedGroupWidgetOptions,
-    undefined,
+    UserInputMap,
     undefined
 > satisfies PropsFor<typeof GradedGroup>;
 
@@ -143,6 +146,27 @@ export class GradedGroup
         return nextProps !== this.props || nextState !== this.state;
     }
 
+    componentDidUpdate(prevProps: Props) {
+        if (!_.isEqual(this.props.userInput, prevProps.userInput)) {
+            // Reset grading display when user changes answer
+            this.setState({
+                status: GRADING_STATUSES.ungraded,
+                message: "",
+            });
+
+            if (this.rendererRef.current) {
+                // this.change("widgets", this.props.widgets);
+                const emptyWidgets = this.rendererRef.current.emptyWidgets();
+                const answerable = emptyWidgets.length === 0;
+                const answerBarState = this.state.answerBarState;
+                const nextState = getNextState(answerBarState, answerable);
+                this.setState({
+                    answerBarState: nextState,
+                });
+            }
+        }
+    }
+
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // eslint-disable-next-line import/no-deprecated
         return Changeable.change.apply(this, args as any);
@@ -153,23 +177,23 @@ export class GradedGroup
     // widgets prop also wasn't actually changed, and this only serves to
     // alert our renderer (our parent) of the fact that some interaction
     // has occurred.
-    _onInteractWithWidget: (arg1: string) => void = (id) => {
-        // Reset grading display when user changes answer
-        this.setState({
-            status: GRADING_STATUSES.ungraded,
-            message: "",
-        });
+    // _onInteractWithWidget: (arg1: string) => void = (id) => {
+    //     // Reset grading display when user changes answer
+    //     this.setState({
+    //         status: GRADING_STATUSES.ungraded,
+    //         message: "",
+    //     });
 
-        if (this.rendererRef.current) {
-            this.change("widgets", this.props.widgets);
-            const emptyWidgets = this.rendererRef.current.emptyWidgets();
-            const answerable = emptyWidgets.length === 0;
-            const answerBarState = this.state.answerBarState;
-            this.setState({
-                answerBarState: getNextState(answerBarState, answerable),
-            });
-        }
-    };
+    //     if (this.rendererRef.current) {
+    //         this.change("widgets", this.props.widgets);
+    //         const emptyWidgets = this.rendererRef.current.emptyWidgets();
+    //         const answerable = emptyWidgets.length === 0;
+    //         const answerBarState = this.state.answerBarState;
+    //         this.setState({
+    //             answerBarState: getNextState(answerBarState, answerable),
+    //         });
+    //     }
+    // };
 
     _checkAnswer: () => void = () => {
         const score: PerseusScore = this.rendererRef.current?.score() || {
@@ -321,10 +345,16 @@ export class GradedGroup
                 {/* @ts-expect-error - TS2322 - Type '{ ref: string; apiOptions: any; onInteractWithWidget: (arg1: string) => void; linterContext: LinterContextProps; title: string; hasHint?: boolean | null | undefined; ... 22 more ...; children?: ReactNode; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "keypadElement" | "problemNum" | "apiOptions" | "legacyPerseusLint">'. */}
                 <Renderer
                     {...this.props}
+                    userInput={this.props.userInput}
+                    handleUserInput={(widgetId, userInput) => {
+                        this.props.handleUserInput({
+                            ...this.props.userInput,
+                            [widgetId]: userInput,
+                        });
+                    }}
                     ref={this.rendererRef}
                     apiOptions={{...apiOptions, readOnly}}
                     showSolutions={showSolutions}
-                    onInteractWithWidget={this._onInteractWithWidget}
                     linterContext={this.props.linterContext}
                     strings={this.context.strings}
                 />
@@ -482,6 +512,10 @@ const styles = StyleSheet.create({
     },
 });
 
+function getStartUserInput(options: PerseusRenderer, problemNum: number) {
+    return sharedInitializeUserInput(options.widgets, problemNum);
+}
+
 export default {
     name: "graded-group",
     displayName: "Graded group (articles only)",
@@ -490,4 +524,5 @@ export default {
     hidden: false,
     tracking: "all",
     isLintable: true,
+    getStartUserInput,
 } satisfies WidgetExports<typeof GradedGroup>;
