@@ -16,12 +16,15 @@ export type RestoreUserInputFromSerializedStateCallback = (
     widgetOptions: PerseusWidgetsMap,
 ) => void;
 
+export type HandleUserInputCallback = (
+    id: string,
+    userInput: UserInputMap[keyof UserInputMap],
+) => void;
+
 type WrapperPayload = {
+    initialized: boolean;
     userInput: UserInputMap;
-    handleUserInput: (
-        id: string,
-        userInput: UserInputMap[keyof UserInputMap],
-    ) => void;
+    handleUserInput: HandleUserInputCallback;
     initializeUserInput: InitializeUserInputCallback;
     // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
@@ -31,11 +34,11 @@ type WrapperPayload = {
 };
 
 type Props = {
-    widgets: PerseusWidgetsMap;
-    children: (payload: WrapperPayload) => JSX.Element;
+    children: (payload: WrapperPayload) => JSX.Element | null;
 };
 
 export default function UserInputManager(props: Props) {
+    const [initialized, setInitialized] = useState<boolean>(false);
     const [userInput, setUserInput] = useState<UserInputMap>({});
 
     /**
@@ -78,6 +81,7 @@ export default function UserInputManager(props: Props) {
             }
         });
         setUserInput(startUserInput);
+        setInitialized(true);
     }
 
     /**
@@ -109,6 +113,7 @@ export default function UserInputManager(props: Props) {
     }
 
     return props.children({
+        initialized,
         userInput,
         handleUserInput,
         initializeUserInput,

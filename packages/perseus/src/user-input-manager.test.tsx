@@ -80,18 +80,14 @@ describe("UserInputManager", () => {
     });
 
     it("renders", () => {
-        render(
-            <UserInputManager widgets={{}}>
-                {() => <p>Hello world</p>}
-            </UserInputManager>,
-        );
+        render(<UserInputManager>{() => <p>Hello world</p>}</UserInputManager>);
 
         expect(screen.getByText("Hello world")).toBeInTheDocument();
     });
 
     it("updates user input", async () => {
         render(
-            <UserInputManager widgets={{}}>
+            <UserInputManager>
                 {({userInput, handleUserInput}) => (
                     <>
                         <button
@@ -117,7 +113,7 @@ describe("UserInputManager", () => {
         let initializeCallback: InitializeUserInputCallback | undefined;
 
         render(
-            <UserInputManager widgets={{}}>
+            <UserInputManager>
                 {({userInput, handleUserInput, initializeUserInput}) => {
                     initializeCallback = initializeUserInput;
                     return (
@@ -158,7 +154,7 @@ describe("UserInputManager", () => {
             | undefined;
 
         render(
-            <UserInputManager widgets={{}}>
+            <UserInputManager>
                 {({
                     userInput,
                     handleUserInput,
