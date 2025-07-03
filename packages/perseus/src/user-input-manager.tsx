@@ -39,6 +39,35 @@ type Props = {
     children: (payload: WrapperPayload) => JSX.Element | null;
 };
 
+/**
+ * Initialize the starting UserInput state:
+ * - for static widgets, that's the correct UserInput
+ * - some widgets just like having something to start with
+ * - some widgets use initial UserInput state as the "shuffled state"
+ *   (which is why we need problemNum since it's the seed)
+ */
+export function sharedInitializeUserInput(
+    widgetOptions: PerseusWidgetsMap,
+    problemNum: number,
+) {
+    const startUserInput: UserInputMap = {};
+    entries(widgetOptions).forEach(([id, widgetInfo]) => {
+        const widgetExports = Widgets.getWidgetExport(widgetInfo.type);
+        if (widgetInfo.static && widgetExports?.getCorrectUserInput) {
+            startUserInput[id] = widgetExports.getCorrectUserInput(
+                widgetInfo.options,
+            );
+        } else if (widgetExports?.getStartUserInput) {
+            startUserInput[id] = widgetExports.getStartUserInput(
+                widgetInfo.options,
+                problemNum ?? 0,
+            );
+        }
+    });
+
+    return startUserInput;
+}
+
 export default function UserInputManager(props: Props) {
     const [initialized, setInitialized] = useState<boolean>(false);
     const [userInput, setUserInput] = useState<UserInputMap>({});
@@ -63,32 +92,11 @@ export default function UserInputManager(props: Props) {
         });
     }
 
-    /**
-     * Initialize the starting UserInput state:
-     * - for static widgets, that's the correct UserInput
-     * - some widgets just like having something to start with
-     * - some widgets use initial UserInput state as the "shuffled state"
-     *   (which is why we need problemNum since it's the seed)
-     */
     function initializeUserInput(
         widgetOptions: PerseusWidgetsMap,
         problemNum: number,
     ) {
-        const startUserInput: UserInputMap = {};
-        entries(widgetOptions).forEach(([id, widgetInfo]) => {
-            const widgetExports = Widgets.getWidgetExport(widgetInfo.type);
-            if (widgetInfo.static && widgetExports?.getCorrectUserInput) {
-                startUserInput[id] = widgetExports.getCorrectUserInput(
-                    widgetInfo.options,
-                );
-            } else if (widgetExports?.getStartUserInput) {
-                startUserInput[id] = widgetExports.getStartUserInput(
-                    widgetInfo.options,
-                    problemNum ?? 0,
-                );
-            }
-        });
-        setUserInput(startUserInput);
+        setUserInput(sharedInitializeUserInput(widgetOptions, problemNum));
         setInitialized(true);
     }
 
