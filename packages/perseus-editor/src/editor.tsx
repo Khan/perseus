@@ -437,17 +437,21 @@ class Editor extends React.Component<Props, State> {
         console.log("handleChange", e.currentTarget.value);
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        clearTimeout(this.deferredChange);
-        this.setState({textAreaValue: e.currentTarget.value});
+        this.props.onChange({content: e.currentTarget.value});
+        // clearTimeout(this.deferredChange);
+        // this.setState({textAreaValue: e.currentTarget.value});
+        // if (this.state.textAreaValue !== this.props.content) {
+        //     this.props.onChange({content: this.state.textAreaValue});
+        // }
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        this.deferredChange = setTimeout(() => {
-            debugger;
-            console.trace();
-            if (this.state.textAreaValue !== this.props.content) {
-                this.props.onChange({content: this.state.textAreaValue});
-            }
-        }, this.props.apiOptions.editorChangeDelay);
+        // this.deferredChange = setTimeout(() => {
+        //     debugger;
+        //     console.trace();
+        //     if (this.state.textAreaValue !== this.props.content) {
+        //         this.props.onChange({content: this.state.textAreaValue});
+        //     }
+        // }, this.props.apiOptions.editorChangeDelay);
     };
 
     _handleKeyDown: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void = (
