@@ -441,6 +441,7 @@ class Editor extends React.Component<Props, State> {
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
         this.deferredChange = setTimeout(() => {
+            debugger;
             if (this.state.textAreaValue !== this.props.content) {
                 this.props.onChange({content: this.state.textAreaValue});
             }
