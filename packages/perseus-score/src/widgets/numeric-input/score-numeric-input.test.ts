@@ -53,7 +53,7 @@ describe("scoreNumericInput", () => {
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
-    it("should not consider commas as a decimal separator in the US locale", () => {
+    it("should not consider commas as a decimal separator in the EN locale", () => {
         const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
@@ -77,33 +77,7 @@ describe("scoreNumericInput", () => {
         expect(score).toHaveBeenAnsweredIncorrectly();
     });
 
-    it("should reject European decimal format in US locale", () => {
-        const rubric: PerseusNumericInputRubric = {
-            answers: [
-                {
-                    value: 16.5,
-                    status: "correct",
-                    maxError: 0,
-                    simplify: "optional",
-                    strict: false,
-                    message: "",
-                },
-            ],
-            coefficient: false,
-        };
-
-        const userInput = {
-            currentValue: "16,5",
-        } as const;
-
-        // Using US locale where comma is thousands separator
-        const score = scoreNumericInput(userInput, rubric, "en");
-
-        // "16,5" is invalid input in US locale (not a recognized number format)
-        expect(score).toHaveInvalidInput("EXTRA_SYMBOLS_ERROR");
-    });
-
-    it("should still accept commas as thousands separator in US locale", () => {
+    it("should consider commas as the thousands separator in the EN locale", () => {
         const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
@@ -129,7 +103,33 @@ describe("scoreNumericInput", () => {
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
-    it("should consider commas as a decimal separator in the French locale", () => {
+    it("should reject European decimal format if input is not a valid number in the EN locale", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 16.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: false,
+        };
+
+        const userInput = {
+            currentValue: "16,5",
+        } as const;
+
+        // Using US locale where comma is thousands separator
+        const score = scoreNumericInput(userInput, rubric, "en");
+
+        // "16,5" is invalid input in US locale (not a recognized number format)
+        expect(score).toHaveInvalidInput("EXTRA_SYMBOLS_ERROR");
+    });
+
+    it("should consider commas as the decimal separator in the FR locale", () => {
         const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
@@ -154,7 +154,7 @@ describe("scoreNumericInput", () => {
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
-    it("should still accept periods as thousands separator in FR locale", () => {
+    it("should still accept periods as the thousands separator in FR locale", () => {
         const rubric: PerseusNumericInputRubric = {
             answers: [
                 {
