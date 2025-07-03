@@ -181,6 +181,13 @@ class Group extends React.Component<Props> implements Widget {
             >
                 {problemNumComponent}
                 <Renderer
+                    userInput={this.props.userInput}
+                    handleUserInput={(widgetId, userInput) => {
+                        this.props.handleUserInput({
+                            ...this.props.userInput,
+                            [widgetId]: userInput,
+                        });
+                    }}
                     content={this.props.content}
                     widgets={this.props.widgets}
                     images={this.props.images}
