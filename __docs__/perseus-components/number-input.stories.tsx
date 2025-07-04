@@ -1,6 +1,6 @@
 import {action} from "storybook/actions";
 
-import NumberInput from "../number-input";
+import NumberInput from "../../packages/perseus/src/components/number-input";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

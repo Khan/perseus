@@ -1,4 +1,4 @@
-import Sortable from "../sortable";
+import Sortable from "../../packages/perseus/src/components/sortable";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

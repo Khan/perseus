@@ -1,6 +1,6 @@
 import {action} from "storybook/actions";
 
-import RangeInput from "../range-input";
+import RangeInput from "../../packages/perseus/src/components/range-input";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

@@ -67,9 +67,9 @@ const preview: Preview = {
                     "Theming",
                     "Perseus",
                     [
-                        "Components",
-                        ["Overview", "*"],
                         "Renderers",
+                        ["Overview", "*"],
+                        "Components",
                         ["Overview", "*"],
                         "Editors",
                         ["Overview", "*"],

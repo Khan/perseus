@@ -8,6 +8,7 @@ export default {
     parameters: {
         viewMode: "docs",
     },
+    tags: ["!autodocs"],
 } as Meta;
 
 const styles = StyleSheet.create({

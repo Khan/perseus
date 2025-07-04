@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import {getDependencies} from "../../dependencies";
-import FixedToResponsive from "../fixed-to-responsive";
+import {getDependencies} from "../../packages/perseus/src/dependencies";
+import FixedToResponsive from "../../packages/perseus/src/components/fixed-to-responsive";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

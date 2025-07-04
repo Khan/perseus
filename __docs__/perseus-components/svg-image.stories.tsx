@@ -1,4 +1,4 @@
-import SvgImage from "../svg-image";
+import SvgImage from "../../packages/perseus/src/components/svg-image";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

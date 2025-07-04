@@ -1,8 +1,8 @@
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-import {itemWithPieChart} from "../../__testdata__/graphie.testdata";
-import Graphie from "../graphie";
+import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {itemWithPieChart} from "../../packages/perseus/src/__testdata__/graphie.testdata";
+import Graphie from "../../packages/perseus/src/components/graphie";
 
 import type {StoryObj, Meta} from "@storybook/react-vite";
 

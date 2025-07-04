@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Lint from "../lint";
+import Lint from "../../packages/perseus/src/components/lint";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

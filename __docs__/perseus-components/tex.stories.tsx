@@ -1,4 +1,4 @@
-import TeX from "../tex";
+import TeX from "../../packages/perseus/src/components/tex";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

@@ -1,6 +1,6 @@
 import {action} from "storybook/actions";
 
-import Hud from "../hud";
+import Hud from "../../packages/perseus/src/components/hud";
 
 import type {StoryObj, Meta} from "@storybook/react-vite";
 

@@ -1,6 +1,6 @@
 import {action} from "storybook/actions";
 
-import TextInput from "../text-input";
+import TextInput from "../../packages/perseus/src/components/text-input";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

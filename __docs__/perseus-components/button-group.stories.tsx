@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import ButtonGroup from "../button-group";
+import ButtonGroup from "../../packages/perseus/src/components/button-group";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

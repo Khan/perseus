@@ -1,7 +1,7 @@
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+
 import {
     questionWithPassage,
     choicesWithImages,
@@ -10,9 +10,10 @@ import {
     multiChoiceQuestionSimpleOverflowContent,
     SingleSelectOverflowContent,
     SingleSelectOverflowImageContent,
-} from "../../packages/perseus/src/widgets/radio/__tests__/radio.testdata";
+} from "../../../packages/perseus/src/widgets/radio/__tests__/radio.testdata";
+import {ServerItemRendererWithDebugUI} from "../../../testing/server-item-renderer-with-debug-ui";
 
-import type {APIOptions} from "../../packages/perseus/src/types";
+import type {APIOptions} from "../../../packages/perseus/src/types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
 
@@ -55,6 +56,7 @@ export default {
             },
         },
     },
+    tags: ["!autodocs"],
     render: (args: StoryArgs) => (
         <ServerItemRendererWithDebugUI
             item={applyStoryArgs(args)}

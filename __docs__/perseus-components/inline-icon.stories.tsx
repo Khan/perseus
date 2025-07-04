@@ -1,4 +1,4 @@
-import InlineIcon from "../inline-icon";
+import InlineIcon from "../../packages/perseus/src/components/inline-icon";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

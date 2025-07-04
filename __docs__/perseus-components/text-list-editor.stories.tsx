@@ -1,7 +1,7 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import TextListEditor from "../text-list-editor";
+import TextListEditor from "../../packages/perseus/src/components/text-list-editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

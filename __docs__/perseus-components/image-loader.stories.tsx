@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import ImageLoader from "../image-loader";
+import ImageLoader from "../../packages/perseus/src/components/image-loader";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

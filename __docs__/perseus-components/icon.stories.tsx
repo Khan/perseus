@@ -1,5 +1,5 @@
-import * as IconPaths from "../../icon-paths";
-import IconComponent from "../icon";
+import * as IconPaths from "../../packages/perseus/src/icon-paths";
+import IconComponent from "../../packages/perseus/src/components/icon";
 
 import type {StoryObj, Meta} from "@storybook/react-vite";
 

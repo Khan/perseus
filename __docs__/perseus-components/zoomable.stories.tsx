@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Zoomable from "../zoomable";
+import Zoomable from "../../packages/perseus/src/components/zoomable";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
