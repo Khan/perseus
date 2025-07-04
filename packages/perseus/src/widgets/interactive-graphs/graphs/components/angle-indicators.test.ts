@@ -1,6 +1,9 @@
 import {angles} from "@khanacademy/kmath";
 
-import {shouldDrawArcOutside} from "./angle-indicators";
+import {
+    shouldDrawArcOutside,
+    shouldDrawArcOutsidePolygon,
+} from "./angle-indicators";
 
 import type {Coord, CollinearTuple} from "@khanacademy/perseus-core";
 import type {vec, Interval} from "mafs";
@@ -104,4 +107,48 @@ describe("shouldDrawArcOutside", () => {
         const coords: [Coord, Coord, Coord] = [point1, vertex, point2];
         expect(getClockwiseAngle(coords)).toBe(45);
     });
+});
+
+describe("shouldDrawArcOutsidePolygon", () => {
+    const clockwiseConcaveCoords = [
+        [-7, 5],
+        [1, 5],
+        [6, 0],
+        [1, -5],
+        [-7, -5],
+        [-2, 0], // concave vertex
+    ] satisfies vec.Vector2[];
+
+    // Test each point in this chevron shaped polygon with clockwise points.
+    it.each([
+        {index: 0, expected: false}, // inside
+        {index: 1, expected: false}, // inside
+        {index: 2, expected: false}, // inside
+        {index: 3, expected: false}, // inside
+        {index: 4, expected: false}, // inside
+        {index: 5, expected: true}, // outside
+    ] satisfies {
+        index: number;
+        expected: boolean;
+    }[])(
+        "should return $expected for concave clockwise polygon vertex $index",
+        ({index, expected}) => {
+            // Get the previous and next vertices.
+            const previousIndex =
+                (index - 1 + clockwiseConcaveCoords.length) %
+                clockwiseConcaveCoords.length;
+            const nextIndex = (index + 1) % clockwiseConcaveCoords.length;
+
+            // Determine the vertex and the end points.
+            const vertex = clockwiseConcaveCoords[index];
+            const endPoints = [
+                clockwiseConcaveCoords[previousIndex],
+                clockwiseConcaveCoords[nextIndex],
+            ] satisfies [vec.Vector2, vec.Vector2];
+
+            expect(shouldDrawArcOutsidePolygon(vertex, endPoints)).toBe(
+                expected,
+            );
+        },
+    );
 });
