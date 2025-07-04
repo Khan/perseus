@@ -185,17 +185,35 @@ export const unlimitedPolygonQuestion: PerseusRenderer =
         })
         .build();
 
+// Clockwise points
+// export const polygonWithStartingCoordsQuestion: PerseusRenderer =
+//     interactiveGraphQuestionBuilder()
+//         .withMarkings("grid")
+//         .withPolygon("grid", {
+//             startCoords: [
+//                 [-7, 5],
+//                 [1, 5],
+//                 [6, 0],
+//                 [1, -5],
+//                 [-7, -5],
+//                 [-2, 0],
+//             ],
+//             showAngles: true,
+//         })
+//         .build();
+
+// Counter-clockwise points
 export const polygonWithStartingCoordsQuestion: PerseusRenderer =
     interactiveGraphQuestionBuilder()
         .withMarkings("grid")
         .withPolygon("grid", {
             startCoords: [
-                [-7, 5],
-                [1, 5],
-                [6, 0],
-                [1, -5],
-                [-7, -5],
                 [-2, 0],
+                [-7, -5],
+                [1, -5],
+                [6, 0],
+                [1, 5],
+                [-7, 5],
             ],
             showAngles: true,
         })

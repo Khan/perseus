@@ -20,25 +20,22 @@ const {getAngleFromVertex} = angles;
 interface PolygonAngleProps {
     centerPoint: vec.Vector2;
     endPoints: [vec.Vector2, vec.Vector2];
-    polygonLines: readonly CollinearTuple[];
-    range: [Interval, Interval];
     showAngles: boolean;
     snapTo: SnapTo;
+    areClockwise: boolean;
 }
 
 export const PolygonAngle = ({
     centerPoint,
     endPoints,
-    range,
-    polygonLines,
     showAngles,
     snapTo,
+    areClockwise,
 }: PolygonAngleProps) => {
     const [centerX, centerY] = centerPoint;
-    const areClockwise = clockwise([centerPoint, ...endPoints]);
     const [[startX, startY], [endX, endY]] = areClockwise
         ? endPoints
-        : endPoints.reverse();
+        : endPoints.reverse(); // Make endpoints always clockwise
 
     const radius = 0.3;
 
@@ -80,13 +77,13 @@ export const PolygonAngle = ({
         ) : null;
     }
 
-    // Midpoint betwen ends of arc
-    const isOutside = shouldDrawArcOutside(
-        [x3, y3],
-        centerPoint,
-        range,
-        polygonLines,
-    );
+    // Use cross product to determine if the angle is outside the polygon.
+    // If the vertex is concave, the cross product will be positive with
+    // the assumed clockwise points.
+    const v1 = vec.sub(endPoints[1], centerPoint);
+    const v2 = vec.sub(endPoints[0], centerPoint);
+    const crossProduct = v1[0] * v2[1] - v1[1] * v2[0];
+    const isOutside = crossProduct > 0;
 
     const largeArcFlag = isOutside ? 1 : 0;
     const sweepFlag = isOutside ? 1 : 0;
