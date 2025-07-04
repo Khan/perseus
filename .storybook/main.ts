@@ -31,14 +31,15 @@ const cssWrapper = {
 
 const config: StorybookConfig = {
     stories: [
-        // Include MDX files from the __docs__ directory for top-level docs
-        "../__docs__/_*.mdx",
+        // This will be used for the main documentation pages
+        "../__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
 
-        // Generic pattern to include all stories from any subdirectory under __docs__
-        "../__docs__/**/*.stories.@(ts|tsx|mdx)",
+        // Docs for Perseus editor
+        "../packages/perseus-editor/src/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
+        "../packages/perseus-editor/src/widgets/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
 
-        // Include MDX documentation files
-        "../__docs__/**/*.mdx",
+        // Docs for Perseus widgets, components, and renderers
+        "../packages/perseus/src/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
     ],
     addons: [
         "@storybook/addon-a11y",
