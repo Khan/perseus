@@ -1,13 +1,13 @@
 import {action} from "storybook/actions";
 
-import {ArticleRendererWithDebugUI} from "../../../../testing/article-renderer-with-debug-ui";
+import {ArticleRendererWithDebugUI} from "../../testing/article-renderer-with-debug-ui";
 import {
     singleSectionArticle,
     multiSectionArticle,
     passageArticle,
     articleSectionWithExpression,
     multiSectionArticleWithExpression,
-} from "../__testdata__/article-renderer.testdata";
+} from "../../packages/perseus/src/__testdata__/article-renderer.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

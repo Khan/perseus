@@ -1,18 +1,14 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
 import {
     questionWithPassage,
-    choicesWithImages,
-    multiChoiceQuestionSimple,
     multiChoiceQuestion,
-    multiChoiceQuestionSimpleOverflowContent,
-    SingleSelectOverflowContent,
-    SingleSelectOverflowImageContent,
-} from "../__tests__/radio.testdata";
+    choicesWithImages,
+} from "../../packages/perseus/src/widgets/radio/__tests__/radio.testdata";
 
-import type {APIOptions} from "../../../types";
+import type {APIOptions} from "../../packages/perseus/src/types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
 
@@ -28,18 +24,10 @@ type StoryArgs = {
     "reviewMode" | "showSolutions"
 >;
 
-/**
- * This is a story for the new radio widget.
- * It will replace radio.stories.tsx after the feature flag is no longer needed.
- *
- * TODO(LEMS-2994): Clean up this file.
- */
-
 export default {
-    title: "Perseus/Widgets/RadioNew",
+    title: "Perseus/Widgets/RadioNew/Regression Test",
     args: {
         static: false,
-        // Requires a page refresh for toggling this to affect the story
         startAnswerless: false,
         reviewMode: false,
         showSolutions: "none",
@@ -94,82 +82,59 @@ const buildApiOptions = (args: StoryArgs): APIOptions => ({
     },
 });
 
-export const SingleSelect = {
+export const RegressionSingleSelect = {
     args: {
         item: generateTestPerseusItem({
             question: questionWithPassage,
         }),
     },
+    parameters: {
+        chromatic: {disableSnapshot: false},
+    },
 };
 
-export const SelectWithImages = {
+export const RegressionMultiSelect = {
+    args: {
+        item: generateTestPerseusItem({
+            question: multiChoiceQuestion,
+        }),
+    },
+    parameters: {
+        chromatic: {disableSnapshot: false},
+    },
+};
+
+export const RegressionWithImages = {
     args: {
         item: generateTestPerseusItem({
             question: choicesWithImages,
         }),
     },
-};
-
-export const SelectWithImagesAndScroll = {
-    args: {
-        item: generateTestPerseusItem({
-            question: SingleSelectOverflowImageContent,
-        }),
+    parameters: {
+        chromatic: {disableSnapshot: false},
     },
 };
 
-export const SingleSelectWithScroll = {
-    args: {
-        item: generateTestPerseusItem({
-            question: SingleSelectOverflowContent,
-        }),
-    },
-};
-
-export const MultiSelectSimple = {
-    args: {
-        item: generateTestPerseusItem({
-            question: multiChoiceQuestionSimple,
-        }),
-    },
-};
-
-export const MultiSelect = {
-    args: {
-        item: generateTestPerseusItem({
-            question: multiChoiceQuestion,
-        }),
-    },
-};
-
-export const MultiSelectWithScroll = {
-    args: {
-        item: generateTestPerseusItem({
-            question: multiChoiceQuestionSimpleOverflowContent,
-        }),
-    },
-};
-
-// NOTE(Tamara): For answerless stories, the user's selection disappears after
-// clicking the Check button the first time. This is because the widget
-// re-mounts upon receiving answerful data and loses the user's input. After
-// that first click, subsequent selections will be remembered.
-// TODO(LEMS-2948): After investigating a solution, confirm this issue is fixed
-
-export const AnswerlessSingleSelect = {
+export const RegressionReviewMode = {
     args: {
         item: generateTestPerseusItem({
             question: questionWithPassage,
         }),
-        startAnswerless: true,
+        reviewMode: true,
+    },
+    parameters: {
+        chromatic: {disableSnapshot: false},
     },
 };
 
-export const AnswerlessMultiSelect = {
+export const RegressionShowAllSolutions = {
     args: {
         item: generateTestPerseusItem({
-            question: multiChoiceQuestion,
+            question: questionWithPassage,
         }),
-        startAnswerless: true,
+        showSolutions: "all",
+    },
+    parameters: {
+        chromatic: {disableSnapshot: false},
     },
 };

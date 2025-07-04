@@ -1,9 +1,9 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import React from "react";
 
-import HintsRenderer from "../hints-renderer";
-import {ApiOptions} from "../perseus-api";
-import {interactiveGraphQuestionBuilder} from "../widgets/interactive-graphs/interactive-graph-question-builder";
+import HintsRenderer from "../../packages/perseus/src/hints-renderer";
+import {ApiOptions} from "../../packages/perseus/src/perseus-api";
+import {interactiveGraphQuestionBuilder} from "../../packages/perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

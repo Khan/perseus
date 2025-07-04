@@ -2,7 +2,7 @@
 import {StyleSheet, css} from "aphrodite";
 import * as React from "react";
 
-import RadioEditor from "../radio/editor";
+import RadioEditor from "../../packages/perseus-editor/src/widgets/radio/editor";
 
 import type {APIOptions} from "@khanacademy/perseus";
 import type {
@@ -16,7 +16,7 @@ type StoryArgs = StoryObj<RadioEditor>;
 type Story = Meta<RadioEditor>;
 
 export default {
-    title: "PerseusEditor/Widgets/Radio Editor",
+    title: "Perseus/Widgets/RadioNew/Editor Demo",
 } as Story;
 
 const styles = StyleSheet.create({

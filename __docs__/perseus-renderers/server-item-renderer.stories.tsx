@@ -2,8 +2,8 @@ import * as React from "react";
 import {useState} from "react";
 import {action} from "storybook/actions";
 
-import {ServerItemRendererWithDebugUI} from "../../../../testing/server-item-renderer-with-debug-ui";
-import {storybookDependenciesV2} from "../../../../testing/test-dependencies";
+import {ServerItemRendererWithDebugUI} from "../../testing/server-item-renderer-with-debug-ui";
+import {storybookDependenciesV2} from "../../testing/test-dependencies";
 import {
     itemWithNumericInput,
     itemWithLintingError,
@@ -11,8 +11,8 @@ import {
     itemWithImages,
     itemWithMultipleNumericInputs,
     itemWithRadioAndExpressionWidgets,
-} from "../__testdata__/server-item-renderer.testdata";
-import {ServerItemRenderer} from "../server-item-renderer";
+} from "../../packages/perseus/src/__testdata__/server-item-renderer.testdata";
+import {ServerItemRenderer} from "../../packages/perseus/src/server-item-renderer";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
