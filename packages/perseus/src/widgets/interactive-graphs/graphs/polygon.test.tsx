@@ -8,7 +8,6 @@ import * as Dependencies from "../../../dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
-import * as AngleIndicators from "./components/angle-indicators";
 import {
     getAngleSnapConstraint,
     getSideSnapConstraint,
@@ -660,5 +659,85 @@ describe("getAngleSnapConstraint", () => {
             left: [1.8951844414339178, 1.9999999999999996],
             right: [2, 1.9999999999999996], // direction restricted due to going off the graph
         });
+    });
+});
+
+describe("Angle indicators", () => {
+    // Polygon that looks like a chevron, with a concave vertex on the left,
+    // drawn from the top left.
+    const concavePolygonClockwise = [
+        [-7, 5],
+        [1, 5],
+        [6, 0],
+        [1, -5],
+        [-7, -5],
+        [-2, 0], // concave vertex
+    ] satisfies vec.Vector2[];
+
+    beforeEach(() => {
+        jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
+            testDependencies,
+        );
+        // Clear any previous calls to the mock
+        jest.clearAllMocks();
+    });
+
+    it("should show correct angles for concave polygons when the points are clockwise", () => {
+        // Arrange
+
+        // Act - render with angles showing
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseLimitedPolygonState,
+                    coords: concavePolygonClockwise,
+                    showAngles: true,
+                }}
+            />,
+        );
+
+        const angleIndicators = screen.getAllByText(/°/);
+
+        // Assert
+        expect(angleIndicators).toHaveLength(concavePolygonClockwise.length);
+        // Checking angles in render order
+        expect(angleIndicators[0]).toHaveTextContent("45°");
+        expect(angleIndicators[1]).toHaveTextContent("135°");
+        expect(angleIndicators[2]).toHaveTextContent("90°");
+        expect(angleIndicators[3]).toHaveTextContent("135°");
+        expect(angleIndicators[4]).toHaveTextContent("45°");
+        // Concave vertex, greater than 180 degrees
+        expect(angleIndicators[5]).toHaveTextContent("270°");
+    });
+
+    it("should show correct angles for concave polygons when the points are counter-clockwise", () => {
+        // Arrange
+
+        // Act - render with angles showing
+        render(
+            <MafsGraph
+                {...baseMafsGraphProps}
+                state={{
+                    ...baseLimitedPolygonState,
+                    // Reverse the points to make them counter-clockwise
+                    coords: [...concavePolygonClockwise].reverse(),
+                    showAngles: true,
+                }}
+            />,
+        );
+
+        const angleIndicators = screen.getAllByText(/°/);
+
+        // Assert
+        expect(angleIndicators).toHaveLength(concavePolygonClockwise.length);
+        // Checking angles in render order
+        // Concave vertex, greater than 180 degrees
+        expect(angleIndicators[0]).toHaveTextContent("270°");
+        expect(angleIndicators[1]).toHaveTextContent("45°");
+        expect(angleIndicators[2]).toHaveTextContent("135°");
+        expect(angleIndicators[3]).toHaveTextContent("90°");
+        expect(angleIndicators[4]).toHaveTextContent("135°");
+        expect(angleIndicators[5]).toHaveTextContent("45°");
     });
 });

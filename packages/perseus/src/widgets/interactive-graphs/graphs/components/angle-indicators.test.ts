@@ -1,62 +1,99 @@
 import {angles} from "@khanacademy/kmath";
 
-import {shouldDrawArcOutside} from "./angle-indicators";
+import {
+    shouldDrawArcOutside,
+    shouldDrawArcOutsidePolygon,
+} from "./angle-indicators";
 
-import type {Coord} from "@khanacademy/perseus-core";
-import type {vec} from "mafs";
+import type {Coord, CollinearTuple} from "@khanacademy/perseus-core";
+import type {vec, Interval} from "mafs";
 
 const {getClockwiseAngle} = angles;
 
 describe("shouldDrawArcOutside", () => {
-    // Test points for the following counter-clockwise quadrilateral
-    // [[3.5, 1.5],
-    //  [3.5, 3.5],
-    //  [1.5, 3.5],
-    //  [1.5, 1.5]]
+    const range = [
+        [-1, 6],
+        [-1, 6],
+    ] satisfies [Interval, Interval];
+    const polygonLines = [
+        [
+            [3.5, 1.5],
+            [3.5, 3.5],
+        ],
+        [
+            [3.5, 3.5],
+            [1.5, 3.5],
+        ],
+        [
+            [1.5, 3.5],
+            [1.5, 1.5],
+        ],
+        [
+            [1.5, 1.5],
+            [3.5, 1.5],
+        ],
+    ] satisfies readonly CollinearTuple[];
+
     it.each<{
+        midpoint: vec.Vector2;
         vertex: vec.Vector2;
-        endPoints: [vec.Vector2, vec.Vector2];
+        range: [Interval, Interval];
+        polygonLines: readonly CollinearTuple[];
     }>([
         {
+            midpoint: [3.2, 1.8],
             vertex: [3.5, 1.5],
-            endPoints: [
-                [3.5, 3.5],
-                [1.5, 1.5],
-            ],
+            range,
+            polygonLines,
         },
         {
+            midpoint: [3.2, 3.2],
             vertex: [3.5, 3.5],
-            endPoints: [
-                [1.5, 3.5],
-                [3.5, 1.5],
-            ],
+            range,
+            polygonLines,
         },
         {
+            midpoint: [1.8, 3.2],
             vertex: [1.5, 3.5],
-            endPoints: [
-                [1.5, 1.5],
-                [3.5, 3.5],
-            ],
+            range,
+            polygonLines,
         },
         {
+            midpoint: [1.8, 1.8],
             vertex: [1.5, 1.5],
-            endPoints: [
-                [3.5, 1.5],
-                [1.5, 3.5],
-            ],
+            range,
+            polygonLines,
         },
     ])("should return false for all four angles in a quadrilateral", (args) => {
-        const {vertex, endPoints} = args;
-        expect(shouldDrawArcOutside(vertex, endPoints)).toBe(false);
+        const {midpoint, vertex, range, polygonLines} = args;
+        expect(
+            shouldDrawArcOutside(midpoint, vertex, range, polygonLines),
+        ).toBe(false);
     });
 
     it("should return true for a reflex angle inside a polygon", () => {
         expect(
             shouldDrawArcOutside(
+                [2.2395270573626624, 2.415106216609137],
                 [2.5, 2.75],
+                range,
                 [
-                    [0.5, 2.5],
-                    [3.25, 3.75],
+                    [
+                        [0.5, 2.5],
+                        [3.25, 3.75],
+                    ],
+                    [
+                        [3.25, 3.75],
+                        [2.75, 0.75],
+                    ],
+                    [
+                        [2.75, 0.75],
+                        [2.5, 2.75],
+                    ],
+                    [
+                        [2.5, 2.75],
+                        [0.5, 2.5],
+                    ],
                 ],
             ),
         ).toBe(true);
@@ -70,7 +107,9 @@ describe("shouldDrawArcOutside", () => {
         const coords: [Coord, Coord, Coord] = [point1, vertex, point2];
         expect(getClockwiseAngle(coords)).toBe(45);
     });
+});
 
+describe("shouldDrawArcOutsidePolygon", () => {
     const clockwiseConcaveCoords = [
         [-7, 5],
         [1, 5],
@@ -107,7 +146,9 @@ describe("shouldDrawArcOutside", () => {
                 clockwiseConcaveCoords[nextIndex],
             ] satisfies [vec.Vector2, vec.Vector2];
 
-            expect(shouldDrawArcOutside(vertex, endPoints)).toBe(expected);
+            expect(shouldDrawArcOutsidePolygon(vertex, endPoints)).toBe(
+                expected,
+            );
         },
     );
 });

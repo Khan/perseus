@@ -3,12 +3,15 @@ import {color} from "@khanacademy/wonder-blocks-tokens";
 import {vec} from "mafs";
 import * as React from "react";
 
+import {segmentsIntersect} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
+import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../utils";
 
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
 import {TextLabel} from "./text-label";
 
 import type {SnapTo} from "../../types";
+import type {CollinearTuple} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 const {clockwise} = geometry;
@@ -74,7 +77,8 @@ export const PolygonAngle = ({
         ) : null;
     }
 
-    const isOutside = shouldDrawArcOutside(centerPoint, endPoints);
+    // Note: Need to pass in endpoints in a clockwise order for the cross product.
+    const isOutside = shouldDrawArcOutsidePolygon(centerPoint, endPoints);
 
     const largeArcFlag = isOutside ? 1 : 0;
     const sweepFlag = isOutside ? 1 : 0;
@@ -191,8 +195,11 @@ export const Angle = ({
         vec.add(vec.sub([x1, y1], vertex), vec.sub([x2, y2], vertex)),
     );
 
-    // [point1, point2] are the clockwise end points of the angle
-    const isOutside = shouldDrawArcOutside(vertex, [point1, point2]);
+    // Determine whether the arc should be drawn outside the angle
+    const isOutside = shouldDrawArcOutside([x3, y3], vertex, range, [
+        [vertex, point1],
+        [vertex, point2],
+    ]);
 
     // Determine the flags for the arc
     // If the angle is outside OR reflexive, we want to draw a large arc
@@ -316,15 +323,48 @@ const isRightAngle = (angle: number) => Math.round(angle) === 90;
 
 /**
  * Determines if an angle is an inside (false) or outside (true) angle.
- * That way, we know to flip the `largeArc` and `sweepArc` flags.
+ * They way, we know to flip the `largeArc` and `sweepArc` flags.
+ * Uses the priciple that a ray from a point inside a polygon will intersect
+ * with an odd number of lines, while a ray from a point outside the polygon
+ * will intersect with an even number of lines.
+ * https://stackoverflow.com/questions/217578/how-can-i-determine-whether-a-2d-point-is-within-a-polygon
+ */
+export const shouldDrawArcOutside = (
+    midpoint: vec.Vector2,
+    vertex: vec.Vector2,
+    range: [Interval, Interval],
+    polygonLines: readonly CollinearTuple[],
+) => {
+    // Create a ray from the midpoint (inside angle) to the edge of the range
+    const rangeIntersectionPoint = getRangeIntersectionVertex(
+        midpoint,
+        vertex,
+        range,
+    );
+
+    let lineIntersectionCount = 0;
+
+    polygonLines.forEach(
+        (line) =>
+            segmentsIntersect([vertex, rangeIntersectionPoint], line) &&
+            lineIntersectionCount++,
+    );
+
+    // If the number of intersections is even, the angle is inside the polygon
+    return !isEven(lineIntersectionCount);
+};
+
+const isEven = (n: number) => n % 2 === 0;
+
+/**
+ * Determines if an angle is an convex (false) or concave (true) angle.
  * Uses the cross product to determine if the angle is outside the polygon.
- * If the cross product is positive for a clockwise angle, the angle is
- * outside the polygon (or convex for a polygon).
+ * If the cross product is positive for a clockwise angle, the angle is concave.
  * NOTE: This always has to take in clockwise endpoints. It cannot determine
  * if the endpoints are clockwise itself - this has to be checked by the
  * caller. This is because of edge cases involving concave polygons.
  */
-export function shouldDrawArcOutside(
+export function shouldDrawArcOutsidePolygon(
     centerPoint: vec.Vector2,
     clockwiseEndpoints: [vec.Vector2, vec.Vector2],
 ) {
