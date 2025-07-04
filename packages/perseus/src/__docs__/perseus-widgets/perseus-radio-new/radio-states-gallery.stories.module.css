@@ -1,0 +1,21 @@
+.stateContainer {
+    border: var(--wb-border-width-thin);
+    border-radius: var(--wb-border-radius-radius_080);
+    padding: var(--wb-sizing-size_160);
+    margin-bottom: var(--wb-sizing-size_240);
+}
+
+.stateTitle {
+    font-weight: bold;
+    margin-bottom: var(--wb-sizing-size_080);
+}
+
+.stateDescription {
+    margin-bottom: var(--wb-sizing-size_160);
+}
+
+.stateDemo {
+    padding: var(--wb-sizing-size_160);
+    border-radius: var(--wb-border-radius-radius_040);
+    background-color: var(--wb-semanticColor-core-background-neutral-subtle);
+}

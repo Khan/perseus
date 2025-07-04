@@ -1,0 +1,26 @@
+.stateContainer {
+    margin-bottom: 32px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.stateTitle {
+    margin: 0;
+    padding: 12px 16px;
+    background-color: #f7f8fa;
+    font-size: 18px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.stateDescription {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e0e0e0;
+    color: #5a5a5a;
+    font-size: 14px;
+}
+
+.stateDemo {
+    padding: 24px 16px;
+    background-color: white;
+}
