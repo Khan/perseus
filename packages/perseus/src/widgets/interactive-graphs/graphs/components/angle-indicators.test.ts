@@ -2,95 +2,61 @@ import {angles} from "@khanacademy/kmath";
 
 import {shouldDrawArcOutside} from "./angle-indicators";
 
-import type {Coord, CollinearTuple} from "@khanacademy/perseus-core";
-import type {vec, Interval} from "mafs";
+import type {Coord} from "@khanacademy/perseus-core";
+import type {vec} from "mafs";
 
 const {getClockwiseAngle} = angles;
 
 describe("shouldDrawArcOutside", () => {
-    const range = [
-        [-1, 6],
-        [-1, 6],
-    ] satisfies [Interval, Interval];
-    const polygonLines = [
-        [
-            [3.5, 1.5],
-            [3.5, 3.5],
-        ],
-        [
-            [3.5, 3.5],
-            [1.5, 3.5],
-        ],
-        [
-            [1.5, 3.5],
-            [1.5, 1.5],
-        ],
-        [
-            [1.5, 1.5],
-            [3.5, 1.5],
-        ],
-    ] satisfies readonly CollinearTuple[];
-
+    // Test points for the following counter-clockwise quadrilateral
+    // [[3.5, 1.5],
+    //  [3.5, 3.5],
+    //  [1.5, 3.5],
+    //  [1.5, 1.5]]
     it.each<{
-        midpoint: vec.Vector2;
         vertex: vec.Vector2;
-        range: [Interval, Interval];
-        polygonLines: readonly CollinearTuple[];
+        endPoints: [vec.Vector2, vec.Vector2];
     }>([
         {
-            midpoint: [3.2, 1.8],
             vertex: [3.5, 1.5],
-            range,
-            polygonLines,
+            endPoints: [
+                [3.5, 3.5],
+                [1.5, 1.5],
+            ],
         },
         {
-            midpoint: [3.2, 3.2],
             vertex: [3.5, 3.5],
-            range,
-            polygonLines,
+            endPoints: [
+                [1.5, 3.5],
+                [3.5, 1.5],
+            ],
         },
         {
-            midpoint: [1.8, 3.2],
             vertex: [1.5, 3.5],
-            range,
-            polygonLines,
+            endPoints: [
+                [1.5, 1.5],
+                [3.5, 3.5],
+            ],
         },
         {
-            midpoint: [1.8, 1.8],
             vertex: [1.5, 1.5],
-            range,
-            polygonLines,
+            endPoints: [
+                [3.5, 1.5],
+                [1.5, 3.5],
+            ],
         },
     ])("should return false for all four angles in a quadrilateral", (args) => {
-        const {midpoint, vertex, range, polygonLines} = args;
-        expect(
-            shouldDrawArcOutside(midpoint, vertex, range, polygonLines),
-        ).toBe(false);
+        const {vertex, endPoints} = args;
+        expect(shouldDrawArcOutside(vertex, endPoints)).toBe(false);
     });
 
     it("should return true for a reflex angle inside a polygon", () => {
         expect(
             shouldDrawArcOutside(
-                [2.2395270573626624, 2.415106216609137],
                 [2.5, 2.75],
-                range,
                 [
-                    [
-                        [0.5, 2.5],
-                        [3.25, 3.75],
-                    ],
-                    [
-                        [3.25, 3.75],
-                        [2.75, 0.75],
-                    ],
-                    [
-                        [2.75, 0.75],
-                        [2.5, 2.75],
-                    ],
-                    [
-                        [2.5, 2.75],
-                        [0.5, 2.5],
-                    ],
+                    [0.5, 2.5],
+                    [3.25, 3.75],
                 ],
             ),
         ).toBe(true);
@@ -105,82 +71,43 @@ describe("shouldDrawArcOutside", () => {
         expect(getClockwiseAngle(coords)).toBe(45);
     });
 
-    // Test each point in this chevron shaped polygon.
+    const clockwiseConcaveCoords = [
+        [-7, 5],
+        [1, 5],
+        [6, 0],
+        [1, -5],
+        [-7, -5],
+        [-2, 0], // concave vertex
+    ] satisfies vec.Vector2[];
+
+    // Test each point in this chevron shaped polygon with clockwise points.
     it.each([
-        {
-            midpoint: [-6.487867965644036, 4.787867965644036],
-            vertex: [-7, 5],
-            expected: false, // inside
-        },
-        {
-            midpoint: [0.9121320343559642, 4.787867965644036],
-            vertex: [1, 5],
-            expected: false, // inside
-        },
-        {
-            midpoint: [5.575735931288072, 0],
-            vertex: [6, 0],
-            expected: false, // inside
-        },
-        {
-            midpoint: [0.9121320343559642, -4.787867965644036],
-            vertex: [1, -5],
-            expected: false, // inside
-        },
-        {
-            midpoint: [-6.487867965644036, -4.787867965644036],
-            vertex: [-7, -5],
-            expected: false, // inside
-        },
-        {
-            midpoint: [-2.4242640687119286, 0],
-            vertex: [-2, 0],
-            expected: true, // outside
-        },
+        {index: 0, expected: false}, // inside
+        {index: 1, expected: false}, // inside
+        {index: 2, expected: false}, // inside
+        {index: 3, expected: false}, // inside
+        {index: 4, expected: false}, // inside
+        {index: 5, expected: true}, // outside
     ] satisfies {
-        midpoint: vec.Vector2;
-        vertex: vec.Vector2;
+        index: number;
         expected: boolean;
     }[])(
-        "should return $expected for concave polygon vertex $vertex",
-        ({midpoint, vertex, expected}) => {
-            // The concave vertex is at [-2, 0]. This should have an angle
-            // greater than 180 degrees.
-            const range = [
-                [-10, 10],
-                [-10, 10],
-            ] satisfies [Interval, Interval];
-            // Makes a sort of chevron shape.
-            const polygonLines = [
-                [
-                    [-7, 5],
-                    [1, 5],
-                ],
-                [
-                    [1, 5],
-                    [6, 0],
-                ],
-                [
-                    [6, 0],
-                    [1, -5],
-                ],
-                [
-                    [1, -5],
-                    [-7, -5],
-                ],
-                [
-                    [-7, -5],
-                    [-2, 0],
-                ],
-                [
-                    [-2, 0],
-                    [-7, 5],
-                ],
-            ] satisfies readonly CollinearTuple[];
+        "should return $expected for concave clockwise polygon vertex $index",
+        ({index, expected}) => {
+            // Get the previous and next vertices.
+            const previousIndex =
+                (index - 1 + clockwiseConcaveCoords.length) %
+                clockwiseConcaveCoords.length;
+            const nextIndex = (index + 1) % clockwiseConcaveCoords.length;
 
-            expect(
-                shouldDrawArcOutside(midpoint, vertex, range, polygonLines),
-            ).toBe(expected);
+            // Determine the vertex and the end points.
+            const vertex = clockwiseConcaveCoords[index];
+            const endPoints = [
+                clockwiseConcaveCoords[previousIndex],
+                clockwiseConcaveCoords[nextIndex],
+            ] satisfies [vec.Vector2, vec.Vector2];
+
+            expect(shouldDrawArcOutside(vertex, endPoints)).toBe(expected);
         },
     );
 });

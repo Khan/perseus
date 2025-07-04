@@ -8,6 +8,7 @@ import * as Dependencies from "../../../dependencies";
 import {MafsGraph} from "../mafs-graph";
 import {getBaseMafsGraphPropsForTests} from "../utils";
 
+import * as AngleIndicators from "./components/angle-indicators";
 import {
     getAngleSnapConstraint,
     getSideSnapConstraint,
@@ -16,6 +17,7 @@ import {
 
 import type {InteractiveGraphState, PolygonGraphState} from "../types";
 import type {UserEvent} from "@testing-library/user-event";
+import type {vec} from "mafs";
 
 const baseMafsGraphProps = getBaseMafsGraphPropsForTests();
 const baseLimitedPolygonState: InteractiveGraphState = {
