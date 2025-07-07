@@ -1,5 +1,29 @@
 # @khanacademy/perseus
 
+## 65.5.0
+
+### Minor Changes
+
+-   [#2676](https://github.com/Khan/perseus/pull/2676) [`3aa2b8e85`](https://github.com/Khan/perseus/commit/3aa2b8e850113be50d7da99b5ded55979b2de006) Thanks [@handeyeco](https://github.com/handeyeco)! - Radio: use userInput/handleUserInput
+
+*   [#2635](https://github.com/Khan/perseus/pull/2635) [`a20333281`](https://github.com/Khan/perseus/commit/a2033328147c6787d33612bd0dc48c83a783b4a5) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Interactive Graph code cleaup and bug fix for edge-based label positioning.
+
+### Patch Changes
+
+-   [#2672](https://github.com/Khan/perseus/pull/2672) [`c44219a98`](https://github.com/Khan/perseus/commit/c44219a98fdbb8128c614419439c83b6cf33f79e) Thanks [@benchristel](https://github.com/benchristel)! - Update peer dependency versions
+
+*   [#2666](https://github.com/Khan/perseus/pull/2666) [`d738f44d5`](https://github.com/Khan/perseus/commit/d738f44d5108831e53045652c04584bad07c19c0) Thanks [@benchristel](https://github.com/benchristel)! - Remove `"chi2Table"`, `"tTable"`, and `"zTable"` from the `ItemExtras` type exported from `@khanacademy/perseus-core`. These properties weren't used. This is a breaking change because consumers might see type errors if they set chi2Table, tTable, or zTable properties on the `answerArea` object of a `PerseusItem`. The fix is to avoid setting those properties.
+
+*   Updated dependencies [[`3aa2b8e85`](https://github.com/Khan/perseus/commit/3aa2b8e850113be50d7da99b5ded55979b2de006), [`c44219a98`](https://github.com/Khan/perseus/commit/c44219a98fdbb8128c614419439c83b6cf33f79e), [`d738f44d5`](https://github.com/Khan/perseus/commit/d738f44d5108831e53045652c04584bad07c19c0), [`2a38ef534`](https://github.com/Khan/perseus/commit/2a38ef534a352b13a3bba1b92b353cf9e0d45be6), [`da170e42a`](https://github.com/Khan/perseus/commit/da170e42a512c5e071b7af2bb707b6c75778bfdc)]:
+    -   @khanacademy/perseus-core@17.0.0
+    -   @khanacademy/kmath@2.0.24
+    -   @khanacademy/math-input@26.0.13
+    -   @khanacademy/perseus-linter@4.0.11
+    -   @khanacademy/pure-markdown@2.0.10
+    -   @khanacademy/simple-markdown@2.0.10
+    -   @khanacademy/perseus-score@7.1.11
+    -   @khanacademy/keypad-context@3.0.24
+
 ## 65.4.0
 
 ### Minor Changes

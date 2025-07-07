@@ -24,9 +24,6 @@ export function getUserInputFromSerializedState(
     props: Props,
     unshuffle: boolean = true,
 ): PerseusRadioUserInput {
-    // Return checked inputs in the form {choicesSelected: [bool]}. (Dear
-    // future timeline implementers: this used to be {value: i} before
-    // multiple select was added)
     if (props.choiceStates) {
         const choiceStates = props.choiceStates;
         const choicesSelected = choiceStates.map(() => false);
