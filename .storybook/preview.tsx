@@ -78,8 +78,8 @@ const preview: Preview = {
                             "Overview",
                             "*", // This will match all widgets
                             [
+                                "Accessibility",
                                 "Docs",
-                                "A11Y",
                                 "Widget Demo",
                                 "Editor Demo",
                                 "Widget States Gallery",
