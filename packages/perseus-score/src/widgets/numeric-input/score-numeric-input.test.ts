@@ -53,6 +53,133 @@ describe("scoreNumericInput", () => {
         expect(score).toHaveBeenAnsweredCorrectly();
     });
 
+    it("should not consider commas as a decimal separator in the EN locale", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 16,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const userInput = {
+            currentValue: "16,000",
+        } as const;
+
+        const score = scoreNumericInput(userInput, rubric, "en");
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("should consider commas as the thousands separator in the EN locale", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 16500,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: false,
+        };
+
+        const userInput = {
+            currentValue: "16,500.00",
+        } as const;
+
+        // Using US locale where comma is thousands separator
+        const score = scoreNumericInput(userInput, rubric, "en");
+
+        // "16,500.00" is valid input in US locale
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should reject European decimal format if input is not a valid number in the EN locale", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 16.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: false,
+        };
+
+        const userInput = {
+            currentValue: "16,5",
+        } as const;
+
+        // Using US locale where comma is thousands separator
+        const score = scoreNumericInput(userInput, rubric, "en");
+
+        // "16,5" is invalid input in US locale (not a recognized number format)
+        expect(score).toHaveInvalidInput("EXTRA_SYMBOLS_ERROR");
+    });
+
+    it("should consider commas as the decimal separator in the FR locale", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 16.5,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: false,
+        };
+
+        const userInput = {
+            currentValue: "16,5",
+        } as const;
+
+        // Using French locale where comma is decimal separator
+        const score = scoreNumericInput(userInput, rubric, "fr");
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should still accept periods as the thousands separator in FR locale", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 16500,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: false,
+        };
+
+        const userInput = {
+            currentValue: "16.500,00",
+        } as const;
+
+        // Using US locale where comma is thousands separator
+        const score = scoreNumericInput(userInput, rubric, "fr");
+
+        // "16.500,00" is valid input in FR locale
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
     it("with nonsense", () => {
         const rubric: PerseusNumericInputRubric = {
             answers: [
