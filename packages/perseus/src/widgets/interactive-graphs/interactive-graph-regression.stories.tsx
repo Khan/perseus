@@ -404,13 +404,14 @@ function lockedFiguresQuestionWithWeight(weight: "thin" | "medium" | "thick") {
         .addLockedEllipse([-5, 5], [1, 1], {weight, color: "blue"})
         .addLockedPolygon(
             [
-                [0.5, 3.5],
-                [1.5, 4.5],
-                [2.5, 3.5],
-                [1.5, 2.5],
+                [-7.5, -3.5],
+                [-6.5, -2.5],
+                [-5.5, -3.5],
+                [-6.5, -4.5],
             ],
             {weight, color: "pink"},
         )
+        .addLockedFunction("x^2", {weight, color: "red"})
         .build();
 }
 
