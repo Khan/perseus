@@ -294,6 +294,7 @@ describe("renderer", () => {
             expect(widgets).toStrictEqual([null]);
         });
 
+        // [LEMS-3185] deprecate serializedState / restoreSerializedState
         it("should restore serialized state on mount if provided in prop", async () => {
             // Arrange
             renderQuestion(
@@ -1324,6 +1325,7 @@ describe("renderer", () => {
             expect(onRender).toHaveBeenCalledTimes(2);
         });
 
+        // [LEMS-3185] deprecate serializedState / restoreSerializedState
         it("should use new serializedState if getSerializedState is different", () => {
             // Act
             // Render with serialized state

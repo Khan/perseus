@@ -8,7 +8,11 @@ import {vector as kvector} from "@khanacademy/kmath";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {spacing, color as wbColor} from "@khanacademy/wonder-blocks-tokens";
+import {
+    sizing,
+    spacing,
+    color as wbColor,
+} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import plusCircle from "@phosphor-icons/core/regular/plus-circle.svg";
 import {StyleSheet} from "aphrodite";
@@ -20,6 +24,7 @@ import PerseusEditorAccordion from "../../../components/perseus-editor-accordion
 
 import ColorSelect from "./color-select";
 import LineSwatch from "./line-swatch";
+import LineWeightSelect from "./line-weight-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import LockedLabelSettings from "./locked-label-settings";
@@ -37,6 +42,7 @@ import type {
     LockedFigureColor,
     LockedLabelType,
     LockedVectorType,
+    StrokeWeight,
 } from "@khanacademy/perseus-core";
 
 const lengthErrorMessage = "The vector cannot have length 0.";
@@ -53,6 +59,7 @@ const LockedVectorSettings = (props: Props) => {
     const {
         points,
         color: lineColor,
+        weight,
         labels,
         ariaLabel,
         onChangeProps,
@@ -79,8 +86,12 @@ const LockedVectorSettings = (props: Props) => {
 
         let str = `Vector${visiblelabel} from ${spokenTailX} comma ${spokenTailY} to ${spokenTipX} comma ${spokenTipY}`;
 
-        const vectorAppearance =
-            generateLockedFigureAppearanceDescription(lineColor);
+        const vectorAppearance = generateLockedFigureAppearanceDescription(
+            lineColor,
+            "solid",
+            undefined, // No fill style for vectors
+            weight,
+        );
         str += vectorAppearance;
 
         return str;
@@ -152,13 +163,20 @@ const LockedVectorSettings = (props: Props) => {
                 </View>
             }
         >
-            <View style={[styles.row, styles.spaceUnder]}>
-                {/* Line color settings */}
-                <ColorSelect
-                    selectedValue={lineColor}
-                    onChange={handleColorChange}
-                />
-            </View>
+            {/* Line color settings */}
+            <ColorSelect
+                selectedValue={lineColor}
+                onChange={handleColorChange}
+                style={{marginBottom: sizing.size_080}}
+            />
+
+            {/* Line weight settings */}
+            <LineWeightSelect
+                selectedValue={weight}
+                onChange={(value: StrokeWeight) =>
+                    onChangeProps({weight: value})
+                }
+            />
 
             {/* Zero length error message */}
             {isInvalid && (

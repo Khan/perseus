@@ -240,7 +240,7 @@ export function migrateV1ToV2(
         version: {major: 2, minor: 0},
         options: {
             ...options,
-            numCorrect: deriveNumCorrect(options),
+            numCorrect: deriveNumCorrect(options.choices),
         },
     };
 }

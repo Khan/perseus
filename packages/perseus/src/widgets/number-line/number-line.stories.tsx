@@ -2,7 +2,7 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
-import {question1, question2} from "./number-line.testdata";
+import {inequality, question1, question2} from "./number-line.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -30,5 +30,11 @@ export const WithAnswerlessData: Story = {
     args: {
         item: generateTestPerseusItem({question: question1}),
         startAnswerless: true,
+    },
+};
+
+export const Inequality: Story = {
+    args: {
+        item: generateTestPerseusItem({question: inequality}),
     },
 };

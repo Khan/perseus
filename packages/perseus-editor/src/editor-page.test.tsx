@@ -30,6 +30,70 @@ describe("EditorPage", () => {
         );
     });
 
+    // Regression (LEMS-3252)
+    it("updates static toggle correctly", async () => {
+        let callbackValue: any = null;
+
+        const question: PerseusRenderer = {
+            content: "[[☃ categorizer 1]]",
+            images: {},
+            widgets: {
+                "categorizer 1": {
+                    type: "categorizer",
+                    static: false, // <= important
+                    options: {
+                        static: false, // <= maybe important?
+                        items: ["Zero", "One", "Uno"],
+                        categories: ["Column 0", "Column 1"],
+                        values: [0, 1, 1],
+                        randomizeItems: false,
+                    },
+                },
+            },
+        };
+
+        const {rerender} = render(
+            <EditorPage
+                question={question}
+                onChange={(next) => (callbackValue = next)}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                frameSource=""
+                itemId="itemId"
+                developerMode={false}
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        const staticSwitch = screen.getByRole("switch", {name: "Static"});
+        await userEvent.click(staticSwitch);
+
+        expect(staticSwitch).not.toBeChecked();
+        expect(question.widgets["categorizer 1"].static).toBe(false);
+        expect(callbackValue.question.widgets["categorizer 1"].static).toBe(
+            true,
+        );
+
+        rerender(
+            <EditorPage
+                question={callbackValue.question}
+                onChange={(next) => (callbackValue = next)}
+                onPreviewDeviceChange={() => {}}
+                previewDevice="desktop"
+                previewURL=""
+                frameSource=""
+                itemId="itemId"
+                developerMode={false}
+                jsonMode={false}
+                widgetsAreOpen={true}
+            />,
+        );
+
+        expect(staticSwitch).toBeChecked();
+    });
+
     it("updates Orderer state correctly", async () => {
         const onChangeMock = jest.fn();
 

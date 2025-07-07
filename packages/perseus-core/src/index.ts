@@ -164,6 +164,7 @@ export {
     default as getSorterPublicWidgetOptions,
     shuffleSorter,
 } from "./widgets/sorter/sorter-util";
+export type {SorterPublicWidgetOptions} from "./widgets/sorter/sorter-util";
 export type {LabelImagePublicWidgetOptions} from "./widgets/label-image/label-image-util";
 export type {LabelImageMarkerPublicData} from "./widgets/label-image/label-image-util";
 export {default as getDropdownPublicWidgetOptions} from "./widgets/dropdown/dropdown-util";
@@ -172,6 +173,7 @@ export {default as getNumericInputPublicWidgetOptions} from "./widgets/numeric-i
 export {default as getNumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
 export type {NumberLinePublicWidgetOptions} from "./widgets/number-line/number-line-util";
 export {default as getRadioPublicWidgetOptions} from "./widgets/radio/radio-util";
+export type {RadioPublicWidgetOptions} from "./widgets/radio/radio-util";
 export {deriveNumCorrect} from "./widgets/radio/derive-num-correct";
 export {default as getTablePublicWidgetOptions} from "./widgets/table/table-util";
 export {default as getIFramePublicWidgetOptions} from "./widgets/iframe/iframe-util";

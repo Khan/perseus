@@ -137,6 +137,11 @@ const parseLockedFigureFillType = enumeration(
 
 const parseLockedLineStyle = enumeration("solid", "dashed");
 
+export const parseStrokeWeight = defaulted(
+    enumeration("medium", "thin", "thick"),
+    () => "medium" as const,
+);
+
 const parseLockedLabelType = object({
     type: constant("label"),
     coord: pairOfNumbers,
@@ -162,6 +167,7 @@ const parseLockedLineType = object({
     lineStyle: parseLockedLineStyle,
     showPoint1: defaulted(boolean, () => false),
     showPoint2: defaulted(boolean, () => false),
+    weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
@@ -170,6 +176,7 @@ const parseLockedVectorType = object({
     type: constant("vector"),
     points: pair(pairOfNumbers, pairOfNumbers),
     color: parseLockedFigureColor,
+    weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
@@ -182,6 +189,7 @@ const parseLockedEllipseType = object({
     color: parseLockedFigureColor,
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
+    weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
@@ -193,6 +201,7 @@ const parseLockedPolygonType = object({
     showVertices: boolean,
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
+    weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
@@ -210,6 +219,7 @@ const parseLockedFunctionType = object({
     type: constant("function"),
     color: parseLockedFigureColor,
     strokeStyle: parseLockedLineStyle,
+    weight: parseStrokeWeight,
     equation: string,
     directionalAxis: enumeration("x", "y"),
     domain: parseLockedFunctionDomain,
@@ -260,7 +270,12 @@ export const parseInteractiveGraphWidget = parseWidget(
                 type: "linear" as const,
             }),
         ),
-        correct: parsePerseusGraphType,
+        correct: defaulted(
+            parsePerseusGraphType,
+            (): PerseusGraphTypeLinear => ({
+                type: "linear" as const,
+            }),
+        ),
         lockedFigures: defaulted(array(parseLockedFigure), () => []),
         fullGraphAriaLabel: optional(string),
         fullGraphAriaDescription: optional(string),

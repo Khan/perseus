@@ -223,10 +223,12 @@ const KhanAnswerTypes = {
                     const decimal = forms.decimal(text);
                     const rounded = forms.decimal(text, 1);
                     if (
-                        (decimal[0].value != null &&
-                            decimal[0].value === rounded[0].value) ||
-                        (decimal[1].value != null &&
-                            decimal[1].value === rounded[1].value)
+                        (decimal[0]?.value != null &&
+                            decimal[0].value === rounded[0]?.value) ||
+                        // decimal[1] may be undefined if the user is not in a locale that
+                        // supports commas as decimal separators.
+                        (decimal[1]?.value != null &&
+                            decimal[1].value === rounded[1]?.value)
                     ) {
                         return decimal;
                     }
@@ -540,10 +542,14 @@ const KhanAnswerTypes = {
                         return normal(text);
                     };
 
-                    return [
-                        {value: normal(text), exact: true},
-                        {value: commas(text), exact: true},
-                    ];
+                    const results = [{value: normal(text), exact: true}];
+
+                    // Only include the comma interpretation if the locale uses commas as decimal separators
+                    if (options.decimal_separator === ",") {
+                        results.push({value: commas(text), exact: true});
+                    }
+
+                    return results;
                 },
             } as const;
 

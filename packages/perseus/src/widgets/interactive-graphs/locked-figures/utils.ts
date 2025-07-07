@@ -1,3 +1,11 @@
+import type {StrokeWeight} from "@khanacademy/perseus-core";
+
+export const strokeWeights: Record<StrokeWeight, number> = {
+    thin: 1,
+    medium: 2,
+    thick: 4,
+} as const;
+
 export function clampDomain(
     domain: [number, number],
     graphBounds: [number, number],
