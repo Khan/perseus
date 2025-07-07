@@ -401,6 +401,7 @@ class InteractiveGraphQuestionBuilder {
             color?: LockedFigureColor;
             fillStyle?: LockedFigureFillType;
             strokeStyle?: "solid" | "dashed";
+            weight?: StrokeWeight;
             labels?: LockedFigureLabelOptions[];
             ariaLabel?: string;
         },
@@ -413,6 +414,7 @@ class InteractiveGraphQuestionBuilder {
             color: "grayH",
             fillStyle: "none",
             strokeStyle: "solid",
+            weight: options?.weight ?? "medium",
             ...options,
             labels:
                 options?.labels?.map((label) => ({
