@@ -1,20 +1,28 @@
+import {
+    deepClone,
+    type PerseusRadioRubric,
+    type PerseusRadioUserInput,
+} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import RadioOld from "./radio-component";
 import RadioNew from "./radio.class.new";
+import {getUserInputFromSerializedState} from "./util";
 
 import type {RenderProps} from "./radio-component";
-import type {WidgetProps} from "../../types";
-import type {
-    PerseusRadioRubric,
-    PerseusRadioUserInput,
-} from "@khanacademy/perseus-core";
+import type {ChoiceState, WidgetProps} from "../../types";
 
 type Props = WidgetProps<
     RenderProps,
     PerseusRadioUserInput,
     PerseusRadioRubric
 >;
+
+type ChoiceStateWithoutSelected = Omit<ChoiceState, "selected">;
+
+type State = {
+    choiceStates: ChoiceStateWithoutSelected[];
+};
 
 /**
  * This is a wrapper around the old radio widget that allows us to
@@ -29,9 +37,120 @@ class Radio extends RadioOld {
     ffIsOn = false;
     radioRef = React.createRef<RadioOld>();
 
+    state: State = {
+        choiceStates: [],
+    };
+
     constructor(props: Props) {
         super(props);
         this.ffIsOn = props.apiOptions.flags?.["new-radio-widget"] ?? false;
+
+        this.state = {
+            choiceStates: props.choices.map(() => ({
+                highlighted: false,
+                rationaleShown: false,
+                correctnessShown: false,
+                previouslyAnswered: false,
+                readOnly: false,
+            })),
+        };
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState() {
+        const {userInput: _, ...rest} = this._mergePropsAndState();
+        return {
+            ...rest,
+        };
+    }
+
+    _handleChange(arg: {choiceStates?: ChoiceState[]}) {
+        const newChoiceStates = arg.choiceStates;
+        if (newChoiceStates) {
+            /**
+             * Inside the Radio component(s) we use ChoiceState
+             * which includes both UI state and UserInput state.
+             * After LEMS-3208, we'd like to keep user input state in a
+             * "ready to score" format and ideally we'd like to internalize
+             * UI state (so Renderer doesn't manage state it doesn't need to;
+             * see LEMS-3245). At the time of writing, Radio is in the middle
+             * of a major refactor and SSS needs to move forward with LEMS-3208.
+             *
+             * This code maintains the original Radio props (ChoiceState)
+             * while allowing Renderer to have UserInput in the shape it needs
+             * and for this component to take over managing UI state
+             * (ChoiceStateWithoutSelected). To do that we convert ChoiceState
+             * into those two chunks of data.
+             */
+            this.setState(
+                {
+                    choiceStates: newChoiceStates.map((choiceState) => {
+                        const {selected: _, ...rest} = choiceState;
+                        return {
+                            ...rest,
+                        };
+                    }),
+                },
+                () => {
+                    // Restructure the data in a format that
+                    // getUserInputFromSerializedState will understand
+                    const props = this._mergePropsAndState();
+
+                    // creating a shallow copy of props and cloning choiceStates
+                    // to minimize the chance of mutating choiceStates
+                    const mergedProps = {
+                        ...props,
+                        choiceStates: deepClone(props.choiceStates || []).map(
+                            (choiceState, index) => {
+                                return {
+                                    ...choiceState,
+                                    selected: newChoiceStates[index].selected,
+                                };
+                            },
+                        ),
+                    };
+                    // Use getUserInputFromSerializedState to get
+                    // unshuffled user input so that we can score with it
+                    const unshuffledUserInput =
+                        getUserInputFromSerializedState(mergedProps);
+                    this.props.handleUserInput(unshuffledUserInput);
+                },
+            );
+        } else {
+            throw new Error("unhandled onChange call in Radio!");
+        }
+    }
+
+    _mergePropsAndState(): Props {
+        /**
+         * Inside the Radio component(s) we use ChoiceState
+         * which includes both UI state and UserInput state.
+         * After LEMS-3208, we'd like to keep user input state in a
+         * "ready to score" format and ideally we'd like to internalize
+         * UI state (so Renderer doesn't manage state it doesn't need to;
+         * see LEMS-3245). At the time of writing, Radio is in the middle
+         * of a major refactor and SSS needs to move forward with LEMS-3208.
+         *
+         * This code maintains merges the multiple data sources
+         * (WidgetProps, UserInput, and UI state) into a format our
+         * legacy code will understand.
+         */
+        return {
+            ...this.props,
+            choiceStates: this.state.choiceStates?.map((choiceState, index) => {
+                const choice = this.props.choices[index];
+                const selected =
+                    this.props.userInput.choicesSelected[choice.originalIndex];
+                return {
+                    ...choiceState,
+                    selected,
+                };
+            }),
+            onChange: (arg: any) => this._handleChange(arg),
+        };
     }
 
     // This is a legacy method that we need to support for the old radio widget.
@@ -44,13 +163,15 @@ class Radio extends RadioOld {
     }
 
     render(): React.ReactNode {
+        const props = this._mergePropsAndState();
+
         // Only return the new radio widget if the feature flag is on.
         // Otherwise, return the old radio widget and pass the ref to
         // it for handling legacy focus methods.
         return this.ffIsOn ? (
-            <RadioNew {...this.props} />
+            <RadioNew {...props} />
         ) : (
-            <RadioOld ref={this.radioRef} {...this.props} />
+            <RadioOld ref={this.radioRef} {...props} />
         );
     }
 }

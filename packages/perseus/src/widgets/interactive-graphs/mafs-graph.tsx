@@ -38,11 +38,15 @@ import {renderRayGraph} from "./graphs/ray";
 import {renderSegmentGraph} from "./graphs/segment";
 import {renderSinusoidGraph} from "./graphs/sinusoid";
 import {getArrayWithoutDuplicates} from "./graphs/utils";
-import {MIN, X, Y} from "./math";
+import {X, Y} from "./math";
 import {Protractor} from "./protractor";
 import {actions} from "./reducer/interactive-graph-action";
 import {GraphConfigContext} from "./reducer/use-graph-config";
-import {isUnlimitedGraphState, REMOVE_BUTTON_ID} from "./utils";
+import {
+    calculateNestedSVGCoords,
+    isUnlimitedGraphState,
+    REMOVE_BUTTON_ID,
+} from "./utils";
 
 import type {InteractiveGraphAction} from "./reducer/interactive-graph-action";
 import type {
@@ -670,61 +674,6 @@ function handleKeyboardEvent(
         }
     }
 }
-
-// Calculate the difference between the min and max values of a range
-const getRangeDiff = (range: vec.Vector2) => {
-    const [min, max] = range;
-    return Math.abs(max - min);
-};
-
-// We need to adjust the nested SVG viewbox x and Y values based on the range of the graph in order
-// to ensure that the graph is sized and positioned correctly within the Mafs SVG and the clipping mask.
-// Exported for testing.
-export const calculateNestedSVGCoords = (
-    range: vec.Vector2[],
-    width: number,
-    height: number,
-): {viewboxX: number; viewboxY: number} => {
-    // X RANGE
-    let viewboxX = 0; // When xMin is 0, we want to use 0 as the viewboxX value
-    const totalXRange = getRangeDiff(range[X]);
-    const gridCellWidth = width / totalXRange;
-    const minX = range[X][MIN];
-
-    // If xMin is entirely positive, we need to adjust the
-    // viewboxX to be the grid cell width multiplied by xMin
-    if (minX > 0) {
-        viewboxX = gridCellWidth * Math.abs(minX);
-    }
-    // If xMin is negative, we need to adjust the viewboxX to be
-    // the negative value of the grid cell width multiplied by xMin
-    if (minX < 0) {
-        viewboxX = -gridCellWidth * Math.abs(minX);
-    }
-
-    // Y RANGE
-    let viewboxY = -height; // When yMin is 0, we want to use the negative value of the graph height
-    const totalYRange = getRangeDiff(range[Y]);
-    const gridCellHeight = height / totalYRange;
-    const minY = range[Y][MIN];
-
-    // If the y range is entirely positive, we want a negative sum of the
-    // height and the gridcell height multiplied by the absolute value of yMin
-    if (minY > 0) {
-        viewboxY = -height - gridCellHeight * Math.abs(minY);
-    }
-
-    // If the yMin is negative, we want to multiply the gridcell height
-    // by the absolute value of yMin, and subtract the full height of the graph
-    if (minY < 0) {
-        viewboxY = gridCellHeight * Math.abs(minY) - height;
-    }
-
-    return {
-        viewboxX,
-        viewboxY,
-    };
-};
 
 const renderGraphElements = (props: {
     state: InteractiveGraphState;
