@@ -1,5 +1,21 @@
 # @khanacademy/perseus-core
 
+## 17.0.0
+
+### Major Changes
+
+-   [#2666](https://github.com/Khan/perseus/pull/2666) [`d738f44d5`](https://github.com/Khan/perseus/commit/d738f44d5108831e53045652c04584bad07c19c0) Thanks [@benchristel](https://github.com/benchristel)! - Remove `"chi2Table"`, `"tTable"`, and `"zTable"` from the `ItemExtras` type exported from `@khanacademy/perseus-core`. These properties weren't used. This is a breaking change because consumers might see type errors if they set chi2Table, tTable, or zTable properties on the `answerArea` object of a `PerseusItem`. The fix is to avoid setting those properties.
+
+### Minor Changes
+
+-   [#2676](https://github.com/Khan/perseus/pull/2676) [`3aa2b8e85`](https://github.com/Khan/perseus/commit/3aa2b8e850113be50d7da99b5ded55979b2de006) Thanks [@handeyeco](https://github.com/handeyeco)! - Radio: use userInput/handleUserInput
+
+### Patch Changes
+
+-   [#2672](https://github.com/Khan/perseus/pull/2672) [`c44219a98`](https://github.com/Khan/perseus/commit/c44219a98fdbb8128c614419439c83b6cf33f79e) Thanks [@benchristel](https://github.com/benchristel)! - Update peer dependency versions
+
+*   [#2630](https://github.com/Khan/perseus/pull/2630) [`da170e42a`](https://github.com/Khan/perseus/commit/da170e42a512c5e071b7af2bb707b6c75778bfdc) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixed bugs related to numCorrect not updating properly for the Radio widget, and cleaning up deriveNumCorrect.
+
 ## 16.1.1
 
 ### Patch Changes
