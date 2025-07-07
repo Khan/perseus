@@ -37,7 +37,6 @@ import type {
     LockedFigure,
     PerseusImageBackground,
     MarkingsType,
-    PerseusInteractiveGraphRubric,
     PerseusInteractiveGraphUserInput,
     AxisLabelLocation,
 } from "@khanacademy/perseus-core";
@@ -156,11 +155,8 @@ type RenderProps = {
      */
     graph: PerseusGraphType;
     /**
-     * The correct answer for this widget. Will be undefined if the graph is
-     * being provided answerless data (e.g. because the learner has not yet
-     * submitted their guess).
+     * The correct answer for this widget.
      */
-    // TODO(LEMS-2344): make the type of `correct` more specific
     correct?: PerseusGraphType;
     /**
      * Shapes (points, chords, etc) displayed on the graph that cannot be moved
@@ -176,7 +172,7 @@ type RenderProps = {
      */
     fullGraphAriaDescription?: string;
 }; // There's no transform function in exports
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<RenderProps, PerseusInteractiveGraphUserInput>;
 type State = any;
 type DefaultProps = {
     labels: string[];
@@ -187,7 +183,7 @@ type DefaultProps = {
     markings: Props["markings"];
     showTooltips: Props["showTooltips"];
     showProtractor: Props["showProtractor"];
-    graph: Props["graph"];
+    userInput: Props["userInput"];
 };
 
 // Assert that the PerseusInteractiveGraphWidgetOptions parsed from JSON can be
@@ -198,12 +194,12 @@ type DefaultProps = {
 // which receive defaults via defaultProps.
 0 as any as WidgetProps<
     PerseusInteractiveGraphWidgetOptions,
-    PerseusInteractiveGraphRubric
+    PerseusInteractiveGraphUserInput
 > satisfies PropsFor<typeof InteractiveGraph>;
 
 0 as any as WidgetProps<
     InteractiveGraphPublicWidgetOptions,
-    PerseusInteractiveGraphRubric
+    PerseusInteractiveGraphUserInput
 > satisfies PropsFor<typeof InteractiveGraph>;
 
 // TODO: there's another, very similar getSinusoidCoefficients function
@@ -268,7 +264,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         markings: "graph",
         showTooltips: false,
         showProtractor: false,
-        graph: {
+        userInput: {
             type: "linear",
         },
     };
@@ -287,6 +283,18 @@ class InteractiveGraph extends React.Component<Props, State> {
         return getPromptJSON(this.props, this.getUserInput());
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState() {
+        const {userInput: _, ...rest} = this.props;
+        return {
+            ...rest,
+            graph: this.props.userInput,
+        };
+    }
+
     render() {
         const box = getInteractiveBoxFromSizeClass(
             this.props.containerSizeClass,
@@ -297,9 +305,23 @@ class InteractiveGraph extends React.Component<Props, State> {
         const snapStep =
             this.props.snapStep || Util.snapStepFromGridStep(gridStep);
 
+        const mafsProps = {
+            ...this.props,
+            graph: this.props.userInput,
+            onChange: () =>
+                this.props.handleUserInput(
+                    // StatefulMafsGraph maintains its own internal state
+                    // and manipulates that state when calling getUserInput.
+                    // So we watch for changes in StatefulMafsGraph and call
+                    // getUserInput so we can pass the parent the most up-to-date
+                    // user input.
+                    this.mafsRef.current?.getUserInput() as PerseusGraphType,
+                ),
+        };
+
         return (
             <StatefulMafsGraph
-                {...this.props}
+                {...mafsProps}
                 ref={this.mafsRef}
                 gridStep={gridStep}
                 snapStep={snapStep}
@@ -581,7 +603,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static getEquationString(props: Props): string {
-        const type = props.graph.type;
+        const type = props.userInput.type;
         switch (type) {
             case "none":
                 return InteractiveGraph.getNoneEquationString();
@@ -635,7 +657,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static getLinearEquationString(props: Props): string {
-        const coords = InteractiveGraph.getLineCoords(props.graph, props);
+        const coords = InteractiveGraph.getLineCoords(props.userInput, props);
         if (approximateEqual(coords[0][0], coords[1][0])) {
             return "x = " + coords[0][0].toFixed(3);
         }
@@ -651,7 +673,7 @@ class InteractiveGraph extends React.Component<Props, State> {
         // TODO(alpert): Don't duplicate
         const coords =
             // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
-            props.graph.coords ||
+            props.userInput.coords ||
             InteractiveGraph.defaultQuadraticCoords(props);
         return getQuadraticCoefficients(coords);
     }
@@ -681,7 +703,8 @@ class InteractiveGraph extends React.Component<Props, State> {
     static getCurrentSinusoidCoefficients(props: Props): SineCoefficient {
         const coords =
             // @ts-expect-error - TS2339 - Property 'coords' does not exist on type 'PerseusGraphType'.
-            props.graph.coords || InteractiveGraph.defaultSinusoidCoords(props);
+            props.userInput.coords ||
+            InteractiveGraph.defaultSinusoidCoords(props);
         return getSinusoidCoefficients(coords);
     }
 
@@ -709,7 +732,7 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static getCircleEquationString(props: Props): string {
-        const graph = props.graph;
+        const graph = props.userInput;
         // TODO(alpert): Don't duplicate
         // @ts-expect-error - TS2339 - Property 'center' does not exist on type 'PerseusGraphType'.
         const center = graph.center || [0, 0];
@@ -722,7 +745,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     static getLinearSystemEquationString(props: Props): string {
         const coords = InteractiveGraph.getLinearSystemCoords(
-            props.graph,
+            props.userInput,
             props,
         );
 
@@ -737,11 +760,11 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static getPointEquationString(props: Props): string {
-        if (props.graph.type !== "point") {
+        if (props.userInput.type !== "point") {
             throw makeInvalidTypeError("getPointEquationString", "point");
         }
 
-        const coords = InteractiveGraph.getPointCoords(props.graph, props);
+        const coords = InteractiveGraph.getPointCoords(props.userInput, props);
         return coords
             .map(function (coord) {
                 return "(" + coord[0] + ", " + coord[1] + ")";
@@ -750,11 +773,14 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static getSegmentEquationString(props: Props): string {
-        if (props.graph.type !== "segment") {
+        if (props.userInput.type !== "segment") {
             throw makeInvalidTypeError("getSegmentEquationString", "segment");
         }
 
-        const segments = InteractiveGraph.getSegmentCoords(props.graph, props);
+        const segments = InteractiveGraph.getSegmentCoords(
+            props.userInput,
+            props,
+        );
         return _.map(segments, function (segment) {
             return (
                 "[" +
@@ -767,11 +793,11 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static getRayEquationString(props: Props): string {
-        if (props.graph.type !== "ray") {
+        if (props.userInput.type !== "ray") {
             throw makeInvalidTypeError("createPointForPolygonType", "ray");
         }
 
-        const coords = InteractiveGraph.getLineCoords(props.graph, props);
+        const coords = InteractiveGraph.getLineCoords(props.userInput, props);
         const a = coords[0];
         const b = coords[1];
         let eq = InteractiveGraph.getLinearEquationString(props);
@@ -790,21 +816,24 @@ class InteractiveGraph extends React.Component<Props, State> {
     }
 
     static getPolygonEquationString(props: Props): string {
-        if (props.graph.type !== "polygon") {
+        if (props.userInput.type !== "polygon") {
             throw makeInvalidTypeError("getPolygonEquationString", "polygon");
         }
-        const coords = InteractiveGraph.getPolygonCoords(props.graph, props);
+        const coords = InteractiveGraph.getPolygonCoords(
+            props.userInput,
+            props,
+        );
         return _.map(coords, function (coord) {
             return "(" + coord.join(", ") + ")";
         }).join(" ");
     }
 
     static getAngleEquationString(props: Props): string {
-        if (props.graph.type !== "angle") {
+        if (props.userInput.type !== "angle") {
             throw makeInvalidTypeError("getAngleEquationString", "angle");
         }
-        const coords = InteractiveGraph.getAngleCoords(props.graph, props);
-        const allowReflexAngles = props.graph.allowReflexAngles;
+        const coords = InteractiveGraph.getAngleCoords(props.userInput, props);
+        const allowReflexAngles = props.userInput.allowReflexAngles;
         const angle = getClockwiseAngle(coords, allowReflexAngles);
         return (
             angle.toFixed(0) +
@@ -814,18 +843,27 @@ class InteractiveGraph extends React.Component<Props, State> {
             ")"
         );
     }
-
-    static getUserInputFromProps(props: Props): PerseusGraphType {
-        return props.graph;
-    }
 }
 
-// We don't need to change any of the original props for static mode
-const staticTransform = _.identity;
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusInteractiveGraphUserInput {
+    return serializedState.graph;
+}
+
+function getStartUserInput(options: InteractiveGraphPublicWidgetOptions) {
+    return options.graph;
+}
 
 export default {
     name: "interactive-graph",
     displayName: "Interactive graph",
     widget: InteractiveGraph,
-    staticTransform: staticTransform,
+    staticTransform: _.identity,
+    getStartUserInput,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof InteractiveGraph>;

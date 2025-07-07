@@ -132,7 +132,7 @@ exports[`graded group widget should snapshot 1`] = `
                         autocapitalize="off"
                         autocomplete="off"
                         autocorrect="off"
-                        class="input_a5n1n-o_O-LabelMedium_455tor-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-inputWithExamples_1y6ajxo"
+                        class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inputWithExamples_1y6ajxo"
                         data-testid="input-with-examples"
                         id=":r0:"
                         tabindex="0"
@@ -153,7 +153,7 @@ exports[`graded group widget should snapshot 1`] = `
               />
               <button
                 aria-disabled="false"
-                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_14wd1lh-o_O-default_1aph7tw"
+                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1l1gmds"
                 role="button"
                 type="button"
               >

@@ -1,26 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {
-    components,
-    BaseRadio,
-    Changeable,
-    iconTrash,
-} from "@khanacademy/perseus";
+import {BaseRadio} from "@khanacademy/perseus";
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
-import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import Button from "@khanacademy/wonder-blocks-button";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
+import Link from "@khanacademy/wonder-blocks-link";
+import {spacing, sizing} from "@khanacademy/wonder-blocks-tokens";
+import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
 import _ from "underscore";
 
+import LabeledSwitch from "../../components/labeled-switch";
 import Editor from "../../editor";
-import {iconPlus} from "../../styles/icon-paths";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {APIOptions, Changeable} from "@khanacademy/perseus";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRadioChoice,
     RadioDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
-
-const {InlineIcon} = components;
 
 type Contentful = {content?: string};
 type ChoiceEditorProps = {
@@ -72,7 +69,6 @@ class ChoiceEditor extends React.Component<ChoiceEditorProps> {
                 onChange={this.props.onRationaleChange}
             />
         );
-
         const deleteLink = (
             <a
                 className="simple-button orange delete-choice"
@@ -84,7 +80,7 @@ class ChoiceEditor extends React.Component<ChoiceEditorProps> {
                 }}
                 title="Remove this choice"
             >
-                <InlineIcon {...iconTrash} />
+                Remove this choice
             </a>
         );
 
@@ -115,45 +111,37 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     static defaultProps: RadioDefaultWidgetOptions =
         radioLogic.defaultWidgetOptions;
 
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
-    };
-
     onMultipleSelectChange: (arg1: any) => any = (allowMultiple) => {
-        allowMultiple = allowMultiple.multipleSelect;
+        const isMultipleSelect = allowMultiple.multipleSelect;
 
-        const numCorrect = _.reduce(
-            this.props.choices,
-            function (memo, choice) {
-                return choice.correct ? memo + 1 : memo;
-            },
-            0,
-        );
-
-        if (!allowMultiple && numCorrect > 1) {
-            const choices = _.map(this.props.choices, function (choice) {
-                return _.defaults(
-                    {
+        // When switching to single-select mode, we want to deselect all
+        // choices if more than one choice is currently selected as correct.
+        let choices = this.props.choices;
+        if (!isMultipleSelect) {
+            const numCorrect = deriveNumCorrect(choices);
+            if (numCorrect > 1) {
+                choices = choices.map((choice) => {
+                    return {
+                        ...choice,
                         correct: false,
-                    },
-                    choice,
-                );
-            });
-            this.props.onChange({
-                multipleSelect: allowMultiple,
-                choices: choices,
-            });
-        } else {
-            this.props.onChange({
-                multipleSelect: allowMultiple,
-            });
+                    };
+                });
+            }
         }
+
+        // Update with the recalculated numCorrect and choices
+        this.props.onChange({
+            multipleSelect: isMultipleSelect,
+            choices,
+            numCorrect: deriveNumCorrect(choices),
+        });
     };
 
     onCountChoicesChange: (arg1: any) => void = (count) => {
-        count = count.countChoices;
-        this.props.onChange({countChoices: count});
+        const countChoices = count.countChoices;
+        this.props.onChange({
+            countChoices,
+        });
     };
 
     onChange: (arg1: any) => void = ({checked}) => {
@@ -169,14 +157,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         });
 
         this.props.onChange({
-            choices: choices,
-            numCorrect: deriveNumCorrect({
-                ...this.props,
-                choices,
-                // When deriving numCorrect, we don't want to pass the current value,
-                // as it has changed.
-                numCorrect: undefined,
-            }),
+            choices,
+            numCorrect: deriveNumCorrect(choices),
         });
     };
 
@@ -209,9 +191,10 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         choices.splice(choiceIndex, 1);
 
         this.props.onChange({
-            choices: choices,
+            choices,
             hasNoneOfTheAbove:
                 this.props.hasNoneOfTheAbove && !deleted.isNoneOfTheAbove,
+            numCorrect: deriveNumCorrect(choices),
         });
     };
 
@@ -275,69 +258,50 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             countChoices,
             hasNoneOfTheAbove,
             deselectEnabled,
-            numCorrect: deriveNumCorrect({
-                ...this.props,
-                // When deriving numCorrect, we don't want to pass the current value,
-                // as it has changed.
-                numCorrect: undefined,
-            }),
+            numCorrect: deriveNumCorrect(choices),
         };
     }
 
     render(): React.ReactNode {
-        const numCorrect = _.reduce(
-            this.props.choices,
-            function (memo, choice) {
-                return choice.correct ? memo + 1 : memo;
-            },
-            0,
-        );
+        const numCorrect = deriveNumCorrect(this.props.choices);
         return (
             <div>
+                <Link
+                    href="https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems"
+                    target="_blank"
+                >
+                    Multiple choice best practices
+                </Link>
                 <div className="perseus-widget-row">
-                    <a
-                        href={
-                            // This is an editor component, not user-facing.
-                            "https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems"
-                        }
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Multiple choice best practices
-                    </a>
-                    <br />
-                    <div className="perseus-widget-left-col">
-                        <Checkbox
-                            label="Multiple selections"
-                            checked={this.props.multipleSelect}
+                    <LabeledSwitch
+                        label="Randomize order"
+                        checked={this.props.randomize}
+                        onChange={(value) => {
+                            this.props.onChange({randomize: value});
+                        }}
+                        style={{marginBlockEnd: sizing.size_060}}
+                    />
+                    <LabeledSwitch
+                        label="Multiple selections"
+                        checked={this.props.multipleSelect}
+                        onChange={(value) => {
+                            this.onMultipleSelectChange({
+                                multipleSelect: value,
+                            });
+                        }}
+                        style={{marginBlockEnd: sizing.size_060}}
+                    />
+                    {this.props.multipleSelect && (
+                        <LabeledSwitch
+                            label="Specify number correct"
+                            checked={this.props.countChoices}
                             onChange={(value) => {
-                                this.onMultipleSelectChange({
-                                    multipleSelect: value,
+                                this.onCountChoicesChange({
+                                    countChoices: value,
                                 });
                             }}
+                            style={{marginBlockEnd: sizing.size_060}}
                         />
-                    </div>
-                    <div className="perseus-widget-right-col">
-                        <Checkbox
-                            label="Randomize order"
-                            checked={this.props.randomize}
-                            onChange={(value) => {
-                                this.props.onChange({randomize: value});
-                            }}
-                        />
-                    </div>
-                    {this.props.multipleSelect && (
-                        <div className="perseus-widget-left-col">
-                            <Checkbox
-                                label="Specify number correct"
-                                checked={this.props.countChoices}
-                                onChange={(value) => {
-                                    this.onCountChoicesChange({
-                                        countChoices: value,
-                                    });
-                                }}
-                            />
-                        </div>
                     )}
                 </div>
 
@@ -384,25 +348,23 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                 />
 
                 <div className="add-choice-container">
-                    <a
-                        className="simple-button orange"
-                        href="#"
-                        // eslint-disable-next-line react/jsx-no-bind
+                    <Button
+                        size="small"
+                        kind="tertiary"
+                        startIcon={plusIcon}
                         onClick={this.addChoice.bind(this, false)}
                     >
-                        <InlineIcon {...iconPlus} /> Add a choice{" "}
-                    </a>
-
-                    {!this.props.hasNoneOfTheAbove && (
-                        <a
-                            className="simple-button"
-                            href="#"
-                            // eslint-disable-next-line react/jsx-no-bind
-                            onClick={this.addChoice.bind(this, true)}
-                        >
-                            <InlineIcon {...iconPlus} /> None of the above{" "}
-                        </a>
-                    )}
+                        Add a choice
+                    </Button>
+                    <Strut size={spacing.large_24} />
+                    <Button
+                        size="small"
+                        kind="tertiary"
+                        startIcon={plusIcon}
+                        onClick={this.addChoice.bind(this, true)}
+                    >
+                        None of the above
+                    </Button>
                 </div>
             </div>
         );

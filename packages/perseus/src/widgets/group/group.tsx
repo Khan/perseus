@@ -62,6 +62,7 @@ class Group extends React.Component<Props> implements Widget {
     }
 
     change: ChangeFn = (...args) => {
+        // eslint-disable-next-line import/no-deprecated
         return Changeable.change.apply(this, args);
     };
 
@@ -80,10 +81,18 @@ class Group extends React.Component<Props> implements Widget {
         return _getPromptJSON(this.rendererRef?.getPromptJSON());
     }
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
     getSerializedState: () => any = () => {
         return this.rendererRef?.getSerializedState();
     };
 
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
     restoreSerializedState: (arg1: any, arg2: any) => null = (
         state,
         callback,
@@ -162,20 +171,12 @@ class Group extends React.Component<Props> implements Widget {
             }
         };
 
-        // TODO(LEMS-2391): replace this when there's a separate check
-        // for valid/invalid state
-        const score = this.rendererRef?.score();
-        const isValid = score && score.type !== "invalid";
-        const isInvalid = score && score.type === "invalid";
-
         // TODO(mdr): Widgets inside this Renderer are not discoverable through
         //     the parent Renderer's `findWidgets` function.
         return (
             <div
                 className={classNames({
                     "perseus-group": true,
-                    "perseus-group-valid-answer": isValid,
-                    "perseus-group-invalid-answer": isInvalid,
                 })}
             >
                 {problemNumComponent}
@@ -192,11 +193,6 @@ class Group extends React.Component<Props> implements Widget {
                     linterContext={this.props.linterContext}
                     strings={this.context.strings}
                 />
-                {/* @ts-expect-error - TS2339 - Property 'icon' does not exist on type 'Readonly<Props> & Readonly<{ children?: ReactNode; }>'. */}
-                {this.props.icon && (
-                    // @ts-expect-error - TS2339 - Property 'icon' does not exist on type 'Readonly<Props> & Readonly<{ children?: ReactNode; }>'.
-                    <div className="group-icon">{this.props.icon}</div>
-                )}
             </div>
         );
     }

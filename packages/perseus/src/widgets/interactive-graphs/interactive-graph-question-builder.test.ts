@@ -868,6 +868,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 lineStyle: "solid",
                 showPoint1: false,
                 showPoint2: false,
+                weight: "medium",
                 labels: [],
             },
         ]);
@@ -882,6 +883,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 filled: [false, false],
                 showPoint1: true,
                 showPoint2: true,
+                weight: "thin",
                 labels: [{text: "a label"}],
                 ariaLabel: "an aria label",
             })
@@ -912,6 +914,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 lineStyle: "dashed",
                 showPoint1: true,
                 showPoint2: true,
+                weight: "thin",
                 labels: [
                     {
                         type: "label",
@@ -935,6 +938,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 filled: [false, false],
                 showPoint1: true,
                 showPoint2: true,
+                weight: "thick",
                 labels: [{text: "a label", coord: [9, 9], size: "small"}],
             })
             .build();
@@ -964,6 +968,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 lineStyle: "dashed",
                 showPoint1: true,
                 showPoint2: true,
+                weight: "thick",
                 labels: [
                     {
                         type: "label",
@@ -991,6 +996,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     [3, 4],
                 ],
                 color: "grayH",
+                weight: "medium",
                 labels: [],
             },
         ]);
@@ -1000,6 +1006,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .addLockedVector([1, 2], [3, 4], {
                 color: "green",
+                weight: "thick",
                 labels: [{text: "a label"}],
                 ariaLabel: "an aria label",
             })
@@ -1014,6 +1021,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     [3, 4],
                 ],
                 color: "green",
+                weight: "thick",
                 labels: [
                     {
                         type: "label",
@@ -1032,6 +1040,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .addLockedVector([1, 2], [3, 4], {
                 color: "green",
+                weight: "thin",
                 labels: [{text: "a label", coord: [9, 9], size: "small"}],
             })
             .build();
@@ -1045,6 +1054,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     [3, 4],
                 ],
                 color: "green",
+                weight: "thin",
                 labels: [
                     {
                         type: "label",
@@ -1073,6 +1083,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "grayH",
                 fillStyle: "none",
                 strokeStyle: "solid",
+                weight: "medium",
                 labels: [],
             },
         ]);
@@ -1085,6 +1096,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "green",
                 fillStyle: "solid",
                 strokeStyle: "dashed",
+                weight: "thick",
                 labels: [{text: "a label"}],
                 ariaLabel: "an aria label",
             })
@@ -1100,6 +1112,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "green",
                 fillStyle: "solid",
                 strokeStyle: "dashed",
+                weight: "thick",
                 labels: [
                     {
                         type: "label",
@@ -1131,6 +1144,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 color: "grayH",
                 fillStyle: "none",
                 strokeStyle: "solid",
+                weight: "medium",
                 labels: [
                     {
                         type: "label",
@@ -1166,6 +1180,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 showVertices: false,
                 fillStyle: "none",
                 strokeStyle: "solid",
+                weight: "medium",
                 labels: [],
             },
         ]);
@@ -1184,6 +1199,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     showVertices: true,
                     fillStyle: "translucent",
                     strokeStyle: "dashed",
+                    weight: "thin",
                     labels: [{text: "a label"}],
                     ariaLabel: "an aria label",
                 },
@@ -1203,6 +1219,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 showVertices: true,
                 fillStyle: "translucent",
                 strokeStyle: "dashed",
+                weight: "thin",
                 labels: [
                     {
                         type: "label",
@@ -1244,6 +1261,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 showVertices: false,
                 fillStyle: "none",
                 strokeStyle: "solid",
+                weight: "medium",
                 labels: [
                     {
                         type: "label",
@@ -1269,6 +1287,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 equation: "x^2",
                 color: "grayH",
                 strokeStyle: "solid",
+                weight: "medium",
                 directionalAxis: "x",
                 domain: [-Infinity, Infinity],
                 labels: [],
@@ -1281,6 +1300,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
             .addLockedFunction("x^2", {
                 color: "green",
                 strokeStyle: "dashed",
+                weight: "thick",
                 directionalAxis: "y",
                 domain: [-5, 5],
                 labels: [{text: "a label"}],
@@ -1295,6 +1315,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 equation: "x^2",
                 color: "green",
                 strokeStyle: "dashed",
+                weight: "thick",
                 directionalAxis: "y",
                 domain: [-5, 5],
                 labels: [
@@ -1325,6 +1346,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                 equation: "x^2",
                 color: "grayH",
                 strokeStyle: "solid",
+                weight: "medium",
                 directionalAxis: "x",
                 domain: [-Infinity, Infinity],
                 labels: [

@@ -60,3 +60,29 @@ export const question2: PerseusRenderer = {
         },
     },
 };
+
+export const inequality: PerseusRenderer = {
+    content: "[[☃ number-line 1]]",
+    images: {},
+    widgets: {
+        "number-line 1": {
+            type: "number-line",
+            options: {
+                correctRel: "le",
+                correctX: -1,
+                divisionRange: [1, 12],
+                initialX: -5,
+                isInequality: true,
+                labelRange: [null, null],
+                labelStyle: "decimal",
+                labelTicks: true,
+                numDivisions: null,
+                range: [-5, 5],
+                showTooltips: false,
+                snapDivisions: 1,
+                static: false,
+                tickStep: 1,
+            },
+        },
+    },
+};

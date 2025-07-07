@@ -232,7 +232,6 @@ module.exports = {
         "import/no-named-as-default": "error",
         // NOTE(kevinb): This rule is causes issues with some uses of 'prop-types'
         "import/no-named-as-default-member": "off",
-        "import/no-deprecated": "error",
         "import/no-commonjs": "error",
         // "import/first": "error",
         "import/no-duplicates": "error",

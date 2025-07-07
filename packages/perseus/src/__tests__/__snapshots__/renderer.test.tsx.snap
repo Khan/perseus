@@ -364,13 +364,13 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_bvghof"
+                class="button_vr44p2-o_O-shared_jbebuh-o_O-default_301vh2"
                 id=":r3:"
                 role="combobox"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelMedium_455tor-o_O-text_16ujc3c"
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -389,7 +389,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1mk32nz-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
@@ -449,13 +449,13 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_bvghof"
+                class="button_vr44p2-o_O-shared_jbebuh-o_O-default_301vh2"
                 id=":r6:"
                 role="combobox"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelMedium_455tor-o_O-text_16ujc3c"
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -474,7 +474,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1mk32nz-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
@@ -534,13 +534,13 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_bvghof"
+                class="button_vr44p2-o_O-shared_jbebuh-o_O-default_301vh2"
                 id=":r0:"
                 role="combobox"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelMedium_455tor-o_O-text_16ujc3c"
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -559,7 +559,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1mk32nz-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
@@ -603,32 +603,29 @@ exports[`renderer snapshots renders a placeholder for a deprecated widget: depre
             style="padding-top: 8px; padding-bottom: 8px;"
           >
             <div
-              class="default_xu2jcg-o_O-containerOuter_8mi74v-o_O-inlineStyles_1ncl5pu"
+              class="default_xu2jcg-o_O-containerOuter_1fa127e-o_O-infoBanner_rdpfpm"
               role="status"
             >
               <div
-                class="default_xu2jcg-o_O-backgroundColor_10s9e9d-o_O-inlineStyles_q70ec9"
-              />
-              <div
-                class="default_xu2jcg-o_O-containerInner_mm2xcu"
+                class="default_xu2jcg-o_O-containerInner_1lza62o"
               >
                 <span
                   aria-label="info"
-                  class="svg_1q6jc65-o_O-icon_1521uiv-o_O-icon_q8rqgk-o_O-inlineStyles_94g682"
+                  class="svg_1q6jc65-o_O-icon_1c9fkuf-o_O-icon_18itqqa-o_O-infoIcon_cju5w7-o_O-inlineStyles_i5hedm"
                   data-testid="banner-kind-icon"
                   role="img"
                 />
                 <div
-                  class="default_xu2jcg-o_O-labelAndButtonsContainer_14rogkt"
+                  class="default_xu2jcg-o_O-labelAndButtonsContainer_1dntbm4"
                 >
                   <div
-                    class="default_xu2jcg-o_O-labelContainer_1fjq5ke"
+                    class="default_xu2jcg-o_O-labelContainer_14mmd26"
                   >
-                    <span
-                      class="text_f1191h-o_O-LabelSmall_94fo23"
+                    <div
+                      class="labelTypography_1y1267m"
                     >
                       Sorry, this part of the question is no longer available. 😅 Don't worry, you won't be graded on this part. Keep going!
-                    </span>
+                    </div>
                   </div>
                 </div>
               </div>

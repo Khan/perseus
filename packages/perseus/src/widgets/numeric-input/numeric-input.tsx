@@ -45,11 +45,8 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
             },
         }));
 
-        const handleChange = (
-            newValue: string,
-            cb?: () => unknown | null | undefined,
-        ): void => {
-            props.onChange({currentValue: newValue}, cb);
+        const handleChange = (newValue: string): void => {
+            props.handleUserInput({currentValue: newValue});
             props.trackInteraction();
         };
 
@@ -88,7 +85,7 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
                 <div className={alignmentClass}>
                     <SimpleKeypadInput
                         ref={inputRef as React.RefObject<SimpleKeypadInput>}
-                        value={props.currentValue}
+                        value={props.userInput.currentValue}
                         keypadElement={props.keypadElement}
                         onChange={handleChange}
                         onFocus={handleFocus}
@@ -101,7 +98,7 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
         return (
             <InputWithExamples
                 ref={inputRef}
-                value={props.currentValue}
+                value={props.userInput.currentValue}
                 onChange={handleChange}
                 labelText={props.labelText}
                 examples={generateExamples(props.answerForms, context.strings)}

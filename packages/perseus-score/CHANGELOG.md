@@ -1,5 +1,91 @@
 # @khanacademy/perseus-score
 
+## 7.1.12
+
+### Patch Changes
+
+-   Updated dependencies [[`a4d94900c`](https://github.com/Khan/perseus/commit/a4d94900c360aedfdf3899b866d94aaa8be852b8), [`e67eca0d3`](https://github.com/Khan/perseus/commit/e67eca0d36687bcc5ffa3cd2f67caf169321f184), [`891363ccb`](https://github.com/Khan/perseus/commit/891363ccbde8a645587f6ff3213b33c34ed40764), [`8952a578a`](https://github.com/Khan/perseus/commit/8952a578a4826c35238afb30e64f78584a4f267b)]:
+    -   @khanacademy/perseus-core@18.0.0
+    -   @khanacademy/kmath@2.0.25
+
+## 7.1.11
+
+### Patch Changes
+
+-   [#2574](https://github.com/Khan/perseus/pull/2574) [`2a38ef534`](https://github.com/Khan/perseus/commit/2a38ef534a352b13a3bba1b92b353cf9e0d45be6) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Added a check to Numeric and Input Widgets to ensure we're parsing decimals in user input according to locale
+
+-   Updated dependencies [[`3aa2b8e85`](https://github.com/Khan/perseus/commit/3aa2b8e850113be50d7da99b5ded55979b2de006), [`c44219a98`](https://github.com/Khan/perseus/commit/c44219a98fdbb8128c614419439c83b6cf33f79e), [`d738f44d5`](https://github.com/Khan/perseus/commit/d738f44d5108831e53045652c04584bad07c19c0), [`da170e42a`](https://github.com/Khan/perseus/commit/da170e42a512c5e071b7af2bb707b6c75778bfdc)]:
+    -   @khanacademy/perseus-core@17.0.0
+    -   @khanacademy/kmath@2.0.24
+
+## 7.1.10
+
+### Patch Changes
+
+-   [#2578](https://github.com/Khan/perseus/pull/2578) [`bcf4fd541`](https://github.com/Khan/perseus/commit/bcf4fd5411c7aa8950c775c2a0275575b8731abc) Thanks [@handeyeco](https://github.com/handeyeco)! - Sorter: use userInput/handleUserInput
+
+*   [#2644](https://github.com/Khan/perseus/pull/2644) [`f51181adc`](https://github.com/Khan/perseus/commit/f51181adcd9bbe2160c6ccd7d00ed40b53ed9a95) Thanks [@handeyeco](https://github.com/handeyeco)! - Cleanup some ChangeHandler and Changeable use
+
+-   [#2573](https://github.com/Khan/perseus/pull/2573) [`3a3f5233b`](https://github.com/Khan/perseus/commit/3a3f5233bf00da47dce9944936eb94b1841a56ed) Thanks [@handeyeco](https://github.com/handeyeco)! - NumberLine: use userInput/handleUserInput
+
+-   Updated dependencies [[`f15a4cc56`](https://github.com/Khan/perseus/commit/f15a4cc56465ada5d8eb5e5f042064421afaa356), [`f84722b44`](https://github.com/Khan/perseus/commit/f84722b44e45b7e3894b62332525051f930adae9), [`e2ed14e58`](https://github.com/Khan/perseus/commit/e2ed14e587b85afd72b9f25635060f5f3cf3abc5), [`bcf4fd541`](https://github.com/Khan/perseus/commit/bcf4fd5411c7aa8950c775c2a0275575b8731abc), [`f51181adc`](https://github.com/Khan/perseus/commit/f51181adcd9bbe2160c6ccd7d00ed40b53ed9a95), [`21f79b664`](https://github.com/Khan/perseus/commit/21f79b664a411c60c62043db25b6493619ba3dbd), [`3a3f5233b`](https://github.com/Khan/perseus/commit/3a3f5233bf00da47dce9944936eb94b1841a56ed)]:
+    -   @khanacademy/perseus-core@16.1.1
+    -   @khanacademy/kmath@2.0.23
+
+## 7.1.9
+
+### Patch Changes
+
+-   Updated dependencies [[`d1299f6f7`](https://github.com/Khan/perseus/commit/d1299f6f7e5e427c442d39e6cadfa78b5326d4b1), [`01cb73bef`](https://github.com/Khan/perseus/commit/01cb73bef9934e36163fa28f315b64b23bd48637)]:
+    -   @khanacademy/perseus-core@16.1.0
+    -   @khanacademy/kmath@2.0.22
+
+## 7.1.8
+
+### Patch Changes
+
+-   Updated dependencies [[`fd30e9518`](https://github.com/Khan/perseus/commit/fd30e9518cc88004955fcc3bb8d77b41c18342b8)]:
+    -   @khanacademy/perseus-core@16.0.0
+    -   @khanacademy/kmath@2.0.21
+
+## 7.1.7
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/kas@2.0.9
+    -   @khanacademy/kmath@2.0.20
+    -   @khanacademy/perseus-core@15.0.1
+    -   @khanacademy/perseus-utils@2.0.5
+
+## 7.1.6
+
+### Patch Changes
+
+-   Updated dependencies [[`0e535feb7`](https://github.com/Khan/perseus/commit/0e535feb76f753db3f7cda1c753d79ca067ca372), [`8be4625c9`](https://github.com/Khan/perseus/commit/8be4625c950e73482aec055e2aed8b102283c950)]:
+    -   @khanacademy/perseus-core@15.0.0
+    -   @khanacademy/kmath@2.0.19
+
+## 7.1.5
+
+### Patch Changes
+
+-   [#2624](https://github.com/Khan/perseus/pull/2624) [`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Sync dev dependencies with frontend
+
+-   Updated dependencies [[`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6)]:
+    -   @khanacademy/kas@2.0.8
+    -   @khanacademy/kmath@2.0.18
+    -   @khanacademy/perseus-core@14.1.1
+    -   @khanacademy/perseus-utils@2.0.5
+
+## 7.1.4
+
+### Patch Changes
+
+-   Updated dependencies [[`401ab009b`](https://github.com/Khan/perseus/commit/401ab009b1650b5752b4bad77d874eec16ebcec3), [`48fc42775`](https://github.com/Khan/perseus/commit/48fc427750810566f05586550fdc5596e1c79762)]:
+    -   @khanacademy/perseus-core@14.1.0
+    -   @khanacademy/kmath@2.0.17
+
 ## 7.1.3
 
 ### Patch Changes
