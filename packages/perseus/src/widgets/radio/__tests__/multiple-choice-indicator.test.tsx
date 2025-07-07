@@ -1,13 +1,13 @@
 import {describe, it} from "@jest/globals";
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
-import {render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import Indicator from "../multiple-choice-indicator";
 
 describe("Multiple choice indicator", () => {
     let iconMock: jest.SpyInstance;
-    let mockClickHandler: jest.SpyInstance;
+    let mockClickHandler: jest.Mock;
 
     beforeEach(() => {
         // @ts-expect-error TS2769: No overload matches this call.
@@ -35,7 +35,7 @@ describe("Multiple choice indicator", () => {
                     checked={true}
                     shape="circle"
                     content="A"
-                    showCorrectness="foo"
+                    showCorrectness={undefined}
                     updateChecked={mockClickHandler}
                 />,
             );
@@ -43,7 +43,7 @@ describe("Multiple choice indicator", () => {
             expect(screen.getByRole("button").innerHTML).toBe("A");
         });
 
-        it.each(["correct", "wrong"])(
+        it.each(["correct", "wrong"] as const)(
             "renders WITHOUT any icons when in review mode (%s) and indicator is NOT checked",
             async (correctness) => {
                 render(
@@ -102,7 +102,7 @@ describe("Multiple choice indicator", () => {
     });
 
     describe("styling options", () => {
-        it.each(["circle", "square"])("renders as a %s", (shape) => {
+        it.each(["circle", "square"] as const)("renders as a %s", (shape) => {
             render(
                 <Indicator
                     checked={false}
@@ -112,10 +112,49 @@ describe("Multiple choice indicator", () => {
                 />,
             );
             const classes = Array.from(screen.getByRole("button").classList);
-            expect(screen.getByRole("button").outerHTML).toContain("foo");
+            expect(classes).toContain(`${shape}-shape`);
+        });
+    });
 
-            // TODO: Check the className for the shape
+    describe("click handling", () => {
+        it("executes the supplied click handler when NOT in review mode", () => {
+            render(
+                <Indicator
+                    checked={false}
+                    shape="circle"
+                    content="A"
+                    updateChecked={mockClickHandler}
+                />,
+            );
+            act(() => {
+                screen.getByRole("button").click();
+            });
+            expect(mockClickHandler).toHaveBeenCalledTimes(1);
+            expect(mockClickHandler).toHaveBeenCalledWith(true);
 
+            // Click again to toggle back
+            mockClickHandler.mockReset();
+            act(() => {
+                screen.getByRole("button").click();
+            });
+            expect(mockClickHandler).toHaveBeenCalledTimes(1);
+            expect(mockClickHandler).toHaveBeenCalledWith(false);
+        });
+
+        it("does NOT execute the supplied click handler when in review mode", () => {
+            render(
+                <Indicator
+                    checked={false}
+                    shape="circle"
+                    content="A"
+                    showCorrectness="correct"
+                    updateChecked={mockClickHandler}
+                />,
+            );
+            act(() => {
+                screen.getByRole("button").click();
+            });
+            expect(mockClickHandler).toHaveBeenCalledTimes(0);
         });
     });
 });

@@ -39,9 +39,8 @@ const Indicator = (props: IndicatorProps) => {
         ? undefined // Don't register anything when showing answers
         : () => {
               setIsChecked(!isChecked);
-              props.updateChecked(isChecked);
+              props.updateChecked(!isChecked);
           };
-    console.log(`Classes: `, classes);
 
     return (
         <button
