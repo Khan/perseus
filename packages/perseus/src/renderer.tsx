@@ -410,7 +410,7 @@ class Renderer
 
         if (
             this.props.serializedState &&
-            !_.isEqual(this.props.serializedState, this.getSerializedState())
+            !_.isEqual(this.props.serializedState, prevProps.serializedState)
         ) {
             this.restoreSerializedState(this.props.serializedState);
         }
