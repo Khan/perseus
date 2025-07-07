@@ -4,7 +4,6 @@ import {
     type PerseusRadioUserInput,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
-import _ from "underscore";
 
 import RadioOld from "./radio-component";
 import RadioNew from "./radio.class.new";
