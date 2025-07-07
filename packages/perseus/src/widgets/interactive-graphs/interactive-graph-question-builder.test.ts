@@ -996,6 +996,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     [3, 4],
                 ],
                 color: "grayH",
+                weight: "medium",
                 labels: [],
             },
         ]);
@@ -1005,6 +1006,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .addLockedVector([1, 2], [3, 4], {
                 color: "green",
+                weight: "thick",
                 labels: [{text: "a label"}],
                 ariaLabel: "an aria label",
             })
@@ -1019,6 +1021,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     [3, 4],
                 ],
                 color: "green",
+                weight: "thick",
                 labels: [
                     {
                         type: "label",
@@ -1037,6 +1040,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .addLockedVector([1, 2], [3, 4], {
                 color: "green",
+                weight: "thin",
                 labels: [{text: "a label", coord: [9, 9], size: "small"}],
             })
             .build();
@@ -1050,6 +1054,7 @@ describe("InteractiveGraphQuestionBuilder", () => {
                     [3, 4],
                 ],
                 color: "green",
+                weight: "thin",
                 labels: [
                     {
                         type: "label",
