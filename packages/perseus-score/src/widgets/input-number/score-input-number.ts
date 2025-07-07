@@ -1,3 +1,5 @@
+import {getDecimalSeparator} from "@khanacademy/perseus-core";
+
 import KhanAnswerTypes from "../../util/answer-types";
 import {parseTex} from "../../util/tex-wrangler";
 
@@ -45,6 +47,7 @@ export const inputNumberAnswerTypes = {
 function scoreInputNumber(
     userInput: PerseusInputNumberUserInput,
     rubric: PerseusInputNumberRubric,
+    locale?: string,
 ): PerseusScore {
     if (rubric.answerType == null) {
         rubric.answerType = "number";
@@ -59,6 +62,9 @@ function scoreInputNumber(
         inexact: rubric.inexact || undefined,
         maxError: rubric.maxError,
         forms: inputNumberAnswerTypes[rubric.answerType].forms,
+        // Pass locale-specific decimal separator to ensure that
+        // we're properly parsing numbers according to the locale.
+        ...(locale && {decimal_separator: getDecimalSeparator(locale)}),
     });
 
     // We may have received TeX; try to parse it before grading.

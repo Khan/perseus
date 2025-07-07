@@ -3,7 +3,7 @@ import {
     shouldShowLabel,
     countSignificantDecimals,
     divideByAndShowPi,
-} from "./axis-ticks";
+} from "./utils";
 
 import type {Interval} from "mafs";
 
