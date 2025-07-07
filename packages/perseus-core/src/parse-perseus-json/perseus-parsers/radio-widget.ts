@@ -195,19 +195,11 @@ export function migrateV3ToV4(
         ...widget,
         version: {major: 4, minor: 0},
         options: {
-            numCorrect: options.numCorrect,
-            hasNoneOfTheAbove: options.hasNoneOfTheAbove,
-            countChoices: options.countChoices,
-            randomize: options.randomize,
-            multipleSelect: options.multipleSelect,
-            deselectEnabled: options.deselectEnabled,
+            ...options,
             choices: options.choices.map((choice, index) => {
                 const choiceId = `choice-${index + 1}`;
                 return {
-                    content: choice.content,
-                    rationale: choice.rationale,
-                    correct: choice.correct,
-                    isNoneOfTheAbove: choice.isNoneOfTheAbove,
+                    ...choice,
                     id: choiceId,
                 };
             }),
