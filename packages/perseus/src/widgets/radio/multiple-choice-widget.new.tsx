@@ -27,6 +27,8 @@ export type RenderProps = {
     countChoices?: boolean;
     deselectEnabled?: boolean;
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
+    // (LEMS-3278) - Remove all references to selectedChoices, as it's not used anywhere.
+    // We're handling selected in the choiceStates array.
     selectedChoices: ReadonlyArray<PerseusRadioChoice["correct"]>;
     choiceStates?: ReadonlyArray<ChoiceState>;
     // Deprecated; support for legacy way of handling changes
@@ -86,68 +88,18 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
     };
 
     /**
-     * Extracts the user input from the widget props.
-     *
-     * This method converts the widget's current state (either choiceStates or values)
-     * into the standardized user input format expected by Perseus.
-     *
-     * @param props - The current props of the widget
-     * @param unshuffle - Whether to unshuffle the choices (default: true)
-     * @returns The user's input in the form {choicesSelected: [boolean]}
-     */
-    static getUserInputFromProps(
-        props: Props,
-        unshuffle: boolean = true,
-    ): PerseusRadioUserInput {
-        // Return checked inputs in the form {choicesSelected: [bool]}. (Dear
-        // future timeline implementers: this used to be {value: i} before
-        // multiple select was added)
-        const choiceStates = props.choiceStates;
-        if (choiceStates) {
-            const choicesSelected = choiceStates.map(() => false);
-
-            for (let i = 0; i < choicesSelected.length; i++) {
-                const index = unshuffle ? props.choices[i].originalIndex : i;
-
-                choicesSelected[index] = choiceStates[i].selected;
-            }
-
-            return {
-                choicesSelected,
-            };
-        }
-
-        // Support legacy choiceState implementation
-        const {values} = props;
-        if (values) {
-            const choicesSelected = [...values];
-            const valuesLength = values.length;
-
-            for (let i = 0; i < valuesLength; i++) {
-                const index = unshuffle ? props.choices[i].originalIndex : i;
-                choicesSelected[index] = values[i];
-            }
-            return {
-                choicesSelected,
-            };
-        }
-
-        // Nothing checked
-        return {
-            choicesSelected: props.choices.map(() => false),
-        };
-    }
-
-    /**
-     * Gets the current user input from this widget.
+     * DEPRECATED: Gets the current user input from this widget.
      *
      * Implements the required Widget interface method that Perseus uses
      * to retrieve the user's current selections.
      *
      * @returns The user's selections as {choicesSelected: [boolean]}
+     *
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
      */
     getUserInput(): PerseusRadioUserInput {
-        return MultipleChoiceWidget.getUserInputFromProps(this.props);
+        return this.props.userInput;
     }
 
     /**
@@ -159,11 +111,7 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
      * @returns A structured JSON object representing the widget's prompt
      */
     getPromptJSON(): RadioPromptJSON {
-        const userInput = MultipleChoiceWidget.getUserInputFromProps(
-            this.props,
-            false,
-        );
-        return _getPromptJSON(this.props, userInput);
+        return _getPromptJSON(this.props, this.props.userInput);
     }
 
     /**
