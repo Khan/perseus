@@ -354,6 +354,29 @@ describe("LockedPolygonSettings", () => {
         });
     });
 
+    test("calls onChange when the weight is changed", async () => {
+        // Arrange
+        const onChangeSpy = jest.fn();
+        render(
+            <LockedPolygonSettings
+                {...defaultProps}
+                onChangeProps={onChangeSpy}
+            />,
+            {
+                wrapper: RenderStateRoot,
+            },
+        );
+
+        // Act
+        const weightSelect = screen.getByRole("combobox", {name: "weight"});
+        await userEvent.click(weightSelect);
+        const weightOption = screen.getByRole("option", {name: "thick"});
+        await userEvent.click(weightOption);
+
+        // Assert
+        expect(onChangeSpy).toHaveBeenCalledWith({weight: "thick"});
+    });
+
     describe("Labels", () => {
         test("Renders a label when a label is provided", () => {
             // Arrange

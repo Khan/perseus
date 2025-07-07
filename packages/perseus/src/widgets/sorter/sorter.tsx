@@ -11,26 +11,20 @@ import type {SorterPromptJSON} from "../../widget-ai-utils/sorter/sorter-ai-util
 import type {
     PerseusSorterWidgetOptions,
     PerseusSorterUserInput,
+    SorterPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type RenderProps = PerseusSorterWidgetOptions;
-
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<PerseusSorterWidgetOptions, PerseusSorterUserInput>;
 
 type DefaultProps = {
     correct: Props["correct"];
     layout: Props["layout"];
     padding: Props["padding"];
     problemNum: Props["problemNum"];
-    onChange: Props["onChange"];
     linterContext: Props["linterContext"];
 };
 
-type State = {
-    changed: boolean;
-};
-
-class Sorter extends React.Component<Props, State> implements Widget {
+class Sorter extends React.Component<Props> implements Widget {
     _isMounted: boolean = false;
 
     static defaultProps: DefaultProps = {
@@ -38,12 +32,7 @@ class Sorter extends React.Component<Props, State> implements Widget {
         layout: "horizontal",
         padding: true,
         problemNum: 0,
-        onChange: function () {},
         linterContext: linterContextDefault,
-    };
-
-    state: State = {
-        changed: false,
     };
 
     componentDidMount() {
@@ -59,28 +48,32 @@ class Sorter extends React.Component<Props, State> implements Widget {
             return;
         }
 
-        this.setState({changed: true}, () => {
-            // Wait until all components have rendered. In React 16, the
-            // setState callback fires immediately after componentDidUpdate,
-            // and there is no guarantee that parent/siblings components have
-            // finished rendering.
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-            // eslint-disable-next-line no-restricted-syntax
-            setTimeout(() => {
-                this.props.onChange(e as any);
-                this.props.trackInteraction();
-            }, 0);
+        this.props.handleUserInput({
+            options: this._getOptionsFromSortable(),
+            changed: true,
         });
+
+        this.props.trackInteraction();
     };
 
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     getUserInput(): PerseusSorterUserInput {
+        return this.props.userInput;
+    }
+
+    /**
+     * This is kind of a problem. Sortable maintains an internal state
+     * but we also want the user input state to include the same state.
+     * This is to help keep the two in sync for now.
+     */
+    _getOptionsFromSortable(): string[] {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'getOptions' does not exist on type 'ReactInstance'.
         const options = this.refs.sortable.getOptions();
-        return {
-            options,
-            changed: this.state.changed,
-        };
+        return options;
     }
 
     getPromptJSON(): SorterPromptJSON {
@@ -96,16 +89,27 @@ class Sorter extends React.Component<Props, State> implements Widget {
         this.refs.sortable.moveOptionToIndex(option, index);
     };
 
-    render(): React.ReactNode {
-        const options = shuffleSorter(this.props);
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState(): any {
+        const {userInput, ...rest} = this.props;
+        return {
+            ...rest,
+            changed: userInput.changed,
+            options: userInput.options,
+        };
+    }
 
-        const {apiOptions} = this.props;
+    render(): React.ReactNode {
+        const {apiOptions, userInput} = this.props;
         const marginPx = apiOptions.isMobile ? 8 : 5;
 
         return (
             <div className="perseus-widget-sorter perseus-clearfix">
                 <Sortable
-                    options={options}
+                    options={userInput.options}
                     layout={this.props.layout}
                     margin={marginPx}
                     padding={this.props.padding}
@@ -119,9 +123,36 @@ class Sorter extends React.Component<Props, State> implements Widget {
     }
 }
 
+function getStartUserInput(
+    options: SorterPublicWidgetOptions,
+    problemNum: number,
+): PerseusSorterUserInput {
+    const shuffled = shuffleSorter(options, problemNum);
+
+    return {
+        options: shuffled,
+        changed: false,
+    };
+}
+
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusSorterUserInput {
+    return {
+        changed: serializedState.changed,
+        options: serializedState.options,
+    };
+}
+
 export default {
     name: "sorter",
     displayName: "Sorter",
     widget: Sorter,
     isLintable: true,
+    getStartUserInput,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Sorter>;

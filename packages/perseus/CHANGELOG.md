@@ -1,5 +1,141 @@
 # @khanacademy/perseus
 
+## 65.6.0
+
+### Minor Changes
+
+-   [#2670](https://github.com/Khan/perseus/pull/2670) [`a4d94900c`](https://github.com/Khan/perseus/commit/a4d94900c360aedfdf3899b866d94aaa8be852b8) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add weight option to locked function and locked function settings
+
+### Patch Changes
+
+-   [#2650](https://github.com/Khan/perseus/pull/2650) [`e67eca0d3`](https://github.com/Khan/perseus/commit/e67eca0d36687bcc5ffa3cd2f67caf169321f184) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add `weight` option to locked line and locked line settings
+
+*   [#2668](https://github.com/Khan/perseus/pull/2668) [`891363ccb`](https://github.com/Khan/perseus/commit/891363ccbde8a645587f6ff3213b33c34ed40764) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add `weight` option to locked vector and locked vector settings
+
+-   [#2669](https://github.com/Khan/perseus/pull/2669) [`8952a578a`](https://github.com/Khan/perseus/commit/8952a578a4826c35238afb30e64f78584a4f267b) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add weight option to locked ellipse and locked ellipse settings
+
+-   Updated dependencies [[`a4d94900c`](https://github.com/Khan/perseus/commit/a4d94900c360aedfdf3899b866d94aaa8be852b8), [`e67eca0d3`](https://github.com/Khan/perseus/commit/e67eca0d36687bcc5ffa3cd2f67caf169321f184), [`891363ccb`](https://github.com/Khan/perseus/commit/891363ccbde8a645587f6ff3213b33c34ed40764), [`8952a578a`](https://github.com/Khan/perseus/commit/8952a578a4826c35238afb30e64f78584a4f267b)]:
+    -   @khanacademy/perseus-core@18.0.0
+    -   @khanacademy/keypad-context@3.0.25
+    -   @khanacademy/kmath@2.0.25
+    -   @khanacademy/math-input@26.0.14
+    -   @khanacademy/perseus-linter@4.0.12
+    -   @khanacademy/perseus-score@7.1.12
+
+## 65.5.0
+
+### Minor Changes
+
+-   [#2676](https://github.com/Khan/perseus/pull/2676) [`3aa2b8e85`](https://github.com/Khan/perseus/commit/3aa2b8e850113be50d7da99b5ded55979b2de006) Thanks [@handeyeco](https://github.com/handeyeco)! - Radio: use userInput/handleUserInput
+
+*   [#2635](https://github.com/Khan/perseus/pull/2635) [`a20333281`](https://github.com/Khan/perseus/commit/a2033328147c6787d33612bd0dc48c83a783b4a5) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Interactive Graph code cleaup and bug fix for edge-based label positioning.
+
+### Patch Changes
+
+-   [#2672](https://github.com/Khan/perseus/pull/2672) [`c44219a98`](https://github.com/Khan/perseus/commit/c44219a98fdbb8128c614419439c83b6cf33f79e) Thanks [@benchristel](https://github.com/benchristel)! - Update peer dependency versions
+
+*   [#2666](https://github.com/Khan/perseus/pull/2666) [`d738f44d5`](https://github.com/Khan/perseus/commit/d738f44d5108831e53045652c04584bad07c19c0) Thanks [@benchristel](https://github.com/benchristel)! - Remove `"chi2Table"`, `"tTable"`, and `"zTable"` from the `ItemExtras` type exported from `@khanacademy/perseus-core`. These properties weren't used. This is a breaking change because consumers might see type errors if they set chi2Table, tTable, or zTable properties on the `answerArea` object of a `PerseusItem`. The fix is to avoid setting those properties.
+
+*   Updated dependencies [[`3aa2b8e85`](https://github.com/Khan/perseus/commit/3aa2b8e850113be50d7da99b5ded55979b2de006), [`c44219a98`](https://github.com/Khan/perseus/commit/c44219a98fdbb8128c614419439c83b6cf33f79e), [`d738f44d5`](https://github.com/Khan/perseus/commit/d738f44d5108831e53045652c04584bad07c19c0), [`2a38ef534`](https://github.com/Khan/perseus/commit/2a38ef534a352b13a3bba1b92b353cf9e0d45be6), [`da170e42a`](https://github.com/Khan/perseus/commit/da170e42a512c5e071b7af2bb707b6c75778bfdc)]:
+    -   @khanacademy/perseus-core@17.0.0
+    -   @khanacademy/kmath@2.0.24
+    -   @khanacademy/math-input@26.0.13
+    -   @khanacademy/perseus-linter@4.0.11
+    -   @khanacademy/pure-markdown@2.0.10
+    -   @khanacademy/simple-markdown@2.0.10
+    -   @khanacademy/perseus-score@7.1.11
+    -   @khanacademy/keypad-context@3.0.24
+
+## 65.4.0
+
+### Minor Changes
+
+-   [#2566](https://github.com/Khan/perseus/pull/2566) [`21f79b664`](https://github.com/Khan/perseus/commit/21f79b664a411c60c62043db25b6493619ba3dbd) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for `userInput` state in Renderer, new user input APIs for WidgetExport
+
+### Patch Changes
+
+-   [#2596](https://github.com/Khan/perseus/pull/2596) [`f15a4cc56`](https://github.com/Khan/perseus/commit/f15a4cc56465ada5d8eb5e5f042064421afaa356) Thanks [@handeyeco](https://github.com/handeyeco)! - Grapher: use userInput/handleUserInput
+
+*   [#2571](https://github.com/Khan/perseus/pull/2571) [`de05305b2`](https://github.com/Khan/perseus/commit/de05305b286be71f8c8bcdbeecc511b01b42e765) Thanks [@handeyeco](https://github.com/handeyeco)! - NumericInput: use userInput/handleUserInput
+
+-   [#2572](https://github.com/Khan/perseus/pull/2572) [`ff2cd2916`](https://github.com/Khan/perseus/commit/ff2cd2916ba069f3347458d0d680eb787a244183) Thanks [@handeyeco](https://github.com/handeyeco)! - Categorizer: use userInput/handleUserInput
+
+*   [#2575](https://github.com/Khan/perseus/pull/2575) [`f84722b44`](https://github.com/Khan/perseus/commit/f84722b44e45b7e3894b62332525051f930adae9) Thanks [@handeyeco](https://github.com/handeyeco)! - Matcher: use userInput/handleUserInput
+
+-   [#2661](https://github.com/Khan/perseus/pull/2661) [`4573c0476`](https://github.com/Khan/perseus/commit/4573c0476ad58e255a1a8ac4c3c140cc2af07884) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: restore support for static in IG and Plotter
+
+*   [#2588](https://github.com/Khan/perseus/pull/2588) [`380720116`](https://github.com/Khan/perseus/commit/3807201167c9cac1491a272da816232522bbabe5) Thanks [@handeyeco](https://github.com/handeyeco)! - Plotter: use userInput/handleUserInput
+
+-   [#2589](https://github.com/Khan/perseus/pull/2589) [`e7353c696`](https://github.com/Khan/perseus/commit/e7353c69673d3e22699fa497ef1e946e03cc74b3) Thanks [@handeyeco](https://github.com/handeyeco)! - InputNumber: use userInput/handleUserInput
+
+*   [#2577](https://github.com/Khan/perseus/pull/2577) [`e2ed14e58`](https://github.com/Khan/perseus/commit/e2ed14e587b85afd72b9f25635060f5f3cf3abc5) Thanks [@handeyeco](https://github.com/handeyeco)! - LabelImage: use userInput/handleUserInput
+
+-   [#2578](https://github.com/Khan/perseus/pull/2578) [`bcf4fd541`](https://github.com/Khan/perseus/commit/bcf4fd5411c7aa8950c775c2a0275575b8731abc) Thanks [@handeyeco](https://github.com/handeyeco)! - Sorter: use userInput/handleUserInput
+
+*   [#2569](https://github.com/Khan/perseus/pull/2569) [`1eadde57b`](https://github.com/Khan/perseus/commit/1eadde57b6a4ecdf5bb79ed2ec606c9cdc66104f) Thanks [@handeyeco](https://github.com/handeyeco)! - Expression: use userInput/handleUserInput
+
+-   [#2586](https://github.com/Khan/perseus/pull/2586) [`8b63ac0ed`](https://github.com/Khan/perseus/commit/8b63ac0ed9464982257b5d4d71925bbdd3f8ce3a) Thanks [@handeyeco](https://github.com/handeyeco)! - MockWidget: use userInput/handleUserInput
+
+*   [#2584](https://github.com/Khan/perseus/pull/2584) [`e175b8bc7`](https://github.com/Khan/perseus/commit/e175b8bc7931ba283cd5aea989fca62d8c6a3a85) Thanks [@handeyeco](https://github.com/handeyeco)! - CSProgram: use userInput/handleUserInput
+
+-   [#2651](https://github.com/Khan/perseus/pull/2651) [`516aea734`](https://github.com/Khan/perseus/commit/516aea734e751c11f844f8f4b191cde41e838eb4) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: Plotter dot graph crashing after user input refactor
+
+*   [#2644](https://github.com/Khan/perseus/pull/2644) [`f51181adc`](https://github.com/Khan/perseus/commit/f51181adcd9bbe2160c6ccd7d00ed40b53ed9a95) Thanks [@handeyeco](https://github.com/handeyeco)! - Cleanup some ChangeHandler and Changeable use
+
+-   [#2573](https://github.com/Khan/perseus/pull/2573) [`3a3f5233b`](https://github.com/Khan/perseus/commit/3a3f5233bf00da47dce9944936eb94b1841a56ed) Thanks [@handeyeco](https://github.com/handeyeco)! - NumberLine: use userInput/handleUserInput
+
+*   [#2585](https://github.com/Khan/perseus/pull/2585) [`4af4b1f23`](https://github.com/Khan/perseus/commit/4af4b1f23bf406fa609805f1209860ca8ed3058e) Thanks [@handeyeco](https://github.com/handeyeco)! - FreeResponse: use userInput/handleUserInput
+
+-   [#2592](https://github.com/Khan/perseus/pull/2592) [`091c25ee6`](https://github.com/Khan/perseus/commit/091c25ee6ce4cd593e13917412d783b9e079d733) Thanks [@handeyeco](https://github.com/handeyeco)! - Orderer: use userInput/handleUserInput
+
+*   [#2568](https://github.com/Khan/perseus/pull/2568) [`02af17299`](https://github.com/Khan/perseus/commit/02af172998b303584010fff8094b2bf5dd0ec7c9) Thanks [@handeyeco](https://github.com/handeyeco)! - Dropdown: use userInput/handleUserInput
+
+-   [#2652](https://github.com/Khan/perseus/pull/2652) [`508f4e5b1`](https://github.com/Khan/perseus/commit/508f4e5b11cdf8aef4619a943f95a78132b4c6b5) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: static switch not working in editor
+
+*   [#2582](https://github.com/Khan/perseus/pull/2582) [`41fb2b215`](https://github.com/Khan/perseus/commit/41fb2b215c5b9ffc1ac4e16a439db3e3b410e8ba) Thanks [@handeyeco](https://github.com/handeyeco)! - IFrame: use userInput/handleUserInput
+
+-   [#2654](https://github.com/Khan/perseus/pull/2654) [`3fcbddb71`](https://github.com/Khan/perseus/commit/3fcbddb71c4a59a03ea53739c133fa559161b98b) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: IG regression related to user input and `getGradableGraph`
+
+*   [#2581](https://github.com/Khan/perseus/pull/2581) [`52960e3b0`](https://github.com/Khan/perseus/commit/52960e3b0fd891abcd3e228d925693b380e58549) Thanks [@handeyeco](https://github.com/handeyeco)! - Matrix: use userInput/handleUserInput
+
+-   [#2587](https://github.com/Khan/perseus/pull/2587) [`88a4f683d`](https://github.com/Khan/perseus/commit/88a4f683db4f74bcad5c06070ef85be3f3b30982) Thanks [@handeyeco](https://github.com/handeyeco)! - Table: use userInput/handleUserInput
+
+*   [#2645](https://github.com/Khan/perseus/pull/2645) [`e3a636a73`](https://github.com/Khan/perseus/commit/e3a636a73f84bd7f762967875624c2276cc2317e) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: NumberLine inequality buttons didn't change inequality
+
+-   [#2598](https://github.com/Khan/perseus/pull/2598) [`c58f12c72`](https://github.com/Khan/perseus/commit/c58f12c721544f8d3a21643997612996195eb77f) Thanks [@handeyeco](https://github.com/handeyeco)! - InteractiveGraph: use userInput/handleUserInput
+
+-   Updated dependencies [[`f15a4cc56`](https://github.com/Khan/perseus/commit/f15a4cc56465ada5d8eb5e5f042064421afaa356), [`f84722b44`](https://github.com/Khan/perseus/commit/f84722b44e45b7e3894b62332525051f930adae9), [`e2ed14e58`](https://github.com/Khan/perseus/commit/e2ed14e587b85afd72b9f25635060f5f3cf3abc5), [`bcf4fd541`](https://github.com/Khan/perseus/commit/bcf4fd5411c7aa8950c775c2a0275575b8731abc), [`f51181adc`](https://github.com/Khan/perseus/commit/f51181adcd9bbe2160c6ccd7d00ed40b53ed9a95), [`21f79b664`](https://github.com/Khan/perseus/commit/21f79b664a411c60c62043db25b6493619ba3dbd), [`3a3f5233b`](https://github.com/Khan/perseus/commit/3a3f5233bf00da47dce9944936eb94b1841a56ed)]:
+    -   @khanacademy/perseus-core@16.1.1
+    -   @khanacademy/perseus-score@7.1.10
+    -   @khanacademy/keypad-context@3.0.23
+    -   @khanacademy/kmath@2.0.23
+    -   @khanacademy/math-input@26.0.12
+    -   @khanacademy/perseus-linter@4.0.10
+
+## 65.3.7
+
+### Patch Changes
+
+-   [#2663](https://github.com/Khan/perseus/pull/2663) [`d1299f6f7`](https://github.com/Khan/perseus/commit/d1299f6f7e5e427c442d39e6cadfa78b5326d4b1) Thanks [@benchristel](https://github.com/benchristel)! - Enable `parseAndMigratePerseusItem` to parse answerless data, i.e. the return value of `splitPerseusItem`.
+
+*   [#2649](https://github.com/Khan/perseus/pull/2649) [`01cb73bef`](https://github.com/Khan/perseus/commit/01cb73bef9934e36163fa28f315b64b23bd48637) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add `weight` option to locked polygon and locked polygon settings
+
+-   [#2613](https://github.com/Khan/perseus/pull/2613) [`d02d6f9fe`](https://github.com/Khan/perseus/commit/d02d6f9fe8be4228d0143f9487a69183317c61e7) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - Convert Aphrodite to CSS Modules in scrollable-view component
+
+-   Updated dependencies [[`d1299f6f7`](https://github.com/Khan/perseus/commit/d1299f6f7e5e427c442d39e6cadfa78b5326d4b1), [`01cb73bef`](https://github.com/Khan/perseus/commit/01cb73bef9934e36163fa28f315b64b23bd48637)]:
+    -   @khanacademy/perseus-core@16.1.0
+    -   @khanacademy/keypad-context@3.0.22
+    -   @khanacademy/kmath@2.0.22
+    -   @khanacademy/math-input@26.0.11
+    -   @khanacademy/perseus-linter@4.0.9
+    -   @khanacademy/perseus-score@7.1.9
+
+## 65.3.6
+
+### Patch Changes
+
+-   [#2660](https://github.com/Khan/perseus/pull/2660) [`ed51d32db`](https://github.com/Khan/perseus/commit/ed51d32db694ce7c766a0af15934778c3026c7dd) Thanks [@benchristel](https://github.com/benchristel)! - Remove old CSS hack for IE7 and earlier browsers (no longer supported)
+
 ## 65.3.5
 
 ### Patch Changes

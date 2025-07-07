@@ -1,9 +1,9 @@
 import {
-    getLabelPosition,
-    fontSize,
     clampLabelPosition,
+    fontSize,
+    getLabelPosition,
     getLabelTransform,
-} from "./axis-labels";
+} from "./utils";
 
 import type {GraphDimensions} from "../types";
 import type {vec} from "mafs";
@@ -24,7 +24,9 @@ describe("getLabelPosition", () => {
             [200, -2 * fontSize], // Y Label at [Horizontal center of the graph, 2x fontSize above the top edge]
         ];
 
-        expect(getLabelPosition(graphInfo, labelLocation)).toEqual(expected);
+        expect(getLabelPosition(graphInfo, labelLocation, [1, 1])).toEqual(
+            expected,
+        );
     });
     it("should return the correct position for the default graph without a labelLocation", () => {
         const graphInfo: GraphDimensions = {
@@ -41,7 +43,9 @@ describe("getLabelPosition", () => {
             [200, -2 * fontSize], // Y Label at [Horizontal center of the graph, 2x fontSize above the top edge]
         ];
 
-        expect(getLabelPosition(graphInfo, undefined)).toEqual(expected);
+        expect(getLabelPosition(graphInfo, undefined, [1, 1])).toEqual(
+            expected,
+        );
     });
 
     it("should return the correct position for a graph with high positive min-ranges", () => {
@@ -55,11 +59,13 @@ describe("getLabelPosition", () => {
         };
         const labelLocation = "onAxis";
         const expected = [
-            [400, 400 + 1.25 * fontSize], // X Label at [Right edge of the graph, vertical center of the graph]
-            [-1.5 * fontSize, -2 * fontSize], // Y Label at [Horizontal center of the graph, 2x fontSize above the top edge]
+            [400, 400 + 1.25 * fontSize],
+            [-1.5 * fontSize, -2 * fontSize],
         ];
 
-        expect(getLabelPosition(graphInfo, labelLocation)).toEqual(expected);
+        expect(getLabelPosition(graphInfo, labelLocation, [1, 1])).toEqual(
+            expected,
+        );
     });
 
     it("should return the correct position for a graph with low negative max-ranges", () => {
@@ -73,11 +79,13 @@ describe("getLabelPosition", () => {
         };
         const labelLocation = "onAxis";
         const expected = [
-            [400, -2 * fontSize], // X Label at [Right edge of the graph, vertical center of the graph]
-            [400 + 1.25 * fontSize, -2 * fontSize], // Y Label at [Horizontal center of the graph, 2x fontSize above the top edge]
+            [400, -2 * fontSize],
+            [400 + 1.25 * fontSize, -2 * fontSize],
         ];
 
-        expect(getLabelPosition(graphInfo, labelLocation)).toEqual(expected);
+        expect(getLabelPosition(graphInfo, labelLocation, [1, 1])).toEqual(
+            expected,
+        );
     });
 
     it("should return the correct position for labels set to alongEdge", () => {
@@ -91,11 +99,13 @@ describe("getLabelPosition", () => {
         };
         const labelLocation = "alongEdge";
         const expected = [
-            [200, 400 + fontSize], // X Label at [Horizontal center of the graph, 1x fontSize below the bottom edge]
-            [-fontSize, 200 - fontSize], // Y label at [1x fontSize to the left of the left edge, vertical center of the graph]
+            [200, 400 + fontSize * 1.5],
+            [-fontSize * 1.25, 200 - fontSize],
         ];
 
-        expect(getLabelPosition(graphInfo, labelLocation)).toEqual(expected);
+        expect(getLabelPosition(graphInfo, labelLocation, [1, 1])).toEqual(
+            expected,
+        );
     });
 
     it("should return the correct position for labels set to alongEdge with wholly negative ranges", () => {
@@ -109,11 +119,13 @@ describe("getLabelPosition", () => {
         };
         const labelLocation = "alongEdge";
         const expected = [
-            [200, 400 + fontSize], // X Label at [Horizontal center of the graph, 1x fontSize below the bottom edge]
-            [-fontSize, 200 - fontSize], // Y label at [1x fontSize to the left of the left edge, vertical center of the graph]
+            [200, 400 + fontSize * 1.5],
+            [-fontSize * 1.25, 200 - fontSize],
         ];
 
-        expect(getLabelPosition(graphInfo, labelLocation)).toEqual(expected);
+        expect(getLabelPosition(graphInfo, labelLocation, [1, 1])).toEqual(
+            expected,
+        );
     });
 
     it("should return the correct position for labels set to alongEdge with wholly positive ranges", () => {
@@ -127,11 +139,13 @@ describe("getLabelPosition", () => {
         };
         const labelLocation = "alongEdge";
         const expected = [
-            [200, 400 + 3 * fontSize], // X Label at [Horizontal center of the graph, 3x fontSize below the bottom edge]
-            [-3 * fontSize, 200 - fontSize], // Y label at [3x fontSize to the left of the left edge, vertical center of the graph]
+            [200, 400 + 3 * fontSize],
+            [-2.75 * fontSize, 200 - fontSize],
         ];
 
-        expect(getLabelPosition(graphInfo, labelLocation)).toEqual(expected);
+        expect(getLabelPosition(graphInfo, labelLocation, [1, 1])).toEqual(
+            expected,
+        );
     });
 
     it("should return the correct position for labels set to alongEdge with min ranges at 0", () => {
@@ -146,11 +160,13 @@ describe("getLabelPosition", () => {
         };
         const labelLocation = "alongEdge";
         const expected = [
-            [200, 400 + 3 * fontSize], // X Label at [Horizontal center of the graph, 3x fontSize below the bottom edge]
-            [-3 * fontSize, 200 - fontSize], // Y label at [3x fontSize to the left of the left edge, vertical center of the graph]
+            [200, 400 + 3 * fontSize],
+            [-2.75 * fontSize, 200 - fontSize],
         ];
 
-        expect(getLabelPosition(graphInfo, labelLocation)).toEqual(expected);
+        expect(getLabelPosition(graphInfo, labelLocation, [1, 1])).toEqual(
+            expected,
+        );
     });
 });
 describe("getLabelTransform", () => {

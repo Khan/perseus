@@ -5,17 +5,23 @@ import {LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import type {StyleType} from "@khanacademy/wonder-blocks-core";
+
 type StyleOptions = "solid" | "dashed";
 type Props = {
     selectedValue: StyleOptions;
     onChange: (newValue: StyleOptions) => void;
+    containerStyle?: StyleType;
 };
 
 const LineStrokeSelect = (props: Props) => {
-    const {selectedValue, onChange} = props;
+    const {selectedValue, containerStyle, onChange} = props;
 
     return (
-        <LabelMedium tag="label" style={styles.lineStrokeSelect}>
+        <LabelMedium
+            tag="label"
+            style={[styles.lineStrokeSelect, containerStyle]}
+        >
             stroke
             <Strut size={spacing.xxxSmall_4} />
             <SingleSelect

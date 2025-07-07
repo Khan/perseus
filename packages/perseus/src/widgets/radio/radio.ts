@@ -7,11 +7,16 @@ import {
 import _ from "underscore";
 
 import Radio from "./radio.ff";
+import {getUserInputFromSerializedState} from "./util";
 
 import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetExports} from "../../types";
-import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
+import type {
+    PerseusRadioUserInput,
+    PerseusRadioWidgetOptions,
+    RadioPublicWidgetOptions,
+} from "@khanacademy/perseus-core";
 
 // Transforms the choices for display.
 const _choiceTransform = (
@@ -122,16 +127,32 @@ const transform = (
         countChoices,
         deselectEnabled,
         choices,
+        // doesn't seem used? choiceStates includes selected...
         selectedChoices: _.pluck(choices, "correct"),
     };
 };
+
+function getStartUserInput(
+    options: RadioPublicWidgetOptions,
+): PerseusRadioUserInput {
+    return {
+        choicesSelected: options.choices.map(() => false),
+    };
+}
 
 export default {
     name: "radio",
     displayName: "Radio / Multiple choice",
     widget: Radio,
-    transform: transform,
+    transform,
     staticTransform: transform,
+    getStartUserInput,
     version: radioLogic.version,
     isLintable: true,
+
+    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    /**
+     * @deprecated - do not use in new code.
+     */
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Radio>;

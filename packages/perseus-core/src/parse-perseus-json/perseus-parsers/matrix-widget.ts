@@ -24,7 +24,7 @@ export const parseMatrixWidget = parseWidget(
     object({
         prefix: optional(string),
         suffix: optional(string),
-        answers: array(array(numeric)),
+        answers: defaulted(array(array(numeric)), () => []),
         cursorPosition: optional(array(number)),
         matrixBoardSize: array(number),
         static: optional(boolean),

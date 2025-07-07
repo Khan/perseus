@@ -9,7 +9,10 @@
  *
  * This blocks things that we know don't need to be serialized.
  */
-
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
 const denylist = [
     // standard props "added" by react
     // (technically the renderer still adds them)
@@ -34,6 +37,27 @@ const denylist = [
     "onFocus",
     "trackInteraction",
     "keypadElement",
+    "linterContext",
+    "isLastUsedWidget",
+    "handleUserInput",
+    "analytics",
+    "showSolutions",
+    "reviewMode",
+    "reviewModeRubric",
 ];
+
+export function excludeDenylistKeys(obj: Record<any, any>) {
+    if (obj == null) {
+        return obj;
+    }
+
+    const rv = {};
+    for (const k of Object.keys(obj)) {
+        if (!denylist.includes(k)) {
+            rv[k] = obj[k];
+        }
+    }
+    return rv;
+}
 
 export default denylist;

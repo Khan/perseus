@@ -13,6 +13,7 @@ import {
     union,
 } from "../general-purpose-parsers";
 import {convert} from "../general-purpose-parsers/convert";
+import {defaulted} from "../general-purpose-parsers/defaulted";
 import {discriminatedUnionOn} from "../general-purpose-parsers/discriminated-union";
 
 import {parseWidget} from "./widget";
@@ -36,6 +37,68 @@ const parseCoords = union(nullable(pairOfPoints)).or(
     pipeParsers(emptyArray).then(convert(() => null)).parser,
 ).parser;
 
+const parseCorrect = defaulted(
+    discriminatedUnionOn("type")
+        .withBranch(
+            "absolute_value",
+            object({
+                type: constant("absolute_value"),
+                coords: parseCoords,
+            }),
+        )
+        .withBranch(
+            "exponential",
+            object({
+                type: constant("exponential"),
+                asymptote: pairOfPoints,
+                coords: parseCoords,
+            }),
+        )
+        .withBranch(
+            "linear",
+            object({
+                type: constant("linear"),
+                coords: parseCoords,
+            }),
+        )
+        .withBranch(
+            "logarithm",
+            object({
+                type: constant("logarithm"),
+                asymptote: pairOfPoints,
+                coords: parseCoords,
+            }),
+        )
+        .withBranch(
+            "quadratic",
+            object({
+                type: constant("quadratic"),
+                coords: parseCoords,
+            }),
+        )
+        .withBranch(
+            "sinusoid",
+            object({
+                type: constant("sinusoid"),
+                coords: parseCoords,
+            }),
+        )
+        .withBranch(
+            "tangent",
+            object({
+                type: constant("tangent"),
+                coords: parseCoords,
+            }),
+        ).parser,
+    // Default value. This is the same as the default in DEFAULT_GRAPHER_PROPS,
+    // in grapher/util.tsx. See parse-perseus-json/README.md for an explanation
+    // of why we want to duplicate defaults in the parser.
+    () => ({
+        type: "linear" as const,
+        coords: null,
+    }),
+);
+
 export const parseGrapherWidget = parseWidget(
     constant("grapher"),
     object({
@@ -50,58 +113,7 @@ export const parseGrapherWidget = parseWidget(
                 "tangent",
             ),
         ),
-        correct: discriminatedUnionOn("type")
-            .withBranch(
-                "absolute_value",
-                object({
-                    type: constant("absolute_value"),
-                    coords: parseCoords,
-                }),
-            )
-            .withBranch(
-                "exponential",
-                object({
-                    type: constant("exponential"),
-                    asymptote: pairOfPoints,
-                    coords: parseCoords,
-                }),
-            )
-            .withBranch(
-                "linear",
-                object({
-                    type: constant("linear"),
-                    coords: parseCoords,
-                }),
-            )
-            .withBranch(
-                "logarithm",
-                object({
-                    type: constant("logarithm"),
-                    asymptote: pairOfPoints,
-                    coords: parseCoords,
-                }),
-            )
-            .withBranch(
-                "quadratic",
-                object({
-                    type: constant("quadratic"),
-                    coords: parseCoords,
-                }),
-            )
-            .withBranch(
-                "sinusoid",
-                object({
-                    type: constant("sinusoid"),
-                    coords: parseCoords,
-                }),
-            )
-            .withBranch(
-                "tangent",
-                object({
-                    type: constant("tangent"),
-                    coords: parseCoords,
-                }),
-            ).parser,
+        correct: parseCorrect,
         graph: object({
             backgroundImage: object({
                 bottom: optional(number),

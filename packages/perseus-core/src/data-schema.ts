@@ -276,8 +276,6 @@ export type PerseusImageDetail = {
 export const ItemExtras = [
     // The user might benefit from using a Scientific Calculator.  Provided on Khan Academy when true
     "calculator",
-    // The user might benefit from using a statistics Chi Squared Table like https://people.richland.edu/james/lecture/m170/tbl-chi.html
-    "chi2Table",
     // The user might benefit from a monthly payments calculator.  Provided on Khan Academy when true
     "financialCalculatorMonthlyPayment",
     // The user might benefit from a total amount calculator.  Provided on Khan Academy when true
@@ -288,10 +286,6 @@ export const ItemExtras = [
     "periodicTable",
     // The user might benefit from using a Periodic Table of Elements with key.  Provided on Khan Academy when true
     "periodicTableWithKey",
-    // The user might benefit from using a statistics T Table like https://www.statisticshowto.com/tables/t-distribution-table/
-    "tTable",
-    // The user might benefit from using a statistics Z Table like https://www.ztable.net/
-    "zTable",
 ] as const;
 export type PerseusAnswerArea = Record<(typeof ItemExtras)[number], boolean>;
 
@@ -805,6 +799,8 @@ export const lockedFigureColors: Record<LockedFigureColor, string> = {
     orange: "#946700",
 } as const;
 
+export type StrokeWeight = "thin" | "medium" | "thick";
+
 export type LockedFigure =
     | LockedPointType
     | LockedLineType
@@ -834,6 +830,7 @@ export type LockedLineType = {
     lineStyle: LockedLineStyle;
     showPoint1: boolean;
     showPoint2: boolean;
+    weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };
@@ -842,6 +839,7 @@ export type LockedVectorType = {
     type: "vector";
     points: [tail: Coord, tip: Coord];
     color: LockedFigureColor;
+    weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };
@@ -862,6 +860,7 @@ export type LockedEllipseType = {
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
+    weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };
@@ -873,6 +872,7 @@ export type LockedPolygonType = {
     showVertices: boolean;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
+    weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };
@@ -881,6 +881,7 @@ export type LockedFunctionType = {
     type: "function";
     color: LockedFigureColor;
     strokeStyle: LockedLineStyle;
+    weight: StrokeWeight;
     /**
      * This is the user-defined equation (as it was typed)
      */
