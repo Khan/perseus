@@ -167,6 +167,7 @@ const parseLockedLineType = object({
     lineStyle: parseLockedLineStyle,
     showPoint1: defaulted(boolean, () => false),
     showPoint2: defaulted(boolean, () => false),
+    weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });

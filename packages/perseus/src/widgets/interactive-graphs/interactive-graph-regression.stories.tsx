@@ -392,51 +392,41 @@ export const MafsWithAnswerlessData: Story = {
     },
 };
 
+/* Locked figure weight regression tests */
+
+function lockedFiguresQuestionWithWeight(weight: "thin" | "medium" | "thick") {
+    return interactiveGraphQuestionBuilder()
+        .withNoInteractiveFigure()
+        .addLockedLine([2, 2], [9, 9], {kind: "segment", weight})
+        .addLockedLine([2, 1], [9, 8], {kind: "ray", weight})
+        .addLockedLine([2, 0], [9, 7], {kind: "line", weight})
+        .addLockedPolygon(
+            [
+                [0.5, 3.5],
+                [1.5, 4.5],
+                [2.5, 3.5],
+                [1.5, 2.5],
+            ],
+            {weight, color: "pink"},
+        )
+        .build();
+}
+
 export const LockedFiguresWithThinWeight: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .addLockedPolygon(
-                [
-                    [0.5, 3.5],
-                    [1.5, 4.5],
-                    [2.5, 3.5],
-                    [1.5, 2.5],
-                ],
-                {weight: "thin", color: "pink"},
-            )
-            .build(),
+        question: lockedFiguresQuestionWithWeight("thin"),
     },
 };
 
 export const LockedFiguresWithMediumWeight: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .addLockedPolygon(
-                [
-                    [0.5, 3.5],
-                    [1.5, 4.5],
-                    [2.5, 3.5],
-                    [1.5, 2.5],
-                ],
-                {weight: "medium", color: "pink"},
-            )
-            .build(),
+        question: lockedFiguresQuestionWithWeight("medium"),
     },
 };
 
 export const LockedFiguresWithThickWeight: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .addLockedPolygon(
-                [
-                    [0.5, 3.5],
-                    [1.5, 4.5],
-                    [2.5, 3.5],
-                    [1.5, 2.5],
-                ],
-                {weight: "thick", color: "pink"},
-            )
-            .build(),
+        question: lockedFiguresQuestionWithWeight("thick"),
     },
 };
 

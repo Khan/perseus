@@ -643,6 +643,127 @@ describe("Interactive Graph", function () {
             expect(ray).toHaveStyle({stroke: lockedFigureColors.pink});
         });
 
+        it.each([
+            {weight: "thin", expectedStrokeWidth: 1},
+            {weight: "medium", expectedStrokeWidth: 2},
+            {weight: "thick", expectedStrokeWidth: 4},
+        ] satisfies {
+            weight: StrokeWeight;
+            expectedStrokeWidth: number;
+        }[])(
+            "Line (kind: line) should render with specific weight",
+            ({weight, expectedStrokeWidth}) => {
+                // Arrange
+                const {container} = renderQuestion(
+                    interactiveGraphQuestionBuilder()
+                        .withMarkings("none")
+                        .addLockedLine([0, 0], [0, 1], {
+                            weight,
+                            kind: "line",
+                        })
+                        .build(),
+                    blankOptions,
+                );
+
+                // Act
+                const lines =
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    container.querySelectorAll(`.locked-line line`);
+
+                const arrowheads =
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    container.querySelectorAll(
+                        `.interactive-graph-arrowhead path`,
+                    );
+
+                // Assert
+                expect(lines).toHaveLength(1);
+                expect(arrowheads).toHaveLength(2);
+                expect(lines[0]).toHaveAttribute(
+                    "stroke-width",
+                    `${expectedStrokeWidth}`,
+                );
+                expect(arrowheads[0]).toHaveAttribute(
+                    "stroke-width",
+                    `${expectedStrokeWidth}px`,
+                );
+                expect(arrowheads[1]).toHaveAttribute(
+                    "stroke-width",
+                    `${expectedStrokeWidth}px`,
+                );
+            },
+        );
+
+        it.each([
+            {weight: "thin", expectedStrokeWidth: 1},
+            {weight: "medium", expectedStrokeWidth: 2},
+            {weight: "thick", expectedStrokeWidth: 4},
+        ] satisfies {
+            weight: StrokeWeight;
+            expectedStrokeWidth: number;
+        }[])(
+            "Line (kind: segment) should render with specific weight",
+            ({weight, expectedStrokeWidth}) => {
+                // Arrange
+                const {container} = renderQuestion(
+                    interactiveGraphQuestionBuilder()
+                        .withMarkings("none")
+                        .addLockedLine([0, 0], [0, 1], {
+                            weight,
+                            kind: "segment",
+                        })
+                        .build(),
+                    blankOptions,
+                );
+
+                // Act
+                const lines =
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    container.querySelectorAll(`.locked-line line`);
+
+                // Assert
+                expect(lines).toHaveLength(1);
+                expect(lines[0]).toHaveAttribute(
+                    "stroke-width",
+                    `${expectedStrokeWidth}`,
+                );
+            },
+        );
+
+        it.each([
+            {weight: "thin", expectedStrokeWidth: 1},
+            {weight: "medium", expectedStrokeWidth: 2},
+            {weight: "thick", expectedStrokeWidth: 4},
+        ] satisfies {
+            weight: StrokeWeight;
+            expectedStrokeWidth: number;
+        }[])(
+            "Line (kind: ray) should render with specific weight",
+            ({weight, expectedStrokeWidth}) => {
+                // Arrange
+                const {container} = renderQuestion(
+                    interactiveGraphQuestionBuilder()
+                        .addLockedLine([0, 0], [0, 1], {
+                            weight,
+                            kind: "ray",
+                        })
+                        .build(),
+                    blankOptions,
+                );
+
+                // Act
+                const lines =
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    container.querySelectorAll(`.locked-ray > g`);
+
+                // Assert
+                expect(lines).toHaveLength(1);
+                expect(lines[0]).toHaveStyle({
+                    "stroke-width": expectedStrokeWidth,
+                });
+            },
+        );
+
         it("should render locked lines with shown points", async () => {
             // Arrange
             const {container} = renderQuestion(
@@ -935,7 +1056,7 @@ describe("Interactive Graph", function () {
             {weight: "medium", expectedStrokeWidth: 2},
             {weight: "thick", expectedStrokeWidth: 4},
         ] as {
-            weight: StrokeWeight | undefined;
+            weight: StrokeWeight;
             expectedStrokeWidth: number;
         }[])(
             "should render locked polygons with specific weight",
