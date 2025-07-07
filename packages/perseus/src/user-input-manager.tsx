@@ -1,5 +1,5 @@
 import {entries} from "@khanacademy/wonder-stuff-core";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 import {getWidgetTypeByWidgetId} from "./widget-type-utils";
 import * as Widgets from "./widgets";
@@ -71,6 +71,14 @@ export function sharedInitializeUserInput(
 export default function UserInputManager(props: Props) {
     const [initialized, setInitialized] = useState<boolean>(false);
     const [userInput, setUserInput] = useState<UserInputMap>({});
+    const prevProblemNum = useRef<number>(props.problemNum);
+
+    useEffect(() => {
+        if (prevProblemNum.current !== props.problemNum) {
+            prevProblemNum.current = props.problemNum;
+            setInitialized(false);
+        }
+    }, [props.problemNum]);
 
     useEffect(() => {
         if (!initialized) {

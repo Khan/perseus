@@ -418,6 +418,7 @@ export class GradedGroup
                             >
                                 {this.context.strings.hideExplanation}
                             </button>
+
                             <UserInputManager
                                 widgets={this.props.hint.widgets}
                                 problemNum={this.props.problemNum ?? 0}
