@@ -3,4 +3,4 @@
 "@khanacademy/perseus-core": minor
 ---
 
-Initializes and consumes choice ids
+Initializes and consumes choice ids for Radio Widget
