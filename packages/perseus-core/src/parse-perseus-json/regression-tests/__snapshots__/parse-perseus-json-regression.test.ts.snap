@@ -18136,7 +18136,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
           "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
-          "numCorrect": 0,
+          "numCorrect": 1,
           "randomize": false,
         },
         "static": false,
