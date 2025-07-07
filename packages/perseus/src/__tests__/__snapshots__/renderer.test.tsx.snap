@@ -364,13 +364,13 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_jbebuh-o_O-default_301vh2"
+                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_bvghof"
                 id=":r3:"
                 role="combobox"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
+                  class="text_f1191h-o_O-LabelMedium_455tor-o_O-text_16ujc3c"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -389,7 +389,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-icon_1mk32nz-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
@@ -449,13 +449,13 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_jbebuh-o_O-default_301vh2"
+                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_bvghof"
                 id=":r6:"
                 role="combobox"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
+                  class="text_f1191h-o_O-LabelMedium_455tor-o_O-text_16ujc3c"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -474,7 +474,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-icon_1mk32nz-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
@@ -534,13 +534,13 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_jbebuh-o_O-default_301vh2"
+                class="button_vr44p2-o_O-shared_4y4ff7-o_O-default_bvghof"
                 id=":r0:"
                 role="combobox"
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
+                  class="text_f1191h-o_O-LabelMedium_455tor-o_O-text_16ujc3c"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -559,7 +559,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-icon_1mk32nz-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>

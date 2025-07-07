@@ -1,3 +1,9 @@
+import {
+    generateChoiceId,
+    type PerseusRadioChoice,
+    type PerseusRadioRubric,
+    type PerseusRadioUserInput,
+} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
@@ -12,11 +18,6 @@ import type {ChoiceType} from "./multiple-choice-component.new";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
-import type {
-    PerseusRadioChoice,
-    PerseusRadioRubric,
-    PerseusRadioUserInput,
-} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 // RenderProps is the return type for radio.jsx#transform
@@ -275,6 +276,9 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
                 isNoneOfTheAbove: !!choice.isNoneOfTheAbove,
                 revealNoneOfTheAbove: !!(questionCompleted && selected),
                 previouslyAnswered,
+                id:
+                    choice.id ||
+                    generateChoiceId(choice.content, choice.originalIndex),
             };
         });
     };

@@ -64,6 +64,7 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
                 >
                   <li
                     class="perseus-radio-option perseus-radio-selected"
+                    data-testid="k1r4n90"
                   >
                     <div
                       class="description"
@@ -181,6 +182,7 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="1jm7o41"
                   >
                     <div
                       class="description"
@@ -298,6 +300,7 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="1jm7sn2"
                   >
                     <div
                       class="description"
@@ -415,6 +418,7 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="e7shyq3"
                   >
                     <div
                       class="description"
@@ -631,6 +635,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                 >
                   <li
                     class="perseus-radio-option"
+                    data-testid="w6z8xv0"
                   >
                     <div
                       class="description"
@@ -774,6 +779,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="yhg6fk1"
                   >
                     <div
                       class="description"
@@ -891,6 +897,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                   </li>
                   <li
                     class="perseus-radio-option perseus-radio-selected"
+                    data-testid="373w652"
                   >
                     <div
                       class="description"
@@ -1008,6 +1015,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="3y3hao3"
                   >
                     <div
                       class="description"
@@ -1214,6 +1222,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                 >
                   <li
                     class="perseus-radio-option perseus-radio-selected"
+                    data-testid="w6z8xv0"
                   >
                     <div
                       class="description"
@@ -1357,6 +1366,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="yhg6fk1"
                   >
                     <div
                       class="description"
@@ -1474,6 +1484,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="373w652"
                   >
                     <div
                       class="description"
@@ -1591,6 +1602,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="3y3hao3"
                   >
                     <div
                       class="description"
@@ -1797,6 +1809,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                 >
                   <li
                     class="perseus-radio-option"
+                    data-testid="w6z8xv0"
                   >
                     <div
                       class="description"
@@ -1940,6 +1953,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="yhg6fk1"
                   >
                     <div
                       class="description"
@@ -2057,6 +2071,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="373w652"
                   >
                     <div
                       class="description"
@@ -2174,6 +2189,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="3y3hao3"
                   >
                     <div
                       class="description"
@@ -2380,6 +2396,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                 >
                   <li
                     class="perseus-radio-option"
+                    data-testid="w6z8xv0"
                   >
                     <div
                       class="description"
@@ -2523,6 +2540,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="yhg6fk1"
                   >
                     <div
                       class="description"
@@ -2640,6 +2658,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                   </li>
                   <li
                     class="perseus-radio-option perseus-radio-selected"
+                    data-testid="373w652"
                   >
                     <div
                       class="description"
@@ -2757,6 +2776,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="3y3hao3"
                   >
                     <div
                       class="description"
@@ -2963,6 +2983,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                 >
                   <li
                     class="perseus-radio-option perseus-radio-selected"
+                    data-testid="w6z8xv0"
                   >
                     <div
                       class="description"
@@ -3106,6 +3127,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="yhg6fk1"
                   >
                     <div
                       class="description"
@@ -3223,6 +3245,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="373w652"
                   >
                     <div
                       class="description"
@@ -3340,6 +3363,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                   </li>
                   <li
                     class="perseus-radio-option"
+                    data-testid="3y3hao3"
                   >
                     <div
                       class="description"
@@ -3546,6 +3570,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                 >
                   <li
                     class="perseus-radio-option perseus-incorrect"
+                    data-testid="w6z8xv0"
                   >
                     <div
                       class="description"
@@ -3769,6 +3794,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                   </li>
                   <li
                     class="perseus-radio-option perseus-incorrect"
+                    data-testid="yhg6fk1"
                   >
                     <div
                       class="description"
@@ -3950,6 +3976,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                   </li>
                   <li
                     class="perseus-radio-option perseus-correct"
+                    data-testid="373w652"
                   >
                     <div
                       class="description"
@@ -4126,6 +4153,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                   </li>
                   <li
                     class="perseus-radio-option perseus-incorrect"
+                    data-testid="3y3hao3"
                   >
                     <div
                       class="description"
