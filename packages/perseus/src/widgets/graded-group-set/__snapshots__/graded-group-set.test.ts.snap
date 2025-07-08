@@ -1,5 +1,193 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`graded group set widget should snapshot 1`] = `
+<div>
+  <div
+    class="perseus-renderer perseus-renderer-responsive"
+  >
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="0"
+    >
+      <h1>
+        Section 1: Adding tenths less than one
+      </h1>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="1"
+    >
+      <div
+        class="paragraph"
+      >
+        <div
+          class="perseus-widget-container widget-nohighlight widget-block"
+        >
+          <div
+            class="container_14sgdtb"
+          >
+            <div
+              class="top_cjo0m2"
+            >
+              <div
+                class="title_vo78fw"
+              >
+                Problem 1a
+              </div>
+              <div
+                class="spacer_bc4egv"
+              />
+              <ul
+                class="indicatorContainer_2pd7o4 indicatorContainer"
+              >
+                <li
+                  class="indicator_7k5kza"
+                >
+                  <button
+                    aria-disabled="false"
+                    aria-label="Skip to Problem 1a"
+                    class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
+                    role="button"
+                    type="button"
+                  >
+                    <div
+                      class="default_xu2jcg-o_O-indicatorDot_yy8ygm"
+                    >
+                      <div
+                        class="default_xu2jcg-o_O-indicatorDotActive_1pky1a"
+                      >
+                        <span
+                          class="srOnly_19bpjuy"
+                        >
+                          Current
+                        </span>
+                      </div>
+                    </div>
+                  </button>
+                </li>
+                <li
+                  class="indicator_7k5kza"
+                >
+                  <button
+                    aria-disabled="false"
+                    aria-label="Skip to Problem 1b"
+                    class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
+                    role="button"
+                    type="button"
+                  >
+                    <div
+                      class="default_xu2jcg-o_O-indicatorDot_yy8ygm"
+                    />
+                  </button>
+                </li>
+                <li
+                  class="indicator_7k5kza"
+                >
+                  <button
+                    aria-disabled="false"
+                    aria-label="Skip to Problem 1c"
+                    class="button_vr44p2-o_O-reset_152ygtm-o_O-link_13xlah4-o_O-indicatorButton_8uaklu"
+                    role="button"
+                    type="button"
+                  >
+                    <div
+                      class="default_xu2jcg-o_O-indicatorDot_yy8ygm"
+                    />
+                  </button>
+                </li>
+              </ul>
+            </div>
+            <div
+              class="perseus-graded-group"
+            >
+              <div
+                class="perseus-renderer perseus-renderer-responsive"
+              >
+                <div
+                  class="paragraph"
+                  data-perseus-paragraph-index="0"
+                >
+                  <div
+                    class="paragraph"
+                  >
+                    <span
+                      style="white-space: nowrap;"
+                    >
+                      <span />
+                      <span
+                        class="mock-TeX"
+                      >
+                        0.5 + 0.4 =
+                      </span>
+                      <span />
+                    </span>
+                       
+                    <div
+                      class="perseus-widget-container widget-nohighlight widget-inline-block"
+                    >
+                      <input
+                        aria-disabled="false"
+                        aria-invalid="false"
+                        aria-required="false"
+                        autocapitalize="off"
+                        autocomplete="off"
+                        autocorrect="off"
+                        class="input_a5n1n-o_O-LabelMedium_455tor-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-inputWithExamples_1y6ajxo"
+                        data-testid="input-with-examples"
+                        id=":r0:"
+                        tabindex="0"
+                        type="text"
+                        value=""
+                      />
+                      <span
+                        id="aria-for-:r0:"
+                        style="display: none;"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p
+                aria-live="polite"
+                role="status"
+              />
+              <button
+                aria-disabled="false"
+                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1l1gmds"
+                role="button"
+                type="button"
+              >
+                <span
+                  class="text_f1191h-o_O-LabelLarge_16mkhxv-o_O-text_1kowsup"
+                >
+                  Check
+                </span>
+              </button>
+              <button
+                class="showHintLink_oak3yy"
+                tabindex="0"
+              >
+                Explain
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="paragraph"
+      data-perseus-paragraph-index="2"
+    >
+      <div
+        class="paragraph"
+      >
+        Beautiful, let's move on to problems with whole numbers and tenths.
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`graded group widget should snapshot 1`] = `
 <div>
   <div

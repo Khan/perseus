@@ -15,6 +15,10 @@ import {
     phoneMargin,
     negativePhoneMargin,
 } from "../../styles/constants";
+import {
+    sharedInitializeUserInput,
+    sharedRestoreUserInputFromSerializedState,
+} from "../../user-input-manager";
 import a11y from "../../util/a11y";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import {GradedGroup} from "../graded-group/graded-group";
@@ -22,8 +26,10 @@ import {GradedGroup} from "../graded-group/graded-group";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import type {
+    PerseusGradedGroupSetUserInput,
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 
 type IndicatorsProps = {
@@ -90,7 +96,7 @@ class Indicators extends React.Component<IndicatorsProps> {
 
 type RenderProps = PerseusGradedGroupSetWidgetOptions; // no transform
 
-type Props = WidgetProps<RenderProps> & {
+type Props = WidgetProps<RenderProps, PerseusGradedGroupSetUserInput> & {
     trackInteraction: () => void;
 };
 
@@ -162,6 +168,16 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
         }
     };
 
+    _handleUserInput(next, index) {
+        const curr = this.props.userInput;
+        const nextUserInput = [
+            ...curr.slice(0, index),
+            next,
+            ...curr.slice(index + 1),
+        ];
+        this.props.handleUserInput(nextUserInput);
+    }
+
     render(): React.ReactNode {
         // When used in the context of TranslationEditor, render the
         // GradedGroup widget one below another instead of using an indicator
@@ -229,6 +245,13 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                     // We should pass in the set of props explicitly
                     {...this.props}
                     {...currentGroup}
+                    userInput={this.props.userInput[this.state.currentGroup]}
+                    handleUserInput={(userInput) =>
+                        this._handleUserInput(
+                            userInput,
+                            this.state.currentGroup,
+                        )
+                    }
                     inGradedGroupSet={true}
                     title={null}
                     onNextQuestion={handleNextQuestion}
@@ -239,6 +262,25 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
     }
 }
 
+function getStartUserInput(
+    options: PerseusGradedGroupSetWidgetOptions,
+    problemNum: number,
+) {
+    return options.gradedGroups.map((group) => {
+        return sharedInitializeUserInput(group.widgets, problemNum);
+    });
+}
+
+function getUserInputFromSerializedState(
+    serializedState: any,
+    widgetOptions: any,
+): UserInputMap {
+    return sharedRestoreUserInputFromSerializedState(
+        serializedState,
+        widgetOptions.widgets,
+    );
+}
+
 export default {
     name: "graded-group-set",
     displayName: "Graded group set (articles only)",
@@ -247,6 +289,8 @@ export default {
     hidden: false,
     tracking: "all",
     isLintable: true,
+    getStartUserInput,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof GradedGroupSet>;
 
 const styles = StyleSheet.create({
