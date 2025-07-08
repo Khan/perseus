@@ -40,6 +40,7 @@ export {
     parsePerseusItem,
     parseAndMigratePerseusItem,
     parseAndMigratePerseusArticle,
+    parseAndMigrateUserInputMap,
     type ParseFailureDetail,
 } from "./parse-perseus-json";
 
