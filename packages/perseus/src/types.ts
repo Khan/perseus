@@ -548,7 +548,7 @@ export type WidgetExports<
      */
     getUserInputFromSerializedState?: (
         props: any,
-        widgetOptions: any,
+        widgetOptions?: any, // <= for groups
     ) => TUserInput;
 
     getCorrectUserInput?: (widgetOptions: any) => TUserInput;
