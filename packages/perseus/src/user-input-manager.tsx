@@ -94,6 +94,7 @@ export function sharedRestoreUserInputFromSerializedState(
             restoredUserInput[widgetId] = restoreResult;
         }
     });
+
     return restoredUserInput;
 }
 

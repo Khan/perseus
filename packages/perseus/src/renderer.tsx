@@ -280,6 +280,11 @@ class Renderer
         this.handleRender({});
         this._currentFocus = null;
 
+        this.props.initializeUserInput?.(
+            this.props.widgets,
+            this.props.problemNum ?? 0,
+        );
+
         // TODO(emily): actually make the serializedState prop work like a
         // controlled prop, instead of manually calling .restoreSerializedState
         // at the right times.
@@ -295,11 +300,6 @@ class Renderer
                 this.handletranslationLintErrors,
             );
         }
-
-        this.props.initializeUserInput?.(
-            this.props.widgets,
-            this.props.problemNum ?? 0,
-        );
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
