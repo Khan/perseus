@@ -3,7 +3,8 @@
  * Based on djb2 hash algo for better distribution
  */
 export function convertStringToHash(input: string): string {
-    let hash = 5381; // Use djb2 hash algorithm constant
+    const DJB2_CONSTANT = 5381;
+    let hash = DJB2_CONSTANT;
     if (input.length === 0) {
         return "empty";
     }
@@ -37,7 +38,8 @@ export function generateChoiceId(
     content: string,
     originalIndex: number,
 ): string {
-    const normalizedContent = normalizeContent(content || "");
+    const concatContent = `${content}${originalIndex}`;
+    const normalizedContent = normalizeContent(concatContent || "");
     const contentHash = convertStringToHash(normalizedContent);
-    return `${contentHash}${originalIndex}`;
+    return contentHash;
 }

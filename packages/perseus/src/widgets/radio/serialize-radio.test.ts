@@ -25,25 +25,25 @@ const expectedSerializedRadio = {
         {
             content: "Content 4",
             correct: false,
-            id: "v1u4s83",
+            id: "u91m6j",
             originalIndex: 3, // <= note we stash original index
         },
         {
             content: "Content 2",
             correct: false,
-            id: "v1u4se1",
+            id: "u91mbz",
             originalIndex: 1,
         },
         {
             content: "Content 1",
             correct: true,
-            id: "v1u4sd0",
+            id: "u91mct",
             originalIndex: 0,
         },
         {
             content: "Content 3",
             correct: false,
-            id: "v1u4sf2",
+            id: "u91mel",
             originalIndex: 2,
         },
     ],
