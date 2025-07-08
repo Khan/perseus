@@ -5,7 +5,9 @@ import {
     Errors,
     PerseusError,
     applyDefaultsToWidgets,
+    getDefaultAnswerArea,
     mapObject,
+    splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {
@@ -38,7 +40,6 @@ import PerseusMarkdown from "./perseus-markdown";
 import QuestionParagraph from "./question-paragraph";
 import TranslationLinter from "./translation-linter";
 import Util from "./util";
-import isDifferentQuestion from "./util/is-different-question";
 import preprocessTex from "./util/tex-preprocess";
 import WidgetContainer from "./widget-container";
 import * as Widgets from "./widgets";
@@ -75,6 +76,7 @@ import type {
     UserInputMap,
     UserInput,
     UserInputArray,
+    PerseusItem,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
@@ -168,7 +170,6 @@ type State = {
     widgetProps: Readonly<{
         [id: string]: any | null | undefined;
     }>;
-    // userInput: UserInputMap;
     jiptContent: any;
     lastUsedWidgetId: string | null | undefined;
 };
@@ -199,6 +200,35 @@ type DefaultProps = Required<
         | "widgets"
     >
 >;
+
+function isDifferentQuestion(propsA: Props, propsB: Props): boolean {
+    function makeRenderer(
+        content: PerseusRenderer["content"],
+        widgets: PerseusRenderer["widgets"],
+    ): PerseusRenderer {
+        return {
+            content,
+            widgets,
+            images: {},
+        };
+    }
+
+    function answerlessStringified(question: PerseusRenderer): string {
+        const answerful: PerseusItem = {
+            question,
+            hints: [],
+            answerArea: getDefaultAnswerArea(),
+        };
+        const answerless = splitPerseusItem(answerful);
+        return JSON.stringify(answerless);
+    }
+
+    return (
+        propsA.problemNum !== propsB.problemNum ||
+        answerlessStringified(makeRenderer(propsA.content, propsA.widgets)) !==
+            answerlessStringified(makeRenderer(propsB.content, propsB.widgets))
+    );
+}
 
 class Renderer
     extends React.Component<Props, State>
@@ -303,16 +333,7 @@ class Renderer
     }
 
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        if (
-            isDifferentQuestion(
-                this.props.problemNum ?? 0,
-                nextProps.problemNum ?? 0,
-                this.props.content,
-                nextProps.content,
-                this.props.widgets,
-                nextProps.widgets,
-            )
-        ) {
+        if (isDifferentQuestion(this.props, nextProps)) {
             this.props.initializeUserInput?.(
                 nextProps.widgets,
                 nextProps.problemNum ?? 0,
@@ -458,7 +479,6 @@ class Renderer
     _getInitialWidgetState: (props: Props) => {
         widgetInfo: State["widgetInfo"];
         widgetProps: State["widgetProps"];
-        // userInput: State["userInput"];
     } = (props: Props) => {
         const allWidgetInfo = applyDefaultsToWidgets(props.widgets);
         return {
@@ -467,25 +487,6 @@ class Renderer
             // userInput: this._getAllWidgetsStartUserInput(props),
         };
     };
-
-    // _getAllWidgetsStartUserInput(props: Props): UserInputMap {
-    //     const widgetMap = props.widgets;
-    //     const startUserInput: UserInputMap = {};
-    //     entries(widgetMap).forEach(([id, widgetInfo]) => {
-    //         const widgetExports = Widgets.getWidgetExport(widgetInfo.type);
-    //         if (widgetInfo.static && widgetExports?.getCorrectUserInput) {
-    //             startUserInput[id] = widgetExports.getCorrectUserInput(
-    //                 widgetInfo.options,
-    //             );
-    //         } else if (widgetExports?.getStartUserInput) {
-    //             startUserInput[id] = widgetExports.getStartUserInput(
-    //                 widgetInfo.options,
-    //                 props.problemNum ?? 0,
-    //             );
-    //         }
-    //     });
-    //     return startUserInput;
-    // }
 
     _getAllWidgetsStartProps: (
         allWidgetInfo: PerseusWidgetsMap,
@@ -639,9 +640,7 @@ class Renderer
             onChange: (newProps, cb, silent = false) => {
                 this._setWidgetProps(widgetId, newProps, cb, silent);
             },
-            // TODO probably need to add cb/silent
             handleUserInput: (newUserInput: UserInput) => {
-                // this._setUserInput(widgetId, newUserInput, cb, silent);
                 this.props.handleUserInput?.(widgetId, newUserInput);
                 this.props.onInteractWithWidget(widgetId);
             },
@@ -728,14 +727,8 @@ class Renderer
         };
 
         const restoredWidgetProps = {};
-        // const restoredUserInput = {};
         Object.entries(serializedState).forEach(([widgetId, props]) => {
             const widget = this.getWidgetInstance(widgetId);
-            // const widgetType = getWidgetTypeByWidgetId(
-            //     widgetId,
-            //     this.props.widgets,
-            // );
-            // const widgetExport = Widgets.getWidgetExport(widgetType as string);
             if (widget?.restoreSerializedState) {
                 // Note that we probably can't call
                 // `this.change()/this.props.onChange()` in this
@@ -757,12 +750,6 @@ class Renderer
             } else {
                 restoredWidgetProps[widgetId] = props;
             }
-
-            // if (widgetExport?.getUserInputFromSerializedState) {
-            //     const restoreResult =
-            //         widgetExport.getUserInputFromSerializedState(props);
-            //     restoredUserInput[widgetId] = restoreResult;
-            // }
         });
 
         this.props.restoreUserInputFromSerializedState?.(
@@ -772,7 +759,6 @@ class Renderer
         this.setState(
             {
                 widgetProps: restoredWidgetProps,
-                // userInput: restoredUserInput,
             },
             () => {
                 // Wait until all components have rendered. In React 16 setState
@@ -1688,32 +1674,6 @@ class Renderer
             },
         );
     }
-
-    // _setUserInput(
-    //     id: string,
-    //     nextUserInput: UserInput,
-    //     cb: () => boolean,
-    //     silent?: boolean,
-    // ) {
-    //     this.setState(
-    //         (prevState) => {
-    //             const userInput =
-    //                 nextUserInput != null
-    //                     ? {
-    //                           ...this.state.userInput,
-    //                           [id]: nextUserInput,
-    //                       }
-    //                     : prevState.userInput;
-
-    //             return {
-    //                 userInput,
-    //             };
-    //         },
-    //         () => {
-    //             this.handleStateUpdate(id, cb, silent);
-    //         },
-    //     );
-    // }
 
     _setWidgetProps(
         id: string,
