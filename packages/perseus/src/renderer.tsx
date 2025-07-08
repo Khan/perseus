@@ -639,10 +639,11 @@ class Renderer
             onChange: (newProps, cb, silent = false) => {
                 this._setWidgetProps(widgetId, newProps, cb, silent);
             },
+            // TODO probably need to add cb/silent
             handleUserInput: (newUserInput: UserInput) => {
                 // this._setUserInput(widgetId, newUserInput, cb, silent);
-                // TODO probably need to add cb/silent
                 this.props.handleUserInput?.(widgetId, newUserInput);
+                this.props.onInteractWithWidget(widgetId);
             },
             trackInteraction: interactionTracker.track,
             isLastUsedWidget: widgetId === this.state.lastUsedWidgetId,

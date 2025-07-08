@@ -55,7 +55,7 @@ export const renderQuestion = (
                         restoreUserInputFromSerializedState,
                     }) => {
                         return (
-                            <Renderer
+                            <RendererWrapper
                                 userInput={userInput}
                                 handleUserInput={handleUserInput}
                                 initializeUserInput={initializeUserInput}
@@ -95,7 +95,7 @@ export const renderQuestion = (
                             restoreUserInputFromSerializedState,
                         }) => {
                             return (
-                                <Renderer
+                                <RendererWrapper
                                     userInput={userInput}
                                     handleUserInput={handleUserInput}
                                     initializeUserInput={initializeUserInput}
@@ -124,7 +124,7 @@ export const renderQuestion = (
     return {container, renderer, rerender: renderAgain, unmount};
 };
 
-const Renderer = React.forwardRef<
+const RendererWrapper = React.forwardRef<
     Perseus.Renderer,
     {
         question: PerseusRenderer;

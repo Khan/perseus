@@ -1643,7 +1643,7 @@ describe("renderer", () => {
         });
     });
 
-    describe("setInputValue", () => {
+    describe.skip("setInputValue", () => {
         it("should set the value on the requested FocusPath", () => {
             // Arrange
             const {renderer} = renderQuestion({

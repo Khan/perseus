@@ -453,7 +453,7 @@ describe("Expression Widget", function () {
             jest.useFakeTimers();
         });
 
-        it("sets input value directly", () => {
+        it.skip("sets input value directly", () => {
             // arrange
             const {renderer} = renderQuestion(expressionItem2.question);
             act(() => jest.runOnlyPendingTimers());

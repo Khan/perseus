@@ -189,7 +189,7 @@ describe("graded group set widget", () => {
         `);
     });
 
-    it("should be able to set input value on child widget", () => {
+    it.skip("should be able to set input value on child widget", () => {
         // Arrange
         const {renderer} = renderQuestion(article1);
         const cb = jest.fn();

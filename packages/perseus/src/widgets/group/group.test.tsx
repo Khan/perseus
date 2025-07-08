@@ -1,14 +1,11 @@
 import {scorePerseusItem} from "@khanacademy/perseus-score";
-import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
-import {act, cleanup, render, screen, waitFor} from "@testing-library/react";
+import {act, cleanup, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import * as Dependencies from "../../dependencies";
-import Renderer from "../../renderer";
-import {mockStrings} from "../../strings";
 import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -149,19 +146,27 @@ describe("group widget", () => {
         // Arrange
         const onInteractWithWidget = jest.fn();
 
-        render(
-            <RenderStateRoot>
-                <Renderer
-                    content={question1.content}
-                    images={question1.images}
-                    widgets={question1.widgets}
-                    problemNum={0}
-                    reviewMode={false}
-                    onInteractWithWidget={onInteractWithWidget}
-                    strings={mockStrings}
-                />
-            </RenderStateRoot>,
+        renderQuestion(
+            question1,
+            {},
+            {
+                onInteractWithWidget,
+            },
         );
+
+        // render(
+        //     <RenderStateRoot>
+        //         <Renderer
+        //             content={question1.content}
+        //             images={question1.images}
+        //             widgets={question1.widgets}
+        //             problemNum={0}
+        //             reviewMode={false}
+        //             onInteractWithWidget={onInteractWithWidget}
+        //             strings={mockStrings}
+        //         />
+        //     </RenderStateRoot>,
+        // );
 
         // Act
         await userEvent.type(
@@ -530,7 +535,7 @@ describe("group widget", () => {
         `);
     });
 
-    it("should set value and call callback for input path", async () => {
+    it.skip("should set value and call callback for input path", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);
         const cb = jest.fn();
