@@ -44,10 +44,6 @@ describe("Matrix AI utils", () => {
     });
 
     it("it returns JSON with the expected format and fields", () => {
-        const renderProps: any = {
-            matrixBoardSize: [4, 3],
-        };
-
         const userInput: any = {
             answers: [
                 [1, 2, 3, 4],
@@ -56,7 +52,12 @@ describe("Matrix AI utils", () => {
             ],
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const renderProps: any = {
+            matrixBoardSize: [4, 3],
+            userInput,
+        };
+
+        const resultJSON = getPromptJSON(renderProps);
 
         expect(resultJSON).toEqual({
             type: "matrix",

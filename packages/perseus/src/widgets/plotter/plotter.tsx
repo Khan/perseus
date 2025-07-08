@@ -1143,10 +1143,6 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         });
     }
 
-    getUserInput(): PerseusPlotterUserInput {
-        return this.props.userInput;
-    }
-
     getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();
     }

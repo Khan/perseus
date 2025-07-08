@@ -33,7 +33,6 @@ import type {GroupPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 import type {
     PerseusGroupWidgetOptions,
     PerseusRenderer,
-    UserInputArray,
     UserInputMap,
 } from "@khanacademy/perseus-core";
 
@@ -70,17 +69,6 @@ class Group extends React.Component<Props> implements Widget {
         // eslint-disable-next-line import/no-deprecated
         return Changeable.change.apply(this, args);
     };
-
-    getUserInputMap(): UserInputMap | undefined {
-        return this.rendererRef?.getUserInputMap();
-    }
-
-    /**
-     * @deprecated getUserInputMap should be used for Groups
-     */
-    getUserInput(): UserInputArray | undefined {
-        return this.rendererRef?.getUserInput();
-    }
 
     getPromptJSON(): GroupPromptJSON {
         return _getPromptJSON(this.rendererRef?.getPromptJSON());

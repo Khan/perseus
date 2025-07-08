@@ -40,7 +40,7 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
     inputRef: HTMLElement | null = null;
 
     getPromptJSON(): MockWidgetPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props);
     }
 
     focus: () => boolean = () => {
@@ -63,14 +63,6 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
         // indicate this.
         return [[]];
     };
-
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput(): PerseusMockWidgetUserInput {
-        return this.props.userInput;
-    }
 
     handleChange: (
         newValue: string,

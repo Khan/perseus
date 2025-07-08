@@ -184,16 +184,8 @@ export class Expression
         }
     };
 
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput(): PerseusExpressionUserInput {
-        return normalizeTex(this.props.userInput);
-    }
-
     getPromptJSON(): ExpressionPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props, normalizeTex(this.props.userInput));
     }
 
     parse: (value: string, props: Props) => any = (

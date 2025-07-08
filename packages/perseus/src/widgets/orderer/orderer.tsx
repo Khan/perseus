@@ -594,12 +594,8 @@ class Orderer
         this.props.handleUserInput({current: values});
     };
 
-    getUserInput(): PerseusOrdererUserInput {
-        return this.props.userInput;
-    }
-
     getPromptJSON(): OrdererPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props);
     }
 
     /**

@@ -293,16 +293,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
         this.props.trackInteraction();
     };
 
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput(): PerseusMatrixUserInput {
-        return this.props.userInput;
-    }
-
     getPromptJSON(): MatrixPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props);
     }
 
     /**

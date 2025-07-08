@@ -114,21 +114,11 @@ export class NumericInput
     };
 
     /**
-     * Returns the value the user has currently input for this widget.
-     *
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput(): PerseusNumericInputUserInput {
-        return this.props.userInput;
-    }
-
-    /**
      * Returns the JSON representation of the prompt for this widget.
      * This is used by the AI to determine the prompt for the widget.
      */
     getPromptJSON(): NumericInputPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props);
     }
 
     /**

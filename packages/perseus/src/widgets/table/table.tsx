@@ -101,10 +101,6 @@ class Table extends React.Component<Props> implements Widget {
         ) as PerseusTableUserInput;
     }
 
-    getUserInput(): PerseusTableUserInput {
-        return this._getAnswersClone();
-    }
-
     onValueChange(row: number, column: number, eventOrValue: any): void {
         const answers = this._getAnswersClone();
 

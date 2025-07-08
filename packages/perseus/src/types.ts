@@ -20,9 +20,6 @@ import type {
     AnalyticsEventHandlerFn,
     Version,
     Rubric,
-    UserInput,
-    UserInputArray,
-    UserInputMap,
     LabelImageMarkerPublicData,
     PerseusLabelImageMarker,
     ShowSolutions,
@@ -100,17 +97,6 @@ export interface Widget {
     blurInputPath?: (path: FocusPath) => void;
     focusInputPath?: (path: FocusPath) => void;
     getInputPaths?: () => ReadonlyArray<FocusPath>;
-
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInputMap?: () => UserInputMap | undefined;
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput?: () => UserInputArray | UserInput | undefined;
 
     getPromptJSON?: () => WidgetPromptJSON;
 }

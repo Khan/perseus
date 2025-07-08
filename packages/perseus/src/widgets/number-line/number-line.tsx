@@ -616,16 +616,8 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         graphie.line([center, 0], [left, 0], {arrows: "->"});
     };
 
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput(): PerseusNumberLineUserInput {
-        return this.props.userInput;
-    }
-
     getPromptJSON(): NumberLinePromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props);
     }
 
     /**

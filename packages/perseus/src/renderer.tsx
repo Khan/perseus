@@ -1758,12 +1758,6 @@ class Renderer
         }
 
         return this.widgetIds.map((id: string) => {
-            // const widget = this.getWidgetInstance(id);
-            // if (widget && widget.getUserInput) {
-            //     // TODO(Jeremy): Add the widget ID in here so we can more
-            //     // easily correlate it to the widget state.
-            //     return widget.getUserInput();
-            // }
             return userInput[id];
         });
     }
@@ -1772,22 +1766,6 @@ class Renderer
      * Returns an object of the widget `.getUserInput()` results
      */
     getUserInputMap(): UserInputMap {
-        // const userInputMap = {};
-        // this.widgetIds.forEach((id: string) => {
-        //     const widget = this.getWidgetInstance(id);
-        //     if (this.state.userInput[id]) {
-        //         // Get user input from Renderer state if possible
-        //         userInputMap[id] = this.state.userInput[id];
-        //     } else if (widget?.getUserInputMap) {
-        //         // Handle Groups, which have their own sets of widgets
-        //         userInputMap[id] = widget.getUserInputMap();
-        //     } else if (widget?.getUserInput) {
-        //         // Legacy method of getting user input
-        //         userInputMap[id] = widget.getUserInput();
-        //     }
-        // });
-        // return userInputMap;
-
         const userInput = this.props.userInput;
         if (!userInput) {
             throw new Error(

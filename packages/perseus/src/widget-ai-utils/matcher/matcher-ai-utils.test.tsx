@@ -64,24 +64,23 @@ describe("Matcher AI utils", () => {
     });
 
     it("it returns JSON with the expected format and fields", () => {
-        const renderProps: any = {
-            labels: {
-                left: "Number",
-                right: "Letter",
-            },
-            userInput: {
-                left: ["1", "2", "3"],
-                right: ["a", "b", "c"],
-            },
-            orderMatters: false,
-        };
-
         const userInput: PerseusMatcherUserInput = {
             left: ["3", "1", "2"],
             right: ["a", "b", "c"],
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const renderProps: any = {
+            labels: {
+                left: "Number",
+                right: "Letter",
+            },
+            left: ["1", "2", "3"],
+            right: ["a", "b", "c"],
+            orderMatters: false,
+            userInput,
+        };
+
+        const resultJSON = getPromptJSON(renderProps);
 
         expect(resultJSON).toEqual({
             type: "matcher",
@@ -128,7 +127,13 @@ describe("Matcher AI utils", () => {
                             "Left - Four",
                             "Left - Five",
                         ],
-                        right: shuffledRightItems,
+                        right: [
+                            "Right - One",
+                            "Right - Two",
+                            "Right - Three",
+                            "Right - Four",
+                            "Right - Five",
+                        ],
                         orderMatters: false,
                     },
                     userInput: {

@@ -91,10 +91,6 @@ class CSProgram extends React.Component<Props> implements Widget {
         });
     };
 
-    getUserInput(): PerseusCSProgramUserInput {
-        return this.props.userInput;
-    }
-
     getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();
     }
