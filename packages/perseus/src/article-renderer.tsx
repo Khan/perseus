@@ -169,7 +169,7 @@ class ArticleRenderer
         }
     };
 
-    _sections: () => any = () => {
+    _sections: () => PerseusRenderer[] = () => {
         const sections = Array.isArray(this.props.json)
             ? this.props.json
             : [this.props.json];
@@ -217,73 +217,65 @@ class ArticleRenderer
         // We're using the index as the key here because we don't have a unique
         // identifier for each section. This should be fine as we never remove
         // or reorder sections.
-        const sections = this._sections().map(
-            (section: PerseusRenderer, sectionIndex: number) => {
-                return (
-                    <div key={sectionIndex} className="clearfix">
-                        <UserInputManager
-                            widgets={section.widgets}
-                            problemNum={0}
-                        >
-                            {({
-                                userInput,
-                                handleUserInput,
-                                initializeUserInput,
-                                restoreUserInputFromSerializedState,
-                            }) => (
-                                <Renderer
-                                    {...section}
-                                    userInput={userInput}
-                                    handleUserInput={handleUserInput}
-                                    initializeUserInput={initializeUserInput}
-                                    restoreUserInputFromSerializedState={
-                                        restoreUserInputFromSerializedState
+        const sections = this._sections().map((section, sectionIndex) => {
+            return (
+                <div key={sectionIndex} className="clearfix">
+                    <UserInputManager widgets={section.widgets} problemNum={0}>
+                        {({
+                            userInput,
+                            handleUserInput,
+                            initializeUserInput,
+                            restoreUserInputFromSerializedState,
+                        }) => (
+                            <Renderer
+                                {...section}
+                                userInput={userInput}
+                                handleUserInput={handleUserInput}
+                                initializeUserInput={initializeUserInput}
+                                restoreUserInputFromSerializedState={
+                                    restoreUserInputFromSerializedState
+                                }
+                                ref={(elem) => {
+                                    if (elem) {
+                                        this.sectionRenderers[sectionIndex] =
+                                            elem;
                                     }
-                                    ref={(elem) => {
-                                        if (elem) {
-                                            this.sectionRenderers[
-                                                sectionIndex
-                                            ] = elem;
-                                        }
-                                    }}
-                                    key={sectionIndex}
-                                    keypadElement={this.props.keypadElement}
-                                    apiOptions={{
-                                        ...apiOptions,
-                                        onFocusChange: (
-                                            newFocusPath,
-                                            oldFocusPath,
-                                        ) => {
-                                            // Prefix the paths with the relevant section index,
-                                            // so as to allow us to distinguish between
-                                            // equivalently-named inputs across Renderers.
-                                            this._handleFocusChange(
-                                                newFocusPath &&
-                                                    [sectionIndex].concat(
-                                                        newFocusPath as any,
-                                                    ),
-                                                oldFocusPath &&
-                                                    [sectionIndex].concat(
-                                                        oldFocusPath as any,
-                                                    ),
-                                            );
-                                        },
-                                    }}
-                                    linterContext={PerseusLinter.pushContextStack(
-                                        this.props.linterContext,
-                                        "article",
-                                    )}
-                                    legacyPerseusLint={
-                                        this.props.legacyPerseusLint
-                                    }
-                                    strings={this.context.strings}
-                                />
-                            )}
-                        </UserInputManager>
-                    </div>
-                );
-            },
-        );
+                                }}
+                                key={sectionIndex}
+                                keypadElement={this.props.keypadElement}
+                                apiOptions={{
+                                    ...apiOptions,
+                                    onFocusChange: (
+                                        newFocusPath,
+                                        oldFocusPath,
+                                    ) => {
+                                        // Prefix the paths with the relevant section index,
+                                        // so as to allow us to distinguish between
+                                        // equivalently-named inputs across Renderers.
+                                        this._handleFocusChange(
+                                            newFocusPath &&
+                                                [sectionIndex].concat(
+                                                    newFocusPath as any,
+                                                ),
+                                            oldFocusPath &&
+                                                [sectionIndex].concat(
+                                                    oldFocusPath as any,
+                                                ),
+                                        );
+                                    },
+                                }}
+                                linterContext={PerseusLinter.pushContextStack(
+                                    this.props.linterContext,
+                                    "article",
+                                )}
+                                legacyPerseusLint={this.props.legacyPerseusLint}
+                                strings={this.context.strings}
+                            />
+                        )}
+                    </UserInputManager>
+                </div>
+            );
+        });
 
         return (
             <div className={classes}>

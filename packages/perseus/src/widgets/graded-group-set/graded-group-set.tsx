@@ -264,7 +264,7 @@ function getStartUserInput(
 }
 
 function getUserInputFromSerializedState(
-    serializedState: any,
+    serializedState: unknown,
     widgetOptions: any,
 ): UserInputMap {
     return sharedRestoreUserInputFromSerializedState(

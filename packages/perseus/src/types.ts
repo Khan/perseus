@@ -524,8 +524,8 @@ export type WidgetExports<
      * @deprecated - do not use in new code.
      */
     getUserInputFromSerializedState?: (
-        props: any,
-        widgetOptions?: any, // <= for groups
+        serializedState: unknown,
+        widgetOptions?: PerseusWidgetsMap, // <= for groups
     ) => TUserInput;
 
     getCorrectUserInput?: (widgetOptions: any) => TUserInput;

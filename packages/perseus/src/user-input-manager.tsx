@@ -12,7 +12,7 @@ export type InitializeUserInputCallback = (
 ) => void;
 
 export type RestoreUserInputFromSerializedStateCallback = (
-    serializedState: any,
+    serializedState: unknown,
     widgetOptions: PerseusWidgetsMap,
 ) => void;
 
@@ -78,11 +78,11 @@ export function sharedInitializeUserInput(
  * @deprecated - do not use in new code.
  */
 export function sharedRestoreUserInputFromSerializedState(
-    serializedState: any,
+    serializedState: unknown,
     widgetOptions: PerseusWidgetsMap,
 ): UserInputMap {
     const restoredUserInput: UserInputMap = {};
-    Object.entries(serializedState).forEach(([widgetId, props]) => {
+    Object.entries(serializedState as any).forEach(([widgetId, props]) => {
         const widgetType = getWidgetTypeByWidgetId(widgetId, widgetOptions);
         const widgetExport = Widgets.getWidgetExport(widgetType as string);
 
