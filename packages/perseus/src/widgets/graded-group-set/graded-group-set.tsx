@@ -257,7 +257,7 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
 function getStartUserInput(
     options: PerseusGradedGroupSetWidgetOptions,
     problemNum: number,
-) {
+): UserInputMap[] {
     return options.gradedGroups.map((group) => {
         return sharedInitializeUserInput(group.widgets, problemNum);
     });

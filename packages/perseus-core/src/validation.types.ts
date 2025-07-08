@@ -339,6 +339,7 @@ interface UserInputRegistry {
     "free-response": PerseusFreeResponseUserInput;
     grapher: PerseusGrapherUserInput;
     group: PerseusGroupUserInput;
+    "graded-group-set": PerseusGradedGroupSetUserInput;
     iframe: PerseusIFrameUserInput;
     "input-number": PerseusInputNumberUserInput;
     "interactive-graph": PerseusInteractiveGraphUserInput;

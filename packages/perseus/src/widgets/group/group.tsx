@@ -190,7 +190,10 @@ class Group extends React.Component<Props> implements Widget {
     }
 }
 
-function getStartUserInput(options: PerseusRenderer, problemNum: number) {
+function getStartUserInput(
+    options: PerseusRenderer,
+    problemNum: number,
+): UserInputMap {
     return sharedInitializeUserInput(options.widgets, problemNum);
 }
 

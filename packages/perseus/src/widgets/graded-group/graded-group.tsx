@@ -533,7 +533,10 @@ const styles = StyleSheet.create({
     },
 });
 
-function getStartUserInput(options: PerseusRenderer, problemNum: number) {
+function getStartUserInput(
+    options: PerseusRenderer,
+    problemNum: number,
+): UserInputMap {
     return sharedInitializeUserInput(options.widgets, problemNum);
 }
 
