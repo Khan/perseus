@@ -82,7 +82,6 @@ function ConnectedRenderer({item = expressionItem2}) {
 describe("expression mobile", () => {
     beforeAll(() => {
         // TODO(LEMS-2656): remove TS suppression
-        // @ts-expect-error: ExpressionExport is not assignable to type WidgetExports
         registerWidget("expression", ExpressionExport);
     });
 

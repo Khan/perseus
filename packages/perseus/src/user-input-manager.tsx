@@ -142,7 +142,7 @@ export default function UserInputManager(props: Props) {
      * Restore UserInput from SerializedState (please do not add new uses of this)
      */
     function restoreUserInputFromSerializedState(
-        serializedState: any,
+        serializedState: unknown,
         widgetOptions: PerseusWidgetsMap,
     ) {
         setUserInput(

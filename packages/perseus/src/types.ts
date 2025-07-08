@@ -19,7 +19,6 @@ import type {
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
     Version,
-    Rubric,
     LabelImageMarkerPublicData,
     PerseusLabelImageMarker,
     ShowSolutions,
@@ -516,7 +515,7 @@ export type WidgetExports<
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
     getOneCorrectAnswerFromRubric?: (
-        rubric: Rubric,
+        rubric: WidgetOptions,
     ) => string | null | undefined;
 
     // TODO(LEMS-3185): remove serializedState/restoreSerializedState
@@ -528,9 +527,12 @@ export type WidgetExports<
         widgetOptions?: PerseusWidgetsMap, // <= for groups
     ) => TUserInput;
 
-    getCorrectUserInput?: (widgetOptions: any) => TUserInput;
+    getCorrectUserInput?: (widgetOptions: WidgetOptions) => TUserInput;
 
-    getStartUserInput?: (widgetOptions: any, problemNum: number) => TUserInput;
+    getStartUserInput?: (
+        widgetOptions: WidgetOptions,
+        problemNum: number,
+    ) => TUserInput;
 }>;
 
 export type FilterCriterion =

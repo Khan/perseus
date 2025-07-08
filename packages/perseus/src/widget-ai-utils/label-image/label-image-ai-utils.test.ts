@@ -5,7 +5,10 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./label-image-ai-utils";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    PerseusLabelImageUserInput,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const textQuestion: PerseusRenderer = {
@@ -87,7 +90,7 @@ describe("LabelImage AI utils", () => {
     });
 
     it("it returns JSON with the expected format and fields", () => {
-        const userInput: any = {
+        const userInput: PerseusLabelImageUserInput = {
             markers: [
                 {
                     label: "The fourth unlabeled bar line.",

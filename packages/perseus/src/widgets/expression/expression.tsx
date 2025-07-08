@@ -464,7 +464,6 @@ export default {
     isLintable: true,
 
     // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusExpressionRubric'.
     getOneCorrectAnswerFromRubric(
         rubric: PerseusExpressionRubric,
     ): string | null | undefined {

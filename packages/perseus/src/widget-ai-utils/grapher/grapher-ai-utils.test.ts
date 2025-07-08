@@ -2,7 +2,10 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./grapher-ai-utils";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    PerseusGrapherUserInput,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 const question: PerseusRenderer = {
     content: "**Graph $5x+3y=15$.**\n\n[[☃ grapher 1]]",
@@ -54,7 +57,7 @@ const question: PerseusRenderer = {
 
 describe("Grapher AI utils", () => {
     it("it returns JSON with the expected format and fields for a linear graph", () => {
-        const userInput: any = {
+        const userInput: PerseusGrapherUserInput = {
             type: "linear",
             coords: [
                 [0, 0],
