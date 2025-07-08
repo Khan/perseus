@@ -121,18 +121,18 @@ describe("shouldDrawArcOutsidePolygon", () => {
 
     // Test each point in this chevron shaped polygon with clockwise points.
     it.each([
-        {index: 0, expected: false}, // inside
-        {index: 1, expected: false}, // inside
-        {index: 2, expected: false}, // inside
-        {index: 3, expected: false}, // inside
-        {index: 4, expected: false}, // inside
-        {index: 5, expected: true}, // outside
+        {index: 0, isOutside: false},
+        {index: 1, isOutside: false},
+        {index: 2, isOutside: false},
+        {index: 3, isOutside: false},
+        {index: 4, isOutside: false},
+        {index: 5, isOutside: true},
     ] satisfies {
         index: number;
-        expected: boolean;
+        isOutside: boolean;
     }[])(
-        "should return $expected for concave clockwise polygon vertex $index",
-        ({index, expected}) => {
+        "should return $isOutside for concave clockwise polygon vertex $index",
+        ({index, isOutside}) => {
             // Get the previous and next vertices.
             const previousIndex =
                 (index - 1 + clockwiseConcaveCoords.length) %
@@ -147,7 +147,7 @@ describe("shouldDrawArcOutsidePolygon", () => {
             ] satisfies [vec.Vector2, vec.Vector2];
 
             expect(shouldDrawArcOutsidePolygon(vertex, endPoints)).toBe(
-                expected,
+                isOutside,
             );
         },
     );
