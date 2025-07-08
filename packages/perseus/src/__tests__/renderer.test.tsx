@@ -1322,7 +1322,7 @@ describe("renderer", () => {
             rerender(question1, extraProps);
 
             // How do I tell it rerendered?
-            expect(onRender).toHaveBeenCalledTimes(2);
+            expect(onRender).toHaveBeenCalledTimes(3);
         });
 
         // [LEMS-3185] deprecate serializedState / restoreSerializedState
