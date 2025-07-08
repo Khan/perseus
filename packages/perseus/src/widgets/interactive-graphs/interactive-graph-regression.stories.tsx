@@ -392,51 +392,44 @@ export const MafsWithAnswerlessData: Story = {
     },
 };
 
+/* Locked figure weight regression tests */
+
+function lockedFiguresQuestionWithWeight(weight: "thin" | "medium" | "thick") {
+    return interactiveGraphQuestionBuilder()
+        .withNoInteractiveFigure()
+        .addLockedLine([2, 2], [9, 9], {kind: "segment", weight})
+        .addLockedLine([2, 1], [9, 8], {kind: "ray", weight})
+        .addLockedLine([2, 0], [9, 7], {kind: "line", weight})
+        .addLockedVector([4, -7], [7, -4], {weight, color: "green"})
+        .addLockedEllipse([-5, 5], [1, 1], {weight, color: "blue"})
+        .addLockedPolygon(
+            [
+                [-7.5, -3.5],
+                [-6.5, -2.5],
+                [-5.5, -3.5],
+                [-6.5, -4.5],
+            ],
+            {weight, color: "pink"},
+        )
+        .addLockedFunction("x^2", {weight, color: "red"})
+        .build();
+}
+
 export const LockedFiguresWithThinWeight: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .addLockedPolygon(
-                [
-                    [0.5, 3.5],
-                    [1.5, 4.5],
-                    [2.5, 3.5],
-                    [1.5, 2.5],
-                ],
-                {weight: "thin", color: "pink"},
-            )
-            .build(),
+        question: lockedFiguresQuestionWithWeight("thin"),
     },
 };
 
 export const LockedFiguresWithMediumWeight: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .addLockedPolygon(
-                [
-                    [0.5, 3.5],
-                    [1.5, 4.5],
-                    [2.5, 3.5],
-                    [1.5, 2.5],
-                ],
-                {weight: "medium", color: "pink"},
-            )
-            .build(),
+        question: lockedFiguresQuestionWithWeight("medium"),
     },
 };
 
 export const LockedFiguresWithThickWeight: Story = {
     args: {
-        question: interactiveGraphQuestionBuilder()
-            .addLockedPolygon(
-                [
-                    [0.5, 3.5],
-                    [1.5, 4.5],
-                    [2.5, 3.5],
-                    [1.5, 2.5],
-                ],
-                {weight: "thick", color: "pink"},
-            )
-            .build(),
+        question: lockedFiguresQuestionWithWeight("thick"),
     },
 };
 

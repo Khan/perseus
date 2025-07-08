@@ -7,9 +7,19 @@ import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
 import {Ellipse} from "mafs";
 import * as React from "react";
 
+import {strokeWeights} from "./utils";
+
 const LockedEllipse = (props: LockedEllipseType) => {
-    const {center, radius, angle, color, fillStyle, strokeStyle, ariaLabel} =
-        props;
+    const {
+        center,
+        radius,
+        angle,
+        color,
+        fillStyle,
+        strokeStyle,
+        weight,
+        ariaLabel,
+    } = props;
 
     const hasAria = !!ariaLabel;
 
@@ -27,6 +37,7 @@ const LockedEllipse = (props: LockedEllipseType) => {
                 fillOpacity={lockedFigureFillStyles[fillStyle]}
                 strokeStyle={strokeStyle}
                 color={lockedFigureColors[color]}
+                weight={strokeWeights[weight]}
                 // We need to override the svg props if we want to have a
                 // different fill color than the stroke color (specifically,
                 // in the case where the fillStyle is "white").

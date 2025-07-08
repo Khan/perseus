@@ -830,6 +830,7 @@ export type LockedLineType = {
     lineStyle: LockedLineStyle;
     showPoint1: boolean;
     showPoint2: boolean;
+    weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };
@@ -838,6 +839,7 @@ export type LockedVectorType = {
     type: "vector";
     points: [tail: Coord, tip: Coord];
     color: LockedFigureColor;
+    weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };
@@ -858,6 +860,7 @@ export type LockedEllipseType = {
     color: LockedFigureColor;
     fillStyle: LockedFigureFillType;
     strokeStyle: LockedLineStyle;
+    weight: StrokeWeight;
     labels: LockedLabelType[];
     ariaLabel?: string;
 };
@@ -878,6 +881,7 @@ export type LockedFunctionType = {
     type: "function";
     color: LockedFigureColor;
     strokeStyle: LockedLineStyle;
+    weight: StrokeWeight;
     /**
      * This is the user-defined equation (as it was typed)
      */

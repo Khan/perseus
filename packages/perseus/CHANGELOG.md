@@ -1,5 +1,27 @@
 # @khanacademy/perseus
 
+## 65.6.0
+
+### Minor Changes
+
+-   [#2670](https://github.com/Khan/perseus/pull/2670) [`a4d94900c`](https://github.com/Khan/perseus/commit/a4d94900c360aedfdf3899b866d94aaa8be852b8) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add weight option to locked function and locked function settings
+
+### Patch Changes
+
+-   [#2650](https://github.com/Khan/perseus/pull/2650) [`e67eca0d3`](https://github.com/Khan/perseus/commit/e67eca0d36687bcc5ffa3cd2f67caf169321f184) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add `weight` option to locked line and locked line settings
+
+*   [#2668](https://github.com/Khan/perseus/pull/2668) [`891363ccb`](https://github.com/Khan/perseus/commit/891363ccbde8a645587f6ff3213b33c34ed40764) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add `weight` option to locked vector and locked vector settings
+
+-   [#2669](https://github.com/Khan/perseus/pull/2669) [`8952a578a`](https://github.com/Khan/perseus/commit/8952a578a4826c35238afb30e64f78584a4f267b) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add weight option to locked ellipse and locked ellipse settings
+
+-   Updated dependencies [[`a4d94900c`](https://github.com/Khan/perseus/commit/a4d94900c360aedfdf3899b866d94aaa8be852b8), [`e67eca0d3`](https://github.com/Khan/perseus/commit/e67eca0d36687bcc5ffa3cd2f67caf169321f184), [`891363ccb`](https://github.com/Khan/perseus/commit/891363ccbde8a645587f6ff3213b33c34ed40764), [`8952a578a`](https://github.com/Khan/perseus/commit/8952a578a4826c35238afb30e64f78584a4f267b)]:
+    -   @khanacademy/perseus-core@18.0.0
+    -   @khanacademy/keypad-context@3.0.25
+    -   @khanacademy/kmath@2.0.25
+    -   @khanacademy/math-input@26.0.14
+    -   @khanacademy/perseus-linter@4.0.12
+    -   @khanacademy/perseus-score@7.1.12
+
 ## 65.5.0
 
 ### Minor Changes

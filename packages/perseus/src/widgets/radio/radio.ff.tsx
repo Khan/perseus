@@ -6,8 +6,8 @@ import {
 import * as React from "react";
 import _ from "underscore";
 
+import RadioNew from "./multiple-choice-widget.new";
 import RadioOld from "./radio-component";
-import RadioNew from "./radio.class.new";
 import {getUserInputFromSerializedState} from "./util";
 
 import type {RenderProps} from "./radio-component";

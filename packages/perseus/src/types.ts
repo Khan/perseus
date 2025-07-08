@@ -109,6 +109,8 @@ export type EditorMode = "edit" | "preview" | "json";
 
 export type ChoiceState = {
     selected: boolean;
+    // Deprecated; never implemented
+    // TODO(third): Remove this field when we remove the old Radio files (LEMS-2994)
     highlighted: boolean;
     rationaleShown: boolean;
     correctnessShown: boolean;

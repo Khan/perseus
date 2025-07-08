@@ -35,7 +35,7 @@ exports[`Dropdown widget should snapshot when opened: dropdown open 1`] = `
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_164v2iz-o_O-text_awxjrp"
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
@@ -114,7 +114,7 @@ exports[`Dropdown widget should snapshot: initial render 1`] = `
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_164v2iz-o_O-text_awxjrp"
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_awxjrp"
                 >
                   <div
                     class="perseus-renderer perseus-renderer-responsive"
