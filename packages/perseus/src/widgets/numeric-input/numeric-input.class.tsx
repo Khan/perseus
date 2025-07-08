@@ -8,13 +8,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-inp
 import {NumericInputComponent} from "./numeric-input";
 import {unionAnswerForms} from "./utils";
 
-import type {
-    FocusPath,
-    Focusable,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Focusable, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 import type {
     PerseusNumericInputWidgetOptions,
@@ -117,20 +111,6 @@ export class NumericInput
         // indicate this.
         /* c8 ignore next */
         return [[]];
-    };
-
-    /**
-     * Sets the value of the input at the given path.
-     *
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated set user input in Renderer state
-     */
-    setInputValue: (
-        path: FocusPath,
-        newValue: string,
-        cb?: () => unknown | null | undefined,
-    ) => void = (path, newValue, cb) => {
-        this.props.handleUserInput({currentValue: newValue}, cb);
     };
 
     /**

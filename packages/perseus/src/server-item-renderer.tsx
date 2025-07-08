@@ -296,10 +296,6 @@ export class ServerItemRenderer
         this.questionRenderer._setWidgetProps(widgetId, newProps, callback);
     }
 
-    setInputValue(path: FocusPath, newValue: any, focus: () => void): void {
-        return this.questionRenderer.setInputValue(path, newValue, focus);
-    }
-
     focusPath(path: FocusPath): void {
         return this.questionRenderer.focusPath(path);
     }

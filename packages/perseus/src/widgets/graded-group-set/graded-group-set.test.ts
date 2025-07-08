@@ -189,24 +189,6 @@ describe("graded group set widget", () => {
         `);
     });
 
-    it.skip("should be able to set input value on child widget", () => {
-        // Arrange
-        const {renderer} = renderQuestion(article1);
-        const cb = jest.fn();
-
-        // Act
-        act(() =>
-            renderer.setInputValue(
-                ["graded-group-set 1", "numeric-input 1"],
-                "999",
-                cb,
-            ),
-        );
-
-        // Assert
-        expect(screen.getByRole("textbox")).toHaveValue("999");
-    });
-
     it("should be able to focus the widgets", () => {
         // Arrange
         const {renderer} = renderQuestion(article1);

@@ -385,16 +385,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         return null;
     }
 
-    setInputValue: (arg1: any, arg2: any, arg3: any) => void = (
-        inputPath,
-        value,
-        callback,
-    ) => {
-        if (inputPath.length === 1 && inputPath[0] === "tick-ctrl") {
-            this.onNumDivisionsChange(value, callback);
-        }
-    };
-
     _renderGraphie: () => React.ReactElement = () => {
         // Position variables
         const range = this.props.range;

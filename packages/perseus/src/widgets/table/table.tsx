@@ -182,17 +182,6 @@ class Table extends React.Component<Props> implements Widget {
         return inputPaths;
     }
 
-    setInputValue(path: FocusPath, newValue: string, cb: any): void {
-        // Extract row, column information
-        const typedPath = path as Path;
-        const row = getRowFromPath(typedPath);
-        const column = getColumnFromPath(typedPath);
-
-        const answers = this._getAnswersClone();
-        answers[row][column] = newValue;
-        this.props.handleUserInput(answers, cb);
-    }
-
     /**
      * @deprecated and likely very broken API
      * [LEMS-3185] do not trust serializedState/restoreSerializedState

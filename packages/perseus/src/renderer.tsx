@@ -1743,21 +1743,6 @@ class Renderer
         );
     }
 
-    setInputValue: (
-        path: FocusPath,
-        newValue: string,
-        cb?: () => void,
-    ) => void = (path, newValue, cb) => {
-        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-        const widgetId = _.first(path);
-        // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-        const interWidgetPath = _.rest(path);
-        const widget = this.getWidgetInstance(widgetId);
-
-        // Widget handles parsing of the interWidgetPath.
-        widget?.setInputValue?.(interWidgetPath, newValue, cb);
-    };
-
     /**
      * Returns an array of the widget `.getUserInput()` results
      *

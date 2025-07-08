@@ -252,14 +252,6 @@ export class GradedGroup
         );
     }
 
-    setInputValue: (arg1: any, arg2: any, arg3: any) => any = (
-        path,
-        newValue,
-        cb,
-    ) => {
-        return this.rendererRef.current?.setInputValue(path, newValue, cb);
-    };
-
     focus: () => boolean = () => {
         return !!this.rendererRef.current?.focus();
     };

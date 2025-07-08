@@ -1643,58 +1643,6 @@ describe("renderer", () => {
         });
     });
 
-    describe.skip("setInputValue", () => {
-        it("should set the value on the requested FocusPath", () => {
-            // Arrange
-            const {renderer} = renderQuestion({
-                ...question2,
-                content:
-                    "Input 1: [[☃ mock-widget 1]]\n\n" +
-                    "Input 2: [[☃ mock-widget 2]]",
-                widgets: {
-                    ...question2.widgets,
-                    "mock-widget 2": {
-                        ...question2.widgets["mock-widget 1"],
-                        static: true,
-                    },
-                },
-            });
-            const cb = jest.fn();
-
-            // Act
-            act(() => renderer.setInputValue(["mock-widget 2"], "1000", cb));
-
-            // Assert
-            expect(screen.getAllByRole("textbox")[0]).toHaveValue("");
-            expect(screen.getAllByRole("textbox")[1]).toHaveValue("1000");
-        });
-
-        it("should call the focus callback when value is complete", () => {
-            // Arrange
-            const {renderer} = renderQuestion({
-                ...question2,
-                content:
-                    "Input 1: [[☃ mock-widget 1]]\n\n" +
-                    "Input 2: [[☃ mock-widget 2]]",
-                widgets: {
-                    ...question2.widgets,
-                    "mock-widget 2": {
-                        ...question2.widgets["mock-widget 1"],
-                        static: true,
-                    },
-                },
-            });
-            const cb = jest.fn();
-
-            // Act
-            act(() => renderer.setInputValue(["mock-widget 2"], "1000", cb));
-            act(() => jest.runOnlyPendingTimers());
-
-            // Assert
-            expect(cb).toHaveBeenCalled();
-        });
-    });
-
     describe("getUserInputMap", () => {
         it("should return user input for all rendered widgets", async () => {
             // Arrange

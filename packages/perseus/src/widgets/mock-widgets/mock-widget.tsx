@@ -6,7 +6,7 @@ import * as React from "react";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 
 import type {MockWidgetOptions} from "./mock-widget-types";
-import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
+import type {WidgetProps, Widget, WidgetExports} from "../../types";
 import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
 
@@ -42,19 +42,6 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
     getPromptJSON(): MockWidgetPromptJSON {
         return _getPromptJSON(this.props, this.getUserInput());
     }
-
-    setInputValue: (
-        path: FocusPath,
-        newValue: string,
-        cb?: () => unknown | null | undefined,
-    ) => void = (path, newValue, cb) => {
-        this.props.handleUserInput(
-            {
-                currentValue: newValue,
-            },
-            cb,
-        );
-    };
 
     focus: () => boolean = () => {
         this.inputRef?.focus();

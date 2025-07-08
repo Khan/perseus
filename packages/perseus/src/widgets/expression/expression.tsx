@@ -19,7 +19,7 @@ import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
 import type {DependenciesContext} from "../../dependencies";
-import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
+import type {WidgetProps, Widget, WidgetExports} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {
     PerseusExpressionWidgetOptions,
@@ -279,14 +279,6 @@ export class Expression
         /* c8 ignore next */
         return [[]];
     };
-
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated set user input in a parent component
-     */
-    setInputValue(path: FocusPath, newValue: string, cb?: any) {
-        this.props.handleUserInput(newValue, cb);
-    }
 
     /**
      * @deprecated and likely very broken API

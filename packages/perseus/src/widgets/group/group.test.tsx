@@ -535,23 +535,6 @@ describe("group widget", () => {
         `);
     });
 
-    it.skip("should set value and call callback for input path", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(question1);
-        const cb = jest.fn();
-
-        // Act
-        act(() =>
-            renderer.setInputValue(["group 2", "numeric-input 2"], "2021", cb),
-        );
-
-        // Assert
-        await waitFor(() => {
-            expect(screen.getAllByRole("textbox")[1]).toHaveValue("2021");
-        });
-        expect(cb).toHaveBeenCalled();
-    });
-
     it("handles answerless item data", () => {
         const itemData = getSplitGroupTestItem();
 

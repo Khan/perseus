@@ -192,16 +192,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
         return ReactDOM.findDOMNode(this.refs[inputID]);
     }
 
-    setInputValue: (arg1: any, arg2: any, arg3: any) => void = (
-        inputPath,
-        value,
-        callback,
-    ) => {
-        const row = getRowFromPath(inputPath);
-        const col = getColumnFromPath(inputPath);
-        this.onValueChange(row, col, value, callback);
-    };
-
     handleKeyDown: (arg1: any, arg2: any, arg3: any) => void = (
         row,
         col,

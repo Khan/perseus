@@ -105,17 +105,6 @@ export interface Widget {
      * TODO: remove this when everything is pulling from Renderer state
      * @deprecated get user input from Renderer state
      */
-    setInputValue?: (
-        path: FocusPath,
-        newValue: string,
-        // TODO(jeremy): I think this is actually a callback
-        focus?: () => unknown,
-    ) => void;
-
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
     getUserInputMap?: () => UserInputMap | undefined;
     /**
      * TODO: remove this when everything is pulling from Renderer state

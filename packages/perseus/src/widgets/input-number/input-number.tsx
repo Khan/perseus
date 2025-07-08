@@ -141,21 +141,6 @@ class InputNumber extends React.Component<Props> implements Widget {
         return [[]];
     };
 
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
-    setInputValue: (arg1: Path, arg2: string, arg3: () => void) => void = (
-        path,
-        newValue,
-        cb,
-    ) => {
-        this.props.handleUserInput(
-            {
-                currentValue: newValue,
-            },
-            cb,
-        );
-    };
-
     /**
      * TODO: remove this when everything is pulling from Renderer state
      * @deprecated get user input from Renderer state
