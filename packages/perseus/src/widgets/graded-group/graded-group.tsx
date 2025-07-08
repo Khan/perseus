@@ -39,10 +39,10 @@ import type {
 } from "../../types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 import type {
+    PerseusGradedGroupUserInput,
     PerseusGradedGroupWidgetOptions,
     PerseusRenderer,
     PerseusScore,
-    UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -77,7 +77,7 @@ type RenderProps = PerseusGradedGroupWidgetOptions; // exports has no 'transform
 
 type Props = WidgetProps<
     RenderProps,
-    UserInputMap,
+    PerseusGradedGroupUserInput,
     TrackingGradedGroupExtraArguments
 > & {
     inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,
@@ -109,7 +109,7 @@ type State = {
 // via defaultProps.
 0 as any as WidgetProps<
     PerseusGradedGroupWidgetOptions,
-    UserInputMap,
+    PerseusGradedGroupUserInput,
     undefined
 > satisfies PropsFor<typeof GradedGroup>;
 
@@ -149,6 +149,8 @@ export class GradedGroup
     }
 
     componentDidUpdate(prevProps: Props) {
+        // This is a little strange because the id of the widget that actually
+        // changed is going to be lost in favor of the group widget's id.
         if (!_.isEqual(this.props.userInput, prevProps.userInput)) {
             // Reset grading display when user changes answer
             this.setState({
@@ -157,7 +159,6 @@ export class GradedGroup
             });
 
             if (this.rendererRef.current) {
-                // this.change("widgets", this.props.widgets);
                 const emptyWidgets = this.rendererRef.current.emptyWidgets();
                 const answerable = emptyWidgets.length === 0;
                 const answerBarState = this.state.answerBarState;
@@ -173,29 +174,6 @@ export class GradedGroup
         // eslint-disable-next-line import/no-deprecated
         return Changeable.change.apply(this, args as any);
     };
-
-    // This is a little strange because the id of the widget that actually
-    // changed is going to be lost in favor of the group widget's id. The
-    // widgets prop also wasn't actually changed, and this only serves to
-    // alert our renderer (our parent) of the fact that some interaction
-    // has occurred.
-    // _onInteractWithWidget: (arg1: string) => void = (id) => {
-    //     // Reset grading display when user changes answer
-    //     this.setState({
-    //         status: GRADING_STATUSES.ungraded,
-    //         message: "",
-    //     });
-
-    //     if (this.rendererRef.current) {
-    //         this.change("widgets", this.props.widgets);
-    //         const emptyWidgets = this.rendererRef.current.emptyWidgets();
-    //         const answerable = emptyWidgets.length === 0;
-    //         const answerBarState = this.state.answerBarState;
-    //         this.setState({
-    //             answerBarState: getNextState(answerBarState, answerable),
-    //         });
-    //     }
-    // };
 
     _checkAnswer: () => void = () => {
         const score: PerseusScore = this.rendererRef.current?.score() || {
@@ -536,7 +514,7 @@ const styles = StyleSheet.create({
 function getStartUserInput(
     options: PerseusRenderer,
     problemNum: number,
-): UserInputMap {
+): PerseusGradedGroupUserInput {
     return sharedInitializeUserInput(options.widgets, problemNum);
 }
 

@@ -31,13 +31,13 @@ import type {
 } from "../../types";
 import type {GroupPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 import type {
+    PerseusGroupUserInput,
     PerseusGroupWidgetOptions,
     PerseusRenderer,
-    UserInputMap,
 } from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
-type Props = WidgetProps<RenderProps, UserInputMap>;
+type Props = WidgetProps<RenderProps, PerseusGroupUserInput>;
 type DefaultProps = {
     content: Props["content"];
     widgets: Props["widgets"];
@@ -193,14 +193,14 @@ class Group extends React.Component<Props> implements Widget {
 function getStartUserInput(
     options: PerseusRenderer,
     problemNum: number,
-): UserInputMap {
+): PerseusGroupUserInput {
     return sharedInitializeUserInput(options.widgets, problemNum);
 }
 
 function getUserInputFromSerializedState(
     serializedState: any,
     widgetOptions: any,
-): UserInputMap {
+): PerseusGroupUserInput {
     return sharedRestoreUserInputFromSerializedState(
         serializedState,
         widgetOptions.widgets,

@@ -201,6 +201,15 @@ type DefaultProps = Required<
     >
 >;
 
+/**
+ * We want to be able to reset the question state when we go
+ * from one question to another question. However it's kind of tricky:
+ * 1. Content could be the same
+ * 2. Problem number could be the same
+ * 3. We don't want to reset when going from answerless to answerful data
+ * So compare the prev props to the next props, but use
+ * answerless for both for the comparison
+ */
 function isDifferentQuestion(propsA: Props, propsB: Props): boolean {
     function makeRenderer(
         content: PerseusRenderer["content"],
@@ -484,7 +493,6 @@ class Renderer
         return {
             widgetInfo: allWidgetInfo,
             widgetProps: this._getAllWidgetsStartProps(allWidgetInfo, props),
-            // userInput: this._getAllWidgetsStartUserInput(props),
         };
     };
 
@@ -756,6 +764,7 @@ class Renderer
             serializedState,
             this.props.widgets,
         );
+
         this.setState(
             {
                 widgetProps: restoredWidgetProps,
@@ -1778,7 +1787,6 @@ class Renderer
         const scores = scoreWidgetsFunctional(
             this.state.widgetInfo,
             this.widgetIds,
-            // this.getUserInputMap(),
             this.props.userInput,
             this.context.locale,
         );

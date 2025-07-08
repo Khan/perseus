@@ -154,20 +154,6 @@ describe("group widget", () => {
             },
         );
 
-        // render(
-        //     <RenderStateRoot>
-        //         <Renderer
-        //             content={question1.content}
-        //             images={question1.images}
-        //             widgets={question1.widgets}
-        //             problemNum={0}
-        //             reviewMode={false}
-        //             onInteractWithWidget={onInteractWithWidget}
-        //             strings={mockStrings}
-        //         />
-        //     </RenderStateRoot>,
-        // );
-
         // Act
         await userEvent.type(
             screen.getByRole("textbox", {
