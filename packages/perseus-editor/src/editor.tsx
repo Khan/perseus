@@ -995,21 +995,24 @@ class Editor extends React.Component<Props, State> {
 
             const insertTemplateString = "Insert template\u2026";
             templatesDropDown = (
-                <select onChange={this.addTemplate}>
+                <select
+                    onChange={this.addTemplate}
+                    data-testid="editor__template-select"
+                >
                     <option value="">{insertTemplateString}</option>
                     <option disabled>--</option>
                     <option value="table">Table</option>
                     <option value="titledTable">Titled table</option>
                     <option value="alignment">Aligned equations</option>
                     <option value="piecewise">Piecewise function</option>
+                    {Object.keys(this.props.additionalTemplates).length > 0 && (
+                        <option disabled>--</option>
+                    )}
                     {Object.entries(this.props.additionalTemplates).map(
                         ([key]) => (
-                            <>
-                                <option disabled>--</option>
-                                <option value={key} key={key}>
-                                    {key}
-                                </option>
-                            </>
+                            <option value={key} key={key}>
+                                {key}
+                            </option>
                         ),
                     )}
                     <option disabled>--</option>
