@@ -49,7 +49,7 @@ type Props = {
 export function sharedInitializeUserInput(
     widgetOptions: PerseusWidgetsMap,
     problemNum: number,
-) {
+): UserInputMap {
     const startUserInput: UserInputMap = {};
     entries(widgetOptions).forEach(([id, widgetInfo]) => {
         const widgetExports = Widgets.getWidgetExport(widgetInfo.type);
@@ -66,6 +66,35 @@ export function sharedInitializeUserInput(
     });
 
     return startUserInput;
+}
+
+// TODO(LEMS-3185): remove serializedState/restoreSerializedState
+/**
+ * Restore user input from serialized state. It's tricky
+ * because there is no definite type for serialized state,
+ * so widgets need to handle it themselves and overall the process
+ * is very fragile.
+ *
+ * @deprecated - do not use in new code.
+ */
+export function sharedRestoreUserInputFromSerializedState(
+    serializedState: any,
+    widgetOptions: PerseusWidgetsMap,
+): UserInputMap {
+    const restoredUserInput: UserInputMap = {};
+    Object.entries(serializedState).forEach(([widgetId, props]) => {
+        const widgetType = getWidgetTypeByWidgetId(widgetId, widgetOptions);
+        const widgetExport = Widgets.getWidgetExport(widgetType as string);
+
+        if (widgetExport?.getUserInputFromSerializedState) {
+            const restoreResult = widgetExport.getUserInputFromSerializedState(
+                props,
+                widgetOptions[widgetId].options,
+            );
+            restoredUserInput[widgetId] = restoreResult;
+        }
+    });
+    return restoredUserInput;
 }
 
 export default function UserInputManager(props: Props) {
@@ -115,18 +144,12 @@ export default function UserInputManager(props: Props) {
         serializedState: any,
         widgetOptions: PerseusWidgetsMap,
     ) {
-        const restoredUserInput = {};
-        Object.entries(serializedState).forEach(([widgetId, props]) => {
-            const widgetType = getWidgetTypeByWidgetId(widgetId, widgetOptions);
-            const widgetExport = Widgets.getWidgetExport(widgetType as string);
-
-            if (widgetExport?.getUserInputFromSerializedState) {
-                const restoreResult =
-                    widgetExport.getUserInputFromSerializedState(props);
-                restoredUserInput[widgetId] = restoreResult;
-            }
-        });
-        setUserInput(restoredUserInput);
+        setUserInput(
+            sharedRestoreUserInputFromSerializedState(
+                serializedState,
+                widgetOptions,
+            ),
+        );
     }
 
     if (!initialized) {

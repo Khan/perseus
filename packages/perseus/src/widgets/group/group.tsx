@@ -15,7 +15,10 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
-import {sharedInitializeUserInput} from "../../user-input-manager";
+import {
+    sharedInitializeUserInput,
+    sharedRestoreUserInputFromSerializedState,
+} from "../../user-input-manager";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 
 import type {
@@ -211,6 +214,16 @@ function getStartUserInput(options: PerseusRenderer, problemNum: number) {
     return sharedInitializeUserInput(options.widgets, problemNum);
 }
 
+function getUserInputFromSerializedState(
+    serializedState: any,
+    widgetOptions: any,
+): UserInputMap {
+    return sharedRestoreUserInputFromSerializedState(
+        serializedState,
+        widgetOptions.widgets,
+    );
+}
+
 export default {
     name: "group",
     displayName: "Group (SAT only)",
@@ -218,4 +231,5 @@ export default {
     hidden: true,
     isLintable: true,
     getStartUserInput,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Group>;

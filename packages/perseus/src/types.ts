@@ -546,7 +546,10 @@ export type WidgetExports<
     /**
      * @deprecated - do not use in new code.
      */
-    getUserInputFromSerializedState?: (props: any) => TUserInput;
+    getUserInputFromSerializedState?: (
+        props: any,
+        widgetOptions: any,
+    ) => TUserInput;
 
     getCorrectUserInput?: (widgetOptions: any) => TUserInput;
 
