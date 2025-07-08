@@ -20,9 +20,9 @@ const {getAngleFromVertex} = angles;
 interface PolygonAngleProps {
     centerPoint: vec.Vector2;
     endPoints: [vec.Vector2, vec.Vector2];
+    areEndPointsClockwise: boolean;
     showAngles: boolean;
     snapTo: SnapTo;
-    areClockwise: boolean;
 }
 
 export const PolygonAngle = ({
@@ -30,10 +30,10 @@ export const PolygonAngle = ({
     endPoints,
     showAngles,
     snapTo,
-    areClockwise,
+    areEndPointsClockwise,
 }: PolygonAngleProps) => {
     const [centerX, centerY] = centerPoint;
-    const [[startX, startY], [endX, endY]] = areClockwise
+    const [[startX, startY], [endX, endY]] = areEndPointsClockwise
         ? endPoints
         : endPoints.reverse(); // Make endpoints always clockwise
 

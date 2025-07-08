@@ -252,9 +252,9 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         key={"angle-" + i}
                         centerPoint={point}
                         endPoints={[pt1, pt2]}
+                        areEndPointsClockwise={clockwise(points)}
                         showAngles={!!showAngles}
                         snapTo={snapTo}
-                        areClockwise={clockwise(points)}
                     />
                 );
             })}
