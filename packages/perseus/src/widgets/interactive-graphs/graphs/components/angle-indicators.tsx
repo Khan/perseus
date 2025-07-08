@@ -20,8 +20,7 @@ const {getAngleFromVertex} = angles;
 interface PolygonAngleProps {
     centerPoint: vec.Vector2;
     endPoints: [vec.Vector2, vec.Vector2];
-    polygonLines: readonly CollinearTuple[];
-    range: [Interval, Interval];
+    areEndPointsClockwise: boolean;
     showAngles: boolean;
     snapTo: SnapTo;
 }
@@ -29,16 +28,14 @@ interface PolygonAngleProps {
 export const PolygonAngle = ({
     centerPoint,
     endPoints,
-    range,
-    polygonLines,
     showAngles,
     snapTo,
+    areEndPointsClockwise,
 }: PolygonAngleProps) => {
     const [centerX, centerY] = centerPoint;
-    const areClockwise = clockwise([centerPoint, ...endPoints]);
-    const [[startX, startY], [endX, endY]] = areClockwise
+    const [[startX, startY], [endX, endY]] = areEndPointsClockwise
         ? endPoints
-        : endPoints.reverse();
+        : endPoints.reverse(); // Make endpoints always clockwise
 
     const radius = 0.3;
 
@@ -80,13 +77,8 @@ export const PolygonAngle = ({
         ) : null;
     }
 
-    // Midpoint betwen ends of arc
-    const isOutside = shouldDrawArcOutside(
-        [x3, y3],
-        centerPoint,
-        range,
-        polygonLines,
-    );
+    // Note: Need to pass in endpoints in a clockwise order for the cross product.
+    const isOutside = shouldDrawArcOutsidePolygon(centerPoint, endPoints);
 
     const largeArcFlag = isOutside ? 1 : 0;
     const sweepFlag = isOutside ? 1 : 0;
@@ -363,6 +355,27 @@ export const shouldDrawArcOutside = (
 };
 
 const isEven = (n: number) => n % 2 === 0;
+
+/**
+ * Determines if an angle is an convex (false) or concave (true) angle.
+ * Uses the cross product to determine if the angle is outside the polygon.
+ * If the cross product is positive for a clockwise angle, the angle is concave.
+ * NOTE: This always has to take in clockwise endpoints. It cannot determine
+ * if the endpoints are clockwise itself - this has to be checked by the
+ * caller. This is because of edge cases involving concave polygons.
+ */
+export function shouldDrawArcOutsidePolygon(
+    centerPoint: vec.Vector2,
+    clockwiseEndpoints: [vec.Vector2, vec.Vector2],
+) {
+    // Use cross product to determine if the angle is outside the polygon.
+    // If the vertex is concave, the cross product will be positive with
+    // the assumed clockwise points.
+    const v1 = vec.sub(clockwiseEndpoints[1], centerPoint);
+    const v2 = vec.sub(clockwiseEndpoints[0], centerPoint);
+    const crossProduct = v1[0] * v2[1] - v1[1] * v2[0];
+    return crossProduct > 0;
+}
 
 // This function calculates the bisector point of an angle formed by two points
 // and a vertex. It is used to position the angle label so that it is always
