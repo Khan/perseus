@@ -15,7 +15,6 @@ import {
     phoneMargin,
     negativePhoneMargin,
 } from "../../styles/constants";
-import UserInputManager from "../../user-input-manager";
 import a11y from "../../util/a11y";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import {GradedGroup} from "../graded-group/graded-group";
@@ -219,41 +218,22 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
                         }
                     />
                 </div>
-
-                <UserInputManager
-                    widgets={currentGroup.widgets}
-                    problemNum={this.state.currentGroup}
-                >
-                    {({userInput, handleUserInput}) => {
-                        return (
-                            <>
-                                {/* TODO(jeremy): Don't spread this.props, instead
-                                    pass in all props GradedGroup needs explicitly */}
-                                {/* @ts-expect-error - TS2769 - No overload matches this call. */}
-                                <GradedGroup
-                                    key={this.state.currentGroup}
-                                    // @ts-expect-error - TS2322 - Type 'GradedGroup | null' is not assignable to type 'GradedGroup'.
-                                    //  Type 'null' is not assignable to type 'GradedGroup'.
-                                    ref={(comp) => (this._childGroup = comp)}
-                                    // We should pass in the set of props explicitly
-                                    {...this.props}
-                                    {...currentGroup}
-                                    inGradedGroupSet={true}
-                                    title={null}
-                                    onNextQuestion={handleNextQuestion}
-                                    linterContext={this.props.linterContext}
-                                    userInput={userInput}
-                                    handleUserInput={(nextUserInput) => {
-                                        handleUserInput(
-                                            this.props.widgetId,
-                                            nextUserInput,
-                                        );
-                                    }}
-                                />
-                            </>
-                        );
-                    }}
-                </UserInputManager>
+                {/* TODO(jeremy): Don't spread this.props, instead
+                    pass in all props GradedGroup needs explicitly */}
+                {/* @ts-expect-error - TS2769 - No overload matches this call. */}
+                <GradedGroup
+                    key={this.state.currentGroup}
+                    // @ts-expect-error - TS2322 - Type 'GradedGroup | null' is not assignable to type 'GradedGroup'.
+                    //  Type 'null' is not assignable to type 'GradedGroup'.
+                    ref={(comp) => (this._childGroup = comp)}
+                    // We should pass in the set of props explicitly
+                    {...this.props}
+                    {...currentGroup}
+                    inGradedGroupSet={true}
+                    title={null}
+                    onNextQuestion={handleNextQuestion}
+                    linterContext={this.props.linterContext}
+                />
             </div>
         );
     }
