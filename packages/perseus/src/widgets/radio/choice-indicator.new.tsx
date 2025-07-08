@@ -4,7 +4,7 @@ import minusIcon from "@phosphor-icons/core/bold/minus-circle-bold.svg";
 import * as React from "react";
 import {useState} from "react";
 
-import styles from "./multiple-choice-indicator.module.css";
+import styles from "./choice-indicator.module.css";
 
 export type IndicatorProps = {
     checked: boolean;

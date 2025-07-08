@@ -11,7 +11,9 @@
     outline: 0 solid var(--wb-semanticColor-core-background-instructive-default);
     outline-offset: 0;
     padding: 0;
-    width: var(--wb-c-button-root-sizing-height-small); /* using the height value ensures a square/circle */
+    width: var(
+        --wb-c-button-root-sizing-height-small
+    ); /* using the height value ensures a square/circle */
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -26,13 +28,17 @@
     outline-width: 0.2rem;
 }
 
-.base[aria-pressed="true"] { /* button is checked */
-    background-color: var(--wb-semanticColor-core-background-instructive-default);
+/* button is checked */
+.base[aria-pressed="true"] {
+    background-color: var(
+        --wb-semanticColor-core-background-instructive-default
+    );
     border-width: 0;
     color: var(--wb-semanticColor-core-foreground-inverse-strong);
 }
 
-.base [role="img"] { /* icon inside the button when showing correctness */
+/* icon inside the button when showing correctness */
+.base [role="img"] {
     margin-inline-end: 0.4rem;
 }
 
@@ -46,16 +52,23 @@
     outline: none;
 }
 
-.is-correct[aria-pressed="false"] { /* make an unchecked indicator solid so that it better matches styling for the option when correct */
-    background-color: var(--wb-semanticColor-core-background-instructive-default);
+.is-correct[aria-pressed="false"] {
+    /* make an unchecked indicator solid so that it better matches styling for the option when correct */
+    background-color: var(
+        --wb-semanticColor-core-background-instructive-default
+    );
     border-width: 0;
     color: var(--wb-semanticColor-core-foreground-inverse-strong);
 }
 
 .is-correct[aria-pressed="true"] {
     background-color: var(--wb-semanticColor-core-background-success-strong);
-    color: var(--wb-semanticColor-action-primary-progressive-default-foreground);
-    width: calc(1.8rem + var(--wb-c-button-root-sizing-height-small)); /* account for the checkmark icon */
+    color: var(
+        --wb-semanticColor-action-primary-progressive-default-foreground
+    );
+    width: calc(
+        1.8rem + var(--wb-c-button-root-sizing-height-small)
+    ); /* adding 1.8rem accounts for the checkmark icon */
 }
 
 .is-wrong[aria-pressed="false"] {
@@ -67,10 +80,12 @@
 .is-wrong[aria-pressed="true"] {
     background-color: var(--wb-semanticColor-core-background-critical-subtle);
     color: var(--wb-semanticColor-core-foreground-critical-default);
-    width: calc(1.8rem + var(--wb-c-button-root-sizing-height-small)); /* account for the minus-circle icon */
+    width: calc(
+        1.8rem + var(--wb-c-button-root-sizing-height-small)
+    ); /* adding 1.8rem accounts for the minus-circle icon */
 }
 
-.circle-shape{
+.circle-shape {
     /* Extremely large border radii cause an overlap situation,
            resulting in a recalculation to the smallest radius that doesn't cause overlap,
            and applying the reduction proportionally across all radii.

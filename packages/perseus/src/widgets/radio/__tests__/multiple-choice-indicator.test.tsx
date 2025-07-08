@@ -3,7 +3,7 @@ import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
-import Indicator from "../multiple-choice-indicator";
+import Indicator from "../choice-indicator.new";
 
 describe("Multiple choice indicator", () => {
     let iconMock: jest.SpyInstance;

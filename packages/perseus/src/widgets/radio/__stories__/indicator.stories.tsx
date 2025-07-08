@@ -1,7 +1,7 @@
 import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
-import Indicator from "../multiple-choice-indicator";
+import Indicator from "../choice-indicator.new";
 
 const Container = (props: {children: React.ReactNode}): React.ReactElement => {
     return (
