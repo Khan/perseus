@@ -5,7 +5,7 @@ import SimpleKeypadInput from "../../components/simple-keypad-input";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/Simple Keypad Input",
+    title: "Components/Simple Keypad Input",
     component: SimpleKeypadInput,
     args: {
         onChange: action("onChange"),

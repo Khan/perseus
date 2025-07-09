@@ -20,7 +20,7 @@ const Container = (Story) => {
 };
 
 const meta: Meta = {
-    title: "Perseus/Components/Lint",
+    title: "Components/Lint",
     component: Lint,
     decorators: [Container],
     args: {

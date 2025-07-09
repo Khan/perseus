@@ -29,7 +29,7 @@ type StoryArgs = {
 const defaultApiOptions = ApiOptions.defaults;
 
 const meta: Meta<StoryArgs> = {
-    title: "Perseus/Widgets/Interactive Graph/Widget States Gallery",
+    title: "Widgets/Interactive Graph/Widget States Gallery",
     component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs"],
     parameters: {

@@ -4,10 +4,10 @@ import {ApiOptions} from "../../../perseus-api";
 
 import {angleQuestion} from "../../../widgets/interactive-graphs/interactive-graph.testdata";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {StoryObj} from "@storybook/react-vite";
 
 export default {
-    title: "Perseus/Widgets/Interactive Graph",
+    title: "Widgets/Interactive Graph",
     component: ServerItemRendererWithDebugUI,
     tags: ["autodocs", "!dev"],
     parameters: {

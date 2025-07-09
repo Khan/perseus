@@ -8,7 +8,7 @@ import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widge
 registerAllWidgetsAndEditorsForTesting();
 
 export default {
-    title: "Perseus/Editors/ArticleEditor",
+    title: "Editors/ArticleEditor",
 };
 
 export const Base = (): React.ReactElement => {

@@ -10,7 +10,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const defaultApiOptions = ApiOptions.defaults;
 
 const meta: Meta<typeof HintsRenderer> = {
-    title: "Perseus/Renderers/Hints Renderer",
+    title: "Renderers/Hints Renderer",
     component: HintsRenderer,
     decorators: [
         (Story) => {

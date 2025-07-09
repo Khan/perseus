@@ -9,7 +9,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 type Story = StoryObj<typeof ScrollableView>;
 
 const meta: Meta<typeof ScrollableView> = {
-    title: "Perseus/Components/ScrollableView",
+    title: "Components/ScrollableView",
     component: ScrollableView,
     parameters: {
         docs: {

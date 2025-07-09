@@ -8,7 +8,7 @@ const svgUrl = "http://www.khanacademy.org/images/ohnoes-concerned.svg";
 const imgUrl = "https://www.khanacademy.org/images/hand-tree.new.png";
 
 const meta: Meta = {
-    title: "Perseus/Components/Image Loader",
+    title: "Components/Image Loader",
     component: ImageLoader,
     args: {
         preloader: null,

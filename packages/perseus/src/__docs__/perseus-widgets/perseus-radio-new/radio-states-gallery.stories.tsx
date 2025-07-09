@@ -17,7 +17,7 @@ import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
 export default {
-    title: "Perseus/Widgets/RadioNew/Widget States Gallery",
+    title: "Widgets/RadioNew/Widget States Gallery",
     component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs"],
     parameters: {

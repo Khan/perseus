@@ -5,7 +5,7 @@ import RangeInput from "../../components/range-input";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/Range Input",
+    title: "Components/Range Input",
     component: RangeInput,
     args: {
         value: [],

@@ -9,7 +9,7 @@ import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 
 export default {
-    title: "Perseus/Widgets/RadioNew",
+    title: "Widgets/RadioNew",
     component: ServerItemRendererWithDebugUI,
     tags: ["autodocs", "!dev"],
     parameters: {

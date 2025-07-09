@@ -34,7 +34,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const defaultApiOptions = ApiOptions.defaults;
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Interactive Graph/Widget Demo",
+    title: "Widgets/Interactive Graph/Widget Demo",
     component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs"],
 };

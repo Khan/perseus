@@ -16,7 +16,7 @@ type StoryArgs = StoryObj<RadioEditor>;
 type Story = Meta<RadioEditor>;
 
 export default {
-    title: "Perseus/Widgets/RadioNew/Editor Demo",
+    title: "Widgets/RadioNew/Editor Demo",
     tags: ["!autodocs"],
 } as Story;
 

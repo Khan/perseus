@@ -5,7 +5,7 @@ import InfoTip from "../../components/info-tip";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/Info Tip",
+    title: "Components/Info Tip",
     component: InfoTip,
 };
 export default meta;

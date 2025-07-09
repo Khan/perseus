@@ -17,10 +17,10 @@ import {ServerItemRenderer} from "../../server-item-renderer";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Renderers/Server Item Renderer",
+    title: "Renderers/Server Item Renderer",
     component: ServerItemRendererWithDebugUI,
     args: {
-        title: "Server Item Renderer",
+        title: "Renderers/Server Item Renderer",
     },
 };
 export default meta;

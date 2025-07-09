@@ -3,7 +3,7 @@ import Sortable from "../../components/sortable";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/Sortable",
+    title: "Components/Sortable",
     component: Sortable,
     args: {
         options: ["Option 1", "Option 2", "Option 3"],

@@ -5,7 +5,7 @@ import MathInput from "../../components/math-input";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/Math Input",
+    title: "Components/Math Input",
     component: MathInput,
     args: {
         keypadButtonSets: {

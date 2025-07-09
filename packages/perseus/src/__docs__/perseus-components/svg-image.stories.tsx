@@ -3,7 +3,7 @@ import SvgImage from "../../components/svg-image";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/SVG Image",
+    title: "Components/SVG Image",
     component: SvgImage,
     args: {alt: "ALT"},
 };

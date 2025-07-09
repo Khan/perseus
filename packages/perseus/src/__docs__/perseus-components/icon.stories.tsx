@@ -6,7 +6,7 @@ import type {StoryObj, Meta} from "@storybook/react-vite";
 type Story = StoryObj<typeof IconComponent>;
 
 const meta: Meta = {
-    title: "Perseus/Components/Icon",
+    title: "Components/Icon",
     component: IconComponent,
     args: {
         color: "#808",

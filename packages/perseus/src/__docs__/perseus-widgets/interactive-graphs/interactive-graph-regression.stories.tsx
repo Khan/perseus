@@ -18,7 +18,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 type Story = StoryObj<typeof MafsQuestionRenderer>;
 
 const meta: Meta<typeof MafsQuestionRenderer> = {
-    title: "Perseus/Widgets/Interactive Graph/Regression Test",
+    title: "Widgets/Interactive Graph/Regression Test",
     component: MafsQuestionRenderer,
     tags: ["!autodocs"],
     parameters: {

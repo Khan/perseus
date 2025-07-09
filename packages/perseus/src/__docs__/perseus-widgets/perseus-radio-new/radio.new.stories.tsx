@@ -37,7 +37,7 @@ type StoryArgs = {
  */
 
 export default {
-    title: "Perseus/Widgets/RadioNew/Widget Demo",
+    title: "Widgets/RadioNew/Widget Demo",
     args: {
         static: false,
         // Requires a page refresh for toggling this to affect the story

@@ -12,7 +12,7 @@ import {
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Renderers/Article Renderer",
+    title: "Renderers/Article Renderer",
     component: ArticleRendererWithDebugUI,
     argTypes: {
         useNewStyles: {

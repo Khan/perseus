@@ -18,7 +18,7 @@ const sizeLarge = 1024;
 const width = 1024;
 
 export default {
-    title: "Perseus/Components/Fixed to Responsive",
+    title: "Components/Fixed to Responsive",
 } as Story;
 
 export const SmallImageWithSmallContainer = (

@@ -3,7 +3,7 @@ import TeX from "../../components/tex";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/Tex",
+    title: "Components/Tex",
     component: TeX,
     args: {
         children: "f(x) = x + 1",

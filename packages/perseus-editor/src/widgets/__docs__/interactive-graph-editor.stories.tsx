@@ -37,7 +37,7 @@ import EditorPage from "../../editor-page";
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
 export default {
-    title: "Perseus/Widgets/Interactive Graph/Editor Demo",
+    title: "Widgets/Interactive Graph/Editor Demo",
     tags: ["!autodocs"],
 };
 

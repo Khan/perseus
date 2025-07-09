@@ -20,7 +20,7 @@ const computeChildBounds = (
 };
 
 const meta: Meta = {
-    title: "Perseus/Components/Zoomable",
+    title: "Components/Zoomable",
     component: Zoomable,
     args: {
         computeChildBounds,

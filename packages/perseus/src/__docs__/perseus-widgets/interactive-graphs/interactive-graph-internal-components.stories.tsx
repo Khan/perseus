@@ -5,7 +5,7 @@ import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-it
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Interactive Graph/Widget Internal Components",
+    title: "Widgets/Interactive Graph/Widget Internal Components",
     component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs"],
     parameters: {

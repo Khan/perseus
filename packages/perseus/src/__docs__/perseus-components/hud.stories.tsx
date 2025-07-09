@@ -7,7 +7,7 @@ import type {StoryObj, Meta} from "@storybook/react-vite";
 type Story = StoryObj<typeof Hud>;
 
 const meta: Meta = {
-    title: "Perseus/Components/HUD",
+    title: "Components/HUD",
     component: Hud,
     args: {
         enabled: true,

@@ -3,7 +3,7 @@ import * as React from "react";
 import type {Meta} from "@storybook/react-vite";
 
 export default {
-    title: "Perseus/Widgets/RadioNew/Widget Internal Components",
+    title: "Widgets/RadioNew/Widget Internal Components",
     tags: ["!autodocs"],
     parameters: {
         viewMode: "docs",

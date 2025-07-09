@@ -5,7 +5,7 @@ import ZoomableTex from "../../components/zoomable-tex";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/Zoomable Tex",
+    title: "Components/Zoomable Tex",
     component: ZoomableTex,
     decorators: [
         function ForceZoomWrapper(Story) {

@@ -7,7 +7,7 @@ import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
 export default {
-    title: "Perseus/Editors/EditorPage",
+    title: "Editors/EditorPage",
 };
 
 export const Demo = (): React.ReactElement => {

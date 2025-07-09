@@ -5,7 +5,7 @@ import StubTagEditor from "../../components/stub-tag-editor";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/Stub Tag Editor",
+    title: "Components/Stub Tag Editor",
     component: StubTagEditor,
     args: {
         value: [],

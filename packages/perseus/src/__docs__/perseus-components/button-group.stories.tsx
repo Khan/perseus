@@ -9,7 +9,7 @@ type StoryArgs = StoryObj<ButtonGroup>;
 type Story = Meta<ButtonGroup>;
 
 export default {
-    title: "Perseus/Components/Button Group",
+    title: "Components/Button Group",
 } as Story;
 
 const HarnassedButtonGroup = (

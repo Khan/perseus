@@ -4,7 +4,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof TexErrorView> = {
     component: TexErrorView,
-    title: "Perseus/Editors/TexErrorView",
+    title: "Editors/TexErrorView",
 };
 
 export default meta;

@@ -5,7 +5,7 @@ import TextInput from "../../components/text-input";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/Text Input",
+    title: "Components/Text Input",
     component: TextInput,
     args: {
         onChange: action("onChange"),

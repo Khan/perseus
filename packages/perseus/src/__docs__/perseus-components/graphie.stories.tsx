@@ -11,7 +11,7 @@ type Story = StoryObj<typeof Graphie>;
 const size = 200;
 
 const meta: Meta = {
-    title: "Perseus/Components/Graphie",
+    title: "Components/Graphie",
     component: Graphie,
     args: {
         box: [size, size],

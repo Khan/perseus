@@ -6,7 +6,7 @@ import TextListEditor from "../../components/text-list-editor";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/Text List Editor",
+    title: "Components/Text List Editor",
     component: TextListEditor,
     args: {
         options: ["Test option 1", "Test option 2", "Test option 3"],

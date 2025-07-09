@@ -6,7 +6,7 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/Muli-Button Group",
+    title: "Components/Muli-Button Group",
     component: MultiButtonGroup,
     args: {
         allowEmpty: true,

@@ -35,7 +35,7 @@ const PreviewWrapper = (props) => {
 };
 
 const meta: Meta<typeof ContentPreview> = {
-    title: "Perseus/Editors/Content Preview",
+    title: "Editors/Content Preview",
     component: ContentPreview,
     decorators: [
         (Story) => (

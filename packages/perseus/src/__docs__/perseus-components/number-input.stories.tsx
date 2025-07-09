@@ -5,7 +5,7 @@ import NumberInput from "../../components/number-input";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/Number Input",
+    title: "Components/Number Input",
     component: NumberInput,
     args: {
         onChange: action("onChange"),
