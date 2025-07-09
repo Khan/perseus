@@ -2,6 +2,7 @@
 import {
     usesNumCorrect,
     type PerseusRadioWidgetOptions,
+    generateChoiceId,
 } from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
@@ -364,15 +365,20 @@ const BaseRadio = function ({
                         };
                     }
 
-                    // TODO(mattdr): Index isn't a *good* choice of key
-                    // here; is there a better one? Can we use choice
-                    // content somehow? Would changing our choice of key
-                    // somehow break something happening inside a choice's
-                    // child Renderers, by changing when we mount/unmount?
+                    // TODO(mattdr): Using content and index provides a more
+                    // stable key than just index, ensuring proper React
+                    // reconciliation even when choice.id isn't available yet.
+
+                    // Generate a stable key for React reconciliation
+                    const choiceKey = choice.id || generateChoiceId(
+                        choice.content?.toString() || "",
+                        i,
+                    );
+
                     return (
                         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
                         <li
-                            key={choice.id || i}
+                            key={choiceKey}
                             ref={(e) => (listElem = e)}
                             className={className}
                             onClick={clickHandler}

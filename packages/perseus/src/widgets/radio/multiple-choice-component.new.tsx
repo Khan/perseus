@@ -1,5 +1,8 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {type PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
+import {
+    type PerseusRadioWidgetOptions,
+    generateChoiceId,
+} from "@khanacademy/perseus-core";
 import classNames from "classnames";
 import * as React from "react";
 import {useRef, useEffect} from "react";
@@ -251,10 +254,17 @@ const MultipleChoiceComponent = ({
                         // content somehow? Would changing our choice of key
                         // somehow break something happening inside a choice's
                         // child Renderers, by changing when we mount/unmount?
+
+                        // Generate a stable key for React reconciliation
+                        const choiceKey = choice.id || generateChoiceId(
+                            choice.content?.toString() || "",
+                            i,
+                        );
+
                         return (
                             // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
                             <li
-                                key={choice.id || i}
+                                key={choiceKey}
                                 ref={(e) => (listElem = e)}
                                 className={className}
                                 onClick={clickHandler}
