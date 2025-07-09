@@ -1,5 +1,5 @@
-import * as React from "react";
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
+import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {
@@ -12,9 +12,9 @@ import {
 
 import styles from "./radio-states-gallery.module.css";
 
-import type {Meta} from "@storybook/react-vite";
 import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
+import type {Meta} from "@storybook/react-vite";
 
 export default {
     title: "Widgets/RadioNew/Widget States Gallery",

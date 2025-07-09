@@ -1,7 +1,7 @@
+import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-
+import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {
     questionWithPassage,
     choicesWithImages,
@@ -11,7 +11,6 @@ import {
     SingleSelectOverflowContent,
     SingleSelectOverflowImageContent,
 } from "../__tests__/radio.testdata";
-import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";

@@ -1,12 +1,12 @@
-import * as React from "react";
-import {StoryObj} from "@storybook/react-vite";
-
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-import {questionWithPassage} from "../__tests__/radio.testdata";
+import * as React from "react";
+
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {questionWithPassage} from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
+import type {StoryObj} from "@storybook/react-vite";
 
 export default {
     title: "Widgets/RadioNew",
