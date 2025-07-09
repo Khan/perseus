@@ -182,7 +182,6 @@ export default {
     widget: NumericInput,
     transform: propsTransform,
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
     getOneCorrectAnswerFromRubric(
         rubric: PerseusNumericInputRubric,
     ): string | null | undefined {

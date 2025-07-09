@@ -21,8 +21,7 @@ export type HandleUserInputCallback = (
     userInput: UserInputMap[keyof UserInputMap],
 ) => void;
 
-type WrapperPayload = {
-    initialized: boolean;
+type UserInputManagerPayload = {
     userInput: UserInputMap;
     handleUserInput: HandleUserInputCallback;
     initializeUserInput: InitializeUserInputCallback;
@@ -36,7 +35,7 @@ type WrapperPayload = {
 type Props = {
     widgets: PerseusWidgetsMap;
     problemNum: number;
-    children: (payload: WrapperPayload) => JSX.Element | null;
+    children: (payload: UserInputManagerPayload) => JSX.Element | null;
 };
 
 /**
@@ -158,7 +157,6 @@ export default function UserInputManager(props: Props) {
     }
 
     return props.children({
-        initialized,
         userInput,
         handleUserInput,
         initializeUserInput,

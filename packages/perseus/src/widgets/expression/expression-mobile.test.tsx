@@ -81,7 +81,6 @@ function ConnectedRenderer({item = expressionItem2}) {
 
 describe("expression mobile", () => {
     beforeAll(() => {
-        // TODO(LEMS-2656): remove TS suppression
         registerWidget("expression", ExpressionExport);
     });
 

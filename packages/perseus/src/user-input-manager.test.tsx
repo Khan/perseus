@@ -19,7 +19,7 @@ function generateNumberLineMap(): PerseusWidgetsMap {
         "number-line 1": {
             type: "number-line",
             options: {
-                isInequality: true, // <= important
+                isInequality: true,
                 labelRange: [null, null],
                 initialX: null,
                 tickStep: 1,
