@@ -1,5 +1,11 @@
 # @khanacademy/simple-markdown
 
+## 2.0.10
+
+### Patch Changes
+
+-   [#2672](https://github.com/Khan/perseus/pull/2672) [`c44219a98`](https://github.com/Khan/perseus/commit/c44219a98fdbb8128c614419439c83b6cf33f79e) Thanks [@benchristel](https://github.com/benchristel)! - Update peer dependency versions
+
 ## 2.0.9
 
 ### Patch Changes

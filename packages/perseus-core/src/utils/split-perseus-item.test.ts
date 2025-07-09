@@ -570,14 +570,11 @@ describe("splitPerseusItemJSON", () => {
             hints: [],
             answerArea: {
                 calculator: false,
-                chi2Table: false,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
                 periodicTable: false,
                 periodicTableWithKey: false,
-                tTable: false,
-                zTable: false,
             },
         };
     }

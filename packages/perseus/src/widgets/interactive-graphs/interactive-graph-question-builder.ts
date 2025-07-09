@@ -19,12 +19,14 @@ import type {
     MarkingsType,
     PerseusGraphType,
     PerseusRenderer,
+    StrokeWeight,
 } from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
 export type LockedFunctionOptions = {
     color?: LockedFigureColor;
     strokeStyle?: LockedLineStyle;
+    weight?: StrokeWeight;
     directionalAxis?: "x" | "y";
     domain?: [min: number, max: number];
     labels?: LockedFigureLabelOptions[];
@@ -322,6 +324,7 @@ class InteractiveGraphQuestionBuilder {
             filled?: [boolean, boolean];
             showPoint1?: boolean;
             showPoint2?: boolean;
+            weight?: StrokeWeight;
             labels?: LockedFigureLabelOptions[];
             ariaLabel?: string;
         },
@@ -333,6 +336,7 @@ class InteractiveGraphQuestionBuilder {
             showPoint2: options?.showPoint2 ?? false,
             color: options?.color ?? "grayH",
             lineStyle: options?.lineStyle ?? "solid",
+            weight: options?.weight ?? "medium",
             labels:
                 options?.labels?.map((label) => ({
                     type: "label",
@@ -367,6 +371,7 @@ class InteractiveGraphQuestionBuilder {
         options?: {
             color?: LockedFigureColor;
             labels?: LockedFigureLabelOptions[];
+            weight?: StrokeWeight;
             ariaLabel?: string;
         },
     ): InteractiveGraphQuestionBuilder {
@@ -374,6 +379,7 @@ class InteractiveGraphQuestionBuilder {
             type: "vector",
             color: options?.color ?? "grayH",
             points: [tail, tip],
+            weight: options?.weight ?? "medium",
             labels:
                 options?.labels?.map((label) => ({
                     type: "label",
@@ -396,6 +402,7 @@ class InteractiveGraphQuestionBuilder {
             color?: LockedFigureColor;
             fillStyle?: LockedFigureFillType;
             strokeStyle?: "solid" | "dashed";
+            weight?: StrokeWeight;
             labels?: LockedFigureLabelOptions[];
             ariaLabel?: string;
         },
@@ -408,6 +415,7 @@ class InteractiveGraphQuestionBuilder {
             color: "grayH",
             fillStyle: "none",
             strokeStyle: "solid",
+            weight: options?.weight ?? "medium",
             ...options,
             labels:
                 options?.labels?.map((label) => ({
@@ -430,7 +438,8 @@ class InteractiveGraphQuestionBuilder {
             color?: LockedFigureColor;
             showVertices?: boolean;
             fillStyle?: LockedFigureFillType;
-            strokeStyle?: "solid" | "dashed";
+            strokeStyle?: LockedLineStyle;
+            weight?: StrokeWeight;
             labels?: LockedFigureLabelOptions[];
             ariaLabel?: string;
         },
@@ -442,6 +451,7 @@ class InteractiveGraphQuestionBuilder {
             showVertices: false,
             fillStyle: "none",
             strokeStyle: "solid",
+            weight: options?.weight ?? "medium",
             ...options,
             labels:
                 options?.labels?.map((label) => ({
@@ -464,6 +474,7 @@ class InteractiveGraphQuestionBuilder {
             equation,
             color: "grayH",
             strokeStyle: "solid",
+            weight: "medium",
             directionalAxis: "x",
             domain: [-Infinity, Infinity],
             ...options,

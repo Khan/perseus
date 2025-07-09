@@ -6,10 +6,8 @@ import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 
-import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
-
+import styles from "./radio-editor.module.css";
 import {RadioOptionContentAndImageEditor} from "./radio-option-content-and-image-editor";
-import styles from "./radio-option-settings.module.css";
 import {RadioStatusPill} from "./radio-status-pill";
 
 import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
@@ -38,25 +36,14 @@ export function RadioOptionSettings({
     const {content, rationale, correct, isNoneOfTheAbove} = choice;
 
     return (
-        <PerseusEditorAccordion
-            key={`choice-accordion-${index}`}
-            header={
-                <div className={styles.accordionHeader}>
-                    <RadioStatusPill
-                        index={index}
-                        correct={correct}
-                        multipleSelect={multipleSelect}
-                    />
-                    {isNoneOfTheAbove ? "None of the above" : content}
-                </div>
-            }
-            panelStyle={{
-                paddingBottom: !showDelete ? sizing.size_120 : sizing.size_040,
-            }}
-            expanded={true}
-        >
+        <div className={styles.tile}>
             {/* Incorrect / Wrong status selection */}
             <fieldset className="perseus-widget-row">
+                <RadioStatusPill
+                    index={index}
+                    correct={correct}
+                    multipleSelect={multipleSelect}
+                />
                 <HeadingXSmall
                     style={{
                         display: "inline",
@@ -138,9 +125,9 @@ export function RadioOptionSettings({
                     }}
                     style={{alignSelf: "flex-start"}}
                 >
-                    Remove this choice
+                    Remove
                 </Button>
             )}
-        </PerseusEditorAccordion>
+        </div>
     );
 }

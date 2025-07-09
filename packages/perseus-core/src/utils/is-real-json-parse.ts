@@ -7,14 +7,11 @@ export function isRealJSONParse(jsonParse: typeof JSON.parse): boolean {
     const testingObject = JSON.stringify({
         answerArea: {
             calculator: false,
-            chi2Table: false,
             financialCalculatorMonthlyPayment: false,
             financialCalculatorTimeToPayOff: false,
             financialCalculatorTotalAmount: false,
             periodicTable: false,
             periodicTableWithKey: false,
-            tTable: false,
-            zTable: false,
         },
         hints: [randomHintPhrase, `=${Math.floor(Math.random() * 50) + 1}`],
         question: {
