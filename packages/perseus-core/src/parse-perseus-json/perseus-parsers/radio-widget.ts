@@ -196,19 +196,11 @@ export function migrateV3ToV4(
         ...widget,
         version: {major: 4, minor: 0},
         options: {
-            numCorrect: options.numCorrect,
-            hasNoneOfTheAbove: options.hasNoneOfTheAbove,
-            countChoices: options.countChoices,
-            randomize: options.randomize,
-            multipleSelect: options.multipleSelect,
-            deselectEnabled: options.deselectEnabled,
+            ...options,
             choices: options.choices.map((choice, index) => {
                 const choiceId = generateChoiceId(choice.content, index);
                 return {
-                    content: choice.content,
-                    rationale: choice.rationale,
-                    correct: choice.correct,
-                    isNoneOfTheAbove: choice.isNoneOfTheAbove,
+                    ...choice,
                     id: choiceId,
                 };
             }),
@@ -249,7 +241,7 @@ export function migrateV1ToV2(
         version: {major: 2, minor: 0},
         options: {
             ...options,
-            numCorrect: deriveNumCorrect(options),
+            numCorrect: deriveNumCorrect(options.choices),
         },
     };
 }

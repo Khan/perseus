@@ -1,29 +1,16 @@
 /**
- * Hash function to create a short hash from a string
- * Based on djb2 hash algo for better distribution
+ * DJB2 hash algo to create a hash from a string
+ * Reference: https://mojoauth.com/hashing/bernsteins-hash-djb2-in-typescript/
  */
-export function convertStringToHash(input: string): string {
-    let hash = 5381; // Use djb2 hash algorithm constant
-    if (input.length === 0) {
-        return "empty";
-    }
+export function convertStringToHash(input: string): number {
+    const DJB2_CONSTANT = 5381;
+    let hash = DJB2_CONSTANT;
 
     for (let i = 0; i < input.length; i++) {
         hash = (hash * 33) ^ input.charCodeAt(i);
     }
 
-    // Base36 for shorter string, 8 chars for consistent, short IDs
-    return Math.abs(hash).toString(36).substring(0, 8);
-}
-/**
- * Create a normalized version of content for hashing
- * This removes extra whitespace and normalizes the text to ensure consistent hashing
- */
-export function normalizeContent(content: string): string {
-    if (!content) {
-        return "";
-    }
-    return content.trim().replace(/\s+/g, " ").toLowerCase();
+    return hash >>> 0; // Ensure a positive integer
 }
 
 /**
@@ -37,7 +24,7 @@ export function generateChoiceId(
     content: string,
     originalIndex: number,
 ): string {
-    const normalizedContent = normalizeContent(content || "");
-    const contentHash = convertStringToHash(normalizedContent);
-    return `${contentHash}${originalIndex}`;
+    const concatContent = `${content}${originalIndex}`;
+    const contentHash = convertStringToHash(concatContent);
+    return `${contentHash}`;
 }

@@ -127,7 +127,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                               >
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                  data-testid="yhgbok0"
+                                  data-testid="90971284"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -241,7 +241,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                  data-testid="yhgbsz1"
+                                  data-testid="90976530"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -355,7 +355,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                  data-testid="yhgava2"
+                                  data-testid="90936564"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -469,7 +469,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                  data-testid="yhg9e43"
+                                  data-testid="90873407"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -583,7 +583,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                  data-testid="yhg9cx4"
+                                  data-testid="90871989"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -760,7 +760,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             autocapitalize="off"
                             autocomplete="off"
                             autocorrect="off"
-                            class="input_a5n1n-o_O-LabelMedium_455tor-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-inputWithExamples_1y6ajxo"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inputWithExamples_1y6ajxo"
                             data-testid="input-with-examples"
                             id=":r0:"
                             tabindex="0"
@@ -817,7 +817,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                             autocapitalize="off"
                             autocomplete="off"
                             autocorrect="off"
-                            class="input_a5n1n-o_O-LabelMedium_455tor-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-inputWithExamples_1y6ajxo"
+                            class="input_ttwki7-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-inputWithExamples_1y6ajxo"
                             data-testid="input-with-examples"
                             id=":r3:"
                             tabindex="0"

@@ -1,4 +1,4 @@
-import {components, Changeable, EditorJsonify} from "@khanacademy/perseus";
+import {components, EditorJsonify} from "@khanacademy/perseus";
 import {
     videoLogic,
     type VideoDefaultWidgetOptions,
@@ -32,7 +32,6 @@ type Props = any;
  */
 class VideoEditor extends React.Component<Props> {
     static propTypes = {
-        ...Changeable.propTypes,
         location: PropTypes.string,
         onChange: PropTypes.func,
     };
@@ -44,10 +43,6 @@ class VideoEditor extends React.Component<Props> {
 
     _handleUrlChange: (arg1: string) => void = (url) => {
         this.props.onChange({location: getSlugFromUrl(url)});
-    };
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
     };
 
     serialize: () => any = () => {

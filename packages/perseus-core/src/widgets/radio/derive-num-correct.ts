@@ -1,7 +1,7 @@
 import type {PerseusRadioWidgetOptions} from "../../data-schema";
 
-export function deriveNumCorrect(options: PerseusRadioWidgetOptions) {
-    const {choices, numCorrect} = options;
-
-    return numCorrect ?? choices.filter((c) => c.correct).length;
+export function deriveNumCorrect(
+    choices: PerseusRadioWidgetOptions["choices"],
+) {
+    return choices.filter((c) => c.correct).length;
 }

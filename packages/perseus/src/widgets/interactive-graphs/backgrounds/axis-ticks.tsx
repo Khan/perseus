@@ -4,6 +4,12 @@ import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {MAX, MIN, X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import {
+    divideByAndShowPi,
+    generateTickLocations,
+    shouldShowLabel,
+} from "./utils";
+
 import type {Interval, vec} from "mafs";
 
 // The size of the ticks and labels in pixels
@@ -146,82 +152,6 @@ const XGridTick = ({
         </g>
     );
 };
-
-// Determines whether to show the label for the given tick
-// Currently, the only condition is to hide the label at -tickStep
-// on the y-axis when the y-axis is within the graph bounds
-export const shouldShowLabel = (
-    currentTick: number,
-    range: [Interval, Interval],
-    tickStep: number,
-) => {
-    let showLabel = true;
-
-    // If the y-axis is within the graph and currentTick equals -tickStep, hide the label
-    if (
-        range[X][MIN] < -tickStep &&
-        range[X][MAX] > 0 &&
-        currentTick === -tickStep
-    ) {
-        showLabel = false;
-    }
-
-    return showLabel;
-};
-
-export function generateTickLocations(
-    tickStep: number,
-    min: number,
-    max: number,
-): number[] {
-    const ticks: number[] = [];
-
-    // Calculate the number of significant decimals in the tick step so
-    // that we can match the desired precision when generating ticks.
-    const decimalSigFigs: number = countSignificantDecimals(tickStep);
-
-    // Add ticks in the positive direction
-    const start = Math.max(min, 0);
-    for (let i = start + tickStep; i < max; i += tickStep) {
-        // Match to the same number of decimal places as the tick step
-        // to avoid floating point errors when working with small numbers
-        ticks.push(parseFloat(i.toFixed(decimalSigFigs)));
-    }
-
-    // Add ticks in the negative direction
-    // Start at the first tick after 0 or the maximum value if it is negative
-    let i = Math.min(max, 0) - tickStep;
-    for (i; i > min; i -= tickStep) {
-        ticks.push(i);
-    }
-    return ticks;
-}
-
-// Count the number of significant digits after the decimal point
-export const countSignificantDecimals = (number: number): number => {
-    const numStr = number.toString();
-    if (!numStr.includes(".")) {
-        return 0;
-    }
-    return numStr.split(".")[1].length;
-};
-
-// Show the given value as a multiple of pi (already assumed to be
-// a multiple of pi). Exported for testing
-export function divideByAndShowPi(value: number): string {
-    const dividedValue = value / Math.PI;
-
-    switch (dividedValue) {
-        case 1:
-            return "π";
-        case -1:
-            return "-π";
-        case 0:
-            return "0";
-        default:
-            return dividedValue + "π";
-    }
-}
 
 export const AxisTicks = () => {
     const {tickStep, range} = useGraphConfig();

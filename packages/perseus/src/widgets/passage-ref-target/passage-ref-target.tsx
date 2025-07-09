@@ -4,14 +4,13 @@ import * as React from "react";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
 
 import type {APIOptions, WidgetExports, Widget} from "../../types";
 import type {PerseusPassageRefTargetWidgetOptions} from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
-type Props = Changeable.ChangeableProps & {
+type Props = {
     apiOptions: APIOptions;
     content: PerseusPassageRefTargetWidgetOptions["content"];
     linterContext: LinterContextProps;
@@ -34,11 +33,6 @@ class PassageRefTarget extends React.Component<Props> implements Widget {
     // this just helps with TS weak typing when a Widget
     // doesn't implement any Widget methods
     isWidget = true as const;
-
-    // TODO passage-ref-target isn't interactive; remove
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
 
     render(): React.ReactNode {
         return (

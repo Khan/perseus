@@ -1,18 +1,15 @@
-import {
-    convertStringToHash,
-    normalizeContent,
-    generateChoiceId,
-} from "./choice-id-utils";
+import {convertStringToHash, generateChoiceId} from "./choice-id-utils";
+
+const hashRegex = /^\d+$/;
 
 describe("convertStringToHash", () => {
-    it("returns 'empty' for empty string", () => {
-        expect(convertStringToHash("")).toBe("empty");
+    it("returns 5381 for empty string", () => {
+        expect(convertStringToHash("")).toBe(5381);
     });
 
     it("returns hash for whitespace-only string", () => {
         const hash = convertStringToHash("   ");
-        expect(hash).toMatch(/^[a-z0-9]+$/);
-        expect(hash).not.toBe("empty");
+        expect(hash).toBe(193341061);
     });
 
     it("generates consistent hash for same input", () => {
@@ -28,22 +25,14 @@ describe("convertStringToHash", () => {
         expect(hash1).not.toBe(hash2);
     });
 
-    it("generates base36 hash up to 8 characters", () => {
-        const hash = convertStringToHash("test content");
-        expect(hash).toMatch(/^[a-z0-9]+$/);
-        expect(hash.length).toBeLessThanOrEqual(8);
-    });
-
     it("handles special characters", () => {
         const hash = convertStringToHash("test@#$%^&*()");
-        expect(hash).toMatch(/^[a-z0-9]+$/);
-        expect(hash.length).toBeLessThanOrEqual(8);
+        expect(hash).toBe(2369536034);
     });
 
     it("handles unicode characters", () => {
         const hash = convertStringToHash("test 🚀 emoji");
-        expect(hash).toMatch(/^[a-z0-9]+$/);
-        expect(hash.length).toBeLessThanOrEqual(8);
+        expect(hash).toBe(2126717450);
     });
 
     it("is case sensitive", () => {
@@ -53,173 +42,229 @@ describe("convertStringToHash", () => {
     });
 });
 
-describe("normalizeContent", () => {
-    it("returns empty string for null", () => {
-        expect(normalizeContent(null as any)).toBe("");
-    });
-
-    it("returns empty string for undefined", () => {
-        expect(normalizeContent(undefined as any)).toBe("");
-    });
-
-    it("returns empty string for empty string", () => {
-        expect(normalizeContent("")).toBe("");
-    });
-
-    it("returns empty string for whitespace-only string", () => {
-        expect(normalizeContent("   \n\t  ")).toBe("");
-    });
-
-    it("trims whitespace from beginning and end", () => {
-        expect(normalizeContent("  test content  ")).toBe("test content");
-    });
-
-    it("replaces multiple whitespace with single space", () => {
-        expect(normalizeContent("test    content")).toBe("test content");
-    });
-
-    it("handles mixed whitespace characters", () => {
-        expect(normalizeContent("test\n\t\r content")).toBe("test content");
-    });
-
-    it("converts to lowercase", () => {
-        expect(normalizeContent("Test Content")).toBe("test content");
-    });
-
-    it("handles special characters", () => {
-        expect(normalizeContent("Test@#$%^&*()")).toBe("test@#$%^&*()");
-    });
-
-    it("handles unicode characters", () => {
-        expect(normalizeContent("Test 🚀 Emoji")).toBe("test 🚀 emoji");
-    });
-
-    it("preserves content when no normalization needed", () => {
-        expect(normalizeContent("test content")).toBe("test content");
-    });
-});
-
 describe("generateChoiceId", () => {
     it("generates consistent ID for same content and index", () => {
-        const id1 = generateChoiceId("Content 1", 0);
-        const id2 = generateChoiceId("Content 1", 0);
-        expect(id1).toBe(id2);
+        // Arrange
+        const content = "Content 1";
+        const index = 0;
+
+        // Act
+        const choiceId1 = generateChoiceId(content, index);
+        const choiceId2 = generateChoiceId(content, index);
+
+        // Assert
+        expect(choiceId1).toBe(choiceId2);
     });
 
     it("generates different IDs for different content", () => {
-        const id1 = generateChoiceId("Content 1", 0);
-        const id2 = generateChoiceId("Content 2", 0);
-        expect(id1).not.toBe(id2);
+        // Arrange
+        const content1 = "Content 1";
+        const content2 = "Content 2";
+        const index = 0;
+
+        // Act
+        const choiceId1 = generateChoiceId(content1, index);
+        const choiceId2 = generateChoiceId(content2, index);
+
+        // Assert
+        expect(choiceId1).not.toBe(choiceId2);
     });
 
     it("generates different IDs for different indices", () => {
-        const id1 = generateChoiceId("Content 1", 0);
-        const id2 = generateChoiceId("Content 1", 1);
-        expect(id1).not.toBe(id2);
+        // Arrange
+        const content = "Content 1";
+        const index1 = 0;
+        const index2 = 1;
+
+        // Act
+        const choiceId1 = generateChoiceId(content, index1);
+        const choiceId2 = generateChoiceId(content, index2);
+
+        // Assert
+        expect(choiceId1).not.toBe(choiceId2);
     });
 
     it("handles empty content", () => {
-        const id = generateChoiceId("", 0);
-        expect(id).toBe("empty0");
+        // Arrange
+        const content = "";
+        const index = 0;
+
+        // Act
+        const choiceId = generateChoiceId(content, index);
+
+        // Assert
+        expect(choiceId).toBe("177557");
     });
 
     it("handles null content", () => {
-        const id = generateChoiceId(null as any, 0);
-        expect(id).toBe("empty0");
+        // Arrange
+        const content = null as any;
+        const index = 0;
+
+        // Act
+        const choiceId = generateChoiceId(content, index);
+
+        // Assert
+        expect(choiceId).toBe("181142958");
     });
 
     it("handles undefined content", () => {
-        const id = generateChoiceId(undefined as any, 0);
-        expect(id).toBe("empty0");
+        // Arrange
+        const content = undefined as any;
+        const index = 0;
+
+        // Act
+        const choiceId = generateChoiceId(content, index);
+
+        // Assert
+        expect(choiceId).toBe("578935535");
     });
 
     it("handles whitespace-only content", () => {
-        const id = generateChoiceId("   ", 0);
-        expect(id).toBe("empty0");
-    });
+        // Arrange
+        const content = "   ";
+        const index = 0;
 
-    it("normalizes content before hashing", () => {
-        const id1 = generateChoiceId("Content 1", 0);
-        const id2 = generateChoiceId("  CONTENT 1  ", 0);
-        expect(id1).toBe(id2);
+        // Act
+        const choiceId = generateChoiceId(content, index);
+
+        // Assert
+        expect(choiceId).toBe("2085287701");
     });
 
     it("handles special characters in content", () => {
-        const id = generateChoiceId("Test@#$%^&*()", 0);
-        expect(id).toMatch(/^[a-z0-9]+0$/);
-        expect(id.length).toBeLessThanOrEqual(9); // hash + index
+        // Arrange
+        const content = "Test@#$%^&*()";
+        const index = 0;
+
+        // Act
+        const choiceId = generateChoiceId(content, index);
+
+        // Assert
+        expect(choiceId).toMatch(hashRegex);
     });
 
     it("handles unicode characters in content", () => {
-        const id = generateChoiceId("Test 🚀 Emoji", 0);
-        expect(id).toMatch(/^[a-z0-9]+0$/);
-        expect(id.length).toBeLessThanOrEqual(9); // hash + index
+        // Arrange
+        const content = "Test 🚀 Emoji";
+        const index = 0;
+
+        // Act
+        const choiceId = generateChoiceId(content, index);
+
+        // Assert
+        expect(choiceId).toMatch(hashRegex);
     });
 
     it("handles large indices", () => {
-        const id = generateChoiceId("Content 1", 999);
-        expect(id).toMatch(/^[a-z0-9]+999$/);
+        // Arrange
+        const content = "Content 1";
+        const index = 999;
+
+        // Act
+        const choiceId = generateChoiceId(content, index);
+
+        // Assert
+        expect(choiceId).toMatch(hashRegex);
     });
 
     it("handles zero index", () => {
-        const id = generateChoiceId("Content 1", 0);
-        expect(id).toMatch(/^[a-z0-9]+0$/);
+        // Arrange
+        const content = "Content 1";
+        const index = 0;
+
+        // Act
+        const choiceId = generateChoiceId(content, index);
+
+        // Assert
+        expect(choiceId).toMatch(hashRegex);
     });
 
     it("handles negative indices", () => {
-        const id = generateChoiceId("Content 1", -1);
-        expect(id).toMatch(/^[a-z0-9]+-1$/);
+        // Arrange
+        const content = "Content 1";
+        const index = -1;
+
+        // Act
+        const choiceId = generateChoiceId(content, index);
+
+        // Assert
+        expect(choiceId).toMatch(hashRegex);
     });
 
     it("produces expected format", () => {
-        const id = generateChoiceId("Content 1", 0);
-        // Should be hash + index
-        expect(id).toMatch(/^[a-z0-9]+0$/);
+        // Arrange
+        const content = "Content 1";
+        const index = 0;
+
+        // Act
+        const choiceId = generateChoiceId(content, index);
+
+        // Assert
+        expect(choiceId).toMatch(hashRegex);
     });
 
-    it("generates unique IDs for realistic content", () => {
-        const ids = [
-            generateChoiceId("Content 1", 0),
-            generateChoiceId("Content 2", 1),
-            generateChoiceId("Content 3", 2),
-            generateChoiceId("Different Content", 3),
+    it("generates unique IDs for varying content", () => {
+        // Arrange
+        const testCases = [
+            {content: "Content 1", index: 0},
+            {content: "Content 2", index: 1},
+            {content: "Content 3", index: 2},
+            {content: "Different Content", index: 3},
         ];
 
-        // All IDs should be unique
-        const uniqueIds = new Set(ids);
-        expect(uniqueIds.size).toBe(ids.length);
+        // Act
+        const choiceIds = testCases.map(({content, index}) =>
+            generateChoiceId(content, index),
+        );
 
-        // Each ID should follow the expected format
-        ids.forEach((id, index) => {
-            expect(id).toMatch(new RegExp(`^[a-z0-9]+${index}$`));
+        // Assert
+        // All IDs should be unique
+        const uniqueChoiceIds = new Set(choiceIds);
+        expect(uniqueChoiceIds.size).toBe(choiceIds.length);
+
+        // Each ID should follow the expected format (just hash)
+        choiceIds.forEach((choiceId) => {
+            expect(choiceId).toMatch(hashRegex);
         });
     });
 });
 
 describe("integration tests", () => {
     it("full pipeline works correctly", () => {
+        // Arrange
         const content = "  Test Content  ";
-        const normalized = normalizeContent(content);
-        const hash = convertStringToHash(normalized);
-        const choiceId = generateChoiceId(content, 0);
+        const index = 0;
+        const concatContent = `${content}${index}`;
 
-        expect(normalized).toBe("test content");
-        expect(hash).toMatch(/^[a-z0-9]+$/);
-        expect(hash.length).toBeLessThanOrEqual(8);
-        expect(choiceId).toBe(`${hash}0`);
+        // Act
+        const hash = convertStringToHash(concatContent).toString();
+        const choiceId = generateChoiceId(content, index);
+
+        // Assert
+        expect(hash).toMatch(hashRegex);
+        expect(choiceId).toBe(hash);
     });
 
     it("handles edge cases consistently", () => {
+        // Arrange
         const edgeCases = [
-            {content: "", index: 0, expectedSuffix: "0"},
-            {content: "   ", index: 1, expectedSuffix: "1"},
-            {content: "A", index: 2, expectedSuffix: "2"},
-            {content: "A", index: 3, expectedSuffix: "3"},
+            {content: "", index: 0},
+            {content: "   ", index: 1},
+            {content: "A", index: 2},
+            {content: "A", index: 3},
         ];
 
-        edgeCases.forEach(({content, index, expectedSuffix}) => {
-            const id = generateChoiceId(content, index);
-            expect(id).toMatch(new RegExp(`^[a-z0-9]+${expectedSuffix}$`));
+        // Act & Assert
+        edgeCases.forEach(({content, index}) => {
+            // Act
+            const choiceId = generateChoiceId(content, index);
+            const concatContent = `${content}${index}`;
+            const expectedHash = convertStringToHash(concatContent).toString();
+
+            // Assert
+            expect(choiceId).toBe(expectedHash);
+            expect(choiceId).toMatch(hashRegex);
         });
     });
 });
