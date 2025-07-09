@@ -1,6 +1,6 @@
 import {action} from "storybook/actions";
 
-import SimpleKeypadInput from "../../components/simple-keypad-input";
+import SimpleKeypadInput from "../simple-keypad-input";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

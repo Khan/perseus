@@ -1,6 +1,6 @@
 import {action} from "storybook/actions";
 
-import TextInput from "../../components/text-input";
+import TextInput from "../text-input";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

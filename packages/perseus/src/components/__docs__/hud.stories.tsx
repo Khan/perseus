@@ -1,6 +1,6 @@
 import {action} from "storybook/actions";
 
-import Hud from "../../components/hud";
+import Hud from "../hud";
 
 import type {StoryObj, Meta} from "@storybook/react-vite";
 

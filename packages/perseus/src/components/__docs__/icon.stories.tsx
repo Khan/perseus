@@ -1,5 +1,5 @@
 import * as IconPaths from "../../icon-paths";
-import IconComponent from "../../components/icon";
+import IconComponent from "../icon";
 
 import type {StoryObj, Meta} from "@storybook/react-vite";
 

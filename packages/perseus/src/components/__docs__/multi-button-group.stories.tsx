@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import MultiButtonGroup from "../../components/multi-button-group";
+import MultiButtonGroup from "../multi-button-group";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";

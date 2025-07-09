@@ -2,7 +2,7 @@ import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 import {itemWithPieChart} from "../../__testdata__/graphie.testdata";
-import Graphie from "../../components/graphie";
+import Graphie from "../graphie";
 
 import type {StoryObj, Meta} from "@storybook/react-vite";
 

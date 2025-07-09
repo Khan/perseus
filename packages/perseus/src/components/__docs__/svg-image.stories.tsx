@@ -1,4 +1,4 @@
-import SvgImage from "../../components/svg-image";
+import SvgImage from "../svg-image";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

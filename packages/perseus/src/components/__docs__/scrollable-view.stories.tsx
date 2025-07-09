@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import ScrollableView from "../../components/scrollable-view";
+import ScrollableView from "../scrollable-view";
 
 import styles from "./scrollable-view.stories.module.css";
 

@@ -1,4 +1,4 @@
-import InlineIcon from "../../components/inline-icon";
+import InlineIcon from "../inline-icon";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

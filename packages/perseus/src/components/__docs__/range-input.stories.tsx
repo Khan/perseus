@@ -1,6 +1,6 @@
 import {action} from "storybook/actions";
 
-import RangeInput from "../../components/range-input";
+import RangeInput from "../range-input";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

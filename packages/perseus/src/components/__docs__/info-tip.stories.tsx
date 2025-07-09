@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import InfoTip from "../../components/info-tip";
+import InfoTip from "../info-tip";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

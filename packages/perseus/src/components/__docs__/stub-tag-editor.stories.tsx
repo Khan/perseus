@@ -1,6 +1,6 @@
 import {action} from "storybook/actions";
 
-import StubTagEditor from "../../components/stub-tag-editor";
+import StubTagEditor from "../stub-tag-editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
