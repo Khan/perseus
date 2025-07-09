@@ -103,6 +103,56 @@ When you add new widget fields or versions, please also add regression test
 data for the _current_ (i.e. soon-to-be-outdated) version of the widget. This
 will help ensure that future developers don't accidentally break your parser.
 
+<details>
+<summary>Regression test example</summary>
+
+Suppose you're going to add a new option `brewStrength` to the (fictional)
+`CoffeeMakerWidget`. You'd first create a file
+`regression-tests/item-data/coffee-maker-without-brewStrength.json` and paste
+in an assessment item copied from production:
+
+```json
+{
+  "question": {
+    "content": "[[☃ coffee-maker 1]]",
+    "images": {},
+    "widgets": {
+      "coffee-maker 1": {
+        "type": "coffee-maker",
+        "version": {"major": 0, "minor": 0},
+        "options": {
+          "capacityCups": 6
+        }
+      }
+    }
+  }
+}
+```
+
+Run the regression tests. You should see some new snapshots get written.
+
+Now, update the parser and data-schema to add your new field. Here is what the
+parser change might look like:
+
+```diff
+  const parseCoffeeMakerWidget = parseWidget(
+      constant("coffee-maker"),
+      object({
+          capacityCups: number,
++         brewStrength: defaulted(
++             enumeration("weak", "average", "strong"),
++             () => "average" as const,
++         ),
+      }),
+  );
+```
+
+Re-run the regression tests. The snapshots will fail, reflecting the fact that
+you added a new widget option. Update the snapshots (`pnpm test -u`), make sure
+they reflect the desired output, and commit them.
+
+</details>
+
 ## Adding a new widget version
 
 The purpose of the parser is to make it easy (or at least, easier) to change
@@ -124,6 +174,9 @@ want to rename a field, we need some way to get the data from the old field and
 copy it to the new one. The tool for doing that is the `versionedWidgetOptions`
 function. For usage instructions, see the source code,
 `versioned-widget-options.ts`.
+
+Note that the `minor` version is not really used for anything. It's speculative
+complexity added over a decade ago, and it's now too entrenched to remove.
 
 ## Changing existing parsers
 
