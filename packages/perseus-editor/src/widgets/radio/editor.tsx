@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {Changeable} from "@khanacademy/perseus";
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
 import Link from "@khanacademy/wonder-blocks-link";
@@ -13,7 +12,7 @@ import LabeledSwitch from "../../components/labeled-switch";
 
 import {RadioOptionSettings} from "./radio-option-settings";
 
-import type {APIOptions} from "@khanacademy/perseus";
+import type {Changeable, APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRadioChoice,
@@ -38,49 +37,41 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     static defaultProps: RadioDefaultWidgetOptions =
         radioLogic.defaultWidgetOptions;
 
-    change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
-        // @ts-expect-error - TS2345 - Argument of type 'readonly unknown[]' is not assignable to parameter of type 'any[]'.
-        return Changeable.change.apply(this, args);
-    };
-
     // Called when the "Multiple selections" checkbox is toggled,
     // allowing the content author to specifiy multiple correct answers.
     onMultipleSelectChange: (arg1: any) => any = (allowMultiple) => {
-        allowMultiple = allowMultiple.multipleSelect;
+        const isMultipleSelect = allowMultiple.multipleSelect;
 
-        const numCorrect = _.reduce(
-            this.props.choices,
-            function (memo, choice) {
-                return choice.correct ? memo + 1 : memo;
-            },
-            0,
-        );
-
-        if (!allowMultiple && numCorrect > 1) {
-            const choices = _.map(this.props.choices, function (choice) {
-                return _.defaults(
-                    {
+        // When switching to single-select mode, we want to deselect all
+        // choices if more than one choice is currently selected as correct.
+        let choices = this.props.choices;
+        if (!isMultipleSelect) {
+            const numCorrect = deriveNumCorrect(choices);
+            if (numCorrect > 1) {
+                choices = choices.map((choice) => {
+                    return {
+                        ...choice,
                         correct: false,
-                    },
-                    choice,
-                );
-            });
-            this.props.onChange({
-                multipleSelect: allowMultiple,
-                choices: choices,
-            });
-        } else {
-            this.props.onChange({
-                multipleSelect: allowMultiple,
-            });
+                    };
+                });
+            }
         }
+
+        // Update with the recalculated numCorrect and choices
+        this.props.onChange({
+            multipleSelect: isMultipleSelect,
+            choices,
+            numCorrect: deriveNumCorrect(choices),
+        });
     };
 
     // Called when the "Specify number correct" checkbox is toggled,
     // making it so that the title reads "Choose [number] answers"
     onCountChoicesChange: (arg1: any) => void = (count) => {
-        count = count.countChoices;
-        this.props.onChange({countChoices: count});
+        const countChoices = count.countChoices;
+        this.props.onChange({
+            countChoices,
+        });
     };
 
     // Updates the `correct` values for each choice, as well as the new
@@ -98,14 +89,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         });
 
         this.props.onChange({
-            choices: choices,
-            numCorrect: deriveNumCorrect({
-                ...this.props,
-                choices,
-                // When deriving numCorrect, we don't want to pass the current value,
-                // as it has changed.
-                numCorrect: undefined,
-            }),
+            choices,
+            numCorrect: deriveNumCorrect(choices),
         });
     };
 
@@ -169,9 +154,10 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         choices.splice(choiceIndex, 1);
 
         this.props.onChange({
-            choices: choices,
+            choices,
             hasNoneOfTheAbove:
                 this.props.hasNoneOfTheAbove && !deleted.isNoneOfTheAbove,
+            numCorrect: deriveNumCorrect(choices),
         });
     };
 
@@ -235,23 +221,12 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             countChoices,
             hasNoneOfTheAbove,
             deselectEnabled,
-            numCorrect: deriveNumCorrect({
-                ...this.props,
-                // When deriving numCorrect, we don't want to pass the current value,
-                // as it has changed.
-                numCorrect: undefined,
-            }),
+            numCorrect: deriveNumCorrect(choices),
         };
     }
 
     render(): React.ReactNode {
-        const numCorrect = _.reduce(
-            this.props.choices,
-            function (memo, choice) {
-                return choice.correct ? memo + 1 : memo;
-            },
-            0,
-        );
+        const numCorrect = deriveNumCorrect(this.props.choices);
         return (
             <div>
                 <Link

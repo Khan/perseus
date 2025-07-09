@@ -70,6 +70,7 @@ describe("Radio AI utils", () => {
         );
     });
 
+    // why are these tests named the same?
     it("should get prompt json which matches the state of the UI", () => {
         const renderProps: any = {
             numCorrect: 1,
@@ -120,6 +121,7 @@ describe("Radio AI utils", () => {
         });
     });
 
+    // why are these tests named the same?
     it("should get prompt json which matches the state of the UI", async () => {
         const indexToSelect = 1;
         const {renderer} = renderQuestion(shuffledQuestion);

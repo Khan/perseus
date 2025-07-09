@@ -8,6 +8,7 @@ import {
 import type {
     LockedFigureColor,
     LockedFigureFillType,
+    StrokeWeight,
     LockedLabelType,
     LockedLineStyle,
 } from "@khanacademy/perseus-core";
@@ -49,6 +50,7 @@ describe("getDefaultFigureForType", () => {
             lineStyle: "solid",
             showPoint1: false,
             showPoint2: false,
+            weight: "medium",
             labels: [],
         });
     });
@@ -62,6 +64,7 @@ describe("getDefaultFigureForType", () => {
                 [2, 2],
             ],
             color: "grayH",
+            weight: "medium",
             labels: [],
         });
     });
@@ -76,6 +79,7 @@ describe("getDefaultFigureForType", () => {
             color: "grayH",
             fillStyle: "none",
             strokeStyle: "solid",
+            weight: "medium",
             labels: [],
         });
     });
@@ -93,6 +97,7 @@ describe("getDefaultFigureForType", () => {
             showVertices: false,
             fillStyle: "none",
             strokeStyle: "solid",
+            weight: "medium",
             labels: [],
         });
     });
@@ -103,6 +108,7 @@ describe("getDefaultFigureForType", () => {
             type: "function",
             color: "grayH",
             strokeStyle: "solid",
+            weight: "medium",
             equation: "x^2",
             directionalAxis: "x",
             domain: [-Infinity, Infinity],
@@ -267,6 +273,33 @@ describe("generateLockedFigureAppearanceDescription", () => {
             expect(description).toBe(
                 `. Appearance ${strokeStyle} ${color} border, with a ${fill} ${color} fill.`,
             );
+        },
+    );
+
+    test.each([
+        {
+            weight: "thin",
+            expected: `. Appearance thin solid gray border, with a solid gray fill.`,
+        },
+        {
+            weight: "medium",
+            expected: `. Appearance solid gray border, with a solid gray fill.`,
+        },
+        {
+            weight: "thick",
+            expected: `. Appearance thick solid gray border, with a solid gray fill.`,
+        },
+    ] as {weight: StrokeWeight; expected: string}[])(
+        "should return a string with a %s weight",
+        ({weight, expected}) => {
+            const description = generateLockedFigureAppearanceDescription(
+                "grayH",
+                undefined,
+                "solid",
+                weight,
+            );
+
+            expect(description).toBe(expected);
         },
     );
 });

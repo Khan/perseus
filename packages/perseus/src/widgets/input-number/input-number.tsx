@@ -55,13 +55,12 @@ type RenderProps = Pick<
     "simplify" | "size" | "answerType" | "rightAlign"
 >;
 
-type ExternalProps = WidgetProps<RenderProps>;
+type ExternalProps = WidgetProps<RenderProps, PerseusInputNumberUserInput>;
 type Props = ExternalProps & {
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
     rightAlign: NonNullable<ExternalProps["rightAlign"]>;
     size: NonNullable<ExternalProps["size"]>;
-    currentValue: string;
     // NOTE(kevinb): This was the only default prop that is listed as
     // not-required in PerseusInputNumberWidgetOptions.
     answerType: NonNullable<ExternalProps["answerType"]>;
@@ -71,10 +70,10 @@ type DefaultProps = Pick<
     Props,
     | "answerType"
     | "apiOptions"
-    | "currentValue"
     | "linterContext"
     | "rightAlign"
     | "size"
+    | "userInput"
 >;
 
 class InputNumber extends React.Component<Props> implements Widget {
@@ -82,7 +81,6 @@ class InputNumber extends React.Component<Props> implements Widget {
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
     static defaultProps: DefaultProps = {
-        currentValue: "",
         size: "normal",
         answerType: "number",
         rightAlign: false,
@@ -90,22 +88,15 @@ class InputNumber extends React.Component<Props> implements Widget {
         // need to include it in defaultProps.
         apiOptions: ApiOptions.defaults,
         linterContext: linterContextDefault,
+        userInput: {currentValue: ""},
     };
-
-    static getUserInputFromProps(props: Props): {
-        currentValue: string;
-    } {
-        return {
-            currentValue: props.currentValue,
-        };
-    }
 
     shouldShowExamples: () => boolean = () => {
         return this.props.answerType !== "number";
     };
 
     handleChange: (arg1: string, arg2: () => void) => void = (newValue, cb) => {
-        this.props.onChange({currentValue: newValue}, cb);
+        this.props.handleUserInput({currentValue: newValue}, cb);
     };
 
     _handleFocus: () => void = () => {
@@ -157,7 +148,7 @@ class InputNumber extends React.Component<Props> implements Widget {
         newValue,
         cb,
     ) => {
-        this.props.onChange(
+        this.props.handleUserInput(
             {
                 currentValue: newValue,
             },
@@ -165,8 +156,12 @@ class InputNumber extends React.Component<Props> implements Widget {
         );
     };
 
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     getUserInput(): PerseusInputNumberUserInput {
-        return InputNumber.getUserInputFromProps(this.props);
+        return this.props.userInput;
     }
 
     getPromptJSON(): InputNumberPromptJSON {
@@ -185,6 +180,18 @@ class InputNumber extends React.Component<Props> implements Widget {
         return [strings.yourAnswer].concat(examples);
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     */
+    getSerializedState(): any {
+        const {userInput, ...rest} = this.props;
+        return {
+            ...rest,
+            currentValue: userInput.currentValue,
+        };
+    }
+
     render(): React.ReactNode {
         if (this.props.apiOptions.customKeypad) {
             // TODO(charlie): Support "Review Mode".
@@ -192,7 +199,7 @@ class InputNumber extends React.Component<Props> implements Widget {
                 <SimpleKeypadInput
                     // eslint-disable-next-line react/no-string-refs
                     ref="input"
-                    value={this.props.currentValue}
+                    value={this.props.userInput.currentValue}
                     keypadElement={this.props.keypadElement}
                     onChange={this.handleChange}
                     onFocus={this._handleFocus}
@@ -216,7 +223,7 @@ class InputNumber extends React.Component<Props> implements Widget {
             this.props.rightAlign ? styles.rightAlign : styles.leftAlign,
         ];
         // Unanswered
-        if (this.props.reviewMode && !this.props.currentValue) {
+        if (this.props.reviewMode && !this.props.userInput.currentValue) {
             inputStyles.push(styles.answerStateUnanswered);
         }
 
@@ -224,7 +231,7 @@ class InputNumber extends React.Component<Props> implements Widget {
             <InputWithExamples
                 // eslint-disable-next-line react/no-string-refs
                 ref="input"
-                value={this.props.currentValue}
+                value={this.props.userInput.currentValue}
                 onChange={this.handleChange}
                 style={inputStyles}
                 examples={this.examples()}
@@ -285,6 +292,18 @@ function getOneCorrectAnswerFromRubric(rubric: any): string | undefined {
     return answerString;
 }
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusInputNumberUserInput {
+    return {
+        currentValue: serializedState.currentValue,
+    };
+}
+
 export default {
     name: "input-number",
     displayName: "Input number (deprecated - use numeric input instead)",
@@ -293,4 +312,5 @@ export default {
     isLintable: true,
     transform,
     getOneCorrectAnswerFromRubric,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof InputNumber>;

@@ -127,7 +127,7 @@ export type PerseusGrapherRubric = {
     correct: GrapherAnswerTypes;
 };
 
-export type PerseusGrapherUserInput = PerseusGrapherRubric["correct"];
+export type PerseusGrapherUserInput = GrapherAnswerTypes;
 
 export type PerseusIFrameUserInput = {
     status: UserInputStatus;
@@ -169,11 +169,13 @@ export type PerseusLabelImageRubric = {
     }>;
 };
 
+export type PerseusLabelImageUserInputMarker = {
+    selected?: string[];
+    label: string;
+};
+
 export type PerseusLabelImageUserInput = {
-    markers: Array<{
-        selected?: string[];
-        label: string;
-    }>;
+    markers: PerseusLabelImageUserInputMarker[];
 };
 
 export type PerseusMatcherRubric = {
@@ -205,14 +207,14 @@ export type PerseusNumberLineRubric = {
     range: number[];
     initialX: number | null | undefined;
     isInequality: boolean;
+    isTickCtrl?: boolean;
+    divisionRange: number[];
 };
 
 export type PerseusNumberLineUserInput = {
-    isTickCrtl?: boolean;
     numLinePosition: number;
     rel: Relationship | "eq";
     numDivisions: number;
-    divisionRange: number[];
 };
 
 export type PerseusNumericInputRubric = {
@@ -289,7 +291,6 @@ export interface RubricRegistry {
     "graded-group": PerseusGradedGroupRubric;
     grapher: PerseusGrapherRubric;
     group: PerseusGroupRubric;
-    image: PerseusLabelImageRubric;
     "input-number": PerseusInputNumberRubric;
     "interactive-graph": PerseusInteractiveGraphRubric;
     "label-image": PerseusLabelImageRubric;

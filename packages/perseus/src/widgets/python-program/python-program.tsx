@@ -8,7 +8,7 @@ import * as React from "react";
 import {toAbsoluteUrl} from "../../util/url-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/python-program/python-ai-utils";
 
-import type {FocusPath, Widget, WidgetExports} from "../../types";
+import type {Widget, WidgetExports} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 function getUrlFromProgramID(programID: any) {
@@ -33,15 +33,6 @@ class PythonProgram extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         height: 400,
     };
-
-    // This function exists to force this class to conform to the `Widget`
-    // interface. As this class is very bare and the Widget interface
-    // (currently) has all optional functions, we're triggering TypeScript's
-    // weak type detection.
-    // See: https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-4.html#weak-type-detection
-    getDOMNodeForPath(path: FocusPath) {
-        return null;
-    }
 
     getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();

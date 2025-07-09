@@ -24,9 +24,7 @@ export type StatefulMafsGraphProps = {
     backgroundImage?: InteractiveGraphProps["backgroundImage"];
     graph: PerseusGraphType;
     /**
-     * The correct answer for this widget. Will be undefined if the graph is
-     * being provided answerless data (e.g. because the learner has not yet
-     * submitted their guess).
+     * The correct answer for this widget.
      */
     // TODO(LEMS-2344): make the type of `correct` more specific
     correct?: PerseusGraphType;
@@ -37,7 +35,7 @@ export type StatefulMafsGraphProps = {
     gridStep: [x: number, y: number];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
-    onChange: InteractiveGraphProps["onChange"];
+    onChange: (userInput: PerseusGraphType) => void;
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
     labels: ReadonlyArray<string>;
@@ -72,7 +70,7 @@ export const StatefulMafsGraph = React.forwardRef<
 
     useEffect(() => {
         if (prevState.current !== state) {
-            onChange({graph: mafsStateToInteractiveGraph(state, graph)});
+            onChange(mafsStateToInteractiveGraph(state, graph));
         }
         prevState.current = state;
     }, [onChange, state, graph]);

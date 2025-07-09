@@ -24,8 +24,8 @@ export const getPromptJSON = (
         type: "matcher",
         options: {
             labels: renderProps.labels,
-            left: renderProps.left,
-            right: renderProps.right,
+            left: renderProps.userInput.left,
+            right: renderProps.userInput.right,
             orderMatters: renderProps.orderMatters,
         },
         userInput: {

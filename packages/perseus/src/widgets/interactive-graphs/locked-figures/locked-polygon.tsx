@@ -8,10 +8,12 @@ import * as React from "react";
 
 import {X, Y} from "../math";
 
+import {strokeWeights} from "./utils";
+
 import type {LockedPolygonType} from "@khanacademy/perseus-core";
 
 const LockedPolygon = (props: LockedPolygonType) => {
-    const {points, color, showVertices, fillStyle, strokeStyle} = props;
+    const {points, color, showVertices, fillStyle, strokeStyle, weight} = props;
 
     const hasAria = !!props.ariaLabel;
 
@@ -27,6 +29,7 @@ const LockedPolygon = (props: LockedPolygonType) => {
                 fillOpacity={lockedFigureFillStyles[fillStyle]}
                 strokeStyle={strokeStyle}
                 color={lockedFigureColors[color]}
+                weight={strokeWeights[weight]}
                 // We need to override the svg props if we want to have a
                 // different fill color than the stroke color (specifically,
                 // in the case where the fillStyle is "white").
