@@ -9,7 +9,7 @@ import {
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Widgets/Interactive Graph/Locked Functions",
+    title: "Perseus/Widgets/Interactive Graph/Locked Functions",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;
