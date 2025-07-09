@@ -127,7 +127,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                               >
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                  data-testid="1i5tw4"
+                                  data-testid="90971284"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -241,7 +241,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                  data-testid="1i5xxu"
+                                  data-testid="90976530"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -355,7 +355,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                  data-testid="1i533o"
+                                  data-testid="90936564"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -469,7 +469,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                  data-testid="1i3qdb"
+                                  data-testid="90873407"
                                 >
                                   <div
                                     class="description description_psmgei"
@@ -583,7 +583,7 @@ exports[`group widget should snapshot: initial render 1`] = `
                                 </li>
                                 <li
                                   class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
-                                  data-testid="1i3p9x"
+                                  data-testid="90871989"
                                 >
                                   <div
                                     class="description description_psmgei"

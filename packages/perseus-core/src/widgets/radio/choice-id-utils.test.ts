@@ -1,20 +1,15 @@
-import {
-    convertStringToHash,
-    normalizeContent,
-    generateChoiceId,
-} from "./choice-id-utils";
+import {convertStringToHash, generateChoiceId} from "./choice-id-utils";
 
-const hashRegex = /^[a-z0-9]+$/;
+const hashRegex = /^\d+$/;
 
 describe("convertStringToHash", () => {
-    it("returns 'empty' for empty string", () => {
-        expect(convertStringToHash("")).toBe("empty");
+    it("returns 5381 for empty string", () => {
+        expect(convertStringToHash("")).toBe(5381);
     });
 
     it("returns hash for whitespace-only string", () => {
         const hash = convertStringToHash("   ");
-        expect(hash).toMatch(hashRegex);
-        expect(hash).not.toBe("empty");
+        expect(hash).toBe(193341061);
     });
 
     it("generates consistent hash for same input", () => {
@@ -30,74 +25,20 @@ describe("convertStringToHash", () => {
         expect(hash1).not.toBe(hash2);
     });
 
-    it("generates base36 hash up to 8 characters", () => {
-        const hash = convertStringToHash("test content");
-        expect(hash).toMatch(hashRegex);
-        expect(hash.length).toBeLessThanOrEqual(8);
-    });
-
     it("handles special characters", () => {
         const hash = convertStringToHash("test@#$%^&*()");
-        expect(hash).toMatch(hashRegex);
-        expect(hash.length).toBeLessThanOrEqual(8);
+        expect(hash).toBe(2369536034);
     });
 
     it("handles unicode characters", () => {
         const hash = convertStringToHash("test 🚀 emoji");
-        expect(hash).toMatch(hashRegex);
-        expect(hash.length).toBeLessThanOrEqual(8);
+        expect(hash).toBe(2126717450);
     });
 
     it("is case sensitive", () => {
         const hash1 = convertStringToHash("Test");
         const hash2 = convertStringToHash("test");
         expect(hash1).not.toBe(hash2);
-    });
-});
-
-describe("normalizeContent", () => {
-    it("returns empty string for null", () => {
-        expect(normalizeContent(null as any)).toBe("");
-    });
-
-    it("returns empty string for undefined", () => {
-        expect(normalizeContent(undefined as any)).toBe("");
-    });
-
-    it("returns empty string for empty string", () => {
-        expect(normalizeContent("")).toBe("");
-    });
-
-    it("returns empty string for whitespace-only string", () => {
-        expect(normalizeContent("   \n\t  ")).toBe("");
-    });
-
-    it("trims whitespace from beginning and end", () => {
-        expect(normalizeContent("  test content  ")).toBe("test content");
-    });
-
-    it("replaces multiple whitespace with single space", () => {
-        expect(normalizeContent("test    content")).toBe("test content");
-    });
-
-    it("handles mixed whitespace characters", () => {
-        expect(normalizeContent("test\n\t\r content")).toBe("test content");
-    });
-
-    it("converts to lowercase", () => {
-        expect(normalizeContent("Test Content")).toBe("test content");
-    });
-
-    it("handles special characters", () => {
-        expect(normalizeContent("Test@#$%^&*()")).toBe("test@#$%^&*()");
-    });
-
-    it("handles unicode characters", () => {
-        expect(normalizeContent("Test 🚀 Emoji")).toBe("test 🚀 emoji");
-    });
-
-    it("preserves content when no normalization needed", () => {
-        expect(normalizeContent("test content")).toBe("test content");
     });
 });
 
@@ -152,7 +93,7 @@ describe("generateChoiceId", () => {
         const choiceId = generateChoiceId(content, index);
 
         // Assert
-        expect(choiceId).toBe("3t05");
+        expect(choiceId).toBe("177557");
     });
 
     it("handles null content", () => {
@@ -164,7 +105,7 @@ describe("generateChoiceId", () => {
         const choiceId = generateChoiceId(content, index);
 
         // Assert
-        expect(choiceId).toBe("2zuisu");
+        expect(choiceId).toBe("181142958");
     });
 
     it("handles undefined content", () => {
@@ -176,7 +117,7 @@ describe("generateChoiceId", () => {
         const choiceId = generateChoiceId(content, index);
 
         // Assert
-        expect(choiceId).toBe("9kolin");
+        expect(choiceId).toBe("578935535");
     });
 
     it("handles whitespace-only content", () => {
@@ -188,7 +129,7 @@ describe("generateChoiceId", () => {
         const choiceId = generateChoiceId(content, index);
 
         // Assert
-        expect(choiceId).toBe("3t05");
+        expect(choiceId).toBe("2085287701");
     });
 
     it("handles special characters in content", () => {
@@ -201,7 +142,6 @@ describe("generateChoiceId", () => {
 
         // Assert
         expect(choiceId).toMatch(hashRegex);
-        expect(choiceId.length).toBeLessThanOrEqual(8);
     });
 
     it("handles unicode characters in content", () => {
@@ -214,7 +154,6 @@ describe("generateChoiceId", () => {
 
         // Assert
         expect(choiceId).toMatch(hashRegex);
-        expect(choiceId.length).toBeLessThanOrEqual(8);
     });
 
     it("handles large indices", () => {
@@ -227,7 +166,6 @@ describe("generateChoiceId", () => {
 
         // Assert
         expect(choiceId).toMatch(hashRegex);
-        expect(choiceId.length).toBeLessThanOrEqual(8);
     });
 
     it("handles zero index", () => {
@@ -240,7 +178,6 @@ describe("generateChoiceId", () => {
 
         // Assert
         expect(choiceId).toMatch(hashRegex);
-        expect(choiceId.length).toBeLessThanOrEqual(8);
     });
 
     it("handles negative indices", () => {
@@ -253,7 +190,6 @@ describe("generateChoiceId", () => {
 
         // Assert
         expect(choiceId).toMatch(hashRegex);
-        expect(choiceId.length).toBeLessThanOrEqual(8);
     });
 
     it("produces expected format", () => {
@@ -266,10 +202,9 @@ describe("generateChoiceId", () => {
 
         // Assert
         expect(choiceId).toMatch(hashRegex);
-        expect(choiceId.length).toBeLessThanOrEqual(8);
     });
 
-    it("generates unique IDs for realistic content", () => {
+    it("generates unique IDs for varying content", () => {
         // Arrange
         const testCases = [
             {content: "Content 1", index: 0},
@@ -291,7 +226,6 @@ describe("generateChoiceId", () => {
         // Each ID should follow the expected format (just hash)
         choiceIds.forEach((choiceId) => {
             expect(choiceId).toMatch(hashRegex);
-            expect(choiceId.length).toBeLessThanOrEqual(8);
         });
     });
 });
@@ -304,39 +238,33 @@ describe("integration tests", () => {
         const concatContent = `${content}${index}`;
 
         // Act
-        const normalized = normalizeContent(concatContent);
-        const hash = convertStringToHash(normalized);
+        const hash = convertStringToHash(concatContent).toString();
         const choiceId = generateChoiceId(content, index);
 
         // Assert
-        expect(normalized).toBe("test content 0");
         expect(hash).toMatch(hashRegex);
-        expect(hash.length).toBeLessThanOrEqual(8);
         expect(choiceId).toBe(hash);
     });
 
     it("handles edge cases consistently", () => {
         // Arrange
         const edgeCases = [
-            {content: "", index: 0, expectedNormalized: "0"},
-            {content: "   ", index: 1, expectedNormalized: "1"},
-            {content: "A", index: 2, expectedNormalized: "a2"},
-            {content: "A", index: 3, expectedNormalized: "a3"},
+            {content: "", index: 0},
+            {content: "   ", index: 1},
+            {content: "A", index: 2},
+            {content: "A", index: 3},
         ];
 
         // Act & Assert
-        edgeCases.forEach(({content, index, expectedNormalized}) => {
+        edgeCases.forEach(({content, index}) => {
             // Act
             const choiceId = generateChoiceId(content, index);
             const concatContent = `${content}${index}`;
-            const expectedNormalizedContent = normalizeContent(concatContent);
-            const expectedHash = convertStringToHash(expectedNormalizedContent);
+            const expectedHash = convertStringToHash(concatContent).toString();
 
             // Assert
-            expect(expectedNormalizedContent).toBe(expectedNormalized);
             expect(choiceId).toBe(expectedHash);
             expect(choiceId).toMatch(hashRegex);
-            expect(choiceId.length).toBeLessThanOrEqual(8);
         });
     });
 });

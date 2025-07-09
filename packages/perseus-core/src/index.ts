@@ -57,11 +57,7 @@ export {Errors} from "./error/errors";
 export {PerseusError} from "./error/perseus-error";
 
 export * from "./data-schema";
-export {
-    convertStringToHash,
-    generateChoiceId,
-    normalizeContent,
-} from "./widgets/radio/choice-id-utils";
+export {generateChoiceId} from "./widgets/radio/choice-id-utils";
 export {pluck, mapObject} from "./utils/objective_";
 
 export {default as categorizerLogic} from "./widgets/categorizer";
