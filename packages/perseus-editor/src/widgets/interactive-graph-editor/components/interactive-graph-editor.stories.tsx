@@ -12,8 +12,8 @@ import type {
     PerseusAnswerArea,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
-import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {registerAllWidgetsAndEditorsForTesting} from "../../../util/register-all-widgets-and-editors-for-testing";
+import EditorPageWithStorybookPreview from "../../../__docs__/editor-page-with-storybook-preview";
 import {
     angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
@@ -30,14 +30,14 @@ import {
     sinusoidMinimalQuestion,
     sinusoidWithStartingCoordsAndPiTicksQuestion,
     unlimitedPolygonWithCorrectAnswerQuestion,
-} from "../../../../perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
-import {interactiveGraphQuestionBuilder} from "../../../../perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
-import EditorPage from "../../editor-page";
+} from "@khanacademy/perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
+import {interactiveGraphQuestionBuilder} from "@khanacademy/perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
+import EditorPage from "../../../editor-page";
 
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
 export default {
-    title: "Widgets/Interactive Graph/Editor Demo",
+    title: "PerseusEditor/Widgets/Interactive Graph",
     tags: ["!autodocs"],
 };
 
