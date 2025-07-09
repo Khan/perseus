@@ -12,8 +12,8 @@ import type {
     PerseusAnswerArea,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {registerAllWidgetsAndEditorsForTesting} from "../../../util/register-all-widgets-and-editors-for-testing";
-import EditorPageWithStorybookPreview from "../../../__docs__/editor-page-with-storybook-preview";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {
     angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
@@ -32,7 +32,7 @@ import {
     unlimitedPolygonWithCorrectAnswerQuestion,
 } from "@khanacademy/perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
 import {interactiveGraphQuestionBuilder} from "@khanacademy/perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
-import EditorPage from "../../../editor-page";
+import EditorPage from "../../editor-page";
 
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 

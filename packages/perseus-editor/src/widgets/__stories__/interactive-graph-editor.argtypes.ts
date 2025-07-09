@@ -1,4 +1,4 @@
-import InteractiveGraphSettingsArgTypes from "../../../components/__stories__/interactive-graph-settings.argtypes";
+import InteractiveGraphSettingsArgTypes from "../../components/__stories__/interactive-graph-settings.argtypes";
 
 export default {
     apiOptions: {
