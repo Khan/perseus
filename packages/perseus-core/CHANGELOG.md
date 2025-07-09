@@ -1,5 +1,13 @@
 # @khanacademy/perseus-core
 
+## 18.1.0
+
+### Minor Changes
+
+-   [#2686](https://github.com/Khan/perseus/pull/2686) [`efd57ac72`](https://github.com/Khan/perseus/commit/efd57ac723cb6a6a700422098366d052d6fd887a) Thanks [@benchristel](https://github.com/benchristel)! - Export `parseAndMigrateUserInputMap` from `@khanacademy/perseus-core`
+
+*   [#2689](https://github.com/Khan/perseus/pull/2689) [`fbc14c3f1`](https://github.com/Khan/perseus/commit/fbc14c3f1b8fa24dd294d3220780f31a2b094660) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change deprecated-standin widget to be considered accessible
+
 ## 18.0.0
 
 ### Major Changes
