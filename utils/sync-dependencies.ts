@@ -6,7 +6,9 @@
  * the khan/frontend host application.
  */
 
+import {spawnSync} from "node:child_process";
 import fs from "node:fs";
+import {dirname, join} from "node:path";
 
 import semver from "semver";
 import invariant from "tiny-invariant";
@@ -41,36 +43,34 @@ const RestrictedPackageVersions = [
     /workspace/,
 ];
 
-// Package names that we don't want to sync in
-const RestrictedPackageNames = ["typescript"];
+type PackageJson = {
+    dependencies: Record<string, string>;
+};
 
-// There are some packages and version number constructs that we don't want to
-// bring into Perseus. This function filters out packages by name or version
-// that we can't use locally.
-function filterUnusableTargetVersions(
-    targetVersions: Record<string, string>,
-    packagesInThisRepo: ReadonlyArray<string>,
+type PnpmWorkspace = {
+    catalog: Record<string, string>;
+};
+
+function resolveVersionRangesFromCatalog(
+    packageJson: PackageJson,
+    workspace: PnpmWorkspace,
 ): Record<string, string> {
     return Object.fromEntries(
-        Object.entries(targetVersions).filter(([pkgName, pkgVersion]) => {
-            // Eliminate packages who's version we don't/can't use.
-            if (RestrictedPackageVersions.some((r) => r.test(pkgVersion))) {
-                return false;
-            }
+        Object.entries(packageJson.dependencies)
+            .filter(([_, pkgVersion]) => {
+                // Eliminate packages whose version we don't/can't use.
+                return !RestrictedPackageVersions.some((r) =>
+                    r.test(pkgVersion),
+                );
+            })
+            .map(([pkgName, pkgVersion]) => {
+                const resolvedVersion =
+                    pkgVersion === "catalog:"
+                        ? workspace.catalog[pkgName]
+                        : pkgVersion;
 
-            // Eliminate packages that we don't want to sync in.
-            if (RestrictedPackageNames.includes(pkgName)) {
-                return false;
-            }
-
-            // Eliminate any packages within this repo - they're managed by
-            // our `changeset` tooling.
-            if (!packagesInThisRepo.includes(pkgName)) {
-                return false;
-            }
-
-            return true;
-        }),
+                return [pkgName, resolvedVersion];
+            }),
     );
 }
 
@@ -97,13 +97,26 @@ function main(argv: string[]) {
         printHelp();
         process.exit(1);
     }
-    const clientPackageJson = args[0];
+    const clientPackageJsonPath = args[0];
+    const clientWorkspaceYamlPath = join(
+        dirname(clientPackageJsonPath),
+        "pnpm-workspace.yaml",
+    );
 
-    const workspace = yaml.parse(
+    const clientWorkspace = yaml.parse(
+        fs.readFileSync(clientWorkspaceYamlPath, "utf-8"),
+    );
+
+    const clientPackageJson = JSON.parse(
+        fs.readFileSync(clientPackageJsonPath, "utf-8"),
+    );
+
+    const ourWorkspace = yaml.parse(
         fs.readFileSync("pnpm-workspace.yaml", "utf-8"),
     );
+
     const packageNamesInRepo = unique(
-        Object.values(workspace.catalogs).flatMap((packages) => {
+        Object.values(ourWorkspace.catalogs).flatMap((packages) => {
             invariant(
                 packages != null,
                 "catalogs contained a nullish value; expected an object",
@@ -113,33 +126,33 @@ function main(argv: string[]) {
     );
 
     // Dependency ranges used by the consumer of Perseus (like khan/frontend)
-    const clientVersionRanges = filterUnusableTargetVersions(
-        JSON.parse(fs.readFileSync(clientPackageJson).toString()).dependencies,
-        packageNamesInRepo,
+    const clientVersionRanges = resolveVersionRangesFromCatalog(
+        clientPackageJson,
+        clientWorkspace,
     );
 
     for (const pkgName of packageNamesInRepo) {
-        if (pkgName in clientVersionRanges) {
-            const minVersion = semver.minVersion(
-                clientVersionRanges[pkgName],
-            )?.version;
-            if (!minVersion) {
-                throw new Error(
-                    `Package ${pkgName} does not have a min version!\n\n` +
-                        `Listed range is ${clientVersionRanges[pkgName]}\n\n` +
-                        "We don't know what dev dependency to install!",
-                );
-            }
-
-            // In development, install the minimum version of each package
-            // required by the client application. This ensures we don't
-            // accidentally depend on features of the package added after that
-            // version.
-            workspace.catalogs.devDeps[pkgName] = minVersion;
-            // In our peer dependencies, declare that Perseus will work with
-            // any package version compatible with the one we install in dev.
-            workspace.catalogs.peerDeps[pkgName] = `^${minVersion}`;
+        if (!(pkgName in clientVersionRanges)) {
+            continue;
         }
+        const minVersion = semver.minVersion(
+            clientVersionRanges[pkgName],
+        )?.version;
+        if (!minVersion) {
+            throw new Error(
+                `Package ${pkgName} does not have a min version!\n\n` +
+                    `Listed range is ${clientVersionRanges[pkgName]}\n\n` +
+                    "We don't know what dev dependency to install!",
+            );
+        }
+        // In development, install the minimum version of each package
+        // required by the client application. This ensures we don't
+        // accidentally depend on features of the package added after that
+        // version.
+        ourWorkspace.catalogs.devDeps[pkgName] = minVersion;
+        // In our peer dependencies, declare that Perseus will work with any
+        // package version compatible with the one we install in dev.
+        ourWorkspace.catalogs.peerDeps[pkgName] = `^${minVersion}`;
     }
 
     // TODO(LEMS-3169): update the path to services/static/package.json to the
@@ -172,11 +185,14 @@ function main(argv: string[]) {
 
     fs.writeFileSync(
         "pnpm-workspace.yaml",
-        comment + yaml.stringify(workspace, {indent: 4}),
+        comment + yaml.stringify(ourWorkspace, {indent: 4}),
         {
             encoding: "utf-8",
         },
     );
+
+    process.stderr.write("> pnpm install\n");
+    spawnSync("pnpm", ["install"], {stdio: "inherit"});
 }
 
 main(process.argv);

@@ -17,7 +17,7 @@ function validateSorter(userInput: PerseusSorterUserInput): ValidationResult {
     // assumption that the initial order isn't the correct order! However,
     // this should be rare if it happens, and interacting with the list
     // will enable the button, so they won't be locked out of progressing.
-    if (!userInput.changed) {
+    if (!userInput?.changed) {
         return {
             type: "invalid",
             message: null,

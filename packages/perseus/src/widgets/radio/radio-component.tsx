@@ -27,6 +27,7 @@ export type RenderProps = {
     countChoices?: boolean;
     deselectEnabled?: boolean;
     choices: RadioChoiceWithMetadata[];
+    // doesn't seem used? choiceStates includes selected...
     selectedChoices: PerseusRadioChoice["correct"][];
     showSolutions?: ShowSolutions;
     choiceStates?: ChoiceState[];
@@ -35,7 +36,11 @@ export type RenderProps = {
     values?: boolean[];
 };
 
-type Props = WidgetProps<RenderProps, PerseusRadioRubric>;
+export type Props = WidgetProps<
+    RenderProps,
+    PerseusRadioUserInput,
+    PerseusRadioRubric
+>;
 
 type DefaultProps = Required<
     Pick<
@@ -69,48 +74,6 @@ class Radio extends React.Component<Props> implements Widget {
         linterContext: linterContextDefault,
         showSolutions: "none",
     };
-
-    static getUserInputFromProps(
-        props: Props,
-        unshuffle: boolean = true,
-    ): PerseusRadioUserInput {
-        // Return checked inputs in the form {choicesSelected: [bool]}. (Dear
-        // future timeline implementers: this used to be {value: i} before
-        // multiple select was added)
-        if (props.choiceStates) {
-            const choiceStates = props.choiceStates;
-            const choicesSelected = choiceStates.map(() => false);
-
-            for (let i = 0; i < choicesSelected.length; i++) {
-                const index = unshuffle ? props.choices[i].originalIndex : i;
-
-                choicesSelected[index] = choiceStates[i].selected;
-            }
-
-            return {
-                choicesSelected,
-            };
-            // Support legacy choiceState implementation
-        }
-        /* c8 ignore if - props.values is deprecated */
-        const {values} = props;
-        if (values) {
-            const choicesSelected = [...values];
-            const valuesLength = values.length;
-
-            for (let i = 0; i < valuesLength; i++) {
-                const index = unshuffle ? props.choices[i].originalIndex : i;
-                choicesSelected[index] = values[i];
-            }
-            return {
-                choicesSelected,
-            };
-        }
-        // Nothing checked
-        return {
-            choicesSelected: props.choices.map(() => false),
-        };
-    }
 
     _renderRenderer: (content?: string) => React.ReactElement = (
         content = "",
@@ -236,13 +199,16 @@ class Radio extends React.Component<Props> implements Widget {
         this.props.trackInteraction();
     };
 
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     getUserInput(): PerseusRadioUserInput {
-        return Radio.getUserInputFromProps(this.props);
+        return this.props.userInput;
     }
 
     getPromptJSON(): RadioPromptJSON {
-        const userInput = Radio.getUserInputFromProps(this.props, false);
-        return _getPromptJSON(this.props, userInput);
+        return _getPromptJSON(this.props, this.props.userInput);
     }
 
     render(): React.ReactNode {

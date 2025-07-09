@@ -209,6 +209,20 @@ export const MafsWithXAxisOffTop: Story = {
 export const MafsWithLabelsAlongEdge: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withAxisLabels(
+                "Video Game Hours per Week",
+                "Reaction Time (milliseconds)",
+            )
+            .withLabelLocation("alongEdge")
+            .build(),
+    },
+};
+
+export const MafsWithLabelsAlongEdgeAtLeft: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
             .withXRange(0, 10)
             .withYRange(0, 10)
             .withAxisLabels(
@@ -233,6 +247,51 @@ export const MafsWithLabelsAlongEdgeJustOverLeft: Story = {
             .build(),
     },
 };
+
+export const MafsWithLabelsAlongEdgeAtRight: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withXRange(0, 0.01)
+            .withYRange(0, 0.01)
+            .withTickStep(0.001, 0.001)
+            .withGridStep(0.001, 0.001)
+            .withAxisLabels(
+                "Video Game Hours per Week",
+                "Reaction Time (milliseconds)",
+            )
+            .withLabelLocation("alongEdge")
+            .build(),
+    },
+};
+
+export const MafsWithLabelsAlongEdgeWithCloseToZeroXMin: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withXRange(-0.03, 0.84)
+            .withYRange(-2.8, 63)
+            .withTickStep(0.2, 10)
+            .withGridStep(0.05, 5)
+            .withSnapStep(0.025, 2)
+            .withAxisLabels("Time (seconds)", "Distance (meters)")
+            .withLabelLocation("alongEdge")
+            .build(),
+    },
+};
+
+export const MafsWithLabelsAlongEdgeWithCloseToZeroXMinMultipliedBy1000: Story =
+    {
+        args: {
+            question: interactiveGraphQuestionBuilder()
+                .withXRange(-30, 840)
+                .withYRange(-2.8, 63)
+                .withTickStep(200, 10)
+                .withGridStep(50, 5)
+                .withSnapStep(25, 2)
+                .withAxisLabels("Time (seconds)", "Distance (meters)")
+                .withLabelLocation("alongEdge")
+                .build(),
+        },
+    };
 
 export const MafsWithLabelsAlongEdgeZoomed: Story = {
     args: {
@@ -330,6 +389,47 @@ export const MafsWithAnswerlessData: Story = {
             const answerlessItem = splitPerseusItem(answerfulItem);
             return answerlessItem.question;
         })(),
+    },
+};
+
+/* Locked figure weight regression tests */
+
+function lockedFiguresQuestionWithWeight(weight: "thin" | "medium" | "thick") {
+    return interactiveGraphQuestionBuilder()
+        .withNoInteractiveFigure()
+        .addLockedLine([2, 2], [9, 9], {kind: "segment", weight})
+        .addLockedLine([2, 1], [9, 8], {kind: "ray", weight})
+        .addLockedLine([2, 0], [9, 7], {kind: "line", weight})
+        .addLockedVector([4, -7], [7, -4], {weight, color: "green"})
+        .addLockedEllipse([-5, 5], [1, 1], {weight, color: "blue"})
+        .addLockedPolygon(
+            [
+                [-7.5, -3.5],
+                [-6.5, -2.5],
+                [-5.5, -3.5],
+                [-6.5, -4.5],
+            ],
+            {weight, color: "pink"},
+        )
+        .addLockedFunction("x^2", {weight, color: "red"})
+        .build();
+}
+
+export const LockedFiguresWithThinWeight: Story = {
+    args: {
+        question: lockedFiguresQuestionWithWeight("thin"),
+    },
+};
+
+export const LockedFiguresWithMediumWeight: Story = {
+    args: {
+        question: lockedFiguresQuestionWithWeight("medium"),
+    },
+};
+
+export const LockedFiguresWithThickWeight: Story = {
+    args: {
+        question: lockedFiguresQuestionWithWeight("thick"),
     },
 };
 

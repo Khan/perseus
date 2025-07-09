@@ -55,14 +55,16 @@ function removeInvalidAnswerForms(
     });
 }
 
+const parseAnswerForms = pipeParsers(
+    defaulted(array(parsePossiblyInvalidAnswerForm), () => []),
+).then(convert(removeInvalidAnswerForms)).parser;
+
 const version2 = object({major: constant(2), minor: number});
 const parseExpressionWidgetV2 = parseWidgetWithVersion(
     version2,
     constant("expression"),
     object({
-        answerForms: pipeParsers(array(parsePossiblyInvalidAnswerForm)).then(
-            convert(removeInvalidAnswerForms),
-        ).parser,
+        answerForms: parseAnswerForms,
         functions: array(string),
         times: boolean,
         visibleLabel: optional(string),
@@ -78,9 +80,7 @@ const parseExpressionWidgetV1 = parseWidgetWithVersion(
     version1,
     constant("expression"),
     object({
-        answerForms: pipeParsers(array(parsePossiblyInvalidAnswerForm)).then(
-            convert(removeInvalidAnswerForms),
-        ).parser,
+        answerForms: parseAnswerForms,
         functions: array(string),
         times: boolean,
         visibleLabel: optional(string),

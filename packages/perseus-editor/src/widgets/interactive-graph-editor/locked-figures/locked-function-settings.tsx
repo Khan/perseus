@@ -10,7 +10,7 @@ import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
 import {TextField} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {color, sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelMedium} from "@khanacademy/wonder-blocks-typography";
 import copyIcon from "@phosphor-icons/core/assets/regular/copy.svg";
 import autoPasteIcon from "@phosphor-icons/core/assets/regular/note-pencil.svg";
@@ -24,6 +24,7 @@ import PerseusEditorAccordion from "../../../components/perseus-editor-accordion
 import ColorSelect from "./color-select";
 import LineStrokeSelect from "./line-stroke-select";
 import LineSwatch from "./line-swatch";
+import LineWeightSelect from "./line-weight-select";
 import LockedFigureAria from "./locked-figure-aria";
 import LockedFigureSettingsActions from "./locked-figure-settings-actions";
 import examples from "./locked-function-examples";
@@ -56,6 +57,7 @@ const LockedFunctionSettings = (props: Props) => {
         equation,
         directionalAxis,
         domain,
+        weight,
         ariaLabel,
         onChangeProps,
         onMove,
@@ -104,6 +106,8 @@ const LockedFunctionSettings = (props: Props) => {
         const functionAppearance = generateLockedFigureAppearanceDescription(
             lineColor,
             strokeStyle,
+            undefined, // fillStyle is not used for functions
+            weight,
         );
         str += functionAppearance;
 
@@ -192,7 +196,7 @@ const LockedFunctionSettings = (props: Props) => {
                 </View>
             }
         >
-            <View style={[styles.row, styles.spaceUnder]}>
+            <View style={[styles.row, {marginBottom: sizing.size_080}]}>
                 {/* Line color settings */}
                 <ColorSelect
                     selectedValue={lineColor}
@@ -208,6 +212,12 @@ const LockedFunctionSettings = (props: Props) => {
                     }}
                 />
             </View>
+
+            {/* Line weight settings */}
+            <LineWeightSelect
+                selectedValue={weight}
+                onChange={(value) => onChangeProps({weight: value})}
+            />
 
             <View style={[styles.row, styles.rowSpace]}>
                 {/* Directional axis (x or y) */}

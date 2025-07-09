@@ -28,6 +28,7 @@ import WidgetEditor from "./components/widget-editor";
 import WidgetSelect from "./components/widget-select";
 import TexErrorView from "./tex-error-view";
 
+// eslint-disable-next-line import/no-deprecated
 import type {ChangeHandler, ImageUploader} from "@khanacademy/perseus";
 import type {PerseusWidget, PerseusWidgetsMap} from "@khanacademy/perseus-core";
 
@@ -112,6 +113,7 @@ const imageUrlsFromContent = function (content: string) {
 };
 
 type Props = Readonly<{
+    additionalTemplates: Record<string, string>;
     apiOptions: any;
     className?: string;
     content: string;
@@ -127,6 +129,7 @@ type Props = Readonly<{
     warnNoWidgets: boolean;
     widgetIsOpen?: boolean;
     imageUploader?: ImageUploader;
+    // eslint-disable-next-line import/no-deprecated
     onChange: ChangeHandler;
 }>;
 
@@ -143,6 +146,7 @@ type DefaultProps = {
     widgets: {
         [name: string]: PerseusWidget;
     };
+    additionalTemplates: Props["additionalTemplates"];
 };
 
 type State = {
@@ -169,6 +173,7 @@ class Editor extends React.Component<Props, State> {
         showWordCount: false,
         warnNoPrompt: false,
         warnNoWidgets: false,
+        additionalTemplates: {},
     };
 
     state: State = {
@@ -782,6 +787,9 @@ class Editor extends React.Component<Props, State> {
             template = Widgets.getAllWidgetTypes()
                 .map((type) => `[[${Util.snowman} ${type} 1]]`)
                 .join("\n\n");
+        }
+        if (templateType in this.props.additionalTemplates) {
+            template = this.props.additionalTemplates[templateType];
         } else {
             throw new PerseusError(
                 "Invalid template type: " + templateType,
@@ -995,6 +1003,14 @@ class Editor extends React.Component<Props, State> {
                     <option value="titledTable">Titled table</option>
                     <option value="alignment">Aligned equations</option>
                     <option value="piecewise">Piecewise function</option>
+                    <option disabled>--</option>
+                    {Object.entries(this.props.additionalTemplates).map(
+                        ([key]) => (
+                            <option value={key} key={key}>
+                                {key}
+                            </option>
+                        ),
+                    )}
                     <option disabled>--</option>
                     <option value="allWidgets">
                         All widgets (for testing)
