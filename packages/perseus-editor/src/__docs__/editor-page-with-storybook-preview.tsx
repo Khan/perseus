@@ -16,7 +16,7 @@ import * as React from "react";
 import {action} from "storybook/actions";
 
 // eslint-disable-next-line import/no-relative-packages
-import {mockStrings} from "../../../perseus/src/strings";
+import {mockStrings} from "@khanacademy/perseus/strings";
 import ContentPreview from "../content-preview";
 import EditorPage from "../editor-page";
 

@@ -6,14 +6,8 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import type {DeviceType} from "@khanacademy/perseus";
-import type {
-    Hint,
-    PerseusAnswerArea,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
-import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
-import EditorPageWithStorybookPreview from "../__docs__/editor-page-with-storybook-preview";
+import {EditorPage} from "..";
+import {interactiveGraphQuestionBuilder} from "../../../perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
 import {
     angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
@@ -24,21 +18,28 @@ import {
     polygonWithStartingCoordsQuestion,
     quadraticWithStartingCoordsQuestion,
     rayWithStartingCoordsQuestion,
-    segmentsWithStartingCoordsQuestion,
     segmentWithLockedFigures,
     segmentWithStartingCoordsQuestion,
+    segmentsWithStartingCoordsQuestion,
     sinusoidMinimalQuestion,
     sinusoidWithStartingCoordsAndPiTicksQuestion,
     unlimitedPolygonWithCorrectAnswerQuestion,
-} from "@khanacademy/perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
-import {interactiveGraphQuestionBuilder} from "@khanacademy/perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
-import EditorPage from "../editor-page";
+} from "../../../perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
+import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
+
+import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
+
+import type {DeviceType} from "@khanacademy/perseus";
+import type {
+    Hint,
+    PerseusAnswerArea,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
 export default {
     title: "PerseusEditor/Widgets/Interactive Graph",
-    tags: ["!autodocs"],
 };
 
 const onChangeAction = action("onChange");
