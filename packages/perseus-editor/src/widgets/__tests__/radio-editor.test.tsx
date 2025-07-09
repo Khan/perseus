@@ -154,7 +154,7 @@ describe("radio-editor", () => {
         // Remove first choice
         await userEvent.click(
             screen.getAllByRole("button", {
-                name: "Remove this choice",
+                name: "Remove",
             })[0],
         );
 
@@ -191,7 +191,7 @@ describe("radio-editor", () => {
         // Remove first choice
         await userEvent.click(
             screen.getAllByRole("button", {
-                name: "Remove this choice",
+                name: "Remove",
             })[3],
         );
 
@@ -228,7 +228,7 @@ describe("radio-editor", () => {
         // Remove first choice
         await userEvent.click(
             screen.getAllByRole("button", {
-                name: "Remove this choice",
+                name: "Remove",
             })[0],
         );
 
@@ -568,7 +568,7 @@ describe("radio-editor", () => {
         // Delete the first correct choice
         await userEvent.click(
             screen.getAllByRole("button", {
-                name: "Remove this choice",
+                name: "Remove",
             })[0],
         );
 
