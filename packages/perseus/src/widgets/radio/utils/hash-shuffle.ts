@@ -64,19 +64,22 @@ export function hashBasedShuffle(
     seed: string,
 ): RadioChoiceWithMetadata[] {
     // Create array of choices with their hash-based sort keys
-    const choicesWithKeys = choices.map((choice) => {
-        const shuffleKey = createShuffleKey(choice, seed);
-        const sortKey = hashString(shuffleKey);
-        return {
-            choice,
-            sortKey,
-        };
-    });
+    return (
+        choices
+            .map((choice) => {
+                const shuffleKey = createShuffleKey(choice, seed);
+                const sortKey = hashString(shuffleKey);
+                return {
+                    choice,
+                    sortKey,
+                };
+            })
 
-    // Sort by hash values to create deterministic "random" order
-    choicesWithKeys.sort((a, b) => a.sortKey - b.sortKey);
-    // Extract just the choices from the sorted array
-    return choicesWithKeys.map((item) => item.choice);
+            // Sort by hash values to create deterministic "random" order
+            .sort((a, b) => a.sortKey - b.sortKey)
+            // Extract just the choices from the sorted array
+            .map((item) => item.choice)
+    );
 }
 
 /**
