@@ -5,12 +5,12 @@ import {
 import {View} from "@khanacademy/wonder-blocks-core";
 import * as React from "react";
 
-import {ApiOptions} from "../../../perseus-api";
-import Renderer from "../../../renderer";
+import {ApiOptions} from "../../perseus-api";
+import Renderer from "../../renderer";
 import {mockStrings} from "@khanacademy/perseus/strings";
 
-import {interactiveGraphQuestionBuilder} from "../../../widgets/interactive-graphs/interactive-graph-question-builder";
-import {sinusoidWithPiTicks} from "../../../widgets/interactive-graphs/interactive-graph.testdata";
+import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
+import {sinusoidWithPiTicks} from "./interactive-graph.testdata";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";

@@ -1,0 +1,63 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+TODO: update this section with correct content
+
+# Perseus Documentation
+
+Perseus is Khan Academy's exercise system for rendering interactive content and quizzing learners. This Storybook provides documentation and interactive examples of the various components, renderers, and widgets available in Perseus.
+
+## What is Perseus?
+
+Perseus is a library that takes problems in the Perseus format and presents them, allows interaction, and grades the result of a learner's work. At its core, Perseus renders content written in a modified Markdown format with two key extensions:
+
+1. **Widgets** - Custom interactive components that allow learners to input answers and receive feedback. Widgets are denoted using the syntax `[[☃️ widget-id ]]` (where `widget-id` represents a generated ID that is unique within the Perseus instance).
+
+2. **Math** - Beautiful math rendering using MathJax, denoted with dollar signs (e.g., `$y = mx + b$`).
+
+In addition to this extended Markdown rendering, Perseus enables answer checking, state serialization, hinting, and other features essential for interactive educational content.
+
+## Major Components
+
+Perseus has three main renderers:
+
+- **ServerItemRenderer** - The main exercise renderer that manages displaying hints and showing/hiding a keypad. It accepts a `PerseusItem` data structure.
+- **ArticleRenderer** - For rendering long-form, read-only content. This renderer is very similar to the `ServerItemRenderer` but cannot score any input provided by the learner. It accepts either a single `PerseusRenderer` or an array of them.
+- **Renderer** - The core renderer that manages all aspects of rendering widgets and math content (TeX). It also contains all the knowledge of coordinating the grading of the content. It accepts a `PerseusRenderer` data structure.
+
+## Data Architecture
+
+Perseus operates using several key data structures:
+
+- **PerseusItem** - The top-level structure for exercise questions, containing question content, hints, and widgets.
+- **PerseusArticle** - A series of `PerseusRenderer` objects for rendering long-form content.
+- **PerseusRenderer** - The core structure used throughout Perseus to render content.
+- **WidgetExports** - Defines a widget including its React component, data transforms, and metadata.
+- **WidgetOptions** - Contains configuration options specific to each widget type.
+
+## Widget Rendering Process
+
+When rendering a widget, Perseus follows these steps:
+
+1. Runs each widget's options through upgrade transforms to ensure compatibility
+2. Prepares options for rendering by applying the widget's transform functions
+3. Adds common props to create the complete set of widget options
+4. Renders each widget found in the content with the appropriate props
+
+## Navigation Structure
+
+- **Overview** - Introduction to Perseus
+- **Widget Gallery** - Overview of all available widgets
+- **Theming** - Theming options for Perseus components
+- **Perseus** - Detailed documentation
+  - **Components** - Reusable UI components
+  - **Renderers** - Content rendering widget
+  - **Widgets** - Perseus available widgets
+    - Docs - General widget information
+    - Accessibility - Accessibility considerations
+    - Widget Demo - Interactive demos
+    - Editor Demo - Widget editing interfaces
+    - Widget States Gallery - Visual states
+    - Widget Internal Components - Internal components to the widget
+    - Regression Test - Test cases
