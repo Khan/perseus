@@ -3,6 +3,9 @@
  * or screen, based on the widgets it contains.
  */
 
+// eslint-disable-next-line @typescript-eslint/no-restricted-imports
+import SimpleMarkdown from "@khanacademy/simple-markdown";
+
 import {traverse} from "./traversal";
 import * as Widgets from "./widgets/core-widget-registry";
 
@@ -42,5 +45,19 @@ export function violatingWidgets(itemData: PerseusItem): Array<string> {
  * any widgets that violate our accessibility requirements).
  */
 export function isItemAccessible(itemData: PerseusItem): boolean {
+    // Traverse the item question and check if markdown images have alt text.
+    // If it does note then the item is not accessible and we return false.
+    const nodes = SimpleMarkdown.defaultInlineParse(itemData.question.content);
+    for (const node of nodes) {
+        if (
+            node.type === "image" &&
+            (node.alt === undefined || node.alt === "")
+        ) {
+            return false;
+        }
+    }
+
+    // Finally, if the markdown is accessible. Check if any widgets are not
+    // accessible.
     return violatingWidgets(itemData).length === 0;
 }
