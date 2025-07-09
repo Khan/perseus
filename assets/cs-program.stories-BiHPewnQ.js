@@ -1,7 +1,0 @@
-import{j as o,cT as a}from"./iframe-Cn2sr9XL.js";import{S as n}from"./server-item-renderer-with-debug-ui-DXKzMTp6.js";import"./server-item-renderer-Ba-JUrlz.js";import"./hints-renderer-Dp6eZWrp.js";import"./main-vtU6t8bi.js";import"./test-keypad-context-wrapper-D4ysAMx9.js";import"./Popper-B91G_J1J.js";const i={content:`[[☃ cs-program 1]]
-
-`,images:{},widgets:{"cs-program 1":{graded:!0,version:{major:0,minor:0},static:!1,type:"cs-program",options:{settings:[{name:"",value:""},{name:"",value:""}],height:540,programID:"6293105639817216",static:!1,showButtons:!1,showEditor:!1},alignment:"block"}}},I={title:"Perseus/Widgets/CS Program"},e=m=>o.jsx(n,{item:a({question:i})});e.__docgenInfo={description:"",methods:[],displayName:"Question1"};var t,r,s;e.parameters={...e.parameters,docs:{...(t=e.parameters)==null?void 0:t.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
-  return <ServerItemRendererWithDebugUI item={generateTestPerseusItem({
-    question: question1
-  })} />;
-}`,...(s=(r=e.parameters)==null?void 0:r.docs)==null?void 0:s.source}}};const h=["Question1"];export{e as Question1,h as __namedExportsOrder,I as default};
