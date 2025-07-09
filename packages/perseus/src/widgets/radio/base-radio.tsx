@@ -365,9 +365,11 @@ const BaseRadio = function ({
                         };
                     }
 
-                    // TODO(mattdr): Using content and index provides a more
-                    // stable key than just index, ensuring proper React
-                    // reconciliation even when choice.id isn't available yet.
+                    // TODO(mattdr): Index isn't a *good* choice of key
+                    // here; is there a better one? Can we use choice
+                    // content somehow? Would changing our choice of key
+                    // somehow break something happening inside a choice's
+                    // child Renderers, by changing when we mount/unmount?
 
                     // Generate a stable key for React reconciliation
                     const choiceKey =
