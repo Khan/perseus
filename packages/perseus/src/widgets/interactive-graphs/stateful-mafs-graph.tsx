@@ -35,7 +35,7 @@ export type StatefulMafsGraphProps = {
     gridStep: [x: number, y: number];
     containerSizeClass: InteractiveGraphProps["containerSizeClass"];
     markings: InteractiveGraphProps["markings"];
-    onChange: InteractiveGraphProps["onChange"];
+    onChange: (userInput: PerseusGraphType) => void;
     showTooltips: Required<InteractiveGraphProps["showTooltips"]>;
     showProtractor: boolean;
     labels: ReadonlyArray<string>;
@@ -70,7 +70,7 @@ export const StatefulMafsGraph = React.forwardRef<
 
     useEffect(() => {
         if (prevState.current !== state) {
-            onChange({graph: mafsStateToInteractiveGraph(state, graph)});
+            onChange(mafsStateToInteractiveGraph(state, graph));
         }
         prevState.current = state;
     }, [onChange, state, graph]);

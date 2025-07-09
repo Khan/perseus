@@ -5,6 +5,7 @@ import {assertFailure, assertSuccess, success} from "./result";
 import {
     parseAndMigratePerseusItem,
     parseAndMigratePerseusArticle,
+    parseAndMigrateUserInputMap,
 } from "./index";
 
 describe("parseAndMigratePerseusItem", () => {
@@ -178,5 +179,48 @@ describe("parseAndMigratePerseusArticle", () => {
         expect(() =>
             parseAndMigratePerseusArticle(validArticle),
         ).toThrowError();
+    });
+});
+
+describe("parseAndMigrateUserInputMap", () => {
+    it("parses a UserInputMap from a JSON string", () => {
+        const result = parseAndMigrateUserInputMap(
+            `{"radio 1": {"choicesSelected": [true, false]}}`,
+        );
+
+        expect(result).toEqual(
+            success({"radio 1": {choicesSelected: [true, false]}}),
+        );
+    });
+
+    it("parses an object", () => {
+        const result = parseAndMigrateUserInputMap({
+            "radio 1": {choicesSelected: [true, false]},
+        });
+
+        expect(result).toEqual(
+            success({"radio 1": {choicesSelected: [true, false]}}),
+        );
+    });
+
+    it("returns an error given invalid input", () => {
+        const result = parseAndMigrateUserInputMap({"radio 1": {}});
+
+        assertFailure(result);
+
+        expect(result.detail.message).toBe(
+            `At (root)["radio 1"].choicesSelected -- expected array, but got undefined`,
+        );
+    });
+
+    it("returns the invalid object along with the error", () => {
+        const result = parseAndMigrateUserInputMap({"radio 1": {}});
+
+        assertFailure(result);
+        expect(result.detail.invalidObject).toEqual({"radio 1": {}});
+    });
+
+    it("throws a SyntaxError given malformed JSON", () => {
+        expect(() => parseAndMigrateUserInputMap("")).toThrowError(SyntaxError);
     });
 });

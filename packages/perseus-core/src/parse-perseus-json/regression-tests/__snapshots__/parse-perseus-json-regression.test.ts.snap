@@ -432,14 +432,11 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.jso
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -495,14 +492,11 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-randomizeItems.jso
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -552,14 +546,11 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-static.json return
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -604,14 +595,11 @@ exports[`parseAndMigratePerseusItem given categorizer-missing-static.json return
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -658,14 +646,11 @@ exports[`parseAndMigratePerseusItem given categorizer-with-null-value.json retur
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -728,14 +713,11 @@ exports[`parseAndMigratePerseusItem given categorizer-with-null-value.json retur
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -785,14 +767,11 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.json returns
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -871,14 +850,11 @@ exports[`parseAndMigratePerseusItem given cs-program-missing-static.json returns
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -960,14 +936,11 @@ exports[`parseAndMigratePerseusItem given cs-program-with-null-width.json return
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -996,14 +969,11 @@ exports[`parseAndMigratePerseusItem given cs-program-with-null-width.json return
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -1039,14 +1009,11 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.json returns
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -1117,14 +1084,11 @@ exports[`parseAndMigratePerseusItem given definition-missing-static.json returns
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -1189,14 +1153,11 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-placeholder.json retu
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -1256,14 +1217,11 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-placeholder.json retu
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -1318,14 +1276,11 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-version.json returns 
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -1369,14 +1324,11 @@ exports[`parseAndMigratePerseusItem given dropdown-missing-version.json returns 
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -1422,14 +1374,11 @@ exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -1517,14 +1466,11 @@ exports[`parseAndMigratePerseusItem given explanation-missing-widgets-map.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -1580,14 +1526,11 @@ exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.jso
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -1648,14 +1591,11 @@ exports[`parseAndMigratePerseusItem given expression-answerForm-missing-form.jso
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -1708,14 +1648,11 @@ exports[`parseAndMigratePerseusItem given expression-missing-buttonSets.json ret
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -1779,14 +1716,11 @@ exports[`parseAndMigratePerseusItem given expression-missing-buttonSets.json ret
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -1845,14 +1779,11 @@ exports[`parseAndMigratePerseusItem given expression-option-missing-value.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -1903,14 +1834,11 @@ exports[`parseAndMigratePerseusItem given expression-option-missing-value.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -1962,14 +1890,11 @@ exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -2228,14 +2153,11 @@ exports[`parseAndMigratePerseusItem given expression-with-null-answer-key.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -2390,14 +2312,11 @@ exports[`parseAndMigratePerseusItem given expression-with-scientific-notation.js
 {
   "answerArea": {
     "calculator": true,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": true,
     "periodicTableWithKey": true,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -2607,14 +2526,11 @@ exports[`parseAndMigratePerseusItem given expression-with-scientific-notation.js
 {
   "answerArea": {
     "calculator": true,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": true,
     "periodicTableWithKey": true,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -2752,14 +2668,11 @@ exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.json retu
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -2957,14 +2870,11 @@ exports[`parseAndMigratePerseusItem given graded-group-with-false-hint.json retu
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -3013,14 +2923,11 @@ exports[`parseAndMigratePerseusItem given grapher-with-empty-coords.json returns
 {
   "answerArea": {
     "calculator": true,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -3228,14 +3135,11 @@ exports[`parseAndMigratePerseusItem given grapher-with-empty-coords.json returns
 {
   "answerArea": {
     "calculator": true,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -3315,14 +3219,11 @@ exports[`parseAndMigratePerseusItem given grapher-with-null-coords.json returns 
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -3416,14 +3317,11 @@ exports[`parseAndMigratePerseusItem given grapher-with-null-coords.json returns 
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -3518,14 +3416,11 @@ exports[`parseAndMigratePerseusItem given hint-missing-images.json returns the s
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -3813,14 +3708,11 @@ exports[`parseAndMigratePerseusItem given hint-missing-images.json returns the s
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -3845,14 +3737,11 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.json returns th
   "answer": null,
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -3932,14 +3821,11 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.json returns th
   "answer": null,
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -3991,14 +3877,11 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.json re
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -4092,14 +3975,11 @@ exports[`parseAndMigratePerseusItem given iframe-missing-allowFullScreen.json re
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -4157,14 +4037,11 @@ exports[`parseAndMigratePerseusItem given iframe-missing-settings.json returns t
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -4191,14 +4068,11 @@ exports[`parseAndMigratePerseusItem given iframe-missing-settings.json returns t
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -4238,14 +4112,11 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.json returns the
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -4294,14 +4165,11 @@ exports[`parseAndMigratePerseusItem given iframe-missing-static.json returns the
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -4322,14 +4190,11 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.json return
   "answer": null,
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -4606,14 +4471,11 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.json return
   "answer": null,
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -4712,14 +4574,11 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -4848,14 +4707,11 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -4951,14 +4807,11 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-constraint
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -5156,14 +5009,11 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-constraint
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -5363,14 +5213,11 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-key.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -5869,14 +5716,11 @@ exports[`parseAndMigratePerseusItem given interaction-element-missing-key.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -6385,14 +6229,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -6531,14 +6372,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-backgroundImage-with
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -6632,18 +6470,549 @@ $3$ | $8$
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with-null-domain-element.json returns the same result as before 1`] = `
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missing-weights.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "Varieties of locked figures
+
+[[☃ interactive-graph 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "none",
+          },
+          "fullGraphAriaDescription": "Graph depicting a variety of locked figures, including points, lines, vector, ellipse, polygon, function, and label.",
+          "fullGraphAriaLabel": "Locked figures",
+          "graph": {
+            "type": "none",
+          },
+          "labelLocation": "onAxis",
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": [
+            {
+              "color": "blue",
+              "coord": [
+                -9,
+                9,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "blue",
+              "coord": [
+                9,
+                -9,
+              ],
+              "filled": false,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "green",
+              "kind": "segment",
+              "labels": [],
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "green",
+                  "coord": [
+                    2,
+                    2,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+                {
+                  "color": "green",
+                  "coord": [
+                    9,
+                    9,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+              ],
+              "showPoint1": false,
+              "showPoint2": false,
+              "type": "line",
+              "weight": "medium",
+            },
+            {
+              "color": "green",
+              "kind": "ray",
+              "labels": [],
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "green",
+                  "coord": [
+                    2,
+                    1,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+                {
+                  "color": "green",
+                  "coord": [
+                    9,
+                    8,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+              ],
+              "showPoint1": false,
+              "showPoint2": false,
+              "type": "line",
+              "weight": "medium",
+            },
+            {
+              "color": "green",
+              "kind": "line",
+              "labels": [],
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "green",
+                  "coord": [
+                    2,
+                    0,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+                {
+                  "color": "green",
+                  "coord": [
+                    9,
+                    7,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+              ],
+              "showPoint1": false,
+              "showPoint2": false,
+              "type": "line",
+              "weight": "medium",
+            },
+            {
+              "color": "grayH",
+              "labels": [],
+              "points": [
+                [
+                  6,
+                  -9,
+                ],
+                [
+                  8,
+                  -7,
+                ],
+              ],
+              "type": "vector",
+              "weight": "medium",
+            },
+            {
+              "angle": 0,
+              "center": [
+                -5,
+                5,
+              ],
+              "color": "purple",
+              "fillStyle": "none",
+              "labels": [],
+              "radius": [
+                1.5,
+                1,
+              ],
+              "strokeStyle": "solid",
+              "type": "ellipse",
+              "weight": "medium",
+            },
+            {
+              "color": "pink",
+              "fillStyle": "none",
+              "labels": [],
+              "points": [
+                [
+                  -8,
+                  -7,
+                ],
+                [
+                  -8,
+                  -3,
+                ],
+                [
+                  -4,
+                  -3,
+                ],
+              ],
+              "showVertices": false,
+              "strokeStyle": "solid",
+              "type": "polygon",
+              "weight": "medium",
+            },
+            {
+              "color": "red",
+              "directionalAxis": "x",
+              "domain": [
+                -Infinity,
+                Infinity,
+              ],
+              "equation": "x^2",
+              "labels": [],
+              "strokeStyle": "solid",
+              "type": "function",
+              "weight": "medium",
+            },
+            {
+              "color": "orange",
+              "coord": [
+                1,
+                -5,
+              ],
+              "size": "medium",
+              "text": "Graphs are cool",
+              "type": "label",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+          "valid": true,
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missing-weights.json returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "Varieties of locked figures
+
+[[☃ interactive-graph 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "interactive-graph 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "backgroundImage": {
+            "url": null,
+          },
+          "correct": {
+            "type": "linear",
+          },
+          "fullGraphAriaDescription": "Graph depicting a variety of locked figures, including points, lines, vector, ellipse, polygon, function, and label.",
+          "fullGraphAriaLabel": "Locked figures",
+          "graph": {
+            "type": "none",
+          },
+          "labelLocation": "onAxis",
+          "labels": [
+            "x",
+            "y",
+          ],
+          "lockedFigures": [
+            {
+              "color": "blue",
+              "coord": [
+                -9,
+                9,
+              ],
+              "filled": true,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "blue",
+              "coord": [
+                9,
+                -9,
+              ],
+              "filled": false,
+              "labels": [],
+              "type": "point",
+            },
+            {
+              "color": "green",
+              "kind": "segment",
+              "labels": [],
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "green",
+                  "coord": [
+                    2,
+                    2,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+                {
+                  "color": "green",
+                  "coord": [
+                    9,
+                    9,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+              ],
+              "showPoint1": false,
+              "showPoint2": false,
+              "type": "line",
+              "weight": "medium",
+            },
+            {
+              "color": "green",
+              "kind": "ray",
+              "labels": [],
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "green",
+                  "coord": [
+                    2,
+                    1,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+                {
+                  "color": "green",
+                  "coord": [
+                    9,
+                    8,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+              ],
+              "showPoint1": false,
+              "showPoint2": false,
+              "type": "line",
+              "weight": "medium",
+            },
+            {
+              "color": "green",
+              "kind": "line",
+              "labels": [],
+              "lineStyle": "solid",
+              "points": [
+                {
+                  "color": "green",
+                  "coord": [
+                    2,
+                    0,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+                {
+                  "color": "green",
+                  "coord": [
+                    9,
+                    7,
+                  ],
+                  "filled": true,
+                  "labels": [],
+                  "type": "point",
+                },
+              ],
+              "showPoint1": false,
+              "showPoint2": false,
+              "type": "line",
+              "weight": "medium",
+            },
+            {
+              "color": "grayH",
+              "labels": [],
+              "points": [
+                [
+                  6,
+                  -9,
+                ],
+                [
+                  8,
+                  -7,
+                ],
+              ],
+              "type": "vector",
+              "weight": "medium",
+            },
+            {
+              "angle": 0,
+              "center": [
+                -5,
+                5,
+              ],
+              "color": "purple",
+              "fillStyle": "none",
+              "labels": [],
+              "radius": [
+                1.5,
+                1,
+              ],
+              "strokeStyle": "solid",
+              "type": "ellipse",
+              "weight": "medium",
+            },
+            {
+              "color": "pink",
+              "fillStyle": "none",
+              "labels": [],
+              "points": [
+                [
+                  -8,
+                  -7,
+                ],
+                [
+                  -8,
+                  -3,
+                ],
+                [
+                  -4,
+                  -3,
+                ],
+              ],
+              "showVertices": false,
+              "strokeStyle": "solid",
+              "type": "polygon",
+              "weight": "medium",
+            },
+            {
+              "color": "red",
+              "directionalAxis": "x",
+              "domain": [
+                -Infinity,
+                Infinity,
+              ],
+              "equation": "x^2",
+              "labels": [],
+              "strokeStyle": "solid",
+              "type": "function",
+              "weight": "medium",
+            },
+            {
+              "color": "orange",
+              "coord": [
+                1,
+                -5,
+              ],
+              "size": "medium",
+              "text": "Graphs are cool",
+              "type": "label",
+            },
+          ],
+          "markings": "graph",
+          "range": [
+            [
+              -10,
+              10,
+            ],
+            [
+              -10,
+              10,
+            ],
+          ],
+          "showProtractor": false,
+          "showTooltips": false,
+          "step": [
+            1,
+            1,
+          ],
+          "valid": true,
+        },
+        "static": false,
+        "type": "interactive-graph",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with-null-domain-element.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -6686,6 +7055,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
               "labels": [],
               "strokeStyle": "solid",
               "type": "function",
+              "weight": "medium",
             },
           ],
           "markings": "graph",
@@ -6723,14 +7093,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -6773,6 +7140,7 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
               "labels": [],
               "strokeStyle": "solid",
               "type": "function",
+              "weight": "medium",
             },
           ],
           "markings": "graph",
@@ -6810,14 +7178,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-line-missing-
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -7384,6 +7749,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "grayH",
@@ -7417,6 +7783,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "pink",
@@ -7450,6 +7817,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "pink",
@@ -7483,6 +7851,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "red",
@@ -7516,6 +7885,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "red",
@@ -7549,6 +7919,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "blue",
@@ -7599,14 +7970,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-line-missing-
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -8078,6 +8446,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "grayH",
@@ -8111,6 +8480,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "pink",
@@ -8144,6 +8514,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "pink",
@@ -8177,6 +8548,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "red",
@@ -8210,6 +8582,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": false,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "red",
@@ -8243,6 +8616,7 @@ Locked figures:
               "showPoint2": false,
               "showStartPoint": true,
               "type": "line",
+              "weight": "medium",
             },
             {
               "color": "blue",
@@ -8289,345 +8663,15 @@ Locked figures:
 }
 `;
 
-exports[`parseAndMigratePerseusItem given interactive-graph-locked-polygon-missing-weight.json returns the same result as before 1`] = `
-{
-  "answerArea": {
-    "calculator": false,
-    "chi2Table": false,
-    "financialCalculatorMonthlyPayment": false,
-    "financialCalculatorTimeToPayOff": false,
-    "financialCalculatorTotalAmount": false,
-    "periodicTable": false,
-    "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
-  },
-  "hints": [
-    {
-      "content": "You'll want to select "B".",
-      "images": {},
-      "replace": false,
-      "widgets": {},
-    },
-  ],
-  "question": {
-    "content": "**A "none"-type graph. Choose the correct radio button to get a point.**
-
-[[☃ interactive-graph 1]]
-
-[[☃ radio 1]]
-
-",
-    "images": {},
-    "widgets": {
-      "interactive-graph 1": {
-        "alignment": "default",
-        "graded": true,
-        "options": {
-          "backgroundImage": {
-            "url": null,
-          },
-          "correct": {
-            "hasBeenInteractedWith": false,
-            "range": [
-              [
-                -10,
-                10,
-              ],
-              [
-                -10,
-                10,
-              ],
-            ],
-            "snapStep": [
-              0.5,
-              0.5,
-            ],
-            "type": "none",
-          },
-          "fullGraphAriaDescription": "A graph on a coordinate plane with two non-interactive closed shapes. One shape is an ellipse and the other shape is a three-sided polygon.",
-          "fullGraphAriaLabel": "A graph on a coordinate plane with non-interactive figures",
-          "graph": {
-            "type": "none",
-          },
-          "labels": [
-            "x",
-            "y",
-          ],
-          "lockedFigures": [
-            {
-              "angle": 0.6981317007977318,
-              "ariaLabel": "Ellipse with x radius 2 and y radius 3, centered at 1 comma 0, rotated by 40 degrees. Appearance dashed red border, with no fill.",
-              "center": [
-                1,
-                0,
-              ],
-              "color": "red",
-              "fillStyle": "none",
-              "labels": [],
-              "radius": [
-                2,
-                3,
-              ],
-              "strokeStyle": "dashed",
-              "type": "ellipse",
-            },
-            {
-              "ariaLabel": "Polygon with 3 sides, vertices at 0 comma 5, negative 2 comma 2, 2 comma 2. Appearance solid purple border, with a translucent purple fill.",
-              "color": "purple",
-              "fillStyle": "translucent",
-              "labels": [],
-              "points": [
-                [
-                  0,
-                  5,
-                ],
-                [
-                  -2,
-                  2,
-                ],
-                [
-                  2,
-                  2,
-                ],
-              ],
-              "showVertices": false,
-              "strokeStyle": "solid",
-              "type": "polygon",
-              "weight": "medium",
-            },
-          ],
-          "markings": "graph",
-          "range": [
-            [
-              -10,
-              10,
-            ],
-            [
-              -10,
-              10,
-            ],
-          ],
-          "showProtractor": false,
-          "showTooltips": false,
-          "step": [
-            1,
-            1,
-          ],
-        },
-        "static": false,
-        "type": "interactive-graph",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-      "radio 1": {
-        "alignment": "default",
-        "graded": true,
-        "options": {
-          "choices": [
-            {
-              "content": "Not this one",
-              "correct": false,
-            },
-            {
-              "content": "This one is correct",
-              "correct": true,
-            },
-            {
-              "content": "Nope",
-              "correct": false,
-            },
-            {
-              "content": "Definitely not",
-              "correct": false,
-            },
-          ],
-          "countChoices": false,
-          "deselectEnabled": false,
-          "hasNoneOfTheAbove": false,
-          "multipleSelect": false,
-          "numCorrect": 1,
-          "randomize": false,
-        },
-        "static": false,
-        "type": "radio",
-        "version": {
-          "major": 3,
-          "minor": 0,
-        },
-      },
-    },
-  },
-}
-`;
-
-exports[`parseAndMigratePerseusItem given interactive-graph-locked-polygon-missing-weight.json returns the same result as before with answer information removed 1`] = `
-{
-  "answerArea": {
-    "calculator": false,
-    "chi2Table": false,
-    "financialCalculatorMonthlyPayment": false,
-    "financialCalculatorTimeToPayOff": false,
-    "financialCalculatorTotalAmount": false,
-    "periodicTable": false,
-    "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
-  },
-  "hints": [],
-  "question": {
-    "content": "**A "none"-type graph. Choose the correct radio button to get a point.**
-
-[[☃ interactive-graph 1]]
-
-[[☃ radio 1]]
-
-",
-    "images": {},
-    "widgets": {
-      "interactive-graph 1": {
-        "alignment": "default",
-        "graded": true,
-        "options": {
-          "backgroundImage": {
-            "url": null,
-          },
-          "correct": {
-            "type": "linear",
-          },
-          "fullGraphAriaDescription": "A graph on a coordinate plane with two non-interactive closed shapes. One shape is an ellipse and the other shape is a three-sided polygon.",
-          "fullGraphAriaLabel": "A graph on a coordinate plane with non-interactive figures",
-          "graph": {
-            "type": "none",
-          },
-          "labelLocation": "onAxis",
-          "labels": [
-            "x",
-            "y",
-          ],
-          "lockedFigures": [
-            {
-              "angle": 0.6981317007977318,
-              "ariaLabel": "Ellipse with x radius 2 and y radius 3, centered at 1 comma 0, rotated by 40 degrees. Appearance dashed red border, with no fill.",
-              "center": [
-                1,
-                0,
-              ],
-              "color": "red",
-              "fillStyle": "none",
-              "labels": [],
-              "radius": [
-                2,
-                3,
-              ],
-              "strokeStyle": "dashed",
-              "type": "ellipse",
-            },
-            {
-              "ariaLabel": "Polygon with 3 sides, vertices at 0 comma 5, negative 2 comma 2, 2 comma 2. Appearance solid purple border, with a translucent purple fill.",
-              "color": "purple",
-              "fillStyle": "translucent",
-              "labels": [],
-              "points": [
-                [
-                  0,
-                  5,
-                ],
-                [
-                  -2,
-                  2,
-                ],
-                [
-                  2,
-                  2,
-                ],
-              ],
-              "showVertices": false,
-              "strokeStyle": "solid",
-              "type": "polygon",
-              "weight": "medium",
-            },
-          ],
-          "markings": "graph",
-          "range": [
-            [
-              -10,
-              10,
-            ],
-            [
-              -10,
-              10,
-            ],
-          ],
-          "showProtractor": false,
-          "showTooltips": false,
-          "step": [
-            1,
-            1,
-          ],
-        },
-        "static": false,
-        "type": "interactive-graph",
-        "version": {
-          "major": 0,
-          "minor": 0,
-        },
-      },
-      "radio 1": {
-        "alignment": "default",
-        "graded": true,
-        "options": {
-          "choices": [
-            {
-              "content": "Not this one",
-              "isNoneOfTheAbove": undefined,
-            },
-            {
-              "content": "This one is correct",
-              "isNoneOfTheAbove": undefined,
-            },
-            {
-              "content": "Nope",
-              "isNoneOfTheAbove": undefined,
-            },
-            {
-              "content": "Definitely not",
-              "isNoneOfTheAbove": undefined,
-            },
-          ],
-          "countChoices": false,
-          "deselectEnabled": false,
-          "hasNoneOfTheAbove": false,
-          "multipleSelect": false,
-          "numCorrect": undefined,
-          "randomize": false,
-        },
-        "static": false,
-        "type": "radio",
-        "version": {
-          "major": 3,
-          "minor": 0,
-        },
-      },
-    },
-  },
-}
-`;
-
 exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.json returns the same result as before 1`] = `
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -8904,14 +8948,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -8985,14 +9026,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -9208,14 +9246,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -9352,14 +9387,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.json 
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -9456,14 +9488,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.json 
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -9531,14 +9560,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-m
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -9683,14 +9709,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-polygon-with-exact-m
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -9777,14 +9800,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -9924,14 +9944,11 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -10053,14 +10070,11 @@ exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.json re
   "answer": null,
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": null,
@@ -10225,14 +10239,11 @@ exports[`parseAndMigratePerseusItem given item-with-null-itemDataVersion.json re
   "answer": null,
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": null,
@@ -10392,14 +10403,11 @@ exports[`parseAndMigratePerseusItem given label-image-missing-static.json return
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -10549,14 +10557,11 @@ exports[`parseAndMigratePerseusItem given label-image-missing-static.json return
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -10694,14 +10699,11 @@ exports[`parseAndMigratePerseusItem given lights-puzzle.json returns the same re
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -10743,14 +10745,11 @@ exports[`parseAndMigratePerseusItem given lights-puzzle.json returns the same re
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -10782,7 +10781,12 @@ exports[`parseAndMigratePerseusItem given lights-puzzle.json returns the same re
             ],
           ],
         },
+        "static": false,
         "type": "deprecated-standin",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
       },
     },
   },
@@ -10793,14 +10797,11 @@ exports[`parseAndMigratePerseusItem given matcher-with-null-options.json returns
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -10838,14 +10839,11 @@ exports[`parseAndMigratePerseusItem given matcher-with-null-options.json returns
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -10890,14 +10888,11 @@ exports[`parseAndMigratePerseusItem given matrix-missing-version.json returns th
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -10999,14 +10994,11 @@ exports[`parseAndMigratePerseusItem given matrix-missing-version.json returns th
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -11049,14 +11041,11 @@ exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.json retur
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -11118,14 +11107,11 @@ exports[`parseAndMigratePerseusItem given matrix-with-nulls-in-answer.json retur
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -11171,14 +11157,11 @@ exports[`parseAndMigratePerseusItem given matrix-with-string-answer-element.json
 {
   "answerArea": {
     "calculator": true,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -11440,14 +11423,11 @@ exports[`parseAndMigratePerseusItem given matrix-with-string-answer-element.json
 {
   "answerArea": {
     "calculator": true,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -11513,14 +11493,11 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.json returns th
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -11614,14 +11591,11 @@ exports[`parseAndMigratePerseusItem given measurer-missing-image.json returns th
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -11713,14 +11687,11 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.json returns t
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -11763,14 +11734,11 @@ exports[`parseAndMigratePerseusItem given measurer-missing-static.json returns t
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -11815,14 +11783,11 @@ exports[`parseAndMigratePerseusItem given number-line-missing-snapDivisions.json
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -12044,14 +12009,11 @@ exports[`parseAndMigratePerseusItem given number-line-missing-snapDivisions.json
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -12161,14 +12123,11 @@ exports[`parseAndMigratePerseusItem given number-line-missing-static.json return
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -12223,14 +12182,11 @@ exports[`parseAndMigratePerseusItem given number-line-missing-static.json return
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -12287,14 +12243,11 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -12421,14 +12374,11 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -12518,14 +12468,11 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.json re
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -12621,14 +12568,11 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.json re
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -12710,14 +12654,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.j
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -12763,14 +12704,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-null-value.j
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -12818,14 +12756,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -12883,14 +12818,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-with-simplify-tru
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -12938,14 +12870,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.jso
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -13065,14 +12994,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-answer-without-value.jso
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -13150,14 +13076,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-coefficient.json
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -13207,14 +13130,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-coefficient.json
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -13266,14 +13186,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -13557,14 +13474,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-missing-labelText.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -13656,6 +13570,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
             },
           ],
         },
+        "static": false,
         "type": "deprecated-standin",
         "version": {
           "major": 0,
@@ -13673,14 +13588,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.js
   "answer": null,
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -14059,14 +13971,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.js
   "answer": null,
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -14244,14 +14153,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.j
 {
   "answerArea": {
     "calculator": true,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -14459,14 +14365,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-accepted.j
 {
   "answerArea": {
     "calculator": true,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -14581,14 +14484,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.json
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -14646,14 +14546,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-false.json
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -14710,14 +14607,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -14850,14 +14744,11 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-simplify-true-strin
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -14903,14 +14794,11 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-images.json ret
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -15689,14 +15577,11 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-images.json ret
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -15715,14 +15600,11 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -15844,14 +15726,11 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -15914,14 +15793,11 @@ exports[`parseAndMigratePerseusItem given orderer-with-invalid-height.json retur
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -15994,14 +15870,11 @@ exports[`parseAndMigratePerseusItem given orderer-with-invalid-height.json retur
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -16059,14 +15932,11 @@ exports[`parseAndMigratePerseusItem given orderer-with-undefined-options.json re
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -16262,14 +16132,11 @@ exports[`parseAndMigratePerseusItem given orderer-with-undefined-options.json re
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -16448,14 +16315,11 @@ exports[`parseAndMigratePerseusItem given passage-missing-footnotes-and-title.js
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -16506,14 +16370,11 @@ exports[`parseAndMigratePerseusItem given passage-missing-footnotes-and-title.js
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -16569,14 +16430,11 @@ exports[`parseAndMigratePerseusItem given passage-ref-missing-summaryText.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -16812,14 +16670,11 @@ exports[`parseAndMigratePerseusItem given passage-ref-missing-summaryText.json r
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -17025,14 +16880,11 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -17140,14 +16992,11 @@ exports[`parseAndMigratePerseusItem given plotter-missing-scaleY-and-snapsPerLin
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -17243,14 +17092,11 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -17365,14 +17211,11 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -17430,14 +17273,11 @@ exports[`parseAndMigratePerseusItem given question-missing-content.json returns 
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -17452,14 +17292,11 @@ exports[`parseAndMigratePerseusItem given question-missing-content.json returns 
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -17474,14 +17311,11 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -17741,14 +17575,11 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -17984,14 +17815,11 @@ exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.json retu
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -18051,14 +17879,11 @@ exports[`parseAndMigratePerseusItem given radio-missing-noneOfTheAbove.json retu
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -18116,14 +17941,11 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
   "answer": null,
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -18324,7 +18146,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
           "deselectEnabled": false,
           "hasNoneOfTheAbove": false,
           "multipleSelect": false,
-          "numCorrect": 0,
+          "numCorrect": 1,
           "randomize": false,
         },
         "static": false,
@@ -18345,14 +18167,11 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
   "answer": null,
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -18557,14 +18376,11 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [
     {
@@ -18679,14 +18495,11 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "question": {
@@ -18741,14 +18554,11 @@ exports[`parseAndMigratePerseusItem given radio-with-null-widgets.json returns t
   "answer": null,
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -18924,14 +18734,11 @@ exports[`parseAndMigratePerseusItem given radio-with-null-widgets.json returns t
   "answer": null,
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -19091,14 +18898,11 @@ exports[`parseAndMigratePerseusItem given simulator-widget.json returns the same
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -19152,14 +18956,11 @@ exports[`parseAndMigratePerseusItem given simulator-widget.json returns the same
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -19182,6 +18983,7 @@ exports[`parseAndMigratePerseusItem given simulator-widget.json returns the same
           "xAxisLabel": "Proportion (%)",
           "yAxisLabel": "Number of times seen",
         },
+        "static": false,
         "type": "deprecated-standin",
         "version": {
           "major": 0,
@@ -19216,14 +19018,11 @@ exports[`parseAndMigratePerseusItem given transformer-widget.json returns the sa
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -19387,14 +19186,11 @@ exports[`parseAndMigratePerseusItem given transformer-widget.json returns the sa
 {
   "answerArea": {
     "calculator": false,
-    "chi2Table": false,
     "financialCalculatorMonthlyPayment": false,
     "financialCalculatorTimeToPayOff": false,
     "financialCalculatorTotalAmount": false,
     "periodicTable": false,
     "periodicTableWithKey": false,
-    "tTable": false,
-    "zTable": false,
   },
   "hints": [],
   "itemDataVersion": {
@@ -19544,6 +19340,7 @@ exports[`parseAndMigratePerseusItem given transformer-widget.json returns the sa
           },
           "version": 1.2,
         },
+        "static": false,
         "type": "deprecated-standin",
         "version": {
           "major": 0,

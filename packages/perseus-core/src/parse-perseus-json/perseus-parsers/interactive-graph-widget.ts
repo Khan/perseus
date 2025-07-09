@@ -167,6 +167,7 @@ const parseLockedLineType = object({
     lineStyle: parseLockedLineStyle,
     showPoint1: defaulted(boolean, () => false),
     showPoint2: defaulted(boolean, () => false),
+    weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
@@ -175,6 +176,7 @@ const parseLockedVectorType = object({
     type: constant("vector"),
     points: pair(pairOfNumbers, pairOfNumbers),
     color: parseLockedFigureColor,
+    weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
@@ -187,6 +189,7 @@ const parseLockedEllipseType = object({
     color: parseLockedFigureColor,
     fillStyle: parseLockedFigureFillType,
     strokeStyle: parseLockedLineStyle,
+    weight: parseStrokeWeight,
     labels: defaulted(array(parseLockedLabelType), () => []),
     ariaLabel: optional(string),
 });
@@ -216,6 +219,7 @@ const parseLockedFunctionType = object({
     type: constant("function"),
     color: parseLockedFigureColor,
     strokeStyle: parseLockedLineStyle,
+    weight: parseStrokeWeight,
     equation: string,
     directionalAxis: enumeration("x", "y"),
     domain: parseLockedFunctionDomain,

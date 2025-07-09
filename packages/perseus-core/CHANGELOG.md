@@ -1,5 +1,71 @@
 # @khanacademy/perseus-core
 
+## 18.1.0
+
+### Minor Changes
+
+-   [#2686](https://github.com/Khan/perseus/pull/2686) [`efd57ac72`](https://github.com/Khan/perseus/commit/efd57ac723cb6a6a700422098366d052d6fd887a) Thanks [@benchristel](https://github.com/benchristel)! - Export `parseAndMigrateUserInputMap` from `@khanacademy/perseus-core`
+
+*   [#2689](https://github.com/Khan/perseus/pull/2689) [`fbc14c3f1`](https://github.com/Khan/perseus/commit/fbc14c3f1b8fa24dd294d3220780f31a2b094660) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change deprecated-standin widget to be considered accessible
+
+## 18.0.0
+
+### Major Changes
+
+-   [#2670](https://github.com/Khan/perseus/pull/2670) [`a4d94900c`](https://github.com/Khan/perseus/commit/a4d94900c360aedfdf3899b866d94aaa8be852b8) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add weight option to locked function and locked function settings
+
+### Patch Changes
+
+-   [#2650](https://github.com/Khan/perseus/pull/2650) [`e67eca0d3`](https://github.com/Khan/perseus/commit/e67eca0d36687bcc5ffa3cd2f67caf169321f184) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add `weight` option to locked line and locked line settings
+
+*   [#2668](https://github.com/Khan/perseus/pull/2668) [`891363ccb`](https://github.com/Khan/perseus/commit/891363ccbde8a645587f6ff3213b33c34ed40764) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add `weight` option to locked vector and locked vector settings
+
+-   [#2669](https://github.com/Khan/perseus/pull/2669) [`8952a578a`](https://github.com/Khan/perseus/commit/8952a578a4826c35238afb30e64f78584a4f267b) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add weight option to locked ellipse and locked ellipse settings
+
+## 17.0.0
+
+### Major Changes
+
+-   [#2666](https://github.com/Khan/perseus/pull/2666) [`d738f44d5`](https://github.com/Khan/perseus/commit/d738f44d5108831e53045652c04584bad07c19c0) Thanks [@benchristel](https://github.com/benchristel)! - Remove `"chi2Table"`, `"tTable"`, and `"zTable"` from the `ItemExtras` type exported from `@khanacademy/perseus-core`. These properties weren't used. This is a breaking change because consumers might see type errors if they set chi2Table, tTable, or zTable properties on the `answerArea` object of a `PerseusItem`. The fix is to avoid setting those properties.
+
+### Minor Changes
+
+-   [#2676](https://github.com/Khan/perseus/pull/2676) [`3aa2b8e85`](https://github.com/Khan/perseus/commit/3aa2b8e850113be50d7da99b5ded55979b2de006) Thanks [@handeyeco](https://github.com/handeyeco)! - Radio: use userInput/handleUserInput
+
+### Patch Changes
+
+-   [#2672](https://github.com/Khan/perseus/pull/2672) [`c44219a98`](https://github.com/Khan/perseus/commit/c44219a98fdbb8128c614419439c83b6cf33f79e) Thanks [@benchristel](https://github.com/benchristel)! - Update peer dependency versions
+
+*   [#2630](https://github.com/Khan/perseus/pull/2630) [`da170e42a`](https://github.com/Khan/perseus/commit/da170e42a512c5e071b7af2bb707b6c75778bfdc) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fixed bugs related to numCorrect not updating properly for the Radio widget, and cleaning up deriveNumCorrect.
+
+## 16.1.1
+
+### Patch Changes
+
+-   [#2596](https://github.com/Khan/perseus/pull/2596) [`f15a4cc56`](https://github.com/Khan/perseus/commit/f15a4cc56465ada5d8eb5e5f042064421afaa356) Thanks [@handeyeco](https://github.com/handeyeco)! - Grapher: use userInput/handleUserInput
+
+*   [#2575](https://github.com/Khan/perseus/pull/2575) [`f84722b44`](https://github.com/Khan/perseus/commit/f84722b44e45b7e3894b62332525051f930adae9) Thanks [@handeyeco](https://github.com/handeyeco)! - Matcher: use userInput/handleUserInput
+
+-   [#2577](https://github.com/Khan/perseus/pull/2577) [`e2ed14e58`](https://github.com/Khan/perseus/commit/e2ed14e587b85afd72b9f25635060f5f3cf3abc5) Thanks [@handeyeco](https://github.com/handeyeco)! - LabelImage: use userInput/handleUserInput
+
+*   [#2578](https://github.com/Khan/perseus/pull/2578) [`bcf4fd541`](https://github.com/Khan/perseus/commit/bcf4fd5411c7aa8950c775c2a0275575b8731abc) Thanks [@handeyeco](https://github.com/handeyeco)! - Sorter: use userInput/handleUserInput
+
+-   [#2644](https://github.com/Khan/perseus/pull/2644) [`f51181adc`](https://github.com/Khan/perseus/commit/f51181adcd9bbe2160c6ccd7d00ed40b53ed9a95) Thanks [@handeyeco](https://github.com/handeyeco)! - Cleanup some ChangeHandler and Changeable use
+
+*   [#2566](https://github.com/Khan/perseus/pull/2566) [`21f79b664`](https://github.com/Khan/perseus/commit/21f79b664a411c60c62043db25b6493619ba3dbd) Thanks [@handeyeco](https://github.com/handeyeco)! - Add support for `userInput` state in Renderer, new user input APIs for WidgetExport
+
+-   [#2573](https://github.com/Khan/perseus/pull/2573) [`3a3f5233b`](https://github.com/Khan/perseus/commit/3a3f5233bf00da47dce9944936eb94b1841a56ed) Thanks [@handeyeco](https://github.com/handeyeco)! - NumberLine: use userInput/handleUserInput
+
+## 16.1.0
+
+### Minor Changes
+
+-   [#2663](https://github.com/Khan/perseus/pull/2663) [`d1299f6f7`](https://github.com/Khan/perseus/commit/d1299f6f7e5e427c442d39e6cadfa78b5326d4b1) Thanks [@benchristel](https://github.com/benchristel)! - Enable `parseAndMigratePerseusItem` to parse answerless data, i.e. the return value of `splitPerseusItem`.
+
+### Patch Changes
+
+-   [#2649](https://github.com/Khan/perseus/pull/2649) [`01cb73bef`](https://github.com/Khan/perseus/commit/01cb73bef9934e36163fa28f315b64b23bd48637) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][locked figures] Add `weight` option to locked polygon and locked polygon settings
+
 ## 16.0.0
 
 ### Major Changes

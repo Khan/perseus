@@ -216,10 +216,8 @@ describe("Interactive Graph", function () {
                 .withNoInteractiveFigure()
                 .build();
             const {renderer} = renderQuestion(question, blankOptions);
-            const score = scorePerseusItemTesting(
-                question,
-                renderer.getUserInputMap(),
-            );
+            const userInput = renderer.getUserInputMap();
+            const score = scorePerseusItemTesting(question, userInput);
 
             expect(score).toHaveBeenAnsweredCorrectly({
                 shouldHavePoints: false,
@@ -645,6 +643,127 @@ describe("Interactive Graph", function () {
             expect(ray).toHaveStyle({stroke: lockedFigureColors.pink});
         });
 
+        it.each([
+            {weight: "thin", expectedStrokeWidth: 1},
+            {weight: "medium", expectedStrokeWidth: 2},
+            {weight: "thick", expectedStrokeWidth: 4},
+        ] satisfies {
+            weight: StrokeWeight;
+            expectedStrokeWidth: number;
+        }[])(
+            "Line (kind: line) should render with specific weight",
+            ({weight, expectedStrokeWidth}) => {
+                // Arrange
+                const {container} = renderQuestion(
+                    interactiveGraphQuestionBuilder()
+                        .withMarkings("none")
+                        .addLockedLine([0, 0], [0, 1], {
+                            weight,
+                            kind: "line",
+                        })
+                        .build(),
+                    blankOptions,
+                );
+
+                // Act
+                const lines =
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    container.querySelectorAll(`.locked-line line`);
+
+                const arrowheads =
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    container.querySelectorAll(
+                        `.interactive-graph-arrowhead path`,
+                    );
+
+                // Assert
+                expect(lines).toHaveLength(1);
+                expect(arrowheads).toHaveLength(2);
+                expect(lines[0]).toHaveAttribute(
+                    "stroke-width",
+                    `${expectedStrokeWidth}`,
+                );
+                expect(arrowheads[0]).toHaveAttribute(
+                    "stroke-width",
+                    `${expectedStrokeWidth}px`,
+                );
+                expect(arrowheads[1]).toHaveAttribute(
+                    "stroke-width",
+                    `${expectedStrokeWidth}px`,
+                );
+            },
+        );
+
+        it.each([
+            {weight: "thin", expectedStrokeWidth: 1},
+            {weight: "medium", expectedStrokeWidth: 2},
+            {weight: "thick", expectedStrokeWidth: 4},
+        ] satisfies {
+            weight: StrokeWeight;
+            expectedStrokeWidth: number;
+        }[])(
+            "Line (kind: segment) should render with specific weight",
+            ({weight, expectedStrokeWidth}) => {
+                // Arrange
+                const {container} = renderQuestion(
+                    interactiveGraphQuestionBuilder()
+                        .withMarkings("none")
+                        .addLockedLine([0, 0], [0, 1], {
+                            weight,
+                            kind: "segment",
+                        })
+                        .build(),
+                    blankOptions,
+                );
+
+                // Act
+                const lines =
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    container.querySelectorAll(`.locked-line line`);
+
+                // Assert
+                expect(lines).toHaveLength(1);
+                expect(lines[0]).toHaveAttribute(
+                    "stroke-width",
+                    `${expectedStrokeWidth}`,
+                );
+            },
+        );
+
+        it.each([
+            {weight: "thin", expectedStrokeWidth: 1},
+            {weight: "medium", expectedStrokeWidth: 2},
+            {weight: "thick", expectedStrokeWidth: 4},
+        ] satisfies {
+            weight: StrokeWeight;
+            expectedStrokeWidth: number;
+        }[])(
+            "Line (kind: ray) should render with specific weight",
+            ({weight, expectedStrokeWidth}) => {
+                // Arrange
+                const {container} = renderQuestion(
+                    interactiveGraphQuestionBuilder()
+                        .addLockedLine([0, 0], [0, 1], {
+                            weight,
+                            kind: "ray",
+                        })
+                        .build(),
+                    blankOptions,
+                );
+
+                // Act
+                const lines =
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    container.querySelectorAll(`.locked-ray > g`);
+
+                // Assert
+                expect(lines).toHaveLength(1);
+                expect(lines[0]).toHaveStyle({
+                    "stroke-width": expectedStrokeWidth,
+                });
+            },
+        );
+
         it("should render locked lines with shown points", async () => {
             // Arrange
             const {container} = renderQuestion(
@@ -771,6 +890,51 @@ describe("Interactive Graph", function () {
             );
         });
 
+        it.each([
+            {weight: "thin", expectedStrokeWidth: 1},
+            {weight: "medium", expectedStrokeWidth: 2},
+            {weight: "thick", expectedStrokeWidth: 4},
+        ] satisfies {
+            weight: StrokeWeight;
+            expectedStrokeWidth: number;
+        }[])(
+            "Vector should render with specific weight",
+            ({weight, expectedStrokeWidth}) => {
+                // Arrange
+                const {container} = renderQuestion(
+                    interactiveGraphQuestionBuilder()
+                        .withMarkings("none")
+                        .addLockedVector([0, 0], [0, 1], {
+                            weight,
+                        })
+                        .build(),
+                    blankOptions,
+                );
+
+                // Act
+                const lines =
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    container.querySelectorAll(`.locked-vector > g`);
+
+                const arrowheads =
+                    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                    container.querySelectorAll(
+                        `.interactive-graph-arrowhead path`,
+                    );
+
+                // Assert
+                expect(lines).toHaveLength(1);
+                expect(arrowheads).toHaveLength(1);
+                expect(lines[0]).toHaveStyle({
+                    "stroke-width": expectedStrokeWidth,
+                });
+                expect(arrowheads[0]).toHaveAttribute(
+                    "stroke-width",
+                    `${expectedStrokeWidth}px`,
+                );
+            },
+        );
+
         it("should render locked vector with aria label when one is provided", () => {
             // Arrange
             const lockedVectorWithAriaLabelQuestion =
@@ -863,6 +1027,40 @@ describe("Interactive Graph", function () {
             });
         });
 
+        it.each([
+            {weight: "thin", expectedStrokeWidth: 1},
+            {weight: "medium", expectedStrokeWidth: 2},
+            {weight: "thick", expectedStrokeWidth: 4},
+        ] satisfies {
+            weight: StrokeWeight;
+            expectedStrokeWidth: number;
+        }[])(
+            "Locked ellipse should render with specific weight",
+            ({weight, expectedStrokeWidth}) => {
+                // Arrange
+                const {container} = renderQuestion(
+                    interactiveGraphQuestionBuilder()
+                        .withMarkings("none")
+                        .addLockedEllipse([0, 0], [1, 1], {
+                            weight,
+                        })
+                        .build(),
+                    blankOptions,
+                );
+
+                // Act
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const circles = container.querySelectorAll("ellipse");
+
+                // Assert
+                expect(circles).toHaveLength(1);
+                expect(circles[0]).toHaveAttribute(
+                    "stroke-width",
+                    `${expectedStrokeWidth}`,
+                );
+            },
+        );
+
         it("should render locked ellipse with aria label when one is provided", () => {
             // Arrange
             const lockedEllipseWithAriaLabelQuestion =
@@ -937,7 +1135,7 @@ describe("Interactive Graph", function () {
             {weight: "medium", expectedStrokeWidth: 2},
             {weight: "thick", expectedStrokeWidth: 4},
         ] as {
-            weight: StrokeWeight | undefined;
+            weight: StrokeWeight;
             expectedStrokeWidth: number;
         }[])(
             "should render locked polygons with specific weight",
@@ -1204,6 +1402,41 @@ describe("Interactive Graph", function () {
                     {},
                 );
             });
+
+            it.each([
+                {weight: "thin", expectedStrokeWidth: 1},
+                {weight: "medium", expectedStrokeWidth: 2},
+                {weight: "thick", expectedStrokeWidth: 4},
+            ] satisfies {
+                weight: StrokeWeight;
+                expectedStrokeWidth: number;
+            }[])(
+                "Locked function should render with specific weight",
+                ({weight, expectedStrokeWidth}) => {
+                    // Arrange
+                    const {container} = renderQuestion(
+                        interactiveGraphQuestionBuilder()
+                            .withMarkings("none")
+                            .addLockedFunction("x^2", {
+                                weight,
+                            })
+                            .build(),
+                        blankOptions,
+                    );
+
+                    // Act
+                    const functions =
+                        // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                        container.querySelectorAll(`.locked-function > path`);
+
+                    // Assert
+                    expect(functions).toHaveLength(1);
+                    expect(functions[0]).toHaveAttribute(
+                        "stroke-width",
+                        `${expectedStrokeWidth}`,
+                    );
+                },
+            );
 
             it("should render locked function with aria label when one is provided", () => {
                 // Arrange

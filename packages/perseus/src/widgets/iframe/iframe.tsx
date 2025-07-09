@@ -11,44 +11,41 @@ import $ from "jquery";
 import * as React from "react";
 
 import {getDependencies} from "../../dependencies";
-import * as Changeable from "../../mixins/changeable";
 import Util from "../../util";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/iframe/iframe-ai-utils";
 
-import type {WidgetExports, WidgetProps, Widget, ChangeFn} from "../../types";
+import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     PerseusIFrameUserInput,
-    UserInputStatus,
     PerseusIFrameWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 const {updateQueryString} = Util;
 
 type RenderProps = PerseusIFrameWidgetOptions & {
-    status: UserInputStatus;
-    message: string | null;
     width: string;
     height: string;
 };
 
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<RenderProps, PerseusIFrameUserInput>;
 
 type DefaultProps = {
-    status: Props["status"];
-    message: Props["message"];
     allowFullScreen: Props["allowFullScreen"];
     allowTopNavigation: Props["allowTopNavigation"];
+    userInput: Props["userInput"];
 };
 
 /* This renders the iframe and handles validation via window.postMessage */
 class Iframe extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
-        status: "incomplete",
-        // optional message
-        message: null,
         allowFullScreen: false,
         allowTopNavigation: false,
+        userInput: {
+            status: "incomplete",
+            // optional message
+            message: null,
+        },
     };
 
     componentDidMount() {
@@ -60,7 +57,7 @@ class Iframe extends React.Component<Props> implements Widget {
     }
 
     getUserInput(): PerseusIFrameUserInput {
-        return {status: this.props.status, message: this.props.message};
+        return this.props.userInput;
     }
 
     getPromptJSON(): UnsupportedWidgetPromptJSON {
@@ -83,14 +80,10 @@ class Iframe extends React.Component<Props> implements Widget {
         }
 
         const status = data.testsPassed ? "correct" : "incorrect";
-        this.change({
+        this.props.handleUserInput({
             status: status,
             message: data.message,
         });
-    };
-
-    change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
     };
 
     render(): React.ReactNode {
@@ -163,10 +156,21 @@ class Iframe extends React.Component<Props> implements Widget {
     }
 }
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
+function getUserInputFromSerializedState(
+    serializedState: any,
+): PerseusIFrameUserInput {
+    return {status: serializedState.status, message: serializedState.message};
+}
+
 export default {
     name: "iframe",
     displayName: "Iframe (deprecated)",
     widget: Iframe,
     // Let's not expose it to all content creators yet
     hidden: true,
+    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Iframe>;

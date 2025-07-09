@@ -13,14 +13,7 @@ import {strokeWeights} from "./utils";
 import type {LockedPolygonType} from "@khanacademy/perseus-core";
 
 const LockedPolygon = (props: LockedPolygonType) => {
-    const {
-        points,
-        color,
-        showVertices,
-        fillStyle,
-        strokeStyle,
-        weight = "medium",
-    } = props;
+    const {points, color, showVertices, fillStyle, strokeStyle, weight} = props;
 
     const hasAria = !!props.ariaLabel;
 

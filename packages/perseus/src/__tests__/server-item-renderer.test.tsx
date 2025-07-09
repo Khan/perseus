@@ -15,55 +15,19 @@ import {
     itemWithMockWidget,
 } from "../__testdata__/server-item-renderer.testdata";
 import * as Dependencies from "../dependencies";
-import WrappedServerItemRenderer, {
-    ServerItemRenderer,
-} from "../server-item-renderer";
+import {ServerItemRenderer} from "../server-item-renderer";
 import {registerWidget} from "../widgets";
 import {MockWidget} from "../widgets/mock-widgets";
 import MockAssetLoadingWidgetExport, {
     mockedAssetItem,
 } from "../widgets/mock-widgets/mock-asset-loading-widget";
 
-import type {APIOptions} from "../types";
+import {renderQuestion} from "./test-utils";
+
 import type {MockAssetLoadingWidget} from "../widgets/mock-widgets/mock-asset-loading-widget";
 import type {KeypadAPI} from "@khanacademy/math-input";
 import type {PerseusItem} from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {UserEvent} from "@testing-library/user-event";
-
-// This looks alot like `widgets/__tests__/renderQuestion.jsx', except we use
-// the ServerItemRenderer instead of Renderer
-const renderQuestion = (
-    question: PerseusItem,
-    apiOptions: APIOptions = Object.freeze({}),
-    optionalProps: Partial<
-        PropsFor<typeof WrappedServerItemRenderer>
-    > = Object.freeze({}),
-): {
-    container: HTMLElement;
-    renderer: ServerItemRenderer;
-} => {
-    let renderer: ServerItemRenderer | null = null;
-
-    const {container} = render(
-        <RenderStateRoot>
-            <WrappedServerItemRenderer
-                ref={(node) => (renderer = node)}
-                apiOptions={apiOptions}
-                item={question}
-                problemNum={0}
-                reviewMode={false}
-                dependencies={testDependenciesV2}
-                {...optionalProps}
-            />
-        </RenderStateRoot>,
-    );
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (!renderer) {
-        throw new Error(`Failed to render!`);
-    }
-    return {container, renderer};
-};
 
 describe("server item renderer", () => {
     beforeAll(() => {
@@ -279,15 +243,12 @@ describe("server item renderer", () => {
                 widgets: {},
             },
             answerArea: {
-                zTable: false,
                 calculator: false,
-                chi2Table: false,
                 financialCalculatorMonthlyPayment: false,
                 financialCalculatorTotalAmount: false,
                 financialCalculatorTimeToPayOff: false,
                 periodicTable: false,
                 periodicTableWithKey: false,
-                tTable: false,
             },
             hints: [],
         };
@@ -503,20 +464,22 @@ describe("server item renderer", () => {
 
             // Assert
             expect(state).toMatchInlineSnapshot(`
-                {
-                  "hints": [
-                    {},
-                    {},
-                    {},
-                  ],
-                  "question": {
-                    "mock-widget 1": {
-                      "currentValue": "-42",
-                      "value": "3",
-                    },
-                  },
-                }
-            `);
+{
+  "hints": [
+    {},
+    {},
+    {},
+  ],
+  "question": {
+    "mock-widget 1": {
+      "alignment": "default",
+      "currentValue": "-42",
+      "static": undefined,
+      "value": "3",
+    },
+  },
+}
+`);
         });
 
         it("should restore serialized state", () => {

@@ -50,6 +50,7 @@ describe("getDefaultFigureForType", () => {
             lineStyle: "solid",
             showPoint1: false,
             showPoint2: false,
+            weight: "medium",
             labels: [],
         });
     });
@@ -63,6 +64,7 @@ describe("getDefaultFigureForType", () => {
                 [2, 2],
             ],
             color: "grayH",
+            weight: "medium",
             labels: [],
         });
     });
@@ -77,6 +79,7 @@ describe("getDefaultFigureForType", () => {
             color: "grayH",
             fillStyle: "none",
             strokeStyle: "solid",
+            weight: "medium",
             labels: [],
         });
     });
@@ -105,6 +108,7 @@ describe("getDefaultFigureForType", () => {
             type: "function",
             color: "grayH",
             strokeStyle: "solid",
+            weight: "medium",
             equation: "x^2",
             directionalAxis: "x",
             domain: [-Infinity, Infinity],

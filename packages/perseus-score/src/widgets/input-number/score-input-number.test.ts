@@ -126,4 +126,79 @@ describe("scoreInputNumber", () => {
             type: "invalid",
         });
     });
+
+    it("should not consider commas as a decimal separator in the EN locale", () => {
+        const rubric: PerseusInputNumberRubric = {
+            maxError: 0.1,
+            inexact: false,
+            value: 16,
+            simplify: "optional",
+            answerType: "number",
+        };
+
+        const userInput: PerseusInputNumberUserInput = {
+            currentValue: "16,000",
+        };
+
+        const score = scoreInputNumber(userInput, rubric, "en");
+
+        expect(score).toHaveBeenAnsweredIncorrectly();
+    });
+
+    it("should reject European decimal format in EN locale", () => {
+        const rubric: PerseusInputNumberRubric = {
+            maxError: 0.1,
+            inexact: false,
+            value: 16.5,
+            simplify: "optional",
+            answerType: "decimal",
+        };
+
+        const userInput: PerseusInputNumberUserInput = {
+            currentValue: "16,5",
+        };
+
+        // Using US locale where comma is thousands separator
+        const score = scoreInputNumber(userInput, rubric, "en");
+
+        // "16,5" is invalid input in US locale (not a recognized number format)
+        expect(score).toHaveInvalidInput("EXTRA_SYMBOLS_ERROR");
+    });
+
+    it("should consider commas as the decimal separator in the FR locale", () => {
+        const rubric: PerseusInputNumberRubric = {
+            maxError: 0.1,
+            inexact: false,
+            value: 16.5,
+            simplify: "optional",
+            answerType: "decimal",
+        };
+
+        const userInput: PerseusInputNumberUserInput = {
+            currentValue: "16,5",
+        };
+
+        // Using French locale where comma is decimal separator
+        const score = scoreInputNumber(userInput, rubric, "fr");
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should consider decimals as the thousands separator in FR locale", () => {
+        const rubric: PerseusInputNumberRubric = {
+            maxError: 0.1,
+            inexact: false,
+            value: 16.5,
+            simplify: "optional",
+            answerType: "decimal",
+        };
+
+        const userInput: PerseusInputNumberUserInput = {
+            currentValue: "16.500,00",
+        };
+
+        const score = scoreInputNumber(userInput, rubric, "fr");
+
+        expect(score).toHaveBeenAnsweredCorrectly();
+    });
 });

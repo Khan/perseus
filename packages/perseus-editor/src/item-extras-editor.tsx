@@ -17,14 +17,11 @@ type Props = PerseusAnswerArea & {
 class ItemExtrasEditor extends React.Component<Props> {
     static defaultProps: PerseusAnswerArea = {
         calculator: false,
-        chi2Table: false,
         financialCalculatorMonthlyPayment: false,
         financialCalculatorTotalAmount: false,
         financialCalculatorTimeToPayOff: false,
         periodicTable: false,
         periodicTableWithKey: false,
-        tTable: false,
-        zTable: false,
     };
 
     shouldShowFinancialCalculatorOptions() {
@@ -151,39 +148,6 @@ class ItemExtrasEditor extends React.Component<Props> {
                             indent
                         />
                     )}
-
-                    <ItemExtraCheckbox
-                        label="Show z table (statistics)"
-                        infoTip="This provides the student with the ability to view a table of critical values for the z distribution, e.g. for answering statistics questions."
-                        checked={this.props.zTable}
-                        onChange={(newCheckedState) => {
-                            this.props.onChange({
-                                zTable: newCheckedState,
-                            });
-                        }}
-                    />
-
-                    <ItemExtraCheckbox
-                        label="Show t table (statistics)"
-                        infoTip="This provides the student with the ability to view a table of critical values for the Student's t distribution, e.g. for answering statistics questions."
-                        checked={this.props.tTable}
-                        onChange={(newCheckedState) => {
-                            this.props.onChange({
-                                tTable: newCheckedState,
-                            });
-                        }}
-                    />
-
-                    <ItemExtraCheckbox
-                        label="Show chi-squared table (statistics)"
-                        infoTip="This provides the student with the ability to view a table of critical values for the chi-squared distribution, e.g. for answering statistics questions."
-                        checked={this.props.chi2Table}
-                        onChange={(newCheckedState) => {
-                            this.props.onChange({
-                                chi2Table: newCheckedState,
-                            });
-                        }}
-                    />
                 </div>
             </div>
         );
