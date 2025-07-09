@@ -370,10 +370,9 @@ const BaseRadio = function ({
                     // reconciliation even when choice.id isn't available yet.
 
                     // Generate a stable key for React reconciliation
-                    const choiceKey = choice.id || generateChoiceId(
-                        choice.content?.toString() || "",
-                        i,
-                    );
+                    const choiceKey =
+                        choice.id ||
+                        generateChoiceId(choice.content?.toString() || "", i);
 
                     return (
                         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
