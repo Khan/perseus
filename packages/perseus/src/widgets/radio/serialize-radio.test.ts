@@ -23,16 +23,16 @@ const expectedSerializedRadio = {
     deselectEnabled: false,
     choices: [
         {
-            content: "Content 4",
-            correct: false,
-            id: "2601359851",
-            originalIndex: 3, // <= note we stash original index
-        },
-        {
             content: "Content 2",
             correct: false,
             id: "2601360047",
             originalIndex: 1,
+        },
+        {
+            content: "Content 4",
+            correct: false,
+            id: "2601359851",
+            originalIndex: 3, // <= note we stash original index
         },
         {
             content: "Content 1",
@@ -205,7 +205,7 @@ describe("Radio serialization", () => {
                 // note we unshuffle!
                 // in expectedSerializedRadio.choiceStates the first element
                 // is selected; here the last element is selected
-                choicesSelected: [false, false, false, true],
+                choicesSelected: [false, true, false, false],
             },
         });
     });

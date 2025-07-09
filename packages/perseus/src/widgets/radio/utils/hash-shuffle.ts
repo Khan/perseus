@@ -1,6 +1,6 @@
 import {generateChoiceId} from "@khanacademy/perseus-core";
 
-import type {RadioChoiceWithMetadata} from "../radio.class.new";
+import type {RadioChoiceWithMetadata} from "../multiple-choice-widget.new";
 
 /**
  * MumurHash3 32-bit implementation

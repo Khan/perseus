@@ -1,6 +1,6 @@
 import {hashBasedShuffle} from "../utils/hash-shuffle";
 
-import type {RadioChoiceWithMetadata} from "../radio.class.new";
+import type {RadioChoiceWithMetadata} from "../multiple-choice-widget.new";
 
 describe("hashBasedShuffle", () => {
     const createChoice = (
