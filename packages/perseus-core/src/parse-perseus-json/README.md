@@ -149,7 +149,8 @@ parser change might look like:
 
 Re-run the regression tests. The snapshots will fail, reflecting the fact that
 you added a new widget option. Update the snapshots (`pnpm test -u`), make sure
-they reflect the desired output, and commit them.
+they reflect the desired output (in this case, the default value of `average`
+should be set for `brewStrength`), and commit the changes.
 
 </details>
 
