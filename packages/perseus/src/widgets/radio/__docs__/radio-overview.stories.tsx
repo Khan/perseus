@@ -2,7 +2,7 @@ import * as React from "react";
 import {StoryObj} from "@storybook/react-vite";
 
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-import {questionWithPassage} from "../../../widgets/radio/__tests__/radio.testdata";
+import {questionWithPassage} from "../__tests__/radio.testdata";
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 
 import type {APIOptions} from "../../../types";

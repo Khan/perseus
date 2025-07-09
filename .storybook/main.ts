@@ -35,12 +35,13 @@ const config: StorybookConfig = {
         "../__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
 
         // Docs for Perseus editor
+        // "../packages/perseus-editor/src/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
+        // "../packages/perseus-editor/src/widgets/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
         "../packages/perseus-editor/src/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
-        "../packages/perseus-editor/src/widgets/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
+        "../packages/perseus-editor/src/**/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
 
         // Docs for Perseus widgets, components, and renderers
-        "../packages/perseus/src/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
-        "../packages/perseus/src/components/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
+        "../packages/perseus/src/**/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
     ],
     addons: [
         "@storybook/addon-a11y",

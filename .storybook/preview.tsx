@@ -83,7 +83,6 @@ const preview: Preview = {
                             "*", // Catch-all for any additional sections
                         ],
                     ],
-                    "PerseusEditor",
                     "Math-Input",
                     "*",
                 ],

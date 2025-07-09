@@ -8,7 +8,7 @@ import {
     multiChoiceQuestion,
     SingleSelectOverflowContent,
     SingleSelectOverflowImageContent,
-} from "../../../widgets/radio/__tests__/radio.testdata";
+} from "../__tests__/radio.testdata";
 
 import styles from "./radio-states-gallery.module.css";
 

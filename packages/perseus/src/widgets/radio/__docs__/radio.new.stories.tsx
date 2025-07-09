@@ -10,7 +10,7 @@ import {
     multiChoiceQuestionSimpleOverflowContent,
     SingleSelectOverflowContent,
     SingleSelectOverflowImageContent,
-} from "../../../widgets/radio/__tests__/radio.testdata";
+} from "../__tests__/radio.testdata";
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 
 import type {APIOptions} from "../../../types";
