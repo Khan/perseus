@@ -7,7 +7,7 @@ import * as React from "react";
 
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
-import {mockStrings} from "@khanacademy/perseus/strings";
+import {mockStrings} from "../../strings";
 
 import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 import {sinusoidWithPiTicks} from "./interactive-graph.testdata";
@@ -18,9 +18,8 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 type Story = StoryObj<typeof MafsQuestionRenderer>;
 
 const meta: Meta<typeof MafsQuestionRenderer> = {
-    title: "Widgets/Interactive Graph/Regression Test",
+    title: "Perseus/Widgets/Interactive Graph Visual Regression Tests",
     component: MafsQuestionRenderer,
-    tags: ["!autodocs"],
     parameters: {
         chromatic: {disableSnapshot: false},
     },
