@@ -7,6 +7,7 @@ import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 
 import styles from "./radio-editor.module.css";
+import {RadioOptionContentAndImageEditor} from "./radio-option-content-and-image-editor";
 import {RadioStatusPill} from "./radio-status-pill";
 
 import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
@@ -85,22 +86,12 @@ export function RadioOptionSettings({
                 </Pill>
             </fieldset>
 
-            {/* Content and rationale text areas */}
-            <HeadingXSmall tag="label" className={styles.contentHeading}>
-                Content
-                <TextArea
-                    value={isNoneOfTheAbove ? "None of the above" : content}
-                    disabled={isNoneOfTheAbove}
-                    placeholder="Type a choice here..."
-                    // This unfortunately doesn't match the dynamic resizing
-                    // behavior that it had before, but we should be able to add
-                    // that in after WB-1843 is completed.
-                    resizeType="vertical"
-                    onChange={(value) => {
-                        onContentChange(index, value);
-                    }}
-                />
-            </HeadingXSmall>
+            <RadioOptionContentAndImageEditor
+                content={content}
+                choiceIndex={index}
+                isNoneOfTheAbove={isNoneOfTheAbove ?? false}
+                onContentChange={onContentChange}
+            />
             <HeadingXSmall tag="label">
                 Rationale
                 <TextArea
