@@ -1,6 +1,6 @@
 /**
- * Hash function to create a short hash from a string
- * Based on djb2 hash algo for better distribution
+ * DJB2 hash algo to create a hash from a string
+ * Reference: https://mojoauth.com/hashing/bernsteins-hash-djb2-in-typescript/
  */
 export function convertStringToHash(input: string): number {
     const DJB2_CONSTANT = 5381;
