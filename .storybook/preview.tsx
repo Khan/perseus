@@ -68,12 +68,9 @@ const preview: Preview = {
                     "Renderers",
                     ["Overview", "*"],
                     "Components",
-                    ["Overview", "*"],
                     "Editors",
-                    ["Overview", "*"],
                     "Widgets",
                     [
-                        "Overview",
                         "*", // This will match all widgets
                         [
                             "Docs",
