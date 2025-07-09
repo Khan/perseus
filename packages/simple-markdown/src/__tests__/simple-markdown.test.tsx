@@ -10,8 +10,10 @@ import type {
     ASTNode,
     Capture,
     Parser,
+    ReactNodeOutput,
     ReactOutput,
     SingleASTNode,
+    State,
     TableAlignment,
 } from "../index";
 
@@ -3438,9 +3440,9 @@ describe("simple markdown", function () {
                 order: SimpleMarkdown.defaultRules.em.order + 0.5,
 
                 parse: function (
-                    /** @type {SimpleMarkdown.Capture} */ capture,
-                    /** @type {SimpleMarkdown.Parser} */ parse,
-                    /** @type {SimpleMarkdown.State} */ state,
+                    capture: Capture,
+                    parse: Parser,
+                    state: State,
                 ) {
                     return {
                         content: capture[1],
@@ -3455,8 +3457,7 @@ describe("simple markdown", function () {
             // @ts-expect-error - TS2345 - Argument of type 'DefaultRules & { percentVar: { match: (source: any) => RegExpExecArray | null; order: number; parse: (capture: any, parse: any, state: any) => { content: any; }; }; }' is not assignable to parameter of type 'ParserRules'.
             var rawBuiltParser = SimpleMarkdown.parserFor(rules);
 
-            /** @type {SimpleMarkdown.Parser} */
-            var inlineParse = function (source: string) {
+            var inlineParse: Parser = function (source: string) {
                 return rawBuiltParser(source, {inline: true});
             };
 
@@ -3473,9 +3474,9 @@ describe("simple markdown", function () {
             var emRule = {
                 match: SimpleMarkdown.inlineRegex(/^_([\s\S]+?)_/),
                 parse: function (
-                    /** @type {SimpleMarkdown.Capture} */ capture,
-                    /** @type {SimpleMarkdown.Parser} */ parse,
-                    /** @type {SimpleMarkdown.State} */ state,
+                    capture: Capture,
+                    parse: Parser,
+                    state: State,
                 ) {
                     return {
                         content: capture[1],
@@ -3485,9 +3486,9 @@ describe("simple markdown", function () {
             var strongRule = {
                 match: SimpleMarkdown.defaultRules.strong.match,
                 parse: function (
-                    /** @type {SimpleMarkdown.Capture} */ capture,
-                    /** @type {SimpleMarkdown.Parser} */ parse,
-                    /** @type {SimpleMarkdown.State} */ state,
+                    capture: Capture,
+                    parse: Parser,
+                    state: State,
                 ) {
                     return {
                         content: capture[1],
@@ -3726,9 +3727,9 @@ describe("simple markdown", function () {
                         return /^.*/.exec(source);
                     },
                     parse: function (
-                        /** @type {SimpleMarkdown.Capture} */ capture,
-                        /** @type {SimpleMarkdown.Parser} */ parse,
-                        /** @type {SimpleMarkdown.State} */ state,
+                        capture: Capture,
+                        parse: Parser,
+                        state: State,
                     ) {
                         return capture[0]
                             .split(" ")
@@ -3759,7 +3760,7 @@ describe("simple markdown", function () {
                     result: function (
                         /** @type {Array<SimpleMarkdown.SingleASTNode>} */ arr,
                         /** @type {SimpleMarkdown.Output<string[]>} */ output,
-                        /** @type {SimpleMarkdown.State} */ state,
+                        state: State,
                     ) {
                         return arr
                             .map(function (node) {
@@ -3776,9 +3777,9 @@ describe("simple markdown", function () {
                         return /^\w+/.exec(source);
                     },
                     parse: function (
-                        /** @type {SimpleMarkdown.Capture} */ capture,
-                        /** @type {SimpleMarkdown.Parser} */ parse,
-                        /** @type {SimpleMarkdown.State} */ state,
+                        capture: Capture,
+                        parse: Parser,
+                        state: State,
                     ) {
                         state.wordCount++;
                         return {content: capture[0]};
@@ -3786,7 +3787,7 @@ describe("simple markdown", function () {
                     result: function (
                         /** @type {SimpleMarkdown.SingleASTNode} */ node,
                         /** @type {SimpleMarkdown.NodeOutput<string>} */ output,
-                        /** @type {SimpleMarkdown.State} */ state,
+                        state: State,
                     ) {
                         state.wordCount++;
                         return node.content;
@@ -3799,7 +3800,7 @@ describe("simple markdown", function () {
                     result: function (
                         /** @type {SimpleMarkdown.SingleASTNode} */ node,
                         /** @type {SimpleMarkdown.NodeOutput<string>} */ output,
-                        /** @type {SimpleMarkdown.State} */ state,
+                        state: State,
                     ) {
                         return null;
                     },
@@ -3843,9 +3844,9 @@ describe("simple markdown", function () {
                             return /^\w+/.exec(source);
                         },
                         parse: function (
-                            /** @type {SimpleMarkdown.Capture} */ capture,
-                            /** @type {SimpleMarkdown.Parser} */ parse,
-                            /** @type {SimpleMarkdown.State} */ state,
+                            capture: Capture,
+                            parse: Parser,
+                            state: State,
                         ) {
                             var word = capture[0];
                             var translated = state.lookup[word];
@@ -3889,9 +3890,9 @@ describe("simple markdown", function () {
                     Array: SimpleMarkdown.defaultRules.Array,
                     text: Object.assign({}, SimpleMarkdown.defaultRules.text, {
                         react: function (
-                            /** @type {SimpleMarkdown.SingleASTNode} */ node,
-                            /** @type {SimpleMarkdown.ReactNodeOutput} */ output,
-                            /** @type {SimpleMarkdown.State} */ state,
+                            node: SingleASTNode,
+                            output: ReactNodeOutput,
+                            state: State,
                         ) {
                             return React.createElement(
                                 state.TextComponent,
@@ -3923,9 +3924,9 @@ describe("simple markdown", function () {
                             return /^\{((?:\\[\S\s]|[^\\\*])+)\}/.exec(source);
                         },
                         parse: function (
-                            /** @type {SimpleMarkdown.Capture} */ capture,
-                            /** @type {SimpleMarkdown.Parser} */ parse,
-                            /** @type {SimpleMarkdown.State} */ state,
+                            capture: Capture,
+                            parse: Parser,
+                            state: State,
                         ) {
                             var result = {
                                 // note no passing state here:
@@ -4023,22 +4024,30 @@ describe("simple markdown", function () {
 
             var parsed1 = SimpleMarkdown.defaultBlockParse("hi there!");
             var result1 = output(parsed1, {spanClass: "special"});
-            expect(result1).toEqual([
-                <p>
-                    <span className="special">hi there!</span>
-                </p>,
-            ]);
+            expect(result1).toMatchInlineSnapshot(`
+[
+  <p>
+    <span
+      className="special"
+    >
+      hi there!
+    </span>
+  </p>,
+]
+`);
 
             // but shouldn't keep state around between outputs:
             var parsed2 = SimpleMarkdown.defaultBlockParse("hi there!");
             var result2 = output(parsed2);
             expect(result2).toMatchInlineSnapshot(`
 [
-  <div
-    className="paragraph"
-  >
-    hi there!
-  </div>,
+  <p>
+    <span
+      className="default"
+    >
+      hi there!
+    </span>
+  </p>,
 ]
 `);
         });
@@ -4408,7 +4417,7 @@ describe("simple markdown", function () {
                     react: function (
                         /** @type {SimpleMarkdown.SingleASTNode} */ node,
                         /** @type {SimpleMarkdown.ReactOutput} */ output,
-                        /** @type {SimpleMarkdown.State} */ state,
+                        state: State,
                     ) {
                         return React.createElement(
                             "span",
