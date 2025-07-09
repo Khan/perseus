@@ -3997,48 +3997,37 @@ describe("simple markdown", function () {
             var output = SimpleMarkdown.outputFor(
                 {
                     Array: SimpleMarkdown.defaultRules.Array,
-                    paragraph: Object.assign(
-                        {},
-                        SimpleMarkdown.defaultRules.paragraph,
-                        {
-                            html: function (
-                                /** @type {SimpleMarkdown.SingleASTNode} */ node,
-                                /** @type {SimpleMarkdown.HtmlOutput} */ output,
-                            ) {
-                                return "<p>" + output(node.content) + "</p>";
-                            },
-                        },
-                    ),
-                    text: Object.assign({}, SimpleMarkdown.defaultRules.text, {
-                        html: function (
-                            /** @type {SimpleMarkdown.SingleASTNode} */ node,
-                            /** @type {SimpleMarkdown.HtmlOutput} */ output,
-                            /** @type {SimpleMarkdown.State} */ state,
+                    paragraph: {
+                        ...SimpleMarkdown.defaultRules.paragraph,
+                        react: function (
+                            node: SingleASTNode,
+                            nestedOutput,
+                            state,
                         ) {
+                            return <p>{nestedOutput(node.content)}</p>;
+                        },
+                    },
+                    text: {
+                        ...SimpleMarkdown.defaultRules.text,
+                        react: function (node: SingleASTNode, output, state) {
                             return (
-                                '<span class="' +
-                                (state.spanClass || "default") +
-                                '">' +
-                                /*SimpleMarkdown.sanitizeText*/ node.content +
-                                "</span>"
+                                <span className={state.spanClass || "default"}>
+                                    {node.content}
+                                </span>
                             );
                         },
-                    }),
+                    },
                 },
                 "react",
             );
 
             var parsed1 = SimpleMarkdown.defaultBlockParse("hi there!");
             var result1 = output(parsed1, {spanClass: "special"});
-            expect(result1).toMatchInlineSnapshot(`
-[
-  <div
-    className="paragraph"
-  >
-    hi there!
-  </div>,
-]
-`);
+            expect(result1).toEqual([
+                <p>
+                    <span className="special">hi there!</span>
+                </p>,
+            ]);
 
             // but shouldn't keep state around between outputs:
             var parsed2 = SimpleMarkdown.defaultBlockParse("hi there!");

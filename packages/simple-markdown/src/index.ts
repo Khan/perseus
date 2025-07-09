@@ -1788,8 +1788,8 @@ var SimpleMarkdown: Exports = {
     parseBlock,
 
     // default wrappers:
-    ruleOutput: ruleOutput,
-    reactFor: reactFor,
+    ruleOutput,
+    reactFor,
     markdownToReact,
     ReactMarkdown,
 
