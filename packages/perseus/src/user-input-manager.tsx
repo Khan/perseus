@@ -96,6 +96,13 @@ export function sharedRestoreUserInputFromSerializedState(
     return restoredUserInput;
 }
 
+/**
+ * UserInputManager is a stateful wrapper for handling and storing user input.
+ * Ideally we'll get to a place where widgets are functional components
+ * (or wrapped in functional components) and we can replace this with a
+ * combination of Context/Hooks so that it can just wrap all of Perseus and
+ * widgets can managing fetching/updating their own state via hooks.
+ */
 export default function UserInputManager(props: Props) {
     const [initialized, setInitialized] = useState<boolean>(false);
     const [userInput, setUserInput] = useState<UserInputMap>({});
