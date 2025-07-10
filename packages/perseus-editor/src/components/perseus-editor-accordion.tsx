@@ -1,6 +1,6 @@
 import {AccordionSection} from "@khanacademy/wonder-blocks-accordion";
 import {View} from "@khanacademy/wonder-blocks-core";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
@@ -52,7 +52,7 @@ const PerseusEditorAccordion = (props: Props) => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: color.fadedBlue8,
+        backgroundColor: semanticColor.core.background.instructive.subtle,
         marginTop: spacing.xSmall_8,
     },
     accordionHeader: {
