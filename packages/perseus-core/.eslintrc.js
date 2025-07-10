@@ -16,7 +16,7 @@ module.exports = {
             "@khanacademy/perseus-editor",
             "@khanacademy/perseus-linter",
             "@khanacademy/perseus-score",
-            "@khanacademy/pure-markdown",
+            "@khanacademy/simple-markdown",
         ],
     },
 };
