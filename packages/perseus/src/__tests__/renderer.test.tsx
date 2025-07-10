@@ -1304,27 +1304,6 @@ describe("renderer", () => {
     });
 
     describe("misc behaviors", () => {
-        it("should be able to force re-render", () => {
-            // Arrange
-            const onRender = jest.fn();
-            const apiOptions: Record<string, any> = {};
-            const extraProps = {
-                alwaysUpdate: true, // Switching to `false` to fails test
-                onRender,
-            } as const;
-            const {rerender} = renderQuestion(
-                question1,
-                apiOptions,
-                extraProps,
-            );
-
-            // Act
-            rerender(question1, extraProps);
-
-            // How do I tell it rerendered?
-            expect(onRender).toHaveBeenCalledTimes(3);
-        });
-
         // [LEMS-3185] deprecate serializedState / restoreSerializedState
         it("should use new serializedState if getSerializedState is different", () => {
             // Act

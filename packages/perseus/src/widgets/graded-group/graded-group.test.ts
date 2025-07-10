@@ -285,9 +285,18 @@ describe("graded-group", () => {
             // Act
             await checkAnswer(userEvent);
 
-            // Assert
             expect(
                 await screen.findByRole("button", {name: "Try again"}),
+            ).toBeVisible();
+
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[2],
+            );
+            act(() => jest.runOnlyPendingTimers());
+
+            // Assert
+            expect(
+                await screen.findByRole("button", {name: "Check"}),
             ).toBeVisible();
         });
 

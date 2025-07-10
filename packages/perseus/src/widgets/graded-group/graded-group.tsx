@@ -399,15 +399,14 @@ export class GradedGroup
                                     initializeUserInput,
                                     restoreUserInputFromSerializedState,
                                 }) => {
-                                    {
-                                        /**
-                                         * We're passing a couple of props to Renderer that it doesn't
-                                         * require as part of {...this.props.hint}.
-                                         */
-                                    }
+                                    // we did a check above to make sure hints exists
+                                    const {content, widgets, images} = this
+                                        .props.hint as PerseusRenderer;
                                     return (
                                         <Renderer
-                                            {...this.props.hint}
+                                            content={content}
+                                            widgets={widgets}
+                                            images={images}
                                             userInput={userInput}
                                             handleUserInput={handleUserInput}
                                             initializeUserInput={

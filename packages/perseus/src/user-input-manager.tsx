@@ -1,4 +1,3 @@
-import {entries} from "@khanacademy/wonder-stuff-core";
 import {useEffect, useRef, useState} from "react";
 
 import {getWidgetTypeByWidgetId} from "./widget-type-utils";
@@ -17,7 +16,7 @@ export type RestoreUserInputFromSerializedStateCallback = (
 ) => void;
 
 export type HandleUserInputCallback = (
-    id: string,
+    widgetId: string,
     userInput: UserInputMap[keyof UserInputMap],
 ) => void;
 
@@ -50,7 +49,7 @@ export function sharedInitializeUserInput(
     problemNum: number,
 ): UserInputMap {
     const startUserInput: UserInputMap = {};
-    entries(widgetOptions).forEach(([id, widgetInfo]) => {
+    Object.entries(widgetOptions).forEach(([id, widgetInfo]) => {
         const widgetExports = Widgets.getWidgetExport(widgetInfo.type);
         if (widgetInfo.static && widgetExports?.getCorrectUserInput) {
             startUserInput[id] = widgetExports.getCorrectUserInput(
