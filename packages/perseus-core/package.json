@@ -27,7 +27,7 @@
     "dependencies": {
         "@khanacademy/kas": "workspace:*",
         "@khanacademy/perseus-utils": "workspace:*",
-        "@khanacademy/simple-markdown": "workspace:*",
+        "@khanacademy/pure-markdown": "workspace:*",
         "tiny-invariant": "catalog:prodDeps"
     },
     "devDependencies": {

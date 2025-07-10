@@ -6,6 +6,8 @@
  */
 export {libVersion} from "./version";
 
+export {traverseContent} from "./traversal";
+
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 
 const rWidgetRule = /^\[\[\u2603 (([a-z-]+) ([0-9]+))\]\]/;
@@ -171,7 +173,7 @@ export const pureMarkdownRules = {
         match: SimpleMarkdown.blockRegex(TITLED_TABLE_REGEX) as any,
         parse: (capture: any, parse: any, state: any): any => {
             const title = SimpleMarkdown.parseInline(parse, capture[1], state);
-
+            title; // ?
             // Remove our [0] and [1] captures, and pass the rest to
             // the nptable parser
             const tableCapture = capture.slice(2);

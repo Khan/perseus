@@ -854,9 +854,9 @@ importers:
       '@khanacademy/perseus-utils':
         specifier: workspace:*
         version: link:../perseus-utils
-      '@khanacademy/simple-markdown':
+      '@khanacademy/pure-markdown':
         specifier: workspace:*
-        version: link:../simple-markdown
+        version: link:../pure-markdown
       tiny-invariant:
         specifier: catalog:prodDeps
         version: 1.3.1
