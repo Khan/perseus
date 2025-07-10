@@ -1184,6 +1184,12 @@ function getStartUserInput(
     return options.starting;
 }
 
+function getCorrectUserInput(
+    options: PerseusPlotterWidgetOptions,
+): PerseusPlotterUserInput {
+    return options.correct;
+}
+
 /**
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
@@ -1199,6 +1205,7 @@ export default {
     displayName: "Plotter",
     hidden: true,
     widget: Plotter,
+    getCorrectUserInput,
     staticTransform: _.identity,
     getStartUserInput,
     getUserInputFromSerializedState,

@@ -329,6 +329,43 @@ describe("UserInputManager", () => {
         expect(screen.getByText(/Hello world/)).toBeInTheDocument();
     });
 
-    // TODO
-    it.skip("initializes static user input", () => {});
+    it("initializes static user input", async () => {
+        const widgets: PerseusWidgetsMap = {
+            "radio 1": {
+                type: "radio",
+                static: true,
+                options: {
+                    choices: [
+                        {
+                            content: "Correct",
+                            correct: true,
+                        },
+                        {
+                            content: "Incorrect",
+                            correct: false,
+                        },
+                    ],
+                },
+            },
+        };
+
+        render(
+            <UserInputManager widgets={widgets} problemNum={0}>
+                {({userInput}) => {
+                    return (
+                        <>
+                            <p>
+                                User input is:{" "}
+                                {userInput["radio 1"].choicesSelected.join(" ")}
+                            </p>
+                        </>
+                    );
+                }}
+            </UserInputManager>,
+        );
+
+        expect(
+            screen.getByText("User input is: true false"),
+        ).toBeInTheDocument();
+    });
 });
