@@ -318,17 +318,21 @@ export class ServerItemRenderer
             this.state.questionHighlightedWidgets,
             [widgetId],
         );
-        this.setState({
-            questionCompleted: false,
-            questionHighlightedWidgets: withRemoved,
-        });
 
-        setTimeout(() => {
-            // Call the interactionCallback, if it exists, with the current user input data
-            this.props.apiOptions?.interactionCallback?.(
-                this.questionRenderer.getUserInputMap(),
-            );
-        }, 0);
+        this.setState(
+            {
+                questionCompleted: false,
+                questionHighlightedWidgets: withRemoved,
+            },
+            () => {
+                // Call the interactionCallback, if it exists,
+                // with the current user input data
+                // (in the setState callback to avoid stale state)
+                this.props.apiOptions?.interactionCallback?.(
+                    this.questionRenderer.getUserInputMap(),
+                );
+            },
+        );
     };
 
     focus(): boolean | null | undefined {

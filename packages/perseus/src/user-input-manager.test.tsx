@@ -111,6 +111,7 @@ describe("sharedInitializeUserInput", () => {
         expect(sharedInitializeUserInput(generateNumberLineMap(), 0)).toEqual({
             "number-line 1": {
                 numDivisions: 8,
+                // number line initial state is the bottom of the range: -4 here
                 numLinePosition: -4,
                 rel: "ge",
             },
@@ -124,6 +125,7 @@ describe("sharedInitializeUserInput", () => {
             "group 1": {
                 "number-line 1": {
                     numDivisions: 8,
+                    // number line initial state is the bottom of the range: -4 here
                     numLinePosition: -4,
                     rel: "ge",
                 },
@@ -215,6 +217,7 @@ describe("UserInputManager", () => {
         );
 
         // Start with nothing
+        // number line initial state is the bottom of the range: -4 here
         expect(screen.getByText("User input is: -4")).toBeInTheDocument();
 
         // Make sure we have user input state
@@ -265,6 +268,7 @@ describe("UserInputManager", () => {
         );
 
         // Start with nothing
+        // number line initial state is the bottom of the range: -4 here
         expect(screen.getByText("User input is: -4")).toBeInTheDocument();
 
         // Make sure we have user input state
