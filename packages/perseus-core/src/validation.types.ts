@@ -120,11 +120,8 @@ export type PerseusGroupValidationData = {widgets: ValidationDataMap};
 export type PerseusGroupUserInput = UserInputMap;
 
 export type PerseusGradedGroupRubric = PerseusGradedGroupWidgetOptions;
-export type PerseusGradedGroupUserInput = UserInputMap;
 
 export type PerseusGradedGroupSetRubric = PerseusGradedGroupSetWidgetOptions;
-
-export type PerseusGradedGroupSetUserInput = UserInputMap[];
 
 export type PerseusGrapherRubric = {
     correct: GrapherAnswerTypes;
@@ -340,8 +337,6 @@ interface UserInputRegistry {
     "free-response": PerseusFreeResponseUserInput;
     grapher: PerseusGrapherUserInput;
     group: PerseusGroupUserInput;
-    "graded-group": PerseusGradedGroupUserInput;
-    "graded-group-set": PerseusGradedGroupSetUserInput;
     iframe: PerseusIFrameUserInput;
     "input-number": PerseusInputNumberUserInput;
     "interactive-graph": PerseusInteractiveGraphUserInput;

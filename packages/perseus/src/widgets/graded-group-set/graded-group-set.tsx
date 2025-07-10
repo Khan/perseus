@@ -22,7 +22,6 @@ import {GradedGroup} from "../graded-group/graded-group";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GradedGroupSetPromptJSON} from "../../widget-ai-utils/graded-group-set/graded-group-set-ai-utils";
 import type {
-    PerseusGradedGroupSetUserInput,
     PerseusGradedGroupSetWidgetOptions,
     PerseusGradedGroupWidgetOptions,
 } from "@khanacademy/perseus-core";
@@ -91,7 +90,7 @@ class Indicators extends React.Component<IndicatorsProps> {
 
 type RenderProps = PerseusGradedGroupSetWidgetOptions; // no transform
 
-type Props = WidgetProps<RenderProps, PerseusGradedGroupSetUserInput> & {
+type Props = WidgetProps<RenderProps> & {
     trackInteraction: () => void;
 };
 

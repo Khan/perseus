@@ -21,9 +21,7 @@ import {
     negativePhoneMargin,
     tableBackgroundAccent,
 } from "../../styles/constants";
-import UserInputManager, {
-    sharedInitializeUserInput,
-} from "../../user-input-manager";
+import UserInputManager from "../../user-input-manager";
 import a11y from "../../util/a11y";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 
@@ -39,7 +37,6 @@ import type {
 } from "../../types";
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 import type {
-    PerseusGradedGroupUserInput,
     PerseusGradedGroupWidgetOptions,
     PerseusRenderer,
     PerseusScore,
@@ -77,7 +74,7 @@ type RenderProps = PerseusGradedGroupWidgetOptions; // exports has no 'transform
 
 type Props = WidgetProps<
     RenderProps,
-    PerseusGradedGroupUserInput,
+    Empty,
     TrackingGradedGroupExtraArguments
 > & {
     inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,
@@ -109,7 +106,7 @@ type State = {
 // via defaultProps.
 0 as any as WidgetProps<
     PerseusGradedGroupWidgetOptions,
-    PerseusGradedGroupUserInput,
+    Empty,
     undefined
 > satisfies PropsFor<typeof GradedGroup>;
 
@@ -509,13 +506,6 @@ const styles = StyleSheet.create({
     },
 });
 
-function getStartUserInput(
-    options: PerseusRenderer,
-    problemNum: number,
-): PerseusGradedGroupUserInput {
-    return sharedInitializeUserInput(options.widgets, problemNum);
-}
-
 export default {
     name: "graded-group",
     displayName: "Graded group (articles only)",
@@ -524,5 +514,4 @@ export default {
     hidden: false,
     tracking: "all",
     isLintable: true,
-    getStartUserInput,
 } satisfies WidgetExports<typeof GradedGroup>;

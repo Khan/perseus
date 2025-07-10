@@ -20,7 +20,7 @@ export type HandleUserInputCallback = (
     userInput: UserInputMap[keyof UserInputMap],
 ) => void;
 
-type UserInputManagerPayload = {
+type FunctionChildParams = {
     userInput: UserInputMap;
     handleUserInput: HandleUserInputCallback;
     initializeUserInput: InitializeUserInputCallback;
@@ -35,7 +35,7 @@ type Props = {
     widgets: PerseusWidgetsMap;
     problemNum: number;
     handleUserInput?: (userInput: UserInputMap) => void;
-    children: (payload: UserInputManagerPayload) => JSX.Element | null;
+    children: (payload: FunctionChildParams) => JSX.Element | null;
 };
 
 /**
