@@ -21,10 +21,10 @@ function validateMatrix(userInput: PerseusMatrixUserInput): ValidationResult {
 
     for (let row = 0; row < suppliedSize[0]; row++) {
         for (let col = 0; col < suppliedSize[1]; col++) {
-            if (
-                supplied[row][col] == null ||
-                supplied[row][col].toString().length === 0
-            ) {
+            // The row/cell value may be null if the user has not filled all the cells.
+            const rowData = supplied[row];
+            const cellValue = rowData?.[col];
+            if (cellValue == null || cellValue.toString().length === 0) {
                 return {
                     type: "invalid",
                     message: ErrorCodes.FILL_ALL_CELLS_ERROR,

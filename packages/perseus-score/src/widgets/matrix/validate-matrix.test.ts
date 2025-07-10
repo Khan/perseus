@@ -17,9 +17,14 @@ describe("matrixValidator", () => {
     });
 
     it("should return invalid when any answer row is empty", () => {
-        // Arrange
+        // Arrange - simulate what happens when user enters data in rows 0 and 2, skipping row 1
+        const sparseAnswers: any[][] = [];
+        sparseAnswers[0] = [1, 2, 3, 4]; // User fills row 0
+        // sparseAnswers[1] is undefined - user skipped this row
+        sparseAnswers[2] = [5]; // User only fills first cell of row 2
+
         const userInput: PerseusMatrixUserInput = {
-            answers: [[1, 2, 3], [], [7, 8, 9]],
+            answers: sparseAnswers,
         };
 
         // Act
