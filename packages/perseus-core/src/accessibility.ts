@@ -2,8 +2,6 @@
  * Identifies whether or not a given perseus item requires the use of a mouse
  * or screen, based on the widgets it contains.
  */
-
-// eslint-disable-next-line @typescript-eslint/no-restricted-imports
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 
 import {traverse} from "./traversal";
@@ -57,7 +55,7 @@ export function isItemAccessible(itemData: PerseusItem): boolean {
         }
     }
 
-    // Finally, if the markdown is accessible. Check if any widgets are not
-    // accessible.
+    // Finally, if the markdown is accessible. Check if any widgets are
+    // inaccessible.
     return violatingWidgets(itemData).length === 0;
 }
