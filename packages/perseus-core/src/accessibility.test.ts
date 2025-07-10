@@ -255,7 +255,7 @@ describe("isItemAccessible", () => {
             expect(isItemAccessible(itemData)).toBe(true);
         });
 
-        it("should return false if the item contains any accessible markdown and inaccessible widgets", () => {
+        it("should return false if the item contains any accessible markdown but has inaccessible widgets", () => {
             const itemData: PerseusItem = {
                 question: {
                     content:
@@ -312,7 +312,7 @@ describe("isItemAccessible", () => {
             expect(isItemAccessible(itemData)).toBe(false);
         });
 
-        it("should return true if markdown is empty and accessible widgets", () => {
+        it("should return true if markdown is empty and has accessible widgets", () => {
             const itemData: PerseusItem = {
                 question: {
                     content: "",
