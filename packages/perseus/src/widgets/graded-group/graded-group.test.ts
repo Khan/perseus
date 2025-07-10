@@ -3,6 +3,7 @@ import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
+import {renderArticle} from "../../__tests__/article-renderer.test";
 import * as Dependencies from "../../dependencies";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
@@ -12,6 +13,7 @@ import {
 } from "./graded-group.testdata";
 
 import type {APIOptions} from "../../types";
+import type {PerseusArticle} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const checkAnswer = async (
@@ -331,6 +333,84 @@ describe("graded-group", () => {
             expect(
                 screen.queryByText(/Some bacteria synthesize their own fuel./),
             ).not.toBeInTheDocument();
+        });
+    });
+
+    /**
+     * GradedGroup and GradedGroupSet are only for articles,
+     * so we'll test them in that environment
+     */
+    describe("in ArticleRenderer", () => {
+        function generateArticle(): PerseusArticle {
+            return [
+                {
+                    content: "[[☃ graded-group 1]]",
+                    widgets: {
+                        "graded-group 1": {
+                            type: "graded-group",
+                            options: {
+                                title: "Test title",
+                                content: "[[☃ dropdown 1]]",
+                                widgets: {
+                                    "dropdown 1": {
+                                        type: "dropdown",
+                                        options: {
+                                            choices: [
+                                                {
+                                                    content: "Wrong answer",
+                                                    correct: false,
+                                                },
+                                                {
+                                                    content: "Right answer",
+                                                    correct: true,
+                                                },
+                                            ],
+                                            placeholder: "Choose an answer",
+                                            static: false,
+                                        },
+                                    },
+                                },
+                                images: {},
+                            },
+                        },
+                    },
+                    images: {},
+                },
+            ];
+        }
+
+        it("can be answered correctly", async () => {
+            renderArticle(generateArticle());
+
+            // select an option
+            const dropdown = screen.getByRole("combobox");
+            await userEvent.click(dropdown);
+            await userEvent.click(screen.getByText("Right answer"));
+
+            // make sure the option was selected properly
+            expect(dropdown).toHaveTextContent("Right answer");
+
+            await userEvent.click(screen.getByRole("button", {name: "Check"}));
+
+            // this shows that the question was scored as expected
+            expect(screen.getByText("Correct")).toBeInTheDocument();
+        });
+
+        it("can be answered incorrectly", async () => {
+            renderArticle(generateArticle());
+
+            // select an option
+            const dropdown = screen.getByRole("combobox");
+            await userEvent.click(dropdown);
+            await userEvent.click(screen.getByText("Wrong answer"));
+
+            // make sure the option was selected properly
+            expect(dropdown).toHaveTextContent("Wrong answer");
+
+            await userEvent.click(screen.getByRole("button", {name: "Check"}));
+
+            // this shows that the question was scored as expected
+            expect(screen.getByText("Incorrect")).toBeInTheDocument();
         });
     });
 });
