@@ -173,7 +173,7 @@ export const pureMarkdownRules = {
         match: SimpleMarkdown.blockRegex(TITLED_TABLE_REGEX) as any,
         parse: (capture: any, parse: any, state: any): any => {
             const title = SimpleMarkdown.parseInline(parse, capture[1], state);
-            title; // ?
+
             // Remove our [0] and [1] captures, and pass the rest to
             // the nptable parser
             const tableCapture = capture.slice(2);
@@ -296,11 +296,24 @@ export const pureMarkdownRules = {
 // @ts-expect-error - TS2345 - Argument of type '{ readonly columns: { readonly order: -2; readonly match: any; readonly parse: (capture: any, parse: any, state: any) => any; }; readonly crowdinId: { readonly order: -1; readonly match: (source: any, state: any, prevCapture: any) => any; readonly parse: (capture: any, parse: any, state: any) => any; }; ... 34 more ...' is not assignable to parameter of type 'ParserRules'.
 const builtParser = SimpleMarkdown.parserFor(pureMarkdownRules);
 
-export const parse = (source: string, state?: any): any => {
+/**
+ * Parses a **Perseus** Markdown string into an AST.
+ *
+ * Use this function when you have content that may contain Perseus-specific
+ * Markdown including things like math (`$...$`), tables, and widgets (`[[☃
+ * ...]]`).
+ * @param source The Perseus Markdown string to parse.
+ * @param state The state object to pass to the parser.
+ * @returns The Abstract Syntax Tree (AST) of the parsed Markdown.
+ *
+ * @todo The return type should be Array<SingleASTNode> but that breaks the
+ * perseus-linter's types, so leaving it as `any` for now.
+ */
+export function parse(source: string, state?: any): any {
     const paragraphedSource = source + "\n\n";
 
     return builtParser(paragraphedSource, {
         ...state,
         inline: false,
     });
-};
+}
