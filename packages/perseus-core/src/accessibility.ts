@@ -2,6 +2,7 @@
  * Identifies whether or not a given perseus item requires the use of a mouse
  * or screen, based on the widgets it contains.
  */
+
 import {parse, traverseContent} from "@khanacademy/pure-markdown";
 
 import {traverse} from "./traversal";
