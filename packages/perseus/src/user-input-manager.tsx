@@ -77,17 +77,17 @@ export function sharedInitializeUserInput(
  */
 export function sharedRestoreUserInputFromSerializedState(
     serializedState: unknown,
-    widgetOptions: PerseusWidgetsMap,
+    widgetsMap: PerseusWidgetsMap,
 ): UserInputMap {
     const restoredUserInput: UserInputMap = {};
     Object.entries(serializedState as any).forEach(([widgetId, props]) => {
-        const widgetType = getWidgetTypeByWidgetId(widgetId, widgetOptions);
+        const widgetType = getWidgetTypeByWidgetId(widgetId, widgetsMap);
         const widgetExport = Widgets.getWidgetExport(widgetType as string);
 
         if (widgetExport?.getUserInputFromSerializedState) {
             const restoreResult = widgetExport.getUserInputFromSerializedState(
                 props,
-                widgetOptions[widgetId].options,
+                widgetsMap[widgetId].options,
             );
             restoredUserInput[widgetId] = restoreResult;
         }
