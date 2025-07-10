@@ -5,6 +5,7 @@ import Registry from "../utils/registry";
 import categorizerWidgetLogic from "./categorizer";
 import csProgramWidgetLogic from "./cs-program";
 import definitionWidgetLogic from "./definition";
+import deprecatedStandinWidgetLogic from "./deprecated-standin";
 import dropdownWidgetLogic from "./dropdown";
 import explanationWidgetLogic from "./explanation";
 import expressionWidgetLogic from "./expression";
@@ -163,6 +164,7 @@ export function registerCoreWidgets() {
         categorizerWidgetLogic,
         csProgramWidgetLogic,
         definitionWidgetLogic,
+        deprecatedStandinWidgetLogic,
         dropdownWidgetLogic,
         explanationWidgetLogic,
         expressionWidgetLogic,
