@@ -397,7 +397,6 @@ export class GradedGroup
                                     userInput,
                                     handleUserInput,
                                     initializeUserInput,
-                                    restoreUserInputFromSerializedState,
                                 }) => {
                                     // we did a check above to make sure hints exists
                                     const {content, widgets, images} = this
@@ -411,9 +410,6 @@ export class GradedGroup
                                             handleUserInput={handleUserInput}
                                             initializeUserInput={
                                                 initializeUserInput
-                                            }
-                                            restoreUserInputFromSerializedState={
-                                                restoreUserInputFromSerializedState
                                             }
                                             ref={this.hintRendererRef}
                                             apiOptions={apiOptions}

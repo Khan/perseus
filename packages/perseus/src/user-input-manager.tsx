@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 
 import {getWidgetTypeByWidgetId} from "./widget-type-utils";
 import * as Widgets from "./widgets";
@@ -106,13 +106,9 @@ export function sharedRestoreUserInputFromSerializedState(
 export default function UserInputManager(props: Props) {
     const [initialized, setInitialized] = useState<boolean>(false);
     const [userInput, setUserInput] = useState<UserInputMap>({});
-    const prevProblemNum = useRef<number>(props.problemNum);
 
     useEffect(() => {
-        if (prevProblemNum.current !== props.problemNum) {
-            prevProblemNum.current = props.problemNum;
-            setInitialized(false);
-        }
+        setInitialized(false);
     }, [props.problemNum]);
 
     useEffect(() => {
