@@ -199,7 +199,7 @@ function getStartUserInput(
 
 function getUserInputFromSerializedState(
     serializedState: unknown,
-    widgetOptions: any,
+    widgetOptions: PerseusGroupWidgetOptions,
 ): PerseusGroupUserInput {
     return sharedRestoreUserInputFromSerializedState(
         serializedState,

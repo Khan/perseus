@@ -524,7 +524,7 @@ export type WidgetExports<
      */
     getUserInputFromSerializedState?: (
         serializedState: unknown,
-        widgetOptions?: PerseusWidgetsMap, // <= for groups
+        widgetOptions?: WidgetOptions, // <= for groups
     ) => TUserInput;
 
     getCorrectUserInput?: (widgetOptions: WidgetOptions) => TUserInput;
