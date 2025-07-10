@@ -43,17 +43,21 @@ export function violatingWidgets(itemData: PerseusItem): Array<string> {
  * any widgets that violate our accessibility requirements).
  */
 export function isItemAccessible(itemData: PerseusItem): boolean {
-    // Traverse the item question and check if markdown images have alt text.
-    // If it does note then the item is not accessible and we return false.
+    // Traverse the item question Markdown to look for content that is
+    // inaccessible.
     const ast = parse(itemData.question.content);
     const widgetIdsInUse = new Set<string>();
     let hasInaccessibleImage = false;
 
     traverseContent(ast, (node) => {
+        // Markdown images without alt text are inaccessible!
         if (node.type === "image" && (node.alt == null || node.alt === "")) {
             hasInaccessibleImage = true;
             return;
         }
+
+        // We collect widget IDs used in the Markdown content so we can exclude
+        // unused widgets when checking for violating widgets below.
         if (node.type === "widget") {
             widgetIdsInUse.add(node.id);
         }
@@ -63,9 +67,8 @@ export function isItemAccessible(itemData: PerseusItem): boolean {
         return false;
     }
 
-    // Finally, if the markdown is accessible. Check if any widgets are
-    // inaccessible.
-    const cleanItemData: PerseusItem = {
+    // Finally, check if any widgets are inaccessible.
+    const itemDataWithOnlyActiveWidgets: PerseusItem = {
         ...itemData,
         question: {
             ...itemData.question,
@@ -79,5 +82,5 @@ export function isItemAccessible(itemData: PerseusItem): boolean {
             ) as PerseusWidgetsMap,
         },
     };
-    return violatingWidgets(cleanItemData).length === 0;
+    return violatingWidgets(itemDataWithOnlyActiveWidgets).length === 0;
 }
