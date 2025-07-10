@@ -2,12 +2,12 @@
  * Identifies whether or not a given perseus item requires the use of a mouse
  * or screen, based on the widgets it contains.
  */
-import SimpleMarkdown from "@khanacademy/simple-markdown";
+import {parse, traverseContent} from "@khanacademy/pure-markdown";
 
 import {traverse} from "./traversal";
 import * as Widgets from "./widgets/core-widget-registry";
 
-import type {PerseusItem} from "./data-schema";
+import type {PerseusItem, PerseusWidgetsMap} from "./data-schema";
 
 /**
  * Returns a list of widget types that cause a given Perseus item to require
@@ -45,17 +45,39 @@ export function violatingWidgets(itemData: PerseusItem): Array<string> {
 export function isItemAccessible(itemData: PerseusItem): boolean {
     // Traverse the item question and check if markdown images have alt text.
     // If it does note then the item is not accessible and we return false.
-    const nodes = SimpleMarkdown.defaultInlineParse(itemData.question.content);
-    for (const node of nodes) {
-        if (
-            node.type === "image" &&
-            (node.alt === undefined || node.alt === "")
-        ) {
-            return false;
+    const ast = parse(itemData.question.content);
+    const widgetIdsInUse = new Set<string>();
+    let hasInaccessibleImage = false;
+
+    traverseContent(ast, (node) => {
+        if (node.type === "image" && (node.alt == null || node.alt === "")) {
+            hasInaccessibleImage = true;
+            return;
         }
+        if (node.type === "widget") {
+            widgetIdsInUse.add(node.id);
+        }
+    });
+
+    if (hasInaccessibleImage) {
+        return false;
     }
 
     // Finally, if the markdown is accessible. Check if any widgets are
     // inaccessible.
-    return violatingWidgets(itemData).length === 0;
+    const cleanItemData: PerseusItem = {
+        ...itemData,
+        question: {
+            ...itemData.question,
+            // We have to cast the result here to PerseusWidgetsMap manually
+            // because TypeScript gets confused by Object.fromEntries() (it
+            // can't map that the id matches the object in the entry).
+            widgets: Object.fromEntries(
+                Object.entries(itemData.question.widgets).filter(([id]) =>
+                    widgetIdsInUse.has(id),
+                ),
+            ) as PerseusWidgetsMap,
+        },
+    };
+    return violatingWidgets(cleanItemData).length === 0;
 }

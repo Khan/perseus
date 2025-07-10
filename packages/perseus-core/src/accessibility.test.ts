@@ -182,84 +182,12 @@ describe("isItemAccessible", () => {
 
             expect(isItemAccessible(itemData)).toBe(true);
         });
-    });
 
-    describe("markdown", () => {
-        it("should return false if the item markdown contains any inaccessible images", () => {
+        it("should ignore widgets that are not used in the markdown content", () => {
             const itemData: PerseusItem = {
                 question: {
                     content:
-                        "Here's an image: ![](https://example.com/image.png)",
-                    widgets: {
-                        "explanation 1": {
-                            type: "explanation",
-                            options: {
-                                showPrompt: "Show",
-                                hidePrompt: "Hide",
-                                explanation: "Test explanation",
-                                widgets: {},
-                                static: false,
-                            },
-                        },
-                        "radio 1": {
-                            type: "radio",
-                            options: {
-                                choices: [
-                                    {content: "Option 1", correct: true},
-                                    {content: "Option 2", correct: false},
-                                ],
-                            },
-                        },
-                    },
-                    images: {},
-                },
-                hints: [],
-                answerArea: null,
-            };
-
-            expect(isItemAccessible(itemData)).toBe(false);
-        });
-
-        it("should return true if the item markdown contains any accessible images", () => {
-            const itemData: PerseusItem = {
-                question: {
-                    content:
-                        "Here's an image: ![alt text](https://example.com/image.png)",
-                    widgets: {
-                        "explanation 1": {
-                            type: "explanation",
-                            options: {
-                                showPrompt: "Show",
-                                hidePrompt: "Hide",
-                                explanation: "Test explanation",
-                                widgets: {},
-                                static: false,
-                            },
-                        },
-                        "radio 1": {
-                            type: "radio",
-                            options: {
-                                choices: [
-                                    {content: "Option 1", correct: true},
-                                    {content: "Option 2", correct: false},
-                                ],
-                            },
-                        },
-                    },
-                    images: {},
-                },
-                hints: [],
-                answerArea: null,
-            };
-
-            expect(isItemAccessible(itemData)).toBe(true);
-        });
-
-        it("should return false if the item contains any accessible markdown but has inaccessible widgets", () => {
-            const itemData: PerseusItem = {
-                question: {
-                    content:
-                        "Here's an image: ![alt text](https://example.com/image.png)",
+                        "Here's an explanation: [[☃ explanation 1]]\n\nAnd a graph: [[☃ interactive-graph 1]]\\But matcher 1 config is unused!!",
                     widgets: {
                         "explanation 1": {
                             type: "explanation",
@@ -309,34 +237,72 @@ describe("isItemAccessible", () => {
                 answerArea: null,
             };
 
+            expect(isItemAccessible(itemData)).toBe(true);
+        });
+    });
+
+    describe("markdown", () => {
+        it("should return false if the item markdown contains any inaccessible images", () => {
+            const itemData: PerseusItem = {
+                question: {
+                    content:
+                        "Here's an image: ![](https://example.com/image.png)",
+                    widgets: {},
+                    images: {},
+                },
+                hints: [],
+                answerArea: null,
+            };
+
             expect(isItemAccessible(itemData)).toBe(false);
         });
 
-        it("should return true if markdown is empty and has accessible widgets", () => {
+        it("should return true if the item markdown contains any accessible images", () => {
             const itemData: PerseusItem = {
                 question: {
-                    content: "",
+                    content:
+                        "Here's an image: ![alt text](https://example.com/image.png)",
+                    widgets: {},
+                    images: {},
+                },
+                hints: [],
+                answerArea: null,
+            };
+
+            expect(isItemAccessible(itemData)).toBe(true);
+        });
+
+        it("should return false if the item contains any accessible markdown but has inaccessible widgets", () => {
+            const itemData: PerseusItem = {
+                question: {
+                    content:
+                        "Here's an inaccessible widget: [[☃ matcher 1]]\n\nHere's an image: ![alt text](https://example.com/image.png)",
                     widgets: {
-                        "explanation 1": {
-                            type: "explanation",
+                        "matcher 1": {
+                            type: "matcher",
                             options: {
-                                showPrompt: "Show",
-                                hidePrompt: "Hide",
-                                explanation: "Test explanation",
-                                widgets: {},
-                                static: false,
-                            },
-                        },
-                        "radio 1": {
-                            type: "radio",
-                            options: {
-                                choices: [
-                                    {content: "Option 1", correct: true},
-                                    {content: "Option 2", correct: false},
-                                ],
+                                labels: ["Concepts", "Definitions"],
+                                left: ["A", "B", "C"],
+                                right: ["1", "2", "3"],
+                                orderMatters: false,
+                                padding: true,
                             },
                         },
                     },
+                    images: {},
+                },
+                hints: [],
+                answerArea: null,
+            };
+
+            expect(isItemAccessible(itemData)).toBe(false);
+        });
+
+        it("should return true if markdown is empty", () => {
+            const itemData: PerseusItem = {
+                question: {
+                    content: "",
+                    widgets: {},
                     images: {},
                 },
                 hints: [],
