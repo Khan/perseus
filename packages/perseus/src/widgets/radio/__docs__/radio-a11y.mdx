@@ -1,0 +1,34 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Widgets/RadioNew/Accessibility" />
+
+# RadioNew Widget Accessibility
+
+The RadioNew widget is designed to be fully accessible, following WCAG 2.1 guidelines. This page documents the accessibility features and considerations for the RadioNew widget.
+
+## Keyboard Navigation
+
+- **Tab**: Moves focus to the radio group
+- **Arrow keys**: Navigate between radio options
+- **Space**: Selects the currently focused option
+
+## Screen Reader Support
+
+The RadioNew widget uses appropriate ARIA attributes to ensure proper screen reader announcements:
+
+- Uses `role="radiogroup"` for single select mode
+- Uses `role="group"` for multi-select mode
+- Implements `aria-checked` states
+- Provides meaningful labels and descriptions
+
+## Focus Management
+
+Focus indicators are clearly visible and follow the keyboard navigation pattern. The focus state is designed to be visible for both mouse and keyboard users.
+
+## Color Contrast
+
+All text and interactive elements in the RadioNew widget meet WCAG AA contrast requirements. Selected states use both color and shape changes to indicate status.
+
+## Responsive Design
+
+The RadioNew widget is designed to work across different screen sizes and zoom levels, maintaining usability on mobile devices and with screen magnification.

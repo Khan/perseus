@@ -57,7 +57,7 @@ jobs:
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
                   files: "packages/, config/build/" # Only look for changes in packages, build
-                  globs: "!(**/__tests__/*), !(**/__testdata__/*), !(**/__stories__/*), !(**/dist/*), !(**/*.test.ts), !(**/*.test.tsx)" # Ignore test files
+                  globs: "!(**/__tests__/*), !(**/__testdata__/*), !(**/__docs__/*), !(**/__docs__/*), !(**/dist/*), !(**/*.test.ts), !(**/*.test.tsx)" # Ignore test files
                   matchAllGlobs: true # Default is to match any of the globs, which ends up matching all files
                   conjunctive: true # Only match files that match all of the above
 

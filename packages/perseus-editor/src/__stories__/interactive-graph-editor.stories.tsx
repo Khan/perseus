@@ -6,8 +6,8 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import {EditorPage} from "..";
-import {interactiveGraphQuestionBuilder} from "../../../perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
+import {EditorPage} from "../index";
+import {interactiveGraphQuestionBuilder} from "@khanacademy/perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
 import {
     angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
@@ -24,10 +24,10 @@ import {
     sinusoidMinimalQuestion,
     sinusoidWithStartingCoordsAndPiTicksQuestion,
     unlimitedPolygonWithCorrectAnswerQuestion,
-} from "../../../perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
+} from "@khanacademy/perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
-import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
+import EditorPageWithStorybookPreview from "../__docs__/editor-page-with-storybook-preview";
 
 import type {DeviceType} from "@khanacademy/perseus";
 import type {
@@ -40,6 +40,7 @@ registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
 export default {
     title: "PerseusEditor/Widgets/Interactive Graph",
+    tags: ["!dev"],
 };
 
 const onChangeAction = action("onChange");
