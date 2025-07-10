@@ -32,38 +32,37 @@ type RenderProps = Pick<
     PerseusFreeResponseWidgetOptions,
     "allowUnlimitedCharacters" | "characterLimit" | "placeholder" | "question"
 >;
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<RenderProps, PerseusFreeResponseUserInput>;
 
-type State = {
-    currentValue: string;
-};
+type DefaultProps = Pick<Props, "userInput">;
 
 // TODO(agoforth): Create a custom validator for the widget that will cause
 //   renderer.emptyWidgets() to work when there is no user input.
 
-export class FreeResponse
-    extends React.Component<Props, State>
-    implements Widget
-{
+export class FreeResponse extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
-    state: State = {
-        currentValue: "",
+    static defaultProps: DefaultProps = {
+        userInput: {
+            currentValue: "",
+        },
     };
 
     characterCount = () => {
-        return this.state.currentValue.replace(/\n/g, "").length;
+        return this.props.userInput.currentValue.replace(/\n/g, "").length;
     };
 
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     * */
     getUserInput(): PerseusFreeResponseUserInput {
-        return {
-            currentValue: this.state.currentValue,
-        };
+        return this.props.userInput;
     }
 
-    handleChange = (newValue: string) => {
-        this.setState({currentValue: newValue});
+    _handleUserInput = (newValue: string) => {
+        this.props.handleUserInput({currentValue: newValue});
     };
 
     isOverLimit() {
@@ -123,10 +122,10 @@ export class FreeResponse
                     field={
                         <TextArea
                             error={this.isOverLimit()}
-                            onChange={this.handleChange}
+                            onChange={this._handleUserInput}
                             placeholder={this.props.placeholder}
                             style={styles.textarea}
-                            value={this.state.currentValue}
+                            value={this.props.userInput.currentValue}
                         />
                     }
                     styles={{
@@ -142,7 +141,7 @@ export class FreeResponse
 export default {
     name: "free-response",
     accessible: true,
-    displayName: "Free Response",
+    displayName: "Free Response (Assessments only)",
     widget: FreeResponse,
     hidden: false,
 } as WidgetExports<typeof FreeResponse>;
@@ -152,7 +151,7 @@ const styles = StyleSheet.create({
         gap: spacing.xSmall_8,
     },
     characterCountText: {
-        color: semanticColor.text.secondary,
+        color: semanticColor.core.foreground.neutral.default,
         fontSize: font.size.small,
     },
     overCharacterLimit: {

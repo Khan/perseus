@@ -1,5 +1,27 @@
 # @khanacademy/simple-markdown
 
+## 2.0.10
+
+### Patch Changes
+
+-   [#2672](https://github.com/Khan/perseus/pull/2672) [`c44219a98`](https://github.com/Khan/perseus/commit/c44219a98fdbb8128c614419439c83b6cf33f79e) Thanks [@benchristel](https://github.com/benchristel)! - Update peer dependency versions
+
+## 2.0.9
+
+### Patch Changes
+
+-   Updated dependencies []:
+    -   @khanacademy/perseus-utils@2.0.5
+
+## 2.0.8
+
+### Patch Changes
+
+-   [#2624](https://github.com/Khan/perseus/pull/2624) [`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Sync dev dependencies with frontend
+
+-   Updated dependencies [[`7de17a3b1`](https://github.com/Khan/perseus/commit/7de17a3b18698700b4ff2c809e5d39c8625795d6)]:
+    -   @khanacademy/perseus-utils@2.0.5
+
 ## 2.0.7
 
 ### Patch Changes

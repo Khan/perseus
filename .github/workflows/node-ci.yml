@@ -333,12 +333,12 @@ jobs:
 
                       If you are working in Khan Academy's frontend, you can run the below command.
                       ```sh
-                      ./tools/bump_perseus_version.js -t PR${{ github.event.pull_request.number }}
+                      ./tools/bump_perseus_version.ts -t PR${{ github.event.pull_request.number }}
                       ```
 
                       If you are working in Khan Academy's webapp, you can run the below command.
                       ```sh
-                      ./dev/tools/bump_perseus_version.js -s n -t PR${{ github.event.pull_request.number }}
+                      ./dev/tools/bump_perseus_version.js -t PR${{ github.event.pull_request.number }}
                       ```
 
             - name: Create or update npm snapshot comment - failure, snapshot publish failed

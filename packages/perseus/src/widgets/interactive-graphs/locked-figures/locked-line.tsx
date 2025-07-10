@@ -10,6 +10,8 @@ import {useTransformVectorsToPixels} from "../graphs/use-transform";
 import {getIntersectionOfRayWithBox} from "../graphs/utils";
 import {X, Y} from "../math";
 
+import {strokeWeights} from "./utils";
+
 import type {LockedLineType} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
@@ -27,6 +29,7 @@ const LockedLine = (props: Props) => {
         points,
         showPoint1,
         showPoint2,
+        weight,
         ariaLabel,
         range,
     } = props;
@@ -48,6 +51,7 @@ const LockedLine = (props: Props) => {
                 tail={point1.coord}
                 tip={extendedPoint}
                 color={lockedFigureColors[color]}
+                strokeWidth={strokeWeights[weight]}
                 style={{
                     strokeDasharray:
                         lineStyle === "dashed"
@@ -79,6 +83,7 @@ const LockedLine = (props: Props) => {
                 angle={angle}
                 tip={arrowTip}
                 color={lockedFigureColors[color]}
+                strokeWidth={strokeWeights[weight]}
             />
         );
 
@@ -96,6 +101,7 @@ const LockedLine = (props: Props) => {
                 angle={angle}
                 tip={arrowTip}
                 color={lockedFigureColors[color]}
+                strokeWidth={strokeWeights[weight]}
             />
         );
 
@@ -106,6 +112,7 @@ const LockedLine = (props: Props) => {
                     point1={point1.coord}
                     point2={point2.coord}
                     color={lockedFigureColors[color]}
+                    weight={strokeWeights[weight]}
                     style={lineStyle}
                 />
                 {endArrowHead}

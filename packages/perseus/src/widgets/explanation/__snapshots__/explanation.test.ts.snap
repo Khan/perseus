@@ -21,7 +21,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
             aria-controls=":r1:"
             aria-disabled="false"
             aria-expanded="true"
-            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_14wd1lh-o_O-default_ejemin-o_O-small_1hll8b3-o_O-inlineStyles_1s8anjv"
+            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_n0abw6-o_O-small_tjsyec-o_O-inlineStyles_1s8anjv"
             role="button"
             type="button"
           >
@@ -35,7 +35,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-icon_1c9fkuf-o_O-inlineStyles_1troscl"
+                class="svg_1q6jc65-o_O-icon_1c9fkuf-o_O-inlineStyles_1ge1p6k"
               />
             </div>
           </button>
@@ -94,7 +94,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
             aria-controls=":r0:"
             aria-disabled="false"
             aria-expanded="false"
-            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_14wd1lh-o_O-default_ejemin-o_O-small_1hll8b3-o_O-inlineStyles_1s8anjv"
+            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_n0abw6-o_O-small_tjsyec-o_O-inlineStyles_1s8anjv"
             role="button"
             type="button"
           >
@@ -108,7 +108,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
             >
               <span
                 aria-hidden="true"
-                class="svg_1q6jc65-o_O-icon_1c9fkuf-o_O-inlineStyles_urgnaq"
+                class="svg_1q6jc65-o_O-icon_1c9fkuf-o_O-inlineStyles_b7oxmz"
               />
             </div>
           </button>

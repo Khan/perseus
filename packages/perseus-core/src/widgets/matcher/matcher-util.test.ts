@@ -66,10 +66,9 @@ describe("shuffleMatcher", () => {
             orderMatters: false,
             left: [],
             right: [],
-            problemNum: 0,
         };
 
-        const result = shuffleMatcher(options);
+        const result = shuffleMatcher(options, 0);
         expect(result.left).toEqual([]);
         expect(result.right).toEqual([]);
     });
@@ -79,10 +78,9 @@ describe("shuffleMatcher", () => {
             orderMatters: true,
             left: ["1"],
             right: ["A"],
-            problemNum: 0,
         };
 
-        const result = shuffleMatcher(options);
+        const result = shuffleMatcher(options, 0);
         expect(result.left).toEqual(["1"]);
         expect(result.right).toEqual(["A"]);
     });
@@ -92,10 +90,9 @@ describe("shuffleMatcher", () => {
             orderMatters: true,
             left: ["", ""],
             right: ["", ""],
-            problemNum: 0,
         };
 
-        const result = shuffleMatcher(options);
+        const result = shuffleMatcher(options, 0);
         expect(result.left).toEqual(["", ""]);
         expect(result.right).toEqual(["", ""]);
     });
@@ -105,10 +102,9 @@ describe("shuffleMatcher", () => {
             orderMatters: false,
             left: ["1", "2", "3"],
             right: ["A", "B", "C"],
-            problemNum: 0,
         };
 
-        const result = shuffleMatcher(options);
+        const result = shuffleMatcher(options, 0);
         expect(result).toEqual({left: ["1", "2", "3"], right: ["B", "A", "C"]});
     });
 
@@ -119,15 +115,20 @@ describe("shuffleMatcher", () => {
                 orderMatters: false,
                 left: ["1", "2", "3"],
                 right: ["A", "B", "C"],
-                problemNum,
             };
 
             it("displaces the first card in the right column", () => {
-                expect(shuffleMatcher(options).right[0]).not.toBe("A");
+                expect(shuffleMatcher(options, problemNum).right[0]).not.toBe(
+                    "A",
+                );
             });
 
             it("does not shuffle the left column", () => {
-                expect(shuffleMatcher(options).left).toEqual(["1", "2", "3"]);
+                expect(shuffleMatcher(options, problemNum).left).toEqual([
+                    "1",
+                    "2",
+                    "3",
+                ]);
             });
         },
     );
@@ -137,10 +138,9 @@ describe("shuffleMatcher", () => {
             orderMatters: true,
             left: ["1", "2", "3"],
             right: ["A", "B", "C"],
-            problemNum: 0,
         };
 
-        const result = shuffleMatcher(options);
+        const result = shuffleMatcher(options, 0);
         expect(result).toEqual({left: ["2", "1", "3"], right: ["B", "A", "C"]});
     });
 
@@ -151,15 +151,18 @@ describe("shuffleMatcher", () => {
                 orderMatters: true,
                 left: ["1", "2", "3"],
                 right: ["A", "B", "C"],
-                problemNum,
             };
 
             it("displaces the first card in the left column", () => {
-                expect(shuffleMatcher(options).left[0]).not.toBe("1");
+                expect(shuffleMatcher(options, problemNum).left[0]).not.toBe(
+                    "1",
+                );
             });
 
             it("displaces the first card in the right column", () => {
-                expect(shuffleMatcher(options).right[0]).not.toBe("A");
+                expect(shuffleMatcher(options, problemNum).right[0]).not.toBe(
+                    "A",
+                );
             });
         },
     );

@@ -1,4 +1,3 @@
-import {registerCoreWidgets} from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line testing-library/no-manual-cleanup
@@ -22,10 +21,6 @@ import {
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("group widget", () => {
-    beforeAll(() => {
-        registerCoreWidgets();
-    });
-
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -229,6 +224,49 @@ describe("group widget", () => {
 {
   "group 1": {
     "radio 1": {
+      "alignment": "default",
+      "choiceStates": [
+        {
+          "correctnessShown": false,
+          "highlighted": false,
+          "previouslyAnswered": false,
+          "rationaleShown": false,
+          "readOnly": false,
+          "selected": false,
+        },
+        {
+          "correctnessShown": false,
+          "highlighted": false,
+          "previouslyAnswered": false,
+          "rationaleShown": false,
+          "readOnly": false,
+          "selected": false,
+        },
+        {
+          "correctnessShown": false,
+          "highlighted": false,
+          "previouslyAnswered": false,
+          "rationaleShown": false,
+          "readOnly": false,
+          "selected": false,
+        },
+        {
+          "correctnessShown": false,
+          "highlighted": false,
+          "previouslyAnswered": false,
+          "rationaleShown": false,
+          "readOnly": false,
+          "selected": false,
+        },
+        {
+          "correctnessShown": false,
+          "highlighted": false,
+          "previouslyAnswered": false,
+          "rationaleShown": false,
+          "readOnly": false,
+          "selected": false,
+        },
+      ],
       "choices": [
         {
           "content": "$45$",
@@ -269,6 +307,7 @@ describe("group widget", () => {
         false,
         true,
       ],
+      "static": false,
     },
   },
   "group 2": {
@@ -299,6 +338,7 @@ describe("group widget", () => {
       "title": "",
     },
     "numeric-input 1": {
+      "alignment": "default",
       "answerForms": [],
       "coefficient": false,
       "currentValue": "99",
@@ -308,8 +348,10 @@ describe("group widget", () => {
       "static": false,
     },
     "numeric-input 2": {
+      "alignment": "default",
       "answerForms": [],
       "coefficient": false,
+      "currentValue": "",
       "labelText": "value rounded to the nearest hundred",
       "rightAlign": false,
       "size": "normal",

@@ -13,6 +13,7 @@ import {
     type LockedPolygonType,
     type LockedVectorType,
     type LockedLineStyle,
+    type StrokeWeight,
 } from "@khanacademy/perseus-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 
@@ -51,6 +52,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 lineStyle: "solid",
                 showPoint1: false,
                 showPoint2: false,
+                weight: "medium",
                 labels: [],
             };
         case "vector":
@@ -61,6 +63,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                     [2, 2],
                 ],
                 color: DEFAULT_COLOR,
+                weight: "medium",
                 labels: [],
             };
         case "ellipse":
@@ -72,6 +75,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 color: DEFAULT_COLOR,
                 fillStyle: "none",
                 strokeStyle: "solid",
+                weight: "medium",
                 labels: [],
             };
         case "polygon":
@@ -86,6 +90,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 showVertices: false,
                 fillStyle: "none",
                 strokeStyle: "solid",
+                weight: "medium",
                 labels: [],
             };
         case "function":
@@ -93,6 +98,7 @@ export function getDefaultFigureForType(type: LockedFigureType): LockedFigure {
                 type: "function",
                 color: DEFAULT_COLOR,
                 strokeStyle: "solid",
+                weight: "medium",
                 equation: "x^2",
                 domain: [-Infinity, Infinity],
                 directionalAxis: "x",
@@ -115,19 +121,22 @@ export function generateLockedFigureAppearanceDescription(
     color: LockedFigureColor,
     strokeStyle: LockedLineStyle = "solid",
     fill?: LockedFigureFillType,
+    weight: StrokeWeight = "medium",
 ) {
     const convertedColor = color === "grayH" ? "gray" : color;
+    const weightString = weight === "medium" ? "" : ` ${weight}`;
+    const baseAppearance = `. Appearance${weightString} ${strokeStyle} ${convertedColor}`;
 
     switch (fill) {
         case "none":
-            return `. Appearance ${strokeStyle} ${convertedColor} border, with no fill.`;
+            return `${baseAppearance} border, with no fill.`;
         case "white":
-            return `. Appearance ${strokeStyle} ${convertedColor} border, with a white fill.`;
+            return `${baseAppearance} border, with a white fill.`;
         case "solid":
         case "translucent":
-            return `. Appearance ${strokeStyle} ${convertedColor} border, with a ${fill} ${convertedColor} fill.`;
+            return `${baseAppearance} border, with a ${fill} ${convertedColor} fill.`;
         case undefined:
-            return `. Appearance ${strokeStyle} ${convertedColor}.`;
+            return `${baseAppearance}.`;
         default:
             throw new UnreachableCaseError(fill);
     }

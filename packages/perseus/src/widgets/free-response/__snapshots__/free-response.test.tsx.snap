@@ -22,7 +22,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
               class="default_xu2jcg"
             >
               <label
-                class="text_f1191h-o_O-LabelMedium_455tor-o_O-textWordBreak_6z3til-o_O-label_wdxvi6-o_O-labelWithNoDescription_p67whi-o_O-questionLabel_shsy80"
+                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-textWordBreak_6z3til-o_O-label_ukwbex-o_O-labelWithNoDescription_i032sc-o_O-questionLabel_shsy80"
                 for=":r2:-labeled-field-field"
                 id=":r2:-labeled-field-label"
               >
@@ -52,7 +52,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                   aria-describedby=""
                   aria-invalid="false"
                   aria-required="false"
-                  class="textarea_u55hlb-o_O-LabelMedium_455tor-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-textarea_1x0fg6n"
+                  class="textarea_xrj3rm-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-textarea_1x0fg6n"
                   id=":r2:-labeled-field-field"
                   placeholder="test-placeholder"
                 />
@@ -68,7 +68,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
               class="default_xu2jcg"
             >
               <span
-                class="text_f1191h-o_O-characterCountText_1shcjz1"
+                class="text_f1191h-o_O-characterCountText_1iy49wk"
                 role="status"
               >
                 0 / 500 Characters
@@ -104,7 +104,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
               class="default_xu2jcg"
             >
               <label
-                class="text_f1191h-o_O-LabelMedium_455tor-o_O-textWordBreak_6z3til-o_O-label_wdxvi6-o_O-labelWithNoDescription_p67whi-o_O-questionLabel_shsy80"
+                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-textWordBreak_6z3til-o_O-label_ukwbex-o_O-labelWithNoDescription_i032sc-o_O-questionLabel_shsy80"
                 for=":r0:-labeled-field-field"
                 id=":r0:-labeled-field-label"
               >
@@ -134,7 +134,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
                   aria-describedby=""
                   aria-invalid="false"
                   aria-required="false"
-                  class="textarea_u55hlb-o_O-LabelMedium_455tor-o_O-default_1kavdzs-o_O-defaultFocus_drkasj-o_O-textarea_1x0fg6n"
+                  class="textarea_xrj3rm-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-default_8fhii8-o_O-textarea_1x0fg6n"
                   id=":r0:-labeled-field-field"
                   placeholder="test-placeholder"
                 />
@@ -150,7 +150,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
               class="default_xu2jcg"
             >
               <span
-                class="text_f1191h-o_O-characterCountText_1shcjz1"
+                class="text_f1191h-o_O-characterCountText_1iy49wk"
                 role="status"
               >
                 0 / 500 Characters

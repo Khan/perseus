@@ -1,10 +1,9 @@
-import {type ShowSolutions} from "@khanacademy/perseus-core";
-
 import Util from "../../../util";
 import PassageRef from "../../passage-ref/passage-ref";
 
 import type {ChoiceState} from "../../../types";
-import type {RadioChoiceWithMetadata} from "../radio.new";
+import type {RadioChoiceWithMetadata} from "../multiple-choice-widget.new";
+import type {ShowSolutions} from "@khanacademy/perseus-core";
 
 interface GetChoiceStatesProps {
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
@@ -13,6 +12,7 @@ interface GetChoiceStatesProps {
     choiceStates?: ReadonlyArray<ChoiceState>;
     values?: ReadonlyArray<boolean>;
 }
+
 /**
  * Determine the updated choice states for the Radio widget, based on the
  * widget's static / showSolutions states, choiceStates, and values.
