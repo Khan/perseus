@@ -210,32 +210,29 @@ type DefaultProps = Required<
  * So compare the prev props to the next props, but use
  * answerless for both for the comparison
  */
-function isDifferentQuestion(propsA: Props, propsB: Props): boolean {
-    function makeRenderer(
-        content: PerseusRenderer["content"],
-        widgets: PerseusRenderer["widgets"],
-    ): PerseusRenderer {
-        return {
-            content,
-            widgets,
-            images: {},
-        };
-    }
-
-    function answerlessStringified(question: PerseusRenderer): string {
-        const answerful: PerseusItem = {
-            question,
+export type DifferentQuestionPartialProps = Pick<
+    Props,
+    "content" | "widgets" | "problemNum"
+>;
+export function isDifferentQuestion(
+    propsA: DifferentQuestionPartialProps,
+    propsB: DifferentQuestionPartialProps,
+): boolean {
+    function makeItem(props: DifferentQuestionPartialProps): PerseusItem {
+        return splitPerseusItem({
+            question: {
+                content: props.content,
+                widgets: props.widgets,
+                images: {},
+            },
             hints: [],
             answerArea: getDefaultAnswerArea(),
-        };
-        const answerless = splitPerseusItem(answerful);
-        return JSON.stringify(answerless);
+        });
     }
 
     return (
         propsA.problemNum !== propsB.problemNum ||
-        answerlessStringified(makeRenderer(propsA.content, propsA.widgets)) !==
-            answerlessStringified(makeRenderer(propsB.content, propsB.widgets))
+        !_.isEqual(makeItem(propsA), makeItem(propsB))
     );
 }
 

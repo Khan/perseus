@@ -21,6 +21,10 @@ import {
     mockedShuffledRadioProps,
 } from "../__testdata__/renderer.testdata";
 import * as Dependencies from "../dependencies";
+import {
+    isDifferentQuestion,
+    type DifferentQuestionPartialProps,
+} from "../renderer";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
@@ -1681,5 +1685,142 @@ describe("renderer", () => {
 
             expect(Object.keys(json.widgets)).toEqual(widgetKeys);
         });
+    });
+});
+
+describe("isDifferentQuestion", () => {
+    it("considers exactly the same to be the same", () => {
+        const answerful: DifferentQuestionPartialProps = {
+            content: "[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": {
+                    type: "dropdown",
+                    options: {
+                        static: false,
+                        placeholder: "greater/less than or equal to",
+                        choices: [
+                            {
+                                content: "Cool",
+                                correct: true,
+                            },
+                            {
+                                content: "Beans",
+                                correct: false,
+                            },
+                        ],
+                    },
+                },
+            },
+            problemNum: 0,
+        };
+        const answerless = {
+            content: "[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": {
+                    type: "dropdown",
+                    options: {
+                        static: false,
+                        placeholder: "greater/less than or equal to",
+                        choices: [
+                            {
+                                content: "Cool",
+                            },
+                            {
+                                content: "Beans",
+                            },
+                        ],
+                    },
+                },
+            },
+            problemNum: 0,
+        };
+        expect(isDifferentQuestion(answerful, answerless as any)).toBe(false);
+    });
+
+    it("considers answerful/answerless to be the same", () => {
+        const props: DifferentQuestionPartialProps = {
+            content: "A",
+            widgets: {},
+            problemNum: 0,
+        };
+        expect(isDifferentQuestion(props, props)).toBe(false);
+    });
+
+    it("considers different content different", () => {
+        const propsA: DifferentQuestionPartialProps = {
+            content: "A",
+            widgets: {},
+            problemNum: 0,
+        };
+        const propsB: DifferentQuestionPartialProps = {
+            content: "B",
+            widgets: {},
+            problemNum: 0,
+        };
+        expect(isDifferentQuestion(propsA, propsB)).toBe(true);
+    });
+
+    it("considers different problemNum different", () => {
+        const propsA: DifferentQuestionPartialProps = {
+            content: "A",
+            widgets: {},
+            problemNum: 0,
+        };
+        const propsB: DifferentQuestionPartialProps = {
+            content: "A",
+            widgets: {},
+            problemNum: 1,
+        };
+        expect(isDifferentQuestion(propsA, propsB)).toBe(true);
+    });
+
+    it("considers different widgetOptions different", () => {
+        const propsA: DifferentQuestionPartialProps = {
+            content: "[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": {
+                    type: "dropdown",
+                    options: {
+                        static: false,
+                        placeholder: "greater/less than or equal to",
+                        choices: [
+                            {
+                                content: "Cool",
+                                correct: true,
+                            },
+                            {
+                                content: "Beans",
+                                correct: false,
+                            },
+                        ],
+                    },
+                },
+            },
+            problemNum: 0,
+        };
+        const propsB: DifferentQuestionPartialProps = {
+            content: "[[☃ dropdown 1]]",
+            widgets: {
+                "dropdown 1": {
+                    type: "dropdown",
+                    options: {
+                        static: false,
+                        placeholder: "greater/less than or equal to",
+                        choices: [
+                            {
+                                content: "Neat",
+                                correct: true,
+                            },
+                            {
+                                content: "Stuff",
+                                correct: false,
+                            },
+                        ],
+                    },
+                },
+            },
+            problemNum: 0,
+        };
+        expect(isDifferentQuestion(propsA, propsB)).toBe(true);
     });
 });
