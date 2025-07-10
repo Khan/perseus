@@ -34,6 +34,7 @@ type UserInputManagerPayload = {
 type Props = {
     widgets: PerseusWidgetsMap;
     problemNum: number;
+    handleUserInput?: (userInput: UserInputMap) => void;
     children: (payload: UserInputManagerPayload) => JSX.Element | null;
 };
 
@@ -125,10 +126,12 @@ export default function UserInputManager(props: Props) {
         id: string,
         nextUserInput: UserInputMap[keyof UserInputMap],
     ) {
-        setUserInput({
+        const next = {
             ...userInput,
             [id]: nextUserInput,
-        });
+        };
+        setUserInput(next);
+        props.handleUserInput?.(next);
     }
 
     function initializeUserInput(

@@ -148,32 +148,28 @@ export class GradedGroup
         return nextProps !== this.props || nextState !== this.state;
     }
 
-    componentDidUpdate(prevProps: Props) {
-        // This is a little strange because the id of the widget that actually
-        // changed is going to be lost in favor of the group widget's id.
-        if (!_.isEqual(this.props.userInput, prevProps.userInput)) {
-            // Reset grading display when user changes answer
-            this.setState({
-                status: GRADING_STATUSES.ungraded,
-                message: "",
-            });
-
-            if (this.rendererRef.current) {
-                const emptyWidgets = this.rendererRef.current.emptyWidgets();
-                const answerable = emptyWidgets.length === 0;
-                const answerBarState = this.state.answerBarState;
-                const nextState = getNextState(answerBarState, answerable);
-                this.setState({
-                    answerBarState: nextState,
-                });
-            }
-        }
-    }
-
     change: (...args: ReadonlyArray<unknown>) => any = (...args) => {
         // eslint-disable-next-line import/no-deprecated
         return Changeable.change.apply(this, args as any);
     };
+
+    _handleUserInput(): void {
+        // Reset grading display when user changes answer
+        this.setState({
+            status: GRADING_STATUSES.ungraded,
+            message: "",
+        });
+
+        if (this.rendererRef.current) {
+            const emptyWidgets = this.rendererRef.current.emptyWidgets();
+            const answerable = emptyWidgets.length === 0;
+            const answerBarState = this.state.answerBarState;
+            const nextState = getNextState(answerBarState, answerable);
+            this.setState({
+                answerBarState: nextState,
+            });
+        }
+    }
 
     _checkAnswer: () => void = () => {
         const score: PerseusScore = this.rendererRef.current?.score() || {
@@ -308,70 +304,77 @@ export class GradedGroup
                 {!!this.props.title && (
                     <div className={css(styles.title)}>{this.props.title}</div>
                 )}
-                {/**
-                 * We're passing a bunch of extra props to Renderer here that it
-                 * doesn't need.  We should replace {...this.props} with the individual
-                 * props that are needed.
-                 * TODO(FEI-4034): Only pass what the Renderer expects.
-                 */}
-                {/* @ts-expect-error - TS2322 - Type '{ ref: string; apiOptions: any; onInteractWithWidget: (arg1: string) => void; linterContext: LinterContextProps; title: string; hasHint?: boolean | null | undefined; ... 22 more ...; children?: ReactNode; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "keypadElement" | "problemNum" | "apiOptions" | "legacyPerseusLint">'. */}
-                <Renderer
-                    {...this.props}
-                    userInput={this.props.userInput}
-                    handleUserInput={(widgetId, userInput) => {
-                        this.props.handleUserInput({
-                            ...this.props.userInput,
-                            [widgetId]: userInput,
-                        });
-                    }}
-                    ref={this.rendererRef}
-                    apiOptions={{...apiOptions, readOnly}}
-                    showSolutions={showSolutions}
-                    linterContext={this.props.linterContext}
-                    strings={this.context.strings}
-                />
-                {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
-                {!apiOptions.isMobile && icon && (
-                    <div className="group-icon">{icon}</div>
-                )}
-                {!apiOptions.isMobile && gradeStatus && (
-                    <div
-                        className={css(a11y.srOnly)}
-                        role="alert"
-                        aria-label={gradeStatus}
-                    >
-                        {gradeStatus}
-                    </div>
-                )}
+                <UserInputManager
+                    widgets={this.props.widgets}
+                    handleUserInput={() => this._handleUserInput()}
+                    problemNum={0}
+                >
+                    {({userInput, handleUserInput}) => (
+                        <Renderer
+                            content={this.props.content}
+                            widgets={this.props.widgets}
+                            images={this.props.images}
+                            userInput={userInput}
+                            handleUserInput={handleUserInput}
+                            problemNum={0}
+                            // userInput={this.props.userInput}
+                            // handleUserInput={(widgetId, userInput) => {
+                            //     this.props.handleUserInput({
+                            //         ...this.props.userInput,
+                            //         [widgetId]: userInput,
+                            //     });
+                            // }}
+                            ref={this.rendererRef}
+                            apiOptions={{...apiOptions, readOnly}}
+                            showSolutions={showSolutions}
+                            linterContext={this.props.linterContext}
+                            strings={this.context.strings}
+                        />
+                    )}
+                </UserInputManager>
+
                 {!apiOptions.isMobile && (
-                    <p role="status" aria-live="polite">
-                        {this.state.message}
-                    </p>
-                )}
-                {!apiOptions.isMobile && (
-                    <Button
-                        kind="secondary"
-                        disabled={this.props.apiOptions.readOnly}
-                        onClick={this._checkAnswer}
-                    >
-                        {this.context.strings.check}
-                    </Button>
-                )}
-                {!apiOptions.isMobile &&
-                    isCorrect &&
-                    this.props.onNextQuestion && (
+                    <>
+                        {icon != null && (
+                            <div className="group-icon">{icon}</div>
+                        )}
+
+                        {gradeStatus && (
+                            <div
+                                className={css(a11y.srOnly)}
+                                role="alert"
+                                aria-label={gradeStatus}
+                            >
+                                {gradeStatus}
+                            </div>
+                        )}
+
+                        <p role="status" aria-live="polite">
+                            {this.state.message}
+                        </p>
+
                         <Button
                             kind="secondary"
                             disabled={this.props.apiOptions.readOnly}
-                            onClick={this.props.onNextQuestion}
-                            style={{marginLeft: 5}}
+                            onClick={this._checkAnswer}
                         >
-                            {this.context.strings.nextQuestion}
+                            {this.context.strings.check}
                         </Button>
-                    )}
 
-                {this.props.hint &&
-                    this.props.hint.content &&
+                        {isCorrect && this.props.onNextQuestion && (
+                            <Button
+                                kind="secondary"
+                                disabled={this.props.apiOptions.readOnly}
+                                onClick={this.props.onNextQuestion}
+                                style={{marginLeft: 5}}
+                            >
+                                {this.context.strings.nextQuestion}
+                            </Button>
+                        )}
+                    </>
+                )}
+
+                {this.props.hint?.content &&
                     (this.state.showHint ? (
                         <div>
                             {/* Not using Button here bc the styles won't work. */}
@@ -391,7 +394,7 @@ export class GradedGroup
 
                             <UserInputManager
                                 widgets={this.props.hint.widgets}
-                                problemNum={this.props.problemNum ?? 0}
+                                problemNum={0}
                             >
                                 {({
                                     userInput,
