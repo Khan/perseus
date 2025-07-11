@@ -200,14 +200,6 @@ class Editor extends React.Component<Props, State> {
             .on("paste", this._maybePasteWidgets);
     }
 
-    // TODO(arun): This is a deprecated method, use the appropriate replacement
-    // eslint-disable-next-line react/no-unsafe
-    UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        if (this.props.content !== nextProps.content) {
-            this.setState({textAreaValue: nextProps.content});
-        }
-    }
-
     componentDidUpdate(prevProps: Props) {
         const textarea = this.textarea.current;
 
@@ -787,8 +779,7 @@ class Editor extends React.Component<Props, State> {
             template = Widgets.getAllWidgetTypes()
                 .map((type) => `[[${Util.snowman} ${type} 1]]`)
                 .join("\n\n");
-        }
-        if (templateType in this.props.additionalTemplates) {
+        } else if (templateType in this.props.additionalTemplates) {
             template = this.props.additionalTemplates[templateType];
         } else {
             throw new PerseusError(
@@ -996,14 +987,19 @@ class Editor extends React.Component<Props, State> {
 
             const insertTemplateString = "Insert template\u2026";
             templatesDropDown = (
-                <select onChange={this.addTemplate}>
+                <select
+                    onChange={this.addTemplate}
+                    data-testid="editor__template-select"
+                >
                     <option value="">{insertTemplateString}</option>
                     <option disabled>--</option>
                     <option value="table">Table</option>
                     <option value="titledTable">Titled table</option>
                     <option value="alignment">Aligned equations</option>
                     <option value="piecewise">Piecewise function</option>
-                    <option disabled>--</option>
+                    {Object.keys(this.props.additionalTemplates).length > 0 && (
+                        <option disabled>--</option>
+                    )}
                     {Object.entries(this.props.additionalTemplates).map(
                         ([key]) => (
                             <option value={key} key={key}>
