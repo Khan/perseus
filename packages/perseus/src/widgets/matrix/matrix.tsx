@@ -151,7 +151,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
                 inputPaths.push(inputPath);
             }
         }
-
+        // eslint-disable-next-line no-console
+        console.log("inputPaths", inputPaths);
         return inputPaths;
     };
 
@@ -301,6 +302,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
             cb,
         );
         this.props.trackInteraction();
+        // eslint-disable-next-line no-console
+        console.log("onValueChange", answers);
     };
 
     /**
@@ -308,6 +311,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
      * @deprecated get user input from Renderer state
      */
     getUserInput(): PerseusMatrixUserInput {
+        // eslint-disable-next-line no-console
+        console.log("getUserInput", this.props.userInput);
         return this.props.userInput;
     }
 
@@ -321,10 +326,13 @@ class Matrix extends React.Component<Props, State> implements Widget {
      */
     getSerializedState(): any {
         const {userInput, ...rest} = this.props;
-        return {
+        const serializedState = {
             ...rest,
             answers: userInput.answers,
         };
+        // eslint-disable-next-line no-console
+        console.log("serializedState", serializedState);
+        return serializedState;
     }
 
     render(): React.ReactNode {
@@ -563,13 +571,15 @@ function getCorrectUserInput(
 function getUserInputFromSerializedState(
     serializedState: any,
 ): PerseusMatrixUserInput {
+    // eslint-disable-next-line no-console
+    console.log("getUserInputFromSerializedState", serializedState);
     return {answers: serializedState.answers};
 }
 
 export default {
     name: "matrix",
     displayName: "Matrix",
-    hidden: true,
+    hidden: false,
     widget: Matrix,
     transform,
     staticTransform: transform,
