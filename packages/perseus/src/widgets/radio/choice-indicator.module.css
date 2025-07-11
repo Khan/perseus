@@ -8,14 +8,12 @@
     flex-shrink: 0;
     font-family: var(--wb-font-family-sans);
     font-size: var(--wb-font-heading-size-small);
-    height: var(--wb-c-button-root-sizing-height-small);
+    height: 3.2rem;
     line-height: var(--wb-font-heading-lineHeight-small);
     outline: 0 solid var(--wb-semanticColor-core-background-instructive-default);
     outline-offset: 0;
     padding: 0;
-    width: var(
-        --wb-c-button-root-sizing-height-small
-    ); /* using the height value ensures a square/circle */
+    width: 3.2rem;
 }
 
 @media (prefers-reduced-motion: no-preference) {
