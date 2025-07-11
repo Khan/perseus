@@ -1,12 +1,13 @@
 .choice {
+    --perseus-multiple-choice-spacing: 1.6rem;
     align-items: flex-start;
     border-bottom: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle);
     display: flex;
     font-size: var(--wb-font-heading-size-medium);
-    gap: 1.6rem;
+    gap: var(--perseus-multiple-choice-spacing);
     line-height: var(--wb-font-heading-lineHeight-medium);
-    min-height: 6.4rem;
-    padding: 1.6rem;
+    min-height: calc(var(--perseus-multiple-choice-spacing) * 4);
+    padding: var(--perseus-multiple-choice-spacing);
     width: 100%;
 }
 
@@ -20,7 +21,7 @@
     &:focus-within,
     &:has(+ .choice:focus-within) {
         border-bottom: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-border-neutral-default);
-        padding-bottom: 1.5rem;
+        padding-bottom: calc(var(--perseus-multiple-choice-spacing) - 0.1rem); /* Account for increased border width */
     }
 }
 
@@ -31,7 +32,7 @@
 .choice:first-of-type:hover,
 .choice:first-of-type:focus-within {
     border-top: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-border-neutral-default);
-    padding-top: 1.5rem;
+    padding-top: calc(var(--perseus-multiple-choice-spacing) - 0.1rem); /* Account for increased border width */
 }
 
 .is-correct {

@@ -1,4 +1,4 @@
-import {angles} from "@khanacademy/kmath";
+import {angles, geometry} from "@khanacademy/kmath";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import {Polygon, Polyline, vec} from "mafs";
 import * as React from "react";
@@ -46,6 +46,7 @@ import type {
 import type {CollinearTuple} from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
 
+const {clockwise} = geometry;
 const {convertRadiansToDegrees} = angles;
 
 export function renderPolygonGraph(
@@ -251,8 +252,7 @@ const LimitedPolygonGraph = (statefulProps: StatefulProps) => {
                         key={"angle-" + i}
                         centerPoint={point}
                         endPoints={[pt1, pt2]}
-                        range={range}
-                        polygonLines={lines}
+                        areEndPointsClockwise={clockwise(points)}
                         showAngles={!!showAngles}
                         snapTo={snapTo}
                     />
