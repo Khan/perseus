@@ -1,7 +1,8 @@
 .base {
     appearance: none;
     background-color: var(--wb-semanticColor-core-transparent);
-    border: solid var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-strong);
+    border: solid var(--wb-border-width-medium)
+        var(--wb-semanticColor-core-border-neutral-strong);
     color: var(--wb-semanticColor-core-foreground-neutral-default);
     cursor: pointer;
     flex-shrink: 0;
@@ -19,7 +20,10 @@
 
 @media (prefers-reduced-motion: no-preference) {
     .base {
-        transition: all 0.2s, outline-width 0s, outline-offset 0s;
+        transition:
+            all 0.2s,
+            outline-width 0s,
+            outline-offset 0s;
     }
 }
 
