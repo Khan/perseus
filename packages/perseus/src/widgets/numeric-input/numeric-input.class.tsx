@@ -164,6 +164,10 @@ const propsTransform = function (
     return rendererProps;
 };
 
+function getStartUserInput(): PerseusNumericInputUserInput {
+    return {currentValue: ""};
+}
+
 /**
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
@@ -208,5 +212,6 @@ export default {
         }
         return answerStrings[0];
     },
+    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof NumericInput>;

@@ -531,6 +531,12 @@ function transform(widgetOptions: MatrixPublicWidgetOptions): RenderProps {
     };
 }
 
+function getStartUserInput(
+    options: PerseusMatrixWidgetOptions,
+): PerseusMatrixUserInput {
+    return {answers: []};
+}
+
 function getCorrectUserInput(
     options: PerseusMatrixWidgetOptions,
 ): PerseusMatrixUserInput {
@@ -538,6 +544,7 @@ function getCorrectUserInput(
         answers: options.answers,
     };
 }
+
 /**
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
@@ -556,6 +563,7 @@ export default {
     transform,
     staticTransform: transform,
     isLintable: true,
+    getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Matrix>;

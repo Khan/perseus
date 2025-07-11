@@ -176,26 +176,21 @@ describe("group widget", () => {
         const userInput = renderer.getUserInput();
 
         // Assert
-        expect(userInput).toMatchInlineSnapshot(`
-[
-  {
-    "radio 1": {
-      "choicesSelected": [
-        false,
-        false,
-        false,
-        false,
-        false,
-      ],
-    },
-  },
-  {
-    "numeric-input 1": {
-      "currentValue": "99",
-    },
-  },
-]
-`);
+        expect(userInput).toEqual([
+            {
+                "radio 1": {
+                    choicesSelected: [false, false, false, false, false],
+                },
+            },
+            {
+                "numeric-input 1": {
+                    currentValue: "99",
+                },
+                "numeric-input 2": {
+                    currentValue: "",
+                },
+            },
+        ]);
     });
 
     it("should return contained renderer's getSerializedState", async () => {
