@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 65.8.0
+
+### Minor Changes
+
+-   [#2687](https://github.com/Khan/perseus/pull/2687) [`611da42f1`](https://github.com/Khan/perseus/commit/611da42f10af030697d9347afed87e05d5323e3b) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Refactor multiple choice indicator (logic and UI updates)
+
 ## 65.7.0
 
 ### Minor Changes
