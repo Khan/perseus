@@ -87,13 +87,119 @@ typetests to keep the parsers in sync with data-schema.
 
 </details>
 
-
 ## Regression testing against old data
 
 The tests in the `regression-tests` directory ensure that the parsing code can
 handle old data formats. **Understand that if you change existing regression
 tests, you risk breaking compatibility with old data.** The regression tests
 were generated from a snapshot of Khan Academy content taken in November 2024.
+
+The regression tests are data-driven: we have a bunch of real Perseus items and
+articles taken from production, and we run those through the parser and make
+sure they all parse correctly. The data files live in
+`regression-tests/item-data` and `regression-tests/article-data`.
+
+When you add new widget fields or versions, please also add regression test
+data for the _current_ (i.e. soon-to-be-outdated) version of the widget. This
+will help ensure that future developers don't accidentally break your parser.
+
+<details>
+<summary>Regression test example</summary>
+
+Suppose you're going to add a new option `brewStrength` to the (fictional)
+`CoffeeMakerWidget`. You'd first create a file
+`regression-tests/item-data/coffee-maker-without-brewStrength.json` and paste
+in an assessment item copied from production:
+
+```json
+{
+  "question": {
+    "content": "[[☃ coffee-maker 1]]",
+    "images": {},
+    "widgets": {
+      "coffee-maker 1": {
+        "type": "coffee-maker",
+        "version": {"major": 0, "minor": 0},
+        "options": {
+          "capacityCups": 6
+        }
+      }
+    }
+  }
+}
+```
+
+Run the regression tests. You should see some new snapshots get written.
+
+Now, update the parser and data-schema to add your new field. Here is what the
+parser change might look like:
+
+```diff
+  const parseCoffeeMakerWidget = parseWidget(
+      constant("coffee-maker"),
+      object({
+          capacityCups: number,
++         brewStrength: defaulted(
++             enumeration("weak", "average", "strong"),
++             () => "average" as const,
++         ),
+      }),
+  );
+```
+
+Re-run the regression tests. The snapshots will fail, reflecting the fact that
+you added a new widget option. Update the snapshots (`pnpm test -u`), make sure
+they reflect the desired output (in this case, the default value of `average`
+should be set for `brewStrength`), and commit the changes.
+
+</details>
+
+## Adding a new widget version
+
+The purpose of the parser is to make it easy (or at least, easier) to change
+our data schema. The parser's job is to migrate old data formats to the new
+schema, letting us pretend that the latest format is the only one that exists.
+
+Often this migration process is as simple as adding a default value for new
+fields:
+
+```ts
+const parseMyWidgetOptions = object({
+    // ...
+    title: defaulted(string, () => "Untitled")
+});
+```
+
+Sometimes, though, the migration needs to be more involved. For example, if we
+want to rename a field, we need some way to get the data from the old field and
+copy it to the new one. The tool for doing that is the `versionedWidgetOptions`
+function. For usage instructions, see the source code,
+`versioned-widget-options.ts`.
+
+Note that the `minor` version is not really used for anything. It's speculative
+complexity added over a decade ago, and it's now too entrenched to remove.
+
+## Changing existing parsers
+
+It's completely fine to change an existing parser — even for an older version
+of a widget! You just need to make sure that the published parser functions
+(`parseAndMigratePerseusItem` and `parseAndMigratePerseusArticle`) still
+accept old data formats and correctly migrate them to the latest schema. The
+regression tests (`parse-perseus-json/regression-tests`) are designed to verify
+that these properties are preserved. [See the section on regression
+testing](#regression-testing-against-old-data) for more detail.
+
+Essentially, all the parser functions, including widget migrations, are just
+a fancy way of writing a really big function `parseAndMigratePerseusItem` that
+exhibits some desired behavior. As long as that behavior is preserved, anything
+goes with respect to code changes.
+
+## Dealing with bugs
+
+At times, we might release a buggy parser. No worries, it happens. Since we
+parse existing data on read, and (as of 2025) do not write the parsed data back
+to datastore, you can simply release a new version of Perseus with the fix and
+all will be well.
 
 ## Exhaustive testing
 

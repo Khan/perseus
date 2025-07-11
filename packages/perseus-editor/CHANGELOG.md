@@ -1,5 +1,24 @@
 # @khanacademy/perseus-editor
 
+## 25.4.0
+
+### Minor Changes
+
+-   [#2679](https://github.com/Khan/perseus/pull/2679) [`801ca690b`](https://github.com/Khan/perseus/commit/801ca690b4b2ef8f491f830108ae258c5a29145c) Thanks [@jeanettehead](https://github.com/jeanettehead)! - Fix an issue where the cursor would jump in the editor when typing quickly
+
+### Patch Changes
+
+-   [#2685](https://github.com/Khan/perseus/pull/2685) [`26f51a9d9`](https://github.com/Khan/perseus/commit/26f51a9d97ba781625daee42cbd7de47502c6adf) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - Fix templates in the ItemEditor
+
+-   Updated dependencies [[`f3b0fc304`](https://github.com/Khan/perseus/commit/f3b0fc30410b076adf4f81c02986347e21fc8b37), [`efd57ac72`](https://github.com/Khan/perseus/commit/efd57ac723cb6a6a700422098366d052d6fd887a), [`1d7c057cd`](https://github.com/Khan/perseus/commit/1d7c057cda4f8a56830f49dcd3cbd9ae3ab6094b), [`fbc14c3f1`](https://github.com/Khan/perseus/commit/fbc14c3f1b8fa24dd294d3220780f31a2b094660), [`46bc47e2d`](https://github.com/Khan/perseus/commit/46bc47e2d842c0802393248355dfc1796e10545e)]:
+    -   @khanacademy/perseus@65.7.0
+    -   @khanacademy/perseus-core@18.1.0
+    -   @khanacademy/keypad-context@3.0.26
+    -   @khanacademy/kmath@2.0.26
+    -   @khanacademy/math-input@26.0.15
+    -   @khanacademy/perseus-linter@4.0.13
+    -   @khanacademy/perseus-score@7.1.13
+
 ## 25.3.0
 
 ### Minor Changes

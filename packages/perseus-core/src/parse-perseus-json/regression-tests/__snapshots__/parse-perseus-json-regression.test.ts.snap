@@ -10803,7 +10803,12 @@ exports[`parseAndMigratePerseusItem given lights-puzzle.json returns the same re
             ],
           ],
         },
+        "static": false,
         "type": "deprecated-standin",
+        "version": {
+          "major": 0,
+          "minor": 0,
+        },
       },
     },
   },
@@ -13590,6 +13595,7 @@ Heart rate is described as the number of heart beats per minute.  The normal hum
             },
           ],
         },
+        "static": false,
         "type": "deprecated-standin",
         "version": {
           "major": 0,
@@ -19055,6 +19061,7 @@ exports[`parseAndMigratePerseusItem given simulator-widget.json returns the same
           "xAxisLabel": "Proportion (%)",
           "yAxisLabel": "Number of times seen",
         },
+        "static": false,
         "type": "deprecated-standin",
         "version": {
           "major": 0,
@@ -19411,6 +19418,7 @@ exports[`parseAndMigratePerseusItem given transformer-widget.json returns the sa
           },
           "version": 1.2,
         },
+        "static": false,
         "type": "deprecated-standin",
         "version": {
           "major": 0,
