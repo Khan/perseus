@@ -201,7 +201,7 @@ export const mockedRandomItem: PerseusRenderer = {
                         correct: false,
                     },
                     {
-                        content: "Content 4",
+                        content: "Different Content",
                         correct: false,
                     },
                 ],
@@ -223,22 +223,25 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
                 content: "Content 4",
                 correct: false,
                 originalIndex: 3,
+                id: "2601359851",
             },
             {
                 content: "Content 2",
                 correct: false,
                 originalIndex: 1,
+                id: "2601360047",
             },
             {
                 content: "Content 1",
                 correct: true,
                 originalIndex: 0,
+                id: "2601359949",
             },
-
             {
                 content: "Content 3",
                 correct: false,
                 originalIndex: 2,
+                id: "2601360013",
             },
         ],
         selectedChoices: [false, false, true, false],
@@ -251,25 +254,28 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
         multipleSelect: false,
         choices: [
             {
-                content: "Content 4",
+                content: "Different Content",
                 correct: false,
                 originalIndex: 3,
+                id: "242272090",
             },
             {
                 content: "Content 2",
                 correct: false,
                 originalIndex: 1,
+                id: "2601360047",
             },
             {
                 content: "Content 1",
                 correct: true,
                 originalIndex: 0,
+                id: "2601359949",
             },
-
             {
                 content: "Content 3",
                 correct: false,
                 originalIndex: 2,
+                id: "2601360013",
             },
         ],
         selectedChoices: [false, false, true, false],

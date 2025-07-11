@@ -1,3 +1,4 @@
+import {generateChoiceId} from "../../widgets/radio/choice-id-utils";
 import {deriveNumCorrect} from "../../widgets/radio/derive-num-correct";
 import {
     any,
@@ -197,7 +198,7 @@ export function migrateV3ToV4(
         options: {
             ...options,
             choices: options.choices.map((choice, index) => {
-                const choiceId = `choice-${index + 1}`;
+                const choiceId = generateChoiceId(choice.content, index);
                 return {
                     ...choice,
                     id: choiceId,

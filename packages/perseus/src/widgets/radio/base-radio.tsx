@@ -2,6 +2,7 @@
 import {
     usesNumCorrect,
     type PerseusRadioWidgetOptions,
+    generateChoiceId,
 } from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
 import classNames from "classnames";
@@ -28,6 +29,7 @@ const {captureScratchpadTouchStart} = Util;
 
 // exported for tests
 export type ChoiceType = {
+    id: string;
     checked: boolean;
     content: React.ReactNode;
     rationale: React.ReactNode;
@@ -256,6 +258,7 @@ const BaseRadio = function ({
                     choiceRefs.current[i] = ref;
                     const elementProps = {
                         apiOptions: apiOptions,
+                        id: choice.id,
                         multipleSelect: multipleSelect,
                         checked: choice.checked,
                         previouslyAnswered: choice.previouslyAnswered,
@@ -367,10 +370,16 @@ const BaseRadio = function ({
                     // content somehow? Would changing our choice of key
                     // somehow break something happening inside a choice's
                     // child Renderers, by changing when we mount/unmount?
+
+                    // Generate a stable key for React reconciliation
+                    const choiceKey =
+                        choice.id ||
+                        generateChoiceId(choice.content?.toString() || "", i);
+
                     return (
                         // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
                         <li
-                            key={i}
+                            key={choiceKey}
                             ref={(e) => (listElem = e)}
                             className={className}
                             onClick={clickHandler}
@@ -379,6 +388,7 @@ const BaseRadio = function ({
                                     ? undefined
                                     : captureScratchpadTouchStart
                             }
+                            data-testid={choice.id}
                         >
                             <Element {...elementProps} ref={ref} />
                         </li>
