@@ -1,9 +1,10 @@
 .base {
     appearance: none;
     background-color: var(--wb-semanticColor-core-transparent);
-    border: solid 0.2rem var(--wb-semanticColor-core-border-neutral-strong);
+    border: solid var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-strong);
     color: var(--wb-semanticColor-core-foreground-neutral-default);
     cursor: pointer;
+    flex-shrink: 0;
     font-family: var(--wb-font-family-sans);
     font-size: var(--wb-font-heading-size-small);
     height: var(--wb-c-button-root-sizing-height-small);
@@ -18,14 +19,22 @@
 
 @media (prefers-reduced-motion: no-preference) {
     .base {
-        transition: all 0.2s;
+        transition: all 0.2s, outline-width 0s, outline-offset 0s;
     }
 }
 
+/* Show outline on hover, focus, and when the choice container is hovered.
+   Since we don't have a reference to the container's class name,
+       we grab the parent element with :has(> .base)
+       and apply the ring when the parent is hovered.
+   The exception to this is when the indicator is showing correctness
+       (i.e. has the classes .is-correct or .is-wrong).
+ */
 .base:hover,
-.base:focus {
-    outline-offset: 0.2rem;
-    outline-width: 0.2rem;
+.base:focus,
+:has(> .base):hover .base:not(:where(.is-correct, .is-wrong)) {
+    outline-offset: var(--wb-sizing-size_020);
+    outline-width: var(--wb-sizing-size_020);
 }
 
 /* button is checked */
@@ -38,8 +47,19 @@
 }
 
 /* icon inside the button when showing correctness */
-.base [role="img"] {
-    margin-inline-end: 0.4rem;
+.icon {
+    /* The size of the icon, and the space between the icon and the choice letter
+           should scale visually with the font-size.
+       Even though the checkbox is an icon, it is acting like text (i.e. similar to unicode icons).
+       If we change the font size of the letter, we want the icon to scale proportionally.
+       The space between the icon and the letter should also be proportional to their size.
+       By setting the width, height, and margin to an em unit,
+           we don't have to worry about adjusting these if we change the font size of the letter,
+           and it will scale with any user-based font-size changes.
+     */
+    margin-inline-end: calc(1em / 3) !important;
+    height: calc(7em / 6) !important;
+    width: calc(7em / 6) !important;
 }
 
 .is-correct,
@@ -67,8 +87,8 @@
         --wb-semanticColor-action-primary-progressive-default-foreground
     );
     width: calc(
-        1.8rem + var(--wb-c-button-root-sizing-height-small)
-    ); /* adding 1.8rem accounts for the checkmark icon */
+        1.5em + var(--wb-c-button-root-sizing-height-small)
+    ); /* adding 1.5em accounts for the checkmark icon */
 }
 
 .is-wrong[aria-pressed="false"] {
@@ -81,12 +101,13 @@
     background-color: var(--wb-semanticColor-core-background-critical-subtle);
     color: var(--wb-semanticColor-core-foreground-critical-default);
     width: calc(
-        1.8rem + var(--wb-c-button-root-sizing-height-small)
-    ); /* adding 1.8rem accounts for the minus-circle icon */
+        1.5em + var(--wb-c-button-root-sizing-height-small)
+    ); /* adding 1.5em accounts for the minus-circle icon */
 }
 
 .circle-shape {
-    /* Extremely large border radii cause an overlap situation,
+    /* Why set border-radius to 100vh?
+       Extremely large border radii cause an overlap situation,
            resulting in a recalculation to the smallest radius that doesn't cause overlap,
            and applying the reduction proportionally across all radii.
        https://drafts.csswg.org/css-backgrounds/#corner-overlap
@@ -100,5 +121,5 @@
 }
 
 .square-shape {
-    border-radius: 0.4rem;
+    border-radius: var(--wb-sizing-size_040);
 }

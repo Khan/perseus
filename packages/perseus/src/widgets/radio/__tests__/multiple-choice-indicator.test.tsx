@@ -8,17 +8,20 @@ import Indicator from "../choice-indicator.new";
 describe("Multiple choice indicator", () => {
     let iconMock: jest.SpyInstance;
     let mockClickHandler: jest.Mock;
+    let buttonRef: React.Ref<HTMLButtonElement>;
 
     beforeEach(() => {
         // @ts-expect-error TS2769: No overload matches this call.
         iconMock = jest.spyOn(PhosphorIcon, "render");
         mockClickHandler = jest.fn();
+        buttonRef = React.createRef<HTMLButtonElement>();
     });
 
     describe("with/without icons", () => {
         it(`renders WITHOUT any icons when indicator is checked and NOT in review mode`, async () => {
             render(
                 <Indicator
+                    buttonRef={buttonRef}
                     checked={true}
                     shape="circle"
                     content="A"
@@ -32,6 +35,7 @@ describe("Multiple choice indicator", () => {
         it(`renders WITHOUT any icons when indicator is checked and review mode is NOT valid`, async () => {
             render(
                 <Indicator
+                    buttonRef={buttonRef}
                     checked={true}
                     shape="circle"
                     content="A"
@@ -48,6 +52,7 @@ describe("Multiple choice indicator", () => {
             async (correctness) => {
                 render(
                     <Indicator
+                        buttonRef={buttonRef}
                         checked={false}
                         shape="circle"
                         content="A"
@@ -63,6 +68,7 @@ describe("Multiple choice indicator", () => {
         it(`renders with a CHECKMARK icon when in review mode and is CORRECT (and indicator is checked)`, async () => {
             render(
                 <Indicator
+                    buttonRef={buttonRef}
                     checked={true}
                     shape="circle"
                     content="A"
@@ -82,6 +88,7 @@ describe("Multiple choice indicator", () => {
         it(`renders with a MINUS-CIRCLE icon when in review mode and is WRONG (and indicator is checked)`, async () => {
             render(
                 <Indicator
+                    buttonRef={buttonRef}
                     checked={true}
                     shape="circle"
                     content="A"
@@ -105,6 +112,7 @@ describe("Multiple choice indicator", () => {
         it.each(["circle", "square"] as const)("renders as a %s", (shape) => {
             render(
                 <Indicator
+                    buttonRef={buttonRef}
                     checked={false}
                     shape={shape}
                     content="A"
@@ -120,6 +128,7 @@ describe("Multiple choice indicator", () => {
         it("executes the supplied click handler when NOT in review mode", () => {
             render(
                 <Indicator
+                    buttonRef={buttonRef}
                     checked={false}
                     shape="circle"
                     content="A"
@@ -144,6 +153,7 @@ describe("Multiple choice indicator", () => {
         it("does NOT execute the supplied click handler when in review mode", () => {
             render(
                 <Indicator
+                    buttonRef={buttonRef}
                     checked={false}
                     shape="circle"
                     content="A"

@@ -1,5 +1,5 @@
 import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
-import * as React from "react";
+import React, {useRef} from "react";
 
 import Indicator from "../choice-indicator.new";
 
@@ -20,16 +20,18 @@ const Container = (props: {children: React.ReactNode}): React.ReactElement => {
 };
 
 export default {
-    title: "Perseus/Widgets/Radio/Indcator",
+    title: "Perseus/Widgets/Radio/Widget Internal Components/Indicator",
 };
 
 export const AllSettings = (): React.ReactElement => {
+    const buttonRef = useRef<HTMLButtonElement>(null);
     return (
         <>
             <Container>
                 <HeadingMedium tag="h2">Single Select</HeadingMedium>
                 <div>
                     <Indicator
+                        buttonRef={buttonRef}
                         checked={false}
                         shape="circle"
                         content="A"
@@ -39,6 +41,7 @@ export const AllSettings = (): React.ReactElement => {
                 </div>
                 <div>
                     <Indicator
+                        buttonRef={buttonRef}
                         checked={true}
                         shape="circle"
                         content="A"
@@ -48,6 +51,7 @@ export const AllSettings = (): React.ReactElement => {
                 </div>
                 <div>
                     <Indicator
+                        buttonRef={buttonRef}
                         checked={false}
                         shape="circle"
                         content="A"
@@ -58,6 +62,7 @@ export const AllSettings = (): React.ReactElement => {
                 </div>
                 <div>
                     <Indicator
+                        buttonRef={buttonRef}
                         checked={true}
                         shape="circle"
                         content="A"
@@ -68,6 +73,7 @@ export const AllSettings = (): React.ReactElement => {
                 </div>
                 <div>
                     <Indicator
+                        buttonRef={buttonRef}
                         checked={true}
                         shape="circle"
                         content="A"
@@ -78,6 +84,7 @@ export const AllSettings = (): React.ReactElement => {
                 </div>
                 <div>
                     <Indicator
+                        buttonRef={buttonRef}
                         checked={false}
                         shape="circle"
                         content="A"
@@ -91,6 +98,7 @@ export const AllSettings = (): React.ReactElement => {
                 <HeadingMedium tag="h2">Multiple Select</HeadingMedium>
                 <div>
                     <Indicator
+                        buttonRef={buttonRef}
                         checked={false}
                         shape="square"
                         content="A"
@@ -100,6 +108,7 @@ export const AllSettings = (): React.ReactElement => {
                 </div>
                 <div>
                     <Indicator
+                        buttonRef={buttonRef}
                         checked={true}
                         shape="square"
                         content="A"
@@ -109,6 +118,7 @@ export const AllSettings = (): React.ReactElement => {
                 </div>
                 <div>
                     <Indicator
+                        buttonRef={buttonRef}
                         checked={false}
                         shape="square"
                         content="A"
@@ -119,6 +129,7 @@ export const AllSettings = (): React.ReactElement => {
                 </div>
                 <div>
                     <Indicator
+                        buttonRef={buttonRef}
                         checked={true}
                         shape="square"
                         content="A"
@@ -129,6 +140,7 @@ export const AllSettings = (): React.ReactElement => {
                 </div>
                 <div>
                     <Indicator
+                        buttonRef={buttonRef}
                         checked={true}
                         shape="square"
                         content="A"
@@ -139,6 +151,7 @@ export const AllSettings = (): React.ReactElement => {
                 </div>
                 <div>
                     <Indicator
+                        buttonRef={buttonRef}
                         checked={false}
                         shape="square"
                         content="A"

@@ -7,6 +7,7 @@ import {useState} from "react";
 import styles from "./choice-indicator.module.css";
 
 export type IndicatorProps = {
+    buttonRef: React.Ref<HTMLButtonElement>;
     checked: boolean;
     content: string;
     shape: "circle" | "square";
@@ -26,9 +27,9 @@ const Indicator = (props: IndicatorProps) => {
     const icon = iconImage ? (
         <PhosphorIcon
             aria-hidden={true}
+            className={styles.icon}
             icon={iconImage}
             role="img"
-            style={{width: "1.4rem", height: "1.4rem"}}
         />
     ) : undefined;
     const classes = [styles.base, styles[props.shape + "-shape"]];
@@ -37,7 +38,8 @@ const Indicator = (props: IndicatorProps) => {
     }
     const handleClick = showCorrectness
         ? undefined // Don't register anything when showing answers
-        : () => {
+        : (event: React.MouseEvent<HTMLButtonElement>) => {
+              event.stopPropagation();
               setIsChecked(!isChecked);
               props.updateChecked(!isChecked);
           };
@@ -46,6 +48,7 @@ const Indicator = (props: IndicatorProps) => {
         <button
             aria-pressed={isChecked}
             className={classes.join(" ")}
+            ref={props.buttonRef}
             onClick={handleClick}
         >
             {icon}
