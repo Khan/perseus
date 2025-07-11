@@ -4,18 +4,19 @@ import type {PerseusNumericInputUserInput} from "@khanacademy/perseus-core";
 
 describe("NumericInput getPromptJSON", () => {
     it("it returns JSON with the expected format and fields", () => {
+        const userInput: PerseusNumericInputUserInput = {
+            currentValue: "42",
+        };
+
         const renderProps: any = {
             labelText: "Numeric input label",
             size: "Normal",
             coefficient: false,
             static: false,
+            userInput,
         };
 
-        const userInput: PerseusNumericInputUserInput = {
-            currentValue: "42",
-        };
-
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(renderProps);
 
         expect(resultJSON).toEqual({
             type: "numeric-input",

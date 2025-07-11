@@ -594,12 +594,8 @@ class Orderer
         this.props.handleUserInput({current: values});
     };
 
-    getUserInput(): PerseusOrdererUserInput {
-        return this.props.userInput;
-    }
-
     getPromptJSON(): OrdererPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props);
     }
 
     /**
@@ -753,11 +749,16 @@ function getUserInputFromSerializedState(
     return {current: serializedState.current.map((e) => e.content)};
 }
 
+function getStartUserInput(): PerseusOrdererUserInput {
+    return {current: []};
+}
+
 export default {
     name: "orderer",
     displayName: "Orderer",
     hidden: true,
     widget: Orderer,
     isLintable: true,
+    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Orderer>;

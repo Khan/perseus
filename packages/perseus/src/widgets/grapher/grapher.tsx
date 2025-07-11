@@ -506,12 +506,8 @@ class Grapher extends React.Component<Props> implements Widget {
         }
     };
 
-    getUserInput(): PerseusGrapherUserInput {
-        return this.props.userInput;
-    }
-
     getPromptJSON(): GrapherPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props);
     }
 
     /**
@@ -619,6 +615,12 @@ function staticTransform(options: PerseusGrapherWidgetOptions) {
     };
 }
 
+function getCorrectUserInput(
+    options: PerseusGrapherWidgetOptions,
+): PerseusGrapherUserInput {
+    return options.correct;
+}
+
 /**
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
@@ -661,6 +663,7 @@ export default {
     widget: Grapher,
     transform,
     staticTransform,
+    getCorrectUserInput,
     getUserInputFromSerializedState,
     getStartUserInput,
 } satisfies WidgetExports<typeof Grapher>;

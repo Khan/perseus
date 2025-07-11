@@ -34,6 +34,10 @@ const question1: PerseusRenderer = {
 
 describe("Orderer AI utils", () => {
     it("it returns JSON with the expected format and fields", () => {
+        const userInput = {
+            current: ["First item", "Second item", "Third item"],
+        };
+
         const renderProps: any = {
             options: [
                 {
@@ -52,13 +56,10 @@ describe("Orderer AI utils", () => {
                     widgets: {},
                 },
             ],
+            userInput,
         };
 
-        const userInput = {
-            current: ["First item", "Second item", "Third item"],
-        };
-
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(renderProps);
 
         expect(resultJSON).toEqual({
             type: "orderer",

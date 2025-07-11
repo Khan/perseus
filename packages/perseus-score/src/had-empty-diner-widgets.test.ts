@@ -155,7 +155,7 @@ describe(`hasEmptyDINERWidgets`, () => {
             },
         };
 
-        const userInput: any = {};
+        const userInput: UserInputMap = {};
 
         expect(hasEmptyDINERWidgets(question, userInput)).toBe(false);
     });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`graded group widget should snapshot 1`] = `
+exports[`graded group set widget should snapshot 1`] = `
 <div>
   <div
     class="perseus-renderer perseus-renderer-responsive"

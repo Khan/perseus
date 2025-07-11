@@ -88,21 +88,6 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
     };
 
     /**
-     * DEPRECATED: Gets the current user input from this widget.
-     *
-     * Implements the required Widget interface method that Perseus uses
-     * to retrieve the user's current selections.
-     *
-     * @returns The user's selections as {choicesSelected: [boolean]}
-     *
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput(): PerseusRadioUserInput {
-        return this.props.userInput;
-    }
-
-    /**
      * Gets the JSON representation of the User Input for AI assistance.
      *
      * This method is used to provide structured data about the widget's state

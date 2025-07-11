@@ -1,5 +1,4 @@
 import type inputNumber from "../../widgets/input-number/input-number";
-import type {PerseusInputNumberUserInput} from "@khanacademy/perseus-core";
 import type React from "react";
 
 export type InputNumberPromptJSON = {
@@ -15,7 +14,6 @@ export type InputNumberPromptJSON = {
 
 export const getPromptJSON = (
     renderProps: React.ComponentProps<typeof inputNumber.widget>,
-    userInput: PerseusInputNumberUserInput,
 ): InputNumberPromptJSON => {
     return {
         type: "input-number",
@@ -24,7 +22,7 @@ export const getPromptJSON = (
             answerType: renderProps.answerType,
         },
         userInput: {
-            value: userInput.currentValue,
+            value: renderProps.userInput.currentValue,
         },
     };
 };

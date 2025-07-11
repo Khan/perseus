@@ -43,6 +43,10 @@ export class FreeResponse extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
+    // this just helps with TS weak typing when a Widget
+    // doesn't implement any Widget methods
+    isWidget = true as const;
+
     static defaultProps: DefaultProps = {
         userInput: {
             currentValue: "",
@@ -52,14 +56,6 @@ export class FreeResponse extends React.Component<Props> implements Widget {
     characterCount = () => {
         return this.props.userInput.currentValue.replace(/\n/g, "").length;
     };
-
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     * */
-    getUserInput(): PerseusFreeResponseUserInput {
-        return this.props.userInput;
-    }
 
     _handleUserInput = (newValue: string) => {
         this.props.handleUserInput({currentValue: newValue});
@@ -138,12 +134,23 @@ export class FreeResponse extends React.Component<Props> implements Widget {
     }
 }
 
+function getStartUserInput(): PerseusFreeResponseUserInput {
+    return {
+        currentValue: "",
+    };
+}
+
 export default {
     name: "free-response",
     accessible: true,
     displayName: "Free Response (Assessments only)",
     widget: FreeResponse,
     hidden: false,
+    // FreeResponse doesn't serialize user input,
+    // so just bring up the default user input when restoring
+    // (which we likely never should/will for FreeResponse)
+    getUserInputFromSerializedState: getStartUserInput,
+    getStartUserInput,
 } as WidgetExports<typeof FreeResponse>;
 
 const styles = StyleSheet.create({

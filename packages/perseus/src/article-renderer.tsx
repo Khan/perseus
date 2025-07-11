@@ -168,7 +168,7 @@ class ArticleRenderer
         }
     };
 
-    _sections: () => any = () => {
+    _sections: () => PerseusRenderer[] = () => {
         const sections = Array.isArray(this.props.json)
             ? this.props.json
             : [this.props.json];
@@ -227,7 +227,6 @@ class ArticleRenderer
                             }
                         }}
                         key={sectionIndex}
-                        key_={sectionIndex}
                         keypadElement={this.props.keypadElement}
                         apiOptions={{
                             ...apiOptions,
@@ -237,9 +236,13 @@ class ArticleRenderer
                                 // equivalently-named inputs across Renderers.
                                 this._handleFocusChange(
                                     newFocusPath &&
-                                        [sectionIndex].concat(newFocusPath),
+                                        [sectionIndex].concat(
+                                            newFocusPath as any,
+                                        ),
                                     oldFocusPath &&
-                                        [sectionIndex].concat(oldFocusPath),
+                                        [sectionIndex].concat(
+                                            oldFocusPath as any,
+                                        ),
                                 );
                             },
                         }}

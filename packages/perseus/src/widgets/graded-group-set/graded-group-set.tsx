@@ -133,14 +133,6 @@ class GradedGroupSet extends React.Component<Props, State> implements Widget {
         return getPromptJSON(this.props, activeGroupPromptJSON);
     }
 
-    setInputValue: (arg1: FocusPath, arg2: any, arg3: any) => any = (
-        path,
-        newValue,
-        cb,
-    ) => {
-        return this._childGroup.setInputValue(path, newValue, cb);
-    };
-
     focus: () => boolean = () => {
         return this._childGroup.focus();
     };
