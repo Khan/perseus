@@ -220,6 +220,18 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
         multipleSelect: false,
         choices: [
             {
+                content: "Content 3",
+                correct: false,
+                originalIndex: 2,
+                id: "2601360013",
+            },
+            {
+                content: "Content 1",
+                correct: true,
+                originalIndex: 0,
+                id: "2601359949",
+            },
+            {
                 content: "Content 2",
                 correct: false,
                 originalIndex: 1,
@@ -231,20 +243,8 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
                 originalIndex: 3,
                 id: "2601359851",
             },
-            {
-                content: "Content 1",
-                correct: true,
-                originalIndex: 0,
-                id: "2601359949",
-            },
-            {
-                content: "Content 3",
-                correct: false,
-                originalIndex: 2,
-                id: "2601360013",
-            },
         ],
-        selectedChoices: [false, false, true, false],
+        selectedChoices: [false, true, false, false],
     },
     "radio 2": {
         numCorrect: 1,
@@ -254,16 +254,16 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
         multipleSelect: false,
         choices: [
             {
-                content: "Content 2",
-                correct: false,
-                originalIndex: 1,
-                id: "2601360047",
-            },
-            {
                 content: "Different Content",
                 correct: false,
                 originalIndex: 3,
                 id: "242272090",
+            },
+            {
+                content: "Content 3",
+                correct: false,
+                originalIndex: 2,
+                id: "2601360013",
             },
             {
                 content: "Content 1",
@@ -272,10 +272,10 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
                 id: "2601359949",
             },
             {
-                content: "Content 3",
+                content: "Content 2",
                 correct: false,
-                originalIndex: 2,
-                id: "2601360013",
+                originalIndex: 1,
+                id: "2601360047",
             },
         ],
         selectedChoices: [false, false, true, false],

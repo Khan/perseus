@@ -23,6 +23,18 @@ const expectedSerializedRadio = {
     deselectEnabled: false,
     choices: [
         {
+            content: "Content 3",
+            correct: false,
+            id: "2601360013",
+            originalIndex: 2,
+        },
+        {
+            content: "Content 1",
+            correct: true,
+            id: "2601359949",
+            originalIndex: 0,
+        },
+        {
             content: "Content 2",
             correct: false,
             id: "2601360047",
@@ -34,21 +46,9 @@ const expectedSerializedRadio = {
             id: "2601359851",
             originalIndex: 3, // <= note we stash original index
         },
-        {
-            content: "Content 1",
-            correct: true,
-            id: "2601359949",
-            originalIndex: 0,
-        },
-        {
-            content: "Content 3",
-            correct: false,
-            id: "2601360013",
-            originalIndex: 2,
-        },
     ],
-    // no idea what this is, it doesn't seem to change...
-    selectedChoices: [false, false, true, false],
+    // Updated to match actual hash-based shuffle results
+    selectedChoices: [false, true, false, false],
     choiceStates: [
         {
             selected: true, // <= note we stash user input
@@ -154,7 +154,11 @@ describe("Radio serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicRadio());
+        const {renderer} = renderQuestion(
+            generateBasicRadio(),
+            {},
+            {problemNum: 0},
+        );
 
         const preAnswerState = renderer.getSerializedState();
 
@@ -176,7 +180,11 @@ describe("Radio serialization", () => {
 
     it("should restore serialized state", () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicRadio());
+        const {renderer} = renderQuestion(
+            generateBasicRadio(),
+            {},
+            {problemNum: 0},
+        );
 
         const preUserInput = renderer.getUserInput();
 
@@ -204,8 +212,7 @@ describe("Radio serialization", () => {
             "radio 1": {
                 // note we unshuffle!
                 // in expectedSerializedRadio.choiceStates the first element
-                // is selected; here the last element is selected
-                choicesSelected: [false, true, false, false],
+                choicesSelected: [false, false, true, false],
             },
         });
     });

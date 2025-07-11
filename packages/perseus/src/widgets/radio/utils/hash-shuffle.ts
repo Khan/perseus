@@ -1,37 +1,6 @@
-import {generateChoiceId} from "@khanacademy/perseus-core";
+import {generateChoiceId, seededRNG} from "@khanacademy/perseus-core";
 
 import type {RadioChoiceWithMetadata} from "../multiple-choice-widget.new";
-
-/**
- * MumurHash3 32-bit implementation
- * Implementation reference: https://mojoauth.com/hashing/murmurhash-in-typescript
- * Optimized for string inputs without external dependencies
- */
-function hashString(key: string): number {
-    // djb2 constant
-    const hashConstant = 5381;
-
-    let h1 = hashConstant ^ key.length;
-    const c1 = 0xcc9e2d51;
-    const c2 = 0x1b873593;
-
-    for (let i = 0; i < key.length; i++) {
-        let k1 = key.charCodeAt(i);
-        k1 = k1 * c1;
-        k1 = (k1 << 15) | (k1 >>> 17); // Rotate left
-        k1 = k1 * c2;
-        h1 ^= k1;
-        h1 = (h1 << 13) | (h1 >>> 19); // Rotate left
-        h1 = h1 * 5 + 0xe6546b64; // Mix
-    }
-    h1 ^= key.length;
-    h1 ^= h1 >>> 16; // Finalization
-    h1 = h1 * 0x85ebca6b;
-    h1 ^= h1 >>> 13;
-    h1 = h1 * 0xc2b2ae35;
-    h1 ^= h1 >>> 16;
-    return h1 >>> 0;
-}
 
 /**
  * Creates a hash-based shuffle key for a choice
@@ -49,8 +18,36 @@ function createShuffleKey(
 }
 
 /**
+ * MurmurHash3 32-bit implementation
+ * Implementation reference: https://mojoauth.com/hashing/murmurhash-in-typescript
+ * Optimized for string inputs without external dependencies
+ */
+function hashStringToNumber(str: string, seed: number = 0): number {
+    let h1 = seed ^ str.length;
+    const c1 = 0xcc9e2d51;
+    const c2 = 0x1b873593;
+
+    for (let i = 0; i < str.length; i++) {
+        let k1 = str.charCodeAt(i);
+        k1 = k1 * c1;
+        k1 = (k1 << 15) | (k1 >>> 17); // Rotate left
+        k1 = k1 * c2;
+        h1 ^= k1;
+        h1 = (h1 << 13) | (h1 >>> 19); // Rotate left
+        h1 = h1 * 5 + 0xe6546b64; // Mix
+    }
+    h1 ^= str.length;
+    h1 ^= h1 >>> 16; // Finalization
+    h1 = h1 * 0x85ebca6b;
+    h1 ^= h1 >>> 13;
+    h1 = h1 * 0xc2b2ae35;
+    h1 ^= h1 >>> 16;
+    return h1 >>> 0;
+}
+
+/**
  * Hash-based shuffle function that provides deterministic shuffling
- * based on choice IDs and a seed value.
+ * based on choice IDs and a seed value, using Perseus's seededRNG for additional randomness.
  *
  * This replaces the Fisher-Yates algorithm to avoid index-based bugs
  * and provides more stable shuffling when choices are modified.
@@ -63,19 +60,41 @@ export function hashBasedShuffle(
     choices: ReadonlyArray<RadioChoiceWithMetadata>,
     seed: string,
 ): RadioChoiceWithMetadata[] {
+    // Convert string seed to number for hash function
+    const numericSeed = hashStringToNumber(seed);
+
     // Create array of choices with their hash-based sort keys
+    // We'll use a more robust approach that includes the original index
+    // to ensure we get proper shuffling even when sort keys are similar
     return (
         choices
-            .map((choice) => {
+            .map((choice, index) => {
                 const shuffleKey = createShuffleKey(choice, seed);
-                const sortKey = hashString(shuffleKey);
+                // Create a unique seed for each choice based purely on its content and the seed
+                const choiceHash = hashStringToNumber(shuffleKey, numericSeed);
+                const rng = seededRNG(choiceHash);
+                // Get a random value for this specific choice
+                const sortKey = rng();
+
+                // Add some additional entropy by combining with a secondary hash
+                // This helps avoid cases where the sort keys happen to be in order
+                const secondaryHash = hashStringToNumber(
+                    `${shuffleKey}-${index}`,
+                    numericSeed + 1,
+                );
+                const secondaryRng = seededRNG(secondaryHash);
+                const secondarySortKey = secondaryRng();
+
+                // Combine both sort keys for better distribution
+                const combinedSortKey = (sortKey + secondarySortKey) / 2;
+
                 return {
                     choice,
-                    sortKey,
+                    sortKey: combinedSortKey,
                 };
             })
 
-            // Sort by hash values to create deterministic "random" order
+            // Sort by the random values to create deterministic "random" order
             .sort((a, b) => a.sortKey - b.sortKey)
             // Extract just the choices from the sorted array
             .map((item) => item.choice)
