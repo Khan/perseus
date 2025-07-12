@@ -61,7 +61,31 @@ const preview: Preview = {
 
         options: {
             storySort: {
-                order: ["Perseus", "PerseusEditor", "Math-Input", "*"],
+                order: [
+                    "Introduction",
+                    "Widget Gallery",
+                    "Theming",
+                    "Renderers",
+                    ["Overview", "*"],
+                    "Components",
+                    "Editors",
+                    "Widgets",
+                    [
+                        "*", // This will match all widgets
+                        [
+                            "Docs",
+                            "Accessibility",
+                            "Widget Demo",
+                            "Editor Demo",
+                            "Widget States Gallery",
+                            "Widget Internal Components",
+                            "Regression Test",
+                            "*", // Catch-all for any additional sections
+                        ],
+                    ],
+                    "Math-Input",
+                    "*",
+                ],
                 includeNames: true,
             },
         },
