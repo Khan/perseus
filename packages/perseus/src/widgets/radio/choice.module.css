@@ -1,7 +1,8 @@
 .choice {
     --perseus-multiple-choice-spacing: 1.6rem;
     align-items: flex-start;
-    border-bottom: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border-bottom: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
     display: flex;
     font-size: var(--wb-font-heading-size-medium);
     gap: var(--perseus-multiple-choice-spacing);
@@ -20,23 +21,31 @@
     &:has(+ .choice:hover),
     &:focus-within,
     &:has(+ .choice:focus-within) {
-        border-bottom: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-border-neutral-default);
-        padding-bottom: calc(var(--perseus-multiple-choice-spacing) - 0.1rem); /* Account for increased border width */
+        border-bottom: var(--wb-border-width-medium) solid
+            var(--wb-semanticColor-core-border-neutral-default);
+        padding-bottom: calc(
+            var(--perseus-multiple-choice-spacing) - 0.1rem
+        ); /* Account for increased border width */
     }
 }
 
 .choice:first-of-type {
-    border-top: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border-top: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
 }
 
 .choice:first-of-type:hover,
 .choice:first-of-type:focus-within {
-    border-top: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-border-neutral-default);
-    padding-top: calc(var(--perseus-multiple-choice-spacing) - 0.1rem); /* Account for increased border width */
+    border-top: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-neutral-default);
+    padding-top: calc(
+        var(--perseus-multiple-choice-spacing) - 0.1rem
+    ); /* Account for increased border width */
 }
 
 .is-correct {
-    border: var(--wb-border-width-medium) solid var(--wb-semanticColor-core-border-success-default);
+    border: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-success-default);
     border-radius: var(--wb-border-radius-radius_080);
     color: var(--wb-semanticColor-core-foreground-success-default);
 }
