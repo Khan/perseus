@@ -5,7 +5,10 @@
         var(--wb-semanticColor-core-border-neutral-subtle);
     display: flex;
     font-size: var(--wb-font-heading-size-medium);
-    gap: var(--perseus-multiple-choice-spacing); /* puts horizontal space between the indicator and the content */
+    /* "gap" is being used to put horizontal space between the indicator and the content.
+       That way, we can keep all spacing in this file, and not have to apply styling to the indicator itself.
+    */
+    gap: var(--perseus-multiple-choice-spacing);
     line-height: var(--wb-font-heading-lineHeight-medium);
     min-height: calc(var(--perseus-multiple-choice-spacing) * 4);
     padding: var(--perseus-multiple-choice-spacing);
