@@ -4,7 +4,7 @@ import {
     generateTestPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
-import {act, screen, waitFor} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {
@@ -498,54 +498,6 @@ describe("Expression Widget", function () {
             // In this case we know that it'll be valid so we can assert directly
             // @ts-expect-error - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
             expect(score.total).toBe(1);
-        });
-    });
-
-    describe("error tooltip", () => {
-        beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
-            jest.useFakeTimers();
-        });
-
-        it("shows error text in tooltip", async () => {
-            // Arrange
-            const {renderer} = renderQuestion(expressionItem2.question);
-            const expression = renderer.findWidgets("expression 1")[0];
-
-            // Act
-            // Note(jeremy): You might think you could collapse all of these calls
-            // inside a single act() block, but that didn't work. The only way this
-            // test passes is with each statement in its own act() call. :/
-            act(() => expression.insert("x&&&&&^1"));
-            act(() => jest.runOnlyPendingTimers());
-            act(() => screen.getByRole("textbox").blur());
-            act(() => jest.runOnlyPendingTimers());
-
-            // Assert
-            await waitFor(() =>
-                expect(
-                    screen.getByText("Oops! Sorry, I don't understand that!"),
-                ).toBeVisible(),
-            );
-        });
-
-        it("does not show error text when the sen() function is used (Portuguese for sin())", async () => {
-            // Arrange
-            const {renderer} = renderQuestion(expressionItem2.question);
-            const expression = renderer.findWidgets("expression 1")[0];
-
-            // Act
-            act(() => expression.insert("sen(x)"));
-            act(() => jest.runOnlyPendingTimers());
-            act(() => screen.getByRole("textbox").blur());
-
-            // Assert
-            expect(screen.queryByText("Oops!")).toBeNull();
-            expect(
-                screen.queryByText("Sorry, I don't understand that!"),
-            ).toBeNull();
         });
     });
 

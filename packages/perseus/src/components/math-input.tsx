@@ -62,7 +62,6 @@ type Props = {
     ariaLabel: string;
     onFocus?: () => void;
     onBlur?: () => void;
-    hasError?: boolean;
     extraKeys?: ReadonlyArray<KeypadKey>;
     /**
      * Whether to show the keypad buttons.
@@ -313,7 +312,6 @@ class InnerMathInput extends React.Component<InnerProps, State> {
                 style={[
                     styles.outerWrapper,
                     this.state.focused && styles.wrapperFocused,
-                    this.props.hasError && styles.wrapperError,
                 ]}
             >
                 {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events -- TODO(LEMS-2871): Address a11y error */}
