@@ -6,7 +6,7 @@ import styles from "./choice.module.css";
 export interface IndicatorProps {
     checked: boolean;
     children: React.ReactNode | React.ReactNode[];
-    indicatorContent: string;
+    indicatorContent: string; // This is the letter that shows for the choice
     isMultiSelect: boolean;
     showCorrectness?: "correct" | "wrong";
     updateChecked: (isChecked: boolean) => void;

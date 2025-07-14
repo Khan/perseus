@@ -1,5 +1,5 @@
 .choice {
-    --perseus-multiple-choice-spacing: 1.6rem;
+    --perseus-multiple-choice-spacing: var(--wb-sizing-size_160);
     align-items: flex-start;
     border-bottom: var(--wb-border-width-thin) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
@@ -20,36 +20,39 @@
 }
 
 /* Show a bottom border on the choice when:
+      - the choice indicator has focus OR
+      - the next choice indicator has focus OR
       - the choice is not in review mode AND
          - the choice is hovered OR
          - the next choice is hovered OR
-         - the choice indicator is focused OR
-         - the next choice indicator is focused
+   In other words, always show the bottom border when focus is on the indicator,
+       but only show the bottom border for hover when not in review mode.
  */
+.choice:focus-within,
+.choice:has(+ .choice:focus-within),
 .choice:not(.is-correct, .is-wrong) {
     &:hover,
-    &:has(+ .choice:hover),
-    &:focus-within,
-    &:has(+ .choice:focus-within) {
+    &:has(+ .choice:hover) {
         border-bottom: var(--wb-border-width-medium) solid
             var(--wb-semanticColor-core-border-neutral-default);
         padding-bottom: calc(
-            var(--perseus-multiple-choice-spacing) - 0.1rem
+            var(--perseus-multiple-choice-spacing) - var(--wb-sizing-size_010)
         ); /* Account for increased border width */
     }
 }
 
+/* The first choice option needs additional styling for the border */
 .choice:first-of-type {
     border-top: var(--wb-border-width-thin) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
 }
 
-.choice:first-of-type:hover,
+.choice:first-of-type:not(.is-correct, .is-wrong):hover,
 .choice:first-of-type:focus-within {
     border-top: var(--wb-border-width-medium) solid
         var(--wb-semanticColor-core-border-neutral-default);
     padding-top: calc(
-        var(--perseus-multiple-choice-spacing) - 0.1rem
+        var(--perseus-multiple-choice-spacing) - var(--wb-sizing-size_010)
     ); /* Account for increased border width */
 }
 
