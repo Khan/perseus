@@ -2,4 +2,90 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Introduction" />
 
-TODO: update this section with correct content
+# Perseus
+
+Perseus is the technology that powers all exercises and articles at Khan Academy. Since 2013, it has been a core part of
+Khan Academy's educational platform, existing both as an integrated component of the Khan Academy applications (web and mobile)
+and as a separate open-source repository.
+
+## What is Perseus?
+
+At its core, Perseus is a specialized Markdown to React/HTML renderer with powerful educational features. It extends
+standard Markdown with two key capabilities:
+
+1. **Interactive Widgets**: Perseus can render custom React components called "widgets" that allow learners to interact with content and provide answers in various formats.
+
+2. **Beautiful Math Rendering**: Perseus seamlessly integrates with [MathJax](https://www.mathjax.org/) to display mathematical expressions and equations with high fidelity.
+
+These capabilities make Perseus ideal for creating interactive educational content that combines explanatory text, rich media, and assessment tools.
+
+## How Perseus Works
+
+Perseus content is written in an extended Markdown syntax that includes:
+
+- Standard Markdown formatting (headings, lists, links, etc.)
+- Math expressions enclosed in dollar signs: `$y = mx + b$`
+- Widgets using the syntax: `[[☃ widget-type 1]]`, where each widget has a unique ID
+
+When a learner interacts with widgets (such as answering questions), Perseus can:
+- Validate answers against expected solutions
+- Provide feedback and hints
+- Track progress through exercises
+- Support a variety of input methods
+
+## Core Components
+
+Perseus consists of four main components:
+
+### 1. Renderers
+
+Renderers are responsible for displaying Perseus content. The three primary renderers are:
+
+- **ServerItemRenderer**: The main exercise renderer that handles question content, hint management, and keypad display
+- **ArticleRenderer**: Renders long-form, read-only content, with support for embedded "knowledge checks"
+- **Renderer**: The core rendering engine that manages widgets and math content display
+
+### 2. Widgets
+
+Widgets are self-contained React components that provide interactive functionality beyond standard Markdown. They can:
+
+- Appear within articles and exercises (in questions and hints)
+- Be nested within other widgets (e.g., the "graded-group" widget)
+- Handle various input types (multiple-choice, graphing, numeric input, etc.)
+- Validate and score user responses
+
+See our widgets in action in the [Test Everything](https://www.khanacademy.org/internal-courses/test-everything) course.
+
+### 3. Editors and Preview Frames
+
+Editors provide the interface for content creators to:
+
+- Add/Edit Perseus content
+- Configure widget settings
+- Preview content as it will appear to learners
+
+Each widget type has its own specialized editor component.
+
+#### Preview Frames
+
+As part of the editing experience, preview frames allow content creators to see how their content will look when published:
+
+- **Side-by-side view**: Shows both the content source and rendered output
+- **Full preview**: Displays only the rendered content as it will appear to users
+
+## Data Flow
+
+Perseus follows a straightforward data flow:
+
+1. Content is created and stored as structured data (PerseusItem or PerseusRenderer)
+2. When displayed, this data is passed to the appropriate renderer
+3. The renderer processes the content, instantiates widgets, and renders the final output
+4. User interactions with widgets are processed and scored against expected answers
+
+## Getting Started
+
+The best way to understand Perseus is to explore the components in this Storybook. You can:
+
+- Browse the Widget Gallery to see the available widgets
+- Read the renderer documentation
+- Browse the available reusable components
