@@ -547,13 +547,6 @@ const styles = StyleSheet.create({
         ":hover": inputFocused,
     },
     wrapperFocused: inputFocused,
-    wrapperError: {
-        borderColor: color.red,
-        background: color.fadedRed8,
-        ":hover": {
-            borderColor: color.red,
-        },
-    },
     popoverContent: {
         padding: 0,
         paddingBottom: spacing.xxSmall_6,
