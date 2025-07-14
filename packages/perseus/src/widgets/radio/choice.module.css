@@ -1,0 +1,73 @@
+.choice {
+    --perseus-multiple-choice-spacing: var(--wb-sizing-size_160);
+    align-items: flex-start;
+    border-bottom: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    display: flex;
+    font-size: var(--wb-font-heading-size-medium);
+    /* "gap" is being used to put horizontal space between the indicator and the content.
+       That way, we can keep all spacing in this file, and not have to apply styling to the indicator itself.
+    */
+    gap: var(--perseus-multiple-choice-spacing);
+    line-height: var(--wb-font-heading-lineHeight-medium);
+    min-height: calc(var(--perseus-multiple-choice-spacing) * 4);
+    padding: var(--perseus-multiple-choice-spacing);
+    width: 100%;
+}
+
+.choice:hover {
+    cursor: pointer;
+}
+
+/* Show a bottom border on the choice when:
+      - the choice indicator has focus OR
+      - the next choice indicator has focus OR
+      - the choice is not in review mode AND
+         - the choice is hovered OR
+         - the next choice is hovered OR
+   In other words, always show the bottom border when focus is on the indicator,
+       but only show the bottom border for hover when not in review mode.
+ */
+.choice:focus-within,
+.choice:has(+ .choice:focus-within),
+.choice:not(.is-correct, .is-wrong) {
+    &:hover,
+    &:has(+ .choice:hover) {
+        border-bottom: var(--wb-border-width-medium) solid
+            var(--wb-semanticColor-core-border-neutral-default);
+        padding-bottom: calc(
+            var(--perseus-multiple-choice-spacing) - var(--wb-sizing-size_010)
+        ); /* Account for increased border width */
+    }
+}
+
+/* The first choice option needs additional styling for the border */
+.choice:first-of-type {
+    border-top: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+.choice:first-of-type:not(.is-correct, .is-wrong):hover,
+.choice:first-of-type:focus-within {
+    border-top: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-neutral-default);
+    padding-top: calc(
+        var(--perseus-multiple-choice-spacing) - var(--wb-sizing-size_010)
+    ); /* Account for increased border width */
+}
+
+.is-correct {
+    border: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-success-default);
+    border-radius: var(--wb-border-radius-radius_080);
+    color: var(--wb-semanticColor-core-foreground-success-default);
+}
+
+.is-wrong {
+    color: var(--wb-semanticColor-core-foreground-critical-default);
+}
+
+.is-correct:hover,
+.is-wrong:hover {
+    cursor: default;
+}
