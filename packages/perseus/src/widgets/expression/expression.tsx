@@ -282,7 +282,7 @@ export class Expression extends React.Component<Props> implements Widget {
                     </LabelSmall>
                 )}
                 {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
-                <div className={className}>
+                <div className="perseus-widget-expression">
                     <MathInput
                         // eslint-disable-next-line react/no-string-refs
                         ref="input"
