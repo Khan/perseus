@@ -42,6 +42,26 @@ function dedent(s: string): string {
         .join("\n");
 }
 
+class Catalog {
+    constructor(private packages: Record<string, string>) {}
+
+    has(packageName: string): boolean {
+        return Object.prototype.hasOwnProperty.call(this.packages, packageName);
+    }
+
+    minimumVersionOf(packageName: string): string {
+        if (!this.has(packageName)) {
+            throw new Error(`Can't get min version of '${packageName}'; package is not in the catalog`)
+        }
+        const versionRange = this.packages[packageName]
+        const minVersion = semver.minVersion(versionRange)?.version;
+        if (!minVersion) {
+            throw new Error(`Can't get min version of '${packageName}'; version range '${versionRange}' has no minimum`)
+        }
+        return minVersion;
+    }
+}
+
 function main(argv: string[]) {
     // The first arg is the node binary running this script, the second arg is
     // this script itself. So, we strip these two args off so that all that's
@@ -57,7 +77,7 @@ function main(argv: string[]) {
         fs.readFileSync(clientPnpmWorkspaceYamlPath, "utf-8"),
     );
 
-    const clientCatalog = clientWorkspace.catalog;
+    const clientCatalog = new Catalog(clientWorkspace.catalog);
 
     const ourWorkspace = yaml.parse(
         fs.readFileSync("pnpm-workspace.yaml", "utf-8"),
@@ -66,26 +86,16 @@ function main(argv: string[]) {
     const ourPeerDeps: string[] = Object.keys(ourWorkspace.catalogs.peerDeps);
     const ourDevDeps: string[] = Object.keys(ourWorkspace.catalogs.devDeps);
 
-    function getMinVersion(catalog: Record<string, string>, pkgName: string) {
-        const versionRange = catalog[pkgName];
-        const minVersion = semver.minVersion(versionRange)?.version;
-        if (!minVersion) {
-            throw new Error(
-                `Package ${pkgName} does not have a min version!\n\n` +
-                `Listed range is ${versionRange}\n\n` +
-                "We don't know what dev dependency to install!",
-            );
-        }
-        return minVersion;
-    }
-
     // In our peer dependencies, declare that Perseus will work with any
     // package version compatible with the one we install in dev.
     for (const pkgName of ourPeerDeps) {
-        if (!(pkgName in clientCatalog)) {
+        if (!clientCatalog.has(pkgName)) {
+            // TODO(benchristel): throw an error here instead of ignoring the
+            // package. If the client doesn't provide a package that we need as
+            // a peer dep, it's not safe to deploy Perseus!
             continue;
         }
-        ourWorkspace.catalogs.peerDeps[pkgName] = `^${(getMinVersion(clientCatalog, pkgName))}`;
+        ourWorkspace.catalogs.peerDeps[pkgName] = `^${clientCatalog.minimumVersionOf(pkgName)}`;
     }
 
     // In development, install the minimum version of each package
@@ -93,10 +103,10 @@ function main(argv: string[]) {
     // accidentally depend on features of the package added after that
     // version.
     for (const pkgName of ourDevDeps) {
-        if (!(pkgName in clientCatalog)) {
+        if (!clientCatalog.has(pkgName)) {
             continue;
         }
-        ourWorkspace.catalogs.devDeps[pkgName] = getMinVersion(clientCatalog, pkgName);
+        ourWorkspace.catalogs.devDeps[pkgName] = clientCatalog.minimumVersionOf(pkgName);
     }
 
     const comment = dedent(`
