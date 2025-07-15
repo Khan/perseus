@@ -59,7 +59,6 @@ describe("EditorPage", () => {
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
-                frameSource=""
                 itemId="itemId"
                 developerMode={false}
                 jsonMode={false}
@@ -83,7 +82,6 @@ describe("EditorPage", () => {
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
-                frameSource=""
                 itemId="itemId"
                 developerMode={false}
                 jsonMode={false}
@@ -142,7 +140,6 @@ describe("EditorPage", () => {
                 onPreviewDeviceChange={() => {}}
                 previewDevice="desktop"
                 previewURL=""
-                frameSource=""
                 itemId="itemId"
                 developerMode={false}
                 jsonMode={false}
