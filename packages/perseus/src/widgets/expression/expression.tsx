@@ -133,10 +133,6 @@ export class Expression extends React.Component<Props> implements Widget {
         this._isMounted = false;
     };
 
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
     getUserInput(): PerseusExpressionUserInput {
         return normalizeTex(this.props.userInput);
     }
