@@ -28,12 +28,6 @@ function printHelp() {
     console.log("usage: sync-dependencies <pnpm-workspace.yaml>");
 }
 
-type Primitive = string | number | boolean | null | undefined;
-
-function unique<T extends Primitive>(array: readonly T[]): T[] {
-    return [...new Set(array)];
-}
-
 function dedent(s: string): string {
     return s
         .trimStart()
@@ -51,12 +45,16 @@ class Catalog {
 
     minimumVersionOf(packageName: string): string {
         if (!this.has(packageName)) {
-            throw new Error(`Can't get min version of '${packageName}'; package is not in the catalog`)
+            throw new Error(
+                `Can't get min version of '${packageName}'; package is not in the catalog`,
+            );
         }
-        const versionRange = this.packages[packageName]
+        const versionRange = this.packages[packageName];
         const minVersion = semver.minVersion(versionRange)?.version;
         if (!minVersion) {
-            throw new Error(`Can't get min version of '${packageName}'; version range '${versionRange}' has no minimum`)
+            throw new Error(
+                `Can't get min version of '${packageName}'; version range '${versionRange}' has no minimum`,
+            );
         }
         return minVersion;
     }
@@ -95,7 +93,8 @@ function main(argv: string[]) {
             // a peer dep, it's not safe to deploy Perseus!
             continue;
         }
-        ourWorkspace.catalogs.peerDeps[pkgName] = `^${clientCatalog.minimumVersionOf(pkgName)}`;
+        ourWorkspace.catalogs.peerDeps[pkgName] =
+            `^${clientCatalog.minimumVersionOf(pkgName)}`;
     }
 
     // In development, install the minimum version of each package
@@ -106,7 +105,8 @@ function main(argv: string[]) {
         if (!clientCatalog.has(pkgName)) {
             continue;
         }
-        ourWorkspace.catalogs.devDeps[pkgName] = clientCatalog.minimumVersionOf(pkgName);
+        ourWorkspace.catalogs.devDeps[pkgName] =
+            clientCatalog.minimumVersionOf(pkgName);
     }
 
     const comment = dedent(`
