@@ -1,14 +1,13 @@
 #!/usr/bin/env -S node -r @swc-node/register
 /**
  * A script that syncs the version of all Wonder Blocks and Wonder Stuff
- * packages in this repo using the given `package.json` file as a reference.
+ * packages in this repo using the given `pnpm-workspace.yaml` file as a reference.
  * This helps with the task of keeping Perseus' peer dependencies in line with
  * the khan/frontend host application.
  */
 
 import {spawnSync} from "node:child_process";
 import fs from "node:fs";
-import {dirname, join} from "node:path";
 
 import semver from "semver";
 import invariant from "tiny-invariant";
@@ -22,56 +21,12 @@ function printHelp() {
     packages. These dependencies are managed as a unit within a pnpm catalog
     (http://pnpm.io/catalogs). See the 'pnpm-workspace.yaml' file in this repo.
 
-    This tool expects to be provided with a path to a package.json that defines
-    the version of each of Perseus' peer and dev dependencies. Typically, this
-    would be the package.json file from the hosting web application
-    (ie. khan/frontend).
+    This tool expects to be provided with a path to a client
+    pnpm-workspace.yaml that defines the version of each of Perseus' peer and
+    dev dependencies. Typically, this would be the pnpm-workspace.yaml file
+    from the hosting web application (ie. khan/frontend).
 `);
-    console.log("usage: sync-dependencies <package.json>");
-}
-
-// Package version regexes that we don't want to sync in
-const RestrictedPackageVersions = [
-    /^link:.*/,
-    // We don't use hot-loader/react-dom in Perseus. It's basically
-    // identical to 'react-dom' with just a few patches for webpack and we
-    // don't use webpack.
-    /hot-loader\/react-dom/,
-    // Our pnpm workspace can't reference itself (I don't think)
-    // TODO(LEMS-2903): figure out a way to sync peer deps that are
-    // set to "workspace:*" in khan/frontend's package.json
-    /workspace/,
-];
-
-type PackageJson = {
-    dependencies: Record<string, string>;
-};
-
-type PnpmWorkspace = {
-    catalog: Record<string, string>;
-};
-
-function resolveVersionRangesFromCatalog(
-    packageJson: PackageJson,
-    workspace: PnpmWorkspace,
-): Record<string, string> {
-    return Object.fromEntries(
-        Object.entries(packageJson.dependencies)
-            .filter(([_, pkgVersion]) => {
-                // Eliminate packages whose version we don't/can't use.
-                return !RestrictedPackageVersions.some((r) =>
-                    r.test(pkgVersion),
-                );
-            })
-            .map(([pkgName, pkgVersion]) => {
-                const resolvedVersion =
-                    pkgVersion === "catalog:"
-                        ? workspace.catalog[pkgName]
-                        : pkgVersion;
-
-                return [pkgName, resolvedVersion];
-            }),
-    );
+    console.log("usage: sync-dependencies <pnpm-workspace.yaml>");
 }
 
 type Primitive = string | number | boolean | null | undefined;
@@ -97,52 +52,51 @@ function main(argv: string[]) {
         printHelp();
         process.exit(1);
     }
-    const clientPackageJsonPath = args[0];
-    const clientWorkspaceYamlPath = join(
-        dirname(clientPackageJsonPath),
-        "pnpm-workspace.yaml",
-    );
+    const clientPnpmWorkspaceYamlPath = args[0];
 
     const clientWorkspace = yaml.parse(
-        fs.readFileSync(clientWorkspaceYamlPath, "utf-8"),
+        fs.readFileSync(clientPnpmWorkspaceYamlPath, "utf-8"),
     );
 
-    const clientPackageJson = JSON.parse(
-        fs.readFileSync(clientPackageJsonPath, "utf-8"),
-    );
+    const clientCatalog = clientWorkspace.catalog;
 
     const ourWorkspace = yaml.parse(
         fs.readFileSync("pnpm-workspace.yaml", "utf-8"),
     );
 
-    const packageNamesInRepo = unique(
-        Object.values(ourWorkspace.catalogs).flatMap((packages) => {
-            invariant(
-                packages != null,
-                "catalogs contained a nullish value; expected an object",
-            );
-            return Object.keys(packages);
-        }),
-    );
+    const ourPeerDeps: string[] = Object.keys(ourWorkspace.catalogs.peerDeps);
+    const ourDevDeps: string[] = Object.keys(ourWorkspace.catalogs.devDeps);
 
     // Dependency ranges used by the consumer of Perseus (like khan/frontend)
-    const clientVersionRanges = resolveVersionRangesFromCatalog(
-        clientPackageJson,
-        clientWorkspace,
-    );
-
-    for (const pkgName of packageNamesInRepo) {
-        if (!(pkgName in clientVersionRanges)) {
+    for (const pkgName of ourPeerDeps) {
+        if (!(pkgName in clientCatalog)) {
             continue;
         }
-        const minVersion = semver.minVersion(
-            clientVersionRanges[pkgName],
-        )?.version;
+        const versionRange = clientCatalog[pkgName];
+        const minVersion = semver.minVersion(versionRange)?.version;
         if (!minVersion) {
             throw new Error(
                 `Package ${pkgName} does not have a min version!\n\n` +
-                    `Listed range is ${clientVersionRanges[pkgName]}\n\n` +
+                    `Listed range is ${versionRange}\n\n` +
                     "We don't know what dev dependency to install!",
+            );
+        }
+        // In our peer dependencies, declare that Perseus will work with any
+        // package version compatible with the one we install in dev.
+        ourWorkspace.catalogs.peerDeps[pkgName] = `^${minVersion}`;
+    }
+    
+    for (const pkgName of ourDevDeps) {
+        if (!(pkgName in clientCatalog)) {
+            continue;
+        }
+        const versionRange = clientCatalog[pkgName];
+        const minVersion = semver.minVersion(versionRange)?.version;
+        if (!minVersion) {
+            throw new Error(
+                `Package ${pkgName} does not have a min version!\n\n` +
+                `Listed range is ${versionRange}\n\n` +
+                "We don't know what dev dependency to install!",
             );
         }
         // In development, install the minimum version of each package
@@ -150,18 +104,13 @@ function main(argv: string[]) {
         // accidentally depend on features of the package added after that
         // version.
         ourWorkspace.catalogs.devDeps[pkgName] = minVersion;
-        // In our peer dependencies, declare that Perseus will work with any
-        // package version compatible with the one we install in dev.
-        ourWorkspace.catalogs.peerDeps[pkgName] = `^${minVersion}`;
     }
 
-    // TODO(LEMS-3169): update the path to services/static/package.json to the
-    // new location, once the frontend moves to its own repo.
     const comment = dedent(`
         # NOTE: The \`devDeps\` and \`peerDeps\` catalogs in this file are
-        # generated from khan/frontend's package.json. To update them, run:
+        # generated from khan/frontend's pnpm-workspace.yaml. To update them, run:
         #
-        #     utils/sync-dependencies.ts ../frontend/package.json
+        #     utils/sync-dependencies.ts ../frontend/pnpm-workspace.yaml
         #
         # We have two separate catalogs for dev deps and peer deps to ensure
         # that:
