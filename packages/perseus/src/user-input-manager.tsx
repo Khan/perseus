@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 
 import {getWidgetTypeByWidgetId} from "./widget-type-utils";
 import * as Widgets from "./widgets";
@@ -105,18 +105,9 @@ export function sharedRestoreUserInputFromSerializedState(
  * widgets can managing fetching/updating their own state via hooks.
  */
 export default function UserInputManager(props: Props) {
-    const [initialized, setInitialized] = useState<boolean>(false);
-    const [userInput, setUserInput] = useState<UserInputMap>({});
-
-    useEffect(() => {
-        setInitialized(false);
-    }, [props.problemNum]);
-
-    useEffect(() => {
-        if (!initialized) {
-            initializeUserInput(props.widgets, props.problemNum ?? 0);
-        }
-    }, [initialized, props.widgets, props.problemNum]);
+    const [userInput, setUserInput] = useState<UserInputMap>(
+        sharedInitializeUserInput(props.widgets, props.problemNum ?? 0),
+    );
 
     /**
      * Update userInput state by merging existing full UserInput
@@ -139,7 +130,6 @@ export default function UserInputManager(props: Props) {
         problemNum: number,
     ) {
         setUserInput(sharedInitializeUserInput(widgetOptions, problemNum));
-        setInitialized(true);
     }
 
     /**
@@ -155,10 +145,6 @@ export default function UserInputManager(props: Props) {
                 widgetOptions,
             ),
         );
-    }
-
-    if (!initialized) {
-        return null;
     }
 
     return props.children({
