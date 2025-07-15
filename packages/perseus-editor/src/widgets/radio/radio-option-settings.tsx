@@ -1,14 +1,14 @@
-import Button from "@khanacademy/wonder-blocks-button";
 import {TextArea} from "@khanacademy/wonder-blocks-form";
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
-import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import * as React from "react";
 
 import styles from "./radio-editor.module.css";
+import {RadioOptionSettingsActions} from "./radio-option-settings-actions";
 import {RadioStatusPill} from "./radio-status-pill";
 
+import type {ChoiceMovementType} from "./radio-option-settings-actions";
 import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
 
 interface RadioOptionSettingsProps {
@@ -19,7 +19,9 @@ interface RadioOptionSettingsProps {
     onContentChange: (choiceIndex: number, content: string) => void;
     onRationaleChange: (choiceIndex: number, rationale: string) => void;
     showDelete: boolean;
+    showMove: boolean;
     onDelete: () => void;
+    onMove: (choiceIndex: number, movement: ChoiceMovementType) => void;
 }
 
 export function RadioOptionSettings({
@@ -30,7 +32,9 @@ export function RadioOptionSettings({
     onContentChange,
     onRationaleChange,
     showDelete,
+    showMove,
     onDelete,
+    onMove,
 }: RadioOptionSettingsProps) {
     const {content, rationale, correct, isNoneOfTheAbove} = choice;
 
@@ -116,27 +120,14 @@ export function RadioOptionSettings({
                 />
             </HeadingXSmall>
 
-            {/* Delete button */}
-            {showDelete && (
-                <Button
-                    size="small"
-                    kind="tertiary"
-                    startIcon={trashIcon}
-                    onClick={() => {
-                        if (
-                            // eslint-disable-next-line no-alert
-                            window.confirm(
-                                `Are you sure you want to remove this choice? \n\n${content}`,
-                            )
-                        ) {
-                            onDelete();
-                        }
-                    }}
-                    style={{alignSelf: "flex-start"}}
-                >
-                    Remove
-                </Button>
-            )}
+            {/* Delete & reorder button */}
+            <RadioOptionSettingsActions
+                content={content}
+                showDelete={showDelete}
+                showMove={showMove}
+                onDelete={onDelete}
+                onMove={(movement) => onMove(index, movement)}
+            />
         </div>
     );
 }
