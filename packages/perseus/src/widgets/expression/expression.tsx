@@ -270,10 +270,6 @@ export class Expression extends React.Component<Props> implements Widget {
             );
         }
 
-        const className = classNames({
-            "perseus-widget-expression": true,
-        });
-
         return (
             <View className={css(styles.desktopLabelInputWrapper)}>
                 {!!this.props.visibleLabel && (

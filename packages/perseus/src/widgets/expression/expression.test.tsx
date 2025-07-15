@@ -103,6 +103,26 @@ const assertInvalid = async (
     expect(score).toHaveInvalidInput();
 };
 
+const assertValid = async (
+    userEvent: ReturnType<(typeof userEventLib)["setup"]>,
+    itemData: PerseusItem,
+    input: string,
+    message?: string,
+) => {
+    jest.useFakeTimers();
+    const {renderer} = renderQuestion(itemData.question);
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (input.length) {
+        await userEvent.type(screen.getByRole("textbox"), input);
+    }
+    act(() => jest.runOnlyPendingTimers());
+    const score = scorePerseusItemTesting(
+        itemData.question,
+        renderer.getUserInputMap(),
+    );
+    expect(score).not.toHaveInvalidInput();
+};
+
 describe("Expression Widget", function () {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -124,8 +144,16 @@ describe("Expression Widget", function () {
             await assertInvalid(userEvent, expressionItem2, "+++");
         });
 
+        it("should not grade  ampersands that do not parse", async () => {
+            await assertInvalid(userEvent, expressionItem2, "x&&&&&^1");
+        });
+
         it("should not grade a thing that is empty", async () => {
             await assertInvalid(userEvent, expressionItem2, "");
+        });
+
+        it("should grade a portugese sen", async () => {
+            await assertValid(userEvent, expressionItem2, "sen(x)");
         });
     });
 
