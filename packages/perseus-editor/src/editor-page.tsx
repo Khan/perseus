@@ -36,8 +36,6 @@ type Props = {
     contentPaths?: ReadonlyArray<string>;
     /** "Power user" mode. Shows the raw JSON of the question. */
     developerMode: boolean;
-    /** Source HTML for the iframe to render */
-    frameSource: string;
     hints?: ReadonlyArray<Hint>; // related to the question,
     /** A function which takes a file object (guaranteed to be an image) and
      * a callback, then calls the callback with the url where the image
