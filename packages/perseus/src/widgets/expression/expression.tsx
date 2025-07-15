@@ -4,7 +4,6 @@ import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {css, StyleSheet} from "aphrodite";
-import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
