@@ -274,6 +274,7 @@ jobs:
               id: check_for_schema_change
               run: |
                   set -x
+                  set +e
                   DELIM=$(uuidgen)
                   echo "SCHEMA_DIFF<<$DELIM" >> "$GITHUB_OUTPUT"
                   diff ${{ runner.temp }}/schema-pr.d.ts ${{ runner.temp }}/schema-base.d.ts >> "$GITHUB_OUTPUT"
