@@ -24,6 +24,7 @@ import AxisLabels from "./backgrounds/axis-labels";
 import {AxisTicks} from "./backgrounds/axis-ticks";
 import {Grid} from "./backgrounds/grid";
 import {LegacyGrid} from "./backgrounds/legacy-grid";
+import {getLabelPosition} from "./backgrounds/utils";
 import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
 import GraphLockedLayer from "./graph-locked-layer";
 import {renderAngleGraph} from "./graphs/angle";
@@ -55,6 +56,7 @@ import type {
     PointGraphState,
     PolygonGraphState,
     InteractiveGraphElementSuite,
+    GraphDimensions,
 } from "./types";
 import type {I18nContextType} from "../../components/i18n-context";
 import type {PerseusStrings} from "../../strings";
@@ -157,6 +159,25 @@ export const MafsGraph = (props: MafsGraphProps) => {
 
     const disableInteraction = readOnly || !!props.static;
 
+    const graphInfo: GraphDimensions = {
+        range: state.range,
+        width,
+        height,
+    };
+
+    const [xAxisLabelLocation, yAxisLabelLocation] = getLabelPosition(
+        graphInfo,
+        labelLocation,
+        tickStep,
+    );
+
+    // -17.5 is the standard margin on the graphs with alongEdge labels.
+    // There is a very specific range of values for which the label needs a
+    // different offset to avoid overlapping with the tick labels. We have to
+    // compensate for this specific case.
+    const needsExtraMargin =
+        labelLocation === "alongEdge" && yAxisLabelLocation[0] < -17.5;
+
     return (
         <GraphConfigContext.Provider
             value={{
@@ -188,7 +209,11 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         position: "relative",
                         padding: "25px 25px 0 0",
                         boxSizing: "content-box",
-                        marginLeft: "20px",
+                        // Move the graph over by the label offset so that
+                        // the label is visible
+                        marginLeft: needsExtraMargin
+                            ? `${-1 * yAxisLabelLocation[X]}px`
+                            : "20px",
                         marginBottom: "30px",
                         pointerEvents: props.static ? "none" : "auto",
                         userSelect: "none",
@@ -266,7 +291,11 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         {(props.markings === "graph" ||
                             props.markings === "axes") && (
                             <>
-                                <AxisLabels i18n={i18n} />
+                                <AxisLabels
+                                    i18n={i18n}
+                                    xAxisLabelLocation={xAxisLabelLocation}
+                                    yAxisLabelLocation={yAxisLabelLocation}
+                                />
                             </>
                         )}
                         <View
