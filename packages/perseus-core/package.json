@@ -15,6 +15,9 @@
     "bugs": {
         "url": "https://github.com/Khan/perseus/issues"
     },
+    "module": "dist/es/index.js",
+    "main": "dist/index.js",
+    "source": "src/index.ts",
     "exports": {
       ".": {
           "import": "./dist/es/index.js",
