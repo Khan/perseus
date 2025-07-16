@@ -347,7 +347,21 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 height={height}
                             >
                                 {/* Intearctive Elements are nested in an SVG to lock them to graph bounds */}
-                                <svg {...nestedSVGAttributes}>
+                                <svg
+                                    {...nestedSVGAttributes}
+                                    style={{
+                                        // We want to allow points to be directly
+                                        // on the edge of the graph, so we need to
+                                        // set overflow to visible. For other
+                                        // graphs, we want to hide the overflow
+                                        // so that the graph can't go way off
+                                        // the edge.
+                                        overflow:
+                                            type === "point"
+                                                ? "visible"
+                                                : "hidden",
+                                    }}
+                                >
                                     {/* Protractor */}
                                     {props.showProtractor && <Protractor />}
                                     {/* Interactive layer */}
