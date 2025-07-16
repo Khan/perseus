@@ -6,8 +6,7 @@ import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import {EditorPage} from "../../index";
-import {interactiveGraphQuestionBuilder} from "@khanacademy/perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
+import {interactiveGraphQuestionBuilder} from "../../../../perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
 import {
     angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
@@ -18,16 +17,16 @@ import {
     polygonWithStartingCoordsQuestion,
     quadraticWithStartingCoordsQuestion,
     rayWithStartingCoordsQuestion,
+    segmentsWithStartingCoordsQuestion,
     segmentWithLockedFigures,
     segmentWithStartingCoordsQuestion,
-    segmentsWithStartingCoordsQuestion,
     sinusoidMinimalQuestion,
     sinusoidWithStartingCoordsAndPiTicksQuestion,
     unlimitedPolygonWithCorrectAnswerQuestion,
-} from "@khanacademy/perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
+} from "../../../../perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {EditorPage} from "../../index";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
-
-import EditorPageWithStorybookPreview from "../../__stories__/editor-page-with-storybook-preview";
 
 import type {DeviceType} from "@khanacademy/perseus";
 import type {

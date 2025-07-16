@@ -1,4 +1,4 @@
-import { Meta } from '@storybook/addon-docs/blocks';
+import {Meta} from "@storybook/addon-docs/blocks";
 
 <Meta title="Introduction" />
 
@@ -23,15 +23,16 @@ These capabilities make Perseus ideal for creating interactive educational conte
 
 Perseus content is written in an extended Markdown syntax that includes:
 
-- Standard Markdown formatting (headings, lists, links, etc.)
-- Math expressions enclosed in dollar signs: `$y = mx + b$`
-- Widgets using the syntax: `[[☃ widget-type 1]]`, where each widget has a unique ID
+-   Standard Markdown formatting (headings, lists, links, etc.)
+-   Math expressions enclosed in dollar signs: `$y = mx + b$`
+-   Widgets using the syntax: `[[☃ widget-type 1]]`, where each widget has a unique ID
 
 When a learner interacts with widgets (such as answering questions), Perseus can:
-- Validate answers against expected solutions
-- Provide feedback and hints
-- Track progress through exercises
-- Support a variety of input methods
+
+-   Validate answers against expected solutions
+-   Provide feedback and hints
+-   Track progress through exercises
+-   Support a variety of input methods
 
 ## Core Components
 
@@ -41,18 +42,18 @@ Perseus consists of four main components:
 
 Renderers are responsible for displaying Perseus content. The three primary renderers are:
 
-- **ServerItemRenderer**: The main exercise renderer that handles question content, hint management, and keypad display
-- **ArticleRenderer**: Renders long-form, read-only content, with support for embedded "knowledge checks"
-- **Renderer**: The core rendering engine that manages widgets and math content display
+-   **ServerItemRenderer**: The main exercise renderer that handles question content, hint management, and keypad display
+-   **ArticleRenderer**: Renders long-form, read-only content, with support for embedded "knowledge checks"
+-   **Renderer**: The core rendering engine that manages widgets and math content display
 
 ### 2. Widgets
 
 Widgets are self-contained React components that provide interactive functionality beyond standard Markdown. They can:
 
-- Appear within articles and exercises (in questions and hints)
-- Be nested within other widgets (e.g., the "graded-group" widget)
-- Handle various input types (multiple-choice, graphing, numeric input, etc.)
-- Validate and score user responses
+-   Appear within articles and exercises (in questions and hints)
+-   Be nested within other widgets (e.g., the "graded-group" widget)
+-   Handle various input types (multiple-choice, graphing, numeric input, etc.)
+-   Validate and score user responses
 
 See our widgets in action in the [Test Everything](https://www.khanacademy.org/internal-courses/test-everything) course.
 
@@ -60,9 +61,9 @@ See our widgets in action in the [Test Everything](https://www.khanacademy.org/i
 
 Editors provide the interface for content creators to:
 
-- Add/Edit Perseus content
-- Configure widget settings
-- Preview content as it will appear to learners
+-   Add/Edit Perseus content
+-   Configure widget settings
+-   Preview content as it will appear to learners
 
 Each widget type has its own specialized editor component.
 
@@ -70,8 +71,8 @@ Each widget type has its own specialized editor component.
 
 As part of the editing experience, preview frames allow content creators to see how their content will look when published:
 
-- **Side-by-side view**: Shows both the content source and rendered output
-- **Full preview**: Displays only the rendered content as it will appear to users
+-   **Side-by-side view**: Shows both the content source and rendered output
+-   **Full preview**: Displays only the rendered content as it will appear to users
 
 ## Data Flow
 
@@ -86,6 +87,6 @@ Perseus follows a straightforward data flow:
 
 The best way to understand Perseus is to explore the components in this Storybook. You can:
 
-- Browse the Widget Gallery to see the available widgets
-- Read the renderer documentation
-- Browse the available reusable components
+-   Browse the Widget Gallery to see the available widgets
+-   Read the renderer documentation
+-   Browse the available reusable components

@@ -49,9 +49,9 @@ const config: StorybookConfig = {
     // https://www.npmjs.com/package/@storybook/builder-vite#customize-vite-config
     framework: "@storybook/react-vite",
 
-    // NOTE(kevinb): We customize the padding a bit so that so that stories
-    // using the on-screen keypad render correctly.  Storybook adds its own
-    // padding as a class to <body> so we use !important to override that.
+    // NOTE(kevinb): We customize the padding a bit so that stories using the
+    // on-screen keypad render correctly.  Storybook adds its own padding
+    // as a class to <body> so we use !important to override that.
     // NOTE(jandrade): We also need to set the font size to 62.5% so that the
     // font size is consistent with the rest of the codebase. This is because
     // all Khan frontends now use rems as the default unit for measurements, and
