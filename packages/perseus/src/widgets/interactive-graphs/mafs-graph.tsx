@@ -24,7 +24,11 @@ import AxisLabels from "./backgrounds/axis-labels";
 import {AxisTicks} from "./backgrounds/axis-ticks";
 import {Grid} from "./backgrounds/grid";
 import {LegacyGrid} from "./backgrounds/legacy-grid";
-import {getLabelPosition} from "./backgrounds/utils";
+import {
+    fontSize,
+    fontSizeYAxisLabelMultiplier,
+    getLabelPosition,
+} from "./backgrounds/utils";
 import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
 import GraphLockedLayer from "./graph-locked-layer";
 import {renderAngleGraph} from "./graphs/angle";
@@ -64,6 +68,8 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
+
+const GRAPH_LEFT_MARGIN = 20;
 
 export type MafsGraphProps = {
     box: [number, number];
@@ -171,20 +177,27 @@ export const MafsGraph = (props: MafsGraphProps) => {
         tickStep,
     );
 
-    // -17.5 is the standard label offset on the graphs with alongEdge labels.
+    // (-fontSize * fontSizeYAxisLabelMultiplier) is the standard label offset
+    // on the graphs with alongEdge labels. fontSize is currently assumed to be
+    // 14px.
     // There is a very specific range of values for which the label needs a
     // different offset to avoid overlapping with the tick labels. We have to
     // compensate for this specific case.
     const needsExtraMargin =
-        labelLocation === "alongEdge" && yAxisLabelLocation[0] < -17.5;
+        labelLocation === "alongEdge" &&
+        yAxisLabelLocation[0] < -fontSize * fontSizeYAxisLabelMultiplier;
+
+    // marginLabelDiff is currently 2.5px (20px - (14px * 1.25) = 2.5px)
+    const marginLabelDiff =
+        GRAPH_LEFT_MARGIN - fontSize * fontSizeYAxisLabelMultiplier;
 
     // If the graph needs the extra margin, this is the offset.
     // yAxisLabelLocation[X] is how far off the edge of the graph the label is.
     // We want to move the graph over by the same amount so that the label is
-    // visible, which is why we multiply by -1. The 2.5 is to make sure the
-    // label stays in the exact same position as the standard margin, which
-    // is 20px margin minus the 17.5px standard label offset = 2.5px.
-    const extraMarginOffset = -1 * (yAxisLabelLocation[X] - 2.5);
+    // visible, which is why we multiply by -1. The marginLabelDiff is to make
+    // sure the label stays in the exact same position as the standard margin.
+    const marginWithExtraOffset =
+        -1 * (yAxisLabelLocation[X] - marginLabelDiff);
 
     return (
         <GraphConfigContext.Provider
@@ -220,8 +233,8 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         // Move the graph over by the label offset so that
                         // the label is visible
                         marginLeft: needsExtraMargin
-                            ? `${extraMarginOffset}px`
-                            : "20px",
+                            ? `${marginWithExtraOffset}px`
+                            : `${GRAPH_LEFT_MARGIN}px`,
                         marginBottom: "30px",
                         pointerEvents: props.static ? "none" : "auto",
                         userSelect: "none",
