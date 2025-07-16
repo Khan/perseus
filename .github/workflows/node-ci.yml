@@ -274,8 +274,11 @@ jobs:
               id: check_for_schema_change
               run: |
                   echo 'SCHEMA_DIFF<<EOF' >> "$GITHUB_OUTPUT"
-                  diff ${{ runner.temp }}/schema-pr.d.ts ${{ runner.temp }}/schema-base.d.ts | tee -a "$GITHUB_OUTPUT"
+                  diff ${{ runner.temp }}/schema-pr.d.ts ${{ runner.temp }}/schema-base.d.ts >> "$GITHUB_OUTPUT"
+                  DIFF_EXIT_CODE=$? # Capture the exit code of diff
                   echo EOF >> "$GITHUB_OUTPUT"
+
+                  exit "$DIFF_EXIT_CODE"
 
             - name: Schema Changed! Add schema-change label to PR
               if: steps.check_for_schema_change.outcome == 'failure'
