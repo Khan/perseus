@@ -273,11 +273,11 @@ jobs:
             - name: Check for Schema Change
               id: check_for_schema_change
               run: |
-                  set -x
-                  set +e
+                  # We generate a random DELIMeter so that the existence of the
+                  # delimeter in the diff output doesn't cause problems.
                   DELIM=$(uuidgen)
                   echo "SCHEMA_DIFF<<$DELIM" >> "$GITHUB_OUTPUT"
-                  diff ${{ runner.temp }}/schema-pr.d.ts ${{ runner.temp }}/schema-base.d.ts >> "$GITHUB_OUTPUT"
+                  diff -C 3 ${{ runner.temp }}/schema-pr.d.ts ${{ runner.temp }}/schema-base.d.ts >> "$GITHUB_OUTPUT"
                   DIFF_EXIT_CODE=$? # Capture the exit code of diff
                   echo "$DELIM" >> "$GITHUB_OUTPUT"
 
