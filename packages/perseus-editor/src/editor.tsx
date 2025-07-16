@@ -203,8 +203,14 @@ class Editor extends React.Component<Props, State> {
     // TODO(arun): This is a deprecated method, use the appropriate replacement
     // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
+        // this function matters for adding images to the editor
+
+        // when images are added, the editor is never focused (the image button is)
         const textAreaHasFocus =
             this.textarea.current === document.activeElement;
+        /* because of the debounce in _handleChange, we do not want to set state
+        every time the component receives props because that causes data to get lost
+        */
         if (!textAreaHasFocus && this.props.content !== nextProps.content) {
             this.setState({textAreaValue: nextProps.content});
         }
