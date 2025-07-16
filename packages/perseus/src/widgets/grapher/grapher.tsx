@@ -644,6 +644,12 @@ function getStartUserInput(
     return DEFAULT_GRAPHER_PROPS.plot;
 }
 
+function getCorrectUserInput(
+    options: PerseusGrapherWidgetOptions,
+): PerseusGrapherUserInput {
+    return options.correct;
+}
+
 0 as any as WidgetProps<
     PerseusGrapherWidgetOptions,
     PerseusGrapherUserInput
@@ -663,4 +669,5 @@ export default {
     staticTransform,
     getUserInputFromSerializedState,
     getStartUserInput,
+    getCorrectUserInput,
 } satisfies WidgetExports<typeof Grapher>;
