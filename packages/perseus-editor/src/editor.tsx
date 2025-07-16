@@ -448,10 +448,9 @@ class Editor extends React.Component<Props, State> {
         this.setState({textAreaValue: e.currentTarget.value});
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
-        const textAreaValue = this.state.textAreaValue;
         this.deferredChange = setTimeout(() => {
             if (this.state.textAreaValue !== this.props.content) {
-                this.props.onChange({content: textAreaValue});
+                this.props.onChange({content: this.state.textAreaValue});
             }
         }, this.props.apiOptions.editorChangeDelay);
     };
