@@ -203,7 +203,9 @@ class Editor extends React.Component<Props, State> {
     // TODO(arun): This is a deprecated method, use the appropriate replacement
     // eslint-disable-next-line react/no-unsafe
     UNSAFE_componentWillReceiveProps(nextProps: Props) {
-        if (this.props.content !== nextProps.content) {
+        const textAreaHasFocus =
+            this.textarea.current === document.activeElement;
+        if (!textAreaHasFocus && this.props.content !== nextProps.content) {
             this.setState({textAreaValue: nextProps.content});
         }
     }
