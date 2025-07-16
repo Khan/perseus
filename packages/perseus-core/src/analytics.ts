@@ -26,15 +26,6 @@ export type PerseusAnalyticsEvent =
               userAgent: string;
           };
       }
-    // TODO(LEMS-2827): Remove this error type in LEMS-2827
-    | {
-          type: "perseus:interactive-graph-widget:rendered";
-          payload: {
-              type: string;
-              widgetType: string;
-              widgetId: string;
-          };
-      }
     | {
           type: "perseus:widget:rendered:ti";
           payload: {
