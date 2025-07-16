@@ -20,17 +20,30 @@ export default meta;
 type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
 export const Question1: Story = {
-    args: {item: generateTestPerseusItem({question: question1})},
+    args: {
+        item: generateTestPerseusItem({question: question1}),
+    },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
+    },
 };
 
 export const Question2: Story = {
-    args: {item: generateTestPerseusItem({question: question2})},
+    args: {
+        item: generateTestPerseusItem({question: question2}),
+    },
 };
 
 export const IpsumExample: Story = {
-    args: {item: generateTestPerseusItem({question: ipsumExample})},
+    args: {
+        item: generateTestPerseusItem({question: ipsumExample}),
+    },
 };
 
 export const WideButton: Story = {
-    args: {item: generateTestPerseusItem({question: wideButton})},
+    args: {
+        item: generateTestPerseusItem({question: wideButton}),
+    },
 };

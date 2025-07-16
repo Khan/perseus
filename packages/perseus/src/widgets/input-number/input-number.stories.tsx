@@ -9,9 +9,11 @@ import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-
 import {getAnswerfulItem} from "../../util/test-utils";
 
 import {question1, question2, question3} from "./input-number.testdata";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-export default {
+const meta: Meta = {
     title: "Widgets/InputNumber",
+    component: ServerItemRendererWithDebugUI,
     argTypes: {
         maxError: {
             control: {
@@ -56,6 +58,9 @@ export default {
         },
     },
 };
+export default meta;
+
+type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
 type Question = PerseusRenderer;
 type InputNumberOptions = PerseusInputNumberWidgetOptions;
@@ -89,6 +94,9 @@ export const Rational = (args: InputNumberOptions): React.ReactElement => {
     );
 };
 Rational.args = question1.widgets["input-number 1"].options;
+Rational.parameters = {
+    docs: {disable: false}, // This specific story will be shown in autodocs as the default story
+};
 
 export const PiSimplify = (args: InputNumberOptions): React.ReactElement => {
     const question = updateWidgetOptions(question2, "input-number 1", args);

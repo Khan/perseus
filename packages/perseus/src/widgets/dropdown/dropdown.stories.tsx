@@ -21,15 +21,26 @@ export default meta;
 type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
 export const BasicDropdown: Story = {
-    args: {item: generateTestPerseusItem({question: basicDropdown})},
+    args: {
+        item: generateTestPerseusItem({question: basicDropdown}),
+    },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
+    },
 };
 
 export const DropdownWithMath: Story = {
-    args: {item: generateTestPerseusItem({question: dropdownWithMath})},
+    args: {
+        item: generateTestPerseusItem({question: dropdownWithMath}),
+    },
 };
 
 export const DropdownWithVisibleLabel: Story = {
-    args: {item: generateTestPerseusItem({question: dropdownWithVisibleLabel})},
+    args: {
+        item: generateTestPerseusItem({question: dropdownWithVisibleLabel}),
+    },
 };
 
 export const InlineDropdownWithVisibleLabel: Story = {
@@ -42,17 +53,13 @@ export const InlineDropdownWithVisibleLabel: Story = {
 
 export const DropdownWithEmptyPlaceholder: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: dropdownWithEmptyPlaceholder,
-        }),
+        item: generateTestPerseusItem({question: dropdownWithEmptyPlaceholder}),
     },
 };
 
 export const AnswerlessBasicDropdown: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: basicDropdown,
-        }),
+        item: generateTestPerseusItem({question: basicDropdown}),
         startAnswerless: true,
     },
 };

@@ -100,6 +100,11 @@ export const SingleSelect = {
             question: questionWithPassage,
         }),
     },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
+    },
 };
 
 export const SelectWithImages = {

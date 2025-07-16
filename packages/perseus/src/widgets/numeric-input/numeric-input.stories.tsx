@@ -203,6 +203,7 @@ Default.parameters = {
         description: {
             story: "The default Numeric Input widget.",
         },
+        disable: false, // This specific story will be shown in autodocs as the default story
     },
 };
 

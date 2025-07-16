@@ -31,4 +31,9 @@ export const Default: Story = {
             isMobileApp: false,
         },
     },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
+    },
 };

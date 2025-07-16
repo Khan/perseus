@@ -51,6 +51,11 @@ export const ExpressionItem2: Story = {
     args: {
         item: expressionItem2,
     },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
+    },
 };
 
 export const ExpressionItem3: Story = {

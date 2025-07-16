@@ -33,4 +33,9 @@ export const Question1: Story = {
     args: {
         item: generateTestPerseusItem({question: question1}),
     },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
+    },
 };

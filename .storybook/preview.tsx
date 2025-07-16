@@ -113,6 +113,8 @@ const preview: Preview = {
         },
         docs: {
             toc: true,
+            // This hides stories from autodocs by default, set to true in specific stories to show them
+            disable: true,
         },
     },
     tags: [

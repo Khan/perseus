@@ -77,7 +77,14 @@ const article = {
 } as const;
 
 export const Exercise: Story = {
-    args: {item: generateTestPerseusItem({question})},
+    args: {
+        item: generateTestPerseusItem({question}),
+    },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
+    },
 };
 
 export const Article = (): React.ReactNode => {

@@ -47,7 +47,7 @@ export const Angle: Story = {
     },
     parameters: {
         docs: {
-            disable: false, // This specific story will be shown in autodocs as default story
+            disable: false, // This specific story will be shown in autodocs as the default story
         },
     },
 };

@@ -19,6 +19,11 @@ export const Article1: Story = {
     args: {
         json: article1,
     },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
+    },
 };
 
 export const GroupSetRadioQuestion: Story = {

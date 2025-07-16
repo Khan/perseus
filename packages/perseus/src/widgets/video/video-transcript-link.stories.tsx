@@ -10,6 +10,11 @@ type Story = {
 
 export default {
     title: "Widgets/Video/Video Transcript Link",
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
+    },
 } as Story;
 
 export const YoutubeVideoLink = (args: StoryArgs): React.ReactElement => {

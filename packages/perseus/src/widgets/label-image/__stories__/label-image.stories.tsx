@@ -57,6 +57,11 @@ export const LabelWidgetWithText = (args: StoryArgs): React.ReactElement => {
         />
     );
 };
+LabelWidgetWithText.parameters = {
+    docs: {
+        disable: false, // This specific story will be shown in autodocs as the default story
+    },
+};
 
 export const LabelWidgetWithLongText = (
     args: StoryArgs,

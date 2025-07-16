@@ -25,6 +25,11 @@ export const AnswerfulTable: Story = {
     args: {
         item: tableItem,
     },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
+    },
 };
 
 export const AnswerlessTable: Story = {

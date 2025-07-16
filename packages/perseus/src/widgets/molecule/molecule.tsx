@@ -27,6 +27,7 @@ type Props = {
     rotationAngle: PerseusMoleculeRendererWidgetOptions["rotationAngle"];
 };
 
+// TODO: Add documentation for the Molecule widget
 class Molecule extends React.Component<Props, MoleculeState> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;

@@ -22,6 +22,9 @@ const meta: Meta<typeof MafsQuestionRenderer> = {
     component: MafsQuestionRenderer,
     parameters: {
         chromatic: {disableSnapshot: false},
+        // Since by default, we don't show all stories in autodocs; this will show
+        // all stories in autodocs only for Interactive Graph Visual Regression Tests
+        docs: {disable: false},
     },
     decorators: (Story) => (
         // Add margin so we can look at individual story canvases for

@@ -17,6 +17,11 @@ export const Primary: Story = {
         placeholder: "Enter your answer here",
         question: "What is the theme of the essay?",
     },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
+    },
 };
 
 export const CharacterLimit: Story = {
