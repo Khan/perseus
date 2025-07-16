@@ -273,7 +273,7 @@ jobs:
             - name: Check for Schema Change
               id: check_for_schema_change
               run: |
-                  # So a non-zero exit code from 'diff' doesn't bail this step
+                  # So a non-zero exit code from 'diff' doesn't bail this step.
                   set +e
                   # We generate a random DELIMeter so that the existence of the
                   # delimeter in the diff output doesn't cause problems.
