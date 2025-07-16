@@ -200,6 +200,14 @@ class Editor extends React.Component<Props, State> {
             .on("paste", this._maybePasteWidgets);
     }
 
+    // TODO(arun): This is a deprecated method, use the appropriate replacement
+    // eslint-disable-next-line react/no-unsafe
+    UNSAFE_componentWillReceiveProps(nextProps: Props) {
+        if (this.props.content !== nextProps.content) {
+            this.setState({textAreaValue: nextProps.content});
+        }
+    }
+
     componentDidUpdate(prevProps: Props) {
         const textarea = this.textarea.current;
 
@@ -432,9 +440,10 @@ class Editor extends React.Component<Props, State> {
         this.setState({textAreaValue: e.currentTarget.value});
         // TODO(jeff, CP-3128): Use Wonder Blocks Timing API.
         // eslint-disable-next-line no-restricted-syntax
+        const textAreaValue = this.state.textAreaValue;
         this.deferredChange = setTimeout(() => {
             if (this.state.textAreaValue !== this.props.content) {
-                this.props.onChange({content: this.state.textAreaValue});
+                this.props.onChange({content: textAreaValue});
             }
         }, this.props.apiOptions.editorChangeDelay);
     };
