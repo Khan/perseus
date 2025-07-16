@@ -10,7 +10,7 @@ type Story = {
 };
 
 export default {
-    title: "Perseus/Widgets/Label Image/Answer Choices",
+    title: "Widgets/Label Image/Answer Choices",
 } as Story;
 
 const defaultChoices = [

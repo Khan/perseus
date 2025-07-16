@@ -7,7 +7,7 @@ import {getFullGroupTestItem, question1} from "./group.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Group",
+    title: "Widgets/Group",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

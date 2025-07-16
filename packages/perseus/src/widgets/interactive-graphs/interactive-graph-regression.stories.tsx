@@ -18,7 +18,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 type Story = StoryObj<typeof MafsQuestionRenderer>;
 
 const meta: Meta<typeof MafsQuestionRenderer> = {
-    title: "Perseus/Widgets/Interactive Graph Visual Regression Tests",
+    title: "Widgets/Interactive Graph Visual Regression Tests",
     component: MafsQuestionRenderer,
     parameters: {
         chromatic: {disableSnapshot: false},

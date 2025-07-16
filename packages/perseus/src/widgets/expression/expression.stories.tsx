@@ -9,7 +9,7 @@ import type {KeypadConfiguration} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Expression",
+    title: "Widgets/Expression",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

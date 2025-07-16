@@ -7,7 +7,7 @@ import {dotPlotter, question1, simple} from "./plotter.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Plotter",
+    title: "Widgets/Plotter",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

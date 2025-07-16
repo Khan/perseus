@@ -7,7 +7,7 @@ import {question1} from "./iframe.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/IFrame",
+    title: "Widgets/IFrame",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

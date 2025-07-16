@@ -7,7 +7,7 @@ import {question1, question2} from "./passage-ref.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/PassageRef",
+    title: "Widgets/PassageRef",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

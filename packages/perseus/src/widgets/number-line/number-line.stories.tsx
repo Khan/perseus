@@ -7,7 +7,7 @@ import {inequality, question1, question2} from "./number-line.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Number Line",
+    title: "Widgets/Number Line",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

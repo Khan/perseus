@@ -112,7 +112,7 @@ export const LabelWidgetAnswerless = (args: StoryArgs): React.ReactElement => {
 };
 
 export default {
-    title: "Perseus/Widgets/Label Image",
+    title: "Widgets/Label Image",
     args: {
         preferredPopoverDirection: "NONE",
     },

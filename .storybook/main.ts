@@ -38,6 +38,7 @@ const config: StorybookConfig = {
 
         // Docs for Perseus widgets, components, and renderers
         "../packages/perseus/src/**/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
+        "../packages/perseus/src/widgets/**/*.@(stories.ts|stories.tsx|mdx)",
     ],
     addons: [
         "@storybook/addon-a11y",

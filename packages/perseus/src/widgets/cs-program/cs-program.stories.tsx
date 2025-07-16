@@ -6,7 +6,7 @@ import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-
 import {question1} from "./cs-program.testdata";
 
 export default {
-    title: "Perseus/Widgets/CS Program",
+    title: "Widgets/CS Program",
 };
 
 type StoryArgs = Record<any, any>;

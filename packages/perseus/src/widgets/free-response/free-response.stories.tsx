@@ -4,7 +4,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof FreeResponse> = {
     component: FreeResponse,
-    title: "Perseus/Widgets/FreeResponse",
+    title: "Widgets/FreeResponse",
 };
 
 export default meta;

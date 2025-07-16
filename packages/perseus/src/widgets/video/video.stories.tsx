@@ -7,7 +7,7 @@ import {question1, question2} from "./video.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Video",
+    title: "Widgets/Video",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

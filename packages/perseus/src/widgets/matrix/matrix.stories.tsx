@@ -7,7 +7,7 @@ import {question1} from "./matrix.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Matrix",
+    title: "Widgets/Matrix",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

@@ -5,7 +5,7 @@ import {PhetSimulation} from "./phet-simulation";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof PhetSimulation> = {
-    title: "Perseus/Widgets/PhET Simulation",
+    title: "Widgets/PhET Simulation",
     component: PhetSimulation,
     parameters: {
         docs: {

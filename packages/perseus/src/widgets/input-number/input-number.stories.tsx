@@ -11,7 +11,7 @@ import {getAnswerfulItem} from "../../util/test-utils";
 import {question1, question2, question3} from "./input-number.testdata";
 
 export default {
-    title: "Perseus/Widgets/InputNumber",
+    title: "Widgets/InputNumber",
     argTypes: {
         maxError: {
             control: {

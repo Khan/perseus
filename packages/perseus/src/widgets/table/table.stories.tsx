@@ -10,7 +10,7 @@ import {generateTableRenderer} from "./test-util";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Table",
+    title: "Widgets/Table",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

@@ -9,7 +9,7 @@ type Story = {
 };
 
 export default {
-    title: "Perseus/Components/Video Transcript Link",
+    title: "Widgets/Video/Video Transcript Link",
 } as Story;
 
 export const YoutubeVideoLink = (args: StoryArgs): React.ReactElement => {

@@ -44,7 +44,7 @@ const answersArray: string = `[
 
 const meta: Meta<typeof NumericInput> = {
     component: NumericInput,
-    title: "Perseus/Widgets/Numeric Input",
+    title: "Widgets/Numeric Input",
     args: {
         coefficient: false,
         userInput: {currentValue: ""},

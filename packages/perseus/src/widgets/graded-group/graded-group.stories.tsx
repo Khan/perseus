@@ -10,7 +10,7 @@ import {
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Graded Group",
+    title: "Widgets/Graded Group",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

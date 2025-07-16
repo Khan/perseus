@@ -7,7 +7,7 @@ import {question1} from "./categorizer.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Categorizer",
+    title: "Widgets/Categorizer",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

@@ -5,7 +5,7 @@ import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Deprecated Standin",
+    title: "Widgets/Deprecated Standin",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

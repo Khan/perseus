@@ -5,7 +5,7 @@ import InputWithExamples from "./input-with-examples";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/Input with Examples",
+    title: "Widgets/Numeric Input/Input with Examples",
     component: InputWithExamples,
     args: {
         examples: [],

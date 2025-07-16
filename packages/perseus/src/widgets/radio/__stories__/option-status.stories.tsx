@@ -15,7 +15,7 @@ type Story = {
 };
 
 export default {
-    title: "Perseus/Widgets/Radio/Option Status",
+    title: "Widgets/Radio/Option Status",
     args: {
         checked: false,
         correct: false,

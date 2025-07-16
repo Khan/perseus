@@ -7,7 +7,7 @@ import {question1, question2, question3} from "./__tests__/passage.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Passage",
+    title: "Widgets/Passage",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

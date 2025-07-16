@@ -7,7 +7,7 @@ import {question1, question2, questionWithImages} from "./orderer.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Orderer",
+    title: "Widgets/Orderer",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

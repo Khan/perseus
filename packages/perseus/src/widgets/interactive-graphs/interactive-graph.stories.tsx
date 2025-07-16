@@ -34,20 +34,26 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const defaultApiOptions = ApiOptions.defaults;
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Interactive Graph",
+    title: "Widgets/Interactive Graph",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;
 
 type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
-export const SideBySideFlipbook = (): React.ReactElement => <Flipbook />;
-
 export const Angle: Story = {
     args: {
         item: generateTestPerseusItem({question: angleQuestion}),
     },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as default story
+        },
+    },
 };
+
+// TODO(ivy): check if this was intentionally added in interactive-graph docs
+export const SideBySideFlipbook = (): React.ReactElement => <Flipbook />;
 
 export const Circle: Story = {
     args: {

@@ -7,7 +7,7 @@ import {question1} from "./interaction.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Interaction",
+    title: "Widgets/Interaction",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

@@ -8,7 +8,7 @@ import ArticleRenderer from "../../article-renderer";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Definition",
+    title: "Widgets/Definition",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;

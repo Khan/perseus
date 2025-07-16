@@ -7,7 +7,7 @@ import {question1} from "./sorter.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Sorter",
+    title: "Widgets/Sorter",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;
