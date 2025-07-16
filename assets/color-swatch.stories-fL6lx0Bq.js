@@ -1,0 +1,3 @@
+import{j as c}from"./iframe-BT7dGlf3.js";import{C as s,g as m}from"./util-BJTB277V.js";import"./item-version-C7889Hsx.js";import"./article-renderer-5bctE__9.js";import"./server-item-renderer-DYK2JkIt.js";import"./hints-renderer-Btvs3bhD.js";const f={title:"PerseusEditor/Components/Color Swatch",component:s},o=a=>c.jsx(s,{...a});o.args={color:m("point").color,filled:!0};o.__docgenInfo={description:"",methods:[],displayName:"Default"};var r,t,e;o.parameters={...o.parameters,docs:{...(r=o.parameters)==null?void 0:r.docs,source:{originalSource:`(args): React.ReactElement => {
+  return <ColorSwatch {...args} />;
+}`,...(e=(t=o.parameters)==null?void 0:t.docs)==null?void 0:e.source}}};const g=["Default"];export{o as Default,g as __namedExportsOrder,f as default};
