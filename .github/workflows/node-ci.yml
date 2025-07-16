@@ -274,10 +274,11 @@ jobs:
               id: check_for_schema_change
               run: |
                   set -x
-                  echo 'SCHEMA_DIFF<<EOF' >> "$GITHUB_OUTPUT"
+                  DELIM=$(uuidgen)
+                  echo "SCHEMA_DIFF<<$DELIM" >> "$GITHUB_OUTPUT"
                   diff ${{ runner.temp }}/schema-pr.d.ts ${{ runner.temp }}/schema-base.d.ts >> "$GITHUB_OUTPUT"
                   DIFF_EXIT_CODE=$? # Capture the exit code of diff
-                  echo EOF >> "$GITHUB_OUTPUT"
+                  echo "$DELIM" >> "$GITHUB_OUTPUT"
 
                   exit "$DIFF_EXIT_CODE"
 
