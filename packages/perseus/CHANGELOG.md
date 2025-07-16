@@ -1,5 +1,30 @@
 # @khanacademy/perseus
 
+## 65.8.0
+
+### Minor Changes
+
+-   [#2697](https://github.com/Khan/perseus/pull/2697) [`e539e6d30`](https://github.com/Khan/perseus/commit/e539e6d305d4ef7c7439cf9fbf27603e1f0ff1b1) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Refactor multiple choice option (logic and UI updates)
+
+*   [#2701](https://github.com/Khan/perseus/pull/2701) [`2be43a8fb`](https://github.com/Khan/perseus/commit/2be43a8fb92cd360af4ddd3b180b339dfe226323) Thanks [@jeanettehead](https://github.com/jeanettehead)! - remove the tooltip invalid error from the expression widget
+
+### Patch Changes
+
+-   [#2713](https://github.com/Khan/perseus/pull/2713) [`d0ae6d162`](https://github.com/Khan/perseus/commit/d0ae6d16226ce6d39e3e47a1bf4fa91a8b3020d1) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: Radio in editor crashing when removing an option
+
+*   [#2694](https://github.com/Khan/perseus/pull/2694) [`0431a161f`](https://github.com/Khan/perseus/commit/0431a161f2652fffd785e71cd8dac395119c5ff0) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Internal re-organization related to `PerseusMarkdown.traverseContent`. No external API/functional changes.
+
+-   [#2709](https://github.com/Khan/perseus/pull/2709) [`ee7e8463d`](https://github.com/Khan/perseus/commit/ee7e8463db10ad141a4282b7f7ea98a8246f6550) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: support Grapher in static mode
+
+-   Updated dependencies [[`d0d03f8f2`](https://github.com/Khan/perseus/commit/d0d03f8f2ff73384c6f71215e2f6baf20c4fc522), [`0431a161f`](https://github.com/Khan/perseus/commit/0431a161f2652fffd785e71cd8dac395119c5ff0), [`0431a161f`](https://github.com/Khan/perseus/commit/0431a161f2652fffd785e71cd8dac395119c5ff0), [`6801516e8`](https://github.com/Khan/perseus/commit/6801516e8e6a77b7c65cd759950325d9cdab4438)]:
+    -   @khanacademy/perseus-linter@4.1.0
+    -   @khanacademy/pure-markdown@2.1.0
+    -   @khanacademy/perseus-core@18.2.0
+    -   @khanacademy/keypad-context@3.0.27
+    -   @khanacademy/kmath@2.0.27
+    -   @khanacademy/math-input@26.0.16
+    -   @khanacademy/perseus-score@7.1.14
+
 ## 65.7.0
 
 ### Minor Changes
