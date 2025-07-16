@@ -284,7 +284,7 @@ jobs:
                   exit "$DIFF_EXIT_CODE"
 
             - name: Schema Changed! Add schema-change label to PR
-              if: steps.check_for_schema_change.outcome == 'failure'
+              if: always() && steps.check_for_schema_change.outcome == 'failure'
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
@@ -292,7 +292,7 @@ jobs:
                   gh pr edit "$PR_NUMBER" --add-label "schema-change"
 
             - name: Schema NOT Changed! Remove schema-change label to PR
-              if: steps.check_for_schema_change.outcome == 'success'
+              if: always() && steps.check_for_schema_change.outcome == 'success'
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
@@ -321,7 +321,7 @@ jobs:
                       ✅ No schema changes detected!
 
             - name: Create or update Schema Change comment - failure
-              if: steps.check_for_schema_change.outcome == 'failure'
+              if: always() && steps.check_for_schema_change.outcome == 'failure'
               uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
