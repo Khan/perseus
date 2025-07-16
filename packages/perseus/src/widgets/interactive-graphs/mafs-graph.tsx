@@ -171,12 +171,20 @@ export const MafsGraph = (props: MafsGraphProps) => {
         tickStep,
     );
 
-    // -17.5 is the standard margin on the graphs with alongEdge labels.
+    // -17.5 is the standard label offset on the graphs with alongEdge labels.
     // There is a very specific range of values for which the label needs a
     // different offset to avoid overlapping with the tick labels. We have to
     // compensate for this specific case.
     const needsExtraMargin =
         labelLocation === "alongEdge" && yAxisLabelLocation[0] < -17.5;
+
+    // If the graph needs the extra margin, this is the offset.
+    // yAxisLabelLocation[X] is how far off the edge of the graph the label is.
+    // We want to move the graph over by the same amount so that the label is
+    // visible, which is why we multiply by -1. The 2.5 is to make sure the
+    // label stays in the exact same position as the standard margin, which
+    // is 20px margin minus the 17.5px standard label offset = 2.5px.
+    const extraMarginOffset = -1 * (yAxisLabelLocation[X] - 2.5);
 
     return (
         <GraphConfigContext.Provider
@@ -212,7 +220,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         // Move the graph over by the label offset so that
                         // the label is visible
                         marginLeft: needsExtraMargin
-                            ? `${-1 * yAxisLabelLocation[X]}px`
+                            ? `${extraMarginOffset}px`
                             : "20px",
                         marginBottom: "30px",
                         pointerEvents: props.static ? "none" : "auto",
