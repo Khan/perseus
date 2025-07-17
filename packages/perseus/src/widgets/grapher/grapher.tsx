@@ -615,12 +615,6 @@ function staticTransform(options: PerseusGrapherWidgetOptions) {
     };
 }
 
-function getCorrectUserInput(
-    options: PerseusGrapherWidgetOptions,
-): PerseusGrapherUserInput {
-    return options.correct;
-}
-
 /**
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
@@ -669,7 +663,6 @@ export default {
     widget: Grapher,
     transform,
     staticTransform,
-    getCorrectUserInput,
     getUserInputFromSerializedState,
     getStartUserInput,
     getCorrectUserInput,
