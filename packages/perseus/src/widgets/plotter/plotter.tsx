@@ -15,10 +15,10 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plo
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
-    PerseusPlotterWidgetOptions,
     PerseusPlotterUserInput,
+    PerseusPlotterWidgetOptions,
+    PlotterPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
-import type {PlotterPublicWidgetOptions} from "@khanacademy/perseus-core/src/widgets/plotter/plotter-util";
 
 type Props = WidgetProps<
     PlotterPublicWidgetOptions,
