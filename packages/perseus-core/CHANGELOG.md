@@ -1,5 +1,18 @@
 # @khanacademy/perseus-core
 
+## 18.2.0
+
+### Minor Changes
+
+-   [#2694](https://github.com/Khan/perseus/pull/2694) [`0431a161f`](https://github.com/Khan/perseus/commit/0431a161f2652fffd785e71cd8dac395119c5ff0) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Updated `isAccessible()` function to ignore unused widgets.
+
+### Patch Changes
+
+-   [#2692](https://github.com/Khan/perseus/pull/2692) [`6801516e8`](https://github.com/Khan/perseus/commit/6801516e8e6a77b7c65cd759950325d9cdab4438) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding extra check to accessible markkdown in isItemAccessible.
+
+-   Updated dependencies [[`0431a161f`](https://github.com/Khan/perseus/commit/0431a161f2652fffd785e71cd8dac395119c5ff0)]:
+    -   @khanacademy/pure-markdown@2.1.0
+
 ## 18.1.0
 
 ### Minor Changes

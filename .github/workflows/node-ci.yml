@@ -333,7 +333,7 @@ jobs:
 
                       If you are working in Khan Academy's frontend, you can run the below command.
                       ```sh
-                      ./tools/bump_perseus_version.ts -t PR${{ github.event.pull_request.number }}
+                      ./dev/tools/bump_perseus_version.ts -t PR${{ github.event.pull_request.number }}
                       ```
 
                       If you are working in Khan Academy's webapp, you can run the below command.

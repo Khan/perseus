@@ -1,5 +1,11 @@
 # @khanacademy/pure-markdown
 
+## 2.1.0
+
+### Minor Changes
+
+-   [#2694](https://github.com/Khan/perseus/pull/2694) [`0431a161f`](https://github.com/Khan/perseus/commit/0431a161f2652fffd785e71cd8dac395119c5ff0) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Introduce `traverseContent` function to traverse arbitrary Markdown AST's produced by `parse()` function.
+
 ## 2.0.10
 
 ### Patch Changes

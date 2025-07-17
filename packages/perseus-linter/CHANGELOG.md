@@ -1,5 +1,16 @@
 # @khanacademy/perseus-linter
 
+## 4.1.0
+
+### Minor Changes
+
+-   [#2693](https://github.com/Khan/perseus/pull/2693) [`d0d03f8f2`](https://github.com/Khan/perseus/commit/d0d03f8f2ff73384c6f71215e2f6baf20c4fc522) Thanks [@jeanettehead](https://github.com/jeanettehead)! - Remove blockquote content linter rules
+
+### Patch Changes
+
+-   Updated dependencies [[`0431a161f`](https://github.com/Khan/perseus/commit/0431a161f2652fffd785e71cd8dac395119c5ff0), [`6801516e8`](https://github.com/Khan/perseus/commit/6801516e8e6a77b7c65cd759950325d9cdab4438)]:
+    -   @khanacademy/perseus-core@18.2.0
+
 ## 4.0.13
 
 ### Patch Changes
