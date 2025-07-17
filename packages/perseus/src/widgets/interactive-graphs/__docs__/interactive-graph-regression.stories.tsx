@@ -434,6 +434,61 @@ export const LockedFiguresWithThickWeight: Story = {
     },
 };
 
+export const BoundedXMin: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withNoInteractiveFigure()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withBoundedSides([true, false], [false, false])
+            .build(),
+    },
+};
+
+export const BoundedXMax: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withNoInteractiveFigure()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withBoundedSides([false, true], [false, false])
+            .build(),
+    },
+};
+
+export const BoundedYMin: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withNoInteractiveFigure()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withBoundedSides([false, false], [true, false])
+            .build(),
+    },
+};
+
+export const BoundedYMax: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withNoInteractiveFigure()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withBoundedSides([false, false], [false, true])
+            .build(),
+    },
+};
+
+export const BoundedAllSides: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withNoInteractiveFigure()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withBoundedSides([true, true], [true, true])
+            .build(),
+    },
+};
+
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (

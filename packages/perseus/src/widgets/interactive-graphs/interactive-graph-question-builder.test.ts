@@ -140,6 +140,16 @@ describe("InteractiveGraphQuestionBuilder", () => {
         expect(graph.options.showProtractor).toBe(true);
     });
 
+    it("sets the bounded sides", () => {
+        const minBounds: [boolean, boolean] = [true, false];
+        const maxBounds: [boolean, boolean] = [false, true];
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withBoundedSides(minBounds, maxBounds)
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options.boundedSides).toEqual([minBounds, maxBounds]);
+    });
+
     it("creates a default segment graph", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
             .withSegments()
