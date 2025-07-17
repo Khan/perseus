@@ -17,18 +17,10 @@ import type {
 const _choiceTransform = (
     widgetOptions: PerseusRadioWidgetOptions,
     strings: PerseusStrings,
-    problemNum?: number | null,
 ) => {
     const _maybeRandomize = function (
         array: ReadonlyArray<RadioChoiceWithMetadata>,
     ) {
-        // const randomSeed = problemNum === undefined ? random : problemNum;
-        // NOTE: `problemNum` will only be set when the radio widget is
-        // rendered at the root of an exercise question. It will be `undefined`
-        // if it's rendered embedded in another widget, such as `graded-group`,
-        // or if rendered within an article. This results in a predictable
-        // shuffle order. To avoid this we use a random seed when `problemNum`
-        // is `undefined`.
         return widgetOptions.randomize ? sortKeyRandomization(array) : array;
     };
 
@@ -99,9 +91,8 @@ const _choiceTransform = (
 const transform = (
     widgetOptions: PerseusRadioWidgetOptions,
     strings: PerseusStrings,
-    problemNum?: number | null,
 ): RenderProps => {
-    const choices = _choiceTransform(widgetOptions, strings, problemNum);
+    const choices = _choiceTransform(widgetOptions, strings);
 
     const {
         hasNoneOfTheAbove,
