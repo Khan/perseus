@@ -3,7 +3,7 @@ import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import * as IndicatorComponent from "../choice-indicator.new";
-import Choice from "../multiple-choice-option.new";
+import Choice from "../choice.new";
 
 describe("Multiple choice option", () => {
     it.each`

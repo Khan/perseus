@@ -3,9 +3,9 @@ import * as React from "react";
 import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
-import Choice from "./choice.new";
+import Choice from "./choice-option.temp.new";
 
-import type {ChoiceProps} from "./choice.new";
+import type {ChoiceProps} from "./choice-option.temp.new";
 
 interface ChoiceNoneAboveProps extends ChoiceProps {
     showContent?: boolean;

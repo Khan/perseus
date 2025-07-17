@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Choice from "../multiple-choice-option.new";
+import Choice from "../choice.new";
 
 const Container = (props: {children: React.ReactNode}): React.ReactElement => {
     return (

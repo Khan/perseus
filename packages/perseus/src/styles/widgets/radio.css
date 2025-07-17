@@ -67,6 +67,3 @@
     .paragraph:has(img:only-child):has(+ .paragraph) {
     display: block;
 }
-.perseus-widget-radio-fieldset .instructions {
-    font-family: "Lato", sans-serif;
-}

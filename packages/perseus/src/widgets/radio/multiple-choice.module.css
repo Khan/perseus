@@ -1,17 +1,8 @@
-/* CSS module for MultipleChoiceComponent */
-
-.instructions {
-    display: block;
-    color: var(--wb-semanticColor-core-foreground-instructive-strong);
-    font-size: 1.8rem;
-    line-height: 1.25;
-    font-family: inherit;
-    font-style: normal;
-    font-weight: bold;
-    margin-bottom: var(--wb-sizing-size_160);
+.container {
+    padding-inline-end: var(--wb-sizing-size_160);
+    min-width: auto;
 }
 
-/* Consolidated class for the choice list */
 .choiceList {
     padding: 0;
     list-style: none;
@@ -32,6 +23,17 @@
     }
 }
 
+.instructions {
+    display: block;
+    color: var(--wb-semanticColor-core-foreground-instructive-strong);
+    font-size: 1.8rem;
+    line-height: 1.25;
+    font-family: inherit;
+    font-style: normal;
+    font-weight: bold;
+    margin-bottom: var(--wb-sizing-size_160);
+}
+
 .item {
     margin-inline-start: var(--wb-sizing-size_200);
 }
@@ -48,15 +50,4 @@
 
 .selectedItem {
     background: var(--wb-semanticColor-core-foreground-inverse-strong);
-}
-
-.responsiveContainer {
-    overflow: auto;
-    margin-inline-start: calc(-1 * var(--wb-sizing-size_160));
-    padding-inline-start: var(--wb-sizing-size_160);
-}
-
-.responsiveFieldset {
-    padding-inline-end: var(--wb-sizing-size_160);
-    min-width: auto;
 }

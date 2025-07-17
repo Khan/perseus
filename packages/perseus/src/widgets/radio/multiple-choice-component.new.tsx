@@ -1,4 +1,3 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
 import {type PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
 import classNames from "classnames";
 import * as React from "react";
@@ -12,12 +11,15 @@ import Util from "../../util";
 import {scrollElementIntoView} from "../../util/scroll-utils";
 
 import ChoiceNoneAbove from "./choice-none-above.new";
+import ChoiceTemp from "./choice-option.temp.new";
 import Choice from "./choice.new";
 import styles from "./multiple-choice.module.css";
+import {getChoiceLetter} from "./util";
 import {getInstructionsText} from "./utils/string-utils";
 
 import type {APIOptions} from "../../types";
 
+// TODO: What is this and why do we have it? (reference usage in choice-option.temp.new.tsx)
 const {captureScratchpadTouchStart} = Util;
 
 // TODO(LEMS-3170): Simplify the ChoiceType by using ChoiceProps directly.
@@ -94,6 +96,8 @@ const MultipleChoiceComponent = ({
     >();
 
     useEffect(() => {
+        // TODO: Investigate if this is still an issue.
+
         // Switching into review mode can sometimes cause the selected answer
         // to scroll out of view - for example, when we reveal all those tall
         // rationales. This can be disorienting for the user.
@@ -133,7 +137,6 @@ const MultipleChoiceComponent = ({
         styles.choiceList, // Main class for the choice list
     );
 
-    const instructionsClassName = classNames(styles.instructions);
     const instructions = getInstructionsText({
         multipleSelect,
         countChoices,
@@ -141,19 +144,16 @@ const MultipleChoiceComponent = ({
         strings,
     });
 
-    const fieldset = (
+    return (
         <fieldset
-            className={`perseus-widget-radio-fieldset ${styles.responsiveFieldset}`}
+            className={styles.container}
             data-feature-flag="feature flag is ON"
         >
-            <legend className="perseus-sr-only">{instructions}</legend>
-            <div className={instructionsClassName} aria-hidden="true">
-                {instructions}
-            </div>
+            <legend className={styles.instructions}>{instructions}</legend>
             <ScrollableView overflowX="auto">
                 <ul className={choiceListClassName}>
                     {choices.map((choice, i) => {
-                        let Element = Choice;
+                        let Element = ChoiceTemp;
                         const ref = React.createRef<any>();
 
                         choiceRefs.current[i] = ref;
@@ -191,89 +191,34 @@ const MultipleChoiceComponent = ({
                             });
                         }
 
-                        const itemClassName = classNames(
-                            styles.item,
-                            styles.responsiveItem,
-                            choice.checked && styles.selectedItem,
-                        );
-
-                        let correctnessClass;
-                        // reviewMode is only true if there's a rubric
-                        // but TypeScript doesn't understand that
-                        if (reviewMode && reviewModeRubric) {
-                            correctnessClass = reviewModeRubric.choices[i]
-                                .correct
-                                ? ApiClassNames.CORRECT
-                                : ApiClassNames.INCORRECT;
-                        }
-                        const className = classNames(
-                            itemClassName,
-                            // TODO(aria): Make test case for these API
-                            // classNames
-                            ApiClassNames.RADIO.OPTION,
-                            choice.checked && ApiClassNames.RADIO.SELECTED,
-                            correctnessClass,
-                        );
-
-                        // In edit mode, the Choice renders a Div in order to
-                        // allow for the contentEditable area to be selected
-                        // (label forces any clicks inside to select the input
-                        // element) We have to add some extra behavior to make
-                        // sure that we can still check the choice.
-                        let listElem: HTMLLIElement | null = null;
-                        let clickHandler:
-                            | React.MouseEventHandler<HTMLLIElement>
-                            | undefined;
-                        if (editMode) {
-                            clickHandler = (e: any) => {
-                                // Traverse the parent nodes of the clicked
-                                // element.
-                                let elem = e.target;
-                                while (elem && elem !== listElem) {
-                                    // If the clicked element is inside of the
-                                    // radio icon, then we want to trigger the
-                                    // check by flipping the choice of the icon.
-                                    if (
-                                        elem.getAttribute("data-is-radio-icon")
-                                    ) {
-                                        onChoiceChange(i, !choice.checked);
-                                        return;
-                                    }
-                                    elem = elem.parentNode;
-                                }
-                            };
-                        }
-
-                        // TODO(mattdr): Index isn't a *good* choice of key
-                        // here; is there a better one? Can we use choice
-                        // content somehow? Would changing our choice of key
-                        // somehow break something happening inside a choice's
-                        // child Renderers, by changing when we mount/unmount?
+                        const updateChecked = (isChecked: boolean) => {
+                            onChoiceChange(i, isChecked);
+                        };
+                        const choiceLetter = getChoiceLetter(i, strings);
+                        const showCorrectness =
+                            reviewMode === true
+                                ? choice.correct
+                                    ? "correct"
+                                    : "wrong"
+                                : undefined;
+                        // TODO: Use choice ID as key once it's available
                         return (
-                            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- TODO(LEMS-2871): Address a11y error
-                            <li
+                            <Choice
                                 key={i}
-                                ref={(e) => (listElem = e)}
-                                className={className}
-                                onClick={clickHandler}
-                                onTouchStart={
-                                    labelWrap
-                                        ? undefined
-                                        : captureScratchpadTouchStart
-                                }
+                                checked={choice.checked}
+                                indicatorContent={choiceLetter}
+                                isMultiSelect={multipleSelect}
+                                showCorrectness={showCorrectness}
+                                updateChecked={updateChecked}
                             >
-                                <Element {...elementProps} ref={ref} />
-                            </li>
+                                {choice.content}
+                            </Choice>
                         );
                     })}
                 </ul>
             </ScrollableView>
         </fieldset>
     );
-
-    // Allow for horizontal scrolling if content is too wide, which may be
-    // an issue especially on phones.
-    return <div className={styles.responsiveContainer}>{fieldset}</div>;
 };
 
 export default MultipleChoiceComponent;
