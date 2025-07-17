@@ -1314,7 +1314,13 @@ export type PerseusPassageRefWidgetOptions = {
     summaryText?: string;
 };
 
-export const plotterPlotTypes = ["bar", "line", "pic", "dotplot"] as const;
+export const plotterPlotTypes = [
+    "bar",
+    "line",
+    "pic",
+    "histogram",
+    "dotplot",
+] as const;
 export type PlotType = (typeof plotterPlotTypes)[number];
 
 export type PerseusPlotterWidgetOptions = {
@@ -1428,6 +1434,12 @@ export type PerseusInteractionGraph = {
     markings: MarkingsType;
     // The snap steps. default [0.5, 0.5]
     snapStep?: [number, number];
+    // Whether the grid is valid or not.  Do the numbers all make sense?
+    // NOTE(jeremy) The editor for this widget sometimes stores the graph
+    // editor validation error message into this field. It seems innocuous
+    // because it looks like many of these usages don't actually use the graph
+    // at all.
+    valid?: boolean | string;
     // An optional background image to use
     backgroundImage?: PerseusImageBackground;
     // Whether to show the Protractor tool overlayed on top of the graph
