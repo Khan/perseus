@@ -37,7 +37,7 @@ runs:
           run: |
               PR_ARTIFACT_DIR="${{ runner.temp }}/branch-compare/pr"
               mkdir -p "$PR_ARTIFACT_DIR"
-              if [ -e "${{ inputs.path-to-artifact }}" ];
+              if [ -e "${{ inputs.path-to-artifact }}" ]; then
                 cp -R ${{ inputs.path-to-artifact }} "$PR_ARTIFACT_DIR/"
               fi
               echo "artifact-path=$PR_ARTIFACT_DIR" >> $GITHUB_OUTPUT
@@ -63,7 +63,7 @@ runs:
           run: |
               BASE_ARTIFACT_DIR="${{ runner.temp }}/branch-compare/base"
               mkdir -p "$BASE_ARTIFACT_DIR"
-              if [ -e "${{ inputs.path-to-artifact }}" ];
+              if [ -e "${{ inputs.path-to-artifact }}" ]; then
                 cp -R ${{ inputs.path-to-artifact }} "$BASE_ARTIFACT_DIR/"
               fi
               echo "artifact-path=$BASE_ARTIFACT_DIR" >> $GITHUB_OUTPUT
