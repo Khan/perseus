@@ -237,38 +237,15 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [20.x]
         steps:
-            - name: Check out latest commit
-              uses: actions/checkout@v4
-
-            - name: Install & cache node_modules
-              uses: ./.github/actions/shared-node-cache
+            - name: Use branch-compare action to generate schema artifacts
+              uses: ./.github/actions/branch-compare
               with:
-                  node-version: ${{ matrix.node-version }}
-
-            - name: Build schema for current commit
-              run: >-
-                  pnpm tsc --declaration --emitDeclarationOnly \
-                    --outfile ${{ runner.temp }}/schema-pr.d.ts \
-                    packages/perseus-core/src/data-schema.ts
-                  pnpm prettier --write ${{ runner.temp }}/schema-pr.d.ts
-
-            - name: Check out base branch
-              uses: actions/checkout@v4
-              with:
-                  # This checks out the base branch of the PR (the branch the PR
-                  # is targeting)
-                  ref: ${{ github.event.pull_request.base.ref }}
-
-            - name: Re-install node_modules for base branch
-              run: pnpm install
-
-            - name: Build schema for base
-              run: >-
-                  pnpm tsc --declaration --emitDeclarationOnly \
-                    --outfile ${{ runner.temp }}/schema-base.d.ts \
-                    packages/perseus-core/src/data-schema.ts
-
-                  pnpm prettier --write ${{ runner.temp }}/schema-base.d.ts
+                  build-command: |
+                      pnpm tsc --declaration --emitDeclarationOnly \
+                        --outfile ${{ runner.temp }}/schema.d.ts \
+                        packages/perseus-core/src/data-schema.ts
+                      pnpm prettier --write ${{ runner.temp }}/schema.d.ts
+                  path-to-artifact: ${{ runner.temp }}/schema.d.ts
 
             - name: Check for Schema Change
               id: check_for_schema_change
@@ -279,7 +256,8 @@ jobs:
                   # delimeter in the diff output doesn't cause problems.
                   DELIM=$(uuidgen)
                   echo "SCHEMA_DIFF<<$DELIM" >> "$GITHUB_OUTPUT"
-                  diff --unified ${{ runner.temp }}/schema-base.d.ts ${{ runner.temp }}/schema-pr.d.ts >> "$GITHUB_OUTPUT"
+                  diff --unified "${{ steps.branch-compare.outputs.base-artifact-path }}/schema.d.ts" \
+                                "${{ steps.branch-compare.outputs.pr-artifact-path }}/schema.d.ts" >> "$GITHUB_OUTPUT"
                   DIFF_EXIT_CODE=$? # Capture the exit code of diff
                   echo "$DELIM" >> "$GITHUB_OUTPUT"
                   echo "diff_exit_code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
