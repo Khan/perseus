@@ -61,7 +61,6 @@ function EditorPageWithStorybookPreview(props: Props) {
                 answerArea={answerArea}
                 question={question}
                 hints={hints}
-                frameSource="about:blank"
                 previewURL="about:blank"
                 itemId="1"
                 onChange={(props) => {
