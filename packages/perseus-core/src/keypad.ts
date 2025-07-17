@@ -1,4 +1,5 @@
 export const KeypadKeys = [
+    "DO_EVERYTHING",
     "PLUS",
     "MINUS",
     "NEGATIVE",
