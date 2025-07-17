@@ -248,6 +248,7 @@ jobs:
             - name: Compare Perseus Schema to base branch
               uses: ./.github/actions/branch-compare
               with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
                   build-command: |
                       pnpm tsc --declaration --emitDeclarationOnly \
                         --outfile ${{ runner.temp }}/schema.d.ts \
@@ -278,7 +279,8 @@ jobs:
               id: split-item-compare
               uses: ./.github/actions/branch-compare
               with:
-                  build-command:    pnpm build
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  build-command: pnpm build
                   path-to-artifact: packages/perseus-core/dist/es/split-perseus-item.js
                   label-name: item-splitting-change
                   comment-title-term: Item Splitting
