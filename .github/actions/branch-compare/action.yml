@@ -1,0 +1,60 @@
+name: "Branch Compare"
+description: "Compare artifacts between PR branch and base branch"
+
+inputs:
+    build-command:
+        description: "The command that generates the artifact to compare"
+        required: true
+    path-to-artifact:
+        description: >-
+            The path to the artifact to compare - should be the same for both
+            the current branch and base branch. Write artifacts from the
+            `build-comamnd` to `${{ runner.temp }}`/... to pass files in a temp
+            directory.
+        required: true
+
+runs:
+    using: "composite"
+    steps:
+        - name: Check out latest commit
+          uses: actions/checkout@v4
+
+        - name: Install & cache node_modules
+          uses: ./.github/actions/shared-node-cache
+          with:
+              node-version: ${{ matrix.node-version }}
+
+        - name: Build for current PR
+          shell: bash
+          run: ${{ inputs.build-command }}
+
+        - name: Capture output artifact from build-command for current PR
+          shell: bash
+          run: |
+              TMP_DIR = ${{ runner.temp }}/$(uuidgen)
+              mkdir -p $TMP_DIR/pr
+              cp ${{ path-to-artifact }} $TMP_DIR/pr/
+
+        - name: Check out base branch
+          uses: actions/checkout@v4
+          with:
+              # This checks out the base branch of the PR (the branch the PR
+              # is targeting)
+              ref: ${{ github.event.pull_request.base.ref }}
+
+        - name: Re-install node_modules for base branch
+          shell: bash
+          run: |
+              pnpm clean
+              pnpm install
+
+        - name: Build for base
+          shell: bash
+          run: ${{ inputs.build-command }}
+
+        - name: Capture output artifact from build-command for base branch
+          shell: bash
+          run: |
+              TMP_DIR = ${{ runner.temp }}/$(uuidgen)
+              mkdir -p $TMP_DIR/base
+              cp ${{ path-to-artifact }} $TMP_DIR/base/
