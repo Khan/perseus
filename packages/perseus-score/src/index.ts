@@ -14,6 +14,7 @@ export {default as scoreInteractiveGraph} from "./widgets/interactive-graph/scor
 export {
     default as scoreLabelImage,
     scoreLabelImageMarker,
+    type InteractiveMarkerScore,
 } from "./widgets/label-image/score-label-image";
 export {default as scoreMatcher} from "./widgets/matcher/score-matcher";
 export {default as scoreMatrix} from "./widgets/matrix/score-matrix";
