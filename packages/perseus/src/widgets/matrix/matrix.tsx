@@ -531,10 +531,8 @@ function transform(widgetOptions: MatrixPublicWidgetOptions): RenderProps {
     };
 }
 
-function getStartUserInput(
-    options: PerseusMatrixWidgetOptions,
-): PerseusMatrixUserInput {
-    return {answers: []};
+function getStartUserInput(): PerseusMatrixUserInput {
+    return {answers: [[]]};
 }
 
 function getCorrectUserInput(
