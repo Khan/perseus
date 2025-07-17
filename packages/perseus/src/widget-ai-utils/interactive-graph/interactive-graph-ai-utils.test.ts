@@ -17,6 +17,7 @@ import {
 
 import {getPromptJSON} from "./interactive-graph-ai-utils";
 
+import type {PerseusInteractiveGraphUserInput} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const apiOptions = ApiOptions.defaults;
@@ -56,7 +57,7 @@ describe("InteractiveGraph AI utils", () => {
             labels: ["$x$", "$y$"],
         };
 
-        const userInput: any = {
+        const userInput: PerseusInteractiveGraphUserInput = {
             type: "angle",
             coords: [
                 [1, 0],
@@ -115,7 +116,7 @@ describe("InteractiveGraph AI utils", () => {
             labels: ["$x$", "$y$"],
         };
 
-        const userInput: any = {
+        const userInput: PerseusInteractiveGraphUserInput = {
             type: "circle",
             center: [1, 1],
             radius: 2,
@@ -164,7 +165,7 @@ describe("InteractiveGraph AI utils", () => {
             labels: ["$x$", "$y$"],
         };
 
-        const userInput: any = {
+        const userInput: PerseusInteractiveGraphUserInput = {
             type: "linear",
             coords: [
                 [0, 0],
@@ -223,7 +224,7 @@ describe("InteractiveGraph AI utils", () => {
             labels: ["$x$", "$y$"],
         };
 
-        const userInput: any = {
+        const userInput: PerseusInteractiveGraphUserInput = {
             type: "linear-system",
             coords: [
                 [
@@ -292,7 +293,7 @@ describe("InteractiveGraph AI utils", () => {
             labels: ["$x$", "$y$"],
         };
 
-        const userInput: any = {
+        const userInput: PerseusInteractiveGraphUserInput = {
             type: "point",
             coords: [
                 [0, 0],
@@ -346,7 +347,7 @@ describe("InteractiveGraph AI utils", () => {
             labels: ["$x$", "$y$"],
         };
 
-        const userInput: any = {
+        const userInput: PerseusInteractiveGraphUserInput = {
             type: "polygon",
             coords: [
                 [3, 3],
@@ -405,7 +406,7 @@ describe("InteractiveGraph AI utils", () => {
             labels: ["$x$", "$y$"],
         };
 
-        const userInput: any = {
+        const userInput: PerseusInteractiveGraphUserInput = {
             type: "quadratic",
             coords: [
                 [1, 1],
@@ -461,7 +462,7 @@ describe("InteractiveGraph AI utils", () => {
             labels: ["$x$", "$y$"],
         };
 
-        const userInput: any = {
+        const userInput: PerseusInteractiveGraphUserInput = {
             type: "ray",
             coords: [
                 [-5, 0],
@@ -569,7 +570,7 @@ describe("InteractiveGraph AI utils", () => {
             labels: ["$x$", "$y$"],
         };
 
-        const userInput: any = {
+        const userInput: PerseusInteractiveGraphUserInput = {
             type: "sinusoid",
             coords: [
                 [2, 0],

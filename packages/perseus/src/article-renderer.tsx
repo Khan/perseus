@@ -12,6 +12,7 @@ import {DependenciesContext, getDependencies} from "./dependencies";
 import JiptParagraphs from "./jipt-paragraphs";
 import {ClassNames as ApiClassNames, ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
+import UserInputManager from "./user-input-manager";
 import Util from "./util";
 
 import type {PerseusDependenciesV2, SharedRendererProps} from "./types";
@@ -168,7 +169,7 @@ class ArticleRenderer
         }
     };
 
-    _sections: () => any = () => {
+    _sections: () => PerseusRenderer[] = () => {
         const sections = Array.isArray(this.props.json)
             ? this.props.json
             : [this.props.json];
@@ -219,37 +220,55 @@ class ArticleRenderer
         const sections = this._sections().map((section, sectionIndex) => {
             return (
                 <div key={sectionIndex} className="clearfix">
-                    <Renderer
-                        {...section}
-                        ref={(elem) => {
-                            if (elem) {
-                                this.sectionRenderers[sectionIndex] = elem;
-                            }
-                        }}
-                        key={sectionIndex}
-                        key_={sectionIndex}
-                        keypadElement={this.props.keypadElement}
-                        apiOptions={{
-                            ...apiOptions,
-                            onFocusChange: (newFocusPath, oldFocusPath) => {
-                                // Prefix the paths with the relevant section index,
-                                // so as to allow us to distinguish between
-                                // equivalently-named inputs across Renderers.
-                                this._handleFocusChange(
-                                    newFocusPath &&
-                                        [sectionIndex].concat(newFocusPath),
-                                    oldFocusPath &&
-                                        [sectionIndex].concat(oldFocusPath),
-                                );
-                            },
-                        }}
-                        linterContext={PerseusLinter.pushContextStack(
-                            this.props.linterContext,
-                            "article",
+                    <UserInputManager widgets={section.widgets} problemNum={0}>
+                        {({
+                            userInput,
+                            handleUserInput,
+                            initializeUserInput,
+                        }) => (
+                            <Renderer
+                                {...section}
+                                userInput={userInput}
+                                handleUserInput={handleUserInput}
+                                initializeUserInput={initializeUserInput}
+                                ref={(elem) => {
+                                    if (elem) {
+                                        this.sectionRenderers[sectionIndex] =
+                                            elem;
+                                    }
+                                }}
+                                key={sectionIndex}
+                                keypadElement={this.props.keypadElement}
+                                apiOptions={{
+                                    ...apiOptions,
+                                    onFocusChange: (
+                                        newFocusPath,
+                                        oldFocusPath,
+                                    ) => {
+                                        // Prefix the paths with the relevant section index,
+                                        // so as to allow us to distinguish between
+                                        // equivalently-named inputs across Renderers.
+                                        this._handleFocusChange(
+                                            newFocusPath &&
+                                                [sectionIndex].concat(
+                                                    newFocusPath as any,
+                                                ),
+                                            oldFocusPath &&
+                                                [sectionIndex].concat(
+                                                    oldFocusPath as any,
+                                                ),
+                                        );
+                                    },
+                                }}
+                                linterContext={PerseusLinter.pushContextStack(
+                                    this.props.linterContext,
+                                    "article",
+                                )}
+                                legacyPerseusLint={this.props.legacyPerseusLint}
+                                strings={this.context.strings}
+                            />
                         )}
-                        legacyPerseusLint={this.props.legacyPerseusLint}
-                        strings={this.context.strings}
-                    />
+                    </UserInputManager>
                 </div>
             );
         });

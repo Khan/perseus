@@ -15,7 +15,7 @@ import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
 import type {DependenciesContext} from "../../dependencies";
-import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
+import type {WidgetProps, Widget, WidgetExports} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {
     PerseusExpressionWidgetOptions,
@@ -133,16 +133,12 @@ export class Expression extends React.Component<Props> implements Widget {
         this._isMounted = false;
     };
 
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
     getUserInput(): PerseusExpressionUserInput {
         return normalizeTex(this.props.userInput);
     }
 
     getPromptJSON(): ExpressionPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props, normalizeTex(this.props.userInput));
     }
 
     changeAndTrack: (userInput: string, cb: () => void) => void = (
@@ -210,14 +206,6 @@ export class Expression extends React.Component<Props> implements Widget {
         /* c8 ignore next */
         return [[]];
     };
-
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated set user input in a parent component
-     */
-    setInputValue(path: FocusPath, newValue: string, cb?: any) {
-        this.props.handleUserInput(newValue, cb);
-    }
 
     /**
      * @deprecated and likely very broken API
@@ -330,6 +318,10 @@ function getUserInputFromSerializedState(
     return normalizeTex(serializedState.value);
 }
 
+function getStartUserInput(): PerseusExpressionUserInput {
+    return "";
+}
+
 export default {
     name: "expression",
     displayName: "Expression / Equation",
@@ -368,7 +360,6 @@ export default {
     isLintable: true,
 
     // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusExpressionRubric'.
     getOneCorrectAnswerFromRubric(
         rubric: PerseusExpressionRubric,
     ): string | null | undefined {
@@ -381,5 +372,6 @@ export default {
         }
         return correctAnswers[0].value;
     },
+    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof ExpressionWithDependencies>;

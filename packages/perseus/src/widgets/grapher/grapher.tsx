@@ -506,12 +506,8 @@ class Grapher extends React.Component<Props> implements Widget {
         }
     };
 
-    getUserInput(): PerseusGrapherUserInput {
-        return this.props.userInput;
-    }
-
     getPromptJSON(): GrapherPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props);
     }
 
     /**

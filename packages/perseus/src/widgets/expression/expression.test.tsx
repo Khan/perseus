@@ -481,30 +481,6 @@ describe("Expression Widget", function () {
             jest.useFakeTimers();
         });
 
-        it("sets input value directly", () => {
-            // arrange
-            const {renderer} = renderQuestion(expressionItem2.question);
-            act(() => jest.runOnlyPendingTimers());
-
-            // act
-            act(() =>
-                renderer.setInputValue(["expression 1"], "123-x", () => {}),
-            );
-            act(() => jest.runOnlyPendingTimers());
-            const score = scorePerseusItem(
-                expressionItem2.question,
-                renderer.getUserInputMap(),
-                "en",
-            );
-
-            // Assert
-            expect(score.type).toBe("points");
-            // Score.total doesn't exist if the input is invalid
-            // In this case we know that it'll be valid so we can assert directly
-            // @ts-expect-error - TS2339 - Property 'earned' does not exist on type 'PerseusScore'. | TS2339 - Property 'total' does not exist on type 'PerseusScore'.
-            expect(score.earned).toBe(score.total);
-        });
-
         it("has a developer facility for inserting", async () => {
             // arrange
             const {renderer} = renderQuestion(expressionItem2.question);

@@ -141,31 +141,8 @@ class InputNumber extends React.Component<Props> implements Widget {
         return [[]];
     };
 
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'FocusPath' is not assignable to type 'Path'.
-    setInputValue: (arg1: Path, arg2: string, arg3: () => void) => void = (
-        path,
-        newValue,
-        cb,
-    ) => {
-        this.props.handleUserInput(
-            {
-                currentValue: newValue,
-            },
-            cb,
-        );
-    };
-
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput(): PerseusInputNumberUserInput {
-        return this.props.userInput;
-    }
-
     getPromptJSON(): InputNumberPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props);
     }
 
     examples(): ReadonlyArray<string> {
@@ -304,6 +281,10 @@ function getUserInputFromSerializedState(
     };
 }
 
+function getStartUserInput(): PerseusInputNumberUserInput {
+    return {currentValue: ""};
+}
+
 export default {
     name: "input-number",
     displayName: "Input number (deprecated - use numeric input instead)",
@@ -312,5 +293,6 @@ export default {
     isLintable: true,
     transform,
     getOneCorrectAnswerFromRubric,
+    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof InputNumber>;

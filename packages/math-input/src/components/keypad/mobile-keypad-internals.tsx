@@ -73,7 +73,7 @@ class MobileKeypadInternals
             );
 
             if (this._containerRef.current) {
-                this._containerResizeObserver.observe(
+                this._containerResizeObserver.observe?.(
                     this._containerRef.current,
                 );
             }
@@ -95,7 +95,7 @@ class MobileKeypadInternals
             "orientationchange",
             this._throttleResizeHandler,
         );
-        this._containerResizeObserver?.disconnect();
+        this._containerResizeObserver?.disconnect?.();
     }
 
     _resize = () => {

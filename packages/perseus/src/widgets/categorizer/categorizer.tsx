@@ -54,14 +54,6 @@ export class Categorizer
     };
 
     /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput(): PerseusCategorizerUserInput {
-        return this.props.userInput;
-    }
-
-    /**
      * @deprecated and likely very broken API
      * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
@@ -74,7 +66,7 @@ export class Categorizer
     }
 
     getPromptJSON(): CategorizerPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props);
     }
 
     _handleUserInput(itemNum, catNum) {
@@ -320,6 +312,12 @@ function getCorrectUserInput(
     return {values: options.values};
 }
 
+function getStartUserInput(): PerseusCategorizerUserInput {
+    return {
+        values: [],
+    };
+}
+
 function transform(widgetOptions: CategorizerPublicWidgetOptions): RenderProps {
     return {
         items: widgetOptions.items,
@@ -337,5 +335,6 @@ export default {
     staticTransform: transform,
     getUserInputFromSerializedState,
     getCorrectUserInput,
+    getStartUserInput,
     isLintable: true,
 } satisfies WidgetExports<typeof Categorizer, PerseusCategorizerUserInput>;

@@ -1,5 +1,4 @@
 import type matrix from "../../widgets/matrix/matrix";
-import type {PerseusMatrixUserInput} from "@khanacademy/perseus-core";
 import type React from "react";
 
 export type MatrixPromptJSON = {
@@ -15,7 +14,6 @@ export type MatrixPromptJSON = {
 
 export const getPromptJSON = (
     renderProps: React.ComponentProps<typeof matrix.widget>,
-    userInput: PerseusMatrixUserInput,
 ): MatrixPromptJSON => {
     return {
         type: "matrix",
@@ -24,7 +22,7 @@ export const getPromptJSON = (
             width: renderProps.matrixBoardSize[1],
         },
         userInput: {
-            answerRows: userInput.answers,
+            answerRows: renderProps.userInput.answers,
         },
     };
 };
