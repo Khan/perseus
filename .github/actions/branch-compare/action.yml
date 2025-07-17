@@ -44,7 +44,7 @@ runs:
 
         - uses: actions/upload-artifact@v4
           with:
-              name: pr-artifacts
+              name: pr-artifacts-${{ inputs.label-name }}
               path: ${{ steps.capture-pr-artifacts.outputs.artifact-path }}
 
         - name: Check out base branch
@@ -75,7 +75,7 @@ runs:
 
         - uses: actions/upload-artifact@v4
           with:
-              name: base-artifacts
+              name: base-artifacts-${{ inputs.label-name }}
               path: ${{ steps.capture-base-artifacts.outputs.artifact-path }}
 
         - name: Compare Artifacts
