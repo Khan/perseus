@@ -36,14 +36,6 @@ outputs:
 runs:
     using: "composite"
     steps:
-        - name: Check out latest commit
-          uses: actions/checkout@v4
-
-        - name: Install & cache node_modules
-          uses: ./.github/actions/shared-node-cache
-          with:
-              node-version: ${{ matrix.node-version }}
-
         - name: Build for current PR
           shell: bash
           run: ${{ inputs.build-command }}
