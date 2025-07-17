@@ -3,4 +3,4 @@
 "@khanacademy/perseus-core": patch
 ---
 
-Removing deprecated analytics event for graph rendering
+Removing deprecated analytics event:  `perseus:interactive-graph-widget:rendered`
