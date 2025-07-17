@@ -281,7 +281,7 @@ jobs:
                   echo "SCHEMA_DIFF<<$DELIM" >> "$GITHUB_OUTPUT"
                   diff -C 3 ${{ runner.temp }}/schema-base.d.ts ${{ runner.temp }}/schema-pr.d.ts >> "$GITHUB_OUTPUT"
                   DIFF_EXIT_CODE=$? # Capture the exit code of diff
-                  echo "$DELIM" "
+                  echo "$DELIM"
                   echo "diff_exit_code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
 
             - name: Schema Changed! Add schema-change label to PR
