@@ -279,7 +279,7 @@ jobs:
                   # delimeter in the diff output doesn't cause problems.
                   DELIM=$(uuidgen)
                   echo "SCHEMA_DIFF<<$DELIM" >> "$GITHUB_OUTPUT"
-                  diff -C 3 ${{ runner.temp }}/schema-base.d.ts ${{ runner.temp }}/schema-pr.d.ts >> "$GITHUB_OUTPUT"
+                  diff -C 3 --algorithm patience ${{ runner.temp }}/schema-base.d.ts ${{ runner.temp }}/schema-pr.d.ts >> "$GITHUB_OUTPUT"
                   DIFF_EXIT_CODE=$? # Capture the exit code of diff
                   echo "$DELIM" >> "$GITHUB_OUTPUT"
 
@@ -318,9 +318,7 @@ jobs:
                   comment-id: ${{ steps.find-schema-change-comment.outputs.comment-id }}
                   edit-mode: replace
                   body: |
-                      # 🗄️ Schema Change
-
-                      ✅ No schema changes detected!
+                      # 🗄️ No Schema Changes ✅
 
             - name: Create or update Schema Change comment - failure
               if: always() && steps.check_for_schema_change.outcome == 'failure'
@@ -330,7 +328,7 @@ jobs:
                   comment-id: ${{ steps.find-schema-change-comment.outputs.comment-id }}
                   edit-mode: replace
                   body: |
-                      # 🗄️ Schema Change
+                      # 🗄️ Schema Change Detected
 
                       ⚠️ This PR contains changes to the Perseus Schema.
 
