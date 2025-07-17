@@ -89,9 +89,9 @@ runs:
           run: |
               PR_NUMBER="${{ github.event.pull_request.number }}"
               if [ "${{ steps.compare-artifacts.outputs.diff-exit-code }}" == "0" ]; then
-                  gh pr edit "$PR_NUMBER" --add-label "${{ inputs.label-name }}"
-              else
                   gh pr edit "$PR_NUMBER" --remove-label "${{ inputs.label-name }}" || true
+              else
+                  gh pr edit "$PR_NUMBER" --add-label "${{ inputs.label-name }}"
               fi
 
         - name: Find comment
