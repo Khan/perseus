@@ -320,6 +320,85 @@ jobs:
                       Comment ID: schema-change
                       -->
 
+    check_item_splitting:
+        name: Check for item splitting changes
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [20.x]
+        steps:
+            - name: Use branch-compare action to generate item splitting artifacts
+              uses: ./.github/actions/branch-compare
+              with:
+                  build-command:    pnpm build
+                  path-to-artifact: packages/perseus-core/dist/es/split-perseus-item.js
+
+            - name: Check for Item Splitting Change
+              id: check_for_item_splitting_change
+              run: |
+                  # So a non-zero exit code from 'diff' doesn't bail this step.
+                  set +e
+                  # We generate a random DELIMeter so that the existence of the
+                  # delimiter in the diff output doesn't cause problems.
+                  DELIM=$(uuidgen)
+                  echo "ITEM_SPLITTING_DIFF<<$DELIM" >> "$GITHUB_OUTPUT"
+                  diff -C 3 "${{ steps.branch-compare.outputs.base-artifact-path }}/split-perseus-item.js" \
+                           "${{ steps.branch-compare.outputs.pr-artifact-path }}/split-perseus-item.js" >> "$GITHUB_OUTPUT"
+                  DIFF_EXIT_CODE=$? # Capture the exit code of diff
+                  echo "$DELIM" >> "$GITHUB_OUTPUT"
+                  echo "diff_exit_code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
+
+            - name: Item Splitting Changed! Add item-splitting-change label to PR
+              if: steps.check_for_item_splitting_change.outputs.diff_exit_code != '0'
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  PR_NUMBER="${{ github.event.pull_request.number }}"
+                  gh pr edit "$PR_NUMBER" --add-label "item-splitting-change"
+
+            - name: Item Splitting NOT Changed! Remove item-splitting-change label to PR
+              if: steps.check_for_item_splitting_change.outputs.diff_exit_code == '0'
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  PR_NUMBER="${{ github.event.pull_request.number }}"
+                  gh pr edit "$PR_NUMBER" --remove-label "item-splitting-change" || true
+
+            - name: Find Item Splitting Change comment
+              uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
+              id: find-item-splitting-change-comment
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-author: "github-actions[bot]"
+                  body-includes: "Item Splitting Change"
+
+            - name: Create or update Item Splitting Change comment - success
+              if: steps.check_for_item_splitting_change.outputs.diff_exit_code == '0'
+              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-id: ${{ steps.find-item-splitting-change-comment.outputs.comment-id }}
+                  edit-mode: replace
+                  body: |
+                      # 🛠️ No Item Splitting Changes ✅
+
+            - name: Create or update Item Splitting Change comment - failure
+              if: steps.check_for_item_splitting_change.outputs.diff_exit_code != '0'
+              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-id: ${{ steps.find-item-splitting-change-comment.outputs.comment-id }}
+                  edit-mode: replace
+                  body: |
+                      # 🛠️ Item Splitting Change Detected
+
+                      ⚠️ This PR contains changes to the Perseus Item Splitting logic.
+
+                      ```diff
+                      ${{ steps.check_for_item_splitting_change.outputs.ITEM_SPLITTING_DIFF }}
+                      ```
+
     publish_snapshot:
         name: Publish npm snapshot
         # We don't publish snapshots on Changeset "Version Packages" PRs
