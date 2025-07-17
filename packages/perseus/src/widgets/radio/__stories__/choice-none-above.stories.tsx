@@ -14,7 +14,7 @@ type ChoiceNoneAboveStory = {
 };
 
 export default {
-    title: "Perseus/Widgets/Radio/Choice None of the Above",
+    title: "Widgets/Radio/Choice None of the Above",
     args: {showContent: false, content: "This is a possible choice"},
 } as ChoiceNoneAboveStory;
 

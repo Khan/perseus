@@ -8,7 +8,7 @@ import {question, questionWithZoom} from "./image.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Image",
+    title: "Widgets/Image",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;
@@ -33,6 +33,11 @@ export const Question1: Story = {
                 },
             },
         }),
+    },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
     },
 };
 

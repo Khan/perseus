@@ -29,7 +29,7 @@ const defaultProps = {
 } as const;
 
 export default {
-    title: "Perseus/Widgets/Radio/Choice Icon",
+    title: "Widgets/Radio/Choice Icon",
     argTypes: {
         pos: {
             control: {type: "number", min: 0, max: 25, step: 1},

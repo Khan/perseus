@@ -8,7 +8,7 @@ import {
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Graded Group Set",
+    title: "Widgets/Graded Group Set",
     component: ArticleRendererWithDebugUI,
 };
 export default meta;
@@ -18,6 +18,11 @@ type Story = StoryObj<typeof ArticleRendererWithDebugUI>;
 export const Article1: Story = {
     args: {
         json: article1,
+    },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
     },
 };
 

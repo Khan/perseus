@@ -17,7 +17,7 @@ import {
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Grapher",
+    title: "Widgets/Grapher",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;
@@ -27,6 +27,11 @@ type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 export const AbsoluteValueQuestion: Story = {
     args: {
         item: generateTestPerseusItem({question: absoluteValueQuestion}),
+    },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
     },
 };
 

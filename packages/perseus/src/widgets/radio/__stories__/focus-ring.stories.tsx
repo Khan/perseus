@@ -16,7 +16,7 @@ type Story = {
 };
 
 export default {
-    title: "Perseus/Widgets/Radio/Focus Ring",
+    title: "Widgets/Radio/Focus Ring",
     args: {
         children: "",
         color: styleConstants.kaGreen,

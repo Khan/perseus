@@ -36,7 +36,7 @@ type StoryArgs = {
  */
 
 export default {
-    title: "Perseus/Widgets/RadioNew",
+    title: "Widgets/RadioNew",
     args: {
         static: false,
         // Requires a page refresh for toggling this to affect the story
@@ -99,6 +99,11 @@ export const SingleSelect = {
         item: generateTestPerseusItem({
             question: questionWithPassage,
         }),
+    },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
     },
 };
 

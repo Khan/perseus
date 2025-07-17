@@ -16,7 +16,7 @@ type Story = {
 };
 
 export default {
-    title: "Perseus/Widgets/Radio/Base Radio",
+    title: "Widgets/Radio/Base Radio",
     args: {
         multipleSelect: false,
         editMode: false,

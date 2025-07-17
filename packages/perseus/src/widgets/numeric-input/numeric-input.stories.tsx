@@ -44,7 +44,7 @@ const answersArray: string = `[
 
 const meta: Meta<typeof NumericInput> = {
     component: NumericInput,
-    title: "Perseus/Widgets/Numeric Input",
+    title: "Widgets/Numeric Input",
     args: {
         coefficient: false,
         userInput: {currentValue: ""},
@@ -203,6 +203,7 @@ Default.parameters = {
         description: {
             story: "The default Numeric Input widget.",
         },
+        disable: false, // This specific story will be shown in autodocs as the default story
     },
 };
 

@@ -42,6 +42,7 @@ type DefaultProps = {
     rulerLength: Props["rulerLength"];
 };
 
+// TODO: Add documentation for the Measurer widget
 class Measurer extends React.Component<Props> implements Widget {
     static defaultProps: DefaultProps = {
         box: [480, 480],

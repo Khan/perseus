@@ -39,7 +39,7 @@ const defaultProps = {
 } as const;
 
 export default {
-    title: "Perseus/Widgets/Radio/Choice",
+    title: "Widgets/Radio/Choice",
     args: defaultProps,
 } as Story;
 

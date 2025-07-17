@@ -10,7 +10,7 @@ import {generateTableRenderer} from "./test-util";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Table",
+    title: "Widgets/Table",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;
@@ -24,6 +24,11 @@ const tableItem: PerseusItem = generateTestPerseusItem({
 export const AnswerfulTable: Story = {
     args: {
         item: tableItem,
+    },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
     },
 };
 

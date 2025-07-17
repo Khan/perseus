@@ -7,7 +7,7 @@ import {question1} from "./categorizer.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Categorizer",
+    title: "Widgets/Categorizer",
     component: ServerItemRendererWithDebugUI,
 };
 export default meta;
@@ -16,17 +16,18 @@ type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
 export const Question1: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: question1,
-        }),
+        item: generateTestPerseusItem({question: question1}),
+    },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
     },
 };
 
 export const AnswerlessCategorizer: Story = {
     args: {
-        item: generateTestPerseusItem({
-            question: question1,
-        }),
+        item: generateTestPerseusItem({question: question1}),
         startAnswerless: true,
     },
 };

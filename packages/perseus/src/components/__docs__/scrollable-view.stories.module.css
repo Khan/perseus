@@ -1,0 +1,24 @@
+.demoContainer {
+    max-width: 500px;
+    margin: var(--wb-sizing-size_200) var(--wb-sizing-size_0);
+    border: var(--wb-border-width-thin);
+    border-radius: var(--wb-border-radius-radius_040);
+}
+
+.scrollContent {
+    padding: var(--wb-sizing-size_160);
+    display: flex;
+    gap: var(--wb-sizing-size_200);
+}
+
+.card {
+    min-width: var(--wb-sizing-size_960);
+    height: var(--wb-sizing-size_960);
+    padding: var(--wb-sizing-size_160);
+    background-color: var(--wb-semanticColor-core-background-neutral-subtle);
+    border: var(--wb-border-width-medium);
+    border-radius: var(--wb-border-radius-radius_040);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

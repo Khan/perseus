@@ -5,7 +5,7 @@ import {PhetSimulation} from "./phet-simulation";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof PhetSimulation> = {
-    title: "Perseus/Widgets/PhET Simulation",
+    title: "Widgets/PhET Simulation",
     component: PhetSimulation,
     parameters: {
         docs: {
@@ -29,6 +29,11 @@ export const Default: Story = {
         apiOptions: {
             ...ApiOptions.defaults,
             isMobileApp: false,
+        },
+    },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
         },
     },
 };

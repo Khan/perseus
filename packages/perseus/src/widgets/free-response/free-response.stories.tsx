@@ -4,7 +4,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof FreeResponse> = {
     component: FreeResponse,
-    title: "Perseus/Widgets/FreeResponse",
+    title: "Widgets/FreeResponse",
 };
 
 export default meta;
@@ -16,6 +16,11 @@ export const Primary: Story = {
         characterLimit: 500,
         placeholder: "Enter your answer here",
         question: "What is the theme of the essay?",
+    },
+    parameters: {
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
     },
 };
 

@@ -9,8 +9,13 @@ import {
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Interactive Graph/Locked Functions",
+    title: "Widgets/Interactive Graph/Locked Functions",
     component: ServerItemRendererWithDebugUI,
+    parameters: {
+        // Since by default, we don't show all stories in autodocs; this will show
+        // all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
 };
 export default meta;
 
