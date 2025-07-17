@@ -209,7 +209,7 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            # Make sure our packages aren't growing unexpectedly This must come
+            # Make sure our packages aren't growing unexpectedly. This must come
             # last as it builds the old code last and so leaves the wrong code
             # in place for the next job; in other words, it leaves the repo on a
             # base branch.
