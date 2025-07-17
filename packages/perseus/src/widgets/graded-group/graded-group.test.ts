@@ -19,7 +19,7 @@ const checkAnswer = async (
 ) => {
     // NOTE(jeremy): The only route to check the answer
     // is to use the "Check" button that is embedded _inside_ the widget.
-    await userEvent.click(screen.getByRole("button", {name: "Check"}));
+    await userEvent.click(await screen.findByRole("button", {name: "Check"}));
 };
 
 describe("graded-group", () => {
@@ -270,7 +270,7 @@ describe("graded-group", () => {
             expect(screen.getByText("Keep trying")).toBeVisible();
         });
 
-        it("should let the user retry when checked if not fully answered", async () => {
+        it("should let the user try again when checked if not fully answered", async () => {
             // Arrange
             renderQuestion(question1, apiOptions);
 
@@ -282,18 +282,16 @@ describe("graded-group", () => {
             );
             act(() => jest.runOnlyPendingTimers());
 
-            await checkAnswer(userEvent);
-
             // Act
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[2],
-            );
-            act(() => jest.runOnlyPendingTimers());
+            await checkAnswer(userEvent);
 
             // Assert
             expect(
                 await screen.findByRole("button", {name: "Try again"}),
             ).toBeVisible();
+            expect(
+                await screen.findByRole("button", {name: "Try again"}),
+            ).toHaveAttribute("aria-disabled", "true");
         });
 
         it("should be able to reveal the hint", async () => {

@@ -45,7 +45,7 @@ type Props = {
  * examples of how to input the selected answer forms.
  */
 const InputWithExamples = forwardRef<Focusable, Props>(
-    (
+    function InputWithExamples(
         {
             shouldShowExamples = true,
             onFocus = () => {},
@@ -56,7 +56,7 @@ const InputWithExamples = forwardRef<Focusable, Props>(
             ...props
         },
         ref,
-    ) => {
+    ) {
         const context = React.useContext(PerseusI18nContext);
         const inputRef = React.useRef<TextInput>(null);
         const [inputFocused, setInputFocused] = React.useState<boolean>(false);

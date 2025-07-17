@@ -125,7 +125,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
                                       <div
                                         class="paragraph"
                                       >
-                                         Some bacteria conduct photosynthesis and produce oxygen, much like plants.
+                                        Some bacteria conduct photosynthesis and produce oxygen, much like plants.
                                       </div>
                                     </div>
                                   </div>
@@ -557,7 +557,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                                       <div
                                         class="paragraph"
                                       >
-                                         Some bacteria conduct photosynthesis and produce oxygen, much like plants.
+                                        Some bacteria conduct photosynthesis and produce oxygen, much like plants.
                                       </div>
                                     </div>
                                   </div>
