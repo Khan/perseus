@@ -38,7 +38,7 @@ import type {
     ShowSolutions,
     PerseusLabelImageUserInputMarker,
 } from "@khanacademy/perseus-core";
-import type {InteractiveMarkerScore} from "@khanacademy/perseus-score/src/widgets/label-image/score-label-image";
+import type {InteractiveMarkerScore} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
