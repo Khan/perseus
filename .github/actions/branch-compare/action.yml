@@ -2,15 +2,16 @@ name: "Branch Compare"
 description: "Compare artifacts between PR branch and base branch"
 
 inputs:
+    github-token:
+        description: "The Github token to use for authenticated requests."
+        required: true
     build-command:
         description: "The command that generates the artifact to compare"
         required: true
     path-to-artifact:
         description: >-
             The path to the artifact to compare - should be the same for both
-            the current branch and base branch. Write artifacts from the
-            `build-command` to `${{ runner.temp }}`/... to pass files in a temp
-            directory.
+            the current branch and base branch.
         required: true
     label-name:
         description: "The name of the label to add or remove based on the diff result"
@@ -89,7 +90,7 @@ runs:
         - name: Add or Remove Label Based on Diff
           if: always()
           env:
-              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              GITHUB_TOKEN: ${{ inputs.github-token }}
           shell: bash
           run: |
               PR_NUMBER="${{ github.event.pull_request.number }}"
