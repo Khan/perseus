@@ -28,8 +28,9 @@ jest.mock("@khanacademy/wonder-blocks-tooltip", () => {
                   in the document (usually the bottom of the <body>), and only
                   when the user interacts with the element. This makes checking
                   for the Tooltip element difficult to manage in a test.
-                  Therefore, these tests mock the Tooltip component and check
-                  if/how it is called.
+                  Therefore, these tests mock the Tooltip component and just
+                  have it render the tooltip content inline, making it very
+                  easy to verify.
             */
             return (
                 <div {...props} data-testid="tooltip-content-for-test">
