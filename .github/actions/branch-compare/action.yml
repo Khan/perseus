@@ -12,6 +12,9 @@ inputs:
             `build-command` to `${{ runner.temp }}`/... to pass files in a temp
             directory.
         required: true
+    label-name:
+        description: "The name of the label to add or remove based on the diff result"
+        required: true
 
 outputs:
     pr-artifact-path:
@@ -22,6 +25,13 @@ outputs:
         description: "Exit code of the diff command (0 if no changes, non-zero otherwise)"
     diff-content:
         description: "The diff content between the PR and base branch artifacts"
+    comment-title-term:
+        description: >-
+            The term to include in the title of comments made by this action.
+    comment-title-emoji:
+        description: >-
+            The emoji to prefix comment titles with. Makes these comments
+            easily identifiable and differentiated.
 
 runs:
     using: "composite"
@@ -72,6 +82,7 @@ runs:
               echo "base-artifact-path=$BASE_ARTIFACT_DIR" >> $GITHUB_OUTPUT
 
         - name: Compare Artifacts
+          id: compare-artifacts
           shell: bash
           run: |
               set +e
@@ -82,3 +93,58 @@ runs:
               DIFF_EXIT_CODE=$?
               echo "$DELIM" >> "$GITHUB_OUTPUT"
               echo "diff-exit-code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
+
+        - name: Add or Remove Label Based on Diff
+          if: always()
+          env:
+              GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          shell: bash
+          run: |
+              PR_NUMBER="${{ github.event.pull_request.number }}"
+              if [ "${{ steps.compare-artifacts.outputs.diff-exit-code }}" -ne 0 ]; then
+                  gh pr edit "$PR_NUMBER" --add-label "${{ inputs.label-name }}"
+              else
+                  gh pr edit "$PR_NUMBER" --remove-label "${{ inputs.label-name }}" || true
+              fi
+
+        - name: Find comment
+          uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
+          id: find-comment
+          with:
+              issue-number: ${{ github.event.pull_request.number }}
+              comment-author: "github-actions[bot]"
+              body-includes: "Comment ID: ${{ inputs.comment-title-term }}"
+
+        - name: Create or update comment - success
+          if: steps.compare-artifacts.outputs.diff_exit_code == '0'
+          uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+          with:
+              issue-number: ${{ github.event.pull_request.number }}
+              comment-id: ${{ steps.find-comment.outputs.comment-id}}
+              edit-mode: replace
+              body: |
+                  # ${{ inputs.comment-title-emoji }} ${{ inputs.comment-title-term }}: No Changes ✅
+
+                  <!---
+                  Comment ID: ${{ inputs.comment-title-term }}
+                  -->
+
+        - name: Create or update comment - failure
+          if: steps.compare-artifacts.outputs.diff_exit_code != '0'
+          uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+          with:
+              issue-number: ${{ github.event.pull_request.number }}
+              comment-id: ${{ steps.find-comment.outputs.comment-id}}
+              edit-mode: replace
+              body: |
+                  # ${{ inputs.comment-title-emoji }} ${{ inputs.comment-title-term }}: Changes Detected ⚠️
+
+                  This PR contains changes to the Perseus '${{ inputs.comment-title-term }}'.
+
+                  ```diff
+                  ${{ steps.check_for_item_splitting_change.outputs.ITEM_SPLITTING_DIFF }}
+                  ```
+
+                  <!---
+                  Comment ID: ${{ inputs.comment-title-term }}
+                  -->

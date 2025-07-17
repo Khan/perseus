@@ -237,8 +237,7 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [20.x]
         steps:
-            - name: Use branch-compare action to generate schema artifacts and compare them
-              id: schema-compare
+            - name: Compare Perseus Schema to base branch
               uses: ./.github/actions/branch-compare
               with:
                   build-command: |
@@ -247,64 +246,9 @@ jobs:
                         packages/perseus-core/src/data-schema.ts
                       pnpm prettier --write ${{ runner.temp }}/schema.d.ts
                   path-to-artifact: ${{ runner.temp }}/schema.d.ts
-
-            - name: Schema Changed! Add schema-change label to PR
-              if: steps.schema-compare.outputs.diff-exit-code != '0'
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                  PR_NUMBER="${{ github.event.pull_request.number }}"
-                  gh pr edit "$PR_NUMBER" --add-label "schema-change"
-
-            - name: Schema NOT Changed! Remove schema-change label to PR
-              if: steps.schema-compare.outputs.diff-exit-code == '0'
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                  PR_NUMBER="${{ github.event.pull_request.number }}"
-                  gh pr edit "$PR_NUMBER" --remove-label "schema-change" || true
-
-            - name: Find Schema Change comment
-              uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
-              id: find-schema-change-comment
-              with:
-                  issue-number: ${{ github.event.pull_request.number }}
-                  comment-author: "github-actions[bot]"
-                  body-includes: "Comment ID: schema-change"
-
-            - name: Create or update Schema Change comment - success
-              if: steps.schema-compare.outputs.diff_exit_code == '0'
-              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
-              with:
-                  issue-number: ${{ github.event.pull_request.number }}
-                  comment-id: ${{ steps.find-schema-change-comment.outputs.comment-id }}
-                  edit-mode: replace
-                  body: |
-                      # 🗄️ No Schema Changes ✅
-
-                      <!---
-                      Comment ID: schema-change
-                      -->
-
-            - name: Create or update Schema Change comment - failure
-              if: steps.schema-compare.outputs.diff_exit_code != '0'
-              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
-              with:
-                  issue-number: ${{ github.event.pull_request.number }}
-                  comment-id: ${{ steps.find-schema-change-comment.outputs.comment-id }}
-                  edit-mode: replace
-                  body: |
-                      # 🗄️ Schema Change Detected
-
-                      ⚠️ This PR contains changes to the Perseus Schema.
-
-                      ```diff
-                      ${{ steps.check_for_schema_change.outputs.SCHEMA_DIFF }}
-                      ```
-
-                      <!---
-                      Comment ID: schema-change
-                      -->
+                  label-name: schema-change
+                  comment-title-term: Schema
+                  comment-title-emoji: 🗄️
 
     check_item_splitting:
         name: Check for item splitting changes
@@ -320,56 +264,9 @@ jobs:
               with:
                   build-command:    pnpm build
                   path-to-artifact: packages/perseus-core/dist/es/split-perseus-item.js
-
-            - name: Item Splitting Changed! Add item-splitting-change label to PR
-              if: steps.split-item-compare.outputs.diff_exit_code != '0'
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                  PR_NUMBER="${{ github.event.pull_request.number }}"
-                  gh pr edit "$PR_NUMBER" --add-label "item-splitting-change"
-
-            - name: Item Splitting NOT Changed! Remove item-splitting-change label to PR
-              if: steps.split-item-compare.outputs.diff_exit_code == '0'
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                  PR_NUMBER="${{ github.event.pull_request.number }}"
-                  gh pr edit "$PR_NUMBER" --remove-label "item-splitting-change" || true
-
-            - name: Find Item Splitting Change comment
-              uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
-              id: find-item-splitting-change-comment
-              with:
-                  issue-number: ${{ github.event.pull_request.number }}
-                  comment-author: "github-actions[bot]"
-                  body-includes: "Item Splitting Change"
-
-            - name: Create or update Item Splitting Change comment - success
-              if: steps.split-item-compare.outputs.diff_exit_code == '0'
-              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
-              with:
-                  issue-number: ${{ github.event.pull_request.number }}
-                  comment-id: ${{ steps.find-item-splitting-change-comment.outputs.comment-id }}
-                  edit-mode: replace
-                  body: |
-                      # 🛠️ No Item Splitting Changes ✅
-
-            - name: Create or update Item Splitting Change comment - failure
-              if: steps.split-item-compare.outputs.diff_exit_code != '0'
-              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
-              with:
-                  issue-number: ${{ github.event.pull_request.number }}
-                  comment-id: ${{ steps.find-item-splitting-change-comment.outputs.comment-id }}
-                  edit-mode: replace
-                  body: |
-                      # 🛠️ Item Splitting Change Detected
-
-                      ⚠️ This PR contains changes to the Perseus Item Splitting logic.
-
-                      ```diff
-                      ${{ steps.check_for_item_splitting_change.outputs.ITEM_SPLITTING_DIFF }}
-                      ```
+                  label-name: item-splitting-change
+                  comment-title-term: Item Splitting
+                  comment-title-emoji: 🛠️
 
     publish_snapshot:
         name: Publish npm snapshot
