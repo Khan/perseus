@@ -84,7 +84,7 @@ runs:
           run: |
               set +e
               DELIM=$(uuidgen)
-              echo "DIFF_CONTENT<<$DELIM" >> "$GITHUB_OUTPUT"
+              echo "diff-content<<$DELIM" >> "$GITHUB_OUTPUT"
               diff --unified "${{ steps.capture-base-artifacts.outputs.artifact-path }}" \
                              "${{ steps.capture-pr-artifacts.outputs.artifact-path }}" >> "$GITHUB_OUTPUT"
               DIFF_EXIT_CODE=$?
@@ -139,7 +139,7 @@ runs:
                   This PR contains changes to the Perseus '${{ inputs.comment-title-term }}'.
 
                   ```diff
-                  ${{ steps.check_for_item_splitting_change.outputs.ITEM_SPLITTING_DIFF }}
+                  ${{ steps.compare-artifacts.outputs.diff-content }}
                   ```
 
                   <!---
