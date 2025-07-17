@@ -237,6 +237,14 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [20.x]
         steps:
+            - name: Check out latest commit
+              uses: actions/checkout@v4
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+              with:
+                  node-version: ${{ matrix.node-version }}
+
             - name: Compare Perseus Schema to base branch
               uses: ./.github/actions/branch-compare
               with:
@@ -258,6 +266,14 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [20.x]
         steps:
+            - name: Check out latest commit
+              uses: actions/checkout@v4
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+              with:
+                  node-version: ${{ matrix.node-version }}
+
             - name: Use branch-compare action to generate item splitting artifacts
               id: split-item-compare
               uses: ./.github/actions/branch-compare
