@@ -16,16 +16,6 @@ inputs:
     label-name:
         description: "The name of the label to add or remove based on the diff result"
         required: true
-
-outputs:
-    pr-artifact-path:
-        description: "Path to the artifact generated for the PR branch"
-    base-artifact-path:
-        description: "Path to the artifact generated for the base branch"
-    diff-exit-code:
-        description: "Exit code of the diff command (0 if no changes, non-zero otherwise)"
-    diff-content:
-        description: "The diff content between the PR and base branch artifacts"
     comment-title-term:
         description: >-
             The term to include in the title of comments made by this action.
@@ -42,12 +32,13 @@ runs:
           run: ${{ inputs.build-command }}
 
         - name: Capture output artifact from build-command for current PR
+          id: build-pr
           shell: bash
           run: |
               PR_ARTIFACT_DIR="${{ runner.temp }}/branch-compare/pr"
               mkdir -p "$PR_ARTIFACT_DIR"
-              cp ${{ inputs.path-to-artifact }} "$PR_ARTIFACT_DIR/"
-              echo "pr-artifact-path=$PR_ARTIFACT_DIR" >> $GITHUB_OUTPUT
+              cp -R ${{ inputs.path-to-artifact }} "$PR_ARTIFACT_DIR/"
+              echo "artifact-path=$PR_ARTIFACT_DIR" >> $GITHUB_OUTPUT
 
         - name: Check out base branch
           uses: actions/checkout@v4
@@ -67,12 +58,13 @@ runs:
           run: ${{ inputs.build-command }}
 
         - name: Capture output artifact from build-command for base branch
+          id: build-base
           shell: bash
           run: |
               BASE_ARTIFACT_DIR="${{ runner.temp }}/branch-compare/base"
               mkdir -p "$BASE_ARTIFACT_DIR"
-              cp ${{ inputs.path-to-artifact }} "$BASE_ARTIFACT_DIR/"
-              echo "base-artifact-path=$BASE_ARTIFACT_DIR" >> $GITHUB_OUTPUT
+              cp -R ${{ inputs.base-artifact-path }} "$BASE_ARTIFACT_DIR/"
+              echo "artifact-path=$BASE_ARTIFACT_DIR" >> $GITHUB_OUTPUT
 
         - name: Compare Artifacts
           id: compare-artifacts
@@ -81,8 +73,8 @@ runs:
               set +e
               DELIM=$(uuidgen)
               echo "DIFF_CONTENT<<$DELIM" >> "$GITHUB_OUTPUT"
-              diff --unified "$BASE_ARTIFACT_DIR/$(basename ${{ inputs.path-to-artifact }})" \
-                        "$PR_ARTIFACT_DIR/$(basename ${{ inputs.path-to-artifact }})" >> "$GITHUB_OUTPUT"
+              diff --unified "${{ steps.build-base.outputs.artifact-path }}" \
+                             "${{ steps.build-pr.outputs.artifact-path }}" >> "$GITHUB_OUTPUT"
               DIFF_EXIT_CODE=$?
               echo "$DELIM" >> "$GITHUB_OUTPUT"
               echo "diff-exit-code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
@@ -109,7 +101,7 @@ runs:
               body-includes: "Comment ID: ${{ inputs.comment-title-term }}"
 
         - name: Create or update comment - success
-          if: steps.compare-artifacts.outputs.diff_exit_code == '0'
+          if: steps.compare-artifacts.outputs.diff-exit-code == '0'
           uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
           with:
               issue-number: ${{ github.event.pull_request.number }}
@@ -123,7 +115,7 @@ runs:
                   -->
 
         - name: Create or update comment - failure
-          if: steps.compare-artifacts.outputs.diff_exit_code != '0'
+          if: steps.compare-artifacts.outputs.diff-exit-code != '0'
           uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
           with:
               issue-number: ${{ github.event.pull_request.number }}
