@@ -75,7 +75,7 @@ runs:
 
         - uses: actions/upload-artifact@v4
           with:
-              name: pr-artifacts
+              name: base-artifacts
               path: ${{ steps.capture-base-artifacts.outputs.artifact-path }}
 
         - name: Compare Artifacts
