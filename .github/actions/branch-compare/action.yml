@@ -10,8 +10,8 @@ inputs:
         required: true
     path-to-artifact:
         description: >-
-            The path to the artifact to compare - should be the same for both
-            the current branch and base branch.
+            The path to the artifact to compare (can be a file or directory).
+            It should be the same for both the current branch and base branch.
         required: true
     label-name:
         description: "The name of the label to add or remove based on the diff result"
@@ -32,7 +32,7 @@ runs:
           run: ${{ inputs.build-command }}
 
         - name: Capture output artifact from build-command for current PR
-          id: build-pr
+          id: capture-pr-artifacts
           shell: bash
           run: |
               PR_ARTIFACT_DIR="${{ runner.temp }}/branch-compare/pr"
@@ -41,6 +41,11 @@ runs:
                 cp -R ${{ inputs.path-to-artifact }} "$PR_ARTIFACT_DIR/"
               fi
               echo "artifact-path=$PR_ARTIFACT_DIR" >> $GITHUB_OUTPUT
+
+        - uses: actions/upload-artifact@v4
+          with:
+              name: pr-artifacts
+              path: ${{ steps.capture-pr-artifacts.outputs.artifact-path }}
 
         - name: Check out base branch
           uses: actions/checkout@v4
@@ -58,7 +63,7 @@ runs:
           run: ${{ inputs.build-command }}
 
         - name: Capture output artifact from build-command for base branch
-          id: build-base
+          id: capture-base-artifacts
           shell: bash
           run: |
               BASE_ARTIFACT_DIR="${{ runner.temp }}/branch-compare/base"
@@ -68,6 +73,11 @@ runs:
               fi
               echo "artifact-path=$BASE_ARTIFACT_DIR" >> $GITHUB_OUTPUT
 
+        - uses: actions/upload-artifact@v4
+          with:
+              name: pr-artifacts
+              path: ${{ steps.capture-base-artifacts.outputs.artifact-path }}
+
         - name: Compare Artifacts
           id: compare-artifacts
           shell: bash
@@ -75,8 +85,8 @@ runs:
               set +e
               DELIM=$(uuidgen)
               echo "DIFF_CONTENT<<$DELIM" >> "$GITHUB_OUTPUT"
-              diff --unified "${{ steps.build-base.outputs.artifact-path }}" \
-                             "${{ steps.build-pr.outputs.artifact-path }}" >> "$GITHUB_OUTPUT"
+              diff --unified "${{ steps.capture-base-artifacts.outputs.artifact-path }}" \
+                             "${{ steps.capture-pr-artifacts.outputs.artifact-path }}" >> "$GITHUB_OUTPUT"
               DIFF_EXIT_CODE=$?
               echo "$DELIM" >> "$GITHUB_OUTPUT"
               echo "diff-exit-code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
