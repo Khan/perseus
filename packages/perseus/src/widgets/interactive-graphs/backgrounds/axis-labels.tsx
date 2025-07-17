@@ -5,27 +5,20 @@ import {X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
 import {replaceOutsideTeX} from "../utils";
 
-import {fontSize, getLabelPosition, getLabelTransform} from "./utils";
+import {fontSize, getLabelTransform} from "./utils";
 
 import type {I18nContextType} from "../../../components/i18n-context";
-import type {GraphDimensions} from "../types";
 
-export default function AxisLabels({i18n}: {i18n: I18nContextType}) {
-    const {range, labels, width, height, labelLocation, tickStep} =
-        useGraphConfig();
-
-    const graphInfo: GraphDimensions = {
-        range,
-        width,
-        height,
-    };
-
-    // Get the position of the main axis labels
-    const [xAxisLabelLocation, yAxisLabelLocation] = getLabelPosition(
-        graphInfo,
-        labelLocation,
-        tickStep,
-    );
+export default function AxisLabels({
+    i18n,
+    xAxisLabelLocation,
+    yAxisLabelLocation,
+}: {
+    i18n: I18nContextType;
+    xAxisLabelLocation: [number, number];
+    yAxisLabelLocation: [number, number];
+}) {
+    const {labels, labelLocation} = useGraphConfig();
 
     const [xAxisLabelText, yAxisLabelText] = labels;
 
