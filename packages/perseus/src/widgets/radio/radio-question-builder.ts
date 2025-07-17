@@ -77,6 +77,7 @@ class RadioQuestionBuilder {
             correct: options?.correct,
             rationale: options?.rationale,
             isNoneOfTheAbove: options?.isNoneOfTheAbove,
+            id: "id-" + this.choices.length,
         });
         return this;
     }
