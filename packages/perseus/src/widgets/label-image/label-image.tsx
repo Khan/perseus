@@ -6,10 +6,7 @@
  * knowledge by directly interacting with the image.
  */
 
-import {
-    InteractiveMarkerScore,
-    scoreLabelImageMarker,
-} from "@khanacademy/perseus-score";
+import {scoreLabelImageMarker} from "@khanacademy/perseus-score";
 import Clickable from "@khanacademy/wonder-blocks-clickable";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {StyleSheet, css} from "aphrodite";
@@ -41,6 +38,7 @@ import type {
     ShowSolutions,
     PerseusLabelImageUserInputMarker,
 } from "@khanacademy/perseus-core";
+import type {InteractiveMarkerScore} from "@khanacademy/perseus-score";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {CSSProperties} from "aphrodite";
 
