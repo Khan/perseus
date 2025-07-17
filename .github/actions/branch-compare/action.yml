@@ -49,9 +49,7 @@ runs:
 
         - name: Re-install node_modules for base branch
           shell: bash
-          run: |
-              pnpm clean
-              pnpm install
+          run: pnpm install
 
         - name: Build for base
           shell: bash
@@ -63,7 +61,7 @@ runs:
           run: |
               BASE_ARTIFACT_DIR="${{ runner.temp }}/branch-compare/base"
               mkdir -p "$BASE_ARTIFACT_DIR"
-              cp -R ${{ inputs.base-artifact-path }} "$BASE_ARTIFACT_DIR/"
+              cp -R ${{ inputs.path-to-artifact }} "$BASE_ARTIFACT_DIR/"
               echo "artifact-path=$BASE_ARTIFACT_DIR" >> $GITHUB_OUTPUT
 
         - name: Compare Artifacts
