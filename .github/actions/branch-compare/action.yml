@@ -9,9 +9,15 @@ inputs:
         description: >-
             The path to the artifact to compare - should be the same for both
             the current branch and base branch. Write artifacts from the
-            `build-comamnd` to `${{ runner.temp }}`/... to pass files in a temp
+            `build-command` to `${{ runner.temp }}`/... to pass files in a temp
             directory.
         required: true
+
+outputs:
+    pr-artifact-path:
+        description: "Path to the artifact generated for the PR branch"
+    base-artifact-path:
+        description: "Path to the artifact generated for the base branch"
 
 runs:
     using: "composite"
@@ -31,9 +37,10 @@ runs:
         - name: Capture output artifact from build-command for current PR
           shell: bash
           run: |
-              TMP_DIR = ${{ runner.temp }}/$(uuidgen)
-              mkdir -p $TMP_DIR/pr
-              cp ${{ path-to-artifact }} $TMP_DIR/pr/
+              PR_ARTIFACT_DIR="${{ runner.temp }}/branch-compare/pr"
+              mkdir -p "$PR_ARTIFACT_DIR"
+              cp ${{ inputs.path-to-artifact }} "$PR_ARTIFACT_DIR/"
+              echo "pr-artifact-path=$PR_ARTIFACT_DIR" >> $GITHUB_OUTPUT
 
         - name: Check out base branch
           uses: actions/checkout@v4
@@ -55,6 +62,7 @@ runs:
         - name: Capture output artifact from build-command for base branch
           shell: bash
           run: |
-              TMP_DIR = ${{ runner.temp }}/$(uuidgen)
-              mkdir -p $TMP_DIR/base
-              cp ${{ path-to-artifact }} $TMP_DIR/base/
+              BASE_ARTIFACT_DIR="${{ runner.temp }}/branch-compare/base"
+              mkdir -p "$BASE_ARTIFACT_DIR"
+              cp ${{ inputs.path-to-artifact }} "$BASE_ARTIFACT_DIR/"
+              echo "base-artifact-path=$BASE_ARTIFACT_DIR" >> $GITHUB_OUTPUT
