@@ -1,7 +1,7 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import ExplanationEditor from "../explanation-editor";
+import SorterEditor from "../sorter-editor";
 
 type StoryArgs = Record<any, any>;
 
@@ -10,9 +10,10 @@ type Story = {
 };
 
 export default {
-    title: "PerseusEditor/Widgets/Explanation Editor",
+    title: "Widgets/Sorter/Editor Demo",
+    tags: ["!autodocs"],
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {
-    return <ExplanationEditor onChange={action("onChange")} />;
+    return <SorterEditor onChange={action("onChange")} />;
 };

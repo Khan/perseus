@@ -16,7 +16,8 @@ type Story = {
 };
 
 export default {
-    title: "PerseusEditor/Widgets/Expression Editor",
+    title: "Widgets/Expression/Editor Demo",
+    tags: ["!autodocs"],
 } as Story;
 
 type State = PerseusExpressionWidgetOptions;

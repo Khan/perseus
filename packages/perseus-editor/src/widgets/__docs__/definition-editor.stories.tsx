@@ -1,7 +1,7 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import NumericInputEditor from "../numeric-input-editor";
+import DefinitionEditor from "../definition-editor";
 
 type StoryArgs = Record<any, any>;
 
@@ -10,9 +10,10 @@ type Story = {
 };
 
 export default {
-    title: "PerseusEditor/Widgets/NumericInput Editor",
+    title: "Widgets/Definition/Editor Demo",
+    tags: ["!autodocs"],
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {
-    return <NumericInputEditor onChange={action("onChange")} />;
+    return <DefinitionEditor onChange={action("onChange")} />;
 };

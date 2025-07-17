@@ -1,7 +1,7 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import InputNumberEditor from "../input-number-editor";
+import NumberLineEditor from "../number-line-editor";
 
 type StoryArgs = Record<any, any>;
 
@@ -10,9 +10,10 @@ type Story = {
 };
 
 export default {
-    title: "PerseusEditor/Widgets/InputNumber Editor",
+    title: "Widgets/Number Line/Editor Demo",
+    tags: ["!autodocs"],
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {
-    return <InputNumberEditor onChange={action("onChange")} />;
+    return <NumberLineEditor onChange={action("onChange")} />;
 };

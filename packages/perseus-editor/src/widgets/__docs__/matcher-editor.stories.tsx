@@ -1,7 +1,7 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import SorterEditor from "../sorter-editor";
+import MatcherEditor from "../matcher-editor";
 
 type StoryArgs = Record<any, any>;
 
@@ -10,9 +10,10 @@ type Story = {
 };
 
 export default {
-    title: "PerseusEditor/Widgets/Sorter Editor",
+    title: "Widgets/Matcher/Editor Demo",
+    tags: ["!autodocs"],
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {
-    return <SorterEditor onChange={action("onChange")} />;
+    return <MatcherEditor onChange={action("onChange")} />;
 };

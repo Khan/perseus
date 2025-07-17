@@ -1,7 +1,7 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import MatcherEditor from "../matcher-editor";
+import ExplanationEditor from "../explanation-editor";
 
 type StoryArgs = Record<any, any>;
 
@@ -10,9 +10,10 @@ type Story = {
 };
 
 export default {
-    title: "PerseusEditor/Widgets/Matcher Editor",
+    title: "Widgets/Explanation/Editor Demo",
+    tags: ["!autodocs"],
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {
-    return <MatcherEditor onChange={action("onChange")} />;
+    return <ExplanationEditor onChange={action("onChange")} />;
 };

@@ -11,7 +11,8 @@ type Story = {
 };
 
 export default {
-    title: "PerseusEditor/Widgets/Plotter Editor",
+    title: "Widgets/Plotter/Editor Demo",
+    tags: ["!autodocs"],
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {

@@ -38,7 +38,8 @@ import type {
 registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
 export default {
-    title: "PerseusEditor/Widgets/Interactive Graph",
+    title: "Widgets/Interactive Graph/Editor Demo",
+    tags: ["!autodocs"],
 };
 
 const onChangeAction = action("onChange");

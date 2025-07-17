@@ -11,7 +11,8 @@ type Story = {
 };
 
 export default {
-    title: "PerseusEditor/Widgets/Categorizer Editor",
+    title: "Widgets/Categorizer/Editor Demo",
+    tags: ["!autodocs"],
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {

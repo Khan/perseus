@@ -13,7 +13,8 @@ type Story = {
 };
 
 export default {
-    title: "PerseusEditor/Widgets/Label Image Editor",
+    title: "Widgets/Label Image/Editor Demo",
+    tags: ["!autodocs"],
 } as Story;
 
 const styles = StyleSheet.create({

@@ -9,7 +9,8 @@ type StoryArgs = Record<any, any>;
 
 const meta: Meta<typeof FreeResponseEditor> = {
     component: FreeResponseEditor,
-    title: "PerseusEditor/Widgets/Free Response Editor",
+    title: "Widgets/Free Response/Editor Demo",
+    tags: ["!autodocs"],
 };
 
 export default meta;

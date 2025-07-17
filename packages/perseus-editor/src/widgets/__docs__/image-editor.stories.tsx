@@ -17,7 +17,8 @@ type Story = {
 };
 
 export default {
-    title: "PerseusEditor/Widgets/Image Editor",
+    title: "Widgets/Image/Editor Demo",
+    tags: ["!autodocs"],
 } as Story;
 
 const styles = StyleSheet.create({

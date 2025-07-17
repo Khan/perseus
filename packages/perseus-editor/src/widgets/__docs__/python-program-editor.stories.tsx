@@ -1,7 +1,7 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import DefinitionEditor from "../definition-editor";
+import PythonProgramEditor from "../python-program-editor";
 
 type StoryArgs = Record<any, any>;
 
@@ -10,9 +10,10 @@ type Story = {
 };
 
 export default {
-    title: "PerseusEditor/Widgets/Definition Editor",
+    title: "Widgets/Python Program/Editor Demo",
+    tags: ["!autodocs"],
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {
-    return <DefinitionEditor onChange={action("onChange")} />;
+    return <PythonProgramEditor onChange={action("onChange")} />;
 };

@@ -6,7 +6,8 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof PhetSimulationEditor> = {
     component: PhetSimulationEditor,
-    title: "PerseusEditor/Widgets/PhET Simulation Editor",
+    title: "Widgets/PhET Simulation/Editor Demo",
+    tags: ["!autodocs"],
 };
 
 export default meta;
