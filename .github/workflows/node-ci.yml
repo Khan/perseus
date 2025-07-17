@@ -285,7 +285,7 @@ jobs:
                   echo "diff_exit_code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
 
             - name: Schema Changed! Add schema-change label to PR
-              if: steps.check_for_schema_change.outputs.diff_exit_code != "0"
+              if: steps.check_for_schema_change.outputs.diff_exit_code != '0'
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
@@ -293,7 +293,7 @@ jobs:
                   gh pr edit "$PR_NUMBER" --add-label "schema-change"
 
             - name: Schema NOT Changed! Remove schema-change label to PR
-              if: steps.check_for_schema_change.outputs.diff_exit_code == "0"
+              if: steps.check_for_schema_change.outputs.diff_exit_code == '0'
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
@@ -309,7 +309,7 @@ jobs:
                   body-includes: "Schema Change"
 
             - name: Create or update Schema Change comment - success
-              if: steps.check_for_schema_change.outputs.diff_exit_code == "0"
+              if: steps.check_for_schema_change.outputs.diff_exit_code == '0'
               uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
@@ -319,7 +319,7 @@ jobs:
                       # 🗄️ No Schema Changes ✅
 
             - name: Create or update Schema Change comment - failure
-              if: steps.check_for_schema_change.outputs.diff_exit_code != "0"
+              if: steps.check_for_schema_change.outputs.diff_exit_code != '0'
               uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
