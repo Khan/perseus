@@ -281,12 +281,11 @@ jobs:
                   echo "SCHEMA_DIFF<<$DELIM" >> "$GITHUB_OUTPUT"
                   diff -C 3 ${{ runner.temp }}/schema-base.d.ts ${{ runner.temp }}/schema-pr.d.ts >> "$GITHUB_OUTPUT"
                   DIFF_EXIT_CODE=$? # Capture the exit code of diff
-                  echo "$DELIM" >> "$GITHUB_OUTPUT"
-
-                  exit "$DIFF_EXIT_CODE"
+                  echo "$DELIM" "
+                  echo "diff_exit_code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
 
             - name: Schema Changed! Add schema-change label to PR
-              if: always() && steps.check_for_schema_change.outcome == 'failure'
+              if: steps.check_for_schema_change.outputs.diff_exit_code != "0"
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
@@ -294,7 +293,7 @@ jobs:
                   gh pr edit "$PR_NUMBER" --add-label "schema-change"
 
             - name: Schema NOT Changed! Remove schema-change label to PR
-              if: always() && steps.check_for_schema_change.outcome == 'success'
+              if: steps.check_for_schema_change.outputs.diff_exit_code == "0"
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
@@ -302,7 +301,6 @@ jobs:
                   gh pr edit "$PR_NUMBER" --remove-label "schema-change" || true
 
             - name: Find Schema Change comment
-              if: always()
               uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
               id: find-schema-change-comment
               with:
@@ -311,7 +309,7 @@ jobs:
                   body-includes: "Schema Change"
 
             - name: Create or update Schema Change comment - success
-              if: steps.check_for_schema_change.outcome == 'success' && steps.find-schema-change-comment.output == 'success'
+              if: steps.check_for_schema_change.outputs.diff_exit_code == "0"
               uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
@@ -321,7 +319,7 @@ jobs:
                       # 🗄️ No Schema Changes ✅
 
             - name: Create or update Schema Change comment - failure
-              if: always() && steps.check_for_schema_change.outcome == 'failure'
+              if: steps.check_for_schema_change.outputs.diff_exit_code != "0"
               uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
