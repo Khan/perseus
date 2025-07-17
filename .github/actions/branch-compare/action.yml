@@ -18,6 +18,10 @@ outputs:
         description: "Path to the artifact generated for the PR branch"
     base-artifact-path:
         description: "Path to the artifact generated for the base branch"
+    diff-exit-code:
+        description: "Exit code of the diff command (0 if no changes, non-zero otherwise)"
+    diff-content:
+        description: "The diff content between the PR and base branch artifacts"
 
 runs:
     using: "composite"
@@ -66,3 +70,15 @@ runs:
               mkdir -p "$BASE_ARTIFACT_DIR"
               cp ${{ inputs.path-to-artifact }} "$BASE_ARTIFACT_DIR/"
               echo "base-artifact-path=$BASE_ARTIFACT_DIR" >> $GITHUB_OUTPUT
+
+        - name: Compare Artifacts
+          shell: bash
+          run: |
+              set +e
+              DELIM=$(uuidgen)
+              echo "DIFF_CONTENT<<$DELIM" >> "$GITHUB_OUTPUT"
+              diff --unified "$BASE_ARTIFACT_DIR/$(basename ${{ inputs.path-to-artifact }})" \
+                        "$PR_ARTIFACT_DIR/$(basename ${{ inputs.path-to-artifact }})" >> "$GITHUB_OUTPUT"
+              DIFF_EXIT_CODE=$?
+              echo "$DELIM" >> "$GITHUB_OUTPUT"
+              echo "diff-exit-code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"

@@ -237,7 +237,8 @@ jobs:
                 os: [ubuntu-latest]
                 node-version: [20.x]
         steps:
-            - name: Use branch-compare action to generate schema artifacts
+            - name: Use branch-compare action to generate schema artifacts and compare them
+              id: schema-compare
               uses: ./.github/actions/branch-compare
               with:
                   build-command: |
@@ -247,23 +248,8 @@ jobs:
                       pnpm prettier --write ${{ runner.temp }}/schema.d.ts
                   path-to-artifact: ${{ runner.temp }}/schema.d.ts
 
-            - name: Check for Schema Change
-              id: check_for_schema_change
-              run: |
-                  # So a non-zero exit code from 'diff' doesn't bail this step.
-                  set +e
-                  # We generate a random delimiter (DELIM) so that the existence of the
-                  # delimeter in the diff output doesn't cause problems.
-                  DELIM=$(uuidgen)
-                  echo "SCHEMA_DIFF<<$DELIM" >> "$GITHUB_OUTPUT"
-                  diff --unified "${{ steps.branch-compare.outputs.base-artifact-path }}/schema.d.ts" \
-                                "${{ steps.branch-compare.outputs.pr-artifact-path }}/schema.d.ts" >> "$GITHUB_OUTPUT"
-                  DIFF_EXIT_CODE=$? # Capture the exit code of diff
-                  echo "$DELIM" >> "$GITHUB_OUTPUT"
-                  echo "diff_exit_code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
-
             - name: Schema Changed! Add schema-change label to PR
-              if: steps.check_for_schema_change.outputs.diff_exit_code != '0'
+              if: steps.schema-compare.outputs.diff-exit-code != '0'
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
@@ -271,7 +257,7 @@ jobs:
                   gh pr edit "$PR_NUMBER" --add-label "schema-change"
 
             - name: Schema NOT Changed! Remove schema-change label to PR
-              if: steps.check_for_schema_change.outputs.diff_exit_code == '0'
+              if: steps.schema-compare.outputs.diff-exit-code == '0'
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
@@ -287,7 +273,7 @@ jobs:
                   body-includes: "Comment ID: schema-change"
 
             - name: Create or update Schema Change comment - success
-              if: steps.check_for_schema_change.outputs.diff_exit_code == '0'
+              if: steps.schema-compare.outputs.diff_exit_code == '0'
               uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
@@ -301,7 +287,7 @@ jobs:
                       -->
 
             - name: Create or update Schema Change comment - failure
-              if: steps.check_for_schema_change.outputs.diff_exit_code != '0'
+              if: steps.schema-compare.outputs.diff_exit_code != '0'
               uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
@@ -329,28 +315,14 @@ jobs:
                 node-version: [20.x]
         steps:
             - name: Use branch-compare action to generate item splitting artifacts
+              id: split-item-compare
               uses: ./.github/actions/branch-compare
               with:
                   build-command:    pnpm build
                   path-to-artifact: packages/perseus-core/dist/es/split-perseus-item.js
 
-            - name: Check for Item Splitting Change
-              id: check_for_item_splitting_change
-              run: |
-                  # So a non-zero exit code from 'diff' doesn't bail this step.
-                  set +e
-                  # We generate a random DELIMeter so that the existence of the
-                  # delimiter in the diff output doesn't cause problems.
-                  DELIM=$(uuidgen)
-                  echo "ITEM_SPLITTING_DIFF<<$DELIM" >> "$GITHUB_OUTPUT"
-                  diff -C 3 "${{ steps.branch-compare.outputs.base-artifact-path }}/split-perseus-item.js" \
-                           "${{ steps.branch-compare.outputs.pr-artifact-path }}/split-perseus-item.js" >> "$GITHUB_OUTPUT"
-                  DIFF_EXIT_CODE=$? # Capture the exit code of diff
-                  echo "$DELIM" >> "$GITHUB_OUTPUT"
-                  echo "diff_exit_code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
-
             - name: Item Splitting Changed! Add item-splitting-change label to PR
-              if: steps.check_for_item_splitting_change.outputs.diff_exit_code != '0'
+              if: steps.split-item-compare.outputs.diff_exit_code != '0'
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
@@ -358,7 +330,7 @@ jobs:
                   gh pr edit "$PR_NUMBER" --add-label "item-splitting-change"
 
             - name: Item Splitting NOT Changed! Remove item-splitting-change label to PR
-              if: steps.check_for_item_splitting_change.outputs.diff_exit_code == '0'
+              if: steps.split-item-compare.outputs.diff_exit_code == '0'
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
@@ -374,7 +346,7 @@ jobs:
                   body-includes: "Item Splitting Change"
 
             - name: Create or update Item Splitting Change comment - success
-              if: steps.check_for_item_splitting_change.outputs.diff_exit_code == '0'
+              if: steps.split-item-compare.outputs.diff_exit_code == '0'
               uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
@@ -384,7 +356,7 @@ jobs:
                       # 🛠️ No Item Splitting Changes ✅
 
             - name: Create or update Item Splitting Change comment - failure
-              if: steps.check_for_item_splitting_change.outputs.diff_exit_code != '0'
+              if: steps.split-item-compare.outputs.diff_exit_code != '0'
               uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
               with:
                   issue-number: ${{ github.event.pull_request.number }}
