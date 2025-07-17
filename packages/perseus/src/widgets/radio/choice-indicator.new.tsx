@@ -2,7 +2,6 @@ import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import checkIcon from "@phosphor-icons/core/bold/check-bold.svg";
 import minusIcon from "@phosphor-icons/core/bold/minus-circle-bold.svg";
 import * as React from "react";
-import {useState} from "react";
 
 import styles from "./choice-indicator.module.css";
 
@@ -16,12 +15,11 @@ export type IndicatorProps = {
 };
 
 const Indicator = (props: IndicatorProps) => {
-    const showCorrectness = props.showCorrectness;
-    const [isChecked, setIsChecked] = useState(props.checked);
+    const {checked, showCorrectness} = props;
     const iconImage =
-        isChecked && showCorrectness === "correct"
+        checked && showCorrectness === "correct"
             ? checkIcon
-            : isChecked && showCorrectness === "wrong"
+            : checked && showCorrectness === "wrong"
               ? minusIcon
               : undefined;
     const icon = iconImage ? (
@@ -40,13 +38,12 @@ const Indicator = (props: IndicatorProps) => {
         ? undefined // Don't register anything when showing answers
         : (event: React.MouseEvent<HTMLButtonElement>) => {
               event.stopPropagation();
-              setIsChecked(!isChecked);
-              props.updateChecked(!isChecked);
+              props.updateChecked(!checked);
           };
 
     return (
         <button
-            aria-pressed={isChecked}
+            aria-pressed={checked}
             className={classes.join(" ")}
             ref={props.buttonRef}
             onClick={handleClick}
