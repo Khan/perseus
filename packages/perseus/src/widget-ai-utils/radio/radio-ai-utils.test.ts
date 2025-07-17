@@ -60,6 +60,8 @@ const shuffledQuestion: PerseusRenderer = {
 
 describe("Radio AI utils", () => {
     let userEvent: UserEvent;
+    let mathRandomSpy: jest.SpyInstance;
+
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -68,6 +70,20 @@ describe("Radio AI utils", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+
+        // Mock Math.random to return a deterministic sequence for consistent test results
+        mathRandomSpy = jest.spyOn(Math, "random");
+        let callCount = 0;
+        mathRandomSpy.mockImplementation(() => {
+            // This ensures consistent shuffling behavior in radio widgets
+            const values = [0.2, 0.3, 0.8, 0.9, 0.1, 0.4, 0.6, 0.7, 0.5];
+            return values[callCount++ % values.length];
+        });
+    });
+
+    afterEach(() => {
+        // Restore Math.random to its original implementation
+        mathRandomSpy.mockRestore();
     });
 
     // why are these tests named the same?

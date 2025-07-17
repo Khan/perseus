@@ -1,4 +1,4 @@
-import {radioLogic, random, shuffle} from "@khanacademy/perseus-core";
+import {radioLogic, sortKeyRandomization} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import Radio from "./radio.ff";
@@ -22,16 +22,14 @@ const _choiceTransform = (
     const _maybeRandomize = function (
         array: ReadonlyArray<RadioChoiceWithMetadata>,
     ) {
-        const randomSeed = problemNum === undefined ? random : problemNum;
+        // const randomSeed = problemNum === undefined ? random : problemNum;
         // NOTE: `problemNum` will only be set when the radio widget is
         // rendered at the root of an exercise question. It will be `undefined`
         // if it's rendered embedded in another widget, such as `graded-group`,
         // or if rendered within an article. This results in a predictable
         // shuffle order. To avoid this we use a random seed when `problemNum`
         // is `undefined`.
-        return widgetOptions.randomize
-            ? shuffle(array, randomSeed ?? 0)
-            : array;
+        return widgetOptions.randomize ? sortKeyRandomization(array) : array;
     };
 
     const _addNoneOfAbove = function (

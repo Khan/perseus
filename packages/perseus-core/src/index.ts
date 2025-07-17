@@ -188,7 +188,12 @@ export {
     shuffleMatcher,
 } from "./widgets/matcher/matcher-util";
 export type {MatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
-export {shuffle, seededRNG, random} from "./utils/random-util";
+export {
+    shuffle,
+    sortKeyRandomization,
+    seededRNG,
+    random,
+} from "./utils/random-util";
 export {default as PerseusFeatureFlags} from "./feature-flags";
 
 export {traverse} from "./traversal";

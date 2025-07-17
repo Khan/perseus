@@ -95,3 +95,16 @@ export function randomIntInRange(
 }
 
 export const random: RNG = seededRNG(new Date().getTime() & 0xffffffff);
+
+export function sortKeyRandomization<T>(inputArray: ReadonlyArray<T>): T[] {
+    return inputArray
+        .map((element) => {
+            const randomSortNumber = Math.random();
+            return {
+                element,
+                randomSortNumber,
+            };
+        })
+        .sort((a, b) => a.randomSortNumber - b.randomSortNumber)
+        .map((item) => item.element);
+}
