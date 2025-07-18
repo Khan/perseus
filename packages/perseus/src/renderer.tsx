@@ -1142,6 +1142,15 @@ class Renderer
         const apiOptions = this.getApiOptions();
         const imagePlaceholder = apiOptions.imagePlaceholder;
 
+        if (node.type === "link") {
+            // allow this to reroute on either .dev or .org
+            const legacyOrigin = new URL(document.baseURI).origin.replace(
+                "classroom.",
+                "",
+            );
+            node.target = new URL(node.target, legacyOrigin).href;
+        }
+
         if (node.type === "widget") {
             const widgetPlaceholder = apiOptions.widgetPlaceholder;
 
