@@ -1149,7 +1149,6 @@ class Renderer
                 "",
             );
             node.target = new URL(node.target, legacyOrigin).href;
-            console.log(node.target);
         }
 
         if (node.type === "widget") {
