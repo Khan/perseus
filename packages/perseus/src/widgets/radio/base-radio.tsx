@@ -377,7 +377,11 @@ const BaseRadio = function ({
                             onTouchStart={
                                 labelWrap
                                     ? undefined
-                                    : captureScratchpadTouchStart
+                                    : (arg: any) => {
+                                          // eslint-disable-next-line no-console
+                                          console.log("touch start radio", arg);
+                                          captureScratchpadTouchStart(arg);
+                                      }
                             }
                         >
                             <Element {...elementProps} ref={ref} />
