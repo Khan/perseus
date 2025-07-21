@@ -1,9 +1,9 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
-import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
 import {question1} from "./cs-program.testdata";
+
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {

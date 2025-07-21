@@ -9,7 +9,8 @@ import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-
 import {getAnswerfulItem} from "../../util/test-utils";
 
 import {question1, question2, question3} from "./input-number.testdata";
-import type {Meta, StoryObj} from "@storybook/react-vite";
+
+import type {Meta} from "@storybook/react-vite";
 
 const meta: Meta = {
     title: "Widgets/InputNumber",
@@ -59,8 +60,6 @@ const meta: Meta = {
     },
 };
 export default meta;
-
-type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
 type Question = PerseusRenderer;
 type InputNumberOptions = PerseusInputNumberWidgetOptions;
