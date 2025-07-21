@@ -275,7 +275,7 @@ jobs:
               run: |
                   # So a non-zero exit code from 'diff' doesn't bail this step.
                   set +e
-                  # We generate a random DELIMeter so that the existence of the
+                  # We generate a random delimiter (DELIM) so that the existence of the
                   # delimeter in the diff output doesn't cause problems.
                   DELIM=$(uuidgen)
                   echo "SCHEMA_DIFF<<$DELIM" >> "$GITHUB_OUTPUT"
