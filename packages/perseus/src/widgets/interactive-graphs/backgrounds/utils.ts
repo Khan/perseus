@@ -7,8 +7,8 @@ import type {GraphConfig} from "../reducer/use-graph-config";
 import type {GraphDimensions} from "../types";
 import type {Interval} from "mafs";
 
-// Exported for testing purposes
 export const fontSize = 14;
+export const fontSizeYAxisLabelMultiplier = 1.25;
 
 /* Calculate the position of the main axis labels based on the labelLocation
  * and the ranges of the graph. Exported for testing purposes.
@@ -33,7 +33,10 @@ export const clampLabelPosition = (
     const y = Math.max(
         // The maximum y value is the height of the graph + 1.25 font sizes, which aligns the label with the axis ticks
         // when the y-axis is out of bounds below the graph.
-        Math.min(labelPosition[Y], graphInfo.height + fontSize * 1.25),
+        Math.min(
+            labelPosition[Y],
+            graphInfo.height + fontSize * fontSizeYAxisLabelMultiplier,
+        ),
         // The minimum y value is -2 font sizes, which aligns the label with the axis ticks
         // when the y-axis is out of bounds above the graph.
         -fontSize * 2,
