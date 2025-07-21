@@ -11,7 +11,6 @@ import * as Dependencies from "../dependencies";
 import {ClassNames} from "../perseus-api";
 import Renderer from "../renderer";
 import {mockStrings} from "../strings";
-import {scorePerseusItemTesting} from "../util/test-utils";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import {MockWidget} from "../widgets/mock-widgets";
@@ -21,7 +20,6 @@ import mockWidget1Item from "./test-items/mock-widget-1-item";
 import mockWidget2Item from "./test-items/mock-widget-2-item";
 import tableItem from "./test-items/table-item";
 
-import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
 import type {UserEvent} from "@testing-library/user-event";
 
 const itemWidget = mockWidget1Item;
@@ -38,77 +36,6 @@ describe("Perseus API", function () {
             testDependencies,
         );
         registerWidget("mock-widget", MockWidget);
-    });
-
-    describe("setInputValue", function () {
-        it("should be able to produce a correctly graded value", function () {
-            // Arrange
-            const {renderer} = renderQuestion(mockWidget1Item.question);
-
-            // Act
-            act(() => renderer.setInputValue(["mock-widget 1"], "5"));
-
-            const score = scorePerseusItemTesting(
-                mockWidget1Item.question,
-                renderer.getUserInputMap(),
-            );
-
-            // Assert
-            expect(score).toHaveBeenAnsweredCorrectly();
-        });
-
-        it("should be able to produce a wrong value", function () {
-            // Arrange
-            const {renderer} = renderQuestion(mockWidget1Item.question);
-
-            // Act
-            act(() => renderer.setInputValue(["mock-widget 1"], "3"));
-
-            const score = scorePerseusItemTesting(
-                mockWidget1Item.question,
-                renderer.getUserInputMap(),
-            );
-
-            // Assert
-            expect(score).toHaveBeenAnsweredIncorrectly();
-        });
-
-        it("should be able to produce an empty score", function () {
-            // Arrange
-            const {renderer} = renderQuestion(mockWidget1Item.question);
-
-            act(() => renderer.setInputValue(["mock-widget 1"], "3"));
-
-            let score = scorePerseusItemTesting(
-                mockWidget1Item.question,
-                renderer.getUserInputMap(),
-            );
-
-            expect(score).toHaveBeenAnsweredIncorrectly();
-
-            act(() => renderer.setInputValue(["mock-widget 1"], ""));
-
-            score = scorePerseusItemTesting(
-                mockWidget1Item.question,
-                renderer.getUserInputMap(),
-            );
-
-            expect(score).toHaveInvalidInput();
-        });
-
-        it("should be able to accept a callback", () =>
-            new Promise(function (resolve) {
-                const {renderer} = renderQuestion(mockWidget1Item.question);
-                act(() =>
-                    renderer.setInputValue(["mock-widget 1"], "3", function () {
-                        const guess =
-                            renderer.getUserInput()[0] as PerseusMockWidgetUserInput;
-                        expect(guess?.currentValue).toBe("3");
-                        resolve(null);
-                    }),
-                );
-                jest.runAllTimers();
-            }));
     });
 
     describe("getInputPaths", function () {

@@ -2,7 +2,10 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./grapher-ai-utils";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    PerseusGrapherUserInput,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 const question: PerseusRenderer = {
     content: "**Graph $5x+3y=15$.**\n\n[[☃ grapher 1]]",
@@ -54,6 +57,14 @@ const question: PerseusRenderer = {
 
 describe("Grapher AI utils", () => {
     it("it returns JSON with the expected format and fields for a linear graph", () => {
+        const userInput: PerseusGrapherUserInput = {
+            type: "linear",
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+        };
+
         const renderProps: any = {
             availableTypes: ["linear"],
             graph: {
@@ -64,17 +75,10 @@ describe("Grapher AI utils", () => {
                 snapStep: 1,
                 backgroundImage: {url: "http://khanaacademy.org/image.jpg"},
             },
+            userInput,
         };
 
-        const userInput: any = {
-            type: "linear",
-            coords: [
-                [0, 0],
-                [1, 1],
-            ],
-        };
-
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(renderProps);
 
         expect(resultJSON).toEqual({
             type: "grapher",
@@ -98,6 +102,15 @@ describe("Grapher AI utils", () => {
     });
 
     it('it returns JSON with the expected format and fields for a "logarithm" graph', () => {
+        const userInput: any = {
+            type: "logarithm",
+            coords: [
+                [0, 0],
+                [1, 1],
+            ],
+            asymptote: [-1, 4],
+        };
+
         const renderProps: any = {
             availableTypes: ["lograithm"],
             graph: {
@@ -108,18 +121,10 @@ describe("Grapher AI utils", () => {
                 snapStep: 1,
                 backgroundImage: {url: ""},
             },
+            userInput,
         };
 
-        const userInput: any = {
-            type: "logarithm",
-            coords: [
-                [0, 0],
-                [1, 1],
-            ],
-            asymptote: [-1, 4],
-        };
-
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(renderProps);
 
         expect(resultJSON).toEqual({
             type: "grapher",

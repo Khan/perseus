@@ -1,5 +1,4 @@
 import type numberLine from "../../widgets/number-line/number-line";
-import type {PerseusNumberLineUserInput} from "@khanacademy/perseus-core";
 import type React from "react";
 
 export type NumberLinePromptJSON = {
@@ -17,8 +16,8 @@ export type NumberLinePromptJSON = {
 
 export const getPromptJSON = (
     renderProps: React.ComponentProps<typeof numberLine.widget>,
-    userInput: PerseusNumberLineUserInput,
 ): NumberLinePromptJSON => {
+    const {userInput} = renderProps;
     return {
         type: "number-line",
         options: {
