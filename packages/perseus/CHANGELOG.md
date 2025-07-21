@@ -1,5 +1,29 @@
 # @khanacademy/perseus
 
+## 66.0.0
+
+### Major Changes
+
+-   [#2678](https://github.com/Khan/perseus/pull/2678) [`def76890e`](https://github.com/Khan/perseus/commit/def76890e07460cdc00ac089fa3e5d267b2437d2) Thanks [@handeyeco](https://github.com/handeyeco)! - Add UserInputManager as a wrapper around Renderer for user input
+
+### Patch Changes
+
+-   [#2710](https://github.com/Khan/perseus/pull/2710) [`a5e736009`](https://github.com/Khan/perseus/commit/a5e73600938894eca58cb7a236c391ba82f2ed7f) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Stop alongEdge labels from overflowing out of graph container
+
+*   [#2716](https://github.com/Khan/perseus/pull/2716) [`4e12526af`](https://github.com/Khan/perseus/commit/4e12526af77890835f11235385e96e582a985e05) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix the way we import OrdererPublicWidgetOptions
+
+-   [#2714](https://github.com/Khan/perseus/pull/2714) [`9d6c85c58`](https://github.com/Khan/perseus/commit/9d6c85c58d33f8b5dff06a7b177e0e4e05153894) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][point] Allow points on Point graphs to sit on edge of graph
+
+*   [#2715](https://github.com/Khan/perseus/pull/2715) [`08df03da9`](https://github.com/Khan/perseus/commit/08df03da9b0a870635b24aeafb6082d0df4dcd45) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Removing deprecated analytics event: `perseus:interactive-graph-widget:rendered`
+
+*   Updated dependencies [[`4e12526af`](https://github.com/Khan/perseus/commit/4e12526af77890835f11235385e96e582a985e05), [`def76890e`](https://github.com/Khan/perseus/commit/def76890e07460cdc00ac089fa3e5d267b2437d2), [`08df03da9`](https://github.com/Khan/perseus/commit/08df03da9b0a870635b24aeafb6082d0df4dcd45)]:
+    -   @khanacademy/perseus-core@18.2.1
+    -   @khanacademy/math-input@26.0.17
+    -   @khanacademy/perseus-score@7.1.15
+    -   @khanacademy/keypad-context@3.0.28
+    -   @khanacademy/kmath@2.0.28
+    -   @khanacademy/perseus-linter@4.1.1
+
 ## 65.8.0
 
 ### Minor Changes
