@@ -25,6 +25,7 @@ const Choice = (props: IndicatorProps) => {
         .concat(showCorrectness ? [styles["is-" + showCorrectness]] : [])
         .join(" ");
     return (
+        // adding a comment so I can make a pr.
         /*
             A click handler is added to the <li> element to accommodate mouse users.
             Keyboard users will still be able to use the <button> element inside
