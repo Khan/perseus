@@ -1,6 +1,5 @@
 import type {InitializeGraphStateParams} from "./initialize-graph-state";
 import type {InteractionMode} from "../types";
-import type {BoundedSides} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 
 export type InteractiveGraphAction =
@@ -13,7 +12,6 @@ export type InteractiveGraphAction =
     | MoveRadiusPoint
     | ChangeSnapStep
     | ChangeRange
-    | ChangeBoundedSides
     | AddPoint
     | RemovePoint
     | FocusPoint
@@ -308,20 +306,6 @@ export function changeRange(range: [x: Interval, y: Interval]): ChangeRange {
     return {
         type: CHANGE_RANGE,
         range,
-    };
-}
-
-export const CHANGE_BOUNDED_SIDES = "change-bounded-sides";
-export interface ChangeBoundedSides {
-    type: typeof CHANGE_BOUNDED_SIDES;
-    boundedSides: BoundedSides;
-}
-export function changeBoundedSides(
-    boundedSides: BoundedSides,
-): ChangeBoundedSides {
-    return {
-        type: CHANGE_BOUNDED_SIDES,
-        boundedSides,
     };
 }
 

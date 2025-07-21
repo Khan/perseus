@@ -470,7 +470,6 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         const boundedSides = this.state.boundedSidesCheckboxes.map((axis) =>
             axis.map((side) => side),
         );
-        // const step = _.map(this.state.stepTextbox, Number);
         const step = this.state.stepTextbox.map((value) => Number(value));
         const gridStep = this.state.gridStepTextbox;
         const snapStep = this.state.snapStepTextbox;

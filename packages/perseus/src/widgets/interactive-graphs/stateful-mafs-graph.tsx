@@ -6,7 +6,6 @@ import {MafsGraph} from "./mafs-graph";
 import {mafsStateToInteractiveGraph} from "./mafs-state-to-interactive-graph";
 import {initializeGraphState} from "./reducer/initialize-graph-state";
 import {
-    changeBoundedSides,
     changeRange,
     changeSnapStep,
     reinitialize,
@@ -93,15 +92,6 @@ export const StatefulMafsGraph = React.forwardRef<
             ]),
         );
     }, [dispatch, xMinRange, xMaxRange, yMinRange, yMaxRange]);
-
-    // Destructuring first...
-    const [xBoundedSides, yBoundedSides] = props.boundedSides ?? [
-        [false, false],
-        [false, false],
-    ];
-    useEffect(() => {
-        dispatch(changeBoundedSides([xBoundedSides, yBoundedSides]));
-    }, [dispatch, xBoundedSides, yBoundedSides]);
 
     // Update the graph whenever any of the following values changes.
     // This is necessary to keep the graph previews in sync with the updated
