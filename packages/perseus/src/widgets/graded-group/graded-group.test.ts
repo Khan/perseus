@@ -390,7 +390,7 @@ describe("graded-group", () => {
             // make sure the option was selected properly
             expect(dropdown).toHaveTextContent("Right answer");
 
-            await userEvent.click(screen.getByRole("button", {name: "Check"}));
+            await checkAnswer(userEvent);
 
             // this shows that the question was scored as expected
             expect(screen.getByText("Correct")).toBeInTheDocument();
@@ -407,7 +407,7 @@ describe("graded-group", () => {
             // make sure the option was selected properly
             expect(dropdown).toHaveTextContent("Wrong answer");
 
-            await userEvent.click(screen.getByRole("button", {name: "Check"}));
+            await checkAnswer(userEvent);
 
             // this shows that the question was scored as expected
             expect(screen.getByText("Incorrect")).toBeInTheDocument();

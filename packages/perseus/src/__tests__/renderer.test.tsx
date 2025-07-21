@@ -1689,7 +1689,7 @@ describe("renderer", () => {
 });
 
 describe("isDifferentQuestion", () => {
-    it("considers exactly the same to be the same", () => {
+    it("considers answerful/answerless to be the same", () => {
         const answerful: DifferentQuestionPartialProps = {
             content: "[[☃ dropdown 1]]",
             widgets: {
@@ -1737,7 +1737,7 @@ describe("isDifferentQuestion", () => {
         expect(isDifferentQuestion(answerful, answerless as any)).toBe(false);
     });
 
-    it("considers answerful/answerless to be the same", () => {
+    it("considers exactly the same to be the same", () => {
         const props: DifferentQuestionPartialProps = {
             content: "A",
             widgets: {},
