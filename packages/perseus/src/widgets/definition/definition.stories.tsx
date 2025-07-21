@@ -10,6 +10,14 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta = {
     title: "Widgets/Definition",
     component: ServerItemRendererWithDebugUI,
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        componentSubtitle:
+            "A widget that creates interactive, expandable term definitions within content, allowing users to click on terms to reveal their meanings without leaving the current context.",
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
+    },
 };
 export default meta;
 
@@ -79,11 +87,6 @@ const article = {
 export const Exercise: Story = {
     args: {
         item: generateTestPerseusItem({question}),
-    },
-    parameters: {
-        docs: {
-            disable: false, // This specific story will be shown in autodocs as the default story
-        },
     },
 };
 

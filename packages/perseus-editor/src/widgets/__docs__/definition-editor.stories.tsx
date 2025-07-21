@@ -11,7 +11,15 @@ type Story = {
 
 export default {
     title: "Widgets/Definition/Editor Demo",
-    tags: ["!autodocs"],
+    component: DefinitionEditor,
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        componentSubtitle:
+            "An editor for creating interactive definition widgets that allow users to embed clickable terms with expandable explanations within content.",
+        docs: {
+            disable: false, // This specific story will be shown in autodocs as the default story
+        },
+    },
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {
