@@ -306,7 +306,7 @@ jobs:
               with:
                   issue-number: ${{ github.event.pull_request.number }}
                   comment-author: "github-actions[bot]"
-                  body-includes: "Schema Change"
+                  body-includes: "Comment ID: schema-change"
 
             - name: Create or update Schema Change comment - success
               if: steps.check_for_schema_change.outputs.diff_exit_code == '0'
@@ -317,6 +317,10 @@ jobs:
                   edit-mode: replace
                   body: |
                       # 🗄️ No Schema Changes ✅
+
+                      <!---
+                      Comment ID: schema-change
+                      -->
 
             - name: Create or update Schema Change comment - failure
               if: steps.check_for_schema_change.outputs.diff_exit_code != '0'
@@ -333,6 +337,10 @@ jobs:
                       ```diff
                       ${{ steps.check_for_schema_change.outputs.SCHEMA_DIFF }}
                       ```
+
+                      <!---
+                      Comment ID: schema-change
+                      -->
 
     publish_snapshot:
         name: Publish npm snapshot
