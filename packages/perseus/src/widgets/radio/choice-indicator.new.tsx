@@ -41,6 +41,9 @@ const Indicator = (props: IndicatorProps) => {
               props.updateChecked(!checked);
           };
 
+    // eslint-disable-next-line no-console
+    console.log("New Indicator");
+
     return (
         <button
             aria-pressed={checked}
