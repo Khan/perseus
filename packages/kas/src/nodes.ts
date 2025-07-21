@@ -3101,6 +3101,10 @@ export class Const extends Sym {
             return Math.PI;
         } else if (this.symbol === "e") {
             return Math.E;
+        } else if (this.symbol === "i") {
+            // For complex numbers, we return NaN as a placeholder
+            // since JavaScript doesn't have native complex number support
+            return NaN;
         } else {
             // @ts-expect-error: should we throw an error here?
             return undefined;
@@ -3112,6 +3116,8 @@ export class Const extends Sym {
             return "Math.PI";
         } else if (this.symbol === "e") {
             return "Math.E";
+        } else if (this.symbol === "i") {
+            return "NaN"; // Placeholder for complex number support
         } else {
             // @ts-expect-error: should we throw an error here?
             return undefined;
@@ -3127,6 +3133,8 @@ export class Const extends Sym {
             return "\\pi ";
         } else if (this.symbol === "e") {
             return "e";
+        } else if (this.symbol === "i") {
+            return "i";
         } else {
             // @ts-expect-error: should we return this.symbol here?
             return undefined;
@@ -3151,6 +3159,7 @@ export class Const extends Sym {
 
     static e = new Const("e");
     static pi = new Const("pi");
+    static i = new Const("i");
 }
 
 /* abstract number node */
@@ -3610,7 +3619,7 @@ parser.yy = {
     Float: Float,
     parseError: parseError,
 
-    constants: ["e"],
+    constants: ["e", "i"],
     symbolLexer: function (symbol) {
         if (_.contains(parser.yy.constants, symbol)) {
             return "CONST";

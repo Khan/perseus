@@ -86,6 +86,12 @@ const grammar = {
             ["pi", 'return "CONST"'],
             ["\u03C0", 'yytext = "pi"; return "CONST"'], // pi
             ["\\\\pi", 'yytext = "pi"; return "CONST"'],
+            ["e", 'return "CONST"'],
+            ["\u212F", 'yytext = "e"; return "CONST"'], // euler
+            ["\\\\e", 'yytext = "e"; return "CONST"'],
+            ["i", 'return "CONST"'],
+            ["\u0131", 'yytext = "i"; return "CONST"'], // i
+            ["\\\\i", 'yytext = "i"; return "CONST"'],
             ["theta", 'return "VAR"'],
             ["\u03B8", 'yytext = "theta"; return "VAR"'], // theta
             ["\\\\theta", 'yytext = "theta"; return "VAR"'],
