@@ -230,7 +230,7 @@ jobs:
             #
 
     check_schema:
-        name: Check for schema changes (answerful and answerless)
+        name: Check for schema changes
         runs-on: ${{ matrix.os }}
         strategy:
             matrix:
