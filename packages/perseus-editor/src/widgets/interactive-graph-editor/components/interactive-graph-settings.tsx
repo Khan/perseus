@@ -12,7 +12,9 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import Pill from "@khanacademy/wonder-blocks-pill";
+import {color, sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
@@ -22,6 +24,7 @@ import LabeledRow from "../locked-figures/labeled-row";
 
 import type {
     AxisLabelLocation,
+    BoundedSides,
     MarkingsType,
     PerseusImageBackground,
 } from "@khanacademy/perseus-core";
@@ -62,6 +65,10 @@ type Props = {
      * The range of the graph.
      */
     range: [x: Range, y: Range];
+    /**
+     * Whether the graph is bounded (no axis arrows) on the x and y axes.
+     */
+    boundedSides?: BoundedSides;
     /**
      * How far apart the tick marks on the axes are in the x and y
      * directions.
@@ -113,6 +120,7 @@ type State = {
     snapStepTextbox: [x: number, y: number];
     stepTextbox: [x: number, y: number];
     rangeTextbox: [x: Range, y: Range];
+    boundedSidesCheckboxes: BoundedSides;
     backgroundImage: PerseusImageBackground;
 };
 
@@ -131,7 +139,10 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             snapStepTextbox: props.snapStep,
             stepTextbox: props.step,
             rangeTextbox: props.range,
-            // Shallow-copied clone
+            boundedSidesCheckboxes: props.boundedSides ?? [
+                [false, false],
+                [false, false],
+            ],
             backgroundImage: {...props.backgroundImage},
         };
     }
@@ -374,6 +385,18 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         );
     };
 
+    changeBoundedSides = (axis, side) => {
+        const newBoundedSides: BoundedSides = [
+            ...this.state.boundedSidesCheckboxes,
+        ];
+
+        newBoundedSides[axis][side] = !newBoundedSides[axis][side];
+        this.setState(
+            {boundedSidesCheckboxes: newBoundedSides},
+            this.changeGraph,
+        );
+    };
+
     changeStepsBasedOnRange = () => {
         const ranges = this.state.rangeTextbox.slice();
 
@@ -441,10 +464,14 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     changeGraph = () => {
         const labels = this.state.labelsTextbox;
         const labelLocation = this.state.labelLocation;
-        const range = _.map(this.state.rangeTextbox, function (range) {
-            return _.map(range, Number);
-        });
-        const step = _.map(this.state.stepTextbox, Number);
+        const range = this.state.rangeTextbox.map((range) =>
+            range.map((value) => Number(value)),
+        );
+        const boundedSides = this.state.boundedSidesCheckboxes.map((axis) =>
+            axis.map((side) => side),
+        );
+        // const step = _.map(this.state.stepTextbox, Number);
+        const step = this.state.stepTextbox.map((value) => Number(value));
         const gridStep = this.state.gridStepTextbox;
         const snapStep = this.state.snapStepTextbox;
         const image = this.state.backgroundImage;
@@ -469,6 +496,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                 labels: labels,
                 labelLocation: labelLocation,
                 range: range,
+                boundedSides: boundedSides,
                 step: step,
                 gridStep: gridStep,
                 snapStep: snapStep,
@@ -573,6 +601,90 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         />
                                     </LabeledRow>
                                 </div>
+                            </div>
+                            <div
+                                className="perseus-widget-row"
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    gap: sizing.size_060,
+                                }}
+                            >
+                                <LabelSmall>Bounded</LabelSmall>
+                                <div
+                                    style={{
+                                        width: sizing.size_010,
+                                        backgroundColor: color.offBlack32,
+                                        height: "2rem",
+                                    }}
+                                />
+                                <LabelSmall>x</LabelSmall>
+                                <Pill
+                                    size="small"
+                                    kind={
+                                        this.state
+                                            .boundedSidesCheckboxes?.[0][0]
+                                            ? "accent"
+                                            : "neutral"
+                                    }
+                                    onClick={() => {
+                                        this.changeBoundedSides(0, 0);
+                                    }}
+                                >
+                                    min
+                                </Pill>
+                                <Pill
+                                    size="small"
+                                    kind={
+                                        this.state
+                                            .boundedSidesCheckboxes?.[0][1]
+                                            ? "accent"
+                                            : "neutral"
+                                    }
+                                    onClick={() => {
+                                        this.changeBoundedSides(0, 1);
+                                    }}
+                                >
+                                    max
+                                </Pill>
+                                <div
+                                    style={{
+                                        width: sizing.size_010,
+                                        backgroundColor: color.offBlack32,
+                                        height: "2rem",
+                                    }}
+                                />
+                                <LabelSmall>y</LabelSmall>
+                                <Pill
+                                    size="small"
+                                    kind={
+                                        this.state
+                                            .boundedSidesCheckboxes?.[1][0]
+                                            ? "accent"
+                                            : "neutral"
+                                    }
+                                    onClick={() => {
+                                        this.changeBoundedSides(1, 0);
+                                    }}
+                                >
+                                    min
+                                </Pill>
+                                <Pill
+                                    size="small"
+                                    kind={
+                                        this.state
+                                            .boundedSidesCheckboxes?.[1][1]
+                                            ? "accent"
+                                            : "neutral"
+                                    }
+                                    onClick={() => {
+                                        this.changeBoundedSides(1, 1);
+                                    }}
+                                >
+                                    max
+                                </Pill>
+                                <InfoTip>Remove arrows</InfoTip>
                             </div>
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">

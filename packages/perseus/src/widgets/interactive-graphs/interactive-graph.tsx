@@ -37,6 +37,7 @@ import type {
     MarkingsType,
     PerseusInteractiveGraphUserInput,
     AxisLabelLocation,
+    BoundedSides,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 

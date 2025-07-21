@@ -177,6 +177,19 @@ export const LockedFigures = (): React.ReactElement => {
     );
 };
 
+export const InteractiveGraphZeroBounds = (): React.ReactElement => {
+    return (
+        <EditorPageWithStorybookPreview
+            question={interactiveGraphQuestionBuilder()
+                .withNoInteractiveFigure()
+                .withXRange(0, 10)
+                .withYRange(0, 10)
+                .withBoundedSides([true, false], [true, false])
+                .build()}
+        />
+    );
+};
+
 export const WithSaveWarnings = (): React.ReactElement => {
     const [previewDevice, setPreviewDevice] =
         React.useState<DeviceType>("phone");

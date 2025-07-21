@@ -53,6 +53,8 @@ import {
     type ChangeKeyboardInvitationVisibility,
     CLOSE_POLYGON,
     OPEN_POLYGON,
+    type ChangeBoundedSides,
+    CHANGE_BOUNDED_SIDES,
 } from "./interactive-graph-action";
 
 import type {Coord} from "../../../interactive2/types";
@@ -102,6 +104,8 @@ export function interactiveGraphReducer(
             return doChangeSnapStep(state, action);
         case CHANGE_RANGE:
             return doChangeRange(state, action);
+        case CHANGE_BOUNDED_SIDES:
+            return doChangeBoundedSides(state, action);
         case ADD_POINT:
             return doAddPoint(state, action);
         case REMOVE_POINT:
@@ -688,6 +692,20 @@ function doChangeRange(
     return {
         ...state,
         range: action.range,
+    };
+}
+
+function doChangeBoundedSides(
+    state: InteractiveGraphState,
+    action: ChangeBoundedSides,
+): InteractiveGraphState {
+    if (_.isEqual(state.boundedSides, action.boundedSides)) {
+        return state;
+    }
+
+    return {
+        ...state,
+        boundedSides: action.boundedSides,
     };
 }
 
