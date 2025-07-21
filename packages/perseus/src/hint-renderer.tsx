@@ -7,6 +7,7 @@ import {PerseusI18nContext} from "./components/i18n-context";
 import Renderer from "./renderer";
 import {baseUnitPx, hintBorderWidth, kaGreen, gray97} from "./styles/constants";
 import mediaQueries from "./styles/media-queries";
+import UserInputManager from "./user-input-manager";
 
 import type {SharedRendererProps} from "./types";
 
@@ -29,6 +30,8 @@ class HintRenderer extends React.Component<Props> {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
+    rendererRef = React.createRef<Renderer>();
+
     static defaultProps: DefaultProps = {
         linterContext: PerseusLinter.linterContextDefault,
     };
@@ -38,9 +41,7 @@ class HintRenderer extends React.Component<Props> {
      * @deprecated - do not use in new code.
      */
     getSerializedState: () => void = () => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'getSerializedState' does not exist on type 'ReactInstance'.
-        return this.refs.renderer.getSerializedState();
+        return this.rendererRef.current?.getSerializedState();
     };
 
     // TODO(LEMS-3185): remove serializedState/restoreSerializedState
@@ -51,9 +52,7 @@ class HintRenderer extends React.Component<Props> {
         arg1: any,
         arg2: (...args: ReadonlyArray<any>) => unknown,
     ) => void = (state, callback) => {
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'restoreSerializedState' does not exist on type 'ReactInstance'.
-        this.refs.renderer.restoreSerializedState(state, callback);
+        this.rendererRef.current?.restoreSerializedState(state, callback);
     };
 
     render(): React.ReactNode {
@@ -108,20 +107,27 @@ class HintRenderer extends React.Component<Props> {
                         {`${pos + 1} / ${totalHints}`}
                     </span>
                 )}
-                <Renderer
-                    // eslint-disable-next-line react/no-string-refs
-                    ref="renderer"
-                    widgets={hint.widgets}
-                    content={hint.content || ""}
-                    images={hint.images}
-                    apiOptions={rendererApiOptions}
-                    findExternalWidgets={this.props.findExternalWidgets}
-                    linterContext={PerseusLinter.pushContextStack(
-                        this.props.linterContext,
-                        "hint",
+
+                <UserInputManager widgets={hint.widgets} problemNum={0}>
+                    {({userInput, handleUserInput, initializeUserInput}) => (
+                        <Renderer
+                            ref={this.rendererRef}
+                            userInput={userInput}
+                            handleUserInput={handleUserInput}
+                            initializeUserInput={initializeUserInput}
+                            widgets={hint.widgets}
+                            content={hint.content || ""}
+                            images={hint.images}
+                            apiOptions={rendererApiOptions}
+                            findExternalWidgets={this.props.findExternalWidgets}
+                            linterContext={PerseusLinter.pushContextStack(
+                                this.props.linterContext,
+                                "hint",
+                            )}
+                            strings={this.context.strings}
+                        />
                     )}
-                    strings={this.context.strings}
-                />
+                </UserInputManager>
             </div>
         );
     }

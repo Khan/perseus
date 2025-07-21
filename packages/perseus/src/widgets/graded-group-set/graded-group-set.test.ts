@@ -13,7 +13,7 @@ import {
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-describe("graded group widget", () => {
+describe("graded group set widget", () => {
     let userEvent: UserEvent;
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -187,24 +187,6 @@ describe("graded group widget", () => {
               ],
             ]
         `);
-    });
-
-    it("should be able to set input value on child widget", () => {
-        // Arrange
-        const {renderer} = renderQuestion(article1);
-        const cb = jest.fn();
-
-        // Act
-        act(() =>
-            renderer.setInputValue(
-                ["graded-group-set 1", "numeric-input 1"],
-                "999",
-                cb,
-            ),
-        );
-
-        // Assert
-        expect(screen.getByRole("textbox")).toHaveValue("999");
     });
 
     it("should be able to focus the widgets", () => {

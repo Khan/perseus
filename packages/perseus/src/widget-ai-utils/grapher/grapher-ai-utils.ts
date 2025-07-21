@@ -1,8 +1,5 @@
 import type grapher from "../../widgets/grapher/grapher";
-import type {
-    GrapherAnswerTypes,
-    PerseusGrapherUserInput,
-} from "@khanacademy/perseus-core";
+import type {GrapherAnswerTypes} from "@khanacademy/perseus-core";
 import type React from "react";
 
 export type GrapherPromptJSON = {
@@ -21,8 +18,8 @@ export type GrapherPromptJSON = {
 
 export const getPromptJSON = (
     renderProps: React.ComponentProps<typeof grapher.widget>,
-    userInput: PerseusGrapherUserInput,
 ): GrapherPromptJSON => {
+    const {userInput} = renderProps;
     const {type, coords} = userInput;
     const input = {type, coords} as GrapherAnswerTypes;
 

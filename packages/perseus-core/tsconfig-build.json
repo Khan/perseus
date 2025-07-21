@@ -16,6 +16,7 @@
            {"path": "../path/to/package/tsconfig-build.json"}
         */
         {"path": "../kas/tsconfig-build.json"},
-        {"path": "../perseus-utils/tsconfig-build.json"}
+        {"path": "../perseus-utils/tsconfig-build.json"},
+        {"path": "../pure-markdown/tsconfig-build.json"}
     ]
 }

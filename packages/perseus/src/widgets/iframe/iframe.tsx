@@ -56,10 +56,6 @@ class Iframe extends React.Component<Props> implements Widget {
         $(window).off("message", this.handleMessageEvent);
     }
 
-    getUserInput(): PerseusIFrameUserInput {
-        return this.props.userInput;
-    }
-
     getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();
     }
@@ -166,11 +162,19 @@ function getUserInputFromSerializedState(
     return {status: serializedState.status, message: serializedState.message};
 }
 
+function getStartUserInput(): PerseusIFrameUserInput {
+    return {
+        status: "incomplete",
+        message: null,
+    };
+}
+
 export default {
     name: "iframe",
     displayName: "Iframe (deprecated)",
     widget: Iframe,
     // Let's not expose it to all content creators yet
     hidden: true,
+    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Iframe>;
