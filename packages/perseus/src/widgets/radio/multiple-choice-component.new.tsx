@@ -118,6 +118,8 @@ const MultipleChoiceComponent = ({
                 const ref = choiceRefs.current[checkedIndex];
 
                 if (ref.current) {
+                    // eslint-disable-next-line no-console
+                    console.log("scrolling to choice", checkedIndex);
                     scrollElementIntoView(ref.current);
                 }
             }
@@ -244,6 +246,9 @@ const MultipleChoiceComponent = ({
                             };
                         }
 
+                        // eslint-disable-next-line no-console
+                        console.log("labelWrap", labelWrap);
+
                         // TODO(mattdr): Index isn't a *good* choice of key
                         // here; is there a better one? Can we use choice
                         // content somehow? Would changing our choice of key
@@ -259,7 +264,14 @@ const MultipleChoiceComponent = ({
                                 onTouchStart={
                                     labelWrap
                                         ? undefined
-                                        : captureScratchpadTouchStart
+                                        : (arg: any) => {
+                                              // eslint-disable-next-line no-console
+                                              console.log(
+                                                  "touch start radio",
+                                                  arg,
+                                              );
+                                              captureScratchpadTouchStart(arg);
+                                          }
                                 }
                             >
                                 <Element {...elementProps} ref={ref} />
