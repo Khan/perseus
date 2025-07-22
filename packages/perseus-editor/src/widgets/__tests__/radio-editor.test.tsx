@@ -467,7 +467,7 @@ describe("radio-editor", () => {
             ],
         });
 
-        const choices = screen.getAllByRole("button", {name: "Wrong"});
+        const choices = screen.getAllByRole("button", {name: "Incorrect"});
 
         await userEvent.click(choices[0]);
 
