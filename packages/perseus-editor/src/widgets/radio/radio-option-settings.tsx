@@ -99,6 +99,7 @@ export function RadioOptionSettings({
                     // behavior that it had before, but we should be able to add
                     // that in after WB-1843 is completed.
                     resizeType="vertical"
+                    rows={1}
                     onChange={(value) => {
                         onContentChange(index, value);
                     }}
@@ -113,6 +114,7 @@ export function RadioOptionSettings({
                     // behavior that it had before, but we should be able to add
                     // that in after WB-1843 is completed.
                     resizeType="vertical"
+                    rows={1}
                     onChange={(value) => {
                         onRationaleChange(index, value);
                     }}
