@@ -527,6 +527,7 @@ export const PerseusExpressionAnswerFormConsidered = [
     "correct",
     "wrong",
     "ungraded",
+    "what-were-you-thinking",
 ] as const;
 
 export type PerseusExpressionAnswerForm = {
@@ -1247,7 +1248,7 @@ export type PerseusNumericInputAnswer = {
 
 export type PerseusNumberLineWidgetOptions = {
     // The position of the endpoints of the number line. Setting the range constrains the position of the answer and the labels.
-    range: number[];
+    range: string[];
     // This controls the position of the left / right labels. By default, the labels are set by the range.  Note:  Ensure that the labels line up with the tick marks, or it may be confusing for users.
     labelRange: Array<number | null>;
     // This controls the styling of the labels for the two main labels as well as all the tick mark labels, if applicable. Options: "decimal", "improper", "mixed", "non-reduced"
@@ -1283,7 +1284,7 @@ export type PerseusOrdererWidgetOptions = {
     // All of the options available to the user. Place the cards in the correct order. The same card can be used more than once in the answer but will only be displayed once at the top of a stack of identical cards.
     options: PerseusRenderer[];
     // The correct order of the options
-    correctOptions: PerseusRenderer[];
+    correctOptions?: PerseusRenderer[];
     // Cards that are not part of the answer
     otherOptions: PerseusRenderer[];
     // "normal" for text options.  "auto" for image options.
@@ -1324,8 +1325,6 @@ export const plotterPlotTypes = [
 export type PlotType = (typeof plotterPlotTypes)[number];
 
 export type PerseusPlotterWidgetOptions = {
-    // Translatable Text; The Axis labels. e.g. ["X Label", "Y Label"]
-    labels: string[];
     // Translatable Text; Categories to display along the X access.  e.g. [">0", ">6", ">12", ">18"]
     categories: string[];
     // The type of the graph. options "bar", "line", "pic", "histogram", "dotplot"
