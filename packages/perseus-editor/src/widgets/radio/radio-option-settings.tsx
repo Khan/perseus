@@ -36,7 +36,7 @@ export function RadioOptionSettings({
 
     return (
         <div className={styles.tile}>
-            {/* Incorrect / Wrong status selection */}
+            {/* Correct / Incorrect status selection */}
             <fieldset className="perseus-widget-row">
                 <RadioStatusPill
                     index={index}
@@ -84,7 +84,7 @@ export function RadioOptionSettings({
                             : semanticColor.core.border.neutral.default,
                     }}
                 >
-                    Wrong
+                    Incorrect
                 </Pill>
             </fieldset>
 
