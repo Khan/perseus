@@ -107,6 +107,8 @@ const MultipleChoiceComponent = ({
         // the most recently used widget (because, if the user has since
         // touched something else, they're probably not trying to keep their
         // eye on this widget anymore).
+        // eslint-disable-next-line no-console
+        console.log("In useEffect");
         if (
             apiOptions.canScrollPage &&
             isLastUsedWidget &&
@@ -118,6 +120,8 @@ const MultipleChoiceComponent = ({
                 const ref = choiceRefs.current[checkedIndex];
 
                 if (ref.current) {
+                    // eslint-disable-next-line no-console
+                    console.log("Scrolling to choice", checkedIndex);
                     scrollElementIntoView(ref.current);
                 }
             }
