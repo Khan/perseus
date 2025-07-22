@@ -97,7 +97,7 @@ runs:
           with:
               issue-number: ${{ github.event.pull_request.number }}
               comment-author: "github-actions[bot]"
-              body-includes: "Comment ID: ${{ inputs.comment-title-term }}"
+              body-includes: "Comment ID: ${{ inputs.comment-title }}"
 
         - name: Create or update comment - success
           if: steps.compare-artifacts.outputs.diff-exit-code == '0'
@@ -107,10 +107,10 @@ runs:
               comment-id: ${{ steps.find-comment.outputs.comment-id}}
               edit-mode: replace
               body: |
-                  # ${{ inputs.comment-title-emoji }} ${{ inputs.comment-title-term }}: No Changes ✅
+                  # ${{ inputs.comment-title }}: No Changes ✅
 
                   <!---
-                  Comment ID: ${{ inputs.comment-title-term }}
+                  Comment ID: ${{ inputs.comment-title }}
                   -->
 
         - name: Create or update comment - failure
@@ -121,14 +121,14 @@ runs:
               comment-id: ${{ steps.find-comment.outputs.comment-id}}
               edit-mode: replace
               body: |
-                  # ${{ inputs.comment-title-emoji }} ${{ inputs.comment-title-term }}: Changes Detected ⚠️
+                  # ${{ inputs.comment-title }}: Changes Detected ⚠️
 
-                  This PR contains changes to the Perseus '${{ inputs.comment-title-term }}'.
+                  This PR contains changes to the Perseus '${{ inputs.comment-title }}'.
 
                   ```diff
                   ${{ steps.compare-artifacts.outputs.diff-content }}
                   ```
 
                   <!---
-                  Comment ID: ${{ inputs.comment-title-term }}
+                  Comment ID: ${{ inputs.comment-title }}
                   -->
