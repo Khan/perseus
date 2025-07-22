@@ -279,7 +279,7 @@ jobs:
                   # delimeter in the diff output doesn't cause problems.
                   DELIM=$(uuidgen)
                   echo "SCHEMA_DIFF<<$DELIM" >> "$GITHUB_OUTPUT"
-                  diff -u --context 3 ${{ runner.temp }}/schema-base.d.ts ${{ runner.temp }}/schema-pr.d.ts >> "$GITHUB_OUTPUT"
+                  diff --unified 3 ${{ runner.temp }}/schema-base.d.ts ${{ runner.temp }}/schema-pr.d.ts >> "$GITHUB_OUTPUT"
                   DIFF_EXIT_CODE=$? # Capture the exit code of diff
                   echo "$DELIM" >> "$GITHUB_OUTPUT"
                   echo "diff_exit_code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
