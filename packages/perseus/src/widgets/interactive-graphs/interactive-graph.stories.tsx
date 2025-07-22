@@ -36,6 +36,14 @@ const defaultApiOptions = ApiOptions.defaults;
 const meta: Meta = {
     title: "Widgets/Interactive Graph",
     component: ServerItemRendererWithDebugUI,
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        componentSubtitle:
+            "A widget that allows users to interact with mathematical graphs,\
+            supporting the creation and manipulation of various graph elements.",
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
 };
 export default meta;
 
@@ -44,11 +52,6 @@ type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 export const Angle: Story = {
     args: {
         item: generateTestPerseusItem({question: angleQuestion}),
-    },
-    parameters: {
-        docs: {
-            disable: false, // This specific story will be shown in autodocs as the default story
-        },
     },
 };
 

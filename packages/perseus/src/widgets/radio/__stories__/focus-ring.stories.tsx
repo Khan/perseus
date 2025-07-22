@@ -16,12 +16,17 @@ type Story = {
 };
 
 export default {
-    title: "Widgets/Radio/Focus Ring",
+    title: "Widgets/Radio/Widget Internal Components/Focus Ring",
     args: {
         children: "",
         color: styleConstants.kaGreen,
         visible: true,
         multipleSelect: false,
+    },
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
     },
 } as Story;
 

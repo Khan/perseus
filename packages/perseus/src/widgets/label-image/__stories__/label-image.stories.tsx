@@ -57,11 +57,6 @@ export const LabelWidgetWithText = (args: StoryArgs): React.ReactElement => {
         />
     );
 };
-LabelWidgetWithText.parameters = {
-    docs: {
-        disable: false, // This specific story will be shown in autodocs as the default story
-    },
-};
 
 export const LabelWidgetWithLongText = (
     args: StoryArgs,
@@ -126,5 +121,10 @@ export default {
             control: "select",
             options: ["NONE", "UP", "DOWN", "LEFT", "RIGHT"],
         },
+    },
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
     },
 } as ImageStory;

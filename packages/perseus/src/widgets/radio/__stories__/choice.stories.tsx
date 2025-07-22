@@ -39,8 +39,13 @@ const defaultProps = {
 } as const;
 
 export default {
-    title: "Widgets/Radio/Choice",
+    title: "Widgets/Radio/Widget Internal Components/Choice",
     args: defaultProps,
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
 } as Story;
 
 export const Interactive = (args: StoryArgs): React.ReactElement => {

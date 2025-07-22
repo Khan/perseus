@@ -18,8 +18,9 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 type Story = StoryObj<typeof MafsQuestionRenderer>;
 
 const meta: Meta<typeof MafsQuestionRenderer> = {
-    title: "Widgets/Interactive Graph Visual Regression Tests",
+    title: "Widgets/Interactive Graph/Visual Regression Tests",
     component: MafsQuestionRenderer,
+    tags: ["autodocs", "!dev"],
     parameters: {
         chromatic: {disableSnapshot: false},
         // Since by default, we don't show all stories in autodocs; this will show

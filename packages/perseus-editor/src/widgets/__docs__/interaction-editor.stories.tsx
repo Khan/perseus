@@ -11,7 +11,14 @@ type Story = {
 
 export default {
     title: "Widgets/Interaction/Editor Demo",
-    tags: ["!autodocs"],
+    component: InteractionEditor,
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        componentSubtitle:
+            "An editor for adding an interaction widget that allows users to engage with interactive content.",
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {

@@ -18,7 +18,14 @@ type Story = {
 
 export default {
     title: "Widgets/Image/Editor Demo",
-    tags: ["!autodocs"],
+    component: ImageEditor,
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        componentSubtitle:
+            "An editor for adding an image widget that allows users to display and configure images within content.",
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
 } as Story;
 
 const styles = StyleSheet.create({

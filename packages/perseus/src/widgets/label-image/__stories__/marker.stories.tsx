@@ -10,7 +10,12 @@ type Story = {
 };
 
 export default {
-    title: "Widgets/Label Image/Marker",
+    title: "Widgets/Label Image/Widget Internal Components/Marker",
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
 } as Story;
 
 const styles = StyleSheet.create({

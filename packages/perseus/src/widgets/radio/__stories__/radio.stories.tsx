@@ -29,6 +29,15 @@ type StoryArgs = {
 
 export default {
     title: "Widgets/Radio",
+    component: ServerItemRendererWithDebugUI,
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        componentSubtitle:
+            "A widget that allows users to select a single option from a list of choices,\
+            supporting multiple-choice questions with text and image content.",
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
     args: {
         static: false,
         // Requires a page refresh for toggling this to affect the story
@@ -82,11 +91,6 @@ export const SingleSelect = {
         item: generateTestPerseusItem({
             question: questionWithPassage,
         }),
-    },
-    parameters: {
-        docs: {
-            disable: false, // This specific story will be shown in autodocs as the default story
-        },
     },
 };
 

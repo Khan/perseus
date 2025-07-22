@@ -5,7 +5,7 @@ import {AnswerPill} from "../answer-pill";
 import type {Meta} from "@storybook/react-vite";
 
 const story: Meta<React.ComponentProps<typeof AnswerPill>> = {
-    title: "Widgets/Label Image/Answer Pill",
+    title: "Widgets/Label Image/Widget Internal Components/Answer Pill",
     component: AnswerPill,
     render: (args) => <AnswerPill {...args} />,
     argTypes: {
@@ -16,9 +16,9 @@ const story: Meta<React.ComponentProps<typeof AnswerPill>> = {
             },
         },
     },
+    tags: ["autodocs", "!dev"],
     parameters: {
-        // Since by default, we don't show all stories in autodocs; this will show
-        // all stories in autodocs only for this component.
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
         docs: {disable: false},
     },
 };

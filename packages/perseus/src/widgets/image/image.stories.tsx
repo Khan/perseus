@@ -10,6 +10,14 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta = {
     title: "Widgets/Image",
     component: ServerItemRendererWithDebugUI,
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        componentSubtitle:
+            "A widget that displays images within content with configurable size and alignment options,\
+            supporting visual elements in educational materials.",
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
 };
 export default meta;
 
@@ -33,11 +41,6 @@ export const Question1: Story = {
                 },
             },
         }),
-    },
-    parameters: {
-        docs: {
-            disable: false, // This specific story will be shown in autodocs as the default story
-        },
     },
 };
 

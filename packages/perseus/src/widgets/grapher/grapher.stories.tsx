@@ -19,6 +19,14 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta = {
     title: "Widgets/Grapher",
     component: ServerItemRendererWithDebugUI,
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        componentSubtitle:
+            "A widget that enables users to graph various mathematical functions,\
+            including linear, quadratic, exponential, and trigonometric equations on a coordinate plane.",
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
 };
 export default meta;
 
@@ -27,11 +35,6 @@ type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 export const AbsoluteValueQuestion: Story = {
     args: {
         item: generateTestPerseusItem({question: absoluteValueQuestion}),
-    },
-    parameters: {
-        docs: {
-            disable: false, // This specific story will be shown in autodocs as the default story
-        },
     },
 };
 

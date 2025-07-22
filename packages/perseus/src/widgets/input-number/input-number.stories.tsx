@@ -15,6 +15,14 @@ import type {Meta} from "@storybook/react-vite";
 const meta: Meta = {
     title: "Widgets/InputNumber",
     component: ServerItemRendererWithDebugUI,
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        componentSubtitle:
+            "A widget that allows users to input numerical values with specific validation rules,\
+            supporting basic mathematical responses.",
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
     argTypes: {
         maxError: {
             control: {
@@ -93,9 +101,6 @@ export const Rational = (args: InputNumberOptions): React.ReactElement => {
     );
 };
 Rational.args = question1.widgets["input-number 1"].options;
-Rational.parameters = {
-    docs: {disable: false}, // This specific story will be shown in autodocs as the default story
-};
 
 export const PiSimplify = (args: InputNumberOptions): React.ReactElement => {
     const question = updateWidgetOptions(question2, "input-number 1", args);

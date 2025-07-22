@@ -15,12 +15,17 @@ type Story = {
 };
 
 export default {
-    title: "Widgets/Radio/Option Status",
+    title: "Widgets/Radio/Widget Internal Components/Option Status",
     args: {
         checked: false,
         correct: false,
         previouslyAnswered: false,
         reviewMode: true,
+    },
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
     },
 } as Story;
 

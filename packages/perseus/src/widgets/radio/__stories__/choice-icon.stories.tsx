@@ -29,13 +29,18 @@ const defaultProps = {
 } as const;
 
 export default {
-    title: "Widgets/Radio/Choice Icon",
+    title: "Widgets/Radio/Widget Internal Components/Choice Icon",
     argTypes: {
         pos: {
             control: {type: "number", min: 0, max: 25, step: 1},
         },
     },
     args: defaultProps,
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
 };
 
 const Panel = (props: {children: React.ReactNode}): React.ReactElement => {

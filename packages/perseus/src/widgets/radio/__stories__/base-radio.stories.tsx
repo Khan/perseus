@@ -16,11 +16,16 @@ type Story = {
 };
 
 export default {
-    title: "Widgets/Radio/Base Radio",
+    title: "Widgets/Radio/Widget Internal Components/Base Radio",
     args: {
         multipleSelect: false,
         editMode: false,
         countChoices: false,
+    },
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
     },
 } as Story;
 

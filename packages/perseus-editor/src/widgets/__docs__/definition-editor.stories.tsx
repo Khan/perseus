@@ -15,10 +15,10 @@ export default {
     tags: ["autodocs", "!dev"],
     parameters: {
         componentSubtitle:
-            "An editor for creating interactive definition widgets that allow users to embed clickable terms with expandable explanations within content.",
-        docs: {
-            disable: false, // This specific story will be shown in autodocs as the default story
-        },
+            "An editor for adding an interactive definition widget that allow content\
+            editors to embed clickable terms with expandable explanations within content.",
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
     },
 } as Story;
 

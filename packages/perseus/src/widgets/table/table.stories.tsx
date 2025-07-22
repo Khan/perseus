@@ -12,6 +12,13 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta = {
     title: "Widgets/Table",
     component: ServerItemRendererWithDebugUI,
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        componentSubtitle:
+            "A widget that allows users to input data into a table with customizable rows and columns.",
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
 };
 export default meta;
 
@@ -24,11 +31,6 @@ const tableItem: PerseusItem = generateTestPerseusItem({
 export const AnswerfulTable: Story = {
     args: {
         item: tableItem,
-    },
-    parameters: {
-        docs: {
-            disable: false, // This specific story will be shown in autodocs as the default story
-        },
     },
 };
 

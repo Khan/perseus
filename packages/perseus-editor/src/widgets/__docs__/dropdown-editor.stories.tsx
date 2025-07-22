@@ -11,7 +11,15 @@ type Story = {
 
 export default {
     title: "Widgets/Dropdown/Editor Demo",
-    tags: ["!autodocs"],
+    component: DropdownEditor,
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        componentSubtitle:
+            "An editor for adding a dropdown widget that allow users to select an\
+            option from a predefined list.",
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
 } as Story;
 
 export const Default = (args: StoryArgs): React.ReactElement => {

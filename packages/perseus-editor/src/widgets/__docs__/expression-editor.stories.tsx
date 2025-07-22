@@ -17,7 +17,14 @@ type Story = {
 
 export default {
     title: "Widgets/Expression/Editor Demo",
-    tags: ["!autodocs"],
+    component: ExpressionEditor,
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        componentSubtitle:
+            "An editor for adding an expression widget that allow users to enter mathematical expressions.",
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
 } as Story;
 
 type State = PerseusExpressionWidgetOptions;

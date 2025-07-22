@@ -13,10 +13,11 @@ const meta: Meta = {
     tags: ["autodocs", "!dev"],
     parameters: {
         componentSubtitle:
-            "A widget that creates interactive, expandable term definitions within content, allowing users to click on terms to reveal their meanings without leaving the current context.",
-        docs: {
-            disable: false, // This specific story will be shown in autodocs as the default story
-        },
+            "A widget that creates interactive, expandable term definitions within\
+            content, allowing users to click on terms to reveal their meanings without\
+            leaving the current context.",
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
     },
 };
 export default meta;
