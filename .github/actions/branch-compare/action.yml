@@ -45,10 +45,6 @@ runs:
               # is targeting)
               ref: ${{ github.event.pull_request.base.ref }}
 
-        - name: Re-install node_modules for base branch
-          shell: bash
-          run: pnpm install
-
         - name: Build for base
           shell: bash
           run: ${{ inputs.build-command }}
