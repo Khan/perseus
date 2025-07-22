@@ -96,7 +96,6 @@ export function randomIntInRange(
 
 export const random: RNG = seededRNG(new Date().getTime() & 0xffffffff);
 
-
 /**
  * Randomizes an array using the sort-by-random-key method
  *
