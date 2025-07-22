@@ -190,7 +190,7 @@ export {
 export type {MatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
 export {
     shuffle,
-    sortKeyRandomization,
+    randomizeArrayElements,
     seededRNG,
     random,
 } from "./utils/random-util";

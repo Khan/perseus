@@ -1,4 +1,4 @@
-import {radioLogic, sortKeyRandomization} from "@khanacademy/perseus-core";
+import {radioLogic, randomizeArrayElements} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import Radio from "./radio.ff";
@@ -21,7 +21,7 @@ const _choiceTransform = (
     const _maybeRandomize = function (
         array: ReadonlyArray<RadioChoiceWithMetadata>,
     ) {
-        return widgetOptions.randomize ? sortKeyRandomization(array) : array;
+        return widgetOptions.randomize ? randomizeArrayElements(array) : array;
     };
 
     const _addNoneOfAbove = function (
