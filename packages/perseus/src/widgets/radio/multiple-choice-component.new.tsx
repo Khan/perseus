@@ -184,13 +184,6 @@ const MultipleChoiceComponent = ({
                             },
                         } as const;
 
-                        if (choice.isNoneOfTheAbove) {
-                            Element = ChoiceNoneAbove;
-                            _.extend(elementProps, {
-                                showContent: choice.revealNoneOfTheAbove,
-                            });
-                        }
-
                         const updateChecked = (isChecked: boolean) => {
                             onChoiceChange(i, isChecked);
                         };
@@ -201,6 +194,23 @@ const MultipleChoiceComponent = ({
                                     ? "correct"
                                     : "wrong"
                                 : undefined;
+                        const content = choice.isNoneOfTheAbove
+                            ? strings.noneOfTheAbove
+                            : choice.content;
+                        // TODO: Need to figure out how to apply a class to the rationale containing div
+                        //       I don't want to wrap it in yet another div.
+                        //       cloneElement doesn't work - not sure why.
+                        const rationale =
+                            (reviewMode || choice.showRationale) &&
+                            choice.hasRationale
+                                ? React.cloneElement(
+                                      choice.rationale as React.ReactElement,
+                                      {
+                                          className: styles.rationale,
+                                      },
+                                  )
+                                : undefined;
+                        console.log("Rationale:", rationale);
                         // TODO: Use choice ID as key once it's available
                         return (
                             <Choice
@@ -211,7 +221,8 @@ const MultipleChoiceComponent = ({
                                 showCorrectness={showCorrectness}
                                 updateChecked={updateChecked}
                             >
-                                {choice.content}
+                                {content}
+                                {rationale}
                             </Choice>
                         );
                     })}
@@ -222,3 +233,4 @@ const MultipleChoiceComponent = ({
 };
 
 export default MultipleChoiceComponent;
+

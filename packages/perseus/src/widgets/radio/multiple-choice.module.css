@@ -3,16 +3,12 @@
     min-width: auto;
 }
 
-.choiceList {
+.choice-list {
     padding: 0;
     list-style: none;
     display: inline-block;
     min-width: max-content;
     width: 100%;
-    border-bottom: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
-    border-top: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
     scrollbar-width: thin;
 }
 
@@ -36,6 +32,12 @@
 
 .item {
     margin-inline-start: var(--wb-sizing-size_200);
+}
+
+
+.rationale {
+    font-size: var(--wb-font-size-medium);
+    line-height: var(--wb-font-lineHeight-medium);
 }
 
 .responsiveItem {

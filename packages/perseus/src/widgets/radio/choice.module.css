@@ -1,18 +1,44 @@
+:global(.framework-perseus) {
+    /* OVERRIDES
+       These styles should be removed when either layering control within Perseus is available,
+       or when the high-level styles are refactored and these become unnecessary.
+     */
+    .choice :global(.paragraph) {
+        font-size: var(--wb-font-heading-size-medium);
+        line-height: var(--wb-font-heading-lineHeight-medium);
+    }
+}
+
 .choice {
     --perseus-multiple-choice-spacing: var(--wb-sizing-size_160);
+    --perseus-multiple-choice-divider-color: var(--wb-semanticColor-core-border-neutral-subtle); /* This will change with hover & focus */
+    --perseus-multiple-choice-divider-width: var(--wb-border-width-thin); /* This will change with hover & focus */
+    --perseus-multiple-choice-divider-space: var(--wb-border-width-medium); /* Space between the choices, which is also used to position the divider */
     align-items: flex-start;
-    border-bottom: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
     display: flex;
     font-size: var(--wb-font-heading-size-medium);
-    /* "gap" is being used to put horizontal space between the indicator and the content.
+    /* "gap" is being used to put horizontal/inline space between the indicator and the content.
        That way, we can keep all spacing in this file, and not have to apply styling to the indicator itself.
     */
     gap: var(--perseus-multiple-choice-spacing);
     line-height: var(--wb-font-heading-lineHeight-medium);
+    margin-block-start: var(--perseus-multiple-choice-divider-space);
     min-height: calc(var(--perseus-multiple-choice-spacing) * 4);
     padding: var(--perseus-multiple-choice-spacing);
+    position: relative;
     width: 100%;
+}
+
+.choice:after,
+.choice:first-of-type:before {
+    background-color: var(--perseus-multiple-choice-divider-color);
+    bottom: calc((var(--perseus-multiple-choice-divider-space) - ((var(--perseus-multiple-choice-divider-space) - var(--wb-border-width-thin)) / 2)) * -1);
+    content: "";
+    display: block;
+    height: var(--perseus-multiple-choice-divider-width);
+    margin-inline-start: calc(var(--perseus-multiple-choice-spacing) * -1); /* Account for the "gap" */
+    position: absolute;
+    width: calc(100% + var(--perseus-multiple-choice-spacing));
 }
 
 .choice:hover {
@@ -30,37 +56,34 @@
  */
 .choice:focus-within,
 .choice:has(+ .choice:focus-within),
-.choice:not(.is-correct, .is-wrong) {
-    &:hover,
-    &:has(+ .choice:hover) {
-        border-bottom: var(--wb-border-width-medium) solid
-            var(--wb-semanticColor-core-border-neutral-default);
-        padding-bottom: calc(
-            var(--perseus-multiple-choice-spacing) - var(--wb-sizing-size_010)
-        ); /* Account for increased border width */
-    }
+.choice:not(.is-correct, .is-wrong):hover,
+.choice:not(.is-correct, .is-wrong):has(+ .choice:hover) {
+    --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
+    --perseus-multiple-choice-divider-color: var(--wb-semanticColor-core-border-neutral-default);
 }
 
-/* The first choice option needs additional styling for the border */
-.choice:first-of-type {
-    border-top: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
+.choice:first-of-type:not(.is-correct, .is-wrong):before {
+    --perseus-multiple-choice-divider-color: var(--wb-semanticColor-core-border-neutral-subtle);
+    bottom: initial;
+    top: calc((var(--perseus-multiple-choice-divider-space) - ((var(--perseus-multiple-choice-divider-space) - var(--wb-border-width-thin)) / 2)) * -1);
 }
 
-.choice:first-of-type:not(.is-correct, .is-wrong):hover,
-.choice:first-of-type:focus-within {
-    border-top: var(--wb-border-width-medium) solid
-        var(--wb-semanticColor-core-border-neutral-default);
-    padding-top: calc(
-        var(--perseus-multiple-choice-spacing) - var(--wb-sizing-size_010)
-    ); /* Account for increased border width */
+.choice:first-of-type:focus-within:before,
+.choice:first-of-type:hover:before {
+    --perseus-multiple-choice-divider-color: var(--wb-semanticColor-core-border-neutral-default);
+}
+
+/* The last choice option needs additional space for the border */
+.choice:last-of-type {
+    margin-block-end: var(--wb-border-width-thin);
 }
 
 .is-correct {
-    border: var(--wb-border-width-medium) solid
-        var(--wb-semanticColor-core-border-success-default);
     border-radius: var(--wb-border-radius-radius_080);
     color: var(--wb-semanticColor-core-foreground-success-default);
+    outline: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-success-default);
+    outline-offset: calc(var(--wb-border-width-medium) * -1);
 }
 
 .is-wrong {

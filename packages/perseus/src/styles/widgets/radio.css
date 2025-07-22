@@ -55,6 +55,7 @@
 .perseus-widget-radio li table {
     border: 1px solid #ccc;
 }
+/* TODO (mark): Add documentation for why we need this, and how it accomplishes it. */
 .perseus-widget-radio .perseus-radio-option {
     /* Radio options with images that are set apart should be on their own line */
 }
