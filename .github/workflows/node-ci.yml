@@ -250,14 +250,14 @@ jobs:
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
                   build-command: |
+                      pnpm install && \
                       pnpm tsc --declaration --emitDeclarationOnly \
                         --outfile ${{ runner.temp }}/schema.d.ts \
                         packages/perseus-core/src/data-schema.ts
                       pnpm prettier --write ${{ runner.temp }}/schema.d.ts
                   path-to-artifact: ${{ runner.temp }}/schema.d.ts
                   label-name: schema-change
-                  comment-title-term: Schema
-                  comment-title-emoji: 🗄️
+                  comment-title: 🗄️ Schema Change
 
     check_item_splitting:
         name: Check for item splitting changes
@@ -280,11 +280,10 @@ jobs:
               uses: ./.github/actions/branch-compare
               with:
                   github-token: ${{ secrets.GITHUB_TOKEN }}
-                  build-command: pnpm build
-                  path-to-artifact: packages/perseus-core/dist/es/split-perseus-item.js
+                  build-command: pnpm install && pnpm build
+                  path-to-artifact: packages/perseus-core/dist/es/index.item-splitting.js
                   label-name: item-splitting-change
-                  comment-title-term: Item Splitting
-                  comment-title-emoji: 🛠️
+                  comment-title: 🛠️ Item Splitting
 
     publish_snapshot:
         name: Publish npm snapshot

@@ -16,13 +16,9 @@ inputs:
     label-name:
         description: "The name of the label to add or remove based on the diff result"
         required: true
-    comment-title-term:
+    comment-title:
         description: >-
             The term to include in the title of comments made by this action.
-    comment-title-emoji:
-        description: >-
-            The emoji to prefix comment titles with. Makes these comments
-            easily identifiable and differentiated.
 
 runs:
     using: "composite"
