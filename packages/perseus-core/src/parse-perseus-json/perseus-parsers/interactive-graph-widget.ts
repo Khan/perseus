@@ -261,7 +261,7 @@ export const parseInteractiveGraphWidget = parseWidget(
         rulerLabel: optional(string),
         rulerTicks: optional(number),
         range: pair(pairOfNumbers, pairOfNumbers),
-        boundedSides: optional(
+        showAxisArrows: optional(
             pair(pair(boolean, boolean), pair(boolean, boolean)),
         ),
         // NOTE(benchristel): I copied the default graph from

@@ -434,57 +434,68 @@ export const LockedFiguresWithThickWeight: Story = {
     },
 };
 
-export const BoundedXMin: Story = {
+export const ShowXMinArrow: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withNoInteractiveFigure()
             .withXRange(-10, 10)
             .withYRange(-10, 10)
-            .withBoundedSides([true, false], [false, false])
+            .withShowAxisArrows([true, false], [false, false])
             .build(),
     },
 };
 
-export const BoundedXMax: Story = {
+export const ShowXMaxArrow: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withNoInteractiveFigure()
             .withXRange(-10, 10)
             .withYRange(-10, 10)
-            .withBoundedSides([false, true], [false, false])
+            .withShowAxisArrows([false, true], [false, false])
             .build(),
     },
 };
 
-export const BoundedYMin: Story = {
+export const ShowYMinArrow: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withNoInteractiveFigure()
             .withXRange(-10, 10)
             .withYRange(-10, 10)
-            .withBoundedSides([false, false], [true, false])
+            .withShowAxisArrows([false, false], [true, false])
             .build(),
     },
 };
 
-export const BoundedYMax: Story = {
+export const ShowYMaxArrow: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withNoInteractiveFigure()
             .withXRange(-10, 10)
             .withYRange(-10, 10)
-            .withBoundedSides([false, false], [false, true])
+            .withShowAxisArrows([false, false], [false, true])
             .build(),
     },
 };
 
-export const BoundedAllSides: Story = {
+export const ShowAllArrows: Story = {
     args: {
         question: interactiveGraphQuestionBuilder()
             .withNoInteractiveFigure()
             .withXRange(-10, 10)
             .withYRange(-10, 10)
-            .withBoundedSides([true, true], [true, true])
+            .withShowAxisArrows([true, true], [true, true])
+            .build(),
+    },
+};
+
+export const ShowNoArrows: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withNoInteractiveFigure()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withShowAxisArrows([false, false], [false, false])
             .build(),
     },
 };

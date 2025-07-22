@@ -4,13 +4,24 @@ import {Arrowhead} from "../graphs/components/arrowhead";
 import {X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
 
+import type {ShowAxisArrows} from "@khanacademy/perseus-core";
+
 export default function AxisArrows() {
     const {
         range: [[xMin, xMax], [yMin, yMax]],
-        boundedSides,
+        showAxisArrows,
     } = useGraphConfig();
 
     const axisColor = "var(--mafs-fg)";
+
+    // Arrow defaults to true if not specified.
+    const arrows: ShowAxisArrows =
+        showAxisArrows === undefined
+            ? [
+                  [true, true],
+                  [true, true],
+              ]
+            : showAxisArrows;
 
     // Only render the arrows if the axis is within the visible range
     // as otherwise the arrows will be rendered outside the graph
@@ -18,14 +29,14 @@ export default function AxisArrows() {
         <>
             {!(yMin > 0 || yMax < 0) && (
                 <>
-                    {!boundedSides?.[X][0] && (
+                    {arrows[X][0] && (
                         <Arrowhead
                             color={axisColor}
                             tip={[xMin, 0]}
                             angle={180}
                         />
                     )}
-                    {!boundedSides?.[X][1] && (
+                    {arrows[X][1] && (
                         <Arrowhead
                             color={axisColor}
                             tip={[xMax, 0]}
@@ -36,14 +47,14 @@ export default function AxisArrows() {
             )}
             {!(xMin > 0 || xMax < 0) && (
                 <>
-                    {!boundedSides?.[Y][0] && (
+                    {arrows[Y][0] && (
                         <Arrowhead
                             color={axisColor}
                             tip={[0, yMin]}
                             angle={90}
                         />
                     )}
-                    {!boundedSides?.[Y][1] && (
+                    {arrows[Y][1] && (
                         <Arrowhead
                             color={axisColor}
                             tip={[0, yMax]}

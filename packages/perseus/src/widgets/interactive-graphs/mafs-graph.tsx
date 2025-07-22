@@ -83,7 +83,7 @@ export type MafsGraphProps = {
     showProtractor: boolean;
     labels: ReadonlyArray<string>;
     labelLocation?: InteractiveGraphProps["labelLocation"];
-    boundedSides?: InteractiveGraphProps["boundedSides"];
+    showAxisArrows?: InteractiveGraphProps["showAxisArrows"];
     fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
     fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     state: InteractiveGraphState;
@@ -200,7 +200,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                 tickStep: tickStep,
                 gridStep: props.gridStep,
                 showTooltips: !!props.showTooltips,
-                boundedSides: props.boundedSides,
+                showAxisArrows: props.showAxisArrows,
                 graphDimensionsInPixels: props.box,
                 width,
                 height,

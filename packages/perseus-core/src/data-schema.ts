@@ -41,7 +41,7 @@ export type Range = Interval;
 export type Size = [width: number, height: number];
 export type CollinearTuple = [Vector2, Vector2];
 export type ShowSolutions = "all" | "selected" | "none";
-export type BoundedSides = [
+export type ShowAxisArrows = [
     x: [min: boolean, max: boolean],
     y: [min: boolean, max: boolean],
 ];
@@ -736,7 +736,7 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     labelLocation?: AxisLabelLocation;
     // Which sides of the graph are bounded (removed axis arrows).
-    boundedSides?: [
+    showAxisArrows?: [
         x: [min: boolean, max: boolean],
         y: [min: boolean, max: boolean],
     ];

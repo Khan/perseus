@@ -4,7 +4,7 @@ import type {SnapTo} from "./types";
 import type {Coord} from "../../interactive2/types";
 import type {
     AxisLabelLocation,
-    BoundedSides,
+    ShowAxisArrows,
     CollinearTuple,
     LockedEllipseType,
     LockedFigure,
@@ -64,7 +64,7 @@ class InteractiveGraphQuestionBuilder {
     private markings: MarkingsType = "graph";
     private xRange: Interval = [-10, 10];
     private yRange: Interval = [-10, 10];
-    private boundedSides?: BoundedSides;
+    private showAxisArrows?: ShowAxisArrows;
     private snapStep: vec.Vector2 = [0.5, 0.5];
     private tickStep: vec.Vector2 = [1, 1];
     private showProtractor: boolean = false;
@@ -92,7 +92,7 @@ class InteractiveGraphQuestionBuilder {
                         gridStep: this.gridStep,
                         labels: this.labels,
                         labelLocation: this.labelLocation,
-                        boundedSides: this.boundedSides,
+                        showAxisArrows: this.showAxisArrows,
                         markings: this.markings,
                         range: [this.xRange, this.yRange],
                         showProtractor: this.showProtractor,
@@ -187,11 +187,11 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
-    withBoundedSides(
+    withShowAxisArrows(
         x: [min: boolean, max: boolean],
         y: [min: boolean, max: boolean],
     ): InteractiveGraphQuestionBuilder {
-        this.boundedSides = [x, y];
+        this.showAxisArrows = [x, y];
         return this;
     }
 

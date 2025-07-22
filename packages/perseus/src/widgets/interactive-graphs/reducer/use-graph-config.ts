@@ -2,7 +2,7 @@ import React, {createContext} from "react";
 
 import type {
     AxisLabelLocation,
-    BoundedSides,
+    ShowAxisArrows,
     MarkingsType,
 } from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
@@ -21,7 +21,7 @@ export type GraphConfig = {
     labelLocation?: AxisLabelLocation;
     disableKeyboardInteraction?: boolean;
     interactiveColor?: string;
-    boundedSides?: BoundedSides;
+    showAxisArrows?: ShowAxisArrows;
 };
 
 const defaultGraphConfig: GraphConfig = {

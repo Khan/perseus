@@ -140,14 +140,14 @@ describe("InteractiveGraphQuestionBuilder", () => {
         expect(graph.options.showProtractor).toBe(true);
     });
 
-    it("sets the bounded sides", () => {
-        const minBounds: [boolean, boolean] = [true, false];
-        const maxBounds: [boolean, boolean] = [false, true];
+    it("sets the 'show axis arrows' option", () => {
+        const minArrows: [boolean, boolean] = [false, true];
+        const maxArrows: [boolean, boolean] = [true, false];
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .withBoundedSides(minBounds, maxBounds)
+            .withShowAxisArrows(minArrows, maxArrows)
             .build();
         const graph = question.widgets["interactive-graph 1"];
-        expect(graph.options.boundedSides).toEqual([minBounds, maxBounds]);
+        expect(graph.options.showAxisArrows).toEqual([minArrows, maxArrows]);
     });
 
     it("creates a default segment graph", () => {
