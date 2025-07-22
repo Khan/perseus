@@ -184,7 +184,7 @@ export const InteractiveGraphZeroBounds = (): React.ReactElement => {
                 .withNoInteractiveFigure()
                 .withXRange(0, 10)
                 .withYRange(0, 10)
-                .withBoundedSides([true, false], [true, false])
+                .withShowAxisArrows([false, true], [false, true])
                 .build()}
         />
     );

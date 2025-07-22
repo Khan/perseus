@@ -15,7 +15,7 @@ import {
     type InteractiveGraphDefaultWidgetOptions,
     type AxisLabelLocation,
     interactiveGraphLogic,
-    type BoundedSides,
+    type ShowAxisArrows,
 } from "@khanacademy/perseus-core";
 import {Id, View} from "@khanacademy/wonder-blocks-core";
 import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
@@ -67,7 +67,7 @@ export type Props = {
     /**
      * Whether the graph is bounded on the x and y axes.
      */
-    boundedSides?: BoundedSides;
+    showAxisArrows?: ShowAxisArrows;
     /**
      * How far apart the tick marks on the axes are in the x and y
      * directions.
@@ -194,7 +194,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
             "showProtractor",
             "showTooltips",
             "range",
-            "boundedSides",
+            "showAxisArrows",
             "gridStep",
             "snapStep",
             "lockedFigures",
@@ -292,7 +292,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                 ref: "graph",
                 box: this.props.box,
                 range: this.props.range,
-                boundedSides: this.props.boundedSides,
+                showAxisArrows: this.props.showAxisArrows,
                 labels: this.props.labels,
                 labelLocation: this.props.labelLocation,
                 step: this.props.step,
@@ -439,7 +439,7 @@ class InteractiveGraphEditor extends React.Component<Props> {
                         <InteractiveGraphSettings
                             box={getInteractiveBoxFromSizeClass(sizeClass)}
                             range={this.props.range}
-                            boundedSides={this.props.boundedSides}
+                            showAxisArrows={this.props.showAxisArrows}
                             labels={this.props.labels}
                             labelLocation={this.props.labelLocation}
                             step={this.props.step}

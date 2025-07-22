@@ -37,7 +37,7 @@ import type {
     MarkingsType,
     PerseusInteractiveGraphUserInput,
     AxisLabelLocation,
-    BoundedSides,
+    ShowAxisArrows,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -154,12 +154,7 @@ type RenderProps = {
     /**
      * Whether to show the arrows on the axis.
      */
-    showAxisArrows: {
-        xMin: boolean;
-        xMax: boolean;
-        yMin: boolean;
-        yMax: boolean;
-    };
+    showAxisArrows: ShowAxisArrows;
     /**
      * The type of graph
      */

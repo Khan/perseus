@@ -26,7 +26,7 @@ import LabeledRow from "../locked-figures/labeled-row";
 
 import type {
     AxisLabelLocation,
-    BoundedSides,
+    ShowAxisArrows,
     MarkingsType,
     PerseusImageBackground,
 } from "@khanacademy/perseus-core";
@@ -70,7 +70,7 @@ type Props = {
     /**
      * Whether the graph is bounded (no axis arrows) on the x and y axes.
      */
-    boundedSides?: BoundedSides;
+    showAxisArrows?: ShowAxisArrows;
     /**
      * How far apart the tick marks on the axes are in the x and y
      * directions.
@@ -122,7 +122,7 @@ type State = {
     snapStepTextbox: [x: number, y: number];
     stepTextbox: [x: number, y: number];
     rangeTextbox: [x: Range, y: Range];
-    boundedSidesCheckboxes: BoundedSides;
+    showAxisArrowsCheckboxes: ShowAxisArrows;
     backgroundImage: PerseusImageBackground;
 };
 
@@ -141,7 +141,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             snapStepTextbox: props.snapStep,
             stepTextbox: props.step,
             rangeTextbox: props.range,
-            boundedSidesCheckboxes: props.boundedSides ?? [
+            showAxisArrowsCheckboxes: props.showAxisArrows ?? [
                 [false, false],
                 [false, false],
             ],
@@ -387,14 +387,14 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         );
     };
 
-    changeBoundedSides = (axis, side) => {
-        const newBoundedSides: BoundedSides = [
-            ...this.state.boundedSidesCheckboxes,
+    changeShowAxisArrows = (axis, side) => {
+        const newShowAxisArrows: ShowAxisArrows = [
+            ...this.state.showAxisArrowsCheckboxes,
         ];
 
-        newBoundedSides[axis][side] = !newBoundedSides[axis][side];
+        newShowAxisArrows[axis][side] = !newShowAxisArrows[axis][side];
         this.setState(
-            {boundedSidesCheckboxes: newBoundedSides},
+            {showAxisArrowsCheckboxes: newShowAxisArrows},
             this.changeGraph,
         );
     };
@@ -469,7 +469,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         const range = this.state.rangeTextbox.map((range) =>
             range.map((value) => Number(value)),
         );
-        const boundedSides = this.state.boundedSidesCheckboxes.map((axis) =>
+        const showAxisArrows = this.state.showAxisArrowsCheckboxes.map((axis) =>
             axis.map((side) => side),
         );
         const step = this.state.stepTextbox.map((value) => Number(value));
@@ -497,7 +497,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                 labels: labels,
                 labelLocation: labelLocation,
                 range: range,
-                boundedSides: boundedSides,
+                showAxisArrows: showAxisArrows,
                 step: step,
                 gridStep: gridStep,
                 snapStep: snapStep,
@@ -620,10 +620,10 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         size="small"
                                         checked={
                                             !this.state
-                                                .boundedSidesCheckboxes[0][0]
+                                                .showAxisArrowsCheckboxes[0][0]
                                         }
                                         onChange={(value) =>
-                                            this.changeBoundedSides(0, 0)
+                                            this.changeShowAxisArrows(0, 0)
                                         }
                                     />
                                 </div>
@@ -634,10 +634,10 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         size="small"
                                         checked={
                                             !this.state
-                                                .boundedSidesCheckboxes[1][0]
+                                                .showAxisArrowsCheckboxes[1][0]
                                         }
                                         onChange={(value) =>
-                                            this.changeBoundedSides(1, 0)
+                                            this.changeShowAxisArrows(1, 0)
                                         }
                                     />
                                 </div>
@@ -658,10 +658,10 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         size="small"
                                         checked={
                                             !this.state
-                                                .boundedSidesCheckboxes[0][1]
+                                                .showAxisArrowsCheckboxes[0][1]
                                         }
                                         onChange={(value) =>
-                                            this.changeBoundedSides(0, 1)
+                                            this.changeShowAxisArrows(0, 1)
                                         }
                                     />
                                 </div>
@@ -672,10 +672,10 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         size="small"
                                         checked={
                                             !this.state
-                                                .boundedSidesCheckboxes[1][1]
+                                                .showAxisArrowsCheckboxes[1][1]
                                         }
                                         onChange={(value) =>
-                                            this.changeBoundedSides(1, 1)
+                                            this.changeShowAxisArrows(1, 1)
                                         }
                                     />
                                 </div>
