@@ -42,11 +42,6 @@ runs:
               fi
               echo "artifact-path=$PR_ARTIFACT_DIR" >> $GITHUB_OUTPUT
 
-        - uses: actions/upload-artifact@v4
-          with:
-              name: pr-artifacts-${{ inputs.label-name }}
-              path: ${{ steps.capture-pr-artifacts.outputs.artifact-path }}
-
         - name: Check out base branch
           uses: actions/checkout@v4
           with:
