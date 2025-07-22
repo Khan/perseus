@@ -4,6 +4,7 @@ import {
     type PerseusRadioUserInput,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
+import _ from "underscore";
 
 import RadioNew from "./multiple-choice-widget.new";
 import RadioOld from "./radio-component";
@@ -23,6 +24,16 @@ type ChoiceStateWithoutSelected = Omit<ChoiceState, "selected">;
 type State = {
     choiceStates: ChoiceStateWithoutSelected[];
 };
+
+function initChoiceStates(choices: Props["choices"]) {
+    return choices.map(() => ({
+        highlighted: false,
+        rationaleShown: false,
+        correctnessShown: false,
+        previouslyAnswered: false,
+        readOnly: false,
+    }));
+}
 
 /**
  * This is a wrapper around the old radio widget that allows us to
@@ -46,14 +57,19 @@ class Radio extends RadioOld {
         this.ffIsOn = props.apiOptions.flags?.["new-radio-widget"] ?? false;
 
         this.state = {
-            choiceStates: props.choices.map(() => ({
-                highlighted: false,
-                rationaleShown: false,
-                correctnessShown: false,
-                previouslyAnswered: false,
-                readOnly: false,
-            })),
+            choiceStates: initChoiceStates(props.choices),
         };
+    }
+
+    // HACK: this really should be componentDidUpdate,
+    // but for some reason it's not getting called
+    // and this fixes a bug in prod
+    UNSAFE_componentWillUpdate(nextProps: Props) {
+        if (!_.isEqual(nextProps.choices, this.props.choices)) {
+            this.setState({
+                choiceStates: initChoiceStates(nextProps.choices),
+            });
+        }
     }
 
     /**

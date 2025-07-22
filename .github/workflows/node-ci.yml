@@ -209,9 +209,10 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            # Make sure our packages aren't growing unexpectedly
-            # This must come last as it builds the old code last and so leaves the
-            # wrong code in place for the next job; in other words, it leaves the repo on a base branch.
+            # Make sure our packages aren't growing unexpectedly. This must come
+            # last as it builds the old code last and so leaves the wrong code
+            # in place for the next job; in other words, it leaves the repo on a
+            # base branch.
             - name: Check Builds
               uses: preactjs/compressed-size-action@v2
               with:
@@ -227,6 +228,119 @@ jobs:
             #
             # Do not place any steps after "Check Builds"
             #
+
+    check_schema:
+        name: Check for schema changes
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [20.x]
+        steps:
+            - name: Check out latest commit
+              uses: actions/checkout@v4
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Build schema for current commit
+              run: >-
+                  pnpm tsc --declaration --emitDeclarationOnly \
+                    --outfile ${{ runner.temp }}/schema-pr.d.ts \
+                    packages/perseus-core/src/data-schema.ts
+                  pnpm prettier --write ${{ runner.temp }}/schema-pr.d.ts
+
+            - name: Check out base branch
+              uses: actions/checkout@v4
+              with:
+                  # This checks out the base branch of the PR (the branch the PR
+                  # is targeting)
+                  ref: ${{ github.event.pull_request.base.ref }}
+
+            - name: Re-install node_modules for base branch
+              run: pnpm install
+
+            - name: Build schema for base
+              run: >-
+                  pnpm tsc --declaration --emitDeclarationOnly \
+                    --outfile ${{ runner.temp }}/schema-base.d.ts \
+                    packages/perseus-core/src/data-schema.ts
+
+                  pnpm prettier --write ${{ runner.temp }}/schema-base.d.ts
+
+            - name: Check for Schema Change
+              id: check_for_schema_change
+              run: |
+                  # So a non-zero exit code from 'diff' doesn't bail this step.
+                  set +e
+                  # We generate a random delimiter (DELIM) so that the existence of the
+                  # delimeter in the diff output doesn't cause problems.
+                  DELIM=$(uuidgen)
+                  echo "SCHEMA_DIFF<<$DELIM" >> "$GITHUB_OUTPUT"
+                  diff -C 3 ${{ runner.temp }}/schema-base.d.ts ${{ runner.temp }}/schema-pr.d.ts >> "$GITHUB_OUTPUT"
+                  DIFF_EXIT_CODE=$? # Capture the exit code of diff
+                  echo "$DELIM" >> "$GITHUB_OUTPUT"
+                  echo "diff_exit_code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
+
+            - name: Schema Changed! Add schema-change label to PR
+              if: steps.check_for_schema_change.outputs.diff_exit_code != '0'
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  PR_NUMBER="${{ github.event.pull_request.number }}"
+                  gh pr edit "$PR_NUMBER" --add-label "schema-change"
+
+            - name: Schema NOT Changed! Remove schema-change label to PR
+              if: steps.check_for_schema_change.outputs.diff_exit_code == '0'
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  PR_NUMBER="${{ github.event.pull_request.number }}"
+                  gh pr edit "$PR_NUMBER" --remove-label "schema-change" || true
+
+            - name: Find Schema Change comment
+              uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
+              id: find-schema-change-comment
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-author: "github-actions[bot]"
+                  body-includes: "Comment ID: schema-change"
+
+            - name: Create or update Schema Change comment - success
+              if: steps.check_for_schema_change.outputs.diff_exit_code == '0'
+              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-id: ${{ steps.find-schema-change-comment.outputs.comment-id }}
+                  edit-mode: replace
+                  body: |
+                      # 🗄️ No Schema Changes ✅
+
+                      <!---
+                      Comment ID: schema-change
+                      -->
+
+            - name: Create or update Schema Change comment - failure
+              if: steps.check_for_schema_change.outputs.diff_exit_code != '0'
+              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+              with:
+                  issue-number: ${{ github.event.pull_request.number }}
+                  comment-id: ${{ steps.find-schema-change-comment.outputs.comment-id }}
+                  edit-mode: replace
+                  body: |
+                      # 🗄️ Schema Change Detected
+
+                      ⚠️ This PR contains changes to the Perseus Schema.
+
+                      ```diff
+                      ${{ steps.check_for_schema_change.outputs.SCHEMA_DIFF }}
+                      ```
+
+                      <!---
+                      Comment ID: schema-change
+                      -->
 
     publish_snapshot:
         name: Publish npm snapshot
@@ -333,7 +447,7 @@ jobs:
 
                       If you are working in Khan Academy's frontend, you can run the below command.
                       ```sh
-                      ./tools/bump_perseus_version.ts -t PR${{ github.event.pull_request.number }}
+                      ./dev/tools/bump_perseus_version.ts -t PR${{ github.event.pull_request.number }}
                       ```
 
                       If you are working in Khan Academy's webapp, you can run the below command.

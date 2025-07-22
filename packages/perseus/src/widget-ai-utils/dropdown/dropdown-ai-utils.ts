@@ -1,5 +1,4 @@
 import type dropdown from "../../widgets/dropdown/dropdown";
-import type {PerseusDropdownUserInput} from "@khanacademy/perseus-core";
 import type React from "react";
 
 export type DropdownPromptJSON = {
@@ -14,7 +13,6 @@ export type DropdownPromptJSON = {
 
 export const getPromptJSON = (
     renderProps: React.ComponentProps<typeof dropdown.widget>,
-    userInput: PerseusDropdownUserInput,
 ): DropdownPromptJSON => {
     return {
         type: "dropdown",
@@ -22,7 +20,8 @@ export const getPromptJSON = (
             items: renderProps.choices,
         },
         userInput: {
-            selectedIndex: userInput.value - 1, // Offset to account for placeholder
+            // Offset to account for placeholder
+            selectedIndex: renderProps.userInput.value - 1,
         },
     };
 };

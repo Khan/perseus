@@ -39,9 +39,11 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
         <div
           class="perseus-widget-container widget-nohighlight widget-block"
         >
-          <div>
+          <div
+            class="responsiveContainer"
+          >
             <fieldset
-              class="perseus-widget-radio-fieldset undefined"
+              class="perseus-widget-radio-fieldset responsiveFieldset"
               data-feature-flag="feature flag is ON"
             >
               <legend
@@ -51,7 +53,7 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
               </legend>
               <div
                 aria-hidden="true"
-                class=""
+                class="instructions"
               >
                 Choose all answers that apply:
               </div>
@@ -60,10 +62,10 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
                 style="overflow-x: auto;"
               >
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio"
+                  class="perseus-widget-radio perseus-rendered-radio choiceList"
                 >
                   <li
-                    class="perseus-radio-option perseus-radio-selected"
+                    class="item responsiveItem selectedItem perseus-radio-option perseus-radio-selected"
                   >
                     <div
                       class="description"
@@ -180,7 +182,7 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -297,7 +299,7 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -414,7 +416,7 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -606,9 +608,11 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
         <div
           class="perseus-widget-container widget-nohighlight widget-block"
         >
-          <div>
+          <div
+            class="responsiveContainer"
+          >
             <fieldset
-              class="perseus-widget-radio-fieldset undefined"
+              class="perseus-widget-radio-fieldset responsiveFieldset"
               data-feature-flag="feature flag is ON"
             >
               <legend
@@ -618,7 +622,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
               </legend>
               <div
                 aria-hidden="true"
-                class=""
+                class="instructions"
               >
                 Choose 1 answer:
               </div>
@@ -627,10 +631,10 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                 style="overflow-x: auto;"
               >
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio"
+                  class="perseus-widget-radio perseus-rendered-radio choiceList"
                 >
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -773,7 +777,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -890,7 +894,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option perseus-radio-selected"
+                    class="item responsiveItem selectedItem perseus-radio-option perseus-radio-selected"
                   >
                     <div
                       class="description"
@@ -1007,7 +1011,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -1189,9 +1193,11 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
         <div
           class="perseus-widget-container widget-nohighlight widget-block"
         >
-          <div>
+          <div
+            class="responsiveContainer"
+          >
             <fieldset
-              class="perseus-widget-radio-fieldset undefined"
+              class="perseus-widget-radio-fieldset responsiveFieldset"
               data-feature-flag="feature flag is ON"
             >
               <legend
@@ -1201,7 +1207,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
               </legend>
               <div
                 aria-hidden="true"
-                class=""
+                class="instructions"
               >
                 Choose 1 answer:
               </div>
@@ -1210,10 +1216,10 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                 style="overflow-x: auto;"
               >
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio"
+                  class="perseus-widget-radio perseus-rendered-radio choiceList"
                 >
                   <li
-                    class="perseus-radio-option perseus-radio-selected"
+                    class="item responsiveItem selectedItem perseus-radio-option perseus-radio-selected"
                   >
                     <div
                       class="description"
@@ -1356,7 +1362,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -1473,7 +1479,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -1590,7 +1596,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -1772,9 +1778,11 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
         <div
           class="perseus-widget-container widget-nohighlight widget-block"
         >
-          <div>
+          <div
+            class="responsiveContainer"
+          >
             <fieldset
-              class="perseus-widget-radio-fieldset undefined"
+              class="perseus-widget-radio-fieldset responsiveFieldset"
               data-feature-flag="feature flag is ON"
             >
               <legend
@@ -1784,7 +1792,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
               </legend>
               <div
                 aria-hidden="true"
-                class=""
+                class="instructions"
               >
                 Choose 1 answer:
               </div>
@@ -1793,10 +1801,10 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                 style="overflow-x: auto;"
               >
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio"
+                  class="perseus-widget-radio perseus-rendered-radio choiceList"
                 >
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -1939,7 +1947,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -2056,7 +2064,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -2173,7 +2181,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -2355,9 +2363,11 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
         <div
           class="perseus-widget-container widget-nohighlight widget-block"
         >
-          <div>
+          <div
+            class="responsiveContainer"
+          >
             <fieldset
-              class="perseus-widget-radio-fieldset undefined"
+              class="perseus-widget-radio-fieldset responsiveFieldset"
               data-feature-flag="feature flag is ON"
             >
               <legend
@@ -2367,7 +2377,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
               </legend>
               <div
                 aria-hidden="true"
-                class=""
+                class="instructions"
               >
                 Choose 1 answer:
               </div>
@@ -2376,10 +2386,10 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                 style="overflow-x: auto;"
               >
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio"
+                  class="perseus-widget-radio perseus-rendered-radio choiceList"
                 >
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -2522,7 +2532,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -2639,7 +2649,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option perseus-radio-selected"
+                    class="item responsiveItem selectedItem perseus-radio-option perseus-radio-selected"
                   >
                     <div
                       class="description"
@@ -2756,7 +2766,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -2938,9 +2948,11 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
         <div
           class="perseus-widget-container widget-nohighlight widget-block"
         >
-          <div>
+          <div
+            class="responsiveContainer"
+          >
             <fieldset
-              class="perseus-widget-radio-fieldset undefined"
+              class="perseus-widget-radio-fieldset responsiveFieldset"
               data-feature-flag="feature flag is ON"
             >
               <legend
@@ -2950,7 +2962,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
               </legend>
               <div
                 aria-hidden="true"
-                class=""
+                class="instructions"
               >
                 Choose 1 answer:
               </div>
@@ -2959,10 +2971,10 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                 style="overflow-x: auto;"
               >
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio"
+                  class="perseus-widget-radio perseus-rendered-radio choiceList"
                 >
                   <li
-                    class="perseus-radio-option perseus-radio-selected"
+                    class="item responsiveItem selectedItem perseus-radio-option perseus-radio-selected"
                   >
                     <div
                       class="description"
@@ -3105,7 +3117,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -3222,7 +3234,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -3339,7 +3351,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option"
+                    class="item responsiveItem perseus-radio-option"
                   >
                     <div
                       class="description"
@@ -3521,9 +3533,11 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
         <div
           class="perseus-widget-container widget-nohighlight widget-block"
         >
-          <div>
+          <div
+            class="responsiveContainer"
+          >
             <fieldset
-              class="perseus-widget-radio-fieldset undefined"
+              class="perseus-widget-radio-fieldset responsiveFieldset"
               data-feature-flag="feature flag is ON"
             >
               <legend
@@ -3533,7 +3547,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
               </legend>
               <div
                 aria-hidden="true"
-                class=""
+                class="instructions"
               >
                 Choose 1 answer:
               </div>
@@ -3542,10 +3556,10 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                 style="overflow-x: auto;"
               >
                 <ul
-                  class="perseus-widget-radio perseus-rendered-radio"
+                  class="perseus-widget-radio perseus-rendered-radio choiceList"
                 >
                   <li
-                    class="perseus-radio-option perseus-incorrect"
+                    class="item responsiveItem perseus-radio-option perseus-incorrect"
                   >
                     <div
                       class="description"
@@ -3768,7 +3782,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option perseus-incorrect"
+                    class="item responsiveItem perseus-radio-option perseus-incorrect"
                   >
                     <div
                       class="description"
@@ -3949,7 +3963,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option perseus-correct"
+                    class="item responsiveItem perseus-radio-option perseus-correct"
                   >
                     <div
                       class="description"
@@ -4125,7 +4139,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                     </div>
                   </li>
                   <li
-                    class="perseus-radio-option perseus-incorrect"
+                    class="item responsiveItem perseus-radio-option perseus-incorrect"
                   >
                     <div
                       class="description"
