@@ -42,6 +42,9 @@ export function RadioOptionSettings({
                     index={index}
                     correct={correct}
                     multipleSelect={multipleSelect}
+                    onClick={() => {
+                        onStatusChange(index, !correct);
+                    }}
                 />
                 <HeadingXSmall
                     style={{
