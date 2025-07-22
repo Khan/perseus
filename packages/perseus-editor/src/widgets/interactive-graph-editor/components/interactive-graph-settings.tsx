@@ -12,6 +12,7 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
+import {Spring} from "@khanacademy/wonder-blocks-layout";
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {color, sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
@@ -20,6 +21,7 @@ import * as React from "react";
 import _ from "underscore";
 
 import Heading from "../../../components/heading";
+import LabeledSwitch from "../../../components/labeled-switch";
 import LabeledRow from "../locked-figures/labeled-row";
 
 import type {
@@ -601,6 +603,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     </LabeledRow>
                                 </div>
                             </div>
+                            <LabelSmall>Arrows</LabelSmall>
                             <div
                                 className="perseus-widget-row"
                                 style={{
@@ -610,80 +613,72 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     gap: sizing.size_060,
                                 }}
                             >
-                                <LabelSmall>Bounded</LabelSmall>
-                                <div
-                                    style={{
-                                        width: sizing.size_010,
-                                        backgroundColor: color.offBlack32,
-                                        height: "2rem",
-                                    }}
-                                />
-                                <LabelSmall>x</LabelSmall>
-                                <Pill
-                                    size="small"
-                                    kind={
-                                        this.state
-                                            .boundedSidesCheckboxes?.[0][0]
-                                            ? "accent"
-                                            : "neutral"
-                                    }
-                                    onClick={() => {
-                                        this.changeBoundedSides(0, 0);
-                                    }}
-                                >
-                                    min
-                                </Pill>
-                                <Pill
-                                    size="small"
-                                    kind={
-                                        this.state
-                                            .boundedSidesCheckboxes?.[0][1]
-                                            ? "accent"
-                                            : "neutral"
-                                    }
-                                    onClick={() => {
-                                        this.changeBoundedSides(0, 1);
-                                    }}
-                                >
-                                    max
-                                </Pill>
-                                <div
-                                    style={{
-                                        width: sizing.size_010,
-                                        backgroundColor: color.offBlack32,
-                                        height: "2rem",
-                                    }}
-                                />
-                                <LabelSmall>y</LabelSmall>
-                                <Pill
-                                    size="small"
-                                    kind={
-                                        this.state
-                                            .boundedSidesCheckboxes?.[1][0]
-                                            ? "accent"
-                                            : "neutral"
-                                    }
-                                    onClick={() => {
-                                        this.changeBoundedSides(1, 0);
-                                    }}
-                                >
-                                    min
-                                </Pill>
-                                <Pill
-                                    size="small"
-                                    kind={
-                                        this.state
-                                            .boundedSidesCheckboxes?.[1][1]
-                                            ? "accent"
-                                            : "neutral"
-                                    }
-                                    onClick={() => {
-                                        this.changeBoundedSides(1, 1);
-                                    }}
-                                >
-                                    max
-                                </Pill>
-                                <InfoTip>Remove arrows</InfoTip>
+                                <div className="perseus-widget-left-col">
+                                    <LabeledSwitch
+                                        label="x min"
+                                        labelSide="start"
+                                        size="small"
+                                        checked={
+                                            !this.state
+                                                .boundedSidesCheckboxes[0][0]
+                                        }
+                                        onChange={(value) =>
+                                            this.changeBoundedSides(0, 0)
+                                        }
+                                    />
+                                </div>
+                                <div className="perseus-widget-right-col">
+                                    <LabeledSwitch
+                                        label="y min"
+                                        labelSide="start"
+                                        size="small"
+                                        checked={
+                                            !this.state
+                                                .boundedSidesCheckboxes[1][0]
+                                        }
+                                        onChange={(value) =>
+                                            this.changeBoundedSides(1, 0)
+                                        }
+                                    />
+                                </div>
+                            </div>
+                            <div
+                                className="perseus-widget-row"
+                                style={{
+                                    display: "flex",
+                                    flexDirection: "row",
+                                    alignItems: "center",
+                                    gap: sizing.size_060,
+                                }}
+                            >
+                                <div className="perseus-widget-left-col">
+                                    <LabeledSwitch
+                                        label="x max"
+                                        labelSide="start"
+                                        size="small"
+                                        checked={
+                                            !this.state
+                                                .boundedSidesCheckboxes[0][1]
+                                        }
+                                        onChange={(value) =>
+                                            this.changeBoundedSides(0, 1)
+                                        }
+                                    />
+                                </div>
+                                <div className="perseus-widget-right-col">
+                                    <LabeledSwitch
+                                        label="y max"
+                                        labelSide="start"
+                                        size="small"
+                                        checked={
+                                            !this.state
+                                                .boundedSidesCheckboxes[1][1]
+                                        }
+                                        onChange={(value) =>
+                                            this.changeBoundedSides(1, 1)
+                                        }
+                                    />
+                                </div>
                             </div>
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">
