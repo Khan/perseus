@@ -64,16 +64,8 @@ class Dropdown extends React.Component<Props> implements Widget {
         this.props.handleUserInput({value: selected});
     };
 
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput(): PerseusDropdownUserInput {
-        return this.props.userInput;
-    }
-
     getPromptJSON(): DropdownPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props);
     }
 
     /**
@@ -179,10 +171,17 @@ function getUserInputFromSerializedState(
     return {value: serializedState.selected};
 }
 
+function getStartUserInput(): PerseusDropdownUserInput {
+    return {
+        value: 0,
+    };
+}
+
 export default {
     name: "dropdown",
     displayName: "Drop down",
     widget: Dropdown,
     transform,
+    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Dropdown>;

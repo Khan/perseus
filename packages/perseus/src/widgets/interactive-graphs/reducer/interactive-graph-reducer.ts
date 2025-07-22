@@ -12,7 +12,7 @@ import _ from "underscore";
 
 import {getArrayWithoutDuplicates} from "../graphs/utils";
 import {clamp, clampToBox, inset, snap, X, Y} from "../math";
-import {bound, isUnlimitedGraphState} from "../utils";
+import {bound, boundToEdge, isUnlimitedGraphState} from "../utils";
 
 import {initializeGraphState} from "./initialize-graph-state";
 import {
@@ -513,7 +513,10 @@ function doMovePoint(
                 coords: setAtIndex({
                     array: state.coords,
                     index: action.index,
-                    newValue: boundAndSnapToGrid(action.destination, state),
+                    newValue: boundToEdgeAndSnapToGrid(
+                        action.destination,
+                        state,
+                    ),
                 }),
             };
         }
@@ -782,6 +785,13 @@ function boundAndSnapToGrid(
     {snapStep, range}: {snapStep: vec.Vector2; range: [Interval, Interval]},
 ) {
     return snap(snapStep, bound({snapStep, range, point}));
+}
+
+function boundToEdgeAndSnapToGrid(
+    point: vec.Vector2,
+    {snapStep, range}: {snapStep: vec.Vector2; range: [Interval, Interval]},
+) {
+    return snap(snapStep, boundToEdge({range, point}));
 }
 
 function boundAndSnapAngleVertex(

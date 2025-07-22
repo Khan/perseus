@@ -8,13 +8,7 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-inp
 import {NumericInputComponent} from "./numeric-input";
 import {unionAnswerForms} from "./utils";
 
-import type {
-    FocusPath,
-    Focusable,
-    Widget,
-    WidgetExports,
-    WidgetProps,
-} from "../../types";
+import type {Focusable, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 import type {
     PerseusNumericInputWidgetOptions,
@@ -120,35 +114,11 @@ export class NumericInput
     };
 
     /**
-     * Sets the value of the input at the given path.
-     *
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated set user input in Renderer state
-     */
-    setInputValue: (
-        path: FocusPath,
-        newValue: string,
-        cb?: () => unknown | null | undefined,
-    ) => void = (path, newValue, cb) => {
-        this.props.handleUserInput({currentValue: newValue}, cb);
-    };
-
-    /**
-     * Returns the value the user has currently input for this widget.
-     *
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput(): PerseusNumericInputUserInput {
-        return this.props.userInput;
-    }
-
-    /**
      * Returns the JSON representation of the prompt for this widget.
      * This is used by the AI to determine the prompt for the widget.
      */
     getPromptJSON(): NumericInputPromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props);
     }
 
     /**
@@ -194,6 +164,10 @@ const propsTransform = function (
     return rendererProps;
 };
 
+function getStartUserInput(): PerseusNumericInputUserInput {
+    return {currentValue: ""};
+}
+
 /**
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
@@ -212,8 +186,6 @@ export default {
     widget: NumericInput,
     transform: propsTransform,
     isLintable: true,
-    // TODO(LEMS-2656): remove TS suppression
-    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusNumericInputRubric'
     getOneCorrectAnswerFromRubric(
         rubric: PerseusNumericInputRubric,
     ): string | null | undefined {
@@ -240,5 +212,6 @@ export default {
         }
         return answerStrings[0];
     },
+    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof NumericInput>;

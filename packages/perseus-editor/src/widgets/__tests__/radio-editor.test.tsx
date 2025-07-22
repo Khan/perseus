@@ -341,7 +341,7 @@ describe("radio-editor", () => {
         );
     });
 
-    it("calls onChange when the correct choice is picked", async () => {
+    it("calls onChange when the correct choice is picked (status badges)", async () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
@@ -369,7 +369,35 @@ describe("radio-editor", () => {
         );
     });
 
-    it("calls onChange when the correct choice is changed", async () => {
+    it("calls onChange when the correct choice is picked (indicator pill)", async () => {
+        const onChangeMock = jest.fn();
+
+        renderRadioEditor(onChangeMock, {
+            choices: [
+                {content: "Choice 1"},
+                {content: "Choice 2"},
+                {content: "Choice 3"},
+                {content: "Choice 4"},
+            ],
+        });
+
+        const choice = screen.getByRole("button", {name: "A"});
+
+        await userEvent.click(choice);
+
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                choices: [
+                    {content: "Choice 1", correct: true},
+                    {content: "Choice 2", correct: false},
+                    {content: "Choice 3", correct: false},
+                    {content: "Choice 4", correct: false},
+                ],
+            }),
+        );
+    });
+
+    it("calls onChange when the correct choice is changed (status badges)", async () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
@@ -398,7 +426,7 @@ describe("radio-editor", () => {
         );
     });
 
-    it("calls onChange when the previously correct choice is marked wrong", async () => {
+    it("calls onChange when the correct choice is changed (indicator pill)", async () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
@@ -410,9 +438,67 @@ describe("radio-editor", () => {
             ],
         });
 
-        const choices = screen.getAllByRole("button", {name: "Wrong"});
+        const choice = screen.getByRole("button", {name: "B"});
+
+        await userEvent.click(choice);
+
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                choices: [
+                    // Automatically change the previous correct choice to incorrect
+                    {content: "Choice 1", correct: false},
+                    {content: "Choice 2", correct: true},
+                    {content: "Choice 3", correct: false},
+                    {content: "Choice 4", correct: false},
+                ],
+            }),
+        );
+    });
+
+    it("calls onChange when the previously correct choice is marked wrong (status badges)", async () => {
+        const onChangeMock = jest.fn();
+
+        renderRadioEditor(onChangeMock, {
+            choices: [
+                {content: "Choice 1", correct: true},
+                {content: "Choice 2", correct: false},
+                {content: "Choice 3", correct: false},
+                {content: "Choice 4", correct: false},
+            ],
+        });
+
+        const choices = screen.getAllByRole("button", {name: "Incorrect"});
 
         await userEvent.click(choices[0]);
+
+        expect(onChangeMock).toHaveBeenCalledWith(
+            expect.objectContaining({
+                choices: [
+                    // All choices are now incorrect.
+                    {content: "Choice 1", correct: false},
+                    {content: "Choice 2", correct: false},
+                    {content: "Choice 3", correct: false},
+                    {content: "Choice 4", correct: false},
+                ],
+            }),
+        );
+    });
+
+    it("calls onChange when the previously correct choice is marked wrong (indicator pill)", async () => {
+        const onChangeMock = jest.fn();
+
+        renderRadioEditor(onChangeMock, {
+            choices: [
+                {content: "Choice 1", correct: true},
+                {content: "Choice 2", correct: false},
+                {content: "Choice 3", correct: false},
+                {content: "Choice 4", correct: false},
+            ],
+        });
+
+        const choice = screen.getByRole("button", {name: "A"});
+
+        await userEvent.click(choice);
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({

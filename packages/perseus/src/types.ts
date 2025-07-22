@@ -19,10 +19,6 @@ import type {
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
     Version,
-    Rubric,
-    UserInput,
-    UserInputArray,
-    UserInputMap,
     LabelImageMarkerPublicData,
     PerseusLabelImageMarker,
     ShowSolutions,
@@ -100,28 +96,6 @@ export interface Widget {
     blurInputPath?: (path: FocusPath) => void;
     focusInputPath?: (path: FocusPath) => void;
     getInputPaths?: () => ReadonlyArray<FocusPath>;
-
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    setInputValue?: (
-        path: FocusPath,
-        newValue: string,
-        // TODO(jeremy): I think this is actually a callback
-        focus?: () => unknown,
-    ) => void;
-
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInputMap?: () => UserInputMap | undefined;
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput?: () => UserInputArray | UserInput | undefined;
 
     getPromptJSON?: () => WidgetPromptJSON;
 }
@@ -541,18 +515,24 @@ export type WidgetExports<
     staticTransform?: WidgetTransform; // this is a function of some sort,
 
     getOneCorrectAnswerFromRubric?: (
-        rubric: Rubric,
+        rubric: WidgetOptions,
     ) => string | null | undefined;
 
     // TODO(LEMS-3185): remove serializedState/restoreSerializedState
     /**
      * @deprecated - do not use in new code.
      */
-    getUserInputFromSerializedState?: (props: any) => TUserInput;
+    getUserInputFromSerializedState?: (
+        serializedState: unknown,
+        widgetOptions?: WidgetOptions, // <= for groups
+    ) => TUserInput;
 
-    getCorrectUserInput?: (widgetOptions: any) => TUserInput;
+    getCorrectUserInput?: (widgetOptions: WidgetOptions) => TUserInput;
 
-    getStartUserInput?: (widgetOptions: any, problemNum: number) => TUserInput;
+    getStartUserInput?: (
+        widgetOptions: WidgetOptions,
+        problemNum: number,
+    ) => TUserInput;
 }>;
 
 export type FilterCriterion =

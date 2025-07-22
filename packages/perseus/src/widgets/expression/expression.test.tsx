@@ -4,7 +4,7 @@ import {
     generateTestPerseusItem,
 } from "@khanacademy/perseus-core";
 import {scorePerseusItem} from "@khanacademy/perseus-score";
-import {act, screen, waitFor} from "@testing-library/react";
+import {act, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {
@@ -103,6 +103,26 @@ const assertInvalid = async (
     expect(score).toHaveInvalidInput();
 };
 
+const assertValid = async (
+    userEvent: ReturnType<(typeof userEventLib)["setup"]>,
+    itemData: PerseusItem,
+    input: string,
+    message?: string,
+) => {
+    jest.useFakeTimers();
+    const {renderer} = renderQuestion(itemData.question);
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (input.length) {
+        await userEvent.type(screen.getByRole("textbox"), input);
+    }
+    act(() => jest.runOnlyPendingTimers());
+    const score = scorePerseusItemTesting(
+        itemData.question,
+        renderer.getUserInputMap(),
+    );
+    expect(score).not.toHaveInvalidInput();
+};
+
 describe("Expression Widget", function () {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -124,8 +144,16 @@ describe("Expression Widget", function () {
             await assertInvalid(userEvent, expressionItem2, "+++");
         });
 
+        it("should not grade  ampersands that do not parse", async () => {
+            await assertInvalid(userEvent, expressionItem2, "x&&&&&^1");
+        });
+
         it("should not grade a thing that is empty", async () => {
             await assertInvalid(userEvent, expressionItem2, "");
+        });
+
+        it("should grade a portugese sen", async () => {
+            await assertValid(userEvent, expressionItem2, "sen(x)");
         });
     });
 
@@ -453,30 +481,6 @@ describe("Expression Widget", function () {
             jest.useFakeTimers();
         });
 
-        it("sets input value directly", () => {
-            // arrange
-            const {renderer} = renderQuestion(expressionItem2.question);
-            act(() => jest.runOnlyPendingTimers());
-
-            // act
-            act(() =>
-                renderer.setInputValue(["expression 1"], "123-x", () => {}),
-            );
-            act(() => jest.runOnlyPendingTimers());
-            const score = scorePerseusItem(
-                expressionItem2.question,
-                renderer.getUserInputMap(),
-                "en",
-            );
-
-            // Assert
-            expect(score.type).toBe("points");
-            // Score.total doesn't exist if the input is invalid
-            // In this case we know that it'll be valid so we can assert directly
-            // @ts-expect-error - TS2339 - Property 'earned' does not exist on type 'PerseusScore'. | TS2339 - Property 'total' does not exist on type 'PerseusScore'.
-            expect(score.earned).toBe(score.total);
-        });
-
         it("has a developer facility for inserting", async () => {
             // arrange
             const {renderer} = renderQuestion(expressionItem2.question);
@@ -498,54 +502,6 @@ describe("Expression Widget", function () {
             // In this case we know that it'll be valid so we can assert directly
             // @ts-expect-error - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
             expect(score.total).toBe(1);
-        });
-    });
-
-    describe("error tooltip", () => {
-        beforeEach(() => {
-            jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
-                testDependencies,
-            );
-            jest.useFakeTimers();
-        });
-
-        it("shows error text in tooltip", async () => {
-            // Arrange
-            const {renderer} = renderQuestion(expressionItem2.question);
-            const expression = renderer.findWidgets("expression 1")[0];
-
-            // Act
-            // Note(jeremy): You might think you could collapse all of these calls
-            // inside a single act() block, but that didn't work. The only way this
-            // test passes is with each statement in its own act() call. :/
-            act(() => expression.insert("x&&&&&^1"));
-            act(() => jest.runOnlyPendingTimers());
-            act(() => screen.getByRole("textbox").blur());
-            act(() => jest.runOnlyPendingTimers());
-
-            // Assert
-            await waitFor(() =>
-                expect(
-                    screen.getByText("Oops! Sorry, I don't understand that!"),
-                ).toBeVisible(),
-            );
-        });
-
-        it("does not show error text when the sen() function is used (Portuguese for sin())", async () => {
-            // Arrange
-            const {renderer} = renderQuestion(expressionItem2.question);
-            const expression = renderer.findWidgets("expression 1")[0];
-
-            // Act
-            act(() => expression.insert("sen(x)"));
-            act(() => jest.runOnlyPendingTimers());
-            act(() => screen.getByRole("textbox").blur());
-
-            // Assert
-            expect(screen.queryByText("Oops!")).toBeNull();
-            expect(
-                screen.queryByText("Sorry, I don't understand that!"),
-            ).toBeNull();
         });
     });
 

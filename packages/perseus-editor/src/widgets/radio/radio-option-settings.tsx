@@ -37,12 +37,15 @@ export function RadioOptionSettings({
 
     return (
         <div className={styles.tile}>
-            {/* Incorrect / Wrong status selection */}
+            {/* Correct / Incorrect status selection */}
             <fieldset className="perseus-widget-row">
                 <RadioStatusPill
                     index={index}
                     correct={correct}
                     multipleSelect={multipleSelect}
+                    onClick={() => {
+                        onStatusChange(index, !correct);
+                    }}
                 />
                 <HeadingXSmall
                     style={{
@@ -82,7 +85,7 @@ export function RadioOptionSettings({
                             : semanticColor.core.border.neutral.default,
                     }}
                 >
-                    Wrong
+                    Incorrect
                 </Pill>
             </fieldset>
 
@@ -92,6 +95,24 @@ export function RadioOptionSettings({
                 isNoneOfTheAbove={isNoneOfTheAbove ?? false}
                 onContentChange={onContentChange}
             />
+
+            {/* Content and rationale text areas */}
+            <HeadingXSmall tag="label" className={styles.contentHeading}>
+                Content
+                <TextArea
+                    value={isNoneOfTheAbove ? "None of the above" : content}
+                    disabled={isNoneOfTheAbove}
+                    placeholder="Type a choice here..."
+                    // This unfortunately doesn't match the dynamic resizing
+                    // behavior that it had before, but we should be able to add
+                    // that in after WB-1843 is completed.
+                    resizeType="vertical"
+                    rows={1}
+                    onChange={(value) => {
+                        onContentChange(index, value);
+                    }}
+                />
+            </HeadingXSmall>
             <HeadingXSmall tag="label">
                 Rationale
                 <TextArea
@@ -101,6 +122,7 @@ export function RadioOptionSettings({
                     // behavior that it had before, but we should be able to add
                     // that in after WB-1843 is completed.
                     resizeType="vertical"
+                    rows={1}
                     onChange={(value) => {
                         onRationaleChange(index, value);
                     }}
