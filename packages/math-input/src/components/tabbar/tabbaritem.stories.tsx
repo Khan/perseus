@@ -5,7 +5,12 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 type Story = StoryObj<typeof TabbarItem>;
 
 const meta: Meta<typeof TabbarItem> = {
-    title: "math-input/components/Tab Bar Item",
+    title: "Math Input/Components/Tab Bar Item",
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
 
     component: TabbarItem,
 };

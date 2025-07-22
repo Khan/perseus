@@ -4,7 +4,8 @@ import {action} from "storybook/actions";
 import NavigationPad from "./navigation-pad";
 
 export default {
-    title: "math-input/components/MathInput v2 Navigation Pad",
+    title: "Math Input/Components/MathInput v2 Navigation Pad",
+    tags: ["autodocs", "!dev"],
     parameters: {
         backgrounds: {
             default: "light background",
@@ -14,6 +15,8 @@ export default {
                 {name: "light background", value: "lightgrey", default: true},
             ],
         },
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
     },
 };
 

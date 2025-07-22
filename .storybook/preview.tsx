@@ -85,6 +85,7 @@ const preview: Preview = {
                         ],
                     ],
                     "Math-Input",
+                    ["Full Keypad", "Full Mobile MathInput", "Components", "*"],
                     "*",
                 ],
                 includeNames: true,

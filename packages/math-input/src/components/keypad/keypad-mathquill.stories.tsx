@@ -14,7 +14,12 @@ import type {KeypadKey} from "@khanacademy/perseus-core";
 import Keypad from "./index";
 
 export default {
-    title: "math-input/components/v2 Keypad With Mathquill",
+    title: "Math Input/Components/v2 Keypad With Mathquill",
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
+    },
 };
 
 export function V2KeypadWithMathquill() {

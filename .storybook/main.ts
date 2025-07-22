@@ -39,6 +39,9 @@ const config: StorybookConfig = {
         // Docs for Perseus widgets, components, and renderers
         "../packages/perseus/src/**/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
         "../packages/perseus/src/widgets/**/*.@(stories.ts|stories.tsx|mdx)",
+
+        // Docs for Math Input
+        "../packages/math-input/src/**/*.stories.tsx",
     ],
     addons: [
         "@storybook/addon-a11y",

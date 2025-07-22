@@ -7,12 +7,15 @@ import NumbersPage from "./numbers-page";
 import PrealgebraInputPage from "./operators-page";
 
 export default {
-    title: "math-input/components/Keypad pages",
+    title: "Math Input/Components/Keypad pages",
+    tags: ["autodocs", "!dev"],
     parameters: {
         backgrounds: {
             values: [{name: "light background", value: "white", default: true}],
         },
         viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
     },
 };
 

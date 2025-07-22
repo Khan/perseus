@@ -8,7 +8,7 @@ import {action} from "storybook/actions";
 import {KeypadInput, MobileKeypad} from "./index";
 
 export default {
-    title: "math-input/Full Mobile MathInput",
+    title: "Math Input/Full Mobile MathInput",
     parameters: {
         backgrounds: {
             default: "light background",
@@ -18,7 +18,12 @@ export default {
                 {name: "light background", value: "lightgrey", default: true},
             ],
         },
+        componentSubtitle:
+            "An integrated mobile-friendly math input system with a touch keyboard interface for entering mathematical expressions.",
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
     },
+    tags: ["autodocs", "!dev"],
 };
 
 const Basic = ({keypadElement, setKeypadElement}) => {

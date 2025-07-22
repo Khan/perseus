@@ -10,13 +10,18 @@ const geoPage = "Geometry Page";
 const fracPage = "Fractions Page";
 
 export default {
-    title: "math-input/Full Keypad",
+    title: "Math Input/Full Keypad",
     parameters: {
         backgrounds: {
             values: [{name: "light background", value: "white", default: true}],
         },
         viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
+        componentSubtitle:
+            "A customizable virtual keyboard for mathematical input that provides different key layouts for various math concepts.",
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
     },
+    tags: ["autodocs", "!dev"],
     component: Keypad,
     args: {
         advancedRelations: false,

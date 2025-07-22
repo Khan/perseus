@@ -11,7 +11,7 @@ import type {KeypadButtonProps} from "./keypad-button";
 const keyConfigs = KeyConfigs(mockStrings);
 
 export default {
-    title: "math-input/components/Keypad Button",
+    title: "Math Input/Components/Keypad Button",
     args: {
         keyConfig: keyConfigs["PLUS"],
         coord: [0, 0],
@@ -21,6 +21,11 @@ export default {
             control: "select",
             options: {...keyConfigs},
         },
+    },
+    tags: ["autodocs", "!dev"],
+    parameters: {
+        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
+        docs: {disable: false},
     },
 };
 
