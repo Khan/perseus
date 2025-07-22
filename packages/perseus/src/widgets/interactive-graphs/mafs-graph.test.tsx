@@ -150,7 +150,15 @@ describe("MafsGraph", () => {
         );
 
         // Assert
-        expect(onAnalyticsEventSpy).toHaveBeenCalledWith({
+        expect(onAnalyticsEventSpy).toHaveBeenNthCalledWith(1, {
+            type: "perseus:interactive-graph-widget:rendered",
+            payload: {
+                type: "segment",
+                widgetType: "INTERACTIVE_GRAPH",
+                widgetId: "interactive-graph",
+            },
+        });
+        expect(onAnalyticsEventSpy).toHaveBeenNthCalledWith(2, {
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: "segment",

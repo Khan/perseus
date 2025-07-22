@@ -1,55 +1,5 @@
 # @khanacademy/perseus-editor
 
-## 26.0.1
-
-### Patch Changes
-
--   Updated dependencies [[`a5e736009`](https://github.com/Khan/perseus/commit/a5e73600938894eca58cb7a236c391ba82f2ed7f), [`4e12526af`](https://github.com/Khan/perseus/commit/4e12526af77890835f11235385e96e582a985e05), [`9d6c85c58`](https://github.com/Khan/perseus/commit/9d6c85c58d33f8b5dff06a7b177e0e4e05153894), [`def76890e`](https://github.com/Khan/perseus/commit/def76890e07460cdc00ac089fa3e5d267b2437d2), [`08df03da9`](https://github.com/Khan/perseus/commit/08df03da9b0a870635b24aeafb6082d0df4dcd45)]:
-    -   @khanacademy/perseus@66.0.0
-    -   @khanacademy/perseus-core@18.2.1
-    -   @khanacademy/math-input@26.0.17
-    -   @khanacademy/perseus-score@7.1.15
-    -   @khanacademy/keypad-context@3.0.28
-    -   @khanacademy/kmath@2.0.28
-    -   @khanacademy/perseus-linter@4.1.1
-
-## 26.0.0
-
-### Major Changes
-
--   [#2712](https://github.com/Khan/perseus/pull/2712) [`4faf1cb53`](https://github.com/Khan/perseus/commit/4faf1cb53c49b54ada16ddb88f7e3c91dcc54238) Thanks [@jeanettehead](https://github.com/jeanettehead)! - Revert fix for jumping cursor that broke image uploading
-
-### Patch Changes
-
--   Updated dependencies [[`d0ae6d162`](https://github.com/Khan/perseus/commit/d0ae6d16226ce6d39e3e47a1bf4fa91a8b3020d1), [`d0d03f8f2`](https://github.com/Khan/perseus/commit/d0d03f8f2ff73384c6f71215e2f6baf20c4fc522), [`e539e6d30`](https://github.com/Khan/perseus/commit/e539e6d305d4ef7c7439cf9fbf27603e1f0ff1b1), [`0431a161f`](https://github.com/Khan/perseus/commit/0431a161f2652fffd785e71cd8dac395119c5ff0), [`0431a161f`](https://github.com/Khan/perseus/commit/0431a161f2652fffd785e71cd8dac395119c5ff0), [`0431a161f`](https://github.com/Khan/perseus/commit/0431a161f2652fffd785e71cd8dac395119c5ff0), [`2be43a8fb`](https://github.com/Khan/perseus/commit/2be43a8fb92cd360af4ddd3b180b339dfe226323), [`6801516e8`](https://github.com/Khan/perseus/commit/6801516e8e6a77b7c65cd759950325d9cdab4438), [`ee7e8463d`](https://github.com/Khan/perseus/commit/ee7e8463db10ad141a4282b7f7ea98a8246f6550)]:
-    -   @khanacademy/perseus@65.8.0
-    -   @khanacademy/perseus-linter@4.1.0
-    -   @khanacademy/pure-markdown@2.1.0
-    -   @khanacademy/perseus-core@18.2.0
-    -   @khanacademy/keypad-context@3.0.27
-    -   @khanacademy/kmath@2.0.27
-    -   @khanacademy/math-input@26.0.16
-    -   @khanacademy/perseus-score@7.1.14
-
-## 25.4.0
-
-### Minor Changes
-
--   [#2679](https://github.com/Khan/perseus/pull/2679) [`801ca690b`](https://github.com/Khan/perseus/commit/801ca690b4b2ef8f491f830108ae258c5a29145c) Thanks [@jeanettehead](https://github.com/jeanettehead)! - Fix an issue where the cursor would jump in the editor when typing quickly
-
-### Patch Changes
-
--   [#2685](https://github.com/Khan/perseus/pull/2685) [`26f51a9d9`](https://github.com/Khan/perseus/commit/26f51a9d97ba781625daee42cbd7de47502c6adf) Thanks [@daniellewhyte](https://github.com/daniellewhyte)! - Fix templates in the ItemEditor
-
--   Updated dependencies [[`f3b0fc304`](https://github.com/Khan/perseus/commit/f3b0fc30410b076adf4f81c02986347e21fc8b37), [`efd57ac72`](https://github.com/Khan/perseus/commit/efd57ac723cb6a6a700422098366d052d6fd887a), [`1d7c057cd`](https://github.com/Khan/perseus/commit/1d7c057cda4f8a56830f49dcd3cbd9ae3ab6094b), [`fbc14c3f1`](https://github.com/Khan/perseus/commit/fbc14c3f1b8fa24dd294d3220780f31a2b094660), [`46bc47e2d`](https://github.com/Khan/perseus/commit/46bc47e2d842c0802393248355dfc1796e10545e)]:
-    -   @khanacademy/perseus@65.7.0
-    -   @khanacademy/perseus-core@18.1.0
-    -   @khanacademy/keypad-context@3.0.26
-    -   @khanacademy/kmath@2.0.26
-    -   @khanacademy/math-input@26.0.15
-    -   @khanacademy/perseus-linter@4.0.13
-    -   @khanacademy/perseus-score@7.1.13
-
 ## 25.3.0
 
 ### Minor Changes

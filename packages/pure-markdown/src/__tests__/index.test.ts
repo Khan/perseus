@@ -1,6 +1,6 @@
 import {describe, it} from "@jest/globals";
 
-import {parse} from "./index";
+import {parse} from "../index";
 
 describe("pure markdown", () => {
     describe("parser", () => {

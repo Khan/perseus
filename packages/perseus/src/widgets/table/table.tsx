@@ -101,6 +101,10 @@ class Table extends React.Component<Props> implements Widget {
         ) as PerseusTableUserInput;
     }
 
+    getUserInput(): PerseusTableUserInput {
+        return this._getAnswersClone();
+    }
+
     onValueChange(row: number, column: number, eventOrValue: any): void {
         const answers = this._getAnswersClone();
 
@@ -176,6 +180,17 @@ class Table extends React.Component<Props> implements Widget {
             }
         }
         return inputPaths;
+    }
+
+    setInputValue(path: FocusPath, newValue: string, cb: any): void {
+        // Extract row, column information
+        const typedPath = path as Path;
+        const row = getRowFromPath(typedPath);
+        const column = getColumnFromPath(typedPath);
+
+        const answers = this._getAnswersClone();
+        answers[row][column] = newValue;
+        this.props.handleUserInput(answers, cb);
     }
 
     /**

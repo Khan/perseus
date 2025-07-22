@@ -453,8 +453,7 @@ describe("movePoint on a point graph", () => {
         );
 
         invariant(updated.type === "point");
-        // Points can go on the edges of the graph.
-        expect(updated.coords[0]).toEqual([10, 10]);
+        expect(updated.coords[0]).toEqual([9, 9]);
     });
 
     it("sets hasBeenInteractedWith", () => {

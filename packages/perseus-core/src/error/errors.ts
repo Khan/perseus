@@ -1,5 +1,5 @@
 /**
- * Errors utility for referencing the Perseus error taxonomy.
+ * @typedef {Object} Errors utility for referencing the Perseus error taxonomy.
  */
 export const Errors = Object.freeze({
     /**

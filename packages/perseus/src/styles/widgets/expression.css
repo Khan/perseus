@@ -1,9 +1,25 @@
 .perseus-widget-expression {
     position: relative;
 }
-.perseus-widget-expression > span {
+.perseus-widget-expression > span,
+.perseus-widget-expression .error-tooltip {
     display: inline-block;
     vertical-align: middle;
+}
+.perseus-widget-expression .error-tooltip {
+    position: absolute;
+    right: 6px;
+    top: -2px;
+}
+.perseus-widget-expression .error-icon {
+    color: #fcc335;
+    cursor: pointer;
+    font-size: 20px;
+}
+.perseus-widget-expression .error-text {
+    background-color: #fff;
+    padding: 5px;
+    width: 210px;
 }
 .perseus-widget-expression .perseus-formats-tooltip {
     width: 190px;

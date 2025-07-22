@@ -647,7 +647,7 @@ exports[`interaction widget renders movable point elements with blank constraint
                 style="position: absolute; left: 0px; top: 0px;"
               >
                 <div
-                  style="position: absolute; width: 26px; height: 26px; left: 23.36363636363636px; top: 350.6363636363636px; transform: translateX(0px) translateY(-72.72727272727275px) translateZ(0);"
+                  style="position: absolute; width: 26px; height: 26px; left: 23.36363636363636px; top: 350.6363636363636px; transform: translateX(0px) translateY(0px) translateZ(0);"
                 >
                   <svg
                     height="26"
@@ -683,7 +683,7 @@ exports[`interaction widget renders movable point elements with blank constraint
               >
                 <div
                   data-interactive-kind-for-testing="movable-point"
-                  style="position: absolute; width: 48px; height: 48px; left: 12.36363636363636px; top: 266.9090909090909px; transform: translateX(0px) translateY(0px) translateZ(0);"
+                  style="position: absolute; width: 48px; height: 48px; left: 12.36363636363636px; top: 266.9090909090909px; transform: translateX(0px) translateY(72.72727272727275px) translateZ(0);"
                 >
                   <svg
                     height="48"

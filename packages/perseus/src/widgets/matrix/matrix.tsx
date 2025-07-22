@@ -192,6 +192,16 @@ class Matrix extends React.Component<Props, State> implements Widget {
         return ReactDOM.findDOMNode(this.refs[inputID]);
     }
 
+    setInputValue: (arg1: any, arg2: any, arg3: any) => void = (
+        inputPath,
+        value,
+        callback,
+    ) => {
+        const row = getRowFromPath(inputPath);
+        const col = getColumnFromPath(inputPath);
+        this.onValueChange(row, col, value, callback);
+    };
+
     handleKeyDown: (arg1: any, arg2: any, arg3: any) => void = (
         row,
         col,
@@ -293,8 +303,16 @@ class Matrix extends React.Component<Props, State> implements Widget {
         this.props.trackInteraction();
     };
 
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
+    getUserInput(): PerseusMatrixUserInput {
+        return this.props.userInput;
+    }
+
     getPromptJSON(): MatrixPromptJSON {
-        return _getPromptJSON(this.props);
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     /**
@@ -531,10 +549,6 @@ function transform(widgetOptions: MatrixPublicWidgetOptions): RenderProps {
     };
 }
 
-function getStartUserInput(): PerseusMatrixUserInput {
-    return {answers: [[]]};
-}
-
 function getCorrectUserInput(
     options: PerseusMatrixWidgetOptions,
 ): PerseusMatrixUserInput {
@@ -542,7 +556,6 @@ function getCorrectUserInput(
         answers: options.answers,
     };
 }
-
 /**
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
@@ -561,7 +574,6 @@ export default {
     transform,
     staticTransform: transform,
     isLintable: true,
-    getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Matrix>;

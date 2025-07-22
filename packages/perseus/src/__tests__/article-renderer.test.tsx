@@ -36,9 +36,9 @@ function KeypadWithContext() {
 }
 // This looks alot like `widgets/__tests__/renderQuestion.tsx', except we use
 // the ArticleRenderer instead of Renderer
-export const renderArticle = (
-    json: PerseusArticle = articleSectionWithExpression,
+export const RenderArticle = (
     apiOptions: APIOptions = Object.freeze({}),
+    json: PerseusArticle = articleSectionWithExpression,
 ): {
     container: HTMLElement;
     renderer: ArticleRenderer;
@@ -96,11 +96,14 @@ describe("article renderer", () => {
 
     it("should render the content for a section", () => {
         // Arrange and Act
-        renderArticle(articleSectionWithExpression, {
-            ...ApiOptions.defaults,
-            isMobile: false,
-            customKeypad: false,
-        });
+        RenderArticle(
+            {
+                ...ApiOptions.defaults,
+                isMobile: false,
+                customKeypad: false,
+            },
+            articleSectionWithExpression,
+        );
 
         // Assert
         expect(screen.getByRole("textbox")).toBeInTheDocument();
@@ -108,11 +111,14 @@ describe("article renderer", () => {
 
     it("should render the content for a section as list", () => {
         // Arrange and Act
-        renderArticle([articleSectionWithExpression], {
-            ...ApiOptions.defaults,
-            isMobile: false,
-            customKeypad: false,
-        });
+        RenderArticle(
+            {
+                ...ApiOptions.defaults,
+                isMobile: false,
+                customKeypad: false,
+            },
+            [articleSectionWithExpression],
+        );
 
         // Assert
         expect(screen.getByRole("textbox")).toBeInTheDocument();
@@ -128,11 +134,14 @@ describe("article renderer", () => {
         });
 
         // Act
-        renderArticle(articleSectionWithExpression, {
-            ...ApiOptions.defaults,
-            isMobile: false,
-            customKeypad: false,
-        });
+        RenderArticle(
+            {
+                ...ApiOptions.defaults,
+                isMobile: false,
+                customKeypad: false,
+            },
+            articleSectionWithExpression,
+        );
 
         // Assert
         expect(screen.getByRole("textbox")).toBeInTheDocument();
@@ -148,11 +157,14 @@ describe("article renderer", () => {
         });
 
         // Act
-        renderArticle([articleSectionWithExpression], {
-            ...ApiOptions.defaults,
-            isMobile: false,
-            customKeypad: false,
-        });
+        RenderArticle(
+            {
+                ...ApiOptions.defaults,
+                isMobile: false,
+                customKeypad: false,
+            },
+            [articleSectionWithExpression],
+        );
 
         // Assert
         expect(screen.getByRole("textbox")).toBeInTheDocument();
@@ -163,7 +175,7 @@ describe("article renderer", () => {
         const answerableCallback = jest.fn();
 
         // Act
-        renderArticle(articleSectionWithExpression, {
+        RenderArticle({
             ...ApiOptions.defaults,
             onFocusChange: answerableCallback,
             isMobile: true,

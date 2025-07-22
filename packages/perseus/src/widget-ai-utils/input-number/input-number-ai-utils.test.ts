@@ -47,17 +47,16 @@ describe("InputNumber AI utils", () => {
     });
 
     it("it returns JSON with the expected format and fields", () => {
+        const renderProps: any = {
+            simplify: "optional",
+            answerType: "integer",
+        };
+
         const userInput: PerseusInputNumberUserInput = {
             currentValue: "123",
         };
 
-        const renderProps: any = {
-            simplify: "optional",
-            answerType: "integer",
-            userInput,
-        };
-
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(renderProps, userInput);
 
         expect(resultJSON).toEqual({
             type: "input-number",

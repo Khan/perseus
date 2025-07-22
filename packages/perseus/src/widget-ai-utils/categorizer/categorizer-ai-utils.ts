@@ -1,4 +1,5 @@
 import type categorizer from "../../widgets/categorizer/categorizer";
+import type {PerseusCategorizerUserInput} from "@khanacademy/perseus-core";
 import type React from "react";
 
 export type CategorizerPromptJSON = {
@@ -14,6 +15,7 @@ export type CategorizerPromptJSON = {
 
 export const getPromptJSON = (
     renderProps: React.ComponentProps<typeof categorizer.widget>,
+    userInput: PerseusCategorizerUserInput,
 ): CategorizerPromptJSON => {
     return {
         type: "categorizer",
@@ -22,7 +24,7 @@ export const getPromptJSON = (
             categories: renderProps.categories,
         },
         userInput: {
-            itemToCategoryMapping: renderProps.userInput.values,
+            itemToCategoryMapping: userInput.values,
         },
     };
 };

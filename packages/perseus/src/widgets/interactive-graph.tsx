@@ -859,18 +859,11 @@ function getStartUserInput(options: InteractiveGraphPublicWidgetOptions) {
     return options.graph;
 }
 
-function getCorrectUserInput(
-    options: PerseusInteractiveGraphWidgetOptions,
-): PerseusInteractiveGraphUserInput {
-    return options.correct;
-}
-
 export default {
     name: "interactive-graph",
     displayName: "Interactive graph",
     widget: InteractiveGraph,
     staticTransform: _.identity,
     getStartUserInput,
-    getCorrectUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof InteractiveGraph>;

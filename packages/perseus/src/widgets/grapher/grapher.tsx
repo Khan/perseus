@@ -506,8 +506,12 @@ class Grapher extends React.Component<Props> implements Widget {
         }
     };
 
+    getUserInput(): PerseusGrapherUserInput {
+        return this.props.userInput;
+    }
+
     getPromptJSON(): GrapherPromptJSON {
-        return _getPromptJSON(this.props);
+        return _getPromptJSON(this.props, this.getUserInput());
     }
 
     /**
@@ -640,12 +644,6 @@ function getStartUserInput(
     return DEFAULT_GRAPHER_PROPS.plot;
 }
 
-function getCorrectUserInput(
-    options: PerseusGrapherWidgetOptions,
-): PerseusGrapherUserInput {
-    return options.correct;
-}
-
 0 as any as WidgetProps<
     PerseusGrapherWidgetOptions,
     PerseusGrapherUserInput
@@ -665,5 +663,4 @@ export default {
     staticTransform,
     getUserInputFromSerializedState,
     getStartUserInput,
-    getCorrectUserInput,
 } satisfies WidgetExports<typeof Grapher>;

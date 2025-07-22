@@ -15,10 +15,6 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import * as Changeable from "../../mixins/changeable";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
-import {
-    sharedInitializeUserInput,
-    sharedRestoreUserInputFromSerializedState,
-} from "../../user-input-manager";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 
 import type {
@@ -31,13 +27,13 @@ import type {
 } from "../../types";
 import type {GroupPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 import type {
-    PerseusGroupUserInput,
     PerseusGroupWidgetOptions,
-    PerseusRenderer,
+    UserInputArray,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 
 type RenderProps = PerseusGroupWidgetOptions; // exports has no 'transform'
-type Props = WidgetProps<RenderProps, PerseusGroupUserInput>;
+type Props = WidgetProps<RenderProps>;
 type DefaultProps = {
     content: Props["content"];
     widgets: Props["widgets"];
@@ -70,6 +66,17 @@ class Group extends React.Component<Props> implements Widget {
         return Changeable.change.apply(this, args);
     };
 
+    getUserInputMap(): UserInputMap | undefined {
+        return this.rendererRef?.getUserInputMap();
+    }
+
+    /**
+     * @deprecated getUserInputMap should be used for Groups
+     */
+    getUserInput(): UserInputArray | undefined {
+        return this.rendererRef?.getUserInput();
+    }
+
     getPromptJSON(): GroupPromptJSON {
         return _getPromptJSON(this.rendererRef?.getPromptJSON());
     }
@@ -100,6 +107,14 @@ class Group extends React.Component<Props> implements Widget {
     getInputPaths() {
         return this.rendererRef?.getInputPaths() ?? [];
     }
+
+    setInputValue: (
+        arg1: FocusPath,
+        arg2: string,
+        arg3?: () => unknown,
+    ) => void = (path, newValue, callback) => {
+        return this.rendererRef?.setInputValue(path, newValue, callback);
+    };
 
     focus() {
         return this.rendererRef?.focus() ?? false;
@@ -166,13 +181,6 @@ class Group extends React.Component<Props> implements Widget {
             >
                 {problemNumComponent}
                 <Renderer
-                    userInput={this.props.userInput}
-                    handleUserInput={(widgetId, userInput) => {
-                        this.props.handleUserInput({
-                            ...this.props.userInput,
-                            [widgetId]: userInput,
-                        });
-                    }}
                     content={this.props.content}
                     widgets={this.props.widgets}
                     images={this.props.images}
@@ -190,29 +198,10 @@ class Group extends React.Component<Props> implements Widget {
     }
 }
 
-function getStartUserInput(
-    options: PerseusRenderer,
-    problemNum: number,
-): PerseusGroupUserInput {
-    return sharedInitializeUserInput(options.widgets, problemNum);
-}
-
-function getUserInputFromSerializedState(
-    serializedState: unknown,
-    widgetOptions: PerseusGroupWidgetOptions,
-): PerseusGroupUserInput {
-    return sharedRestoreUserInputFromSerializedState(
-        serializedState,
-        widgetOptions.widgets,
-    );
-}
-
 export default {
     name: "group",
     displayName: "Group (SAT only)",
     widget: Group,
     hidden: true,
     isLintable: true,
-    getStartUserInput,
-    getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Group>;

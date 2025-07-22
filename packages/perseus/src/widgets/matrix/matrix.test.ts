@@ -1,5 +1,4 @@
-import {type PerseusMatrixWidgetOptions} from "@khanacademy/perseus-core";
-import {scorePerseusItem, validateMatrix} from "@khanacademy/perseus-score";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
@@ -13,10 +12,10 @@ import {
 } from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
-import matrixExport from "./matrix";
 import {question1} from "./matrix.testdata";
 
 import type {APIOptions} from "../../types";
+import type {PerseusMatrixWidgetOptions} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("matrix widget", () => {
@@ -55,12 +54,6 @@ describe("matrix widget", () => {
 
         // Assert
         expect(container).toMatchSnapshot("first mobile render");
-    });
-
-    // Regression (LEMS-3307)
-    it("can validate initial user input", () => {
-        const initialUserInput = matrixExport.getStartUserInput();
-        expect(() => validateMatrix(initialUserInput)).not.toThrow();
     });
 
     it("can be answered correctly", async () => {

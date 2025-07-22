@@ -19,7 +19,6 @@ import HintsRenderer from "./hints-renderer";
 import LoadingContext from "./loading-context";
 import {ApiOptions} from "./perseus-api";
 import Renderer from "./renderer";
-import UserInputManager from "./user-input-manager";
 import Util from "./util";
 
 import type {
@@ -112,7 +111,6 @@ export class ServerItemRenderer
     _currentFocus: FocusPath;
     _fullyRendered: boolean;
     blurTimeoutID: number | null | undefined;
-    userInput: UserInputMap;
 
     static defaultProps: DefaultProps = {
         apiOptions: {} as any, // a deep default is done in `this.update()`
@@ -129,7 +127,6 @@ export class ServerItemRenderer
             assetStatuses: {},
         };
         this._fullyRendered = false;
-        this.userInput = {};
     }
 
     componentDidMount() {
@@ -296,6 +293,10 @@ export class ServerItemRenderer
         this.questionRenderer._setWidgetProps(widgetId, newProps, callback);
     }
 
+    setInputValue(path: FocusPath, newValue: any, focus: () => void): void {
+        return this.questionRenderer.setInputValue(path, newValue, focus);
+    }
+
     focusPath(path: FocusPath): void {
         return this.questionRenderer.focusPath(path);
     }
@@ -318,20 +319,14 @@ export class ServerItemRenderer
             this.state.questionHighlightedWidgets,
             [widgetId],
         );
+        this.setState({
+            questionCompleted: false,
+            questionHighlightedWidgets: withRemoved,
+        });
 
-        this.setState(
-            {
-                questionCompleted: false,
-                questionHighlightedWidgets: withRemoved,
-            },
-            () => {
-                // Call the interactionCallback, if it exists,
-                // with the current user input data
-                // (in the setState callback to avoid stale state)
-                this.props.apiOptions?.interactionCallback?.(
-                    this.questionRenderer.getUserInputMap(),
-                );
-            },
+        // Call the interactionCallback, if it exists, with the current user input data
+        this.props.apiOptions?.interactionCallback?.(
+            this.questionRenderer.getUserInputMap(),
         );
     };
 
@@ -368,7 +363,7 @@ export class ServerItemRenderer
      * Returns an object of the widget `.getUserInput()` results
      */
     getUserInput(): UserInputMap {
-        return this.userInput;
+        return this.questionRenderer.getUserInputMap();
     }
 
     /**
@@ -443,58 +438,30 @@ export class ServerItemRenderer
 
         const questionRenderer = (
             <AssetContext.Provider value={contextValue}>
-                <UserInputManager
-                    widgets={this.props.item.question.widgets}
-                    problemNum={this.props.problemNum ?? 0}
-                >
-                    {({
-                        userInput,
-                        handleUserInput,
-                        initializeUserInput,
-                        restoreUserInputFromSerializedState,
-                    }) => {
-                        this.userInput = userInput;
-                        return (
-                            <Renderer
-                                keypadElement={this.props.keypadElement}
-                                problemNum={this.props.problemNum}
-                                onInteractWithWidget={
-                                    this.handleInteractWithWidget
-                                }
-                                highlightedWidgets={
-                                    this.state.questionHighlightedWidgets
-                                }
-                                apiOptions={apiOptions}
-                                questionCompleted={this.state.questionCompleted}
-                                reviewMode={this.props.reviewMode}
-                                showSolutions={this.props.showSolutions}
-                                ref={(elem) => {
-                                    if (elem != null) {
-                                        this.questionRenderer = elem;
-                                    }
-                                }}
-                                content={this.props.item.question.content}
-                                widgets={this.props.item.question.widgets}
-                                images={this.props.item.question.images}
-                                linterContext={PerseusLinter.pushContextStack(
-                                    this.props.linterContext,
-                                    "question",
-                                )}
-                                strings={this.context.strings}
-                                {...this.props.dependencies}
-                                userInput={userInput}
-                                handleUserInput={(id, userInput) => {
-                                    handleUserInput(id, userInput);
-                                    this.handleInteractWithWidget(id);
-                                }}
-                                initializeUserInput={initializeUserInput}
-                                restoreUserInputFromSerializedState={
-                                    restoreUserInputFromSerializedState
-                                }
-                            />
-                        );
+                <Renderer
+                    keypadElement={this.props.keypadElement}
+                    problemNum={this.props.problemNum}
+                    onInteractWithWidget={this.handleInteractWithWidget}
+                    highlightedWidgets={this.state.questionHighlightedWidgets}
+                    apiOptions={apiOptions}
+                    questionCompleted={this.state.questionCompleted}
+                    reviewMode={this.props.reviewMode}
+                    showSolutions={this.props.showSolutions}
+                    ref={(elem) => {
+                        if (elem != null) {
+                            this.questionRenderer = elem;
+                        }
                     }}
-                </UserInputManager>
+                    content={this.props.item.question.content}
+                    widgets={this.props.item.question.widgets}
+                    images={this.props.item.question.images}
+                    linterContext={PerseusLinter.pushContextStack(
+                        this.props.linterContext,
+                        "question",
+                    )}
+                    strings={this.context.strings}
+                    {...this.props.dependencies}
+                />
             </AssetContext.Provider>
         );
 

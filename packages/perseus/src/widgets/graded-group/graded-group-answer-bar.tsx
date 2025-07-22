@@ -12,22 +12,18 @@ import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
 
 import type {APIOptions} from "../../types";
 
-export type ANSWER_BAR_STATES =
-    // Initial state before the question is answerable.  The user must complete
+export type ANSWER_BAR_STATES = // Initial state before the question is answerable.  The user must complete
     // each of the widgets before the answer bar becomes visible.
-    | "HIDDEN"
     // The 'Check' button is active whenever the question is answerable or any
     // of the input widgets have been modified after getting the answer wrong.
-    | "ACTIVE"
-    // The 'Check' button is disabled and there is no message.  This occurs when
-    // some of the widgets haven't been filled in after the answer bar has already become
+    | "HIDDEN" // The 'Check' button is disabled and there is no message.  This occurs when
+    // some of the widgets haven't been filled in after the has already become
     // visible.
-    | "INACTIVE"
-    // This happens immediately after clicking 'Check' with a wrong answer.
+    | "ACTIVE" // This happens immediately after clicking 'Check' with a wrong answer.
     // The 'Check' button is disabled and the 'Try Again' message is displayed.
-    | "INCORRECT"
-    // Final state.  This occurs after the user submits the correct answer.
+    | "INACTIVE" // Final state.  This occurs after the user submits the correct answer.
     // The widgets in this grade-group are disabled.
+    | "INCORRECT"
     | "CORRECT";
 
 type Props = {

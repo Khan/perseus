@@ -5,10 +5,7 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./label-image-ai-utils";
 
-import type {
-    PerseusLabelImageUserInput,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const textQuestion: PerseusRenderer = {
@@ -90,19 +87,6 @@ describe("LabelImage AI utils", () => {
     });
 
     it("it returns JSON with the expected format and fields", () => {
-        const userInput: PerseusLabelImageUserInput = {
-            markers: [
-                {
-                    label: "The fourth unlabeled bar line.",
-                    selected: ["Vans"],
-                },
-                {
-                    label: "The third unlabeled bar line.",
-                    selected: ["SUVs"],
-                },
-            ],
-        };
-
         const renderProps: any = {
             markers: [
                 {
@@ -135,10 +119,22 @@ describe("LabelImage AI utils", () => {
                 "web+graphie://ka-perseus-graphie.s3.amazonaws.com/56c60c72e96cd353e4a8b5434506cd3a21e717af",
             imageAlt:
                 "A bar graph with four bar lines that shows the horizontal axis labeled Number in the parking lot and the vertical axis labeled Vehicle Type. The horizontal axis is labeled, from left to right: 0, 10, 20, 30, 40, and 50. The vertical axis has, from the bottom to the top, four unlabeled bar lines as follows: the first unlabeled bar line extends to the middle of 0 and 10, the second unlabeled bar line extends to 40, the third unlabeled bar line extends to the middle of 20 and 30, and fourth unlabeled bar line extends to 10.",
-            userInput,
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const userInput: any = {
+            markers: [
+                {
+                    label: "The fourth unlabeled bar line.",
+                    selected: ["Vans"],
+                },
+                {
+                    label: "The third unlabeled bar line.",
+                    selected: ["SUVs"],
+                },
+            ],
+        };
+
+        const resultJSON = getPromptJSON(renderProps, userInput);
 
         expect(resultJSON).toEqual({
             type: "label-image",

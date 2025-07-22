@@ -91,6 +91,10 @@ class CSProgram extends React.Component<Props> implements Widget {
         });
     };
 
+    getUserInput(): PerseusCSProgramUserInput {
+        return this.props.userInput;
+    }
+
     getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();
     }
@@ -194,18 +198,10 @@ function getUserInputFromSerializedState(
     return {status: serializedState.status, message: serializedState.message};
 }
 
-function getStartUserInput(): PerseusCSProgramUserInput {
-    return {
-        status: "incomplete",
-        message: null,
-    };
-}
-
 export default {
     name: "cs-program",
     displayName: "CS Program",
     widget: CSProgram,
     hidden: true,
-    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof CSProgram>;

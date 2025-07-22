@@ -1,4 +1,5 @@
 import type matcher from "../../widgets/matcher/matcher";
+import type {PerseusMatcherUserInput} from "@khanacademy/perseus-core";
 import type React from "react";
 
 export type MatcherPromptJSON = {
@@ -15,21 +16,16 @@ export type MatcherPromptJSON = {
     };
 };
 
-export type RenderPropsPartial = Pick<
-    React.ComponentProps<typeof matcher.widget>,
-    "userInput" | "labels" | "left" | "right" | "orderMatters"
->;
-
 export const getPromptJSON = (
-    renderProps: RenderPropsPartial,
+    renderProps: React.ComponentProps<typeof matcher.widget>,
+    userInput: PerseusMatcherUserInput,
 ): MatcherPromptJSON => {
-    const {userInput} = renderProps;
     return {
         type: "matcher",
         options: {
             labels: renderProps.labels,
-            left: renderProps.left,
-            right: renderProps.right,
+            left: renderProps.userInput.left,
+            right: renderProps.userInput.right,
             orderMatters: renderProps.orderMatters,
         },
         userInput: {

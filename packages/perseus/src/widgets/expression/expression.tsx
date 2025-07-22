@@ -1,9 +1,12 @@
+import * as KAS from "@khanacademy/kas";
 import {KeypadInput} from "@khanacademy/math-input";
-import {expressionLogic} from "@khanacademy/perseus-core";
+import {getDecimalSeparator, expressionLogic} from "@khanacademy/perseus-core";
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {View} from "@khanacademy/wonder-blocks-core";
+import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {css, StyleSheet} from "aphrodite";
+import classNames from "classnames";
 import * as React from "react";
 import ReactDOM from "react-dom";
 import _ from "underscore";
@@ -12,10 +15,11 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import MathInput from "../../components/math-input";
 import {useDependencies} from "../../dependencies";
 import {ApiOptions} from "../../perseus-api";
+import a11y from "../../util/a11y";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 
 import type {DependenciesContext} from "../../dependencies";
-import type {WidgetProps, Widget, WidgetExports} from "../../types";
+import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {
     PerseusExpressionWidgetOptions,
@@ -79,6 +83,12 @@ type Props = ExternalProps &
         ariaLabel: PerseusExpressionWidgetOptions["ariaLabel"];
     };
 
+type ExpressionState = {
+    invalid: boolean;
+    showErrorTooltip: boolean;
+    showErrorStyle: boolean;
+};
+
 type DefaultProps = {
     apiOptions: Props["apiOptions"];
     buttonSets: Props["buttonSets"];
@@ -91,7 +101,10 @@ type DefaultProps = {
 };
 
 // The new, MathQuill input expression widget
-export class Expression extends React.Component<Props> implements Widget {
+export class Expression
+    extends React.Component<Props, ExpressionState>
+    implements Widget
+{
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
@@ -111,7 +124,15 @@ export class Expression extends React.Component<Props> implements Widget {
 
     displayName = "Expression";
 
+    state: ExpressionState = {
+        invalid: false,
+        showErrorTooltip: false,
+        showErrorStyle: false,
+    };
+
     componentDidMount: () => void = () => {
+        document.addEventListener("mousedown", this._handleMouseDown);
+
         // TODO(scottgrant): This is a hack to remove the deprecated call to
         // this.isMounted() but is still considered an anti-pattern.
         this._isMounted = true;
@@ -129,17 +150,65 @@ export class Expression extends React.Component<Props> implements Widget {
         }
     };
 
+    // Whenever the input value changes, attempt to parse it.
+    //
+    // Clear any errors if this parse succeeds, show an error within a second
+    // if it fails.
+    componentDidUpdate: (prevProps: Props) => void = (prevProps) => {
+        if (
+            !_.isEqual(this.props.userInput, prevProps.userInput) ||
+            !_.isEqual(this.props.functions, prevProps.functions)
+        ) {
+            this.setState({
+                invalid: false,
+                showErrorTooltip: false,
+                showErrorStyle: false,
+            });
+            if (!this.parse(this.props.userInput, this.props).parsed) {
+                this.setState({
+                    invalid: true,
+                });
+            }
+        }
+    };
+
     componentWillUnmount: () => void = () => {
         this._isMounted = false;
     };
 
+    _handleMouseDown = () => {
+        if (this._isMounted && this.state.showErrorTooltip) {
+            this.setState({
+                showErrorTooltip: false,
+            });
+        }
+    };
+
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
     getUserInput(): PerseusExpressionUserInput {
         return normalizeTex(this.props.userInput);
     }
 
     getPromptJSON(): ExpressionPromptJSON {
-        return _getPromptJSON(this.props, normalizeTex(this.props.userInput));
+        return _getPromptJSON(this.props, this.getUserInput());
     }
+
+    parse: (value: string, props: Props) => any = (
+        value: string,
+        props: Props,
+    ) => {
+        // TODO(jack): Disable icu for content creators here, or
+        // make it so that solution answers with ','s or '.'s work
+        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+        const options = _.pick(props || this.props, "functions");
+        _.extend(options, {
+            decimal_separator: getDecimalSeparator(this.context.locale),
+        });
+        return KAS.parse(normalizeTex(value), options);
+    };
 
     changeAndTrack: (userInput: string, cb: () => void) => void = (
         userInput: string,
@@ -169,7 +238,11 @@ export class Expression extends React.Component<Props> implements Widget {
             // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs.input.focus();
+        } else {
+            // The buttons are often on top of text you're trying to read, so
+            // don't focus the editor automatically.
         }
+
         return true;
     };
 
@@ -206,6 +279,14 @@ export class Expression extends React.Component<Props> implements Widget {
         /* c8 ignore next */
         return [[]];
     };
+
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated set user input in a parent component
+     */
+    setInputValue(path: FocusPath, newValue: string, cb?: any) {
+        this.props.handleUserInput(newValue, cb);
+    }
 
     /**
      * @deprecated and likely very broken API
@@ -257,6 +338,13 @@ export class Expression extends React.Component<Props> implements Widget {
             );
         }
 
+        const className = classNames({
+            "perseus-widget-expression": true,
+            "show-error-tooltip": this.state.showErrorTooltip,
+        });
+
+        const {ERROR_MESSAGE, ERROR_TITLE} = this.context.strings;
+
         return (
             <View className={css(styles.desktopLabelInputWrapper)}>
                 {!!this.props.visibleLabel && (
@@ -265,26 +353,58 @@ export class Expression extends React.Component<Props> implements Widget {
                     </LabelSmall>
                 )}
                 {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions -- TODO(LEMS-2871): Address a11y error */}
-                <div className="perseus-widget-expression">
-                    <MathInput
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="input"
-                        value={this.props.userInput}
-                        onChange={this.changeAndTrack}
-                        convertDotToTimes={this.props.times}
-                        buttonSets={this.props.buttonSets}
-                        onFocus={this._handleFocus}
-                        onBlur={this._handleBlur}
-                        ariaLabel={
-                            this.props.ariaLabel ||
-                            this.context.strings.mathInputBox
-                        }
-                        extraKeys={this.props.keypadConfiguration?.extraKeys}
-                        onAnalyticsEvent={
-                            this.props.analytics?.onAnalyticsEvent ??
-                            (async () => {})
-                        }
-                    />
+                <div
+                    className={className}
+                    onBlur={() =>
+                        this.state.invalid &&
+                        this.setState({
+                            showErrorTooltip: true,
+                            showErrorStyle: true,
+                        })
+                    }
+                    onFocus={() =>
+                        this.setState({
+                            showErrorTooltip: false,
+                        })
+                    }
+                >
+                    {/**
+                * This is a visually hidden container for the error tooltip.
+                https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role#example_3_visually_hidden_alert_container_for_screen_reader_notifications
+            */}
+                    <View style={a11y.srOnly} role="alert">
+                        {this.state.showErrorTooltip &&
+                            ERROR_TITLE + " " + ERROR_MESSAGE}
+                    </View>
+                    <Tooltip
+                        forceAnchorFocusivity={false}
+                        opened={this.state.showErrorTooltip}
+                        title={ERROR_TITLE}
+                        content={ERROR_MESSAGE}
+                    >
+                        <MathInput
+                            // eslint-disable-next-line react/no-string-refs
+                            ref="input"
+                            value={this.props.userInput}
+                            onChange={this.changeAndTrack}
+                            convertDotToTimes={this.props.times}
+                            buttonSets={this.props.buttonSets}
+                            onFocus={this._handleFocus}
+                            onBlur={this._handleBlur}
+                            hasError={this.state.showErrorStyle}
+                            ariaLabel={
+                                this.props.ariaLabel ||
+                                this.context.strings.mathInputBox
+                            }
+                            extraKeys={
+                                this.props.keypadConfiguration?.extraKeys
+                            }
+                            onAnalyticsEvent={
+                                this.props.analytics?.onAnalyticsEvent ??
+                                (async () => {})
+                            }
+                        />
+                    </Tooltip>
                 </div>
             </View>
         );
@@ -316,10 +436,6 @@ function getUserInputFromSerializedState(
     serializedState: any,
 ): PerseusExpressionUserInput {
     return normalizeTex(serializedState.value);
-}
-
-function getStartUserInput(): PerseusExpressionUserInput {
-    return "";
 }
 
 export default {
@@ -360,6 +476,7 @@ export default {
     isLintable: true,
 
     // TODO(LEMS-2656): remove TS suppression
+    // @ts-expect-error: Type 'Rubric' is not assignable to type 'PerseusExpressionRubric'.
     getOneCorrectAnswerFromRubric(
         rubric: PerseusExpressionRubric,
     ): string | null | undefined {
@@ -372,6 +489,5 @@ export default {
         }
         return correctAnswers[0].value;
     },
-    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof ExpressionWithDependencies>;

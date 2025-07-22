@@ -6,7 +6,7 @@ import * as React from "react";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 
 import type {MockWidgetOptions} from "./mock-widget-types";
-import type {WidgetProps, Widget, WidgetExports} from "../../types";
+import type {WidgetProps, Widget, FocusPath, WidgetExports} from "../../types";
 import type {MockWidgetPromptJSON} from "../../widget-ai-utils/mock-widget/prompt-utils";
 import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
 
@@ -40,8 +40,21 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
     inputRef: HTMLElement | null = null;
 
     getPromptJSON(): MockWidgetPromptJSON {
-        return _getPromptJSON(this.props);
+        return _getPromptJSON(this.props, this.getUserInput());
     }
+
+    setInputValue: (
+        path: FocusPath,
+        newValue: string,
+        cb?: () => unknown | null | undefined,
+    ) => void = (path, newValue, cb) => {
+        this.props.handleUserInput(
+            {
+                currentValue: newValue,
+            },
+            cb,
+        );
+    };
 
     focus: () => boolean = () => {
         this.inputRef?.focus();
@@ -63,6 +76,14 @@ class MockWidgetComponent extends React.Component<Props> implements Widget {
         // indicate this.
         return [[]];
     };
+
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
+    getUserInput(): PerseusMockWidgetUserInput {
+        return this.props.userInput;
+    }
 
     handleChange: (
         newValue: string,
@@ -115,12 +136,6 @@ function getUserInputFromSerializedState(
     };
 }
 
-function getStartUserInput(options: PerseusMockWidgetUserInput) {
-    return {
-        currentValue: "",
-    };
-}
-
 const styles = StyleSheet.create({
     widgetContainer: {
         color: "red",
@@ -132,6 +147,5 @@ export default {
     displayName: "Mock Widget",
     widget: MockWidgetComponent,
     isLintable: true,
-    getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof MockWidgetComponent>;

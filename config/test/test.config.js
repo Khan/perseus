@@ -54,9 +54,6 @@ module.exports = {
         // Compile .svg files using a custom transformer that returns the
         // basename of the file being transformed.
         "^.+.svg$": "<rootDir>/config/test/svg.transform.js",
-        // This is needed to pull in the class names from CSS Modules files.
-        // Otherwise, they just show up as undefined, which prevents unit testing.
-        "^.+\\.module\\.css$": "jest-css-modules-transform",
     },
     // Allow transforming files imported from @phosphor-icons/core.
     // This is required by the .svg transform above.
@@ -78,7 +75,7 @@ module.exports = {
         ...pkgMap,
         ...vendorMap,
         // Load a .js file with no exports whenever a .css file is requested.
-        "(?<!\\.module)\\.css$": "<rootDir>/config/test/style-mock.js",
+        "\\.(css)$": "<rootDir>/config/test/style-mock.js",
     },
     coverageDirectory: "<rootDir>/coverage/jest/",
     collectCoverageFrom: [

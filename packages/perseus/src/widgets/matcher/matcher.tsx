@@ -24,7 +24,7 @@ const HACKY_CSS_CLASSNAME = "perseus-widget-matcher";
 
 type RenderProps = Pick<
     PerseusMatcherWidgetOptions,
-    "labels" | "orderMatters" | "padding" | "left" | "right"
+    "labels" | "orderMatters" | "padding"
 >;
 
 type Props = WidgetProps<RenderProps, PerseusMatcherUserInput>;
@@ -105,8 +105,16 @@ export class Matcher extends React.Component<Props, State> implements Widget {
         };
     };
 
+    /**
+     * TODO: remove this when everything is pulling from Renderer state
+     * @deprecated get user input from Renderer state
+     */
+    getUserInput(): PerseusMatcherUserInput {
+        return this.props.userInput;
+    }
+
     getPromptJSON(): MatcherPromptJSON {
-        return _getPromptJSON(this.props);
+        return _getPromptJSON(this.props, this.props.userInput);
     }
 
     // Programatic API for moving options

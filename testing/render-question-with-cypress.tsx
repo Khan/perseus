@@ -8,7 +8,6 @@ import AssetContext from "../packages/perseus/src/asset-context";
 import {DependenciesContext} from "../packages/perseus/src/dependencies";
 import * as Perseus from "../packages/perseus/src/index";
 import {mockStrings} from "../packages/perseus/src/strings";
-import UserInputManager from "../packages/perseus/src/user-input-manager";
 
 import {cypressDependenciesV2} from "./test-dependencies";
 
@@ -58,37 +57,17 @@ const renderQuestion = (
                                 locale="en"
                                 strings={mockStrings}
                             >
-                                <UserInputManager
+                                <Perseus.Renderer
+                                    ref={(node) => (renderer = node)}
+                                    content={question.content}
+                                    images={question.images}
                                     widgets={question.widgets}
                                     problemNum={0}
-                                >
-                                    {({
-                                        userInput,
-                                        handleUserInput,
-                                        initializeUserInput,
-                                        restoreUserInputFromSerializedState,
-                                    }) => (
-                                        <Perseus.Renderer
-                                            ref={(node) => (renderer = node)}
-                                            userInput={userInput}
-                                            handleUserInput={handleUserInput}
-                                            initializeUserInput={
-                                                initializeUserInput
-                                            }
-                                            restoreUserInputFromSerializedState={
-                                                restoreUserInputFromSerializedState
-                                            }
-                                            content={question.content}
-                                            images={question.images}
-                                            widgets={question.widgets}
-                                            problemNum={0}
-                                            apiOptions={apiOptions}
-                                            reviewMode={reviewMode}
-                                            onRender={onRender}
-                                            strings={mockStrings}
-                                        />
-                                    )}
-                                </UserInputManager>
+                                    apiOptions={apiOptions}
+                                    reviewMode={reviewMode}
+                                    onRender={onRender}
+                                    strings={mockStrings}
+                                />
                             </Perseus.PerseusI18nContextProvider>
                         </MathInputI18nContextProvider>
                     </DependenciesContext.Provider>

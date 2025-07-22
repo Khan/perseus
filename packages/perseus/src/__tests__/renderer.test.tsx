@@ -21,10 +21,6 @@ import {
     mockedShuffledRadioProps,
 } from "../__testdata__/renderer.testdata";
 import * as Dependencies from "../dependencies";
-import {
-    isDifferentQuestion,
-    type DifferentQuestionPartialProps,
-} from "../renderer";
 import {registerWidget} from "../widgets";
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
@@ -1308,6 +1304,27 @@ describe("renderer", () => {
     });
 
     describe("misc behaviors", () => {
+        it("should be able to force re-render", () => {
+            // Arrange
+            const onRender = jest.fn();
+            const apiOptions: Record<string, any> = {};
+            const extraProps = {
+                alwaysUpdate: true, // Switching to `false` to fails test
+                onRender,
+            } as const;
+            const {rerender} = renderQuestion(
+                question1,
+                apiOptions,
+                extraProps,
+            );
+
+            // Act
+            rerender(question1, extraProps);
+
+            // How do I tell it rerendered?
+            expect(onRender).toHaveBeenCalledTimes(2);
+        });
+
         // [LEMS-3185] deprecate serializedState / restoreSerializedState
         it("should use new serializedState if getSerializedState is different", () => {
             // Act
@@ -1626,6 +1643,58 @@ describe("renderer", () => {
         });
     });
 
+    describe("setInputValue", () => {
+        it("should set the value on the requested FocusPath", () => {
+            // Arrange
+            const {renderer} = renderQuestion({
+                ...question2,
+                content:
+                    "Input 1: [[☃ mock-widget 1]]\n\n" +
+                    "Input 2: [[☃ mock-widget 2]]",
+                widgets: {
+                    ...question2.widgets,
+                    "mock-widget 2": {
+                        ...question2.widgets["mock-widget 1"],
+                        static: true,
+                    },
+                },
+            });
+            const cb = jest.fn();
+
+            // Act
+            act(() => renderer.setInputValue(["mock-widget 2"], "1000", cb));
+
+            // Assert
+            expect(screen.getAllByRole("textbox")[0]).toHaveValue("");
+            expect(screen.getAllByRole("textbox")[1]).toHaveValue("1000");
+        });
+
+        it("should call the focus callback when value is complete", () => {
+            // Arrange
+            const {renderer} = renderQuestion({
+                ...question2,
+                content:
+                    "Input 1: [[☃ mock-widget 1]]\n\n" +
+                    "Input 2: [[☃ mock-widget 2]]",
+                widgets: {
+                    ...question2.widgets,
+                    "mock-widget 2": {
+                        ...question2.widgets["mock-widget 1"],
+                        static: true,
+                    },
+                },
+            });
+            const cb = jest.fn();
+
+            // Act
+            act(() => renderer.setInputValue(["mock-widget 2"], "1000", cb));
+            act(() => jest.runOnlyPendingTimers());
+
+            // Assert
+            expect(cb).toHaveBeenCalled();
+        });
+    });
+
     describe("getUserInputMap", () => {
         it("should return user input for all rendered widgets", async () => {
             // Arrange
@@ -1685,142 +1754,5 @@ describe("renderer", () => {
 
             expect(Object.keys(json.widgets)).toEqual(widgetKeys);
         });
-    });
-});
-
-describe("isDifferentQuestion", () => {
-    it("considers answerful/answerless to be the same", () => {
-        const answerful: DifferentQuestionPartialProps = {
-            content: "[[☃ dropdown 1]]",
-            widgets: {
-                "dropdown 1": {
-                    type: "dropdown",
-                    options: {
-                        static: false,
-                        placeholder: "greater/less than or equal to",
-                        choices: [
-                            {
-                                content: "Cool",
-                                correct: true,
-                            },
-                            {
-                                content: "Beans",
-                                correct: false,
-                            },
-                        ],
-                    },
-                },
-            },
-            problemNum: 0,
-        };
-        const answerless = {
-            content: "[[☃ dropdown 1]]",
-            widgets: {
-                "dropdown 1": {
-                    type: "dropdown",
-                    options: {
-                        static: false,
-                        placeholder: "greater/less than or equal to",
-                        choices: [
-                            {
-                                content: "Cool",
-                            },
-                            {
-                                content: "Beans",
-                            },
-                        ],
-                    },
-                },
-            },
-            problemNum: 0,
-        };
-        expect(isDifferentQuestion(answerful, answerless as any)).toBe(false);
-    });
-
-    it("considers exactly the same to be the same", () => {
-        const props: DifferentQuestionPartialProps = {
-            content: "A",
-            widgets: {},
-            problemNum: 0,
-        };
-        expect(isDifferentQuestion(props, props)).toBe(false);
-    });
-
-    it("considers different content different", () => {
-        const propsA: DifferentQuestionPartialProps = {
-            content: "A",
-            widgets: {},
-            problemNum: 0,
-        };
-        const propsB: DifferentQuestionPartialProps = {
-            content: "B",
-            widgets: {},
-            problemNum: 0,
-        };
-        expect(isDifferentQuestion(propsA, propsB)).toBe(true);
-    });
-
-    it("considers different problemNum different", () => {
-        const propsA: DifferentQuestionPartialProps = {
-            content: "A",
-            widgets: {},
-            problemNum: 0,
-        };
-        const propsB: DifferentQuestionPartialProps = {
-            content: "A",
-            widgets: {},
-            problemNum: 1,
-        };
-        expect(isDifferentQuestion(propsA, propsB)).toBe(true);
-    });
-
-    it("considers different widgetOptions different", () => {
-        const propsA: DifferentQuestionPartialProps = {
-            content: "[[☃ dropdown 1]]",
-            widgets: {
-                "dropdown 1": {
-                    type: "dropdown",
-                    options: {
-                        static: false,
-                        placeholder: "greater/less than or equal to",
-                        choices: [
-                            {
-                                content: "Cool",
-                                correct: true,
-                            },
-                            {
-                                content: "Beans",
-                                correct: false,
-                            },
-                        ],
-                    },
-                },
-            },
-            problemNum: 0,
-        };
-        const propsB: DifferentQuestionPartialProps = {
-            content: "[[☃ dropdown 1]]",
-            widgets: {
-                "dropdown 1": {
-                    type: "dropdown",
-                    options: {
-                        static: false,
-                        placeholder: "greater/less than or equal to",
-                        choices: [
-                            {
-                                content: "Neat",
-                                correct: true,
-                            },
-                            {
-                                content: "Stuff",
-                                correct: false,
-                            },
-                        ],
-                    },
-                },
-            },
-            problemNum: 0,
-        };
-        expect(isDifferentQuestion(propsA, propsB)).toBe(true);
     });
 });

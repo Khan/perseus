@@ -1,4 +1,4 @@
-import {pureMarkdownRules, traverseContent} from "@khanacademy/pure-markdown";
+import {pureMarkdownRules} from "@khanacademy/pure-markdown";
 import SimpleMarkdown from "@khanacademy/simple-markdown";
 import * as React from "react";
 import _ from "underscore";
@@ -6,10 +6,6 @@ import _ from "underscore";
 import Lint from "./components/lint";
 import {getDependencies} from "./dependencies";
 
-/**
- * These rules are the same as the pure-markdown rules, but with some
- * customizations to how they're rendered (note the `react` functions).
- */
 const rules = {
     ...pureMarkdownRules,
 
@@ -305,6 +301,31 @@ const inlineParser = (source: string, state: any): any => {
         ...state,
         inline: true,
     });
+};
+
+/**
+ * Traverse all of the nodes in the Perseus Markdown AST. The callback is
+ * called for each node in the AST.
+ */
+const traverseContent = (ast: any, cb: (arg1: any) => unknown) => {
+    if (_.isArray(ast)) {
+        _.each(ast, (node) => traverseContent(node, cb));
+    } else if (_.isObject(ast)) {
+        cb(ast);
+        if (ast.type === "table") {
+            traverseContent(ast.header, cb);
+            traverseContent(ast.cells, cb);
+        } else if (ast.type === "list") {
+            traverseContent(ast.items, cb);
+        } else if (ast.type === "titledTable") {
+            traverseContent(ast.table, cb);
+        } else if (ast.type === "columns") {
+            traverseContent(ast.col1, cb);
+            traverseContent(ast.col2, cb);
+        } else if (_.isArray(ast.content)) {
+            traverseContent(ast.content, cb);
+        }
+    }
 };
 
 /**

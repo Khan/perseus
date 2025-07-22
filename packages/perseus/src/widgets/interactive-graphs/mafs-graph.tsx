@@ -24,11 +24,6 @@ import AxisLabels from "./backgrounds/axis-labels";
 import {AxisTicks} from "./backgrounds/axis-ticks";
 import {Grid} from "./backgrounds/grid";
 import {LegacyGrid} from "./backgrounds/legacy-grid";
-import {
-    fontSize,
-    fontSizeYAxisLabelMultiplier,
-    getLabelPosition,
-} from "./backgrounds/utils";
 import GraphLockedLabelsLayer from "./graph-locked-labels-layer";
 import GraphLockedLayer from "./graph-locked-layer";
 import {renderAngleGraph} from "./graphs/angle";
@@ -60,7 +55,6 @@ import type {
     PointGraphState,
     PolygonGraphState,
     InteractiveGraphElementSuite,
-    GraphDimensions,
 } from "./types";
 import type {I18nContextType} from "../../components/i18n-context";
 import type {PerseusStrings} from "../../strings";
@@ -68,8 +62,6 @@ import type {vec} from "mafs";
 
 import "mafs/core.css";
 import "./mafs-styles.css";
-
-const GRAPH_LEFT_MARGIN = 20;
 
 export type MafsGraphProps = {
     box: [number, number];
@@ -138,6 +130,15 @@ export const MafsGraph = (props: MafsGraphProps) => {
 
     useOnMountEffect(() => {
         analytics.onAnalyticsEvent({
+            // TODO(LEMS-2827): Remove analytics event in LEMS-2827 in favor of ti below.
+            type: "perseus:interactive-graph-widget:rendered",
+            payload: {
+                type,
+                widgetType: "INTERACTIVE_GRAPH",
+                widgetId: "interactive-graph",
+            },
+        });
+        analytics.onAnalyticsEvent({
             type: "perseus:widget:rendered:ti",
             payload: {
                 widgetSubType: type,
@@ -155,40 +156,6 @@ export const MafsGraph = (props: MafsGraphProps) => {
     });
 
     const disableInteraction = readOnly || !!props.static;
-
-    const graphInfo: GraphDimensions = {
-        range: state.range,
-        width,
-        height,
-    };
-
-    const [xAxisLabelLocation, yAxisLabelLocation] = getLabelPosition(
-        graphInfo,
-        labelLocation,
-        tickStep,
-    );
-
-    // (-fontSize * fontSizeYAxisLabelMultiplier) is the standard label offset
-    // on the graphs with alongEdge labels. fontSize is currently assumed to be
-    // 14px.
-    // There is a very specific range of values for which the label needs a
-    // different offset to avoid overlapping with the tick labels. We have to
-    // compensate for this specific case.
-    const needsExtraMargin =
-        labelLocation === "alongEdge" &&
-        yAxisLabelLocation[0] < -fontSize * fontSizeYAxisLabelMultiplier;
-
-    // marginLabelDiff is currently 2.5px (20px - (14px * 1.25) = 2.5px)
-    const marginLabelDiff =
-        GRAPH_LEFT_MARGIN - fontSize * fontSizeYAxisLabelMultiplier;
-
-    // If the graph needs the extra margin, this is the offset.
-    // yAxisLabelLocation[X] is how far off the edge of the graph the label is.
-    // We want to move the graph over by the same amount so that the label is
-    // visible, which is why we multiply by -1. The marginLabelDiff is to make
-    // sure the label stays in the exact same position as the standard margin.
-    const marginWithExtraOffset =
-        -1 * (yAxisLabelLocation[X] - marginLabelDiff);
 
     return (
         <GraphConfigContext.Provider
@@ -221,11 +188,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         position: "relative",
                         padding: "25px 25px 0 0",
                         boxSizing: "content-box",
-                        // Move the graph over by the label offset so that
-                        // the label is visible
-                        marginLeft: needsExtraMargin
-                            ? `${marginWithExtraOffset}px`
-                            : `${GRAPH_LEFT_MARGIN}px`,
+                        marginLeft: "20px",
                         marginBottom: "30px",
                         pointerEvents: props.static ? "none" : "auto",
                         userSelect: "none",
@@ -303,11 +266,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                         {(props.markings === "graph" ||
                             props.markings === "axes") && (
                             <>
-                                <AxisLabels
-                                    i18n={i18n}
-                                    xAxisLabelLocation={xAxisLabelLocation}
-                                    yAxisLabelLocation={yAxisLabelLocation}
-                                />
+                                <AxisLabels i18n={i18n} />
                             </>
                         )}
                         <View
@@ -388,21 +347,7 @@ export const MafsGraph = (props: MafsGraphProps) => {
                                 height={height}
                             >
                                 {/* Intearctive Elements are nested in an SVG to lock them to graph bounds */}
-                                <svg
-                                    {...nestedSVGAttributes}
-                                    style={{
-                                        // We want to allow points to be directly
-                                        // on the edge of the graph, so we need to
-                                        // set overflow to visible. For other
-                                        // graphs, we want to hide the overflow
-                                        // so that the graph can't go way off
-                                        // the edge.
-                                        overflow:
-                                            type === "point"
-                                                ? "visible"
-                                                : "hidden",
-                                    }}
-                                >
+                                <svg {...nestedSVGAttributes}>
                                     {/* Protractor */}
                                     {props.showProtractor && <Protractor />}
                                     {/* Interactive layer */}

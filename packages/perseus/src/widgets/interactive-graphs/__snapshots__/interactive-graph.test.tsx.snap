@@ -1024,7 +1024,6 @@ exports[`Interactive Graph A none-type graph renders predictably: first render 1
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: hidden;"
                         viewBox="-200 -200 400 400"
                         width="400"
                         x="-200"
@@ -1187,7 +1186,6 @@ exports[`Interactive Graph question Should render predictably: after interaction
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: hidden;"
                         viewBox="-57.142857142857146 -342.85714285714283 400 400"
                         width="400"
                         x="-57.142857142857146"
@@ -1662,7 +1660,6 @@ exports[`Interactive Graph question Should render predictably: after interaction
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: hidden;"
                         viewBox="-200 -200 400 400"
                         width="400"
                         x="-200"
@@ -2114,7 +2111,6 @@ exports[`Interactive Graph question Should render predictably: after interaction
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: visible;"
                         viewBox="-200 -200 400 400"
                         width="400"
                         x="-200"
@@ -2367,7 +2363,6 @@ exports[`Interactive Graph question Should render predictably: after interaction
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: hidden;"
                         viewBox="-200 -266.66666666666663 400 400"
                         width="400"
                         x="-200"
@@ -2583,7 +2578,6 @@ exports[`Interactive Graph question Should render predictably: first render 1`] 
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: hidden;"
                         viewBox="-57.142857142857146 -342.85714285714283 400 400"
                         width="400"
                         x="-57.142857142857146"
@@ -3058,7 +3052,6 @@ exports[`Interactive Graph question Should render predictably: first render 2`] 
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: hidden;"
                         viewBox="-200 -200 400 400"
                         width="400"
                         x="-200"
@@ -3510,7 +3503,6 @@ exports[`Interactive Graph question Should render predictably: first render 3`] 
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: visible;"
                         viewBox="-200 -200 400 400"
                         width="400"
                         x="-200"
@@ -3763,7 +3755,6 @@ exports[`Interactive Graph question Should render predictably: first render 4`] 
                       <svg
                         height="400"
                         preserveAspectRatio="xMidYMin"
-                        style="overflow: hidden;"
                         viewBox="-200 -266.66666666666663 400 400"
                         width="400"
                         x="-200"

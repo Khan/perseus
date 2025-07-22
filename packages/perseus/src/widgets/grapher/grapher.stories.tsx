@@ -11,7 +11,6 @@ import {
     quadraticQuestion,
     sinusoidQuestion,
     simpleQuestion,
-    staticGrapher,
 } from "./grapher.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -78,11 +77,5 @@ export const AnswerlessQuestion: Story = {
 export const SimpleQuestion: Story = {
     args: {
         item: generateTestPerseusItem({question: simpleQuestion}),
-    },
-};
-
-export const Static: Story = {
-    args: {
-        item: generateTestPerseusItem({question: staticGrapher}),
     },
 };

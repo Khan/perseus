@@ -7,7 +7,6 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./matcher-ai-utils";
 
-import type {RenderPropsPartial} from "./matcher-ai-utils";
 import type {
     PerseusRenderer,
     PerseusMatcherUserInput,
@@ -65,25 +64,32 @@ describe("Matcher AI utils", () => {
     });
 
     it("it returns JSON with the expected format and fields", () => {
+        const renderProps: any = {
+            labels: {
+                left: "Number",
+                right: "Letter",
+            },
+            userInput: {
+                left: ["1", "2", "3"],
+                right: ["a", "b", "c"],
+            },
+            orderMatters: false,
+        };
+
         const userInput: PerseusMatcherUserInput = {
             left: ["3", "1", "2"],
             right: ["a", "b", "c"],
         };
 
-        const renderProps: RenderPropsPartial = {
-            labels: ["Number", "Letter"],
-            left: ["1", "2", "3"],
-            right: ["a", "b", "c"],
-            orderMatters: false,
-            userInput,
-        };
-
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(renderProps, userInput);
 
         expect(resultJSON).toEqual({
             type: "matcher",
             options: {
-                labels: ["Number", "Letter"],
+                labels: {
+                    left: "Number",
+                    right: "Letter",
+                },
                 left: ["1", "2", "3"],
                 right: ["a", "b", "c"],
                 orderMatters: false,
@@ -122,13 +128,7 @@ describe("Matcher AI utils", () => {
                             "Left - Four",
                             "Left - Five",
                         ],
-                        right: [
-                            "Right - One",
-                            "Right - Two",
-                            "Right - Three",
-                            "Right - Four",
-                            "Right - Five",
-                        ],
+                        right: shuffledRightItems,
                         orderMatters: false,
                     },
                     userInput: {

@@ -5,10 +5,7 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./matrix-ai-utils";
 
-import type {
-    PerseusMatrixUserInput,
-    PerseusRenderer,
-} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const question: PerseusRenderer = {
@@ -47,7 +44,11 @@ describe("Matrix AI utils", () => {
     });
 
     it("it returns JSON with the expected format and fields", () => {
-        const userInput: PerseusMatrixUserInput = {
+        const renderProps: any = {
+            matrixBoardSize: [4, 3],
+        };
+
+        const userInput: any = {
             answers: [
                 [1, 2, 3, 4],
                 [5, 6, 7, 8],
@@ -55,12 +56,7 @@ describe("Matrix AI utils", () => {
             ],
         };
 
-        const renderProps: any = {
-            matrixBoardSize: [4, 3],
-            userInput,
-        };
-
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(renderProps, userInput);
 
         expect(resultJSON).toEqual({
             type: "matrix",

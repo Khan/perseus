@@ -1,4 +1,5 @@
 import type orderer from "../../widgets/orderer/orderer";
+import type {PerseusOrdererUserInput} from "@khanacademy/perseus-core";
 import type React from "react";
 
 export type OrdererPromptJSON = {
@@ -13,6 +14,7 @@ export type OrdererPromptJSON = {
 
 export const getPromptJSON = (
     renderProps: React.ComponentProps<typeof orderer.widget>,
+    userInput: PerseusOrdererUserInput,
 ): OrdererPromptJSON => {
     return {
         type: "orderer",
@@ -20,7 +22,7 @@ export const getPromptJSON = (
             options: renderProps.options.map((option) => option.content),
         },
         userInput: {
-            values: renderProps.userInput.current,
+            values: userInput.current,
         },
     };
 };

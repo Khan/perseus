@@ -147,7 +147,6 @@ export type * from "./widgets/logic-export.types";
 export * as CoreWidgetRegistry from "./widgets/core-widget-registry";
 
 export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
-export type {OrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
 export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
 export type {CategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
 export {default as getCSProgramPublicWidgetOptions} from "./widgets/cs-program/cs-program-util";
