@@ -9,12 +9,14 @@ interface RadioStatusPillProps {
     index: number;
     correct?: boolean;
     multipleSelect: boolean;
+    onClick: () => void;
 }
 
 export function RadioStatusPill({
     index,
     correct,
     multipleSelect,
+    onClick,
 }: RadioStatusPillProps) {
     return (
         <Pill
@@ -34,6 +36,7 @@ export function RadioStatusPill({
                 width: sizing.size_560,
                 flexDirection: "row",
             }}
+            onClick={onClick}
         >
             <>
                 <PhosphorIcon

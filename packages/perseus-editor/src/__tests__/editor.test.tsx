@@ -193,4 +193,43 @@ describe("Editor", () => {
             minor: 0,
         });
     });
+
+    test("default templates work", async () => {
+        // PerseusRenderer but TS is being dumb
+        let cbData: any;
+        render(
+            <Harnessed
+                onChange={(data) => {
+                    cbData = data;
+                }}
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        const select = screen.getByTestId("editor__template-select");
+        await userEvent.selectOptions(select, "Table");
+
+        expect(cbData?.content).toMatch(/header 1 | header 2 | header 3/i);
+    });
+
+    test("custom templates work", async () => {
+        // PerseusRenderer but TS is being dumb
+        let cbData: any;
+        render(
+            <Harnessed
+                onChange={(data) => {
+                    cbData = data;
+                }}
+                additionalTemplates={{
+                    "custom-template": "This is my custom template",
+                }}
+            />,
+        );
+        act(() => jest.runOnlyPendingTimers());
+
+        const select = screen.getByTestId("editor__template-select");
+        await userEvent.selectOptions(select, "custom-template");
+
+        expect(cbData?.content).toMatch(/This is my custom template/i);
+    });
 });

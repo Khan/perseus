@@ -359,16 +359,8 @@ export class LabelImage
         this._mounted = false;
     }
 
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput(): PerseusLabelImageUserInput {
-        return this.props.userInput;
-    }
-
     getPromptJSON(): LabelImagePromptJSON {
-        return _getPromptJSON(this.props, this.getUserInput());
+        return _getPromptJSON(this.props);
     }
 
     handleMarkerChange(

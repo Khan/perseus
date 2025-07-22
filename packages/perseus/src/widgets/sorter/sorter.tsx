@@ -57,14 +57,6 @@ class Sorter extends React.Component<Props> implements Widget {
     };
 
     /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput(): PerseusSorterUserInput {
-        return this.props.userInput;
-    }
-
-    /**
      * This is kind of a problem. Sortable maintains an internal state
      * but we also want the user input state to include the same state.
      * This is to help keep the two in sync for now.
@@ -77,7 +69,7 @@ class Sorter extends React.Component<Props> implements Widget {
     }
 
     getPromptJSON(): SorterPromptJSON {
-        return _getPromptJSON(this.getUserInput());
+        return _getPromptJSON(this.props.userInput);
     }
 
     moveOptionToIndex: (option: SortableOption, index: number) => void = (

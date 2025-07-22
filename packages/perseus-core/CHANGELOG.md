@@ -1,5 +1,34 @@
 # @khanacademy/perseus-core
 
+## 18.2.1
+
+### Patch Changes
+
+-   [#2716](https://github.com/Khan/perseus/pull/2716) [`4e12526af`](https://github.com/Khan/perseus/commit/4e12526af77890835f11235385e96e582a985e05) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix the way we import OrdererPublicWidgetOptions
+
+*   [#2715](https://github.com/Khan/perseus/pull/2715) [`08df03da9`](https://github.com/Khan/perseus/commit/08df03da9b0a870635b24aeafb6082d0df4dcd45) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Removing deprecated analytics event: `perseus:interactive-graph-widget:rendered`
+
+## 18.2.0
+
+### Minor Changes
+
+-   [#2694](https://github.com/Khan/perseus/pull/2694) [`0431a161f`](https://github.com/Khan/perseus/commit/0431a161f2652fffd785e71cd8dac395119c5ff0) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Updated `isAccessible()` function to ignore unused widgets.
+
+### Patch Changes
+
+-   [#2692](https://github.com/Khan/perseus/pull/2692) [`6801516e8`](https://github.com/Khan/perseus/commit/6801516e8e6a77b7c65cd759950325d9cdab4438) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Adding extra check to accessible markkdown in isItemAccessible.
+
+-   Updated dependencies [[`0431a161f`](https://github.com/Khan/perseus/commit/0431a161f2652fffd785e71cd8dac395119c5ff0)]:
+    -   @khanacademy/pure-markdown@2.1.0
+
+## 18.1.0
+
+### Minor Changes
+
+-   [#2686](https://github.com/Khan/perseus/pull/2686) [`efd57ac72`](https://github.com/Khan/perseus/commit/efd57ac723cb6a6a700422098366d052d6fd887a) Thanks [@benchristel](https://github.com/benchristel)! - Export `parseAndMigrateUserInputMap` from `@khanacademy/perseus-core`
+
+*   [#2689](https://github.com/Khan/perseus/pull/2689) [`fbc14c3f1`](https://github.com/Khan/perseus/commit/fbc14c3f1b8fa24dd294d3220780f31a2b094660) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Change deprecated-standin widget to be considered accessible
+
 ## 18.0.0
 
 ### Major Changes

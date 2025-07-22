@@ -1,5 +1,4 @@
 import type labelImage from "../../widgets/label-image/label-image";
-import type {PerseusLabelImageUserInput} from "@khanacademy/perseus-core";
 import type React from "react";
 
 type BaseMarker = {
@@ -27,7 +26,6 @@ export type LabelImagePromptJSON = {
 
 export const getPromptJSON = (
     renderProps: React.ComponentProps<typeof labelImage.widget>,
-    userInput: PerseusLabelImageUserInput,
 ): LabelImagePromptJSON => {
     const propMarkers = renderProps.markers.map((marker) => {
         const userInputMarker: UserInputMarker = {
@@ -39,7 +37,7 @@ export const getPromptJSON = (
         return userInputMarker;
     });
 
-    const inputMarkers = userInput.markers.map((marker) => {
+    const inputMarkers = renderProps.userInput.markers.map((marker) => {
         return {
             label: marker.label,
             selected: marker.selected,

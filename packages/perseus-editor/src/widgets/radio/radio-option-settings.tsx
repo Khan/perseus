@@ -40,12 +40,15 @@ export function RadioOptionSettings({
 
     return (
         <div className={styles.tile}>
-            {/* Incorrect / Wrong status selection */}
+            {/* Correct / Incorrect status selection */}
             <fieldset className="perseus-widget-row">
                 <RadioStatusPill
                     index={index}
                     correct={correct}
                     multipleSelect={multipleSelect}
+                    onClick={() => {
+                        onStatusChange(index, !correct);
+                    }}
                 />
                 <HeadingXSmall
                     style={{
@@ -85,7 +88,7 @@ export function RadioOptionSettings({
                             : semanticColor.core.border.neutral.default,
                     }}
                 >
-                    Wrong
+                    Incorrect
                 </Pill>
             </fieldset>
 
@@ -100,6 +103,7 @@ export function RadioOptionSettings({
                     // behavior that it had before, but we should be able to add
                     // that in after WB-1843 is completed.
                     resizeType="vertical"
+                    rows={1}
                     onChange={(value) => {
                         onContentChange(index, value);
                     }}
@@ -114,6 +118,7 @@ export function RadioOptionSettings({
                     // behavior that it had before, but we should be able to add
                     // that in after WB-1843 is completed.
                     resizeType="vertical"
+                    rows={1}
                     onChange={(value) => {
                         onRationaleChange(index, value);
                     }}

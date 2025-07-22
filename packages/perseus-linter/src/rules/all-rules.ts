@@ -5,8 +5,6 @@
 // we add a new rule?
 
 import AbsoluteUrl from "./absolute-url";
-import BlockquotedMath from "./blockquoted-math";
-import BlockquotedWidget from "./blockquoted-widget";
 import DoubleSpacingAfterTerminal from "./double-spacing-after-terminal";
 import ExpressionWidget from "./expression-widget";
 import ExtraContentSpacing from "./extra-content-spacing";
@@ -40,8 +38,6 @@ import WidgetInTable from "./widget-in-table";
 
 export default [
     AbsoluteUrl,
-    BlockquotedMath,
-    BlockquotedWidget,
     DoubleSpacingAfterTerminal,
     ImageUrlEmpty,
     ExpressionWidget,
