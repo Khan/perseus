@@ -11,7 +11,9 @@ import _ from "underscore";
 import LabeledSwitch from "../../components/labeled-switch";
 
 import {RadioOptionSettings} from "./radio-option-settings";
+import {getMovedChoices} from "./utils";
 
+import type {ChoiceMovementType} from "./radio-option-settings-actions";
 import type {Changeable, APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusRadioWidgetOptions,
@@ -190,6 +192,22 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         );
     };
 
+    handleMove: (choiceIndex: number, movement: ChoiceMovementType) => void = (
+        choiceIndex,
+        movement,
+    ) => {
+        const newChoices = getMovedChoices(
+            this.props.choices,
+            this.props.hasNoneOfTheAbove,
+            choiceIndex,
+            movement,
+        );
+
+        if (newChoices) {
+            this.props.onChange({choices: newChoices});
+        }
+    };
+
     focus: () => boolean = () => {
         // eslint-disable-next-line react/no-string-refs
         // @ts-expect-error - TS2339 - Property 'refs' does not exist on type 'ReactInstance'.
@@ -282,8 +300,13 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                         onStatusChange={this.onStatusChange}
                         onContentChange={this.onContentChange}
                         onRationaleChange={this.onRationaleChange}
-                        onDelete={() => this.onDelete(index)}
                         showDelete={this.props.choices.length >= 2}
+                        showMove={
+                            this.props.choices.length > 1 &&
+                            !choice.isNoneOfTheAbove
+                        }
+                        onDelete={() => this.onDelete(index)}
+                        onMove={this.handleMove}
                     />
                 ))}
 
