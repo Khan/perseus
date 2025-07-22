@@ -54,15 +54,16 @@ describe("Dropdown AI utils", () => {
     });
 
     it("it returns JSON with the expected format and fields", () => {
-        const renderProps: any = {
-            choices: ["Pickles", "Tomato", "Onion", "Lettuce"],
-        };
-
         const userInput: PerseusDropdownUserInput = {
             value: 3,
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const renderProps: any = {
+            choices: ["Pickles", "Tomato", "Onion", "Lettuce"],
+            userInput,
+        };
+
+        const resultJSON = getPromptJSON(renderProps);
 
         expect(resultJSON).toEqual({
             type: "dropdown",

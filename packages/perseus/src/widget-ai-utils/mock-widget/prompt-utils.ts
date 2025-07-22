@@ -1,5 +1,4 @@
 import type mockWidget from "../../widgets/mock-widgets/mock-widget";
-import type {PerseusMockWidgetUserInput} from "@khanacademy/perseus-score";
 import type React from "react";
 
 export type MockWidgetPromptJSON = {
@@ -14,7 +13,6 @@ export type MockWidgetPromptJSON = {
 
 export const getPromptJSON = (
     renderProps: React.ComponentProps<typeof mockWidget.widget>,
-    userInput: PerseusMockWidgetUserInput,
 ): MockWidgetPromptJSON => {
     return {
         type: "mock-widget",
@@ -22,7 +20,7 @@ export const getPromptJSON = (
             value: renderProps.value,
         },
         userInput: {
-            value: userInput.currentValue,
+            value: renderProps.userInput.currentValue,
         },
     };
 };

@@ -66,6 +66,20 @@ export function bound({
     return clampToBox(boundingBox, point);
 }
 
+// Returns the closest point to the given `point` that is within or on the
+// edge of the graph bounds given in `state`.
+export function boundToEdge({
+    range,
+    point,
+}: {
+    range: [Interval, Interval];
+    point: vec.Vector2;
+}): vec.Vector2 {
+    // Use the full range instead of insetting it, allowing points to
+    // be placed on the edge of the graph.
+    return clampToBox(range, point);
+}
+
 export function isUnlimitedGraphState(
     state: InteractiveGraphState,
 ): state is UnlimitedGraphState {

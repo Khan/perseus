@@ -217,8 +217,7 @@ export const getRendererPropsForWidgetInfo = (
  */
 export const supportsStaticMode = (type: string): boolean | undefined => {
     const widgetInfo = widgets.get(type);
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    return widgetInfo && widgetInfo.staticTransform != null;
+    return widgetInfo && widgetInfo.getCorrectUserInput != null;
 };
 
 /**

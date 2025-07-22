@@ -122,6 +122,14 @@ function getStartUserInput(
     };
 }
 
+function getCorrectUserInput(
+    options: PerseusRadioWidgetOptions,
+): PerseusRadioUserInput {
+    return {
+        choicesSelected: options.choices.map((option) => !!option.correct),
+    };
+}
+
 export default {
     name: "radio",
     displayName: "Radio / Multiple choice",
@@ -129,6 +137,7 @@ export default {
     transform,
     staticTransform: transform,
     getStartUserInput,
+    getCorrectUserInput,
     version: radioLogic.version,
     isLintable: true,
 
@@ -136,5 +145,7 @@ export default {
     /**
      * @deprecated - do not use in new code.
      */
-    getUserInputFromSerializedState,
+    getUserInputFromSerializedState: (serializedState: any) => {
+        return getUserInputFromSerializedState(serializedState, true);
+    },
 } satisfies WidgetExports<typeof Radio>;
