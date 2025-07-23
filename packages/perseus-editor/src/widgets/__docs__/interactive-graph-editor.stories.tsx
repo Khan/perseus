@@ -39,13 +39,11 @@ registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
 
 export default {
     title: "Widgets/Interactive Graph/Editor Demo",
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
     parameters: {
         componentSubtitle:
             "An editor for adding an interactive graph widget that allows users\
             to create and interact with mathematical graphs and figures.",
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
     },
 };
 

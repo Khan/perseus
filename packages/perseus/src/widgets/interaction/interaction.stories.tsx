@@ -12,13 +12,11 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta = {
     title: "Widgets/Interaction",
     component: ServerItemRendererWithDebugUI,
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
     parameters: {
         componentSubtitle:
             "A widget that enables rich interactive experiences with customizable elements,\
             allowing users to engage with content through direct manipulation.",
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
     },
 };
 export default meta;

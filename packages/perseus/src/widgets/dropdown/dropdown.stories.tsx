@@ -15,7 +15,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta = {
     title: "Widgets/Dropdown",
     component: ServerItemRendererWithDebugUI,
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
     parameters: {
         componentSubtitle:
             "A widget that allows users to select an option from a dropdown menu,\

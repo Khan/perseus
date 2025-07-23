@@ -16,11 +16,7 @@ type ChoiceNoneAboveStory = {
 export default {
     title: "Widgets/Radio/Widget Internal Components/Choice None of the Above",
     args: {showContent: false, content: "This is a possible choice"},
-    tags: ["autodocs", "!dev"],
-    parameters: {
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
-    },
+    tags: ["!dev"],
 } as ChoiceNoneAboveStory;
 
 const ChoiceDefaults = {

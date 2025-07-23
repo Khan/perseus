@@ -20,10 +20,8 @@ export default {
         },
         componentSubtitle:
             "An integrated mobile-friendly math input system with a touch keyboard interface for entering mathematical expressions.",
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
     },
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
 };
 
 const Basic = ({keypadElement, setKeypadElement}) => {

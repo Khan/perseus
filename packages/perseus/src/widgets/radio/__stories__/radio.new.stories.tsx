@@ -38,13 +38,11 @@ type StoryArgs = {
 export default {
     title: "Widgets/RadioNew",
     component: ServerItemRendererWithDebugUI,
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
     parameters: {
         componentSubtitle:
             "A new version of the radio widget that allows users to select a single option from a list of choices,\
             with improved accessibility and interface features.",
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
     },
     args: {
         static: false,

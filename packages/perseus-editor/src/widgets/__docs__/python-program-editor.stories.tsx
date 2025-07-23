@@ -12,12 +12,10 @@ type Story = {
 export default {
     title: "Widgets/Python Program/Editor Demo",
     component: PythonProgramEditor,
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
     parameters: {
         componentSubtitle:
             "An editor for adding a Python program widget that allows users to write, edit and execute Python code.",
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
     },
 } as Story;
 

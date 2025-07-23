@@ -7,11 +7,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta = {
     title: "Widgets/Deprecated Standin",
     component: ServerItemRendererWithDebugUI,
-    tags: ["autodocs", "!dev"],
-    parameters: {
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
-    },
+    tags: ["!dev"],
 };
 export default meta;
 

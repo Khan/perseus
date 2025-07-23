@@ -20,12 +20,9 @@ type Story = StoryObj<typeof MafsQuestionRenderer>;
 const meta: Meta<typeof MafsQuestionRenderer> = {
     title: "Widgets/Interactive Graph/Visual Regression Tests",
     component: MafsQuestionRenderer,
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
     parameters: {
         chromatic: {disableSnapshot: false},
-        // Since by default, we don't show all stories in autodocs; this will show
-        // all stories in autodocs only for Interactive Graph Visual Regression Tests
-        docs: {disable: false},
     },
     decorators: (Story) => (
         // Add margin so we can look at individual story canvases for

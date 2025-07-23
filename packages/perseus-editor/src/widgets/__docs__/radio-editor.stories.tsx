@@ -22,7 +22,7 @@ type Story = Meta<RadioEditor>;
 
 export default {
     title: "Widgets/Radio/Editor Demo",
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
     parameters: {
         componentSubtitle:
             "An editor for adding a radio widget that allows users to select a single option from multiple choices.",

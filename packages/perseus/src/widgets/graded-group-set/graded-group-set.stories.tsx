@@ -10,13 +10,11 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta = {
     title: "Widgets/Graded Group Set",
     component: ArticleRendererWithDebugUI,
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
     parameters: {
         componentSubtitle:
             "A widget that organizes multiple graded groups into a sequential set,\
             allowing users to progress through a series of related problems or exercises.",
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
     },
 };
 export default meta;

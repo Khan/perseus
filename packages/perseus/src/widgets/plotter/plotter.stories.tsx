@@ -9,13 +9,11 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta = {
     title: "Widgets/Plotter",
     component: ServerItemRendererWithDebugUI,
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
     parameters: {
         componentSubtitle:
             "A widget for creating and displaying data visualizations such as line plots and scatter plots,\
             allowing users to represent and interpret data graphically.",
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
     },
 };
 export default meta;

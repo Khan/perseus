@@ -5,13 +5,11 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta<typeof FreeResponse> = {
     component: FreeResponse,
     title: "Widgets/Free Response",
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
     parameters: {
         componentSubtitle:
             "A widget that provides a text area for users to enter open-ended responses,\
             supporting long-form answers and essay-type questions.",
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
     },
 };
 

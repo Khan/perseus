@@ -12,13 +12,11 @@ type Story = {
 export default {
     title: "Widgets/Definition/Editor Demo",
     component: DefinitionEditor,
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
     parameters: {
         componentSubtitle:
             "An editor for adding an interactive definition widget that allow content\
             editors to embed clickable terms with expandable explanations within content.",
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
     },
 } as Story;
 

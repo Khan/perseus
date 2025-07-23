@@ -54,7 +54,9 @@ configureSort({
         "math input": {
             "full keypad": null,
             "full mobile math input": null,
-            components: null,
+            components: {
+                "*": {default: null},
+            },
         },
     },
 });

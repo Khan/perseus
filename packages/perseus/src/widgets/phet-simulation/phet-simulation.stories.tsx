@@ -7,13 +7,11 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const meta: Meta<typeof PhetSimulation> = {
     title: "Widgets/PhET Simulation",
     component: PhetSimulation,
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
     parameters: {
         componentSubtitle:
             "A widget for embedding interactive physics simulations from PhET Colorado,\
             allowing users to experiment with scientific concepts through interactive visualizations.",
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
     },
 };
 

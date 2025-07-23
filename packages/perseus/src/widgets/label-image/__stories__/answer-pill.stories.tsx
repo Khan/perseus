@@ -16,11 +16,7 @@ const story: Meta<React.ComponentProps<typeof AnswerPill>> = {
             },
         },
     },
-    tags: ["autodocs", "!dev"],
-    parameters: {
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
-    },
+    tags: ["!dev"],
 };
 export default story;
 

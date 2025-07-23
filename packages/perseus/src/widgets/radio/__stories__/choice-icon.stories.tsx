@@ -36,11 +36,7 @@ export default {
         },
     },
     args: defaultProps,
-    tags: ["autodocs", "!dev"],
-    parameters: {
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
-    },
+    tags: ["!dev"],
 };
 
 const Panel = (props: {children: React.ReactNode}): React.ReactElement => {

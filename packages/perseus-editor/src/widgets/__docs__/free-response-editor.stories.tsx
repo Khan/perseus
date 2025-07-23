@@ -10,12 +10,10 @@ type StoryArgs = Record<any, any>;
 const meta: Meta<typeof FreeResponseEditor> = {
     component: FreeResponseEditor,
     title: "Widgets/Free Response/Editor Demo",
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
     parameters: {
         componentSubtitle:
             "An editor for adding a free response widget that allow users to enter open-ended text answers.",
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
     },
 };
 

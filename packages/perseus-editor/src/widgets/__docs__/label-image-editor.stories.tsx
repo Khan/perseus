@@ -15,13 +15,11 @@ type Story = {
 export default {
     title: "Widgets/Label Image/Editor Demo",
     component: LabelImageEditor,
-    tags: ["autodocs", "!dev"],
+    tags: ["!dev"],
     parameters: {
         componentSubtitle:
             "An editor for adding a label image widget that allows users to mark\
             and identify specific areas on an image.",
-        // Since by default, we don't show all stories in autodocs; this will show all stories in autodocs only for this component.
-        docs: {disable: false},
     },
 } as Story;
 
