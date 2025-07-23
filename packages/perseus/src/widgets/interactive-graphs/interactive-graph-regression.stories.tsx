@@ -8,6 +8,7 @@ import * as React from "react";
 import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
+import UserInputManager from "../../user-input-manager";
 
 import {interactiveGraphQuestionBuilder} from "./interactive-graph-question-builder";
 import {sinusoidWithPiTicks} from "./interactive-graph.testdata";
@@ -450,12 +451,19 @@ export const TooltipsWithFloatingPointIssues: Story = {
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (
-        <Renderer
-            strings={mockStrings}
-            content={question.content}
-            widgets={question.widgets}
-            images={question.images}
-            apiOptions={ApiOptions.defaults}
-        />
+        <UserInputManager widgets={question.widgets} problemNum={0}>
+            {({userInput, handleUserInput, initializeUserInput}) => (
+                <Renderer
+                    userInput={userInput}
+                    handleUserInput={handleUserInput}
+                    initializeUserInput={initializeUserInput}
+                    strings={mockStrings}
+                    content={question.content}
+                    widgets={question.widgets}
+                    images={question.images}
+                    apiOptions={ApiOptions.defaults}
+                />
+            )}
+        </UserInputManager>
     );
 }

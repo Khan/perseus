@@ -5,6 +5,7 @@ import {MAX, MIN, X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import {
+    countSignificantDecimals,
     divideByAndShowPi,
     generateTickLocations,
     shouldShowLabel,
@@ -63,8 +64,9 @@ const YGridTick = ({
     // If the graph displays both the y and x axis lines within the graph, we want
     // to hide the label at -1 on the y-axis to prevent overlap with the x-axis label
     const showLabel = shouldShowLabel(y, range, tickStep);
+    const ySigfigs = countSignificantDecimals(tickStep);
 
-    const yLabel = showPi ? divideByAndShowPi(y) : y.toString();
+    const yLabel = showPi ? divideByAndShowPi(y) : y.toFixed(ySigfigs);
 
     return (
         <g className="tick" aria-hidden={true}>
@@ -87,10 +89,12 @@ const YGridTick = ({
 const XGridTick = ({
     x,
     range,
+    tickStep,
     showPi,
 }: {
     x: number;
     range: [Interval, Interval];
+    tickStep: number;
     // Whether to show the tick label as a multiple of pi
     showPi: boolean;
 }) => {
@@ -133,7 +137,9 @@ const XGridTick = ({
     const xPositionText = xPosition + xAdjustment;
     const yPositionText = yPosition + yAdjustment;
 
-    const xLabel = showPi ? divideByAndShowPi(x) : x.toString();
+    const xSigfigs = countSignificantDecimals(tickStep);
+
+    const xLabel = showPi ? divideByAndShowPi(x) : x.toFixed(xSigfigs);
 
     return (
         <g className="tick" aria-hidden={true}>
@@ -186,6 +192,7 @@ export const AxisTicks = () => {
                             x={x}
                             key={`x-grid-tick-${x}`}
                             range={range}
+                            tickStep={tickStep[X]}
                             // Show the tick labels as multiples of pi
                             // if the tick step is a multiple of pi.
                             showPi={tickStep[X] % Math.PI === 0}
