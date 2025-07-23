@@ -8,7 +8,7 @@ import {action} from "storybook/actions";
 import {KeypadInput, MobileKeypad} from "./index";
 
 export default {
-    title: "Math Input/Full Mobile MathInput",
+    title: "Math Input/Full Mobile Math Input",
     parameters: {
         backgrounds: {
             default: "light background",

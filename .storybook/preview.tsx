@@ -60,36 +60,11 @@ const preview: Preview = {
         chromatic: {disableSnapshot: true},
 
         options: {
-            storySort: {
-                method: "alphabetical",
-                order: [
-                    "Introduction",
-                    "Widget Gallery",
-                    "Theming",
-                    "Renderers",
-                    ["Overview", "*"],
-                    "Components",
-                    "Editors",
-                    "Widgets",
-                    [
-                        "*", // This will match all widgets
-                        [
-                            "Docs",
-                            "Accessibility",
-                            "Widget Demo",
-                            "Editor Demo",
-                            "Widget States Gallery",
-                            "Widget Internal Components",
-                            "Regression Test",
-                            "*", // Catch-all for any additional sections
-                        ],
-                    ],
-                    "Math-Input",
-                    ["Full Keypad", "Full Mobile MathInput", "Components", "*"],
-                    "*",
-                ],
-                includeNames: true,
-            },
+            storySort: (story1, story2) =>
+                globalThis["storybook-multilevel-sort:storySort"](
+                    story1,
+                    story2,
+                ),
         },
         // TODO(somewhatabstract): This actions configuration does not appear to be
         // working as expected. That's probably OK since the new framework I'm
@@ -116,7 +91,7 @@ const preview: Preview = {
         docs: {
             toc: true,
             // This hides stories from autodocs by default, set to true in specific stories to show them
-            disable: true,
+            // disable: true,
         },
     },
     tags: [

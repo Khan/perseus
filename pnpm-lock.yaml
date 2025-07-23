@@ -459,6 +459,9 @@ importers:
       storybook:
         specifier: ^9.0.4
         version: 9.0.4(@testing-library/dom@10.3.1)(prettier@3.2.5)
+      storybook-multilevel-sort:
+        specifier: ^2.0.1
+        version: 2.0.1
       style-loader:
         specifier: ^3.3.3
         version: 3.3.3(webpack@5.97.1(@swc/core@1.11.13(@swc/helpers@0.5.17))(esbuild@0.24.0))
@@ -8384,6 +8387,10 @@ packages:
   static-extend@0.1.2:
     resolution: {integrity: sha512-72E9+uLc27Mt718pMHt9VMNiAL4LMsmDbBva8mxWUCkT07fSzEGMYUCk0XWY6lp0j6RBAG4cJ3mWuZv2OE3s0g==}
     engines: {node: '>=0.10.0'}
+
+  storybook-multilevel-sort@2.0.1:
+    resolution: {integrity: sha512-UYLewkt9eRoPSlHG2ljhqfcU9VtI2aaQGaowDF/liZvUW+iqbyRIl6yZ7bgrMLg5P4jMhFDMuJnlIiPk59TJTQ==}
+    engines: {node: '>=16'}
 
   storybook@9.0.4:
     resolution: {integrity: sha512-ncYRogaG5N2LNgrh2BoTzgizd3oYI3lTe8gqSi6Zk9P4z2P4wpOI4cNwIcw78ShDJ7v1Md5y0qrK/HnSB9vsKA==}
@@ -18460,6 +18467,8 @@ snapshots:
     dependencies:
       define-property: 0.2.5
       object-copy: 0.1.0
+
+  storybook-multilevel-sort@2.0.1: {}
 
   storybook@9.0.4(@testing-library/dom@10.3.1)(prettier@3.2.5):
     dependencies:

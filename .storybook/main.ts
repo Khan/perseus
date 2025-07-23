@@ -1,6 +1,6 @@
 import {mergeConfig} from "vite";
-
-import type {StorybookConfig} from "@storybook/react-vite";
+import {configureSort} from "storybook-multilevel-sort";
+import {StorybookConfig} from "@storybook/react-vite";
 
 const excludedCssFiles = ["lato.css", "protractor.css", "mafs-styles.css"];
 // This is a temporary plugin option to mimic what is in PROD in regard to cascade layers.
@@ -27,6 +27,37 @@ const cssWrapper = {
         }
     },
 };
+
+// This is used to sort the stories in the Storybook sidebar navigation.
+// See https://storybook.js.org/addons/storybook-multilevel-sort
+configureSort({
+    storyOrder: {
+        introduction: null,
+        widgetGallery: null,
+        theming: null,
+        renderers: {
+            overview: null,
+        },
+        components: null,
+        editors: null,
+        widgets: {
+            "**": {
+                docs: null,
+                accessibility: null,
+                "widget demo": null,
+                "editor demo": null,
+                "widget states gallery": null,
+                "widget internal components": null,
+                "regression test": null,
+            },
+        },
+        "math input": {
+            "full keypad": null,
+            "full mobile math input": null,
+            components: null,
+        },
+    },
+});
 
 const config: StorybookConfig = {
     stories: [
