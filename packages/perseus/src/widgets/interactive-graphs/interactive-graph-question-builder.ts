@@ -66,6 +66,7 @@ class InteractiveGraphQuestionBuilder {
     private snapStep: vec.Vector2 = [0.5, 0.5];
     private tickStep: vec.Vector2 = [1, 1];
     private showProtractor: boolean = false;
+    private showTooltips: boolean = false;
     private interactiveFigureConfig: InteractiveFigureConfig =
         new SegmentGraphConfig();
     private lockedFigures: LockedFigure[] = [];
@@ -95,6 +96,7 @@ class InteractiveGraphQuestionBuilder {
                         snapStep: this.snapStep,
                         step: this.tickStep,
                         lockedFigures: this.lockedFigures,
+                        showTooltips: this.showTooltips,
                     },
                     type: "interactive-graph",
                 },
@@ -116,6 +118,11 @@ class InteractiveGraphQuestionBuilder {
         description: string,
     ): InteractiveGraphQuestionBuilder {
         this.fullGraphAriaDescription = description;
+        return this;
+    }
+
+    withTooltips(showTooltips: boolean): InteractiveGraphQuestionBuilder {
+        this.showTooltips = showTooltips;
         return this;
     }
 
