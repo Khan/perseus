@@ -73,7 +73,7 @@ export const MovablePointView = forwardRef(
         const ySigFigs = countSignificantDecimals(snapStep[Y]);
         const xTickLabel = point[X].toFixed(xSigFigs);
         const yTickLabel = point[Y].toFixed(ySigFigs);
-        const pointTooltip = `(${xTickLabel}, ${yTickLabel})`;
+        const pointTooltipContent = `(${xTickLabel}, ${yTickLabel})`;
 
         const svgForPoint = (
             <g
@@ -117,7 +117,7 @@ export const MovablePointView = forwardRef(
                     <Tooltip
                         autoUpdate={true}
                         backgroundColor={wbColorName}
-                        content={pointTooltip}
+                        content={pointTooltipContent}
                         contentStyle={{color: "white"}}
                     >
                         {svgForPoint}
