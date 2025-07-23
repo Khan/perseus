@@ -64,8 +64,10 @@ const YGridTick = ({
     // If the graph displays both the y and x axis lines within the graph, we want
     // to hide the label at -1 on the y-axis to prevent overlap with the x-axis label
     const showLabel = shouldShowLabel(y, range, tickStep);
-    const ySigfigs = countSignificantDecimals(tickStep);
 
+    // Due to floating point errors, we need to round the tick label to the
+    // same number of significant digits as the relevant tick step.
+    const ySigfigs = countSignificantDecimals(tickStep);
     const yLabel = showPi ? divideByAndShowPi(y) : y.toFixed(ySigfigs);
 
     return (
@@ -137,8 +139,9 @@ const XGridTick = ({
     const xPositionText = xPosition + xAdjustment;
     const yPositionText = yPosition + yAdjustment;
 
+    // Due to floating point errors, we need to round the tick label to the
+    // same number of significant digits as the relevant tick step.
     const xSigfigs = countSignificantDecimals(tickStep);
-
     const xLabel = showPi ? divideByAndShowPi(x) : x.toFixed(xSigfigs);
 
     return (
