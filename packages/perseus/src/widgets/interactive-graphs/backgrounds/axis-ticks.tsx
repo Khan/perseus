@@ -66,8 +66,8 @@ const YGridTick = ({
     const showLabel = shouldShowLabel(y, range, tickStep);
 
     // Give all axis labels the same number of significant figures.
-    const ySigfigs = countSignificantDecimals(tickStep);
-    const yLabel = showPi ? divideByAndShowPi(y) : y.toFixed(ySigfigs);
+    const ySigFigs = countSignificantDecimals(tickStep);
+    const yLabel = showPi ? divideByAndShowPi(y) : y.toFixed(ySigFigs);
 
     return (
         <g className="tick" aria-hidden={true}>
@@ -139,8 +139,8 @@ const XGridTick = ({
     const yPositionText = yPosition + yAdjustment;
 
     // Give all axis labels the same number of significant figures.
-    const xSigfigs = countSignificantDecimals(tickStep);
-    const xLabel = showPi ? divideByAndShowPi(x) : x.toFixed(xSigfigs);
+    const xSigFigs = countSignificantDecimals(tickStep);
+    const xLabel = showPi ? divideByAndShowPi(x) : x.toFixed(xSigFigs);
 
     return (
         <g className="tick" aria-hidden={true}>
