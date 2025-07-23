@@ -68,7 +68,7 @@ export const MovablePointView = forwardRef(
         const showHairlines = (dragging || focused) && markings !== "none";
 
         // Due to floating point errors, we need to round the point to the
-        // same number of significant digits as the tick step.
+        // same number of significant digits as the relevant snap step.
         const xSigFigs = countSignificantDecimals(snapStep[X]);
         const ySigFigs = countSignificantDecimals(snapStep[Y]);
         const xTickLabel = point[X].toFixed(xSigFigs);
