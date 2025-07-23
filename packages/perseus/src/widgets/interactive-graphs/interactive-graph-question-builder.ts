@@ -121,6 +121,11 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
+    withTooltips(showTooltips: boolean): InteractiveGraphQuestionBuilder {
+        this.showTooltips = showTooltips;
+        return this;
+    }
+
     withStaticMode(staticMode: boolean): InteractiveGraphQuestionBuilder {
         this.staticMode = staticMode;
         return this;
@@ -171,11 +176,6 @@ class InteractiveGraphQuestionBuilder {
 
     withXRange(min: number, max: number): InteractiveGraphQuestionBuilder {
         this.xRange = [min, max];
-        return this;
-    }
-
-    withTooltips(showTooltips: boolean): InteractiveGraphQuestionBuilder {
-        this.showTooltips = showTooltips;
         return this;
     }
 
