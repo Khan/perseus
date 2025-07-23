@@ -189,6 +189,12 @@ export const shouldShowLabel = (
     range: [Interval, Interval],
     tickStep: number,
 ) => {
+    // We want to show 0 if there's space for it.
+    // console.log(currentTick, range[X][MIN], range[X][MAX]);
+    // if (currentTick === 0 && range[X][MIN] >= 0) {
+    //     return true;
+    // }
+
     let showLabel = true;
 
     // If the y-axis is within the graph and currentTick equals -tickStep, hide the label
@@ -207,6 +213,7 @@ export function generateTickLocations(
     tickStep: number,
     min: number,
     max: number,
+    otherAxisMin: number,
 ): number[] {
     const ticks: number[] = [];
 
@@ -216,7 +223,14 @@ export function generateTickLocations(
 
     // Add ticks in the positive direction
     const start = Math.max(min, 0);
-    for (let i = start + tickStep; i < max; i += tickStep) {
+
+    // We need to offset by the tickStep to start at the second tick to avoid
+    // having the label overlap with the axis. However, this is not necessary
+    // when the min of the other axis is larger than the cartesian origin point
+    // (0,0) and therefore not going through the starting tick label.
+    const startOffset = otherAxisMin >= 0 ? 0 : tickStep;
+
+    for (let i = start + startOffset; i < max; i += tickStep) {
         // Match to the same number of decimal places as the tick step
         // to avoid floating point errors when working with small numbers
         ticks.push(parseFloat(i.toFixed(decimalSigFigs)));

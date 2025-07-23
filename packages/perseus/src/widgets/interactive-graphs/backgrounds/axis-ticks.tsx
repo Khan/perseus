@@ -159,8 +159,8 @@ export const AxisTicks = () => {
     const [xTickStep, yTickStep] = tickStep;
 
     // Generate the tick locations & labels for the x and y axes
-    const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
-    const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
+    const yGridTicks = generateTickLocations(yTickStep, yMin, yMax, xMin);
+    const xGridTicks = generateTickLocations(xTickStep, xMin, xMax, yMin);
 
     return (
         <g className="axis-ticks" role="presentation">
