@@ -14,9 +14,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that combines multiple questions into a single group with shared feedback and grading,\
-            allowing for complex problem-solving scenarios with multiple parts.",
+        docs: {
+            description: {
+                component:
+                    "A widget that combines multiple questions into a single group with shared feedback and grading,\
+                    allowing for complex problem-solving scenarios with multiple parts.",
+            },
+        },
     },
 };
 export default meta;

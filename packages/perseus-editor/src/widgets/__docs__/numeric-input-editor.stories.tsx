@@ -14,9 +14,13 @@ export default {
     component: NumericInputEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding a numeric input widget that allows users to\
-            enter numerical values with specific validation rules.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding a numeric input widget that allows users to\
+                    enter numerical values with specific validation rules.",
+            },
+        },
     },
 } as Story;
 

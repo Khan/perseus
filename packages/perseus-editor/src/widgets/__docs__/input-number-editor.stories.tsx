@@ -14,8 +14,12 @@ export default {
     component: InputNumberEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding an input number widget that allows users to enter numerical values.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding an input number widget that allows users to enter numerical values.",
+            },
+        },
     },
 } as Story;
 

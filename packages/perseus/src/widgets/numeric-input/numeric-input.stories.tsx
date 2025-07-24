@@ -47,9 +47,13 @@ const meta: Meta<typeof NumericInput> = {
     title: "Widgets/Numeric Input",
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that allows users to input numeric answers with specific validation criteria,\
-            supporting various formats including fractions, decimals, and mathematical expressions.",
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to input numeric answers with specific validation criteria,\
+                    supporting various formats including fractions, decimals, and mathematical expressions.",
+            },
+        },
     },
     args: {
         coefficient: false,

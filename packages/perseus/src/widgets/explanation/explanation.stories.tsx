@@ -16,9 +16,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that provides additional information or context through expandable sections,\
-            allowing users to access supplementary explanations when needed.",
+        docs: {
+            description: {
+                component:
+                    "A widget that provides additional information or context through expandable sections,\
+                    allowing users to access supplementary explanations when needed.",
+            },
+        },
     },
 };
 export default meta;

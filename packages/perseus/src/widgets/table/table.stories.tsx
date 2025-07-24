@@ -14,8 +14,12 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that allows users to input data into a table with customizable rows and columns.",
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to input data into a table with customizable rows and columns.",
+            },
+        },
     },
 };
 export default meta;

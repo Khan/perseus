@@ -14,9 +14,13 @@ export default {
     component: DropdownEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding a dropdown widget that allow users to select an\
-            option from a predefined list.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding a dropdown widget that allow users to select an\
+                    option from a predefined list.",
+            },
+        },
     },
 } as Story;
 

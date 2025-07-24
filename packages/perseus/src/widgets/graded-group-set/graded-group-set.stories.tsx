@@ -12,9 +12,13 @@ const meta: Meta = {
     component: ArticleRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that organizes multiple graded groups into a sequential set,\
-            allowing users to progress through a series of related problems or exercises.",
+        docs: {
+            description: {
+                component:
+                    "A widget that organizes multiple graded groups into a sequential set,\
+                    allowing users to progress through a series of related problems or exercises.",
+            },
+        },
     },
 };
 export default meta;

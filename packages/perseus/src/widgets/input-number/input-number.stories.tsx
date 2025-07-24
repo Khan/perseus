@@ -17,9 +17,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that allows users to input numerical values with specific validation rules,\
-            supporting basic mathematical responses.",
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to input numerical values with specific validation rules,\
+                    supporting basic mathematical responses.",
+            },
+        },
     },
     argTypes: {
         maxError: {

@@ -14,9 +14,13 @@ export default {
     component: DefinitionEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding an interactive definition widget that allow content\
-            editors to embed clickable terms with expandable explanations within content.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding an interactive definition widget that allow content\
+                    editors to embed clickable terms with expandable explanations within content.",
+            },
+        },
     },
 } as Story;
 

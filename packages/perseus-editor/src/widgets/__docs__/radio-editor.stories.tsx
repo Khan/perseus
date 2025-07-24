@@ -24,8 +24,12 @@ export default {
     title: "Widgets/Radio/Editor Demo",
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding a radio widget that allows users to select a single option from multiple choices.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding a radio widget that allows users to select a single option from multiple choices.",
+            },
+        },
     },
 } as Story;
 

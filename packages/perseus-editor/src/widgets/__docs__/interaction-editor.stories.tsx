@@ -14,8 +14,12 @@ export default {
     component: InteractionEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding an interaction widget that allows users to engage with interactive content.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding an interaction widget that allows users to engage with interactive content.",
+            },
+        },
     },
 } as Story;
 

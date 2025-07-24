@@ -17,9 +17,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that allows users to select an option from a dropdown menu,\
-            enabling multiple-choice responses within inline text.",
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to select an option from a dropdown menu,\
+                    enabling multiple-choice responses within inline text.",
+            },
+        },
     },
 };
 export default meta;

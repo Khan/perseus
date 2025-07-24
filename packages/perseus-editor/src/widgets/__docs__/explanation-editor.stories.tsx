@@ -14,8 +14,12 @@ export default {
     component: ExplanationEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding an explanation widget that provide supplementary information to users.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding an explanation widget that provide supplementary information to users.",
+            },
+        },
     },
 } as Story;
 

@@ -11,9 +11,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget for creating and displaying data visualizations such as line plots and scatter plots,\
-            allowing users to represent and interpret data graphically.",
+        docs: {
+            description: {
+                component:
+                    "A widget for creating and displaying data visualizations such as line plots and scatter plots,\
+                    allowing users to represent and interpret data graphically.",
+            },
+        },
     },
 };
 export default meta;

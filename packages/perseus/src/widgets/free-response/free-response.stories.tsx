@@ -7,9 +7,13 @@ const meta: Meta<typeof FreeResponse> = {
     title: "Widgets/Free Response",
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that provides a text area for users to enter open-ended responses,\
-            supporting long-form answers and essay-type questions.",
+        docs: {
+            description: {
+                component:
+                    "A widget that provides a text area for users to enter open-ended responses,\
+                    supporting long-form answers and essay-type questions.",
+            },
+        },
     },
 };
 

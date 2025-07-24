@@ -32,9 +32,13 @@ export default {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that allows users to select a single option from a list of choices,\
-            supporting multiple-choice questions with text and image content.",
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to select a single option from a list of choices,\
+                    supporting multiple-choice questions with text and image content.",
+            },
+        },
     },
     args: {
         static: false,

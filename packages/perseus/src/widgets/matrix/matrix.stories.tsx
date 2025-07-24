@@ -11,9 +11,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that allows users to create and interact with mathematical matrices,\
-            supporting linear algebra operations and matrix manipulation.",
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to create and interact with mathematical matrices,\
+                    supporting linear algebra operations and matrix manipulation.",
+            },
+        },
     },
 };
 export default meta;

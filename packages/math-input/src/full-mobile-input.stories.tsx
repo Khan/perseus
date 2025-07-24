@@ -18,8 +18,12 @@ export default {
                 {name: "light background", value: "lightgrey", default: true},
             ],
         },
-        componentSubtitle:
-            "An integrated mobile-friendly math input system with a touch keyboard interface for entering mathematical expressions.",
+        docs: {
+            description: {
+                component:
+                    "An integrated mobile-friendly math input system with a touch keyboard interface for entering mathematical expressions.",
+            },
+        },
     },
     tags: ["!dev"],
 };

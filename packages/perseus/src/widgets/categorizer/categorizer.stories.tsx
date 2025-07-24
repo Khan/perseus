@@ -11,10 +11,14 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that creates interactive, expandable term definitions within\
-            content, allowing users to click on terms to reveal their meanings\
-            without leaving the current context.",
+        docs: {
+            description: {
+                component:
+                    "A widget that creates interactive, expandable term definitions within\
+                    content, allowing users to click on terms to reveal their meanings\
+                    without leaving the current context.",
+            },
+        },
     },
 };
 export default meta;

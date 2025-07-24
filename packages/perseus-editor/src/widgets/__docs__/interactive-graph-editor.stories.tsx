@@ -41,9 +41,13 @@ export default {
     title: "Widgets/Interactive Graph/Editor Demo",
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding an interactive graph widget that allows users\
-            to create and interact with mathematical graphs and figures.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding an interactive graph widget that allows users\
+                    to create and interact with mathematical graphs and figures.",
+            },
+        },
     },
 };
 

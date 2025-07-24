@@ -14,8 +14,12 @@ export default {
     component: PythonProgramEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding a Python program widget that allows users to write, edit and execute Python code.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding a Python program widget that allows users to write, edit and execute Python code.",
+            },
+        },
     },
 } as Story;
 

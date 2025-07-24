@@ -16,8 +16,12 @@ export default {
             values: [{name: "light background", value: "white", default: true}],
         },
         viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
-        componentSubtitle:
-            "A customizable virtual keyboard for mathematical input that provides different key layouts for various math concepts.",
+        docs: {
+            description: {
+                component:
+                    "A customizable virtual keyboard for mathematical input that provides different key layouts for various math concepts.",
+            },
+        },
     },
     tags: ["!dev"],
     component: Keypad,

@@ -11,9 +11,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that enables users to write and execute Python code directly in the browser,\
-            supporting programming instruction and interactive coding exercises.",
+        docs: {
+            description: {
+                component:
+                    "A widget that enables users to write and execute Python code directly in the browser,\
+                    supporting programming instruction and interactive coding exercises.",
+            },
+        },
     },
 };
 export default meta;

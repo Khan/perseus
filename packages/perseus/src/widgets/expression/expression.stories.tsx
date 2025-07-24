@@ -13,9 +13,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that allows users to input and validate mathematical expressions,\
-            supporting various notations and formats for algebra, calculus, and other math topics.",
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to input and validate mathematical expressions,\
+                    supporting various notations and formats for algebra, calculus, and other math topics.",
+            },
+        },
     },
 };
 export default meta;

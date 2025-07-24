@@ -11,9 +11,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that embeds external web content within exercises using iframes,\
-            allowing integration with third-party interactive elements.",
+        docs: {
+            description: {
+                component:
+                    "A widget that embeds external web content within exercises using iframes,\
+                    allowing integration with third-party interactive elements.",
+            },
+        },
     },
 };
 export default meta;

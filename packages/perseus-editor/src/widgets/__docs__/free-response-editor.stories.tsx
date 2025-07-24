@@ -12,8 +12,12 @@ const meta: Meta<typeof FreeResponseEditor> = {
     title: "Widgets/Free Response/Editor Demo",
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding a free response widget that allow users to enter open-ended text answers.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding a free response widget that allow users to enter open-ended text answers.",
+            },
+        },
     },
 };
 

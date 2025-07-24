@@ -14,9 +14,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that enables rich interactive experiences with customizable elements,\
-            allowing users to engage with content through direct manipulation.",
+        docs: {
+            description: {
+                component:
+                    "A widget that enables rich interactive experiences with customizable elements,\
+                    allowing users to engage with content through direct manipulation.",
+            },
+        },
     },
 };
 export default meta;

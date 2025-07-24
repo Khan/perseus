@@ -40,9 +40,13 @@ export default {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A new version of the radio widget that allows users to select a single option from a list of choices,\
-            with improved accessibility and interface features.",
+        docs: {
+            description: {
+                component:
+                    "A new version of the radio widget that allows users to select a single option from a list of choices,\
+                    with improved accessibility and interface features.",
+            },
+        },
     },
     args: {
         static: false,

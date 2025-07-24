@@ -14,8 +14,12 @@ export default {
     component: MatcherEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding a matcher widget that allows users to match items from two different sets.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding a matcher widget that allows users to match items from two different sets.",
+            },
+        },
     },
 } as Story;
 

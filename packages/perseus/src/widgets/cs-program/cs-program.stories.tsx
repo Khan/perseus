@@ -11,8 +11,12 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that allows users to write and execute computer science programming code within interactive exercises.",
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to write and execute computer science programming code within interactive exercises.",
+            },
+        },
     },
 };
 export default meta;

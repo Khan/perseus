@@ -20,8 +20,12 @@ export default {
     component: ExpressionEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding an expression widget that allow users to enter mathematical expressions.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding an expression widget that allow users to enter mathematical expressions.",
+            },
+        },
     },
 } as Story;
 

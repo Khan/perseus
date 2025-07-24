@@ -15,8 +15,12 @@ export default {
     component: PlotterEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding a plotter widget that allows users to create and customize data visualizations.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding a plotter widget that allows users to create and customize data visualizations.",
+            },
+        },
     },
 } as Story;
 

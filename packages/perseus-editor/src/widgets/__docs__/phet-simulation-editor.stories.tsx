@@ -9,8 +9,12 @@ const meta: Meta<typeof PhetSimulationEditor> = {
     title: "Widgets/PhET Simulation/Editor Demo",
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding a PhET simulation widget that allows users to interact with physics simulations.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding a PhET simulation widget that allows users to interact with physics simulations.",
+            },
+        },
     },
 };
 

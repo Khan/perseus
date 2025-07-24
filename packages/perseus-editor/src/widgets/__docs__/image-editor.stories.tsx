@@ -21,8 +21,12 @@ export default {
     component: ImageEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding an image widget that allows users to display and configure images within content.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding an image widget that allows users to display and configure images within content.",
+            },
+        },
     },
 } as Story;
 

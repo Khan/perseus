@@ -17,9 +17,13 @@ export default {
     component: LabelImageEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding a label image widget that allows users to mark\
-            and identify specific areas on an image.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding a label image widget that allows users to mark\
+                    and identify specific areas on an image.",
+            },
+        },
     },
 } as Story;
 

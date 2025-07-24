@@ -14,8 +14,12 @@ export default {
     component: SorterEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding a sorter widget that allows users to arrange items in a specific order.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding a sorter widget that allows users to arrange items in a specific order.",
+            },
+        },
     },
 } as Story;
 

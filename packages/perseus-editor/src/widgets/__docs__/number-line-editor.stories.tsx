@@ -14,9 +14,13 @@ export default {
     component: NumberLineEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding a number line widget that allows users to mark\
-            positions, intervals, and points on a number line.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding a number line widget that allows users to mark\
+                    positions, intervals, and points on a number line.",
+            },
+        },
     },
 } as Story;
 

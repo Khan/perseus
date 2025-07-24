@@ -9,9 +9,13 @@ const meta: Meta<typeof PhetSimulation> = {
     component: PhetSimulation,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget for embedding interactive physics simulations from PhET Colorado,\
-            allowing users to experiment with scientific concepts through interactive visualizations.",
+        docs: {
+            description: {
+                component:
+                    "A widget for embedding interactive physics simulations from PhET Colorado,\
+                    allowing users to experiment with scientific concepts through interactive visualizations.",
+            },
+        },
     },
 };
 

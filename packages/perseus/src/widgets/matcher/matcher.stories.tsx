@@ -11,9 +11,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that allows users to match items from two different columns,\
-            creating connections between related concepts or terms.",
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to match items from two different columns,\
+                    creating connections between related concepts or terms.",
+            },
+        },
     },
 };
 export default meta;

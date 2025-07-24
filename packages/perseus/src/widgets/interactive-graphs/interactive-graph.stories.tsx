@@ -38,9 +38,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that allows users to interact with mathematical graphs,\
-            supporting the creation and manipulation of various graph elements.",
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to interact with mathematical graphs,\
+                    supporting the creation and manipulation of various graph elements.",
+            },
+        },
     },
 };
 export default meta;

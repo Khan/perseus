@@ -11,9 +11,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that allows users to arrange items in a specific order by dragging and dropping,\
-            enabling sequencing and sorting activities.",
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to arrange items in a specific order by dragging and dropping,\
+                    enabling sequencing and sorting activities.",
+            },
+        },
     },
 };
 export default meta;

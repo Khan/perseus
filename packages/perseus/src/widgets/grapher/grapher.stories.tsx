@@ -21,9 +21,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that enables users to graph various mathematical functions,\
-            including linear, quadratic, exponential, and trigonometric equations on a coordinate plane.",
+        docs: {
+            description: {
+                component:
+                    "A widget that enables users to graph various mathematical functions,\
+                    including linear, quadratic, exponential, and trigonometric equations on a coordinate plane.",
+            },
+        },
     },
 };
 export default meta;

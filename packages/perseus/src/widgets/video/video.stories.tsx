@@ -11,8 +11,12 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that enables embedding educational videos within content for interactive learning.",
+        docs: {
+            description: {
+                component:
+                    "A widget that enables embedding educational videos within content for interactive learning.",
+            },
+        },
     },
 };
 export default meta;

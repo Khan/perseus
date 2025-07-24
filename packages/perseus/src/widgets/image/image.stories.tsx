@@ -12,9 +12,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that displays images within content with configurable size and alignment options,\
-            supporting visual elements in educational materials.",
+        docs: {
+            description: {
+                component:
+                    "A widget that displays images within content with configurable size and alignment options,\
+                    supporting visual elements in educational materials.",
+            },
+        },
     },
 };
 export default meta;

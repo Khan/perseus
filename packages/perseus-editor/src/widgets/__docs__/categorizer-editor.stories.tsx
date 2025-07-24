@@ -15,8 +15,12 @@ export default {
     component: CategorizerEditor,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "An editor for adding a categorizer widget that allow users to sort items into categories.",
+        docs: {
+            description: {
+                component:
+                    "An editor for adding a categorizer widget that allow users to sort items into categories.",
+            },
+        },
     },
 } as Story;
 

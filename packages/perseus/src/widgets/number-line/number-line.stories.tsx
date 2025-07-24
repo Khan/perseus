@@ -11,9 +11,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that displays a number line for marking positions, points, and intervals,\
-            allowing users to demonstrate number sense and mathematical operations.",
+        docs: {
+            description: {
+                component:
+                    "A widget that displays a number line for marking positions, points, and intervals,\
+                    allowing users to demonstrate number sense and mathematical operations.",
+            },
+        },
     },
 };
 export default meta;

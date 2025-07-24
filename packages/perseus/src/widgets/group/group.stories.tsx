@@ -11,9 +11,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A container widget that allows for logical grouping of multiple widgets,\
-            enabling organized layout and shared context for related interactive elements.",
+        docs: {
+            description: {
+                component:
+                    "A container widget that allows for logical grouping of multiple widgets,\
+                    enabling organized layout and shared context for related interactive elements.",
+            },
+        },
     },
 };
 export default meta;

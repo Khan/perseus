@@ -11,9 +11,13 @@ const meta: Meta = {
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {
-        componentSubtitle:
-            "A widget that creates references to specific parts of a passage,\
-            allowing users to navigate to and highlight relevant sections of text.",
+        docs: {
+            description: {
+                component:
+                    "A widget that creates references to specific parts of a passage,\
+                    allowing users to navigate to and highlight relevant sections of text.",
+            },
+        },
     },
 };
 export default meta;
