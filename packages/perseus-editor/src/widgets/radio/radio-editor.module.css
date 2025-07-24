@@ -14,3 +14,10 @@
 .content-heading {
     margin-block-end: 1.2rem;
 }
+
+.radio-option-actions-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-block-start: 8px;
+}

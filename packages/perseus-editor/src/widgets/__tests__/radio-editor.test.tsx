@@ -51,7 +51,7 @@ describe("radio-editor", () => {
         );
     });
 
-    it("should render", async () => {
+    it("should render", () => {
         renderRadioEditor();
 
         expect(screen.getByText(/Multiple selections/)).toBeInTheDocument();
@@ -236,14 +236,14 @@ describe("radio-editor", () => {
         expect(onChangeMock).not.toBeCalled();
     });
 
-    it("shows the 'None of the above' button when there is no 'None of the above' choice", async () => {
+    it("shows the 'None of the above' button when there is no 'None of the above' choice", () => {
         renderRadioEditor();
         expect(
             screen.getByRole("button", {name: "None of the above"}),
         ).toBeInTheDocument();
     });
 
-    it("hides the 'None of the above' button when there is a 'None of the above' choice", async () => {
+    it("hides the 'None of the above' button when there is a 'None of the above' choice", () => {
         renderRadioEditor(() => {}, {
             choices: [
                 {content: "Choice 1", isNoneOfTheAbove: false},
@@ -791,5 +791,70 @@ describe("radio-editor", () => {
                 multipleSelect: false,
             }),
         );
+    });
+
+    it.each([
+        // Button index for Choice 2 specifically.
+        // (Add 4 to index to skip Choice 1 buttons.)
+        {case: "top", buttonIndex: 4, expectedOrder: [2, 1, 3, 4]},
+        {case: "up", buttonIndex: 5, expectedOrder: [2, 1, 3, 4]},
+        {case: "down", buttonIndex: 6, expectedOrder: [1, 3, 2, 4]},
+        {case: "bottom", buttonIndex: 7, expectedOrder: [1, 3, 4, 2]},
+    ])(
+        "calls onChange when choice 2 is moved ($case)",
+        async ({buttonIndex, expectedOrder}) => {
+            const onChangeMock = jest.fn();
+
+            renderRadioEditor(onChangeMock, {
+                choices: [
+                    {content: "Choice 1"},
+                    {content: "Choice 2"},
+                    {content: "Choice 3"},
+                    {content: "Choice 4"},
+                ],
+            });
+
+            const moveButtons = screen.getAllByRole("button", {name: /Move/});
+
+            await userEvent.click(moveButtons[buttonIndex]);
+
+            const expectedChoices = expectedOrder.map((index) => ({
+                content: `Choice ${index}`,
+            }));
+
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: expectedChoices,
+                }),
+            );
+        },
+    );
+
+    it("does not render movement buttons when there is only one choice", () => {
+        renderRadioEditor(() => {}, {
+            choices: [{content: "Choice 1"}],
+        });
+
+        const moveButtons = screen.queryAllByRole("button", {
+            name: /Move/,
+        });
+
+        expect(moveButtons).toHaveLength(0);
+    });
+
+    it("does not render movement buttons when the choice is None of the above", () => {
+        renderRadioEditor(() => {}, {
+            choices: [
+                {content: "Choice 1"},
+                {content: "Choice 2"},
+                {content: "Choice 3"},
+                {content: "Choice 4", isNoneOfTheAbove: true},
+            ],
+        });
+
+        const moveButtons = screen.getAllByRole("button", {name: /Move/});
+
+        // 3 valid choices (4 total choices) * 4 movement buttons = 12 buttons
+        expect(moveButtons).toHaveLength(12);
     });
 });
