@@ -14,8 +14,9 @@ type ChoiceNoneAboveStory = {
 };
 
 export default {
-    title: "Perseus/Widgets/Radio/Choice None of the Above",
+    title: "Widgets/Radio/Widget Internal Components/Choice None of the Above",
     args: {showContent: false, content: "This is a possible choice"},
+    tags: ["!dev"],
 } as ChoiceNoneAboveStory;
 
 const ChoiceDefaults = {

@@ -8,7 +8,7 @@ import {action} from "storybook/actions";
 import {KeypadInput, MobileKeypad} from "./index";
 
 export default {
-    title: "math-input/Full Mobile MathInput",
+    title: "Math Input/Full Mobile Math Input",
     parameters: {
         backgrounds: {
             default: "light background",
@@ -18,7 +18,14 @@ export default {
                 {name: "light background", value: "lightgrey", default: true},
             ],
         },
+        docs: {
+            description: {
+                component:
+                    "An integrated mobile-friendly math input system with a touch keyboard interface for entering mathematical expressions.",
+            },
+        },
     },
+    tags: ["!dev"],
 };
 
 const Basic = ({keypadElement, setKeypadElement}) => {

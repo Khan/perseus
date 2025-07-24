@@ -8,8 +8,18 @@ import {question, questionWithZoom} from "./image.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Image",
+    title: "Widgets/Image",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that displays images within content with configurable size and alignment options,\
+                    supporting visual elements in educational materials.",
+            },
+        },
+    },
 };
 export default meta;
 

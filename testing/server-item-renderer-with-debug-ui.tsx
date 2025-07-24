@@ -28,7 +28,7 @@ type Props = {
 };
 
 /**
- * A component that renders a Perseus item with debug UI controls
+ * ServerItemRendererWithDebugUI is a component that renders a Perseus item with debug UI controls
  */
 export const ServerItemRendererWithDebugUI = ({
     title = "Widget",

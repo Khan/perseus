@@ -5,13 +5,15 @@ import {PhetSimulation} from "./phet-simulation";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof PhetSimulation> = {
-    title: "Perseus/Widgets/PhET Simulation",
+    title: "Widgets/PhET Simulation",
     component: PhetSimulation,
+    tags: ["!dev"],
     parameters: {
         docs: {
             description: {
                 component:
-                    "PhET Simulation widget for embedding interactive simulations from PhET Colorado",
+                    "A widget for embedding interactive physics simulations from PhET Colorado,\
+                    allowing users to experiment with scientific concepts through interactive visualizations.",
             },
         },
     },

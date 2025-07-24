@@ -15,13 +15,14 @@ type Story = {
 };
 
 export default {
-    title: "Perseus/Widgets/Radio/Option Status",
+    title: "Widgets/Radio/Widget Internal Components/Option Status",
     args: {
         checked: false,
         correct: false,
         previouslyAnswered: false,
         reviewMode: true,
     },
+    tags: ["!dev"],
 } as Story;
 
 export const Interactive = (args: StoryArgs): React.ReactElement => {

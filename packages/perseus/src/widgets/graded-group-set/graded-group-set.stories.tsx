@@ -8,8 +8,18 @@ import {
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Graded Group Set",
+    title: "Widgets/Graded Group Set",
     component: ArticleRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that organizes multiple graded groups into a sequential set,\
+                    allowing users to progress through a series of related problems or exercises.",
+            },
+        },
+    },
 };
 export default meta;
 

@@ -17,8 +17,18 @@ import {
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Grapher",
+    title: "Widgets/Grapher",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that enables users to graph various mathematical functions,\
+                    including linear, quadratic, exponential, and trigonometric equations on a coordinate plane.",
+            },
+        },
+    },
 };
 export default meta;
 

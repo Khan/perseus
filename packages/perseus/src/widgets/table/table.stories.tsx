@@ -10,8 +10,17 @@ import {generateTableRenderer} from "./test-util";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Table",
+    title: "Widgets/Table",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to input data into a table with customizable rows and columns.",
+            },
+        },
+    },
 };
 export default meta;
 

@@ -1,0 +1,138 @@
+import {Markdown, Meta} from "@storybook/addon-docs/blocks";
+
+<Meta title="Introduction" />
+
+# Perseus
+
+Perseus is the technology that powers all exercises and articles at Khan Academy. Since 2013, it has been a core part of
+Khan Academy's educational platform, existing both as an integrated component of the Khan Academy applications (web and mobile)
+and as a separate open-source repository.
+
+## What is Perseus?
+
+At its core, Perseus is a specialized Markdown to React/HTML renderer with powerful educational features. It extends
+standard Markdown with two key capabilities:
+
+**1. Interactive Widgets,** Perseus can render custom React components called "widgets" that allow learners to interact with content and provide answers in various formats.
+
+**2. Beautiful Math Rendering,** Perseus seamlessly integrates with [MathJax](https://www.mathjax.org/) to display mathematical expressions and equations with high fidelity.
+
+These capabilities make Perseus ideal for creating interactive educational content that combines explanatory text, rich media, and assessment tools.
+
+## How Perseus Works
+
+Perseus content is written in an extended Markdown syntax that includes:
+
+-   Standard Markdown formatting (headings, lists, links, etc.)
+-   Math expressions enclosed in dollar signs: `$y = mx + b$`
+-   Widgets using the syntax: `[[☃ widget-type 1]]`, where each widget has a unique ID
+
+When a learner interacts with widgets (such as answering questions), Perseus can:
+
+-   Validate answers against expected solutions
+-   Provide feedback and hints
+-   Support a variety of input methods
+
+## Core Components
+
+Perseus consists of three main concepts:
+
+### 1. Renderers
+
+Renderers are responsible for displaying Perseus content. The three primary renderers are:
+
+-   **ServerItemRenderer**: The main exercise renderer that handles question content, hint management, and keypad display
+-   **ArticleRenderer**: Renders long-form, read-only content, with support for embedded "knowledge checks"
+-   **Renderer**: The core rendering engine that manages widgets and math content display
+
+For more detailed information on renderers, refer to the [Perseus Renderers Overview](?path=/docs/renderers-overview--docs).
+
+### 2. Widgets
+
+Widgets are self-contained React components that provide interactive functionality beyond standard Markdown. They can:
+
+-   Appear within articles and exercises (in questions and hints)
+-   Be nested within other widgets (e.g., the "graded-group" widget)
+-   Handle various input types (multiple-choice, graphing, numeric input, etc.)
+-   Validate and score user responses
+
+### 3. Editors
+
+Editors provide the interface for content creators to:
+
+-   Add/Edit Perseus content
+-   Configure widget settings
+-   Preview content as it will appear to learners
+
+Each widget type has its own specialized editor component.
+
+## Data Flow
+
+Perseus follows a straightforward data flow:
+
+**1. Content is created and stored as structured data (PerseusItem or PerseusRenderer)**
+
+**2. When displayed, this data is passed to the appropriate renderer**
+
+**3. The renderer parses the content, instantiates widgets, and renders the final output**
+
+**4. User interactions with widgets are processed and scored against expected answers**
+
+## TypeScript Types and Conventions
+
+Perseus uses a consistent set of types to define its data structures and components. Understanding these types is crucial for working with Perseus code effectively.
+
+### Data Types
+
+<Markdown>
+    {`
+| Type | Description |
+| ---- | ----------- |
+| \`PerseusItem\` | Top-level structure that the \`ServerItemRenderer\` accepts. You can think of the \`PerseusItem\` type as the "data schema" for Perseus exercise questions. |
+| \`PerseusArticle\` | Is just a series of \`PerseusRenderer\` objects. It can be a single object, but most often it is an array of them. These are never scored. |
+| \`PerseusRenderer\` | Core structure used by Perseus. It is rendered by the \`Renderer\` component and is used through Perseus to render content (even within widgets). |
+| \`WidgetExports\<T\>\` | The type defines a widget. This structure defines which React component implements the widget as well as any required data transforms and metadata. You can look up these exports by using the \`getWidgetExport(widgetType)\` function from \`widgets.ts\`. |
+| \`WidgetOptions\<T\>\` | All widget options are contained within a common \"header\" object that is represented by \`WidgetOptions\<T\>\`. The \`T\` generic type in this case is the widget type name (e.g., \`dropdown\`, \`interactive-graph\`, etc.). This type contains an \`options\` key which then contains the options specific to the widget. Each widget defines its set of options through an options type (always defined in \`perseus-types.ts\`. These can be thought of as the "schema" for the widget. |
+    `}
+</Markdown>
+
+## Widget Options
+
+Each widget defines its set of options through an options type (always defined in `perseus-types.ts`. These can be thought of as the "schema" for the widget.
+
+## React Types
+
+Each widget is implemented as a React component. As is common with React, the component receives data via render props.
+The code strives to use the following conventions to shape the various concepts of props.
+
+<Markdown>
+    {`
+| Type | Description |
+| ---- | ----------- |
+| \`WidgetProps\<T\>\` | All widgets receive a common set of props from the parent \`Renderer\` component This set of props is defined by the \`WidgetProps\<T\>\` type (\`T\` being the specific render props the widget uses). |
+| \`RenderProps\` | Defines the props that are returned by the widget's \`transform\` and \`staticTransform\` functions. If these functions are not defined on the widget's \`WidgetExport\<T\>\` object, then \`RenderProps\` is synonymous with the widgets options type (ie. the type \`T\` wrapped in \`WidgetOptions\<T\>\` from \`perseus-types.ts\`). |
+| External Props | In a few rare cases, this type is defined as the sum of RenderProps wrapped in \`WidgetOptions\`. |
+| Scoring Data | This type defines the data that the scoring function needs in order to score the learner's guess (aka user input). |
+| \`Props\` | This form the entire set of props that widget's component supports. Typically, it is defined as \`type Props = WidgetProps<RenderProps, Rubric>\`. In cases where there are \`RenderProps\` that are optional that are provided via \`DefaultProps\`, this \`Props\` type "redefines" these props as \`myProp: NonNullable<ExternalProps["myProps"]>;\`. |
+    `}
+</Markdown>
+
+## Content Editing
+
+The Perseus content editing flow follows these steps:
+
+**1. The editor renders an `EditorPage` component**
+
+**2. As content is edited, `onChange` callbacks are triggered**
+
+**3. When serialization is needed, `editorPageRef.current.serialize()` is called to produce a `PerseusItem`**
+
+This editing flow ensures that content creators can interact with widgets and preview content as it will appear to learners.
+
+## Getting Started
+
+The best way to understand Perseus is to explore the components in this Storybook. You can:
+
+-   Browse the Widget Gallery to see the available widgets
+-   Read the renderer documentation
+-   Browse the available reusable components

@@ -7,8 +7,18 @@ import {inequality, question1, question2} from "./number-line.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Number Line",
+    title: "Widgets/Number Line",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that displays a number line for marking positions, points, and intervals,\
+                    allowing users to demonstrate number sense and mathematical operations.",
+            },
+        },
+    },
 };
 export default meta;
 

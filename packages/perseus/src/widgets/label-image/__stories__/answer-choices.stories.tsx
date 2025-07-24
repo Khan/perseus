@@ -10,7 +10,8 @@ type Story = {
 };
 
 export default {
-    title: "Perseus/Widgets/Label Image/Answer Choices",
+    title: "Widgets/Label Image/Widget Internal Components/Answer Choices",
+    tags: ["!dev"],
 } as Story;
 
 const defaultChoices = [

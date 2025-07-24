@@ -10,7 +10,8 @@ type Story = {
 };
 
 export default {
-    title: "Perseus/Widgets/Label Image/Marker",
+    title: "Widgets/Label Image/Widget Internal Components/Marker",
+    tags: ["!dev"],
 } as Story;
 
 const styles = StyleSheet.create({
