@@ -189,12 +189,6 @@ export const shouldShowLabel = (
     range: [Interval, Interval],
     tickStep: number,
 ) => {
-    // We want to show 0 if there's space for it.
-    // console.log(currentTick, range[X][MIN], range[X][MAX]);
-    // if (currentTick === 0 && range[X][MIN] >= 0) {
-    //     return true;
-    // }
-
     let showLabel = true;
 
     // If the y-axis is within the graph and currentTick equals -tickStep, hide the label
