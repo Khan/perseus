@@ -1,6 +1,6 @@
 import {mergeConfig} from "vite";
 import {configureSort} from "storybook-multilevel-sort";
-import {StorybookConfig} from "@storybook/react-vite";
+import type {StorybookConfig} from "@storybook/react-vite";
 
 const excludedCssFiles = ["lato.css", "protractor.css", "mafs-styles.css"];
 // This is a temporary plugin option to mimic what is in PROD in regard to cascade layers.
@@ -38,7 +38,6 @@ configureSort({
         renderers: {
             overview: null,
         },
-        components: null,
         editors: null,
         widgets: {
             "**": {
@@ -58,6 +57,7 @@ configureSort({
                 "*": {default: null},
             },
         },
+        components: null,
     },
 });
 
