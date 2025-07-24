@@ -11,19 +11,15 @@ export const AutoResizingTextArea = (props: TextAreaProps) => {
     const textAreaRef = React.useRef<HTMLTextAreaElement>(null);
 
     React.useEffect(() => {
-        function adjustHeight() {
-            const textArea = textAreaRef.current;
-            if (textArea) {
-                // Reset the height to get the correct scrollHeight.
-                // 42px is the default height of the Wonder Blocks TextArea
-                // when it has one row.
-                textArea.style.height = "42px";
-                // Set height to scrollHeight to fit all content.
-                textArea.style.height = `${textArea.scrollHeight}px`;
-            }
+        const textArea = textAreaRef.current;
+        if (textArea) {
+            // Reset the height to get the correct scrollHeight.
+            // 42px is the default height of the Wonder Blocks TextArea
+            // when it has one row.
+            textArea.style.height = "42px";
+            // Set height to scrollHeight to fit all content.
+            textArea.style.height = `${textArea.scrollHeight}px`;
         }
-
-        adjustHeight();
     }, [props.value]);
 
     return (
