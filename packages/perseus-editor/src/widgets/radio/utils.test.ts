@@ -26,10 +26,10 @@ describe("getMovedChoices", () => {
         ]);
     });
 
-    it("should return null if the choice is already at the top", () => {
+    it("should return original choices if the choice is already at the top", () => {
         // Move choice 1 to the top
         const result = getMovedChoices(choices, false, 0, "top");
-        expect(result).toBeNull();
+        expect(result).toEqual(choices);
     });
 
     it("should move the choice up", () => {
@@ -43,10 +43,10 @@ describe("getMovedChoices", () => {
         ]);
     });
 
-    it("should return null if the choice is already at the top", () => {
+    it("should return original choices if the choice is already at the top", () => {
         // Move choice 1 up
         const result = getMovedChoices(choices, false, 0, "up");
-        expect(result).toBeNull();
+        expect(result).toEqual(choices);
     });
 
     it("should move the choice down", () => {
@@ -60,13 +60,13 @@ describe("getMovedChoices", () => {
         ]);
     });
 
-    it("should return null if the choice is already at the bottom", () => {
+    it("should return original choices if the choice is already at the bottom", () => {
         // Move choice 4 down
         const result = getMovedChoices(choices, false, 3, "down");
-        expect(result).toBeNull();
+        expect(result).toEqual(choices);
     });
 
-    it("should return null if the choice is last before 'None of the above' choice", () => {
+    it("should return original choices if the choice is last before 'None of the above' choice", () => {
         // Move choice 3 down
         const result = getMovedChoices(
             choicesWithNoneOfTheAbove,
@@ -74,7 +74,7 @@ describe("getMovedChoices", () => {
             2,
             "down",
         );
-        expect(result).toBeNull();
+        expect(result).toEqual(choicesWithNoneOfTheAbove);
     });
 
     it("should move the choice to the bottom", () => {
@@ -88,10 +88,10 @@ describe("getMovedChoices", () => {
         ]);
     });
 
-    it("should return null if the choice is already at the bottom", () => {
+    it("should return original choices if the choice is already at the bottom", () => {
         // Move choice 4 to the bottom
         const result = getMovedChoices(choices, false, 3, "bottom");
-        expect(result).toBeNull();
+        expect(result).toEqual(choices);
     });
 
     it("should move choice to last choice before 'None of the above'", () => {

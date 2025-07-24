@@ -57,28 +57,28 @@ export function RadioOptionSettingsActions({
                         icon={caretDoubleUpIcon}
                         kind="tertiary"
                         size="xsmall"
-                        aria-label={`Move choice to the top`}
+                        aria-label="Move choice to the top"
                         onClick={() => onMove("top")}
                     />
                     <IconButton
                         icon={caretUpIcon}
                         kind="tertiary"
                         size="xsmall"
-                        aria-label={`Move choice up`}
+                        aria-label="Move choice up"
                         onClick={() => onMove("up")}
                     />
                     <IconButton
                         icon={caretDownIcon}
                         kind="tertiary"
                         size="xsmall"
-                        aria-label={`Move choice down`}
+                        aria-label="Move choice down"
                         onClick={() => onMove("down")}
                     />
                     <IconButton
                         icon={caretDoubleDownIcon}
                         kind="tertiary"
                         size="xsmall"
-                        aria-label={`Move choice to the bottom`}
+                        aria-label="Move choice to the bottom"
                         onClick={() => onMove("bottom")}
                     />
                 </>

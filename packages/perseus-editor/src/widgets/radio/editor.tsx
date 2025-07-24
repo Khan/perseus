@@ -203,9 +203,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             movement,
         );
 
-        if (newChoices) {
-            this.props.onChange({choices: newChoices});
-        }
+        this.props.onChange({choices: newChoices});
     };
 
     focus: () => boolean = () => {

@@ -6,7 +6,7 @@ export function getMovedChoices(
     hasNoneOfTheAbove: boolean,
     choiceIndex: number,
     movement: ChoiceMovementType,
-): PerseusRadioChoice[] | null {
+): PerseusRadioChoice[] {
     const newChoices = [...choices];
     const [removedChoice] = newChoices.splice(choiceIndex, 1);
 
@@ -14,7 +14,7 @@ export function getMovedChoices(
         case "top":
             // No need to move the first choice to the top since it's already there.
             if (choiceIndex === 0) {
-                return null;
+                return choices;
             }
 
             // Move the removed choice to the beginning/top of the array.
@@ -23,7 +23,7 @@ export function getMovedChoices(
         case "up":
             // No need to move the first choice up since it's already at the top.
             if (choiceIndex === 0) {
-                return null;
+                return choices;
             }
 
             // Move the removed choice to the position before its current index.
@@ -32,7 +32,7 @@ export function getMovedChoices(
         case "down":
             // No need to move the last choice down since it's already at the bottom.
             if (choiceIndex === choices.length - 1) {
-                return null;
+                return choices;
             }
 
             // If the current choice is the second to last choice and the
@@ -40,7 +40,7 @@ export function getMovedChoices(
             // the current choice down. Keep the "None of the above" choice
             // as the last choice.
             if (choiceIndex === choices.length - 2 && hasNoneOfTheAbove) {
-                return null;
+                return choices;
             }
 
             // Move the removed choice to the position after its current index.
@@ -49,7 +49,7 @@ export function getMovedChoices(
         case "bottom":
             // No need to move the last choice to the bottom since it's already there.
             if (choiceIndex === choices.length - 1) {
-                return null;
+                return choices;
             }
 
             // If the last choice is "None of the above", we don't want to move
