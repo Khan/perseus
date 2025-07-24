@@ -10,8 +10,21 @@ import {getAnswerfulItem} from "../../util/test-utils";
 
 import {question1, question2, question3} from "./input-number.testdata";
 
-export default {
-    title: "Perseus/Widgets/InputNumber",
+import type {Meta} from "@storybook/react-vite";
+
+const meta: Meta = {
+    title: "Widgets/InputNumber",
+    component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to input numerical values with specific validation rules,\
+                    supporting basic mathematical responses.",
+            },
+        },
+    },
     argTypes: {
         maxError: {
             control: {
@@ -56,6 +69,7 @@ export default {
         },
     },
 };
+export default meta;
 
 type Question = PerseusRenderer;
 type InputNumberOptions = PerseusInputNumberWidgetOptions;

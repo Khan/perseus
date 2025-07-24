@@ -44,7 +44,17 @@ const answersArray: string = `[
 
 const meta: Meta<typeof NumericInput> = {
     component: NumericInput,
-    title: "Perseus/Widgets/Numeric Input",
+    title: "Widgets/Numeric Input",
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to input numeric answers with specific validation criteria,\
+                    supporting various formats including fractions, decimals, and mathematical expressions.",
+            },
+        },
+    },
     args: {
         coefficient: false,
         userInput: {currentValue: ""},

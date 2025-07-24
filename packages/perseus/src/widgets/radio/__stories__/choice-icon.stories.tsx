@@ -29,13 +29,14 @@ const defaultProps = {
 } as const;
 
 export default {
-    title: "Perseus/Widgets/Radio/Choice Icon",
+    title: "Widgets/Radio/Widget Internal Components/Choice Icon",
     argTypes: {
         pos: {
             control: {type: "number", min: 0, max: 25, step: 1},
         },
     },
     args: defaultProps,
+    tags: ["!dev"],
 };
 
 const Panel = (props: {children: React.ReactNode}): React.ReactElement => {

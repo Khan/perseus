@@ -7,8 +7,18 @@ import {getFullGroupTestItem, question1} from "./group.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Group",
+    title: "Widgets/Group",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A container widget that allows for logical grouping of multiple widgets,\
+                    enabling organized layout and shared context for related interactive elements.",
+            },
+        },
+    },
 };
 export default meta;
 

@@ -10,13 +10,20 @@ const geoPage = "Geometry Page";
 const fracPage = "Fractions Page";
 
 export default {
-    title: "math-input/Full Keypad",
+    title: "Math Input/Full Keypad",
     parameters: {
         backgrounds: {
             values: [{name: "light background", value: "white", default: true}],
         },
         viewport: {defaultViewport: "iphone6", viewports: INITIAL_VIEWPORTS},
+        docs: {
+            description: {
+                component:
+                    "A customizable virtual keyboard for mathematical input that provides different key layouts for various math concepts.",
+            },
+        },
     },
+    tags: ["!dev"],
     component: Keypad,
     args: {
         advancedRelations: false,

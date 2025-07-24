@@ -8,8 +8,19 @@ import ArticleRenderer from "../../article-renderer";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Definition",
+    title: "Widgets/Definition",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that creates interactive, expandable term definitions within\
+                    content, allowing users to click on terms to reveal their meanings without\
+                    leaving the current context.",
+            },
+        },
+    },
 };
 export default meta;
 
@@ -77,7 +88,9 @@ const article = {
 } as const;
 
 export const Exercise: Story = {
-    args: {item: generateTestPerseusItem({question})},
+    args: {
+        item: generateTestPerseusItem({question}),
+    },
 };
 
 export const Article = (): React.ReactNode => {

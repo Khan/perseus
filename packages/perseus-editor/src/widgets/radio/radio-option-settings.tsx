@@ -1,9 +1,9 @@
-import {TextArea} from "@khanacademy/wonder-blocks-form";
 import Pill from "@khanacademy/wonder-blocks-pill";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
+import {AutoResizingTextArea} from "./auto-resizing-text-area";
 import styles from "./radio-editor.module.css";
 import {RadioOptionContentAndImageEditor} from "./radio-option-content-and-image-editor";
 import {RadioOptionSettingsActions} from "./radio-option-settings-actions";
@@ -38,6 +38,9 @@ export function RadioOptionSettings({
     onMove,
 }: RadioOptionSettingsProps) {
     const {content, rationale, correct, isNoneOfTheAbove} = choice;
+    const uniqueId = React.useId();
+    const contentTextAreaId = `${uniqueId}-content-textarea`;
+    const rationaleTextAreaId = `${uniqueId}-rationale-textarea`;
 
     return (
         <div className={styles.tile}>
@@ -101,32 +104,25 @@ export function RadioOptionSettings({
             />
 
             {/* Content and rationale text areas */}
-            <HeadingXSmall tag="label" className={styles.contentHeading}>
+            <HeadingXSmall tag="label" htmlFor={contentTextAreaId}>
                 Content
-                <TextArea
-                    value={isNoneOfTheAbove ? "None of the above" : content}
-                    disabled={isNoneOfTheAbove}
-                    placeholder="Type a choice here..."
-                    // This unfortunately doesn't match the dynamic resizing
-                    // behavior that it had before, but we should be able to add
-                    // that in after WB-1843 is completed.
-                    resizeType="vertical"
-                    rows={1}
-                    onChange={(value) => {
-                        onContentChange(index, value);
-                    }}
-                />
             </HeadingXSmall>
-            <HeadingXSmall tag="label">
+            <AutoResizingTextArea
+                id={contentTextAreaId}
+                value={isNoneOfTheAbove ? "None of the above" : content}
+                disabled={isNoneOfTheAbove}
+                placeholder="Type a choice here..."
+                onChange={(value) => {
+                    onContentChange(index, value);
+                }}
+                style={{marginBlockEnd: sizing.size_080}}
+            />
+            <HeadingXSmall tag="label" htmlFor={rationaleTextAreaId}>
                 Rationale
-                <TextArea
+                <AutoResizingTextArea
+                    id={rationaleTextAreaId}
                     value={rationale ?? ""}
                     placeholder={`Why is this choice ${correct ? "correct" : "incorrect"}?`}
-                    // This unfortunately doesn't match the dynamic resizing
-                    // behavior that it had before, but we should be able to add
-                    // that in after WB-1843 is completed.
-                    resizeType="vertical"
-                    rows={1}
                     onChange={(value) => {
                         onRationaleChange(index, value);
                     }}

@@ -14,7 +14,8 @@ import type {KeypadKey} from "@khanacademy/perseus-core";
 import Keypad from "./index";
 
 export default {
-    title: "math-input/components/v2 Keypad With Mathquill",
+    title: "Math Input/Components/v2 Keypad With Mathquill",
+    tags: ["!dev"],
 };
 
 export function V2KeypadWithMathquill() {

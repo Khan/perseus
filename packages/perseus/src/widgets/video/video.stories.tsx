@@ -7,8 +7,17 @@ import {question1, question2} from "./video.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Video",
+    title: "Widgets/Video",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that enables embedding educational videos within content for interactive learning.",
+            },
+        },
+    },
 };
 export default meta;
 

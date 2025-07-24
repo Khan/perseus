@@ -7,8 +7,17 @@ import {question1} from "./sorter.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Sorter",
+    title: "Widgets/Sorter",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to arrange items in a specific order by dragging and dropping.",
+            },
+        },
+    },
 };
 export default meta;
 

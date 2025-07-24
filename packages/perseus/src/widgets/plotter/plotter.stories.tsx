@@ -7,8 +7,18 @@ import {dotPlotter, question1, simple} from "./plotter.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Plotter",
+    title: "Widgets/Plotter",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget for creating and displaying data visualizations such as line plots and scatter plots,\
+                    allowing users to represent and interpret data graphically.",
+            },
+        },
+    },
 };
 export default meta;
 

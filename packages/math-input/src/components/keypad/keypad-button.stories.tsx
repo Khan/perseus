@@ -11,7 +11,7 @@ import type {KeypadButtonProps} from "./keypad-button";
 const keyConfigs = KeyConfigs(mockStrings);
 
 export default {
-    title: "math-input/components/Keypad Button",
+    title: "Math Input/Components/Keypad Button",
     args: {
         keyConfig: keyConfigs["PLUS"],
         coord: [0, 0],
@@ -22,6 +22,7 @@ export default {
             options: {...keyConfigs},
         },
     },
+    tags: ["!dev"],
 };
 
 export const Default = ({

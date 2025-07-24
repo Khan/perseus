@@ -7,8 +7,18 @@ import {question1} from "./matrix.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Matrix",
+    title: "Widgets/Matrix",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to create and interact with mathematical matrices,\
+                    supporting linear algebra operations and matrix manipulation.",
+            },
+        },
+    },
 };
 export default meta;
 

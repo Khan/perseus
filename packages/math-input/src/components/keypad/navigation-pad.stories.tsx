@@ -4,7 +4,8 @@ import {action} from "storybook/actions";
 import NavigationPad from "./navigation-pad";
 
 export default {
-    title: "math-input/components/MathInput v2 Navigation Pad",
+    title: "Math Input/Components/MathInput v2 Navigation Pad",
+    tags: ["!dev"],
     parameters: {
         backgrounds: {
             default: "light background",

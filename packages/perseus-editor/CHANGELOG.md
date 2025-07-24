@@ -1,5 +1,16 @@
 # @khanacademy/perseus-editor
 
+## 26.1.1
+
+### Patch Changes
+
+-   [#2729](https://github.com/Khan/perseus/pull/2729) [`266bce537`](https://github.com/Khan/perseus/commit/266bce537c6685ef237064332d3bc5b2119b7da0) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Implement choice reordering in the editor
+
+*   [#2699](https://github.com/Khan/perseus/pull/2699) [`cfc072417`](https://github.com/Khan/perseus/commit/cfc072417d1b66c1c87b0a0200c37c376434920f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Improve Perseus documentation
+
+*   Updated dependencies [[`8720ca1e2`](https://github.com/Khan/perseus/commit/8720ca1e2a780ecdf658971ec993a8adb7066c55), [`a7c14bf18`](https://github.com/Khan/perseus/commit/a7c14bf183f3e47ec887c695c7fc9ee83d21da46), [`cfc072417`](https://github.com/Khan/perseus/commit/cfc072417d1b66c1c87b0a0200c37c376434920f)]:
+    -   @khanacademy/perseus@66.0.2
+
 ## 26.1.0
 
 ### Minor Changes
