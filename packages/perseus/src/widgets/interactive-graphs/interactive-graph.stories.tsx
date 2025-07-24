@@ -27,6 +27,7 @@ import {
     staticGraphQuestionWithAnotherWidget,
     segmentWithLockedLabels,
     unlimitedPolygonQuestion,
+    floatingPointIssueQuestion,
 } from "./interactive-graph.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -203,6 +204,14 @@ export const StaticGraphWithAnotherWidget: Story = {
     args: {
         item: generateTestPerseusItem({
             question: staticGraphQuestionWithAnotherWidget(),
+        }),
+    },
+};
+
+export const TooltipsWithFloatingPointIssues: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: floatingPointIssueQuestion,
         }),
     },
 };

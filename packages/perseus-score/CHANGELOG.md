@@ -1,5 +1,15 @@
 # @khanacademy/perseus-score
 
+## 7.1.16
+
+### Patch Changes
+
+-   [#2695](https://github.com/Khan/perseus/pull/2695) [`8b8bf69d0`](https://github.com/Khan/perseus/commit/8b8bf69d094838fd88a541f5a590347f38151d86) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fix the Matrix Widget Validation when handling empty rows
+
+-   Updated dependencies [[`0cae7aed9`](https://github.com/Khan/perseus/commit/0cae7aed9ea7dfc3e101f99ae7670aa4b244e436)]:
+    -   @khanacademy/perseus-core@18.2.2
+    -   @khanacademy/kmath@2.0.29
+
 ## 7.1.15
 
 ### Patch Changes

@@ -106,6 +106,17 @@ export const pointQuestion: PerseusRenderer = interactiveGraphQuestionBuilder()
     })
     .build();
 
+export const floatingPointIssueQuestion: PerseusRenderer =
+    interactiveGraphQuestionBuilder()
+        .withPoints(5)
+        .withTooltips(true)
+        .withXRange(0, 5)
+        .withYRange(0, 3)
+        .withTickStep(1, 0.5)
+        .withGridStep(1, 0.1)
+        .withSnapStep(0.5, 0.1)
+        .build();
+
 export const pointQuestionWithDefaultCorrect: PerseusRenderer =
     interactiveGraphQuestionBuilder().withPoints(1).build();
 

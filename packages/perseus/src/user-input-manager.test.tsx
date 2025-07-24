@@ -132,6 +132,15 @@ describe("sharedInitializeUserInput", () => {
             },
         });
     });
+
+    /**
+     * Regression LEMS-3321: this is a safety net if for some reason
+     * a PerseusRenderer doesn't happen to have `widgets` which is a
+     * bug we ran into.
+     */
+    it("handles undefined widget options", () => {
+        expect(sharedInitializeUserInput(undefined, 0)).toEqual({});
+    });
 });
 
 describe("UserInputManager", () => {
