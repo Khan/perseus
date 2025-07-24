@@ -8,6 +8,7 @@
     flex-shrink: 0;
     font-family: var(--wb-font-family-sans);
     font-size: var(--wb-font-heading-size-small);
+    font-weight: var(--wb-font-weight-bold);
     height: 3.2rem;
     line-height: var(--wb-font-heading-lineHeight-small);
     outline: 0 solid var(--wb-semanticColor-core-background-instructive-default);
@@ -96,7 +97,7 @@
 .is-wrong[aria-pressed="false"] {
     background-color: var(--wb-semanticColor-core-transparent);
     border-color: var(--wb-semanticColor-core-border-disabled-strong);
-    color: var(--wb-semanticColor-core-foreground-disabled-strong);
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
 }
 
 .is-wrong[aria-pressed="true"] {

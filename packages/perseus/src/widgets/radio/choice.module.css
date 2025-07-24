@@ -4,8 +4,9 @@
        or when the high-level styles are refactored and these become unnecessary.
      */
     .choice :global(.paragraph) {
-        font-size: var(--wb-font-heading-size-medium);
-        line-height: var(--wb-font-heading-lineHeight-medium);
+        font-size: inherit;
+        line-height: inherit;
+        margin: initial;
     }
 }
 
@@ -17,6 +18,7 @@
     align-items: flex-start;
     display: flex;
     font-size: var(--wb-font-heading-size-medium);
+    font-weight: var(--wb-font-weight-semi);
     /* "gap" is being used to put horizontal/inline space between the indicator and the content.
        That way, we can keep all spacing in this file, and not have to apply styling to the indicator itself.
     */
@@ -32,7 +34,7 @@
 .choice:after,
 .choice:first-of-type:before {
     background-color: var(--perseus-multiple-choice-divider-color);
-    bottom: calc((var(--perseus-multiple-choice-divider-space) - ((var(--perseus-multiple-choice-divider-space) - var(--wb-border-width-thin)) / 2)) * -1);
+    bottom: calc((var(--perseus-multiple-choice-divider-space) + ((var(--wb-border-width-medium) - var(--perseus-multiple-choice-divider-space)) / 2)) * -1);
     content: "";
     display: block;
     height: var(--perseus-multiple-choice-divider-width);
@@ -45,6 +47,10 @@
     cursor: pointer;
 }
 
+/*****************
+ BORDER MANAGEMENT
+ *****************/
+
 /* Show a bottom border on the choice when:
       - the choice indicator has focus OR
       - the next choice indicator has focus OR
@@ -54,12 +60,16 @@
    In other words, always show the bottom border when focus is on the indicator,
        but only show the bottom border for hover when not in review mode.
  */
-.choice:focus-within,
-.choice:has(+ .choice:focus-within),
+.choice:not(.is-correct):focus-within,
+.choice:has(+ .choice:not(.is-correct):focus-within),
 .choice:not(.is-correct, .is-wrong):hover,
 .choice:not(.is-correct, .is-wrong):has(+ .choice:hover) {
     --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
     --perseus-multiple-choice-divider-color: var(--wb-semanticColor-core-border-neutral-default);
+}
+
+.choice:has(+ .is-correct) {
+    --perseus-multiple-choice-divider-width: 0;
 }
 
 .choice:first-of-type:not(.is-correct, .is-wrong):before {
@@ -78,19 +88,33 @@
     margin-block-end: var(--wb-border-width-thin);
 }
 
+/***********
+ REVIEW MODE
+ ***********/
+
 .is-correct {
+    --perseus-multiple-choice-divider-width: 0;
     border-radius: var(--wb-border-radius-radius_080);
-    color: var(--wb-semanticColor-core-foreground-success-default);
+    color: var(--wb-semanticColor-core-foreground-success-strong);
     outline: var(--wb-border-width-medium) solid
         var(--wb-semanticColor-core-border-success-default);
     outline-offset: calc(var(--wb-border-width-medium) * -1);
 }
 
 .is-wrong {
-    color: var(--wb-semanticColor-core-foreground-critical-default);
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
 }
 
 .is-correct:hover,
 .is-wrong:hover {
     cursor: default;
+}
+
+/*************************
+ IMAGES ON THEIR OWN LINES
+ *************************/
+
+.choice :global(.paragraph) :global(+ .paragraph):has(img:only-child),
+.choice :global(.paragraph):has(img:only-child):has(:global(+ .paragraph)) {
+    display: block;
 }

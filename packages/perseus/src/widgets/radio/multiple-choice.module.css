@@ -3,6 +3,11 @@
     min-width: auto;
 }
 
+.content  {
+    display: flex;
+    flex-direction: column;
+}
+
 .choice-list {
     padding: 0;
     list-style: none;
@@ -34,10 +39,14 @@
     margin-inline-start: var(--wb-sizing-size_200);
 }
 
-
 .rationale {
+    display: block !important; /* Override the overly broad rule in radio.css causing all <div> and <p> tags to be inline. */
     font-size: var(--wb-font-size-medium);
     line-height: var(--wb-font-lineHeight-medium);
+}
+
+.rationale.is-correct {
+    color: var(--wb-semanticColor-core-foreground-neutral-default);
 }
 
 .responsiveItem {
