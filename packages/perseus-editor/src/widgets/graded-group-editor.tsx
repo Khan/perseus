@@ -44,7 +44,7 @@ class GradedGroupEditor extends React.Component<Props> {
     };
 
     handleAddHint: () => void = () => {
-        const hint = {content: ""} as const;
+        const hint = {content: "", images: {}, widgets: {}};
         this.props.onChange({hint}, () => {
             this.hintEditor.current?.focus();
         });

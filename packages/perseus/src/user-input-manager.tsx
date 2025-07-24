@@ -46,10 +46,15 @@ type Props = {
  *   (which is why we need problemNum since it's the seed)
  */
 export function sharedInitializeUserInput(
-    widgetOptions: PerseusWidgetsMap,
+    widgetOptions: PerseusWidgetsMap | undefined,
     problemNum: number,
 ): UserInputMap {
     const startUserInput: UserInputMap = {};
+
+    if (!widgetOptions) {
+        return startUserInput;
+    }
+
     Object.entries(widgetOptions).forEach(([id, widgetInfo]) => {
         const widgetExports = Widgets.getWidgetExport(widgetInfo.type);
         if (widgetInfo.static && widgetExports?.getCorrectUserInput) {
