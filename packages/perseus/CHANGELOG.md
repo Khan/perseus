@@ -1,5 +1,15 @@
 # @khanacademy/perseus
 
+## 66.0.2
+
+### Patch Changes
+
+-   [#2730](https://github.com/Khan/perseus/pull/2730) [`8720ca1e2`](https://github.com/Khan/perseus/commit/8720ca1e2a780ecdf658971ec993a8adb7066c55) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Show min tick when axis doesn't go through it
+
+*   [#2733](https://github.com/Khan/perseus/pull/2733) [`a7c14bf18`](https://github.com/Khan/perseus/commit/a7c14bf183f3e47ec887c695c7fc9ee83d21da46) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bugfix for regression that causes keypad to no longer work in graded groups.
+
+-   [#2699](https://github.com/Khan/perseus/pull/2699) [`cfc072417`](https://github.com/Khan/perseus/commit/cfc072417d1b66c1c87b0a0200c37c376434920f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Improve Perseus documentation
+
 ## 66.0.1
 
 ### Patch Changes
