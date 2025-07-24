@@ -1,5 +1,4 @@
 import Button from "@khanacademy/wonder-blocks-button";
-import {TextArea} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Spring} from "@khanacademy/wonder-blocks-layout";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
@@ -8,8 +7,9 @@ import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import xIcon from "@phosphor-icons/core/regular/x.svg";
 import * as React from "react";
 
+import {AutoResizingTextArea} from "./auto-resizing-text-area";
 import ImageEditorAccordion from "./image-editor-accordion";
-import styles from "./radio-option-content-and-image-editor.module.css";
+import styles from "./radio-editor.module.css";
 import {
     setContentFromNiceContentAndImages,
     setNiceContentAndImages,
@@ -24,6 +24,10 @@ type Props = {
 
 export const RadioOptionContentAndImageEditor = (props: Props) => {
     const {content, choiceIndex, onContentChange, isNoneOfTheAbove} = props;
+    const uniqueId = React.useId();
+    const contentTextAreaId = `${uniqueId}-content-textarea`;
+    const imageUrlTextAreaId = `${uniqueId}-image-url-textarea`;
+    const imageAltTextTextAreaId = `${uniqueId}-image-alt-text-textarea`;
 
     // States for updating content and images
     const [niceContent, setNiceContent] = React.useState<string>("");
@@ -48,7 +52,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
         imageUrl: string,
         imageAltText: string,
     ) => {
-        const newContent = `${content} ![${imageAltText}](${imageUrl})`;
+        const newContent = `${content}![${imageAltText}](${imageUrl})`;
         onContentChange(choiceIndex, newContent);
     };
 
@@ -101,46 +105,48 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
 
     if (isNoneOfTheAbove) {
         return (
-            <HeadingXSmall tag="label">
-                Content
-                <TextArea
+            <>
+                <HeadingXSmall tag="label" htmlFor={contentTextAreaId}>
+                    Content
+                </HeadingXSmall>
+                <AutoResizingTextArea
+                    id={contentTextAreaId}
                     value="None of the above"
                     disabled={true}
-                    rows={1}
                     onChange={() => {}}
                 />
-            </HeadingXSmall>
+            </>
         );
     }
 
     return (
-        <div style={{marginBlockEnd: sizing.size_120}}>
-            <HeadingXSmall tag="label">
+        <>
+            <HeadingXSmall
+                tag="label"
+                htmlFor={contentTextAreaId}
+                style={{marginBlockEnd: sizing.size_040}}
+            >
                 Content
-                <TextArea
-                    value={niceContent}
-                    placeholder="Type a choice here..."
-                    // This unfortunately doesn't match the dynamic resizing
-                    // behavior that it had before, but we should be able to add
-                    // that in after WB-1843 is completed.
-                    resizeType="vertical"
-                    rows={1}
-                    onChange={(value) => {
-                        handleContentChange(choiceIndex, value);
-                    }}
-                    onPaste={(e) => {
-                        const imageURL = e.clipboardData.getData("text");
-
-                        if (
-                            imageURL.includes("cdn.kastatic.org") ||
-                            imageURL.includes("graphie")
-                        ) {
-                            e.preventDefault();
-                            handleAddImage(choiceIndex, imageURL, "");
-                        }
-                    }}
-                />
             </HeadingXSmall>
+            <AutoResizingTextArea
+                id={contentTextAreaId}
+                value={niceContent}
+                placeholder="Type a choice here..."
+                onChange={(value) => {
+                    handleContentChange(choiceIndex, value);
+                }}
+                onPaste={(e) => {
+                    const imageURL = e.clipboardData.getData("text");
+
+                    if (
+                        imageURL.includes("cdn.kastatic.org") ||
+                        imageURL.includes("graphie")
+                    ) {
+                        e.preventDefault();
+                        handleAddImage(choiceIndex, imageURL, "");
+                    }
+                }}
+            />
 
             {!addingImage && (
                 <Button
@@ -157,38 +163,44 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
             )}
 
             {addingImage && (
-                <>
-                    <HeadingXSmall tag="label">
-                        Image URL
-                        <TextArea
-                            value={imageUrl}
-                            placeholder="cdn.kastatic.org/..."
-                            resizeType="vertical"
-                            rows={1}
-                            onChange={(value) => {
-                                setImageUrl(value);
-                            }}
-                        />
-                    </HeadingXSmall>
+                <div className={styles.imageEditorContainer}>
                     <HeadingXSmall
                         tag="label"
+                        htmlFor={imageUrlTextAreaId}
+                        style={{marginBlockEnd: sizing.size_040}}
+                    >
+                        Image URL
+                    </HeadingXSmall>
+                    <AutoResizingTextArea
+                        id={imageUrlTextAreaId}
+                        value={imageUrl}
+                        placeholder="cdn.kastatic.org/..."
+                        onChange={(value) => {
+                            setImageUrl(value);
+                        }}
                         style={{marginBlockEnd: sizing.size_080}}
+                    />
+                    <HeadingXSmall
+                        tag="label"
+                        htmlFor={imageAltTextTextAreaId}
+                        style={{marginBlockEnd: sizing.size_040}}
                     >
                         Image Alt Text
-                        <TextArea
-                            value={imageAltText}
-                            placeholder="The Moon appears as a bright gray circle in black space..."
-                            resizeType="vertical"
-                            rows={1}
-                            onChange={(value) => {
-                                setImageAltText(value);
-                            }}
-                        />
                     </HeadingXSmall>
-                    <span className={styles.rowDirection}>
+                    <AutoResizingTextArea
+                        id={imageAltTextTextAreaId}
+                        value={imageAltText}
+                        placeholder="The Moon appears as a bright gray circle in black space..."
+                        onChange={(value) => {
+                            setImageAltText(value);
+                        }}
+                    />
+                    <span className={styles.buttonRow}>
                         <Button
                             size="small"
-                            style={{alignSelf: "flex-start"}}
+                            style={{
+                                alignSelf: "flex-start",
+                            }}
                             onClick={() => {
                                 setAddingImage(false);
                                 setImageUrl("");
@@ -214,7 +226,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                             }}
                         />
                     </span>
-                </>
+                </div>
             )}
             {images?.map((image, imageIndex) => (
                 <ImageEditorAccordion
@@ -225,6 +237,6 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                     onUpdateImage={handleUpdateImage}
                 />
             )) ?? null}
-        </div>
+        </>
     );
 };

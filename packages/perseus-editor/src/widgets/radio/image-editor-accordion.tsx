@@ -1,5 +1,4 @@
 import Button from "@khanacademy/wonder-blocks-button";
-import {TextArea} from "@khanacademy/wonder-blocks-form";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
@@ -7,12 +6,18 @@ import * as React from "react";
 
 import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 
+import {AutoResizingTextArea} from "./auto-resizing-text-area";
+
 const ImageEditorAccordion = (props: {
     image: {altText: string; url: string};
     imageIndex: number;
     onDeleteImage: (imageIndex: number) => void;
     onUpdateImage: (imageIndex: number, url: string, altText: string) => void;
 }) => {
+    const uniqueId = React.useId();
+    const urlTextAreaId = `${uniqueId}-url-textarea`;
+    const altTextTextAreaId = `${uniqueId}-alt-text-textarea`;
+
     const {image, imageIndex, onDeleteImage, onUpdateImage} = props;
 
     const [url, setUrl] = React.useState(image.url);
@@ -24,6 +29,8 @@ const ImageEditorAccordion = (props: {
             header={`Image ${imageIndex + 1}`}
             containerStyle={{
                 backgroundColor: semanticColor.surface.primary,
+                marginBlockStart: sizing.size_040,
+                marginBlockEnd: sizing.size_040,
             }}
             headerStyle={{
                 height: sizing.size_320,
@@ -36,33 +43,35 @@ const ImageEditorAccordion = (props: {
             />
             <HeadingXSmall
                 tag="label"
-                style={{marginBlockEnd: sizing.size_080}}
+                htmlFor={urlTextAreaId}
+                style={{marginBlockEnd: sizing.size_040}}
             >
                 Image URL
-                <TextArea
-                    value={url}
-                    placeholder="cdn.kastatic.org/..."
-                    resizeType="vertical"
-                    rows={1}
-                    onChange={(value) => {
-                        setUrl(value);
-                        onUpdateImage(imageIndex, value, altText);
-                    }}
-                />
             </HeadingXSmall>
-            <HeadingXSmall tag="label">
+            <AutoResizingTextArea
+                value={url}
+                placeholder="cdn.kastatic.org/..."
+                onChange={(value) => {
+                    setUrl(value);
+                    onUpdateImage(imageIndex, value, altText);
+                }}
+                style={{marginBlockEnd: sizing.size_080}}
+            />
+            <HeadingXSmall
+                tag="label"
+                htmlFor={altTextTextAreaId}
+                style={{marginBlockEnd: sizing.size_040}}
+            >
                 Image Alt Text
-                <TextArea
-                    value={altText}
-                    placeholder="The Moon appears as a bright gray circle in black space..."
-                    resizeType="vertical"
-                    rows={1}
-                    onChange={(value) => {
-                        setAltText(value);
-                        onUpdateImage(imageIndex, url, value);
-                    }}
-                />
             </HeadingXSmall>
+            <AutoResizingTextArea
+                value={altText}
+                placeholder="The Moon appears as a bright gray circle in black space..."
+                onChange={(value) => {
+                    setAltText(value);
+                    onUpdateImage(imageIndex, url, value);
+                }}
+            />
             <Button
                 size="small"
                 kind="tertiary"
