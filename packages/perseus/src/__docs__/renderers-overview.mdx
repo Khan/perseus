@@ -26,36 +26,42 @@ There are 4 main Perseus renderers:
 Perseus renderers implement several sophisticated features to enhance content rendering and user interaction:
 
 **1. Math Rendering**
+
 -   All renderers use MathJax for rendering mathematical expressions
 -   Support for inline and display-mode TeX expressions
 -   Custom preprocessing via `preprocessTex` for enhanced rendering
 -   Zoomable math expressions via `ZoomableTeX` component
 
 **2. Widget System**
+
 -   Extensible widget architecture for interactive elements
 -   Widget state management through `WidgetContainer`
 -   Error boundaries to prevent widget failures from affecting the entire content
 -   Support for widget-specific transformations and upgrades
 
 **3. Accessibility**
+
 -   Comprehensive focus management for keyboard navigation
 -   ARIA attributes for interactive elements
 -   Screen reader compatibility
 -   Support for alternative input methods
 
 **4. Internationalization**
+
 -   Integration with translation systems (JIPT)
 -   Bidirectional text support
 -   Translation linting via `TranslationLinter`
 -   Localized content rendering
 
 **5. Mobile Support**
+
 -   Responsive layouts for different screen sizes
 -   Touch-friendly interactions
 -   On-screen keypad integration for math inputs
 -   Mobile-specific styling controlled via apiOptions
 
 **6. Performance Optimization**
+
 -   Selective re-rendering of widgets
 -   Asset preloading for images
 -   Caching of rendered markdown content
@@ -96,9 +102,9 @@ When rendering a Perseus item (exercise):
 **1. A `PerseusItem` object is passed to `ServerItemRenderer`**
 
 **2. `ServerItemRenderer` renders two main components:**
-- The question content using `Renderer` (with the item's question content and widgets)
-- Hints content using `HintsRenderer` (which uses `HintRenderer` for each hint)
 
+-   The question content using `Renderer` (with the item's question content and widgets)
+-   Hints content using `HintsRenderer` (which uses `HintRenderer` for each hint)
 
 ### Article Rendering
 
@@ -112,16 +118,19 @@ When rendering a Perseus article:
 The `Renderer` component handles the core functionality of rendering widgets through several key steps:
 
 **1. During initialization (`_getInitialWidgetState`), the Renderer:**
+
 -   Processes the widgets configuration from props
 -   Applies default values to widget options using `applyDefaultsToWidgets`
 -   Creates initial widget props and state
 
 **2. For rendering content with widgets, the Renderer:**
+
 -   Parses markdown content using `PerseusMarkdown`
 -   Identifies widget references in the content
 -   Manages widget containers that will host each widget instance
 
 **3. For each widget in the content, the `Renderer`:**
+
 -   Runs the widget's options through upgrade transforms
 -   Creates widget props by combining:
     -   The widget's specific configuration
@@ -133,6 +142,7 @@ The `Renderer` component handles the core functionality of rendering widgets thr
     -   Applies accessibility attributes
 
 **4. The Renderer also manages widget lifecycle by:**
+
 -   Tracking interactions with `InteractionTracker`
 -   Handling focus changes between widgets
 -   Coordinating with the parent renderer for scoring and state management
@@ -142,28 +152,33 @@ The `Renderer` component handles the core functionality of rendering widgets thr
 Perseus renderers implement sophisticated focus management to handle user interactions across multiple widgets:
 
 **1. Focus Tracking**
+
 -   Renderers maintain a `_currentFocus` property that stores the current focus path
 -   The focus path is an array that identifies which widget and which part of the widget is focused
 -   This tracking enables proper keyboard navigation and accessibility features
 
 **2. Focus Path System**
+
 -   Focus paths use a hierarchical structure: `[widgetId, ...internalPath]`
 -   For complex widgets, the internal path can identify specific sub-components
 -   The `isIdPathPrefix` helper function determines if one path is a prefix of another
 
 **3. Focus Event Handling**
+
 -   Focus changes trigger callbacks between components:
     -   `_handleFocusChange` processes focus transitions
     -   `_setCurrentFocus` updates the current focus state
     -   `_onRendererBlur` handles when focus leaves a renderer
 
 **4. Mobile Support**
+
 -   On mobile devices, focus events trigger keypad visibility:
     -   When a math input is focused, the on-screen keypad appears
     -   When focus moves away, the keypad is hidden
 -   The `ServerItemRenderer` coordinates with `keypadElement` to manage this behavior
 
 **5. Focus Delegation**
+
 -   Parent renderers delegate focus to child components:
     -   `ServerItemRenderer.focus()` delegates to `questionRenderer.focus()`
     -   `ServerItemRenderer.focusPath()` allows focusing specific widgets by path
