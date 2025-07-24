@@ -1,5 +1,11 @@
 # @khanacademy/perseus-editor
 
+## 26.1.2
+
+### Patch Changes
+
+-   [#2734](https://github.com/Khan/perseus/pull/2734) [`1209297b0`](https://github.com/Khan/perseus/commit/1209297b08f6863ff8199a34b2a06462484999cb) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Add dynamically resizing text areas to Radio editor UI
+
 ## 26.1.1
 
 ### Patch Changes
