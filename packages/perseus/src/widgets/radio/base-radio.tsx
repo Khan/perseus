@@ -124,6 +124,8 @@ const BaseRadio = function ({
         // the most recently used widget (because, if the user has since
         // touched something else, they're probably not trying to keep their
         // eye on this widget anymore).
+        // eslint-disable-next-line no-console
+        console.log("In useEffect");
         if (
             apiOptions.canScrollPage &&
             isLastUsedWidget &&
@@ -144,6 +146,8 @@ const BaseRadio = function ({
                     | null
                     | undefined;
                 if (buttonNode) {
+                    // eslint-disable-next-line no-console
+                    console.log("Scrolling to choice", checkedIndex);
                     scrollElementIntoView(buttonNode);
                 }
             }
