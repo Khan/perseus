@@ -25,6 +25,9 @@ const ImageEditorAccordion = (props: {
             containerStyle={{
                 backgroundColor: semanticColor.surface.primary,
             }}
+            headerStyle={{
+                height: sizing.size_320,
+            }}
         >
             <img
                 src={image.url}
@@ -39,12 +42,12 @@ const ImageEditorAccordion = (props: {
                 <TextArea
                     value={url}
                     placeholder="cdn.kastatic.org/..."
+                    resizeType="vertical"
+                    rows={1}
                     onChange={(value) => {
                         setUrl(value);
                         onUpdateImage(imageIndex, value, altText);
                     }}
-                    // Usually the size of an image URL takes up 3 rows
-                    rows={3}
                 />
             </HeadingXSmall>
             <HeadingXSmall tag="label">
@@ -52,6 +55,8 @@ const ImageEditorAccordion = (props: {
                 <TextArea
                     value={altText}
                     placeholder="The Moon appears as a bright gray circle in black space..."
+                    resizeType="vertical"
+                    rows={1}
                     onChange={(value) => {
                         setAltText(value);
                         onUpdateImage(imageIndex, url, value);
@@ -64,7 +69,14 @@ const ImageEditorAccordion = (props: {
                 startIcon={trashIcon}
                 style={{alignSelf: "flex-start"}}
                 onClick={() => {
-                    onDeleteImage(imageIndex);
+                    if (
+                        // eslint-disable-next-line no-alert
+                        window.confirm(
+                            "Are you sure you want to delete this image?",
+                        )
+                    ) {
+                        onDeleteImage(imageIndex);
+                    }
                 }}
             >
                 Delete this image

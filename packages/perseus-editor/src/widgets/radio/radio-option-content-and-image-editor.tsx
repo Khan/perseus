@@ -1,5 +1,5 @@
 import Button from "@khanacademy/wonder-blocks-button";
-import {TextField, TextArea} from "@khanacademy/wonder-blocks-form";
+import {TextArea} from "@khanacademy/wonder-blocks-form";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {Spring} from "@khanacademy/wonder-blocks-layout";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
@@ -106,6 +106,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                 <TextArea
                     value="None of the above"
                     disabled={true}
+                    rows={1}
                     onChange={() => {}}
                 />
             </HeadingXSmall>
@@ -123,6 +124,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                     // behavior that it had before, but we should be able to add
                     // that in after WB-1843 is completed.
                     resizeType="vertical"
+                    rows={1}
                     onChange={(value) => {
                         handleContentChange(choiceIndex, value);
                     }}
@@ -158,9 +160,11 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                 <>
                     <HeadingXSmall tag="label">
                         Image URL
-                        <TextField
+                        <TextArea
                             value={imageUrl}
                             placeholder="cdn.kastatic.org/..."
+                            resizeType="vertical"
+                            rows={1}
                             onChange={(value) => {
                                 setImageUrl(value);
                             }}
@@ -174,6 +178,8 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                         <TextArea
                             value={imageAltText}
                             placeholder="The Moon appears as a bright gray circle in black space..."
+                            resizeType="vertical"
+                            rows={1}
                             onChange={(value) => {
                                 setImageAltText(value);
                             }}
