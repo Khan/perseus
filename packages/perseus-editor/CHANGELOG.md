@@ -1,5 +1,26 @@
 # @khanacademy/perseus-editor
 
+## 26.1.0
+
+### Minor Changes
+
+-   [#2626](https://github.com/Khan/perseus/pull/2626) [`468834009`](https://github.com/Khan/perseus/commit/468834009d0ff1cc7736c32ffab960d25c928b70) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Redesign Radio editor UI
+
+### Patch Changes
+
+-   [#2731](https://github.com/Khan/perseus/pull/2731) [`16f0eefe0`](https://github.com/Khan/perseus/commit/16f0eefe0d07429528491a671984b47ef7f32715) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: undefined widget property in hint
+
+*   [#2727](https://github.com/Khan/perseus/pull/2727) [`2048d66b4`](https://github.com/Khan/perseus/commit/2048d66b47ca448a37f0308b56d07948744254c7) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Stop showing NOTA button if NOTA choice exists in the editor
+
+*   Updated dependencies [[`825fccfbd`](https://github.com/Khan/perseus/commit/825fccfbd2a301d4d810b7d000d1c61895359959), [`16f0eefe0`](https://github.com/Khan/perseus/commit/16f0eefe0d07429528491a671984b47ef7f32715), [`0cae7aed9`](https://github.com/Khan/perseus/commit/0cae7aed9ea7dfc3e101f99ae7670aa4b244e436), [`8b8bf69d0`](https://github.com/Khan/perseus/commit/8b8bf69d094838fd88a541f5a590347f38151d86)]:
+    -   @khanacademy/perseus@66.0.1
+    -   @khanacademy/perseus-core@18.2.2
+    -   @khanacademy/perseus-score@7.1.16
+    -   @khanacademy/keypad-context@3.0.29
+    -   @khanacademy/kmath@2.0.29
+    -   @khanacademy/math-input@26.0.18
+    -   @khanacademy/perseus-linter@4.1.2
+
 ## 26.0.1
 
 ### Patch Changes
