@@ -1,5 +1,22 @@
 # @khanacademy/perseus-editor
 
+## 27.0.0
+
+### Major Changes
+
+-   [#2706](https://github.com/Khan/perseus/pull/2706) [`7ae45139b`](https://github.com/Khan/perseus/commit/7ae45139b0fbe75e128f5a0e8e71078dc8a4e733) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove frameSource prop from EditorPage component
+
+### Patch Changes
+
+-   Updated dependencies [[`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2), [`bfe4e50e9`](https://github.com/Khan/perseus/commit/bfe4e50e968e1b34dec685ec81c05d252cd07e49), [`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2)]:
+    -   @khanacademy/perseus@66.2.0
+    -   @khanacademy/perseus-score@7.3.0
+    -   @khanacademy/perseus-core@18.4.0
+    -   @khanacademy/keypad-context@3.1.1
+    -   @khanacademy/kmath@2.1.1
+    -   @khanacademy/math-input@26.1.1
+    -   @khanacademy/perseus-linter@4.2.1
+
 ## 26.2.0
 
 ### Minor Changes
