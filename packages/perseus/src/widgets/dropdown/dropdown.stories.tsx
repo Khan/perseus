@@ -30,6 +30,7 @@ export default meta;
 
 type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
+// TODO(ivy): Find way not to include sorting of stories.
 export const BasicDropdown: Story = {
     args: {
         item: generateTestPerseusItem({question: basicDropdown}),

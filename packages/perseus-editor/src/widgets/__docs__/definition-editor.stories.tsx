@@ -1,9 +1,13 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
+import {question} from "../../../../perseus/src/widgets/definition/definition.testdata";
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import DefinitionEditor from "../definition-editor";
 
-type StoryArgs = Record<any, any>;
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
 
 type Story = {
     title: string;
@@ -24,6 +28,10 @@ export default {
     },
 } as Story;
 
-export const Default = (args: StoryArgs): React.ReactElement => {
+export const Default = (): React.ReactElement => {
     return <DefinitionEditor onChange={action("onChange")} />;
 };
+
+export const Preview = (): React.ReactElement => (
+    <EditorPageWithStorybookPreview question={question} />
+);

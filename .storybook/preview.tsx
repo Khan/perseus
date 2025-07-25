@@ -90,7 +90,7 @@ const preview: Preview = {
         },
         docs: {
             toc: {
-                headingSelector: "h2, h3",
+                headingSelector: "h3",
             },
         },
     },

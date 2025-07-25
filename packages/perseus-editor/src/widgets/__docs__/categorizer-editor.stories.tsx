@@ -2,6 +2,8 @@ import {ApiOptions} from "@khanacademy/perseus";
 import * as React from "react";
 import {action} from "storybook/actions";
 
+import {question1} from "../../../../perseus/src/widgets/categorizer/categorizer.testdata";
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import CategorizerEditor from "../categorizer-editor";
 
 type StoryArgs = Record<any, any>;
@@ -32,3 +34,7 @@ export const Default = (args: StoryArgs): React.ReactElement => {
         />
     );
 };
+
+export const Preview = (): React.ReactElement => (
+    <EditorPageWithStorybookPreview question={question1} />
+);

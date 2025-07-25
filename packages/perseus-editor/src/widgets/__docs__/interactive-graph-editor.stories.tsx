@@ -27,6 +27,7 @@ import {
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {EditorPage} from "../../index";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import InteractiveGraphEditor from "../interactive-graph-editor/interactive-graph-editor";
 
 import type {DeviceType} from "@khanacademy/perseus";
 import type {
@@ -34,11 +35,14 @@ import type {
     PerseusAnswerArea,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
+import type {StoryObj} from "@storybook/react-vite";
 
-registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
 
 export default {
     title: "Widgets/Interactive Graph/Editor Demo",
+    component: InteractiveGraphEditor,
     tags: ["!dev"],
     parameters: {
         docs: {
@@ -52,6 +56,10 @@ export default {
 };
 
 const onChangeAction = action("onChange");
+
+type Story = StoryObj<typeof InteractiveGraphEditor>;
+
+export const Default: Story = {};
 
 export const InteractiveGraphWithAriaLabel = (): React.ReactElement => (
     <EditorPageWithStorybookPreview question={interactiveGraphWithAriaLabel} />

@@ -1,7 +1,13 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
+import {basicDropdown} from "../../../../perseus/src/widgets/dropdown/dropdown.testdata";
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import DropdownEditor from "../dropdown-editor";
+
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
 
 type StoryArgs = Record<any, any>;
 
@@ -31,3 +37,7 @@ export const Default = (args: StoryArgs): React.ReactElement => {
         </div>
     );
 };
+
+export const Preview = (): React.ReactElement => (
+    <EditorPageWithStorybookPreview question={basicDropdown} />
+);

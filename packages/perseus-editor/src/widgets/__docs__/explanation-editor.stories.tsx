@@ -1,9 +1,9 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
+import {question1} from "../../../../perseus/src/widgets/explanation/explanation.testdata";
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import ExplanationEditor from "../explanation-editor";
-
-type StoryArgs = Record<any, any>;
 
 type Story = {
     title: string;
@@ -23,6 +23,10 @@ export default {
     },
 } as Story;
 
-export const Default = (args: StoryArgs): React.ReactElement => {
+export const Default = (): React.ReactElement => {
     return <ExplanationEditor onChange={action("onChange")} />;
 };
+
+export const Preview = (): React.ReactElement => (
+    <EditorPageWithStorybookPreview question={question1} />
+);

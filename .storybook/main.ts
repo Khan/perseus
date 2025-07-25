@@ -41,6 +41,7 @@ configureSort({
         editors: null,
         widgets: {
             "**": {
+                basic: null,
                 docs: null,
                 accessibility: null,
                 "widget demo": null,
@@ -62,6 +63,8 @@ configureSort({
 });
 
 const config: StorybookConfig = {
+    // TODO(ivy): Simplify code below once improvements are done
+    // stories: ["../src/**/*.stories.@(ts|tsx|mdx)"]
     stories: [
         // This will be used for the main documentation pages
         "../__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
