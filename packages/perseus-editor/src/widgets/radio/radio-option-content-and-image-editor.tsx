@@ -165,6 +165,17 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
 
             {addingImage && (
                 <div className={styles.imageEditorContainer}>
+                    <IconButton
+                        icon={xIcon}
+                        size="small"
+                        kind="tertiary"
+                        onClick={() => {
+                            setAddingImage(false);
+                            setImageUrl("");
+                            setImageAltText("");
+                        }}
+                        style={{position: "absolute", top: 4, right: 4}}
+                    />
                     <HeadingXSmall
                         tag="label"
                         htmlFor={imageUrlTextAreaId}
@@ -196,37 +207,21 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                             setImageAltText(value);
                         }}
                     />
-                    <span className={styles.buttonRow}>
-                        <Button
-                            size="small"
-                            style={{
-                                alignSelf: "flex-start",
-                            }}
-                            onClick={() => {
-                                setAddingImage(false);
-                                setImageUrl("");
-                                setImageAltText("");
-                                handleAddImage(
-                                    choiceIndex,
-                                    imageUrl,
-                                    imageAltText,
-                                );
-                            }}
-                        >
-                            Save image
-                        </Button>
-                        <Spring />
-                        <IconButton
-                            icon={xIcon}
-                            size="small"
-                            kind="tertiary"
-                            onClick={() => {
-                                setAddingImage(false);
-                                setImageUrl("");
-                                setImageAltText("");
-                            }}
-                        />
-                    </span>
+                    <Button
+                        size="small"
+                        style={{
+                            alignSelf: "flex-end",
+                            marginBlockStart: 8,
+                        }}
+                        onClick={() => {
+                            setAddingImage(false);
+                            setImageUrl("");
+                            setImageAltText("");
+                            handleAddImage(choiceIndex, imageUrl, imageAltText);
+                        }}
+                    >
+                        Save image
+                    </Button>
                 </div>
             )}
             {images?.map((image, imageIndex) => (

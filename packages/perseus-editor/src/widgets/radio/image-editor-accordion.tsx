@@ -1,4 +1,5 @@
 import Button from "@khanacademy/wonder-blocks-button";
+import {Spring} from "@khanacademy/wonder-blocks-layout";
 import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
@@ -7,6 +8,7 @@ import * as React from "react";
 import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 
 import {AutoResizingTextArea} from "./auto-resizing-text-area";
+import styles from "./radio-editor.module.css";
 
 const ImageEditorAccordion = (props: {
     image: {altText: string; url: string};
@@ -54,7 +56,6 @@ const ImageEditorAccordion = (props: {
                 placeholder="cdn.kastatic.org/..."
                 onChange={(value) => {
                     setUrl(value);
-                    onUpdateImage(imageIndex, value, altText);
                 }}
                 style={{marginBlockEnd: sizing.size_080}}
             />
@@ -71,27 +72,41 @@ const ImageEditorAccordion = (props: {
                 placeholder="The Moon appears as a bright gray circle in black space..."
                 onChange={(value) => {
                     setAltText(value);
-                    onUpdateImage(imageIndex, url, value);
                 }}
             />
-            <Button
-                size="small"
-                kind="tertiary"
-                startIcon={trashIcon}
-                style={{alignSelf: "flex-start"}}
-                onClick={() => {
-                    if (
-                        // eslint-disable-next-line no-alert
-                        window.confirm(
-                            "Are you sure you want to delete this image?",
-                        )
-                    ) {
-                        onDeleteImage(imageIndex);
-                    }
-                }}
-            >
-                Delete this image
-            </Button>
+            <span className={styles.buttonRow}>
+                <Button
+                    size="small"
+                    kind="tertiary"
+                    startIcon={trashIcon}
+                    style={{alignSelf: "flex-start"}}
+                    onClick={() => {
+                        if (
+                            // eslint-disable-next-line no-alert
+                            window.confirm(
+                                "Are you sure you want to delete this image?",
+                            )
+                        ) {
+                            onDeleteImage(imageIndex);
+                        }
+                    }}
+                >
+                    Delete this image
+                </Button>
+                <Spring />
+                <Button
+                    size="small"
+                    disabled={url === image.url && altText === image.altText}
+                    style={{
+                        alignSelf: "flex-start",
+                    }}
+                    onClick={() => {
+                        onUpdateImage(imageIndex, url, altText);
+                    }}
+                >
+                    Save image
+                </Button>
+            </span>
         </PerseusEditorAccordion>
     );
 };
