@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 66.2.0
+
+### Minor Changes
+
+-   [#2719](https://github.com/Khan/perseus/pull/2719) [`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Export public widget options so they can be used in Perseus
+
+*   [#2718](https://github.com/Khan/perseus/pull/2718) [`bfe4e50e9`](https://github.com/Khan/perseus/commit/bfe4e50e968e1b34dec685ec81c05d252cd07e49) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Creates new randomization logic for radio
+
+### Patch Changes
+
+-   Updated dependencies [[`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2), [`bfe4e50e9`](https://github.com/Khan/perseus/commit/bfe4e50e968e1b34dec685ec81c05d252cd07e49), [`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2)]:
+    -   @khanacademy/perseus-score@7.3.0
+    -   @khanacademy/perseus-core@18.4.0
+    -   @khanacademy/keypad-context@3.1.1
+    -   @khanacademy/kmath@2.1.1
+    -   @khanacademy/math-input@26.1.1
+    -   @khanacademy/perseus-linter@4.2.1
+
 ## 66.1.0
 
 ### Minor Changes
