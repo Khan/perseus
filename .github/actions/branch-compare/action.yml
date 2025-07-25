@@ -64,7 +64,14 @@ runs:
           id: compare-artifacts
           shell: bash
           run: |
+              # Don't stop execution if an error occurs, we'll capture the
+              # return value from `diff` and don't want it to blow up this
+              # Github action in cases where it finds differences (non-zero
+              # exit code).
               set +e
+              # We generate a delimeter as a UUID to avoid the chance of our
+              # delimeter showing up in the diff output. A new UUID from this
+              # tool is guaranteed to be unique over both space and time.
               DELIM=$(uuidgen)
               echo "diff-content<<$DELIM" >> "$GITHUB_OUTPUT"
               diff --unified "${{ steps.capture-base-artifacts.outputs.artifact-path }}" \
