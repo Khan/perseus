@@ -64,9 +64,13 @@ export const Default = (args: StoryArgs): React.ReactElement => {
 };
 
 export const SingleChoice = (): React.ReactElement => (
-    <EditorPageWithStorybookPreview question={question} />
+    <div className={css(styles.wrapper)}>
+        <EditorPageWithStorybookPreview question={question} />
+    </div>
 );
 
 export const MultiChoice = (): React.ReactElement => (
-    <EditorPageWithStorybookPreview question={multiChoiceQuestion} />
+    <div className={css(styles.wrapper)}>
+        <EditorPageWithStorybookPreview question={multiChoiceQuestion} />
+    </div>
 );
