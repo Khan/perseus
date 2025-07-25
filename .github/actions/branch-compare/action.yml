@@ -60,11 +60,6 @@ runs:
               fi
               echo "artifact-path=$BASE_ARTIFACT_DIR" >> $GITHUB_OUTPUT
 
-        - uses: actions/upload-artifact@v4
-          with:
-              name: base-artifacts-${{ inputs.label-name }}
-              path: ${{ steps.capture-base-artifacts.outputs.artifact-path }}
-
         - name: Compare Artifacts
           id: compare-artifacts
           shell: bash
