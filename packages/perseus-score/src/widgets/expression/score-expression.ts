@@ -45,8 +45,7 @@ function scoreExpression(
         decimal_separator: getDecimalSeparator(locale),
     });
 
-    const userInputExpression = KAS.parse(userInput, options);
-    if (!userInputExpression.parsed) {
+    if (!KAS.parse(userInput, options).parsed) {
         return {
             type: "invalid",
             message: ErrorCodes.EXTRA_SYMBOLS_ERROR,
