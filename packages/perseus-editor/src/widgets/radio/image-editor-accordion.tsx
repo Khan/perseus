@@ -49,6 +49,7 @@ const ImageEditorAccordion = (props: {
                 Image URL
             </HeadingXSmall>
             <AutoResizingTextArea
+                id={urlTextAreaId}
                 value={url}
                 placeholder="cdn.kastatic.org/..."
                 onChange={(value) => {
@@ -65,6 +66,7 @@ const ImageEditorAccordion = (props: {
                 Image Alt Text
             </HeadingXSmall>
             <AutoResizingTextArea
+                id={altTextTextAreaId}
                 value={altText}
                 placeholder="The Moon appears as a bright gray circle in black space..."
                 onChange={(value) => {

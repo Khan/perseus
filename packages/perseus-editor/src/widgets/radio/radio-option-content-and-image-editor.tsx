@@ -52,7 +52,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
         imageUrl: string,
         imageAltText: string,
     ) => {
-        const newContent = `${content}![${imageAltText}](${imageUrl})`;
+        const newContent = `${content}\n![${imageAltText}](${imageUrl})`;
         onContentChange(choiceIndex, newContent);
     };
 
@@ -103,6 +103,17 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
         onContentChange(choiceIndex, newContent);
     };
 
+    const handlePaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+        const imageURL = e.clipboardData.getData("text");
+        if (
+            imageURL.includes("cdn.kastatic.org") ||
+            imageURL.includes("graphie")
+        ) {
+            e.preventDefault();
+            handleAddImage(choiceIndex, imageURL, "");
+        }
+    };
+
     if (isNoneOfTheAbove) {
         return (
             <>
@@ -135,17 +146,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                 onChange={(value) => {
                     handleContentChange(choiceIndex, value);
                 }}
-                onPaste={(e) => {
-                    const imageURL = e.clipboardData.getData("text");
-
-                    if (
-                        imageURL.includes("cdn.kastatic.org") ||
-                        imageURL.includes("graphie")
-                    ) {
-                        e.preventDefault();
-                        handleAddImage(choiceIndex, imageURL, "");
-                    }
-                }}
+                onPaste={handlePaste}
             />
 
             {!addingImage && (
