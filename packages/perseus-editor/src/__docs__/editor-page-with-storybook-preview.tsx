@@ -55,7 +55,9 @@ function EditorPageWithStorybookPreview(props: Props) {
                 <input
                     type="checkbox"
                     checked={jsonMode}
-                    onChange={(event) => setJsonMode(event.currentTarget.checked)}
+                    onChange={(event) =>
+                        setJsonMode(event.currentTarget.checked)
+                    }
                 />
             </label>
             <EditorPage
