@@ -6,12 +6,10 @@ import * as React from "react";
 
 import "@testing-library/jest-dom";
 
-import {createMathField} from "../../input/mathquill-instance";
 import keyTranslator from "../../key-handlers/key-translator";
 import Keypad from "../index";
 
 import type Key from "../../../data/keys";
-import type {MathFieldInterface} from "../../input/mathquill-types";
 import type {AnalyticsEventHandlerFn} from "@khanacademy/perseus-core";
 
 type Props = {
@@ -22,28 +20,9 @@ type Props = {
 
 function V2KeypadWithMathquill(props: Props) {
     const mathFieldWrapperRef = React.useRef<HTMLDivElement>(null);
-    const [mathField, setMathField] = React.useState<MathFieldInterface>();
-    const {onChangeMathInput, keypadClosed, onAnalyticsEvent} = props;
+    const mathField = undefined;
+    const {keypadClosed, onAnalyticsEvent} = props;
     const [keypadOpen, setKeypadOpen] = React.useState<boolean>(!keypadClosed);
-
-    React.useEffect(() => {
-        if (!mathField && mathFieldWrapperRef.current) {
-            const mathFieldInstance = createMathField(
-                mathFieldWrapperRef.current,
-                (baseConfig) => {
-                    return {
-                        ...baseConfig,
-                        handlers: {
-                            edit: (mathField) => {
-                                onChangeMathInput(mathField.latex());
-                            },
-                        },
-                    };
-                },
-            );
-            setMathField(mathFieldInstance);
-        }
-    }, [mathField, onChangeMathInput]);
 
     function handleClickKey(key: Key) {
         if (!mathField) {

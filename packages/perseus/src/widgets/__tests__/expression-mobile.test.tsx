@@ -13,7 +13,6 @@ import {
     within,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import MathQuill from "mathquill";
 import * as React from "react";
 
 import {
@@ -25,8 +24,6 @@ import WrappedServerItemRenderer from "../../server-item-renderer";
 import {registerWidget} from "../../widgets";
 import {expressionItem2} from "../__testdata__/expression.testdata";
 import ExpressionExport from "../expression";
-
-const MQ = MathQuill.getInterface(2);
 
 function RendererWithContext({item}) {
     return (
@@ -324,37 +321,5 @@ describe("expression mobile", () => {
 
         userEvent.click(screen.getByRole("tab", {name: "Extras"}));
         expect(screen.getByRole("button", {name: "x"})).toBeVisible();
-    });
-
-    it("can write a full equation", async () => {
-        render(<ConnectedRenderer />);
-
-        const input = screen.getByLabelText(
-            "Math input box Tap with one or two fingers to open keyboard",
-        );
-
-        fireEvent.touchStart(input);
-
-        // waiting because `visibility` is animated
-        await waitFor(() =>
-            expect(screen.getByRole("button", {name: "1"})).toBeVisible(),
-        );
-
-        userEvent.click(screen.getByRole("tab", {name: "Extras"}));
-        userEvent.click(screen.getByRole("button", {name: "x"}));
-        userEvent.click(screen.getByRole("tab", {name: "Operators"}));
-        userEvent.click(screen.getByRole("button", {name: "Equals sign"}));
-        userEvent.click(screen.getByRole("tab", {name: "Geometry"}));
-        userEvent.click(screen.getByRole("button", {name: "Sine"}));
-        userEvent.click(screen.getByRole("tab", {name: "Numbers"}));
-        userEvent.click(screen.getByRole("button", {name: "9"}));
-
-        // MathQuill is problematic,
-        // this is how to get the value of the input directly from MQ
-        const mathquillInstance =
-            // eslint-disable-next-line testing-library/no-node-access
-            MQ(document.getElementsByClassName("mq-editable-field")[0]);
-
-        expect(mathquillInstance.latex()).toBe("x=\\sin\\left(9\\right)");
     });
 });

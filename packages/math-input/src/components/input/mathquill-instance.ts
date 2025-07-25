@@ -1,12 +1,4 @@
-import MathQuill from "mathquill";
-
-import type {MathQuillInterface, MathFieldConfig} from "./mathquill-types";
-
-// We only need one MathQuill instance (referred to as MQ in the docs)
-// and that contains some MQ constants and the MathField constructor
-export const mathQuillInstance = MathQuill.getInterface(
-    2,
-) as MathQuillInterface;
+import type {MathFieldConfig} from "./mathquill-types";
 
 function createBaseConfig(): MathFieldConfig {
     return {
@@ -76,25 +68,4 @@ function createBaseConfig(): MathFieldConfig {
         // contexts). We should also limit to one consecutive space.
         spaceBehavesLikeTab: true,
     };
-}
-
-/**
- * Creates a new [MathField](http://docs.mathquill.com/en/latest/Api_Methods/#mqmathfieldhtml_element-config)
- * instance within the given `container`.
- *
- * An optional configuration callback can be provided to customize
- * the created MathField. A default configuration is passed to this
- * callback which can then be adjusted as needed. The configuration
- * returned from this callback is used to create the MathField.
- * This allows callers to do minimal configuration as only configs
- * that vary from the default need to be provided.
- */
-export function createMathField(
-    container: HTMLDivElement | HTMLSpanElement,
-    configCallback?: (baseConfig: MathFieldConfig) => MathFieldConfig,
-) {
-    const baseConfig = createBaseConfig();
-    const config = configCallback ? configCallback(baseConfig) : baseConfig;
-
-    return mathQuillInstance.MathField(container, config);
 }

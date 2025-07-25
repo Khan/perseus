@@ -12434,11 +12434,6 @@ markdown-to-jsx@^7.1.8:
   resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.3.2.tgz#f286b4d112dad3028acc1e77dfe1f653b347e131"
   integrity sha512-B+28F5ucp83aQm+OxNrPkS8z0tMKaeHiy0lHJs3LqCyDQFtWuenaIrkaVTgAm1pf1AU85LXltva86hlaT17i8Q==
 
-"mathquill@file:mathquill-48410e80d760bbd5105544d4a4ab459a28dc2cbc":
-  version "0.10.1"
-  dependencies:
-    pjs "3.x"
-
 mdast-util-definitions@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/mdast-util-definitions/-/mdast-util-definitions-4.0.0.tgz#c5c1a84db799173b4dcf7643cda999e440c24db2"
@@ -13743,11 +13738,6 @@ pirates@^4.0.4, pirates@^4.0.5:
   version "4.0.6"
   resolved "https://registry.yarnpkg.com/pirates/-/pirates-4.0.6.tgz#3018ae32ecfcff6c29ba2267cbf21166ac1f36b9"
   integrity sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==
-
-pjs@3.x:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/pjs/-/pjs-3.1.0.tgz#c65f505e34e386ef0e3b5ea8d42049c4173b599a"
-  integrity sha512-NMO75UrGcS0rwzC+kyF3G0SoDSBEYJGQ+J1rLuK8kpEez7k3A/xesUPVUrYghJUG2bb2ojODpgY0z9oIf5gjJw==
 
 pkg-dir@^3.0.0:
   version "3.0.0"

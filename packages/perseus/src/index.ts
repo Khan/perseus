@@ -24,16 +24,10 @@ export {default as Renderer} from "./renderer";
  */
 export * as Widgets from "./widgets";
 export {default as widgets} from "./all-widgets";
-export {Expression} from "./widgets/expression";
-export {default as InputNumber} from "./widgets/input-number";
-export {default as NumericInput} from "./widgets/numeric-input";
 export {default as Radio} from "./widgets/radio";
 export {default as BaseRadio} from "./widgets/radio/base-radio";
 export {default as Categorizer} from "./widgets/categorizer";
 export {default as InteractiveGraphWidget} from "./widgets/interactive-graph";
-export {default as TransformerWidget} from "./widgets/transformer";
-export {default as MatrixWidget} from "./widgets/matrix";
-export {default as TableWidget} from "./widgets/table";
 export {default as PlotterWidget} from "./widgets/plotter";
 export {default as GrapherWidget} from "./widgets/grapher";
 

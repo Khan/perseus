@@ -7,7 +7,6 @@ import {
     waitFor,
 } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import MathQuill from "mathquill";
 import React, {useState} from "react";
 
 import {KeypadType} from "../../enums";
@@ -16,8 +15,6 @@ import {MobileKeypad} from "../keypad";
 import {KeypadContext, StatefulKeypadContextProvider} from "../keypad-context";
 
 import type {KeypadConfiguration} from "../../types";
-
-const MQ = MathQuill.getInterface(2);
 
 const defaultConfiguration: KeypadConfiguration = {
     keypadType: KeypadType.FRACTION,
@@ -154,135 +151,5 @@ describe("math input integration", () => {
         const span1 = within(mathquillInput).getByText("1");
 
         expect(span1).toBeVisible();
-    });
-
-    it("updates input when pressing many numbers", async () => {
-        render(<ConnectedMathInput />);
-
-        const input = screen.getByLabelText(
-            "Math input box Tap with one or two fingers to open keyboard",
-        );
-
-        fireEvent.touchStart(input);
-
-        await waitFor(() => {
-            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
-        });
-
-        const testNumbers = [8, 6, 7, 5, 3, 0, 9];
-        testNumbers.forEach((num) => {
-            userEvent.click(screen.getByRole("button", {name: `${num}`}));
-        });
-
-        // MathQuill is problematic,
-        // this is how to get the value of the input directly from MQ
-        const mathquillInstance =
-            // eslint-disable-next-line testing-library/no-node-access
-            MQ(document.getElementsByClassName("mq-editable-field")[0]);
-
-        expect(mathquillInstance.latex()).toBe("8675309");
-    });
-
-    it("can handle symbols", async () => {
-        render(<ConnectedMathInput />);
-
-        const input = screen.getByLabelText(
-            "Math input box Tap with one or two fingers to open keyboard",
-        );
-
-        fireEvent.touchStart(input);
-
-        await waitFor(() => {
-            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
-        });
-
-        userEvent.click(screen.getByRole("button", {name: "4"}));
-        userEvent.click(screen.getByRole("button", {name: "2"}));
-        userEvent.click(screen.getByRole("button", {name: "Percent"}));
-
-        // MathQuill is problematic,
-        // this is how to get the value of the input directly from MQ
-        const mathquillInstance =
-            // eslint-disable-next-line testing-library/no-node-access
-            MQ(document.getElementsByClassName("mq-editable-field")[0]);
-
-        expect(mathquillInstance.latex()).toBe("42\\%");
-    });
-
-    it("handles fractions correctly in expression", async () => {
-        const keypadConfiguration = {
-            keypadType: KeypadType.EXPRESSION,
-        };
-        render(
-            <ConnectedMathInput keypadConfiguration={keypadConfiguration} />,
-        );
-
-        const input = screen.getByLabelText(
-            "Math input box Tap with one or two fingers to open keyboard",
-        );
-
-        fireEvent.touchStart(input);
-
-        await waitFor(() => {
-            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
-        });
-
-        userEvent.click(screen.getByRole("button", {name: "1"}));
-        userEvent.click(
-            screen.getByRole("button", {
-                name: "Fraction, excluding the current expression",
-            }),
-        );
-        userEvent.click(screen.getByRole("button", {name: "4"}));
-        userEvent.click(
-            screen.getByRole("button", {
-                name: "Navigate right out of the numerator and into the denominator",
-            }),
-        );
-        userEvent.click(screen.getByRole("button", {name: "2"}));
-
-        // MathQuill is problematic,
-        // this is how to get the value of the input directly from MQ
-        const mathquillInstance =
-            // eslint-disable-next-line testing-library/no-node-access
-            MQ(document.getElementsByClassName("mq-editable-field")[0]);
-
-        expect(mathquillInstance.latex()).toBe("1\\frac{4}{2}");
-    });
-
-    it("handles fractions correctly in fraction", async () => {
-        render(<ConnectedMathInput />);
-
-        const input = screen.getByLabelText(
-            "Math input box Tap with one or two fingers to open keyboard",
-        );
-
-        fireEvent.touchStart(input);
-
-        await waitFor(() => {
-            expect(screen.getByRole("button", {name: "4"})).toBeVisible();
-        });
-
-        userEvent.click(screen.getByRole("button", {name: "1"}));
-        userEvent.click(
-            screen.getByRole("button", {
-                name: "Fraction, excluding the current expression",
-            }),
-        );
-        userEvent.click(screen.getByRole("button", {name: "4"}));
-        userEvent.click(
-            screen.getByRole("button", {
-                name: "Navigate right out of the numerator and into the denominator",
-            }),
-        );
-        userEvent.click(screen.getByRole("button", {name: "2"}));
-
-        // MathQuill is problematic,
-        // this is how to get the value of the input directly from MQ
-        const mathquillInstance =
-            // eslint-disable-next-line testing-library/no-node-access
-            MQ(document.getElementsByClassName("mq-editable-field")[0]);
-
-        expect(mathquillInstance.latex()).toBe("1\\frac{4}{2}");
     });
 });

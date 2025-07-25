@@ -19,10 +19,8 @@ import InteractiveGraph from "./widgets/interactive-graph";
 import LabelImage from "./widgets/label-image";
 import LightsPuzzle from "./widgets/lights-puzzle";
 import Matcher from "./widgets/matcher";
-import Matrix from "./widgets/matrix";
 import Measurer from "./widgets/measurer";
 import Molecule from "./widgets/molecule";
-import NumberLine from "./widgets/number-line";
 import Orderer from "./widgets/orderer";
 import Passage from "./widgets/passage";
 import PassageRef from "./widgets/passage-ref";
@@ -32,8 +30,6 @@ import ReactionDiagram from "./widgets/reaction-diagram";
 import Sequence from "./widgets/sequence";
 import Simulator from "./widgets/simulator";
 import Sorter from "./widgets/sorter";
-import Table from "./widgets/table";
-import Transformer from "./widgets/transformer";
 import Unit from "./widgets/unit";
 import Video from "./widgets/video";
 
@@ -55,11 +51,9 @@ export default [
     InteractiveGraph,
     LabelImage,
     LightsPuzzle,
-    Matrix,
     Matcher,
     Measurer,
     Molecule,
-    NumberLine,
     Orderer,
     Passage,
     PassageRef,
@@ -69,8 +63,6 @@ export default [
     Sequence,
     Simulator,
     Sorter,
-    Table,
-    Transformer,
     Unit,
     Video,
     DeprecatedStandin,

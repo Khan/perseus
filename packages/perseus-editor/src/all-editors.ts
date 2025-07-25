@@ -5,7 +5,6 @@ import DropdownEditor from "./widgets/dropdown-editor";
 import ExampleGraphieWidgetEditor from "./widgets/example-graphie-widget-editor";
 import ExampleWidgetEditor from "./widgets/example-widget-editor";
 import ExplanationEditor from "./widgets/explanation-editor";
-import ExpressionEditor from "./widgets/expression-editor";
 import GradedGroupEditor from "./widgets/graded-group-editor";
 import GradedGroupSetEditor from "./widgets/graded-group-set-editor";
 import GrapherEditor from "./widgets/grapher-editor";
@@ -13,12 +12,10 @@ import GroupEditor from "./widgets/group-editor";
 import IframeEditor from "./widgets/iframe-editor";
 import ImageEditor from "./widgets/image-editor";
 import InputNumberEditor from "./widgets/input-number-editor";
-import InteractionEditor from "./widgets/interaction-editor";
 import InteractiveGraphEditor from "./widgets/interactive-graph-editor";
 import LabelImageEditor from "./widgets/label-image-editor";
 import LightsPuzzleEditor from "./widgets/lights-puzzle-editor";
 import MatcherEditor from "./widgets/matcher-editor";
-import MatrixEditor from "./widgets/matrix-editor";
 import MeasurerEditor from "./widgets/measurer-editor";
 import MoleculeEditor from "./widgets/molecule-editor";
 import NumberLineEditor from "./widgets/number-line-editor";
@@ -34,8 +31,6 @@ import SequenceEditor from "./widgets/sequence-editor";
 import SimpleMarkdownTesterEditor from "./widgets/simple-markdown-tester-editor";
 import SimulatorEditor from "./widgets/simulator-editor";
 import SorterEditor from "./widgets/sorter-editor";
-import TableEditor from "./widgets/table-editor";
-import TransformerEditor from "./widgets/transformer-editor";
 import UnitEditor from "./widgets/unit-editor";
 import VideoEditor from "./widgets/video-editor";
 
@@ -47,7 +42,6 @@ export default [
     ExampleGraphieWidgetEditor,
     ExampleWidgetEditor,
     ExplanationEditor,
-    ExpressionEditor,
     GradedGroupEditor,
     GradedGroupSetEditor,
     GrapherEditor,
@@ -55,12 +49,10 @@ export default [
     IframeEditor,
     ImageEditor,
     InputNumberEditor,
-    InteractionEditor,
     InteractiveGraphEditor,
     LabelImageEditor,
     LightsPuzzleEditor,
     MatcherEditor,
-    MatrixEditor,
     MeasurerEditor,
     MoleculeEditor,
     NumberLineEditor,
@@ -75,8 +67,6 @@ export default [
     SimpleMarkdownTesterEditor,
     SimulatorEditor,
     SorterEditor,
-    TableEditor,
-    TransformerEditor,
     UnitEditor,
     VideoEditor,
     RadioEditor,

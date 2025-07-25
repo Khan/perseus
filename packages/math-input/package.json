@@ -21,7 +21,6 @@
     "scripts": {},
     "dependencies": {
         "@khanacademy/perseus-core": "1.4.1",
-        "mathquill": "file:../../mathquill-48410e80d760bbd5105544d4a4ab459a28dc2cbc",
         "performance-now": "^0.2.0"
     },
     "devDependencies": {

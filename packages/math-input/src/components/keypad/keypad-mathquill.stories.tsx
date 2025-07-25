@@ -4,11 +4,9 @@ import * as React from "react";
 
 import {CursorContext} from "../input/cursor-contexts";
 import {getCursorContext} from "../input/mathquill-helpers";
-import {createMathField} from "../input/mathquill-instance";
 import keyTranslator from "../key-handlers/key-translator";
 
 import type Key from "../../data/keys";
-import type {MathFieldInterface} from "../input/mathquill-types";
 
 import Keypad from "./index";
 
@@ -18,28 +16,11 @@ export default {
 
 export function V2KeypadWithMathquill() {
     const mathFieldWrapperRef = React.useRef<HTMLDivElement>(null);
-    const [mathField, setMathField] = React.useState<MathFieldInterface>();
+    const mathField = undefined;
     const [keypadOpen, setKeypadOpen] = React.useState<boolean>(true);
     const [cursorContext, setCursorContext] = React.useState<
         typeof CursorContext[keyof typeof CursorContext]
     >(CursorContext.NONE);
-
-    React.useEffect(() => {
-        if (!mathField && mathFieldWrapperRef.current) {
-            const mathFieldInstance = createMathField(
-                mathFieldWrapperRef.current,
-                (baseConfig) => ({
-                    ...baseConfig,
-                    handlers: {
-                        edit: (_mathField) => {
-                            setCursorContext(getCursorContext(_mathField));
-                        },
-                    },
-                }),
-            );
-            setMathField(mathFieldInstance);
-        }
-    }, [mathField]);
 
     function handleClickKey(key: Key) {
         if (!mathField) {
