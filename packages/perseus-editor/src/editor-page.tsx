@@ -132,19 +132,6 @@ class EditorPage extends React.Component<Props, State> {
         this._isMounted = false;
     }
 
-    toggleJsonMode: () => void = () => {
-        this.setState(
-            {
-                json: this.serialize({keepDeletedWidgets: true}),
-            },
-            () => {
-                this.props.onChange({
-                    jsonMode: !this.props.jsonMode,
-                });
-            },
-        );
-    };
-
     updateRenderer() {
         // Some widgets (namely the image widget) like to call onChange before
         // anything has actually been mounted, which causes problems here. We
@@ -237,20 +224,6 @@ class EditorPage extends React.Component<Props, State> {
         return (
             <div id="perseus" className={className}>
                 <div style={{marginBottom: 10}}>
-                    {this.props.developerMode && (
-                        <span>
-                            <label>
-                                {" "}
-                                Developer JSON Mode:{" "}
-                                <input
-                                    type="checkbox"
-                                    checked={this.props.jsonMode}
-                                    onChange={this.toggleJsonMode}
-                                />
-                            </label>{" "}
-                        </span>
-                    )}
-
                     {!this.props.jsonMode && (
                         <ViewportResizer
                             deviceType={this.props.previewDevice}

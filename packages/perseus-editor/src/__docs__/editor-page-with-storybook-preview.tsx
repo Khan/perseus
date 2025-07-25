@@ -31,7 +31,7 @@ const onChangeAction = action("onChange");
 function EditorPageWithStorybookPreview(props: Props) {
     const [previewDevice, setPreviewDevice] =
         React.useState<DeviceType>("phone");
-    const [jsonMode, setJsonMode] = React.useState<boolean | undefined>(false);
+    const [jsonMode, setJsonMode] = React.useState(false);
     const [answerArea, setAnswerArea] = React.useState<
         PerseusAnswerArea | undefined | null
     >();
@@ -50,6 +50,14 @@ function EditorPageWithStorybookPreview(props: Props) {
 
     return (
         <View>
+            <label>
+                Developer JSON Mode:{" "}
+                <input
+                    type="checkbox"
+                    checked={jsonMode}
+                    onChange={(event) => setJsonMode(event.currentTarget.checked)}
+                />
+            </label>
             <EditorPage
                 apiOptions={apiOptions}
                 previewDevice={previewDevice}
@@ -66,9 +74,6 @@ function EditorPageWithStorybookPreview(props: Props) {
                 onChange={(props) => {
                     onChangeAction(props);
 
-                    if ("jsonMode" in props) {
-                        setJsonMode(props.jsonMode);
-                    }
                     if ("answerArea" in props) {
                         setAnswerArea(props.answerArea);
                     }
