@@ -125,7 +125,9 @@ runs:
               body: |
                   # ${{ inputs.comment-title }}: Changes Detected ⚠️
 
-                  This PR contains changes to the Perseus '${{ inputs.comment-title }}'.
+                  This PR contains critical changes to Perseus. Please review
+                  the changes and note that you may need to coordinate
+                  deployment of these changes with other teams at Khan Academy.
 
                   ```diff
                   ${{ steps.compare-artifacts.outputs.diff-content }}
