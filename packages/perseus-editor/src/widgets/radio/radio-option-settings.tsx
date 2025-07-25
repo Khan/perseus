@@ -5,6 +5,7 @@ import * as React from "react";
 
 import {AutoResizingTextArea} from "./auto-resizing-text-area";
 import styles from "./radio-editor.module.css";
+import {RadioOptionContentAndImageEditor} from "./radio-option-content-and-image-editor";
 import {RadioOptionSettingsActions} from "./radio-option-settings-actions";
 import {RadioStatusPill} from "./radio-status-pill";
 
@@ -38,7 +39,6 @@ export function RadioOptionSettings({
 }: RadioOptionSettingsProps) {
     const {content, rationale, correct, isNoneOfTheAbove} = choice;
     const uniqueId = React.useId();
-    const contentTextAreaId = `${uniqueId}-content-textarea`;
     const rationaleTextAreaId = `${uniqueId}-rationale-textarea`;
 
     return (
@@ -96,30 +96,31 @@ export function RadioOptionSettings({
             </fieldset>
 
             {/* Content and rationale text areas */}
-            <HeadingXSmall tag="label" htmlFor={contentTextAreaId}>
-                Content
+            <RadioOptionContentAndImageEditor
+                content={content}
+                choiceIndex={index}
+                isNoneOfTheAbove={isNoneOfTheAbove ?? false}
+                onContentChange={onContentChange}
+            />
+
+            <HeadingXSmall
+                tag="label"
+                htmlFor={rationaleTextAreaId}
+                style={{
+                    marginBlockStart: sizing.size_040,
+                    marginBlockEnd: sizing.size_040,
+                }}
+            >
+                Rationale
             </HeadingXSmall>
             <AutoResizingTextArea
-                id={contentTextAreaId}
-                value={isNoneOfTheAbove ? "None of the above" : content}
-                disabled={isNoneOfTheAbove}
-                placeholder="Type a choice here..."
+                id={rationaleTextAreaId}
+                value={rationale ?? ""}
+                placeholder={`Why is this choice ${correct ? "correct" : "incorrect"}?`}
                 onChange={(value) => {
-                    onContentChange(index, value);
+                    onRationaleChange(index, value);
                 }}
-                style={{marginBlockEnd: sizing.size_080}}
             />
-            <HeadingXSmall tag="label" htmlFor={rationaleTextAreaId}>
-                Rationale
-                <AutoResizingTextArea
-                    id={rationaleTextAreaId}
-                    value={rationale ?? ""}
-                    placeholder={`Why is this choice ${correct ? "correct" : "incorrect"}?`}
-                    onChange={(value) => {
-                        onRationaleChange(index, value);
-                    }}
-                />
-            </HeadingXSmall>
 
             {/* Delete & reorder button */}
             <RadioOptionSettingsActions

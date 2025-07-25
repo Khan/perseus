@@ -45,8 +45,8 @@ catalogs:
         "@khanacademy/wonder-blocks-clickable": ^7.1.18
         "@khanacademy/wonder-blocks-core": ^12.3.0
         "@khanacademy/wonder-blocks-data": ^14.1.4
-        "@khanacademy/wonder-blocks-dropdown": ^10.2.8
-        "@khanacademy/wonder-blocks-form": ^7.2.5
+        "@khanacademy/wonder-blocks-dropdown": ^10.2.9
+        "@khanacademy/wonder-blocks-form": ^7.3.0
         "@khanacademy/wonder-blocks-icon-button": ^10.3.13
         "@khanacademy/wonder-blocks-icon": ^5.2.12
         "@khanacademy/wonder-blocks-labeled-field": ^3.2.1
@@ -55,7 +55,7 @@ catalogs:
         "@khanacademy/wonder-blocks-pill": ^3.1.33
         "@khanacademy/wonder-blocks-popover": ^6.1.21
         "@khanacademy/wonder-blocks-progress-spinner": ^3.1.29
-        "@khanacademy/wonder-blocks-search-field": ^5.1.35
+        "@khanacademy/wonder-blocks-search-field": ^5.1.36
         "@khanacademy/wonder-blocks-switch": ^3.3.11
         "@khanacademy/wonder-blocks-timing": ^7.0.2
         "@khanacademy/wonder-blocks-tokens": ^12.0.0
@@ -82,8 +82,8 @@ catalogs:
         "@khanacademy/wonder-blocks-clickable": 7.1.18
         "@khanacademy/wonder-blocks-core": 12.3.0
         "@khanacademy/wonder-blocks-data": 14.1.4
-        "@khanacademy/wonder-blocks-dropdown": 10.2.8
-        "@khanacademy/wonder-blocks-form": 7.2.5
+        "@khanacademy/wonder-blocks-dropdown": 10.2.9
+        "@khanacademy/wonder-blocks-form": 7.3.0
         "@khanacademy/wonder-blocks-icon-button": 10.3.13
         "@khanacademy/wonder-blocks-icon": 5.2.12
         "@khanacademy/wonder-blocks-labeled-field": 3.2.1
@@ -92,7 +92,7 @@ catalogs:
         "@khanacademy/wonder-blocks-pill": 3.1.33
         "@khanacademy/wonder-blocks-popover": 6.1.21
         "@khanacademy/wonder-blocks-progress-spinner": 3.1.29
-        "@khanacademy/wonder-blocks-search-field": 5.1.35
+        "@khanacademy/wonder-blocks-search-field": 5.1.36
         "@khanacademy/wonder-blocks-switch": 3.3.11
         "@khanacademy/wonder-blocks-timing": 7.0.2
         "@khanacademy/wonder-blocks-tokens": 12.0.0
