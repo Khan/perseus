@@ -29,6 +29,7 @@ const ImageEditorAccordion = (props: {
         <PerseusEditorAccordion
             key={image.url}
             header={`Image ${imageIndex + 1}`}
+            expanded={true}
             containerStyle={{
                 backgroundColor: semanticColor.surface.primary,
                 marginBlockStart: sizing.size_040,

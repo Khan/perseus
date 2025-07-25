@@ -1,6 +1,5 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {Spring} from "@khanacademy/wonder-blocks-layout";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
@@ -77,16 +76,11 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
         newImages[imageIndex] = {url, altText};
         setImages(newImages);
 
-        const newNiceContent = setContentFromNiceContentAndImages(
+        const newContent = setContentFromNiceContentAndImages(
             niceContent,
             newImages,
         );
-        setNiceContent(newNiceContent);
 
-        const newContent = setContentFromNiceContentAndImages(
-            newNiceContent,
-            newImages,
-        );
         onContentChange(choiceIndex, newContent);
     };
 

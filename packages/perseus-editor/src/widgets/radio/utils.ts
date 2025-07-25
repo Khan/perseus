@@ -72,12 +72,12 @@ export function getMovedChoices(
     return newChoices;
 }
 
+// Take the hard-to-read image markdown, and replace it with a nice placeholder.
+// ex. "![abc](https://...) -> "![Image 1]"
+// TODO: Use purMarkdown for this?
 export function setNiceContentAndImages(
     content: string,
 ): [string, {url: string; altText: string}[]] {
-    // Replace the hard-to-read image markdown with a nice placeholder
-    // ex. "![abc](https://...) -> "![Image 1]"
-
     let newContent: string = "";
     const images: {url: string; altText: string}[] = [];
 
@@ -133,6 +133,9 @@ export function setNiceContentAndImages(
     return [newContent, images];
 }
 
+// Take already nice content, and replace it with how the original content
+// would be saved.
+// ex. "![Image 1]" -> "![URL](alt text)"
 export function setContentFromNiceContentAndImages(
     niceContent: string,
     images: {url: string; altText: string}[],
