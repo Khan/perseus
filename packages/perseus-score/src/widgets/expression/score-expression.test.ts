@@ -17,6 +17,11 @@ describe("scoreExpression", () => {
         expect(err).toHaveInvalidInput();
     });
 
+    it("should handle unrecognized symbols by returning an appropriate error code", function () {
+        const err = scoreExpression("33```", expressionItem3Options, "en");
+        expect(err.message).toBe("EXTRA_SYMBOLS_ERROR");
+    });
+
     it("should handle listed incorrect answers as wrong", function () {
         const result = scoreExpression("y+1", expressionItem3Options, "en");
         expect(result).toHaveBeenAnsweredIncorrectly();

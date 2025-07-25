@@ -6,14 +6,15 @@ import {
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
 
+import ErrorCodes from "../../error-codes";
 import KhanAnswerTypes from "../../util/answer-types";
 
 import type {Score} from "../../util/answer-types";
 import type {
+    PerseusExpressionAnswerForm,
     PerseusExpressionRubric,
     PerseusExpressionUserInput,
     PerseusScore,
-    PerseusExpressionAnswerForm,
 } from "@khanacademy/perseus-core";
 
 /* Content creators input a list of answers which are matched from top to
@@ -43,6 +44,13 @@ function scoreExpression(
     _.extend(options, {
         decimal_separator: getDecimalSeparator(locale),
     });
+
+    if (!KAS.parse(userInput, options).parsed) {
+        return {
+            type: "invalid",
+            message: ErrorCodes.EXTRA_SYMBOLS_ERROR,
+        };
+    }
 
     const createValidator = (answer: PerseusExpressionAnswerForm) => {
         // We give options to KAS.parse here because it is parsing the
