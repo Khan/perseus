@@ -11,36 +11,23 @@
 }
 
 .choice {
-    --perseus-multiple-choice-spacing: var(--wb-sizing-size_160);
-    --perseus-multiple-choice-divider-color: var(--wb-semanticColor-core-border-neutral-subtle); /* This will change with hover & focus */
-    --perseus-multiple-choice-divider-width: var(--wb-border-width-thin); /* This will change with hover & focus */
-    --perseus-multiple-choice-divider-space: var(--wb-border-width-medium); /* Space between the choices, which is also used to position the divider */
-    align-items: flex-start;
-    display: flex;
+    --perseus-multiple-choice-divider-color: var(
+        --wb-semanticColor-core-border-neutral-subtle
+    ); /* This will change with hover & focus */
+    --perseus-multiple-choice-divider-width: var(
+        --wb-border-width-thin
+    ); /* This will change with hover & focus */
+    --perseus-multiple-choice-divider-space: var(
+        --wb-border-width-medium
+    ); /* Space between the choices, which is also used to position the divider */
     font-size: var(--wb-font-heading-size-medium);
     font-weight: var(--wb-font-weight-semi);
-    /* "gap" is being used to put horizontal/inline space between the indicator and the content.
-       That way, we can keep all spacing in this file, and not have to apply styling to the indicator itself.
-    */
-    gap: var(--perseus-multiple-choice-spacing);
     line-height: var(--wb-font-heading-lineHeight-medium);
-    margin-block-start: var(--perseus-multiple-choice-divider-space);
+    margin-block-end: var(--perseus-multiple-choice-divider-space);
     min-height: calc(var(--perseus-multiple-choice-spacing) * 4);
     padding: var(--perseus-multiple-choice-spacing);
-    position: relative;
+    position: relative; /* Needed to enable the dividers (:before and :after pseudo-elements) to position correctly */
     width: 100%;
-}
-
-.choice:after,
-.choice:first-of-type:before {
-    background-color: var(--perseus-multiple-choice-divider-color);
-    bottom: calc((var(--perseus-multiple-choice-divider-space) + ((var(--wb-border-width-medium) - var(--perseus-multiple-choice-divider-space)) / 2)) * -1);
-    content: "";
-    display: block;
-    height: var(--perseus-multiple-choice-divider-width);
-    margin-inline-start: calc(var(--perseus-multiple-choice-spacing) * -1); /* Account for the "gap" */
-    position: absolute;
-    width: calc(100% + var(--perseus-multiple-choice-spacing));
 }
 
 .choice:hover {
@@ -51,41 +38,82 @@
  BORDER MANAGEMENT
  *****************/
 
-/* Show a bottom border on the choice when:
+/* Horizontal divider between choices */
+.choice:after,
+.choice:first-of-type:before {
+    background-color: var(--perseus-multiple-choice-divider-color);
+    bottom: calc((var(--perseus-multiple-choice-divider-space) +
+                ((var(--wb-border-width-medium) -
+                    var(--perseus-multiple-choice-divider-space)
+                ) / 2)
+            ) * -1
+    );
+    content: "";
+    display: block;
+    height: var(--perseus-multiple-choice-divider-width);
+    margin-inline-start: calc(
+        var(--perseus-multiple-choice-spacing) * -1
+    ); /* Account for the "gap" */
+    position: absolute;
+    width: 100%;
+}
+
+/* The top divider needs special positioning so that it's above the choice */
+.choice:first-of-type:before {
+    bottom: initial;
+    top: calc((var(--perseus-multiple-choice-divider-space) -
+             ((var(--perseus-multiple-choice-divider-space) -
+                 var(--wb-border-width-thin)
+             ) / 2)
+         ) * -1
+    );
+}
+
+/* Enhance (thicker and darker) the divider between choices when:
       - the choice indicator has focus OR
       - the next choice indicator has focus OR
       - the choice is not in review mode AND
          - the choice is hovered OR
          - the next choice is hovered OR
-   In other words, always show the bottom border when focus is on the indicator,
-       but only show the bottom border for hover when not in review mode.
+   In other words, always enhance the divider when focus is on the indicator,
+       but only enhance the divider for hover when not in review mode.
  */
+
+/* TODO: Refactor this styling so that each choice has both a top and bottom divider,
+   and then we can simplify the logic here.
+*/
 .choice:not(.is-correct):focus-within,
 .choice:has(+ .choice:not(.is-correct):focus-within),
 .choice:not(.is-correct, .is-wrong):hover,
 .choice:not(.is-correct, .is-wrong):has(+ .choice:hover) {
     --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
-    --perseus-multiple-choice-divider-color: var(--wb-semanticColor-core-border-neutral-default);
+    --perseus-multiple-choice-divider-color: var(
+        --wb-semanticColor-core-border-neutral-default
+    );
+}
+
+.choice:not(.is-correct, .is-wrong):has(+ .choice:hover):before {
+    --perseus-multiple-choice-divider-color: var(
+            --wb-semanticColor-core-border-neutral-subtle
+    );
+    --perseus-multiple-choice-divider-width: var(
+            --wb-border-width-thin);
 }
 
 .choice:has(+ .is-correct) {
     --perseus-multiple-choice-divider-width: 0;
 }
 
-.choice:first-of-type:not(.is-correct, .is-wrong):before {
-    --perseus-multiple-choice-divider-color: var(--wb-semanticColor-core-border-neutral-subtle);
-    bottom: initial;
-    top: calc((var(--perseus-multiple-choice-divider-space) - ((var(--perseus-multiple-choice-divider-space) - var(--wb-border-width-thin)) / 2)) * -1);
-}
-
 .choice:first-of-type:focus-within:before,
 .choice:first-of-type:hover:before {
-    --perseus-multiple-choice-divider-color: var(--wb-semanticColor-core-border-neutral-default);
+    --perseus-multiple-choice-divider-color: var(
+        --wb-semanticColor-core-border-neutral-default
+    );
 }
 
-/* The last choice option needs additional space for the border */
-.choice:last-of-type {
-    margin-block-end: var(--wb-border-width-thin);
+/* The first choice option needs additional space for the border */
+.choice:first-of-type {
+    margin-block-start: var(--perseus-multiple-choice-divider-space);
 }
 
 /***********
@@ -114,7 +142,23 @@
  IMAGES ON THEIR OWN LINES
  *************************/
 
+/*
+    Images should be on their own lines when a double return is placed between them and the content around them.
+    The selectors here represent what that looks like after the markdown is rendered.
+    Causing the containing `.paragraph` elements to display as block elements
+        also causes vertical spacing to be applied due to the `margin` on the `.paragraph` class.
+ */
+
+/*
+    TODO: Single Select with Images is broken - fix this.
+    This is also breaking the divider lines between choices (maybe just the .
+*/
+
 .choice :global(.paragraph) :global(+ .paragraph):has(img:only-child),
 .choice :global(.paragraph):has(img:only-child):has(:global(+ .paragraph)) {
     display: block;
+}
+
+.choice :global(.paragraph):first-child:has(img:only-child) {
+    margin-block-start: 0;
 }

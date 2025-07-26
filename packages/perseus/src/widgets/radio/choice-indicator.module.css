@@ -1,20 +1,23 @@
 .base {
-    appearance: none;
+    appearance: none; /* Remove user agent formatting in favor of our own */
     background-color: var(--wb-semanticColor-core-transparent);
     border: solid var(--wb-border-width-medium)
         var(--wb-semanticColor-core-border-neutral-strong);
     color: var(--wb-semanticColor-core-foreground-neutral-default);
     cursor: pointer;
-    flex-shrink: 0;
     font-family: var(--wb-font-family-sans);
-    font-size: var(--wb-font-heading-size-small);
+    font-size: var(--perseus-multiple-choice-indicator-font-size);
     font-weight: var(--wb-font-weight-bold);
-    height: 3.2rem;
+    height: var(--perseus-multiple-choice-indicator-size);
     line-height: var(--wb-font-heading-lineHeight-small);
     outline: 0 solid var(--wb-semanticColor-core-background-instructive-default);
     outline-offset: 0;
     padding: 0;
-    width: 3.2rem;
+    /* Along with the `transform` property applied to the <fieldset> ancestor,
+           the following `position` property will enable the indicator to stay in a fixed place while scrolling.
+     */
+    position: fixed;
+    width: var(--perseus-multiple-choice-indicator-size);
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -75,37 +78,16 @@
     outline: none;
 }
 
-.is-correct[aria-pressed="false"] {
-    /* make an unchecked indicator solid so that it better matches styling for the option when correct */
-    background-color: var(
-        --wb-semanticColor-core-background-instructive-default
-    );
-    border-width: 0;
-    color: var(--wb-semanticColor-core-foreground-inverse-strong);
-}
-
 .is-correct[aria-pressed="true"] {
     background-color: var(--wb-semanticColor-core-background-success-strong);
-    color: var(
-        --wb-semanticColor-action-primary-progressive-default-foreground
-    );
-    width: calc(
-        1.5em + var(--wb-c-button-root-sizing-height-small)
-    ); /* adding 1.5em accounts for the checkmark icon */
+    color: var(--wb-semanticColor-core-foreground-inverse-strong);
+    width: var(--perseus-multiple-choice-indicator-correct-size);
 }
 
-.is-wrong[aria-pressed="false"] {
+.is-wrong {
     background-color: var(--wb-semanticColor-core-transparent);
     border-color: var(--wb-semanticColor-core-border-disabled-strong);
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
-}
-
-.is-wrong[aria-pressed="true"] {
-    background-color: var(--wb-semanticColor-core-background-critical-subtle);
-    color: var(--wb-semanticColor-core-foreground-critical-default);
-    width: calc(
-        1.5em + var(--wb-c-button-root-sizing-height-small)
-    ); /* adding 1.5em accounts for the minus-circle icon */
 }
 
 .circle-shape {

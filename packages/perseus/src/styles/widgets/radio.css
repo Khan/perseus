@@ -17,11 +17,15 @@
 .perseus-clearfix:after {
     clear: both;
 }
+
+/* No reason exists as to why this is here (part of original POC?), so removing and will see if it breaks anything */
 .perseus-widget-radio.perseus-rendered-radio div,
 .perseus-widget-radio.perseus-rendered-radio div > p {
     /* TODO(alpert): Find a better way of doing inline renderers */
     display: inline;
 }
+
+/* Can be removed since it was tied to the editor,  which has been revised */
 .perseus-widget-radio.perseus-rendered-radio
     .perseus-radio-rationale-content
     > .perseus-renderer
@@ -29,6 +33,7 @@
     display: table;
     margin: 0;
 }
+
 .perseus-widget-radio.perseus-rendered-radio
     .perseus-radio-rationale-content
     > .perseus-renderer

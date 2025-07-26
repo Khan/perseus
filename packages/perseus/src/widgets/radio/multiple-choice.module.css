@@ -1,27 +1,70 @@
 .container {
+    /* Variables used in choice.module.css and choice-indicator.module.css.
+       Placed here for convenience so that we don't have to maintain common values in multiple places.
+    */
+    --perseus-multiple-choice-spacing: var(--wb-sizing-size_160);
+    --perseus-multiple-choice-indicator-font-size: var(
+        --wb-font-heading-size-small
+    );
+    --perseus-multiple-choice-indicator-size: 3.2rem;
+    /* 1.5 accounts for size of checkmark icon and its margin */
+    --perseus-multiple-choice-indicator-correct-size: calc(
+        calc(var(--perseus-multiple-choice-indicator-font-size) * 1.5) +
+            var(--perseus-multiple-choice-indicator-size)
+    );
+    --perseus-multiple-choice-content-margin: calc(
+        var(--perseus-multiple-choice-spacing) +
+            var(--perseus-multiple-choice-indicator-size)
+    );
+    min-width: auto; /* Needed for scrollable view to work */
     padding-inline-end: var(--wb-sizing-size_160);
-    min-width: auto;
-}
-
-.content  {
-    display: flex;
-    flex-direction: column;
+    /* The following transform will cause a new reference layer for its descendants,
+           which we use to position the indicator and the scroll fade in a fixed place while scrolling.
+     */
+    transform: translateZ(0);
 }
 
 .choice-list {
-    padding: 0;
-    list-style: none;
-    display: inline-block;
-    min-width: max-content;
+    padding: 0 !important;
+    list-style: none !important;
+    min-width: fit-content;
     width: 100%;
     scrollbar-width: thin;
 }
 
-@media screen and (max-width: 681px) {
-    .choiceList {
-        margin-inline-start: calc(-1 * var(--wb-sizing-size_160));
-        margin-inline-end: calc(-1 * var(--wb-sizing-size_160));
-    }
+/* Fade bar for scrolling */
+.choice-list:before {
+    content: "";
+    display: block;
+    position: fixed;
+    /* TODO: The following gradient should be updated to use appropriate background color to automatically handle when user has chosen dark mode. */
+    background: linear-gradient(
+        to left,
+        transparent,
+        white calc(var(--perseus-multiple-choice-spacing) / 2)
+    );
+    width: calc(
+        var(--perseus-multiple-choice-content-margin) +
+            var(--perseus-multiple-choice-spacing)
+    );
+    height: 100%;
+}
+
+.choice-list:dir(rtl):before {
+    background: linear-gradient(
+        to right,
+        transparent,
+        white calc(var(--perseus-multiple-choice-spacing) / 2)
+    );
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--perseus-multiple-choice-indicator-font-size) / 4);
+    margin-inline-start: var(--perseus-multiple-choice-content-margin);
+    position: relative; /* Needed to enable the z-index to work */
+    z-index: -1; /* Ensures that the content is below the indicator and scroll fade */
 }
 
 .instructions {
@@ -32,11 +75,7 @@
     font-family: inherit;
     font-style: normal;
     font-weight: bold;
-    margin-bottom: var(--wb-sizing-size_160);
-}
-
-.item {
-    margin-inline-start: var(--wb-sizing-size_200);
+    margin-block-end: var(--wb-sizing-size_160);
 }
 
 .rationale {
@@ -49,16 +88,9 @@
     color: var(--wb-semanticColor-core-foreground-neutral-default);
 }
 
-.responsiveItem {
-    margin-inline-start: 0;
-    padding: 0;
-}
-
-.responsiveItem:not(:last-child) {
-    border-bottom: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
-}
-
-.selectedItem {
-    background: var(--wb-semanticColor-core-foreground-inverse-strong);
+.review-answers {
+    --perseus-multiple-choice-content-margin: calc(
+        var(--perseus-multiple-choice-spacing) +
+            var(--perseus-multiple-choice-indicator-correct-size)
+    );
 }
