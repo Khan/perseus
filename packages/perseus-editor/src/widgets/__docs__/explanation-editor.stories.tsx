@@ -1,15 +1,13 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
+import {question1} from "../../../../perseus/src/widgets/explanation/explanation.testdata";
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import ExplanationEditor from "../explanation-editor";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-type Story = {
-    title: string;
-};
-
-export default {
+const meta: Meta = {
     title: "Widgets/Explanation/Editor Demo",
     component: ExplanationEditor,
     tags: ["!dev"],
@@ -21,8 +19,18 @@ export default {
             },
         },
     },
-} as Story;
+} satisfies Meta<typeof ExplanationEditor>;
+export default meta;
 
-export const Default = (args: StoryArgs): React.ReactElement => {
-    return <ExplanationEditor onChange={action("onChange")} />;
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
+    },
+};
+
+export const Preview: StoryObj<typeof EditorPageWithStorybookPreview> = {
+    render: (): React.ReactElement => (
+        <EditorPageWithStorybookPreview question={question1} />
+    ),
 };

@@ -11,7 +11,8 @@ import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widge
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
-registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
 
 export default {
     title: "Editors/Editor",

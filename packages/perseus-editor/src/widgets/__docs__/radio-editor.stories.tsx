@@ -1,4 +1,3 @@
-import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import {action} from "storybook/actions";
 
@@ -10,17 +9,12 @@ import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-stor
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import RadioEditor from "../radio/editor";
 
-import type {APIOptions} from "@khanacademy/perseus";
-import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Meta} from "@storybook/react-vite";
 
-registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
 
-type StoryArgs = StoryObj<RadioEditor>;
-
-type Story = Meta<RadioEditor>;
-
-export default {
+const meta: Meta = {
     title: "Widgets/Radio/Editor Demo",
     tags: ["!dev"],
     parameters: {
@@ -31,36 +25,17 @@ export default {
             },
         },
     },
-} as Story;
+};
+export default meta;
 
-const styles = StyleSheet.create({
-    wrapper: {
-        // The maximum width of a widget in the editor.
-        width: 338,
-    },
-});
-
-class WithState extends React.Component<Empty, PerseusRadioWidgetOptions> {
-    apiOptions: APIOptions = Object.freeze({});
-
-    render(): React.ReactNode {
-        return (
-            <div className={css(styles.wrapper)}>
-                <RadioEditor
-                    {...this.state}
-                    apiOptions={this.apiOptions}
-                    onChange={(props) => {
-                        action("onChange")(props);
-                    }}
-                    static={false}
-                />
-            </div>
-        );
-    }
-}
-
-export const Default = (args: StoryArgs): React.ReactElement => {
-    return <WithState />;
+export const Default = (): React.ReactElement => {
+    return (
+        <RadioEditor
+            apiOptions={Object.freeze({})}
+            onChange={action("onChange")}
+            static={false}
+        />
+    );
 };
 
 export const SingleChoice = (): React.ReactElement => (

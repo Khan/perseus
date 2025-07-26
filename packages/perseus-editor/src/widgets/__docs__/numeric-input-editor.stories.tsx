@@ -1,6 +1,8 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
+import {integerProblem} from "../../../../perseus/src/widgets/numeric-input/numeric-input.testdata";
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import NumericInputEditor from "../numeric-input-editor";
 
 type StoryArgs = Record<any, any>;
@@ -27,3 +29,7 @@ export default {
 export const Default = (args: StoryArgs): React.ReactElement => {
     return <NumericInputEditor onChange={action("onChange")} />;
 };
+
+export const Preview = (): React.ReactElement => (
+    <EditorPageWithStorybookPreview question={integerProblem} />
+);
