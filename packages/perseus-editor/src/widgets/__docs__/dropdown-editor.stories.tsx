@@ -6,16 +6,12 @@ import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-stor
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import DropdownEditor from "../dropdown-editor";
 
+import type {Meta, StoryObj} from "@storybook/react-vite";
+
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
 
-type StoryArgs = Record<any, any>;
-
-type Story = {
-    title: string;
-};
-
-export default {
+const meta: Meta = {
     title: "Widgets/Dropdown/Editor Demo",
     component: DropdownEditor,
     tags: ["!dev"],
@@ -28,16 +24,18 @@ export default {
             },
         },
     },
-} as Story;
+} satisfies Meta<typeof DropdownEditor>;
+export default meta;
 
-export const Default = (args: StoryArgs): React.ReactElement => {
-    return (
-        <div className="framework-perseus">
-            <DropdownEditor onChange={action("onChange")} />
-        </div>
-    );
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
+    },
 };
 
-export const Preview = (): React.ReactElement => (
-    <EditorPageWithStorybookPreview question={basicDropdown} />
-);
+export const Preview: StoryObj<typeof EditorPageWithStorybookPreview> = {
+    render: (): React.ReactElement => (
+        <EditorPageWithStorybookPreview question={basicDropdown} />
+    ),
+};

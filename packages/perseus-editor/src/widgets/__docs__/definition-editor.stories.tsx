@@ -6,14 +6,12 @@ import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-stor
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import DefinitionEditor from "../definition-editor";
 
+import type {Meta, StoryObj} from "@storybook/react-vite";
+
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
 
-type Story = {
-    title: string;
-};
-
-export default {
+const meta: Meta = {
     title: "Widgets/Definition/Editor Demo",
     component: DefinitionEditor,
     tags: ["!dev"],
@@ -26,12 +24,18 @@ export default {
             },
         },
     },
-} as Story;
+} satisfies Meta<typeof DefinitionEditor>;
+export default meta;
 
-export const Default = (): React.ReactElement => {
-    return <DefinitionEditor onChange={action("onChange")} />;
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
+    },
 };
 
-export const Preview = (): React.ReactElement => (
-    <EditorPageWithStorybookPreview question={question} />
-);
+export const Preview: StoryObj<typeof EditorPageWithStorybookPreview> = {
+    render: (): React.ReactElement => (
+        <EditorPageWithStorybookPreview question={question} />
+    ),
+};

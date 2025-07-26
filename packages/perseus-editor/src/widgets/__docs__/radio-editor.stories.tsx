@@ -9,14 +9,12 @@ import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-stor
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import RadioEditor from "../radio/editor";
 
-import type {Meta, StoryObj} from "@storybook/react-vite";
+import type {Meta} from "@storybook/react-vite";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
 
-type Story = Meta<RadioEditor>;
-
-export default {
+const meta: Meta = {
     title: "Widgets/Radio/Editor Demo",
     tags: ["!dev"],
     parameters: {
@@ -27,7 +25,8 @@ export default {
             },
         },
     },
-} as Story;
+};
+export default meta;
 
 export const Default = (): React.ReactElement => {
     return (

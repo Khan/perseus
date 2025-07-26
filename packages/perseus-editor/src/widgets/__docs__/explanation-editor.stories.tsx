@@ -5,11 +5,9 @@ import {question1} from "../../../../perseus/src/widgets/explanation/explanation
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import ExplanationEditor from "../explanation-editor";
 
-type Story = {
-    title: string;
-};
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-export default {
+const meta: Meta = {
     title: "Widgets/Explanation/Editor Demo",
     component: ExplanationEditor,
     tags: ["!dev"],
@@ -21,12 +19,18 @@ export default {
             },
         },
     },
-} as Story;
+} satisfies Meta<typeof ExplanationEditor>;
+export default meta;
 
-export const Default = (): React.ReactElement => {
-    return <ExplanationEditor onChange={action("onChange")} />;
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
+    },
 };
 
-export const Preview = (): React.ReactElement => (
-    <EditorPageWithStorybookPreview question={question1} />
-);
+export const Preview: StoryObj<typeof EditorPageWithStorybookPreview> = {
+    render: (): React.ReactElement => (
+        <EditorPageWithStorybookPreview question={question1} />
+    ),
+};
