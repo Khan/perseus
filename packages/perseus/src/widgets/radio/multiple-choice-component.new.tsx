@@ -108,10 +108,10 @@ const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
             ? i18nStrings.noneOfTheAbove
             : choice.content;
         const rationaleClasses = [styles.rationale]
-            .concat(showCorrectness ? [styles["is-" + showCorrectness]] : [])
+            .concat(showCorrectness === "correct" ? [styles.isCorrect] : [])
             .join(" ");
         const rationale =
-            (reviewMode || choice.showRationale) && choice.hasRationale ? (
+            reviewMode && choice.hasRationale ? (
                 <div className={rationaleClasses}>{choice.rationale}</div>
             ) : undefined;
         // TODO: Use choice ID as key once it's available
