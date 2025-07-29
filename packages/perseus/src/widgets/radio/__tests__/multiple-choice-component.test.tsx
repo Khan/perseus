@@ -1,5 +1,5 @@
 import {describe, it} from "@jest/globals";
-import {act,  render, screen} from "@testing-library/react";
+import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import * as Choice from "../choice.new";

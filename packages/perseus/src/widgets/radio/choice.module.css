@@ -52,20 +52,30 @@
 }
 
 .choice:before {
-    top: calc((var(--perseus-multiple-choice-divider-space) -
-            ((var(--perseus-multiple-choice-divider-space) -
-                var(--wb-border-width-thin)
-            ) / 2)
-        ) * -1
+    top: calc(
+        (
+                var(--perseus-multiple-choice-divider-space) -
+                    (
+                        (
+                                var(--perseus-multiple-choice-divider-space) -
+                                    var(--wb-border-width-thin)
+                            ) / 2
+                    )
+            ) * -1
     );
 }
 
 .choice:after {
-    bottom: calc((var(--perseus-multiple-choice-divider-space) +
-            ((var(--wb-border-width-thin) -
-                var(--perseus-multiple-choice-divider-space)
-            ) / 2)
-        ) * -1
+    bottom: calc(
+        (
+                var(--perseus-multiple-choice-divider-space) +
+                    (
+                        (
+                                var(--wb-border-width-thin) -
+                                    var(--perseus-multiple-choice-divider-space)
+                            ) / 2
+                    )
+            ) * -1
     );
 }
 
