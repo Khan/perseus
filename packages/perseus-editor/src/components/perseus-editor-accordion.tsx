@@ -13,6 +13,7 @@ type Props = {
     expanded?: boolean;
     containerStyle?: StyleType;
     panelStyle?: StyleType;
+    headerStyle?: StyleType;
     onToggle?: (expanded: boolean) => void;
 };
 
@@ -24,6 +25,7 @@ const PerseusEditorAccordion = (props: Props) => {
         expanded,
         containerStyle,
         panelStyle,
+        headerStyle,
         onToggle,
     } = props;
 
@@ -39,7 +41,7 @@ const PerseusEditorAccordion = (props: Props) => {
                 expanded={expanded}
                 onToggle={onToggle}
                 style={[styles.container, containerStyle]}
-                headerStyle={styles.accordionHeader}
+                headerStyle={[styles.accordionHeader, headerStyle]}
                 header={header}
             >
                 <View style={[styles.accordionPanel, panelStyle]}>
