@@ -41,7 +41,6 @@ configureSort({
         editors: null,
         widgets: {
             "**": {
-                basic: null,
                 docs: null,
                 accessibility: null,
                 "widget demo": null,
