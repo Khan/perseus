@@ -1,5 +1,59 @@
 # @khanacademy/perseus-editor
 
+## 27.0.0
+
+### Major Changes
+
+-   [#2706](https://github.com/Khan/perseus/pull/2706) [`7ae45139b`](https://github.com/Khan/perseus/commit/7ae45139b0fbe75e128f5a0e8e71078dc8a4e733) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove frameSource prop from EditorPage component
+
+### Patch Changes
+
+-   Updated dependencies [[`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2), [`bfe4e50e9`](https://github.com/Khan/perseus/commit/bfe4e50e968e1b34dec685ec81c05d252cd07e49), [`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2)]:
+    -   @khanacademy/perseus@66.2.0
+    -   @khanacademy/perseus-score@7.3.0
+    -   @khanacademy/perseus-core@18.4.0
+    -   @khanacademy/keypad-context@3.1.1
+    -   @khanacademy/kmath@2.1.1
+    -   @khanacademy/math-input@26.1.1
+    -   @khanacademy/perseus-linter@4.2.1
+
+## 26.2.0
+
+### Minor Changes
+
+-   [#2737](https://github.com/Khan/perseus/pull/2737) [`77e095f86`](https://github.com/Khan/perseus/commit/77e095f8660618b9476a50094872821c7a9184e8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updating all packages to newest version of wonderblocks
+
+### Patch Changes
+
+-   Updated dependencies [[`77e095f86`](https://github.com/Khan/perseus/commit/77e095f8660618b9476a50094872821c7a9184e8)]:
+    -   @khanacademy/kas@2.1.0
+    -   @khanacademy/keypad-context@3.1.0
+    -   @khanacademy/kmath@2.1.0
+    -   @khanacademy/math-input@26.1.0
+    -   @khanacademy/perseus@66.1.0
+    -   @khanacademy/perseus-core@18.3.0
+    -   @khanacademy/perseus-linter@4.2.0
+    -   @khanacademy/perseus-score@7.2.0
+    -   @khanacademy/perseus-utils@2.1.0
+    -   @khanacademy/pure-markdown@2.2.0
+
+## 26.1.2
+
+### Patch Changes
+
+-   [#2734](https://github.com/Khan/perseus/pull/2734) [`1209297b0`](https://github.com/Khan/perseus/commit/1209297b08f6863ff8199a34b2a06462484999cb) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Add dynamically resizing text areas to Radio editor UI
+
+## 26.1.1
+
+### Patch Changes
+
+-   [#2729](https://github.com/Khan/perseus/pull/2729) [`266bce537`](https://github.com/Khan/perseus/commit/266bce537c6685ef237064332d3bc5b2119b7da0) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Implement choice reordering in the editor
+
+*   [#2699](https://github.com/Khan/perseus/pull/2699) [`cfc072417`](https://github.com/Khan/perseus/commit/cfc072417d1b66c1c87b0a0200c37c376434920f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Improve Perseus documentation
+
+*   Updated dependencies [[`8720ca1e2`](https://github.com/Khan/perseus/commit/8720ca1e2a780ecdf658971ec993a8adb7066c55), [`a7c14bf18`](https://github.com/Khan/perseus/commit/a7c14bf183f3e47ec887c695c7fc9ee83d21da46), [`cfc072417`](https://github.com/Khan/perseus/commit/cfc072417d1b66c1c87b0a0200c37c376434920f)]:
+    -   @khanacademy/perseus@66.0.2
+
 ## 26.1.0
 
 ### Minor Changes

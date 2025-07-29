@@ -245,102 +245,45 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            - name: Build schema for current commit
-              run: >-
-                  pnpm tsc --declaration --emitDeclarationOnly \
-                    --outfile ${{ runner.temp }}/schema-pr.d.ts \
-                    packages/perseus-core/src/data-schema.ts
-                  pnpm prettier --write ${{ runner.temp }}/schema-pr.d.ts
+            - name: Compare Perseus Schema to base branch
+              uses: ./.github/actions/branch-compare
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  build-command: |
+                      pnpm install && \
+                      pnpm tsc --declaration --emitDeclarationOnly \
+                        --outfile ${{ runner.temp }}/schema.d.ts \
+                        packages/perseus-core/src/data-schema.ts
+                      pnpm prettier --write ${{ runner.temp }}/schema.d.ts
+                  path-to-artifact: ${{ runner.temp }}/schema.d.ts
+                  label-name: schema-change
+                  comment-title: 🗄️ Schema Change
 
-            - name: Check out base branch
+    check_item_splitting:
+        name: Check for item splitting changes
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [20.x]
+        steps:
+            - name: Check out latest commit
               uses: actions/checkout@v4
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
               with:
-                  # This checks out the base branch of the PR (the branch the PR
-                  # is targeting)
-                  ref: ${{ github.event.pull_request.base.ref }}
+                  node-version: ${{ matrix.node-version }}
 
-            - name: Re-install node_modules for base branch
-              run: pnpm install
-
-            - name: Build schema for base
-              run: >-
-                  pnpm tsc --declaration --emitDeclarationOnly \
-                    --outfile ${{ runner.temp }}/schema-base.d.ts \
-                    packages/perseus-core/src/data-schema.ts
-
-                  pnpm prettier --write ${{ runner.temp }}/schema-base.d.ts
-
-            - name: Check for Schema Change
-              id: check_for_schema_change
-              run: |
-                  # So a non-zero exit code from 'diff' doesn't bail this step.
-                  set +e
-                  # We generate a random delimiter (DELIM) so that the existence of the
-                  # delimeter in the diff output doesn't cause problems.
-                  DELIM=$(uuidgen)
-                  echo "SCHEMA_DIFF<<$DELIM" >> "$GITHUB_OUTPUT"
-                  diff -C 3 ${{ runner.temp }}/schema-base.d.ts ${{ runner.temp }}/schema-pr.d.ts >> "$GITHUB_OUTPUT"
-                  DIFF_EXIT_CODE=$? # Capture the exit code of diff
-                  echo "$DELIM" >> "$GITHUB_OUTPUT"
-                  echo "diff_exit_code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
-
-            - name: Schema Changed! Add schema-change label to PR
-              if: steps.check_for_schema_change.outputs.diff_exit_code != '0'
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                  PR_NUMBER="${{ github.event.pull_request.number }}"
-                  gh pr edit "$PR_NUMBER" --add-label "schema-change"
-
-            - name: Schema NOT Changed! Remove schema-change label to PR
-              if: steps.check_for_schema_change.outputs.diff_exit_code == '0'
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-              run: |
-                  PR_NUMBER="${{ github.event.pull_request.number }}"
-                  gh pr edit "$PR_NUMBER" --remove-label "schema-change" || true
-
-            - name: Find Schema Change comment
-              uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
-              id: find-schema-change-comment
+            - name: Use branch-compare action to generate item splitting artifacts
+              id: split-item-compare
+              uses: ./.github/actions/branch-compare
               with:
-                  issue-number: ${{ github.event.pull_request.number }}
-                  comment-author: "github-actions[bot]"
-                  body-includes: "Comment ID: schema-change"
-
-            - name: Create or update Schema Change comment - success
-              if: steps.check_for_schema_change.outputs.diff_exit_code == '0'
-              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
-              with:
-                  issue-number: ${{ github.event.pull_request.number }}
-                  comment-id: ${{ steps.find-schema-change-comment.outputs.comment-id }}
-                  edit-mode: replace
-                  body: |
-                      # 🗄️ No Schema Changes ✅
-
-                      <!---
-                      Comment ID: schema-change
-                      -->
-
-            - name: Create or update Schema Change comment - failure
-              if: steps.check_for_schema_change.outputs.diff_exit_code != '0'
-              uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
-              with:
-                  issue-number: ${{ github.event.pull_request.number }}
-                  comment-id: ${{ steps.find-schema-change-comment.outputs.comment-id }}
-                  edit-mode: replace
-                  body: |
-                      # 🗄️ Schema Change Detected
-
-                      ⚠️ This PR contains changes to the Perseus Schema.
-
-                      ```diff
-                      ${{ steps.check_for_schema_change.outputs.SCHEMA_DIFF }}
-                      ```
-
-                      <!---
-                      Comment ID: schema-change
-                      -->
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  build-command: pnpm install && pnpm build
+                  path-to-artifact: packages/perseus-core/dist/es/index.item-splitting.js
+                  label-name: item-splitting-change
+                  comment-title: 🛠️ Item Splitting
 
     publish_snapshot:
         name: Publish npm snapshot

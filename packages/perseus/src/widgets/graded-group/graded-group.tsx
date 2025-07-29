@@ -322,6 +322,7 @@ export class GradedGroup
                             //     });
                             // }}
                             ref={this.rendererRef}
+                            keypadElement={this.props.keypadElement}
                             apiOptions={{...apiOptions, readOnly}}
                             showSolutions={showSolutions}
                             linterContext={this.props.linterContext}

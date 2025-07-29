@@ -11,10 +11,6 @@
     margin-block-end: 12px;
 }
 
-.content-heading {
-    margin-block-end: 1.2rem;
-}
-
 .radio-option-actions-container {
     display: flex;
     flex-direction: row;
