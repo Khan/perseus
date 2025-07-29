@@ -1,28 +1,19 @@
-import * as React from "react";
 import {action} from "storybook/actions";
 
 import SorterEditor from "../sorter-editor";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-type Story = {
-    title: string;
-};
-
-export default {
+const meta: Meta = {
     title: "Widgets/Sorter/Editor Demo",
     component: SorterEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding a sorter widget that allows users to arrange items in a specific order.",
-            },
-        },
-    },
-} as Story;
+} satisfies Meta<typeof SorterEditor>;
+export default meta;
 
-export const Default = (args: StoryArgs): React.ReactElement => {
-    return <SorterEditor onChange={action("onChange")} />;
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
+    },
 };

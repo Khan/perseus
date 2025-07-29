@@ -1,4 +1,5 @@
 import * as React from "react";
+import {action} from "storybook/actions";
 
 import FreeResponseEditor from "../free-response-editor";
 
@@ -7,25 +8,18 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 type StoryArgs = Record<any, any>;
 
-const meta: Meta<typeof FreeResponseEditor> = {
-    component: FreeResponseEditor,
+const meta: Meta = {
     title: "Widgets/Free Response/Editor Demo",
+    component: FreeResponseEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding a free response widget that allow users to enter open-ended text answers.",
-            },
-        },
-    },
-};
-
+} satisfies Meta<typeof FreeResponseEditor>;
 export default meta;
-type Story = StoryObj<typeof FreeResponseEditor>;
 
-export const NoCriteria: Story = {
-    args: {},
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
+    },
 };
 
 export const OneCriterion: Story = {

@@ -70,6 +70,10 @@ type State = {
     backgroundImageError?: string;
 };
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * An editor for adding an image widget that allows users to display and configure images within content.
+ */
 class ImageEditor extends React.Component<Props> {
     static displayName = "ImageEditor";
     static widgetName = "image";

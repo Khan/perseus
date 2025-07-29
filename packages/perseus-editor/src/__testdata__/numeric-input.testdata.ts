@@ -1,4 +1,7 @@
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    NumericInputWidget,
+    PerseusRenderer,
+} from "@khanacademy/perseus-core";
 
 export const question1: PerseusRenderer = {
     content:
@@ -30,5 +33,35 @@ export const question1: PerseusRenderer = {
                 size: "normal",
             },
         },
+    },
+};
+
+export const integerProblem: PerseusRenderer = {
+    // Added a floating question mark to keep enough space to show the examples.
+    content: "$5/5 + 10/10 =$ [[\u2603 numeric-input 1]] \n\n‎",
+    images: {},
+    widgets: {
+        "numeric-input 1": {
+            graded: true,
+            static: false,
+            type: "numeric-input",
+            options: {
+                coefficient: false,
+                static: false,
+                answers: [
+                    {
+                        status: "correct",
+                        maxError: null,
+                        strict: true,
+                        value: 15,
+                        simplify: "required",
+                        message: "",
+                        answerForms: ["integer"],
+                    },
+                ],
+                labelText: "",
+                size: "normal",
+            },
+        } as NumericInputWidget,
     },
 };

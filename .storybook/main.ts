@@ -47,7 +47,7 @@ configureSort({
                 "editor demo": null,
                 "widget states gallery": null,
                 "widget internal components": null,
-                "regression test": null,
+                "visual regression tests": null,
             },
         },
         "math input": {
@@ -62,6 +62,8 @@ configureSort({
 });
 
 const config: StorybookConfig = {
+    // TODO(ivy): Simplify code below once improvements are done
+    // stories: ["../src/**/*.stories.@(ts|tsx|mdx)"]
     stories: [
         // This will be used for the main documentation pages
         "../__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
@@ -71,7 +73,7 @@ const config: StorybookConfig = {
 
         // Docs for Perseus widgets, components, and renderers
         "../packages/perseus/src/**/__docs__/**/*.@(stories.ts|stories.tsx|mdx)",
-        "../packages/perseus/src/widgets/**/*.@(stories.ts|stories.tsx|mdx)",
+        "../packages/perseus/src/widgets/**/**/*.@(stories.ts|stories.tsx|mdx)",
 
         // Docs for Math Input
         "../packages/math-input/src/**/*.stories.tsx",

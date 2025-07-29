@@ -4,24 +4,15 @@ import PhetSimulationEditor from "../phet-simulation-editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta: Meta<typeof PhetSimulationEditor> = {
+const meta: Meta = {
     component: PhetSimulationEditor,
     title: "Widgets/PhET Simulation/Editor Demo",
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding a PhET simulation widget that allows users to interact with physics simulations.",
-            },
-        },
-    },
-};
-
+} satisfies Meta<typeof PhetSimulationEditor>;
 export default meta;
-type Story = StoryObj<typeof PhetSimulationEditor>;
 
-export const Primary: Story = {
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
     args: {
         onChange: action("onChange"),
     },

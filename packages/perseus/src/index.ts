@@ -30,7 +30,7 @@ export {default as NumericInput} from "./widgets/numeric-input";
 export {default as Radio} from "./widgets/radio";
 export {default as BaseRadio} from "./widgets/radio/base-radio";
 export {default as Categorizer} from "./widgets/categorizer";
-export {default as InteractiveGraphWidget} from "./widgets/interactive-graph";
+export {default as InteractiveGraphWidget} from "./widgets/interactive-graphs/interactive-graph";
 export {default as MatrixWidget} from "./widgets/matrix";
 export {default as TableWidget} from "./widgets/table";
 export {default as PlotterWidget} from "./widgets/plotter";

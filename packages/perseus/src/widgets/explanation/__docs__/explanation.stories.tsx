@@ -1,13 +1,12 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-
+import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {
     ipsumExample,
     question1,
     question2,
     wideButton,
-} from "./explanation.testdata";
+} from "../explanation.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

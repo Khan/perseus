@@ -4,7 +4,8 @@ import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widge
 
 import EditorPageWithStorybookPreview from "./editor-page-with-storybook-preview";
 
-registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
 
 export default {
     title: "Editors/EditorPage",

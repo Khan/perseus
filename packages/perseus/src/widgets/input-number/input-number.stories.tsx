@@ -13,7 +13,7 @@ import {question1, question2, question3} from "./input-number.testdata";
 import type {Meta} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Widgets/InputNumber",
+    title: "Widgets/Input Number",
     component: ServerItemRendererWithDebugUI,
     tags: ["!dev"],
     parameters: {

@@ -33,6 +33,10 @@ type Props = {
     }) => void;
 };
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * An editor for adding an input number widget that allows users to enter numerical values.
+ */
 class InputNumberEditor extends React.Component<Props> {
     static widgetName = "input-number" as const;
 

@@ -1,28 +1,19 @@
-import * as React from "react";
 import {action} from "storybook/actions";
 
 import MatcherEditor from "../matcher-editor";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-type Story = {
-    title: string;
-};
-
-export default {
+const meta: Meta = {
     title: "Widgets/Matcher/Editor Demo",
     component: MatcherEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding a matcher widget that allows users to match items from two different sets.",
-            },
-        },
-    },
-} as Story;
+} satisfies Meta<typeof MatcherEditor>;
+export default meta;
 
-export const Default = (args: StoryArgs): React.ReactElement => {
-    return <MatcherEditor onChange={action("onChange")} />;
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
+    },
 };

@@ -9,26 +9,16 @@ import {action} from "storybook/actions";
 import ImageEditor from "../image-editor";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+import type {Meta} from "@storybook/react-vite";
 
 type StoryArgs = Record<any, any>;
 
-type Story = {
-    title: string;
-};
-
-export default {
+const meta: Meta = {
     title: "Widgets/Image/Editor Demo",
     component: ImageEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding an image widget that allows users to display and configure images within content.",
-            },
-        },
-    },
-} as Story;
+};
+export default meta;
 
 const styles = StyleSheet.create({
     wrapper: {

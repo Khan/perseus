@@ -1,53 +1,20 @@
-/* eslint-disable @khanacademy/ts-no-error-suppressions */
-import {StyleSheet, css} from "aphrodite";
-import * as React from "react";
+import {action} from "storybook/actions";
 
 import LabelImageEditor from "../label-image-editor";
 
-import type {PerseusLabelImageWidgetOptions} from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-type StoryArgs = Record<any, any>;
-
-type Story = {
-    title: string;
-};
-
-export default {
+const meta: Meta = {
     title: "Widgets/Label Image/Editor Demo",
     component: LabelImageEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding a label image widget that allows users to mark\
-                    and identify specific areas on an image.",
-            },
-        },
-    },
-} as Story;
+} satisfies Meta<typeof LabelImageEditor>;
+export default meta;
 
-const styles = StyleSheet.create({
-    wrapper: {
-        // The maximum width of a widget in the editor.
-        width: 338,
-    },
-});
-
-type State = {
-    imageAlt: string;
-    choices: ReadonlyArray<string>;
-    imageUrl: string;
-    imageWidth: number;
-    imageHeight: number;
-    markers: PerseusLabelImageWidgetOptions["markers"];
-};
-
-class WithState extends React.Component<Empty, State> {
-    // @ts-expect-error [FEI-5003] - TS2564 - Property '_widget' has no initializer and is not definitely assigned in the constructor.
-    _widget: LabelImageEditor;
-
-    state = {
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
         imageAlt: "Map of Europe",
         choices: [
             "Lamborghini",
@@ -81,27 +48,5 @@ class WithState extends React.Component<Empty, State> {
                 y: 78.8,
             },
         ],
-    };
-
-    render(): React.ReactNode {
-        return (
-            <div className={css(styles.wrapper)}>
-                <LabelImageEditor
-                    {...this.state}
-                    onChange={(props) =>
-                        this.setState({
-                            ...this._widget.serialize(),
-                            ...props,
-                        })
-                    }
-                    // @ts-expect-error [FEI-5003] - TS2322 - Type 'LabelImageEditor | null' is not assignable to type 'LabelImageEditor'.
-                    ref={(widget) => (this._widget = widget)}
-                />
-            </div>
-        );
-    }
-}
-
-export const Default = (args: StoryArgs): React.ReactElement => {
-    return <WithState />;
+    },
 };

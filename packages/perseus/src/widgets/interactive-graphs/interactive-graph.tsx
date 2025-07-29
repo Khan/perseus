@@ -9,18 +9,16 @@ import {UnreachableCaseError} from "@khanacademy/wonder-stuff-core";
 import * as React from "react";
 import _ from "underscore";
 
-import Util from "../util";
-import {getInteractiveBoxFromSizeClass} from "../util/sizing-utils";
-import {getPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
+import Util from "../../util";
+import {getInteractiveBoxFromSizeClass} from "../../util/sizing-utils";
+import {getPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
 
-import {StatefulMafsGraph} from "./interactive-graphs";
-
-import type {StatefulMafsGraphType} from "./interactive-graphs/stateful-mafs-graph";
-import type {QuadraticGraphState} from "./interactive-graphs/types";
-import type {Coord} from "../interactive2/types";
-import type {WidgetExports, WidgetProps} from "../types";
-import type {InteractiveGraphPromptJSON} from "../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
-import type {UnsupportedWidgetPromptJSON} from "../widget-ai-utils/unsupported-widget";
+import type {StatefulMafsGraphType} from "./stateful-mafs-graph";
+import type {QuadraticGraphState} from "./types";
+import type {Coord} from "../../interactive2/types";
+import type {WidgetExports, WidgetProps} from "../../types";
+import type {InteractiveGraphPromptJSON} from "../../widget-ai-utils/interactive-graph/interactive-graph-ai-utils";
+import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
     QuadraticCoefficient,
     SineCoefficient,
@@ -41,6 +39,8 @@ import type {
     AxisLabelLocation,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
+
+import {StatefulMafsGraph} from "./index";
 
 const {getClockwiseAngle} = angles;
 
