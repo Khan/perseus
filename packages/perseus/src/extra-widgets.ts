@@ -16,7 +16,7 @@ import Group from "./widgets/group";
 import Iframe from "./widgets/iframe";
 import Image from "./widgets/image";
 import Interactive from "./widgets/interaction";
-import InteractiveGraph from "./widgets/interactive-graph";
+import InteractiveGraph from "./widgets/interactive-graphs/interactive-graph";
 import LabelImage from "./widgets/label-image";
 import Matcher from "./widgets/matcher";
 import Matrix from "./widgets/matrix";

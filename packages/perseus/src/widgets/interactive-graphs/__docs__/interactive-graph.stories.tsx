@@ -1,10 +1,9 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {Flipbook} from "../../../../../dev/flipbook";
-import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-import {ApiOptions} from "../../perseus-api";
-
+import {Flipbook} from "../../../../../../dev/flipbook";
+import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {ApiOptions} from "../../../perseus-api";
 import {
     angleQuestion,
     circleQuestion,
@@ -28,7 +27,7 @@ import {
     segmentWithLockedLabels,
     unlimitedPolygonQuestion,
     floatingPointIssueQuestion,
-} from "./interactive-graph.testdata";
+} from "../interactive-graph.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

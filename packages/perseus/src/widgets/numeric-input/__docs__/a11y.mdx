@@ -1,0 +1,40 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+
+<Meta title="Widgets/Numeric Input/Accessibility" />
+
+# Numeric Input Accessibility
+
+The Numeric Input widget is designed with accessibility in mind to ensure it is usable by all users, including those relying on assistive technologies.
+
+## Keyboard Navigation
+
+-   The input can be focused using the Tab key and unfocused with Shift+Tab.
+-   Users can type numbers and mathematical symbols directly into the input field.
+-   When the custom keypad is enabled (on mobile), the keypad is accessible via keyboard and touch.
+
+## Screen Reader Support
+
+-   The input field is labeled using the provided `labelText` prop, which is announced by screen readers.
+-   Example formats are provided and can be read by screen readers if visible.
+-   Error states and validation messages should be announced using ARIA attributes (ensure your implementation provides these if needed).
+
+## Focus Management
+
+-   The widget manages focus and blur events to provide visual cues and accessibility feedback.
+-   When focused, the input border is highlighted for better visibility.
+
+## ARIA Attributes
+
+-   The input uses standard HTML input elements, which are natively accessible.
+-   If additional ARIA attributes are needed (e.g., `aria-invalid`, `aria-describedby`), ensure they are passed via props or implemented in your usage.
+
+## Best Practices
+
+-   Always provide a descriptive `labelText` for the input.
+-   Use clear example formats to help users understand the expected input.
+-   Test the widget with screen readers and keyboard navigation to ensure a smooth experience.
+
+## Known Limitations
+
+-   Custom keypad (on mobile) may have varying accessibility depending on device and browser support.
+-   If you encounter accessibility issues, please report them or contribute improvements.

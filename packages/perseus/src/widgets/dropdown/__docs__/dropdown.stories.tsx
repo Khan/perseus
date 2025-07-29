@@ -1,14 +1,13 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-
+import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {
     basicDropdown,
     dropdownWithEmptyPlaceholder,
     dropdownWithMath,
     dropdownWithVisibleLabel,
     inlineDropdownWithVisibleLabel,
-} from "./dropdown.testdata";
+} from "../dropdown.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 

@@ -1,11 +1,11 @@
 import {action} from "storybook/actions";
 
-import InputWithExamples from "./input-with-examples";
+import InputWithExamples from "../input-with-examples";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Widgets/Numeric Input/Input with Examples",
+    title: "Widgets/Numeric Input/Widget States Gallery",
     component: InputWithExamples,
     args: {
         examples: [],

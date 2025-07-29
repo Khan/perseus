@@ -1,0 +1,36 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+
+<Meta title="Widgets/RadioNew/Accessibility" />
+
+# Radio Widget Accessibility
+
+The new Radio widget is designed to be accessible for all users, including those using assistive technologies.
+
+## Keyboard Navigation
+
+-   Users can navigate to each radio option using the `Tab` key.
+-   Once focused, options can be selected with `Space` or `Enter`.
+-   Arrow keys (`Up`/`Down` or `Left`/`Right`) allow users to move between radio options within the group.
+-   Only one option can be selected at a time in single-select mode; multiple in multi-select mode if enabled.
+
+## Screen Reader Support
+
+-   The radio group and options use appropriate ARIA roles (`radiogroup`, `radio`) and attributes to communicate their state to screen readers.
+-   The `aria-label` is set based on the widget's `ariaLabel` or `visibleLabel` prop, or defaults to a localized string (e.g., "Select an answer").
+-   The currently selected option is announced to screen readers.
+
+## Visible Labels and Instructions
+
+-   If a `visibleLabel` is provided, it is rendered as a `<label>` and associated with the radio group for better accessibility.
+-   Instructions or context can be provided via `ariaLabel` or visible text.
+
+## Best Practices
+
+-   Always provide a meaningful `visibleLabel` or `ariaLabel` for context.
+-   Avoid using only color to convey meaning in radio options.
+-   Ensure the radio group is not set to `readOnly` unless necessary, as this disables interaction.
+
+## Additional Notes
+
+-   The widget leverages accessible patterns and is tested for compatibility with major screen readers and browsers.
+-   If you encounter any accessibility issues, please report them to the team.
