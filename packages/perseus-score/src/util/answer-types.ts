@@ -770,10 +770,10 @@ const KhanAnswerTypes = {
             options: any,
         ): (arg1: Guess) => Score {
             return function (guess: Guess): Score {
-                const score = {
+                const score: Score = {
                     empty: false,
                     correct: false,
-                    message: null as string | null | undefined,
+                    message: null,
                     guess: guess,
                     // Setting `ungraded` to true indicates that if the
                     // guess doesn't match any of the solutions, the guess
@@ -783,11 +783,10 @@ const KhanAnswerTypes = {
                     // is that `message` only will be shown if the guess is
                     // graded as empty for every solution.
                     ungraded: false,
-                } as const;
+                };
 
                 // Don't bother parsing an empty input
                 if (!guess) {
-                    // @ts-expect-error - TS2540 - Cannot assign to 'empty' because it is a read-only property.
                     score.empty = true;
                     return score;
                 }
@@ -796,7 +795,6 @@ const KhanAnswerTypes = {
 
                 // An unsuccessful parse doesn't count as wrong
                 if (!answer.parsed) {
-                    // @ts-expect-error - TS2540 - Cannot assign to 'empty' because it is a read-only property.
                     score.empty = true;
                     return score;
                 }
@@ -814,7 +812,6 @@ const KhanAnswerTypes = {
 
                 if (result.equal) {
                     // Correct answer
-                    // @ts-expect-error - TS2540 - Cannot assign to 'correct' because it is a read-only property.
                     score.correct = true;
                 } else if (
                     result.wrongVariableNames ||
@@ -825,20 +822,16 @@ const KhanAnswerTypes = {
                     // TODO(aasmund): This should ideally have been handled
                     // under the `result.message` condition, but the
                     // KAS messages currently aren't translatable.
-                    // @ts-expect-error - TS2540 - Cannot assign to 'ungraded' because it is a read-only property.
                     score.ungraded = true;
-                    // @ts-expect-error - TS2540 - Cannot assign to 'message' because it is a read-only property.
                     score.message = result.wrongVariableCase
                         ? ErrorCodes.WRONG_CASE_ERROR
                         : ErrorCodes.WRONG_LETTER_ERROR;
                     // Don't tell the use they're "almost there" in this case, that may not be true and isn't helpful.
-                    // @ts-expect-error - TS2339 - Property 'suppressAlmostThere' does not exist on type '{ readonly empty: false; readonly correct: false; readonly message: string | null | undefined; readonly guess: any; readonly ungraded: false; }'.
                     score.suppressAlmostThere = true;
                 } else if (result.message) {
                     // Nearly correct answer
                     // TODO(aasmund): This message also isn't translatable;
                     // need to fix that in KAS
-                    // @ts-expect-error - TS2540 - Cannot assign to 'message' because it is a read-only property.
                     score.message = result.message;
                 } else {
                     // Replace x with * and see if it would have been correct
@@ -860,14 +853,11 @@ const KhanAnswerTypes = {
                             options,
                         );
                         if (resultX.equal) {
-                            // @ts-expect-error - TS2540 - Cannot assign to 'ungraded' because it is a read-only property.
                             score.ungraded = true;
-                            // @ts-expect-error - TS2540 - Cannot assign to 'message' because it is a read-only property.
                             score.message =
                                 ErrorCodes.MULTIPLICATION_SIGN_ERROR;
                         } else if (resultX.message) {
                             // TODO(aasmund): I18nize `score.message`
-                            // @ts-expect-error - TS2540 - Cannot assign to 'message' because it is a read-only property.
                             score.message =
                                 resultX.message +
                                 " Also, I'm a computer. I only understand " +
