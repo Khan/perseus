@@ -47,7 +47,7 @@ configureSort({
                 "editor demo": null,
                 "widget states gallery": null,
                 "widget internal components": null,
-                "visual regression test": null,
+                "visual regression tests": null,
             },
         },
         "math input": {
