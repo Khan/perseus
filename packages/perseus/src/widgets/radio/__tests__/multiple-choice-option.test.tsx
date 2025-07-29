@@ -37,7 +37,7 @@ describe("Multiple choice option", () => {
         ${"correct"}    | ${"proper styling for correctness"}
         ${"wrong"}      | ${"proper styling for wrongness"}
         ${undefined}    | ${"no additional styling when not in review mode"}
-    `("applies $properOrNot styling $when", (args) => {
+    `("applies $stylingDescription", (args) => {
         const {showCorrectness} = args as {
             showCorrectness: "correct" | "wrong" | undefined;
         };

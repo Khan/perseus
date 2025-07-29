@@ -149,7 +149,6 @@
     vertical-align: middle;
 }
 
-
 /* Paragraphs with only images that are adjacent to other paragraphs (before or after) */
 .choice :global(.paragraph) :global(+ .paragraph):has(img:only-child),
 .choice :global(.paragraph):has(img:only-child):has(:global(+ .paragraph)) {
