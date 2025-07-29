@@ -6,7 +6,6 @@
     .choice :global(.paragraph) {
         font-size: inherit;
         line-height: inherit;
-        margin: initial;
     }
 }
 
@@ -40,80 +39,61 @@
 
 /* Horizontal divider between choices */
 .choice:after,
-.choice:first-of-type:before {
+.choice:before {
     background-color: var(--perseus-multiple-choice-divider-color);
-    bottom: calc((var(--perseus-multiple-choice-divider-space) +
-                ((var(--wb-border-width-medium) -
-                    var(--perseus-multiple-choice-divider-space)
-                ) / 2)
-            ) * -1
-    );
     content: "";
     display: block;
     height: var(--perseus-multiple-choice-divider-width);
     margin-inline-start: calc(
         var(--perseus-multiple-choice-spacing) * -1
-    ); /* Account for the "gap" */
+    ); /* Account for the padding on the sides of the choice */
     position: absolute;
     width: 100%;
 }
 
-/* The top divider needs special positioning so that it's above the choice */
-.choice:first-of-type:before {
-    bottom: initial;
+.choice:before {
     top: calc((var(--perseus-multiple-choice-divider-space) -
-             ((var(--perseus-multiple-choice-divider-space) -
-                 var(--wb-border-width-thin)
-             ) / 2)
-         ) * -1
+            ((var(--perseus-multiple-choice-divider-space) -
+                var(--wb-border-width-thin)
+            ) / 2)
+        ) * -1
     );
 }
 
-/* Enhance (thicker and darker) the divider between choices when:
-      - the choice indicator has focus OR
-      - the next choice indicator has focus OR
-      - the choice is not in review mode AND
-         - the choice is hovered OR
-         - the next choice is hovered OR
-   In other words, always enhance the divider when focus is on the indicator,
-       but only enhance the divider for hover when not in review mode.
- */
-
-/* TODO: Refactor this styling so that each choice has both a top and bottom divider,
-   and then we can simplify the logic here.
-*/
-.choice:not(.is-correct):focus-within,
-.choice:has(+ .choice:not(.is-correct):focus-within),
-.choice:not(.is-correct, .is-wrong):hover,
-.choice:not(.is-correct, .is-wrong):has(+ .choice:hover) {
-    --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
-    --perseus-multiple-choice-divider-color: var(
-        --wb-semanticColor-core-border-neutral-default
+.choice:after {
+    bottom: calc((var(--perseus-multiple-choice-divider-space) +
+            ((var(--wb-border-width-thin) -
+                var(--perseus-multiple-choice-divider-space)
+            ) / 2)
+        ) * -1
     );
 }
 
-.choice:not(.is-correct, .is-wrong):has(+ .choice:hover):before {
-    --perseus-multiple-choice-divider-color: var(
-            --wb-semanticColor-core-border-neutral-subtle
-    );
-    --perseus-multiple-choice-divider-width: var(
-            --wb-border-width-thin);
-}
-
-.choice:has(+ .is-correct) {
-    --perseus-multiple-choice-divider-width: 0;
-}
-
-.choice:first-of-type:focus-within:before,
-.choice:first-of-type:hover:before {
-    --perseus-multiple-choice-divider-color: var(
-        --wb-semanticColor-core-border-neutral-default
-    );
+.choice:hover:after,
+.choice:focus-within:after,
+.choice:hover:before,
+.choice:focus-within:before {
+    z-index: 1; /* Ensure the divider is above the adjacent choice dividers */
 }
 
 /* The first choice option needs additional space for the border */
 .choice:first-of-type {
     margin-block-start: var(--perseus-multiple-choice-divider-space);
+}
+
+/* Enhance (thicker and darker) the divider between choices when:
+      - the choice indicator has focus (not in review mode) OR
+      - the choice is hovered (not in review mode) OR
+      - the choice is in review mode AND
+         - the choice is incorrect AND
+         - the choice indicator has focus
+ */
+.choice:not(.is-correct):focus-within,
+.choice:not(.is-correct, .is-wrong):hover {
+    --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
+    --perseus-multiple-choice-divider-color: var(
+        --wb-semanticColor-core-border-neutral-default
+    );
 }
 
 /***********
@@ -138,6 +118,21 @@
     cursor: default;
 }
 
+/**************
+ LEGACY STYLING
+ **************/
+
+/* Content has been created with this rule in place since the dawn of time, so we need to keep it */
+.choice :global(.paragraph),
+.choice :global(.paragraph) div,
+.choice :global(.paragraph) p {
+    display: inline;
+}
+
+.choice table {
+    border: 1px solid #ccc;
+}
+
 /*************************
  IMAGES ON THEIR OWN LINES
  *************************/
@@ -149,16 +144,19 @@
         also causes vertical spacing to be applied due to the `margin` on the `.paragraph` class.
  */
 
-/*
-    TODO: Single Select with Images is broken - fix this.
-    This is also breaking the divider lines between choices (maybe just the .
-*/
+/* Images with surrounding text that is on the same line should be aligned in the middle */
+.choice :global(.paragraph) img {
+    vertical-align: middle;
+}
 
+
+/* Paragraphs with only images that are adjacent to other paragraphs (before or after) */
 .choice :global(.paragraph) :global(+ .paragraph):has(img:only-child),
 .choice :global(.paragraph):has(img:only-child):has(:global(+ .paragraph)) {
     display: block;
 }
 
+/* Remove the leading margin when the first paragraph is an image, for better alignment with the choice indicator */
 .choice :global(.paragraph):first-child:has(img:only-child) {
     margin-block-start: 0;
 }
