@@ -1,11 +1,10 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-import {storybookDependenciesV2} from "../../../../../testing/test-dependencies";
-import ArticleRenderer from "../../article-renderer";
-
-import {article, question} from "./definition.testdata";
+import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {storybookDependenciesV2} from "../../../../../../testing/test-dependencies";
+import ArticleRenderer from "../../../article-renderer";
+import {article, question} from "../definition.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
