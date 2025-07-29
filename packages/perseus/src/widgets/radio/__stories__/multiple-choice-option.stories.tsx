@@ -16,7 +16,8 @@ const Container = (props: {children: React.ReactNode}): React.ReactElement => {
 };
 
 export default {
-    title: "Perseus/Widgets/Radio/Widget Internal Components/Choice",
+    title: "Widgets/RadioNew/Widget Internal Components/Choice",
+    tags: ["!dev"],
 };
 
 export const SingleSelect = (): React.ReactElement => {

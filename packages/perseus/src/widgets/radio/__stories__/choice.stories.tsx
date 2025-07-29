@@ -39,8 +39,9 @@ const defaultProps = {
 } as const;
 
 export default {
-    title: "Perseus/Widgets/Radio/Choice",
+    title: "Widgets/Radio/Widget Internal Components/Choice",
     args: defaultProps,
+    tags: ["!dev"],
 } as Story;
 
 export const Interactive = (args: StoryArgs): React.ReactElement => {

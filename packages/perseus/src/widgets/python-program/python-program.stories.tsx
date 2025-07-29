@@ -7,8 +7,18 @@ import {question1} from "./python-program.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Python Program",
+    title: "Widgets/Python Program",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that enables users to write and execute Python code directly in the browser,\
+                    supporting programming instruction and interactive coding exercises.",
+            },
+        },
+    },
 };
 export default meta;
 

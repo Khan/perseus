@@ -9,8 +9,18 @@ import type {KeypadConfiguration} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Expression",
+    title: "Widgets/Expression",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to input and validate mathematical expressions,\
+                    supporting various notations and formats for algebra, calculus, and other math topics.",
+            },
+        },
+    },
 };
 export default meta;
 

@@ -5,8 +5,8 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 type Story = StoryObj<typeof TabbarItem>;
 
 const meta: Meta<typeof TabbarItem> = {
-    title: "math-input/components/Tab Bar Item",
-
+    title: "Math Input/Components/Tab Bar Item",
+    tags: ["!dev"],
     component: TabbarItem,
 };
 

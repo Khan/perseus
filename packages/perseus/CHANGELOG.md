@@ -1,5 +1,93 @@
 # @khanacademy/perseus
 
+## 66.2.0
+
+### Minor Changes
+
+-   [#2719](https://github.com/Khan/perseus/pull/2719) [`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Export public widget options so they can be used in Perseus
+
+*   [#2718](https://github.com/Khan/perseus/pull/2718) [`bfe4e50e9`](https://github.com/Khan/perseus/commit/bfe4e50e968e1b34dec685ec81c05d252cd07e49) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Creates new randomization logic for radio
+
+### Patch Changes
+
+-   Updated dependencies [[`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2), [`bfe4e50e9`](https://github.com/Khan/perseus/commit/bfe4e50e968e1b34dec685ec81c05d252cd07e49), [`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2)]:
+    -   @khanacademy/perseus-score@7.3.0
+    -   @khanacademy/perseus-core@18.4.0
+    -   @khanacademy/keypad-context@3.1.1
+    -   @khanacademy/kmath@2.1.1
+    -   @khanacademy/math-input@26.1.1
+    -   @khanacademy/perseus-linter@4.2.1
+
+## 66.1.0
+
+### Minor Changes
+
+-   [#2737](https://github.com/Khan/perseus/pull/2737) [`77e095f86`](https://github.com/Khan/perseus/commit/77e095f8660618b9476a50094872821c7a9184e8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updating all packages to newest version of wonderblocks
+
+### Patch Changes
+
+-   Updated dependencies [[`77e095f86`](https://github.com/Khan/perseus/commit/77e095f8660618b9476a50094872821c7a9184e8)]:
+    -   @khanacademy/kas@2.1.0
+    -   @khanacademy/keypad-context@3.1.0
+    -   @khanacademy/kmath@2.1.0
+    -   @khanacademy/math-input@26.1.0
+    -   @khanacademy/perseus-core@18.3.0
+    -   @khanacademy/perseus-linter@4.2.0
+    -   @khanacademy/perseus-score@7.2.0
+    -   @khanacademy/perseus-utils@2.1.0
+    -   @khanacademy/pure-markdown@2.2.0
+    -   @khanacademy/simple-markdown@2.1.0
+
+## 66.0.2
+
+### Patch Changes
+
+-   [#2730](https://github.com/Khan/perseus/pull/2730) [`8720ca1e2`](https://github.com/Khan/perseus/commit/8720ca1e2a780ecdf658971ec993a8adb7066c55) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Show min tick when axis doesn't go through it
+
+*   [#2733](https://github.com/Khan/perseus/pull/2733) [`a7c14bf18`](https://github.com/Khan/perseus/commit/a7c14bf183f3e47ec887c695c7fc9ee83d21da46) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bugfix for regression that causes keypad to no longer work in graded groups.
+
+-   [#2699](https://github.com/Khan/perseus/pull/2699) [`cfc072417`](https://github.com/Khan/perseus/commit/cfc072417d1b66c1c87b0a0200c37c376434920f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Improve Perseus documentation
+
+## 66.0.1
+
+### Patch Changes
+
+-   [#2728](https://github.com/Khan/perseus/pull/2728) [`825fccfbd`](https://github.com/Khan/perseus/commit/825fccfbd2a301d4d810b7d000d1c61895359959) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Bugfix to ensure Interactive Graph tooltips display points with the same granularity as the snapStep
+
+*   [#2731](https://github.com/Khan/perseus/pull/2731) [`16f0eefe0`](https://github.com/Khan/perseus/commit/16f0eefe0d07429528491a671984b47ef7f32715) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: undefined widget property in hint
+
+*   Updated dependencies [[`0cae7aed9`](https://github.com/Khan/perseus/commit/0cae7aed9ea7dfc3e101f99ae7670aa4b244e436), [`8b8bf69d0`](https://github.com/Khan/perseus/commit/8b8bf69d094838fd88a541f5a590347f38151d86)]:
+    -   @khanacademy/perseus-core@18.2.2
+    -   @khanacademy/perseus-score@7.1.16
+    -   @khanacademy/keypad-context@3.0.29
+    -   @khanacademy/kmath@2.0.29
+    -   @khanacademy/math-input@26.0.18
+    -   @khanacademy/perseus-linter@4.1.2
+
+## 66.0.0
+
+### Major Changes
+
+-   [#2678](https://github.com/Khan/perseus/pull/2678) [`def76890e`](https://github.com/Khan/perseus/commit/def76890e07460cdc00ac089fa3e5d267b2437d2) Thanks [@handeyeco](https://github.com/handeyeco)! - Add UserInputManager as a wrapper around Renderer for user input
+
+### Patch Changes
+
+-   [#2710](https://github.com/Khan/perseus/pull/2710) [`a5e736009`](https://github.com/Khan/perseus/commit/a5e73600938894eca58cb7a236c391ba82f2ed7f) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Stop alongEdge labels from overflowing out of graph container
+
+*   [#2716](https://github.com/Khan/perseus/pull/2716) [`4e12526af`](https://github.com/Khan/perseus/commit/4e12526af77890835f11235385e96e582a985e05) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix the way we import OrdererPublicWidgetOptions
+
+-   [#2714](https://github.com/Khan/perseus/pull/2714) [`9d6c85c58`](https://github.com/Khan/perseus/commit/9d6c85c58d33f8b5dff06a7b177e0e4e05153894) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph][point] Allow points on Point graphs to sit on edge of graph
+
+*   [#2715](https://github.com/Khan/perseus/pull/2715) [`08df03da9`](https://github.com/Khan/perseus/commit/08df03da9b0a870635b24aeafb6082d0df4dcd45) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Removing deprecated analytics event: `perseus:interactive-graph-widget:rendered`
+
+*   Updated dependencies [[`4e12526af`](https://github.com/Khan/perseus/commit/4e12526af77890835f11235385e96e582a985e05), [`def76890e`](https://github.com/Khan/perseus/commit/def76890e07460cdc00ac089fa3e5d267b2437d2), [`08df03da9`](https://github.com/Khan/perseus/commit/08df03da9b0a870635b24aeafb6082d0df4dcd45)]:
+    -   @khanacademy/perseus-core@18.2.1
+    -   @khanacademy/math-input@26.0.17
+    -   @khanacademy/perseus-score@7.1.15
+    -   @khanacademy/keypad-context@3.0.28
+    -   @khanacademy/kmath@2.0.28
+    -   @khanacademy/perseus-linter@4.1.1
+
 ## 65.8.0
 
 ### Minor Changes

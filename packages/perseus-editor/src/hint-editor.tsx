@@ -25,7 +25,11 @@ import type {
     DeviceType,
     ImageUploader,
 } from "@khanacademy/perseus";
-import type {Hint, PerseusWidgetsMap} from "@khanacademy/perseus-core";
+import type {
+    Hint,
+    PerseusRenderer,
+    PerseusWidgetsMap,
+} from "@khanacademy/perseus-core";
 
 const {InfoTip, InlineIcon} = components;
 
@@ -366,9 +370,8 @@ class CombinedHintsEditor extends React.Component<CombinedHintsEditorProps> {
     };
 
     addHint: () => void = () => {
-        const hints = this.props.hints.concat([
-            {content: "", images: {}, widgets: {}},
-        ]);
+        const hint: PerseusRenderer = {content: "", images: {}, widgets: {}};
+        const hints = [...this.props.hints, hint];
         this.props.onChange({hints: hints}, () => {
             const i = hints.length - 1;
             // eslint-disable-next-line react/no-string-refs

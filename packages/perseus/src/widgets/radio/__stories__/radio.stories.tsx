@@ -28,7 +28,18 @@ type StoryArgs = {
 >;
 
 export default {
-    title: "Perseus/Widgets/Radio",
+    title: "Widgets/Radio",
+    component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to select a single option from a list of choices,\
+                    supporting multiple-choice questions with text and image content.",
+            },
+        },
+    },
     args: {
         static: false,
         // Requires a page refresh for toggling this to affect the story

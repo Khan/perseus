@@ -7,8 +7,18 @@ import {question1, question2} from "./passage-ref.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/PassageRef",
+    title: "Widgets/Passage Ref",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that creates references to specific parts of a passage,\
+                    allowing users to navigate to and highlight relevant sections of text.",
+            },
+        },
+    },
 };
 export default meta;
 

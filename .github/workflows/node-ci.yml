@@ -57,7 +57,7 @@ jobs:
               with:
                   changed-files: ${{ steps.changed.outputs.files }}
                   files: "packages/, config/build/" # Only look for changes in packages, build
-                  globs: "!(**/__tests__/*), !(**/__testdata__/*), !(**/__stories__/*), !(**/dist/*), !(**/*.test.ts), !(**/*.test.tsx)" # Ignore test files
+                  globs: "!(**/__tests__/*), !(**/__testdata__/*), !(**/__stories__/*), !(**/__docs__/*), !(**/dist/*), !(**/*.test.ts), !(**/*.test.tsx)" # Ignore test files
                   matchAllGlobs: true # Default is to match any of the globs, which ends up matching all files
                   conjunctive: true # Only match files that match all of the above
 
@@ -209,9 +209,10 @@ jobs:
               with:
                   node-version: ${{ matrix.node-version }}
 
-            # Make sure our packages aren't growing unexpectedly
-            # This must come last as it builds the old code last and so leaves the
-            # wrong code in place for the next job; in other words, it leaves the repo on a base branch.
+            # Make sure our packages aren't growing unexpectedly. This must come
+            # last as it builds the old code last and so leaves the wrong code
+            # in place for the next job; in other words, it leaves the repo on a
+            # base branch.
             - name: Check Builds
               uses: preactjs/compressed-size-action@v2
               with:
@@ -227,6 +228,62 @@ jobs:
             #
             # Do not place any steps after "Check Builds"
             #
+
+    check_schema:
+        name: Check for schema changes
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [20.x]
+        steps:
+            - name: Check out latest commit
+              uses: actions/checkout@v4
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Compare Perseus Schema to base branch
+              uses: ./.github/actions/branch-compare
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  build-command: |
+                      pnpm install && \
+                      pnpm tsc --declaration --emitDeclarationOnly \
+                        --outfile ${{ runner.temp }}/schema.d.ts \
+                        packages/perseus-core/src/data-schema.ts
+                      pnpm prettier --write ${{ runner.temp }}/schema.d.ts
+                  path-to-artifact: ${{ runner.temp }}/schema.d.ts
+                  label-name: schema-change
+                  comment-title: 🗄️ Schema Change
+
+    check_item_splitting:
+        name: Check for item splitting changes
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                os: [ubuntu-latest]
+                node-version: [20.x]
+        steps:
+            - name: Check out latest commit
+              uses: actions/checkout@v4
+
+            - name: Install & cache node_modules
+              uses: ./.github/actions/shared-node-cache
+              with:
+                  node-version: ${{ matrix.node-version }}
+
+            - name: Use branch-compare action to generate item splitting artifacts
+              id: split-item-compare
+              uses: ./.github/actions/branch-compare
+              with:
+                  github-token: ${{ secrets.GITHUB_TOKEN }}
+                  build-command: pnpm install && pnpm build
+                  path-to-artifact: packages/perseus-core/dist/es/index.item-splitting.js
+                  label-name: item-splitting-change
+                  comment-title: 🛠️ Item Splitting
 
     publish_snapshot:
         name: Publish npm snapshot

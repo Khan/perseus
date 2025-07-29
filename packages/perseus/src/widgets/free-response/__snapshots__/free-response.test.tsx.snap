@@ -60,7 +60,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
               <div
                 aria-atomic="true"
                 aria-live="assertive"
-                class="default_xu2jcg-o_O-errorSection_375epe"
+                class="default_xu2jcg-o_O-helperTextSection_1hmzxfl"
                 id=":r2:-labeled-field-error"
               />
             </div>
@@ -142,7 +142,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
               <div
                 aria-atomic="true"
                 aria-live="assertive"
-                class="default_xu2jcg-o_O-errorSection_375epe"
+                class="default_xu2jcg-o_O-helperTextSection_1hmzxfl"
                 id=":r0:-labeled-field-error"
               />
             </div>

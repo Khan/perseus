@@ -21,6 +21,7 @@ import {
     negativePhoneMargin,
     tableBackgroundAccent,
 } from "../../styles/constants";
+import UserInputManager from "../../user-input-manager";
 import a11y from "../../util/a11y";
 import {getPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 
@@ -37,6 +38,7 @@ import type {
 import type {GradedGroupPromptJSON} from "../../widget-ai-utils/graded-group/graded-group-ai-utils";
 import type {
     PerseusGradedGroupWidgetOptions,
+    PerseusRenderer,
     PerseusScore,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
@@ -72,7 +74,7 @@ type RenderProps = PerseusGradedGroupWidgetOptions; // exports has no 'transform
 
 type Props = WidgetProps<
     RenderProps,
-    undefined,
+    Empty,
     TrackingGradedGroupExtraArguments
 > & {
     inGradedGroupSet?: boolean; // Set by graded-group-set.jsx,
@@ -104,7 +106,7 @@ type State = {
 // via defaultProps.
 0 as any as WidgetProps<
     PerseusGradedGroupWidgetOptions,
-    undefined,
+    Empty,
     undefined
 > satisfies PropsFor<typeof GradedGroup>;
 
@@ -148,12 +150,7 @@ export class GradedGroup
         return Changeable.change.apply(this, args as any);
     };
 
-    // This is a little strange because the id of the widget that actually
-    // changed is going to be lost in favor of the group widget's id. The
-    // widgets prop also wasn't actually changed, and this only serves to
-    // alert our renderer (our parent) of the fact that some interaction
-    // has occurred.
-    _onInteractWithWidget: (arg1: string) => void = (id) => {
+    _handleUserInput(): void {
         // Reset grading display when user changes answer
         this.setState({
             status: GRADING_STATUSES.ungraded,
@@ -161,15 +158,15 @@ export class GradedGroup
         });
 
         if (this.rendererRef.current) {
-            this.change("widgets", this.props.widgets);
             const emptyWidgets = this.rendererRef.current.emptyWidgets();
             const answerable = emptyWidgets.length === 0;
             const answerBarState = this.state.answerBarState;
+            const nextState = getNextState(answerBarState, answerable);
             this.setState({
-                answerBarState: getNextState(answerBarState, answerable),
+                answerBarState: nextState,
             });
         }
-    };
+    }
 
     _checkAnswer: () => void = () => {
         const score: PerseusScore = this.rendererRef.current?.score() || {
@@ -225,14 +222,6 @@ export class GradedGroup
             hint,
         );
     }
-
-    setInputValue: (arg1: any, arg2: any, arg3: any) => any = (
-        path,
-        newValue,
-        cb,
-    ) => {
-        return this.rendererRef.current?.setInputValue(path, newValue, cb);
-    };
 
     focus: () => boolean = () => {
         return !!this.rendererRef.current?.focus();
@@ -312,64 +301,78 @@ export class GradedGroup
                 {!!this.props.title && (
                     <div className={css(styles.title)}>{this.props.title}</div>
                 )}
-                {/**
-                 * We're passing a bunch of extra props to Renderer here that it
-                 * doesn't need.  We should replace {...this.props} with the individual
-                 * props that are needed.
-                 * TODO(FEI-4034): Only pass what the Renderer expects.
-                 */}
-                {/* @ts-expect-error - TS2322 - Type '{ ref: string; apiOptions: any; onInteractWithWidget: (arg1: string) => void; linterContext: LinterContextProps; title: string; hasHint?: boolean | null | undefined; ... 22 more ...; children?: ReactNode; }' is not assignable to type 'Pick<Readonly<Props> & Readonly<{ children?: ReactNode; }>, "children" | "keypadElement" | "problemNum" | "apiOptions" | "legacyPerseusLint">'. */}
-                <Renderer
-                    {...this.props}
-                    ref={this.rendererRef}
-                    apiOptions={{...apiOptions, readOnly}}
-                    showSolutions={showSolutions}
-                    onInteractWithWidget={this._onInteractWithWidget}
-                    linterContext={this.props.linterContext}
-                    strings={this.context.strings}
-                />
-                {/* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions */}
-                {!apiOptions.isMobile && icon && (
-                    <div className="group-icon">{icon}</div>
-                )}
-                {!apiOptions.isMobile && gradeStatus && (
-                    <div
-                        className={css(a11y.srOnly)}
-                        role="alert"
-                        aria-label={gradeStatus}
-                    >
-                        {gradeStatus}
-                    </div>
-                )}
+                <UserInputManager
+                    widgets={this.props.widgets}
+                    handleUserInput={() => this._handleUserInput()}
+                    problemNum={0}
+                >
+                    {({userInput, handleUserInput}) => (
+                        <Renderer
+                            content={this.props.content}
+                            widgets={this.props.widgets}
+                            images={this.props.images}
+                            userInput={userInput}
+                            handleUserInput={handleUserInput}
+                            problemNum={0}
+                            // userInput={this.props.userInput}
+                            // handleUserInput={(widgetId, userInput) => {
+                            //     this.props.handleUserInput({
+                            //         ...this.props.userInput,
+                            //         [widgetId]: userInput,
+                            //     });
+                            // }}
+                            ref={this.rendererRef}
+                            keypadElement={this.props.keypadElement}
+                            apiOptions={{...apiOptions, readOnly}}
+                            showSolutions={showSolutions}
+                            linterContext={this.props.linterContext}
+                            strings={this.context.strings}
+                        />
+                    )}
+                </UserInputManager>
+
                 {!apiOptions.isMobile && (
-                    <p role="status" aria-live="polite">
-                        {this.state.message}
-                    </p>
-                )}
-                {!apiOptions.isMobile && (
-                    <Button
-                        kind="secondary"
-                        disabled={this.props.apiOptions.readOnly}
-                        onClick={this._checkAnswer}
-                    >
-                        {this.context.strings.check}
-                    </Button>
-                )}
-                {!apiOptions.isMobile &&
-                    isCorrect &&
-                    this.props.onNextQuestion && (
+                    <>
+                        {icon != null && (
+                            <div className="group-icon">{icon}</div>
+                        )}
+
+                        {gradeStatus && (
+                            <div
+                                className={css(a11y.srOnly)}
+                                role="alert"
+                                aria-label={gradeStatus}
+                            >
+                                {gradeStatus}
+                            </div>
+                        )}
+
+                        <p role="status" aria-live="polite">
+                            {this.state.message}
+                        </p>
+
                         <Button
                             kind="secondary"
                             disabled={this.props.apiOptions.readOnly}
-                            onClick={this.props.onNextQuestion}
-                            style={{marginLeft: 5}}
+                            onClick={this._checkAnswer}
                         >
-                            {this.context.strings.nextQuestion}
+                            {this.context.strings.check}
                         </Button>
-                    )}
 
-                {this.props.hint &&
-                    this.props.hint.content &&
+                        {isCorrect && this.props.onNextQuestion && (
+                            <Button
+                                kind="secondary"
+                                disabled={this.props.apiOptions.readOnly}
+                                onClick={this.props.onNextQuestion}
+                                style={{marginLeft: 5}}
+                            >
+                                {this.context.strings.nextQuestion}
+                            </Button>
+                        )}
+                    </>
+                )}
+
+                {this.props.hint?.content &&
                     (this.state.showHint ? (
                         <div>
                             {/* Not using Button here bc the styles won't work. */}
@@ -386,18 +389,40 @@ export class GradedGroup
                             >
                                 {this.context.strings.hideExplanation}
                             </button>
-                            {/**
-                             * We're passing a couple of props to Renderer that it doesn't
-                             * require as part of {...this.props.hint}.
-                             */}
-                            <Renderer
-                                {...this.props.hint}
-                                ref={this.hintRendererRef}
-                                apiOptions={apiOptions}
-                                linterContext={this.props.linterContext}
-                                strings={this.context.strings}
-                                showSolutions={showSolutions}
-                            />
+
+                            <UserInputManager
+                                widgets={this.props.hint.widgets}
+                                problemNum={0}
+                            >
+                                {({
+                                    userInput,
+                                    handleUserInput,
+                                    initializeUserInput,
+                                }) => {
+                                    // we did a check above to make sure hints exists
+                                    const {content, widgets, images} = this
+                                        .props.hint as PerseusRenderer;
+                                    return (
+                                        <Renderer
+                                            content={content}
+                                            widgets={widgets}
+                                            images={images}
+                                            userInput={userInput}
+                                            handleUserInput={handleUserInput}
+                                            initializeUserInput={
+                                                initializeUserInput
+                                            }
+                                            ref={this.hintRendererRef}
+                                            apiOptions={apiOptions}
+                                            linterContext={
+                                                this.props.linterContext
+                                            }
+                                            strings={this.context.strings}
+                                            showSolutions={showSolutions}
+                                        />
+                                    );
+                                }}
+                            </UserInputManager>
                         </div>
                     ) : (
                         // Not using Button here bc the styles won't work.

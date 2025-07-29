@@ -1,100 +1,28 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {BaseRadio} from "@khanacademy/perseus";
 import {radioLogic, deriveNumCorrect} from "@khanacademy/perseus-core";
 import Button from "@khanacademy/wonder-blocks-button";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Link from "@khanacademy/wonder-blocks-link";
-import {spacing, sizing} from "@khanacademy/wonder-blocks-tokens";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {Footnote} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
 import _ from "underscore";
 
 import LabeledSwitch from "../../components/labeled-switch";
-import Editor from "../../editor";
 
-import type {APIOptions, Changeable} from "@khanacademy/perseus";
+import {RadioOptionSettings} from "./radio-option-settings";
+import {getMovedChoices} from "./utils";
+
+import type {ChoiceMovementType} from "./radio-option-settings-actions";
+import type {Changeable, APIOptions} from "@khanacademy/perseus";
 import type {
     PerseusRadioWidgetOptions,
     PerseusRadioChoice,
     RadioDefaultWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Contentful = {content?: string};
-type ChoiceEditorProps = {
-    apiOptions: APIOptions;
-    choice: PerseusRadioChoice;
-    showDelete: boolean;
-    onRationaleChange: (newProps: Contentful) => void;
-    onContentChange: (newProps: Contentful) => void;
-    onDelete: () => void;
-};
-
-class ChoiceEditor extends React.Component<ChoiceEditorProps> {
-    render(): React.ReactNode {
-        const checkedClass = this.props.choice.correct
-            ? "correct"
-            : "incorrect";
-        let placeholder = "Type a choice here...";
-
-        if (this.props.choice.isNoneOfTheAbove) {
-            placeholder = this.props.choice.correct
-                ? "Type the answer to reveal to the user..."
-                : "None of the above";
-        }
-
-        const editor = (
-            <Editor
-                // eslint-disable-next-line react/no-string-refs
-                ref="content-editor"
-                apiOptions={this.props.apiOptions}
-                content={this.props.choice.content || ""}
-                widgetEnabled={false}
-                placeholder={placeholder}
-                disabled={
-                    this.props.choice.isNoneOfTheAbove &&
-                    !this.props.choice.correct
-                }
-                onChange={this.props.onContentChange}
-            />
-        );
-
-        const rationaleEditor = (
-            <Editor
-                // eslint-disable-next-line react/no-string-refs
-                ref="rationale-editor"
-                apiOptions={this.props.apiOptions}
-                content={this.props.choice.rationale || ""}
-                widgetEnabled={false}
-                placeholder={`Why is this choice ${checkedClass}?`}
-                onChange={this.props.onRationaleChange}
-            />
-        );
-        const deleteLink = (
-            <a
-                className="simple-button orange delete-choice"
-                href="#"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    this.props.onDelete();
-                }}
-                title="Remove this choice"
-            >
-                Remove this choice
-            </a>
-        );
-
-        return (
-            <div className="choice-rationale-editors">
-                <div className={`choice-editor ${checkedClass}`}>{editor}</div>
-                <div className="rationale-editor">{rationaleEditor}</div>
-                {this.props.showDelete && deleteLink}
-            </div>
-        );
-    }
-}
-
-type RadioEditorProps = {
+// Exported for testing
+export interface RadioEditorProps extends Changeable.ChangeableProps {
     apiOptions: APIOptions;
     countChoices: boolean;
     choices: PerseusRadioChoice[];
@@ -103,7 +31,7 @@ type RadioEditorProps = {
     multipleSelect: boolean;
     deselectEnabled: boolean;
     static: boolean;
-} & Changeable.ChangeableProps;
+}
 
 class RadioEditor extends React.Component<RadioEditorProps> {
     static widgetName = "radio" as const;
@@ -111,6 +39,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     static defaultProps: RadioDefaultWidgetOptions =
         radioLogic.defaultWidgetOptions;
 
+    // Called when the "Multiple selections" checkbox is toggled,
+    // allowing the content author to specifiy multiple correct answers.
     onMultipleSelectChange: (arg1: any) => any = (allowMultiple) => {
         const isMultipleSelect = allowMultiple.multipleSelect;
 
@@ -137,6 +67,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         });
     };
 
+    // Called when the "Specify number correct" checkbox is toggled,
+    // making it so that the title reads "Choose [number] answers"
     onCountChoicesChange: (arg1: any) => void = (count) => {
         const countChoices = count.countChoices;
         this.props.onChange({
@@ -144,6 +76,8 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         });
     };
 
+    // Updates the `correct` values for each choice, as well as the new
+    // `numCorrect` value as a result. Updates the props with the new values.
     onChange: (arg1: any) => void = ({checked}) => {
         const choices = this.props.choices.map((choice, i) => {
             return {
@@ -162,27 +96,58 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         });
     };
 
+    // Called when there is a change to which choice(s) are correct to
+    // calculate the new list of correct choices.
+    // Calls `onChange` to update the props.
+    onStatusChange: (choiceIndex: number, correct: boolean) => void = (
+        choiceIndex,
+        correct,
+    ) => {
+        // If we're checking a new answer and multiple-select is not on,
+        // we should clear all choices to be unchecked. Otherwise, we should
+        // copy the old checked values.
+        let newCheckedList;
+
+        if (correct && !this.props.multipleSelect) {
+            newCheckedList = this.props.choices.map((_) => false);
+        } else {
+            newCheckedList = this.props.choices.map((c) => c.correct);
+        }
+
+        // Update these options' `correct` values.
+        newCheckedList[choiceIndex] = correct;
+
+        this.onChange({
+            checked: newCheckedList,
+        });
+    };
+
     onContentChange: (arg1: any, arg2: any) => void = (
         choiceIndex,
         newContent,
     ) => {
-        const choices = this.props.choices.slice();
-        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+        const choices = [...this.props.choices];
+        choices[choiceIndex] = {
+            ...choices[choiceIndex],
             content: newContent,
-        });
+        };
         this.props.onChange({choices: choices});
     };
 
-    onRationaleChange(choiceIndex: number, newRationale: string): void {
-        const choices = this.props.choices.slice();
-        choices[choiceIndex] = _.extend({}, choices[choiceIndex], {
+    onRationaleChange: (choiceIndex: number, newRationale: string) => void = (
+        choiceIndex,
+        newRationale,
+    ) => {
+        const choices = [...this.props.choices];
+        choices[choiceIndex] = {
+            ...choices[choiceIndex],
             rationale: newRationale,
-        });
+        };
         if (newRationale === "") {
             delete choices[choiceIndex].rationale;
         }
         this.props.onChange({choices: choices});
-    }
+    };
 
     onDelete: (arg1: number) => void = (choiceIndex) => {
         const choices = this.props.choices.slice();
@@ -225,6 +190,20 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                 ].focus();
             },
         );
+    };
+
+    handleMove: (choiceIndex: number, movement: ChoiceMovementType) => void = (
+        choiceIndex,
+        movement,
+    ) => {
+        const newChoices = getMovedChoices(
+            this.props.choices,
+            this.props.hasNoneOfTheAbove,
+            choiceIndex,
+            movement,
+        );
+
+        this.props.onChange({choices: newChoices});
     };
 
     focus: () => boolean = () => {
@@ -292,60 +271,42 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                         style={{marginBlockEnd: sizing.size_060}}
                     />
                     {this.props.multipleSelect && (
-                        <LabeledSwitch
-                            label="Specify number correct"
-                            checked={this.props.countChoices}
-                            onChange={(value) => {
-                                this.onCountChoicesChange({
-                                    countChoices: value,
-                                });
-                            }}
-                            style={{marginBlockEnd: sizing.size_060}}
-                        />
+                        <>
+                            <LabeledSwitch
+                                label="Specify number correct"
+                                checked={this.props.countChoices}
+                                onChange={(value) => {
+                                    this.onCountChoicesChange({
+                                        countChoices: value,
+                                    });
+                                }}
+                                style={{marginBlockEnd: sizing.size_060}}
+                            />
+                            <Footnote>
+                                Current number correct: {numCorrect}
+                            </Footnote>
+                        </>
                     )}
                 </div>
 
-                <BaseRadio
-                    multipleSelect={this.props.multipleSelect}
-                    countChoices={this.props.countChoices}
-                    numCorrect={numCorrect}
-                    editMode={true}
-                    labelWrap={false}
-                    apiOptions={this.props.apiOptions}
-                    reviewMode={false}
-                    choices={this.props.choices.map((choice, i) => {
-                        return {
-                            content: (
-                                <ChoiceEditor
-                                    ref={`choice-editor${i}`}
-                                    apiOptions={this.props.apiOptions}
-                                    choice={choice}
-                                    onContentChange={(newProps) => {
-                                        if (newProps.content != null) {
-                                            this.onContentChange(
-                                                i,
-                                                newProps.content,
-                                            );
-                                        }
-                                    }}
-                                    onRationaleChange={(newProps) => {
-                                        if (newProps.content != null) {
-                                            this.onRationaleChange(
-                                                i,
-                                                newProps.content,
-                                            );
-                                        }
-                                    }}
-                                    onDelete={() => this.onDelete(i)}
-                                    showDelete={this.props.choices.length >= 2}
-                                />
-                            ),
-                            isNoneOfTheAbove: choice.isNoneOfTheAbove,
-                            checked: choice.correct,
-                        } as any;
-                    }, this)}
-                    onChange={this.onChange}
-                />
+                {this.props.choices.map((choice, index) => (
+                    <RadioOptionSettings
+                        key={`choice-${index}}`}
+                        index={index}
+                        choice={choice}
+                        multipleSelect={this.props.multipleSelect}
+                        onStatusChange={this.onStatusChange}
+                        onContentChange={this.onContentChange}
+                        onRationaleChange={this.onRationaleChange}
+                        showDelete={this.props.choices.length >= 2}
+                        showMove={
+                            this.props.choices.length > 1 &&
+                            !choice.isNoneOfTheAbove
+                        }
+                        onDelete={() => this.onDelete(index)}
+                        onMove={this.handleMove}
+                    />
+                ))}
 
                 <div className="add-choice-container">
                     <Button
@@ -353,18 +314,20 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                         kind="tertiary"
                         startIcon={plusIcon}
                         onClick={this.addChoice.bind(this, false)}
+                        style={{marginInlineEnd: "2.4rem"}}
                     >
                         Add a choice
                     </Button>
-                    <Strut size={spacing.large_24} />
-                    <Button
-                        size="small"
-                        kind="tertiary"
-                        startIcon={plusIcon}
-                        onClick={this.addChoice.bind(this, true)}
-                    >
-                        None of the above
-                    </Button>
+                    {!this.props.hasNoneOfTheAbove && (
+                        <Button
+                            size="small"
+                            kind="tertiary"
+                            startIcon={plusIcon}
+                            onClick={this.addChoice.bind(this, true)}
+                        >
+                            None of the above
+                        </Button>
+                    )}
                 </div>
             </div>
         );

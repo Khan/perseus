@@ -1,5 +1,93 @@
 # @khanacademy/perseus-editor
 
+## 27.0.0
+
+### Major Changes
+
+-   [#2706](https://github.com/Khan/perseus/pull/2706) [`7ae45139b`](https://github.com/Khan/perseus/commit/7ae45139b0fbe75e128f5a0e8e71078dc8a4e733) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove frameSource prop from EditorPage component
+
+### Patch Changes
+
+-   Updated dependencies [[`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2), [`bfe4e50e9`](https://github.com/Khan/perseus/commit/bfe4e50e968e1b34dec685ec81c05d252cd07e49), [`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2)]:
+    -   @khanacademy/perseus@66.2.0
+    -   @khanacademy/perseus-score@7.3.0
+    -   @khanacademy/perseus-core@18.4.0
+    -   @khanacademy/keypad-context@3.1.1
+    -   @khanacademy/kmath@2.1.1
+    -   @khanacademy/math-input@26.1.1
+    -   @khanacademy/perseus-linter@4.2.1
+
+## 26.2.0
+
+### Minor Changes
+
+-   [#2737](https://github.com/Khan/perseus/pull/2737) [`77e095f86`](https://github.com/Khan/perseus/commit/77e095f8660618b9476a50094872821c7a9184e8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updating all packages to newest version of wonderblocks
+
+### Patch Changes
+
+-   Updated dependencies [[`77e095f86`](https://github.com/Khan/perseus/commit/77e095f8660618b9476a50094872821c7a9184e8)]:
+    -   @khanacademy/kas@2.1.0
+    -   @khanacademy/keypad-context@3.1.0
+    -   @khanacademy/kmath@2.1.0
+    -   @khanacademy/math-input@26.1.0
+    -   @khanacademy/perseus@66.1.0
+    -   @khanacademy/perseus-core@18.3.0
+    -   @khanacademy/perseus-linter@4.2.0
+    -   @khanacademy/perseus-score@7.2.0
+    -   @khanacademy/perseus-utils@2.1.0
+    -   @khanacademy/pure-markdown@2.2.0
+
+## 26.1.2
+
+### Patch Changes
+
+-   [#2734](https://github.com/Khan/perseus/pull/2734) [`1209297b0`](https://github.com/Khan/perseus/commit/1209297b08f6863ff8199a34b2a06462484999cb) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Add dynamically resizing text areas to Radio editor UI
+
+## 26.1.1
+
+### Patch Changes
+
+-   [#2729](https://github.com/Khan/perseus/pull/2729) [`266bce537`](https://github.com/Khan/perseus/commit/266bce537c6685ef237064332d3bc5b2119b7da0) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Implement choice reordering in the editor
+
+*   [#2699](https://github.com/Khan/perseus/pull/2699) [`cfc072417`](https://github.com/Khan/perseus/commit/cfc072417d1b66c1c87b0a0200c37c376434920f) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Improve Perseus documentation
+
+*   Updated dependencies [[`8720ca1e2`](https://github.com/Khan/perseus/commit/8720ca1e2a780ecdf658971ec993a8adb7066c55), [`a7c14bf18`](https://github.com/Khan/perseus/commit/a7c14bf183f3e47ec887c695c7fc9ee83d21da46), [`cfc072417`](https://github.com/Khan/perseus/commit/cfc072417d1b66c1c87b0a0200c37c376434920f)]:
+    -   @khanacademy/perseus@66.0.2
+
+## 26.1.0
+
+### Minor Changes
+
+-   [#2626](https://github.com/Khan/perseus/pull/2626) [`468834009`](https://github.com/Khan/perseus/commit/468834009d0ff1cc7736c32ffab960d25c928b70) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Redesign Radio editor UI
+
+### Patch Changes
+
+-   [#2731](https://github.com/Khan/perseus/pull/2731) [`16f0eefe0`](https://github.com/Khan/perseus/commit/16f0eefe0d07429528491a671984b47ef7f32715) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: undefined widget property in hint
+
+*   [#2727](https://github.com/Khan/perseus/pull/2727) [`2048d66b4`](https://github.com/Khan/perseus/commit/2048d66b47ca448a37f0308b56d07948744254c7) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Stop showing NOTA button if NOTA choice exists in the editor
+
+*   Updated dependencies [[`825fccfbd`](https://github.com/Khan/perseus/commit/825fccfbd2a301d4d810b7d000d1c61895359959), [`16f0eefe0`](https://github.com/Khan/perseus/commit/16f0eefe0d07429528491a671984b47ef7f32715), [`0cae7aed9`](https://github.com/Khan/perseus/commit/0cae7aed9ea7dfc3e101f99ae7670aa4b244e436), [`8b8bf69d0`](https://github.com/Khan/perseus/commit/8b8bf69d094838fd88a541f5a590347f38151d86)]:
+    -   @khanacademy/perseus@66.0.1
+    -   @khanacademy/perseus-core@18.2.2
+    -   @khanacademy/perseus-score@7.1.16
+    -   @khanacademy/keypad-context@3.0.29
+    -   @khanacademy/kmath@2.0.29
+    -   @khanacademy/math-input@26.0.18
+    -   @khanacademy/perseus-linter@4.1.2
+
+## 26.0.1
+
+### Patch Changes
+
+-   Updated dependencies [[`a5e736009`](https://github.com/Khan/perseus/commit/a5e73600938894eca58cb7a236c391ba82f2ed7f), [`4e12526af`](https://github.com/Khan/perseus/commit/4e12526af77890835f11235385e96e582a985e05), [`9d6c85c58`](https://github.com/Khan/perseus/commit/9d6c85c58d33f8b5dff06a7b177e0e4e05153894), [`def76890e`](https://github.com/Khan/perseus/commit/def76890e07460cdc00ac089fa3e5d267b2437d2), [`08df03da9`](https://github.com/Khan/perseus/commit/08df03da9b0a870635b24aeafb6082d0df4dcd45)]:
+    -   @khanacademy/perseus@66.0.0
+    -   @khanacademy/perseus-core@18.2.1
+    -   @khanacademy/math-input@26.0.17
+    -   @khanacademy/perseus-score@7.1.15
+    -   @khanacademy/keypad-context@3.0.28
+    -   @khanacademy/kmath@2.0.28
+    -   @khanacademy/perseus-linter@4.1.1
+
 ## 26.0.0
 
 ### Major Changes

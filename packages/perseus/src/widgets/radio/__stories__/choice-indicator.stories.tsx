@@ -20,7 +20,8 @@ const Container = (props: {children: React.ReactNode}): React.ReactElement => {
 };
 
 export default {
-    title: "Perseus/Widgets/Radio/Widget Internal Components/Indicator",
+    title: "Widgets/Radio/Widget Internal Components/Indicator",
+    tags: ["!dev"],
 };
 
 export const AllSettings = (): React.ReactElement => {

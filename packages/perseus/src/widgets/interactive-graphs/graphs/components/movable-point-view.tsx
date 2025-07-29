@@ -2,6 +2,7 @@ import Tooltip from "@khanacademy/wonder-blocks-tooltip";
 import * as React from "react";
 import {forwardRef} from "react";
 
+import {countSignificantDecimals} from "../../backgrounds/utils";
 import {X, Y} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
 import {useTransformVectorsToPixels} from "../use-transform";
@@ -35,6 +36,7 @@ export const MovablePointView = forwardRef(
             showTooltips,
             interactiveColor,
             disableKeyboardInteraction,
+            snapStep,
         } = useGraphConfig();
         const {
             point,
@@ -64,6 +66,14 @@ export const MovablePointView = forwardRef(
         const [[x, y]] = useTransformVectorsToPixels(point);
 
         const showHairlines = (dragging || focused) && markings !== "none";
+
+        // Due to floating point errors, we need to round the point to the
+        // same number of significant digits as the relevant snap step.
+        const xSigFigs = countSignificantDecimals(snapStep[X]);
+        const ySigFigs = countSignificantDecimals(snapStep[Y]);
+        const xTickLabel = point[X].toFixed(xSigFigs);
+        const yTickLabel = point[Y].toFixed(ySigFigs);
+        const pointTooltipContent = `(${xTickLabel}, ${yTickLabel})`;
 
         const svgForPoint = (
             <g
@@ -107,7 +117,7 @@ export const MovablePointView = forwardRef(
                     <Tooltip
                         autoUpdate={true}
                         backgroundColor={wbColorName}
-                        content={`(${point[X]}, ${point[Y]})`}
+                        content={pointTooltipContent}
                         contentStyle={{color: "white"}}
                     >
                         {svgForPoint}

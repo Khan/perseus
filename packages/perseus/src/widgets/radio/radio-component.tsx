@@ -199,14 +199,6 @@ class Radio extends React.Component<Props> implements Widget {
         this.props.trackInteraction();
     };
 
-    /**
-     * TODO: remove this when everything is pulling from Renderer state
-     * @deprecated get user input from Renderer state
-     */
-    getUserInput(): PerseusRadioUserInput {
-        return this.props.userInput;
-    }
-
     getPromptJSON(): RadioPromptJSON {
         return _getPromptJSON(this.props, this.props.userInput);
     }

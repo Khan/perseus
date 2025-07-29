@@ -147,6 +147,7 @@ export type * from "./widgets/logic-export.types";
 export * as CoreWidgetRegistry from "./widgets/core-widget-registry";
 
 export {default as getOrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
+export type {OrdererPublicWidgetOptions} from "./widgets/orderer/orderer-util";
 export {default as getCategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
 export type {CategorizerPublicWidgetOptions} from "./widgets/categorizer/categorizer-util";
 export {default as getCSProgramPublicWidgetOptions} from "./widgets/cs-program/cs-program-util";
@@ -187,7 +188,12 @@ export {
     shuffleMatcher,
 } from "./widgets/matcher/matcher-util";
 export type {MatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
-export {shuffle, seededRNG, random} from "./utils/random-util";
+export {
+    shuffle,
+    randomizeArrayElements,
+    seededRNG,
+    random,
+} from "./utils/random-util";
 export {default as PerseusFeatureFlags} from "./feature-flags";
 
 export {traverse} from "./traversal";

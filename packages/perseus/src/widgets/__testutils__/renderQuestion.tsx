@@ -14,6 +14,7 @@ import {
 } from "../../dependencies";
 import * as Perseus from "../../index";
 import {mockStrings} from "../../strings";
+import UserInputManager from "../../user-input-manager";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {APIOptions} from "../../types";
@@ -41,7 +42,7 @@ export const renderQuestion = (
     const {container, rerender, unmount} = render(
         <RenderStateRoot>
             <DependenciesContext.Provider value={testDependenciesV2}>
-                <Renderer
+                <RendererWrapper
                     ref={(node) => (renderer = node)}
                     question={question as any}
                     apiOptions={apiOptions}
@@ -64,7 +65,7 @@ export const renderQuestion = (
         rerender(
             <RenderStateRoot>
                 <DependenciesContext.Provider value={testDependenciesV2}>
-                    <Renderer
+                    <RendererWrapper
                         ref={(node) => (renderer = node)}
                         question={question}
                         apiOptions={apiOptions}
@@ -84,7 +85,7 @@ export const renderQuestion = (
     return {container, renderer, rerender: renderAgain, unmount};
 };
 
-const Renderer = React.forwardRef<
+const RendererWrapper = React.forwardRef<
     Perseus.Renderer,
     {
         question: PerseusRenderer;
@@ -94,16 +95,33 @@ const Renderer = React.forwardRef<
 >((props, ref) => {
     const dependencies = useDependencies();
     return (
-        <Perseus.Renderer
-            ref={ref}
-            content={props.question.content}
-            images={props.question.images}
-            widgets={props.question.widgets}
-            problemNum={0}
-            apiOptions={props.apiOptions}
-            strings={mockStrings}
-            {...props.extraProps}
-            {...dependencies}
-        />
+        <UserInputManager widgets={props.question.widgets} problemNum={0}>
+            {({
+                userInput,
+                handleUserInput,
+                initializeUserInput,
+                restoreUserInputFromSerializedState,
+            }) => {
+                return (
+                    <Perseus.Renderer
+                        ref={ref}
+                        userInput={userInput}
+                        handleUserInput={handleUserInput}
+                        initializeUserInput={initializeUserInput}
+                        restoreUserInputFromSerializedState={
+                            restoreUserInputFromSerializedState
+                        }
+                        content={props.question.content}
+                        images={props.question.images}
+                        widgets={props.question.widgets}
+                        problemNum={0}
+                        apiOptions={props.apiOptions}
+                        strings={mockStrings}
+                        {...props.extraProps}
+                        {...dependencies}
+                    />
+                );
+            }}
+        </UserInputManager>
     );
 });

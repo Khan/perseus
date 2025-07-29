@@ -1,5 +1,40 @@
 # @khanacademy/perseus-core
 
+## 18.4.0
+
+### Minor Changes
+
+-   [#2718](https://github.com/Khan/perseus/pull/2718) [`bfe4e50e9`](https://github.com/Khan/perseus/commit/bfe4e50e968e1b34dec685ec81c05d252cd07e49) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Creates new randomization logic for radio
+
+*   [#2719](https://github.com/Khan/perseus/pull/2719) [`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add modern `"exports"` entry in package.json and export `item-splitting` separately
+
+## 18.3.0
+
+### Minor Changes
+
+-   [#2737](https://github.com/Khan/perseus/pull/2737) [`77e095f86`](https://github.com/Khan/perseus/commit/77e095f8660618b9476a50094872821c7a9184e8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updating all packages to newest version of wonderblocks
+
+### Patch Changes
+
+-   Updated dependencies [[`77e095f86`](https://github.com/Khan/perseus/commit/77e095f8660618b9476a50094872821c7a9184e8)]:
+    -   @khanacademy/kas@2.1.0
+    -   @khanacademy/perseus-utils@2.1.0
+    -   @khanacademy/pure-markdown@2.2.0
+
+## 18.2.2
+
+### Patch Changes
+
+-   [#2711](https://github.com/Khan/perseus/pull/2711) [`0cae7aed9`](https://github.com/Khan/perseus/commit/0cae7aed9ea7dfc3e101f99ae7670aa4b244e436) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Update some comments
+
+## 18.2.1
+
+### Patch Changes
+
+-   [#2716](https://github.com/Khan/perseus/pull/2716) [`4e12526af`](https://github.com/Khan/perseus/commit/4e12526af77890835f11235385e96e582a985e05) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix the way we import OrdererPublicWidgetOptions
+
+*   [#2715](https://github.com/Khan/perseus/pull/2715) [`08df03da9`](https://github.com/Khan/perseus/commit/08df03da9b0a870635b24aeafb6082d0df4dcd45) Thanks [@catandthemachines](https://github.com/catandthemachines)! - Removing deprecated analytics event: `perseus:interactive-graph-widget:rendered`
+
 ## 18.2.0
 
 ### Minor Changes

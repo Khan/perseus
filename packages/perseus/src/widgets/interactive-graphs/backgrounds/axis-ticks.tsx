@@ -5,6 +5,7 @@ import {MAX, MIN, X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import {
+    countSignificantDecimals,
     divideByAndShowPi,
     generateTickLocations,
     shouldShowLabel,
@@ -64,7 +65,9 @@ const YGridTick = ({
     // to hide the label at -1 on the y-axis to prevent overlap with the x-axis label
     const showLabel = shouldShowLabel(y, range, tickStep);
 
-    const yLabel = showPi ? divideByAndShowPi(y) : y.toString();
+    // Give all axis labels the same number of significant figures.
+    const ySigFigs = countSignificantDecimals(tickStep);
+    const yLabel = showPi ? divideByAndShowPi(y) : y.toFixed(ySigFigs);
 
     return (
         <g className="tick" aria-hidden={true}>
@@ -87,10 +90,12 @@ const YGridTick = ({
 const XGridTick = ({
     x,
     range,
+    tickStep,
     showPi,
 }: {
     x: number;
     range: [Interval, Interval];
+    tickStep: number;
     // Whether to show the tick label as a multiple of pi
     showPi: boolean;
 }) => {
@@ -133,7 +138,9 @@ const XGridTick = ({
     const xPositionText = xPosition + xAdjustment;
     const yPositionText = yPosition + yAdjustment;
 
-    const xLabel = showPi ? divideByAndShowPi(x) : x.toString();
+    // Give all axis labels the same number of significant figures.
+    const xSigFigs = countSignificantDecimals(tickStep);
+    const xLabel = showPi ? divideByAndShowPi(x) : x.toFixed(xSigFigs);
 
     return (
         <g className="tick" aria-hidden={true}>
@@ -159,8 +166,8 @@ export const AxisTicks = () => {
     const [xTickStep, yTickStep] = tickStep;
 
     // Generate the tick locations & labels for the x and y axes
-    const yGridTicks = generateTickLocations(yTickStep, yMin, yMax);
-    const xGridTicks = generateTickLocations(xTickStep, xMin, xMax);
+    const yGridTicks = generateTickLocations(yTickStep, yMin, yMax, xMin);
+    const xGridTicks = generateTickLocations(xTickStep, xMin, xMax, yMin);
 
     return (
         <g className="axis-ticks" role="presentation">
@@ -186,6 +193,7 @@ export const AxisTicks = () => {
                             x={x}
                             key={`x-grid-tick-${x}`}
                             range={range}
+                            tickStep={tickStep[X]}
                             // Show the tick labels as multiples of pi
                             // if the tick step is a multiple of pi.
                             showPi={tickStep[X] % Math.PI === 0}

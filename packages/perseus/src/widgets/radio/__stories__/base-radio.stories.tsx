@@ -16,12 +16,13 @@ type Story = {
 };
 
 export default {
-    title: "Perseus/Widgets/Radio/Base Radio",
+    title: "Widgets/Radio/Widget Internal Components/Base Radio",
     args: {
         multipleSelect: false,
         editMode: false,
         countChoices: false,
     },
+    tags: ["!dev"],
 } as Story;
 
 const defaultProps = {

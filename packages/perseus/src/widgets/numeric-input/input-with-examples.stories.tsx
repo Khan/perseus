@@ -5,7 +5,7 @@ import InputWithExamples from "./input-with-examples";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Components/Input with Examples",
+    title: "Widgets/Numeric Input/Input with Examples",
     component: InputWithExamples,
     args: {
         examples: [],
@@ -13,6 +13,7 @@ const meta: Meta = {
         onChange: action("onChange"),
         value: "",
     },
+    tags: ["!dev"],
 };
 export default meta;
 
@@ -20,6 +21,7 @@ type Story = StoryObj<typeof InputWithExamples>;
 
 const testExamples = ["Sample 1", "Sample 2", "Sample 3"];
 
+// TODO: This will be the states gallery for new documentation format.
 export const DefaultAndMostlyEmptyProps: Story = {};
 
 export const ListOfExamples: Story = {

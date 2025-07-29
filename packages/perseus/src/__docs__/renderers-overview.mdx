@@ -1,0 +1,185 @@
+import {Markdown, Meta} from "@storybook/addon-docs/blocks";
+
+<Meta title="Renderers/Overview" />
+
+# Perseus Renderers Overview
+
+Perseus provides several renderer components to display interactive content for both exercises and articles. Each renderer serves a specific purpose in the Perseus ecosystem.
+
+## Core Renderers
+
+There are 4 main Perseus renderers:
+
+<Markdown>
+    {`
+| Renderer | Data Type | Description |
+| -------- | --------- | ----------- |
+| \`ServerItemRenderer\` | \`PerseusItem\` | The main exercise renderer. This component is a convenience wrapper around the \`Renderer\`. It adds some management of displaying hints and showing/hiding a keypad (if one is available). |
+| \`ArticleRenderer\` | \`PerseusRenderer\` or \`PerseusRenderer[]\` | A renderer for long-form, read-only content. This renderer is very similar to the \`ServerItemRenderer\` but cannot score any input provided by the learner. There is a \`graded-group\` widget which allows content authors to embed a "knowledge check" inside an article, but the scoring is not available outside of the renderer. |
+| \`Renderer\` | \`PerseusRenderer\` | The core renderer component that handles rendering markdown content with widgets and math (TeX). It manages widget state and coordinates scoring. |
+| \`HintRenderer\` | \`PerseusRenderer\` | A specialized renderer for displaying hint content within exercises. |
+    `}
+</Markdown>
+
+## Key Features
+
+Perseus renderers implement several sophisticated features to enhance content rendering and user interaction:
+
+**1. Math Rendering**
+
+-   All renderers use MathJax for rendering mathematical expressions
+-   Support for inline and display-mode TeX expressions
+-   Custom preprocessing via `preprocessTex` for enhanced rendering
+-   Zoomable math expressions via `ZoomableTeX` component
+
+**2. Widget System**
+
+-   Extensible widget architecture for interactive elements
+-   Widget state management through `WidgetContainer`
+-   Error boundaries to prevent widget failures from affecting the entire content
+-   Support for widget-specific transformations and upgrades
+
+**3. Accessibility**
+
+-   Comprehensive focus management for keyboard navigation
+-   ARIA attributes for interactive elements
+-   Screen reader compatibility
+-   Support for alternative input methods
+
+**4. Internationalization**
+
+-   Integration with translation systems (JIPT)
+-   Bidirectional text support
+-   Translation linting via `TranslationLinter`
+-   Localized content rendering
+
+**5. Mobile Support**
+
+-   Responsive layouts for different screen sizes
+-   Touch-friendly interactions
+-   On-screen keypad integration for math inputs
+-   Mobile-specific styling controlled via apiOptions
+
+**6. Performance Optimization**
+
+-   Selective re-rendering of widgets
+-   Asset preloading for images
+-   Caching of rendered markdown content
+-   Optimized scoring for complex widget hierarchies
+
+## Common Props
+
+Perseus renderers accept a variety of props to configure their behavior. The most important ones include:
+
+<Markdown>
+    {`
+| Prop | Type | Description |
+| ---- | ---- | ----------- |
+| \`apiOptions\` | \`APIOptions\` | Configuration object with extensive options for renderer behavior, including: |
+| | | - \`isMobile\`: Whether to use mobile styling |
+| | | - \`customKeypad\`: Whether a custom keypad is being used |
+| | | - \`onFocusChange\`: Callback when focus changes |
+| | | - \`trackInteraction\`: Callback to track user interactions |
+| | | - \`baseElements\`: Custom React components to use in place of standard DOM elements |
+| \`content\` | \`string\` | Markdown content to render, which may include widget references |
+| \`widgets\` | \`PerseusWidgetsMap\` | Object mapping widget IDs to their configuration data |
+| \`images\` | \`{[key: string]: any}\` | Images to be used in the content |
+| \`problemNum\` | \`number\` | The problem number (for exercises with multiple parts) |
+| \`questionCompleted\` | \`boolean\` | Whether the question has been answered correctly |
+| \`showSolutions\` | \`"all" \| "selected" \| "none"\` | Controls display of widget solutions and rationales |
+| \`linterContext\` | \`LinterContextProps\` | Options for the Perseus linter, including whether to highlight lint warnings |
+    `}
+</Markdown>
+
+For more details on specific renderer implementations and usage, refer to their individual documentation pages.
+
+## Data Flow
+
+### Item Rendering
+
+When rendering a Perseus item (exercise):
+
+**1. A `PerseusItem` object is passed to `ServerItemRenderer`**
+
+**2. `ServerItemRenderer` renders two main components:**
+
+-   The question content using `Renderer` (with the item's question content and widgets)
+-   Hints content using `HintsRenderer` (which uses `HintRenderer` for each hint)
+
+### Article Rendering
+
+When rendering a Perseus article:
+
+-   A `PerseusArticle` object (which can be a single `PerseusRenderer` or an array of them) is passed to `ArticleRenderer`
+-   `ArticleRenderer` creates a `Renderer` instance for each section
+
+## Widget Rendering Process
+
+The `Renderer` component handles the core functionality of rendering widgets through several key steps:
+
+**1. During initialization (`_getInitialWidgetState`), the Renderer:**
+
+-   Processes the widgets configuration from props
+-   Applies default values to widget options using `applyDefaultsToWidgets`
+-   Creates initial widget props and state
+
+**2. For rendering content with widgets, the Renderer:**
+
+-   Parses markdown content using `PerseusMarkdown`
+-   Identifies widget references in the content
+-   Manages widget containers that will host each widget instance
+
+**3. For each widget in the content, the `Renderer`:**
+
+-   Runs the widget's options through upgrade transforms
+-   Creates widget props by combining:
+    -   The widget's specific configuration
+    -   Common props like `apiOptions` and `problemNum`
+    -   Focus and interaction state
+-   Renders the widget using a `WidgetContainer` component that:
+    -   Handles error boundaries around each widget
+    -   Manages widget state and user interactions
+    -   Applies accessibility attributes
+
+**4. The Renderer also manages widget lifecycle by:**
+
+-   Tracking interactions with `InteractionTracker`
+-   Handling focus changes between widgets
+-   Coordinating with the parent renderer for scoring and state management
+
+## Input Focus Management
+
+Perseus renderers implement sophisticated focus management to handle user interactions across multiple widgets:
+
+**1. Focus Tracking**
+
+-   Renderers maintain a `_currentFocus` property that stores the current focus path
+-   The focus path is an array that identifies which widget and which part of the widget is focused
+-   This tracking enables proper keyboard navigation and accessibility features
+
+**2. Focus Path System**
+
+-   Focus paths use a hierarchical structure: `[widgetId, ...internalPath]`
+-   For complex widgets, the internal path can identify specific sub-components
+-   The `isIdPathPrefix` helper function determines if one path is a prefix of another
+
+**3. Focus Event Handling**
+
+-   Focus changes trigger callbacks between components:
+    -   `_handleFocusChange` processes focus transitions
+    -   `_setCurrentFocus` updates the current focus state
+    -   `_onRendererBlur` handles when focus leaves a renderer
+
+**4. Mobile Support**
+
+-   On mobile devices, focus events trigger keypad visibility:
+    -   When a math input is focused, the on-screen keypad appears
+    -   When focus moves away, the keypad is hidden
+-   The `ServerItemRenderer` coordinates with `keypadElement` to manage this behavior
+
+**5. Focus Delegation**
+
+-   Parent renderers delegate focus to child components:
+    -   `ServerItemRenderer.focus()` delegates to `questionRenderer.focus()`
+    -   `ServerItemRenderer.focusPath()` allows focusing specific widgets by path
+-   This delegation pattern allows for programmatic focus control

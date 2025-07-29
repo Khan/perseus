@@ -15,10 +15,10 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/plotter/plo
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 import type {
-    PerseusPlotterWidgetOptions,
     PerseusPlotterUserInput,
+    PerseusPlotterWidgetOptions,
+    PlotterPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
-import type {PlotterPublicWidgetOptions} from "@khanacademy/perseus-core/src/widgets/plotter/plotter-util";
 
 type Props = WidgetProps<
     PlotterPublicWidgetOptions,
@@ -1143,10 +1143,6 @@ export class Plotter extends React.Component<Props, State> implements Widget {
         });
     }
 
-    getUserInput(): PerseusPlotterUserInput {
-        return this.props.userInput;
-    }
-
     getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();
     }
@@ -1188,6 +1184,12 @@ function getStartUserInput(
     return options.starting;
 }
 
+function getCorrectUserInput(
+    options: PerseusPlotterWidgetOptions,
+): PerseusPlotterUserInput {
+    return options.correct;
+}
+
 /**
  * @deprecated and likely a very broken API
  * [LEMS-3185] do not trust serializedState/restoreSerializedState
@@ -1203,6 +1205,7 @@ export default {
     displayName: "Plotter",
     hidden: true,
     widget: Plotter,
+    getCorrectUserInput,
     staticTransform: _.identity,
     getStartUserInput,
     getUserInputFromSerializedState,

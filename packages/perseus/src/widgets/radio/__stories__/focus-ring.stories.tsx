@@ -16,13 +16,14 @@ type Story = {
 };
 
 export default {
-    title: "Perseus/Widgets/Radio/Focus Ring",
+    title: "Widgets/Radio/Widget Internal Components/Focus Ring",
     args: {
         children: "",
         color: styleConstants.kaGreen,
         visible: true,
         multipleSelect: false,
     },
+    tags: ["!dev"],
 } as Story;
 
 export const Interactive = (args: StoryArgs): React.ReactElement => {

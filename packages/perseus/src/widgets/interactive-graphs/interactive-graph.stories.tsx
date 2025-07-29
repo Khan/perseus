@@ -27,6 +27,7 @@ import {
     staticGraphQuestionWithAnotherWidget,
     segmentWithLockedLabels,
     unlimitedPolygonQuestion,
+    floatingPointIssueQuestion,
 } from "./interactive-graph.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -34,20 +35,31 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 const defaultApiOptions = ApiOptions.defaults;
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Interactive Graph",
+    title: "Widgets/Interactive Graph",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to interact with mathematical graphs,\
+                    supporting the creation and manipulation of various graph elements.",
+            },
+        },
+    },
 };
 export default meta;
 
 type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
-
-export const SideBySideFlipbook = (): React.ReactElement => <Flipbook />;
 
 export const Angle: Story = {
     args: {
         item: generateTestPerseusItem({question: angleQuestion}),
     },
 };
+
+// TODO(ivy): check if this was intentionally added in interactive-graph docs
+export const SideBySideFlipbook = (): React.ReactElement => <Flipbook />;
 
 export const Circle: Story = {
     args: {
@@ -203,6 +215,14 @@ export const StaticGraphWithAnotherWidget: Story = {
     args: {
         item: generateTestPerseusItem({
             question: staticGraphQuestionWithAnotherWidget(),
+        }),
+    },
+};
+
+export const TooltipsWithFloatingPointIssues: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: floatingPointIssueQuestion,
         }),
     },
 };

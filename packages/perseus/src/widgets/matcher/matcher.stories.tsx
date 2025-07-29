@@ -7,8 +7,18 @@ import {question1} from "./matcher.testdata";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
-    title: "Perseus/Widgets/Matcher",
+    title: "Widgets/Matcher",
     component: ServerItemRendererWithDebugUI,
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that allows users to match items from two different columns,\
+                    creating connections between related concepts or terms.",
+            },
+        },
+    },
 };
 export default meta;
 

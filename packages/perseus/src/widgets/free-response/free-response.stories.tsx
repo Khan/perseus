@@ -4,7 +4,17 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta<typeof FreeResponse> = {
     component: FreeResponse,
-    title: "Perseus/Widgets/FreeResponse",
+    title: "Widgets/Free Response",
+    tags: ["!dev"],
+    parameters: {
+        docs: {
+            description: {
+                component:
+                    "A widget that provides a text area for users to enter open-ended responses,\
+                    supporting long-form answers and essay-type questions.",
+            },
+        },
+    },
 };
 
 export default meta;

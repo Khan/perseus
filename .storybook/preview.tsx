@@ -60,10 +60,11 @@ const preview: Preview = {
         chromatic: {disableSnapshot: true},
 
         options: {
-            storySort: {
-                order: ["Perseus", "PerseusEditor", "Math-Input", "*"],
-                includeNames: true,
-            },
+            storySort: (story1, story2) =>
+                globalThis["storybook-multilevel-sort:storySort"](
+                    story1,
+                    story2,
+                ),
         },
         // TODO(somewhatabstract): This actions configuration does not appear to be
         // working as expected. That's probably OK since the new framework I'm
@@ -88,7 +89,9 @@ const preview: Preview = {
             })),
         },
         docs: {
-            toc: true,
+            toc: {
+                headingSelector: "h2, h3",
+            },
         },
     },
     tags: [

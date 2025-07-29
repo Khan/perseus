@@ -7,8 +7,8 @@ import type {GraphConfig} from "../reducer/use-graph-config";
 import type {GraphDimensions} from "../types";
 import type {Interval} from "mafs";
 
-// Exported for testing purposes
 export const fontSize = 14;
+export const fontSizeYAxisLabelMultiplier = 1.25;
 
 /* Calculate the position of the main axis labels based on the labelLocation
  * and the ranges of the graph. Exported for testing purposes.
@@ -33,7 +33,10 @@ export const clampLabelPosition = (
     const y = Math.max(
         // The maximum y value is the height of the graph + 1.25 font sizes, which aligns the label with the axis ticks
         // when the y-axis is out of bounds below the graph.
-        Math.min(labelPosition[Y], graphInfo.height + fontSize * 1.25),
+        Math.min(
+            labelPosition[Y],
+            graphInfo.height + fontSize * fontSizeYAxisLabelMultiplier,
+        ),
         // The minimum y value is -2 font sizes, which aligns the label with the axis ticks
         // when the y-axis is out of bounds above the graph.
         -fontSize * 2,
@@ -204,6 +207,7 @@ export function generateTickLocations(
     tickStep: number,
     min: number,
     max: number,
+    otherAxisMin: number,
 ): number[] {
     const ticks: number[] = [];
 
@@ -213,7 +217,14 @@ export function generateTickLocations(
 
     // Add ticks in the positive direction
     const start = Math.max(min, 0);
-    for (let i = start + tickStep; i < max; i += tickStep) {
+
+    // We need to offset by the tickStep to start at the second tick to avoid
+    // having the label overlap with the axis. However, this is not necessary
+    // when the min of the other axis is larger than the cartesian origin point
+    // (0,0) and therefore not going through the starting tick label.
+    const startOffset = otherAxisMin >= 0 ? 0 : tickStep;
+
+    for (let i = start + startOffset; i < max; i += tickStep) {
         // Match to the same number of decimal places as the tick step
         // to avoid floating point errors when working with small numbers
         ticks.push(parseFloat(i.toFixed(decimalSigFigs)));

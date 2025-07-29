@@ -1,4 +1,4 @@
-import {radioLogic, random, shuffle} from "@khanacademy/perseus-core";
+import {radioLogic, randomizeArrayElements} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import Radio from "./radio.ff";
@@ -17,21 +17,11 @@ import type {
 const _choiceTransform = (
     widgetOptions: PerseusRadioWidgetOptions,
     strings: PerseusStrings,
-    problemNum?: number | null,
 ) => {
     const _maybeRandomize = function (
         array: ReadonlyArray<RadioChoiceWithMetadata>,
     ) {
-        const randomSeed = problemNum === undefined ? random : problemNum;
-        // NOTE: `problemNum` will only be set when the radio widget is
-        // rendered at the root of an exercise question. It will be `undefined`
-        // if it's rendered embedded in another widget, such as `graded-group`,
-        // or if rendered within an article. This results in a predictable
-        // shuffle order. To avoid this we use a random seed when `problemNum`
-        // is `undefined`.
-        return widgetOptions.randomize
-            ? shuffle(array, randomSeed ?? 0)
-            : array;
+        return widgetOptions.randomize ? randomizeArrayElements(array) : array;
     };
 
     const _addNoneOfAbove = function (
@@ -101,9 +91,8 @@ const _choiceTransform = (
 const transform = (
     widgetOptions: PerseusRadioWidgetOptions,
     strings: PerseusStrings,
-    problemNum?: number | null,
 ): RenderProps => {
-    const choices = _choiceTransform(widgetOptions, strings, problemNum);
+    const choices = _choiceTransform(widgetOptions, strings);
 
     const {
         hasNoneOfTheAbove,
@@ -133,6 +122,14 @@ function getStartUserInput(
     };
 }
 
+function getCorrectUserInput(
+    options: PerseusRadioWidgetOptions,
+): PerseusRadioUserInput {
+    return {
+        choicesSelected: options.choices.map((option) => !!option.correct),
+    };
+}
+
 export default {
     name: "radio",
     displayName: "Radio / Multiple choice",
@@ -140,6 +137,7 @@ export default {
     transform,
     staticTransform: transform,
     getStartUserInput,
+    getCorrectUserInput,
     version: radioLogic.version,
     isLintable: true,
 
@@ -147,5 +145,7 @@ export default {
     /**
      * @deprecated - do not use in new code.
      */
-    getUserInputFromSerializedState,
+    getUserInputFromSerializedState: (serializedState: any) => {
+        return getUserInputFromSerializedState(serializedState, true);
+    },
 } satisfies WidgetExports<typeof Radio>;
