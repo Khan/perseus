@@ -5,7 +5,7 @@ import InputNumberEditor from "../input-number-editor";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta = {
-    title: "Widgets/InputNumber/Editor Demo",
+    title: "Widgets/Input Number/Editor Demo",
     component: InputNumberEditor,
     tags: ["!dev"],
 } as Meta;
