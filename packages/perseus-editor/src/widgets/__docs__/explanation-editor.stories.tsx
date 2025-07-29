@@ -25,8 +25,9 @@ export const Default: Story = {
     },
 };
 
-export const Preview: StoryObj<typeof EditorPageWithStorybookPreview> = {
-    render: (): React.ReactElement => (
-        <EditorPageWithStorybookPreview question={question1} />
-    ),
-};
+export const WithinEditorPage: StoryObj<typeof EditorPageWithStorybookPreview> =
+    {
+        render: (): React.ReactElement => (
+            <EditorPageWithStorybookPreview question={question1} />
+        ),
+    };
