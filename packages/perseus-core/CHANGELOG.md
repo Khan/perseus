@@ -1,5 +1,26 @@
 # @khanacademy/perseus-core
 
+## 18.4.0
+
+### Minor Changes
+
+-   [#2718](https://github.com/Khan/perseus/pull/2718) [`bfe4e50e9`](https://github.com/Khan/perseus/commit/bfe4e50e968e1b34dec685ec81c05d252cd07e49) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Creates new randomization logic for radio
+
+*   [#2719](https://github.com/Khan/perseus/pull/2719) [`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Add modern `"exports"` entry in package.json and export `item-splitting` separately
+
+## 18.3.0
+
+### Minor Changes
+
+-   [#2737](https://github.com/Khan/perseus/pull/2737) [`77e095f86`](https://github.com/Khan/perseus/commit/77e095f8660618b9476a50094872821c7a9184e8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updating all packages to newest version of wonderblocks
+
+### Patch Changes
+
+-   Updated dependencies [[`77e095f86`](https://github.com/Khan/perseus/commit/77e095f8660618b9476a50094872821c7a9184e8)]:
+    -   @khanacademy/kas@2.1.0
+    -   @khanacademy/perseus-utils@2.1.0
+    -   @khanacademy/pure-markdown@2.2.0
+
 ## 18.2.2
 
 ### Patch Changes

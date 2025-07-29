@@ -1,0 +1,138 @@
+name: "Branch Compare"
+description: "Compare artifacts between PR branch and base branch"
+
+inputs:
+    github-token:
+        description: "The Github token to use for authenticated requests."
+        required: true
+    build-command:
+        description: "The command that generates the artifact to compare"
+        required: true
+    path-to-artifact:
+        description: >-
+            The path to the artifact to compare (can be a file or directory).
+            It should be the same for both the current branch and base branch.
+        required: true
+    label-name:
+        description: "The name of the label to add or remove based on the diff result"
+        required: true
+    comment-title:
+        description: >-
+            The term to include in the title of comments made by this action.
+
+runs:
+    using: "composite"
+    steps:
+        - name: Build for current PR
+          shell: bash
+          run: ${{ inputs.build-command }}
+
+        - name: Capture output artifact from build-command for current PR
+          id: capture-pr-artifacts
+          shell: bash
+          run: |
+              PR_ARTIFACT_DIR="${{ runner.temp }}/branch-compare/pr"
+              mkdir -p "$PR_ARTIFACT_DIR"
+              if [ -e "${{ inputs.path-to-artifact }}" ]; then
+                cp -R ${{ inputs.path-to-artifact }} "$PR_ARTIFACT_DIR/"
+              fi
+              echo "artifact-path=$PR_ARTIFACT_DIR" >> $GITHUB_OUTPUT
+
+        - name: Check out base branch
+          uses: actions/checkout@v4
+          with:
+              # This checks out the base branch of the PR (the branch the PR
+              # is targeting)
+              ref: ${{ github.event.pull_request.base.ref }}
+
+        - name: Build for base
+          shell: bash
+          run: ${{ inputs.build-command }}
+
+        - name: Capture output artifact from build-command for base branch
+          id: capture-base-artifacts
+          shell: bash
+          run: |
+              BASE_ARTIFACT_DIR="${{ runner.temp }}/branch-compare/base"
+              mkdir -p "$BASE_ARTIFACT_DIR"
+              if [ -e "${{ inputs.path-to-artifact }}" ]; then
+                cp -R ${{ inputs.path-to-artifact }} "$BASE_ARTIFACT_DIR/"
+              fi
+              echo "artifact-path=$BASE_ARTIFACT_DIR" >> $GITHUB_OUTPUT
+
+        - name: Compare Artifacts
+          id: compare-artifacts
+          shell: bash
+          run: |
+              # Don't stop execution if an error occurs, we'll capture the
+              # return value from `diff` and don't want it to blow up this
+              # Github action in cases where it finds differences (non-zero
+              # exit code).
+              set +e
+              # We generate a delimeter as a UUID to avoid the chance of our
+              # delimeter showing up in the diff output. A new UUID from this
+              # tool is guaranteed to be unique over both space and time.
+              DELIM=$(uuidgen)
+              echo "diff-content<<$DELIM" >> "$GITHUB_OUTPUT"
+              diff --unified "${{ steps.capture-base-artifacts.outputs.artifact-path }}" \
+                             "${{ steps.capture-pr-artifacts.outputs.artifact-path }}" >> "$GITHUB_OUTPUT"
+              DIFF_EXIT_CODE=$?
+              echo "$DELIM" >> "$GITHUB_OUTPUT"
+              echo "diff-exit-code=$DIFF_EXIT_CODE" >> "$GITHUB_OUTPUT"
+
+        - name: Add or Remove Label Based on Diff
+          if: always()
+          env:
+              GITHUB_TOKEN: ${{ inputs.github-token }}
+          shell: bash
+          run: |
+              PR_NUMBER="${{ github.event.pull_request.number }}"
+              if [ "${{ steps.compare-artifacts.outputs.diff-exit-code }}" == "0" ]; then
+                  gh pr edit "$PR_NUMBER" --remove-label "${{ inputs.label-name }}" || true
+              else
+                  gh pr edit "$PR_NUMBER" --add-label "${{ inputs.label-name }}"
+              fi
+
+        - name: Find comment
+          uses: peter-evans/find-comment@3eae4d37986fb5a8592848f6a574fdf654e61f9e
+          id: find-comment
+          with:
+              issue-number: ${{ github.event.pull_request.number }}
+              comment-author: "github-actions[bot]"
+              body-includes: "Comment ID: ${{ inputs.comment-title }}"
+
+        - name: Create or update comment - success
+          if: steps.compare-artifacts.outputs.diff-exit-code == '0'
+          uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+          with:
+              issue-number: ${{ github.event.pull_request.number }}
+              comment-id: ${{ steps.find-comment.outputs.comment-id}}
+              edit-mode: replace
+              body: |
+                  # ${{ inputs.comment-title }}: No Changes ✅
+
+                  <!---
+                  Comment ID: ${{ inputs.comment-title }}
+                  -->
+
+        - name: Create or update comment - failure
+          if: steps.compare-artifacts.outputs.diff-exit-code != '0'
+          uses: peter-evans/create-or-update-comment@71345be0265236311c031f5c7866368bd1eff043
+          with:
+              issue-number: ${{ github.event.pull_request.number }}
+              comment-id: ${{ steps.find-comment.outputs.comment-id}}
+              edit-mode: replace
+              body: |
+                  # ${{ inputs.comment-title }}: Changes Detected ⚠️
+
+                  This PR contains critical changes to Perseus. Please review
+                  the changes and note that you may need to coordinate
+                  deployment of these changes with other teams at Khan Academy.
+
+                  ```diff
+                  ${{ steps.compare-artifacts.outputs.diff-content }}
+                  ```
+
+                  <!---
+                  Comment ID: ${{ inputs.comment-title }}
+                  -->

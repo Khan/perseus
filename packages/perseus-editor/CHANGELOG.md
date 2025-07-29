@@ -1,5 +1,48 @@
 # @khanacademy/perseus-editor
 
+## 27.0.0
+
+### Major Changes
+
+-   [#2706](https://github.com/Khan/perseus/pull/2706) [`7ae45139b`](https://github.com/Khan/perseus/commit/7ae45139b0fbe75e128f5a0e8e71078dc8a4e733) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Remove frameSource prop from EditorPage component
+
+### Patch Changes
+
+-   Updated dependencies [[`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2), [`bfe4e50e9`](https://github.com/Khan/perseus/commit/bfe4e50e968e1b34dec685ec81c05d252cd07e49), [`17f57db9c`](https://github.com/Khan/perseus/commit/17f57db9c9cbf3fdaf735c87853d2156de253bd2)]:
+    -   @khanacademy/perseus@66.2.0
+    -   @khanacademy/perseus-score@7.3.0
+    -   @khanacademy/perseus-core@18.4.0
+    -   @khanacademy/keypad-context@3.1.1
+    -   @khanacademy/kmath@2.1.1
+    -   @khanacademy/math-input@26.1.1
+    -   @khanacademy/perseus-linter@4.2.1
+
+## 26.2.0
+
+### Minor Changes
+
+-   [#2737](https://github.com/Khan/perseus/pull/2737) [`77e095f86`](https://github.com/Khan/perseus/commit/77e095f8660618b9476a50094872821c7a9184e8) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Updating all packages to newest version of wonderblocks
+
+### Patch Changes
+
+-   Updated dependencies [[`77e095f86`](https://github.com/Khan/perseus/commit/77e095f8660618b9476a50094872821c7a9184e8)]:
+    -   @khanacademy/kas@2.1.0
+    -   @khanacademy/keypad-context@3.1.0
+    -   @khanacademy/kmath@2.1.0
+    -   @khanacademy/math-input@26.1.0
+    -   @khanacademy/perseus@66.1.0
+    -   @khanacademy/perseus-core@18.3.0
+    -   @khanacademy/perseus-linter@4.2.0
+    -   @khanacademy/perseus-score@7.2.0
+    -   @khanacademy/perseus-utils@2.1.0
+    -   @khanacademy/pure-markdown@2.2.0
+
+## 26.1.2
+
+### Patch Changes
+
+-   [#2734](https://github.com/Khan/perseus/pull/2734) [`1209297b0`](https://github.com/Khan/perseus/commit/1209297b08f6863ff8199a34b2a06462484999cb) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Add dynamically resizing text areas to Radio editor UI
+
 ## 26.1.1
 
 ### Patch Changes
