@@ -1,11 +1,3 @@
-/**
- * Direct image labeling widget editor.
- *
- * Label on image widget enables creating more natural, conceptual questions
- * that involve the use of images, and enable learners to demonstrate their
- * knowledge by directly interacting with the image.
- */
-
 import {EditorJsonify, Util} from "@khanacademy/perseus";
 import {labelImageLogic} from "@khanacademy/perseus-core";
 import {StyleSheet, css} from "aphrodite";
@@ -41,6 +33,14 @@ type Props = {
     onChange: (options: any) => void;
 };
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * Direct image labeling widget editor.
+ *
+ * Label on image widget enables creating more natural, conceptual questions
+ * that involve the use of images, and enable learners to demonstrate their
+ * knowledge by directly interacting with the image.
+ */
 class LabelImageEditor extends React.Component<Props> {
     _questionMarkers: QuestionMarkers | null | undefined;
 

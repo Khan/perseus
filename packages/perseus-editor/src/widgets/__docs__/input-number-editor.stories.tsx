@@ -1,28 +1,19 @@
-import * as React from "react";
 import {action} from "storybook/actions";
 
 import InputNumberEditor from "../input-number-editor";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-type Story = {
-    title: string;
-};
-
-export default {
+const meta = {
     title: "Widgets/InputNumber/Editor Demo",
     component: InputNumberEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding an input number widget that allows users to enter numerical values.",
-            },
-        },
-    },
-} as Story;
+} as Meta;
+export default meta;
 
-export const Default = (args: StoryArgs): React.ReactElement => {
-    return <InputNumberEditor onChange={action("onChange")} />;
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
+    },
 };

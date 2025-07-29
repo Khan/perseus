@@ -22,6 +22,10 @@ type Props = PerseusFreeResponseWidgetOptions & {
     onChange: (options: Partial<PerseusFreeResponseWidgetOptions>) => void;
 };
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * An editor for adding a free response widget that allows users to enter open-ended text answers.
+ */
 class FreeResponseEditor extends React.Component<Props> {
     static defaultProps: FreeResponseDefaultWidgetOptions =
         freeResponseLogic.defaultWidgetOptions;

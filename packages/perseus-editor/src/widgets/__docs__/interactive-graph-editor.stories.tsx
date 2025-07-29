@@ -35,30 +35,21 @@ import type {
     PerseusAnswerArea,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
-import type {StoryObj} from "@storybook/react-vite";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
 
-export default {
+const meta: Meta = {
     title: "Widgets/Interactive Graph/Editor Demo",
     component: InteractiveGraphEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding an interactive graph widget that allows users\
-                    to create and interact with mathematical graphs and figures.",
-            },
-        },
-    },
-};
+} satisfies Meta<typeof InteractiveGraphEditor>;
+export default meta;
 
 const onChangeAction = action("onChange");
 
-type Story = StoryObj<typeof InteractiveGraphEditor>;
-
+type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
 
 export const InteractiveGraphWithAriaLabel = (): React.ReactElement => (

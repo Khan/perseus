@@ -13,6 +13,10 @@ const {InfoTip, TextListEditor} = components;
 
 type Props = any;
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * An editor for adding a matcher widget that allows users to match items from two different sets.
+ */
 class MatcherEditor extends React.Component<Props> {
     static propTypes = {
         left: PropTypes.array,

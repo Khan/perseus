@@ -1,35 +1,35 @@
 import {ApiOptions} from "@khanacademy/perseus";
-import * as React from "react";
 import {action} from "storybook/actions";
 
 import PlotterEditor from "../plotter-editor";
 
-type StoryArgs = Record<any, any>;
+import type {StoryObj} from "@storybook/react-vite";
 
-type Story = {
-    title: string;
-};
-
-export default {
+const meta = {
     title: "Widgets/Plotter/Editor Demo",
     component: PlotterEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding a plotter widget that allows users to create and customize data visualizations.",
-            },
-        },
-    },
-} as Story;
+};
+export default meta;
 
-export const Default = (args: StoryArgs): React.ReactElement => {
-    return (
-        <PlotterEditor
-            onChange={action("onChange")}
-            static={false}
-            apiOptions={ApiOptions.defaults}
-        />
-    );
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
+        apiOptions: ApiOptions.defaults,
+        categories: ["0", "1", "2"],
+        plotDimensions: [300, 300],
+        correct: [0, 1, 2],
+        labels: ["Horizontal", "Vertical"],
+        maxY: 2,
+        scaleY: 1,
+        snapsPerLine: 1,
+        starting: [0, 0, 0],
+        type: "bar",
+        picSize: 400,
+        picBoxHeight: 400,
+        picUrl: "",
+        labelInterval: 1,
+        static: false,
+    },
 };

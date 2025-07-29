@@ -9,33 +9,25 @@ import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-stor
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import RadioEditor from "../radio/editor";
 
-import type {Meta} from "@storybook/react-vite";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
 
 const meta: Meta = {
     title: "Widgets/Radio/Editor Demo",
+    component: RadioEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding a radio widget that allows users to select a single option from multiple choices.",
-            },
-        },
-    },
-};
+} satisfies Meta<typeof RadioEditor>;
 export default meta;
 
-export const Default = (): React.ReactElement => {
-    return (
-        <RadioEditor
-            apiOptions={Object.freeze({})}
-            onChange={action("onChange")}
-            static={false}
-        />
-    );
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
+        apiOptions: Object.freeze({}),
+        static: false,
+    },
 };
 
 export const SingleChoice = (): React.ReactElement => (

@@ -16,6 +16,11 @@ type Props = PhetSimulationDefaultWidgetOptions & {
     }) => void;
 };
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * An editor for adding a PhET simulation widget that allows users to interact
+ * with physics simulations.
+ */
 class PhetSimulationEditor extends React.Component<Props> {
     static defaultProps: PhetSimulationDefaultWidgetOptions =
         phetSimulationLogic.defaultWidgetOptions;

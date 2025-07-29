@@ -15,15 +15,6 @@ const meta: Meta = {
     title: "Widgets/Dropdown/Editor Demo",
     component: DropdownEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding a dropdown widget that allow users to select an\
-                    option from a predefined list.",
-            },
-        },
-    },
 } satisfies Meta<typeof DropdownEditor>;
 export default meta;
 

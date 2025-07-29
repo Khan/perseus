@@ -33,6 +33,10 @@ export interface RadioEditorProps extends Changeable.ChangeableProps {
     static: boolean;
 }
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * An editor for adding a radio widget that allows users to select a single option from multiple choices.
+ */
 class RadioEditor extends React.Component<RadioEditorProps> {
     static widgetName = "radio" as const;
 

@@ -41,6 +41,11 @@ type Props = {
     showTooltips: boolean;
 } & Changeable.ChangeableProps;
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * An editor for adding a number line widget that allows users to mark
+ * positions, intervals, and points on a number line.
+ */
 class NumberLineEditor extends React.Component<Props> {
     static widgetName = "number-line" as const;
 

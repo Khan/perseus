@@ -47,6 +47,15 @@ type Props = Changeable.ChangeableProps & {
 
 type State = any;
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * An editor for the interaction widget that allows users to engage with interactive content.
+ *
+ * The interaction widget provides a dynamic graph interface with various interactive elements
+ * including points, lines, movable points, movable lines, functions, parametric curves,
+ * labels, and rectangles. This editor allows content creators to configure those elements
+ * and their properties.
+ */
 class InteractionEditor extends React.Component<Props, State> {
     static widgetName = "interaction" as const;
     static defaultProps: InteractionDefaultWidgetOptions =

@@ -15,14 +15,6 @@ const meta: Meta = {
     title: "Widgets/Expression/Editor Demo",
     component: ExpressionEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding an expression widget that allow users to enter mathematical expressions.",
-            },
-        },
-    },
 } satisfies Meta<typeof ExpressionEditor>;
 export default meta;
 

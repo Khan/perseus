@@ -16,14 +16,6 @@ const meta: Meta = {
     title: "Widgets/Categorizer/Editor Demo",
     component: CategorizerEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding a categorizer widget that allow users to sort items into categories.",
-            },
-        },
-    },
 } satisfies Meta<typeof CategorizerEditor>;
 export default meta;
 

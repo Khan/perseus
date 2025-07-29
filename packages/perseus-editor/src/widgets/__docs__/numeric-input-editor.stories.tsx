@@ -3,33 +3,30 @@ import {action} from "storybook/actions";
 
 import {integerProblem} from "../../../../perseus/src/widgets/numeric-input/numeric-input.testdata";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import NumericInputEditor from "../numeric-input-editor";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-type Story = {
-    title: string;
-};
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
 
-export default {
+const meta: Meta = {
     title: "Widgets/Numeric Input/Editor Demo",
     component: NumericInputEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding a numeric input widget that allows users to\
-                    enter numerical values with specific validation rules.",
-            },
-        },
-    },
-} as Story;
+} satisfies Meta<typeof NumericInputEditor>;
+export default meta;
 
-export const Default = (args: StoryArgs): React.ReactElement => {
-    return <NumericInputEditor onChange={action("onChange")} />;
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
+    },
 };
 
-export const Preview = (): React.ReactElement => (
-    <EditorPageWithStorybookPreview question={integerProblem} />
-);
+export const Preview: StoryObj<typeof EditorPageWithStorybookPreview> = {
+    render: (): React.ReactElement => (
+        <EditorPageWithStorybookPreview question={integerProblem} />
+    ),
+};

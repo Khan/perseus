@@ -1,6 +1,3 @@
-/**
- * This editor is for embedding Khan Academy Python programs.
- */
 import {components, Changeable} from "@khanacademy/perseus";
 import {pythonProgramLogic} from "@khanacademy/perseus-core";
 import * as React from "react";
@@ -34,8 +31,9 @@ export function validateOptions(
     return errors;
 }
 
+// JSDoc will be shown in Storybook widget editor description
 /**
- * This is the main editor for this widget, to specify all the options.
+ * An editor for adding a Python program widget that allows users to write, edit and execute Python code.
  */
 class PythonProgramEditor extends React.Component<Props> {
     static widgetName = "python-program" as const;
