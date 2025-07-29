@@ -1,8 +1,8 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import {question1} from "../../../../perseus/src/widgets/explanation/explanation.testdata";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {question} from "../../__testdata__/explanation.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import ExplanationEditor from "../explanation-editor";
 
@@ -28,6 +28,6 @@ export const Default: Story = {
 export const WithinEditorPage: StoryObj<typeof EditorPageWithStorybookPreview> =
     {
         render: (): React.ReactElement => (
-            <EditorPageWithStorybookPreview question={question1} />
+            <EditorPageWithStorybookPreview question={question} />
         ),
     };

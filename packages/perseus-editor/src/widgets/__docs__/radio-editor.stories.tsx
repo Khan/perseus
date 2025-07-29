@@ -1,11 +1,11 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {
     multiChoiceQuestion,
-    question,
-} from "../../../../perseus/src/widgets/radio/__tests__/radio.testdata";
-import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+    singleSelectQuestion,
+} from "../../__testdata__/radio.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import RadioEditor from "../radio/editor";
 
@@ -15,7 +15,7 @@ import type {Meta, StoryObj} from "@storybook/react-vite";
 registerAllWidgetsAndEditorsForTesting();
 
 const meta: Meta = {
-    title: "Widgets/Radio/Editor Demo",
+    title: "Widgets/RadioNew/Editor Demo",
     component: RadioEditor,
     tags: ["!dev"],
 } satisfies Meta<typeof RadioEditor>;
@@ -31,7 +31,7 @@ export const Default: Story = {
 };
 
 export const SingleChoice = (): React.ReactElement => (
-    <EditorPageWithStorybookPreview question={question} />
+    <EditorPageWithStorybookPreview question={singleSelectQuestion} />
 );
 
 export const MultiChoice = (): React.ReactElement => (

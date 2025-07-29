@@ -1,8 +1,8 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import {question} from "../../../../perseus/src/widgets/definition/definition.testdata";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {question} from "../../__testdata__/definition.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import DefinitionEditor from "../definition-editor";
 

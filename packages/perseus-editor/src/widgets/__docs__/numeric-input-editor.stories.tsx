@@ -1,8 +1,8 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import {integerProblem} from "../../../../perseus/src/widgets/numeric-input/numeric-input.testdata";
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {integerProblem} from "../../__testdata__/numeric-input.testdata";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import NumericInputEditor from "../numeric-input-editor";
 
