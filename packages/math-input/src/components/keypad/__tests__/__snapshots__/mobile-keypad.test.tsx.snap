@@ -20,7 +20,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
         class="default_xu2jcg-o_O-wrapper_144oaus"
       >
         <div
-          class="default_xu2jcg-o_O-tabbar_721koc"
+          class="default_xu2jcg-o_O-tabbar_zvl22d"
         >
           <div
             class="default_xu2jcg"
@@ -60,7 +60,7 @@ exports[`mobile keypad should render keypad when active 1`] = `
           </div>
         </div>
         <div
-          class="default_xu2jcg-o_O-keypadInnerContainer_uc6399"
+          class="default_xu2jcg-o_O-keypadInnerContainer_huowys"
         >
           <div
             aria-label="Keypad"
