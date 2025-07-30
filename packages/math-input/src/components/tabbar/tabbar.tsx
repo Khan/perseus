@@ -15,6 +15,8 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         paddingTop: 2,
         paddingBottom: 2,
+        // Even in RTL languages, math is LTR.
+        // So we force this component to always render LTR
         direction: "ltr",
     },
     pages: {

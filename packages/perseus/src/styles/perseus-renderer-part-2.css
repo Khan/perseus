@@ -92,6 +92,8 @@
     font-size: 18px;
     min-width: 100px;
     border: unset;
+    /* Even in RTL languages, math is LTR. */
+    /*  So we force this component to always render LTR */
     direction: ltr;
 }
 .perseus-math-input.mq-editable-field.mq-math-mode.mq-focused {
