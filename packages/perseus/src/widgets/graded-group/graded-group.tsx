@@ -331,7 +331,7 @@ export class GradedGroup
                     )}
                 </UserInputManager>
 
-                {(!apiOptions.isMobile || apiOptions.isArticle) && (
+                {(!apiOptions.isMobile) && (
                     <>
                         {icon != null && (
                             <div className="group-icon">{icon}</div>
@@ -441,7 +441,6 @@ export class GradedGroup
                         </button>
                     ))}
                 {apiOptions.isMobile &&
-                    !apiOptions.isArticle &&
                     answerBarState !== "HIDDEN" && (
                         <GradedGroupAnswerBar
                             apiOptions={apiOptions}
