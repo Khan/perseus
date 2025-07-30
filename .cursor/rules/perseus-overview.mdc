@@ -18,7 +18,10 @@ extends Markdown with two special extensions:
 - perseus-core (types),
 - perseus-linter (validation)
 - perseus-score (server-side scoring)
-
+- simple-markdown (core Markdown parsing),
+- pure-markdown (Perseus' extensions to Markdown parsing - math and widgets)
+- kmath (Khan Academy's math utility library)
+- kas (Khan Academy's (Computer Algebra System) math expression parsing and comparison library)
 **Documentation**:
 - [Overview](mdc:__docs__/introduction.mdx)
 - [Renderers](mdc:packages/perseus/src/__docs__/renderers-overview.mdx)
