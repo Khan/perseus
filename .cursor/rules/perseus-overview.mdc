@@ -1,0 +1,93 @@
+---
+description: Perseus project overview and coding standards
+globs:
+alwaysApply: true
+---
+
+# Perseus Overview
+
+Perseus encompasses several npm libraries written in TypeScript. At its core, Perseus renders Markup to React/HTML and
+extends Markdown with two special extensions:
+- **Widgets**: custom, React-based UI (dropdown, radio, numeric-input, etc.)
+- **Math**: TeX expressions via MathJax (`$y = mx + b$`, `[[☃ widget-type 1]]`)
+
+**Core packages**:
+- perseus (renderers/widgets),
+- perseus-editor (editor UI),
+- math-input (keypad),
+- perseus-core (types),
+- perseus-linter (validation)
+- perseus-score (server-side scoring)
+
+**Documentation**:
+- [Overview](mdc:__docs__/introduction.mdx)
+- [Renderers](mdc:packages/perseus/src/__docs__/renderers-overview.mdx)
+
+# Code Standards
+
+## TypeScript
+- ✅ Strict TypeScript, type imports: `import type {T} from './types'`
+- ✅ `interface` for objects, `type` for unions
+- ❌ No `React.FC<Props>` - use function signatures
+- ✅ No unused variables (must match `/^_*$/u` pattern if unused)
+
+## Imports
+```typescript
+import React from "react";                      // external
+import {Util} from "@khanacademy/perseus";      // internal
+import {Local} from "../components";            // relative
+
+import type {MyType} from "./types";            // types last
+```
+- ✅ Package aliases (`@khanacademy/perseus`)
+- ❌ No file extensions (`.ts`, `.tsx` banned)
+- ❌ No cross-package relative imports
+
+## React
+- ✅ Functional components, hooks, `Props` interface
+- ✅ `WidgetProps<RenderProps>` pattern for widgets
+- ✅ Error boundaries, React.memo() for performance
+
+## Widgets
+- ✅ Implement `WidgetExports<T>` interface
+- ✅ Options in `types.ts` (perseus-core)
+- ✅ Use `transform`/`staticTransform` for data processing
+- ✅ Focus management for accessibility
+
+## Files
+```
+packages/[name]/src/
+├── __docs__/              # High-level documentation
+├── widgets/[widget]/
+│   ├── __docs__/a11y.mdx  # Accessibility docs
+│   ├── [widget].test.ts   # Tests
+│   └── index.ts           # Exports
+```
+
+## Accessibility
+- ✅ ARIA attributes, keyboard navigation, semantic HTML
+- ✅ Screen reader compatibility, a11y docs for widgets
+
+## Performance
+- ✅ React.memo(), useMemo(), proper state management
+- ✅ Cache markdown, optimize images
+
+## Testing
+- ✅ Jest + React Testing Library
+- ✅ `.test.ts` files, mock dependencies
+- ✅ Accessibility testing
+
+## Documentation
+- ✅ Storybook stories in `__docs__/`
+- ✅ `a11y.mdx` for widgets
+- ✅ README per package
+- ✅ JSDoc for widgets, editor components, and public APIs
+
+## Formatting (Prettier)
+- ✅ 4-space indentation, 80 char line width
+- ✅ Double quotes, semicolons, trailing commas
+- ✅ No bracket spacing: `{foo}` not `{ foo }`
+
+## Security
+- ❌ Never commit secrets
+- ✅ Sanitize input, secure defaults, validate boundaries
