@@ -158,7 +158,7 @@ export const ClassNames = {
     RESPONSIVE_RENDERER: "perseus-renderer-responsive",
     INPUT: "perseus-input",
     FOCUSED: "perseus-focused",
-    // TODO: (START) Remove these entries, and corresponding styles in perseus/src/styles/widgets/radio.css,
+    // TODO: (START - LEMS-3301) Remove these entries, and corresponding styles in perseus/src/styles/widgets/radio.css,
     //       once radio widget is fully migrated to new files
     RADIO: {
         OPTION: "perseus-radio-option",
@@ -167,7 +167,7 @@ export const ClassNames = {
     },
     CORRECT: "perseus-correct",
     INCORRECT: "perseus-incorrect",
-    // TODO: (END) Remove once radio widget is fully migrated to new files
+    // TODO: (END - LEMS-3301) Remove once radio widget is fully migrated to new files
     UNANSWERED: "perseus-unanswered", // TODO: Pretty sure this is unused - verify and remove if so
     MOBILE: "perseus-mobile",
 } as const;

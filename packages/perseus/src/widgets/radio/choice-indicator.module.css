@@ -63,7 +63,6 @@
            we don't have to worry about adjusting these if we change the font size of the letter,
            and it will scale with any user-based font-size changes.
        The height and width of the icon is calculated based upon the revised specs,
-           (https://www.figma.com/design/BokB9NfT0ntq5sMfOAyhJQ/Radio-Widget?node-id=152-1017&t=fJjnnrNse62NOL4g-1)
            which end up being this weird fraction.
      */
     margin-inline-end: calc(1em / 3) !important;
