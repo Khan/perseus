@@ -331,7 +331,7 @@ export class GradedGroup
                     )}
                 </UserInputManager>
 
-                {(!apiOptions.isMobile) && (
+                {!apiOptions.isMobile && (
                     <>
                         {icon != null && (
                             <div className="group-icon">{icon}</div>
@@ -440,15 +440,14 @@ export class GradedGroup
                             {this.context.strings.explain}
                         </button>
                     ))}
-                {apiOptions.isMobile &&
-                    answerBarState !== "HIDDEN" && (
-                        <GradedGroupAnswerBar
-                            apiOptions={apiOptions}
-                            answerBarState={answerBarState}
-                            onCheckAnswer={this._checkAnswer}
-                            onNextQuestion={this.props.onNextQuestion}
-                        />
-                    )}
+                {apiOptions.isMobile && answerBarState !== "HIDDEN" && (
+                    <GradedGroupAnswerBar
+                        apiOptions={apiOptions}
+                        answerBarState={answerBarState}
+                        onCheckAnswer={this._checkAnswer}
+                        onNextQuestion={this.props.onNextQuestion}
+                    />
+                )}
             </div>
         );
     }
