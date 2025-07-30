@@ -112,10 +112,10 @@ export const MovablePointView = forwardRef(
         return (
             <>
                 {showHairlines && <Hairlines point={point} />}
-
                 {showTooltips ? (
                     <Tooltip
                         autoUpdate={true}
+                        opened={true}
                         backgroundColor={wbColorName}
                         content={pointTooltipContent}
                         contentStyle={{color: "white"}}

@@ -13,34 +13,6 @@ import {MovablePoint} from "./movable-point";
 
 import type {GraphConfig} from "../../reducer/use-graph-config";
 
-jest.mock("@khanacademy/wonder-blocks-tooltip", () => {
-    const originalModule = jest.requireActual(
-        "@khanacademy/wonder-blocks-tooltip",
-    );
-
-    return {
-        ...originalModule,
-        __esModule: true,
-        default: function MockToolTip({children, ...props}) {
-            /*
-            NOTE: When a WonderBlocks Tooltip is added to an element, it isn't
-                  rendered with the element. Instead, it is rendered elsewhere
-                  in the document (usually the bottom of the <body>), and only
-                  when the user interacts with the element. This makes checking
-                  for the Tooltip element difficult to manage in a test.
-                  Therefore, these tests mock the Tooltip component and just
-                  have it render the tooltip content inline, making it very
-                  easy to verify.
-            */
-            return (
-                <div {...props} data-testid="tooltip-content-for-test">
-                    {children}
-                </div>
-            );
-        },
-    };
-});
-
 function mockGraphConfig(config) {
     return jest.spyOn(ReducerGraphConfig, "default").mockReturnValue(config);
 }
@@ -80,8 +52,13 @@ describe("MovablePoint", () => {
         });
     });
 
+    afterEach(() => {
+        delete globalThis.SNAPSHOT_INLINE_APHRODITE;
+    });
+
     describe("Tooltip", () => {
-        it("References a tooltip when option is indicated", () => {
+        it("References a tooltip when option is indicated", async () => {
+            // Arrange
             mockGraphConfig(graphConfigContextWithTooltips);
             render(
                 <Mafs width={200} height={200}>
@@ -92,12 +69,18 @@ describe("MovablePoint", () => {
                     />
                 </Mafs>,
             );
-            expect(
-                screen.getByTestId("tooltip-content-for-test"),
-            ).toBeInTheDocument();
+
+            // Act
+            await userEvent.hover(await screen.findByTestId("movable-point"));
+
+            // Assert
+            expect(await screen.findByRole("tooltip")).toHaveTextContent(
+                "(0, 0)",
+            );
         });
 
         it("Does NOT reference a tooltip when option is 'false'", async () => {
+            // Arrange
             mockGraphConfig(baseGraphConfigContext);
             render(
                 <Mafs width={200} height={200}>
@@ -108,10 +91,20 @@ describe("MovablePoint", () => {
                     />
                 </Mafs>,
             );
-            expect(screen.queryByTestId("tooltip-content-for-test")).toBeNull();
+
+            // Act
+            await userEvent.hover(await screen.findByTestId("movable-point"));
+
+            // Assert
+            expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+            expect(screen.queryByText("(0, 0)")).not.toBeInTheDocument();
         });
 
-        it("Defaults to a 'blue' background by default", () => {
+        it("Defaults to a 'blue' background by default", async () => {
+            // Causes aphrodite (in WB) to render inline styles
+            // See: https://github.com/Khan/wonder-blocks/pull/172
+            globalThis.SNAPSHOT_INLINE_APHRODITE = true;
+
             mockGraphConfig(graphConfigContextWithTooltips);
             render(
                 <Mafs width={200} height={200}>
@@ -123,12 +116,27 @@ describe("MovablePoint", () => {
                 </Mafs>,
             );
 
-            expect(
-                screen.queryByTestId("tooltip-content-for-test"),
-            ).toHaveAttribute("backgroundColor", "blue");
+            // Act
+            await userEvent.hover(await screen.findByTestId("movable-point"));
+
+            // Background color check borrowed from WB tooltip tests.
+            // https://github.com/Khan/wonder-blocks/blob/aca4fd7bfab8275987f1aaf1dccf8b8bcb751928/packages/wonder-blocks-tooltip/src/components/__tests__/tooltip.test.tsx#L114
+            const tooltipContent = await screen.findByRole("tooltip");
+            // eslint-disable-next-line testing-library/no-node-access
+            const innerTooltipContentView = tooltipContent.firstChild;
+
+            // Assert
+            expect(innerTooltipContentView).toBeInTheDocument();
+            expect(innerTooltipContentView).toHaveStyle(
+                "background-color: rgb(24, 101, 242)", // Blue
+            );
         });
 
-        it("Uses 'fadedOffBlack64' background when the point is disabled", () => {
+        it("Uses 'fadedOffBlack64' background when the point is disabled", async () => {
+            // Causes aphrodite (in WB) to render inline styles
+            // See: https://github.com/Khan/wonder-blocks/pull/172
+            globalThis.SNAPSHOT_INLINE_APHRODITE = true;
+
             mockGraphConfig({
                 ...graphConfigContextWithTooltips,
                 disableKeyboardInteraction: true,
@@ -144,9 +152,17 @@ describe("MovablePoint", () => {
                 </Mafs>,
             );
 
-            expect(
-                screen.queryByTestId("tooltip-content-for-test"),
-            ).toHaveAttribute("backgroundColor", "fadedOffBlack64");
+            // Background color check borrowed from WB tooltip tests.
+            // https://github.com/Khan/wonder-blocks/blob/aca4fd7bfab8275987f1aaf1dccf8b8bcb751928/packages/wonder-blocks-tooltip/src/components/__tests__/tooltip.test.tsx#L114
+            const tooltipContent = await screen.findByRole("tooltip");
+            // eslint-disable-next-line testing-library/no-node-access
+            const innerTooltipContentView = tooltipContent.firstChild;
+
+            // Assert
+            expect(innerTooltipContentView).toBeInTheDocument();
+            expect(innerTooltipContentView).toHaveStyle(
+                "background-color: rgb(113, 115, 120)", // Grey
+            );
         });
     });
 
