@@ -92,6 +92,7 @@
     font-size: 18px;
     min-width: 100px;
     border: unset;
+    direction: ltr;
 }
 .perseus-math-input.mq-editable-field.mq-math-mode.mq-focused {
     box-shadow: unset;

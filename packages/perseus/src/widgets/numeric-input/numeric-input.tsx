@@ -73,6 +73,7 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
                 padding: isFocused ? "4px" : "4px 5px",
                 textAlign: props.rightAlign ? "right" : "left",
                 width: props.size === "small" ? 40 : 80,
+                direction: "ltr",
             },
         });
 

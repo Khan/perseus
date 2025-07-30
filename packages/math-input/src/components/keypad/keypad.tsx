@@ -219,6 +219,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         backgroundColor: "#DBDCDD",
+        direction: "ltr",
     },
     keypadGrid: {
         display: "grid",
