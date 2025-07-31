@@ -22,6 +22,7 @@ extends Markdown with two special extensions:
 - pure-markdown (Perseus' extensions to Markdown parsing - math and widgets)
 - kmath (Khan Academy's math utility library)
 - kas (Khan Academy's (Computer Algebra System) math expression parsing and comparison library)
+
 **Documentation**:
 - [Overview](mdc:__docs__/introduction.mdx)
 - [Renderers](mdc:packages/perseus/src/__docs__/renderers-overview.mdx)
@@ -32,7 +33,7 @@ extends Markdown with two special extensions:
 - ✅ Strict TypeScript, type imports: `import type {T} from './types'`
 - ✅ `interface` for objects, `type` for unions
 - ❌ No `React.FC<Props>` - use function signatures
-- ✅ No unused variables (must match `/^_*$/u` pattern if unused)
+- ❌ No unused variables (must match `/^_*$/u` pattern if unused)
 
 ## Imports
 ```typescript
@@ -53,9 +54,8 @@ import type {MyType} from "./types";            // types last
 
 ## Widgets
 - ✅ Implement `WidgetExports<T>` interface
-- ✅ Options in `types.ts` (perseus-core)
+- ✅ WidgetOptions in `data-schema.ts` (perseus-core)
 - ✅ Use `transform`/`staticTransform` for data processing
-- ✅ Focus management for accessibility
 
 ## Files
 ```
@@ -89,7 +89,7 @@ packages/[name]/src/
 ## Formatting (Prettier)
 - ✅ 4-space indentation, 80 char line width
 - ✅ Double quotes, semicolons, trailing commas
-- ✅ No bracket spacing: `{foo}` not `{ foo }`
+- ❌ No bracket spacing: `{foo}` not `{ foo }`
 
 ## Security
 - ❌ Never commit secrets

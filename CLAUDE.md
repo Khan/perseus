@@ -27,7 +27,7 @@ pnpm lint                  # Run ESLint
 pnpm lint --fix            # Auto-fix linting issues
 pnpm prettier . --check    # Check Prettier formatting
 pnpm prettier . --write    # Auto-format code
-pnpm build:types           # Type-check all packages
+pnpm tsc                   # Type-check all packages
 ```
 
 ### Testing Specific Packages
@@ -55,15 +55,21 @@ packages/
 ## Common Development Patterns
 
 ### Creating a New Widget
-1. Create widget directory: `packages/perseus/src/widgets/[widget-name]/`
-2. Implement widget files:
+1. **Create widget directory**: `packages/perseus/src/widgets/[widget-name]/`
+2. **Implement widget files**:
    - `[widget-name].tsx` - Main component
    - `[widget-name].test.ts` - Tests
    - `index.ts` - Exports
    - `__docs__/[widget-name].stories.tsx` - Storybook story
    - `__docs__/a11y.mdx` - Accessibility documentation
-3. Register widget in `packages/perseus/src/widgets.ts`
-4. Add types to `packages/perseus-core/src/types.ts`
+3. **Register widget** in `packages/perseus/src/widgets.ts`
+4. **If scorable, add scoring functions** in `packages/perseus-score/src/widgets/[widget-name]/`:
+   - `score-[widget-name].ts` - Scoring logic
+   - `score-[widget-name].test.ts` - Scoring tests
+   - `validate-[widget-name].ts` - Input validation (optional)
+   - `validate-[widget-name].test.ts` - Validation tests (optional)
+5. **Register scoring** in `packages/perseus-score/src/widgets/widget-registry.ts`
+6. **Add types** to `packages/perseus-core/src/data-schema.ts`
 
 ### Widget Implementation Pattern
 ```typescript
@@ -87,7 +93,7 @@ All widgets must implement proper focus management for accessibility.
 - Use package aliases: `@khanacademy/perseus`, `@khanacademy/perseus-editor`
 - NO file extensions in imports (`.ts`, `.tsx` banned by ESLint)
 - NO cross-package relative imports
-- Import order: builtin � external � internal � relative � types
+- Import order: builtin > external > internal > relative > types
 
 ### Example Correct Imports
 ```typescript
@@ -128,7 +134,7 @@ describe("WidgetComponent", () => {
 
 ## Common Issues & Solutions
 
-### Math Rendering
+### Math Rendering (TeX)
 - Use `$...$` for inline math, `$$...$$` for display math
 - For complex expressions, use `\dfrac` instead of `\frac`
 - Test math rendering in different contexts (articles, exercises, hints)
