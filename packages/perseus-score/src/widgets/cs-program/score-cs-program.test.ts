@@ -3,6 +3,18 @@ import scoreCSProgram from "./score-cs-program";
 import type {PerseusCSProgramUserInput} from "@khanacademy/perseus-core";
 
 describe("scoreCSProgram", () => {
+    it("is 'invalid' when the state is undefined", () => {
+        // Arrange
+        const state = undefined;
+
+        // Act
+        const result = scoreCSProgram(state);
+
+        // Assert
+
+        expect(result).toHaveInvalidInput();
+    });
+
     it("is correct when the state from the iframe shows the status is correct", () => {
         // Arrange
         const state: PerseusCSProgramUserInput = {

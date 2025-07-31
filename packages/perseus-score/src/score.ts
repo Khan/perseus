@@ -179,15 +179,7 @@ export function scoreWidgetsFunctional(
         // userInput would be inferred as `any`. This is because the keys of
         // userInputMap are strings with a specific format, but `id` is any old
         // string. Find a way to make this more typesafe.
-        const userInput: UserInput = userInputMap[id];
-        // The user input for this widget might be missing if the learner
-        // didn't interact with the widget at all. We score missing inputs as
-        // invalid.
-        if (userInput == null) {
-            widgetScores[id] = {type: "invalid", message: null};
-            return;
-        }
-
+        const userInput: UserInput | undefined = userInputMap[id];
         const validator = getWidgetValidator(widget.type);
         const scorer = getWidgetScorer(widget.type);
 
