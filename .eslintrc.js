@@ -328,7 +328,6 @@ module.exports = {
          */
         "react/no-string-refs": "off", // on in react/recommended, but we have #legacy-code
         "react/no-find-dom-node": "off", // on in react/recommended, but we have #legacy-code
-        "react/display-name": "off", // on in react/recommended, but doesn't seem that useful to fix
         // On in react/recommended, but doesn't seem helpful
         // (requires quotes to be escaped to catch developer mistakes when other characters are misplaced)
         "react/no-unescaped-entities": "off",
