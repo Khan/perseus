@@ -23,7 +23,7 @@ import type {Focusable} from "../../types";
  * Input widget.
  */
 export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
-    (props, ref) => {
+    function NumericInputComponent(props, ref) {
         const context = useContext(PerseusI18nContext);
         const inputRef = useRef<Focusable>(null);
         const [isFocused, setIsFocused] = useState<boolean>(false);

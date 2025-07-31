@@ -239,5 +239,7 @@ const styles = StyleSheet.create({
 });
 
 export default React.forwardRef<HTMLButtonElement, ChoiceProps>(
-    (props, ref) => <Choice {...props} forwardedRef={ref} />,
+    function ChoiceWithRef(props, ref) {
+        return <Choice {...props} forwardedRef={ref} />;
+    },
 );
