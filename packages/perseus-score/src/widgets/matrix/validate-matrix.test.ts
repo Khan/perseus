@@ -3,6 +3,17 @@ import validateMatrix from "./validate-matrix";
 import type {PerseusMatrixUserInput} from "@khanacademy/perseus-core";
 
 describe("matrixValidator", () => {
+    it("should return invalid when user input is undefined", () => {
+        // Arrange
+        const userInput = undefined;
+
+        // Act
+        const result = validateMatrix(userInput);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
     it("should return invalid when answers is completely empty", () => {
         // Arrange
         const userInput: PerseusMatrixUserInput = {
