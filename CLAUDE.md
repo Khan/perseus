@@ -32,7 +32,7 @@ pnpm tsc                   # Type-check all packages
 
 ### Testing Specific Packages
 ```bash
-pnpm --filter perseus test                    # Test main perseus package
+pnpm --filter perseus test                   # Test main perseus package
 pnpm --filter perseus-editor test            # Test editor package
 pnpm test packages/perseus/src/widgets/radio # Test specific widget
 ```
@@ -41,11 +41,11 @@ pnpm test packages/perseus/src/widgets/radio # Test specific widget
 
 ```
 packages/
-├── perseus/              # Main package (renderers, widgets, components)
-│   ├── src/__docs__/     # Main Storybook stories
-│   ├── src/widgets/      # Widget implementations
-│   └── src/components/   # Reusable components
-├── perseus-editor/       # Editor UI components
+├── perseus/             # Main package (renderers, widgets, components)
+│   ├── src/__docs__/    # Main Storybook stories
+│   ├── src/widgets/     # Widget implementations
+│   └── src/components/  # Reusable components
+├── perseus-editor/      # Editor UI components
 ├── math-input/          # Math keypad and input components
 ├── perseus-core/        # Shared types and utilities
 ├── perseus-linter/      # Content validation tools
