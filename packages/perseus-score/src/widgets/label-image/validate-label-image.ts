@@ -4,8 +4,17 @@ import type {
 } from "@khanacademy/perseus-core";
 
 function validateLabelImage(
-    userInput: PerseusLabelImageUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusLabelImageUserInput | undefined,
 ): ValidationResult {
+    if (userInput == null) {
+        return {
+            type: "invalid",
+            message: null,
+        };
+    }
+
     let numAnswered = 0;
     for (let i = 0; i < userInput.markers.length; i++) {
         const userSelection = userInput.markers[i].selected;
