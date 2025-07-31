@@ -31,9 +31,18 @@ function getCoefficientsByType(
 }
 
 function scoreGrapher(
-    userInput: PerseusGrapherUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusGrapherUserInput | undefined,
     rubric: PerseusGrapherRubric,
 ): PerseusScore {
+    if (userInput == null) {
+        return {
+            type: "invalid",
+            message: null,
+        };
+    }
+
     if (userInput.type !== rubric.correct.type) {
         return {
             type: "points",
