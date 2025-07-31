@@ -139,15 +139,6 @@ describe("Multiple choice indicator", () => {
                 screen.getByRole("button").click();
             });
             expect(mockClickHandler).toHaveBeenCalledTimes(1);
-            expect(mockClickHandler).toHaveBeenCalledWith(true);
-
-            // Click again to toggle back
-            mockClickHandler.mockReset();
-            act(() => {
-                screen.getByRole("button").click();
-            });
-            expect(mockClickHandler).toHaveBeenCalledTimes(1);
-            expect(mockClickHandler).toHaveBeenCalledWith(false);
         });
 
         it("does NOT execute the supplied click handler when in review mode", () => {
@@ -166,5 +157,32 @@ describe("Multiple choice indicator", () => {
             });
             expect(mockClickHandler).toHaveBeenCalledTimes(0);
         });
+
+        it.each`
+            checked  | expected
+            ${true}  | ${false}
+            ${false} | ${true}
+        `(
+            "passes '$expected' to the click handler when 'checked' attribute is '$checked'",
+            (args) => {
+                const {checked, expected} = args as {
+                    checked: boolean;
+                    expected: boolean;
+                };
+                render(
+                    <Indicator
+                        buttonRef={buttonRef}
+                        checked={checked}
+                        shape="circle"
+                        content="A"
+                        updateChecked={mockClickHandler}
+                    />,
+                );
+                act(() => {
+                    screen.getByRole("button").click();
+                });
+                expect(mockClickHandler).toHaveBeenCalledWith(expected);
+            },
+        );
     });
 });
