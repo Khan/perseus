@@ -23,9 +23,15 @@ const {getClockwiseAngle} = angles;
 const {getSinusoidCoefficients, getQuadraticCoefficients} = coefficients;
 
 function scoreInteractiveGraph(
-    userInput: PerseusInteractiveGraphUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusInteractiveGraphUserInput | undefined,
     rubric: PerseusInteractiveGraphRubric,
 ): PerseusScore {
+    if (userInput == null) {
+        return {type: "invalid", message: null};
+    }
+
     // None-type graphs are not graded
     if (userInput.type === "none" && rubric.correct.type === "none") {
         return {
