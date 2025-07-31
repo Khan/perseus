@@ -1,0 +1,11 @@
+import{j as m}from"./iframe-PTfoOlLs.js";import{E as p}from"./editor-page-with-storybook-preview-D7OMuFHP.js";import{E as c,r as d}from"./register-all-widgets-and-editors-for-testing-YMhd0US3.js";import"./item-version-CdzAaUYX.js";import"./article-renderer-ESjVA1Ne.js";import"./server-item-renderer-dZxXIULY.js";import"./hints-renderer-Bp8123xH.js";import"./content-preview-9Tntq5MM.js";import"./components-Dvb_OkNI.js";import"./icon-paths-DO3d0BKo.js";import"./editor-page-BLMm4u4J.js";import"./image-editor-DEFccKah.js";import"./editor-jsonify-BdRFl78w.js";import"./blur-input-vpjKDWPI.js";import"./tex-error-view-BsiYT55U.js";import"./item-extras-editor-wjtdtU3O.js";import"./free-response-editor-BSces_4D.js";import"./input-number-editor-jk2FvyEN.js";import"./Popper-aJVJ3TdR.js";import"./label-image-editor-DvqimSiH.js";import"./matcher-editor-2RQ1Wdse.js";import"./number-line-editor-D1CQCkMa.js";import"./phet-simulation-editor-BDoP8fPM.js";import"./plotter-editor-ZFTOR1hA.js";import"./python-program-editor-BHdkLaqZ.js";import"./minus-circle-bold-jRcNnagP.js";import"./sorter-editor-BKFLSIqZ.js";const{action:g}=__STORYBOOK_MODULE_ACTIONS__;d();const M={title:"Widgets/Expression/Editor Demo",component:c,tags:["!dev"]},u={content:`This is a cool expression question
+
+[[☃ expression 1]]
+
+`,images:{},widgets:{"expression 1":{alignment:"default",graded:!0,options:{answerForms:[{considered:"correct",form:!0,key:"0",simplify:!1,value:"16+88i"}],buttonSets:["basic"],functions:["f","g","h"],times:!1},static:!1,type:"expression",version:{major:1,minor:0}}}},o={args:{onChange:g("onChange")}},r={render:()=>m.jsx(p,{question:u})};var t,e,i;o.parameters={...o.parameters,docs:{...(t=o.parameters)==null?void 0:t.docs,source:{originalSource:`{
+  args: {
+    onChange: action("onChange")
+  }
+}`,...(i=(e=o.parameters)==null?void 0:e.docs)==null?void 0:i.source}}};var s,n,a;r.parameters={...r.parameters,docs:{...(s=r.parameters)==null?void 0:s.docs,source:{originalSource:`{
+  render: (): React.ReactElement => <EditorPageWithStorybookPreview question={question} />
+}`,...(a=(n=r.parameters)==null?void 0:n.docs)==null?void 0:a.source}}};const N=["Default","WithinEditorPage"];export{o as Default,r as WithinEditorPage,N as __namedExportsOrder,M as default};
