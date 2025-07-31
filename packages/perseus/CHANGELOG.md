@@ -1,5 +1,20 @@
 # @khanacademy/perseus
 
+## 66.2.2
+
+### Patch Changes
+
+-   [#2751](https://github.com/Khan/perseus/pull/2751) [`c8f892ebe`](https://github.com/Khan/perseus/commit/c8f892ebee9b5d27ee4b593b7fd615e510fe04d6) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Name all React components (including "temporary" ones used in `React.forwardRef()` situations)
+
+*   [#2748](https://github.com/Khan/perseus/pull/2748) [`ff9ba87fd`](https://github.com/Khan/perseus/commit/ff9ba87fd241f1de83385e1d8f2a55637eaaefb0) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add essential information for AI assistants in CLAUDE.md and cursor rules
+
+-   [#2747](https://github.com/Khan/perseus/pull/2747) [`2c8873a49`](https://github.com/Khan/perseus/commit/2c8873a4904f99a0b948d8381178c157e1254802) Thanks [@mahtabsabet](https://github.com/mahtabsabet)! - Force Keypad, Tabbar, and NumericInput to always be LTR, even when direction is RTL
+
+*   [#2432](https://github.com/Khan/perseus/pull/2432) [`07354e6e9`](https://github.com/Khan/perseus/commit/07354e6e9ba93b352efee2a2263bb5938821ebba) Thanks [@jeremywiebe](https://github.com/jeremywiebe)! - Give a name to the InputWithExamples functional component so that it is named in React stack traces
+
+*   Updated dependencies [[`2c8873a49`](https://github.com/Khan/perseus/commit/2c8873a4904f99a0b948d8381178c157e1254802)]:
+    -   @khanacademy/math-input@26.1.2
+
 ## 66.2.1
 
 ### Patch Changes
