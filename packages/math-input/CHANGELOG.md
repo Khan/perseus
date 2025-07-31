@@ -1,5 +1,11 @@
 # @khanacademy/math-input
 
+## 26.1.2
+
+### Patch Changes
+
+-   [#2747](https://github.com/Khan/perseus/pull/2747) [`2c8873a49`](https://github.com/Khan/perseus/commit/2c8873a4904f99a0b948d8381178c157e1254802) Thanks [@mahtabsabet](https://github.com/mahtabsabet)! - Force Keypad, Tabbar, and NumericInput to always be LTR, even when direction is RTL
+
 ## 26.1.1
 
 ### Patch Changes
