@@ -212,6 +212,7 @@ describe("graded-group", () => {
     describe("on mobile", () => {
         const apiOptions: APIOptions = {
             isMobile: true,
+            isArticle: true,
         };
 
         it("should be able to be answered correctly", async () => {
@@ -333,6 +334,33 @@ describe("graded-group", () => {
             expect(
                 screen.queryByText(/Some bacteria synthesize their own fuel./),
             ).not.toBeInTheDocument();
+        });
+
+        it("should enable Check button when all widgets are completed", async () => {
+            // Arrange
+            renderQuestion(question1, apiOptions);
+
+            // Act - Fill all radio buttons
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "True"})[0],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "False"})[1],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "True"})[2],
+            );
+            await userEvent.click(
+                screen.getAllByRole("button", {name: "True"})[3],
+            );
+
+            // Wait for setTimeout to complete
+            act(() => jest.runOnlyPendingTimers());
+
+            // Assert - Check button should be visible and enabled
+            const checkButton = screen.getByRole("button", {name: "Check"});
+            expect(checkButton).toBeVisible();
+            expect(checkButton).toBeEnabled();
         });
     });
 

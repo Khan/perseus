@@ -157,15 +157,30 @@ export class GradedGroup
             message: "",
         });
 
-        if (this.rendererRef.current) {
-            const emptyWidgets = this.rendererRef.current.emptyWidgets();
-            const answerable = emptyWidgets.length === 0;
-            const answerBarState = this.state.answerBarState;
-            const nextState = getNextState(answerBarState, answerable);
-            this.setState({
-                answerBarState: nextState,
-            });
-        }
+        // Use setTimeout to ensure widget states have been updated before checking
+        // if the question is answerable.
+        setTimeout(() => {
+            if (this.rendererRef.current) {
+                const emptyWidgets = this.rendererRef.current.emptyWidgets();
+                const answerable = emptyWidgets.length === 0;
+                const answerBarState = this.state.answerBarState;
+
+                // Show answer bar if there's any user input (not all widgets empty)
+                const allWidgets = this.rendererRef.current.getWidgetIds();
+                const hasAnyInput = emptyWidgets.length < allWidgets.length;
+
+                let nextState = answerBarState;
+                if (answerBarState === "HIDDEN" && hasAnyInput) {
+                    nextState = answerable ? "ACTIVE" : "INACTIVE";
+                } else {
+                    nextState = getNextState(answerBarState, answerable);
+                }
+
+                this.setState({
+                    answerBarState: nextState,
+                });
+            }
+        }, 0);
     }
 
     _checkAnswer: () => void = () => {
