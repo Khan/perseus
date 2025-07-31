@@ -7,7 +7,9 @@ import type {
 import type {PerseusScore} from "@khanacademy/perseus-core";
 
 function scoreMockWidget(
-    userInput: PerseusMockWidgetUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusMockWidgetUserInput | undefined,
     rubric: PerseusMockWidgetRubric,
 ): PerseusScore {
     const validationResult = validateMockWidget(userInput);
@@ -17,7 +19,7 @@ function scoreMockWidget(
 
     return {
         type: "points",
-        earned: userInput.currentValue === rubric.value ? 1 : 0,
+        earned: userInput?.currentValue === rubric.value ? 1 : 0,
         total: 1,
         message: "",
     };
