@@ -7,9 +7,15 @@ import type {
 } from "@khanacademy/perseus-core";
 
 function scoreMatcher(
-    userInput: PerseusMatcherUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusMatcherUserInput | undefined,
     rubric: PerseusMatcherRubric,
 ): PerseusScore {
+    if (userInput == null) {
+        return {type: "invalid", message: null};
+    }
+
     const correct =
         _.isEqual(userInput.left, rubric.left) &&
         _.isEqual(userInput.right, rubric.right);
