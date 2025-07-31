@@ -1,4 +1,4 @@
-import {render, screen} from "@testing-library/react";
+import {logRoles, render, screen} from "@testing-library/react";
 import {
     type UserEvent,
     userEvent as userEventLib,
@@ -71,7 +71,11 @@ describe("MovablePoint", () => {
             );
 
             // Act
-            await userEvent.hover(await screen.findByTestId("movable-point"));
+            await userEvent.hover(
+                await screen.findByRole("button", {
+                    name: /Point 1 at 0 comma 0/,
+                }),
+            );
 
             // Assert
             expect(await screen.findByRole("tooltip")).toHaveTextContent(
@@ -93,7 +97,11 @@ describe("MovablePoint", () => {
             );
 
             // Act
-            await userEvent.hover(await screen.findByTestId("movable-point"));
+            await userEvent.hover(
+                await screen.findByRole("button", {
+                    name: /Point 1 at 0 comma 0/,
+                }),
+            );
 
             // Assert
             expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
@@ -117,7 +125,11 @@ describe("MovablePoint", () => {
             );
 
             // Act
-            await userEvent.hover(await screen.findByTestId("movable-point"));
+            await userEvent.hover(
+                await screen.findByRole("button", {
+                    name: /Point 1 at 0 comma 0/,
+                }),
+            );
 
             // Background color check borrowed from WB tooltip tests.
             // https://github.com/Khan/wonder-blocks/blob/aca4fd7bfab8275987f1aaf1dccf8b8bcb751928/packages/wonder-blocks-tooltip/src/components/__tests__/tooltip.test.tsx#L114
