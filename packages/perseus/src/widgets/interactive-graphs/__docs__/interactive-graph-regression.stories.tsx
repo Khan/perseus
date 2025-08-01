@@ -397,7 +397,6 @@ export const MafsWithAnswerlessData: Story = {
 
 function lockedFiguresQuestionWithWeight(weight: "thin" | "medium" | "thick") {
     return interactiveGraphQuestionBuilder()
-        .withNoInteractiveFigure()
         .addLockedLine([2, 2], [9, 9], {kind: "segment", weight})
         .addLockedLine([2, 1], [9, 8], {kind: "ray", weight})
         .addLockedLine([2, 0], [9, 7], {kind: "line", weight})
