@@ -31,7 +31,7 @@ describe("scoreGrapher", () => {
 
         // Assert
         expect(result).toHaveInvalidInput();
-    })
+    });
 
     it("is incorrect when user input type doesn't match scoring data type", () => {
         const asymptote: [Coord, Coord] = [

@@ -4,7 +4,7 @@ import type {PerseusLabelImageUserInput} from "@khanacademy/perseus-core";
 
 describe("validateLabelImage", () => {
     it("returns invalid for undefined user input", function () {
-        const userInput = undefined
+        const userInput = undefined;
 
         const validationError = validateLabelImage(userInput);
 

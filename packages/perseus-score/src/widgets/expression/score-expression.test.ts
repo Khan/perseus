@@ -7,7 +7,7 @@ import type {
 } from "@khanacademy/perseus-core";
 
 describe("scoreExpression", () => {
-    it("should score undefined user input as invalid", function() {
+    it("should score undefined user input as invalid", function () {
         const err = scoreExpression(undefined, expressionItem3Options, "en");
         expect(err).toHaveInvalidInput();
     });

@@ -21,7 +21,7 @@ describe("scoreRadio", () => {
         const score = scoreRadio(userInput, rubric);
 
         expect(score).toHaveInvalidInput();
-    })
+    });
 
     it("is invalid when number selected does not match number correct and countChoices is true", () => {
         const userInput: PerseusRadioUserInput = {

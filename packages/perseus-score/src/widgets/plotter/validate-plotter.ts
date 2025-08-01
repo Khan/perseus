@@ -19,7 +19,10 @@ function validatePlotter(
     userInput: PerseusPlotterUserInput | undefined,
     validationData: PerseusPlotterValidationData,
 ): ValidationResult {
-    if (userInput == null || approximateDeepEqual(userInput, validationData.starting)) {
+    if (
+        userInput == null ||
+        approximateDeepEqual(userInput, validationData.starting)
+    ) {
         return {
             type: "invalid",
             message: null,

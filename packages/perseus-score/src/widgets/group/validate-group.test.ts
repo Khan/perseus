@@ -1,5 +1,6 @@
-import {PerseusGroupValidationData} from "@khanacademy/perseus-core";
 import validateGroup from "./validate-group";
+
+import type {PerseusGroupValidationData} from "@khanacademy/perseus-core";
 
 describe("validateGroup", () => {
     it("returns invalid when the user input is undefined", () => {
@@ -11,8 +12,8 @@ describe("validateGroup", () => {
                     type: "categorizer",
                     options: {
                         items: ["a"],
-                    }
-                }
+                    },
+                },
             },
         };
 
@@ -21,5 +22,5 @@ describe("validateGroup", () => {
 
         // Assert:
         expect(result).toHaveInvalidInput();
-    })
-})
+    });
+});
