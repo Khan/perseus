@@ -174,11 +174,6 @@ class CSProgram extends React.Component<Props> implements Widget {
 }
 
 const styles = StyleSheet.create({
-    // Override the inherited width from the perseus paragraph class
-    // 820 is minimum width for 420px editor and 400px canvas
-    widthOverride: {
-        width: 820,
-    },
     container: {
         margin: "auto",
     },
