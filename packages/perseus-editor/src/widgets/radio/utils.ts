@@ -1,3 +1,5 @@
+import {PerseusMarkdown} from "@khanacademy/perseus";
+
 import type {ChoiceMovementType} from "./radio-option-settings-actions";
 import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
 
@@ -74,61 +76,40 @@ export function getMovedChoices(
 
 // Take the hard-to-read image markdown, and replace it with a nice placeholder.
 // ex. "![abc](https://...) -> "![Image 1]"
-// TODO: Use purMarkdown for this?
 export function setNiceContentAndImages(
     content: string,
 ): [string, {url: string; altText: string}[]] {
-    let newContent: string = "";
     const images: {url: string; altText: string}[] = [];
 
-    let isInImageAltText = false;
-    let isInImageUrl = false;
-    let imageIndex = 0;
-    for (let i = 0; i < content.length; i++) {
-        const char = content[i];
+    // Parse the markdown content using perseus-markdown.
+    const parsedMarkdown = PerseusMarkdown.parse(content, {});
 
-        // Start of an image
-        if (char === "!" && i < content.length - 1 && content[i + 1] === "[") {
-            isInImageAltText = true;
-            newContent += "!";
-            i++; // Skip the next character (the "[")
-            images.push({altText: "", url: ""});
-            continue;
+    // Find all image nodes in the parsed tree.
+    PerseusMarkdown.traverseContent(parsedMarkdown, (node: any) => {
+        if (node.type === "image") {
+            images.push({
+                url: node.target || "",
+                altText: node.alt || "",
+            });
         }
+    });
 
-        // End of the image alt text (start of the image URL)
-        if (char === "]" && isInImageAltText) {
-            isInImageAltText = false;
-            isInImageUrl = true;
-            newContent += `[Image ${imageIndex + 1}]`;
-            i++; // Skip the next character (the "(")
-            continue;
-        }
+    // Replace images with nice placeholders
+    let newContent = content;
+    images.forEach((image, index) => {
+        // Build the original markdown pattern to replace
+        const originalPattern = `![${image.altText}](${image.url})`;
+        const replacement = `![Image ${index + 1}]`;
 
-        // Save the alt text char while traversing the alt text
-        if (isInImageAltText) {
-            images[imageIndex].altText += char;
-            continue;
+        // Replace only the first occurrence to handle identical images correctly
+        const patternIndex = newContent.indexOf(originalPattern);
+        if (patternIndex !== -1) {
+            newContent =
+                newContent.substring(0, patternIndex) +
+                replacement +
+                newContent.substring(patternIndex + originalPattern.length);
         }
-
-        // End of the image url
-        if (isInImageUrl && char === ")") {
-            isInImageUrl = false;
-            imageIndex++;
-            continue;
-        }
-
-        // Save the url char while traversing the url
-        if (isInImageUrl) {
-            images[imageIndex].url += char;
-            continue;
-        }
-
-        // Save the non-image chars
-        if (!isInImageAltText && !isInImageUrl) {
-            newContent += char;
-        }
-    }
+    });
 
     return [newContent, images];
 }
