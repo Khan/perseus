@@ -8,7 +8,9 @@ import type {
 } from "@khanacademy/perseus-core";
 
 function scorePlotter(
-    userInput: PerseusPlotterUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusPlotterUserInput | undefined,
     rubric: PerseusPlotterRubric,
 ): PerseusScore {
     return {

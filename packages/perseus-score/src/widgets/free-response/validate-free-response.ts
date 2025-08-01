@@ -11,10 +11,10 @@ import type {
  * Since the input is free text, we only check that it is not empty.
  */
 function validateFreeResponse(
-    userInput: PerseusFreeResponseUserInput,
+    userInput: PerseusFreeResponseUserInput | undefined,
     widgetOptions: PerseusFreeResponseWidgetOptions,
 ): ValidationResult {
-    const userInputLength = userInput.currentValue.trim().length;
+    const userInputLength = userInput?.currentValue.trim().length ?? 0;
 
     if (userInputLength === 0) {
         return {

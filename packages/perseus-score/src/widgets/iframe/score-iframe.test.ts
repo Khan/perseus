@@ -3,6 +3,17 @@ import scoreIframe from "./score-iframe";
 import type {PerseusIFrameUserInput} from "@khanacademy/perseus-core";
 
 describe("scoreIframe", () => {
+    it("is invalid when the state is undefined", () => {
+        // Arrange
+        const state = undefined;
+
+        // Act
+        const result = scoreIframe(state);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
     it("is correct when the state from the iframe shows the status is correct", () => {
         // Arrange
         const state: PerseusIFrameUserInput = {

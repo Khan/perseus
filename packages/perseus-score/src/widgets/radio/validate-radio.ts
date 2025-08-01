@@ -11,8 +11,12 @@ import type {
  * @param userInput
  * @see `scoreRadio` for the additional validation logic and the scoring logic.
  */
-function validateRadio(userInput: PerseusRadioUserInput): ValidationResult {
-    if (!userInput.choicesSelected.includes(true)) {
+function validateRadio(
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusRadioUserInput | undefined,
+): ValidationResult {
+    if (userInput == null || !userInput.choicesSelected.includes(true)) {
         return {
             type: "invalid",
             message: null,

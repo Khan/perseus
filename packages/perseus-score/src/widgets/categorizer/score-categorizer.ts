@@ -5,9 +5,14 @@ import type {
 } from "@khanacademy/perseus-core";
 
 function scoreCategorizer(
-    userInput: PerseusCategorizerUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusCategorizerUserInput | undefined,
     rubric: PerseusCategorizerRubric,
 ): PerseusScore {
+    if (userInput == null) {
+        return {type: "invalid", message: null};
+    }
     let allCorrect = true;
     rubric.values.forEach((value, i) => {
         if (userInput.values[i] !== value) {

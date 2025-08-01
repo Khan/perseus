@@ -45,10 +45,16 @@ export const inputNumberAnswerTypes = {
 } as const;
 
 function scoreInputNumber(
-    userInput: PerseusInputNumberUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusInputNumberUserInput | undefined,
     rubric: PerseusInputNumberRubric,
     locale?: string,
 ): PerseusScore {
+    if (userInput == null) {
+        return {type: "invalid", message: null};
+    }
+
     if (rubric.answerType == null) {
         rubric.answerType = "number";
     }

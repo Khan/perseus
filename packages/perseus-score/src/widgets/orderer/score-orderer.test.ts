@@ -24,6 +24,18 @@ function generateOrdererRubric(): PerseusOrdererRubric {
 }
 
 describe("scoreOrderer", () => {
+    it("is invalid when the userInput is undefined", () => {
+        // Arrange
+        const rubric: PerseusOrdererRubric = generateOrdererRubric();
+        const userInput = undefined;
+
+        // Act
+        const result = scoreOrderer(userInput, rubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
     it("is correct when the userInput is in the same order and is the same length as the rubric's correctOption content items", () => {
         // Arrange
         const rubric: PerseusOrdererRubric = generateOrdererRubric();

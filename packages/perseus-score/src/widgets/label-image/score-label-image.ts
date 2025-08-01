@@ -41,9 +41,15 @@ export function scoreLabelImageMarker(
 }
 
 function scoreLabelImage(
-    userInput: PerseusLabelImageUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusLabelImageUserInput | undefined,
     rubric: PerseusLabelImageRubric,
 ): PerseusScore {
+    if (userInput == null) {
+        return {type: "invalid", message: null};
+    }
+
     let numCorrect = 0;
 
     for (let i = 0; i < userInput.markers.length; i++) {

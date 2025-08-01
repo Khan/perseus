@@ -8,8 +8,12 @@ import type {
  * This is shown with a userInput value / index other than 0.
  */
 function validateDropdown(
-    userInput: PerseusDropdownUserInput,
+    userInput: PerseusDropdownUserInput | undefined,
 ): ValidationResult {
+    if (userInput == null) {
+        return {type: "invalid", message: null};
+    }
+
     if (userInput.value === 0) {
         return {
             type: "invalid",

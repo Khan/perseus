@@ -36,10 +36,16 @@ import type {
  * - Otherwise, pass through the resulting points and message.
  */
 function scoreExpression(
-    userInput: PerseusExpressionUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusExpressionUserInput | undefined,
     rubric: PerseusExpressionRubric,
     locale: string,
 ): PerseusScore {
+    if (userInput == null) {
+        return {type: "invalid", message: null};
+    }
+
     const options = _.clone(rubric);
     _.extend(options, {
         decimal_separator: getDecimalSeparator(locale),

@@ -3,7 +3,15 @@ import type {
     PerseusScore,
 } from "@khanacademy/perseus-core";
 
-function scoreCSProgram(userInput: PerseusCSProgramUserInput): PerseusScore {
+function scoreCSProgram(
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusCSProgramUserInput | undefined,
+): PerseusScore {
+    if (userInput == null) {
+        return {type: "invalid", message: null};
+    }
+
     // The CS program can tell us whether it's correct or incorrect,
     // and pass an optional message
     if (userInput.status === "correct") {

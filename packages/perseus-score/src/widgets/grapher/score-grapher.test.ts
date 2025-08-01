@@ -7,6 +7,32 @@ import type {
 } from "@khanacademy/perseus-core";
 
 describe("scoreGrapher", () => {
+    it("is invalid when user input is undefined", () => {
+        // Arrange
+        const userInput = undefined;
+        const asymptote: [Coord, Coord] = [
+            [-10, -10],
+            [10, 10],
+        ];
+        const coords: [Coord, Coord] = [
+            [-10, -10],
+            [10, 10],
+        ];
+        const rubric: PerseusGrapherRubric = {
+            correct: {
+                type: "logarithm",
+                asymptote,
+                coords,
+            },
+        };
+
+        // Act
+        const result = scoreGrapher(userInput, rubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
     it("is incorrect when user input type doesn't match scoring data type", () => {
         const asymptote: [Coord, Coord] = [
             [-10, -10],

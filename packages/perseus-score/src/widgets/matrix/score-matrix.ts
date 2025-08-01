@@ -10,9 +10,15 @@ import type {
 } from "@khanacademy/perseus-core";
 
 function scoreMatrix(
-    userInput: PerseusMatrixUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusMatrixUserInput | undefined,
     rubric: PerseusMatrixRubric,
 ): PerseusScore {
+    if (userInput == null) {
+        return {type: "invalid", message: null};
+    }
+
     const solution = rubric.answers;
     const supplied = userInput.answers;
     const solutionSize = getMatrixSize(solution);

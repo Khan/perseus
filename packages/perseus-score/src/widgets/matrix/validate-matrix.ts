@@ -15,7 +15,15 @@ import type {
  *
  * @see `scoreMatrix()` for more details.
  */
-function validateMatrix(userInput: PerseusMatrixUserInput): ValidationResult {
+function validateMatrix(
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusMatrixUserInput | undefined,
+): ValidationResult {
+    if (userInput == null) {
+        return {type: "invalid", message: null};
+    }
+
     const supplied = userInput.answers;
     const suppliedSize = getMatrixSize(supplied);
 

@@ -9,6 +9,28 @@ import type {
 } from "@khanacademy/perseus-core";
 
 describe("InteractiveGraph scoring on a segment question", () => {
+    it("marks the answer invalid if guess is undefined", () => {
+        const guess = undefined;
+        const rubric: PerseusInteractiveGraphRubric = {
+            graph: {
+                type: "segment",
+            },
+            correct: {
+                type: "segment",
+                coords: [
+                    [
+                        [0, 0],
+                        [1, 1],
+                    ],
+                ],
+            },
+        };
+
+        const result = scoreInteractiveGraph(guess, rubric);
+
+        expect(result).toHaveInvalidInput();
+    });
+
     it("marks the answer invalid if guess.coords is missing", () => {
         const guess: PerseusGraphType = {type: "segment"};
         const rubric: PerseusInteractiveGraphRubric = {

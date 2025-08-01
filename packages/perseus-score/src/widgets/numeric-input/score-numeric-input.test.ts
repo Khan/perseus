@@ -3,6 +3,28 @@ import scoreNumericInput, {maybeParsePercentInput} from "./score-numeric-input";
 import type {PerseusNumericInputRubric} from "@khanacademy/perseus-core";
 
 describe("scoreNumericInput", () => {
+    it("is invalid when input is undefined", () => {
+        const rubric: PerseusNumericInputRubric = {
+            answers: [
+                {
+                    value: 1,
+                    status: "correct",
+                    maxError: 0,
+                    simplify: "optional",
+                    strict: false,
+                    message: "",
+                },
+            ],
+            coefficient: true,
+        };
+
+        const userInput = undefined;
+
+        const score = scoreNumericInput(userInput, rubric);
+
+        expect(score).toHaveInvalidInput();
+    });
+
     it("is correct when input is empty but answer is 1 and coefficient: true", () => {
         const rubric: PerseusNumericInputRubric = {
             answers: [

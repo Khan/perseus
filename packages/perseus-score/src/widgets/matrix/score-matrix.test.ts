@@ -6,6 +6,25 @@ import type {
 } from "@khanacademy/perseus-core";
 
 describe("scoreMatrix", () => {
+    it("returns invalid for undefined user input", () => {
+        // Arrange
+        const rubric: PerseusMatrixRubric = {
+            answers: [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+            ],
+        };
+
+        const userInput = undefined;
+
+        // Act
+        const result = scoreMatrix(userInput, rubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
     it("can be answered correctly", () => {
         // Arrange
         const rubric: PerseusMatrixRubric = {

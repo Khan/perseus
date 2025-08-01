@@ -6,6 +6,27 @@ import type {
 } from "@khanacademy/perseus-core";
 
 describe("scoreNumberLine", () => {
+    it("is invalid when user input is undefined", () => {
+        // Arrange
+        const userInput = undefined;
+
+        const rubric: PerseusNumberLineRubric = {
+            correctRel: "eq",
+            correctX: -1.5,
+            initialX: 0,
+            range: [-1.5, 1.5],
+            isInequality: false,
+            isTickCtrl: true,
+            divisionRange: [-1, 1],
+        };
+
+        // Act
+        const validationError = scoreNumberLine(userInput, rubric);
+
+        // Assert
+        expect(validationError).toHaveInvalidInput();
+    });
+
     it("is invalid when outside allowed range", () => {
         // Arrange
         const userInput: PerseusNumberLineUserInput = {

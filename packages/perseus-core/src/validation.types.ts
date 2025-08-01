@@ -48,14 +48,14 @@ import type {
 import type {Relationship} from "./types";
 
 export type WidgetValidatorFunction = (
-    userInput: UserInput,
+    userInput: UserInput | undefined,
     validationData: ValidationData,
     locale: string,
 ) => ValidationResult;
 
 export type WidgetScorerFunction = (
     // The user data needed to score
-    userInput: UserInput,
+    userInput: UserInput | undefined,
     // The scoring criteria to score against
     rubric: Rubric,
     // Locale, for math evaluation

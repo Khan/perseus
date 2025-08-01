@@ -57,6 +57,31 @@ describe("scoreLabelImageMarker", function () {
 });
 
 describe("scoreLabelImage", function () {
+    it("should grade as invalid for undefined user input", function () {
+        const userInput = undefined;
+
+        const rubric = {
+            markers: [
+                {
+                    label: "England",
+                    answers: [],
+                },
+                {
+                    label: "Germany",
+                    answers: [],
+                },
+                {
+                    label: "Italy",
+                    answers: [],
+                },
+            ],
+        };
+
+        const score = scoreLabelImage(userInput, rubric);
+
+        expect(score).toHaveInvalidInput();
+    });
+
     it("should grade as incorrect for widget with no answers for markers", function () {
         const userInput = {
             markers: [

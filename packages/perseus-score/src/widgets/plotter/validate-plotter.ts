@@ -14,10 +14,15 @@ import type {
  * @see 'scorePlotter' for more details on scoring.
  */
 function validatePlotter(
-    userInput: PerseusPlotterUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusPlotterUserInput | undefined,
     validationData: PerseusPlotterValidationData,
 ): ValidationResult {
-    if (approximateDeepEqual(userInput, validationData.starting)) {
+    if (
+        userInput == null ||
+        approximateDeepEqual(userInput, validationData.starting)
+    ) {
         return {
             type: "invalid",
             message: null,

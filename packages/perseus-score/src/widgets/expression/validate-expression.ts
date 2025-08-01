@@ -12,9 +12,11 @@ import type {
  * @see `scoreExpression()` for more details.
  */
 function validateExpression(
-    userInput: PerseusExpressionUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusExpressionUserInput | undefined,
 ): ValidationResult {
-    if (userInput === "") {
+    if (userInput === "" || userInput == null) {
         return {type: "invalid", message: null};
     }
 

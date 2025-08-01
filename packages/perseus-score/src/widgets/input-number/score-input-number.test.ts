@@ -6,6 +6,22 @@ import type {
 } from "@khanacademy/perseus-core";
 
 describe("scoreInputNumber", () => {
+    it("scores undefined user input as invalid", () => {
+        const rubric: PerseusInputNumberRubric = {
+            maxError: 0.1,
+            inexact: false,
+            value: 1,
+            simplify: "optional",
+            answerType: "percent",
+        };
+
+        const userInput = undefined;
+
+        const score = scoreInputNumber(userInput, rubric);
+
+        expect(score).toHaveInvalidInput();
+    });
+
     it("scores correct answer correctly", () => {
         const rubric: PerseusInputNumberRubric = {
             maxError: 0.1,

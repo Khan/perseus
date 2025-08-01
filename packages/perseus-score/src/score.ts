@@ -12,6 +12,7 @@ import type {
     PerseusScore,
     PerseusWidgetsMap,
     UserInputMap,
+    UserInput,
 } from "@khanacademy/perseus-core";
 
 const noScore: PerseusScore = {
@@ -174,7 +175,11 @@ export function scoreWidgetsFunctional(
             return;
         }
 
-        const userInput = userInputMap[id];
+        // TODO(benchristel): Without the explicit type annotation, the type of
+        // userInput would be inferred as `any`. This is because the keys of
+        // userInputMap are strings with a specific format, but `id` is any old
+        // string. Find a way to make this more typesafe.
+        const userInput: UserInput | undefined = userInputMap[id];
         const validator = getWidgetValidator(widget.type);
         const scorer = getWidgetScorer(widget.type);
 

@@ -419,6 +419,22 @@ function generateDropdown(): DropdownWidget {
 }
 
 describe("scorePerseusItem", () => {
+    it("returns a score of 'invalid' if some widgets are missing from the user input", () => {
+        // Arrange:
+        const item = {
+            content: "[[☃ dropdown 1]]",
+            widgets: {"dropdown 1": generateDropdown()},
+            images: {},
+        };
+        const userInputMap = {};
+
+        // Act:
+        const score = scorePerseusItem(item, userInputMap, "en");
+
+        // Assert:
+        expect(score).toEqual({type: "invalid", message: null});
+    });
+
     it("should return empty if any validator returns empty", () => {
         // Act
         const score = scorePerseusItem(

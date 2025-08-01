@@ -3,6 +3,17 @@ import validateOrderer from "./validate-orderer";
 import type {PerseusOrdererUserInput} from "@khanacademy/perseus-core";
 
 describe("validateOrderer", () => {
+    it("is invalid when the user input is undefined", () => {
+        // Arrange
+        const userInput = undefined;
+
+        // Act
+        const result = validateOrderer(userInput);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
     it("is invalid when the user has not started ordering the options and current is empty", () => {
         // Arrange
         const userInput: PerseusOrdererUserInput = {

@@ -6,6 +6,22 @@ import type {
 } from "@khanacademy/perseus-core";
 
 describe("scoreMatcher", () => {
+    it("returns invalid for undefined user input", () => {
+        // Arrange
+        const userInput = undefined;
+
+        const rubric: PerseusMatcherRubric = {
+            left: ["1", "0+1"],
+            right: ["2", "0+2"],
+        };
+
+        // Act
+        const result = scoreMatcher(userInput, rubric);
+
+        // Assert
+        expect(result).toHaveInvalidInput();
+    });
+
     it("can be answered incorrectly", () => {
         // Arrange
         const userInput: PerseusMatcherUserInput = {

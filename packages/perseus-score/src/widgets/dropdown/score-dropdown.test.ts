@@ -6,6 +6,17 @@ import type {
 } from "@khanacademy/perseus-core";
 
 describe("scoreDropdown", () => {
+    it("returns a score of 'invalid' when the user input is undefined", () => {
+        // Arrange
+        const userInput = undefined;
+        const rubric: PerseusDropdownRubric = {choices: []};
+
+        // Act
+        const score = scoreDropdown(userInput, rubric);
+
+        expect(score).toHaveInvalidInput();
+    });
+
     it("returns 0 points for incorrect answer", () => {
         // Arrange
         const userInput: PerseusDropdownUserInput = {
