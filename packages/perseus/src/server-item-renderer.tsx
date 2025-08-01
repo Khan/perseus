@@ -483,8 +483,16 @@ export class ServerItemRenderer
                                 strings={this.context.strings}
                                 {...this.props.dependencies}
                                 userInput={userInput}
-                                handleUserInput={(id, userInput) => {
-                                    handleUserInput(id, userInput);
+                                handleUserInput={(
+                                    id,
+                                    userInput,
+                                    widgetsEmpty,
+                                ) => {
+                                    handleUserInput(
+                                        id,
+                                        userInput,
+                                        widgetsEmpty,
+                                    );
                                     this.handleInteractWithWidget(id);
                                 }}
                                 initializeUserInput={initializeUserInput}

@@ -338,21 +338,10 @@ describe("graded-group", () => {
 
         it("should enable Check button when all widgets are completed", async () => {
             // Arrange
-            renderQuestion(question1, apiOptions);
+            renderQuestion(groupedRadioRationaleQuestion, apiOptions);
 
             // Act - Fill all radio buttons
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[0],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "False"})[1],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[2],
-            );
-            await userEvent.click(
-                screen.getAllByRole("button", {name: "True"})[3],
-            );
+            await userEvent.click(screen.getByRole("radio", {name: /Correct/}));
 
             // Wait for setTimeout to complete
             act(() => jest.runOnlyPendingTimers());

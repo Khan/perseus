@@ -40,6 +40,7 @@ import type {
     PerseusGradedGroupWidgetOptions,
     PerseusRenderer,
     PerseusScore,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -150,37 +151,18 @@ export class GradedGroup
         return Changeable.change.apply(this, args as any);
     };
 
-    _handleUserInput(): void {
+    _handleUserInput(_userInput: UserInputMap, widgetsEmpty: boolean): void {
         // Reset grading display when user changes answer
         this.setState({
             status: GRADING_STATUSES.ungraded,
             message: "",
         });
-
-        // Use setTimeout to ensure widget states have been updated before checking
-        // if the question is answerable.
-        setTimeout(() => {
-            if (this.rendererRef.current) {
-                const emptyWidgets = this.rendererRef.current.emptyWidgets();
-                const answerable = emptyWidgets.length === 0;
-                const answerBarState = this.state.answerBarState;
-
-                // Show answer bar if there's any user input (not all widgets empty)
-                const allWidgets = this.rendererRef.current.getWidgetIds();
-                const hasAnyInput = emptyWidgets.length < allWidgets.length;
-
-                let nextState = answerBarState;
-                if (answerBarState === "HIDDEN" && hasAnyInput) {
-                    nextState = answerable ? "ACTIVE" : "INACTIVE";
-                } else {
-                    nextState = getNextState(answerBarState, answerable);
-                }
-
-                this.setState({
-                    answerBarState: nextState,
-                });
-            }
-        }, 0);
+        const answerable = !widgetsEmpty;
+        const answerBarState = this.state.answerBarState;
+        const nextState = getNextState(answerBarState, answerable);
+        this.setState({
+            answerBarState: nextState,
+        });
     }
 
     _checkAnswer: () => void = () => {
@@ -318,7 +300,10 @@ export class GradedGroup
                 )}
                 <UserInputManager
                     widgets={this.props.widgets}
-                    handleUserInput={() => this._handleUserInput()}
+                    handleUserInput={(
+                        userInput: UserInputMap,
+                        widgetsEmpty: boolean,
+                    ) => this._handleUserInput(userInput, widgetsEmpty)}
                     problemNum={0}
                 >
                     {({userInput, handleUserInput}) => (
