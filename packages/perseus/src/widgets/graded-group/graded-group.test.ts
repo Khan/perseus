@@ -336,20 +336,18 @@ describe("graded-group", () => {
             ).not.toBeInTheDocument();
         });
 
-        it("should enable Check button when all widgets are completed", async () => {
-            // Arrange
+        it("should enable Check button when radio is selected", async () => {
+            // Arrange - Check button should be visible but disabled
             renderQuestion(groupedRadioRationaleQuestion, apiOptions);
+            const checkButton = screen.getByRole("button", {name: "Check"});
+            expect(checkButton).toHaveAttribute("aria-disabled", "true");
 
-            // Act - Fill all radio buttons
+            // Act
             await userEvent.click(screen.getByRole("radio", {name: /Correct/}));
 
-            // Wait for setTimeout to complete
-            act(() => jest.runOnlyPendingTimers());
-
             // Assert - Check button should be visible and enabled
-            const checkButton = screen.getByRole("button", {name: "Check"});
             expect(checkButton).toBeVisible();
-            expect(checkButton).toBeEnabled();
+            expect(checkButton).toHaveAttribute("aria-disabled", "false");
         });
     });
 

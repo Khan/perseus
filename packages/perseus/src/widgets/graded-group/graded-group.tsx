@@ -58,8 +58,6 @@ const getNextState = (
     answerable,
 ): ANSWER_BAR_STATES => {
     switch (currentState) {
-        case "HIDDEN":
-            return answerable ? "ACTIVE" : currentState;
         case "ACTIVE":
             return !answerable ? "INACTIVE" : currentState;
         case "INACTIVE":
@@ -440,7 +438,7 @@ export class GradedGroup
                             {this.context.strings.explain}
                         </button>
                     ))}
-                {apiOptions.isMobile && answerBarState !== "HIDDEN" && (
+                {apiOptions.isMobile && (
                     <GradedGroupAnswerBar
                         apiOptions={apiOptions}
                         answerBarState={answerBarState}
