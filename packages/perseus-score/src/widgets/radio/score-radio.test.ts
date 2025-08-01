@@ -6,6 +6,23 @@ import type {
 } from "@khanacademy/perseus-core";
 
 describe("scoreRadio", () => {
+    it("is invalid when the user input is undefined", () => {
+        const userInput = undefined;
+
+        const rubric: PerseusRadioRubric = {
+            choices: [
+                {content: "Choice 1", correct: true},
+                {content: "Choice 2", correct: false},
+                {content: "Choice 3", correct: false},
+                {content: "Choice 4", correct: false},
+            ],
+        };
+
+        const score = scoreRadio(userInput, rubric);
+
+        expect(score).toHaveInvalidInput();
+    })
+
     it("is invalid when number selected does not match number correct and countChoices is true", () => {
         const userInput: PerseusRadioUserInput = {
             choicesSelected: [true, false, false, false],
