@@ -5,6 +5,7 @@ import {
     groupSetRadioRationaleQuestion,
 } from "./graded-group-set.testdata";
 
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
 const meta: Meta = {
@@ -34,5 +35,74 @@ export const Article1: Story = {
 export const GroupSetRadioQuestion: Story = {
     args: {
         json: groupSetRadioRationaleQuestion,
+    },
+};
+
+const dropdownTest: PerseusRenderer = {
+    content: `Test article with dropdown widget to check mobile answer bar behavior.
+
+[[☃ graded-group-set 1]]
+
+This tests if dropdown widgets trigger the mobile answer bar correctly.`,
+    images: {},
+    widgets: {
+        "graded-group-set 1": {
+            type: "graded-group-set",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                gradedGroups: [
+                    {
+                        title: "Dropdown Test",
+                        content: "What color is the sky?\n\n[[☃ dropdown 1]]",
+                        widgets: {
+                            "dropdown 1": {
+                                type: "dropdown",
+                                alignment: "default",
+                                static: false,
+                                graded: true,
+                                options: {
+                                    placeholder: "Choose an answer",
+                                    choices: [
+                                        {
+                                            content: "Blue",
+                                            correct: true,
+                                        },
+                                        {
+                                            content: "Red",
+                                            correct: false,
+                                        },
+                                        {
+                                            content: "Green",
+                                            correct: false,
+                                        },
+                                    ],
+                                    static: false,
+                                },
+                                version: {major: 0, minor: 0},
+                            },
+                        },
+                        images: {},
+                        hint: {
+                            content:
+                                "Think about what you see when you look up on a clear day!",
+                            widgets: {},
+                            images: {},
+                        },
+                        widgetEnabled: true,
+                        immutableWidgets: false,
+                    },
+                ],
+            },
+            version: {major: 0, minor: 0},
+        },
+    },
+};
+
+export const DropdownTest: Story = {
+    args: {
+        title: "📋 Dropdown Test (Mobile Answer Bar)",
+        json: dropdownTest,
     },
 };

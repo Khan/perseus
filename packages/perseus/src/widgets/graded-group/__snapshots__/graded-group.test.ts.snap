@@ -744,6 +744,23 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
             >
               Explain
             </button>
+            <div
+              style="display: flex; align-items: center; height: 68px; margin: 16px -16px -16px -16px; padding-left: 16px; padding-right: 10px; border-top: 1px solid rgba(33,36,44,0.50); background-color: white; justify-content: space-between;"
+            >
+              <span />
+              <button
+                aria-disabled="true"
+                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_ttsi8d-o_O-disabled_okj0ts"
+                role="button"
+                type="button"
+              >
+                <span
+                  class="text_f1191h-o_O-LabelLarge_16mkhxv-o_O-text_1kowsup"
+                >
+                  Check
+                </span>
+              </button>
+            </div>
           </div>
         </div>
       </div>

@@ -31,5 +31,8 @@ export function emptyWidgetsFunctional(
         if (score) {
             return scoreIsEmpty(score);
         }
+
+        // If validator returned null, the widget is valid/filled, so not empty
+        return false;
     });
 }

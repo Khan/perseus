@@ -39,6 +39,7 @@ export const ArticleRendererWithDebugUI = ({
     const options = {
         ...apiOptions,
         isMobile,
+        isArticle: true, // Articles should have isArticle flag set for proper behavior
         customKeypad: isMobile, // Use the mobile keypad for mobile
     };
 

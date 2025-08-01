@@ -18,6 +18,7 @@ export type RestoreUserInputFromSerializedStateCallback = (
 export type HandleUserInputCallback = (
     widgetId: string,
     userInput: UserInputMap[keyof UserInputMap],
+    widgetsEmpty: boolean,
 ) => void;
 
 type FunctionChildParams = {
@@ -34,7 +35,7 @@ type FunctionChildParams = {
 type Props = {
     widgets: PerseusWidgetsMap;
     problemNum: number;
-    handleUserInput?: (userInput: UserInputMap) => void;
+    handleUserInput?: (userInput: UserInputMap, widgetsEmpty: boolean) => void;
     children: (payload: FunctionChildParams) => JSX.Element | null;
 };
 
@@ -121,13 +122,14 @@ export default function UserInputManager(props: Props) {
     function handleUserInput(
         id: string,
         nextUserInput: UserInputMap[keyof UserInputMap],
+        widgetsEmpty: boolean,
     ) {
         const next = {
             ...userInput,
             [id]: nextUserInput,
         };
         setUserInput(next);
-        props.handleUserInput?.(next);
+        props.handleUserInput?.(next, widgetsEmpty);
     }
 
     function initializeUserInput(

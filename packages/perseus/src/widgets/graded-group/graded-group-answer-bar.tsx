@@ -13,13 +13,10 @@ import {phoneMargin, negativePhoneMargin} from "../../styles/constants";
 import type {APIOptions} from "../../types";
 
 export type ANSWER_BAR_STATES =
-    // Initial state before the question is answerable.  The user must complete
-    // each of the widgets before the answer bar becomes visible.
-    | "HIDDEN"
     // The 'Check' button is active whenever the question is answerable or any
     // of the input widgets have been modified after getting the answer wrong.
     | "ACTIVE"
-    // The 'Check' button is disabled and there is no message.  This occurs when
+    // The 'Check' button is disabled and there is no message.  This is the initial state and also occurs when
     // some of the widgets haven't been filled in after the answer bar has already become
     // visible.
     | "INACTIVE"

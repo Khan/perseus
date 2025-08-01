@@ -646,7 +646,23 @@ class Renderer
                 this._setWidgetProps(widgetId, newProps, cb, silent);
             },
             handleUserInput: (newUserInput: UserInput) => {
-                this.props.handleUserInput?.(widgetId, newUserInput);
+                // Calculate widgetsEmpty using the updated user input
+                const updatedUserInput = {
+                    ...this.props.userInput,
+                    [widgetId]: newUserInput,
+                };
+                const emptyWidgetIds = emptyWidgetsFunctional(
+                    this.state.widgetInfo,
+                    this.widgetIds,
+                    updatedUserInput,
+                    this.context.locale,
+                );
+                const widgetsEmpty = emptyWidgetIds.length > 0;
+                this.props.handleUserInput?.(
+                    widgetId,
+                    newUserInput,
+                    widgetsEmpty,
+                );
                 this.props.onInteractWithWidget(widgetId);
             },
             trackInteraction: interactionTracker.track,
