@@ -136,7 +136,7 @@ export class GradedGroup
         status: GRADING_STATUSES.ungraded,
         showHint: false,
         message: "",
-        answerBarState: "HIDDEN",
+        answerBarState: "INACTIVE",
     };
 
     rendererRef = React.createRef<Renderer>();
