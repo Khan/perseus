@@ -1,14 +1,14 @@
 import Button from "@khanacademy/wonder-blocks-button";
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
-import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
-import xIcon from "@phosphor-icons/core/regular/x.svg";
 import * as React from "react";
 
+import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
+
 import {AutoResizingTextArea} from "./auto-resizing-text-area";
-import ImageEditorAccordion from "./image-editor-accordion";
 import styles from "./radio-editor.module.css";
+import RadioImageEditor from "./radio-image-editor";
 import {
     setContentFromNiceContentAndImages,
     setNiceContentAndImages,
@@ -25,8 +25,6 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
     const {content, choiceIndex, onContentChange, isNoneOfTheAbove} = props;
     const uniqueId = React.useId();
     const contentTextAreaId = `${uniqueId}-content-textarea`;
-    const imageUrlTextAreaId = `${uniqueId}-image-url-textarea`;
-    const imageAltTextTextAreaId = `${uniqueId}-image-alt-text-textarea`;
 
     // States for updating content and images
     const [niceContent, setNiceContent] = React.useState<string>("");
@@ -36,8 +34,6 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
 
     // States for adding an image
     const [addingImage, setAddingImage] = React.useState(false);
-    const [imageUrl, setImageUrl] = React.useState("");
-    const [imageAltText, setImageAltText] = React.useState("");
 
     React.useEffect(() => {
         const [niceContent, images] = setNiceContentAndImages(content ?? "");
@@ -108,6 +104,15 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
         }
     };
 
+    const handleDeleteImageConfirmation = (imageIndex: number) => {
+        if (
+            // eslint-disable-next-line no-alert
+            window.confirm("Are you sure you want to delete this image?")
+        ) {
+            handleDeleteImage(imageIndex);
+        }
+    };
+
     if (isNoneOfTheAbove) {
         return (
             <>
@@ -126,6 +131,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
 
     return (
         <>
+            {/* Content textarea */}
             <HeadingXSmall
                 tag="label"
                 htmlFor={contentTextAreaId}
@@ -143,6 +149,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                 onPaste={handlePaste}
             />
 
+            {/* Add image button */}
             {!addingImage && (
                 <Button
                     startIcon={plusIcon}
@@ -157,75 +164,57 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                 </Button>
             )}
 
+            {/* "Add image" tile */}
             {addingImage && (
-                <div className={styles.imageEditorContainer}>
-                    <IconButton
-                        icon={xIcon}
-                        size="small"
-                        kind="tertiary"
-                        onClick={() => {
-                            setAddingImage(false);
-                            setImageUrl("");
-                            setImageAltText("");
-                        }}
-                        style={{position: "absolute", top: 4, right: 4}}
-                    />
-                    <HeadingXSmall
-                        tag="label"
-                        htmlFor={imageUrlTextAreaId}
-                        style={{marginBlockEnd: sizing.size_040}}
-                    >
-                        Image URL
-                    </HeadingXSmall>
-                    <AutoResizingTextArea
-                        id={imageUrlTextAreaId}
-                        value={imageUrl}
-                        placeholder="cdn.kastatic.org/..."
-                        onChange={(value) => {
-                            setImageUrl(value);
-                        }}
+                <RadioImageEditor
+                    containerClassName={styles.imageEditorContainer}
+                    onSave={(imageUrl, imageAltText) => {
+                        handleAddImage(choiceIndex, imageUrl, imageAltText);
+                    }}
+                    onClose={() => {
+                        setAddingImage(false);
+                    }}
+                />
+            )}
+
+            {/* Image editor accordions */}
+            {images?.map((image, imageIndex) => (
+                <PerseusEditorAccordion
+                    key={image.url}
+                    header={`Image ${imageIndex + 1}`}
+                    expanded={true}
+                    containerStyle={{
+                        // White to contrast with the blue choice tile.
+                        backgroundColor: semanticColor.surface.primary,
+                        marginBlockStart: sizing.size_040,
+                        marginBlockEnd: sizing.size_040,
+                    }}
+                    headerStyle={{
+                        // Shorten the header to increase overall
+                        // editor real estate.
+                        height: sizing.size_320,
+                    }}
+                >
+                    <img
+                        src={image.url}
+                        alt={image.altText}
                         style={{marginBlockEnd: sizing.size_080}}
                     />
-                    <HeadingXSmall
-                        tag="label"
-                        htmlFor={imageAltTextTextAreaId}
-                        style={{marginBlockEnd: sizing.size_040}}
-                    >
-                        Image Alt Text
-                    </HeadingXSmall>
-                    <AutoResizingTextArea
-                        id={imageAltTextTextAreaId}
-                        value={imageAltText}
-                        placeholder="The Moon appears as a bright gray circle in black space..."
-                        onChange={(value) => {
-                            setImageAltText(value);
+                    <RadioImageEditor
+                        initialImageUrl={image.url}
+                        initialImageAltText={image.altText}
+                        onSave={(imageUrl, imageAltText) => {
+                            handleUpdateImage(
+                                imageIndex,
+                                imageUrl,
+                                imageAltText,
+                            );
+                        }}
+                        onDelete={() => {
+                            handleDeleteImageConfirmation(imageIndex);
                         }}
                     />
-                    <Button
-                        size="small"
-                        style={{
-                            alignSelf: "flex-end",
-                            marginBlockStart: 8,
-                        }}
-                        onClick={() => {
-                            setAddingImage(false);
-                            setImageUrl("");
-                            setImageAltText("");
-                            handleAddImage(choiceIndex, imageUrl, imageAltText);
-                        }}
-                    >
-                        Save image
-                    </Button>
-                </div>
-            )}
-            {images?.map((image, imageIndex) => (
-                <ImageEditorAccordion
-                    key={`${imageIndex}-${image.url}`}
-                    image={image}
-                    imageIndex={imageIndex}
-                    onDeleteImage={handleDeleteImage}
-                    onUpdateImage={handleUpdateImage}
-                />
+                </PerseusEditorAccordion>
             )) ?? null}
         </>
     );
