@@ -87,7 +87,7 @@ export type PerseusCategorizerRubric = {
 } & PerseusCategorizerValidationData;
 
 export type PerseusCategorizerUserInput = {
-    values: PerseusCategorizerRubric["values"];
+    values: Array<number | null | undefined>;
 };
 
 export type PerseusCategorizerValidationData = {
