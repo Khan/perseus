@@ -1,0 +1,5 @@
+import{P as e}from"./python-program-editor-BQZBhtnc.js";import"./iframe-weGPgbT4.js";import"./item-version-Be5EdHw7.js";import"./article-renderer-3b7TRXrq.js";import"./server-item-renderer-CEJBvG1t.js";import"./hints-renderer-CuvVECrk.js";import"./components-BQ1kMoZv.js";const{action:n}=__STORYBOOK_MODULE_ACTIONS__,_={title:"Widgets/Python Program/Editor Demo",component:e,tags:["!dev"]},o={args:{onChange:n("onChange")}};var r,t,a;o.parameters={...o.parameters,docs:{...(r=o.parameters)==null?void 0:r.docs,source:{originalSource:`{
+  args: {
+    onChange: action("onChange")
+  }
+}`,...(a=(t=o.parameters)==null?void 0:t.docs)==null?void 0:a.source}}};const h=["Default"];export{o as Default,h as __namedExportsOrder,_ as default};
