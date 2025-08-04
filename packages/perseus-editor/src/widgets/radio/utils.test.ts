@@ -1,4 +1,8 @@
-import {getMovedChoices} from "./utils";
+import {
+    getMovedChoices,
+    setContentFromNiceContentAndImages,
+    setNiceContentAndImages,
+} from "./utils";
 
 const choices = [
     {content: "Choice 1"},
@@ -108,5 +112,117 @@ describe("getMovedChoices", () => {
             {content: "Choice 1"},
             {content: "Choice 4", isNoneOfTheAbove: true},
         ]);
+    });
+});
+
+describe("setNiceContentAndImages", () => {
+    it("should replace images with nice placeholders", () => {
+        const originalContent = "![moon and earth](earthmoon.jpg)";
+        const niceContent = "![Image 1]";
+        const images = [
+            {
+                url: "earthmoon.jpg",
+                altText: "moon and earth",
+            },
+        ];
+
+        const [result, resultImages] = setNiceContentAndImages(originalContent);
+        expect(result).toEqual(niceContent);
+        expect(resultImages).toEqual(images);
+    });
+
+    it("should replace multiple images with nice placeholders", () => {
+        const originalContent =
+            "foo ![earth and moon](earthmoon.jpg) bar ![catching a tennis ball](tennisball.png) baz";
+        const niceContent = "foo ![Image 1] bar ![Image 2] baz";
+        const images = [
+            {
+                url: "earthmoon.jpg",
+                altText: "earth and moon",
+            },
+            {
+                url: "tennisball.png",
+                altText: "catching a tennis ball",
+            },
+        ];
+
+        const [result, resultImages] = setNiceContentAndImages(originalContent);
+        expect(result).toEqual(niceContent);
+        expect(resultImages).toEqual(images);
+    });
+
+    it("should not replace non-image links", () => {
+        // Note the lack of `!` in front of the link syntax.
+        const originalContent = "[ABCD](earthmoon.jpg)";
+        const images = [];
+
+        const [result, resultImages] = setNiceContentAndImages(originalContent);
+        expect(result).toEqual(originalContent);
+        expect(resultImages).toEqual(images);
+    });
+
+    it("should not get messed up by nested brackets", () => {
+        // Alt text contains brackets
+        const originalContent = "![ABCD[]](earthmoon.jpg)";
+        const niceContent = "![Image 1]";
+        const images = [
+            {
+                url: "earthmoon.jpg",
+                altText: "ABCD[]",
+            },
+        ];
+
+        const [result, resultImages] = setNiceContentAndImages(originalContent);
+        expect(result).toEqual(niceContent);
+        expect(resultImages).toEqual(images);
+    });
+});
+
+describe("setContentFromNiceContentAndImages", () => {
+    it("should replace images with nice placeholders", () => {
+        const niceContent = "![Image 1]";
+        const images = [
+            {
+                url: "earthmoon.jpg",
+                altText: "moon and earth",
+            },
+        ];
+        const expectedContent = "![moon and earth](earthmoon.jpg)";
+
+        const result = setContentFromNiceContentAndImages(niceContent, images);
+        expect(result).toEqual(expectedContent);
+    });
+
+    it("should replace multiple images with nice placeholders", () => {
+        const niceContent = "foo ![Image 1] bar ![Image 2] baz";
+        const images = [
+            {
+                url: "earthmoon.jpg",
+                altText: "moon and earth",
+            },
+            {
+                url: "tennisball.png",
+                altText: "catching a tennis ball",
+            },
+        ];
+        const expectedContent =
+            "foo ![moon and earth](earthmoon.jpg) bar ![catching a tennis ball](tennisball.png) baz";
+
+        const result = setContentFromNiceContentAndImages(niceContent, images);
+        expect(result).toEqual(expectedContent);
+    });
+
+    it("should work with nested brackets", () => {
+        const niceContent = "![Image 1]";
+        const images = [
+            {
+                url: "earthmoon.jpg",
+                altText: "ABCD[]",
+            },
+        ];
+        const expectedContent = "![ABCD[]](earthmoon.jpg)";
+
+        const result = setContentFromNiceContentAndImages(niceContent, images);
+        expect(result).toEqual(expectedContent);
     });
 });
