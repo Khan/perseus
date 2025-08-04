@@ -411,7 +411,8 @@ class Orderer
             const list = this.props.userInput.current.slice();
 
             if (!inCardBank) {
-                const cardContent = this.state.dragContent;
+                const cardContent: string | null | undefined =
+                    this.state.dragContent;
                 if (this.isValidCard(cardContent)) {
                     // Insert the new card into the position
                     const newCard = {
@@ -590,8 +591,11 @@ class Orderer
         );
     };
 
-    private isValidCard(content: string) {
-        return this.props.options.map((opt) => opt.content).includes(content);
+    private isValidCard(content: string | null | undefined): content is string {
+        return (
+            typeof content === "string" &&
+            this.props.options.some((opt) => opt.content === content)
+        );
     }
 
     // This component makes use of a lot of DOM manipulation
