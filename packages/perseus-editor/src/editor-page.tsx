@@ -204,6 +204,7 @@ class EditorPage extends React.Component<Props, State> {
     handleChange: ChangeHandler = (toChange, cb, silent) => {
         const newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);
+        this.setState({json: this.serialize()});
         this.props.onChange(newProps, cb, silent);
     };
 
