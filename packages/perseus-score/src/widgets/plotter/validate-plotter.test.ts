@@ -6,6 +6,21 @@ import type {
 } from "@khanacademy/perseus-core";
 
 describe("validatePlotter", () => {
+    it("is invalid if the user input is undefined", () => {
+        // Arrange
+        const validationData: PerseusPlotterValidationData = {
+            starting: [0, 0, 0, 0, 0],
+        };
+
+        const userInput = undefined;
+
+        // Act
+        const validationError = validatePlotter(userInput, validationData);
+
+        // Assert
+        expect(validationError).toHaveInvalidInput();
+    });
+
     it("is invalid if the start and end are the same", () => {
         // Arrange
         const validationData: PerseusPlotterValidationData = {

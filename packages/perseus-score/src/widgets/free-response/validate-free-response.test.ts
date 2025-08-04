@@ -11,6 +11,11 @@ const MOCK_STANDARD_OPTIONS: PerseusFreeResponseWidgetOptions = {
 };
 
 describe("free response validation", () => {
+    it("should return invalid for undefined user input", () => {
+        const result = validateFreeResponse(undefined, MOCK_STANDARD_OPTIONS);
+        expect(result).toHaveInvalidInput("USER_INPUT_EMPTY");
+    });
+
     it("should return invalid for empty user input", () => {
         const result = validateFreeResponse(
             {currentValue: ""},
