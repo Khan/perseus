@@ -413,7 +413,7 @@ class Orderer
             if (!inCardBank) {
                 const cardContent: string | null | undefined =
                     this.state.dragContent;
-                if (this.isValidCard(cardContent)) {
+                if (typeof cardContent === "string") {
                     // Insert the new card into the position
                     const newCard = {
                         content: cardContent,
@@ -590,13 +590,6 @@ class Orderer
             bankOffset.left + bankWidth
         );
     };
-
-    private isValidCard(content: string | null | undefined): content is string {
-        return (
-            typeof content === "string" &&
-            this.props.options.some((opt) => opt.content === content)
-        );
-    }
 
     // This component makes use of a lot of DOM manipulation
     // For testing and direct manipulation of values there's a function
