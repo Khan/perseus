@@ -51,6 +51,8 @@ const ChoiceNoneAbove = function ({
     return <Choice {...choiceProps} ref={forwardedRef} />;
 };
 
-export default React.forwardRef<HTMLButtonElement, Props>((props, ref) => (
-    <ChoiceNoneAbove {...props} forwardedRef={ref} />
-));
+export default React.forwardRef<HTMLButtonElement, Props>(
+    function ChoiceNoneAboveWithRef(props, ref) {
+        return <ChoiceNoneAbove {...props} forwardedRef={ref} />;
+    },
+);

@@ -74,6 +74,11 @@ type State = {
     showAnswers: boolean;
 };
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * An editor for adding a numeric input widget that allows users to enter
+ * numerical values with specific validation rules.
+ */
 class NumericInputEditor extends React.Component<Props, State> {
     static widgetName = "numeric-input";
     static displayName = "NumericInputEditor";

@@ -15,6 +15,10 @@ const {TextInput} = components;
 type Props = any;
 type State = any;
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * An editor for adding an explanation widget that provides supplementary information to users.
+ */
 class ExplanationEditor extends React.Component<Props, State> {
     static propTypes = {
         ...Changeable.propTypes,

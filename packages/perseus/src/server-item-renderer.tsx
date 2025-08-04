@@ -483,8 +483,16 @@ export class ServerItemRenderer
                                 strings={this.context.strings}
                                 {...this.props.dependencies}
                                 userInput={userInput}
-                                handleUserInput={(id, userInput) => {
-                                    handleUserInput(id, userInput);
+                                handleUserInput={(
+                                    id,
+                                    userInput,
+                                    widgetsEmpty,
+                                ) => {
+                                    handleUserInput(
+                                        id,
+                                        userInput,
+                                        widgetsEmpty,
+                                    );
                                     this.handleInteractWithWidget(id);
                                 }}
                                 initializeUserInput={initializeUserInput}
@@ -541,14 +549,19 @@ const styles = StyleSheet.create({
     },
 });
 
-const ref = React.forwardRef<
+export default React.forwardRef<
     ServerItemRenderer,
     Omit<PropsFor<typeof ServerItemRenderer>, "onRendered">
->((props, ref) => (
-    <LoadingContext.Consumer>
-        {({onRendered}) => (
-            <ServerItemRenderer {...props} onRendered={onRendered} ref={ref} />
-        )}
-    </LoadingContext.Consumer>
-));
-export default ref;
+>(function ServerItemRendererWithRef(props, ref) {
+    return (
+        <LoadingContext.Consumer>
+            {({onRendered}) => (
+                <ServerItemRenderer
+                    {...props}
+                    onRendered={onRendered}
+                    ref={ref}
+                />
+            )}
+        </LoadingContext.Consumer>
+    );
+});

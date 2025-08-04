@@ -1,47 +1,47 @@
 import * as React from "react";
-import {useState} from "react";
+import {action} from "storybook/actions";
 
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {question} from "../../__testdata__/interaction.testdata";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import InteractionEditor from "../interaction-editor";
 
-type StoryArgs = Record<any, any>;
+import type {StoryObj} from "@storybook/react-vite";
 
-type Story = {
-    title: string;
-};
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
 
-export default {
+const meta = {
     title: "Widgets/Interaction/Editor Demo",
     component: InteractionEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding an interaction widget that allows users to engage with interactive content.",
-            },
+};
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
+        elements: [],
+        graph: {
+            box: [400, 400],
+            labels: ["x", "y"],
+            range: [
+                [-10, 10],
+                [-10, 10],
+            ],
+            tickStep: [1, 1],
+            gridStep: [1, 1],
+            markings: "grid",
+            valid: true,
         },
     },
-} as Story;
-
-export const Default = (args: StoryArgs): React.ReactElement => {
-    const [elements, setElements] = useState();
-    const [graph, setGraph] = useState();
-
-    function handleChange(next) {
-        if (next.graph) {
-            setGraph(next.graph);
-        }
-
-        if (next.elements) {
-            setElements(next.elements);
-        }
-    }
-
-    return (
-        <InteractionEditor
-            onChange={handleChange}
-            elements={elements}
-            graph={graph}
-        />
-    );
 };
+
+export const WithinEditorPage: StoryObj<typeof EditorPageWithStorybookPreview> =
+    {
+        render: (): React.ReactElement => (
+            <EditorPageWithStorybookPreview question={question} />
+        ),
+    };

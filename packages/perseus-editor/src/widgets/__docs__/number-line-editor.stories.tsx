@@ -1,29 +1,32 @@
-import * as React from "react";
 import {action} from "storybook/actions";
 
 import NumberLineEditor from "../number-line-editor";
 
-type StoryArgs = Record<any, any>;
+import type {StoryObj} from "@storybook/react-vite";
 
-type Story = {
-    title: string;
-};
-
-export default {
+const meta = {
     title: "Widgets/Number Line/Editor Demo",
     component: NumberLineEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding a number line widget that allows users to mark\
-                    positions, intervals, and points on a number line.",
-            },
-        },
-    },
-} as Story;
+};
+export default meta;
 
-export const Default = (args: StoryArgs): React.ReactElement => {
-    return <NumberLineEditor onChange={action("onChange")} />;
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        labelRange: [0, 0],
+        initialX: 0,
+        tickStep: 1,
+        labelStyle: "decimal",
+        labelTicks: true,
+        snapDivisions: 2,
+        range: [-4, 4],
+        static: false,
+        correctRel: "eq",
+        numDivisions: 5,
+        divisionRange: [1, 12],
+        correctX: -2.5,
+        showTooltips: false,
+        onChange: action("onChange"),
+    },
 };

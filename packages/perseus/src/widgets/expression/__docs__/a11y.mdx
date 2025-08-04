@@ -1,0 +1,36 @@
+import {Meta} from "@storybook/addon-docs/blocks";
+
+<Meta title="Widgets/Expression/Accessibility" />
+
+# Expression Accessibility
+
+The Expression widget is designed with accessibility in mind, ensuring it is usable by all users, including those relying on assistive technologies.
+
+## Keyboard Navigation
+
+-   Users can focus the input using the `Tab` key.
+-   Once focused, the input supports standard text navigation and editing keys.
+-   For custom keypads (mobile), the keypad is accessible via keyboard and screen reader.
+-   The input can be submitted or unfocused with `Enter` or `Tab`.
+
+## Screen Reader Support
+
+-   The input uses appropriate ARIA roles and attributes to communicate its purpose and state to screen readers.
+-   The `aria-label` is set based on the widget's `ariaLabel` or `visibleLabel` prop, or defaults to a localized string (e.g., "Math input box").
+-   Math expressions are announced as text; users may need a math-aware screen reader for best results.
+
+## Visible Labels
+
+-   If a `visibleLabel` is provided, it is rendered as a `<label>` and associated with the input for better accessibility.
+-   The label is linked to the input via the `htmlFor` and `id` attributes.
+
+## Best Practices
+
+-   Always provide a meaningful `visibleLabel` or `ariaLabel` for context.
+-   Ensure math expressions are clear and unambiguous for all users.
+-   Avoid using only color or visual cues to convey meaning in expressions.
+
+## Additional Notes
+
+-   The widget leverages accessible components from Wonder Blocks and Math Input libraries.
+-   If you encounter any accessibility issues, please report them to the team.

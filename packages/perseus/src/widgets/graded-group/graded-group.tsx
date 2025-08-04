@@ -40,6 +40,7 @@ import type {
     PerseusGradedGroupWidgetOptions,
     PerseusRenderer,
     PerseusScore,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -57,8 +58,6 @@ const getNextState = (
     answerable,
 ): ANSWER_BAR_STATES => {
     switch (currentState) {
-        case "HIDDEN":
-            return answerable ? "ACTIVE" : currentState;
         case "ACTIVE":
             return !answerable ? "INACTIVE" : currentState;
         case "INACTIVE":
@@ -135,7 +134,7 @@ export class GradedGroup
         status: GRADING_STATUSES.ungraded,
         showHint: false,
         message: "",
-        answerBarState: "HIDDEN",
+        answerBarState: "INACTIVE",
     };
 
     rendererRef = React.createRef<Renderer>();
@@ -150,22 +149,18 @@ export class GradedGroup
         return Changeable.change.apply(this, args as any);
     };
 
-    _handleUserInput(): void {
+    _handleUserInput(_userInput: UserInputMap, widgetsEmpty: boolean): void {
         // Reset grading display when user changes answer
         this.setState({
             status: GRADING_STATUSES.ungraded,
             message: "",
         });
-
-        if (this.rendererRef.current) {
-            const emptyWidgets = this.rendererRef.current.emptyWidgets();
-            const answerable = emptyWidgets.length === 0;
-            const answerBarState = this.state.answerBarState;
-            const nextState = getNextState(answerBarState, answerable);
-            this.setState({
-                answerBarState: nextState,
-            });
-        }
+        const answerable = !widgetsEmpty;
+        const answerBarState = this.state.answerBarState;
+        const nextState = getNextState(answerBarState, answerable);
+        this.setState({
+            answerBarState: nextState,
+        });
     }
 
     _checkAnswer: () => void = () => {
@@ -303,7 +298,10 @@ export class GradedGroup
                 )}
                 <UserInputManager
                     widgets={this.props.widgets}
-                    handleUserInput={() => this._handleUserInput()}
+                    handleUserInput={(
+                        userInput: UserInputMap,
+                        widgetsEmpty: boolean,
+                    ) => this._handleUserInput(userInput, widgetsEmpty)}
                     problemNum={0}
                 >
                     {({userInput, handleUserInput}) => (
@@ -440,7 +438,7 @@ export class GradedGroup
                             {this.context.strings.explain}
                         </button>
                     ))}
-                {apiOptions.isMobile && answerBarState !== "HIDDEN" && (
+                {apiOptions.isMobile && (
                     <GradedGroupAnswerBar
                         apiOptions={apiOptions}
                         answerBarState={answerBarState}

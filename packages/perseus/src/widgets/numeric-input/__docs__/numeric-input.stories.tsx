@@ -5,9 +5,8 @@ import {
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
-
-import {NumericInput} from "./numeric-input.class";
+import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {NumericInput} from "../numeric-input.class";
 import {
     decimalProblem,
     defaultQuestion,
@@ -17,7 +16,7 @@ import {
     piProblem,
     properProblem,
     withCoefficient,
-} from "./numeric-input.testdata";
+} from "../numeric-input.testdata";
 
 import type {Meta} from "@storybook/react-vite";
 

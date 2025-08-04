@@ -1,5 +1,16 @@
 # @khanacademy/perseus
 
+## 66.2.1
+
+### Patch Changes
+
+-   [#2741](https://github.com/Khan/perseus/pull/2741) [`856d59821`](https://github.com/Khan/perseus/commit/856d598214eccd505da0b62f423b295c18753662) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Additional Perseus documentation improvement
+
+*   [#2742](https://github.com/Khan/perseus/pull/2742) [`fbbd1c915`](https://github.com/Khan/perseus/commit/fbbd1c9157a65c5b5438e8bfa64276d682fc8ad0) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (DX) | Add null check in radio.ff.tsx
+
+*   Updated dependencies [[`38cda3ba3`](https://github.com/Khan/perseus/commit/38cda3ba366985579335ac28001c4c5cff8071ce)]:
+    -   @khanacademy/perseus-score@7.4.0
+
 ## 66.2.0
 
 ### Minor Changes

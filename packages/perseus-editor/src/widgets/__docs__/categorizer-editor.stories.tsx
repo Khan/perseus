@@ -2,33 +2,34 @@ import {ApiOptions} from "@khanacademy/perseus";
 import * as React from "react";
 import {action} from "storybook/actions";
 
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {question} from "../../__testdata__/categorizer.testdata";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import CategorizerEditor from "../categorizer-editor";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-type Story = {
-    title: string;
-};
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
 
-export default {
+const meta: Meta = {
     title: "Widgets/Categorizer/Editor Demo",
     component: CategorizerEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding a categorizer widget that allow users to sort items into categories.",
-            },
-        },
-    },
-} as Story;
+} satisfies Meta<typeof CategorizerEditor>;
+export default meta;
 
-export const Default = (args: StoryArgs): React.ReactElement => {
-    return (
-        <CategorizerEditor
-            onChange={action("onChange")}
-            apiOptions={ApiOptions.defaults}
-        />
-    );
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
+        apiOptions: ApiOptions.defaults,
+    },
 };
+
+export const WithinEditorPage: StoryObj<typeof EditorPageWithStorybookPreview> =
+    {
+        render: (): React.ReactElement => (
+            <EditorPageWithStorybookPreview question={question} />
+        ),
+    };

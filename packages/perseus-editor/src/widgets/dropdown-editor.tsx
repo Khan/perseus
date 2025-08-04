@@ -17,6 +17,10 @@ const {InfoTip, InlineIcon} = components;
 
 type Props = any;
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * An editor for adding a dropdown widget that allows users to select an option from a predefined list.
+ */
 class DropdownEditor extends React.Component<Props> {
     static propTypes = {
         choices: PropTypes.arrayOf(

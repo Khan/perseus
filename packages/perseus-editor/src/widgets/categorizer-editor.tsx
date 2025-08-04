@@ -19,6 +19,10 @@ const Categorizer = CategorizerWidget.widget;
 
 type Props = any;
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * An editor for adding a categorizer widget that allows users to sort items into categories.
+ */
 class CategorizerEditor extends React.Component<Props> {
     static propTypes = {
         ...Changeable.propTypes,

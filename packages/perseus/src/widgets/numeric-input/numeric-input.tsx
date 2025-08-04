@@ -23,7 +23,7 @@ import type {Focusable} from "../../types";
  * Input widget.
  */
 export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
-    (props, ref) => {
+    function NumericInputComponent(props, ref) {
         const context = useContext(PerseusI18nContext);
         const inputRef = useRef<Focusable>(null);
         const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -73,6 +73,9 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
                 padding: isFocused ? "4px" : "4px 5px",
                 textAlign: props.rightAlign ? "right" : "left",
                 width: props.size === "small" ? 40 : 80,
+                // Even in RTL languages, math is LTR.
+                // So we force this component to always render LTR
+                direction: "ltr",
             },
         });
 

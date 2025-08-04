@@ -173,4 +173,53 @@ describe("Radio AI utils", () => {
             expect(isSelected).toBe(i === indexToSelect);
         });
     });
+
+    // regression (TUT-2738) TODO: we shouldn't have to handle this
+    // (user input should be initialized already)
+    // but there's a bug somewhere and an urgency to get this patched
+    it("should handle undefined/null user input", () => {
+        const renderProps: any = {
+            numCorrect: 1,
+            countChoices: false,
+            deselectEnabled: false,
+            hasNoneOfTheAbove: false,
+            multipleSelect: false,
+            choices: [
+                {
+                    content: "Content 4",
+                    originalIndex: 3,
+                },
+                {
+                    content: "Content 2",
+                    originalIndex: 1,
+                },
+                {
+                    content: "Content 1",
+                    originalIndex: 0,
+                },
+
+                {
+                    content: "Content 3",
+                    originalIndex: 2,
+                },
+            ],
+            selectedChoices: [true, false, false, false],
+        };
+
+        const resultJSON = getPromptJSON(renderProps, undefined as any);
+
+        expect(resultJSON).toEqual({
+            type: "radio",
+            hasNoneOfTheAbove: false,
+            options: [
+                {value: "Content 4"},
+                {value: "Content 2"},
+                {value: "Content 1"},
+                {value: "Content 3"},
+            ],
+            userInput: {
+                selectedOptions: [],
+            },
+        });
+    });
 });

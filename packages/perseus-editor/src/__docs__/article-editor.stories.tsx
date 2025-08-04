@@ -5,6 +5,7 @@ import {useRef, useState} from "react";
 import ArticleEditor from "../article-editor";
 import {registerAllWidgetsAndEditorsForTesting} from "../util/register-all-widgets-and-editors-for-testing";
 
+// This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
 
 export default {

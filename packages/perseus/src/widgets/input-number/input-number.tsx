@@ -227,6 +227,9 @@ const styles = StyleSheet.create({
     default: {
         width: 80,
         height: "auto",
+        // Even in RTL languages, math is LTR.
+        // So we force this component to always render LTR
+        direction: "ltr",
     },
     small: {
         width: 40,
