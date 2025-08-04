@@ -212,6 +212,7 @@ describe("graded-group", () => {
     describe("on mobile", () => {
         const apiOptions: APIOptions = {
             isMobile: true,
+            isArticle: true,
         };
 
         it("should be able to be answered correctly", async () => {
@@ -333,6 +334,20 @@ describe("graded-group", () => {
             expect(
                 screen.queryByText(/Some bacteria synthesize their own fuel./),
             ).not.toBeInTheDocument();
+        });
+
+        it("should enable Check button when radio is selected", async () => {
+            // Arrange - Check button should be visible but disabled
+            renderQuestion(groupedRadioRationaleQuestion, apiOptions);
+            const checkButton = screen.getByRole("button", {name: "Check"});
+            expect(checkButton).toHaveAttribute("aria-disabled", "true");
+
+            // Act
+            await userEvent.click(screen.getByRole("radio", {name: /Correct/}));
+
+            // Assert - Check button should be visible and enabled
+            expect(checkButton).toBeVisible();
+            expect(checkButton).toHaveAttribute("aria-disabled", "false");
         });
     });
 

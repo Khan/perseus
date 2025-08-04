@@ -178,7 +178,11 @@ describe("UserInputManager", () => {
                     <>
                         <button
                             onClick={() =>
-                                handleUserInput("expression 1", "Hello world")
+                                handleUserInput(
+                                    "expression 1",
+                                    "Hello world",
+                                    false,
+                                )
                             }
                         >
                             Click me
@@ -206,11 +210,15 @@ describe("UserInputManager", () => {
                         <>
                             <button
                                 onClick={() =>
-                                    handleUserInput("number-line 1", {
-                                        numLinePosition: 0,
-                                        rel: "lt",
-                                        numDivisions: 10,
-                                    })
+                                    handleUserInput(
+                                        "number-line 1",
+                                        {
+                                            numLinePosition: 0,
+                                            rel: "lt",
+                                            numDivisions: 10,
+                                        },
+                                        false,
+                                    )
                                 }
                             >
                                 Click me
@@ -252,13 +260,17 @@ describe("UserInputManager", () => {
                         <>
                             <button
                                 onClick={() =>
-                                    handleUserInput("group 1", {
-                                        "number-line 1": {
-                                            numLinePosition: 0,
-                                            rel: "lt",
-                                            numDivisions: 10,
+                                    handleUserInput(
+                                        "group 1",
+                                        {
+                                            "number-line 1": {
+                                                numLinePosition: 0,
+                                                rel: "lt",
+                                                numDivisions: 10,
+                                            },
                                         },
-                                    })
+                                        false,
+                                    )
                                 }
                             >
                                 Click me
@@ -312,6 +324,7 @@ describe("UserInputManager", () => {
                                     handleUserInput(
                                         "expression 1",
                                         "Hello world",
+                                        false,
                                     )
                                 }
                             >
