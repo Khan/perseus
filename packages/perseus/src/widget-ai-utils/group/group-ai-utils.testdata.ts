@@ -19,16 +19,33 @@ export const question1: PerseusRenderer = {
                         graded: true,
                         options: {
                             choices: [
-                                {content: "$45$", correct: false},
-                                {content: "$42$", correct: false},
                                 {
+                                    id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                                    content: "$45$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                                    content: "$42$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
                                     content: "$30$",
                                     correct: false,
                                     rationale:
                                         "Here's some rationale, this isn't the correct answer!",
                                 },
-                                {content: "$18$", correct: false},
-                                {content: "$15$", correct: true},
+                                {
+                                    id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
+                                    content: "$18$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "9c8b7a65-4321-4fed-9876-543210fedcba",
+                                    content: "$15$",
+                                    correct: true,
+                                },
                             ],
                             multipleSelect: false,
                             randomize: false,
@@ -132,11 +149,31 @@ export const question1: PerseusRenderer = {
             graded: true,
             options: {
                 choices: [
-                    {content: "", correct: false},
-                    {content: "", correct: false},
-                    {content: "", correct: false},
-                    {content: "", correct: false},
-                    {content: "", correct: true},
+                    {
+                        id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                        content: "",
+                        correct: false,
+                    },
+                    {
+                        id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                        content: "",
+                        correct: false,
+                    },
+                    {
+                        id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                        content: "",
+                        correct: false,
+                    },
+                    {
+                        id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
+                        content: "",
+                        correct: false,
+                    },
+                    {
+                        id: "9c8b7a65-4321-4fed-9876-543210fedcba",
+                        content: "",
+                        correct: true,
+                    },
                 ],
                 multipleSelect: false,
                 randomize: false,

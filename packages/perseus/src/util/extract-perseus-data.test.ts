@@ -15,9 +15,18 @@ describe("injectWidgets", () => {
                     type: "radio",
                     options: {
                         choices: [
-                            {content: "option 1"},
-                            {content: "option 2"},
-                            {content: "option 3"},
+                            {
+                                id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                                content: "option 1",
+                            },
+                            {
+                                id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                                content: "option 2",
+                            },
+                            {
+                                id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                                content: "option 3",
+                            },
                         ] satisfies PerseusRadioChoice[],
                     },
                 },
@@ -34,9 +43,18 @@ describe("injectWidgets", () => {
                     type: "radio",
                     options: {
                         choices: [
-                            {content: "option 1"},
-                            {content: "option 2"},
-                            {content: "option 3"},
+                            {
+                                id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                                content: "option 1",
+                            },
+                            {
+                                id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                                content: "option 2",
+                            },
+                            {
+                                id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                                content: "option 3",
+                            },
                         ],
                         randomize: true,
                     },
@@ -55,9 +73,18 @@ describe("injectWidgets", () => {
                     type: "radio",
                     options: {
                         choices: [
-                            {content: "1"},
-                            {content: "2"},
-                            {content: "3"},
+                            {
+                                id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                                content: "1",
+                            },
+                            {
+                                id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                                content: "2",
+                            },
+                            {
+                                id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                                content: "3",
+                            },
                         ],
                         randomize: true,
                     },

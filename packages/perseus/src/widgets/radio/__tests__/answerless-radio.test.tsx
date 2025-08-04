@@ -22,18 +22,22 @@ function getRadioWidgetOptions(): PerseusRadioWidgetOptions {
     return {
         choices: [
             {
+                id: "a1b2c3d4-e5f6-4789-a012-345678901234",
                 content: "Correct 1",
                 correct: true,
             },
             {
+                id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
                 content: "Correct 2",
                 correct: true,
             },
             {
+                id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
                 content: "Incorrect",
                 correct: false,
             },
             {
+                id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
                 content: "None",
                 isNoneOfTheAbove: true,
                 correct: false,

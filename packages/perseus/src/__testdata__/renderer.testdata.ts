@@ -150,18 +150,22 @@ export const mockedRandomItem: PerseusRenderer = {
                 numCorrect: 1,
                 choices: [
                     {
+                        id: "a1b2c3d4-e5f6-4789-a012-345678901234",
                         content: "Content 1",
                         correct: true,
                     },
                     {
+                        id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
                         content: "Content 2",
                         correct: false,
                     },
                     {
+                        id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
                         content: "Content 3",
                         correct: false,
                     },
                     {
+                        id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
                         content: "Content 4",
                         correct: false,
                     },
@@ -189,18 +193,22 @@ export const mockedRandomItem: PerseusRenderer = {
                 numCorrect: 1,
                 choices: [
                     {
+                        id: "a1b2c3d4-e5f6-4789-a012-345678901234",
                         content: "Content 1",
                         correct: true,
                     },
                     {
+                        id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
                         content: "Content 2",
                         correct: false,
                     },
                     {
+                        id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
                         content: "Content 3",
                         correct: false,
                     },
                     {
+                        id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
                         content: "Content 4",
                         correct: false,
                     },
@@ -220,22 +228,26 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
         multipleSelect: false,
         choices: [
             {
+                id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
                 content: "Content 4",
                 correct: false,
                 originalIndex: 3,
             },
             {
+                id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
                 content: "Content 2",
                 correct: false,
                 originalIndex: 1,
             },
             {
+                id: "a1b2c3d4-e5f6-4789-a012-345678901234",
                 content: "Content 1",
                 correct: true,
                 originalIndex: 0,
             },
 
             {
+                id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
                 content: "Content 3",
                 correct: false,
                 originalIndex: 2,
@@ -251,22 +263,26 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
         multipleSelect: false,
         choices: [
             {
+                id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
                 content: "Content 4",
                 correct: false,
                 originalIndex: 3,
             },
             {
+                id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
                 content: "Content 2",
                 correct: false,
                 originalIndex: 1,
             },
             {
+                id: "a1b2c3d4-e5f6-4789-a012-345678901234",
                 content: "Content 1",
                 correct: true,
                 originalIndex: 0,
             },
 
             {
+                id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
                 content: "Content 3",
                 correct: false,
                 originalIndex: 2,

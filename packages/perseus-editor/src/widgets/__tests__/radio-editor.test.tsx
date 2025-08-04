@@ -1,15 +1,24 @@
+// Mock uuid module
+jest.mock("uuid", () => ({
+    v4: jest.fn(),
+}));
 import {Dependencies, ApiOptions} from "@khanacademy/perseus";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
+import {v4 as uuid} from "uuid";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import RadioEditor from "../radio/editor";
 
+import * as mockData from "./radio-editor.mockData";
+
 import type {RadioEditorProps} from "../radio/editor";
 import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+// Get the mocked function so we can control it in tests
+const mockedUuid = uuid as jest.MockedFunction<typeof uuid>;
 
 function renderRadioEditor(
     onChangeMock = () => undefined,
@@ -29,10 +38,7 @@ function renderRadioEditor(
 describe("radio-editor", () => {
     let userEvent: UserEvent;
     function getCorrectChoice(): PerseusRadioChoice {
-        return {
-            content: "",
-            correct: true,
-        };
+        return {content: "", correct: true, id: mockData.mockIds[0]};
     }
 
     function getIncorrectChoice(): PerseusRadioChoice {
@@ -49,6 +55,15 @@ describe("radio-editor", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
+
+        // Reset and setup UUID mock for each test
+        mockedUuid.mockReset();
+        mockedUuid
+            .mockReturnValueOnce(mockData.mockIds[0])
+            .mockReturnValueOnce(mockData.mockIds[1])
+            .mockReturnValueOnce(mockData.mockIds[2])
+            .mockReturnValueOnce(mockData.mockIds[3])
+            .mockReturnValue(mockData.mockIds[4]);
     });
 
     it("should render", () => {
@@ -125,7 +140,11 @@ describe("radio-editor", () => {
                     {},
                     {},
                     {},
-                    {content: "", isNoneOfTheAbove: false},
+                    {
+                        content: "",
+                        id: mockData.mockIds[0],
+                        isNoneOfTheAbove: false,
+                    },
                 ],
                 hasNoneOfTheAbove: false,
             }),
@@ -142,12 +161,7 @@ describe("radio-editor", () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
-            choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2", correct: true},
-                {content: "Choice 3"},
-                {content: "None of the above", isNoneOfTheAbove: true},
-            ],
+            choices: mockData.fourChoicesWithNotaAndCorrect,
             hasNoneOfTheAbove: true,
         });
 
@@ -161,11 +175,7 @@ describe("radio-editor", () => {
         expect(confirmSpy).toBeCalled();
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
-                choices: [
-                    {content: "Choice 2", correct: true},
-                    {content: "Choice 3"},
-                    {content: "None of the above", isNoneOfTheAbove: true},
-                ],
+                choices: mockData.threeChoicesWithCorrectandNota,
                 hasNoneOfTheAbove: true,
             }),
         );
@@ -179,12 +189,7 @@ describe("radio-editor", () => {
         );
 
         renderRadioEditor(onChangeMock, {
-            choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2", correct: true},
-                {content: "Choice 3"},
-                {content: "None of the above", isNoneOfTheAbove: true},
-            ],
+            choices: mockData.fourChoicesWithNotaAndCorrect,
             hasNoneOfTheAbove: true,
         });
 
@@ -198,11 +203,7 @@ describe("radio-editor", () => {
         expect(confirmSpy).toBeCalled();
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
-                choices: [
-                    {content: "Choice 1"},
-                    {content: "Choice 2", correct: true},
-                    {content: "Choice 3"},
-                ],
+                choices: mockData.threeChoicesWithCorrect,
                 hasNoneOfTheAbove: false,
             }),
         );
@@ -216,12 +217,7 @@ describe("radio-editor", () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
-            choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2", correct: true},
-                {content: "Choice 3"},
-                {content: "None of the above", isNoneOfTheAbove: true},
-            ],
+            choices: mockData.fourChoicesWithNotaAndCorrect,
             hasNoneOfTheAbove: true,
         });
 
@@ -245,12 +241,7 @@ describe("radio-editor", () => {
 
     it("hides the 'None of the above' button when there is a 'None of the above' choice", () => {
         renderRadioEditor(() => {}, {
-            choices: [
-                {content: "Choice 1", isNoneOfTheAbove: false},
-                {content: "Choice 2", isNoneOfTheAbove: false},
-                {content: "Choice 3", isNoneOfTheAbove: false},
-                {content: "None of the above", isNoneOfTheAbove: true},
-            ],
+            choices: mockData.fourChoicesWithNotaAndCorrect,
             hasNoneOfTheAbove: true,
         });
         expect(
@@ -267,12 +258,7 @@ describe("radio-editor", () => {
                 onChange={() => {}}
                 apiOptions={ApiOptions.defaults}
                 static={false}
-                choices={[
-                    {content: "Choice 1"},
-                    {content: "Choice 2"},
-                    {content: "Choice 3"},
-                    {content: "Choice 4"},
-                ]}
+                choices={mockData.fourChoices}
             />,
             {wrapper: RenderStateRoot},
         );
@@ -280,12 +266,7 @@ describe("radio-editor", () => {
         const options = editorRef.current?.serialize();
 
         expect(options).toEqual({
-            choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4"},
-            ],
+            choices: mockData.fourChoices,
             randomize: false,
             multipleSelect: false,
             countChoices: false,
@@ -367,12 +348,7 @@ describe("radio-editor", () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
-            choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4"},
-            ],
+            choices: mockData.fourChoices,
         });
 
         const choices = screen.getAllByRole("button", {name: "Correct"});
@@ -381,12 +357,7 @@ describe("radio-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
-                choices: [
-                    {content: "Choice 1", correct: true},
-                    {content: "Choice 2", correct: false},
-                    {content: "Choice 3", correct: false},
-                    {content: "Choice 4", correct: false},
-                ],
+                choices: mockData.fourChoicesWithFirstCorrect,
             }),
         );
     });
@@ -395,12 +366,7 @@ describe("radio-editor", () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
-            choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4"},
-            ],
+            choices: mockData.fourChoices,
         });
 
         const choice = screen.getByRole("button", {name: "A"});
@@ -409,12 +375,7 @@ describe("radio-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
-                choices: [
-                    {content: "Choice 1", correct: true},
-                    {content: "Choice 2", correct: false},
-                    {content: "Choice 3", correct: false},
-                    {content: "Choice 4", correct: false},
-                ],
+                choices: mockData.fourChoicesWithFirstCorrect,
             }),
         );
     });
@@ -423,12 +384,7 @@ describe("radio-editor", () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
-            choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
-            ],
+            choices: mockData.fourChoicesWithFirstCorrect,
         });
 
         const choices = screen.getAllByRole("button", {name: "Correct"});
@@ -437,13 +393,8 @@ describe("radio-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
-                choices: [
-                    // Automatically change the previous correct choice to incorrect
-                    {content: "Choice 1", correct: false},
-                    {content: "Choice 2", correct: true},
-                    {content: "Choice 3", correct: false},
-                    {content: "Choice 4", correct: false},
-                ],
+                // Automatically change the previous correct choice to incorrect
+                choices: mockData.fourChoicesWithSecondCorrect,
             }),
         );
     });
@@ -452,12 +403,7 @@ describe("radio-editor", () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
-            choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
-            ],
+            choices: mockData.fourChoicesWithFirstCorrect,
         });
 
         const choice = screen.getByRole("button", {name: "B"});
@@ -466,13 +412,8 @@ describe("radio-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
-                choices: [
-                    // Automatically change the previous correct choice to incorrect
-                    {content: "Choice 1", correct: false},
-                    {content: "Choice 2", correct: true},
-                    {content: "Choice 3", correct: false},
-                    {content: "Choice 4", correct: false},
-                ],
+                // Automatically change the previous correct choice to incorrect
+                choices: mockData.fourChoicesWithSecondCorrect,
             }),
         );
     });
@@ -481,12 +422,7 @@ describe("radio-editor", () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
-            choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
-            ],
+            choices: mockData.fourChoicesWithFirstCorrect,
         });
 
         const choices = screen.getAllByRole("button", {name: "Incorrect"});
@@ -495,13 +431,8 @@ describe("radio-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
-                choices: [
-                    // All choices are now incorrect.
-                    {content: "Choice 1", correct: false},
-                    {content: "Choice 2", correct: false},
-                    {content: "Choice 3", correct: false},
-                    {content: "Choice 4", correct: false},
-                ],
+                // All choices are now incorrect
+                choices: mockData.fourChoicesWithAllIncorrect,
             }),
         );
     });
@@ -510,12 +441,7 @@ describe("radio-editor", () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
-            choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
-            ],
+            choices: mockData.fourChoicesWithFirstCorrect,
         });
 
         const choice = screen.getByRole("button", {name: "A"});
@@ -524,13 +450,8 @@ describe("radio-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
-                choices: [
-                    // All choices are now incorrect.
-                    {content: "Choice 1", correct: false},
-                    {content: "Choice 2", correct: false},
-                    {content: "Choice 3", correct: false},
-                    {content: "Choice 4", correct: false},
-                ],
+                // All choices are now incorrect.
+                choices: mockData.fourChoicesWithAllIncorrect,
             }),
         );
     });
@@ -539,12 +460,7 @@ describe("radio-editor", () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
-            choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
-            ],
+            choices: mockData.fourChoicesWithFirstCorrect,
             multipleSelect: true,
         });
 
@@ -554,14 +470,9 @@ describe("radio-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
-                choices: [
-                    // Previous correct choice is still correct.
-                    // New correct choice is also correct.
-                    {content: "Choice 1", correct: true},
-                    {content: "Choice 2", correct: true},
-                    {content: "Choice 3", correct: false},
-                    {content: "Choice 4", correct: false},
-                ],
+                // Previous correct choice is still correct.
+                // New correct choice is also correct.
+                choices: mockData.fourChoicesWithTwoCorrect,
             }),
         );
     });
@@ -570,12 +481,7 @@ describe("radio-editor", () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
-            choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4"},
-            ],
+            choices: mockData.fourChoices,
         });
 
         const textAreas = screen.getAllByRole("textbox", {name: "Content"});
@@ -584,12 +490,7 @@ describe("radio-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
-                choices: [
-                    {content: "Choice 1A"},
-                    {content: "Choice 2"},
-                    {content: "Choice 3"},
-                    {content: "Choice 4"},
-                ],
+                choices: mockData.fourChoicesWithOneChoice1A,
             }),
         );
     });
@@ -598,12 +499,7 @@ describe("radio-editor", () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
-            choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4"},
-            ],
+            choices: mockData.fourChoices,
         });
 
         const textAreas = screen.getAllByRole("textbox", {name: "Rationale"});
@@ -612,12 +508,7 @@ describe("radio-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
-                choices: [
-                    {content: "Choice 1", rationale: "A"},
-                    {content: "Choice 2"},
-                    {content: "Choice 3"},
-                    {content: "Choice 4"},
-                ],
+                choices: mockData.fourChoicesWithOneRationale,
             }),
         );
     });
@@ -626,12 +517,7 @@ describe("radio-editor", () => {
         const onChangeMock = jest.fn();
 
         renderRadioEditor(onChangeMock, {
-            choices: [
-                {content: "Choice 1", rationale: "A"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4"},
-            ],
+            choices: mockData.fourChoicesWithOneRationale,
         });
 
         const textAreas = screen.getAllByRole("textbox", {name: "Rationale"});
@@ -640,13 +526,8 @@ describe("radio-editor", () => {
 
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
-                choices: [
-                    // Rationale is deleted if it's an empty string.
-                    {content: "Choice 1"},
-                    {content: "Choice 2"},
-                    {content: "Choice 3"},
-                    {content: "Choice 4"},
-                ],
+                // Rationale is deleted if it's an empty string.
+                choices: mockData.fourChoices,
             }),
         );
     });
@@ -806,12 +687,7 @@ describe("radio-editor", () => {
             const onChangeMock = jest.fn();
 
             renderRadioEditor(onChangeMock, {
-                choices: [
-                    {content: "Choice 1"},
-                    {content: "Choice 2"},
-                    {content: "Choice 3"},
-                    {content: "Choice 4"},
-                ],
+                choices: mockData.fourChoices,
             });
 
             const moveButtons = screen.getAllByRole("button", {name: /Move/});
@@ -820,6 +696,7 @@ describe("radio-editor", () => {
 
             const expectedChoices = expectedOrder.map((index) => ({
                 content: `Choice ${index}`,
+                id: mockData.mockIds[index - 1],
             }));
 
             expect(onChangeMock).toHaveBeenCalledWith(
@@ -832,7 +709,7 @@ describe("radio-editor", () => {
 
     it("does not render movement buttons when there is only one choice", () => {
         renderRadioEditor(() => {}, {
-            choices: [{content: "Choice 1"}],
+            choices: [mockData.singleChoice],
         });
 
         const moveButtons = screen.queryAllByRole("button", {
@@ -844,12 +721,7 @@ describe("radio-editor", () => {
 
     it("does not render movement buttons when the choice is None of the above", () => {
         renderRadioEditor(() => {}, {
-            choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4", isNoneOfTheAbove: true},
-            ],
+            choices: mockData.fourChoicesWithNotaAndCorrect,
         });
 
         const moveButtons = screen.getAllByRole("button", {name: /Move/});

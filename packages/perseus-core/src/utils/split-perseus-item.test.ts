@@ -17,10 +17,12 @@ describe("splitPerseusItem", () => {
             options: {
                 choices: [
                     {
+                        id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
                         content: "Correct",
                         correct: true,
                     },
                     {
+                        id: "9c8b7a65-4321-4fed-9876-543210fedcba",
                         content: "Incorrect",
                         correct: false,
                     },
@@ -168,10 +170,12 @@ describe("splitPerseusItem", () => {
                     options: {
                         choices: [
                             {
+                                id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
                                 content: "Correct",
                                 correct: true,
                             },
                             {
+                                id: "9c8b7a65-4321-4fed-9876-543210fedcba",
                                 content: "Incorrect",
                                 correct: false,
                             },

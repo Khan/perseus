@@ -1,3 +1,7 @@
+jest.mock("uuid", () => ({
+    v4: jest.fn(() => "a1b2c3d4-e5f6-4789-a012-345678901234"),
+}));
+
 import {radioQuestionBuilder} from "./radio-question-builder";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";

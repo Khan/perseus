@@ -250,16 +250,19 @@ describe("group widget", () => {
                     ],
                     choices: [
                         {
+                            id: "a1b2c3d4-e5f6-4789-a012-345678901234",
                             content: "$45$",
                             correct: false,
                             originalIndex: 0,
                         },
                         {
+                            id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
                             content: "$42$",
                             correct: false,
                             originalIndex: 1,
                         },
                         {
+                            id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
                             content: "$30$",
                             correct: false,
                             originalIndex: 2,
@@ -267,11 +270,13 @@ describe("group widget", () => {
                                 "Here's some rationale, this isn't the correct answer!",
                         },
                         {
+                            id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
                             content: "$18$",
                             correct: false,
                             originalIndex: 3,
                         },
                         {
+                            id: "9c8b7a65-4321-4fed-9876-543210fedcba",
                             content: "$15$",
                             correct: true,
                             originalIndex: 4,
@@ -328,26 +333,31 @@ describe("group widget", () => {
             "radio 1": {
                 choices: [
                     {
+                        id: "a1b2c3d4-e5f6-4789-a012-345678901234",
                         content: "",
                         correct: false,
                         originalIndex: 0,
                     },
                     {
+                        id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
                         content: "",
                         correct: false,
                         originalIndex: 1,
                     },
                     {
+                        id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
                         content: "",
                         correct: false,
                         originalIndex: 2,
                     },
                     {
+                        id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
                         content: "",
                         correct: false,
                         originalIndex: 3,
                     },
                     {
+                        id: "9c8b7a65-4321-4fed-9876-543210fedcba",
                         content: "",
                         correct: true,
                         originalIndex: 4,

@@ -60,6 +60,7 @@ export function parseAndMigratePerseusItem(
     if (isFailure(result)) {
         return failure({message: result.detail, invalidObject: object});
     }
+
     return result;
 }
 

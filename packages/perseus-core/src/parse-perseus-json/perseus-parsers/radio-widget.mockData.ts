@@ -181,3 +181,51 @@ export const v3Widget = {
         minor: 0,
     },
 };
+
+export const v4Widget = {
+    type: "radio" as const,
+    graded: true,
+    options: {
+        choices: [
+            {
+                id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                content: "I am a correct choice",
+                correct: true,
+                rationale: "I am some rationale for a choice",
+                isNoneOfTheAbove: true,
+            },
+            {
+                id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
+                content: "I am an incorrect choice",
+                correct: false,
+                rationale: "I am some rationale for a choice",
+            },
+            {
+                id: "9c8b7a65-4321-4fed-9876-543210fedcba",
+                content: "I am an incorrect choice",
+                correct: false,
+                isNoneOfTheAbove: false,
+            },
+            {
+                id: "2468ace0-1357-4bdf-9024-68ace1357bdf",
+                content: "I am content for a choice",
+                rationale: "I am some rationale for a choice",
+                isNoneOfTheAbove: false,
+            },
+            {
+                id: "7f8e9d0c-1b2a-4567-8901-23456789abcd",
+                content: "I am a choice with only content",
+            },
+        ],
+        numCorrect: 1,
+        hasNoneOfTheAbove: false,
+        countChoices: false,
+        randomize: false,
+        multipleSelect: false,
+        deselectEnabled: false,
+    },
+    version: {
+        major: 4,
+        minor: 0,
+    },
+};

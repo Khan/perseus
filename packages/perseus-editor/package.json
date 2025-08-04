@@ -37,16 +37,17 @@
         "@khanacademy/kas": "workspace:*",
         "@khanacademy/keypad-context": "workspace:*",
         "@khanacademy/kmath": "workspace:*",
-        "@khanacademy/perseus-linter": "workspace:*",
         "@khanacademy/math-input": "workspace:*",
         "@khanacademy/perseus": "workspace:*",
         "@khanacademy/perseus-core": "workspace:*",
+        "@khanacademy/perseus-linter": "workspace:*",
         "@khanacademy/perseus-score": "workspace:*",
         "@khanacademy/perseus-utils": "workspace:*",
         "@khanacademy/pure-markdown": "workspace:*",
         "katex": "0.11.1",
         "mafs": "^0.19.0",
-        "tiny-invariant": "catalog:prodDeps"
+        "tiny-invariant": "catalog:prodDeps",
+        "uuid": "^10.0.0"
     },
     "devDependencies": {
         "@khanacademy/mathjax-renderer": "catalog:devDeps",
@@ -70,6 +71,7 @@
         "@khanacademy/wonder-blocks-typography": "catalog:devDeps",
         "@khanacademy/wonder-stuff-core": "catalog:devDeps",
         "@phosphor-icons/core": "catalog:devDeps",
+        "@types/uuid": "^10.0.0",
         "aphrodite": "catalog:devDeps",
         "classnames": "catalog:devDeps",
         "jquery": "catalog:devDeps",

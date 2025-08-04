@@ -23,21 +23,25 @@ const expectedSerializedRadio = {
     deselectEnabled: false,
     choices: [
         {
+            id: "2468ace0-1357-4bdf-9024-68ace1357bdf",
             content: "Content 4",
             correct: false,
             originalIndex: 3, // <= note we stash original index
         },
         {
+            id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
             content: "Content 2",
             correct: false,
             originalIndex: 1,
         },
         {
+            id: "a1b2c3d4-e5f6-4789-a012-345678901234",
             content: "Content 1",
             correct: true,
             originalIndex: 0,
         },
         {
+            id: "9c8b7a65-4321-4fed-9876-543210fedcba",
             content: "Content 3",
             correct: false,
             originalIndex: 2,
@@ -109,18 +113,22 @@ describe("Radio serialization", () => {
                         randomize: true, // <= important
                         choices: [
                             {
+                                id: "a1b2c3d4-e5f6-4789-a012-345678901234",
                                 content: "Content 1",
                                 correct: true,
                             },
                             {
+                                id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
                                 content: "Content 2",
                                 correct: false,
                             },
                             {
+                                id: "9c8b7a65-4321-4fed-9876-543210fedcba",
                                 content: "Content 3",
                                 correct: false,
                             },
                             {
+                                id: "2468ace0-1357-4bdf-9024-68ace1357bdf",
                                 content: "Content 4",
                                 correct: false,
                             },
