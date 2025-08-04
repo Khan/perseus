@@ -66,10 +66,16 @@ export function maybeParsePercentInput(
 }
 
 function scoreNumericInput(
-    userInput: PerseusNumericInputUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusNumericInputUserInput | undefined,
     rubric: PerseusNumericInputRubric,
     locale?: string,
 ): PerseusScore {
+    if (userInput == null) {
+        return {type: "invalid", message: null};
+    }
+
     const defaultAnswerForms = answerFormButtons
         .map((e) => e["value"])
         // Don't default to validating the answer as a pi answer
