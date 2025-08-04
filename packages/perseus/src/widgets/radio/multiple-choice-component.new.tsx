@@ -14,7 +14,7 @@ import type {PerseusStrings} from "@khanacademy/perseus/strings";
 /**
  * Props for the MultipleChoiceComponent
  */
-interface MultipleChoiceComponentProps {
+export interface MultipleChoiceComponentProps {
     choices: ReadonlyArray<ChoiceType>;
     countChoices: boolean | null | undefined;
     multipleSelect?: boolean;

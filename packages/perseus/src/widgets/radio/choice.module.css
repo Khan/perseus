@@ -150,8 +150,9 @@
 /*
     Images should be on their own lines when a double return is placed between them and the content around them.
     The selectors here represent what that looks like after the markdown is rendered.
-    Causing the containing `.paragraph` elements to display as block elements
-        also causes vertical spacing to be applied due to the `margin` on the `.paragraph` class.
+    NOTE: Causing the containing `.paragraph` elements to display as block elements
+              also causes vertical spacing to be applied due to the `margin` on the `.paragraph` class.
+          The last rule removes the leading space on images that "start" the choice.
  */
 
 /* Images with surrounding text that is on the same line should be aligned in the middle */

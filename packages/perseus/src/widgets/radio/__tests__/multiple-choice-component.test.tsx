@@ -5,6 +5,15 @@ import * as React from "react";
 import * as Choice from "../choice.new";
 import MultipleChoiceComponent from "../multiple-choice-component.new";
 
+import type {MultipleChoiceComponentProps} from "../multiple-choice-component.new";
+import type {ChoiceType} from "../multiple-choice-widget.new";
+
+type overrideProps = {
+    choiceOverrides?: Partial<ChoiceType>;
+    onChoiceChange?: (choiceIndex: number, newCheckedState: boolean) => void;
+    reviewMode?: boolean;
+};
+
 const baseChoiceValues = {
     checked: false,
     content: "",
@@ -19,6 +28,22 @@ const baseChoiceValues = {
     disabled: false,
 };
 
+const getComponentProps = (props?: overrideProps) => {
+    const {
+        choiceOverrides = {},
+        onChoiceChange = () => {},
+        reviewMode = false,
+    } = props || {};
+    const choices = {...baseChoiceValues, ...choiceOverrides};
+    return {
+        choices: [choices],
+        onChoiceChange,
+        reviewMode,
+        countChoices: false,
+        numCorrect: 1,
+    } as MultipleChoiceComponentProps;
+};
+
 describe("Multiple choice component", () => {
     let choiceSpy: jest.SpyInstance;
 
@@ -28,74 +53,50 @@ describe("Multiple choice component", () => {
 
     describe("styling", () => {
         it("applies expected styling by default", () => {
-            render(
-                <MultipleChoiceComponent
-                    choices={[baseChoiceValues]}
-                    countChoices={false}
-                    numCorrect={1}
-                    onChoiceChange={() => {}}
-                    reviewMode={false}
-                />,
-            );
+            const props = getComponentProps();
+            render(<MultipleChoiceComponent {...props} />);
             const classes = Array.from(screen.getByRole("list").classList);
             expect(classes).toHaveLength(1);
             expect(classes).toContain(`choice-list`);
         });
 
         it("adjusts the margin of the options and rationale when in review mode", () => {
-            render(
-                <MultipleChoiceComponent
-                    choices={[baseChoiceValues]}
-                    countChoices={false}
-                    numCorrect={1}
-                    onChoiceChange={() => {}}
-                    reviewMode={true}
-                />,
-            );
+            const props = getComponentProps({reviewMode: true});
+            render(<MultipleChoiceComponent {...props} />);
             const classes = Array.from(screen.getByRole("list").classList);
             expect(classes).toContain(`review-answers`);
         });
 
         it("applies expected stying to rationale", () => {
             const rationaleContent = "foo-bar-zot";
-            const choiceValues = {
-                ...baseChoiceValues,
+            const choiceOverrides = {
                 rationale: rationaleContent,
                 hasRationale: true,
             };
-            render(
-                <MultipleChoiceComponent
-                    choices={[choiceValues]}
-                    countChoices={false}
-                    numCorrect={1}
-                    onChoiceChange={() => {}}
-                    reviewMode={true}
-                />,
-            );
+            const props = getComponentProps({
+                choiceOverrides,
+                reviewMode: true,
+            });
+            render(<MultipleChoiceComponent {...props} />);
             const classes = Array.from(
                 screen.getByText(rationaleContent).classList,
             );
             expect(classes).toEqual(expect.arrayContaining(["rationale"]));
         });
 
-        it("applies EXTRA stying to rationale for correct choices", () => {
+        it("applies EXTRA styling to rationale for correct choices", () => {
             const rationaleContent = "foo-bar-zot";
-            const choiceValues = {
-                ...baseChoiceValues,
+            const choiceOverrides = {
                 rationale: rationaleContent,
                 hasRationale: true,
                 showCorrectness: true,
                 correct: true,
             };
-            render(
-                <MultipleChoiceComponent
-                    choices={[choiceValues]}
-                    countChoices={false}
-                    numCorrect={1}
-                    onChoiceChange={() => {}}
-                    reviewMode={true}
-                />,
-            );
+            const props = getComponentProps({
+                choiceOverrides,
+                reviewMode: true,
+            });
+            render(<MultipleChoiceComponent {...props} />);
             const classes = Array.from(
                 screen.getByText(rationaleContent).classList,
             );
@@ -119,16 +120,12 @@ describe("Multiple choice component", () => {
             };
             const {reviewMode, isCorrect, expectedCorrectness} =
                 args as testArgs;
-            const choiceValues = {...baseChoiceValues, correct: isCorrect};
-            render(
-                <MultipleChoiceComponent
-                    choices={[choiceValues]}
-                    countChoices={false}
-                    numCorrect={1}
-                    onChoiceChange={() => {}}
-                    reviewMode={reviewMode}
-                />,
-            );
+            const choiceOverrides = {correct: isCorrect};
+            const props = getComponentProps({
+                choiceOverrides,
+                reviewMode,
+            });
+            render(<MultipleChoiceComponent {...props} />);
             expect(choiceSpy.mock.calls[0][0].showCorrectness).toBe(
                 expectedCorrectness,
             );
@@ -137,34 +134,23 @@ describe("Multiple choice component", () => {
 
     describe("content", () => {
         it("uses the provided content in the choice component", () => {
-            const choiceValues = {...baseChoiceValues, content: "foo-bar-zot"};
-            render(
-                <MultipleChoiceComponent
-                    choices={[choiceValues]}
-                    countChoices={false}
-                    numCorrect={1}
-                    onChoiceChange={() => {}}
-                    reviewMode={false}
-                />,
-            );
+            const choiceOverrides = {content: "foo-bar-zot"};
+            const props = getComponentProps({
+                choiceOverrides,
+            });
+            render(<MultipleChoiceComponent {...props} />);
             expect(screen.getByText("foo-bar-zot")).toBeInTheDocument();
         });
 
         it("uses the i18n version of 'None of the above' when the choice is set as such", () => {
-            const choiceValues = {
-                ...baseChoiceValues,
+            const choiceOverrides = {
                 isNoneOfTheAbove: true,
                 content: "foo-bar-zot",
             };
-            render(
-                <MultipleChoiceComponent
-                    choices={[choiceValues]}
-                    countChoices={false}
-                    numCorrect={1}
-                    onChoiceChange={() => {}}
-                    reviewMode={false}
-                />,
-            );
+            const props = getComponentProps({
+                choiceOverrides,
+            });
+            render(<MultipleChoiceComponent {...props} />);
             expect(screen.queryByText("foo-bar-zot")).not.toBeInTheDocument();
             expect(screen.getByText("None of the above")).toBeInTheDocument();
         });
@@ -172,42 +158,31 @@ describe("Multiple choice component", () => {
         it("shows the provided rationale when in review mode", () => {
             const choiceContent = "choice foo";
             const rationaleContent = "rationale bar";
-            const choiceValues = {
-                ...baseChoiceValues,
+            const choiceOverrides = {
                 content: choiceContent,
                 rationale: rationaleContent,
                 hasRationale: true,
             };
-            render(
-                <MultipleChoiceComponent
-                    choices={[choiceValues]}
-                    countChoices={false}
-                    numCorrect={1}
-                    onChoiceChange={() => {}}
-                    reviewMode={true}
-                />,
-            );
+            const props = getComponentProps({
+                choiceOverrides,
+                reviewMode: true,
+            });
+            render(<MultipleChoiceComponent {...props} />);
             expect(screen.getByText(rationaleContent)).toBeInTheDocument();
         });
 
         it("does NOT show the provided rationale when NOT in review mode", () => {
             const choiceContent = "choice foo";
             const rationaleContent = "rationale bar";
-            const choiceValues = {
-                ...baseChoiceValues,
+            const choiceOverrides = {
                 content: choiceContent,
                 rationale: rationaleContent,
                 hasRationale: true,
             };
-            render(
-                <MultipleChoiceComponent
-                    choices={[choiceValues]}
-                    countChoices={false}
-                    numCorrect={1}
-                    onChoiceChange={() => {}}
-                    reviewMode={false}
-                />,
-            );
+            const props = getComponentProps({
+                choiceOverrides,
+            });
+            render(<MultipleChoiceComponent {...props} />);
             expect(
                 screen.queryByText(rationaleContent),
             ).not.toBeInTheDocument();
@@ -216,21 +191,16 @@ describe("Multiple choice component", () => {
         it("does NOT show the provided rationale when rationale has NO content", () => {
             const choiceContent = "choice foo";
             const rationaleContent = "rationale bar";
-            const choiceValues = {
-                ...baseChoiceValues,
+            const choiceOverrides = {
                 content: choiceContent,
                 rationale: rationaleContent,
                 hasRationale: false,
             };
-            render(
-                <MultipleChoiceComponent
-                    choices={[choiceValues]}
-                    countChoices={false}
-                    numCorrect={1}
-                    onChoiceChange={() => {}}
-                    reviewMode={true}
-                />,
-            );
+            const props = getComponentProps({
+                choiceOverrides,
+                reviewMode: true,
+            });
+            render(<MultipleChoiceComponent {...props} />);
             expect(
                 screen.queryByText(rationaleContent),
             ).not.toBeInTheDocument();
@@ -240,15 +210,10 @@ describe("Multiple choice component", () => {
     describe("functionality", () => {
         it("calls the 'onChoiceChange' callback when a choice is activated", () => {
             const onChoiceChangeFn = jest.fn();
-            render(
-                <MultipleChoiceComponent
-                    choices={[baseChoiceValues]}
-                    countChoices={false}
-                    numCorrect={1}
-                    onChoiceChange={onChoiceChangeFn}
-                    reviewMode={false}
-                />,
-            );
+            const props = getComponentProps({
+                onChoiceChange: onChoiceChangeFn,
+            });
+            render(<MultipleChoiceComponent {...props} />);
             act(() => {
                 screen.getByRole("listitem").click();
             });
