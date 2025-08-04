@@ -30,17 +30,18 @@ type Props = {
     onMove?: (newPoint: vec.Vector2) => unknown;
 };
 
-export const MovablePoint = React.forwardRef(
-    (props: Props, pointRef: React.ForwardedRef<SVGGElement | null>) => {
-        const {visiblePoint, focusableHandle} = useControlPoint({
-            ...props,
-            forwardedRef: pointRef,
-        });
-        return (
-            <>
-                {focusableHandle}
-                {visiblePoint}
-            </>
-        );
-    },
-);
+export const MovablePoint = React.forwardRef(function MovablePointWithRef(
+    props: Props,
+    pointRef: React.ForwardedRef<SVGGElement | null>,
+) {
+    const {visiblePoint, focusableHandle} = useControlPoint({
+        ...props,
+        forwardedRef: pointRef,
+    });
+    return (
+        <>
+            {focusableHandle}
+            {visiblePoint}
+        </>
+    );
+});

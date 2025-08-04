@@ -5,9 +5,15 @@ import type {
 } from "@khanacademy/perseus-core";
 
 function scoreDropdown(
-    userInput: PerseusDropdownUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusDropdownUserInput | undefined,
     rubric: PerseusDropdownRubric,
 ): PerseusScore {
+    if (userInput == null) {
+        return {type: "invalid", message: null};
+    }
+
     const correct = rubric.choices[userInput.value - 1].correct;
     return {
         type: "points",

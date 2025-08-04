@@ -51,7 +51,7 @@ export interface ChoiceProps {
  * TODO(LEMS-2994): Clean up this file.
  */
 const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
-    (
+    function ChoiceWithRef(
         {
             disabled = false,
             checked = false,
@@ -68,7 +68,7 @@ const Choice = React.forwardRef<HTMLButtonElement, ChoiceProps>(
             rationale,
         },
         ref,
-    ): React.ReactElement => {
+    ): React.ReactElement {
         const [isInputFocused, setIsInputFocused] = useState(false);
 
         const {strings} = usePerseusI18n();

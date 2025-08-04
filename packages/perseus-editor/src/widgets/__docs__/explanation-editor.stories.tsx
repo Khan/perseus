@@ -1,28 +1,33 @@
 import * as React from "react";
 import {action} from "storybook/actions";
 
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {question} from "../../__testdata__/explanation.testdata";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import ExplanationEditor from "../explanation-editor";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-type Story = {
-    title: string;
-};
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
 
-export default {
+const meta: Meta = {
     title: "Widgets/Explanation/Editor Demo",
     component: ExplanationEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding an explanation widget that provide supplementary information to users.",
-            },
-        },
-    },
-} as Story;
+} satisfies Meta<typeof ExplanationEditor>;
+export default meta;
 
-export const Default = (args: StoryArgs): React.ReactElement => {
-    return <ExplanationEditor onChange={action("onChange")} />;
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
+    },
 };
+
+export const WithinEditorPage: StoryObj<typeof EditorPageWithStorybookPreview> =
+    {
+        render: (): React.ReactElement => (
+            <EditorPageWithStorybookPreview question={question} />
+        ),
+    };

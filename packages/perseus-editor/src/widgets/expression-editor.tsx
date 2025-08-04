@@ -53,10 +53,14 @@ const buttonSetsList: LegacyButtonSets = [
 
 type State = {
     // this is to help the "functions" input feel natural
-    // while still allowing us to to store the functions as an array
+    // while still allowing us to store the functions as an array
     functionsInternal: string;
 };
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * An editor for adding an expression widget that allows users to enter mathematical expressions.
+ */
 class ExpressionEditor extends React.Component<Props, State> {
     static widgetName = "expression" as const;
 

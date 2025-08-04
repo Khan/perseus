@@ -8,9 +8,15 @@ import type {
 } from "@khanacademy/perseus-core";
 
 function scoreRadio(
-    userInput: RecursiveReadonly<PerseusRadioUserInput>,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: RecursiveReadonly<PerseusRadioUserInput> | undefined,
     rubric: RecursiveReadonly<PerseusRadioRubric>,
 ): PerseusScore {
+    if (userInput == null) {
+        return {type: "invalid", message: null};
+    }
+
     const numSelected = userInput.choicesSelected.reduce((sum, selected) => {
         return sum + (selected ? 1 : 0);
     }, 0);

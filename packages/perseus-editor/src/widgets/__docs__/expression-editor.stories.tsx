@@ -1,95 +1,22 @@
-import {
-    type PerseusRenderer,
-    type PerseusExpressionWidgetOptions,
-    generateTestPerseusItem,
-} from "@khanacademy/perseus-core";
-import {StyleSheet, css} from "aphrodite";
+import {type PerseusRenderer} from "@khanacademy/perseus-core";
 import * as React from "react";
+import {action} from "storybook/actions";
 
-import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
 import ExpressionEditor from "../expression-editor";
 
-type StoryArgs = Record<any, any>;
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-type Story = {
-    title: string;
-};
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
 
-export default {
+const meta: Meta = {
     title: "Widgets/Expression/Editor Demo",
     component: ExpressionEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding an expression widget that allow users to enter mathematical expressions.",
-            },
-        },
-    },
-} as Story;
-
-type State = PerseusExpressionWidgetOptions;
-
-class WithDebug extends React.Component<Empty, State> {
-    constructor(props) {
-        super(props);
-
-        const baseWidget = question.widgets["expression 1"].options;
-        this.state = {
-            answerForms: baseWidget.answerForms,
-            times: baseWidget.times,
-            buttonSets: baseWidget.buttonSets,
-            functions: baseWidget.functions,
-        };
-    }
-
-    mergeQuestionWithState() {
-        return {
-            ...question,
-            widgets: {
-                ...question.widgets,
-                "expression 1": {
-                    ...question.widgets["expression 1"],
-                    options: {
-                        ...question.widgets["expression 1"].options,
-                        ...this.state,
-                    },
-                },
-            },
-        };
-    }
-
-    render(): React.ReactNode {
-        return (
-            <div className={css(styles.wrapper)}>
-                <div className={css(styles.editorWrapper)}>
-                    <ExpressionEditor
-                        {...this.state}
-                        // TODO(LEMS-2656): remove TS suppression
-                        onChange={
-                            ((props: PerseusExpressionWidgetOptions) => {
-                                this.setState({
-                                    ...props,
-                                });
-                            }) as any
-                        }
-                    />
-                </div>
-                <ServerItemRendererWithDebugUI
-                    item={generateTestPerseusItem({
-                        question: this.mergeQuestionWithState(),
-                    })}
-                    reviewMode={true}
-                />
-            </div>
-        );
-    }
-}
-
-export const Debug = (args: StoryArgs): React.ReactElement => {
-    return <WithDebug />;
-};
+} satisfies Meta<typeof ExpressionEditor>;
+export default meta;
 
 const question: PerseusRenderer = {
     content:
@@ -120,11 +47,16 @@ const question: PerseusRenderer = {
     },
 };
 
-const styles = StyleSheet.create({
-    wrapper: {
-        padding: 50,
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {
+    args: {
+        onChange: action("onChange"),
     },
-    editorWrapper: {
-        paddingBottom: 100,
-    },
-});
+};
+
+export const WithinEditorPage: StoryObj<typeof EditorPageWithStorybookPreview> =
+    {
+        render: (): React.ReactElement => (
+            <EditorPageWithStorybookPreview question={question} />
+        ),
+    };

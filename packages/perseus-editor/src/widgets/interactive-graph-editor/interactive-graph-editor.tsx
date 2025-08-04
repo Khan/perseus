@@ -161,6 +161,7 @@ export type Props = {
     static?: boolean;
 };
 
+// JSDoc will be shown in Storybook widget editor description
 /**
  * An editor for the InteractiveGraph widget, which allows the user to
  * specify the graph's properties and the correct answer.

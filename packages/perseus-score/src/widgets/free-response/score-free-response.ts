@@ -7,7 +7,9 @@ import type {
 } from "@khanacademy/perseus-core";
 
 function scoreFreeResponse(
-    userInput: PerseusFreeResponseUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusFreeResponseUserInput | undefined,
     rubric: PerseusFreeResponseRubric,
     locale: string,
 ): PerseusScore {

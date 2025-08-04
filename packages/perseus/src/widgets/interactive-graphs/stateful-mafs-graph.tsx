@@ -53,7 +53,7 @@ export type StatefulMafsGraphType = {
 export const StatefulMafsGraph = React.forwardRef<
     StatefulMafsGraphType,
     StatefulMafsGraphProps
->((props, ref) => {
+>(function StatefulMafsGraphWithRef(props, ref) {
     const {onChange, graph} = props;
 
     const [state, dispatch] = React.useReducer(

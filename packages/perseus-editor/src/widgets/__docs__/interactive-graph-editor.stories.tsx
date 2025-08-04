@@ -1,12 +1,17 @@
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
-import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
+import {
+    semanticColor,
+    sizing,
+    spacing,
+} from "@khanacademy/wonder-blocks-tokens";
 import {Body, LabelLarge} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import {action} from "storybook/actions";
 
-import {interactiveGraphQuestionBuilder} from "../../../../perseus/src/widgets/interactive-graphs/interactive-graph-question-builder";
+import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+import {interactiveGraphQuestionBuilder} from "../../__testdata__/interactive-graph-question-builder";
 import {
     angleWithStartingCoordsQuestion,
     circleWithStartingCoordsQuestion,
@@ -23,10 +28,10 @@ import {
     sinusoidMinimalQuestion,
     sinusoidWithStartingCoordsAndPiTicksQuestion,
     unlimitedPolygonWithCorrectAnswerQuestion,
-} from "../../../../perseus/src/widgets/interactive-graphs/interactive-graph.testdata";
-import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
+} from "../../__testdata__/interactive-graph.testdata";
 import {EditorPage} from "../../index";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
+import InteractiveGraphEditor from "../interactive-graph-editor/interactive-graph-editor";
 
 import type {DeviceType} from "@khanacademy/perseus";
 import type {
@@ -34,24 +39,22 @@ import type {
     PerseusAnswerArea,
     PerseusRenderer,
 } from "@khanacademy/perseus-core";
+import type {Meta, StoryObj} from "@storybook/react-vite";
 
-registerAllWidgetsAndEditorsForTesting(); // SIDE_EFFECTY!!!! :cry:
+// This is to address timing - Perseus widget editor registry accessed before initialization!
+registerAllWidgetsAndEditorsForTesting();
 
-export default {
+const meta: Meta = {
     title: "Widgets/Interactive Graph/Editor Demo",
+    component: InteractiveGraphEditor,
     tags: ["!dev"],
-    parameters: {
-        docs: {
-            description: {
-                component:
-                    "An editor for adding an interactive graph widget that allows users\
-                    to create and interact with mathematical graphs and figures.",
-            },
-        },
-    },
-};
+} satisfies Meta<typeof InteractiveGraphEditor>;
+export default meta;
 
 const onChangeAction = action("onChange");
+
+type Story = StoryObj<typeof meta>;
+export const Default: Story = {};
 
 export const InteractiveGraphWithAriaLabel = (): React.ReactElement => (
     <EditorPageWithStorybookPreview question={interactiveGraphWithAriaLabel} />
@@ -258,19 +261,19 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     errorContainer: {
-        border: `1px solid ${color.offBlack}`,
-        padding: spacing.medium_16,
+        border: `1px solid ${semanticColor.status.neutral.foreground}`,
+        padding: sizing.size_160,
         flexGrow: 1,
-        marginRight: spacing.xLarge_32,
+        marginRight: sizing.size_320,
 
         // Sticky so the error messages stay visible while scrolling
         height: "80vh",
         position: "sticky",
-        top: spacing.xLarge_32,
+        top: sizing.size_320,
         overflowY: "auto",
     },
     errorMessage: {
-        color: color.red,
-        marginBottom: spacing.small_12,
+        color: semanticColor.status.critical.foreground,
+        marginBottom: sizing.size_120,
     },
 });

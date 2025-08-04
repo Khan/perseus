@@ -1,5 +1,11 @@
 # @khanacademy/perseus-score
 
+## 7.4.0
+
+### Minor Changes
+
+-   [#2743](https://github.com/Khan/perseus/pull/2743) [`38cda3ba3`](https://github.com/Khan/perseus/commit/38cda3ba366985579335ac28001c4c5cff8071ce) Thanks [@benchristel](https://github.com/benchristel)! - When scoring an expression widget, `{type: "invalid", message: "EXTRA_SYMBOLS_ERROR"}` is now returned when the input can't be parsed as a math expression. Previously, the `message` was null.
+
 ## 7.3.0
 
 ### Minor Changes

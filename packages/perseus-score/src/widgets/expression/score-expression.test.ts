@@ -7,6 +7,11 @@ import type {
 } from "@khanacademy/perseus-core";
 
 describe("scoreExpression", () => {
+    it("should score undefined user input as invalid", function () {
+        const err = scoreExpression(undefined, expressionItem3Options, "en");
+        expect(err).toHaveInvalidInput();
+    });
+
     it("should handle defined ungraded answer case with no error callback", function () {
         const err = scoreExpression("x+1", expressionItem3Options, "en");
         expect(err).toHaveInvalidInput();
@@ -15,6 +20,11 @@ describe("scoreExpression", () => {
     it("should handle invalid expression answer with no error callback", function () {
         const err = scoreExpression("x+^1", expressionItem3Options, "en");
         expect(err).toHaveInvalidInput();
+    });
+
+    it("should handle unrecognized symbols by returning an appropriate error code", function () {
+        const err = scoreExpression("33```", expressionItem3Options, "en");
+        expect(err.message).toBe("EXTRA_SYMBOLS_ERROR");
     });
 
     it("should handle listed incorrect answers as wrong", function () {

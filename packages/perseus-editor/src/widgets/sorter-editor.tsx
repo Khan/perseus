@@ -17,6 +17,10 @@ const VERTICAL = "vertical";
 
 type Props = any;
 
+// JSDoc will be shown in Storybook widget editor description
+/**
+ * An editor for adding a sorter widget that allows users to arrange items in a specific order.
+ */
 class SorterEditor extends React.Component<Props> {
     static propTypes = {
         correct: PropTypes.array,
