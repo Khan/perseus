@@ -411,14 +411,17 @@ class Orderer
             const list = this.props.userInput.current.slice();
 
             if (!inCardBank) {
-                // Insert the new card into the position
-                const newCard = {
-                    content: this.state.dragContent,
-                    key: _.uniqueId("perseus_draggable_card_"),
-                    width: this.state.dragWidth,
-                } as const;
+                const cardContent = this.state.dragContent;
+                if (this.isValidCard(cardContent)) {
+                    // Insert the new card into the position
+                    const newCard = {
+                        content: cardContent,
+                        key: _.uniqueId("perseus_draggable_card_"),
+                        width: this.state.dragWidth,
+                    } as const;
 
-                list.splice(index, 0, newCard.content);
+                    list.splice(index, 0, newCard.content);
+                }
             }
 
             this.props.handleUserInput({
@@ -586,6 +589,10 @@ class Orderer
             bankOffset.left + bankWidth
         );
     };
+
+    private isValidCard(content: string) {
+        return this.props.options.map((opt) => opt.content).includes(content);
+    }
 
     // This component makes use of a lot of DOM manipulation
     // For testing and direct manipulation of values there's a function
