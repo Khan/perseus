@@ -45,6 +45,7 @@ const Indicator = (props: IndicatorProps) => {
         <button
             aria-pressed={checked}
             className={classes.join(" ")}
+            type="button"
             ref={props.buttonRef}
             onClick={handleClick}
         >
