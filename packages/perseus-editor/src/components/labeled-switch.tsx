@@ -1,5 +1,4 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelSmall} from "@khanacademy/wonder-blocks-typography";

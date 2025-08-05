@@ -184,7 +184,12 @@ export const InteractiveGraphZeroBounds = (): React.ReactElement => {
                 .withNoInteractiveFigure()
                 .withXRange(0, 10)
                 .withYRange(0, 10)
-                .withShowAxisArrows([false, true], [false, true])
+                .withShowAxisArrows({
+                    xMin: false,
+                    xMax: true,
+                    yMin: false,
+                    yMax: true,
+                })
                 .build()}
         />
     );

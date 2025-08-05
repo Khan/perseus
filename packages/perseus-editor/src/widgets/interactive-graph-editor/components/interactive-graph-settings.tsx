@@ -12,8 +12,6 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import {Spring} from "@khanacademy/wonder-blocks-layout";
-import Pill from "@khanacademy/wonder-blocks-pill";
 import {color, sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
 import {css, StyleSheet} from "aphrodite";
@@ -70,7 +68,7 @@ type Props = {
     /**
      * Whether the graph is bounded (no axis arrows) on the x and y axes.
      */
-    showAxisArrows?: ShowAxisArrows;
+    showAxisArrows: ShowAxisArrows;
     /**
      * How far apart the tick marks on the axes are in the x and y
      * directions.
@@ -141,10 +139,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             snapStepTextbox: props.snapStep,
             stepTextbox: props.step,
             rangeTextbox: props.range,
-            showAxisArrowsCheckboxes: props.showAxisArrows ?? [
-                [false, false],
-                [false, false],
-            ],
+            showAxisArrowsCheckboxes: props.showAxisArrows,
             backgroundImage: {...props.backgroundImage},
         };
     }
@@ -177,6 +172,12 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         markings: "graph",
         showProtractor: false,
         showTooltips: false,
+        showAxisArrows: {
+            xMin: true,
+            xMax: true,
+            yMin: true,
+            yMax: true,
+        },
     };
 
     componentDidMount() {
@@ -387,12 +388,10 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         );
     };
 
-    changeShowAxisArrows = (axis, side) => {
-        const newShowAxisArrows: ShowAxisArrows = [
-            ...this.state.showAxisArrowsCheckboxes,
-        ];
+    changeShowAxisArrows = (axis: "xMin" | "xMax" | "yMin" | "yMax") => {
+        const newShowAxisArrows = {...this.state.showAxisArrowsCheckboxes};
 
-        newShowAxisArrows[axis][side] = !newShowAxisArrows[axis][side];
+        newShowAxisArrows[axis] = !newShowAxisArrows[axis];
         this.setState(
             {showAxisArrowsCheckboxes: newShowAxisArrows},
             this.changeGraph,
@@ -469,9 +468,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         const range = this.state.rangeTextbox.map((range) =>
             range.map((value) => Number(value)),
         );
-        const showAxisArrows = this.state.showAxisArrowsCheckboxes.map((axis) =>
-            axis.map((side) => side),
-        );
+        const showAxisArrows = this.state.showAxisArrowsCheckboxes;
         const step = this.state.stepTextbox.map((value) => Number(value));
         const gridStep = this.state.gridStepTextbox;
         const snapStep = this.state.snapStepTextbox;
@@ -619,11 +616,11 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         labelSide="start"
                                         size="small"
                                         checked={
-                                            !this.state
-                                                .showAxisArrowsCheckboxes[0][0]
+                                            !this.state.showAxisArrowsCheckboxes
+                                                .xMin
                                         }
                                         onChange={(value) =>
-                                            this.changeShowAxisArrows(0, 0)
+                                            this.changeShowAxisArrows("xMin")
                                         }
                                     />
                                 </div>
@@ -633,11 +630,11 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         labelSide="start"
                                         size="small"
                                         checked={
-                                            !this.state
-                                                .showAxisArrowsCheckboxes[1][0]
+                                            !this.state.showAxisArrowsCheckboxes
+                                                .yMin
                                         }
                                         onChange={(value) =>
-                                            this.changeShowAxisArrows(1, 0)
+                                            this.changeShowAxisArrows("yMin")
                                         }
                                     />
                                 </div>
@@ -657,11 +654,11 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         labelSide="start"
                                         size="small"
                                         checked={
-                                            !this.state
-                                                .showAxisArrowsCheckboxes[0][1]
+                                            !this.state.showAxisArrowsCheckboxes
+                                                .xMax
                                         }
                                         onChange={(value) =>
-                                            this.changeShowAxisArrows(0, 1)
+                                            this.changeShowAxisArrows("xMax")
                                         }
                                     />
                                 </div>
@@ -671,11 +668,11 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         labelSide="start"
                                         size="small"
                                         checked={
-                                            !this.state
-                                                .showAxisArrowsCheckboxes[1][1]
+                                            !this.state.showAxisArrowsCheckboxes
+                                                .yMax
                                         }
                                         onChange={(value) =>
-                                            this.changeShowAxisArrows(1, 1)
+                                            this.changeShowAxisArrows("yMax")
                                         }
                                     />
                                 </div>

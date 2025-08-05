@@ -67,7 +67,7 @@ export type Props = {
     /**
      * Whether the graph is bounded on the x and y axes.
      */
-    showAxisArrows?: ShowAxisArrows;
+    showAxisArrows: ShowAxisArrows;
     /**
      * How far apart the tick marks on the axes are in the x and y
      * directions.

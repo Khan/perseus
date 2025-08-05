@@ -21,6 +21,7 @@ import type {
     MarkingsType,
     PerseusGraphType,
     PerseusRenderer,
+    ShowAxisArrows,
     StrokeWeight,
 } from "@khanacademy/perseus-core";
 import type {Interval} from "mafs";
@@ -67,12 +68,12 @@ class InteractiveGraphQuestionBuilder {
     private markings: MarkingsType = "graph";
     private xRange: Interval = [-10, 10];
     private yRange: Interval = [-10, 10];
-    private showAxisArrows: {
-        xMin: boolean;
-        xMax: boolean;
-        yMin: boolean;
-        yMax: boolean;
-    } = {xMin: true, xMax: true, yMin: true, yMax: true};
+    private showAxisArrows: ShowAxisArrows = {
+        xMin: true,
+        xMax: true,
+        yMin: true,
+        yMax: true,
+    };
     private snapStep: vec.Vector2 = [0.5, 0.5];
     private tickStep: vec.Vector2 = [1, 1];
     private showProtractor: boolean = false;
@@ -192,6 +193,26 @@ class InteractiveGraphQuestionBuilder {
 
     withYRange(min: number, max: number): InteractiveGraphQuestionBuilder {
         this.yRange = [min, max];
+        return this;
+    }
+
+    withShowAxisArrows({
+        xMin,
+        xMax,
+        yMin,
+        yMax,
+    }: {
+        xMin?: boolean;
+        xMax?: boolean;
+        yMin?: boolean;
+        yMax?: boolean;
+    }): InteractiveGraphQuestionBuilder {
+        this.showAxisArrows = {
+            xMin: xMin ?? true,
+            xMax: xMax ?? true,
+            yMin: yMin ?? true,
+            yMax: yMax ?? true,
+        };
         return this;
     }
 

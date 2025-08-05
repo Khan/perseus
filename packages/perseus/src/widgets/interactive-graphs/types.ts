@@ -5,7 +5,6 @@ import type {QuadraticCoords} from "@khanacademy/kmath";
 import type {
     PerseusInteractiveGraphUserInput,
     PerseusInteractiveGraphWidgetOptions,
-    ShowAxisArrows,
 } from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 import type {ReactNode} from "react";
@@ -49,7 +48,6 @@ export interface InteractiveGraphStateCommon {
     hasBeenInteractedWith: boolean;
     // range = [[xMin, xMax], [yMin, yMax]] in Cartesian units
     range: [xRange: Interval, yRange: Interval];
-    showAxisArrows: ShowAxisArrows;
     // snapStep = [xStep, yStep] in Cartesian units
     snapStep: vec.Vector2;
 }
