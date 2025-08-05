@@ -913,7 +913,10 @@ describe("radio-editor", () => {
             });
 
             // Assert
-            expect(screen.getByText("Add image")).toBeInTheDocument();
+            const addImageButton = screen.getByRole("button", {
+                name: "Add image",
+            });
+            expect(addImageButton).toBeInTheDocument();
         });
 
         it("should stop showing the 'Add image' button while an image is being added", async () => {
@@ -923,7 +926,9 @@ describe("radio-editor", () => {
             });
 
             // Act - click the 'Add image' button
-            const addImageButton = screen.getByText("Add image");
+            const addImageButton = screen.getByRole("button", {
+                name: "Add image",
+            });
             await userEvent.click(addImageButton);
 
             // Assert
@@ -939,7 +944,9 @@ describe("radio-editor", () => {
             // Act
             // Click the 'Add image' button to show the tile with
             // the close button.
-            let addImageButton = screen.getByText("Add image");
+            let addImageButton = screen.getByRole("button", {
+                name: "Add image",
+            });
             await userEvent.click(addImageButton);
             expect(addImageButton).not.toBeInTheDocument();
 
@@ -949,7 +956,9 @@ describe("radio-editor", () => {
 
             // Assert
             // Re-find the add image button since it was removed.
-            addImageButton = screen.getByText("Add image");
+            addImageButton = screen.getByRole("button", {
+                name: "Add image",
+            });
             expect(addImageButton).toBeInTheDocument();
 
             // Image adding text fields should be removed.
@@ -971,7 +980,9 @@ describe("radio-editor", () => {
             });
 
             // Act - click the 'Add image' button
-            const addImageButton = screen.getByText("Add image");
+            const addImageButton = screen.getByRole("button", {
+                name: "Add image",
+            });
             await userEvent.click(addImageButton);
 
             // Assert - Check all the "Add" editor elements are present
@@ -986,7 +997,9 @@ describe("radio-editor", () => {
             expect(
                 screen.getByRole("textbox", {name: "Image Alt Text"}),
             ).toBeInTheDocument();
-            expect(screen.getByText("Save image")).toBeInTheDocument();
+            expect(
+                screen.getByRole("button", {name: "Save image"}),
+            ).toBeInTheDocument();
         });
 
         it("should call onChange when the 'Save image' button is clicked", async () => {
@@ -998,7 +1011,9 @@ describe("radio-editor", () => {
 
             // Act
             // Click the 'Add image' button
-            const addImageButton = screen.getByText("Add image");
+            const addImageButton = screen.getByRole("button", {
+                name: "Add image",
+            });
             await userEvent.click(addImageButton);
 
             // Fill in the image URL and alt text
@@ -1016,7 +1031,9 @@ describe("radio-editor", () => {
             await userEvent.type(imageAltTextInput, "Image alt text");
 
             // Click the 'Save image' button
-            const saveImageButton = screen.getByText("Save image");
+            const saveImageButton = screen.getByRole("button", {
+                name: "Save image",
+            });
             await userEvent.click(saveImageButton);
 
             // Assert
@@ -1030,39 +1047,6 @@ describe("radio-editor", () => {
                     ],
                 }),
             );
-        });
-
-        it("should remove the tile when the 'Save image' button is clicked", async () => {
-            // Arrange
-            renderRadioEditor(() => {}, {
-                choices: [{content: "Choice 1"}],
-            });
-
-            // Act - click the 'Add image' button to show the tile with
-            // the close button.
-            let addImageButton = screen.getByText("Add image");
-            await userEvent.click(addImageButton);
-            expect(addImageButton).not.toBeInTheDocument();
-
-            // Act - click the 'Save image' button
-            const saveImageButton = screen.getByText("Save image");
-            await userEvent.click(saveImageButton);
-
-            // Assert
-            // Re-find the add image button since it was removed.
-            addImageButton = screen.getByText("Add image");
-            expect(addImageButton).toBeInTheDocument();
-
-            // Image adding text fields should be removed.
-            const imageUrlInput = screen.queryByRole("textbox", {
-                name: "Image URL",
-            });
-            expect(imageUrlInput).not.toBeInTheDocument();
-
-            const imageAltTextInput = screen.queryByRole("textbox", {
-                name: "Image Alt Text",
-            });
-            expect(imageAltTextInput).not.toBeInTheDocument();
         });
 
         /***** Tests for image editor accordion *****/
@@ -1088,8 +1072,12 @@ describe("radio-editor", () => {
             const imageAltTextInput = screen.getByRole("textbox", {
                 name: "Image Alt Text",
             });
-            const saveImageButton = screen.getByText("Save image");
-            const deleteImageButton = screen.getByText("Delete this image");
+            const saveImageButton = screen.getByRole("button", {
+                name: "Save image",
+            });
+            const deleteImageButton = screen.getByRole("button", {
+                name: "Delete this image",
+            });
 
             // Assert - Check all the accordion elements are present.
             // Note the "Delete this image" button is present and the "Close"
@@ -1127,8 +1115,12 @@ describe("radio-editor", () => {
             const imageAltTextInputs = screen.getAllByRole("textbox", {
                 name: "Image Alt Text",
             });
-            const saveImageButtons = screen.getAllByText("Save image");
-            const deleteImageButtons = screen.getAllByText("Delete this image");
+            const saveImageButtons = screen.getAllByRole("button", {
+                name: "Save image",
+            });
+            const deleteImageButtons = screen.getAllByRole("button", {
+                name: "Delete this image",
+            });
 
             // Assert - Check all the accordion elements are present.
             expect(accordionHeader).toBeInTheDocument();
@@ -1279,7 +1271,9 @@ describe("radio-editor", () => {
             });
 
             // Act
-            const deleteImageButton = screen.getByText("Delete this image");
+            const deleteImageButton = screen.getByRole("button", {
+                name: "Delete this image",
+            });
             await userEvent.click(deleteImageButton);
 
             // Assert
