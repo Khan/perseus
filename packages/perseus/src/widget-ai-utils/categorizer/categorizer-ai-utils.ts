@@ -8,7 +8,7 @@ export type CategorizerPromptJSON = {
         categories: ReadonlyArray<string>;
     };
     userInput: {
-        itemToCategoryMapping: ReadonlyArray<number>;
+        itemToCategoryMapping: ReadonlyArray<number | null | undefined>;
     };
 };
 

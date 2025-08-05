@@ -1,5 +1,11 @@
-import {object, array, number} from "../general-purpose-parsers";
+import {
+    object,
+    array,
+    number,
+    optional,
+    nullable,
+} from "../general-purpose-parsers";
 
 export const parseCategorizerUserInput = object({
-    values: array(number),
+    values: array(optional(nullable(number))),
 });

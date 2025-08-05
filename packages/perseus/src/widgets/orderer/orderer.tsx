@@ -411,14 +411,18 @@ class Orderer
             const list = this.props.userInput.current.slice();
 
             if (!inCardBank) {
-                // Insert the new card into the position
-                const newCard = {
-                    content: this.state.dragContent,
-                    key: _.uniqueId("perseus_draggable_card_"),
-                    width: this.state.dragWidth,
-                } as const;
+                const cardContent: string | null | undefined =
+                    this.state.dragContent;
+                if (typeof cardContent === "string") {
+                    // Insert the new card into the position
+                    const newCard = {
+                        content: cardContent,
+                        key: _.uniqueId("perseus_draggable_card_"),
+                        width: this.state.dragWidth,
+                    } as const;
 
-                list.splice(index, 0, newCard.content);
+                    list.splice(index, 0, newCard.content);
+                }
             }
 
             this.props.handleUserInput({

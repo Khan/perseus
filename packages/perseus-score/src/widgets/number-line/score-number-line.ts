@@ -7,9 +7,15 @@ import type {
 } from "@khanacademy/perseus-core";
 
 function scoreNumberLine(
-    userInput: PerseusNumberLineUserInput,
+    // NOTE(benchristel): userInput can be undefined if the widget has never
+    // been interacted with.
+    userInput: PerseusNumberLineUserInput | undefined,
     rubric: PerseusNumberLineRubric,
 ): PerseusScore {
+    if (userInput == null) {
+        return {type: "invalid", message: null};
+    }
+
     const divisionRange = rubric.divisionRange;
     const outsideAllowedRange =
         userInput.numDivisions > divisionRange[1] ||

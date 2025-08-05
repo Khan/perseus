@@ -69,7 +69,7 @@ export class Categorizer
         return _getPromptJSON(this.props);
     }
 
-    _handleUserInput(itemNum, catNum) {
+    _handleUserInput(itemNum: number, catNum: number) {
         const values = [...this.props.userInput.values];
         values[itemNum] = catNum;
         this.props.handleUserInput({values});
