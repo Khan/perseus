@@ -115,6 +115,7 @@ type State = {
 class Matrix extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
+    answerRefs: Record<string, SimpleKeypadInput | HTMLInputElement> = {};
 
     // @ts-expect-error - TS2564 - Property 'cursorPosition' has no initializer and is not definitely assigned in the constructor.
     cursorPosition: [number, number];
@@ -170,9 +171,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
 
     focusInputPath: (arg1: any) => void = (path) => {
         const inputID = getRefForPath(path);
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-        this.refs[inputID].focus();
+        const inputComponent = this.answerRefs[inputID];
+        inputComponent.focus();
     };
 
     blurInputPath: (arg1: any) => void = (path) => {
@@ -181,15 +181,19 @@ class Matrix extends React.Component<Props, State> implements Widget {
         }
 
         const inputID = getRefForPath(path);
-        // eslint-disable-next-line react/no-string-refs
-        // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-        this.refs[inputID].blur();
+        const inputComponent = this.answerRefs[inputID];
+        inputComponent.blur();
     };
 
     getDOMNodeForPath(path: FocusPath) {
         const inputID = getRefForPath(path);
-        // eslint-disable-next-line react/no-string-refs
-        return ReactDOM.findDOMNode(this.refs[inputID]);
+        const inputRef = this.answerRefs[inputID];
+        if (this.props.apiOptions.customKeypad) {
+            // This is a SimpleKeypadInput, so we need to find the DOM node
+            return ReactDOM.findDOMNode(inputRef);
+        } else {
+            return inputRef as HTMLInputElement;
+        }
     }
 
     handleKeyDown: (arg1: any, arg2: any, arg3: any) => void = (
@@ -377,9 +381,13 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                         className: outside
                                             ? "outside"
                                             : "inside",
-                                        ref: getRefForPath(
-                                            getInputPath(row, col),
-                                        ),
+                                        ref: (ref) => {
+                                            this.answerRefs[
+                                                getRefForPath(
+                                                    getInputPath(row, col),
+                                                )
+                                            ] = ref;
+                                        },
                                         // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
                                         value: rowVals ? rowVals[col] : null,
                                         style: {
