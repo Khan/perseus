@@ -1317,5 +1317,33 @@ describe("radio-editor", () => {
                 }),
             );
         });
+
+        it("should call onChange when the 'Delete image' button is clicked with multiple images in the content (first image)", async () => {
+            // Arrange
+            jest.spyOn(window, "confirm").mockImplementation(
+                // Confirm button clicked
+                () => true,
+            );
+            const onChangeMock = jest.fn();
+            renderRadioEditor(onChangeMock, {
+                choices: [
+                    {
+                        content:
+                            "hello\n![Alt1](image1.jpg)\n![Alt2](image2.jpg)",
+                    },
+                ],
+            });
+
+            // Act
+            const deleteImageButtons = screen.getAllByText("Delete this image");
+            await userEvent.click(deleteImageButtons[0]);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [{content: "hello\n\n![Alt2](image2.jpg)"}],
+                }),
+            );
+        });
     });
 });

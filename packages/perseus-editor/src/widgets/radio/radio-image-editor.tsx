@@ -36,6 +36,12 @@ export default function RadioImageEditor({
         initialImageAltText ?? "",
     );
 
+    // Keep the image URL and alt text in sync with changes.
+    React.useEffect(() => {
+        setImageUrl(initialImageUrl ?? "");
+        setImageAltText(initialImageAltText ?? "");
+    }, [initialImageUrl, initialImageAltText]);
+
     const uniqueId = React.useId();
     const imageUrlTextAreaId = `${uniqueId}-image-url-textarea`;
     const imageAltTextTextAreaId = `${uniqueId}-image-alt-text-textarea`;
