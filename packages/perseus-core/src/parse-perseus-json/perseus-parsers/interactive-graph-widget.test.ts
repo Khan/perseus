@@ -62,6 +62,12 @@ describe("parseInteractiveGraphWidget", () => {
                         [-10, 10],
                         [-10, 10],
                     ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
                     correct: {
                         type: "linear",
                     },
@@ -82,6 +88,12 @@ describe("parseInteractiveGraphWidget", () => {
                         [-10, 10],
                         [-10, 10],
                     ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
                     correct: {
                         type: "linear",
                     },
@@ -107,6 +119,12 @@ describe("parseInteractiveGraphWidget", () => {
                         [-10, 10],
                         [-10, 10],
                     ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
                     correct: {
                         type: "linear",
                     },
@@ -127,6 +145,12 @@ describe("parseInteractiveGraphWidget", () => {
                         [-10, 10],
                         [-10, 10],
                     ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
                     correct: {
                         type: "linear",
                     },
@@ -152,6 +176,12 @@ describe("parseInteractiveGraphWidget", () => {
                         [-10, 10],
                         [-10, 10],
                     ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
                     correct: {
                         type: "linear",
                     },
@@ -175,6 +205,12 @@ describe("parseInteractiveGraphWidget", () => {
                         [-10, 10],
                         [-10, 10],
                     ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
                     correct: {
                         type: "linear",
                     },
@@ -224,6 +260,12 @@ describe("parseInteractiveGraphWidget", () => {
                         [-10, 10],
                         [-10, 10],
                     ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
                     correct: {
                         type: "linear",
                     },
@@ -244,6 +286,12 @@ describe("parseInteractiveGraphWidget", () => {
                         [-10, 10],
                         [-10, 10],
                     ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
                     correct: {
                         type: "linear",
                     },

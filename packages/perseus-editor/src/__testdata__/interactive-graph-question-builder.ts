@@ -67,6 +67,12 @@ class InteractiveGraphQuestionBuilder {
     private markings: MarkingsType = "graph";
     private xRange: Interval = [-10, 10];
     private yRange: Interval = [-10, 10];
+    private showAxisArrows: {
+        xMin: boolean;
+        xMax: boolean;
+        yMin: boolean;
+        yMax: boolean;
+    } = {xMin: true, xMax: true, yMin: true, yMax: true};
     private snapStep: vec.Vector2 = [0.5, 0.5];
     private tickStep: vec.Vector2 = [1, 1];
     private showProtractor: boolean = false;
@@ -96,6 +102,7 @@ class InteractiveGraphQuestionBuilder {
                         labelLocation: this.labelLocation,
                         markings: this.markings,
                         range: [this.xRange, this.yRange],
+                        showAxisArrows: this.showAxisArrows,
                         showProtractor: this.showProtractor,
                         snapStep: this.snapStep,
                         step: this.tickStep,

@@ -1,7 +1,6 @@
 import React from "react";
 
 import {Arrowhead} from "../graphs/components/arrowhead";
-import {X, Y} from "../math";
 import useGraphConfig from "../reducer/use-graph-config";
 
 import type {ShowAxisArrows} from "@khanacademy/perseus-core";
@@ -17,10 +16,12 @@ export default function AxisArrows() {
     // Arrow defaults to true if not specified.
     const arrows: ShowAxisArrows =
         showAxisArrows === undefined
-            ? [
-                  [true, true],
-                  [true, true],
-              ]
+            ? {
+                  xMin: true,
+                  xMax: true,
+                  yMin: true,
+                  yMax: true,
+              }
             : showAxisArrows;
 
     // Only render the arrows if the axis is within the visible range
@@ -29,14 +30,14 @@ export default function AxisArrows() {
         <>
             {!(yMin > 0 || yMax < 0) && (
                 <>
-                    {arrows[X][0] && (
+                    {arrows.xMin && (
                         <Arrowhead
                             color={axisColor}
                             tip={[xMin, 0]}
                             angle={180}
                         />
                     )}
-                    {arrows[X][1] && (
+                    {arrows.xMax && (
                         <Arrowhead
                             color={axisColor}
                             tip={[xMax, 0]}
@@ -47,14 +48,14 @@ export default function AxisArrows() {
             )}
             {!(xMin > 0 || xMax < 0) && (
                 <>
-                    {arrows[Y][0] && (
+                    {arrows.yMin && (
                         <Arrowhead
                             color={axisColor}
                             tip={[0, yMin]}
                             angle={90}
                         />
                     )}
-                    {arrows[Y][1] && (
+                    {arrows.yMax && (
                         <Arrowhead
                             color={axisColor}
                             tip={[0, yMax]}

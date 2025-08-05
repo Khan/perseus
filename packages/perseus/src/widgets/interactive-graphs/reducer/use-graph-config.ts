@@ -21,7 +21,7 @@ export type GraphConfig = {
     labelLocation?: AxisLabelLocation;
     disableKeyboardInteraction?: boolean;
     interactiveColor?: string;
-    showAxisArrows?: ShowAxisArrows;
+    showAxisArrows: ShowAxisArrows;
 };
 
 const defaultGraphConfig: GraphConfig = {
@@ -41,6 +41,12 @@ const defaultGraphConfig: GraphConfig = {
     labelLocation: "onAxis",
     disableKeyboardInteraction: false,
     interactiveColor: "var(--mafs-blue)",
+    showAxisArrows: {
+        xMin: true,
+        xMax: true,
+        yMin: true,
+        yMax: true,
+    },
 };
 
 export const GraphConfigContext =

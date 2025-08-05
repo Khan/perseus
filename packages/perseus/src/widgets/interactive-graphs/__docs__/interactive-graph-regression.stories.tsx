@@ -440,7 +440,12 @@ export const ShowXMinArrow: Story = {
             .withNoInteractiveFigure()
             .withXRange(-10, 10)
             .withYRange(-10, 10)
-            .withShowAxisArrows([true, false], [false, false])
+            .withShowAxisArrows({
+                xMin: true,
+                xMax: false,
+                yMin: false,
+                yMax: false,
+            })
             .build(),
     },
 };
@@ -451,7 +456,12 @@ export const ShowXMaxArrow: Story = {
             .withNoInteractiveFigure()
             .withXRange(-10, 10)
             .withYRange(-10, 10)
-            .withShowAxisArrows([false, true], [false, false])
+            .withShowAxisArrows({
+                xMin: false,
+                xMax: true,
+                yMin: false,
+                yMax: false,
+            })
             .build(),
     },
 };
@@ -462,7 +472,12 @@ export const ShowYMinArrow: Story = {
             .withNoInteractiveFigure()
             .withXRange(-10, 10)
             .withYRange(-10, 10)
-            .withShowAxisArrows([false, false], [true, false])
+            .withShowAxisArrows({
+                xMin: false,
+                xMax: false,
+                yMin: true,
+                yMax: false,
+            })
             .build(),
     },
 };
@@ -473,7 +488,12 @@ export const ShowYMaxArrow: Story = {
             .withNoInteractiveFigure()
             .withXRange(-10, 10)
             .withYRange(-10, 10)
-            .withShowAxisArrows([false, false], [false, true])
+            .withShowAxisArrows({
+                xMin: false,
+                xMax: false,
+                yMin: false,
+                yMax: true,
+            })
             .build(),
     },
 };
@@ -484,7 +504,12 @@ export const ShowAllArrows: Story = {
             .withNoInteractiveFigure()
             .withXRange(-10, 10)
             .withYRange(-10, 10)
-            .withShowAxisArrows([true, true], [true, true])
+            .withShowAxisArrows({
+                xMin: true,
+                xMax: true,
+                yMin: true,
+                yMax: true,
+            })
             .build(),
     },
 };
@@ -495,7 +520,12 @@ export const ShowNoArrows: Story = {
             .withNoInteractiveFigure()
             .withXRange(-10, 10)
             .withYRange(-10, 10)
-            .withShowAxisArrows([false, false], [false, false])
+            .withShowAxisArrows({
+                xMin: false,
+                xMax: false,
+                yMin: false,
+                yMax: false,
+            })
             .build(),
     },
 };

@@ -20,6 +20,12 @@ function getBaseStatefulMafsGraphProps(): StatefulMafsGraphProps {
             [-10, 10],
             [-10, 10],
         ],
+        showAxisArrows: {
+            xMin: true,
+            xMax: true,
+            yMin: true,
+            yMax: true,
+        },
         markings: "graph",
         containerSizeClass: "small",
         onChange: () => {},

@@ -140,14 +140,51 @@ describe("InteractiveGraphQuestionBuilder", () => {
         expect(graph.options.showProtractor).toBe(true);
     });
 
-    it("sets the 'show axis arrows' option", () => {
-        const minArrows: [boolean, boolean] = [false, true];
-        const maxArrows: [boolean, boolean] = [true, false];
+    it("sets the 'show axis arrows' option to all true by default", () => {
         const question: PerseusRenderer = interactiveGraphQuestionBuilder()
-            .withShowAxisArrows(minArrows, maxArrows)
+            .withShowAxisArrows({})
             .build();
         const graph = question.widgets["interactive-graph 1"];
-        expect(graph.options.showAxisArrows).toEqual([minArrows, maxArrows]);
+        expect(graph.options.showAxisArrows).toEqual({
+            xMin: true,
+            xMax: true,
+            yMin: true,
+            yMax: true,
+        });
+    });
+
+    it("sets the 'show axis arrows' option to all false when specified", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withShowAxisArrows({
+                xMin: false,
+                xMax: false,
+                yMin: false,
+                yMax: false,
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options.showAxisArrows).toEqual({
+            xMin: false,
+            xMax: false,
+            yMin: false,
+            yMax: false,
+        });
+    });
+
+    it("sets individual 'show axis arrows' options when specified", () => {
+        const question: PerseusRenderer = interactiveGraphQuestionBuilder()
+            .withShowAxisArrows({
+                xMin: false,
+                yMin: false,
+            })
+            .build();
+        const graph = question.widgets["interactive-graph 1"];
+        expect(graph.options.showAxisArrows).toEqual({
+            xMin: false,
+            xMax: true,
+            yMin: false,
+            yMax: true,
+        });
     });
 
     it("creates a default segment graph", () => {

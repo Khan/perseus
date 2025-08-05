@@ -64,7 +64,12 @@ class InteractiveGraphQuestionBuilder {
     private markings: MarkingsType = "graph";
     private xRange: Interval = [-10, 10];
     private yRange: Interval = [-10, 10];
-    private showAxisArrows?: ShowAxisArrows;
+    private showAxisArrows: ShowAxisArrows = {
+        xMin: true,
+        xMax: true,
+        yMin: true,
+        yMax: true,
+    };
     private snapStep: vec.Vector2 = [0.5, 0.5];
     private tickStep: vec.Vector2 = [1, 1];
     private showProtractor: boolean = false;
@@ -92,9 +97,9 @@ class InteractiveGraphQuestionBuilder {
                         gridStep: this.gridStep,
                         labels: this.labels,
                         labelLocation: this.labelLocation,
-                        showAxisArrows: this.showAxisArrows,
                         markings: this.markings,
                         range: [this.xRange, this.yRange],
+                        showAxisArrows: this.showAxisArrows,
                         showProtractor: this.showProtractor,
                         snapStep: this.snapStep,
                         step: this.tickStep,
@@ -187,11 +192,23 @@ class InteractiveGraphQuestionBuilder {
         return this;
     }
 
-    withShowAxisArrows(
-        x: [min: boolean, max: boolean],
-        y: [min: boolean, max: boolean],
-    ): InteractiveGraphQuestionBuilder {
-        this.showAxisArrows = [x, y];
+    withShowAxisArrows({
+        xMin,
+        xMax,
+        yMin,
+        yMax,
+    }: {
+        xMin?: boolean;
+        xMax?: boolean;
+        yMin?: boolean;
+        yMax?: boolean;
+    }): InteractiveGraphQuestionBuilder {
+        this.showAxisArrows = {
+            xMin: xMin ?? true,
+            xMax: xMax ?? true,
+            yMin: yMin ?? true,
+            yMax: yMax ?? true,
+        };
         return this;
     }
 

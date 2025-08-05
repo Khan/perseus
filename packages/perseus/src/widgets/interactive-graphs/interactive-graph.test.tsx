@@ -1859,7 +1859,12 @@ describe("Interactive Graph", function () {
             const {container} = renderQuestion(
                 interactiveGraphQuestionBuilder()
                     .withNoInteractiveFigure()
-                    .withShowAxisArrows([false, false], [false, false])
+                    .withShowAxisArrows({
+                        xMin: false,
+                        xMax: false,
+                        yMin: false,
+                        yMax: false,
+                    })
                     .build(),
                 blankOptions,
             );
@@ -1876,38 +1881,40 @@ describe("Interactive Graph", function () {
 
         it.each([
             {
-                trueIndex: [0, 0],
+                arrowSide: "xMin",
                 transform: "translate(-200 0) rotate(180)",
             }, // x min, points left
             {
-                trueIndex: [0, 1],
+                arrowSide: "xMax",
                 transform: "translate(200 0) rotate(0)",
             }, // x max, points right
             {
-                trueIndex: [1, 0],
+                arrowSide: "yMin",
                 transform: "translate(0 200) rotate(90)",
             }, // y min, points down
             {
-                trueIndex: [1, 1],
+                arrowSide: "yMax",
                 transform: "translate(0 -200) rotate(270)",
             }, // y max, points up
-        ] satisfies {trueIndex: [number, number]; transform: string}[])(
+        ] satisfies {
+            arrowSide: "xMin" | "xMax" | "yMin" | "yMax";
+            transform: string;
+        }[])(
             "should render the correct axis arrow when showAxisArrows is set",
-            ({trueIndex, transform}) => {
+            ({arrowSide, transform}) => {
                 // Arrange
-                const showAxisArrows: ShowAxisArrows = [
-                    [false, false],
-                    [false, false],
-                ];
-                showAxisArrows[trueIndex[0]][trueIndex[1]] = true;
+                const showAxisArrows: ShowAxisArrows = {
+                    xMin: false,
+                    xMax: false,
+                    yMin: false,
+                    yMax: false,
+                };
+                showAxisArrows[arrowSide] = true;
 
                 const {container} = renderQuestion(
                     interactiveGraphQuestionBuilder()
                         .withNoInteractiveFigure()
-                        .withShowAxisArrows(
-                            showAxisArrows[0],
-                            showAxisArrows[1],
-                        )
+                        .withShowAxisArrows(showAxisArrows)
                         .build(),
                     blankOptions,
                 );

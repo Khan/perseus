@@ -83,7 +83,7 @@ export type MafsGraphProps = {
     showProtractor: boolean;
     labels: ReadonlyArray<string>;
     labelLocation?: InteractiveGraphProps["labelLocation"];
-    showAxisArrows?: InteractiveGraphProps["showAxisArrows"];
+    showAxisArrows: InteractiveGraphProps["showAxisArrows"];
     fullGraphAriaLabel?: InteractiveGraphProps["fullGraphAriaLabel"];
     fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     state: InteractiveGraphState;
