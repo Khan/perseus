@@ -50,11 +50,17 @@
 
 .choice-list:dir(ltr):after {
     /* Accounting for the padding in the containing fieldset and the choice item */
-    right: calc((var(--perseus-multiple-choice-spacing) * 2) - var(--perseus-multiple-choice-scroll-fade-width));
+    right: calc(
+        (var(--perseus-multiple-choice-spacing) * 2) -
+            var(--perseus-multiple-choice-scroll-fade-width)
+    );
 }
 
 .choice-list:dir(rtl):after {
-    left: calc((var(--perseus-multiple-choice-spacing) * 2) - var(--perseus-multiple-choice-scroll-fade-width));
+    left: calc(
+        (var(--perseus-multiple-choice-spacing) * 2) -
+            var(--perseus-multiple-choice-scroll-fade-width)
+    );
 }
 
 .choice-list:dir(ltr):before,
