@@ -19,6 +19,11 @@ const Choice = (props: IndicatorProps) => {
     const clickHandler = showCorrectness
         ? undefined
         : () => {
+              // eslint-disable-next-line no-console
+              console.log("clickHandler in choice");
+              // eslint-disable-next-line no-console
+              console.log("buttonRef.current", buttonRef.current);
+
               buttonRef.current?.click();
           };
     const classes = [styles.choice]

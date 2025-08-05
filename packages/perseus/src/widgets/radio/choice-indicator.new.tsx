@@ -37,7 +37,15 @@ const Indicator = (props: IndicatorProps) => {
     const handleClick = showCorrectness
         ? undefined // Don't register anything when showing answers
         : (event: React.MouseEvent<HTMLButtonElement>) => {
+              // eslint-disable-next-line no-console
+              console.log("handleClick in indicator", event);
+              // eslint-disable-next-line no-console
+              console.log("event.stopPropagation()");
               event.stopPropagation();
+              // eslint-disable-next-line no-console
+              console.log("preventing default");
+              event.preventDefault();
+
               props.updateChecked(!checked);
           };
 
