@@ -21,8 +21,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
             aria-controls=":r1:"
             aria-disabled="false"
             aria-expanded="true"
-            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_n0abw6-o_O-small_tjsyec-o_O-inlineStyles_1s8anjv"
-            role="button"
+            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_nj32ps-o_O-small_tjsyec-o_O-inlineStyles_1s8anjv"
             type="button"
           >
             <span
@@ -31,7 +30,7 @@ exports[`Explanation should snapshot when expanded: expanded 1`] = `
               Hide explanation!
             </span>
             <div
-              class="default_xu2jcg-o_O-iconWrapper_1xbs5sz-o_O-endIconWrapper_weejk7-o_O-endIconWrapperTertiary_9p0zpt"
+              class="default_xu2jcg-o_O-endIcon_zk6zd4-o_O-iconWrapper_1xbs5sz-o_O-endIconWrapper_weejk7-o_O-endIconWrapperTertiary_9p0zpt"
             >
               <span
                 aria-hidden="true"
@@ -94,8 +93,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
             aria-controls=":r0:"
             aria-disabled="false"
             aria-expanded="false"
-            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_n0abw6-o_O-small_tjsyec-o_O-inlineStyles_1s8anjv"
-            role="button"
+            class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_nj32ps-o_O-small_tjsyec-o_O-inlineStyles_1s8anjv"
             type="button"
           >
             <span
@@ -104,7 +102,7 @@ exports[`Explanation should snapshot: initial render 1`] = `
               Explanation
             </span>
             <div
-              class="default_xu2jcg-o_O-iconWrapper_1xbs5sz-o_O-endIconWrapper_weejk7-o_O-endIconWrapperTertiary_9p0zpt"
+              class="default_xu2jcg-o_O-endIcon_zk6zd4-o_O-iconWrapper_1xbs5sz-o_O-endIconWrapper_weejk7-o_O-endIconWrapperTertiary_9p0zpt"
             >
               <span
                 aria-hidden="true"
