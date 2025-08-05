@@ -167,6 +167,8 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
             {/* "Add image" tile */}
             {addingImage && (
                 <RadioImageEditor
+                    initialImageUrl=""
+                    initialImageAltText=""
                     containerClassName={styles.imageEditorContainer}
                     onSave={(imageUrl, imageAltText) => {
                         handleAddImage(choiceIndex, imageUrl, imageAltText);

@@ -13,11 +13,9 @@ import styles from "./radio-editor.module.css";
 // Flexible props to work for both the "add image" tile and
 // the "edit image" accordion cases.
 interface RadioImageEditorProps {
-    initialImageUrl?: string;
-    initialImageAltText?: string;
+    initialImageUrl: string;
+    initialImageAltText: string;
     containerClassName?: string;
-    primaryAction?: React.ReactNode;
-    secondaryAction?: React.ReactNode;
     onSave: (imageUrl: string, imageAltText: string) => void;
     onClose?: () => void;
     onDelete?: () => void;
@@ -31,10 +29,8 @@ export default function RadioImageEditor({
     onClose,
     onDelete,
 }: RadioImageEditorProps): React.ReactElement {
-    const [imageUrl, setImageUrl] = React.useState(initialImageUrl ?? "");
-    const [imageAltText, setImageAltText] = React.useState(
-        initialImageAltText ?? "",
-    );
+    const [imageUrl, setImageUrl] = React.useState(initialImageUrl);
+    const [imageAltText, setImageAltText] = React.useState(initialImageAltText);
 
     // Keep the image URL and alt text in sync with changes.
     React.useEffect(() => {
