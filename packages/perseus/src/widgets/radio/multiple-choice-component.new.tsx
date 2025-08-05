@@ -53,9 +53,9 @@ const MultipleChoiceComponent = ({
         strings,
     });
 
-    const choiceListClasses = [styles.choiceList]
-        .concat(reviewMode ? [styles.reviewAnswers] : [])
-        .join(" ");
+    const choiceListClasses = reviewMode
+        ? `${styles.choiceList} ${styles.reviewAnswers}`
+        : styles.choiceList;
 
     return (
         <fieldset

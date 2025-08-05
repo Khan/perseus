@@ -16,8 +16,13 @@
         var(--perseus-multiple-choice-spacing) +
             var(--perseus-multiple-choice-indicator-size)
     );
+    --perseus-multiple-choice-scroll-fade-width: calc(
+        var(--perseus-multiple-choice-content-margin) +
+            var(--perseus-multiple-choice-spacing)
+    );
+
     min-width: auto; /* Needed for scrollable view to work */
-    padding-inline-end: var(--wb-sizing-size_160);
+    padding-inline-end: var(--perseus-multiple-choice-spacing);
     /* The following transform will cause a new reference layer for its descendants,
            which we use to position the indicator and the scroll fade in a fixed place while scrolling.
      */
@@ -32,31 +37,45 @@
     scrollbar-width: thin;
 }
 
-/* Fade bar for scrolling */
-.choice-list:before {
+/* Fade bars for scrolling (Start) */
+.choice-list:before,
+.choice-list:after {
     content: "";
     display: block;
+    height: 100%;
     position: fixed;
+    width: var(--perseus-multiple-choice-scroll-fade-width);
+    top: 0;
+}
+
+.choice-list:dir(ltr):after {
+    /* Accounting for the padding in the containing fieldset and the choice item */
+    right: calc((var(--perseus-multiple-choice-spacing) * 2) - var(--perseus-multiple-choice-scroll-fade-width));
+}
+
+.choice-list:dir(rtl):after {
+    left: calc((var(--perseus-multiple-choice-spacing) * 2) - var(--perseus-multiple-choice-scroll-fade-width));
+}
+
+.choice-list:dir(ltr):before,
+.choice-list:dir(rtl):after {
     /* TODO: The following gradient should be updated to use appropriate background color to automatically handle when user has chosen dark mode. */
     background: linear-gradient(
         to left,
         transparent,
         white calc(var(--perseus-multiple-choice-spacing) / 2)
     );
-    width: calc(
-        var(--perseus-multiple-choice-content-margin) +
-            var(--perseus-multiple-choice-spacing)
-    );
-    height: 100%;
 }
 
-.choice-list:dir(rtl):before {
+.choice-list:dir(rtl):before,
+.choice-list:dir(ltr):after {
     background: linear-gradient(
         to right,
         transparent,
         white calc(var(--perseus-multiple-choice-spacing) / 2)
     );
 }
+/* Fade bars for scrolling (End) */
 
 .content {
     display: flex;

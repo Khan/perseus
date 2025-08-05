@@ -53,6 +53,10 @@ describe("Multiple choice component", () => {
 
     describe("styling", () => {
         it("applies expected styling by default", () => {
+            /*
+                Testing for a CSS class here primarily for test coverage.
+                Verifying the base case here since subsequent tests check for changes.
+             */
             const props = getComponentProps();
             render(<MultipleChoiceComponent {...props} />);
             const classes = Array.from(screen.getByRole("list").classList);
@@ -109,9 +113,10 @@ describe("Multiple choice component", () => {
     describe("choice option configuration", () => {
         it.each`
             reviewMode | isCorrect | expectedCorrectness | when
-            ${false}   | ${true}   | ${undefined}        | ${"NOT in review mode"}
+            ${false}   | ${true}   | ${undefined}        | ${"NOT in review mode and choice is correct"}
             ${true}    | ${true}   | ${"correct"}        | ${"in review mode and choice is correct"}
-            ${true}    | ${false}  | ${"wrong"}          | ${"in review mode and choice NOT correct"}
+            ${true}    | ${false}  | ${"wrong"}          | ${"in review mode and choice is NOT correct"}
+            ${false}   | ${false}  | ${undefined}        | ${"NOT in review mode and choice is NOT correct"}
         `("sends '$expectedCorrectness' to the choice when $when", (args) => {
             type testArgs = {
                 reviewMode: boolean;

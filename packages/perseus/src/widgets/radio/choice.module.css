@@ -49,6 +49,7 @@
     ); /* Account for the padding on the sides of the choice */
     position: absolute;
     width: 100%;
+    z-index: 1; /* Ensure the divider is above the scroll fade when it is showing */
 }
 
 .choice:before {
@@ -83,7 +84,7 @@
 .choice:focus-within:after,
 .choice:hover:before,
 .choice:focus-within:before {
-    z-index: 1; /* Ensure the divider is above the adjacent choice dividers */
+    z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
 }
 
 /* The first choice option needs additional space for the border */
