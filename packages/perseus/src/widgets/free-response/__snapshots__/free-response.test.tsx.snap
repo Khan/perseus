@@ -21,34 +21,30 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
             <div
               class="default_xu2jcg"
             >
-              <div
-                class="default_xu2jcg-o_O-labelContainer_1qlbwdv"
+              <label
+                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-textWordBreak_6z3til-o_O-label_ukwbex-o_O-labelWithNoDescription_i032sc-o_O-questionLabel_shsy80"
+                for=":r2:-labeled-field-field"
+                id=":r2:-labeled-field-label"
               >
-                <label
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_1r6q8ju-o_O-labelWithNoDescription_i032sc-o_O-questionLabel_shsy80"
-                  for=":r2:-labeled-field-field"
-                  id=":r2:-labeled-field-label"
+                <div
+                  class="default_xu2jcg free-response-question"
                 >
                   <div
-                    class="default_xu2jcg free-response-question"
+                    class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="perseus-renderer perseus-renderer-responsive"
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
                     >
                       <div
                         class="paragraph"
-                        data-perseus-paragraph-index="0"
                       >
-                        <div
-                          class="paragraph"
-                        >
-                          test-question
-                        </div>
+                        test-question
                       </div>
                     </div>
                   </div>
-                </label>
-              </div>
+                </div>
+              </label>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_zdxht7"
               >
@@ -64,7 +60,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
               <div
                 aria-atomic="true"
                 aria-live="assertive"
-                class="default_xu2jcg-o_O-helperTextWithIcon_1hmzxfl"
+                class="default_xu2jcg-o_O-helperTextSection_1hmzxfl"
                 id=":r2:-labeled-field-error"
               />
             </div>
@@ -107,34 +103,30 @@ exports[`free-response widget should snapshot: first render 1`] = `
             <div
               class="default_xu2jcg"
             >
-              <div
-                class="default_xu2jcg-o_O-labelContainer_1qlbwdv"
+              <label
+                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-textWordBreak_6z3til-o_O-label_ukwbex-o_O-labelWithNoDescription_i032sc-o_O-questionLabel_shsy80"
+                for=":r0:-labeled-field-field"
+                id=":r0:-labeled-field-label"
               >
-                <label
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_1r6q8ju-o_O-labelWithNoDescription_i032sc-o_O-questionLabel_shsy80"
-                  for=":r0:-labeled-field-field"
-                  id=":r0:-labeled-field-label"
+                <div
+                  class="default_xu2jcg free-response-question"
                 >
                   <div
-                    class="default_xu2jcg free-response-question"
+                    class="perseus-renderer perseus-renderer-responsive"
                   >
                     <div
-                      class="perseus-renderer perseus-renderer-responsive"
+                      class="paragraph"
+                      data-perseus-paragraph-index="0"
                     >
                       <div
                         class="paragraph"
-                        data-perseus-paragraph-index="0"
                       >
-                        <div
-                          class="paragraph"
-                        >
-                          test-question
-                        </div>
+                        test-question
                       </div>
                     </div>
                   </div>
-                </label>
-              </div>
+                </div>
+              </label>
               <div
                 class="default_xu2jcg-o_O-inlineStyles_zdxht7"
               >
@@ -150,7 +142,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
               <div
                 aria-atomic="true"
                 aria-live="assertive"
-                class="default_xu2jcg-o_O-helperTextWithIcon_1hmzxfl"
+                class="default_xu2jcg-o_O-helperTextSection_1hmzxfl"
                 id=":r0:-labeled-field-error"
               />
             </div>
