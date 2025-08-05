@@ -56,6 +56,7 @@ export default function RadioImageEditor({
             {/* Close button */}
             {onClose && (
                 <IconButton
+                    aria-label="Close"
                     icon={xIcon}
                     size="small"
                     kind="tertiary"
