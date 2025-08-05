@@ -408,7 +408,8 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
             />
             <button
               aria-disabled="false"
-              class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_u9mtba"
+              class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1l1gmds"
+              role="button"
               type="button"
             >
               <span
@@ -749,7 +750,8 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
               <span />
               <button
                 aria-disabled="true"
-                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_1vcomhn-o_O-disabled_okj0ts"
+                class="button_vr44p2-o_O-reset_1ck4g21-o_O-shared_1jpsfmg-o_O-default_ttsi8d-o_O-disabled_okj0ts"
+                role="button"
                 type="button"
               >
                 <span
