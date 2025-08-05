@@ -73,6 +73,7 @@ import type {
     StrokeWeight,
     PerseusGraphType,
     PerseusRenderer,
+    ShowAxisArrows,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -1831,5 +1832,96 @@ describe("Interactive Graph", function () {
                 expect(yAxisLabels[i + 4]).toHaveTextContent(`-${2 + 2 * i}π`);
             }
         });
+    });
+
+    describe("axis arrows", () => {
+        it("should render all four axis arrows by default", () => {
+            // Arrange
+            const {container} = renderQuestion(
+                interactiveGraphQuestionBuilder()
+                    .withNoInteractiveFigure()
+                    .build(),
+                blankOptions,
+            );
+
+            // Act
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const axisArrows = container.querySelectorAll(
+                ".interactive-graph-arrowhead",
+            );
+
+            // Assert
+            expect(axisArrows).toHaveLength(4);
+        });
+
+        it("should render none four axis arrows by default when specified", () => {
+            // Arrange
+            const {container} = renderQuestion(
+                interactiveGraphQuestionBuilder()
+                    .withNoInteractiveFigure()
+                    .withShowAxisArrows([false, false], [false, false])
+                    .build(),
+                blankOptions,
+            );
+
+            // Act
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const axisArrows = container.querySelectorAll(
+                ".interactive-graph-arrowhead",
+            );
+
+            // Assert
+            expect(axisArrows).toHaveLength(0);
+        });
+
+        it.each([
+            {
+                trueIndex: [0, 0],
+                transform: "translate(-200 0) rotate(180)",
+            }, // x min, points left
+            {
+                trueIndex: [0, 1],
+                transform: "translate(200 0) rotate(0)",
+            }, // x max, points right
+            {
+                trueIndex: [1, 0],
+                transform: "translate(0 200) rotate(90)",
+            }, // y min, points down
+            {
+                trueIndex: [1, 1],
+                transform: "translate(0 -200) rotate(270)",
+            }, // y max, points up
+        ] satisfies {trueIndex: [number, number]; transform: string}[])(
+            "should render the correct axis arrow when showAxisArrows is set",
+            ({trueIndex, transform}) => {
+                // Arrange
+                const showAxisArrows: ShowAxisArrows = [
+                    [false, false],
+                    [false, false],
+                ];
+                showAxisArrows[trueIndex[0]][trueIndex[1]] = true;
+
+                const {container} = renderQuestion(
+                    interactiveGraphQuestionBuilder()
+                        .withNoInteractiveFigure()
+                        .withShowAxisArrows(
+                            showAxisArrows[0],
+                            showAxisArrows[1],
+                        )
+                        .build(),
+                    blankOptions,
+                );
+
+                // Act
+                // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+                const axisArrows = container.querySelectorAll(
+                    ".interactive-graph-arrowhead",
+                );
+
+                // Assert
+                expect(axisArrows).toHaveLength(1);
+                expect(axisArrows[0]).toHaveAttribute("transform", transform);
+            },
+        );
     });
 });
