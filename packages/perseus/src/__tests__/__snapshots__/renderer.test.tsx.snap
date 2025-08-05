@@ -364,7 +364,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1evj1bq"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_301vh2"
                 id=":r3:"
                 role="combobox"
                 type="button"
@@ -389,7 +389,7 @@ exports[`renderer snapshots correct answer: correct answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_18b4l55-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
@@ -449,7 +449,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1evj1bq"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_301vh2"
                 id=":r6:"
                 role="combobox"
                 type="button"
@@ -474,7 +474,7 @@ exports[`renderer snapshots incorrect answer: incorrect answer 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_18b4l55-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
@@ -534,7 +534,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 aria-haspopup="listbox"
                 aria-invalid="false"
                 aria-label="Test ARIA label"
-                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_1evj1bq"
+                class="button_vr44p2-o_O-shared_1hhaz1q-o_O-default_301vh2"
                 id=":r0:"
                 role="combobox"
                 type="button"
@@ -559,7 +559,7 @@ exports[`renderer snapshots initial render: initial render 1`] = `
                 </span>
                 <span
                   aria-hidden="true"
-                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_18b4l55-o_O-inlineStyles_u7ovp6"
+                  class="svg_1q6jc65-o_O-icon_1t6z7z6-o_O-caret_ntkmq-o_O-inlineStyles_u7ovp6"
                 />
               </button>
             </div>
