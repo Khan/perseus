@@ -191,10 +191,9 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                         marginBlockStart: sizing.size_040,
                         marginBlockEnd: sizing.size_040,
                     }}
-                    headerStyle={{
-                        // Shorten the header to increase overall
-                        // editor real estate.
-                        height: sizing.size_320,
+                    panelStyle={{
+                        // Set the bottom padding to match the side padding.
+                        paddingBlockEnd: sizing.size_120,
                     }}
                 >
                     <img
