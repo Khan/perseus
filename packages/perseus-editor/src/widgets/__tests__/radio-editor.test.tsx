@@ -126,7 +126,10 @@ describe("radio-editor", () => {
                     {},
                     {},
                     {},
-                    {content: "", isNoneOfTheAbove: false},
+                    expect.objectContaining({
+                        content: "",
+                        isNoneOfTheAbove: false,
+                    }),
                 ],
                 hasNoneOfTheAbove: false,
             }),
@@ -167,9 +170,15 @@ describe("radio-editor", () => {
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
                 choices: [
-                    {content: "Choice 2", correct: true},
-                    {content: "Choice 3"},
-                    {content: "None of the above", isNoneOfTheAbove: true},
+                    expect.objectContaining({
+                        content: "Choice 2",
+                        correct: true,
+                    }),
+                    expect.objectContaining({content: "Choice 3"}),
+                    expect.objectContaining({
+                        content: "None of the above",
+                        isNoneOfTheAbove: true,
+                    }),
                 ],
                 hasNoneOfTheAbove: true,
             }),
@@ -208,9 +217,12 @@ describe("radio-editor", () => {
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
                 choices: [
-                    {content: "Choice 1"},
-                    {content: "Choice 2", correct: true},
-                    {content: "Choice 3"},
+                    expect.objectContaining({content: "Choice 1"}),
+                    expect.objectContaining({
+                        content: "Choice 2",
+                        correct: true,
+                    }),
+                    expect.objectContaining({content: "Choice 3"}),
                 ],
                 hasNoneOfTheAbove: false,
             }),
@@ -298,10 +310,10 @@ describe("radio-editor", () => {
 
         expect(options).toEqual({
             choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4"},
+                expect.objectContaining({content: "Choice 1"}),
+                expect.objectContaining({content: "Choice 2"}),
+                expect.objectContaining({content: "Choice 3"}),
+                expect.objectContaining({content: "Choice 4"}),
             ],
             randomize: false,
             multipleSelect: false,
@@ -427,10 +439,22 @@ describe("radio-editor", () => {
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 choices: [
-                    {content: "Choice 1", correct: true},
-                    {content: "Choice 2", correct: false},
-                    {content: "Choice 3", correct: false},
-                    {content: "Choice 4", correct: false},
+                    expect.objectContaining({
+                        content: "Choice 1",
+                        correct: true,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 2",
+                        correct: false,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 3",
+                        correct: false,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 4",
+                        correct: false,
+                    }),
                 ],
             }),
         );
@@ -485,10 +509,22 @@ describe("radio-editor", () => {
             expect.objectContaining({
                 choices: [
                     // Automatically change the previous correct choice to incorrect
-                    {content: "Choice 1", correct: false},
-                    {content: "Choice 2", correct: true},
-                    {content: "Choice 3", correct: false},
-                    {content: "Choice 4", correct: false},
+                    expect.objectContaining({
+                        content: "Choice 1",
+                        correct: false,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 2",
+                        correct: true,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 3",
+                        correct: false,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 4",
+                        correct: false,
+                    }),
                 ],
             }),
         );
@@ -514,10 +550,22 @@ describe("radio-editor", () => {
             expect.objectContaining({
                 choices: [
                     // All choices are now incorrect.
-                    {content: "Choice 1", correct: false},
-                    {content: "Choice 2", correct: false},
-                    {content: "Choice 3", correct: false},
-                    {content: "Choice 4", correct: false},
+                    expect.objectContaining({
+                        content: "Choice 1",
+                        correct: false,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 2",
+                        correct: false,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 3",
+                        correct: false,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 4",
+                        correct: false,
+                    }),
                 ],
             }),
         );
@@ -543,10 +591,22 @@ describe("radio-editor", () => {
             expect.objectContaining({
                 choices: [
                     // All choices are now incorrect.
-                    {content: "Choice 1", correct: false},
-                    {content: "Choice 2", correct: false},
-                    {content: "Choice 3", correct: false},
-                    {content: "Choice 4", correct: false},
+                    expect.objectContaining({
+                        content: "Choice 1",
+                        correct: false,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 2",
+                        correct: false,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 3",
+                        correct: false,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 4",
+                        correct: false,
+                    }),
                 ],
             }),
         );
@@ -574,10 +634,22 @@ describe("radio-editor", () => {
                 choices: [
                     // Previous correct choice is still correct.
                     // New correct choice is also correct.
-                    {content: "Choice 1", correct: true},
-                    {content: "Choice 2", correct: true},
-                    {content: "Choice 3", correct: false},
-                    {content: "Choice 4", correct: false},
+                    expect.objectContaining({
+                        content: "Choice 1",
+                        correct: true,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 2",
+                        correct: true,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 3",
+                        correct: false,
+                    }),
+                    expect.objectContaining({
+                        content: "Choice 4",
+                        correct: false,
+                    }),
                 ],
             }),
         );
@@ -602,10 +674,10 @@ describe("radio-editor", () => {
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 choices: [
-                    {content: "Choice 1A"},
-                    {content: "Choice 2"},
-                    {content: "Choice 3"},
-                    {content: "Choice 4"},
+                    expect.objectContaining({content: "Choice 1A"}),
+                    expect.objectContaining({content: "Choice 2"}),
+                    expect.objectContaining({content: "Choice 3"}),
+                    expect.objectContaining({content: "Choice 4"}),
                 ],
             }),
         );
@@ -630,10 +702,13 @@ describe("radio-editor", () => {
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 choices: [
-                    {content: "Choice 1", rationale: "A"},
-                    {content: "Choice 2"},
-                    {content: "Choice 3"},
-                    {content: "Choice 4"},
+                    expect.objectContaining({
+                        content: "Choice 1",
+                        rationale: "A",
+                    }),
+                    expect.objectContaining({content: "Choice 2"}),
+                    expect.objectContaining({content: "Choice 3"}),
+                    expect.objectContaining({content: "Choice 4"}),
                 ],
             }),
         );
@@ -659,10 +734,10 @@ describe("radio-editor", () => {
             expect.objectContaining({
                 choices: [
                     // Rationale is deleted if it's an empty string.
-                    {content: "Choice 1"},
-                    {content: "Choice 2"},
-                    {content: "Choice 3"},
-                    {content: "Choice 4"},
+                    expect.objectContaining({content: "Choice 1"}),
+                    expect.objectContaining({content: "Choice 2"}),
+                    expect.objectContaining({content: "Choice 3"}),
+                    expect.objectContaining({content: "Choice 4"}),
                 ],
             }),
         );
@@ -835,9 +910,11 @@ describe("radio-editor", () => {
 
             await userEvent.click(moveButtons[buttonIndex]);
 
-            const expectedChoices = expectedOrder.map((index) => ({
-                content: `Choice ${index}`,
-            }));
+            const expectedChoices = expectedOrder.map((index) =>
+                expect.objectContaining({
+                    content: `Choice ${index}`,
+                }),
+            );
 
             expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({

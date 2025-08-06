@@ -19,10 +19,10 @@ describe("getMovedChoices", () => {
         // Move choice 4 to the top
         const result = getMovedChoices(choices, false, 3, "top");
         expect(result).toEqual([
-            {content: "Choice 4"},
-            {content: "Choice 1"},
-            {content: "Choice 2"},
-            {content: "Choice 3"},
+            expect.objectContaining({content: "Choice 4"}),
+            expect.objectContaining({content: "Choice 1"}),
+            expect.objectContaining({content: "Choice 2"}),
+            expect.objectContaining({content: "Choice 3"}),
         ]);
     });
 
@@ -36,10 +36,10 @@ describe("getMovedChoices", () => {
         // Move choice 3 up
         const result = getMovedChoices(choices, false, 2, "up");
         expect(result).toEqual([
-            {content: "Choice 1"},
-            {content: "Choice 3"},
-            {content: "Choice 2"},
-            {content: "Choice 4"},
+            expect.objectContaining({content: "Choice 1"}),
+            expect.objectContaining({content: "Choice 3"}),
+            expect.objectContaining({content: "Choice 2"}),
+            expect.objectContaining({content: "Choice 4"}),
         ]);
     });
 
@@ -53,10 +53,10 @@ describe("getMovedChoices", () => {
         // Move choice 2 down
         const result = getMovedChoices(choices, false, 1, "down");
         expect(result).toEqual([
-            {content: "Choice 1"},
-            {content: "Choice 3"},
-            {content: "Choice 2"},
-            {content: "Choice 4"},
+            expect.objectContaining({content: "Choice 1"}),
+            expect.objectContaining({content: "Choice 3"}),
+            expect.objectContaining({content: "Choice 2"}),
+            expect.objectContaining({content: "Choice 4"}),
         ]);
     });
 
@@ -81,10 +81,10 @@ describe("getMovedChoices", () => {
         // Move choice 1 to the bottom
         const result = getMovedChoices(choices, false, 0, "bottom");
         expect(result).toEqual([
-            {content: "Choice 2"},
-            {content: "Choice 3"},
-            {content: "Choice 4"},
-            {content: "Choice 1"},
+            expect.objectContaining({content: "Choice 2"}),
+            expect.objectContaining({content: "Choice 3"}),
+            expect.objectContaining({content: "Choice 4"}),
+            expect.objectContaining({content: "Choice 1"}),
         ]);
     });
 
@@ -103,10 +103,13 @@ describe("getMovedChoices", () => {
             "bottom",
         );
         expect(result).toEqual([
-            {content: "Choice 2"},
-            {content: "Choice 3"},
-            {content: "Choice 1"},
-            {content: "Choice 4", isNoneOfTheAbove: true},
+            expect.objectContaining({content: "Choice 2"}),
+            expect.objectContaining({content: "Choice 3"}),
+            expect.objectContaining({content: "Choice 1"}),
+            expect.objectContaining({
+                content: "Choice 4",
+                isNoneOfTheAbove: true,
+            }),
         ]);
     });
 });

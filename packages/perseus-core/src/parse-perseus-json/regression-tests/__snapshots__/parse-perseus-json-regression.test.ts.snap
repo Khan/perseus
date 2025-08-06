@@ -3852,10 +3852,12 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.json returns th
           "choices": [
             {
               "content": "crwdns2693864:0crwdne2693864:0",
+              "id": "question.widgets.radio 1.options.choices.0.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "crwdns2693863:0crwdne2693863:0",
+              "id": "question.widgets.radio 1.options.choices.1.id",
               "isNoneOfTheAbove": false,
             },
           ],
@@ -4545,18 +4547,22 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.json return
           "choices": [
             {
               "content": "crwdns7184273:0crwdne7184273:0",
+              "id": "question.widgets.radio 1.options.choices.0.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "crwdns3077510:0crwdne3077510:0",
+              "id": "question.widgets.radio 1.options.choices.1.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "crwdns4204212:0crwdne4204212:0",
+              "id": "question.widgets.radio 1.options.choices.2.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "crwdns4204218:0crwdne4204218:0",
+              "id": "question.widgets.radio 1.options.choices.3.id",
               "isNoneOfTheAbove": false,
             },
           ],
@@ -4784,18 +4790,22 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.json r
           "choices": [
             {
               "content": "$-5$",
+              "id": "question.widgets.radio 1.options.choices.0.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": " $5$",
+              "id": "question.widgets.radio 1.options.choices.1.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": " $15$",
+              "id": "question.widgets.radio 1.options.choices.2.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "There are no solutions.",
+              "id": "question.widgets.radio 1.options.choices.3.id",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -8999,26 +9009,32 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.json r
           "choices": [
             {
               "content": "$B_E\\ \\cos{45\\degree} \\uparrow$",
+              "id": "question.widgets.radio 1.options.choices.0.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "$B_E\\ \\cos{45\\degree} \\downarrow$",
+              "id": "question.widgets.radio 1.options.choices.1.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "$B_E\\ \\sin{45\\degree} \\downarrow$",
+              "id": "question.widgets.radio 1.options.choices.2.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "$B_E\\ \\sin{45\\degree}\\uparrow$",
+              "id": "question.widgets.radio 1.options.choices.3.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "$B_E\\ \\tan {45\\degree} \\uparrow$",
+              "id": "question.widgets.radio 1.options.choices.4.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "$B_E\\ \\tan {45\\degree} \\downarrow$",
+              "id": "question.widgets.radio 1.options.choices.5.id",
               "isNoneOfTheAbove": false,
             },
           ],
@@ -10056,14 +10072,17 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
           "choices": [
             {
               "content": "Less than halfway through the race",
+              "id": "question.widgets.radio 1.options.choices.0.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "Halfway through the race",
+              "id": "question.widgets.radio 1.options.choices.1.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "More than halfway through the race",
+              "id": "question.widgets.radio 1.options.choices.2.id",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -12461,14 +12480,17 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
           "choices": [
             {
               "content": " $\\,-1\\,\\,\\,<\\,-10$",
+              "id": "question.widgets.radio 2.options.choices.0.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": " $-10\\,\\,\\,<\\,\\,\\,1$",
+              "id": "question.widgets.radio 2.options.choices.1.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "  $\\,\\,\\,\\,\\,10\\,\\,\\,< \\,-1$",
+              "id": "question.widgets.radio 2.options.choices.2.id",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -14150,10 +14172,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.js
           "choices": [
             {
               "content": "crwdns6520529:0$x$crwdnd6520529:0$2$crwdnd6520529:0$2$crwdnd6520529:0$y$crwdne6520529:0",
+              "id": "question.widgets.radio 1.options.choices.0.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "crwdns6520777:0$x$crwdnd6520777:0$2$crwdnd6520777:0$10$crwdnd6520777:0$y$crwdne6520777:0",
+              "id": "question.widgets.radio 1.options.choices.1.id",
               "isNoneOfTheAbove": false,
             },
           ],
@@ -15791,18 +15815,22 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
           "choices": [
             {
               "content": "a.	the rate of extinction that balances the rate of speciation",
+              "id": "question.widgets.radio 1.options.choices.0.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "b.	the average rate at which extinctions have occurred naturally in the geologic past, without human involvement",
+              "id": "question.widgets.radio 1.options.choices.1.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "c.	the rate of extinction that is currently occurring in protected areas like national parks and marine sanctuaries",
+              "id": "question.widgets.radio 1.options.choices.2.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "d.	the rate of extinction that can be determined by using Geiger counters and detecting radiation",
+              "id": "question.widgets.radio 1.options.choices.3.id",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -16296,18 +16324,22 @@ A free body diagram of the **box** is shown below.
           "choices": [
             {
               "content": "normal force $(F_\\text{N})$",
+              "id": "question.widgets.radio 1.options.choices.0.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "gravitational force $(F_\\text{g})$",
+              "id": "question.widgets.radio 1.options.choices.1.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "applied force $(F_\\text{a})$",
+              "id": "question.widgets.radio 1.options.choices.2.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "frictional force $(F_\\text{f})$",
+              "id": "question.widgets.radio 1.options.choices.3.id",
               "isNoneOfTheAbove": false,
             },
           ],
@@ -16846,18 +16878,22 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
           "choices": [
             {
               "content": "Members of the high nobility and the wealthiest of the knightly class",
+              "id": "question.widgets.radio 1.options.choices.0.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "Soldiers, members of the civilian militia, and mercenaries",
+              "id": "question.widgets.radio 1.options.choices.1.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "Horses and dogs",
+              "id": "question.widgets.radio 1.options.choices.2.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "All of the above",
+              "id": "question.widgets.radio 1.options.choices.3.id",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -16879,10 +16915,12 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
           "choices": [
             {
               "content": "",
+              "id": "question.widgets.radio 2.options.choices.0.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "",
+              "id": "question.widgets.radio 2.options.choices.1.id",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -17285,18 +17323,22 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
           "choices": [
             {
               "content": "15 N",
+              "id": "question.widgets.radio 1.options.choices.0.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "30 N",
+              "id": "question.widgets.radio 1.options.choices.1.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "60 N",
+              "id": "question.widgets.radio 1.options.choices.2.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "180 N",
+              "id": "question.widgets.radio 1.options.choices.3.id",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -17678,18 +17720,22 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                 "choices": [
                   {
                     "content": "",
+                    "id": "question.widgets.group 1.options.widgets.radio 1.options.choices.0.id",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "question.widgets.group 1.options.widgets.radio 1.options.choices.1.id",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "question.widgets.group 1.options.widgets.radio 1.options.choices.2.id",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "question.widgets.group 1.options.widgets.radio 1.options.choices.3.id",
                     "isNoneOfTheAbove": undefined,
                   },
                 ],
@@ -17730,18 +17776,22 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                 "choices": [
                   {
                     "content": "",
+                    "id": "question.widgets.group 2.options.widgets.radio 1.options.choices.0.id",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "question.widgets.group 2.options.widgets.radio 1.options.choices.1.id",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "question.widgets.group 2.options.widgets.radio 1.options.choices.2.id",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "question.widgets.group 2.options.widgets.radio 1.options.choices.3.id",
                     "isNoneOfTheAbove": undefined,
                   },
                 ],
@@ -17782,18 +17832,22 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                 "choices": [
                   {
                     "content": "",
+                    "id": "question.widgets.group 3.options.widgets.radio 1.options.choices.0.id",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "question.widgets.group 3.options.widgets.radio 1.options.choices.1.id",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "question.widgets.group 3.options.widgets.radio 1.options.choices.2.id",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "question.widgets.group 3.options.widgets.radio 1.options.choices.3.id",
                     "isNoneOfTheAbove": undefined,
                   },
                 ],
@@ -17834,18 +17888,22 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                 "choices": [
                   {
                     "content": "",
+                    "id": "question.widgets.group 4.options.widgets.radio 1.options.choices.0.id",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "question.widgets.group 4.options.widgets.radio 1.options.choices.1.id",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "question.widgets.group 4.options.widgets.radio 1.options.choices.2.id",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "question.widgets.group 4.options.widgets.radio 1.options.choices.3.id",
                     "isNoneOfTheAbove": undefined,
                   },
                 ],
@@ -17975,10 +18033,12 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
           "choices": [
             {
               "content": "Yes",
+              "id": "question.widgets.radio 1.options.choices.0.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "No",
+              "id": "question.widgets.radio 1.options.choices.1.id",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -18406,20 +18466,24 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
             {
               "content": "“Research shows that exercise makes people healthier and happier.” 
 ",
+              "id": "question.widgets.radio 1.options.choices.0.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "“So, by giving students enough time to move their bodies, schools would make their bodies stronger and improve their mental wellbeing.”",
+              "id": "question.widgets.radio 1.options.choices.1.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "“The Center for Disease Control recommends that kids get 60 minutes of active play a day, yet, for many of us, schools give us 20 minutes or less of recess!” 
 ",
+              "id": "question.widgets.radio 1.options.choices.2.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "“And the practices we develop now affect us far into the future– research has found that the most active kids remain active as adults.”
 ",
+              "id": "question.widgets.radio 1.options.choices.3.id",
               "isNoneOfTheAbove": false,
             },
           ],
@@ -18593,18 +18657,22 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
           "choices": [
             {
               "content": "",
+              "id": "question.widgets.radio 1.options.choices.0.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "",
+              "id": "question.widgets.radio 1.options.choices.1.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "",
+              "id": "question.widgets.radio 1.options.choices.2.id",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "",
+              "id": "question.widgets.radio 1.options.choices.3.id",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -18936,20 +19004,24 @@ ___
             {
               "content": "The Prussian Model of Education continues to influence how many American public schools are run today.
 ",
+              "id": "question.widgets.radio 1.options.choices.0.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "The Prussian Model of Education has little influence on the way that American public schools are run today.
 ",
+              "id": "question.widgets.radio 1.options.choices.1.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "There have been many people fighting to eliminate the focus on conformity in American public schools.
 ",
+              "id": "question.widgets.radio 1.options.choices.2.id",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "There have been many people fighting to impose new rules within the American public school system.",
+              "id": "question.widgets.radio 1.options.choices.3.id",
               "isNoneOfTheAbove": false,
             },
           ],

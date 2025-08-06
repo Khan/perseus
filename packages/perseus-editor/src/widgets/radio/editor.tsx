@@ -172,7 +172,9 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
         const choices = this.props.choices.slice();
         const newChoice: PerseusRadioChoice = {
-            id: crypto.randomUUID(),
+            // TODO(benchristel): use crypto.randomUUID() here. Figure out why
+            // it doesn't work in Jest tests.
+            id: crypto.getRandomValues(new Uint32Array(4)).join("-"),
             isNoneOfTheAbove: noneOfTheAbove,
             content: "",
         };
