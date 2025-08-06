@@ -1,6 +1,7 @@
 import * as React from "react";
 import {color} from "@khanacademy/wonder-blocks-tokens";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
+import {ThemeSwitcher} from "@khanacademy/wonder-blocks-theming";
 
 import {
     setDependencies,
@@ -17,35 +18,70 @@ import "./reset.css";
 // Import the Wonder Blocks CSS variables
 import "@khanacademy/wonder-blocks-tokens/styles.css";
 
-import type {Preview} from "@storybook/react-vite";
+import type {Decorator, Preview} from "@storybook/react-vite";
 
 // IMPORTANT: This code runs ONCE per story file, not per story within that file.
 // If you want code to run once per story, see `StorybookWrapper`.
 
 setDependencies(storybookTestDependencies);
 
+const withThemeSwitcher: Decorator = (Story, context) => {
+    const theme = context.globals.theme;
+
+    return (
+        <RenderStateRoot>
+            <DependenciesContext.Provider value={storybookDependenciesV2}>
+                {/* Most of our components have an expectation to be rendered
+                    inside of a .framework-perseus container. We want to make sure
+                    we can include it here, since it can also affect the styling.
+
+                    Include box-sizing-border-box-reset to reflect the global styles
+                    from prod.
+                */}
+                <div className="framework-perseus box-sizing-border-box-reset">
+                    {/* The ThemeSwitcher component applies the selected theme to all children.*/}
+                    <ThemeSwitcher theme={theme}>
+                        <Story />
+                    </ThemeSwitcher>
+                </div>
+            </DependenciesContext.Provider>
+        </RenderStateRoot>
+    );
+};
+
+const supportedThemes = {
+    description: "Global theme for components",
+    toolbar: {
+        // The label to show for this toolbar item
+        title: "Theme",
+        icon: "switchalt",
+        // Array of plain string values or MenuItem shape (see below)
+        items: [
+            {
+                value: "default",
+                icon: "circlehollow",
+                title: "Wonder Blocks (default)",
+            },
+            {
+                value: "thunderblocks",
+                icon: "lightning",
+                title: "Shape Your Learning (Thunder Blocks)",
+            },
+        ],
+        // Change title based on selected value
+        dynamicTitle: true,
+    },
+};
+
 const preview: Preview = {
     // These decorators apply to all stories, both inside and outside the
     // fixture framework.
-    decorators: [
-        (Story) => (
-            <RenderStateRoot>
-                <DependenciesContext.Provider value={storybookDependenciesV2}>
-                    {/* Most of our components have an expectation to be
-                        rendered inside of a .framework-perseus container.
-                        We want to make sure we can include it here, since it
-                        can also affect the styling.
-
-                        Include box-sizing-border-box-reset to reflect
-                        the global styles from prod.
-                    */}
-                    <div className="framework-perseus box-sizing-border-box-reset">
-                        <Story />
-                    </div>
-                </DependenciesContext.Provider>
-            </RenderStateRoot>
-        ),
-    ],
+    decorators: [withThemeSwitcher],
+    globalTypes: {
+        // Added theme globalTypes to be consistent with WonderBlocks supported
+        // themes, that will allow the user to select a theme from the toolbar.
+        theme: supportedThemes,
+    },
     // These parameters apply to all stories, both inside and outside the fixture
     // framework.
     parameters: {
