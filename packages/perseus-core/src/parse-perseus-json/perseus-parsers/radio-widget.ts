@@ -2,6 +2,7 @@ import {deriveNumCorrect} from "../../widgets/radio/derive-num-correct";
 import {
     any,
     array,
+    arrayWithIndex,
     boolean,
     constant,
     number,
@@ -49,13 +50,13 @@ const parseRadioWidgetV3 = parseWidgetWithVersion(
     constant("radio"),
     object({
         numCorrect: optional(number),
-        choices: array(
+        choices: arrayWithIndex((index) =>
             object({
                 content: defaulted(string, () => ""),
                 rationale: optional(string),
                 correct: optional(boolean),
                 isNoneOfTheAbove: optional(boolean),
-                id: defaulted(string, () => ""),
+                id: defaulted(string, () => `radio-choice-${index}`),
             }),
         ),
         hasNoneOfTheAbove: optional(boolean),
@@ -73,13 +74,13 @@ const parseRadioWidgetV2 = parseWidgetWithVersion(
     defaulted(
         object({
             numCorrect: optional(number),
-            choices: array(
+            choices: arrayWithIndex((index) =>
                 object({
                     content: defaulted(string, () => ""),
                     clue: optional(string),
                     correct: optional(boolean),
                     isNoneOfTheAbove: optional(boolean),
-                    id: defaulted(string, () => ""),
+                    id: defaulted(string, () => `radio-choice-${index}`),
                     // deprecated
                     widgets: parseWidgetsMapOrUndefined,
                 }),
@@ -200,7 +201,7 @@ export function migrateV1ToV2(
 
     const choicesForCalculation = options.choices.map((choice, index) => ({
         ...choice,
-        id: `radio-choice-${index}`, // <<what should go here??>>
+        id: `radio-choice-${index}`,
     }));
 
     return {

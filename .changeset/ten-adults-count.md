@@ -5,4 +5,4 @@
 "@khanacademy/perseus-score": minor
 ---
 
-adds choice id as a required field
+adds choice id as a required field to Radio Widget

@@ -1,7 +1,3 @@
-// Mock uuid module
-jest.mock("uuid", () => ({
-    v4: jest.fn(),
-}));
 import {Dependencies, ApiOptions} from "@khanacademy/perseus";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {render, screen} from "@testing-library/react";
@@ -17,6 +13,10 @@ import * as mockData from "./radio-editor.mockData";
 import type {RadioEditorProps} from "../radio/editor";
 import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
+// Mock uuid module
+jest.mock("uuid", () => ({
+    v4: jest.fn(),
+}));
 // Get the mocked function so we can control it in tests
 const mockedUuid = uuid as jest.MockedFunction<typeof uuid>;
 

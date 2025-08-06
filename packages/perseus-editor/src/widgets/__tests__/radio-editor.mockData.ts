@@ -157,9 +157,3 @@ export const fourChoicesWithOneRationale = [
     {id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8", content: "Choice 3"},
     {id: "3e4d5c6b-7a89-4012-b345-6789cdef0123", content: "Choice 4"},
 ];
-
-// id: "a1b2c3d4-e5f6-4789-a012-345678901234",
-// id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
-// id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
-// id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
-// id: "9c8b7a65-4321-4fed-9876-543210fedcba"
