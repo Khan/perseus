@@ -41,7 +41,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
         setImages(images);
     }, [content]);
 
-    // Add the image markdown where the caret currently is in the textarea.
+    // Add the image markdown at the end of the content.
     const handleAddImage = (
         choiceIndex: number,
         imageUrl: string,
