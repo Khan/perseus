@@ -310,6 +310,7 @@ class Renderer
     componentDidMount() {
         this._isMounted = true;
 
+        this.handleRender();
         this._currentFocus = null;
 
         this.props.initializeUserInput?.(
@@ -419,6 +420,7 @@ class Renderer
     }
 
     componentDidUpdate(prevProps: Props, prevState: State) {
+        this.handleRender();
         // We even do this if we did reuse the markdown because
         // we might need to update the widget props on this render,
         // even though we have the same widgets.
@@ -1414,6 +1416,10 @@ class Renderer
                 {PerseusMarkdown.ruleOutput(node, nestedOutput, state)}
             </ErrorBoundary>
         );
+    };
+
+    handleRender: () => void = () => {
+        this.props.onRender();
     };
 
     // Sets the current focus path
