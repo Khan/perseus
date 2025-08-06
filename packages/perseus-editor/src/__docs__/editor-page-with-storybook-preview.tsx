@@ -101,6 +101,7 @@ function EditorPageWithStorybookPreview(props: Props) {
                     <IconButton
                         icon={xIcon}
                         kind="tertiary"
+                        aria-label="Close preview"
                         onClick={() => setPanelOpen(!panelOpen)}
                     />
 

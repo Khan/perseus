@@ -6,6 +6,7 @@ import {MobileKeypad} from "@khanacademy/math-input";
 import {
     Renderer,
     usePerseusI18n,
+    UserInputManager,
     type APIOptions,
     type DeviceType,
 } from "@khanacademy/perseus";
@@ -69,14 +70,30 @@ function ContentPreview({
                 <KeypadContext.Consumer>
                     {({setKeypadActive, keypadElement, setKeypadElement}) => (
                         <>
-                            <Renderer
-                                strings={i18n.strings}
-                                apiOptions={{...apiOptions, isMobile}}
-                                keypadElement={keypadElement}
-                                linterContext={linterContext}
-                                legacyPerseusLint={legacyPerseusLint}
-                                {...question}
-                            />
+                            <UserInputManager
+                                widgets={question?.widgets || {}}
+                                problemNum={0}
+                            >
+                                {({
+                                    userInput,
+                                    handleUserInput,
+                                    initializeUserInput,
+                                }) => (
+                                    <Renderer
+                                        strings={i18n.strings}
+                                        apiOptions={{...apiOptions, isMobile}}
+                                        keypadElement={keypadElement}
+                                        linterContext={linterContext}
+                                        legacyPerseusLint={legacyPerseusLint}
+                                        userInput={userInput}
+                                        handleUserInput={handleUserInput}
+                                        initializeUserInput={
+                                            initializeUserInput
+                                        }
+                                        {...question}
+                                    />
+                                )}
+                            </UserInputManager>
 
                             <MobileKeypad
                                 onAnalyticsEvent={() => Promise.resolve()}
