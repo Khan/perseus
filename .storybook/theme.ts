@@ -1,5 +1,4 @@
 import {create} from "storybook/theming";
-import {semanticColor} from "@khanacademy/wonder-blocks-tokens";
 
 export default create({
     base: "light",
@@ -10,13 +9,14 @@ export default create({
     brandImage: "./perseus-logo.svg",
     brandTarget: "_self",
 
-    appBg: semanticColor.surface.secondary,
-    colorSecondary: semanticColor.core.background.instructive.default,
+    // Note can't use WonderBlocks semantic colors here.
+    appBg: "#f7f8fa", // offWhite
+    colorSecondary: "#1865f2", // blue
 
     // Typography
     fontBase: '"Lato", sans-serif',
     fontCode: "Inconsolata",
 
     // Text colors
-    textColor: semanticColor.core.background.neutral.strong,
+    textColor: "#21242c", // offBlack
 });
