@@ -863,16 +863,10 @@ importers:
       tiny-invariant:
         specifier: catalog:prodDeps
         version: 1.3.1
-      uuid:
-        specifier: ^10.0.0
-        version: 10.0.0
     devDependencies:
       '@khanacademy/wonder-stuff-core':
         specifier: catalog:devDeps
         version: 1.5.5
-      '@types/uuid':
-        specifier: ^10.0.0
-        version: 10.0.0
       perseus-build-settings:
         specifier: workspace:*
         version: link:../../config/build
