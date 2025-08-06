@@ -10,8 +10,8 @@ import {AutoResizingTextArea} from "./auto-resizing-text-area";
 import styles from "./radio-editor.module.css";
 import RadioImageEditor from "./radio-image-editor";
 import {
-    setContentFromNiceContentAndImages,
-    setNiceContentAndImages,
+    setMarkdownContentFromImageProxy,
+    setImageProxyFromMarkdownContent,
 } from "./utils";
 
 type Props = {
@@ -27,7 +27,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
     const contentTextAreaId = `${uniqueId}-content-textarea`;
 
     // States for updating content and images
-    const [niceContent, setNiceContent] = React.useState<string>("");
+    const [proxiedContent, setProxiedContent] = React.useState<string>("");
     const [images, setImages] = React.useState<
         {url: string; altText: string}[]
     >([]);
@@ -36,8 +36,10 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
     const [addingImage, setAddingImage] = React.useState(false);
 
     React.useEffect(() => {
-        const [niceContent, images] = setNiceContentAndImages(content ?? "");
-        setNiceContent(niceContent);
+        const [proxiedContent, images] = setImageProxyFromMarkdownContent(
+            content ?? "",
+        );
+        setProxiedContent(proxiedContent);
         setImages(images);
     }, [content]);
 
@@ -53,11 +55,11 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
 
     const handleDeleteImage = (imageIndex: number) => {
         const substr = `![Image ${imageIndex + 1}]`;
-        const newNiceContent = niceContent.replace(substr, "");
-        setNiceContent(newNiceContent);
+        const newProxiedContent = proxiedContent.replace(substr, "");
+        setProxiedContent(newProxiedContent);
 
-        const newContent = setContentFromNiceContentAndImages(
-            newNiceContent,
+        const newContent = setMarkdownContentFromImageProxy(
+            newProxiedContent,
             images,
         );
         onContentChange(choiceIndex, newContent);
@@ -72,8 +74,8 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
         newImages[imageIndex] = {url, altText};
         setImages(newImages);
 
-        const newContent = setContentFromNiceContentAndImages(
-            niceContent,
+        const newContent = setMarkdownContentFromImageProxy(
+            proxiedContent,
             newImages,
         );
 
@@ -82,12 +84,12 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
 
     const handleContentChange = (
         choiceIndex: number,
-        newNiceContent: string,
+        newProxiedContent: string,
     ) => {
-        setNiceContent(newNiceContent);
+        setProxiedContent(newProxiedContent);
 
-        const newContent = setContentFromNiceContentAndImages(
-            newNiceContent,
+        const newContent = setMarkdownContentFromImageProxy(
+            newProxiedContent,
             images,
         );
         onContentChange(choiceIndex, newContent);
@@ -141,7 +143,7 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
             </HeadingXSmall>
             <AutoResizingTextArea
                 id={contentTextAreaId}
-                value={niceContent}
+                value={proxiedContent}
                 placeholder="Type a choice here..."
                 onChange={(value) => {
                     handleContentChange(choiceIndex, value);

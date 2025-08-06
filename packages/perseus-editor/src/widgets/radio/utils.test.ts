@@ -1,7 +1,7 @@
 import {
     getMovedChoices,
-    setContentFromNiceContentAndImages,
-    setNiceContentAndImages,
+    setMarkdownContentFromImageProxy,
+    setImageProxyFromMarkdownContent,
 } from "./utils";
 
 const choices = [
@@ -115,10 +115,10 @@ describe("getMovedChoices", () => {
     });
 });
 
-describe("setNiceContentAndImages", () => {
-    it("should replace images with nice placeholders", () => {
+describe("setproxiedContentAndImages", () => {
+    it("should replace images with proxies", () => {
         const originalContent = "![moon and earth](earthmoon.jpg)";
-        const niceContent = "![Image 1]";
+        const proxiedContent = "![Image 1]";
         const images = [
             {
                 url: "earthmoon.jpg",
@@ -126,15 +126,16 @@ describe("setNiceContentAndImages", () => {
             },
         ];
 
-        const [result, resultImages] = setNiceContentAndImages(originalContent);
-        expect(result).toEqual(niceContent);
+        const [result, resultImages] =
+            setImageProxyFromMarkdownContent(originalContent);
+        expect(result).toEqual(proxiedContent);
         expect(resultImages).toEqual(images);
     });
 
-    it("should replace multiple images with nice placeholders", () => {
+    it("should replace multiple images with proxies", () => {
         const originalContent =
             "foo ![earth and moon](earthmoon.jpg) bar ![catching a tennis ball](tennisball.png) baz";
-        const niceContent = "foo ![Image 1] bar ![Image 2] baz";
+        const proxiedContent = "foo ![Image 1] bar ![Image 2] baz";
         const images = [
             {
                 url: "earthmoon.jpg",
@@ -146,8 +147,9 @@ describe("setNiceContentAndImages", () => {
             },
         ];
 
-        const [result, resultImages] = setNiceContentAndImages(originalContent);
-        expect(result).toEqual(niceContent);
+        const [result, resultImages] =
+            setImageProxyFromMarkdownContent(originalContent);
+        expect(result).toEqual(proxiedContent);
         expect(resultImages).toEqual(images);
     });
 
@@ -156,7 +158,8 @@ describe("setNiceContentAndImages", () => {
         const originalContent = "[ABCD](earthmoon.jpg)";
         const images = [];
 
-        const [result, resultImages] = setNiceContentAndImages(originalContent);
+        const [result, resultImages] =
+            setImageProxyFromMarkdownContent(originalContent);
         expect(result).toEqual(originalContent);
         expect(resultImages).toEqual(images);
     });
@@ -164,7 +167,7 @@ describe("setNiceContentAndImages", () => {
     it("should not get messed up by nested brackets", () => {
         // Alt text contains brackets
         const originalContent = "![ABCD[]](earthmoon.jpg)";
-        const niceContent = "![Image 1]";
+        const proxiedContent = "![Image 1]";
         const images = [
             {
                 url: "earthmoon.jpg",
@@ -172,15 +175,16 @@ describe("setNiceContentAndImages", () => {
             },
         ];
 
-        const [result, resultImages] = setNiceContentAndImages(originalContent);
-        expect(result).toEqual(niceContent);
+        const [result, resultImages] =
+            setImageProxyFromMarkdownContent(originalContent);
+        expect(result).toEqual(proxiedContent);
         expect(resultImages).toEqual(images);
     });
 });
 
-describe("setContentFromNiceContentAndImages", () => {
-    it("should replace images with nice placeholders", () => {
-        const niceContent = "![Image 1]";
+describe("setContentFromproxiedContentAndImages", () => {
+    it("should replace images with proxies", () => {
+        const proxiedContent = "![Image 1]";
         const images = [
             {
                 url: "earthmoon.jpg",
@@ -189,12 +193,12 @@ describe("setContentFromNiceContentAndImages", () => {
         ];
         const expectedContent = "![moon and earth](earthmoon.jpg)";
 
-        const result = setContentFromNiceContentAndImages(niceContent, images);
+        const result = setMarkdownContentFromImageProxy(proxiedContent, images);
         expect(result).toEqual(expectedContent);
     });
 
-    it("should replace multiple images with nice placeholders", () => {
-        const niceContent = "foo ![Image 1] bar ![Image 2] baz";
+    it("should replace multiple images with proxies", () => {
+        const proxiedContent = "foo ![Image 1] bar ![Image 2] baz";
         const images = [
             {
                 url: "earthmoon.jpg",
@@ -208,12 +212,12 @@ describe("setContentFromNiceContentAndImages", () => {
         const expectedContent =
             "foo ![moon and earth](earthmoon.jpg) bar ![catching a tennis ball](tennisball.png) baz";
 
-        const result = setContentFromNiceContentAndImages(niceContent, images);
+        const result = setMarkdownContentFromImageProxy(proxiedContent, images);
         expect(result).toEqual(expectedContent);
     });
 
     it("should work with nested brackets", () => {
-        const niceContent = "![Image 1]";
+        const proxiedContent = "![Image 1]";
         const images = [
             {
                 url: "earthmoon.jpg",
@@ -222,7 +226,7 @@ describe("setContentFromNiceContentAndImages", () => {
         ];
         const expectedContent = "![ABCD[]](earthmoon.jpg)";
 
-        const result = setContentFromNiceContentAndImages(niceContent, images);
+        const result = setMarkdownContentFromImageProxy(proxiedContent, images);
         expect(result).toEqual(expectedContent);
     });
 });

@@ -74,15 +74,16 @@ export function getMovedChoices(
     return newChoices;
 }
 
-// Take the hard-to-read image markdown, and replace it with a nice placeholder.
+// Take the hard-to-read image markdown, and replace
+// it with an easy-to-read proxy.
 // ex. "![abc](https://...) -> "![Image 1]"
-export function setNiceContentAndImages(
-    content: string,
+export function setImageProxyFromMarkdownContent(
+    markdownContent: string,
 ): [string, {url: string; altText: string}[]] {
     const images: {url: string; altText: string}[] = [];
 
     // Parse the markdown content using perseus-markdown.
-    const parsedMarkdown = PerseusMarkdown.parse(content, {});
+    const parsedMarkdown = PerseusMarkdown.parse(markdownContent, {});
 
     // Find all image nodes in the parsed tree.
     PerseusMarkdown.traverseContent(parsedMarkdown, (node: any) => {
@@ -94,41 +95,41 @@ export function setNiceContentAndImages(
         }
     });
 
-    // Replace images with nice placeholders
-    let newContent = content;
+    // Replace images with easy-to-read proxies
+    let proxiedContent = markdownContent;
     images.forEach((image, index) => {
         // Build the original markdown pattern to replace
         const originalPattern = `![${image.altText}](${image.url})`;
         const replacement = `![Image ${index + 1}]`;
 
         // Replace only the first occurrence to handle identical images correctly
-        const patternIndex = newContent.indexOf(originalPattern);
+        const patternIndex = proxiedContent.indexOf(originalPattern);
         if (patternIndex !== -1) {
-            newContent =
-                newContent.substring(0, patternIndex) +
+            proxiedContent =
+                proxiedContent.substring(0, patternIndex) +
                 replacement +
-                newContent.substring(patternIndex + originalPattern.length);
+                proxiedContent.substring(patternIndex + originalPattern.length);
         }
     });
 
-    return [newContent, images];
+    return [proxiedContent, images];
 }
 
-// Take already nice content, and replace it with how the original content
-// would be saved.
+// Take proxied content, and replace it with how the original markdown
+// content would be saved.
 // ex. "![Image 1]" -> "![URL](alt text)"
-export function setContentFromNiceContentAndImages(
-    niceContent: string,
+export function setMarkdownContentFromImageProxy(
+    proxiedContent: string,
     images: {url: string; altText: string}[],
 ) {
-    let newContent = niceContent;
+    let markdownContent = proxiedContent;
     for (let i = 0; i < images.length; i++) {
         const image = images[i];
-        newContent = newContent.replace(
+        markdownContent = markdownContent.replace(
             `![Image ${i + 1}]`,
             `![${image.altText}](${image.url})`,
         );
     }
 
-    return newContent;
+    return markdownContent;
 }
