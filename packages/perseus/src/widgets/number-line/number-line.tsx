@@ -1,6 +1,5 @@
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import Graphie from "../../components/graphie";
@@ -247,7 +246,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
-    tickControlRef: SimpleKeypadInput | HTMLInputElement | null = null;
+    tickControlRef: HTMLInputElement | null = null;
 
     static defaultProps: DefaultProps = {
         range: [0, 10],
@@ -366,6 +365,8 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         }
     };
 
+    // There's only one input path for the tick control, but the renderer
+    // expects this method to be implemented.
     getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
         if (this.props.isTickCtrl) {
             return [["tick-ctrl"]];
@@ -373,9 +374,12 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         return [];
     };
 
+    // This consumes the input path returned by getInputPaths,
+    // and returns the DOM node for the tick control input.
     getDOMNodeForPath(inputPath: FocusPath) {
+        // If we have a tick control, return the DOM node for the tick control input.
         if (inputPath?.length === 1) {
-            return ReactDOM.findDOMNode(this.tickControlRef);
+            return this.tickControlRef;
         }
         return null;
     }

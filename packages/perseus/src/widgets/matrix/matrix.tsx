@@ -3,7 +3,6 @@ import {linterContextDefault} from "@khanacademy/perseus-linter";
 import {StyleSheet} from "aphrodite";
 import classNames from "classnames";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -115,7 +114,7 @@ type State = {
 class Matrix extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
-    answerRefs: Record<string, SimpleKeypadInput | HTMLInputElement> = {};
+    answerRefs: Record<string, HTMLInputElement> = {};
 
     // @ts-expect-error - TS2564 - Property 'cursorPosition' has no initializer and is not definitely assigned in the constructor.
     cursorPosition: [number, number];
@@ -188,12 +187,7 @@ class Matrix extends React.Component<Props, State> implements Widget {
     getDOMNodeForPath(path: FocusPath) {
         const inputID = getRefForPath(path);
         const inputRef = this.answerRefs[inputID];
-        if (this.props.apiOptions.customKeypad) {
-            // This is a SimpleKeypadInput, so we need to find the DOM node
-            return ReactDOM.findDOMNode(inputRef);
-        } else {
-            return inputRef as HTMLInputElement;
-        }
+        return inputRef;
     }
 
     handleKeyDown: (arg1: any, arg2: any, arg3: any) => void = (
@@ -205,8 +199,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
         const maxCol = this.props.matrixBoardSize[1];
         let enterTheMatrix = null;
 
-        // eslint-disable-next-line react/no-string-refs
-        const curInput = this.refs[getRefForPath(getInputPath(row, col))];
+        const inputID = getRefForPath(getInputPath(row, col));
+        const curInput = this.answerRefs[inputID];
         // @ts-expect-error - TS2339 - Property 'getStringValue' does not exist on type 'ReactInstance'.
         const curValueString = curInput.getStringValue();
         // @ts-expect-error - TS2339 - Property 'getSelectionStart' does not exist on type 'ReactInstance'.
@@ -247,8 +241,8 @@ class Matrix extends React.Component<Props, State> implements Widget {
             e.preventDefault();
 
             // Focus the input and move the cursor to the end of it.
-            // eslint-disable-next-line react/no-string-refs
-            const input = this.refs[getRefForPath(nextPath)];
+            const inputID = getRefForPath(nextPath);
+            const input = this.answerRefs[inputID];
 
             // Multiply by 2 to ensure the cursor always ends up at the end;
             // Opera sometimes sees a carriage return as 2 characters.
@@ -256,13 +250,10 @@ class Matrix extends React.Component<Props, State> implements Widget {
             const inputValString = input.getStringValue();
             const valueLength = inputValString.length * 2;
 
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             input.focus();
             if (e.key === "ArrowRight") {
-                // @ts-expect-error - TS2339 - Property 'setSelectionRange' does not exist on type 'ReactInstance'.
                 input.setSelectionRange(0, 0);
             } else {
-                // @ts-expect-error - TS2339 - Property 'setSelectionRange' does not exist on type 'ReactInstance'.
                 input.setSelectionRange(valueLength, valueLength);
             }
         }
@@ -470,7 +461,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
                                             <SimpleKeypadInput
                                                 {...inputProps}
                                                 style={style}
-                                                scrollable={true}
                                                 keypadElement={
                                                     this.props.keypadElement
                                                 }

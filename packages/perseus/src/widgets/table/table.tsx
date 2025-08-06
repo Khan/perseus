@@ -1,6 +1,5 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
-import {findDOMNode} from "react-dom";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
@@ -77,7 +76,7 @@ class Table extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
     headerRefs: Record<string, any> = {};
-    answerRefs: Record<string, SimpleKeypadInput | HTMLInputElement> = {};
+    answerRefs: Record<string, HTMLInputElement> = {};
 
     static defaultProps: DefaultProps = {
         apiOptions: ApiOptions.defaults,
@@ -154,11 +153,7 @@ class Table extends React.Component<Props> implements Widget {
         const inputID = getRefForPath(path as Path);
         const inputRef = this.answerRefs[inputID];
 
-        if (this.props.apiOptions.customKeypad) {
-            return findDOMNode(inputRef);
-        } else {
-            return inputRef as HTMLInputElement;
-        }
+        return inputRef;
     }
 
     getInputPaths(): string[][] {
