@@ -857,4 +857,487 @@ describe("radio-editor", () => {
         // 3 valid choices (4 total choices) * 4 movement buttons = 12 buttons
         expect(moveButtons).toHaveLength(12);
     });
+
+    describe("images in content", () => {
+        it("should show the nicer content in the editor when an image is in the content", () => {
+            // Arrange
+
+            // Act - render
+            renderRadioEditor(() => {}, {
+                choices: [
+                    {
+                        content:
+                            "Choice 1\n![Image alt text](https://example.com/image.jpg)",
+                    },
+                ],
+            });
+
+            const contentTextField = screen.getByRole("textbox", {
+                name: "Content",
+            });
+
+            // Assert
+            expect(contentTextField).toHaveValue("Choice 1\n![Image 1]");
+        });
+
+        it("should call onChange when an image is pasted into the content", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            renderRadioEditor(onChangeMock, {
+                choices: [{content: "Choice 1"}],
+            });
+
+            // Act
+            const contentTextField = screen.getByRole("textbox", {
+                name: "Content",
+            });
+            contentTextField.focus();
+            await userEvent.paste("graphie");
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [{content: "Choice 1\n![](graphie)"}],
+                }),
+            );
+        });
+
+        /***** Tests for image adder tile *****/
+
+        it("should show the 'Add image' button by default", () => {
+            // Arrange
+
+            // Act - render
+            renderRadioEditor(() => {}, {
+                choices: [{content: "Choice 1"}],
+            });
+
+            // Assert
+            const addImageButton = screen.getByRole("button", {
+                name: "Add image",
+            });
+            expect(addImageButton).toBeInTheDocument();
+        });
+
+        it("should stop showing the 'Add image' button while an image is being added", async () => {
+            // Arrange
+            renderRadioEditor(() => {}, {
+                choices: [{content: "Choice 1"}],
+            });
+
+            // Act - click the 'Add image' button
+            const addImageButton = screen.getByRole("button", {
+                name: "Add image",
+            });
+            await userEvent.click(addImageButton);
+
+            // Assert
+            expect(screen.queryByText("Add image")).not.toBeInTheDocument();
+        });
+
+        it("should remove the tile when the close button is clicked", async () => {
+            // Arrange
+            renderRadioEditor(() => {}, {
+                choices: [{content: "Choice 1"}],
+            });
+
+            // Act
+            // Click the 'Add image' button to show the tile with
+            // the close button.
+            let addImageButton = screen.getByRole("button", {
+                name: "Add image",
+            });
+            await userEvent.click(addImageButton);
+            expect(addImageButton).not.toBeInTheDocument();
+
+            // Click the close button
+            const closeButton = screen.getByRole("button", {name: "Close"});
+            await userEvent.click(closeButton);
+
+            // Assert
+            // Re-find the add image button since it was removed.
+            addImageButton = screen.getByRole("button", {
+                name: "Add image",
+            });
+            expect(addImageButton).toBeInTheDocument();
+
+            // Image adding text fields should be removed.
+            const imageUrlInput = screen.queryByRole("textbox", {
+                name: "Image URL",
+            });
+            expect(imageUrlInput).not.toBeInTheDocument();
+
+            const imageAltTextInput = screen.queryByRole("textbox", {
+                name: "Image Alt Text",
+            });
+            expect(imageAltTextInput).not.toBeInTheDocument();
+        });
+
+        it("should stop showing the image adder tile when the image is being added", async () => {
+            // Arrange
+            renderRadioEditor(() => {}, {
+                choices: [{content: "Choice 1"}],
+            });
+
+            // Act - click the 'Add image' button
+            const addImageButton = screen.getByRole("button", {
+                name: "Add image",
+            });
+            await userEvent.click(addImageButton);
+
+            // Assert - Check all the "Add" editor elements are present
+            // Note the "Delete this image" button is not present - that
+            // is only used within the "Edit image" editor accordion.
+            expect(
+                screen.getByRole("button", {name: "Close"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Image URL"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("textbox", {name: "Image Alt Text"}),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("button", {name: "Save image"}),
+            ).toBeInTheDocument();
+        });
+
+        it("should call onChange when the 'Save image' button is clicked", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            renderRadioEditor(onChangeMock, {
+                choices: [{content: "Choice 1"}],
+            });
+
+            // Act
+            // Click the 'Add image' button
+            const addImageButton = screen.getByRole("button", {
+                name: "Add image",
+            });
+            await userEvent.click(addImageButton);
+
+            // Fill in the image URL and alt text
+            const imageUrlInput = screen.getByRole("textbox", {
+                name: "Image URL",
+            });
+            await userEvent.type(
+                imageUrlInput,
+                "https://example.com/image.jpg",
+            );
+
+            const imageAltTextInput = screen.getByRole("textbox", {
+                name: "Image Alt Text",
+            });
+            await userEvent.type(imageAltTextInput, "Image alt text");
+
+            // Click the 'Save image' button
+            const saveImageButton = screen.getByRole("button", {
+                name: "Save image",
+            });
+            await userEvent.click(saveImageButton);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [
+                        {
+                            content:
+                                "Choice 1\n![Image alt text](https://example.com/image.jpg)",
+                        },
+                    ],
+                }),
+            );
+        });
+
+        /***** Tests for image editor accordion *****/
+
+        it("should render the image editor accordion when an image is in the content", () => {
+            // Arrange
+
+            // Act - render
+            renderRadioEditor(() => {}, {
+                choices: [
+                    {
+                        content: "Choice 1\n![Alt](image.jpg)",
+                    },
+                ],
+            });
+
+            const accordionHeader = screen.getByRole("button", {
+                name: "Image 1",
+            });
+            const imageUrlInput = screen.getByRole("textbox", {
+                name: "Image URL",
+            });
+            const imageAltTextInput = screen.getByRole("textbox", {
+                name: "Image Alt Text",
+            });
+            const saveImageButton = screen.getByRole("button", {
+                name: "Save image",
+            });
+            const deleteImageButton = screen.getByRole("button", {
+                name: "Delete this image",
+            });
+
+            // Assert - Check all the accordion elements are present.
+            // Note the "Delete this image" button is present and the "Close"
+            // button is not. This differeniates the image editor accordion
+            // from the image adder tile.
+            expect(accordionHeader).toBeInTheDocument();
+            expect(imageUrlInput).toBeInTheDocument();
+            expect(imageAltTextInput).toBeInTheDocument();
+            expect(saveImageButton).toBeInTheDocument();
+            expect(deleteImageButton).toBeInTheDocument();
+        });
+
+        it("should render multiple image editors when there are multiple images in the content", () => {
+            // Arrange
+
+            // Act - render
+            renderRadioEditor(() => {}, {
+                choices: [
+                    {
+                        content:
+                            "Choice 1\n![Alt](image.jpg)\n![Alt2](image2.jpg)",
+                    },
+                ],
+            });
+
+            const accordionHeader = screen.getByRole("button", {
+                name: "Image 1",
+            });
+            const accordionHeader2 = screen.getByRole("button", {
+                name: "Image 2",
+            });
+            const imageUrlInputs = screen.getAllByRole("textbox", {
+                name: "Image URL",
+            });
+            const imageAltTextInputs = screen.getAllByRole("textbox", {
+                name: "Image Alt Text",
+            });
+            const saveImageButtons = screen.getAllByRole("button", {
+                name: "Save image",
+            });
+            const deleteImageButtons = screen.getAllByRole("button", {
+                name: "Delete this image",
+            });
+
+            // Assert - Check all the accordion elements are present.
+            expect(accordionHeader).toBeInTheDocument();
+            expect(accordionHeader2).toBeInTheDocument();
+            expect(imageUrlInputs).toHaveLength(2);
+            expect(imageAltTextInputs).toHaveLength(2);
+            expect(saveImageButtons).toHaveLength(2);
+            expect(deleteImageButtons).toHaveLength(2);
+        });
+
+        it("should disable the 'Save image' button when the image URL and alt text are not changed", async () => {
+            // Arrange
+            renderRadioEditor(() => {}, {
+                choices: [
+                    {
+                        content: "Choice 1\n![Alt](image.jpg)",
+                    },
+                ],
+            });
+
+            // Act
+            const saveImageButton = screen.getByRole("button", {
+                name: "Save image",
+            });
+
+            // Assert
+            expect(saveImageButton).toHaveAttribute("aria-disabled", "true");
+        });
+
+        it("should enable the 'Save image' button when the image URL and alt text are changed", async () => {
+            // Arrange
+            renderRadioEditor(() => {}, {
+                choices: [{content: "Choice 1\n![Alt](image.jpg)"}],
+            });
+
+            // Act
+            const saveImageButton = screen.getByRole("button", {
+                name: "Save image",
+            });
+
+            // Update the image alt text
+            const imageAltTextInput = screen.getByRole("textbox", {
+                name: "Image Alt Text",
+            });
+            await userEvent.type(imageAltTextInput, "Alt2");
+
+            // Assert
+            expect(saveImageButton).toHaveAttribute("aria-disabled", "false");
+        });
+
+        it("should call onChange when the 'Save image' button is clicked", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            renderRadioEditor(onChangeMock, {
+                choices: [
+                    {
+                        content: "Choice 1\n![Alt1](image1.jpg)",
+                    },
+                ],
+            });
+
+            // Act
+            // Update the image URL and alt text
+            const imageUrlInput = screen.getByRole("textbox", {
+                name: "Image URL",
+            });
+            await userEvent.clear(imageUrlInput);
+            await userEvent.type(imageUrlInput, "image2.jpg");
+
+            const imageAltTextInput = screen.getByRole("textbox", {
+                name: "Image Alt Text",
+            });
+            await userEvent.clear(imageAltTextInput);
+            await userEvent.type(imageAltTextInput, "Alt2");
+
+            // Click the 'Save image' button
+            const saveImageButton = screen.getByRole("button", {
+                name: "Save image",
+            });
+            await userEvent.click(saveImageButton);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledTimes(1);
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [{content: "Choice 1\n![Alt2](image2.jpg)"}],
+                }),
+            );
+        });
+
+        it("should call onChange when the 'Save image' button is clicked with multiple images in the content", async () => {
+            // Arrange
+            const onChangeMock = jest.fn();
+            renderRadioEditor(onChangeMock, {
+                choices: [
+                    {
+                        content:
+                            "Choice 1\n![Alt1](image1.jpg)\n![Alt2](image2.jpg)",
+                    },
+                ],
+            });
+
+            // Act
+            // Update the image URL and alt text for the second image
+            const imageUrlInputs = screen.getAllByRole("textbox", {
+                name: "Image URL",
+            });
+            const imageUrlInput2 = imageUrlInputs[1];
+            await userEvent.clear(imageUrlInput2);
+            await userEvent.type(imageUrlInput2, "foo.jpg");
+
+            const imageAltTextInputs = screen.getAllByRole("textbox", {
+                name: "Image Alt Text",
+            });
+            const imageAltTextInput2 = imageAltTextInputs[1];
+            await userEvent.clear(imageAltTextInput2);
+            await userEvent.type(imageAltTextInput2, "bar");
+
+            // Click the 'Save image' button for the second image
+            const saveImageButtons = screen.getAllByRole("button", {
+                name: "Save image",
+            });
+            await userEvent.click(saveImageButtons[1]);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledTimes(1);
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [
+                        {
+                            content:
+                                "Choice 1\n![Alt1](image1.jpg)\n![bar](foo.jpg)",
+                        },
+                    ],
+                }),
+            );
+        });
+
+        it("should call onChange when the 'Delete image' button is clicked", async () => {
+            // Arrange
+            jest.spyOn(window, "confirm").mockImplementation(
+                // Confirm button clicked
+                () => true,
+            );
+            const onChangeMock = jest.fn();
+            renderRadioEditor(onChangeMock, {
+                choices: [{content: "Choice 1\n![Alt](image.jpg)"}],
+            });
+
+            // Act
+            const deleteImageButton = screen.getByRole("button", {
+                name: "Delete this image",
+            });
+            await userEvent.click(deleteImageButton);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [{content: "Choice 1\n"}],
+                }),
+            );
+        });
+
+        it("should call onChange when the 'Delete image' button is clicked with multiple images in the content", async () => {
+            // Arrange
+            jest.spyOn(window, "confirm").mockImplementation(
+                // Confirm button clicked
+                () => true,
+            );
+            const onChangeMock = jest.fn();
+            renderRadioEditor(onChangeMock, {
+                choices: [
+                    {
+                        content:
+                            "Choice 1\n![Alt1](image1.jpg)\n![Alt2](image2.jpg)",
+                    },
+                ],
+            });
+
+            // Act
+            const deleteImageButtons = screen.getAllByText("Delete this image");
+            await userEvent.click(deleteImageButtons[1]);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [{content: "Choice 1\n![Alt1](image1.jpg)\n"}],
+                }),
+            );
+        });
+
+        it("should call onChange when the 'Delete image' button is clicked with multiple images in the content (first image)", async () => {
+            // Arrange
+            jest.spyOn(window, "confirm").mockImplementation(
+                // Confirm button clicked
+                () => true,
+            );
+            const onChangeMock = jest.fn();
+            renderRadioEditor(onChangeMock, {
+                choices: [
+                    {
+                        content:
+                            "hello\n![Alt1](image1.jpg)\n![Alt2](image2.jpg)",
+                    },
+                ],
+            });
+
+            // Act
+            const deleteImageButtons = screen.getAllByText("Delete this image");
+            await userEvent.click(deleteImageButtons[0]);
+
+            // Assert
+            expect(onChangeMock).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    choices: [{content: "hello\n\n![Alt2](image2.jpg)"}],
+                }),
+            );
+        });
+    });
 });
