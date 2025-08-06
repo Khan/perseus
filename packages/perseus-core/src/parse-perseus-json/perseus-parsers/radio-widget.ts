@@ -1,5 +1,3 @@
-import {v4 as uuid} from "uuid";
-
 import {deriveNumCorrect} from "../../widgets/radio/derive-num-correct";
 import {
     any,
@@ -45,29 +43,6 @@ const parseNoneOfTheAbove = defaulted(
     () => undefined,
 );
 
-const version4 = optional(object({major: constant(4), minor: number}));
-const parseRadioWidgetV4 = parseWidgetWithVersion(
-    version4,
-    constant("radio"),
-    object({
-        numCorrect: optional(number),
-        choices: array(
-            object({
-                content: defaulted(string, () => ""),
-                rationale: optional(string),
-                correct: optional(boolean),
-                isNoneOfTheAbove: optional(boolean),
-                id: defaulted(string, () => ""),
-            }),
-        ),
-        hasNoneOfTheAbove: optional(boolean),
-        countChoices: optional(boolean),
-        randomize: optional(boolean),
-        multipleSelect: optional(boolean),
-        deselectEnabled: optional(boolean),
-    }),
-);
-
 const version3 = optional(object({major: constant(3), minor: number}));
 const parseRadioWidgetV3 = parseWidgetWithVersion(
     version3,
@@ -80,6 +55,7 @@ const parseRadioWidgetV3 = parseWidgetWithVersion(
                 rationale: optional(string),
                 correct: optional(boolean),
                 isNoneOfTheAbove: optional(boolean),
+                id: defaulted(string, () => ""),
             }),
         ),
         hasNoneOfTheAbove: optional(boolean),
@@ -103,6 +79,7 @@ const parseRadioWidgetV2 = parseWidgetWithVersion(
                     clue: optional(string),
                     correct: optional(boolean),
                     isNoneOfTheAbove: optional(boolean),
+                    id: defaulted(string, () => ""),
                     // deprecated
                     widgets: parseWidgetsMapOrUndefined,
                 }),
@@ -191,24 +168,6 @@ const parseRadioWidgetV0 = parseWidgetWithVersion(
 );
 
 // migrate functions
-
-export function migrateV3ToV4(
-    widget: ParsedValue<typeof parseRadioWidgetV3>,
-): ParsedValue<typeof parseRadioWidgetV4> {
-    const {options} = widget;
-    return {
-        ...widget,
-        version: {major: 4, minor: 0},
-        options: {
-            ...options,
-            choices: options.choices.map((choice) => ({
-                ...choice,
-                id: uuid(),
-            })),
-        },
-    };
-}
-
 export function migrateV2toV3(
     widget: ParsedValue<typeof parseRadioWidgetV2>,
 ): ParsedValue<typeof parseRadioWidgetV3> {
@@ -228,6 +187,7 @@ export function migrateV2toV3(
                 rationale: choice.clue,
                 correct: choice.correct,
                 isNoneOfTheAbove: choice.isNoneOfTheAbove,
+                id: choice.id,
             })),
         },
     };
@@ -237,18 +197,19 @@ export function migrateV1ToV2(
     widget: ParsedValue<typeof parseRadioWidgetV1>,
 ): ParsedValue<typeof parseRadioWidgetV2> {
     const {options} = widget;
-    // deriveNumCorrect only uses the 'correct' property, but TypeScript requires 'id'
-    // so we add temporary ids just for this calculation
-    const choicesForCalculation = options.choices.map((choice) => ({
+
+    const choicesForCalculation = options.choices.map((choice, index) => ({
         ...choice,
-        id: "", // temporary id just for type compatibility
+        id: `radio-choice-${index}`, // <<what should go here??>>
     }));
+
     return {
         ...widget,
         version: {major: 2, minor: 0},
         options: {
             ...options,
             numCorrect: deriveNumCorrect(choicesForCalculation),
+            choices: choicesForCalculation,
         },
     };
 }
@@ -269,8 +230,7 @@ export function migrateV0ToV1(
     };
 }
 
-export const parseRadioWidget = versionedWidgetOptions(4, parseRadioWidgetV4)
-    .withMigrationFrom(3, parseRadioWidgetV3, migrateV3ToV4)
+export const parseRadioWidget = versionedWidgetOptions(3, parseRadioWidgetV3)
     .withMigrationFrom(2, parseRadioWidgetV2, migrateV2toV3)
     .withMigrationFrom(1, parseRadioWidgetV1, migrateV1ToV2)
     .withMigrationFrom(0, parseRadioWidgetV0, migrateV0ToV1).parser;

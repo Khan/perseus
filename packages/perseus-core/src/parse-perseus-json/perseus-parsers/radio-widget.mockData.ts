@@ -96,6 +96,7 @@ export const v2Widget = {
     options: {
         choices: [
             {
+                id: "radio-choice-0",
                 content: "I am a correct choice",
                 correct: true,
                 clue: "I am some rationale for a choice",
@@ -103,25 +104,26 @@ export const v2Widget = {
                 widgets: undefined,
             },
             {
+                id: "radio-choice-1",
                 content: "I am an incorrect choice",
                 correct: false,
                 clue: "I am some rationale for a choice",
                 widgets: undefined,
             },
             {
+                id: "radio-choice-2",
                 content: "I am an incorrect choice",
                 correct: false,
                 isNoneOfTheAbove: false,
                 widgets: {},
             },
             {
+                id: "radio-choice-3",
                 content: "I am content for a choice",
                 clue: "I am some rationale for a choice",
                 isNoneOfTheAbove: false,
             },
-            {
-                content: "I am a choice with only content",
-            },
+            {id: "radio-choice-4", content: "I am a choice with only content"},
         ],
         numCorrect: 1,
         hasNoneOfTheAbove: false,
@@ -145,29 +147,32 @@ export const v3Widget = {
     options: {
         choices: [
             {
+                id: "radio-choice-0",
                 content: "I am a correct choice",
                 correct: true,
                 rationale: "I am some rationale for a choice",
                 isNoneOfTheAbove: true,
             },
             {
+                id: "radio-choice-1",
                 content: "I am an incorrect choice",
                 correct: false,
                 rationale: "I am some rationale for a choice",
+                widgets: undefined,
             },
             {
+                id: "radio-choice-2",
                 content: "I am an incorrect choice",
                 correct: false,
                 isNoneOfTheAbove: false,
             },
             {
+                id: "radio-choice-3",
                 content: "I am content for a choice",
                 rationale: "I am some rationale for a choice",
                 isNoneOfTheAbove: false,
             },
-            {
-                content: "I am a choice with only content",
-            },
+            {id: "radio-choice-4", content: "I am a choice with only content"},
         ],
         numCorrect: 1,
         hasNoneOfTheAbove: false,
@@ -178,54 +183,6 @@ export const v3Widget = {
     },
     version: {
         major: 3,
-        minor: 0,
-    },
-};
-
-export const v4Widget = {
-    type: "radio" as const,
-    graded: true,
-    options: {
-        choices: [
-            {
-                id: "a1b2c3d4-e5f6-4789-a012-345678901234",
-                content: "I am a correct choice",
-                correct: true,
-                rationale: "I am some rationale for a choice",
-                isNoneOfTheAbove: true,
-            },
-            {
-                id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
-                content: "I am an incorrect choice",
-                correct: false,
-                rationale: "I am some rationale for a choice",
-            },
-            {
-                id: "9c8b7a65-4321-4fed-9876-543210fedcba",
-                content: "I am an incorrect choice",
-                correct: false,
-                isNoneOfTheAbove: false,
-            },
-            {
-                id: "2468ace0-1357-4bdf-9024-68ace1357bdf",
-                content: "I am content for a choice",
-                rationale: "I am some rationale for a choice",
-                isNoneOfTheAbove: false,
-            },
-            {
-                id: "7f8e9d0c-1b2a-4567-8901-23456789abcd",
-                content: "I am a choice with only content",
-            },
-        ],
-        numCorrect: 1,
-        hasNoneOfTheAbove: false,
-        countChoices: false,
-        randomize: false,
-        multipleSelect: false,
-        deselectEnabled: false,
-    },
-    version: {
-        major: 4,
         minor: 0,
     },
 };
