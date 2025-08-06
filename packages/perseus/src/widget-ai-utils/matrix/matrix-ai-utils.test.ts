@@ -49,9 +49,9 @@ describe("Matrix AI utils", () => {
     it("it returns JSON with the expected format and fields", () => {
         const userInput: PerseusMatrixUserInput = {
             answers: [
-                [1, 2, 3, 4],
-                [5, 6, 7, 8],
-                [9, 10, 11, 12],
+                ["1", "2", "3", "4"],
+                ["5", "6", "7", "8"],
+                ["9", "10", "11", "12"],
             ],
         };
 
@@ -70,9 +70,9 @@ describe("Matrix AI utils", () => {
             },
             userInput: {
                 answerRows: [
-                    [1, 2, 3, 4],
-                    [5, 6, 7, 8],
-                    [9, 10, 11, 12],
+                    ["1", "2", "3", "4"],
+                    ["5", "6", "7", "8"],
+                    ["9", "10", "11", "12"],
                 ],
             },
         });

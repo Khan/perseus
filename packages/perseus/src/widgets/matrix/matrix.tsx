@@ -20,6 +20,7 @@ import type {
     MatrixPublicWidgetOptions,
     PerseusMatrixUserInput,
     PerseusMatrixWidgetOptions,
+    PerseusMatrixRubric,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -321,7 +322,11 @@ class Matrix extends React.Component<Props, State> implements Widget {
         }
         const {INPUT_MARGIN, INPUT_HEIGHT, INPUT_WIDTH} = dimensions;
 
-        const matrixSize = getMatrixSize(this.props.userInput.answers);
+        const matrixSize = getMatrixSize(
+            this.props.userInput.answers.map((row) =>
+                row.map((str) => Number(str)),
+            ),
+        );
         const maxRows = this.props.matrixBoardSize[0];
         const maxCols = this.props.matrixBoardSize[1];
         const cursorRow = this.props.cursorPosition[0];
@@ -537,7 +542,7 @@ function getStartUserInput(): PerseusMatrixUserInput {
 
 function getCorrectUserInput(
     options: PerseusMatrixWidgetOptions,
-): PerseusMatrixUserInput {
+): PerseusMatrixRubric {
     return {
         answers: options.answers,
     };

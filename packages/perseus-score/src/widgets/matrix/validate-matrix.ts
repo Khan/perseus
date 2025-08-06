@@ -24,7 +24,9 @@ function validateMatrix(
         return {type: "invalid", message: null};
     }
 
-    const supplied = userInput.answers;
+    const supplied = userInput.answers.map((row) =>
+        row.map((str) => Number(str)),
+    );
     const suppliedSize = getMatrixSize(supplied);
 
     for (let row = 0; row < suppliedSize[0]; row++) {
