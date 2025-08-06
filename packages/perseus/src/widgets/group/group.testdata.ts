@@ -25,16 +25,17 @@ export const question1: PerseusRenderer = {
                         graded: true,
                         options: {
                             choices: [
-                                {content: "$45$", correct: false},
-                                {content: "$42$", correct: false},
+                                {id: "a0", content: "$45$", correct: false},
+                                {id: "b1", content: "$42$", correct: false},
                                 {
+                                    id: "c2",
                                     content: "$30$",
                                     correct: false,
                                     rationale:
                                         "Here's some rationale, this isn't the correct answer!",
                                 },
-                                {content: "$18$", correct: false},
-                                {content: "$15$", correct: true},
+                                {id: "d3", content: "$18$", correct: false},
+                                {id: "e4", content: "$15$", correct: true},
                             ],
                             multipleSelect: false,
                             randomize: false,
@@ -139,11 +140,11 @@ export const question1: PerseusRenderer = {
             graded: true,
             options: {
                 choices: [
-                    {content: "", correct: false},
-                    {content: "", correct: false},
-                    {content: "", correct: false},
-                    {content: "", correct: false},
-                    {content: "", correct: true},
+                    {id: "a0", content: "", correct: false},
+                    {id: "b1", content: "", correct: false},
+                    {id: "c2", content: "", correct: false},
+                    {id: "d3", content: "", correct: false},
+                    {id: "e4", content: "", correct: true},
                 ],
                 multipleSelect: false,
                 randomize: false,

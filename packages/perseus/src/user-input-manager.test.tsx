@@ -359,10 +359,12 @@ describe("UserInputManager", () => {
                 options: {
                     choices: [
                         {
+                            id: "01",
                             content: "Correct",
                             correct: true,
                         },
                         {
+                            id: "23",
                             content: "Incorrect",
                             correct: false,
                         },

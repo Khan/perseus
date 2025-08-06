@@ -1,17 +1,17 @@
 import {getMovedChoices} from "./utils";
 
 const choices = [
-    {content: "Choice 1"},
-    {content: "Choice 2"},
-    {content: "Choice 3"},
-    {content: "Choice 4"},
+    {id: "01", content: "Choice 1"},
+    {id: "12", content: "Choice 2"},
+    {id: "23", content: "Choice 3"},
+    {id: "34", content: "Choice 4"},
 ];
 
 const choicesWithNoneOfTheAbove = [
-    {content: "Choice 1"},
-    {content: "Choice 2"},
-    {content: "Choice 3"},
-    {content: "Choice 4", isNoneOfTheAbove: true},
+    {id: "01", content: "Choice 1"},
+    {id: "12", content: "Choice 2"},
+    {id: "23", content: "Choice 3"},
+    {id: "34", content: "Choice 4", isNoneOfTheAbove: true},
 ];
 
 describe("getMovedChoices", () => {

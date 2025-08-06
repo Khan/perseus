@@ -145,27 +145,32 @@ export const v3Widget = {
     options: {
         choices: [
             {
+                id: "options.choices.0",
                 content: "I am a correct choice",
                 correct: true,
                 rationale: "I am some rationale for a choice",
                 isNoneOfTheAbove: true,
             },
             {
+                id: "options.choices.1",
                 content: "I am an incorrect choice",
                 correct: false,
                 rationale: "I am some rationale for a choice",
             },
             {
+                id: "options.choices.2",
                 content: "I am an incorrect choice",
                 correct: false,
                 isNoneOfTheAbove: false,
             },
             {
+                id: "options.choices.3",
                 content: "I am content for a choice",
                 rationale: "I am some rationale for a choice",
                 isNoneOfTheAbove: false,
             },
             {
+                id: "options.choices.4",
                 content: "I am a choice with only content",
             },
         ],

@@ -23,21 +23,25 @@ const expectedSerializedRadio = {
     deselectEnabled: false,
     choices: [
         {
+            id: "a0",
             content: "Content 4",
             correct: false,
             originalIndex: 3, // <= note we stash original index
         },
         {
+            id: "b1",
             content: "Content 2",
             correct: false,
             originalIndex: 1,
         },
         {
+            id: "c2",
             content: "Content 1",
             correct: true,
             originalIndex: 0,
         },
         {
+            id: "d3",
             content: "Content 3",
             correct: false,
             originalIndex: 2,
@@ -109,18 +113,22 @@ describe("Radio serialization", () => {
                         randomize: true, // <= important
                         choices: [
                             {
+                                id: "a0",
                                 content: "Content 1",
                                 correct: true,
                             },
                             {
+                                id: "b1",
                                 content: "Content 2",
                                 correct: false,
                             },
                             {
+                                id: "c2",
                                 content: "Content 3",
                                 correct: false,
                             },
                             {
+                                id: "d3",
                                 content: "Content 4",
                                 correct: false,
                             },

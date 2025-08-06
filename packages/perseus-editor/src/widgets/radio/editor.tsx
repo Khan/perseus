@@ -172,6 +172,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
         const choices = this.props.choices.slice();
         const newChoice: PerseusRadioChoice = {
+            id: crypto.randomUUID(),
             isNoneOfTheAbove: noneOfTheAbove,
             content: "",
         };

@@ -18,18 +18,22 @@ export const PerseusItemWithRadioWidget = generateTestPerseusItem({
                     randomize: true,
                     choices: [
                         {
+                            id: "01",
                             content: "Content 1",
                             correct: true,
                         },
                         {
+                            id: "12",
                             content: "Content 2",
                             correct: false,
                         },
                         {
+                            id: "23",
                             content: "Content 3",
                             correct: false,
                         },
                         {
+                            id: "34",
                             content: "Content 4",
                             correct: false,
                         },
@@ -51,18 +55,22 @@ export const PerseusItemWithRadioWidget = generateTestPerseusItem({
                     randomize: true,
                     choices: [
                         {
+                            id: "01",
                             content: "Content 1",
                             correct: true,
                         },
                         {
+                            id: "12",
                             content: "Content 2",
                             correct: false,
                         },
                         {
+                            id: "23",
                             content: "Content 3",
                             correct: false,
                         },
                         {
+                            id: "34",
                             content: "Content 4",
                             correct: false,
                         },

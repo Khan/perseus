@@ -15,9 +15,9 @@ describe("injectWidgets", () => {
                     type: "radio",
                     options: {
                         choices: [
-                            {content: "option 1"},
-                            {content: "option 2"},
-                            {content: "option 3"},
+                            {id: "01", content: "option 1"},
+                            {id: "12", content: "option 2"},
+                            {id: "23", content: "option 3"},
                         ] satisfies PerseusRadioChoice[],
                     },
                 },
@@ -34,9 +34,9 @@ describe("injectWidgets", () => {
                     type: "radio",
                     options: {
                         choices: [
-                            {content: "option 1"},
-                            {content: "option 2"},
-                            {content: "option 3"},
+                            {id: "01", content: "option 1"},
+                            {id: "23", content: "option 2"},
+                            {id: "34", content: "option 3"},
                         ],
                         randomize: true,
                     },
@@ -55,9 +55,9 @@ describe("injectWidgets", () => {
                     type: "radio",
                     options: {
                         choices: [
-                            {content: "1"},
-                            {content: "2"},
-                            {content: "3"},
+                            {id: "01", content: "1"},
+                            {id: "23", content: "2"},
+                            {id: "34", content: "3"},
                         ],
                         randomize: true,
                     },

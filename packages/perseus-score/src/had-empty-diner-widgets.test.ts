@@ -93,10 +93,12 @@ function generateBasicRadioQuestion(): PerseusRenderer {
                 options: {
                     choices: [
                         {
+                            id: "01",
                             content: "Correct",
                             correct: true,
                         },
                         {
+                            id: "12",
                             content: "Incorrect",
                             correct: false,
                         },

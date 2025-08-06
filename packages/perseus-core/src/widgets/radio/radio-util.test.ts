@@ -8,18 +8,21 @@ describe("getRadioPublicWidgetOptions", () => {
         const options: PerseusRadioWidgetOptions = {
             choices: [
                 {
+                    id: "01",
                     content: "$-8$ and $8$",
                     correct: false,
                     rationale:
                         "The square root operation ($\\sqrt{\\phantom{x}}$)...",
                 },
                 {
+                    id: "23",
                     content: "$-8$",
                     correct: false,
                     rationale:
                         "While $(-8)^2=64$, the square root operation...",
                 },
                 {
+                    id: "34",
                     content: "There is no such input value.",
                     isNoneOfTheAbove: true,
                     correct: true,
@@ -67,14 +70,17 @@ describe("getRadioPublicWidgetOptions", () => {
         const options: PerseusRadioWidgetOptions = {
             choices: [
                 {
+                    id: "01",
                     content: "1 Incorrect",
                     correct: false,
                 },
                 {
+                    id: "12",
                     content: "2 Incorrect",
                     correct: true,
                 },
                 {
+                    id: "23",
                     content: "3 Correct",
                     correct: true,
                 },
@@ -111,14 +117,17 @@ describe("getRadioPublicWidgetOptions", () => {
         const options: PerseusRadioWidgetOptions = {
             choices: [
                 {
+                    id: "01",
                     content: "1 Incorrect",
                     correct: false,
                 },
                 {
+                    id: "23",
                     content: "2 Incorrect",
                     correct: true,
                 },
                 {
+                    id: "34",
                     content: "3 Correct",
                     correct: true,
                 },

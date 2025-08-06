@@ -68,10 +68,12 @@ const sampleOptions2: PerseusRenderer = {
             options: {
                 choices: [
                     {
+                        id: "01",
                         content: "A",
                         correct: true,
                     },
                     {
+                        id: "12",
                         correct: false,
                         content: "B",
                     },

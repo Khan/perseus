@@ -30,6 +30,7 @@ describe("radio-editor", () => {
     let userEvent: UserEvent;
     function getCorrectChoice(): PerseusRadioChoice {
         return {
+            id: "01",
             content: "",
             correct: true,
         };
@@ -143,10 +144,14 @@ describe("radio-editor", () => {
 
         renderRadioEditor(onChangeMock, {
             choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2", correct: true},
-                {content: "Choice 3"},
-                {content: "None of the above", isNoneOfTheAbove: true},
+                {id: "01", content: "Choice 1"},
+                {id: "12", content: "Choice 2", correct: true},
+                {id: "23", content: "Choice 3"},
+                {
+                    id: "34",
+                    content: "None of the above",
+                    isNoneOfTheAbove: true,
+                },
             ],
             hasNoneOfTheAbove: true,
         });
@@ -180,10 +185,14 @@ describe("radio-editor", () => {
 
         renderRadioEditor(onChangeMock, {
             choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2", correct: true},
-                {content: "Choice 3"},
-                {content: "None of the above", isNoneOfTheAbove: true},
+                {id: "01", content: "Choice 1"},
+                {id: "12", content: "Choice 2", correct: true},
+                {id: "23", content: "Choice 3"},
+                {
+                    id: "34",
+                    content: "None of the above",
+                    isNoneOfTheAbove: true,
+                },
             ],
             hasNoneOfTheAbove: true,
         });
@@ -217,10 +226,14 @@ describe("radio-editor", () => {
 
         renderRadioEditor(onChangeMock, {
             choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2", correct: true},
-                {content: "Choice 3"},
-                {content: "None of the above", isNoneOfTheAbove: true},
+                {id: "01", content: "Choice 1"},
+                {id: "12", content: "Choice 2", correct: true},
+                {id: "23", content: "Choice 3"},
+                {
+                    id: "34",
+                    content: "None of the above",
+                    isNoneOfTheAbove: true,
+                },
             ],
             hasNoneOfTheAbove: true,
         });
@@ -246,10 +259,14 @@ describe("radio-editor", () => {
     it("hides the 'None of the above' button when there is a 'None of the above' choice", () => {
         renderRadioEditor(() => {}, {
             choices: [
-                {content: "Choice 1", isNoneOfTheAbove: false},
-                {content: "Choice 2", isNoneOfTheAbove: false},
-                {content: "Choice 3", isNoneOfTheAbove: false},
-                {content: "None of the above", isNoneOfTheAbove: true},
+                {id: "01", content: "Choice 1", isNoneOfTheAbove: false},
+                {id: "12", content: "Choice 2", isNoneOfTheAbove: false},
+                {id: "23", content: "Choice 3", isNoneOfTheAbove: false},
+                {
+                    id: "34",
+                    content: "None of the above",
+                    isNoneOfTheAbove: true,
+                },
             ],
             hasNoneOfTheAbove: true,
         });
@@ -268,10 +285,10 @@ describe("radio-editor", () => {
                 apiOptions={ApiOptions.defaults}
                 static={false}
                 choices={[
-                    {content: "Choice 1"},
-                    {content: "Choice 2"},
-                    {content: "Choice 3"},
-                    {content: "Choice 4"},
+                    {id: "01", content: "Choice 1"},
+                    {id: "12", content: "Choice 2"},
+                    {id: "23", content: "Choice 3"},
+                    {id: "34", content: "Choice 4"},
                 ]}
             />,
             {wrapper: RenderStateRoot},
@@ -368,10 +385,10 @@ describe("radio-editor", () => {
 
         renderRadioEditor(onChangeMock, {
             choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4"},
+                {id: "01", content: "Choice 1"},
+                {id: "12", content: "Choice 2"},
+                {id: "23", content: "Choice 3"},
+                {id: "34", content: "Choice 4"},
             ],
         });
 
@@ -382,10 +399,10 @@ describe("radio-editor", () => {
         expect(onChangeMock).toHaveBeenCalledWith(
             expect.objectContaining({
                 choices: [
-                    {content: "Choice 1", correct: true},
-                    {content: "Choice 2", correct: false},
-                    {content: "Choice 3", correct: false},
-                    {content: "Choice 4", correct: false},
+                    {id: "01", content: "Choice 1", correct: true},
+                    {id: "12", content: "Choice 2", correct: false},
+                    {id: "23", content: "Choice 3", correct: false},
+                    {id: "34", content: "Choice 4", correct: false},
                 ],
             }),
         );
@@ -396,10 +413,10 @@ describe("radio-editor", () => {
 
         renderRadioEditor(onChangeMock, {
             choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4"},
+                {id: "01", content: "Choice 1"},
+                {id: "12", content: "Choice 2"},
+                {id: "23", content: "Choice 3"},
+                {id: "34", content: "Choice 4"},
             ],
         });
 
@@ -424,10 +441,10 @@ describe("radio-editor", () => {
 
         renderRadioEditor(onChangeMock, {
             choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
+                {id: "01", content: "Choice 1", correct: true},
+                {id: "12", content: "Choice 2", correct: false},
+                {id: "23", content: "Choice 3", correct: false},
+                {id: "34", content: "Choice 4", correct: false},
             ],
         });
 
@@ -439,10 +456,10 @@ describe("radio-editor", () => {
             expect.objectContaining({
                 choices: [
                     // Automatically change the previous correct choice to incorrect
-                    {content: "Choice 1", correct: false},
-                    {content: "Choice 2", correct: true},
-                    {content: "Choice 3", correct: false},
-                    {content: "Choice 4", correct: false},
+                    {id: "01", content: "Choice 1", correct: false},
+                    {id: "12", content: "Choice 2", correct: true},
+                    {id: "23", content: "Choice 3", correct: false},
+                    {id: "34", content: "Choice 4", correct: false},
                 ],
             }),
         );
@@ -453,10 +470,10 @@ describe("radio-editor", () => {
 
         renderRadioEditor(onChangeMock, {
             choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
+                {id: "01", content: "Choice 1", correct: true},
+                {id: "12", content: "Choice 2", correct: false},
+                {id: "23", content: "Choice 3", correct: false},
+                {id: "34", content: "Choice 4", correct: false},
             ],
         });
 
@@ -482,10 +499,10 @@ describe("radio-editor", () => {
 
         renderRadioEditor(onChangeMock, {
             choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
+                {id: "01", content: "Choice 1", correct: true},
+                {id: "12", content: "Choice 2", correct: false},
+                {id: "23", content: "Choice 3", correct: false},
+                {id: "34", content: "Choice 4", correct: false},
             ],
         });
 
@@ -511,10 +528,10 @@ describe("radio-editor", () => {
 
         renderRadioEditor(onChangeMock, {
             choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
+                {id: "01", content: "Choice 1", correct: true},
+                {id: "12", content: "Choice 2", correct: false},
+                {id: "23", content: "Choice 3", correct: false},
+                {id: "34", content: "Choice 4", correct: false},
             ],
         });
 
@@ -540,10 +557,10 @@ describe("radio-editor", () => {
 
         renderRadioEditor(onChangeMock, {
             choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
+                {id: "01", content: "Choice 1", correct: true},
+                {id: "12", content: "Choice 2", correct: false},
+                {id: "23", content: "Choice 3", correct: false},
+                {id: "34", content: "Choice 4", correct: false},
             ],
             multipleSelect: true,
         });
@@ -571,10 +588,10 @@ describe("radio-editor", () => {
 
         renderRadioEditor(onChangeMock, {
             choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4"},
+                {id: "01", content: "Choice 1"},
+                {id: "12", content: "Choice 2"},
+                {id: "23", content: "Choice 3"},
+                {id: "34", content: "Choice 4"},
             ],
         });
 
@@ -599,10 +616,10 @@ describe("radio-editor", () => {
 
         renderRadioEditor(onChangeMock, {
             choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4"},
+                {id: "01", content: "Choice 1"},
+                {id: "12", content: "Choice 2"},
+                {id: "23", content: "Choice 3"},
+                {id: "34", content: "Choice 4"},
             ],
         });
 
@@ -627,10 +644,10 @@ describe("radio-editor", () => {
 
         renderRadioEditor(onChangeMock, {
             choices: [
-                {content: "Choice 1", rationale: "A"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4"},
+                {id: "01", content: "Choice 1", rationale: "A"},
+                {id: "12", content: "Choice 2"},
+                {id: "23", content: "Choice 3"},
+                {id: "34", content: "Choice 4"},
             ],
         });
 
@@ -807,10 +824,10 @@ describe("radio-editor", () => {
 
             renderRadioEditor(onChangeMock, {
                 choices: [
-                    {content: "Choice 1"},
-                    {content: "Choice 2"},
-                    {content: "Choice 3"},
-                    {content: "Choice 4"},
+                    {id: "01", content: "Choice 1"},
+                    {id: "12", content: "Choice 2"},
+                    {id: "23", content: "Choice 3"},
+                    {id: "34", content: "Choice 4"},
                 ],
             });
 
@@ -832,7 +849,7 @@ describe("radio-editor", () => {
 
     it("does not render movement buttons when there is only one choice", () => {
         renderRadioEditor(() => {}, {
-            choices: [{content: "Choice 1"}],
+            choices: [{id: "01", content: "Choice 1"}],
         });
 
         const moveButtons = screen.queryAllByRole("button", {
@@ -845,10 +862,10 @@ describe("radio-editor", () => {
     it("does not render movement buttons when the choice is None of the above", () => {
         renderRadioEditor(() => {}, {
             choices: [
-                {content: "Choice 1"},
-                {content: "Choice 2"},
-                {content: "Choice 3"},
-                {content: "Choice 4", isNoneOfTheAbove: true},
+                {id: "01", content: "Choice 1"},
+                {id: "12", content: "Choice 2"},
+                {id: "23", content: "Choice 3"},
+                {id: "34", content: "Choice 4", isNoneOfTheAbove: true},
             ],
         });
 
