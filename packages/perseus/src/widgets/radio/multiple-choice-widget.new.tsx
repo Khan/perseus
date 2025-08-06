@@ -8,7 +8,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio
 import MultipleChoiceComponent from "./multiple-choice-component.new";
 import {getChoiceStates, parseNestedWidgets} from "./utils/general-utils";
 
-import type {ChoiceType} from "./multiple-choice-component.new";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
@@ -18,6 +17,24 @@ import type {
     PerseusRadioUserInput,
 } from "@khanacademy/perseus-core";
 import type {LinterContextProps} from "@khanacademy/perseus-linter";
+
+// TODO(LEMS-3170): Simplify the ChoiceType by using ChoiceProps directly.
+/**
+ * Represents a single choice in the MultipleChoiceComponent
+ */
+export interface ChoiceType {
+    checked: boolean;
+    content: React.ReactNode;
+    rationale: React.ReactNode;
+    hasRationale: boolean;
+    showRationale: boolean;
+    showCorrectness: boolean;
+    correct: boolean;
+    isNoneOfTheAbove: boolean;
+    previouslyAnswered: boolean;
+    revealNoneOfTheAbove: boolean;
+    disabled: boolean;
+}
 
 // RenderProps is the return type for radio.jsx#transform
 export type RenderProps = {
@@ -304,29 +321,25 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
         // Extract props that need to be passed to the component
         const {
             apiOptions,
-            reviewModeRubric,
             reviewMode,
-            editMode = false,
             multipleSelect,
-            labelWrap = true,
             countChoices,
             numCorrect,
-            isLastUsedWidget,
         } = this.props;
+
+        const onChoiceChange =
+            apiOptions.readOnly || reviewMode
+                ? () => {}
+                : this.handleChoiceChange;
 
         return (
             <MultipleChoiceComponent
-                apiOptions={apiOptions}
-                reviewModeRubric={reviewModeRubric}
                 reviewMode={reviewMode}
-                editMode={editMode}
                 multipleSelect={multipleSelect}
-                labelWrap={labelWrap}
                 countChoices={countChoices}
                 numCorrect={numCorrect}
-                isLastUsedWidget={isLastUsedWidget}
                 choices={choicesProps}
-                onChoiceChange={this.handleChoiceChange}
+                onChoiceChange={onChoiceChange}
             />
         );
     }

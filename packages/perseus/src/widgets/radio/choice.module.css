@@ -1,17 +1,31 @@
+:global(.framework-perseus) {
+    /* OVERRIDES
+       These styles should be removed when either layering control within Perseus is available,
+       or when the high-level styles are refactored and these become unnecessary.
+     */
+    .choice :global(.paragraph) {
+        font-size: inherit;
+        line-height: inherit;
+    }
+}
+
 .choice {
-    --perseus-multiple-choice-spacing: var(--wb-sizing-size_160);
-    align-items: flex-start;
-    border-bottom: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
-    display: flex;
+    --perseus-multiple-choice-divider-color: var(
+        --wb-semanticColor-core-border-neutral-subtle
+    ); /* This will change with hover & focus */
+    --perseus-multiple-choice-divider-width: var(
+        --wb-border-width-thin
+    ); /* This will change with hover & focus */
+    --perseus-multiple-choice-divider-space: var(
+        --wb-border-width-medium
+    ); /* Space between the choices, which is also used to position the divider */
     font-size: var(--wb-font-heading-size-medium);
-    /* "gap" is being used to put horizontal space between the indicator and the content.
-       That way, we can keep all spacing in this file, and not have to apply styling to the indicator itself.
-    */
-    gap: var(--perseus-multiple-choice-spacing);
+    font-weight: var(--wb-font-weight-semi);
     line-height: var(--wb-font-heading-lineHeight-medium);
+    margin-block-end: var(--perseus-multiple-choice-divider-space);
     min-height: calc(var(--perseus-multiple-choice-spacing) * 4);
     padding: var(--perseus-multiple-choice-spacing);
+    position: relative; /* Needed to enable the dividers (:before and :after pseudo-elements) to position correctly */
     width: 100%;
 }
 
@@ -19,55 +33,141 @@
     cursor: pointer;
 }
 
-/* Show a bottom border on the choice when:
-      - the choice indicator has focus OR
-      - the next choice indicator has focus OR
-      - the choice is not in review mode AND
-         - the choice is hovered OR
-         - the next choice is hovered OR
-   In other words, always show the bottom border when focus is on the indicator,
-       but only show the bottom border for hover when not in review mode.
- */
-.choice:focus-within,
-.choice:has(+ .choice:focus-within),
-.choice:not(.is-correct, .is-wrong) {
-    &:hover,
-    &:has(+ .choice:hover) {
-        border-bottom: var(--wb-border-width-medium) solid
-            var(--wb-semanticColor-core-border-neutral-default);
-        padding-bottom: calc(
-            var(--perseus-multiple-choice-spacing) - var(--wb-sizing-size_010)
-        ); /* Account for increased border width */
-    }
+/*****************
+ BORDER MANAGEMENT
+ *****************/
+
+/* Horizontal divider between choices */
+.choice:after,
+.choice:before {
+    background-color: var(--perseus-multiple-choice-divider-color);
+    content: "";
+    display: block;
+    height: var(--perseus-multiple-choice-divider-width);
+    margin-inline-start: calc(
+        var(--perseus-multiple-choice-spacing) * -1
+    ); /* Account for the padding on the sides of the choice */
+    position: absolute;
+    width: 100%;
+    z-index: 1; /* Ensure the divider is above the scroll fade when it is showing */
 }
 
-/* The first choice option needs additional styling for the border */
+.choice:before {
+    top: calc(
+        (
+                var(--perseus-multiple-choice-divider-space) -
+                    (
+                        (
+                                var(--perseus-multiple-choice-divider-space) -
+                                    var(--wb-border-width-thin)
+                            ) / 2
+                    )
+            ) * -1
+    );
+}
+
+.choice:after {
+    bottom: calc(
+        (
+                var(--perseus-multiple-choice-divider-space) +
+                    (
+                        (
+                                var(--wb-border-width-thin) -
+                                    var(--perseus-multiple-choice-divider-space)
+                            ) / 2
+                    )
+            ) * -1
+    );
+}
+
+.choice:hover:after,
+.choice:focus-within:after,
+.choice:hover:before,
+.choice:focus-within:before {
+    z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
+}
+
+/* The first choice option needs additional space for the border */
 .choice:first-of-type {
-    border-top: var(--wb-border-width-thin) solid
-        var(--wb-semanticColor-core-border-neutral-subtle);
+    margin-block-start: var(--perseus-multiple-choice-divider-space);
 }
 
-.choice:first-of-type:not(.is-correct, .is-wrong):hover,
-.choice:first-of-type:focus-within {
-    border-top: var(--wb-border-width-medium) solid
-        var(--wb-semanticColor-core-border-neutral-default);
-    padding-top: calc(
-        var(--perseus-multiple-choice-spacing) - var(--wb-sizing-size_010)
-    ); /* Account for increased border width */
+/* Enhance (thicker and darker) the divider between choices when:
+      - the choice indicator has focus (not in review mode) OR
+      - the choice is hovered (not in review mode) OR
+      - the choice is in review mode AND
+         - the choice is incorrect AND
+         - the choice indicator has focus
+ */
+.choice:not(.is-correct):focus-within,
+.choice:not(.is-correct, .is-wrong):hover {
+    --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
+    --perseus-multiple-choice-divider-color: var(
+        --wb-semanticColor-core-border-neutral-default
+    );
 }
+
+/***********
+ REVIEW MODE
+ ***********/
 
 .is-correct {
-    border: var(--wb-border-width-medium) solid
-        var(--wb-semanticColor-core-border-success-default);
+    --perseus-multiple-choice-divider-width: 0;
     border-radius: var(--wb-border-radius-radius_080);
-    color: var(--wb-semanticColor-core-foreground-success-default);
+    color: var(--wb-semanticColor-core-foreground-success-strong);
+    outline: var(--wb-border-width-medium) solid
+        var(--wb-semanticColor-core-border-success-default);
+    outline-offset: calc(var(--wb-border-width-medium) * -1);
 }
 
 .is-wrong {
-    color: var(--wb-semanticColor-core-foreground-critical-default);
+    color: var(--wb-semanticColor-core-foreground-neutral-subtle);
 }
 
 .is-correct:hover,
 .is-wrong:hover {
     cursor: default;
+}
+
+/**************
+ LEGACY STYLING
+ **************/
+
+/* Content has been created with this rule in place since the dawn of time, so we need to keep it */
+.choice :global(.paragraph),
+.choice :global(.paragraph) div,
+.choice :global(.paragraph) p {
+    display: inline;
+}
+
+.choice table {
+    border: 1px solid #ccc;
+}
+
+/*************************
+ IMAGES ON THEIR OWN LINES
+ *************************/
+
+/*
+    Images should be on their own lines when a double return is placed between them and the content around them.
+    The selectors here represent what that looks like after the markdown is rendered.
+    NOTE: Causing the containing `.paragraph` elements to display as block elements
+              also causes vertical spacing to be applied due to the `margin` on the `.paragraph` class.
+          The last rule removes the leading space on images that "start" the choice.
+ */
+
+/* Images with surrounding text that is on the same line should be aligned in the middle */
+.choice :global(.paragraph) img {
+    vertical-align: middle;
+}
+
+/* Paragraphs with only images that are adjacent to other paragraphs (before or after) */
+.choice :global(.paragraph) :global(+ .paragraph):has(img:only-child),
+.choice :global(.paragraph):has(img:only-child):has(:global(+ .paragraph)) {
+    display: block;
+}
+
+/* Remove the leading margin when the first paragraph is an image, for better alignment with the choice indicator */
+.choice :global(.paragraph):first-child:has(img:only-child) {
+    margin-block-start: 0;
 }
