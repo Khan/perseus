@@ -4,9 +4,9 @@ import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
 
+import {AutoResizingTextArea} from "../../components/auto-resizing-text-area";
 import PerseusEditorAccordion from "../../components/perseus-editor-accordion";
 
-import {AutoResizingTextArea} from "./auto-resizing-text-area";
 import styles from "./radio-editor.module.css";
 import RadioImageEditor from "./radio-image-editor";
 import {
