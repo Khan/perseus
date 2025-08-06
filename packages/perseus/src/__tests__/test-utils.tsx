@@ -1,4 +1,3 @@
-import {type PerseusItem} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {render} from "@testing-library/react";
@@ -12,6 +11,7 @@ import WrappedServerItemRenderer from "../server-item-renderer";
 
 import type {ServerItemRenderer} from "../server-item-renderer";
 import type {APIOptions} from "../types";
+import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // This looks alot like `widgets/__tests__/renderQuestion.tsx', except we use
