@@ -1,8 +1,4 @@
-import {
-    isFailure,
-    parseAndMigratePerseusItem,
-    type PerseusItem,
-} from "@khanacademy/perseus-core";
+import {type PerseusItem} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {render} from "@testing-library/react";
@@ -32,19 +28,12 @@ export const renderQuestion = (
 } => {
     let renderer: ServerItemRenderer | null = null;
 
-    const parseResult = parseAndMigratePerseusItem(question);
-    if (isFailure(parseResult)) {
-        // eslint-disable-next-line no-console
-        console.log(JSON.stringify(parseResult, null, 2));
-        throw new Error("Failure when parsing PerseusItem in renderQuestion!");
-    }
-
     const {container} = render(
         <RenderStateRoot>
             <WrappedServerItemRenderer
                 ref={(node) => (renderer = node)}
                 apiOptions={apiOptions}
-                item={parseResult.value}
+                item={question}
                 problemNum={0}
                 reviewMode={false}
                 dependencies={testDependenciesV2}

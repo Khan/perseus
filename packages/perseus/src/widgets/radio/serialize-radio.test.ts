@@ -15,15 +15,17 @@ import type {UserEvent} from "@testing-library/user-event";
 
 const expectedSerializedRadio = {
     alignment: "default",
+    static: false,
     numCorrect: 1,
+    hasNoneOfTheAbove: false,
     multipleSelect: false,
     countChoices: false,
     deselectEnabled: false,
     choices: [
         {
-            content: "Content 3",
+            content: "Content 4",
             correct: false,
-            originalIndex: 2,
+            originalIndex: 3, // <= note we stash original index
         },
         {
             content: "Content 2",
@@ -31,18 +33,18 @@ const expectedSerializedRadio = {
             originalIndex: 1,
         },
         {
-            content: "Content 4",
-            correct: false,
-            originalIndex: 3, // <= note we stash original index
-        },
-        {
             content: "Content 1",
             correct: true,
             originalIndex: 0,
         },
+        {
+            content: "Content 3",
+            correct: false,
+            originalIndex: 2,
+        },
     ],
     // no idea what this is, it doesn't seem to change...
-    selectedChoices: [false, false, false, true],
+    selectedChoices: [false, false, true, false],
     choiceStates: [
         {
             selected: true, // <= note we stash user input
@@ -102,7 +104,6 @@ describe("Radio serialization", () => {
             widgets: {
                 "radio 1": {
                     type: "radio",
-                    version: {major: 3, minor: 0},
                     options: {
                         numCorrect: 1,
                         randomize: true, // <= important
@@ -216,7 +217,7 @@ describe("Radio serialization", () => {
                 // note we unshuffle!
                 // in expectedSerializedRadio.choiceStates the first element
                 // is selected; here the last element is selected
-                choicesSelected: [false, false, true, false],
+                choicesSelected: [false, false, false, true],
             },
         });
     });
