@@ -13,6 +13,8 @@ import {KeypadInput, keypadElementPropType} from "@khanacademy/math-input";
 import PropTypes from "prop-types";
 import * as React from "react";
 
+import type {Focusable} from "../types";
+
 type SimpleKeypadInputProps = {
     keypadElement?: any;
     onFocus: () => void;
@@ -23,7 +25,7 @@ type SimpleKeypadInputProps = {
     style?: React.CSSProperties;
 };
 
-const SimpleKeypadInput = React.forwardRef<HTMLElement, SimpleKeypadInputProps>(
+const SimpleKeypadInput = React.forwardRef<Focusable, SimpleKeypadInputProps>(
     function SimpleKeypadInput(props, ref) {
         const keypadInputRef = React.useRef<any>(null);
         const context = React.useContext(KeypadContext);
