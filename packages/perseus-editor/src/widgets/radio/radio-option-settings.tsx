@@ -3,7 +3,8 @@ import {semanticColor, sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
-import {AutoResizingTextArea} from "./auto-resizing-text-area";
+import {AutoResizingTextArea} from "../../components/auto-resizing-text-area";
+
 import styles from "./radio-editor.module.css";
 import {RadioOptionSettingsActions} from "./radio-option-settings-actions";
 import {RadioStatusPill} from "./radio-status-pill";
