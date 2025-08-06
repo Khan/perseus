@@ -96,7 +96,7 @@ export default function RadioImageEditor({
             <AutoResizingTextArea
                 id={imageAltTextTextAreaId}
                 value={imageAltText}
-                placeholder="The Moon appears as a bright gray circle in black space..."
+                placeholder="Example: Graph of a linear function..."
                 onChange={(value) => {
                     setImageAltText(value);
                 }}
