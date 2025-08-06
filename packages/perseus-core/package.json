@@ -42,12 +42,10 @@
         "@khanacademy/kas": "workspace:*",
         "@khanacademy/perseus-utils": "workspace:*",
         "@khanacademy/pure-markdown": "workspace:*",
-        "tiny-invariant": "catalog:prodDeps",
-        "uuid": "^10.0.0"
+        "tiny-invariant": "catalog:prodDeps"
     },
     "devDependencies": {
         "@khanacademy/wonder-stuff-core": "catalog:devDeps",
-        "@types/uuid": "^10.0.0",
         "perseus-build-settings": "workspace:*",
         "underscore": "catalog:devDeps"
     },

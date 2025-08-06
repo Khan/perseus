@@ -1,11 +1,6 @@
 import * as fs from "fs";
 import {join} from "path";
 
-// Mock uuid module for consistent test results
-jest.mock("uuid", () => ({
-    v4: jest.fn().mockReturnValue("2468ace0-1357-4bdf-9024-68ace1357bdf"),
-}));
-
 import splitPerseusItem from "../../utils/split-perseus-item";
 import {registerCoreWidgets} from "../../widgets/core-widget-registry";
 import {anySuccess} from "../general-purpose-parsers/test-helpers";
