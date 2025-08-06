@@ -284,7 +284,7 @@ describe("Radio Widget", () => {
                 const q = clone(question);
                 q.widgets["radio 1"].options.choices = answers.map(
                     (answer, idx) => ({
-                        id: `mock-id-${idx}`,
+                        id: `radio-choice-${idx}`,
                         content: answer,
                         correct: idx === 1, // Correct answer is the "truthy" item
                     }),
@@ -315,7 +315,7 @@ describe("Radio Widget", () => {
             const q = clone(question);
             q.widgets["radio 1"].options.choices = answers.map(
                 (answer, idx) => ({
-                    id: `mock-id-${idx}`,
+                    id: `radio-choice-${idx}`,
                     content: answer,
                     correct: idx === 1,
                 }),

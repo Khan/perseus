@@ -44,15 +44,6 @@ export interface ParseContext {
         badValue: unknown,
     ): Failure<Mismatch[]>;
 
-    /**
-     * Returns a value indicating which part of the object tree is currently
-     * being parsed. See also `forSubtree`.
-     */
-    getPath(): PathSegment[];
-
-    /**
-     * Creates a new `ParseContext` with the given `key` appended to its path.
-     */
     forSubtree(key: PathSegment): ParseContext;
 }
 

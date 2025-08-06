@@ -13,12 +13,12 @@ describe("itemHasRationales", () => {
                         options: {
                             choices: [
                                 {
-                                    id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                                    id: "radio-choice-0",
                                     content: "Choice 1",
                                     correct: false,
                                 },
                                 {
-                                    id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
+                                    id: "radio-choice-1",
                                     content: "Choice 2",
                                     correct: false,
                                     rationale: "This is some rationale",
@@ -92,7 +92,7 @@ describe("itemHasRationales", () => {
                                     options: {
                                         choices: [
                                             {
-                                                id: "randomId",
+                                                id: "radio-choice-0",
                                                 content: "Choice 1",
                                                 correct: false,
                                                 rationale:
@@ -134,7 +134,7 @@ describe("itemHasRationales", () => {
                                     options: {
                                         choices: [
                                             {
-                                                id: "randomId",
+                                                id: "radio-choice-0",
                                                 content: "Choice 1",
                                                 correct: false,
                                                 rationale:
@@ -173,12 +173,12 @@ describe("itemHasRationales", () => {
                                 {
                                     content: "Choice 1",
                                     correct: false,
-                                    id: "randomId",
+                                    id: "radio-choice-0",
                                 },
                                 {
                                     content: "Choice 2",
                                     correct: true,
-                                    id: "randomId2",
+                                    id: "radio-choice-1",
                                 },
                             ],
                         },
