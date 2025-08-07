@@ -25,9 +25,7 @@ import type {Decorator, Preview} from "@storybook/react-vite";
 
 setDependencies(storybookTestDependencies);
 
-const withThemeSwitcher: Decorator = (Story, context) => {
-    const theme = context.globals.theme;
-
+const withPerseusDecorator: Decorator = (Story) => {
     return (
         <RenderStateRoot>
             <DependenciesContext.Provider value={storybookDependenciesV2}>
@@ -39,13 +37,20 @@ const withThemeSwitcher: Decorator = (Story, context) => {
                     from prod.
                 */}
                 <div className="framework-perseus box-sizing-border-box-reset">
-                    {/* The ThemeSwitcher component applies the selected theme to all children.*/}
-                    <ThemeSwitcher theme={theme}>
-                        <Story />
-                    </ThemeSwitcher>
+                    <Story />
                 </div>
             </DependenciesContext.Provider>
         </RenderStateRoot>
+    );
+};
+
+const withThemeSwitcher: Decorator = (Story, context) => {
+    const theme = context.globals.theme;
+
+    return (
+        <ThemeSwitcher theme={theme}>
+            <Story />
+        </ThemeSwitcher>
     );
 };
 
@@ -76,7 +81,7 @@ const supportedThemes = {
 const preview: Preview = {
     // These decorators apply to all stories, both inside and outside the
     // fixture framework.
-    decorators: [withThemeSwitcher],
+    decorators: [withPerseusDecorator, withThemeSwitcher],
     globalTypes: {
         // Added theme globalTypes to be consistent with WonderBlocks supported
         // themes, that will allow the user to select a theme from the toolbar.
