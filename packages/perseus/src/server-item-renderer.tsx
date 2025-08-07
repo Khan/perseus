@@ -1,4 +1,14 @@
 /* eslint-disable @khanacademy/ts-no-error-suppressions */
+import {
+    type PerseusItem,
+    type ShowSolutions,
+    type KeypadContextRendererInterface,
+    type RendererInterface,
+    type KEScore,
+    type UserInputArray,
+    type UserInputMap,
+    splitPerseusItem,
+} from "@khanacademy/perseus-core";
 import * as PerseusLinter from "@khanacademy/perseus-linter";
 import {StyleSheet, css} from "aphrodite";
 /**
@@ -32,15 +42,6 @@ import type {
     RendererPromptJSON,
 } from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
-import type {
-    PerseusItem,
-    ShowSolutions,
-    KeypadContextRendererInterface,
-    RendererInterface,
-    KEScore,
-    UserInputArray,
-    UserInputMap,
-} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type OwnProps = {
@@ -52,6 +53,8 @@ type OwnProps = {
     keypadElement?: KeypadAPI | null | undefined;
     dependencies: PerseusDependenciesV2;
     showSolutions?: ShowSolutions;
+    // TODO(LEMS-3360): remove this when Perseus Chrome swaps answerless/answerful
+    startAnswerless: boolean;
 };
 
 type HOCProps = {
@@ -61,7 +64,10 @@ type HOCProps = {
 type Props = SharedRendererProps & OwnProps & HOCProps;
 
 type DefaultProps = Required<
-    Pick<Props, "apiOptions" | "onRendered" | "linterContext">
+    Pick<
+        Props,
+        "apiOptions" | "onRendered" | "linterContext" | "startAnswerless"
+    >
 >;
 
 type State = {
@@ -85,6 +91,13 @@ type State = {
     assetStatuses: {
         [assetKey: string]: boolean;
     };
+    /**
+     * Whether we should convert answerful data to answerless before
+     * handing it off to sub-renderers.
+     *
+     * TODO(LEMS-3360): remove this when Perseus Chrome swaps answerless/answerful
+     */
+    renderAnswerless: boolean;
 };
 
 /**
@@ -117,7 +130,8 @@ export class ServerItemRenderer
     static defaultProps: DefaultProps = {
         apiOptions: {} as any, // a deep default is done in `this.update()`
         linterContext: PerseusLinter.linterContextDefault,
-        onRendered: (isRendered: boolean) => {},
+        startAnswerless: false,
+        onRendered: () => {},
     };
 
     constructor(props: Props) {
@@ -127,6 +141,7 @@ export class ServerItemRenderer
             questionCompleted: false,
             questionHighlightedWidgets: [],
             assetStatuses: {},
+            renderAnswerless: props.startAnswerless,
         };
         this._fullyRendered = false;
         this.userInput = {};
@@ -387,6 +402,10 @@ export class ServerItemRenderer
      * @deprecated - do not use in new code.
      */
     getSerializedState(): SerializedState {
+        if (this.state.renderAnswerless) {
+            throw new Error("called getSerializedState with answerless data!");
+        }
+
         return {
             question: this.questionRenderer.getSerializedState(),
             hints: this.hintsRenderer.getSerializedState(),
@@ -429,6 +448,15 @@ export class ServerItemRenderer
         this.setState({assetStatuses});
     };
 
+    _shouldUseAnswerless(): boolean {
+        return (
+            this.state.renderAnswerless &&
+            this.props.showSolutions !== "all" &&
+            this.props.showSolutions !== "selected" &&
+            this.props.score == null
+        );
+    }
+
     render(): React.ReactNode {
         const apiOptions = {
             ...ApiOptions.defaults,
@@ -440,6 +468,11 @@ export class ServerItemRenderer
             assetStatuses: this.state.assetStatuses,
             setAssetStatus: this.setAssetStatus,
         } as const;
+
+        let renderedItem: PerseusItem = this.props.item;
+        if (this._shouldUseAnswerless()) {
+            renderedItem = splitPerseusItem(this.props.item);
+        }
 
         const questionRenderer = (
             <AssetContext.Provider value={contextValue}>
@@ -473,9 +506,9 @@ export class ServerItemRenderer
                                         this.questionRenderer = elem;
                                     }
                                 }}
-                                content={this.props.item.question.content}
-                                widgets={this.props.item.question.widgets}
-                                images={this.props.item.question.images}
+                                content={renderedItem.question.content}
+                                widgets={renderedItem.question.widgets}
+                                images={renderedItem.question.images}
                                 linterContext={PerseusLinter.pushContextStack(
                                     this.props.linterContext,
                                     "question",

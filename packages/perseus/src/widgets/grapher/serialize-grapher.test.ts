@@ -86,7 +86,11 @@ describe("Grapher serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicGrapher());
+        const {renderer} = renderQuestion(
+            generateBasicGrapher(),
+            {},
+            {startAnswerless: false},
+        );
 
         // Act
         const state = renderer.getSerializedState();

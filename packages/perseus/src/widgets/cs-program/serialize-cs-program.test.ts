@@ -69,7 +69,11 @@ describe("CSProgram serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicCSProgram());
+        const {renderer} = renderQuestion(
+            generateBasicCSProgram(),
+            {},
+            {startAnswerless: false},
+        );
 
         // Act
         const state = renderer.getSerializedState();

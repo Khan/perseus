@@ -82,7 +82,11 @@ describe("NumericInput serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicNumericInput());
+        const {renderer} = renderQuestion(
+            generateBasicNumericInput(),
+            {},
+            {startAnswerless: false},
+        );
 
         await userEvent.type(screen.getByRole("textbox"), "42");
 

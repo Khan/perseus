@@ -75,7 +75,11 @@ describe("Matrix serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicMatrix());
+        const {renderer} = renderQuestion(
+            generateBasicMatrix(),
+            {},
+            {startAnswerless: false},
+        );
 
         await userEvent.type(screen.getAllByRole("textbox")[0], "1");
         await userEvent.type(screen.getAllByRole("textbox")[1], "2");

@@ -75,7 +75,11 @@ describe("Categorizer serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicCategorizer());
+        const {renderer} = renderQuestion(
+            generateBasicCategorizer(),
+            {},
+            {startAnswerless: false},
+        );
 
         await userEvent.click(screen.getAllByRole("button", {name: "one"})[0]);
 

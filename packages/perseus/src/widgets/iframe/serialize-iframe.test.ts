@@ -69,7 +69,11 @@ describe("IFrame serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicIFrame());
+        const {renderer} = renderQuestion(
+            generateBasicIFrame(),
+            {},
+            {startAnswerless: false},
+        );
 
         // Act
         const state = renderer.getSerializedState();

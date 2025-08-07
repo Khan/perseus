@@ -449,14 +449,18 @@ describe("server item renderer", () => {
     describe("state serialization", () => {
         it("should serialize the current state", async () => {
             // Arrange
-            const {renderer} = renderQuestion({
-                ...itemWithMockWidget,
-                hints: [
-                    {content: "Hint #1", images: {}, widgets: {}},
-                    {content: "Hint #2", images: {}, widgets: {}},
-                    {content: "Hint #3", images: {}, widgets: {}},
-                ],
-            });
+            const {renderer} = renderQuestion(
+                {
+                    ...itemWithMockWidget,
+                    hints: [
+                        {content: "Hint #1", images: {}, widgets: {}},
+                        {content: "Hint #2", images: {}, widgets: {}},
+                        {content: "Hint #3", images: {}, widgets: {}},
+                    ],
+                },
+                {},
+                {startAnswerless: false},
+            );
             await userEvent.type(screen.getByRole("textbox"), "-42");
 
             // Act

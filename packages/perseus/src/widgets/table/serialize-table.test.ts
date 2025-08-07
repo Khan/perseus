@@ -77,7 +77,11 @@ describe("Table serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicTable());
+        const {renderer} = renderQuestion(
+            generateBasicTable(),
+            {},
+            {startAnswerless: false},
+        );
 
         const preAnswerState = renderer.getSerializedState();
 

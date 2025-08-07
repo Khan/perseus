@@ -76,7 +76,11 @@ describe("NumberLine serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicNumberLine());
+        const {renderer} = renderQuestion(
+            generateBasicNumberLine(),
+            {},
+            {startAnswerless: false},
+        );
 
         const [numberLine] =
             renderer.questionRenderer.findWidgets("number-line 1");

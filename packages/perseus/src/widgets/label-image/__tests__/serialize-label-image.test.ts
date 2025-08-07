@@ -107,7 +107,11 @@ describe("LabelImage serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicLabelImage());
+        const {renderer} = renderQuestion(
+            generateBasicLabelImage(),
+            {},
+            {startAnswerless: false},
+        );
 
         const markerButton = await screen.findByLabelText("Uno");
         await userEvent.click(markerButton);
