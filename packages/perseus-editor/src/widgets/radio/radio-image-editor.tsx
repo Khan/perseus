@@ -7,7 +7,8 @@ import trashIcon from "@phosphor-icons/core/bold/trash-bold.svg";
 import xIcon from "@phosphor-icons/core/regular/x.svg";
 import * as React from "react";
 
-import {AutoResizingTextArea} from "./auto-resizing-text-area";
+import {AutoResizingTextArea} from "../../components/auto-resizing-text-area";
+
 import styles from "./radio-editor.module.css";
 
 // Flexible props to work for both the "add image" tile and
