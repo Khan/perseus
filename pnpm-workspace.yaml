@@ -21,6 +21,14 @@
 # The sync-dependencies.ts script ensures that peer deps are always
 # specified as a range, and the dev deps are always pinned to the
 # version at the bottom of that range.
+#
+# To add a new package:
+# 1. Add the new package both in peerDeps and devDeps below.
+# 2. Then it both in devDependencies and peerDependencies of the relevant package
+#    example, in packages/perseus/package.json file:
+#    devDependencies -> "@khanacademy/wonder-blocks-link": "catalog:devDeps",
+#    peerDependencies -> "@khanacademy/wonder-blocks-link": "catalog:peerDeps",
+# 3. Run pnpm install in root
 packages:
     - config/build
     - dev
@@ -57,6 +65,7 @@ catalogs:
         "@khanacademy/wonder-blocks-progress-spinner": ^3.1.31
         "@khanacademy/wonder-blocks-search-field": ^5.1.38
         "@khanacademy/wonder-blocks-switch": ^3.3.13
+        "@khanacademy/wonder-blocks-theming": ^4.0.0
         "@khanacademy/wonder-blocks-timing": ^7.0.2
         "@khanacademy/wonder-blocks-tokens": ^12.0.2
         "@khanacademy/wonder-blocks-toolbar": ^5.1.33
@@ -94,6 +103,7 @@ catalogs:
         "@khanacademy/wonder-blocks-progress-spinner": 3.1.31
         "@khanacademy/wonder-blocks-search-field": 5.1.38
         "@khanacademy/wonder-blocks-switch": 3.3.13
+        "@khanacademy/wonder-blocks-theming": 4.0.0
         "@khanacademy/wonder-blocks-timing": 7.0.2
         "@khanacademy/wonder-blocks-tokens": 12.0.2
         "@khanacademy/wonder-blocks-toolbar": 5.1.33

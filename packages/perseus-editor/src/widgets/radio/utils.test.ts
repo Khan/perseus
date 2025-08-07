@@ -1,4 +1,8 @@
-import {getMovedChoices} from "./utils";
+import {
+    getMovedChoices,
+    setMarkdownContentFromImageProxy,
+    setImageProxyFromMarkdownContent,
+} from "./utils";
 
 const choices = [
     {id: "0-0-0-0-0", content: "Choice 1"},
@@ -115,5 +119,121 @@ describe("getMovedChoices", () => {
             choicesWithNoneOfTheAbove[0],
             choicesWithNoneOfTheAbove[3],
         ]);
+    });
+});
+
+describe("setproxiedContentAndImages", () => {
+    it("should replace images with proxies", () => {
+        const originalContent = "![moon and earth](earthmoon.jpg)";
+        const proxiedContent = "![Image 1]";
+        const images = [
+            {
+                url: "earthmoon.jpg",
+                altText: "moon and earth",
+            },
+        ];
+
+        const [result, resultImages] =
+            setImageProxyFromMarkdownContent(originalContent);
+        expect(result).toEqual(proxiedContent);
+        expect(resultImages).toEqual(images);
+    });
+
+    it("should replace multiple images with proxies", () => {
+        const originalContent =
+            "foo ![earth and moon](earthmoon.jpg) bar ![catching a tennis ball](tennisball.png) baz";
+        const proxiedContent = "foo ![Image 1] bar ![Image 2] baz";
+        const images = [
+            {
+                url: "earthmoon.jpg",
+                altText: "earth and moon",
+            },
+            {
+                url: "tennisball.png",
+                altText: "catching a tennis ball",
+            },
+        ];
+
+        const [result, resultImages] =
+            setImageProxyFromMarkdownContent(originalContent);
+        expect(result).toEqual(proxiedContent);
+        expect(resultImages).toEqual(images);
+    });
+
+    it("should not replace non-image links", () => {
+        // Note the lack of `!` in front of the link syntax.
+        const originalContent = "[ABCD](earthmoon.jpg)";
+        const images = [];
+
+        const [result, resultImages] =
+            setImageProxyFromMarkdownContent(originalContent);
+        expect(result).toEqual(originalContent);
+        expect(resultImages).toEqual(images);
+    });
+
+    it("should not get messed up by nested brackets", () => {
+        // Alt text contains brackets
+        const originalContent = "![ABCD[]](earthmoon.jpg)";
+        const proxiedContent = "![Image 1]";
+        const images = [
+            {
+                url: "earthmoon.jpg",
+                altText: "ABCD[]",
+            },
+        ];
+
+        const [result, resultImages] =
+            setImageProxyFromMarkdownContent(originalContent);
+        expect(result).toEqual(proxiedContent);
+        expect(resultImages).toEqual(images);
+    });
+});
+
+describe("setContentFromproxiedContentAndImages", () => {
+    it("should replace images with proxies", () => {
+        const proxiedContent = "![Image 1]";
+        const images = [
+            {
+                url: "earthmoon.jpg",
+                altText: "moon and earth",
+            },
+        ];
+        const expectedContent = "![moon and earth](earthmoon.jpg)";
+
+        const result = setMarkdownContentFromImageProxy(proxiedContent, images);
+        expect(result).toEqual(expectedContent);
+    });
+
+    it("should replace multiple images with proxies", () => {
+        const proxiedContent = "foo ![Image 1] bar ![Image 2] baz";
+        const images = [
+            {
+                url: "earthmoon.jpg",
+                altText: "moon and earth",
+            },
+            {
+                url: "tennisball.png",
+                altText: "catching a tennis ball",
+            },
+        ];
+        const expectedContent =
+            "foo ![moon and earth](earthmoon.jpg) bar ![catching a tennis ball](tennisball.png) baz";
+
+        const result = setMarkdownContentFromImageProxy(proxiedContent, images);
+        expect(result).toEqual(expectedContent);
+    });
+
+    it("should work with nested brackets", () => {
+        const proxiedContent = "![Image 1]";
+        const images = [
+            {
+                url: "earthmoon.jpg",
+                altText: "ABCD[]",
+            },
+        ];
+        const expectedContent = "![ABCD[]](earthmoon.jpg)";
+
+        const result = setMarkdownContentFromImageProxy(proxiedContent, images);
+        expect(result).toEqual(expectedContent);
     });
 });

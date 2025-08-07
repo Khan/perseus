@@ -63,6 +63,9 @@ catalogs:
     '@khanacademy/wonder-blocks-switch':
       specifier: 3.3.13
       version: 3.3.13
+    '@khanacademy/wonder-blocks-theming':
+      specifier: 4.0.0
+      version: 4.0.0
     '@khanacademy/wonder-blocks-timing':
       specifier: 7.0.2
       version: 7.0.2
@@ -192,6 +195,9 @@ importers:
       '@khanacademy/wonder-blocks-switch':
         specifier: catalog:devDeps
         version: 3.3.13(@phosphor-icons/core@2.0.2)(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react-router-dom-v5-compat@6.30.0(react-dom@18.2.0(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react@18.2.0))(react-router-dom@5.3.4(react@18.2.0))(react-router@5.3.4(react@18.2.0))(react@18.2.0)
+      '@khanacademy/wonder-blocks-theming':
+        specifier: catalog:devDeps
+        version: 4.0.0(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       '@khanacademy/wonder-blocks-tokens':
         specifier: catalog:devDeps
         version: 12.0.2(aphrodite@1.2.5)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)

@@ -36,6 +36,7 @@ describe("Expression serialization", () => {
             widgets: {
                 "expression 1": {
                     type: "expression",
+                    version: {major: 2, minor: 0},
                     options: {
                         answerForms: [
                             {

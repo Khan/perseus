@@ -1,8 +1,6 @@
 import {
     type LabelImageWidget,
     type PerseusItem,
-    type ExpressionWidget,
-    type RadioWidget,
     type NumericInputWidget,
     getDefaultAnswerArea,
 } from "@khanacademy/perseus-core";
@@ -177,16 +175,10 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
         widgets: {
             "radio 1": {
                 graded: true,
-                version: {major: 0, minor: 0},
+                version: {major: 3, minor: 0},
                 static: false,
-                numCorrect: 1,
-                hasNoneOfTheAbove: false,
-                multipleSelect: false,
-                countChoices: false,
-                deselectEnabled: false,
                 type: "radio",
                 options: {
-                    static: false,
                     countChoices: false,
                     deselectEnabled: false,
                     hasNoneOfTheAbove: false,
@@ -220,7 +212,7 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
                     ],
                 },
                 alignment: "default",
-            } as RadioWidget,
+            },
             "expression 1": {
                 type: "expression",
                 graded: true,
@@ -248,9 +240,8 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
                     buttonSets: ["basic"],
                     functions: ["f", "g", "h"],
                     buttonsVisible: "always",
-                    alignment: "default",
                 },
-            } as ExpressionWidget,
+            },
         },
     },
     hints: [

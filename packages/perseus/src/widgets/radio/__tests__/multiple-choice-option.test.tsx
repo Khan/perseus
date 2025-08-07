@@ -3,7 +3,7 @@ import {act, render, screen} from "@testing-library/react";
 import * as React from "react";
 
 import * as IndicatorComponent from "../choice-indicator.new";
-import Choice from "../multiple-choice-option.new";
+import Choice from "../choice.new";
 
 describe("Multiple choice option", () => {
     it.each`
@@ -37,7 +37,7 @@ describe("Multiple choice option", () => {
         ${"correct"}    | ${"proper styling for correctness"}
         ${"wrong"}      | ${"proper styling for wrongness"}
         ${undefined}    | ${"no additional styling when not in review mode"}
-    `("applies $properOrNot styling $when", (args) => {
+    `("applies $stylingDescription", (args) => {
         const {showCorrectness} = args as {
             showCorrectness: "correct" | "wrong" | undefined;
         };

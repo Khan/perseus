@@ -1,11 +1,12 @@
 import {View} from "@khanacademy/wonder-blocks-core";
-import {TextArea, TextField} from "@khanacademy/wonder-blocks-form";
+import {TextField} from "@khanacademy/wonder-blocks-form";
 import {Strut} from "@khanacademy/wonder-blocks-layout";
 import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelLarge, LabelXSmall} from "@khanacademy/wonder-blocks-typography";
 import {StyleSheet} from "aphrodite";
 import * as React from "react";
 
+import {AutoResizingTextArea} from "../../../components/auto-resizing-text-area";
 import Heading from "../../../components/heading";
 
 import type {Props as EditorProps} from "../interactive-graph-editor";
@@ -20,6 +21,9 @@ export default function InteractiveGraphDescription(props: Props) {
     const {ariaLabelValue, ariaDescriptionValue, onChange} = props;
 
     const [isOpen, setIsOpen] = React.useState(true);
+
+    const uniqueId = React.useId();
+    const descriptionTextAreaId = `${uniqueId}-description-textarea`;
 
     return (
         <>
@@ -52,23 +56,21 @@ export default function InteractiveGraphDescription(props: Props) {
                         />
                     </LabelLarge>
                     <Strut size={spacing.small_12} />
-                    <LabelLarge tag="label">
+                    <LabelLarge tag="label" htmlFor={descriptionTextAreaId}>
                         Description
-                        <TextArea
-                            rows={8}
-                            resizeType="vertical"
-                            value={ariaDescriptionValue}
-                            onChange={(newValue) =>
-                                onChange({
-                                    fullGraphAriaDescription:
-                                        // Save as undefined if the new value
-                                        // is an empty string.
-                                        newValue || undefined,
-                                })
-                            }
-                            style={styles.spaceAbove}
-                        />
                     </LabelLarge>
+                    <AutoResizingTextArea
+                        id={descriptionTextAreaId}
+                        value={ariaDescriptionValue}
+                        onChange={(newValue) =>
+                            onChange({
+                                fullGraphAriaDescription:
+                                    // Save as undefined if the new value
+                                    // is an empty string.
+                                    newValue || undefined,
+                            })
+                        }
+                    />
                 </View>
             )}
         </>

@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 40" width="180" height="40">
+  <defs>
+    <linearGradient id="bgGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#32d980;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#28ae7b;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background circle for logo -->
+  <circle cx="20" cy="20" r="15" fill="url(#bgGradient)" stroke="#1fa769" stroke-width="0.8"/>
+
+  <g fill="white" filter="url(#glow)">
+    <!-- Top star cluster -->
+    <polygon points="22.3,5.5 22.5,6.7 23.7,6.7 23.0,7.3 23.2,8.5 22.3,8.0 21.4,8.5 21.6,7.3 20.9,6.7 22.1,6.7" />
+    <polygon points="21.2,9.3 21.4,10.2 22.1,10.2 21.7,10.7 21.9,11.6 21.2,11.2 20.5,11.6 20.7,10.7 20.3,10.2 21.0,10.2" />
+    <polygon points="24.3,9.7 24.5,10.6 25.4,10.6 24.9,11.1 25.1,12.0 24.3,11.6 23.5,12.0 23.7,11.1 23.2,10.6 24.1,10.6" />
+
+    <!-- Center constellation -->
+    <polygon points="19.5,12.5 19.7,13.4 20.6,13.4 20.1,13.9 20.3,14.8 19.5,14.4 18.7,14.8 18.9,13.9 18.4,13.4 19.3,13.4" />
+    <polygon points="23.2,13.7 23.4,14.6 24.3,14.6 23.8,15.1 24.0,16.0 23.2,15.6 22.4,16.0 22.6,15.1 22.1,14.6 23.0,14.6" />
+    <polygon points="29.8,12.7 30.0,13.6 30.9,13.6 30.4,14.1 30.6,15.0 29.8,14.6 29.0,15.0 29.2,14.1 28.7,13.6 29.6,13.6" />
+
+    <!-- Math symbol stars -->
+    <polygon points="15.5,15.9 15.7,16.8 16.6,16.8 16.1,17.3 16.3,18.2 15.5,17.8 14.7,18.2 14.9,17.3 14.4,16.8 15.3,16.8" />
+    <polygon points="23.9,18.2 24.1,19.1 25.0,19.1 24.5,19.6 24.7,20.5 23.9,20.1 23.1,20.5 23.3,19.6 22.8,19.1 23.7,19.1" />
+
+    <!-- Left side constellation -->
+    <polygon points="9.5,15.9 9.7,16.8 10.6,16.8 10.1,17.3 10.3,18.2 9.5,17.8 8.7,18.2 8.9,17.3 8.4,16.8 9.3,16.8" />
+    <polygon points="8.5,13.2 8.7,14.1 9.6,14.1 9.1,14.6 9.3,15.5 8.5,15.1 7.7,15.5 7.9,14.6 7.4,14.1 8.3,14.1" />
+    <polygon points="12.0,12.4 12.2,13.3 13.1,13.3 12.6,13.8 12.8,14.7 12.0,14.3 11.2,14.7 11.4,13.8 10.9,13.3 11.8,13.3" />
+
+    <!-- Bottom constellation -->
+    <polygon points="13.2,23.8 13.4,24.7 14.3,24.7 13.8,25.2 14.0,26.1 13.2,25.7 12.4,26.1 12.6,25.2 12.1,24.7 13.0,24.7" />
+    <polygon points="24.8,22.2 25.0,23.1 25.9,23.1 25.4,23.6 25.6,24.5 24.8,24.1 24.0,24.5 24.2,23.6 23.7,23.1 24.6,23.1" />
+    <polygon points="26.8,26.2 27.0,27.1 27.9,27.1 27.4,27.6 27.6,28.5 26.8,28.1 26.0,28.5 26.2,27.6 25.7,27.1 26.6,27.1" />
+
+    <!-- Final bottom stars -->
+    <polygon points="11.5,28.0 11.7,28.9 12.6,28.9 12.1,29.4 12.3,30.3 11.5,29.9 10.7,30.3 10.9,29.4 10.4,28.9 11.3,28.9" />
+    <polygon points="15.0,28.9 15.2,29.8 16.1,29.8 15.6,30.3 15.8,31.2 15.0,30.8 14.2,31.2 14.4,30.3 13.9,29.8 14.8,29.8" />
+  </g>
+
+  <!-- Constellation connecting lines properly scaled -->
+  <g stroke="white" stroke-width="0.2" stroke-opacity="0.8" fill="none">
+    <!-- Top cluster connections -->
+    <line x1="22.3" y1="6.6" x2="21.2" y2="10.7" />
+    <line x1="21.2" y1="10.7" x2="24.3" y2="11.1" />
+    <line x1="22.3" y1="6.6" x2="24.3" y2="11.1" />
+
+    <!-- Center connections -->
+    <line x1="23.2" y1="14.6" x2="29.8" y2="13.6" />
+    <line x1="20.5" y1="13.5" x2="15.5" y2="16.9" />
+    <line x1="23.2" y1="14.6" x2="23.9" y2="19.4" />
+    <line x1="24.3" y1="11.1" x2="23.2" y2="14.6" />
+
+    <!-- Left side constellation connections -->
+    <line x1="21.2" y1="10.7" x2="19.5" y2="13.5" />
+    <line x1="15.5" y1="16.9" x2="9.5" y2="16.8" />
+    <line x1="9.5" y1="16.8" x2="8.5" y2="14.1" />
+    <line x1="8.5" y1="14.1" x2="12.0" y2="13.3" />
+
+    <!-- Bottom connections -->
+    <line x1="13.2" y1="24.8" x2="15.5" y2="16.9" />
+    <line x1="23.9" y1="20.4" x2="24.8" y2="23.1" />
+    <line x1="24.8" y1="23.1" x2="26.8" y2="27.1" />
+    <line x1="13.2" y1="24.8" x2="24.8" y2="23.1" />
+
+    <!-- Final bottom connections -->
+    <line x1="13.2" y1="24.8" x2="11.5" y2="28.9" />
+    <line x1="11.5" y1="29.9" x2="15.0" y2="30.9" />
+  </g>
+
+  <!-- Educational elements overlay properly positioned -->
+  <g fill="white" fill-opacity="0.9" font-family="Arial, sans-serif" font-size="3" font-weight="bold">
+    <!-- Mathematical symbols integrated into design -->
+    <text x="15.1" y="18.3" text-anchor="middle">∑</text>
+    <text x="23.9" y="20.0" text-anchor="middle">π</text>
+    <text x="13.1" y="25.8" text-anchor="middle">∫</text>
+  </g>
+
+  <!-- Perseus text beside the logo -->
+  <text x="45" y="26"
+        font-family="Lato, Arial, sans-serif"
+        font-size="22"
+        font-weight="600"
+        fill="#2e3438"
+        text-anchor="start">Perseus</text>
+</svg>

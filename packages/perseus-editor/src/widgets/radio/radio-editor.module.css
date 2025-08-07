@@ -17,3 +17,22 @@
     align-items: center;
     margin-block-start: 8px;
 }
+
+.button-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-block-start: 8px;
+}
+
+.image-editor-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 8px;
+    padding-block-start: 24px;
+    border: 1px solid var(--wb-semanticColor-core-border-neutral-default);
+    border-radius: 8px;
+    margin-block-start: 8px;
+    background-color: var(--wb-semanticColor-surface-primary);
+}

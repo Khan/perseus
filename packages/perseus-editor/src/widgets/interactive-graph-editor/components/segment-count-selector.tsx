@@ -1,42 +1,55 @@
 import {OptionItem, SingleSelect} from "@khanacademy/wonder-blocks-dropdown";
-import {StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
-const SegmentCountSelector = ({
-    numSegments = 1,
-    onChange,
-}: {
-    numSegments?: number;
-    onChange: (numSegments: number) => void;
-}) => (
-    <SingleSelect
-        key="segment-select"
-        selectedValue={`${numSegments}`}
-        // Never uses placeholder, always has value
-        placeholder=""
-        onChange={(newValue) => {
-            const num = +newValue;
-            onChange(num);
-        }}
-        style={styles.singleSelectShort}
-    >
-        {_.range(1, 7).map((n) => (
-            <OptionItem
-                key={n}
-                value={`${n}`}
-                label={`${n} segment${n > 1 ? "s" : ""}`}
-            />
-        ))}
-    </SingleSelect>
-);
+import styles from "../interactive-graph-editor.module.css";
+import LabeledRow from "../locked-figures/labeled-row";
 
-const styles = StyleSheet.create({
-    singleSelectShort: {
-        // Non-standard spacing, but it's the smallest we can go
-        // without running into styling issues with the dropdown.
-        height: 26,
-    },
-});
+import type {Props as EditorProps} from "../interactive-graph-editor";
+import type {
+    PerseusGraphType,
+    PerseusGraphTypeSegment,
+} from "@khanacademy/perseus-core";
+
+interface Props {
+    correct: PerseusGraphTypeSegment;
+    graph: PerseusGraphType | undefined;
+    onChange: (props: Partial<EditorProps>) => void;
+}
+
+const SegmentCountSelector = ({correct, graph, onChange}: Props) => (
+    <LabeledRow label="Number of segments:">
+        <SingleSelect
+            key="segment-select"
+            selectedValue={`${correct.numSegments ?? 1}`}
+            // Never uses placeholder, always has value
+            placeholder=""
+            onChange={(newValue) => {
+                const sides = +newValue;
+
+                onChange({
+                    correct: {
+                        type: "segment",
+                        numSegments: sides,
+                        coords: null,
+                    },
+                    graph: {
+                        type: "segment",
+                        numSegments: sides,
+                    },
+                });
+            }}
+            className={styles.singleSelectShort}
+        >
+            {_.range(1, 7).map((n) => (
+                <OptionItem
+                    key={n}
+                    value={`${n}`}
+                    label={`${n} segment${n > 1 ? "s" : ""}`}
+                />
+            ))}
+        </SingleSelect>
+    </LabeledRow>
+);
 
 export default SegmentCountSelector;
