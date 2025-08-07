@@ -459,7 +459,7 @@ describe("server item renderer", () => {
                     ],
                 },
                 {},
-                {startAnswerless: false},
+                {startAnswerless: false, hintsVisible: undefined},
             );
             await userEvent.type(screen.getByRole("textbox"), "-42");
 

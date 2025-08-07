@@ -469,6 +469,7 @@ export class ServerItemRenderer
             setAssetStatus: this.setAssetStatus,
         } as const;
 
+        // TODO(LEMS-3360): remove this when Perseus Chrome swaps answerless/answerful
         let renderedItem: PerseusItem = this.props.item;
         if (this._shouldUseAnswerless()) {
             renderedItem = splitPerseusItem(this.props.item);
@@ -477,7 +478,7 @@ export class ServerItemRenderer
         const questionRenderer = (
             <AssetContext.Provider value={contextValue}>
                 <UserInputManager
-                    widgets={this.props.item.question.widgets}
+                    widgets={renderedItem.question.widgets}
                     problemNum={this.props.problemNum ?? 0}
                 >
                     {({
@@ -541,7 +542,7 @@ export class ServerItemRenderer
 
         const hintsRenderer = (
             <HintsRenderer
-                hints={this.props.item.hints}
+                hints={renderedItem.hints}
                 hintsVisible={this.props.hintsVisible}
                 apiOptions={apiOptions}
                 ref={(elem) => (this.hintsRenderer = elem)}
