@@ -37,6 +37,8 @@ export const renderQuestion = (
                 problemNum={0}
                 reviewMode={false}
                 dependencies={testDependenciesV2}
+                startAnswerless={true}
+                hintsVisible={0}
                 {...optionalProps}
             />
         </RenderStateRoot>,

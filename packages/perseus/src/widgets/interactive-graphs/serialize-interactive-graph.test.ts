@@ -93,7 +93,11 @@ describe("InteractiveGraph serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicInteractiveGraph());
+        const {renderer} = renderQuestion(
+            generateBasicInteractiveGraph(),
+            {},
+            {startAnswerless: false},
+        );
 
         // Act
 
