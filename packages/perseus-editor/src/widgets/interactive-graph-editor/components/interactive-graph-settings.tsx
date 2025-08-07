@@ -616,7 +616,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         labelSide="start"
                                         size="small"
                                         checked={
-                                            !this.state.showAxisArrowsCheckboxes
+                                            this.state.showAxisArrowsCheckboxes
                                                 .xMin
                                         }
                                         onChange={(value) =>
@@ -630,7 +630,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         labelSide="start"
                                         size="small"
                                         checked={
-                                            !this.state.showAxisArrowsCheckboxes
+                                            this.state.showAxisArrowsCheckboxes
                                                 .yMin
                                         }
                                         onChange={(value) =>
@@ -654,7 +654,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         labelSide="start"
                                         size="small"
                                         checked={
-                                            !this.state.showAxisArrowsCheckboxes
+                                            this.state.showAxisArrowsCheckboxes
                                                 .xMax
                                         }
                                         onChange={(value) =>
@@ -668,7 +668,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                         labelSide="start"
                                         size="small"
                                         checked={
-                                            !this.state.showAxisArrowsCheckboxes
+                                            this.state.showAxisArrowsCheckboxes
                                                 .yMax
                                         }
                                         onChange={(value) =>
