@@ -23,9 +23,11 @@
 # version at the bottom of that range.
 #
 # To add a new package:
-# 1. Add the new package both in peerDeps and devDeps
-# 2. Then add it to whichever Perseus package you want
-#    e.g. "@khanacademy/wonder-blocks-link": "catalog:devDeps", in dev/package.json
+# 1. Add the new package both in peerDeps and devDeps below.
+# 2. Then it both in devDependencies and peerDependencies of the relevant package
+#    example, in packages/perseus/package.json file:
+#    devDependencies -> "@khanacademy/wonder-blocks-link": "catalog:devDeps",
+#    peerDependencies -> "@khanacademy/wonder-blocks-link": "catalog:peerDeps",
 # 3. Run pnpm install in root
 packages:
     - config/build
