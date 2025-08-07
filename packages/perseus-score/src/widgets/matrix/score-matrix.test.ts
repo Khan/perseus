@@ -36,7 +36,7 @@ describe("scoreMatrix", () => {
         };
 
         const userInput: PerseusMatrixUserInput = {
-            answers: rubric.answers,
+            answers: rubric.answers.map((row) => row.map((num) => String(num))),
         };
 
         // Act
@@ -58,9 +58,9 @@ describe("scoreMatrix", () => {
 
         const userInput: PerseusMatrixUserInput = {
             answers: [
-                [0, 0, 0],
-                [0, 0, 0],
-                [0, 0, 0],
+                ["0", "0", "0"],
+                ["0", "0", "0"],
+                ["0", "0", "0"],
             ],
         };
 
@@ -82,7 +82,7 @@ describe("scoreMatrix", () => {
         };
 
         const correctUserInput: PerseusMatrixUserInput = {
-            answers: rubric.answers,
+            answers: rubric.answers.map((row) => row.map((num) => String(num))),
         };
 
         const incorrectUserInput: PerseusMatrixUserInput = {
@@ -90,7 +90,9 @@ describe("scoreMatrix", () => {
             // This is so we can check that it's considered incorrect
             // if it has the wrong length, even though it otherwise
             // would be a partial match.
-            answers: [...rubric.answers, [8, 6, 7]],
+            answers: [...rubric.answers, [8, 6, 7]].map((row) =>
+                row.map((num) => String(num)),
+            ),
         };
 
         // Act

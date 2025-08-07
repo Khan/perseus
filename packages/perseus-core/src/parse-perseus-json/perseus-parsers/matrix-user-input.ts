@@ -1,5 +1,5 @@
-import {array, number, object} from "../general-purpose-parsers";
+import {array, string, object} from "../general-purpose-parsers";
 
 export const parseMatrixUserInput = object({
-    answers: array(array(number)),
+    answers: array(array(string)),
 });
