@@ -30,10 +30,10 @@ function getDefaultOptions() {
     // See parse-perseus-json/README.md for why we want these defaults here.
     return {
         choices: [
-            {content: "", id: "radio-choice-0"},
-            {content: "", id: "radio-choice-1"},
-            {content: "", id: "radio-choice-2"},
-            {content: "", id: "radio-choice-3"},
+            {content: "", id: generateChoiceId(0)},
+            {content: "", id: generateChoiceId(1)},
+            {content: "", id: generateChoiceId(2)},
+            {content: "", id: generateChoiceId(3)},
         ],
     };
 }
