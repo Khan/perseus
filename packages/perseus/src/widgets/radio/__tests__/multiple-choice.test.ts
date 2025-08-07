@@ -293,6 +293,7 @@ describe("Multiple Choice Widget", () => {
                 const q = clone(question);
                 q.widgets["radio 1"].options.choices = answers.map(
                     (answer, idx) => ({
+                        id: `mock-id-${idx}`,
                         content: answer,
                         correct: idx === 1, // Correct answer is the "truthy" item
                     }),
@@ -323,6 +324,7 @@ describe("Multiple Choice Widget", () => {
             const q = clone(question);
             q.widgets["radio 1"].options.choices = answers.map(
                 (answer, idx) => ({
+                    id: `mock-id-${idx}`,
                     content: answer,
                     correct: idx === 1,
                 }),
@@ -357,6 +359,7 @@ describe("Multiple Choice Widget", () => {
                         options: {
                             choices: [
                                 {
+                                    id: "0-0-0-0-0",
                                     correct: true,
                                     // Passage refs reference a passage widget in
                                     // the main content. The first value is the
@@ -366,8 +369,14 @@ describe("Multiple Choice Widget", () => {
                                     // 1-based!
                                     content: `{{passage-ref 1 1 "the 1st ref in the 1st passage"}}`,
                                 },
-                                {content: `Answer 2`},
-                                {content: `Answer 3`},
+                                {
+                                    id: "1-1-1-1-1",
+                                    content: `Answer 2`,
+                                },
+                                {
+                                    id: "2-2-2-2-2",
+                                    content: `Answer 3`,
+                                },
                             ],
                         },
                     },
@@ -561,10 +570,23 @@ describe("Multiple Choice Widget", () => {
                         options: {
                             ...radioOptions,
                             choices: [
-                                {content: "$x=-6$", correct: true},
-                                {content: "$x=4$", correct: true},
-                                {content: "$x=7$", correct: false},
                                 {
+                                    id: "0-0-0-0-0",
+                                    content: "$x=-6$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "1-1-1-1-1",
+                                    content: "$x=4$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "2-2-2-2-2",
+                                    content: "$x=7$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "3-3-3-3-3",
                                     content: "There is no such input value.",
                                     isNoneOfTheAbove: true,
                                     correct: false,
@@ -601,10 +623,23 @@ describe("Multiple Choice Widget", () => {
                         options: {
                             ...radioOptions,
                             choices: [
-                                {content: "$x=-6$", correct: true},
-                                {content: "$x=4$", correct: true},
-                                {content: "$x=7$", correct: false},
                                 {
+                                    id: "0-0-0-0-0",
+                                    content: "$x=-6$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "1-1-1-1-1",
+                                    content: "$x=4$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "2-2-2-2-2",
+                                    content: "$x=7$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "3-3-3-3-3",
                                     content: "There is no such input value.",
                                     isNoneOfTheAbove: true,
                                     correct: false,
@@ -669,10 +704,23 @@ describe("Multiple Choice Widget", () => {
                         options: {
                             ...radioOptions,
                             choices: [
-                                {content: "$x=-6$", correct: true},
-                                {content: "$x=4$", correct: true},
-                                {content: "$x=7$", correct: false},
                                 {
+                                    id: "0-0-0-0-0",
+                                    content: "$x=-6$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "1-1-1-1-1",
+                                    content: "$x=4$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "2-2-2-2-2",
+                                    content: "$x=7$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "3-3-3-3-3",
                                     content: "There is no such input value.",
                                     isNoneOfTheAbove: true,
                                     correct: false,

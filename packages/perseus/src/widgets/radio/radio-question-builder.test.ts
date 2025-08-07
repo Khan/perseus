@@ -2,6 +2,9 @@ import {radioQuestionBuilder} from "./radio-question-builder";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
+// Mock crypto.randomUUID to return a predictable value for testing
+crypto.randomUUID = jest.fn(() => "0-0-0-0-0");
+
 describe("RadioQuestionBuilder", () => {
     test("builds a default radio question", () => {
         const question: PerseusRenderer = radioQuestionBuilder().build();

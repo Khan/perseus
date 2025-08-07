@@ -186,21 +186,25 @@ export const itemWithRadioAndExpressionWidgets: PerseusItem = {
                     randomize: true,
                     choices: [
                         {
+                            id: "0-0-0-0-0",
                             content: "Content 1",
                             correct: true,
                             rationale: "rationale 1",
                         },
                         {
+                            id: "1-1-1-1-1",
                             content: "Content 2",
                             correct: false,
                             rationale: "rationale 2",
                         },
                         {
+                            id: "2-2-2-2-2",
                             content: "Content 3",
                             correct: false,
                             rationale: "rationale 3",
                         },
                         {
+                            id: "3-3-3-3-3",
                             content: "Content 4",
                             correct: false,
                             rationale: "rationale 4",

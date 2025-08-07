@@ -11,10 +11,26 @@ describe("scoreRadio", () => {
 
         const rubric: PerseusRadioRubric = {
             choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
+                {
+                    id: "0-0-0-0-0",
+                    content: "Choice 1",
+                    correct: true,
+                },
+                {
+                    id: "1-1-1-1-1",
+                    content: "Choice 2",
+                    correct: false,
+                },
+                {
+                    id: "2-2-2-2-2",
+                    content: "Choice 3",
+                    correct: false,
+                },
+                {
+                    id: "3-3-3-3-3",
+                    content: "Choice 4",
+                    correct: false,
+                },
             ],
         };
 
@@ -30,10 +46,26 @@ describe("scoreRadio", () => {
 
         const rubric: PerseusRadioRubric = {
             choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: true},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
+                {
+                    id: "0-0-0-0-0",
+                    content: "Choice 1",
+                    correct: true,
+                },
+                {
+                    id: "1-1-1-1-1",
+                    content: "Choice 2",
+                    correct: true,
+                },
+                {
+                    id: "2-2-2-2-2",
+                    content: "Choice 3",
+                    correct: false,
+                },
+                {
+                    id: "3-3-3-3-3",
+                    content: "Choice 4",
+                    correct: false,
+                },
             ],
             countChoices: true,
         };
@@ -50,10 +82,26 @@ describe("scoreRadio", () => {
 
         const rubric: PerseusRadioRubric = {
             choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: true},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
+                {
+                    id: "0-0-0-0-0",
+                    content: "Choice 1",
+                    correct: true,
+                },
+                {
+                    id: "1-1-1-1-1",
+                    content: "Choice 2",
+                    correct: true,
+                },
+                {
+                    id: "2-2-2-2-2",
+                    content: "Choice 3",
+                    correct: false,
+                },
+                {
+                    id: "3-3-3-3-3",
+                    content: "Choice 4",
+                    correct: false,
+                },
             ],
             countChoices: false,
         };
@@ -70,11 +118,28 @@ describe("scoreRadio", () => {
 
         const rubric: PerseusRadioRubric = {
             choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
                 {
+                    id: "0-0-0-0-0",
+                    content: "Choice 1",
+                    correct: true,
+                },
+                {
+                    id: "1-1-1-1-1",
+                    content: "Choice 2",
+                    correct: false,
+                },
+                {
+                    id: "2-2-2-2-2",
+                    content: "Choice 3",
+                    correct: false,
+                },
+                {
+                    id: "3-3-3-3-3",
+                    content: "Choice 4",
+                    correct: false,
+                },
+                {
+                    id: "4-4-4-4-4",
                     content: "None of the above",
                     correct: false,
                     isNoneOfTheAbove: true,
@@ -94,10 +159,26 @@ describe("scoreRadio", () => {
 
         const rubric: PerseusRadioRubric = {
             choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
+                {
+                    id: "0-0-0-0-0",
+                    content: "Choice 1",
+                    correct: true,
+                },
+                {
+                    id: "1-1-1-1-1",
+                    content: "Choice 2",
+                    correct: false,
+                },
+                {
+                    id: "2-2-2-2-2",
+                    content: "Choice 3",
+                    correct: false,
+                },
+                {
+                    id: "3-3-3-3-3",
+                    content: "Choice 4",
+                    correct: false,
+                },
             ],
         };
 
@@ -113,10 +194,26 @@ describe("scoreRadio", () => {
 
         const rubric: PerseusRadioRubric = {
             choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
+                {
+                    id: "0-0-0-0-0",
+                    content: "Choice 1",
+                    correct: true,
+                },
+                {
+                    id: "1-1-1-1-1",
+                    content: "Choice 2",
+                    correct: false,
+                },
+                {
+                    id: "2-2-2-2-2",
+                    content: "Choice 3",
+                    correct: false,
+                },
+                {
+                    id: "3-3-3-3-3",
+                    content: "Choice 4",
+                    correct: false,
+                },
             ],
         };
 
@@ -132,10 +229,26 @@ describe("scoreRadio", () => {
 
         const rubric: PerseusRadioRubric = {
             choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: true},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
+                {
+                    id: "0-0-0-0-0",
+                    content: "Choice 1",
+                    correct: true,
+                },
+                {
+                    id: "1-1-1-1-1",
+                    content: "Choice 2",
+                    correct: true,
+                },
+                {
+                    id: "2-2-2-2-2",
+                    content: "Choice 3",
+                    correct: false,
+                },
+                {
+                    id: "3-3-3-3-3",
+                    content: "Choice 4",
+                    correct: false,
+                },
             ],
         };
 
@@ -151,10 +264,26 @@ describe("scoreRadio", () => {
 
         const rubric: PerseusRadioRubric = {
             choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: true},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
+                {
+                    id: "0-0-0-0-0",
+                    content: "Choice 1",
+                    correct: true,
+                },
+                {
+                    id: "1-1-1-1-1",
+                    content: "Choice 2",
+                    correct: true,
+                },
+                {
+                    id: "2-2-2-2-2",
+                    content: "Choice 3",
+                    correct: false,
+                },
+                {
+                    id: "3-3-3-3-3",
+                    content: "Choice 4",
+                    correct: false,
+                },
             ],
         };
 
@@ -170,11 +299,32 @@ describe("scoreRadio", () => {
 
         const rubric: PerseusRadioRubric = {
             choices: [
-                {content: "Choice 1", correct: false},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
-                {content: "Choice 5", correct: true, isNoneOfTheAbove: true},
+                {
+                    id: "0-0-0-0-0",
+                    content: "Choice 1",
+                    correct: false,
+                },
+                {
+                    id: "1-1-1-1-1",
+                    content: "Choice 2",
+                    correct: false,
+                },
+                {
+                    id: "2-2-2-2-2",
+                    content: "Choice 3",
+                    correct: false,
+                },
+                {
+                    id: "3-3-3-3-3",
+                    content: "Choice 4",
+                    correct: false,
+                },
+                {
+                    id: "4-4-4-4-4",
+                    content: "Choice 5",
+                    correct: true,
+                    isNoneOfTheAbove: true,
+                },
             ],
         };
 
@@ -190,11 +340,32 @@ describe("scoreRadio", () => {
 
         const rubric: PerseusRadioRubric = {
             choices: [
-                {content: "Choice 1", correct: true},
-                {content: "Choice 2", correct: false},
-                {content: "Choice 3", correct: false},
-                {content: "Choice 4", correct: false},
-                {content: "Choice 5", correct: false, isNoneOfTheAbove: true},
+                {
+                    id: "0-0-0-0-0",
+                    content: "Choice 1",
+                    correct: true,
+                },
+                {
+                    id: "1-1-1-1-1",
+                    content: "Choice 2",
+                    correct: false,
+                },
+                {
+                    id: "2-2-2-2-2",
+                    content: "Choice 3",
+                    correct: false,
+                },
+                {
+                    id: "3-3-3-3-3",
+                    content: "Choice 4",
+                    correct: false,
+                },
+                {
+                    id: "4-4-4-4-4",
+                    content: "Choice 5",
+                    correct: true,
+                    isNoneOfTheAbove: true,
+                },
             ],
         };
 

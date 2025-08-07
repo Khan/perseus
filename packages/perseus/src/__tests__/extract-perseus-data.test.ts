@@ -54,10 +54,12 @@ describe("ExtractPerseusData", () => {
                 options: {
                     choices: [
                         {
+                            id: "0-0-0-0-0",
                             content: "choice 1",
                             correct: true,
                         },
                         {
+                            id: "1-1-1-1-1",
                             content: "choice 2",
                             correct: false,
                         },
@@ -74,14 +76,17 @@ describe("ExtractPerseusData", () => {
                 options: {
                     choices: [
                         {
+                            id: "0-0-0-0-0",
                             content: "choice 1",
                             correct: true,
                         },
                         {
+                            id: "1-1-1-1-1",
                             content: "choice 2",
                             correct: true,
                         },
                         {
+                            id: "1-1-1-1-1",
                             content: "choice 3",
                             correct: false,
                         },
@@ -199,10 +204,12 @@ describe("ExtractPerseusData", () => {
                             options: {
                                 choices: [
                                     {
+                                        id: "0-0-0-0-0",
                                         content: "choice 1",
                                         correct: true,
                                     },
                                     {
+                                        id: "1-1-1-1-1",
                                         content: "choice 2",
                                         correct: false,
                                     },
@@ -544,10 +551,12 @@ describe("ExtractPerseusData", () => {
                     options: {
                         choices: [
                             {
+                                id: "0-0-0-0-0",
                                 content: "choice 1",
                                 correct: true,
                             },
                             {
+                                id: "1-1-1-1-1",
                                 content: "choice 2",
                                 correct: false,
                             },
@@ -569,10 +578,12 @@ describe("ExtractPerseusData", () => {
                     options: {
                         choices: [
                             {
+                                id: "0-0-0-0-0",
                                 content: "choice 1",
                                 correct: true,
                             },
                             {
+                                id: "1-1-1-1-1",
                                 content: "choice 2",
                                 correct: false,
                             },
@@ -707,10 +718,12 @@ describe("ExtractPerseusData", () => {
                                 options: {
                                     choices: [
                                         {
+                                            id: "0-0-0-0-0",
                                             content: "choice 1",
                                             correct: true,
                                         },
                                         {
+                                            id: "1-1-1-1-1",
                                             content: "choice 2",
                                             correct: false,
                                         },
