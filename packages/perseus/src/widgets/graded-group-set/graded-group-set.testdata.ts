@@ -384,21 +384,21 @@ export const groupSetRadioRationaleQuestion: PerseusRenderer = {
                                 options: {
                                     choices: [
                                         {
-                                            id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                                            id: "0-0-0-0-0",
                                             content: "Incorrect",
                                             correct: false,
                                             rationale:
                                                 "This is not the correct answer.",
                                         },
                                         {
-                                            id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                                            id: "1-1-1-1-1",
                                             content: "Incorrect",
                                             correct: false,
                                             rationale:
                                                 "This is not the correct answer.",
                                         },
                                         {
-                                            id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                                            id: "2-2-2-2-2",
                                             content: "Correct",
                                             correct: true,
                                             isNoneOfTheAbove: false,
@@ -406,7 +406,7 @@ export const groupSetRadioRationaleQuestion: PerseusRenderer = {
                                                 "This is the correct answer.",
                                         },
                                         {
-                                            id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
+                                            id: "3-3-3-3-3",
                                             content: "Incorrect",
                                             correct: false,
                                             isNoneOfTheAbove: false,
@@ -448,7 +448,7 @@ export const groupSetRadioRationaleQuestion: PerseusRenderer = {
                                 options: {
                                     choices: [
                                         {
-                                            id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                                            id: "0-0-0-0-0",
                                             content: "Hola",
                                             isNoneOfTheAbove: false,
                                             correct: true,
@@ -456,7 +456,7 @@ export const groupSetRadioRationaleQuestion: PerseusRenderer = {
                                                 "The Spanish-speaking countries typically say Hola.",
                                         },
                                         {
-                                            id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                                            id: "1-1-1-1-1",
                                             content: "Hey",
                                             isNoneOfTheAbove: false,
                                             correct: true,
@@ -464,7 +464,7 @@ export const groupSetRadioRationaleQuestion: PerseusRenderer = {
                                                 "This is used to attract someone's attention.",
                                         },
                                         {
-                                            id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                                            id: "2-2-2-2-2",
                                             content: "Hi",
                                             isNoneOfTheAbove: false,
                                             correct: true,
@@ -472,7 +472,7 @@ export const groupSetRadioRationaleQuestion: PerseusRenderer = {
                                                 "This is used as friendly greeting.",
                                         },
                                         {
-                                            id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
+                                            id: "3-3-3-3-3",
                                             content: "Goodbye",
                                             isNoneOfTheAbove: false,
                                             correct: false,
@@ -480,7 +480,7 @@ export const groupSetRadioRationaleQuestion: PerseusRenderer = {
                                                 "Some people like to say Goodbye.",
                                         },
                                         {
-                                            id: "9c8b7a65-4321-4fed-9876-543210fedcba",
+                                            id: "4-4-4-4-4",
                                             content: "None of these",
                                             isNoneOfTheAbove: true,
                                             correct: false,
@@ -535,28 +535,28 @@ export const groupedRadioQuestion: PerseusRenderer = {
                         options: {
                             choices: [
                                 {
-                                    id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                                    id: "1-1-1-1-1",
                                     content: "$-8$ and $8$",
                                     correct: false,
                                     rationale:
                                         "This is not the correct answer.",
                                 },
                                 {
-                                    id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                                    id: "2-2-2-2-2",
                                     content: "$-8$",
                                     correct: false,
                                     rationale:
                                         "This is not the correct answer.",
                                 },
                                 {
-                                    id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
+                                    id: "3-3-3-3-3",
                                     content: "$8$",
                                     correct: true,
                                     isNoneOfTheAbove: false,
                                     rationale: "This is the correct answer.",
                                 },
                                 {
-                                    id: "9c8b7a65-4321-4fed-9876-543210fedcba",
+                                    id: "4-4-4-4-4",
                                     content:
                                         "No value of $x$ satisfies the equation.",
                                     correct: false,

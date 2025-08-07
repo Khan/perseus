@@ -1,5 +1,3 @@
-import {v4 as uuid} from "uuid";
-
 import type {
     PerseusRadioChoice,
     PerseusRenderer,
@@ -75,7 +73,7 @@ class RadioQuestionBuilder {
         },
     ): RadioQuestionBuilder {
         this.choices.push({
-            id: uuid(),
+            id: crypto.randomUUID(),
             content,
             correct: options?.correct,
             rationale: options?.rationale,

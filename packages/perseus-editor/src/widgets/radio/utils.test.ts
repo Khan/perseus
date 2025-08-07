@@ -1,21 +1,21 @@
 import {getMovedChoices} from "./utils";
 
 const choices = [
-    {id: "a1b2c3d4-e5f6-4789-a012-345678901234", content: "Choice 1"},
-    {id: "3e4d5c6b-7a89-4012-b345-6789cdef0123", content: "Choice 2"},
-    {id: "9c8b7a65-4321-4fed-9876-543210fedcba", content: "Choice 3"},
-    {id: "2468ace0-1357-4bdf-9024-68ace1357bdf", content: "Choice 4"},
+    {id: "0-0-0-0-0", content: "Choice 1"},
+    {id: "3-3-3-3-3", content: "Choice 2"},
+    {id: "4-4-4-4-4", content: "Choice 3"},
+    {id: "5-5-5-5-5", content: "Choice 4"},
 ];
 
 const choicesWithNoneOfTheAbove = [
-    {id: "a1b2c3d4-e5f6-4789-a012-345678901234", content: "Choice 1"},
+    {id: "0-0-0-0-0", content: "Choice 1"},
     {
-        id: "3e4d5c6b-7a89-4012-b345-6789cdef0123",
+        id: "3-3-3-3-3",
         content: "Choice 2",
     },
-    {id: "9c8b7a65-4321-4fed-9876-543210fedcba", content: "Choice 3"},
+    {id: "4-4-4-4-4", content: "Choice 3"},
     {
-        id: "2468ace0-1357-4bdf-9024-68ace1357bdf",
+        id: "5-5-5-5-5",
         content: "None of the above",
         isNoneOfTheAbove: true,
     },

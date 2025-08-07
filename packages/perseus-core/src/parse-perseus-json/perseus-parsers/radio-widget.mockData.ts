@@ -96,7 +96,6 @@ export const v2Widget = {
     options: {
         choices: [
             {
-                id: "radio-choice-0",
                 content: "I am a correct choice",
                 correct: true,
                 clue: "I am some rationale for a choice",
@@ -104,26 +103,23 @@ export const v2Widget = {
                 widgets: undefined,
             },
             {
-                id: "radio-choice-1",
                 content: "I am an incorrect choice",
                 correct: false,
                 clue: "I am some rationale for a choice",
                 widgets: undefined,
             },
             {
-                id: "radio-choice-2",
                 content: "I am an incorrect choice",
                 correct: false,
                 isNoneOfTheAbove: false,
                 widgets: {},
             },
             {
-                id: "radio-choice-3",
                 content: "I am content for a choice",
                 clue: "I am some rationale for a choice",
                 isNoneOfTheAbove: false,
             },
-            {id: "radio-choice-4", content: "I am a choice with only content"},
+            {content: "I am a choice with only content"},
         ],
         numCorrect: 1,
         hasNoneOfTheAbove: false,

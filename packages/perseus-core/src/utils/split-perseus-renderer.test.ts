@@ -63,12 +63,12 @@ describe("splitPerseusRenderer", () => {
                     options: {
                         choices: [
                             {
-                                id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                                id: "0-0-0-0-0",
                                 content: "Correct",
                                 correct: true,
                             },
                             {
-                                id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                                id: "1-1-1-1-1",
                                 content: "Incorrect",
                                 correct: false,
                             },
@@ -348,12 +348,12 @@ describe("splitPerseusRenderer", () => {
                 options: {
                     choices: [
                         {
-                            id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                            id: "0-0-0-0-0",
                             content: "Correct",
                             correct: true,
                         },
                         {
-                            id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                            id: "1-1-1-1-1",
                             content: "Incorrect",
                             correct: false,
                         },

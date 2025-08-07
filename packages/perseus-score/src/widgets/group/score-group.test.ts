@@ -15,7 +15,7 @@ describe("scoreGroup", () => {
                     options: {
                         choices: [
                             {
-                                id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                                id: "0-0-0-0-0",
                                 content: "A",
                                 correct: true,
                             },

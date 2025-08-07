@@ -7,7 +7,6 @@ import {Footnote} from "@khanacademy/wonder-blocks-typography";
 import plusIcon from "@phosphor-icons/core/bold/plus-bold.svg";
 import * as React from "react";
 import _ from "underscore";
-import {v4 as uuid} from "uuid";
 
 import LabeledSwitch from "../../components/labeled-switch";
 
@@ -175,7 +174,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         const newChoice: PerseusRadioChoice = {
             isNoneOfTheAbove: noneOfTheAbove,
             content: "",
-            id: uuid(),
+            id: crypto.randomUUID(),
         };
         const addIndex =
             choices.length - (this.props.hasNoneOfTheAbove ? 1 : 0);

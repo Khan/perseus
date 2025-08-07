@@ -30,10 +30,10 @@ function getDefaultOptions() {
     // See parse-perseus-json/README.md for why we want these defaults here.
     return {
         choices: [
-            {content: "", id: ""},
-            {content: "", id: ""},
-            {content: "", id: ""},
-            {content: "", id: ""},
+            {content: "", id: "radio-choice-0"},
+            {content: "", id: "radio-choice-1"},
+            {content: "", id: "radio-choice-2"},
+            {content: "", id: "radio-choice-3"},
         ],
     };
 }
@@ -43,6 +43,10 @@ const parseNoneOfTheAbove = defaulted(
     optional(constant(false)),
     () => undefined,
 );
+
+function generateChoiceId(index: number): string {
+    return `radio-choice-${index}`;
+}
 
 const version3 = optional(object({major: constant(3), minor: number}));
 const parseRadioWidgetV3 = parseWidgetWithVersion(
@@ -56,7 +60,7 @@ const parseRadioWidgetV3 = parseWidgetWithVersion(
                 rationale: optional(string),
                 correct: optional(boolean),
                 isNoneOfTheAbove: optional(boolean),
-                id: defaulted(string, () => `radio-choice-${index}`),
+                id: defaulted(string, () => generateChoiceId(index)),
             }),
         ),
         hasNoneOfTheAbove: optional(boolean),
@@ -80,7 +84,6 @@ const parseRadioWidgetV2 = parseWidgetWithVersion(
                     clue: optional(string),
                     correct: optional(boolean),
                     isNoneOfTheAbove: optional(boolean),
-                    id: defaulted(string, () => `radio-choice-${index}`),
                     // deprecated
                     widgets: parseWidgetsMapOrUndefined,
                 }),
@@ -183,12 +186,12 @@ export function migrateV2toV3(
             randomize: options.randomize,
             multipleSelect: options.multipleSelect,
             deselectEnabled: options.deselectEnabled,
-            choices: options.choices.map((choice) => ({
+            choices: options.choices.map((choice, index) => ({
                 content: choice.content,
                 rationale: choice.clue,
                 correct: choice.correct,
                 isNoneOfTheAbove: choice.isNoneOfTheAbove,
-                id: choice.id,
+                id: generateChoiceId(index),
             })),
         },
     };
@@ -198,19 +201,12 @@ export function migrateV1ToV2(
     widget: ParsedValue<typeof parseRadioWidgetV1>,
 ): ParsedValue<typeof parseRadioWidgetV2> {
     const {options} = widget;
-
-    const choicesForCalculation = options.choices.map((choice, index) => ({
-        ...choice,
-        id: `radio-choice-${index}`,
-    }));
-
     return {
         ...widget,
         version: {major: 2, minor: 0},
         options: {
             ...options,
-            numCorrect: deriveNumCorrect(choicesForCalculation),
-            choices: choicesForCalculation,
+            numCorrect: deriveNumCorrect(options.choices),
         },
     };
 }

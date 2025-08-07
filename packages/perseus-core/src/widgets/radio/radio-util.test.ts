@@ -8,21 +8,21 @@ describe("getRadioPublicWidgetOptions", () => {
         const options: PerseusRadioWidgetOptions = {
             choices: [
                 {
-                    id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                    id: "0-0-0-0-0",
                     content: "$-8$ and $8$",
                     correct: false,
                     rationale:
                         "The square root operation ($\\sqrt{\\phantom{x}}$)...",
                 },
                 {
-                    id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                    id: "1-1-1-1-1",
                     content: "$-8$",
                     correct: false,
                     rationale:
                         "While $(-8)^2=64$, the square root operation...",
                 },
                 {
-                    id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                    id: "2-2-2-2-2",
                     content: "There is no such input value.",
                     isNoneOfTheAbove: true,
                     correct: true,
@@ -47,15 +47,15 @@ describe("getRadioPublicWidgetOptions", () => {
         expect(publicWidgetOptions).toEqual({
             choices: [
                 {
-                    id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                    id: "0-0-0-0-0",
                     content: "$-8$ and $8$",
                 },
                 {
-                    id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                    id: "1-1-1-1-1",
                     content: "$-8$",
                 },
                 {
-                    id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                    id: "2-2-2-2-2",
                     content: "There is no such input value.",
                     isNoneOfTheAbove: true,
                 },
@@ -73,17 +73,17 @@ describe("getRadioPublicWidgetOptions", () => {
         const options: PerseusRadioWidgetOptions = {
             choices: [
                 {
-                    id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                    id: "0-0-0-0-0",
                     content: "1 Incorrect",
                     correct: false,
                 },
                 {
-                    id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                    id: "1-1-1-1-1",
                     content: "2 Incorrect",
                     correct: true,
                 },
                 {
-                    id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                    id: "2-2-2-2-2",
                     content: "3 Correct",
                     correct: true,
                 },
@@ -100,15 +100,15 @@ describe("getRadioPublicWidgetOptions", () => {
         expect(publicWidgetOptions).toEqual({
             choices: [
                 {
-                    id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                    id: "0-0-0-0-0",
                     content: "1 Incorrect",
                 },
                 {
-                    id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                    id: "1-1-1-1-1",
                     content: "2 Incorrect",
                 },
                 {
-                    id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                    id: "2-2-2-2-2",
                     content: "3 Correct",
                 },
             ],
@@ -123,17 +123,17 @@ describe("getRadioPublicWidgetOptions", () => {
         const options: PerseusRadioWidgetOptions = {
             choices: [
                 {
-                    id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                    id: "0-0-0-0-0",
                     content: "1 Incorrect",
                     correct: false,
                 },
                 {
-                    id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                    id: "1-1-1-1-1",
                     content: "2 Incorrect",
                     correct: true,
                 },
                 {
-                    id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                    id: "2-2-2-2-2",
                     content: "3 Correct",
                     correct: true,
                 },
@@ -150,15 +150,15 @@ describe("getRadioPublicWidgetOptions", () => {
         expect(publicWidgetOptions).toEqual({
             choices: [
                 {
-                    id: "a1b2c3d4-e5f6-4789-a012-345678901234",
+                    id: "0-0-0-0-0",
                     content: "1 Incorrect",
                 },
                 {
-                    id: "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+                    id: "1-1-1-1-1",
                     content: "2 Incorrect",
                 },
                 {
-                    id: "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+                    id: "2-2-2-2-2",
                     content: "3 Correct",
                 },
             ],
