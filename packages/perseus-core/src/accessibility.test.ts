@@ -86,8 +86,16 @@ describe("isItemAccessible", () => {
                             type: "radio",
                             options: {
                                 choices: [
-                                    {content: "Option 1", correct: true},
-                                    {content: "Option 2", correct: false},
+                                    {
+                                        id: "01",
+                                        content: "Option 1",
+                                        correct: true,
+                                    },
+                                    {
+                                        id: "12",
+                                        content: "Option 2",
+                                        correct: false,
+                                    },
                                 ],
                             },
                         },

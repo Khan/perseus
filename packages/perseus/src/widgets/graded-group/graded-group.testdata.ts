@@ -93,24 +93,28 @@ export const groupedRadioRationaleQuestion: PerseusRenderer = {
                         options: {
                             choices: [
                                 {
+                                    id: "a0",
                                     content: "Incorrect",
                                     correct: false,
                                     rationale:
                                         "This is not the correct answer.",
                                 },
                                 {
+                                    id: "b1",
                                     content: "Incorrect",
                                     correct: false,
                                     rationale:
                                         "This is not the correct answer.",
                                 },
                                 {
+                                    id: "c2",
                                     content: "Correct",
                                     correct: true,
                                     isNoneOfTheAbove: false,
                                     rationale: "This is the correct answer.",
                                 },
                                 {
+                                    id: "d3",
                                     content: "Incorrect",
                                     correct: false,
                                     isNoneOfTheAbove: false,

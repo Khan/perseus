@@ -13,10 +13,12 @@ describe("itemHasRationales", () => {
                         options: {
                             choices: [
                                 {
+                                    id: "12",
                                     content: "Choice 1",
                                     correct: false,
                                 },
                                 {
+                                    id: "23",
                                     content: "Choice 2",
                                     correct: false,
                                     rationale: "This is some rationale",
@@ -90,6 +92,7 @@ describe("itemHasRationales", () => {
                                     options: {
                                         choices: [
                                             {
+                                                id: "23",
                                                 content: "Choice 1",
                                                 correct: false,
                                                 rationale:
@@ -131,6 +134,7 @@ describe("itemHasRationales", () => {
                                     options: {
                                         choices: [
                                             {
+                                                id: "12",
                                                 content: "Choice 1",
                                                 correct: false,
                                                 rationale:
@@ -167,10 +171,12 @@ describe("itemHasRationales", () => {
                         options: {
                             choices: [
                                 {
+                                    id: "12",
                                     content: "Choice 1",
                                     correct: false,
                                 },
                                 {
+                                    id: "23",
                                     content: "Choice 2",
                                     correct: true,
                                 },

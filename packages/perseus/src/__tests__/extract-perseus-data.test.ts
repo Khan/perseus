@@ -54,10 +54,12 @@ describe("ExtractPerseusData", () => {
                 options: {
                     choices: [
                         {
+                            id: "01",
                             content: "choice 1",
                             correct: true,
                         },
                         {
+                            id: "12",
                             content: "choice 2",
                             correct: false,
                         },
@@ -74,14 +76,17 @@ describe("ExtractPerseusData", () => {
                 options: {
                     choices: [
                         {
+                            id: "01",
                             content: "choice 1",
                             correct: true,
                         },
                         {
+                            id: "12",
                             content: "choice 2",
                             correct: true,
                         },
                         {
+                            id: "23",
                             content: "choice 3",
                             correct: false,
                         },
@@ -199,10 +204,12 @@ describe("ExtractPerseusData", () => {
                             options: {
                                 choices: [
                                     {
+                                        id: "01",
                                         content: "choice 1",
                                         correct: true,
                                     },
                                     {
+                                        id: "23",
                                         content: "choice 2",
                                         correct: false,
                                     },
@@ -544,10 +551,12 @@ describe("ExtractPerseusData", () => {
                     options: {
                         choices: [
                             {
+                                id: "01",
                                 content: "choice 1",
                                 correct: true,
                             },
                             {
+                                id: "12",
                                 content: "choice 2",
                                 correct: false,
                             },

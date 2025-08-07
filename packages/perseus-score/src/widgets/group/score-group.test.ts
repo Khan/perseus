@@ -13,7 +13,7 @@ describe("scoreGroup", () => {
                 "radio 1": {
                     type: "radio",
                     options: {
-                        choices: [{content: "A", correct: true}],
+                        choices: [{id: "0", content: "A", correct: true}],
                     },
                 },
             },

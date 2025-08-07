@@ -1,4 +1,4 @@
-import {anySuccess} from "../general-purpose-parsers/test-helpers";
+import {anySuccess, ctx} from "../general-purpose-parsers/test-helpers";
 import {parse} from "../parse";
 import {failure, success} from "../result";
 
@@ -120,6 +120,6 @@ describe("migration functions", () => {
     });
 
     it("migrates v2 to v3", () => {
-        expect(migrateV2toV3(v2Widget)).toEqual(v3Widget);
+        expect(migrateV2toV3(v2Widget, ctx())).toEqual(v3Widget);
     });
 });
