@@ -748,6 +748,7 @@ describe("radio-editor", () => {
             renderRadioEditor(() => {}, {
                 choices: [
                     {
+                        id: "0-0-0-0-0",
                         content:
                             "Choice 1\n![Image alt text](https://example.com/image.jpg)",
                     },
@@ -766,7 +767,7 @@ describe("radio-editor", () => {
             // Arrange
             const onChangeMock = jest.fn();
             renderRadioEditor(onChangeMock, {
-                choices: [{content: "Choice 1"}],
+                choices: [{id: "0-0-0-0-0", content: "Choice 1"}],
             });
 
             // Act
@@ -779,7 +780,9 @@ describe("radio-editor", () => {
             // Assert
             expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    choices: [{content: "Choice 1\n![](graphie)"}],
+                    choices: [
+                        {id: "0-0-0-0-0", content: "Choice 1\n![](graphie)"},
+                    ],
                 }),
             );
         });
@@ -791,7 +794,7 @@ describe("radio-editor", () => {
 
             // Act - render
             renderRadioEditor(() => {}, {
-                choices: [{content: "Choice 1"}],
+                choices: [{id: "0-0-0-0-0", content: "Choice 1"}],
             });
 
             // Assert
@@ -804,7 +807,7 @@ describe("radio-editor", () => {
         it("should stop showing the 'Add image' button while an image is being added", async () => {
             // Arrange
             renderRadioEditor(() => {}, {
-                choices: [{content: "Choice 1"}],
+                choices: [{id: "0-0-0-0-0", content: "Choice 1"}],
             });
 
             // Act - click the 'Add image' button
@@ -820,7 +823,7 @@ describe("radio-editor", () => {
         it("should remove the tile when the close button is clicked", async () => {
             // Arrange
             renderRadioEditor(() => {}, {
-                choices: [{content: "Choice 1"}],
+                choices: [{id: "0-0-0-0-0", content: "Choice 1"}],
             });
 
             // Act
@@ -858,7 +861,7 @@ describe("radio-editor", () => {
         it("should stop showing the image adder tile when the image is being added", async () => {
             // Arrange
             renderRadioEditor(() => {}, {
-                choices: [{content: "Choice 1"}],
+                choices: [{id: "0-0-0-0-0", content: "Choice 1"}],
             });
 
             // Act - click the 'Add image' button
@@ -888,7 +891,7 @@ describe("radio-editor", () => {
             // Arrange
             const onChangeMock = jest.fn();
             renderRadioEditor(onChangeMock, {
-                choices: [{content: "Choice 1"}],
+                choices: [{id: "0-0-0-0-0", content: "Choice 1"}],
             });
 
             // Act
@@ -923,6 +926,7 @@ describe("radio-editor", () => {
                 expect.objectContaining({
                     choices: [
                         {
+                            id: "0-0-0-0-0",
                             content:
                                 "Choice 1\n![Image alt text](https://example.com/image.jpg)",
                         },
@@ -940,6 +944,7 @@ describe("radio-editor", () => {
             renderRadioEditor(() => {}, {
                 choices: [
                     {
+                        id: "0-0-0-0-0",
                         content: "Choice 1\n![Alt](image.jpg)",
                     },
                 ],
@@ -979,6 +984,7 @@ describe("radio-editor", () => {
             renderRadioEditor(() => {}, {
                 choices: [
                     {
+                        id: "0-0-0-0-0",
                         content:
                             "Choice 1\n![Alt](image.jpg)\n![Alt2](image2.jpg)",
                     },
@@ -1018,6 +1024,7 @@ describe("radio-editor", () => {
             renderRadioEditor(() => {}, {
                 choices: [
                     {
+                        id: "0-0-0-0-0",
                         content: "Choice 1\n![Alt](image.jpg)",
                     },
                 ],
@@ -1035,7 +1042,9 @@ describe("radio-editor", () => {
         it("should enable the 'Save image' button when the image URL and alt text are changed", async () => {
             // Arrange
             renderRadioEditor(() => {}, {
-                choices: [{content: "Choice 1\n![Alt](image.jpg)"}],
+                choices: [
+                    {id: "0-0-0-0-0", content: "Choice 1\n![Alt](image.jpg)"},
+                ],
             });
 
             // Act
@@ -1059,6 +1068,7 @@ describe("radio-editor", () => {
             renderRadioEditor(onChangeMock, {
                 choices: [
                     {
+                        id: "0-0-0-0-0",
                         content: "Choice 1\n![Alt1](image1.jpg)",
                     },
                 ],
@@ -1088,7 +1098,12 @@ describe("radio-editor", () => {
             expect(onChangeMock).toHaveBeenCalledTimes(1);
             expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    choices: [{content: "Choice 1\n![Alt2](image2.jpg)"}],
+                    choices: [
+                        {
+                            id: "0-0-0-0-0",
+                            content: "Choice 1\n![Alt2](image2.jpg)",
+                        },
+                    ],
                 }),
             );
         });
@@ -1099,6 +1114,7 @@ describe("radio-editor", () => {
             renderRadioEditor(onChangeMock, {
                 choices: [
                     {
+                        id: "0-0-0-0-0",
                         content:
                             "Choice 1\n![Alt1](image1.jpg)\n![Alt2](image2.jpg)",
                     },
@@ -1133,6 +1149,7 @@ describe("radio-editor", () => {
                 expect.objectContaining({
                     choices: [
                         {
+                            id: "0-0-0-0-0",
                             content:
                                 "Choice 1\n![Alt1](image1.jpg)\n![bar](foo.jpg)",
                         },
@@ -1149,7 +1166,9 @@ describe("radio-editor", () => {
             );
             const onChangeMock = jest.fn();
             renderRadioEditor(onChangeMock, {
-                choices: [{content: "Choice 1\n![Alt](image.jpg)"}],
+                choices: [
+                    {id: "0-0-0-0-0", content: "Choice 1\n![Alt](image.jpg)"},
+                ],
             });
 
             // Act
@@ -1161,7 +1180,7 @@ describe("radio-editor", () => {
             // Assert
             expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    choices: [{content: "Choice 1\n"}],
+                    choices: [{id: "0-0-0-0-0", content: "Choice 1\n"}],
                 }),
             );
         });
@@ -1176,6 +1195,7 @@ describe("radio-editor", () => {
             renderRadioEditor(onChangeMock, {
                 choices: [
                     {
+                        id: "0-0-0-0-0",
                         content:
                             "Choice 1\n![Alt1](image1.jpg)\n![Alt2](image2.jpg)",
                     },
@@ -1189,7 +1209,12 @@ describe("radio-editor", () => {
             // Assert
             expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    choices: [{content: "Choice 1\n![Alt1](image1.jpg)\n"}],
+                    choices: [
+                        {
+                            id: "0-0-0-0-0",
+                            content: "Choice 1\n![Alt1](image1.jpg)\n",
+                        },
+                    ],
                 }),
             );
         });
@@ -1204,6 +1229,7 @@ describe("radio-editor", () => {
             renderRadioEditor(onChangeMock, {
                 choices: [
                     {
+                        id: "0-0-0-0-0",
                         content:
                             "hello\n![Alt1](image1.jpg)\n![Alt2](image2.jpg)",
                     },
@@ -1217,7 +1243,12 @@ describe("radio-editor", () => {
             // Assert
             expect(onChangeMock).toHaveBeenCalledWith(
                 expect.objectContaining({
-                    choices: [{content: "hello\n\n![Alt2](image2.jpg)"}],
+                    choices: [
+                        {
+                            id: "0-0-0-0-0",
+                            content: "hello\n\n![Alt2](image2.jpg)",
+                        },
+                    ],
                 }),
             );
         });
