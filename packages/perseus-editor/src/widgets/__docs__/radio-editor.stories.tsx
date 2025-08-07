@@ -11,6 +11,8 @@ import RadioEditor from "../radio/editor";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
+const PROD_EDITOR_WIDTH = 330;
+
 // This is to address timing - Perseus widget editor registry accessed before initialization!
 registerAllWidgetsAndEditorsForTesting();
 
@@ -31,9 +33,13 @@ export const Default: Story = {
 };
 
 export const SingleChoice = (): React.ReactElement => (
-    <EditorPageWithStorybookPreview question={singleSelectQuestion} />
+    <div style={{width: PROD_EDITOR_WIDTH}}>
+        <EditorPageWithStorybookPreview question={singleSelectQuestion} />
+    </div>
 );
 
 export const MultiChoice = (): React.ReactElement => (
-    <EditorPageWithStorybookPreview question={multiChoiceQuestion} />
+    <div style={{width: PROD_EDITOR_WIDTH}}>
+        <EditorPageWithStorybookPreview question={multiChoiceQuestion} />
+    </div>
 );

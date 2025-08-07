@@ -26,7 +26,7 @@ import type {UserEvent} from "@testing-library/user-event";
 const createApiOptions = (options: Partial<APIOptions> = {}): APIOptions => ({
     ...options,
     flags: {
-        "new-radio-widget": true,
+        "new-radio-widget": false,
         ...(options.flags || {}),
     },
 });
