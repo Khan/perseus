@@ -78,7 +78,7 @@ const parseRadioWidgetV2 = parseWidgetWithVersion(
     defaulted(
         object({
             numCorrect: optional(number),
-            choices: arrayWithIndex((index) =>
+            choices: array(
                 object({
                     content: defaulted(string, () => ""),
                     clue: optional(string),
