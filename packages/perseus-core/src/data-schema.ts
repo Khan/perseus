@@ -1378,6 +1378,10 @@ export type PerseusRadioWidgetOptions = {
 export type PerseusRadioChoice = {
     // Translatable Markdown; The label for this choice
     content: string;
+    /**
+     * An opaque string that uniquely identifies this choice within
+     * the radio widget. The format of this ID is subject to change.
+     */
     id: string;
     // Translatable Markdown; Rationale to give the user when they get it wrong
     rationale?: string;
