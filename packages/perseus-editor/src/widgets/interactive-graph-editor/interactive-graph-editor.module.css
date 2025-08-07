@@ -1,0 +1,13 @@
+/* We have to use !important until wonder blocks is in the shared layer. */
+.single-select-short {
+    /* Non-standard spacing, but it's the smallest we can go
+    without running into styling issues with the dropdown. */
+    height: 26px !important;
+}
+
+.row {
+    display: flex !important;
+    flex-direction: row !important;
+    margin-top: 8px !important;
+    align-items: center !important;
+}
