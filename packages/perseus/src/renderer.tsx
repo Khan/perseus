@@ -1511,10 +1511,6 @@ class Renderer
             if (widget?.getDOMNodeForPath) {
                 return widget.getDOMNodeForPath(interWidgetPath);
             }
-            if (interWidgetPath.length === 0) {
-                // @ts-expect-error - TS2345 - Argument of type 'Widget | null | undefined' is not assignable to parameter of type 'ReactInstance | null | undefined'.
-                return ReactDOM.findDOMNode(widget);
-            }
         };
 
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {
