@@ -20,9 +20,7 @@ function scoreMatrix(
     }
 
     const solution = rubric.answers;
-    const supplied = userInput.answers.map((row) =>
-        row.map((str) => Number(str)),
-    );
+    const supplied = userInput.answers;
     const solutionSize = getMatrixSize(solution);
     const suppliedSize = getMatrixSize(supplied);
 
