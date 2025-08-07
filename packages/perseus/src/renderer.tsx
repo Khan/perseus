@@ -18,7 +18,6 @@ import {
 import {entries} from "@khanacademy/wonder-stuff-core";
 import classNames from "classnames";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import AssetContext from "./asset-context";
