@@ -48,6 +48,12 @@ const baseGraphConfigContext: GraphConfig = {
     width: 200,
     height: 200,
     labels: [],
+    showAxisArrows: {
+        xMin: true,
+        xMax: true,
+        yMin: true,
+        yMax: true,
+    },
 };
 
 describe("Circle graph", () => {

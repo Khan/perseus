@@ -69,6 +69,12 @@ export function generateTestInteractiveGraphWidget(): InteractiveGraphWidget {
             correct: {
                 type: "angle",
             },
+            showAxisArrows: {
+                xMin: true,
+                xMax: true,
+                yMin: true,
+                yMax: true,
+            },
         },
     };
 }

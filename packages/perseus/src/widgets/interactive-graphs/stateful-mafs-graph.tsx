@@ -44,6 +44,7 @@ export type StatefulMafsGraphProps = {
     fullGraphAriaDescription?: InteractiveGraphProps["fullGraphAriaDescription"];
     readOnly: boolean;
     static: InteractiveGraphProps["static"];
+    showAxisArrows: InteractiveGraphProps["showAxisArrows"];
 };
 
 export type StatefulMafsGraphType = {

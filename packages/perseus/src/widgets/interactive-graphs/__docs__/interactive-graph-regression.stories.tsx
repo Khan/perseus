@@ -434,6 +434,102 @@ export const LockedFiguresWithThickWeight: Story = {
     },
 };
 
+export const ShowXMinArrow: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withNoInteractiveFigure()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withShowAxisArrows({
+                xMin: true,
+                xMax: false,
+                yMin: false,
+                yMax: false,
+            })
+            .build(),
+    },
+};
+
+export const ShowXMaxArrow: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withNoInteractiveFigure()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withShowAxisArrows({
+                xMin: false,
+                xMax: true,
+                yMin: false,
+                yMax: false,
+            })
+            .build(),
+    },
+};
+
+export const ShowYMinArrow: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withNoInteractiveFigure()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withShowAxisArrows({
+                xMin: false,
+                xMax: false,
+                yMin: true,
+                yMax: false,
+            })
+            .build(),
+    },
+};
+
+export const ShowYMaxArrow: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withNoInteractiveFigure()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withShowAxisArrows({
+                xMin: false,
+                xMax: false,
+                yMin: false,
+                yMax: true,
+            })
+            .build(),
+    },
+};
+
+export const ShowAllArrows: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withNoInteractiveFigure()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withShowAxisArrows({
+                xMin: true,
+                xMax: true,
+                yMin: true,
+                yMax: true,
+            })
+            .build(),
+    },
+};
+
+export const ShowNoArrows: Story = {
+    args: {
+        question: interactiveGraphQuestionBuilder()
+            .withNoInteractiveFigure()
+            .withXRange(-10, 10)
+            .withYRange(-10, 10)
+            .withShowAxisArrows({
+                xMin: false,
+                xMax: false,
+                yMin: false,
+                yMax: false,
+            })
+            .build(),
+    },
+};
+
 function MafsQuestionRenderer(props: {question: PerseusRenderer}) {
     const {question} = props;
     return (

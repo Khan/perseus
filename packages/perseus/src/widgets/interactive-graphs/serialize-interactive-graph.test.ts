@@ -60,6 +60,12 @@ describe("InteractiveGraph serialization", () => {
                         snapStep: [1, 1],
                         step: [1, 1],
                         lockedFigures: [],
+                        showAxisArrows: {
+                            xMin: true,
+                            xMax: true,
+                            yMin: true,
+                            yMax: true,
+                        },
                     },
                 },
             },
@@ -117,6 +123,12 @@ describe("InteractiveGraph serialization", () => {
                         [-10, 10],
                         [-10, 10],
                     ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
                     step: [1, 1],
                     backgroundImage: {
                         url: null,

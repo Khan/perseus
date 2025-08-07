@@ -163,6 +163,12 @@ export function getBaseMafsGraphPropsForTests(): MafsGraphProps {
         labels: ["x", "y"],
         lockedFigures: [],
         static: false,
+        showAxisArrows: {
+            xMin: true,
+            xMax: true,
+            yMin: true,
+            yMax: true,
+        },
         dispatch: () => {},
         state: {
             type: "segment",

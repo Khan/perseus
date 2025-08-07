@@ -1,6 +1,10 @@
 import React, {createContext} from "react";
 
-import type {AxisLabelLocation, MarkingsType} from "@khanacademy/perseus-core";
+import type {
+    AxisLabelLocation,
+    ShowAxisArrows,
+    MarkingsType,
+} from "@khanacademy/perseus-core";
 import type {Interval, vec} from "mafs";
 
 export type GraphConfig = {
@@ -17,6 +21,7 @@ export type GraphConfig = {
     labelLocation?: AxisLabelLocation;
     disableKeyboardInteraction?: boolean;
     interactiveColor?: string;
+    showAxisArrows: ShowAxisArrows;
 };
 
 const defaultGraphConfig: GraphConfig = {
@@ -36,6 +41,12 @@ const defaultGraphConfig: GraphConfig = {
     labelLocation: "onAxis",
     disableKeyboardInteraction: false,
     interactiveColor: "var(--mafs-blue)",
+    showAxisArrows: {
+        xMin: true,
+        xMax: true,
+        yMin: true,
+        yMax: true,
+    },
 };
 
 export const GraphConfigContext =
