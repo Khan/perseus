@@ -1,0 +1,11 @@
+import{j as m}from"./iframe-k7awQKLv.js";import{E as p}from"./editor-page-with-storybook-preview-CXZDQ_Nj.js";import{E as c,r as d}from"./register-all-widgets-and-editors-for-testing-dLEEBaN4.js";import"./item-version-Dd-JmDTi.js";import"./article-renderer-B-5XwXfG.js";import"./server-item-renderer-DkMrN3ad.js";import"./hints-renderer-CBZ9zIzo.js";import"./content-preview-C5m5ubDB.js";import"./components-CiMtDWZf.js";import"./icon-paths-Dl7Ip3eQ.js";import"./editor-page-CV_hZByM.js";import"./image-editor-Dz4QqJDJ.js";import"./editor-jsonify-BrozjJQ4.js";import"./blur-input-Cqld0Gpp.js";import"./tex-error-view-D3JGVMbz.js";import"./item-extras-editor-BiKam2mv.js";import"./free-response-editor-BFZLsrFi.js";import"./input-number-editor-DFVNMq0e.js";import"./Popper-Bv7zZx7c.js";import"./label-image-editor-DSy-brbq.js";import"./matcher-editor-BIU9b-FS.js";import"./number-line-editor-DORbJP6D.js";import"./phet-simulation-editor-CMZJ3nLW.js";import"./plotter-editor-5r1qHTF2.js";import"./python-program-editor-COvV1zg7.js";import"./sorter-editor-B96-WOy0.js";const{action:g}=__STORYBOOK_MODULE_ACTIONS__;d();const L={title:"Widgets/Expression/Editor Demo",component:c,tags:["!dev"]},u={content:`This is a cool expression question
+
+[[☃ expression 1]]
+
+`,images:{},widgets:{"expression 1":{alignment:"default",graded:!0,options:{answerForms:[{considered:"correct",form:!0,key:"0",simplify:!1,value:"16+88i"}],buttonSets:["basic"],functions:["f","g","h"],times:!1},static:!1,type:"expression",version:{major:1,minor:0}}}},o={args:{onChange:g("onChange")}},r={render:()=>m.jsx(p,{question:u})};var t,e,i;o.parameters={...o.parameters,docs:{...(t=o.parameters)==null?void 0:t.docs,source:{originalSource:`{
+  args: {
+    onChange: action("onChange")
+  }
+}`,...(i=(e=o.parameters)==null?void 0:e.docs)==null?void 0:i.source}}};var s,n,a;r.parameters={...r.parameters,docs:{...(s=r.parameters)==null?void 0:s.docs,source:{originalSource:`{
+  render: (): React.ReactElement => <EditorPageWithStorybookPreview question={question} />
+}`,...(a=(n=r.parameters)==null?void 0:n.docs)==null?void 0:a.source}}};const M=["Default","WithinEditorPage"];export{o as Default,r as WithinEditorPage,M as __namedExportsOrder,L as default};
