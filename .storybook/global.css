@@ -13,7 +13,7 @@ body {
         "Helvetica", "Corbel", sans-serif;
     font-size: 14px;
     margin: 0;
-    color: var(--wb-semanticColor-text-primary);
+    color: var(--wb-semanticColor-core-foreground-success-strong);
     line-height: 1.4;
     min-width: 0;
 }

@@ -19,9 +19,9 @@ html {
 .sbdocs li,
 .sbdocs p,
 .sbdocs p *:not(a) {
-    color: var(--color-text);
-    font-size: var(--typography-body-size-sm);
-    line-height: var(--typography-base-line-height);
+    color: var(--wb-semanticColor-core-foreground-success-strong);
+    font-size: var(--wb-font-size-small);
+    line-height: var(--wb-font-lineHeight-small);
 }
 
 .sbdocs .docblock-argstable p,
