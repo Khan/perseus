@@ -43,11 +43,11 @@ html {
 
 /* TOC navigation styling */
 .sbdocs aside {
-    width: 20rem !important;
+    width: 26rem !important;
 }
 
 .sbdocs aside nav {
-    width: 18rem !important;
+    width: 21rem !important;
 }
 
 /* Hide unwanted headings in TOC navigation */
