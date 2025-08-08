@@ -43,9 +43,17 @@ html {
 
 /* TOC navigation styling */
 .sbdocs aside {
-    width: 18rem !important;
+    width: 20rem !important;
 }
 
 .sbdocs aside nav {
-    width: 16rem !important;
+    width: 18rem !important;
+}
+
+/* Hide unwanted headings in TOC navigation */
+.sbdocs aside nav a[href="#stories"],
+.sbdocs aside nav a[href="#usage"],
+.sbdocs aside nav a[title="Stories"],
+.sbdocs aside nav a[title="Usage"] {
+    display: none !important;
 }
