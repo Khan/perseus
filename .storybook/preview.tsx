@@ -131,7 +131,11 @@ const preview: Preview = {
         },
         docs: {
             toc: {
+                // Useful for MDX pages
                 headingSelector: "h2, h3",
+                // Prevents including generic headings like "Stories" and "Usage".
+                ignoreSelector:
+                    ".docs-story h2, .docs-story h3, .sbdocs #stories, .sbdocs #usage, .sbdocs-subtitle, .sbdocs h2:first-of-type, .sbdocs .sb-anchor[id='stories'] + h2, .sbdocs .sb-anchor[id='usage'] + h2",
             },
         },
     },
