@@ -1,0 +1,59 @@
+/**
+ * Overrides for the Storybook preview iframe.
+ */
+html {
+    font-size: 62.5%;
+}
+
+/* These overrides depend on a Base 10 font size */
+.sb-show-main.sb-main-padded {
+    padding: 0.8rem;
+}
+
+.sbdocs.sbdocs-wrapper {
+    padding: 0 2rem 3.2rem 2rem;
+    gap: 2.4rem;
+}
+
+.sbdocs ul,
+.sbdocs li,
+.sbdocs p,
+.sbdocs p *:not(a) {
+    color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    font-size: var(--wb-font-size-small);
+    line-height: var(--wb-font-lineHeight-small);
+}
+
+.sbdocs .docblock-argstable p,
+.sbdocs .docblock-argstable ul,
+.sbdocs .docblock-argstable li {
+    font-size: 1em;
+}
+
+/* TOC wrapper */
+.sbdocs-content + div {
+    width: 14rem;
+}
+
+.sbdocs-content + div > * {
+    width: 14rem;
+    padding-top: 6.4rem;
+    padding-bottom: 3.2rem;
+}
+
+/* TOC navigation styling */
+.sbdocs aside {
+    width: 26rem !important;
+}
+
+.sbdocs aside nav {
+    width: 21rem !important;
+}
+
+/* Hide unwanted headings in TOC navigation */
+.sbdocs aside nav a[href="#stories"],
+.sbdocs aside nav a[href="#usage"],
+.sbdocs aside nav a[title="Stories"],
+.sbdocs aside nav a[title="Usage"] {
+    display: none !important;
+}
