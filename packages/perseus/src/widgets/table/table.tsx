@@ -1,6 +1,5 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
-import ReactDOM from "react-dom";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import SimpleKeypadInput from "../../components/simple-keypad-input";
@@ -16,6 +15,7 @@ import type {
     PerseusTableWidgetOptions,
     PerseusTableUserInput,
 } from "@khanacademy/perseus-core";
+import type ReactDOM from "react-dom";
 
 const {assert} = InteractiveUtil;
 
@@ -76,7 +76,7 @@ class Table extends React.Component<Props> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
     headerRefs: Record<string, any> = {};
-    answerRefs: Record<string, any> = {};
+    answerRefs: Record<string, HTMLInputElement> = {};
 
     static defaultProps: DefaultProps = {
         apiOptions: ApiOptions.defaults,
@@ -138,23 +138,13 @@ class Table extends React.Component<Props> implements Widget {
     focusInputPath(path: FocusPath): void {
         const inputID = getRefForPath(path as Path);
         const inputComponent = this.answerRefs[inputID];
-        if (this.props.apiOptions.customKeypad) {
-            inputComponent.focus();
-        } else {
-            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'focus' does not exist on type 'Element | Text'.
-            ReactDOM.findDOMNode(inputComponent).focus();
-        }
+        inputComponent.focus();
     }
 
     blurInputPath(path: FocusPath): void {
         const inputID = getRefForPath(path as Path);
         const inputComponent = this.answerRefs[inputID];
-        if (this.props.apiOptions.customKeypad) {
-            inputComponent.blur();
-        } else {
-            // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'blur' does not exist on type 'Element | Text'.
-            ReactDOM.findDOMNode(inputComponent).blur();
-        }
+        inputComponent.blur();
     }
 
     getDOMNodeForPath(
@@ -162,7 +152,8 @@ class Table extends React.Component<Props> implements Widget {
     ): ReturnType<typeof ReactDOM.findDOMNode> {
         const inputID = getRefForPath(path as Path);
         const inputRef = this.answerRefs[inputID];
-        return ReactDOM.findDOMNode(inputRef);
+
+        return inputRef;
     }
 
     getInputPaths(): string[][] {
