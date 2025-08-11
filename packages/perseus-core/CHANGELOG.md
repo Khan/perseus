@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 18.5.0
+
+### Minor Changes
+
+-   [#2762](https://github.com/Khan/perseus/pull/2762) [`1bc1464852`](https://github.com/Khan/perseus/commit/1bc14648527864d17640e0818ef6ec38a13f90ab) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - adds choice id as a required field to Radio Widget
+
+### Patch Changes
+
+-   [#2785](https://github.com/Khan/perseus/pull/2785) [`dde65d357c`](https://github.com/Khan/perseus/commit/dde65d357c5553d3e384079f9b9459302aab8216) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - small change to trigger version packages workflow
+
+*   [#2758](https://github.com/Khan/perseus/pull/2758) [`962f89a95f`](https://github.com/Khan/perseus/commit/962f89a95f238b48586da2b566c7b0ad6f40e3de) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: Categorizer user input parser needs to handle undefined and null, not just numbers
+
 ## 18.4.0
 
 ### Minor Changes
