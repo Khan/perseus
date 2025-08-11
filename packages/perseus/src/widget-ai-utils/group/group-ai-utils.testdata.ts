@@ -19,16 +19,33 @@ export const question1: PerseusRenderer = {
                         graded: true,
                         options: {
                             choices: [
-                                {content: "$45$", correct: false},
-                                {content: "$42$", correct: false},
                                 {
+                                    id: "0-0-0-0-0",
+                                    content: "$45$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "1-1-1-1-1",
+                                    content: "$42$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "2-2-2-2-2",
                                     content: "$30$",
                                     correct: false,
                                     rationale:
                                         "Here's some rationale, this isn't the correct answer!",
                                 },
-                                {content: "$18$", correct: false},
-                                {content: "$15$", correct: true},
+                                {
+                                    id: "3-3-3-3-3",
+                                    content: "$18$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "4-4-4-4-4",
+                                    content: "$15$",
+                                    correct: true,
+                                },
                             ],
                             multipleSelect: false,
                             randomize: false,
@@ -132,11 +149,31 @@ export const question1: PerseusRenderer = {
             graded: true,
             options: {
                 choices: [
-                    {content: "", correct: false},
-                    {content: "", correct: false},
-                    {content: "", correct: false},
-                    {content: "", correct: false},
-                    {content: "", correct: true},
+                    {
+                        id: "0-0-0-0-0",
+                        content: "",
+                        correct: false,
+                    },
+                    {
+                        id: "1-1-1-1-1",
+                        content: "",
+                        correct: false,
+                    },
+                    {
+                        id: "2-2-2-2-2",
+                        content: "",
+                        correct: false,
+                    },
+                    {
+                        id: "3-3-3-3-3",
+                        content: "",
+                        correct: false,
+                    },
+                    {
+                        id: "4-4-4-4-4",
+                        content: "",
+                        correct: true,
+                    },
                 ],
                 multipleSelect: false,
                 randomize: false,

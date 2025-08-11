@@ -49,6 +49,7 @@ swcrc.jsc.experimental.plugins.push(["swc_mut_cjs_exports", {}]);
 /** @type {import('jest').Config} */
 module.exports = {
     rootDir: path.join(__dirname, "../../"),
+    setupFiles: [],
     transform: {
         "^.+\\.(j|t)sx?$": ["@swc/jest", swcrc],
         // Compile .svg files using a custom transformer that returns the
@@ -73,6 +74,7 @@ module.exports = {
     setupFilesAfterEnv: [
         "<rootDir>/config/test/test-setup.ts",
         "<rootDir>/config/test/custom-matchers.ts",
+        "<rootDir>/config/test/crypto-polyfill.js",
     ],
     moduleNameMapper: {
         ...pkgMap,

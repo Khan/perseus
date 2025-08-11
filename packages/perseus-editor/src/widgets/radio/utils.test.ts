@@ -5,17 +5,24 @@ import {
 } from "./utils";
 
 const choices = [
-    {content: "Choice 1"},
-    {content: "Choice 2"},
-    {content: "Choice 3"},
-    {content: "Choice 4"},
+    {id: "0-0-0-0-0", content: "Choice 1"},
+    {id: "3-3-3-3-3", content: "Choice 2"},
+    {id: "4-4-4-4-4", content: "Choice 3"},
+    {id: "5-5-5-5-5", content: "Choice 4"},
 ];
 
 const choicesWithNoneOfTheAbove = [
-    {content: "Choice 1"},
-    {content: "Choice 2"},
-    {content: "Choice 3"},
-    {content: "Choice 4", isNoneOfTheAbove: true},
+    {id: "0-0-0-0-0", content: "Choice 1"},
+    {
+        id: "3-3-3-3-3",
+        content: "Choice 2",
+    },
+    {id: "4-4-4-4-4", content: "Choice 3"},
+    {
+        id: "5-5-5-5-5",
+        content: "None of the above",
+        isNoneOfTheAbove: true,
+    },
 ];
 
 describe("getMovedChoices", () => {
@@ -23,10 +30,10 @@ describe("getMovedChoices", () => {
         // Move choice 4 to the top
         const result = getMovedChoices(choices, false, 3, "top");
         expect(result).toEqual([
-            {content: "Choice 4"},
-            {content: "Choice 1"},
-            {content: "Choice 2"},
-            {content: "Choice 3"},
+            choices[3],
+            choices[0],
+            choices[1],
+            choices[2],
         ]);
     });
 
@@ -40,10 +47,10 @@ describe("getMovedChoices", () => {
         // Move choice 3 up
         const result = getMovedChoices(choices, false, 2, "up");
         expect(result).toEqual([
-            {content: "Choice 1"},
-            {content: "Choice 3"},
-            {content: "Choice 2"},
-            {content: "Choice 4"},
+            choices[0],
+            choices[2],
+            choices[1],
+            choices[3],
         ]);
     });
 
@@ -57,10 +64,10 @@ describe("getMovedChoices", () => {
         // Move choice 2 down
         const result = getMovedChoices(choices, false, 1, "down");
         expect(result).toEqual([
-            {content: "Choice 1"},
-            {content: "Choice 3"},
-            {content: "Choice 2"},
-            {content: "Choice 4"},
+            choices[0],
+            choices[2],
+            choices[1],
+            choices[3],
         ]);
     });
 
@@ -85,10 +92,10 @@ describe("getMovedChoices", () => {
         // Move choice 1 to the bottom
         const result = getMovedChoices(choices, false, 0, "bottom");
         expect(result).toEqual([
-            {content: "Choice 2"},
-            {content: "Choice 3"},
-            {content: "Choice 4"},
-            {content: "Choice 1"},
+            choices[1],
+            choices[2],
+            choices[3],
+            choices[0],
         ]);
     });
 
@@ -107,10 +114,10 @@ describe("getMovedChoices", () => {
             "bottom",
         );
         expect(result).toEqual([
-            {content: "Choice 2"},
-            {content: "Choice 3"},
-            {content: "Choice 1"},
-            {content: "Choice 4", isNoneOfTheAbove: true},
+            choicesWithNoneOfTheAbove[1],
+            choicesWithNoneOfTheAbove[2],
+            choicesWithNoneOfTheAbove[0],
+            choicesWithNoneOfTheAbove[3],
         ]);
     });
 });

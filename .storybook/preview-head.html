@@ -57,3 +57,42 @@
 />
 
 <link rel="stylesheet" href="./lato.css" />
+<link rel="stylesheet" href="./jakarta.css" />
+
+<link
+    rel="preload"
+    href="fonts/jakarta-sans/PlusJakartaSans-VariableFont_wght.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+/>
+
+<link
+    rel="preload"
+    href="fonts/jakarta-sans/PlusJakartaSans-Italic-VariableFont_wght.woff2"
+    as="font"
+    type="font/woff2"
+    crossorigin
+/>
+
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=Inconsolata"
+/>
+<link
+    href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro&display=swap"
+    rel="stylesheet"
+/>
+<link rel="stylesheet" href="./storybook-styles/preview.css" />
+<style>
+    body {
+        font-family: "Lato", sans-serif;
+        font-size: 16px !important;
+    }
+
+    /* Overrides the ArgTypes table tabs to avoid some z-index issues with
+    components that rely on PopperJS (specially Dropdown) */
+    .os-padding {
+        z-index: initial !important;
+    }
+</style>

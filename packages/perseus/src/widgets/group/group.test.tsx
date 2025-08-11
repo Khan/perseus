@@ -250,16 +250,19 @@ describe("group widget", () => {
                     ],
                     choices: [
                         {
+                            id: "0-0-0-0-0",
                             content: "$45$",
                             correct: false,
                             originalIndex: 0,
                         },
                         {
+                            id: "1-1-1-1-1",
                             content: "$42$",
                             correct: false,
                             originalIndex: 1,
                         },
                         {
+                            id: "2-2-2-2-2",
                             content: "$30$",
                             correct: false,
                             originalIndex: 2,
@@ -267,11 +270,13 @@ describe("group widget", () => {
                                 "Here's some rationale, this isn't the correct answer!",
                         },
                         {
+                            id: "3-3-3-3-3",
                             content: "$18$",
                             correct: false,
                             originalIndex: 3,
                         },
                         {
+                            id: "4-4-4-4-4",
                             content: "$15$",
                             correct: true,
                             originalIndex: 4,
@@ -328,26 +333,31 @@ describe("group widget", () => {
             "radio 1": {
                 choices: [
                     {
+                        id: "0-0-0-0-0",
                         content: "",
                         correct: false,
                         originalIndex: 0,
                     },
                     {
+                        id: "1-1-1-1-1",
                         content: "",
                         correct: false,
                         originalIndex: 1,
                     },
                     {
+                        id: "2-2-2-2-2",
                         content: "",
                         correct: false,
                         originalIndex: 2,
                     },
                     {
+                        id: "3-3-3-3-3",
                         content: "",
                         correct: false,
                         originalIndex: 3,
                     },
                     {
+                        id: "4-4-4-4-4",
                         content: "",
                         correct: true,
                         originalIndex: 4,

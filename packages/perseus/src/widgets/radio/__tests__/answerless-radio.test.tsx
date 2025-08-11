@@ -22,18 +22,22 @@ function getRadioWidgetOptions(): PerseusRadioWidgetOptions {
     return {
         choices: [
             {
+                id: "0-0-0-0-0",
                 content: "Correct 1",
                 correct: true,
             },
             {
+                id: "1-1-1-1-1",
                 content: "Correct 2",
                 correct: true,
             },
             {
+                id: "2-2-2-2-2",
                 content: "Incorrect",
                 correct: false,
             },
             {
+                id: "3-3-3-3-3",
                 content: "None",
                 isNoneOfTheAbove: true,
                 correct: false,

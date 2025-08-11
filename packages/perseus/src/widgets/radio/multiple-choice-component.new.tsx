@@ -114,10 +114,10 @@ const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
             reviewMode && choice.hasRationale ? (
                 <div className={rationaleClasses}>{choice.rationale}</div>
             ) : undefined;
-        // TODO: Use choice ID as key once it's available
+
         return (
             <Choice
-                key={i}
+                key={choice.id}
                 checked={choice.checked}
                 indicatorContent={choiceLetter}
                 isMultiSelect={multipleSelect}

@@ -31,18 +31,22 @@ const shuffledQuestion: PerseusRenderer = {
                 onePerLine: false,
                 choices: [
                     {
+                        id: "0-0-0-0-0",
                         content: "Incorrect Choice 1",
                         correct: false,
                     },
                     {
+                        id: "1-1-1-1-1",
                         content: "Incorrect Choice 2",
                         correct: false,
                     },
                     {
+                        id: "2-2-2-2-2",
                         content: "Correct Choice",
                         correct: true,
                     },
                     {
+                        id: "3-3-3-3-3",
                         content: "Incorrect Choice 3",
                         correct: false,
                     },

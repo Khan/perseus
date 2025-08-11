@@ -1,5 +1,19 @@
 # @khanacademy/perseus-score
 
+## 7.5.0
+
+### Minor Changes
+
+-   [#2762](https://github.com/Khan/perseus/pull/2762) [`1bc1464852`](https://github.com/Khan/perseus/commit/1bc14648527864d17640e0818ef6ec38a13f90ab) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - adds choice id as a required field to Radio Widget
+
+### Patch Changes
+
+-   [#2752](https://github.com/Khan/perseus/pull/2752) [`e269c7a060`](https://github.com/Khan/perseus/commit/e269c7a060648a07b1ed58247d66b23b30f16c6e) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug where `scorePerseusItem` would throw an exception if some scorable widgets in the question did not have a corresponding entry in the `UserInputMap`. Such inputs are now scored as "invalid," meaning the learner did not fully answer the question.
+
+-   Updated dependencies [[`dde65d357c`](https://github.com/Khan/perseus/commit/dde65d357c5553d3e384079f9b9459302aab8216), [`1bc1464852`](https://github.com/Khan/perseus/commit/1bc14648527864d17640e0818ef6ec38a13f90ab), [`962f89a95f`](https://github.com/Khan/perseus/commit/962f89a95f238b48586da2b566c7b0ad6f40e3de)]:
+    -   @khanacademy/perseus-core@18.5.0
+    -   @khanacademy/kmath@2.1.2
+
 ## 7.4.0
 
 ### Minor Changes

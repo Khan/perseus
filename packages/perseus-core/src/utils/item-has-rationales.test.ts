@@ -13,10 +13,12 @@ describe("itemHasRationales", () => {
                         options: {
                             choices: [
                                 {
+                                    id: "radio-choice-0",
                                     content: "Choice 1",
                                     correct: false,
                                 },
                                 {
+                                    id: "radio-choice-1",
                                     content: "Choice 2",
                                     correct: false,
                                     rationale: "This is some rationale",
@@ -90,6 +92,7 @@ describe("itemHasRationales", () => {
                                     options: {
                                         choices: [
                                             {
+                                                id: "radio-choice-0",
                                                 content: "Choice 1",
                                                 correct: false,
                                                 rationale:
@@ -131,6 +134,7 @@ describe("itemHasRationales", () => {
                                     options: {
                                         choices: [
                                             {
+                                                id: "radio-choice-0",
                                                 content: "Choice 1",
                                                 correct: false,
                                                 rationale:
@@ -169,10 +173,12 @@ describe("itemHasRationales", () => {
                                 {
                                     content: "Choice 1",
                                     correct: false,
+                                    id: "radio-choice-0",
                                 },
                                 {
                                     content: "Choice 2",
                                     correct: true,
+                                    id: "radio-choice-1",
                                 },
                             ],
                         },
