@@ -12,15 +12,15 @@ import Banner from "@khanacademy/wonder-blocks-banner";
 import Button from "@khanacademy/wonder-blocks-button";
 import {View} from "@khanacademy/wonder-blocks-core";
 import {Checkbox} from "@khanacademy/wonder-blocks-form";
-import {color, sizing, spacing} from "@khanacademy/wonder-blocks-tokens";
-import {LabelSmall} from "@khanacademy/wonder-blocks-typography";
+import {color, spacing} from "@khanacademy/wonder-blocks-tokens";
 import {css, StyleSheet} from "aphrodite";
 import * as React from "react";
 import _ from "underscore";
 
 import Heading from "../../../components/heading";
-import LabeledSwitch from "../../../components/labeled-switch";
 import LabeledRow from "../locked-figures/labeled-row";
+
+import AxisArrowSwitches from "./axis-arrow-switches";
 
 import type {
     AxisLabelLocation,
@@ -120,7 +120,7 @@ type State = {
     snapStepTextbox: [x: number, y: number];
     stepTextbox: [x: number, y: number];
     rangeTextbox: [x: Range, y: Range];
-    showAxisArrowsCheckboxes: ShowAxisArrows;
+    showAxisArrowsSwitches: ShowAxisArrows;
     backgroundImage: PerseusImageBackground;
 };
 
@@ -139,7 +139,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             snapStepTextbox: props.snapStep,
             stepTextbox: props.step,
             rangeTextbox: props.range,
-            showAxisArrowsCheckboxes: props.showAxisArrows,
+            showAxisArrowsSwitches: props.showAxisArrows,
             backgroundImage: {...props.backgroundImage},
         };
     }
@@ -388,12 +388,13 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         );
     };
 
-    changeShowAxisArrows = (axis: "xMin" | "xMax" | "yMin" | "yMax") => {
-        const newShowAxisArrows = {...this.state.showAxisArrowsCheckboxes};
-
+    changeShowAxisArrows = (axis: keyof ShowAxisArrows) => {
+        const newShowAxisArrows = {...this.state.showAxisArrowsSwitches};
+        // Toggle the value of the axis switch.
         newShowAxisArrows[axis] = !newShowAxisArrows[axis];
+
         this.setState(
-            {showAxisArrowsCheckboxes: newShowAxisArrows},
+            {showAxisArrowsSwitches: newShowAxisArrows},
             this.changeGraph,
         );
     };
@@ -468,7 +469,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         const range = this.state.rangeTextbox.map((range) =>
             range.map((value) => Number(value)),
         );
-        const showAxisArrows = this.state.showAxisArrowsCheckboxes;
+        const showAxisArrows = this.state.showAxisArrowsSwitches;
         const step = this.state.stepTextbox.map((value) => Number(value));
         const gridStep = this.state.gridStepTextbox;
         const snapStep = this.state.snapStepTextbox;
@@ -600,83 +601,12 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     </LabeledRow>
                                 </div>
                             </div>
-                            <LabelSmall>Arrows</LabelSmall>
-                            <div
-                                className="perseus-widget-row"
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    gap: sizing.size_060,
-                                }}
-                            >
-                                <div className="perseus-widget-left-col">
-                                    <LabeledSwitch
-                                        label="x min"
-                                        labelSide="start"
-                                        size="small"
-                                        checked={
-                                            this.state.showAxisArrowsCheckboxes
-                                                .xMin
-                                        }
-                                        onChange={(value) =>
-                                            this.changeShowAxisArrows("xMin")
-                                        }
-                                    />
-                                </div>
-                                <div className="perseus-widget-right-col">
-                                    <LabeledSwitch
-                                        label="y min"
-                                        labelSide="start"
-                                        size="small"
-                                        checked={
-                                            this.state.showAxisArrowsCheckboxes
-                                                .yMin
-                                        }
-                                        onChange={(value) =>
-                                            this.changeShowAxisArrows("yMin")
-                                        }
-                                    />
-                                </div>
-                            </div>
-                            <div
-                                className="perseus-widget-row"
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    gap: sizing.size_060,
-                                }}
-                            >
-                                <div className="perseus-widget-left-col">
-                                    <LabeledSwitch
-                                        label="x max"
-                                        labelSide="start"
-                                        size="small"
-                                        checked={
-                                            this.state.showAxisArrowsCheckboxes
-                                                .xMax
-                                        }
-                                        onChange={(value) =>
-                                            this.changeShowAxisArrows("xMax")
-                                        }
-                                    />
-                                </div>
-                                <div className="perseus-widget-right-col">
-                                    <LabeledSwitch
-                                        label="y max"
-                                        labelSide="start"
-                                        size="small"
-                                        checked={
-                                            this.state.showAxisArrowsCheckboxes
-                                                .yMax
-                                        }
-                                        onChange={(value) =>
-                                            this.changeShowAxisArrows("yMax")
-                                        }
-                                    />
-                                </div>
-                            </div>
+                            <AxisArrowSwitches
+                                showAxisArrows={
+                                    this.state.showAxisArrowsSwitches
+                                }
+                                onChange={this.changeShowAxisArrows}
+                            />
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">
                                     <LabeledRow label="Tick Step">
