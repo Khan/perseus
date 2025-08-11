@@ -272,6 +272,7 @@ class Radio extends React.Component<Props> implements Widget {
                 const reviewChoice = this.props.reviewModeRubric?.choices[i];
 
                 return {
+                    id: choice.id,
                     content: this._renderRenderer(content),
                     checked: selected,
                     // Current versions of the radio widget always pass in the

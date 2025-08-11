@@ -2,6 +2,7 @@ import type {ChoiceType} from "../base-radio";
 
 export function generateChoice(options: Partial<ChoiceType>): ChoiceType {
     const base = {
+        id: "",
         checked: false,
         crossedOut: false,
         content: "",
