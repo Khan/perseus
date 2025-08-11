@@ -1,0 +1,16 @@
+@font-face {
+    font-display: swap; /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+    font-family: "Plus Jakarta Sans";
+    font-style: normal;
+    font-weight: 200 800;
+    src: url("fonts/jakarta-sans/PlusJakartaSans-VariableFont_wght.woff2")
+        format("woff2"); /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+@font-face {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-style: italic;
+    font-weight: 200 800;
+    src: url("fonts/jakarta-sans/PlusJakartaSans-Italic-VariableFont_wght.woff2")
+        format("woff2");
+}
