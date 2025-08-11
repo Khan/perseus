@@ -1,3 +1,3 @@
 # Storybook Configuration
 
-This folder contains configuration items for Storybook.
+This folder contains configuration items for Storybook
