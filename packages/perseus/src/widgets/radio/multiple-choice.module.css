@@ -68,7 +68,7 @@
     background: linear-gradient(
         to left,
         transparent,
-        var(--wb-semanticColor-core-foreground-inverse-strong)
+        var(--wb-semanticColor-surface-primary)
             calc(var(--perseus-multiple-choice-spacing) / 2)
     );
 }
@@ -78,7 +78,7 @@
     background: linear-gradient(
         to right,
         transparent,
-        var(--wb-semanticColor-core-foreground-inverse-strong)
+        var(--wb-semanticColor-surface-primary)
             calc(var(--perseus-multiple-choice-spacing) / 2)
     );
 }
