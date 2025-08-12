@@ -59,7 +59,12 @@ describe("Dropdown AI utils", () => {
         };
 
         const renderProps: any = {
-            choices: ["Pickles", "Tomato", "Onion", "Lettuce"],
+            choices: [
+                {content: "Pickles"},
+                {content: "Tomato"},
+                {content: "Onion"},
+                {content: "Lettuce"},
+            ],
             userInput,
         };
 
