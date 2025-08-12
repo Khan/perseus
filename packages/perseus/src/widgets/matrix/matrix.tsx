@@ -83,12 +83,7 @@ const getRefForPath = function (path: FocusPath) {
     PerseusMatrixUserInput
 > satisfies PropsFor<typeof Matrix>;
 
-type RenderProps = Pick<
-    PerseusMatrixWidgetOptions,
-    "matrixBoardSize" | "prefix" | "suffix"
->;
-
-type Props = WidgetProps<RenderProps, PerseusMatrixUserInput> & {
+type Props = WidgetProps<MatrixPublicWidgetOptions, PerseusMatrixUserInput> & {
     // The coordinate location of the cursor position at start. default: [0, 0]
     cursorPosition: ReadonlyArray<number>;
     onChange: (
@@ -516,21 +511,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
     }
 }
 
-/**
- * TODO: I don't really think we need this. The default for a transform
- * is an identity function and all this is doing is taking a selection from
- * widget options; it's probably fine to pass all widget options down.
- * @deprecated [LEMS-3199]
- */
-function transform(widgetOptions: MatrixPublicWidgetOptions): RenderProps {
-    const {matrixBoardSize, prefix, suffix} = widgetOptions;
-    return {
-        matrixBoardSize,
-        prefix,
-        suffix,
-    };
-}
-
 function getStartUserInput(): PerseusMatrixUserInput {
     return {answers: [[]]};
 }
@@ -558,8 +538,6 @@ export default {
     displayName: "Matrix",
     hidden: true,
     widget: Matrix,
-    transform,
-    staticTransform: transform,
     isLintable: true,
     getStartUserInput,
     getCorrectUserInput,
