@@ -19,7 +19,6 @@ import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/cate
 import type {
     PerseusCategorizerWidgetOptions,
     PerseusCategorizerUserInput,
-    CategorizerPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 type Props = WidgetProps<RenderProps, PerseusCategorizerUserInput>;
@@ -303,8 +302,7 @@ function getUserInputFromSerializedState(
 
 /**
  * you need this along with _getAllWidgetsStartProps
- * to generate userInput for static widgets since staticTransform
- * used to populate correct input and now can't
+ * to generate userInput for static widgets
  */
 function getCorrectUserInput(
     options: PerseusCategorizerWidgetOptions,
@@ -318,21 +316,11 @@ function getStartUserInput(): PerseusCategorizerUserInput {
     };
 }
 
-function transform(widgetOptions: CategorizerPublicWidgetOptions): RenderProps {
-    return {
-        items: widgetOptions.items,
-        categories: widgetOptions.categories,
-        randomizeItems: widgetOptions.randomizeItems,
-    };
-}
-
 export default {
     name: "categorizer",
     displayName: "Categorizer",
     hidden: true,
     widget: Categorizer,
-    transform,
-    staticTransform: transform,
     getUserInputFromSerializedState,
     getCorrectUserInput,
     getStartUserInput,
