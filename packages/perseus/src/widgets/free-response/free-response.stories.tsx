@@ -38,7 +38,6 @@ export const CharacterLimit: Story = {
     },
 };
 
-
 export const BoldedQuestion: Story = {
     args: {
         allowUnlimitedCharacters: false,
