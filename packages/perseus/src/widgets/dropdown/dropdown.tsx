@@ -16,14 +16,10 @@ import type {
     PerseusDropdownUserInput,
 } from "@khanacademy/perseus-core";
 
-type RenderProps = {
-    placeholder: PerseusDropdownWidgetOptions["placeholder"];
-    visibleLabel: PerseusDropdownWidgetOptions["visibleLabel"];
-    ariaLabel: PerseusDropdownWidgetOptions["ariaLabel"];
-    choices: PerseusDropdownWidgetOptions["choices"];
-};
-
-type Props = WidgetProps<RenderProps, PerseusDropdownUserInput>;
+type Props = WidgetProps<
+    PerseusDropdownWidgetOptions,
+    PerseusDropdownUserInput
+>;
 
 type DefaultProps = {
     choices: Props["choices"];
