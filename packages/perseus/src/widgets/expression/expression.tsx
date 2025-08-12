@@ -325,56 +325,30 @@ function getStartUserInput(): PerseusExpressionUserInput {
     return "";
 }
 
+function getOneCorrectAnswerFromRubric(
+    rubric: PerseusExpressionRubric,
+): string | null | undefined {
+    // TODO(LEMS-2656): remove TS suppression
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    const correctAnswers = (rubric.answerForms || []).filter(
+        (answerForm) => answerForm.considered === "correct",
+    );
+    if (correctAnswers.length === 0) {
+        return;
+    }
+    return correctAnswers[0].value;
+}
+
 export default {
     name: "expression",
     displayName: "Expression / Equation",
     widget: ExpressionWithDependencies,
-    // transform: (
-    //     widgetOptions:
-    //         | PerseusExpressionWidgetOptions
-    //         | ExpressionPublicWidgetOptions,
-    // ): RenderProps => {
-    //     const {
-    //         times,
-    //         functions,
-    //         buttonSets,
-    //         buttonsVisible,
-    //         visibleLabel,
-    //         ariaLabel,
-    //         extraKeys,
-    //     } = widgetOptions;
-    //     return {
-    //         keypadConfiguration: {
-    //             keypadType: "EXPRESSION",
-    //             extraKeys,
-    //             times,
-    //         },
-    //         times,
-    //         functions,
-    //         buttonSets,
-    //         buttonsVisible,
-    //         visibleLabel,
-    //         ariaLabel,
-    //     };
-    // },
     version: expressionLogic.version,
 
     // For use by the editor
     isLintable: true,
 
-    // TODO(LEMS-2656): remove TS suppression
-    getOneCorrectAnswerFromRubric(
-        rubric: PerseusExpressionRubric,
-    ): string | null | undefined {
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        const correctAnswers = (rubric.answerForms || []).filter(
-            (answerForm) => answerForm.considered === "correct",
-        );
-        if (correctAnswers.length === 0) {
-            return;
-        }
-        return correctAnswers[0].value;
-    },
+    getOneCorrectAnswerFromRubric,
     getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof ExpressionWithDependencies>;
