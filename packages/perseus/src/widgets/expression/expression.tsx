@@ -19,7 +19,6 @@ import type {WidgetProps, Widget, WidgetExports} from "../../types";
 import type {ExpressionPromptJSON} from "../../widget-ai-utils/expression/expression-ai-utils";
 import type {
     PerseusExpressionWidgetOptions,
-    ExpressionPublicWidgetOptions,
     KeypadConfiguration,
     KeypadKey,
     PerseusExpressionRubric,
@@ -54,17 +53,10 @@ const normalizeTex = (tex: string): string => {
     return anglicizeOperators(tex);
 };
 
-type RenderProps = {
-    buttonSets: PerseusExpressionWidgetOptions["buttonSets"];
-    buttonsVisible?: PerseusExpressionWidgetOptions["buttonsVisible"];
-    functions: PerseusExpressionWidgetOptions["functions"];
-    times: PerseusExpressionWidgetOptions["times"];
-    visibleLabel: PerseusExpressionWidgetOptions["visibleLabel"];
-    ariaLabel: PerseusExpressionWidgetOptions["ariaLabel"];
-    keypadConfiguration: KeypadConfiguration;
-};
-
-type ExternalProps = WidgetProps<RenderProps, PerseusExpressionUserInput>;
+type ExternalProps = WidgetProps<
+    PerseusExpressionWidgetOptions,
+    PerseusExpressionUserInput
+>;
 
 type Props = ExternalProps &
     Partial<React.ContextType<typeof DependenciesContext>> & {
@@ -207,19 +199,30 @@ export class Expression extends React.Component<Props> implements Widget {
         return [[]];
     };
 
+    getKeypadConfiguration(): KeypadConfiguration {
+        return {
+            keypadType: "EXPRESSION",
+            extraKeys: this.props.extraKeys,
+            times: this.props.times,
+        };
+    }
+
     /**
      * @deprecated and likely very broken API
      * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     getSerializedState() {
-        const {userInput: _, ...rest} = this.props;
+        const {userInput: _, answerForms: __, ...rest} = this.props;
         return {
             ...rest,
             value: this.props.userInput,
+            keypadConfiguration: this.getKeypadConfiguration(),
         };
     }
 
     render() {
+        const keypadConfiguration = this.getKeypadConfiguration();
+
         if (this.props.apiOptions.customKeypad) {
             return (
                 <View className={css(styles.mobileLabelInputWrapper)}>
@@ -243,7 +246,7 @@ export class Expression extends React.Component<Props> implements Widget {
                             // when apiOptions.customKeypad is set, but how
                             // to convince TypeScript of this?
                             this.props.keypadElement?.configure(
-                                this.props.keypadConfiguration,
+                                keypadConfiguration,
                                 () => {
                                     if (this._isMounted) {
                                         this._handleFocus();
@@ -279,7 +282,7 @@ export class Expression extends React.Component<Props> implements Widget {
                             this.props.ariaLabel ||
                             this.context.strings.mathInputBox
                         }
-                        extraKeys={this.props.keypadConfiguration?.extraKeys}
+                        extraKeys={keypadConfiguration.extraKeys}
                         onAnalyticsEvent={
                             this.props.analytics?.onAnalyticsEvent ??
                             (async () => {})
@@ -326,34 +329,34 @@ export default {
     name: "expression",
     displayName: "Expression / Equation",
     widget: ExpressionWithDependencies,
-    transform: (
-        widgetOptions:
-            | PerseusExpressionWidgetOptions
-            | ExpressionPublicWidgetOptions,
-    ): RenderProps => {
-        const {
-            times,
-            functions,
-            buttonSets,
-            buttonsVisible,
-            visibleLabel,
-            ariaLabel,
-            extraKeys,
-        } = widgetOptions;
-        return {
-            keypadConfiguration: {
-                keypadType: "EXPRESSION",
-                extraKeys,
-                times,
-            },
-            times,
-            functions,
-            buttonSets,
-            buttonsVisible,
-            visibleLabel,
-            ariaLabel,
-        };
-    },
+    // transform: (
+    //     widgetOptions:
+    //         | PerseusExpressionWidgetOptions
+    //         | ExpressionPublicWidgetOptions,
+    // ): RenderProps => {
+    //     const {
+    //         times,
+    //         functions,
+    //         buttonSets,
+    //         buttonsVisible,
+    //         visibleLabel,
+    //         ariaLabel,
+    //         extraKeys,
+    //     } = widgetOptions;
+    //     return {
+    //         keypadConfiguration: {
+    //             keypadType: "EXPRESSION",
+    //             extraKeys,
+    //             times,
+    //         },
+    //         times,
+    //         functions,
+    //         buttonSets,
+    //         buttonsVisible,
+    //         visibleLabel,
+    //         ariaLabel,
+    //     };
+    // },
     version: expressionLogic.version,
 
     // For use by the editor
