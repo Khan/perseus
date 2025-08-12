@@ -69,10 +69,8 @@ const getNextState = (
     }
 };
 
-type RenderProps = PerseusGradedGroupWidgetOptions; // exports has no 'transform'
-
 type Props = WidgetProps<
-    RenderProps,
+    PerseusGradedGroupWidgetOptions,
     Empty,
     TrackingGradedGroupExtraArguments
 > & {

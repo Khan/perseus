@@ -62,19 +62,11 @@ const styles = StyleSheet.create({
     },
 });
 
-// The result of the `transform` function (end of this file)
-type RenderProps = {
-    passageTitle: PerseusPassageWidgetOptions["passageTitle"];
-    passageText: PerseusPassageWidgetOptions["passageText"];
-    footnotes: PerseusPassageWidgetOptions["footnotes"];
-    showLineNumbers: PerseusPassageWidgetOptions["showLineNumbers"];
-};
-
 type FindWidgetsCallback = (id: string, widgetInfo: PerseusWidget) => boolean;
 
 // eslint-disable-next-line import/no-deprecated
 type PassageProps = ChangeableProps &
-    WidgetProps<RenderProps> & {
+    WidgetProps<PerseusPassageWidgetOptions> & {
         findWidgets: (arg1: FindWidgetsCallback) => ReadonlyArray<Passage>;
         highlights: SerializedHighlightSet;
     };

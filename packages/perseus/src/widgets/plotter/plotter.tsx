@@ -1206,7 +1206,6 @@ export default {
     hidden: true,
     widget: Plotter,
     getCorrectUserInput,
-    staticTransform: _.identity,
     getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Plotter>;
