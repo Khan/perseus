@@ -38,13 +38,23 @@ export const CharacterLimit: Story = {
     },
 };
 
+
+export const BoldedQuestion: Story = {
+    args: {
+        allowUnlimitedCharacters: false,
+        characterLimit: 500,
+        placeholder: "Enter your answer here",
+        question: "**What is the theme of the essay?**",
+    },
+};
+
 export const UnlimitedCharacters: Story = {
     args: {
         allowUnlimitedCharacters: true,
         characterLimit: 500,
         placeholder: "Enter your answer here",
         question:
-            "What is the theme of the essay?\n\nPut your answer in your own words.",
+            "What is the theme of the essay?\n\n**Put your answer in your own words.**",
     },
 };
 
