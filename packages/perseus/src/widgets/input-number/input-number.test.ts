@@ -21,8 +21,6 @@ import {question3 as question} from "./input-number.testdata";
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-const {transform} = InputNumber;
-
 describe("input-number", function () {
     let userEvent: UserEvent;
     beforeEach(() => {
@@ -237,23 +235,6 @@ describe("input-number", function () {
             // Assert
             expect(score).toHaveBeenAnsweredIncorrectly();
         });
-    });
-
-    it("transform should remove the `value` field", function () {
-        const editorProps = {
-            value: 5,
-            simplify: "required",
-            size: "normal",
-            inexact: false,
-            maxError: 0.1,
-            answerType: "number",
-        } as const;
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        if (!transform) {
-            throw new Error("transform not defined");
-        }
-        const widgetProps = transform(editorProps);
-        expect(_.has(widgetProps, "value")).toBe(false);
     });
 });
 
