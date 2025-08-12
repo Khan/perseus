@@ -53,6 +53,12 @@ export const DemoInteractiveGraph = (): React.ReactElement => {
                     [-10, 10],
                     [-10, 10],
                 ],
+                showAxisArrows: {
+                    xMin: true,
+                    xMax: true,
+                    yMin: true,
+                    yMax: true,
+                },
                 gridStep: [1, 1],
                 snapStep: [1, 1],
                 step: [1, 1],

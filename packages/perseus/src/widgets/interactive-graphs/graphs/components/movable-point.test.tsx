@@ -38,6 +38,12 @@ describe("MovablePoint", () => {
         width: 200,
         height: 200,
         labels: [],
+        showAxisArrows: {
+            xMin: true,
+            xMax: true,
+            yMin: true,
+            yMax: true,
+        },
     };
 
     const graphConfigContextWithTooltips = {

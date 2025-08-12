@@ -6369,6 +6369,12 @@ $3$ | $8$
           ],
           "rulerLabel": "",
           "rulerTicks": 10,
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showRuler": false,
           "snapStep": [
@@ -6469,6 +6475,12 @@ $3$ | $8$
           ],
           "rulerLabel": "",
           "rulerTicks": 10,
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showRuler": false,
           "showTooltips": false,
@@ -6740,6 +6752,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -7007,6 +7025,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -7092,6 +7116,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -7177,6 +7207,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -7332,6 +7368,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7395,6 +7437,12 @@ Locked figures:
               100,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7448,6 +7496,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7499,6 +7553,12 @@ Locked figures:
               3,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7550,6 +7610,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7601,6 +7667,12 @@ Locked figures:
               5,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7652,6 +7724,12 @@ Locked figures:
               5,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7966,6 +8044,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8062,6 +8146,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8114,6 +8204,12 @@ Locked figures:
               100,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8168,6 +8264,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8220,6 +8322,12 @@ Locked figures:
               3,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8272,6 +8380,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8324,6 +8438,12 @@ Locked figures:
               5,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8376,6 +8496,12 @@ Locked figures:
               5,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8663,6 +8789,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8852,6 +8984,12 @@ $\\begin{align}
                   ],
                   "rulerLabel": "",
                   "rulerTicks": 10,
+                  "showAxisArrows": {
+                    "xMax": true,
+                    "xMin": true,
+                    "yMax": true,
+                    "yMin": true,
+                  },
                   "showProtractor": false,
                   "showRuler": false,
                   "showTooltips": false,
@@ -9107,6 +9245,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
                 10,
               ],
             ],
+            "showAxisArrows": {
+              "xMax": true,
+              "xMin": true,
+              "yMax": true,
+              "yMin": true,
+            },
             "showProtractor": false,
             "showTooltips": false,
             "step": [
@@ -9190,6 +9334,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -9258,6 +9408,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -9330,6 +9486,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -9399,6 +9561,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -9506,6 +9674,12 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "step": [
             1,
@@ -9572,6 +9746,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.json 
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -9718,6 +9898,12 @@ Draw the rhombus in the first quadrant.
           ],
           "rulerLabel": "",
           "rulerTicks": 10,
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showRuler": false,
           "snapStep": [
@@ -9807,6 +9993,12 @@ Draw the rhombus in the first quadrant.
           ],
           "rulerLabel": "",
           "rulerTicks": 10,
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showRuler": false,
           "showTooltips": false,
@@ -9913,6 +10105,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
           ],
           "rulerLabel": "",
           "rulerTicks": 10,
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showRuler": false,
           "showTooltips": false,
@@ -10046,6 +10244,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
           ],
           "rulerLabel": "",
           "rulerTicks": 10,
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showRuler": false,
           "showTooltips": false,

@@ -231,6 +231,12 @@ describe("parseWidgetsMap", () => {
                     graph: {type: "none"},
                     correct: {type: "none"},
                     lockedFigures: [],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
                 },
             },
         };
