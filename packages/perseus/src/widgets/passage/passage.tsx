@@ -559,14 +559,5 @@ export default {
     displayName: "Passage (SAT only)",
     hidden: true,
     widget: Passage,
-    transform: (editorProps: any): RenderProps => {
-        return _.pick(
-            editorProps,
-            "passageTitle",
-            "passageText",
-            "footnotes",
-            "showLineNumbers",
-        );
-    },
     isLintable: true,
 } satisfies WidgetExports<typeof Passage>;
