@@ -539,7 +539,7 @@ function getCorrectUserInput(
     options: PerseusMatrixWidgetOptions,
 ): PerseusMatrixUserInput {
     return {
-        answers: options.answers,
+        answers: options.answers.map((row) => row.map((num) => String(num))),
     };
 }
 

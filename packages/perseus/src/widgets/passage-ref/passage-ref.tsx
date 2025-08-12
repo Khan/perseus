@@ -176,10 +176,5 @@ export default {
     displayName: "PassageRef (SAT only)",
     hidden: true,
     widget: PassageRef,
-    transform: (widgetOptions: PerseusPassageRefWidgetOptions) => ({
-        passageNumber: widgetOptions.passageNumber,
-        referenceNumber: widgetOptions.referenceNumber,
-        summaryText: widgetOptions.summaryText,
-    }),
     version: passageRefLogic.version,
 } satisfies WidgetExports<typeof PassageRef>;
