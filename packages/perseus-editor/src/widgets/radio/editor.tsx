@@ -174,6 +174,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         const newChoice: PerseusRadioChoice = {
             isNoneOfTheAbove: noneOfTheAbove,
             content: "",
+            id: crypto.randomUUID(),
         };
         const addIndex =
             choices.length - (this.props.hasNoneOfTheAbove ? 1 : 0);

@@ -23,6 +23,7 @@ import type {LinterContextProps} from "@khanacademy/perseus-linter";
  * Represents a single choice in the MultipleChoiceComponent
  */
 export interface ChoiceType {
+    id: string;
     checked: boolean;
     content: React.ReactNode;
     rationale: React.ReactNode;
@@ -263,6 +264,7 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
             const reviewChoice = reviewModeRubric?.choices[i];
 
             return {
+                id: choice.id,
                 content: this.renderContent(content),
                 checked: selected,
                 correct:

@@ -17,10 +17,12 @@ describe("splitPerseusItem", () => {
             options: {
                 choices: [
                     {
+                        id: "3-3-3-3-3",
                         content: "Correct",
                         correct: true,
                     },
                     {
+                        id: "4-4-4-4-4",
                         content: "Incorrect",
                         correct: false,
                     },
@@ -168,10 +170,12 @@ describe("splitPerseusItem", () => {
                     options: {
                         choices: [
                             {
+                                id: "3-3-3-3-3",
                                 content: "Correct",
                                 correct: true,
                             },
                             {
+                                id: "4-4-4-4-4",
                                 content: "Incorrect",
                                 correct: false,
                             },

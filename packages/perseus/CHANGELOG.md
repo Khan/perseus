@@ -1,5 +1,43 @@
 # @khanacademy/perseus
 
+## 66.3.0
+
+### Minor Changes
+
+-   [#2763](https://github.com/Khan/perseus/pull/2763) [`3c16fc2a18`](https://github.com/Khan/perseus/commit/3c16fc2a1853edb193fa456cc43eafef528705dc) Thanks [@handeyeco](https://github.com/handeyeco)! - Export UserInputManager from Perseus and use it in PerseusEditor for Storybook preview.
+
+*   [#2762](https://github.com/Khan/perseus/pull/2762) [`1bc1464852`](https://github.com/Khan/perseus/commit/1bc14648527864d17640e0818ef6ec38a13f90ab) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - adds choice id as a required field to Radio Widget
+
+-   [#2745](https://github.com/Khan/perseus/pull/2745) [`97a586aa3a`](https://github.com/Khan/perseus/commit/97a586aa3ad131da4fcba4fbd9036f0e9bf663b0) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Refactor multiple choice component (logic and UI updates)
+
+*   [#2780](https://github.com/Khan/perseus/pull/2780) [`78419c1f8a`](https://github.com/Khan/perseus/commit/78419c1f8a4e62c3423ca4c348213cf1e84d1c00) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Consumes choice Ids in radio widget
+
+### Patch Changes
+
+-   [#2767](https://github.com/Khan/perseus/pull/2767) [`178c7181e8`](https://github.com/Khan/perseus/commit/178c7181e807497b5767614853c52b716d715355) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add Perseus logo in Storybook
+
+*   [#2753](https://github.com/Khan/perseus/pull/2753) [`3a53e7357d`](https://github.com/Khan/perseus/commit/3a53e7357d090b3c70cef2a5cb4f9312af3ca45b) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Removes the width override for the cs-program widget
+
+-   [#2760](https://github.com/Khan/perseus/pull/2760) [`294ac6cf5d`](https://github.com/Khan/perseus/commit/294ac6cf5d30331f3b54b34476d645101d0254d9) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug in Orderer that allowed learners to add cards with null content.
+
+*   [#2770](https://github.com/Khan/perseus/pull/2770) [`c1f5dabafe`](https://github.com/Khan/perseus/commit/c1f5dabafecaac3bb26c349728d9a022fd3836ea) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix some test data with malformed PerseusItems
+
+-   [#2779](https://github.com/Khan/perseus/pull/2779) [`a27cf15161`](https://github.com/Khan/perseus/commit/a27cf15161ced0a0ad37c01fd724e0e793d18aaf) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove ScrollableView left and right fade
+
+*   [#2761](https://github.com/Khan/perseus/pull/2761) [`48b26d97d2`](https://github.com/Khan/perseus/commit/48b26d97d2ca023fa5bea29049dbe7a8eefa96d5) Thanks [@handeyeco](https://github.com/handeyeco)! - Sync dependencies
+
+-   [#2758](https://github.com/Khan/perseus/pull/2758) [`962f89a95f`](https://github.com/Khan/perseus/commit/962f89a95f238b48586da2b566c7b0ad6f40e3de) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: Categorizer user input parser needs to handle undefined and null, not just numbers
+
+*   [#2772](https://github.com/Khan/perseus/pull/2772) [`4ab552d631`](https://github.com/Khan/perseus/commit/4ab552d631147015e78e05b88baae3540815f246) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix storybook theme, change use of WB colors
+
+*   Updated dependencies [[`dde65d357c`](https://github.com/Khan/perseus/commit/dde65d357c5553d3e384079f9b9459302aab8216), [`e269c7a060`](https://github.com/Khan/perseus/commit/e269c7a060648a07b1ed58247d66b23b30f16c6e), [`1bc1464852`](https://github.com/Khan/perseus/commit/1bc14648527864d17640e0818ef6ec38a13f90ab), [`962f89a95f`](https://github.com/Khan/perseus/commit/962f89a95f238b48586da2b566c7b0ad6f40e3de)]:
+    -   @khanacademy/perseus-core@18.5.0
+    -   @khanacademy/perseus-score@7.5.0
+    -   @khanacademy/keypad-context@3.1.2
+    -   @khanacademy/kmath@2.1.2
+    -   @khanacademy/math-input@26.1.3
+    -   @khanacademy/perseus-linter@4.2.2
+
 ## 66.2.2
 
 ### Patch Changes

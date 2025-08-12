@@ -16,7 +16,7 @@ exports[`cs-program widget should snapshot on mobile: first mobile render 1`] = 
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="widthOverride_1vdzrqd-o_O-container_1v2yujs"
+            class="container_1v2yujs"
           >
             <iframe
               allowfullscreen=""
@@ -49,7 +49,7 @@ exports[`cs-program widget should snapshot: first render 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="widthOverride_1vdzrqd-o_O-container_1v2yujs"
+            class="container_1v2yujs"
           >
             <iframe
               allowfullscreen=""

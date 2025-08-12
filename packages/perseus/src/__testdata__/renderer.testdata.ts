@@ -150,18 +150,22 @@ export const mockedRandomItem: PerseusRenderer = {
                 numCorrect: 1,
                 choices: [
                     {
+                        id: "0-0-0-0-0",
                         content: "Content 1",
                         correct: true,
                     },
                     {
+                        id: "1-1-1-1-1",
                         content: "Content 2",
                         correct: false,
                     },
                     {
+                        id: "2-2-2-2-2",
                         content: "Content 3",
                         correct: false,
                     },
                     {
+                        id: "3-3-3-3-3",
                         content: "Content 4",
                         correct: false,
                     },
@@ -189,18 +193,22 @@ export const mockedRandomItem: PerseusRenderer = {
                 numCorrect: 1,
                 choices: [
                     {
+                        id: "0-0-0-0-0",
                         content: "Content 1",
                         correct: true,
                     },
                     {
+                        id: "1-1-1-1-1",
                         content: "Content 2",
                         correct: false,
                     },
                     {
+                        id: "2-2-2-2-2",
                         content: "Content 3",
                         correct: false,
                     },
                     {
+                        id: "3-3-3-3-3",
                         content: "Content 4",
                         correct: false,
                     },
@@ -220,22 +228,26 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
         multipleSelect: false,
         choices: [
             {
+                id: "3-3-3-3-3",
                 content: "Content 4",
                 correct: false,
                 originalIndex: 3,
             },
             {
+                id: "1-1-1-1-1",
                 content: "Content 2",
                 correct: false,
                 originalIndex: 1,
             },
             {
+                id: "0-0-0-0-0",
                 content: "Content 1",
                 correct: true,
                 originalIndex: 0,
             },
 
             {
+                id: "2-2-2-2-2",
                 content: "Content 3",
                 correct: false,
                 originalIndex: 2,
@@ -251,22 +263,26 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
         multipleSelect: false,
         choices: [
             {
+                id: "3-3-3-3-3",
                 content: "Content 4",
                 correct: false,
                 originalIndex: 3,
             },
             {
+                id: "1-1-1-1-1",
                 content: "Content 2",
                 correct: false,
                 originalIndex: 1,
             },
             {
+                id: "0-0-0-0-0",
                 content: "Content 1",
                 correct: true,
                 originalIndex: 0,
             },
 
             {
+                id: "2-2-2-2-2",
                 content: "Content 3",
                 correct: false,
                 originalIndex: 2,

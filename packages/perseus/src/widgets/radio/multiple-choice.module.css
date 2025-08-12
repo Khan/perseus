@@ -65,11 +65,11 @@
 
 .choice-list:dir(ltr):before,
 .choice-list:dir(rtl):after {
-    /* TODO: The following gradient should be updated to use appropriate background color to automatically handle when user has chosen dark mode. */
     background: linear-gradient(
         to left,
         transparent,
-        white calc(var(--perseus-multiple-choice-spacing) / 2)
+        var(--wb-semanticColor-surface-primary)
+            calc(var(--perseus-multiple-choice-spacing) / 2)
     );
 }
 
@@ -78,7 +78,8 @@
     background: linear-gradient(
         to right,
         transparent,
-        white calc(var(--perseus-multiple-choice-spacing) / 2)
+        var(--wb-semanticColor-surface-primary)
+            calc(var(--perseus-multiple-choice-spacing) / 2)
     );
 }
 /* Fade bars for scrolling (End) */

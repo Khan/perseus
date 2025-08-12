@@ -63,10 +63,12 @@ describe("splitPerseusRenderer", () => {
                     options: {
                         choices: [
                             {
+                                id: "0-0-0-0-0",
                                 content: "Correct",
                                 correct: true,
                             },
                             {
+                                id: "1-1-1-1-1",
                                 content: "Incorrect",
                                 correct: false,
                             },
@@ -346,10 +348,12 @@ describe("splitPerseusRenderer", () => {
                 options: {
                     choices: [
                         {
+                            id: "0-0-0-0-0",
                             content: "Correct",
                             correct: true,
                         },
                         {
+                            id: "1-1-1-1-1",
                             content: "Incorrect",
                             correct: false,
                         },

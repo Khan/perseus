@@ -154,16 +154,6 @@ function ScrollableView({
 
     return (
         <>
-            {canScrollEnd && (
-                <div
-                    className={`${styles.scrollFade} ${isRtl ? styles.scrollFadeRight : styles.scrollFadeLeft}`}
-                />
-            )}
-            {canScrollStart && (
-                <div
-                    className={`${styles.scrollFade} ${isRtl ? styles.scrollFadeLeft : styles.scrollFadeRight}`}
-                />
-            )}
             <div
                 {...additionalProps}
                 role={role}
