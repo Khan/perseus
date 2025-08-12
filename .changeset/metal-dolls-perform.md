@@ -1,0 +1,5 @@
+---
+"@khanacademy/perseus": patch
+---
+
+Remove transform from Matrix
