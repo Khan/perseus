@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, {useId} from "react";
 
 import {usePerseusI18n} from "../../components/i18n-context";
 import ScrollableView from "../../components/scrollable-view";
@@ -8,6 +8,7 @@ import styles from "./multiple-choice.module.css";
 import {getChoiceLetter} from "./util";
 import {getInstructionsText} from "./utils/string-utils";
 
+import type {IndicatorContent} from "./choice-indicator.new";
 import type {ChoiceType} from "./multiple-choice-widget.new";
 import type {PerseusStrings} from "@khanacademy/perseus/strings";
 
@@ -92,12 +93,25 @@ interface ChoiceListItemsProps {
 const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
     const {choices, i18nStrings, multipleSelect, onChoiceChange, reviewMode} =
         props;
+    const listId = useId();
 
     const items = choices.map((choice, i) => {
         const updateChecked = (isChecked: boolean) => {
             onChoiceChange(i, isChecked);
         };
+        const contentId = `${listId}-choice-${i + 1}`;
         const choiceLetter = getChoiceLetter(i, i18nStrings);
+        const srContent =
+            reviewMode === true
+                ? choice.correct
+                    ? i18nStrings.choiceCorrect
+                    : i18nStrings.choiceIncorrect
+                : i18nStrings.choice;
+        const indicatorContent: IndicatorContent = {
+            visible: choiceLetter,
+            screenReader: srContent({letter: choiceLetter}),
+            labelledBy: contentId,
+        };
         const showCorrectness =
             reviewMode === true
                 ? choice.correct
@@ -107,25 +121,34 @@ const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
         const content = choice.isNoneOfTheAbove
             ? i18nStrings.noneOfTheAbove
             : choice.content;
-        const rationaleClasses = [styles.rationale]
-            .concat(showCorrectness === "correct" ? [styles.isCorrect] : [])
-            .join(" ");
-        const rationale =
-            reviewMode && choice.hasRationale ? (
-                <div className={rationaleClasses}>{choice.rationale}</div>
-            ) : undefined;
+        let rationale: React.ReactElement | undefined;
+        if (reviewMode && choice.hasRationale) {
+            const rationaleId = `${contentId}-rationale-${i + 1}`;
+            indicatorContent.describedBy = rationaleId;
+            const rationaleClasses =
+                showCorrectness === "correct"
+                    ? `${styles.rationale} ${styles.isCorrect}`
+                    : styles.rationale;
+            rationale = (
+                <div id={rationaleId} className={rationaleClasses}>
+                    {/* Any prefix here needs to be translated */}
+                    <span className="perseus-sr-only">Here's why:</span>
+                    {choice.rationale}
+                </div>
+            );
+        }
 
         return (
             <Choice
                 key={choice.id}
                 checked={choice.checked}
-                indicatorContent={choiceLetter}
+                indicatorContent={indicatorContent}
                 isMultiSelect={multipleSelect}
                 showCorrectness={showCorrectness}
                 updateChecked={updateChecked}
             >
                 <div className={styles.content}>
-                    {content}
+                    <div id={contentId}>{content}</div>
                     {rationale}
                 </div>
             </Choice>

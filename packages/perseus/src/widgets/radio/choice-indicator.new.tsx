@@ -1,21 +1,33 @@
 import {PhosphorIcon} from "@khanacademy/wonder-blocks-icon";
 import checkIcon from "@phosphor-icons/core/bold/check-bold.svg";
 import minusIcon from "@phosphor-icons/core/bold/minus-circle-bold.svg";
-import * as React from "react";
+import React, {useId} from "react";
 
 import styles from "./choice-indicator.module.css";
 
-export type IndicatorProps = {
+export interface IndicatorContent {
+    visible: string;
+    screenReader: string;
+    labelledBy?: string;
+    describedBy?: string;
+}
+
+export interface IndicatorProps {
     buttonRef: React.Ref<HTMLButtonElement>;
     checked: boolean;
-    content: string;
+    content: IndicatorContent;
     shape: "circle" | "square";
     showCorrectness?: "correct" | "wrong";
     updateChecked: (isChecked: boolean) => void;
-};
+}
 
 const Indicator = (props: IndicatorProps) => {
-    const {checked, showCorrectness} = props;
+    const {checked, content, showCorrectness} = props;
+    const indicatorId = useId();
+    const ariaLabelledby = content.labelledBy
+        ? `${indicatorId} ${content.labelledBy}`
+        : undefined;
+    const ariaDisabled = showCorrectness ? "true" : "false";
     const iconImage =
         checked && showCorrectness === "correct"
             ? checkIcon
@@ -43,14 +55,19 @@ const Indicator = (props: IndicatorProps) => {
 
     return (
         <button
+            aria-describedby={content.describedBy}
+            aria-disabled={ariaDisabled}
             aria-pressed={checked}
+            aria-label={content.screenReader}
+            aria-labelledby={ariaLabelledby}
             className={classes.join(" ")}
+            id={indicatorId}
             type="button"
             ref={props.buttonRef}
             onClick={handleClick}
         >
             {icon}
-            {props.content}
+            {content.visible}
         </button>
     );
 };
