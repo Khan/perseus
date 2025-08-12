@@ -1,3 +1,7 @@
+import {
+    generateTestPerseusItem,
+    type PerseusItem,
+} from "@khanacademy/perseus-core";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {within, render, screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -26,7 +30,6 @@ import {renderQuestion} from "./test-utils";
 
 import type {MockAssetLoadingWidget} from "../widgets/mock-widgets/mock-asset-loading-widget";
 import type {KeypadAPI} from "@khanacademy/math-input";
-import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("server item renderer", () => {
@@ -546,6 +549,74 @@ describe("server item renderer", () => {
             expect(
                 screen.getByText("Don't use level-1 headings", {exact: false}),
             ).toBeInTheDocument();
+        });
+    });
+
+    describe.each([
+        [true, "on"],
+        [false, "off"],
+    ])("handles answerless flag behavior: %s, %s", (flag) => {
+        describe("rationales", () => {
+            function getRadioWithRationales(): PerseusItem {
+                return generateTestPerseusItem({
+                    question: {
+                        content: "[[☃ radio 1]]",
+                        widgets: {
+                            "radio 1": {
+                                type: "radio",
+                                version: {major: 3, minor: 0},
+                                options: {
+                                    countChoices: false,
+                                    deselectEnabled: false,
+                                    hasNoneOfTheAbove: false,
+                                    multipleSelect: false,
+                                    randomize: false,
+                                    numCorrect: 1,
+                                    choices: [
+                                        {
+                                            content: "Correct",
+                                            correct: true,
+                                            rationale: "This is correct",
+                                        },
+                                        {
+                                            content: "Incorrect",
+                                            correct: false,
+                                            rationale: "This is incorrect",
+                                        },
+                                    ],
+                                },
+                            },
+                        },
+                        images: {},
+                    },
+                });
+            }
+
+            it("displays rationales with showSolutions", async () => {
+                const {rerender} = renderQuestion(
+                    getRadioWithRationales(),
+                    {},
+                    {startAnswerless: flag},
+                );
+
+                await userEvent.click(
+                    screen.getByRole("radio", {name: "(Choice A) Correct"}),
+                );
+
+                rerender(
+                    getRadioWithRationales(),
+                    {},
+                    {
+                        startAnswerless: flag,
+                        showSolutions: "all",
+                    },
+                );
+
+                expect(screen.getByText("This is correct")).toBeInTheDocument();
+                expect(
+                    screen.getByText("This is incorrect"),
+                ).toBeInTheDocument();
+            });
         });
     });
 });
