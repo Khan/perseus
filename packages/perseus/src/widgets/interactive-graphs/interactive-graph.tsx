@@ -147,8 +147,6 @@ type RenderProps = {
      *
      * NOTE(kevinb): perseus_data.go defines this as Array<Array<number>>
      */
-    // TODO(kevinb): Add a transform function to interactive-graph.jsx to
-    // rename `range` to `ranges` so that things are less confusing.
     range: GraphRange;
     /**
      * Whether to show the arrows on the axis.
@@ -885,7 +883,6 @@ export default {
     name: "interactive-graph",
     displayName: "Interactive graph",
     widget: InteractiveGraph,
-    staticTransform: _.identity,
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,
