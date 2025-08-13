@@ -127,9 +127,12 @@ export const unionAnswerForms: (
  * Filter out the correct answers and map them to the answer forms
  * so that we can generate the examples for the widget.
  */
-export function processAnswerForms(
+export function normalizeCorrectAnswerForms(
     answers: PerseusNumericInputWidgetOptions["answers"],
-) {
+): ReadonlyArray<PerseusNumericInputAnswerForm> {
+    // this is because the serialization funciton doesn't
+    // serialize answers, so restore serialized state won't have answers
+    // TODO(LEMS-3185): remove serialized state logic
     if (answers == null) {
         return [];
     }

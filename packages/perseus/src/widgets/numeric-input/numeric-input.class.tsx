@@ -6,7 +6,7 @@ import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
 import {NumericInputComponent} from "./numeric-input";
-import {processAnswerForms} from "./utils";
+import {normalizeCorrectAnswerForms} from "./utils";
 
 import type {Focusable, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
@@ -128,7 +128,7 @@ export class NumericInput
         return (
             <NumericInputComponent
                 {...this.props}
-                answerForms={processAnswerForms(this.props.answers)}
+                answerForms={normalizeCorrectAnswerForms(this.props.answers)}
                 ref={this.inputRef}
             />
         );

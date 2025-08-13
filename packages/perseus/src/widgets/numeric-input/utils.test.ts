@@ -2,7 +2,7 @@ import {mockStrings} from "../../strings";
 
 import {
     generateExamples,
-    processAnswerForms,
+    normalizeCorrectAnswerForms,
     shouldShowExamples,
     unionAnswerForms,
 } from "./utils";
@@ -197,9 +197,9 @@ describe("unionAnswerForms", () => {
     });
 });
 
-describe("processAnswerForms", () => {
-    it("removes the answers and extracts the answer forms", () => {
-        const result = processAnswerForms([
+describe("normalizeCorrectAnswerForms", () => {
+    it("pairs answer forms with `simplify` values", () => {
+        const result = normalizeCorrectAnswerForms([
             {
                 status: "correct",
                 maxError: null,
@@ -218,8 +218,47 @@ describe("processAnswerForms", () => {
         ]);
     });
 
+    it("handles multiple answerForms in one answer", () => {
+        const result = normalizeCorrectAnswerForms([
+            {
+                status: "correct",
+                maxError: null,
+                strict: true,
+                value: 0.5,
+                simplify: "required",
+                answerForms: ["proper", "decimal"],
+                message: "",
+            },
+        ]);
+        expect(result).toEqual([
+            {
+                simplify: "required",
+                name: "proper",
+            },
+            {
+                name: "decimal",
+                simplify: "required",
+            },
+        ]);
+    });
+
+    it("handles no answer forms in one answer", () => {
+        const result = normalizeCorrectAnswerForms([
+            {
+                status: "correct",
+                maxError: null,
+                strict: true,
+                value: 0.5,
+                simplify: "required",
+                answerForms: [],
+                message: "",
+            },
+        ]);
+        expect(result).toEqual([]);
+    });
+
     it("only uses answer forms from correct answers", () => {
-        const result = processAnswerForms([
+        const result = normalizeCorrectAnswerForms([
             {
                 status: "correct",
                 maxError: null,
