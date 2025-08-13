@@ -8,7 +8,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio
 import MultipleChoiceComponent from "./multiple-choice-component.new";
 import {getChoiceStates, parseNestedWidgets} from "./utils/general-utils";
 
-import type {PerseusStrings} from "../../strings";
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
@@ -46,7 +45,6 @@ export type RenderProps = {
     deselectEnabled?: boolean;
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
     choiceStates?: ReadonlyArray<ChoiceState>;
-    strings?: PerseusStrings;
     editMode?: boolean;
     labelWrap?: boolean;
 };
