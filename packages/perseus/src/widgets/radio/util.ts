@@ -26,7 +26,10 @@ export function getUserInputFromSerializedState(
 ): PerseusRadioUserInput {
     if (props.choiceStates) {
         const choiceStates = props.choiceStates;
-        const choicesSelected = props.choices.map(choice => ({id: choice.id, selected: false}))
+        const choicesSelected = props.choices.map((choice) => ({
+            id: choice.id,
+            selected: false,
+        }));
 
         for (let i = 0; i < choicesSelected.length; i++) {
             const index = unshuffle ? props.choices[i].originalIndex : i;
@@ -41,12 +44,17 @@ export function getUserInputFromSerializedState(
     /* c8 ignore if - props.values is deprecated */
     const {values} = props;
     if (values) {
-        const choicesSelected = props.choices.map(choice => ( {id: choice.id, selected: false}))
+        const choicesSelected = props.choices.map((choice) => ({
+            id: choice.id,
+            selected: false,
+        }));
         const valuesLength = values.length;
 
-        for (let i = 0; i < valuesLength && props.choices.length; i++) {
+        for (let i = 0; i < valuesLength && i < props.choices.length; i++) {
             const index = unshuffle ? props.choices[i].originalIndex : i;
-            if(index < choicesSelected.length){choicesSelected[index].selected = values[i];}
+            if (index < choicesSelected.length) {
+                choicesSelected[index].selected = values[i];
+            }
         }
         return {
             choicesSelected,
@@ -54,6 +62,9 @@ export function getUserInputFromSerializedState(
     }
     // Nothing checked
     return {
-        choicesSelected: props.choices.map((choice) => ({id:choice.id, selected: false})),
+        choicesSelected: props.choices.map((choice) => ({
+            id: choice.id,
+            selected: false,
+        })),
     };
 }

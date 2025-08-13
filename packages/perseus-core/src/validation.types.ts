@@ -29,7 +29,6 @@
  * ```
  */
 
-import { UserSelectedChoices } from "../../perseus/src/types";
 import type {
     GrapherAnswerTypes,
     PerseusDropdownChoice,
@@ -47,6 +46,7 @@ import type {
     PerseusFreeResponseWidgetScoringCriterion,
 } from "./data-schema";
 import type {Relationship} from "./types";
+import type {UserSelectedChoices} from "@khanacademy/perseus/src/types";
 
 export type WidgetValidatorFunction = (
     userInput: UserInput | undefined,

@@ -631,6 +631,6 @@ export interface Focusable {
 }
 
 export type UserSelectedChoices = {
-    id: string,
-    selected: boolean
-}
+    id: string;
+    selected: boolean;
+};

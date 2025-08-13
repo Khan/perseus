@@ -6,7 +6,6 @@ const userSelectedChoicesParser = object({
     selected: boolean,
 });
 
-
 export const parseRadioUserInput = object({
     choicesSelected: array(userSelectedChoicesParser),
 });

@@ -16,7 +16,10 @@ function validateRadio(
     // been interacted with.
     userInput: PerseusRadioUserInput | undefined,
 ): ValidationResult {
-    if (userInput == null || !userInput.choicesSelected.some(choice => choice.selected===true)) {
+    if (
+        userInput == null ||
+        !userInput.choicesSelected.some((choice) => choice.selected === true)
+    ) {
         return {
             type: "invalid",
             message: null,

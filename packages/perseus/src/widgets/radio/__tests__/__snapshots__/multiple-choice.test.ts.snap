@@ -61,7 +61,7 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
                 style="list-style: none;"
               >
                 <li
-                  class="item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -74,7 +74,7 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
                         class="perseus-sr-only"
                       >
                         <label>
-                          (Choice A, Checked)
+                          (Choice A)
                              
                           <div
                             class="perseus-renderer perseus-renderer-responsive"
@@ -124,7 +124,7 @@ exports[`Multiple Choice Widget multi-choice question should snapshot the same w
                               style="border-color: transparent; border-radius: 5px;"
                             >
                               <div
-                                class="choiceBase_1p49anc-o_O-multiSelectShape_1rlimxq-o_O-choiceHasLetter_jjjjws-o_O-choiceIsChecked_1lslapz-o_O-choiceNeutral_73mm8d"
+                                class="choiceBase_1p49anc-o_O-multiSelectShape_1rlimxq-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
                               >
@@ -861,7 +861,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                   </div>
                 </li>
                 <li
-                  class="item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -874,7 +874,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                         class="perseus-sr-only"
                       >
                         <label>
-                          (Choice C, Checked)
+                          (Choice C)
                              
                           <div
                             class="perseus-renderer perseus-renderer-responsive"
@@ -924,7 +924,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsChecked_1lslapz-o_O-choiceNeutral_73mm8d"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
                               >
@@ -1173,7 +1173,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                 style="list-style: none;"
               >
                 <li
-                  class="item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -1186,7 +1186,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                         class="perseus-sr-only"
                       >
                         <label>
-                          (Choice A, Checked)
+                          (Choice A)
                              
                           <div
                             class="perseus-renderer perseus-renderer-responsive"
@@ -1249,7 +1249,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: false should 
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsChecked_1lslapz-o_O-choiceNeutral_73mm8d"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
                               >
@@ -2553,7 +2553,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                   </div>
                 </li>
                 <li
-                  class="item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -2566,7 +2566,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                         class="perseus-sr-only"
                       >
                         <label>
-                          (Choice C, Checked)
+                          (Choice C)
                              
                           <div
                             class="perseus-renderer perseus-renderer-responsive"
@@ -2616,7 +2616,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsChecked_1lslapz-o_O-choiceNeutral_73mm8d"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
                               >
@@ -2865,7 +2865,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                 style="list-style: none;"
               >
                 <li
-                  class="item_dswvvi-o_O-responsiveItem_85oyrd-o_O-selectedItem_p6cyk0 perseus-radio-option perseus-radio-selected"
+                  class="item_dswvvi-o_O-responsiveItem_85oyrd perseus-radio-option"
                 >
                   <div
                     class="description description_psmgei"
@@ -2878,7 +2878,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                         class="perseus-sr-only"
                       >
                         <label>
-                          (Choice A, Checked)
+                          (Choice A)
                              
                           <div
                             class="perseus-renderer perseus-renderer-responsive"
@@ -2941,7 +2941,7 @@ exports[`Multiple Choice Widget single-choice question reviewMode: true should s
                               style="border-color: transparent; border-radius: 50%;"
                             >
                               <div
-                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsChecked_1lslapz-o_O-choiceNeutral_73mm8d"
+                                class="choiceBase_1p49anc-o_O-singleSelectShape_skffv-o_O-choiceHasLetter_jjjjws-o_O-choiceIsUnchecked_7sq9ra-o_O-uncheckedColors_7womui"
                                 data-is-radio-icon="true"
                                 data-testid="choice-icon__library-choice-icon"
                               >

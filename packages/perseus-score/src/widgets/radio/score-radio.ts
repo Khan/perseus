@@ -35,10 +35,13 @@ function scoreRadio(
         };
     }
 
-
     const noneOfTheAboveSelected = rubric.choices.some(
         (choice) =>
-            choice.isNoneOfTheAbove && userInput.choicesSelected.some(userChoice => userChoice.id === choice.id && userChoice.selected),
+            choice.isNoneOfTheAbove &&
+            userInput.choicesSelected.some(
+                (userChoice) =>
+                    userChoice.id === choice.id && userChoice.selected,
+            ),
     );
 
     if (noneOfTheAboveSelected && numSelected > 1) {
@@ -50,9 +53,11 @@ function scoreRadio(
 
     const correct = userInput.choicesSelected.every((userChoice) => {
         // Find the corresponding rubric by choice id
-        const rubricChoice = rubric.choices.find(choice => choice.id === userChoice.id)
+        const rubricChoice = rubric.choices.find(
+            (choice) => choice.id === userChoice.id,
+        );
 
-        if(!rubricChoice){
+        if (!rubricChoice) {
             return false;
         }
 
@@ -62,7 +67,7 @@ function scoreRadio(
                 return choice.id === rubricChoice.id || !choice.correct;
             });
         } else {
-            isCorrect = !!rubricChoice.correct
+            isCorrect = !!rubricChoice.correct;
         }
         return isCorrect === userChoice.selected;
     });
