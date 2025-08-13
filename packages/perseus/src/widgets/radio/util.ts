@@ -41,20 +41,6 @@ export function getUserInputFromSerializedState(
         };
         // Support legacy choiceState implementation
     }
-    /* c8 ignore if - props.values is deprecated */
-    const {values} = props;
-    if (values) {
-        const choicesSelected = [...values];
-        const valuesLength = values.length;
-
-        for (let i = 0; i < valuesLength; i++) {
-            const index = unshuffle ? props.choices[i].originalIndex : i;
-            choicesSelected[index] = values[i];
-        }
-        return {
-            choicesSelected,
-        };
-    }
     // Nothing checked
     return {
         choicesSelected: props.choices.map(() => false),

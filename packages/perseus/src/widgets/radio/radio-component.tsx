@@ -29,9 +29,6 @@ export type RenderProps = {
     choices: RadioChoiceWithMetadata[];
     showSolutions?: ShowSolutions;
     choiceStates?: ChoiceState[];
-    // Depreciated; support for legacy way of handling changes
-    // Adds proptype for prop that is used but was lacking type
-    values?: boolean[];
 };
 
 export type Props = WidgetProps<
@@ -227,18 +224,6 @@ class Radio extends React.Component<Props> implements Widget {
             }));
         } else if (this.props.choiceStates) {
             choiceStates = this.props.choiceStates;
-        } else if (this.props.values) {
-            // Support legacy choiceStates implementation
-            /* c8 ignore next - props.values is deprecated */
-            choiceStates = this.props.values.map((val) => ({
-                selected: val,
-                crossedOut: false,
-                readOnly: false,
-                highlighted: false,
-                rationaleShown: false,
-                correctnessShown: false,
-                previouslyAnswered: false,
-            }));
         } else {
             choiceStates = choices.map(() => ({
                 selected: false,

@@ -46,9 +46,6 @@ export type RenderProps = {
     deselectEnabled?: boolean;
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
     choiceStates?: ReadonlyArray<ChoiceState>;
-    // Deprecated; support for legacy way of handling changes
-    // Adds proptype for prop that is used but was lacking type
-    values?: ReadonlyArray<boolean>;
     strings?: PerseusStrings;
     editMode?: boolean;
     labelWrap?: boolean;
@@ -292,7 +289,7 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
      * @returns An array of choice props ready for the component
      */
     prepareChoicesProps = () => {
-        const {choices, showSolutions, choiceStates, values} = this.props;
+        const {choices, showSolutions, choiceStates} = this.props;
 
         // Get the updated choice states based on the current props
         const processedChoiceStates = getChoiceStates({
@@ -300,7 +297,6 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
             isStatic: this.props.static,
             showSolutions,
             choiceStates,
-            values,
         });
 
         // Build the choice props from the updated choice states
