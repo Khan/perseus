@@ -1,4 +1,8 @@
-function getMatrixSize(matrix: ReadonlyArray<ReadonlyArray<number>>) {
+function getMatrixSize(
+    matrix:
+        | ReadonlyArray<ReadonlyArray<number>>
+        | ReadonlyArray<ReadonlyArray<string>>,
+) {
     const matrixSize = [1, 1];
 
     // We need to find the widest row and tallest column to get the correct

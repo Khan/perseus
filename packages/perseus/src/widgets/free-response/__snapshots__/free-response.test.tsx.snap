@@ -25,7 +25,7 @@ exports[`free-response widget should snapshot on mobile: first mobile render 1`]
                 class="default_xu2jcg-o_O-labelContainer_1qlbwdv"
               >
                 <label
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_1r6q8ju-o_O-labelWithNoDescription_i032sc-o_O-questionLabel_shsy80"
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_1r6q8ju-o_O-labelWithNoDescription_i032sc"
                   for=":r2:-labeled-field-field"
                   id=":r2:-labeled-field-label"
                 >
@@ -111,7 +111,7 @@ exports[`free-response widget should snapshot: first render 1`] = `
                 class="default_xu2jcg-o_O-labelContainer_1qlbwdv"
               >
                 <label
-                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_1r6q8ju-o_O-labelWithNoDescription_i032sc-o_O-questionLabel_shsy80"
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumSemiWeight_w58hss-o_O-label_1r6q8ju-o_O-labelWithNoDescription_i032sc"
                   for=":r0:-labeled-field-field"
                   id=":r0:-labeled-field-label"
                 >

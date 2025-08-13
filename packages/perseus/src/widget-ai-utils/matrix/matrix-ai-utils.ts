@@ -8,7 +8,7 @@ export type MatrixPromptJSON = {
         width: number;
     };
     userInput: {
-        answerRows: ReadonlyArray<ReadonlyArray<number>>;
+        answerRows: ReadonlyArray<ReadonlyArray<string>>;
     };
 };
 

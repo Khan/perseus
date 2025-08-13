@@ -199,7 +199,7 @@ export type PerseusMatrixRubric = {
 export type PerseusMatrixValidationData = Empty;
 
 export type PerseusMatrixUserInput = {
-    answers: PerseusMatrixRubric["answers"];
+    answers: string[][];
 };
 
 export type PerseusNumberLineRubric = {

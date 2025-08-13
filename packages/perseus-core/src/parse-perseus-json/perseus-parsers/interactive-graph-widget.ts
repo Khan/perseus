@@ -261,6 +261,20 @@ export const parseInteractiveGraphWidget = parseWidget(
         rulerLabel: optional(string),
         rulerTicks: optional(number),
         range: pair(pairOfNumbers, pairOfNumbers),
+        showAxisArrows: defaulted(
+            object({
+                xMin: boolean,
+                xMax: boolean,
+                yMin: boolean,
+                yMax: boolean,
+            }),
+            () => ({
+                xMin: true,
+                xMax: true,
+                yMin: true,
+                yMax: true,
+            }),
+        ),
         // NOTE(benchristel): I copied the default graph from
         // interactive-graph.tsx. See the parse-perseus-json/README.md for
         // an explanation of why we want to duplicate the default here.
