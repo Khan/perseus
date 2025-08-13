@@ -1,5 +1,17 @@
 # @khanacademy/perseus-score
 
+## 7.6.0
+
+### Minor Changes
+
+-   [#2775](https://github.com/Khan/perseus/pull/2775) [`a9ff068196`](https://github.com/Khan/perseus/commit/a9ff0681963836fbc70c606eb880e3464e60c03e) Thanks [@Myranae](https://github.com/Myranae)! - Fix parsing error by updating matrix user input to an array of string arrays instead of number
+
+### Patch Changes
+
+-   Updated dependencies [[`78f7c512a4`](https://github.com/Khan/perseus/commit/78f7c512a4cd35e2416952fccb480e1821fcef8a), [`a9ff068196`](https://github.com/Khan/perseus/commit/a9ff0681963836fbc70c606eb880e3464e60c03e)]:
+    -   @khanacademy/perseus-core@18.6.0
+    -   @khanacademy/kmath@2.1.3
+
 ## 7.5.0
 
 ### Minor Changes
