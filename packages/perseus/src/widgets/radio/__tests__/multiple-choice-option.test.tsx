@@ -5,6 +5,13 @@ import * as React from "react";
 import * as IndicatorComponent from "../choice-indicator.new";
 import Choice from "../choice.new";
 
+import type {IndicatorContent} from "../choice-indicator.new";
+
+const indicatorContent: IndicatorContent = {
+    visible: "A",
+    screenReader: "Choice A",
+};
+
 describe("Multiple choice option", () => {
     it.each`
         isMultiSelect | isOrIsNot   | shape
@@ -21,7 +28,7 @@ describe("Multiple choice option", () => {
             render(
                 <Choice
                     checked={false}
-                    indicatorContent="A"
+                    indicatorContent={indicatorContent}
                     isMultiSelect={isMultiSelect}
                     updateChecked={() => {}}
                 >
@@ -49,7 +56,7 @@ describe("Multiple choice option", () => {
         render(
             <Choice
                 checked={false}
-                indicatorContent="A"
+                indicatorContent={indicatorContent}
                 isMultiSelect={false}
                 showCorrectness={showCorrectness}
                 updateChecked={() => {}}
@@ -78,7 +85,7 @@ describe("Multiple choice option", () => {
             render(
                 <Choice
                     checked={false}
-                    indicatorContent="A"
+                    indicatorContent={indicatorContent}
                     isMultiSelect={false}
                     showCorrectness={showCorrectness}
                     updateChecked={updateCheckedMock}

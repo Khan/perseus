@@ -2,6 +2,15 @@ import * as React from "react";
 
 import Choice from "../choice.new";
 
+import type {IndicatorContent} from "../choice-indicator.new";
+
+const getIndicatorContent = (letter: string): IndicatorContent => {
+    return {
+        visible: letter,
+        screenReader: `Choice ${letter}`,
+    };
+};
+
 const Container = (props: {children: React.ReactNode}): React.ReactElement => {
     return (
         <ul
@@ -25,7 +34,7 @@ export const SingleSelect = (): React.ReactElement => {
         <Container>
             <Choice
                 checked={false}
-                indicatorContent="A"
+                indicatorContent={getIndicatorContent("A")}
                 isMultiSelect={false}
                 updateChecked={() => {}}
             >
@@ -33,7 +42,7 @@ export const SingleSelect = (): React.ReactElement => {
             </Choice>
             <Choice
                 checked={false}
-                indicatorContent="B"
+                indicatorContent={getIndicatorContent("B")}
                 isMultiSelect={false}
                 updateChecked={() => {}}
             >
@@ -43,7 +52,7 @@ export const SingleSelect = (): React.ReactElement => {
             </Choice>
             <Choice
                 checked={false}
-                indicatorContent="C"
+                indicatorContent={getIndicatorContent("C")}
                 isMultiSelect={false}
                 updateChecked={() => {}}
             >
@@ -54,7 +63,7 @@ export const SingleSelect = (): React.ReactElement => {
             </Choice>
             <Choice
                 checked={true}
-                indicatorContent="D"
+                indicatorContent={getIndicatorContent("D")}
                 isMultiSelect={false}
                 showCorrectness="wrong"
                 updateChecked={() => {}}
@@ -63,7 +72,7 @@ export const SingleSelect = (): React.ReactElement => {
             </Choice>
             <Choice
                 checked={false}
-                indicatorContent="E"
+                indicatorContent={getIndicatorContent("E")}
                 isMultiSelect={false}
                 updateChecked={() => {}}
             >
@@ -71,7 +80,7 @@ export const SingleSelect = (): React.ReactElement => {
             </Choice>
             <Choice
                 checked={true}
-                indicatorContent="F"
+                indicatorContent={getIndicatorContent("F")}
                 isMultiSelect={false}
                 showCorrectness="correct"
                 updateChecked={() => {}}
