@@ -1,6 +1,11 @@
 import {mockStrings} from "../../strings";
 
-import {generateExamples, shouldShowExamples, unionAnswerForms} from "./utils";
+import {
+    generateExamples,
+    processAnswerForms,
+    shouldShowExamples,
+    unionAnswerForms,
+} from "./utils";
 
 import type {PerseusNumericInputAnswerForm} from "@khanacademy/perseus-core";
 
@@ -189,5 +194,56 @@ describe("unionAnswerForms", () => {
 
         // Assert
         expect(result).toEqual(expected);
+    });
+});
+
+describe("processAnswerForms", () => {
+    it("removes the answers and extracts the answer forms", () => {
+        const result = processAnswerForms([
+            {
+                status: "correct",
+                maxError: null,
+                strict: true,
+                value: 0.5,
+                simplify: "required",
+                answerForms: ["proper"],
+                message: "",
+            },
+        ]);
+        expect(result).toEqual([
+            {
+                simplify: "required",
+                name: "proper",
+            },
+        ]);
+    });
+
+    it("only uses answer forms from correct answers", () => {
+        const result = processAnswerForms([
+            {
+                status: "correct",
+                maxError: null,
+                strict: true,
+                value: 0.5,
+                simplify: "required",
+                answerForms: ["proper"],
+                message: "",
+            },
+            {
+                status: "wrong",
+                maxError: null,
+                strict: true,
+                value: 0.5,
+                simplify: "required",
+                answerForms: ["decimal"],
+                message: "",
+            },
+        ]);
+        expect(result).toEqual([
+            {
+                simplify: "required",
+                name: "proper",
+            },
+        ]);
     });
 });
