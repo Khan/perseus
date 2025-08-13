@@ -193,13 +193,13 @@ describe("Widget API support", () => {
                         {selected: false},
                     ],
                     choices: [
-                        {content: "a", originalIndex: 0},
-                        {content: "b", originalIndex: 1},
-                        {content: "c", originalIndex: 2},
+                        {id:"0-0-0-0-0", content: "a", originalIndex: 0},
+                        {id:"1-1-1-1-1", content: "b", originalIndex: 1},
+                        {id:"2-2-2-2-2", content: "c", originalIndex: 2},
                     ],
                 },
                 expected: {
-                    choicesSelected: [false, true, false],
+                    choicesSelected: [{id:"0-0-0-0-0", selected: false}, {id:"1-1-1-1-1", selected:true}, {id:"2-2-2-2-2", selected:false}],
                 },
             },
         ])(

@@ -118,7 +118,7 @@ function getStartUserInput(
     options: RadioPublicWidgetOptions,
 ): PerseusRadioUserInput {
     return {
-        choicesSelected: options.choices.map(() => false),
+        choicesSelected: options.choices.map((choice) => ({id: choice.id, selected: false})),
     };
 }
 
@@ -126,7 +126,7 @@ function getCorrectUserInput(
     options: PerseusRadioWidgetOptions,
 ): PerseusRadioUserInput {
     return {
-        choicesSelected: options.choices.map((option) => !!option.correct),
+        choicesSelected: options.choices.map((option) => ({id: option.id, selected:!!option.correct})),
     };
 }
 
