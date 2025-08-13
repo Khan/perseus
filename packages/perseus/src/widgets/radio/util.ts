@@ -1,6 +1,11 @@
-import type {Props} from "./radio-component";
+import {
+    randomizeArrayElements,
+    type PerseusRadioUserInput,
+} from "@khanacademy/perseus-core";
+import _ from "underscore";
+
+import type {Props, RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusStrings} from "../../strings";
-import type {PerseusRadioUserInput} from "@khanacademy/perseus-core";
 
 /**
  * Given a choice's position in the radio widget, return the corresponding
@@ -57,4 +62,53 @@ export function getUserInputFromSerializedState(
     return {
         choicesSelected: props.choices.map(() => false),
     };
+}
+
+export function addNoneOfAbove(
+    choices: ReadonlyArray<RadioChoiceWithMetadata>,
+): ReadonlyArray<RadioChoiceWithMetadata> {
+    let noneOfTheAbove = null;
+
+    const newChoices = choices.filter((choice, index) => {
+        if (choice.isNoneOfTheAbove) {
+            // @ts-expect-error - TS2322 - Type 'RadioChoiceWithMetadata' is not assignable to type 'null'.
+            noneOfTheAbove = choice;
+            return false;
+        }
+        return true;
+    });
+
+    // Place the "None of the above" options last
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (noneOfTheAbove) {
+        newChoices.push(noneOfTheAbove);
+    }
+
+    return newChoices;
+}
+
+export function enforceOrdering(
+    choices: ReadonlyArray<RadioChoiceWithMetadata>,
+    strings: PerseusStrings,
+): ReadonlyArray<RadioChoiceWithMetadata> {
+    // Represents choices that we automatically re-order if encountered.
+    // Note: these are in the reversed (incorrect) order that we will swap, if
+    // found.
+    // Note 2: these are internationalized when compared later on.
+    const ReversedChoices: ReadonlyArray<[string, string]> = [
+        [strings.false, strings.true],
+        [strings.no, strings.yes],
+    ];
+    const content = choices.map((c) => c.content);
+    if (ReversedChoices.some((reversed) => _.isEqual(content, reversed))) {
+        return [choices[1], choices[0]];
+    }
+    return choices;
+}
+
+export function maybeRandomize(
+    array: ReadonlyArray<RadioChoiceWithMetadata>,
+    randomize?: boolean,
+): ReadonlyArray<RadioChoiceWithMetadata> {
+    return randomize ? randomizeArrayElements(array) : array;
 }
