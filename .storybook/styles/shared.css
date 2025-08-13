@@ -1,0 +1,26 @@
+/**
+ * This file contains styles that are used in prod that ultimately
+ * get passed onto Perseus components. This file is imported in the
+ * .storybook/preview.tsx file so that the components can have the same
+ * styles as prod when viewed within Storybook.
+ */
+
+/* A CSS reset. Needed for every page. */
+@import "./reset.css";
+
+/* Used to give the root elements of the page stylying */
+@import "./base-page-styles.css";
+
+/* Used for styling frequently-used elements (such as anchors <a>) */
+@import "./base-element-styles.css";
+
+/* Font styles for KA Classic */
+@import "./classic.css";
+
+/* Font styles for Classroom */
+@import "./thunderblocks.css";
+
+/* Used for adding Wonder Blocks CSS variables. */
+/* NOTE: Wonder Blocks now uses CSS variables for theming, so this is required
+for the Wonder Blocks components to visually look correct. */
+@import "@khanacademy/wonder-blocks-tokens/styles.css";

@@ -1,0 +1,114 @@
+@layer shared {
+    /* This will mimic the production base element styles. */
+    article {
+        padding: 0 20px;
+        position: relative;
+        border-top: 1px solid #c6d1ad;
+    }
+
+    /* Basic typography for the entire site */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: inherit;
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 25px;
+        margin-bottom: 22px;
+    }
+
+    .main-headline,
+    .section-headline {
+        padding-top: 22px;
+    }
+
+    h1.main-headline {
+        font-size: 32px;
+        position: relative;
+        line-height: 37px;
+        z-index: 10;
+    }
+
+    h2 {
+        font-size: 20px;
+        margin-bottom: 22px;
+    }
+
+    h3 {
+        font-size: 18px;
+        margin-bottom: 22px;
+    }
+
+    h4 {
+        font-size: 15px;
+        margin-bottom: 22px;
+    }
+
+    h5 {
+        font-size: 15px;
+        margin-bottom: -22px;
+    }
+
+    p {
+        font-size: 14px;
+        margin: 22px 0;
+    }
+
+    .pulls {
+        margin-bottom: 9px;
+    }
+
+    /* "Pulls" the next block element up by halving the margin. */
+    .pulled {
+        margin-top: 11px;
+        margin-bottom: 22px;
+    }
+
+    /* Preserves vertical rhythm. Not always necessary */
+    b,
+    strong {
+        font-weight: bold;
+    }
+
+    em,
+    cite {
+        font-style: italic;
+    }
+
+    hr {
+        background: #ccc;
+        border: none;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.075);
+        clear: both;
+        color: #ccc;
+        display: block;
+        height: 1px;
+        margin: 18px 0 36px 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    form {
+        display: inline;
+    }
+
+    .fixed-width {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    nav {
+        display: block;
+        clear: both;
+        width: 100%;
+        margin: 0;
+    }
+
+    article,
+    section {
+        display: block;
+    }
+}

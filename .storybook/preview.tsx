@@ -12,11 +12,7 @@ import {
     storybookDependenciesV2,
 } from "../testing/test-dependencies";
 
-import "./global.css";
-import "./reset.css";
-
-// Import the Wonder Blocks CSS variables
-import "@khanacademy/wonder-blocks-tokens/styles.css";
+import "./styles/shared.css";
 
 import type {Decorator, Preview} from "@storybook/react-vite";
 
