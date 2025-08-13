@@ -5,6 +5,13 @@ import * as React from "react";
 
 import Indicator from "../choice-indicator.new";
 
+import type {IndicatorContent} from "../choice-indicator.new";
+
+const indicatorContent: IndicatorContent = {
+    visible: "A",
+    screenReader: "Choice A",
+};
+
 describe("Multiple choice indicator", () => {
     let iconMock: jest.SpyInstance;
     let mockClickHandler: jest.Mock;
@@ -15,16 +22,21 @@ describe("Multiple choice indicator", () => {
         iconMock = jest.spyOn(PhosphorIcon, "render");
         mockClickHandler = jest.fn();
         buttonRef = React.createRef<HTMLButtonElement>();
+        jest.spyOn(React, "useId").mockReturnValue("id:foo");
     });
 
-    describe("with/without icons", () => {
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
+    describe("content", () => {
         it(`renders WITHOUT any icons when indicator is checked and NOT in review mode`, async () => {
             render(
                 <Indicator
                     buttonRef={buttonRef}
                     checked={true}
                     shape="circle"
-                    content="A"
+                    content={indicatorContent}
                     updateChecked={mockClickHandler}
                 />,
             );
@@ -38,7 +50,7 @@ describe("Multiple choice indicator", () => {
                     buttonRef={buttonRef}
                     checked={true}
                     shape="circle"
-                    content="A"
+                    content={indicatorContent}
                     showCorrectness={undefined}
                     updateChecked={mockClickHandler}
                 />,
@@ -55,7 +67,7 @@ describe("Multiple choice indicator", () => {
                         buttonRef={buttonRef}
                         checked={false}
                         shape="circle"
-                        content="A"
+                        content={indicatorContent}
                         showCorrectness={correctness}
                         updateChecked={mockClickHandler}
                     />,
@@ -71,7 +83,7 @@ describe("Multiple choice indicator", () => {
                     buttonRef={buttonRef}
                     checked={true}
                     shape="circle"
-                    content="A"
+                    content={indicatorContent}
                     showCorrectness="correct"
                     updateChecked={mockClickHandler}
                 />,
@@ -91,7 +103,7 @@ describe("Multiple choice indicator", () => {
                     buttonRef={buttonRef}
                     checked={true}
                     shape="circle"
-                    content="A"
+                    content={indicatorContent}
                     showCorrectness="wrong"
                     updateChecked={mockClickHandler}
                 />,
@@ -106,6 +118,68 @@ describe("Multiple choice indicator", () => {
                 .querySelector("[role='img']");
             expect(buttonIcon).toBeInTheDocument();
         });
+
+        it("only includes the aria label when no other aria information is provided", () => {
+            render(
+                <Indicator
+                    buttonRef={buttonRef}
+                    checked={true}
+                    shape="circle"
+                    content={indicatorContent}
+                    showCorrectness="wrong"
+                    updateChecked={mockClickHandler}
+                />,
+            );
+            const indicator = screen.getByRole("button");
+            expect(indicator).toHaveAttribute("aria-label", "Choice A");
+            expect(indicator).not.toHaveAttribute("aria-labelledby");
+            expect(indicator).not.toHaveAttribute("aria-describedby");
+        });
+
+        it("also includes any aria-labelledby information when provided", () => {
+            const contentWithLabel: IndicatorContent = {
+                ...indicatorContent,
+                labelledBy: ":bar:",
+            };
+            render(
+                <Indicator
+                    buttonRef={buttonRef}
+                    checked={true}
+                    shape="circle"
+                    content={contentWithLabel}
+                    showCorrectness="wrong"
+                    updateChecked={mockClickHandler}
+                />,
+            );
+            const indicator = screen.getByRole("button");
+            expect(indicator).toHaveAttribute("aria-label", "Choice A");
+            expect(indicator).toHaveAttribute(
+                "aria-labelledby",
+                "id:foo :bar:",
+            );
+            expect(indicator).not.toHaveAttribute("aria-describedby");
+        });
+
+        it("also includes any aria-describedby information when provided", () => {
+            const contentWithLabel: IndicatorContent = {
+                ...indicatorContent,
+                describedBy: ":zot:",
+            };
+            render(
+                <Indicator
+                    buttonRef={buttonRef}
+                    checked={true}
+                    shape="circle"
+                    content={contentWithLabel}
+                    showCorrectness="wrong"
+                    updateChecked={mockClickHandler}
+                />,
+            );
+            const indicator = screen.getByRole("button");
+            expect(indicator).toHaveAttribute("aria-label", "Choice A");
+            expect(indicator).not.toHaveAttribute("aria-labelledby");
+            expect(indicator).toHaveAttribute("aria-describedby", ":zot:");
+        });
     });
 
     describe("styling options", () => {
@@ -115,7 +189,7 @@ describe("Multiple choice indicator", () => {
                     buttonRef={buttonRef}
                     checked={false}
                     shape={shape}
-                    content="A"
+                    content={indicatorContent}
                     updateChecked={mockClickHandler}
                 />,
             );
@@ -131,7 +205,7 @@ describe("Multiple choice indicator", () => {
                     buttonRef={buttonRef}
                     checked={false}
                     shape="circle"
-                    content="A"
+                    content={indicatorContent}
                     updateChecked={mockClickHandler}
                 />,
             );
@@ -147,7 +221,7 @@ describe("Multiple choice indicator", () => {
                     buttonRef={buttonRef}
                     checked={false}
                     shape="circle"
-                    content="A"
+                    content={indicatorContent}
                     showCorrectness="correct"
                     updateChecked={mockClickHandler}
                 />,
@@ -174,7 +248,7 @@ describe("Multiple choice indicator", () => {
                         buttonRef={buttonRef}
                         checked={checked}
                         shape="circle"
-                        content="A"
+                        content={indicatorContent}
                         updateChecked={mockClickHandler}
                     />,
                 );
