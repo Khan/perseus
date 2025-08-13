@@ -160,16 +160,14 @@ class InputNumber extends React.Component<Props> implements Widget {
      * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     getSerializedState(): any {
-        const {
-            userInput,
-            inexact: _,
-            maxError: __,
-            value: ___,
-            ...rest
-        } = this.props;
         return {
-            ...rest,
-            currentValue: userInput.currentValue,
+            alignment: this.props.alignment,
+            static: this.props.static,
+            simplify: this.props.simplify,
+            size: this.props.size,
+            answerType: this.props.answerType,
+            rightAlign: this.props.rightAlign,
+            currentValue: this.props.userInput.currentValue,
         };
     }
 
