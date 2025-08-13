@@ -1,5 +1,39 @@
 # @khanacademy/perseus
 
+## 66.4.0
+
+### Minor Changes
+
+-   [#2777](https://github.com/Khan/perseus/pull/2777) [`78f7c512a4`](https://github.com/Khan/perseus/commit/78f7c512a4cd35e2416952fccb480e1821fcef8a) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Add `showAxisArrows` field to Interactive Graph widget
+
+*   [#2775](https://github.com/Khan/perseus/pull/2775) [`a9ff068196`](https://github.com/Khan/perseus/commit/a9ff0681963836fbc70c606eb880e3464e60c03e) Thanks [@Myranae](https://github.com/Myranae)! - Fix parsing error by updating matrix user input to an array of string arrays instead of number
+
+### Patch Changes
+
+-   [#2789](https://github.com/Khan/perseus/pull/2789) [`17eb0d1b07`](https://github.com/Khan/perseus/commit/17eb0d1b075d9edf368d4a7da085f1176362d4fc) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove simple transforms (default to identity) for specific widgets
+
+*   [#2792](https://github.com/Khan/perseus/pull/2792) [`3b9c412e2f`](https://github.com/Khan/perseus/commit/3b9c412e2f29be13a4276b9737b7a42f4371e570) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove transform from Expression
+
+-   [#2794](https://github.com/Khan/perseus/pull/2794) [`28d3082eda`](https://github.com/Khan/perseus/commit/28d3082eda0eefc3791fd9e87e3a23adc5c9d140) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove transform from Matrix
+
+*   [#2787](https://github.com/Khan/perseus/pull/2787) [`daf70ab1e1`](https://github.com/Khan/perseus/commit/daf70ab1e14715ebe96319d3ba2872aa6d7b1318) Thanks [@aag](https://github.com/aag)! - Remove forced bolding from Free Response Widget question text
+
+-   [#2791](https://github.com/Khan/perseus/pull/2791) [`665613fa2c`](https://github.com/Khan/perseus/commit/665613fa2c58dbf880ccfc2f846fe83620db31d9) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove transform from Dropdown
+
+*   [#2793](https://github.com/Khan/perseus/pull/2793) [`0830c46d33`](https://github.com/Khan/perseus/commit/0830c46d33f5db4b07cff456c4e57b4b2d1eb60d) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove transform from InputNumber
+
+-   [#2795](https://github.com/Khan/perseus/pull/2795) [`8da2dfaf2d`](https://github.com/Khan/perseus/commit/8da2dfaf2dbba78d275f9f425e79fe90358355d0) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Plotter and InteractiveGraph identity transforms
+
+*   [#2796](https://github.com/Khan/perseus/pull/2796) [`3767a24628`](https://github.com/Khan/perseus/commit/3767a24628f278042c43a5bad8c085d87c8fc494) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Grapher transforms
+
+*   Updated dependencies [[`78f7c512a4`](https://github.com/Khan/perseus/commit/78f7c512a4cd35e2416952fccb480e1821fcef8a), [`a9ff068196`](https://github.com/Khan/perseus/commit/a9ff0681963836fbc70c606eb880e3464e60c03e)]:
+    -   @khanacademy/perseus-core@18.6.0
+    -   @khanacademy/perseus-score@7.6.0
+    -   @khanacademy/keypad-context@3.1.3
+    -   @khanacademy/kmath@2.1.3
+    -   @khanacademy/math-input@26.1.4
+    -   @khanacademy/perseus-linter@4.2.3
+
 ## 66.3.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @khanacademy/perseus-core
 
+## 18.6.0
+
+### Minor Changes
+
+-   [#2777](https://github.com/Khan/perseus/pull/2777) [`78f7c512a4`](https://github.com/Khan/perseus/commit/78f7c512a4cd35e2416952fccb480e1821fcef8a) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Add `showAxisArrows` field to Interactive Graph widget
+
+*   [#2775](https://github.com/Khan/perseus/pull/2775) [`a9ff068196`](https://github.com/Khan/perseus/commit/a9ff0681963836fbc70c606eb880e3464e60c03e) Thanks [@Myranae](https://github.com/Myranae)! - Fix parsing error by updating matrix user input to an array of string arrays instead of number
+
 ## 18.5.0
 
 ### Minor Changes
