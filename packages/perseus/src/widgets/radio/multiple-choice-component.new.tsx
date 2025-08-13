@@ -102,28 +102,25 @@ const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
         const contentId = `${listId}-choice-${i + 1}`;
         const choiceLetter = getChoiceLetter(i, i18nStrings);
         const srContent =
-            reviewMode === true
-                ? choice.correct
-                    ? i18nStrings.choiceCorrect
-                    : i18nStrings.choiceIncorrect
+            reviewMode && choice.correct
+                ? i18nStrings.choiceCorrect
                 : i18nStrings.choice;
         const indicatorContent: IndicatorContent = {
             visible: choiceLetter,
             screenReader: srContent({letter: choiceLetter}),
             labelledBy: contentId,
         };
-        const showCorrectness =
-            reviewMode === true
-                ? choice.correct
-                    ? "correct"
-                    : "wrong"
-                : undefined;
+        const showCorrectness = reviewMode
+            ? choice.correct
+                ? "correct"
+                : "wrong"
+            : undefined;
         const content = choice.isNoneOfTheAbove
             ? i18nStrings.noneOfTheAbove
             : choice.content;
         let rationale: React.ReactElement | undefined;
         if (reviewMode && choice.hasRationale) {
-            const rationaleId = `${contentId}-rationale-${i + 1}`;
+            const rationaleId = `${contentId}-rationale`;
             indicatorContent.describedBy = rationaleId;
             const rationaleClasses =
                 showCorrectness === "correct"
@@ -131,8 +128,6 @@ const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
                     : styles.rationale;
             rationale = (
                 <div id={rationaleId} className={rationaleClasses}>
-                    {/* Any prefix here needs to be translated */}
-                    <span className="perseus-sr-only">Here's why:</span>
                     {choice.rationale}
                 </div>
             );
