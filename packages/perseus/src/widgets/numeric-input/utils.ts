@@ -130,6 +130,10 @@ export const unionAnswerForms: (
 export function processAnswerForms(
     answers: PerseusNumericInputWidgetOptions["answers"],
 ) {
+    if (answers == null) {
+        return [];
+    }
+
     return unionAnswerForms(
         answers
             .filter((answer) => answer.status === "correct")
