@@ -287,7 +287,6 @@ describe("group widget", () => {
                     hasNoneOfTheAbove: false,
                     multipleSelect: false,
                     numCorrect: 1,
-                    selectedChoices: [false, false, false, false, true],
                     static: false,
                 },
             },
@@ -368,7 +367,6 @@ describe("group widget", () => {
                 hasNoneOfTheAbove: false,
                 multipleSelect: false,
                 numCorrect: 1,
-                selectedChoices: [false, false, false, false, true],
             },
         });
     });

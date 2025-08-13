@@ -253,7 +253,6 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
                 originalIndex: 2,
             },
         ],
-        selectedChoices: [false, false, true, false],
     },
     "radio 2": {
         numCorrect: 1,
@@ -288,6 +287,5 @@ export const mockedShuffledRadioProps: {[key in string]: RenderProps} = {
                 originalIndex: 2,
             },
         ],
-        selectedChoices: [false, false, true, false],
     },
 };

@@ -117,7 +117,6 @@ describe("Radio AI utils", () => {
                     originalIndex: 2,
                 },
             ],
-            selectedChoices: [true, false, false, false],
         };
 
         const userInput: PerseusRadioUserInput = {
@@ -207,7 +206,6 @@ describe("Radio AI utils", () => {
                     originalIndex: 2,
                 },
             ],
-            selectedChoices: [true, false, false, false],
         };
 
         const resultJSON = getPromptJSON(renderProps, undefined as any);

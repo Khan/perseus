@@ -45,9 +45,6 @@ export type RenderProps = {
     countChoices?: boolean;
     deselectEnabled?: boolean;
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
-    // (LEMS-3278) - Remove all references to selectedChoices, as it's not used anywhere.
-    // We're handling selected in the choiceStates array.
-    selectedChoices: ReadonlyArray<PerseusRadioChoice["correct"]>;
     choiceStates?: ReadonlyArray<ChoiceState>;
     // Deprecated; support for legacy way of handling changes
     // Adds proptype for prop that is used but was lacking type

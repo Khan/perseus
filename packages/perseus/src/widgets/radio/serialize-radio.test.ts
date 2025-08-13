@@ -47,8 +47,6 @@ const expectedSerializedRadio = {
             originalIndex: 2,
         },
     ],
-    // no idea what this is, it doesn't seem to change...
-    selectedChoices: [false, false, true, false],
     choiceStates: [
         {
             selected: true, // <= note we stash user input

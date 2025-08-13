@@ -27,8 +27,6 @@ export type RenderProps = {
     countChoices?: boolean;
     deselectEnabled?: boolean;
     choices: RadioChoiceWithMetadata[];
-    // doesn't seem used? choiceStates includes selected...
-    selectedChoices: PerseusRadioChoice["correct"][];
     showSolutions?: ShowSolutions;
     choiceStates?: ChoiceState[];
     // Depreciated; support for legacy way of handling changes

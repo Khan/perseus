@@ -70,8 +70,6 @@ const transform = (
         countChoices,
         deselectEnabled,
         choices: [...choices],
-        // doesn't seem used? choiceStates includes selected...
-        selectedChoices: _.pluck(choices, "correct"),
     };
 };
 
