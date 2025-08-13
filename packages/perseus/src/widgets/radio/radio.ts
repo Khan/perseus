@@ -19,7 +19,7 @@ import type {
 } from "@khanacademy/perseus-core";
 
 // Transforms the choices for display.
-const _choiceTransform = (
+const choiceTransform = (
     widgetOptions: PerseusRadioWidgetOptions,
     strings: PerseusStrings,
     problemNumber: number,
@@ -42,6 +42,7 @@ const _choiceTransform = (
         //    True, False)
         enforceOrdering(
             // 1) we randomize the order first
+            // TODO / STOPSHIP make sure this becomes problemNum and widgetId
             maybeRandomize(choices, problemNumber, widgetOptions.randomize),
             strings,
         ),
@@ -53,7 +54,7 @@ const transform = (
     strings: PerseusStrings,
     problemNumber: number,
 ): RenderProps => {
-    const choices = _choiceTransform(widgetOptions, strings, problemNumber);
+    const choices = choiceTransform(widgetOptions, strings, problemNumber);
 
     const {
         hasNoneOfTheAbove,

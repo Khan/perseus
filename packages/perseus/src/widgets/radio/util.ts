@@ -1,7 +1,7 @@
 import {shuffle, type PerseusRadioUserInput} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
-import type {Props, RadioChoiceWithMetadata} from "./radio-component";
+import type {RadioChoiceWithMetadata} from "./radio-component";
 import type {PerseusStrings} from "../../strings";
 
 /**
@@ -22,16 +22,22 @@ export function getChoiceLetter(pos: number, strings: PerseusStrings): string {
     return " ";
 }
 
+/**
+ * @deprecated and likely a very broken API
+ * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ */
 export function getUserInputFromSerializedState(
-    props: Props,
+    serializedState: any,
     unshuffle: boolean = true,
 ): PerseusRadioUserInput {
-    if (props.choiceStates) {
-        const choiceStates = props.choiceStates;
+    if (serializedState.choiceStates) {
+        const choiceStates = serializedState.choiceStates;
         const choicesSelected = choiceStates.map(() => false);
 
         for (let i = 0; i < choicesSelected.length; i++) {
-            const index = unshuffle ? props.choices[i].originalIndex : i;
+            const index = unshuffle
+                ? serializedState.choices[i].originalIndex
+                : i;
 
             choicesSelected[index] = choiceStates[i].selected;
         }
@@ -43,7 +49,7 @@ export function getUserInputFromSerializedState(
     }
     // Nothing checked
     return {
-        choicesSelected: props.choices.map(() => false),
+        choicesSelected: serializedState.choices.map(() => false),
     };
 }
 
