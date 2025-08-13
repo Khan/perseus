@@ -1,7 +1,4 @@
-import {
-    randomizeArrayElements,
-    type PerseusRadioUserInput,
-} from "@khanacademy/perseus-core";
+import {shuffle, type PerseusRadioUserInput} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import type {Props, RadioChoiceWithMetadata} from "./radio-component";
@@ -108,7 +105,8 @@ export function enforceOrdering(
 
 export function maybeRandomize(
     array: ReadonlyArray<RadioChoiceWithMetadata>,
+    seed: number,
     randomize?: boolean,
 ): ReadonlyArray<RadioChoiceWithMetadata> {
-    return randomize ? randomizeArrayElements(array) : array;
+    return randomize ? shuffle(array, seed) : array;
 }

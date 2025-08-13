@@ -29,7 +29,7 @@ describe("Widget API support", () => {
             const widgetOptions = generateTestRadioWidget().options;
             // Radio provides a `transform` function
             const transform = Widgets.getTransform("radio");
-            expect(transform?.(widgetOptions, mockStrings)).not.toEqual(
+            expect(transform?.(widgetOptions, mockStrings, 0)).not.toEqual(
                 widgetOptions,
             );
         });
@@ -38,7 +38,7 @@ describe("Widget API support", () => {
             const widgetOptions = {cool: "beans"};
             // Group does not provide a `transform` function
             const transform = Widgets.getTransform("group");
-            expect(transform?.(widgetOptions, mockStrings)).toEqual(
+            expect(transform?.(widgetOptions, mockStrings, 0)).toEqual(
                 widgetOptions,
             );
         });

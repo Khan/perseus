@@ -1,6 +1,11 @@
 import {mockStrings} from "../../strings";
 
-import {addNoneOfAbove, enforceOrdering, getChoiceLetter} from "./util";
+import {
+    addNoneOfAbove,
+    enforceOrdering,
+    getChoiceLetter,
+    maybeRandomize,
+} from "./util";
 
 import type {RadioChoiceWithMetadata} from "./radio-component";
 
@@ -209,5 +214,62 @@ describe("enforceOrdering", () => {
 
         expect(rv[0].content).toBe("Hello");
         expect(rv[1].content).toBe("World");
+    });
+});
+
+describe("maybeRandomize", () => {
+    function generateChoices(): RadioChoiceWithMetadata[] {
+        return [
+            {
+                content: "Option 1",
+                id: "option-1",
+                originalIndex: 0,
+            },
+            {
+                content: "Option 2",
+                id: "option-2",
+                originalIndex: 1,
+            },
+            {
+                content: "Option 3",
+                id: "option-3",
+                originalIndex: 2,
+            },
+            {
+                content: "Option 4",
+                id: "option-4",
+                originalIndex: 3,
+            },
+        ];
+    }
+
+    it("doesn't randomize when randomize is false", () => {
+        const input = generateChoices();
+        const rv = maybeRandomize(input, 0, false);
+        expect(rv).toEqual(input);
+    });
+
+    it("does randomize when randomize is true", () => {
+        const input = generateChoices();
+        const rv = maybeRandomize(input, 0, true);
+        expect(rv).not.toEqual(input);
+    });
+
+    // todo, finish test
+    it("randomizes deterministically with the same seed", () => {
+        const input = generateChoices();
+        const rv1 = maybeRandomize(input, 0, true);
+        const rv2 = maybeRandomize(input, 0, true);
+        expect(rv1).not.toEqual(input);
+        expect(rv1).toEqual(rv2);
+    });
+
+    // todo, finish test
+    it("randomizes differently with different seeds", () => {
+        const input = generateChoices();
+        const rv1 = maybeRandomize(input, 0, true);
+        const rv2 = maybeRandomize(input, 1, true);
+        expect(rv1).not.toEqual(input);
+        expect(rv1).not.toEqual(rv2);
     });
 });

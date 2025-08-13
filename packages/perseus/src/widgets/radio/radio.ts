@@ -22,6 +22,7 @@ import type {
 const _choiceTransform = (
     widgetOptions: PerseusRadioWidgetOptions,
     strings: PerseusStrings,
+    problemNumber: number,
 ) => {
     // Add meta-information to choices
     const choices: ReadonlyArray<RadioChoiceWithMetadata> =
@@ -41,7 +42,7 @@ const _choiceTransform = (
         //    True, False)
         enforceOrdering(
             // 1) we randomize the order first
-            maybeRandomize(choices, widgetOptions.randomize),
+            maybeRandomize(choices, problemNumber, widgetOptions.randomize),
             strings,
         ),
     );
@@ -50,8 +51,9 @@ const _choiceTransform = (
 const transform = (
     widgetOptions: PerseusRadioWidgetOptions,
     strings: PerseusStrings,
+    problemNumber: number,
 ): RenderProps => {
-    const choices = _choiceTransform(widgetOptions, strings);
+    const choices = _choiceTransform(widgetOptions, strings, problemNumber);
 
     const {
         hasNoneOfTheAbove,

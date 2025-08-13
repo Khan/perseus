@@ -470,7 +470,7 @@ type WidgetOptions = any;
 export type WidgetTransform = (
     widgetOptions: WidgetOptions,
     strings: PerseusStrings,
-    problemNumber?: number,
+    problemNumber: number,
 ) => any;
 
 export type WidgetExports<
