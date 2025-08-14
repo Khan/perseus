@@ -940,4 +940,90 @@ describe("Radio Widget", () => {
             expect(correctChoiceContent).toContain("Choice B");
         });
     });
+
+    describe("shuffling", () => {
+        // regression LEMS-297
+        it("shuffles differently for multiple radios in the same exercise", () => {
+            const multipleShuffledRadioQuestion: PerseusRenderer = {
+                content: "[[☃ radio 1]]\n[[☃ radio 2]]",
+                widgets: {
+                    "radio 1": {
+                        type: "radio",
+                        version: {major: 3, minor: 0},
+                        options: {
+                            choices: [
+                                {
+                                    content: "Choice 1",
+                                    id: "choice-1",
+                                },
+                                {
+                                    content: "Choice 2",
+                                    id: "choice-2",
+                                },
+                                {
+                                    content: "Choice 3",
+                                    id: "choice-3",
+                                },
+                                {
+                                    content: "Choice 4",
+                                    id: "choice-4",
+                                },
+                            ],
+                            randomize: true,
+                        },
+                    },
+                    "radio 2": {
+                        type: "radio",
+                        version: {major: 3, minor: 0},
+                        options: {
+                            choices: [
+                                {
+                                    content: "Choice 1",
+                                    id: "choice-1",
+                                },
+                                {
+                                    content: "Choice 2",
+                                    id: "choice-2",
+                                },
+                                {
+                                    content: "Choice 3",
+                                    id: "choice-3",
+                                },
+                                {
+                                    content: "Choice 4",
+                                    id: "choice-4",
+                                },
+                            ],
+                            randomize: true,
+                        },
+                    },
+                },
+                images: {},
+            };
+
+            const {container} = renderQuestion(multipleShuffledRadioQuestion);
+
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const radios = container.querySelectorAll(".perseus-widget-radio");
+
+            expect(radios.length).toBe(2);
+
+            // eslint-disable-next-line testing-library/no-node-access
+            const lis1 = radios[0].querySelectorAll("li");
+            // eslint-disable-next-line testing-library/no-node-access
+            const lis2 = radios[1].querySelectorAll("li");
+
+            let sameOrder = true;
+            lis1.forEach((li1, idx) => {
+                const li2 = lis2[idx];
+                const li1Text = li1.textContent;
+                const li2Text = li2.textContent;
+                if (li1Text !== li2Text) {
+                    sameOrder = false;
+                }
+            });
+
+            expect(sameOrder).toBe(false);
+        });
+    });
 });
