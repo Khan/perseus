@@ -113,7 +113,7 @@ export function choiceTransform(
     randomize: PerseusRadioWidgetOptions["randomize"],
     strings: PerseusStrings,
     problemNumber: number,
-) {
+): ReadonlyArray<RadioChoiceWithMetadata> {
     if (choices.some((choice) => (choice as any).originalIndex != null)) {
         throw new Error("Calling choiceTransform on transformed choices!");
     }
