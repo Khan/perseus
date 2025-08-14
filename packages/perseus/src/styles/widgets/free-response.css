@@ -1,10 +1,5 @@
 .framework-perseus {
     .free-response .free-response-question {
-        /* Default to bold text in the question. */
-        .paragraph {
-            font-weight: 700;
-        }
-
         /* Remove the top margin from the first paragraph, so there isn't forced
            spacing above the question. */
         :nth-child(1 of .paragraph) {

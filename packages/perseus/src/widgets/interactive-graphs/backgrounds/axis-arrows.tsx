@@ -6,6 +6,7 @@ import useGraphConfig from "../reducer/use-graph-config";
 export default function AxisArrows() {
     const {
         range: [[xMin, xMax], [yMin, yMax]],
+        showAxisArrows,
     } = useGraphConfig();
 
     const axisColor = "var(--mafs-fg)";
@@ -16,14 +17,38 @@ export default function AxisArrows() {
         <>
             {!(yMin > 0 || yMax < 0) && (
                 <>
-                    <Arrowhead color={axisColor} tip={[xMin, 0]} angle={180} />
-                    <Arrowhead color={axisColor} tip={[xMax, 0]} angle={0} />
+                    {showAxisArrows.xMin && (
+                        <Arrowhead
+                            color={axisColor}
+                            tip={[xMin, 0]}
+                            angle={180}
+                        />
+                    )}
+                    {showAxisArrows.xMax && (
+                        <Arrowhead
+                            color={axisColor}
+                            tip={[xMax, 0]}
+                            angle={0}
+                        />
+                    )}
                 </>
             )}
             {!(xMin > 0 || xMax < 0) && (
                 <>
-                    <Arrowhead color={axisColor} tip={[0, yMin]} angle={90} />
-                    <Arrowhead color={axisColor} tip={[0, yMax]} angle={270} />
+                    {showAxisArrows.yMin && (
+                        <Arrowhead
+                            color={axisColor}
+                            tip={[0, yMin]}
+                            angle={90}
+                        />
+                    )}
+                    {showAxisArrows.yMax && (
+                        <Arrowhead
+                            color={axisColor}
+                            tip={[0, yMax]}
+                            angle={270}
+                        />
+                    )}
                 </>
             )}
         </>

@@ -219,19 +219,18 @@ describe("renderer", () => {
             expect(renderer.state.lastUsedWidgetId).toBeNull();
 
             expect(renderer.state.widgetInfo).toStrictEqual(question1.widgets);
-            expect(renderer.state.widgetProps).toMatchInlineSnapshot(`
-                {
-                  "dropdown 1": {
-                    "ariaLabel": "Test ARIA label",
-                    "choices": [
-                      "greater than or equal to",
-                      "less than or equal to",
+            expect(renderer.state.widgetProps).toEqual({
+                "dropdown 1": {
+                    ariaLabel: "Test ARIA label",
+                    choices: [
+                        {content: "greater than or equal to", correct: false},
+                        {content: "less than or equal to", correct: true},
                     ],
-                    "placeholder": "greater/less than or equal to",
-                    "visibleLabel": "Test visible label",
-                  },
-                }
-            `);
+                    placeholder: "greater/less than or equal to",
+                    visibleLabel: "Test visible label",
+                    static: false,
+                },
+            });
         });
 
         it("should derive type widget ID if type missing", () => {
