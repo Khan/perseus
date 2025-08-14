@@ -17,6 +17,7 @@ type overrideProps = {
 const baseChoiceValues = {
     checked: false,
     content: "",
+    id: "choice-1",
     rationale: "",
     hasRationale: false,
     showRationale: false,
@@ -209,6 +210,31 @@ describe("Multiple choice component", () => {
             expect(
                 screen.queryByText(rationaleContent),
             ).not.toBeInTheDocument();
+        });
+
+        it.each`
+            reviewMode | isCorrect | expectedLabel            | shows              | when
+            ${true}    | ${true}   | ${"(Choice A, Correct)"} | ${"shows"}         | ${"when in review mode and choice is correct"}
+            ${true}    | ${false}  | ${"(Choice A)"}          | ${"does NOT show"} | ${"when in review mode and choice is NOT correct"}
+            ${false}   | ${true}   | ${"(Choice A)"}          | ${"does NOT show"} | ${"when NOT in review mode and choice is correct"}
+            ${false}   | ${false}  | ${"(Choice A)"}          | ${"does NOT show"} | ${"when NOT in review mode and choice is NOT correct"}
+        `("$shows correctness in the accessible name $when", (args) => {
+            type testArgs = {
+                reviewMode: boolean;
+                isCorrect: boolean;
+                expectedLabel: string;
+            };
+            const {reviewMode, isCorrect, expectedLabel} = args as testArgs;
+            const choiceOverrides = {correct: isCorrect};
+            const props = getComponentProps({
+                choiceOverrides,
+                reviewMode,
+            });
+            render(<MultipleChoiceComponent {...props} />);
+            expect(screen.getByRole("button")).toHaveAttribute(
+                "aria-label",
+                expectedLabel,
+            );
         });
     });
 
