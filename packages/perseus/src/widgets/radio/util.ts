@@ -109,21 +109,18 @@ export function maybeRandomize(
 
 // Transforms the choices for display.
 export function choiceTransform(
-    widgetOptions: PerseusRadioWidgetOptions,
+    choices: PerseusRadioWidgetOptions["choices"],
+    randomize: PerseusRadioWidgetOptions["randomize"],
     strings: PerseusStrings,
     problemNumber: number,
 ) {
-    if (
-        widgetOptions.choices.some(
-            (choice) => (choice as any).originalIndex != null,
-        )
-    ) {
+    if (choices.some((choice) => (choice as any).originalIndex != null)) {
         throw new Error("Calling choiceTransform on transformed choices!");
     }
 
     // Add meta-information to choices
-    const choices: ReadonlyArray<RadioChoiceWithMetadata> =
-        widgetOptions.choices.map((choice, i): RadioChoiceWithMetadata => {
+    const choicesWithMetadata: ReadonlyArray<RadioChoiceWithMetadata> =
+        choices.map((choice, i): RadioChoiceWithMetadata => {
             return {
                 ...choice,
                 originalIndex: i,
@@ -140,7 +137,7 @@ export function choiceTransform(
         enforceOrdering(
             // 1) we randomize the order first
             // TODO / STOPSHIP make sure this becomes problemNum and widgetId
-            maybeRandomize(choices, problemNumber, widgetOptions.randomize),
+            maybeRandomize(choicesWithMetadata, problemNumber, randomize),
             strings,
         ),
     );

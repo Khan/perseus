@@ -9,7 +9,7 @@ import {
 } from "./util";
 
 import type {RadioChoiceWithMetadata} from "./radio-component";
-import type {PerseusRadioWidgetOptions} from "@khanacademy/perseus-core";
+import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
 
 describe("getChoiceLetter (in English)", () => {
     it("returns the first 5 letters for most questions", () => {
@@ -278,86 +278,77 @@ describe("maybeRandomize", () => {
 
 describe("choiceTransform", () => {
     it("moves none of the above to the end", () => {
-        const options: PerseusRadioWidgetOptions = {
-            choices: [
-                {
-                    content: "Choice 1",
-                    id: "choice-1",
-                    isNoneOfTheAbove: true,
-                },
-                {
-                    content: "Choice 2",
-                    id: "choice-2",
-                },
-            ],
-            randomize: false,
-        };
+        const choices: PerseusRadioChoice[] = [
+            {
+                content: "Choice 1",
+                id: "choice-1",
+                isNoneOfTheAbove: true,
+            },
+            {
+                content: "Choice 2",
+                id: "choice-2",
+            },
+        ];
 
         // test the test data
-        expect(options.choices[0].isNoneOfTheAbove).toBe(true);
-        expect(options.choices[1].isNoneOfTheAbove).toBeUndefined();
+        expect(choices[0].isNoneOfTheAbove).toBe(true);
+        expect(choices[1].isNoneOfTheAbove).toBeUndefined();
 
-        const rv = choiceTransform(options, mockStrings, 0);
+        const rv = choiceTransform(choices, false, mockStrings, 0);
 
         expect(rv[0].isNoneOfTheAbove).toBeUndefined();
         expect(rv[1].isNoneOfTheAbove).toBe(true);
     });
 
     it("enforces yes/no ordering", () => {
-        const options: PerseusRadioWidgetOptions = {
-            choices: [
-                {
-                    content: "No",
-                    id: "choice-1",
-                },
-                {
-                    content: "Yes",
-                    id: "choice-2",
-                },
-            ],
-            randomize: false,
-        };
+        const choices: PerseusRadioChoice[] = [
+            {
+                content: "No",
+                id: "choice-1",
+            },
+            {
+                content: "Yes",
+                id: "choice-2",
+            },
+        ];
 
         // test the test data
-        expect(options.choices[0].content).toBe("No");
-        expect(options.choices[1].content).toBe("Yes");
+        expect(choices[0].content).toBe("No");
+        expect(choices[1].content).toBe("Yes");
 
-        const rv = choiceTransform(options, mockStrings, 0);
+        const rv = choiceTransform(choices, false, mockStrings, 0);
 
         expect(rv[0].content).toBe("Yes");
         expect(rv[1].content).toBe("No");
     });
 
     it("shuffles", () => {
-        const options: PerseusRadioWidgetOptions = {
-            choices: [
-                {
-                    content: "Choice 1",
-                    id: "choice-1",
-                    correct: true,
-                },
-                {
-                    content: "Choice 2",
-                    id: "choice-2",
-                },
-                {
-                    content: "Choice 3",
-                    id: "choice-3",
-                },
-                {
-                    content: "Choice 4",
-                    id: "choice-4",
-                },
-            ],
-            randomize: true,
-        };
+        const choices: PerseusRadioChoice[] = [
+            {
+                content: "Choice 1",
+                id: "choice-1",
+                correct: true,
+            },
+            {
+                content: "Choice 2",
+                id: "choice-2",
+            },
+            {
+                content: "Choice 3",
+                id: "choice-3",
+            },
+            {
+                content: "Choice 4",
+                id: "choice-4",
+            },
+        ];
 
-        expect(options.choices[0].id).toBe("choice-1");
-        expect(options.choices[1].id).toBe("choice-2");
-        expect(options.choices[2].id).toBe("choice-3");
-        expect(options.choices[3].id).toBe("choice-4");
+        expect(choices[0].id).toBe("choice-1");
+        expect(choices[1].id).toBe("choice-2");
+        expect(choices[2].id).toBe("choice-3");
+        expect(choices[3].id).toBe("choice-4");
 
-        const rv = choiceTransform(options, mockStrings, 0);
+        const rv = choiceTransform(choices, true, mockStrings, 0);
 
         expect(rv[0].id).toBe("choice-4");
         expect(rv[1].id).toBe("choice-2");
@@ -366,79 +357,72 @@ describe("choiceTransform", () => {
     });
 
     it("populates correct", () => {
-        const options: PerseusRadioWidgetOptions = {
-            choices: [
-                {
-                    content: "Choice 1",
-                    id: "choice-1",
-                    correct: true,
-                },
-                {
-                    content: "Choice 2",
-                    id: "choice-2",
-                },
-            ],
-            randomize: false,
-        };
+        const choices: PerseusRadioChoice[] = [
+            {
+                content: "Choice 1",
+                id: "choice-1",
+                correct: true,
+            },
+            {
+                content: "Choice 2",
+                id: "choice-2",
+            },
+        ];
 
         // test the test data
-        expect(options.choices[0].correct).toBe(true);
-        expect(options.choices[1].correct).toBeUndefined();
+        expect(choices[0].correct).toBe(true);
+        expect(choices[1].correct).toBeUndefined();
 
-        const rv = choiceTransform(options, mockStrings, 0);
+        const rv = choiceTransform(choices, false, mockStrings, 0);
 
         expect(rv[0].correct).toBe(true);
         expect(rv[1].correct).toBe(false);
     });
 
     it("populates original index", () => {
-        const options: PerseusRadioWidgetOptions = {
-            choices: [
-                {
-                    content: "Choice 1",
-                    id: "choice-1",
-                },
-                {
-                    content: "Choice 2",
-                    id: "choice-2",
-                },
-            ],
-            randomize: false,
-        };
+        const choices: PerseusRadioChoice[] = [
+            {
+                content: "Choice 1",
+                id: "choice-1",
+            },
+            {
+                content: "Choice 2",
+                id: "choice-2",
+            },
+        ];
 
-        const rv = choiceTransform(options, mockStrings, 0);
+        const rv = choiceTransform(choices, false, mockStrings, 0);
 
         expect(rv[0].originalIndex).toBe(0);
         expect(rv[1].originalIndex).toBe(1);
     });
 
     it("is deterministic", () => {
-        const options: PerseusRadioWidgetOptions = {
-            choices: [
-                {
-                    content: "Choice 1",
-                    id: "choice-1",
-                    correct: true,
-                },
-                {
-                    content: "Choice 2",
-                    id: "choice-2",
-                },
-                {
-                    content: "Choice 3",
-                    id: "choice-3",
-                },
-                {
-                    content: "Choice 4",
-                    id: "choice-4",
-                },
-            ],
-            randomize: true,
-        };
+        const choices: PerseusRadioChoice[] = [
+            {
+                content: "Choice 1",
+                id: "choice-1",
+                correct: true,
+            },
+            {
+                content: "Choice 2",
+                id: "choice-2",
+            },
+            {
+                content: "Choice 3",
+                id: "choice-3",
+            },
+            {
+                content: "Choice 4",
+                id: "choice-4",
+            },
+        ];
 
-        const rv1 = choiceTransform(options, mockStrings, 0);
-        const rv2 = choiceTransform(options, mockStrings, 0);
+        const rv1 = choiceTransform(choices, true, mockStrings, 0);
+        const rv2 = choiceTransform(choices, true, mockStrings, 0);
 
+        expect(choices).not.toEqual(rv1);
+        expect(choices).not.toEqual(rv2);
         expect(rv1).toEqual(rv2);
     });
 });

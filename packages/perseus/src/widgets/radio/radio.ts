@@ -18,7 +18,12 @@ const transform = (
     strings: PerseusStrings,
     problemNumber: number,
 ): RenderProps => {
-    const choices = choiceTransform(widgetOptions, strings, problemNumber);
+    const choices = choiceTransform(
+        widgetOptions.choices,
+        widgetOptions.randomize,
+        strings,
+        problemNumber,
+    );
 
     const {
         hasNoneOfTheAbove,
