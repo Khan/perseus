@@ -1,5 +1,0 @@
-import{j as c,aZ as d}from"./iframe-bccoluGS.js";const m={title:"Widgets/Video/Video Transcript Link",parameters:{docs:{disable:!1}}},e=u=>c.jsx(d,{location:"https://www.youtube.com/watch?v=YoutubeId"}),o=u=>c.jsx(d,{location:"slug-video-id"});e.__docgenInfo={description:"",methods:[],displayName:"YoutubeVideoLink"};o.__docgenInfo={description:"",methods:[],displayName:"SlugVideoLink"};var r,t,s;e.parameters={...e.parameters,docs:{...(r=e.parameters)==null?void 0:r.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
-  return <VideoTranscriptLink location="https://www.youtube.com/watch?v=YoutubeId" />;
-}`,...(s=(t=e.parameters)==null?void 0:t.docs)==null?void 0:s.source}}};var i,a,n;o.parameters={...o.parameters,docs:{...(i=o.parameters)==null?void 0:i.docs,source:{originalSource:`(args: StoryArgs): React.ReactElement => {
-  return <VideoTranscriptLink location="slug-video-id" />;
-}`,...(n=(a=o.parameters)==null?void 0:a.docs)==null?void 0:n.source}}};const l=["YoutubeVideoLink","SlugVideoLink"];export{o as SlugVideoLink,e as YoutubeVideoLink,l as __namedExportsOrder,m as default};
