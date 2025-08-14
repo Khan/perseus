@@ -41,6 +41,7 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
                 Khan Academy video wrapper
               </div>
               <iframe
+                allow="autoplay"
                 allowfullscreen=""
                 class="perseus-video-widget"
                 height="720"
@@ -117,6 +118,7 @@ exports[`video widget should snapshot: first render 1`] = `
                 Khan Academy video wrapper
               </div>
               <iframe
+                allow="autoplay"
                 allowfullscreen=""
                 class="perseus-video-widget"
                 height="720"
