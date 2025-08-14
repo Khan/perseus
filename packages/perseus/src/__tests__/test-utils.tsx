@@ -25,10 +25,11 @@ export const renderQuestion = (
 ): {
     container: HTMLElement;
     renderer: ServerItemRenderer;
+    rerender: any;
 } => {
     let renderer: ServerItemRenderer | null = null;
 
-    const {container} = render(
+    const {container, rerender} = render(
         <RenderStateRoot>
             <WrappedServerItemRenderer
                 ref={(node) => (renderer = node)}
@@ -37,13 +38,45 @@ export const renderQuestion = (
                 problemNum={0}
                 reviewMode={false}
                 dependencies={testDependenciesV2}
+                startAnswerless={true}
+                hintsVisible={0}
                 {...optionalProps}
             />
         </RenderStateRoot>,
     );
+
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     if (!renderer) {
         throw new Error(`Failed to render!`);
     }
-    return {container, renderer};
+
+    const renderAgain = (
+        question: PerseusItem,
+        apiOptions: APIOptions = Object.freeze({}),
+        optionalProps: Partial<
+            PropsFor<typeof WrappedServerItemRenderer>
+        > = Object.freeze({}),
+    ) => {
+        rerender(
+            <RenderStateRoot>
+                <WrappedServerItemRenderer
+                    ref={(node) => (renderer = node)}
+                    apiOptions={apiOptions}
+                    item={question}
+                    problemNum={0}
+                    reviewMode={false}
+                    dependencies={testDependenciesV2}
+                    startAnswerless={true}
+                    hintsVisible={0}
+                    {...optionalProps}
+                />
+            </RenderStateRoot>,
+        );
+
+        if (!renderer) {
+            throw new Error(`Failed to rerender!`);
+        }
+    };
+
+    return {container, renderer, rerender: renderAgain};
 };

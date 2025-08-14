@@ -382,3 +382,49 @@ export const questionWithUndefinedCorrect: PerseusRenderer =
         .withMultipleSelect(true)
         .withRandomize(true)
         .build();
+
+export const rationalesQuestion: PerseusRenderer = {
+    content:
+        "Example of the Radio Widget with:\n\n- Multiple selections on\n- Specify number correct on\n- Randomize off \n- With Rationales \n\n[[☃ radio 1]]\n\n",
+    images: {},
+    widgets: {
+        "radio 1": {
+            alignment: "default",
+            graded: true,
+            static: false,
+            type: "radio",
+            version: {
+                major: 3,
+                minor: 0,
+            },
+            options: {
+                choices: [
+                    {
+                        rationale: "It's just not correct.",
+                        content: "Wrong",
+                    },
+                    {
+                        rationale: "It says it right in the answer! ",
+                        content: "Right",
+                        correct: true,
+                    },
+                    {
+                        rationale: "Nope.",
+                        content: "Wrong",
+                    },
+                    {
+                        rationale: "That's it! ",
+                        content: "Right",
+                        correct: true,
+                    },
+                ],
+                countChoices: true,
+                deselectEnabled: false,
+                hasNoneOfTheAbove: false,
+                multipleSelect: true,
+                numCorrect: 2,
+                randomize: false,
+            },
+        },
+    },
+};

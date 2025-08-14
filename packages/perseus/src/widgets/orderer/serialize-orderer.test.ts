@@ -76,7 +76,11 @@ describe("Orderer serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicOrderer());
+        const {renderer} = renderQuestion(
+            generateBasicOrderer(),
+            {},
+            {startAnswerless: false},
+        );
 
         const [orderer] = renderer.questionRenderer.findWidgets("orderer 1");
         act(() => orderer.setListValues(["2", "1", "3"]));

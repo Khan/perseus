@@ -10,6 +10,7 @@ import {
     choicesWithImages,
     multiChoiceQuestionSimple,
     multiChoiceQuestion,
+    rationalesQuestion,
 } from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
@@ -141,5 +142,13 @@ export const AnswerlessMultiSelect = {
             question: multiChoiceQuestion,
         }),
         startAnswerless: true,
+    },
+};
+
+export const Rationales = {
+    args: {
+        item: generateTestPerseusItem({
+            question: rationalesQuestion,
+        }),
     },
 };
