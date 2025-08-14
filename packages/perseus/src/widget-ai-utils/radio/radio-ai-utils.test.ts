@@ -90,7 +90,6 @@ describe("Radio AI utils", () => {
         mathRandomSpy.mockRestore();
     });
 
-    // why are these tests named the same?
     it("should get prompt json which matches the state of the UI", () => {
         const renderProps: any = {
             numCorrect: 1,
@@ -140,45 +139,44 @@ describe("Radio AI utils", () => {
         });
     });
 
-    // why are these tests named the same?
-    // TODO / STOPSHOP : make this test iterate over each choice
-    // so we don't benefit from tests passing from random chance
-    // (indexToSelect should be the choice index)
-    it("should get prompt json which matches the state of the UI", async () => {
-        const indexToSelect = 1;
-        const {renderer} = renderQuestion(shuffledQuestion);
-        const widget = renderer.getWidgetInstance("radio 1");
+    it.each(Object.keys(shuffledQuestion.widgets["radio 1"].options.choices))(
+        "prompt answer order should map to UI answer order: index %s",
+        async (index) => {
+            const {renderer} = renderQuestion(shuffledQuestion);
+            const widget = renderer.getWidgetInstance("radio 1");
 
-        const radioInputs = screen.getAllByRole("radio");
-        await userEvent.click(radioInputs[indexToSelect]);
+            const radioInputs = screen.getAllByRole("radio");
+            await userEvent.click(radioInputs[index]);
 
-        if (!widget) {
-            throw new Error("Failed to render");
-        }
+            if (!widget) {
+                throw new Error("Failed to render");
+            }
 
-        const json = renderer.getPromptJSON();
+            const json = renderer.getPromptJSON();
 
-        const listItems = screen.getAllByRole("listitem");
+            const listItems = screen.getAllByRole("listitem");
 
-        const widgetJSON = json.widgets["radio 1"];
+            const widgetJSON = json.widgets["radio 1"];
 
-        if (widgetJSON.type !== "radio") {
-            throw new Error("Expected a radio widget");
-        }
+            if (widgetJSON.type !== "radio") {
+                throw new Error("Expected a radio widget");
+            }
 
-        // Ensure the options are shown in the correct order
-        listItems.forEach((listItem, i) => {
-            const promptJSONItemText = widgetJSON.options[i].value;
+            // Ensure the options are shown in the correct order
+            listItems.forEach((listItem, i) => {
+                const promptJSONItemText = widgetJSON.options[i].value;
 
-            const textNode = within(listItem).getAllByText(promptJSONItemText);
-            expect(textNode).not.toBeNull();
-        });
+                const textNode =
+                    within(listItem).getAllByText(promptJSONItemText);
+                expect(textNode).not.toBeNull();
+            });
 
-        // Ensure the correct choice is selected
-        widgetJSON.userInput.selectedOptions.forEach((isSelected, i) => {
-            expect(isSelected).toBe(i === indexToSelect);
-        });
-    });
+            // Ensure the correct choice is selected
+            widgetJSON.userInput.selectedOptions.forEach((isSelected, i) => {
+                expect(isSelected).toBe(i === +index);
+            });
+        },
+    );
 
     // regression (TUT-2738) TODO: we shouldn't have to handle this
     // (user input should be initialized already)
