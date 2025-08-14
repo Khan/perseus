@@ -2,14 +2,9 @@ import {radioLogic} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import Radio from "./radio.ff";
-import {
-    addNoneOfAbove,
-    enforceOrdering,
-    getUserInputFromSerializedState,
-    maybeRandomize,
-} from "./util";
+import {choiceTransform, getUserInputFromSerializedState} from "./util";
 
-import type {RenderProps, RadioChoiceWithMetadata} from "./radio-component";
+import type {RenderProps} from "./radio-component";
 import type {PerseusStrings} from "../../strings";
 import type {WidgetExports} from "../../types";
 import type {
@@ -17,37 +12,6 @@ import type {
     PerseusRadioWidgetOptions,
     RadioPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
-
-// Transforms the choices for display.
-const choiceTransform = (
-    widgetOptions: PerseusRadioWidgetOptions,
-    strings: PerseusStrings,
-    problemNumber: number,
-) => {
-    // Add meta-information to choices
-    const choices: ReadonlyArray<RadioChoiceWithMetadata> =
-        widgetOptions.choices.map((choice, i): RadioChoiceWithMetadata => {
-            return {
-                ...choice,
-                originalIndex: i,
-                correct: Boolean(choice.correct),
-            };
-        });
-
-    // Apply all the transforms. Note that the order we call these is
-    // important!
-    // 3) finally add "None of the above" to the bottom
-    return addNoneOfAbove(
-        // 2) then (potentially) enforce ordering (eg. False, True becomes
-        //    True, False)
-        enforceOrdering(
-            // 1) we randomize the order first
-            // TODO / STOPSHIP make sure this becomes problemNum and widgetId
-            maybeRandomize(choices, problemNumber, widgetOptions.randomize),
-            strings,
-        ),
-    );
-};
 
 const transform = (
     widgetOptions: PerseusRadioWidgetOptions,

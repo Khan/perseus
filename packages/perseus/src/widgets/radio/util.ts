@@ -1,4 +1,8 @@
-import {shuffle, type PerseusRadioUserInput} from "@khanacademy/perseus-core";
+import {
+    shuffle,
+    type PerseusRadioUserInput,
+    type PerseusRadioWidgetOptions,
+} from "@khanacademy/perseus-core";
 import _ from "underscore";
 
 import type {RadioChoiceWithMetadata} from "./radio-component";
@@ -101,4 +105,35 @@ export function maybeRandomize(
     randomize?: boolean,
 ): ReadonlyArray<RadioChoiceWithMetadata> {
     return randomize ? shuffle(array, seed) : array;
+}
+
+// Transforms the choices for display.
+export function choiceTransform(
+    widgetOptions: PerseusRadioWidgetOptions,
+    strings: PerseusStrings,
+    problemNumber: number,
+) {
+    // Add meta-information to choices
+    const choices: ReadonlyArray<RadioChoiceWithMetadata> =
+        widgetOptions.choices.map((choice, i): RadioChoiceWithMetadata => {
+            return {
+                ...choice,
+                originalIndex: i,
+                correct: Boolean(choice.correct),
+            };
+        });
+
+    // Apply all the transforms. Note that the order we call these is
+    // important!
+    // 3) finally add "None of the above" to the bottom
+    return addNoneOfAbove(
+        // 2) then (potentially) enforce ordering (eg. False, True becomes
+        //    True, False)
+        enforceOrdering(
+            // 1) we randomize the order first
+            // TODO / STOPSHIP make sure this becomes problemNum and widgetId
+            maybeRandomize(choices, problemNumber, widgetOptions.randomize),
+            strings,
+        ),
+    );
 }
