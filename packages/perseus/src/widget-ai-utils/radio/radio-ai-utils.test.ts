@@ -141,6 +141,9 @@ describe("Radio AI utils", () => {
     });
 
     // why are these tests named the same?
+    // TODO / STOPSHOP : make this test iterate over each choice
+    // so we don't benefit from tests passing from random chance
+    // (indexToSelect should be the choice index)
     it("should get prompt json which matches the state of the UI", async () => {
         const indexToSelect = 1;
         const {renderer} = renderQuestion(shuffledQuestion);
