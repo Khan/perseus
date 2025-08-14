@@ -17,6 +17,12 @@ const baseProps = {
     box: [288, 288] as [number, number],
     gridStep: [1, 1] as [number, number],
     snapStep: [1, 1] as [number, number],
+    showAxisArrows: {
+        xMin: true,
+        xMax: true,
+        yMin: true,
+        yMax: true,
+    },
     onChange: () => {},
     graph: undefined,
 };
