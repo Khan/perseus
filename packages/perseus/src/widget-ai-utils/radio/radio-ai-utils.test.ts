@@ -1,4 +1,4 @@
-import {screen, within} from "@testing-library/react";
+import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -142,36 +142,38 @@ describe("Radio AI utils", () => {
     it.each(Object.keys(shuffledQuestion.widgets["radio 1"].options.choices))(
         "prompt answer order should map to UI answer order: index %s",
         async (index) => {
+            // render the question which triggers shuffling
             const {renderer} = renderQuestion(shuffledQuestion);
-            const widget = renderer.getWidgetInstance("radio 1");
 
+            // click the shuffled answer at a specific index
             const radioInputs = screen.getAllByRole("radio");
             await userEvent.click(radioInputs[index]);
 
-            if (!widget) {
-                throw new Error("Failed to render");
-            }
-
+            // get prompt JSON
             const json = renderer.getPromptJSON();
-
-            const listItems = screen.getAllByRole("listitem");
-
             const widgetJSON = json.widgets["radio 1"];
-
             if (widgetJSON.type !== "radio") {
                 throw new Error("Expected a radio widget");
             }
 
             // Ensure the options are shown in the correct order
+            const listItems = screen.getAllByRole("listitem");
             listItems.forEach((listItem, i) => {
+                // get the text for the choice in the prompt JSON
                 const promptJSONItemText = widgetJSON.options[i].value;
+                // get the text for the choice in the UI
+                const nodeText = listItem.textContent;
 
-                const textNode =
-                    within(listItem).getAllByText(promptJSONItemText);
-                expect(textNode).not.toBeNull();
+                if (!nodeText) {
+                    throw new Error("Not able to get text from UI element");
+                }
+
+                // make sure the text from the prompt is in
+                // the text for the UI at a given index
+                expect(nodeText.includes(promptJSONItemText)).toBe(true);
             });
 
-            // Ensure the correct choice is selected
+            // Ensure the user input is in the correct order
             widgetJSON.userInput.selectedOptions.forEach((isSelected, i) => {
                 expect(isSelected).toBe(i === +index);
             });
