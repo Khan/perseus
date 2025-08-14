@@ -1,9 +1,9 @@
 @layer shared {
     /* This will mimic the production base element styles. */
     article {
-        padding: 0 20px;
+        padding: 0 var(--wb-sizing-size_200);
         position: relative;
-        border-top: 1px solid #c6d1ad;
+        border-top: var(--wb-border-width-thin) solid #c6d1ad;
     }
 
     /* Basic typography for the entire site */
@@ -17,35 +17,23 @@
     }
 
     h1 {
-        font-size: 25px;
-        margin-bottom: 22px;
-    }
-
-    .main-headline,
-    .section-headline {
-        padding-top: 22px;
-    }
-
-    h1.main-headline {
-        font-size: 32px;
-        position: relative;
-        line-height: 37px;
-        z-index: 10;
+        font-size: var(--wb-sizing-size_240);
+        margin-bottom: var(--wb-sizing-size_220);
     }
 
     h2 {
-        font-size: 20px;
-        margin-bottom: 22px;
+        font-size: var(--wb-sizing-size_200);
+        margin-bottom: var(--wb-sizing-size_220);
     }
 
     h3 {
-        font-size: 18px;
-        margin-bottom: 22px;
+        font-size: var(--wb-sizing-size_180);
+        margin-bottom: var(--wb-sizing-size_220);
     }
 
     h4 {
         font-size: 15px;
-        margin-bottom: 22px;
+        margin-bottom: var(--wb-sizing-size_220);
     }
 
     h5 {
@@ -54,18 +42,8 @@
     }
 
     p {
-        font-size: 14px;
-        margin: 22px 0;
-    }
-
-    .pulls {
-        margin-bottom: 9px;
-    }
-
-    /* "Pulls" the next block element up by halving the margin. */
-    .pulled {
-        margin-top: 11px;
-        margin-bottom: 22px;
+        font-size: var(--wb-sizing-size_140);
+        margin: var(--wb-sizing-size_220) 0;
     }
 
     /* Preserves vertical rhythm. Not always necessary */
@@ -86,18 +64,14 @@
         clear: both;
         color: #ccc;
         display: block;
-        height: 1px;
-        margin: 18px 0 36px 0;
+        height: var(--wb-sizing-size_010);
+        margin: var(--wb-sizing-size_180) 0 var(--wb-sizing-size_360) 0;
         padding: 0;
         width: 100%;
     }
 
     form {
         display: inline;
-    }
-
-    .fixed-width {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
 
     nav {
