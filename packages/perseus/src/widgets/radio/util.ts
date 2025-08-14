@@ -113,6 +113,14 @@ export function choiceTransform(
     strings: PerseusStrings,
     problemNumber: number,
 ) {
+    if (
+        widgetOptions.choices.some(
+            (choice) => (choice as any).originalIndex != null,
+        )
+    ) {
+        throw new Error("Calling choiceTransform on transformed choices!");
+    }
+
     // Add meta-information to choices
     const choices: ReadonlyArray<RadioChoiceWithMetadata> =
         widgetOptions.choices.map((choice, i): RadioChoiceWithMetadata => {
