@@ -60,11 +60,10 @@ export function getUserInputFromSerializedState(
 export function addNoneOfAbove(
     choices: ReadonlyArray<RadioChoiceWithMetadata>,
 ): ReadonlyArray<RadioChoiceWithMetadata> {
-    let noneOfTheAbove = null;
+    let noneOfTheAbove: RadioChoiceWithMetadata | null = null;
 
-    const newChoices = choices.filter((choice, index) => {
+    const newChoices = choices.filter((choice) => {
         if (choice.isNoneOfTheAbove) {
-            // @ts-expect-error - TS2322 - Type 'RadioChoiceWithMetadata' is not assignable to type 'null'.
             noneOfTheAbove = choice;
             return false;
         }
@@ -72,8 +71,7 @@ export function addNoneOfAbove(
     });
 
     // Place the "None of the above" options last
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    if (noneOfTheAbove) {
+    if (noneOfTheAbove != null) {
         newChoices.push(noneOfTheAbove);
     }
 
