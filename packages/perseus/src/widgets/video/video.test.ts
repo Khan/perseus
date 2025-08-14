@@ -60,11 +60,10 @@ describe("video widget", () => {
 
         // Assert
         // eslint-disable-next-line testing-library/no-node-access
-        expect(
-            document
-                .getElementsByTagName("iframe")[0]
-                .attributes.getNamedItem("allow")?.value,
-        ).toContain("autoplay");
+        expect(document.getElementsByTagName("iframe")[0]).toHaveAttribute(
+            "allow",
+            "autoplay",
+        );
     });
 
     it("vimeo widget should contain dnt param", () => {
