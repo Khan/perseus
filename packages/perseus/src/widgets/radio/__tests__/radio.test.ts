@@ -19,7 +19,7 @@ import {
 } from "./radio.testdata";
 
 import type {APIOptions} from "../../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusRenderer, RadioWidget} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (
@@ -944,59 +944,38 @@ describe("Radio Widget", () => {
     describe("shuffling", () => {
         // regression LEMS-297
         it("shuffles differently for multiple radios in the same exercise", () => {
+            function generateRadio(): RadioWidget {
+                return {
+                    type: "radio",
+                    version: {major: 3, minor: 0},
+                    options: {
+                        choices: [
+                            {
+                                content: "Choice 1",
+                                id: "choice-1",
+                            },
+                            {
+                                content: "Choice 2",
+                                id: "choice-2",
+                            },
+                            {
+                                content: "Choice 3",
+                                id: "choice-3",
+                            },
+                            {
+                                content: "Choice 4",
+                                id: "choice-4",
+                            },
+                        ],
+                        randomize: true,
+                    },
+                };
+            }
             const multipleShuffledRadioQuestion: PerseusRenderer = {
                 content: "[[☃ radio 1]]\n[[☃ radio 2]]",
                 widgets: {
-                    "radio 1": {
-                        type: "radio",
-                        version: {major: 3, minor: 0},
-                        options: {
-                            choices: [
-                                {
-                                    content: "Choice 1",
-                                    id: "choice-1",
-                                },
-                                {
-                                    content: "Choice 2",
-                                    id: "choice-2",
-                                },
-                                {
-                                    content: "Choice 3",
-                                    id: "choice-3",
-                                },
-                                {
-                                    content: "Choice 4",
-                                    id: "choice-4",
-                                },
-                            ],
-                            randomize: true,
-                        },
-                    },
-                    "radio 2": {
-                        type: "radio",
-                        version: {major: 3, minor: 0},
-                        options: {
-                            choices: [
-                                {
-                                    content: "Choice 1",
-                                    id: "choice-1",
-                                },
-                                {
-                                    content: "Choice 2",
-                                    id: "choice-2",
-                                },
-                                {
-                                    content: "Choice 3",
-                                    id: "choice-3",
-                                },
-                                {
-                                    content: "Choice 4",
-                                    id: "choice-4",
-                                },
-                            ],
-                            randomize: true,
-                        },
-                    },
+                    "radio 1": generateRadio(),
+                    "radio 2": generateRadio(),
                 },
                 images: {},
             };
