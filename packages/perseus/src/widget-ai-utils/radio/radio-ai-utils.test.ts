@@ -64,7 +64,6 @@ const shuffledQuestion: PerseusRenderer = {
 
 describe("Radio AI utils", () => {
     let userEvent: UserEvent;
-    let mathRandomSpy: jest.SpyInstance;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -74,20 +73,6 @@ describe("Radio AI utils", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-
-        // Mock Math.random to return a deterministic sequence for consistent test results
-        mathRandomSpy = jest.spyOn(Math, "random");
-        let callCount = 0;
-        mathRandomSpy.mockImplementation(() => {
-            // This ensures consistent shuffling behavior in radio widgets
-            const values = [0.2, 0.3, 0.8, 0.9, 0.1, 0.4, 0.6, 0.7, 0.5];
-            return values[callCount++ % values.length];
-        });
-    });
-
-    afterEach(() => {
-        // Restore Math.random to its original implementation
-        mathRandomSpy.mockRestore();
     });
 
     it("should get prompt json which matches the state of the UI", () => {
@@ -139,15 +124,19 @@ describe("Radio AI utils", () => {
         });
     });
 
-    it.each(Object.keys(shuffledQuestion.widgets["radio 1"].options.choices))(
+    it.each(
+        Object.entries(shuffledQuestion.widgets["radio 1"].options.choices),
+    )(
         "prompt answer order should map to UI answer order: index %s",
-        async (index) => {
+        async (_, choice) => {
             // render the question which triggers shuffling
             const {renderer} = renderQuestion(shuffledQuestion);
 
             // click the shuffled answer at a specific index
-            const radioInputs = screen.getAllByRole("radio");
-            await userEvent.click(radioInputs[index]);
+            const radioInput = screen.getByRole("radio", {
+                name: new RegExp(choice.content),
+            });
+            await userEvent.click(radioInput);
 
             // get prompt JSON
             const json = renderer.getPromptJSON();
@@ -173,10 +162,15 @@ describe("Radio AI utils", () => {
                 expect(nodeText.includes(promptJSONItemText)).toBe(true);
             });
 
-            // Ensure the user input is in the correct order
-            widgetJSON.userInput.selectedOptions.forEach((isSelected, i) => {
-                expect(isSelected).toBe(i === +index);
-            });
+            // find the index of the choice in the UI
+            const indexOfText = listItems
+                .map((li) => li.textContent ?? "")
+                .findIndex((text) => text.includes(choice.content));
+            // find the index of the selection in user input
+            const indexOfSelectedUserInput =
+                widgetJSON.userInput.selectedOptions.indexOf(true);
+            // Ensure the user input order matches the options order
+            expect(indexOfSelectedUserInput).toBe(indexOfText);
         },
     );
 
