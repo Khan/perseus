@@ -201,12 +201,7 @@ class InteractiveGraphQuestionBuilder {
         xMax,
         yMin,
         yMax,
-    }: {
-        xMin?: boolean;
-        xMax?: boolean;
-        yMin?: boolean;
-        yMax?: boolean;
-    }): InteractiveGraphQuestionBuilder {
+    }: Partial<ShowAxisArrows>): InteractiveGraphQuestionBuilder {
         this.showAxisArrows = {
             xMin: xMin ?? true,
             xMax: xMax ?? true,

@@ -1,4 +1,5 @@
 import {View} from "@khanacademy/wonder-blocks-core";
+import {Strut} from "@khanacademy/wonder-blocks-layout";
 import Switch from "@khanacademy/wonder-blocks-switch";
 import {spacing} from "@khanacademy/wonder-blocks-tokens";
 import {LabelMedium, LabelSmall} from "@khanacademy/wonder-blocks-typography";
@@ -29,32 +30,30 @@ const LabeledSwitch = (props: Props) => {
         onChange,
     } = props;
     const Typography = typographyMap[size];
-
     const switchId = useId();
+
+    const labelElement = (
+        <Typography tag="label" htmlFor={switchId}>
+            {label}
+        </Typography>
+    );
+
+    const strut = <Strut size={spacing.xSmall_8} />;
+
     return (
         <View style={[styles.row, style]}>
             {labelSide === "start" && (
-                <Typography
-                    tag="label"
-                    htmlFor={switchId}
-                    style={{
-                        marginInlineEnd: spacing.xSmall_8,
-                    }}
-                >
-                    {label}
-                </Typography>
+                <>
+                    {labelElement}
+                    {strut}
+                </>
             )}
             <Switch id={switchId} checked={checked} onChange={onChange} />
             {labelSide === "end" && (
-                <Typography
-                    tag="label"
-                    htmlFor={switchId}
-                    style={{
-                        marginInlineStart: spacing.xSmall_8,
-                    }}
-                >
-                    {label}
-                </Typography>
+                <>
+                    {strut}
+                    {labelElement}
+                </>
             )}
         </View>
     );
