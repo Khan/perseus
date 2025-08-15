@@ -146,10 +146,10 @@ describe("radio-editor", () => {
         expect(onChangeMock).toBeCalledWith(
             expect.objectContaining({
                 choices: [
-                    {},
-                    {},
-                    {},
-                    {},
+                    {content: "", id: "radio-choice-0"},
+                    {content: "", id: "radio-choice-1"},
+                    {content: "", id: "radio-choice-2"},
+                    {content: "", id: "radio-choice-3"},
                     {
                         content: "",
                         id: mockIds[0],
