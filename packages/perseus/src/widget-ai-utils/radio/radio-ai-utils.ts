@@ -41,7 +41,7 @@ export const getPromptJSON = (
         hasNoneOfTheAbove: !!renderProps.hasNoneOfTheAbove,
         options,
         userInput: {
-            selectedOptions: userInput?.choicesSelected?.slice() ?? [],
+            selectedOptions: userInput?.choicesSelected?.map(choice => choice.selected) ?? [],
         },
     };
 };

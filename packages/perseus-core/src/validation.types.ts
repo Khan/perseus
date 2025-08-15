@@ -29,6 +29,7 @@
  * ```
  */
 
+import { UserSelectedChoices } from "../../perseus/src/types";
 import type {
     GrapherAnswerTypes,
     PerseusDropdownChoice,
@@ -263,7 +264,7 @@ export type PerseusRadioRubric = {
 };
 
 export type PerseusRadioUserInput = {
-    choicesSelected: boolean[];
+    choicesSelected: UserSelectedChoices[];
 };
 
 export type PerseusSorterRubric = {
