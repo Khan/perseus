@@ -355,10 +355,10 @@ describe("choiceTransform", () => {
 
         const rv = choiceTransform(choices, true, mockStrings, 0);
 
-        expect(rv[0].id).toBe("choice-4");
-        expect(rv[1].id).toBe("choice-2");
-        expect(rv[2].id).toBe("choice-1");
-        expect(rv[3].id).toBe("choice-3");
+        expect(rv[0].id).toBe("choice-1");
+        expect(rv[1].id).toBe("choice-3");
+        expect(rv[2].id).toBe("choice-2");
+        expect(rv[3].id).toBe("choice-4");
     });
 
     it("populates correct", () => {
