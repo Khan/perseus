@@ -72,6 +72,25 @@
     width: 100%;
 }
 
+/* Mobile and tablet responsive adjustments for fade effect */
+@media (max-width: 767px) {
+    .choice-list:before {
+        /* Use absolute positioning on smaller screens to ensure proper containment within the scrollable container */
+        position: absolute;
+        /* Ensure the fade covers the full width of the container */
+        left: 0;
+        right: 0;
+        width: auto;
+        /* Adjust z-index to ensure proper layering on mobile */
+        z-index: 1;
+    }
+
+    .content {
+        /* Ensure content stays below the fade on mobile */
+        z-index: 0;
+    }
+}
+
 .content {
     display: flex;
     flex-direction: column;
