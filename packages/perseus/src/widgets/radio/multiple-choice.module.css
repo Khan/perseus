@@ -81,7 +81,7 @@
         left: 0;
         right: 0;
         width: auto;
-        /* Adjust z-index to ensure proper layering on mobile */
+        /* Adjust z-index to ensure proper layering on mobile - lower than indicator but higher than content */
         z-index: 1;
     }
 
