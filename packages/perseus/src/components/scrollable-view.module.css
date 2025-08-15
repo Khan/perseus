@@ -4,4 +4,7 @@
     flex-direction: row;
     gap: 0.8rem;
     padding: 1.2rem;
+    /* Ensure scroll buttons stay above fade effects and remain clickable */
+    position: relative;
+    z-index: 3;
 }
