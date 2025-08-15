@@ -1,3 +1,5 @@
+import {shuffleUserInput} from "../../widgets/radio/util";
+
 import type radio from "../../widgets/radio/radio";
 import type {
     PerseusRadioUserInput,
@@ -36,12 +38,22 @@ export const getPromptJSON = (
         return option;
     });
 
+    let choicesSelected: boolean[] = [];
+    if (userInput?.choicesSelected != null) {
+        /**
+         * user input is stored in its unshuffled state,
+         * but the LLM needs to see things the same way the learner sees things
+         * (which is shuffled)
+         */
+        choicesSelected = shuffleUserInput(choices, userInput).choicesSelected;
+    }
+
     return {
         type: "radio",
         hasNoneOfTheAbove: !!renderProps.hasNoneOfTheAbove,
         options,
         userInput: {
-            selectedOptions: userInput?.choicesSelected?.slice() ?? [],
+            selectedOptions: choicesSelected,
         },
     };
 };

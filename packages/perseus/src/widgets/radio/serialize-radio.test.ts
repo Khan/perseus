@@ -23,10 +23,10 @@ const expectedSerializedRadio = {
     deselectEnabled: false,
     choices: [
         {
-            id: "5-5-5-5-5",
-            content: "Content 4",
+            id: "4-4-4-4-4",
+            content: "Content 3",
             correct: false,
-            originalIndex: 3, // <= note we stash original index
+            originalIndex: 2, // <= note we stash original index
         },
         {
             id: "3-3-3-3-3",
@@ -41,14 +41,12 @@ const expectedSerializedRadio = {
             originalIndex: 0,
         },
         {
-            id: "4-4-4-4-4",
-            content: "Content 3",
+            id: "5-5-5-5-5",
+            content: "Content 4",
             correct: false,
-            originalIndex: 2,
+            originalIndex: 3,
         },
     ],
-    // no idea what this is, it doesn't seem to change...
-    selectedChoices: [false, false, true, false],
     choiceStates: [
         {
             selected: true, // <= note we stash user input
@@ -146,7 +144,6 @@ describe("Radio serialization", () => {
     });
 
     let userEvent: UserEvent;
-    let mathRandomSpy: jest.SpyInstance;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -156,20 +153,6 @@ describe("Radio serialization", () => {
         jest.spyOn(Dependencies, "getDependencies").mockReturnValue(
             testDependencies,
         );
-
-        // Mock Math.random to return a deterministic sequence for consistent test results
-        mathRandomSpy = jest.spyOn(Math, "random");
-        let callCount = 0;
-        mathRandomSpy.mockImplementation(() => {
-            // This ensures consistent shuffling behavior in radio widgets
-            const values = [0.3, 0.2, 0.4, 0.1, 0.5, 0.9, 0.8, 0.7, 0.6];
-            return values[callCount++ % values.length];
-        });
-    });
-
-    afterEach(() => {
-        // Restore Math.random to its original implementation
-        mathRandomSpy.mockRestore();
     });
 
     it("should serialize the current state", async () => {
@@ -225,7 +208,7 @@ describe("Radio serialization", () => {
                 // note we unshuffle!
                 // in expectedSerializedRadio.choiceStates the first element
                 // is selected; here the last element is selected
-                choicesSelected: [false, false, false, true],
+                choicesSelected: [false, false, true, false],
             },
         });
     });

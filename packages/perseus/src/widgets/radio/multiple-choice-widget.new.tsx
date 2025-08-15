@@ -1,14 +1,13 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
 import * as React from "react";
 
+import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
-import {mockStrings} from "../../strings";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 import MultipleChoiceComponent from "./multiple-choice-component.new";
 import {getChoiceStates, parseNestedWidgets} from "./utils/general-utils";
 
-import type {PerseusStrings} from "../../strings";
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
@@ -45,14 +44,7 @@ export type RenderProps = {
     countChoices?: boolean;
     deselectEnabled?: boolean;
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
-    // (LEMS-3278) - Remove all references to selectedChoices, as it's not used anywhere.
-    // We're handling selected in the choiceStates array.
-    selectedChoices: ReadonlyArray<PerseusRadioChoice["correct"]>;
     choiceStates?: ReadonlyArray<ChoiceState>;
-    // Deprecated; support for legacy way of handling changes
-    // Adds proptype for prop that is used but was lacking type
-    values?: ReadonlyArray<boolean>;
-    strings?: PerseusStrings;
     editMode?: boolean;
     labelWrap?: boolean;
 };
@@ -96,6 +88,9 @@ type DefaultProps = Required<
  * Created as part of the Radio Revitalization Project (LEMS-2933).
  */
 class MultipleChoiceWidget extends React.Component<Props> implements Widget {
+    static contextType = PerseusI18nContext;
+    declare context: React.ContextType<typeof PerseusI18nContext>;
+
     static defaultProps: DefaultProps = {
         choices: [],
         multipleSelect: false,
@@ -127,7 +122,8 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
      */
     renderContent = (content = ""): React.ReactNode => {
         const {parsedContent, extractedWidgets} = parseNestedWidgets(content);
-        const {strings = mockStrings, findWidgets} = this.props;
+        const {findWidgets} = this.props;
+        const strings = this.context.strings;
 
         // This has been called out as a hack in the past.
         // We pass in a key here so that we avoid a semi-spurious
@@ -236,12 +232,8 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
     buildChoiceProps = (
         choiceStates: ReadonlyArray<ChoiceState>,
     ): ReadonlyArray<ChoiceType> => {
-        const {
-            choices,
-            reviewModeRubric,
-            questionCompleted,
-            strings = mockStrings,
-        } = this.props;
+        const {choices, reviewModeRubric, questionCompleted} = this.props;
+        const strings = this.context.strings;
 
         return choices.map((choice, i) => {
             // Get the content for the choice, which is either the content of the choice
@@ -295,7 +287,7 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
      * @returns An array of choice props ready for the component
      */
     prepareChoicesProps = () => {
-        const {choices, showSolutions, choiceStates, values} = this.props;
+        const {choices, showSolutions, choiceStates} = this.props;
 
         // Get the updated choice states based on the current props
         const processedChoiceStates = getChoiceStates({
@@ -303,7 +295,6 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
             isStatic: this.props.static,
             showSolutions,
             choiceStates,
-            values,
         });
 
         // Build the choice props from the updated choice states

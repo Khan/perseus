@@ -95,22 +95,3 @@ export function randomIntInRange(
 }
 
 export const random: RNG = seededRNG(new Date().getTime() & 0xffffffff);
-
-/**
- * Randomizes an array using the sort-by-random-key method
- *
- * @param inputArray - The array of elements to randomize
- * @returns A new array containing the same elements in randomized order
- */
-export function randomizeArrayElements<T>(inputArray: ReadonlyArray<T>): T[] {
-    return inputArray
-        .map((element) => {
-            const randomSortNumber = Math.random();
-            return {
-                element,
-                randomSortNumber,
-            };
-        })
-        .sort((a, b) => a.randomSortNumber - b.randomSortNumber)
-        .map((item) => item.element);
-}
