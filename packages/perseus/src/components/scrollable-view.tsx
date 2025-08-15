@@ -79,9 +79,20 @@ function ScrollableView({
 
         // Only consider content scrollable if there's a meaningful amount to scroll
         // Using a responsive threshold that accounts for mobile viewports and larger spacing
-        // On mobile (smaller viewports), spacing can be 16px+, so we need a larger threshold
-        // Using 768px to match the framework-perseus.perseus-mobile styling in styles.css
-        const scrollableThreshold = window.innerWidth <= 768 ? 20 : 5;
+        // On mobile (smaller viewports), we need to account for the content margin used in multiple choice
+        // Calculate threshold based on actual CSS spacing to prevent over-scrolling
+        const isMobile = window.innerWidth <= 768;
+        let scrollableThreshold = 5; // Default for desktop
+
+        if (isMobile) {
+            // For mobile, calculate threshold based on actual content margins
+            // This matches the spacing used in multiple-choice component
+            const computedStyle = getComputedStyle(containerRef.current);
+            const fontSize = parseFloat(computedStyle.fontSize);
+            // Approximate --wb-sizing-size_160 (typically 16px) + indicator size (3.2rem)
+            const estimatedContentMargin = 16 + 3.2 * fontSize;
+            scrollableThreshold = Math.max(20, estimatedContentMargin * 0.5);
+        }
         setIsScrollable(scrollWidth > clientWidth + scrollableThreshold);
 
         // In RTL mode, scrollLeft values work differently (can be negative)
