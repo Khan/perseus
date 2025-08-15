@@ -72,8 +72,10 @@
     width: 100%;
 }
 
-/* Mobile and tablet responsive adjustments for fade effect */
-@media (max-width: 767px) {
+/* Mobile and tablet responsive adjustments for fade effect
+   Using 768px to match the framework-perseus.perseus-mobile styling in styles.css
+*/
+@media (max-width: 766px) {
     .choice-list:before {
         /* Use absolute positioning on smaller screens to ensure proper containment within the scrollable container */
         position: absolute;

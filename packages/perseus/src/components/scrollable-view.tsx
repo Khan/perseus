@@ -78,8 +78,10 @@ function ScrollableView({
         setIsRtl(getComputedStyle(containerRef.current).direction === "rtl");
 
         // Only consider content scrollable if there's a meaningful amount to scroll
-        // Using a slightly higher threshold to prevent micro-scrolling issues
-        const scrollableThreshold = 5; // 5px threshold
+        // Using a responsive threshold that accounts for mobile viewports and larger spacing
+        // On mobile (smaller viewports), spacing can be 16px+, so we need a larger threshold
+        // Using 768px to match the framework-perseus.perseus-mobile styling in styles.css
+        const scrollableThreshold = window.innerWidth <= 768 ? 20 : 5;
         setIsScrollable(scrollWidth > clientWidth + scrollableThreshold);
 
         // In RTL mode, scrollLeft values work differently (can be negative)
