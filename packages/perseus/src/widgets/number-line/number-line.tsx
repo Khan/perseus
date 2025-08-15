@@ -674,6 +674,9 @@ class NumberLine extends React.Component<Props, State> implements Widget {
             } else {
                 Input = NumberInput;
             }
+            // TODO: keypadElement is only needed for SimpleKeypadInput and causes a React warning
+            // when passed to NumberInput. This should be refactored to only pass the prop when needed,
+            // but requires addressing type incompatibilities in the onChange handlers.
             tickCtrl = (
                 <label>
                     {strings.numDivisions}{" "}

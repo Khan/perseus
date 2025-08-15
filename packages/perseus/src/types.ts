@@ -179,7 +179,6 @@ export type APIOptions = Readonly<{
         newFocusPath: FocusPath,
         oldFocusPath: FocusPath,
         keypadHeight?: number,
-        focusedElement?: HTMLElement,
     ) => unknown;
     /**
      * @deprecated - metadata is no longer used by the Group widget
