@@ -13,7 +13,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line
 
 import type {
     WidgetExports,
-    FocusPath,
     Widget,
     WidgetProps,
     UniversalWidgetProps,

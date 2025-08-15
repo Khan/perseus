@@ -15,7 +15,6 @@ import type {
     PerseusTableWidgetOptions,
     PerseusTableUserInput,
 } from "@khanacademy/perseus-core";
-import type ReactDOM from "react-dom";
 
 const {assert} = InteractiveUtil;
 
