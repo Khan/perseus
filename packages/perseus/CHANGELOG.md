@@ -1,5 +1,29 @@
 # @khanacademy/perseus
 
+## 66.5.0
+
+### Minor Changes
+
+-   [#2786](https://github.com/Khan/perseus/pull/2786) [`52b2b3ae54`](https://github.com/Khan/perseus/commit/52b2b3ae54953ff6969e8962858d46d025661be8) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Add `showAxisArrows` field to Interactive Graph editor
+
+### Patch Changes
+
+-   [#2803](https://github.com/Khan/perseus/pull/2803) [`99aafcf6db`](https://github.com/Khan/perseus/commit/99aafcf6db38d78bc56abe7ffae16d851ab41c54) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Enhance content for screen reader access
+
+*   [#2797](https://github.com/Khan/perseus/pull/2797) [`3f7a9e5185`](https://github.com/Khan/perseus/commit/3f7a9e5185a5a8fc93a32215379d7a434ecf0523) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove transform from NumericInput
+
+-   [#2801](https://github.com/Khan/perseus/pull/2801) [`58e2534199`](https://github.com/Khan/perseus/commit/58e2534199d0c6243362f3ea557cfa362ab9906a) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Adds the allow="autoplay" property to the video widget iframe
+
+*   [#2807](https://github.com/Khan/perseus/pull/2807) [`62029ee700`](https://github.com/Khan/perseus/commit/62029ee700db45a646a0addf0e90ff4df73aef3a) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Updates radio's index.ts file to include default values for content and choice ids
+
+*   Updated dependencies [[`52b2b3ae54`](https://github.com/Khan/perseus/commit/52b2b3ae54953ff6969e8962858d46d025661be8), [`62029ee700`](https://github.com/Khan/perseus/commit/62029ee700db45a646a0addf0e90ff4df73aef3a)]:
+    -   @khanacademy/perseus-core@18.7.0
+    -   @khanacademy/keypad-context@3.1.4
+    -   @khanacademy/kmath@2.1.4
+    -   @khanacademy/math-input@26.1.5
+    -   @khanacademy/perseus-linter@4.2.4
+    -   @khanacademy/perseus-score@7.6.1
+
 ## 66.4.0
 
 ### Minor Changes
