@@ -309,6 +309,7 @@ class Renderer
     componentDidMount() {
         this._isMounted = true;
 
+        this.props.onRender();
         this._currentFocus = null;
 
         this.props.initializeUserInput?.(

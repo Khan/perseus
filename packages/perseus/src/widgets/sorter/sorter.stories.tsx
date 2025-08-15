@@ -29,6 +29,12 @@ export const Question1: Story = {
     },
 };
 
+export const Question2: Story = {
+    args: {
+        item: generateTestPerseusItem({question: question2}),
+    },
+};
+
 export const AnswerlessQuestion1: Story = {
     args: {
         item: generateTestPerseusItem({question: question1}),
