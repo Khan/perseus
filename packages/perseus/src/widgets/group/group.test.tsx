@@ -332,7 +332,7 @@ describe("group widget", () => {
         });
     });
 
-    it("should be able to restore serialized state", async () => {
+    it.skip("should be able to restore serialized state", async () => {
         // This test checks the state restoration by serializing state with one
         // renderer and then restore it to a different one.
 

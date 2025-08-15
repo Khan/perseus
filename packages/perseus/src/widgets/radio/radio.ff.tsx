@@ -8,10 +8,11 @@ import _ from "underscore";
 
 import RadioNew from "./multiple-choice-widget.new";
 import RadioOld from "./radio-component";
-import {unshuffleUserInput} from "./util";
+import {choiceTransform, unshuffleUserInput} from "./util";
 
 import type {RenderProps} from "./radio-component";
 import type {ChoiceState, WidgetProps} from "../../types";
+import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 type Props = WidgetProps<
     RenderProps,
@@ -77,7 +78,11 @@ class Radio extends RadioOld {
      * [LEMS-3185] do not trust serializedState/restoreSerializedState
      */
     getSerializedState() {
-        const {userInput: _, ...rest} = this._mergePropsAndState();
+        const {
+            userInput: _,
+            randomize: __,
+            ...rest
+        } = this._mergePropsAndState();
         return {
             ...rest,
         };
@@ -161,10 +166,20 @@ class Radio extends RadioOld {
          * (WidgetProps, UserInput, and UI state) into a format our
          * legacy code will understand.
          */
+        const choices = [
+            ...choiceTransform(
+                this.props.choices,
+                this.props.randomize,
+                this.context.strings,
+                this.props.problemNum ?? 0,
+            ),
+        ];
+
         return {
             ...this.props,
+            choices,
             choiceStates: this.state.choiceStates?.map((choiceState, index) => {
-                const choice = this.props.choices[index];
+                const choice = choices[index];
                 const selected =
                     this.props.userInput?.choicesSelected[choice.originalIndex];
                 return {
@@ -185,16 +200,20 @@ class Radio extends RadioOld {
         return false;
     }
 
+    getPromptJSON(): RadioPromptJSON {
+        return this.radioRef.current!.getPromptJSON();
+    }
+
     render(): React.ReactNode {
-        const props = this._mergePropsAndState();
+        const mergedProps = this._mergePropsAndState();
 
         // Only return the new radio widget if the feature flag is on.
         // Otherwise, return the old radio widget and pass the ref to
         // it for handling legacy focus methods.
         return this.ffIsOn ? (
-            <RadioNew {...props} />
+            <RadioNew {...mergedProps} />
         ) : (
-            <RadioOld ref={this.radioRef} {...props} />
+            <RadioOld ref={this.radioRef} {...mergedProps} />
         );
     }
 }

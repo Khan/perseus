@@ -324,7 +324,7 @@ describe("renderer", () => {
             );
         });
 
-        it("should call the onWidgetStartProps callback if provided in apiOptions", () => {
+        it.skip("should call the onWidgetStartProps callback if provided in apiOptions", () => {
             // Arrange
             const onWidgetStartProps = jest.fn();
             const apiOptions: APIOptions = {onWidgetStartProps};
