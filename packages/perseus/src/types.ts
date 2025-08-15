@@ -71,7 +71,6 @@ export interface Widget {
               path: FocusPath;
           }
         | boolean;
-    getDOMNodeForPath?: (path: FocusPath) => Element | Text | null;
 
     /**
      * Returns widget state that can be passed back to `restoreSerializedState`
@@ -179,7 +178,6 @@ export type APIOptions = Readonly<{
         newFocusPath: FocusPath,
         oldFocusPath: FocusPath,
         keypadHeight?: number,
-        focusedElement?: HTMLElement,
     ) => unknown;
     /**
      * @deprecated - metadata is no longer used by the Group widget

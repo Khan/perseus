@@ -1,9 +1,7 @@
 import {describe, beforeEach, it} from "@jest/globals";
 import {act, render, screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
-import $ from "jquery";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import {testDependencies} from "../../../../testing/test-dependencies";
@@ -49,34 +47,6 @@ describe("Perseus API", function () {
             const {renderer} = renderQuestion(tableItem.question);
             const numPaths = renderer.getInputPaths().length;
             expect(numPaths).toBe(8);
-        });
-    });
-
-    describe("getDOMNodeForPath", function () {
-        it("should find one DOM node per <input>", function () {
-            const {renderer} = renderQuestion(mockWidget2Item.question);
-            const inputPaths = renderer.getInputPaths();
-
-            const allInputs = screen.queryAllByRole("textbox");
-
-            expect(inputPaths).toHaveLength(allInputs.length);
-        });
-
-        it("should find the right DOM nodes for the <input>s", function () {
-            const {renderer} = renderQuestion(mockWidget2Item.question);
-            const inputPaths = renderer.getInputPaths();
-
-            const allInputs = screen.queryAllByRole("textbox");
-
-            inputPaths.forEach((inputPath, i) => {
-                // @ts-expect-error - TS2769 - No overload matches this call.
-                const $node = $(renderer.getDOMNodeForPath(inputPath));
-                // @ts-expect-error - TS2769 - No overload matches this call.
-                const $input = $(ReactDOM.findDOMNode(allInputs[i]));
-                // @ts-expect-error - TS2339 - Property 'closest' does not exist on type 'JQueryStatic'.
-                // eslint-disable-next-line testing-library/no-node-access
-                expect($input.closest($node).length).toBeTruthy();
-            });
         });
     });
 

@@ -1,5 +1,5 @@
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
-import {within, render, screen, act} from "@testing-library/react";
+import {render, screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -106,18 +106,6 @@ describe("server item renderer", () => {
             "mock-widget 1": {currentValue: "1"},
             "mock-widget 2": {currentValue: "2"},
         });
-    });
-
-    it("should return the DOM node for the requested focus path", async () => {
-        // Arrange
-        const {renderer} = renderQuestion(itemWithMockWidget);
-
-        // Act
-        const node = renderer.getDOMNodeForPath(["mock-widget 1"]);
-
-        // Assert
-        // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
-        expect(await within(node).findAllByRole("textbox")).toHaveLength(1);
     });
 
     it("should return the number of hints available", () => {
@@ -304,7 +292,6 @@ describe("server item renderer", () => {
                 ["mock-widget 1"],
                 null,
                 0,
-                expect.any(Object),
             );
         });
 
@@ -349,7 +336,6 @@ describe("server item renderer", () => {
                 ["numeric-input 1"],
                 null,
                 250,
-                expect.any(Object),
             );
         });
 
@@ -373,7 +359,6 @@ describe("server item renderer", () => {
                 null,
                 ["mock-widget 1"],
                 0,
-                null,
             );
         });
 
@@ -419,7 +404,6 @@ describe("server item renderer", () => {
                 null,
                 ["numeric-input 1"],
                 0,
-                null,
             );
         });
 
@@ -441,7 +425,6 @@ describe("server item renderer", () => {
                 ["mock-widget 1"],
                 null,
                 0,
-                expect.any(Object),
             );
         });
     });
