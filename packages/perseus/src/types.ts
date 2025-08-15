@@ -71,7 +71,6 @@ export interface Widget {
               path: FocusPath;
           }
         | boolean;
-    getDOMNodeForPath?: (path: FocusPath) => Element | Text | null;
 
     /**
      * Returns widget state that can be passed back to `restoreSerializedState`

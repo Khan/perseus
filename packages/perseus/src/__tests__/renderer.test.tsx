@@ -4,7 +4,7 @@ import {
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
-import {act, screen, waitFor, within} from "@testing-library/react";
+import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -1475,34 +1475,6 @@ describe("renderer", () => {
                 "mock-widget 2",
                 "image 1",
             ]);
-        });
-    });
-
-    describe("getDOMNodeForPath", () => {
-        it("should return the DOM node for the widget at requested FocusPath", () => {
-            // Arrange
-            const {renderer} = renderQuestion(question1);
-
-            // Act
-            const node = renderer.getDOMNodeForPath(["dropdown 1"]);
-
-            // Assert
-            // @ts-expect-error - TS2345 - Argument of type 'Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement'.
-            expect(within(node).queryAllByRole("combobox")).toHaveLength(1);
-        });
-
-        it("should return the widget's getDOMNodeForPath() result for the widget at requested FocusPath", () => {
-            // Arrange
-            const {renderer} = renderQuestion(definitionItem);
-            const widget2DOMNode = <span />;
-            const [widget2] = renderer.findWidgets("definition 2");
-            widget2.getDOMNodeForPath = jest.fn(() => widget2DOMNode);
-
-            // Act
-            const node = renderer.getDOMNodeForPath(["definition 2"]);
-
-            // Assert
-            expect(node).toBe(widget2DOMNode);
         });
     });
 

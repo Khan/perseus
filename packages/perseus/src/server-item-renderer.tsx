@@ -297,10 +297,6 @@ export class ServerItemRenderer
         return this.questionRenderer.blurPath(path);
     }
 
-    getDOMNodeForPath(path: FocusPath): Element | Text | null | undefined {
-        return this.questionRenderer.getDOMNodeForPath(path);
-    }
-
     getInputPaths(): ReadonlyArray<FocusPath> {
         const questionAreaInputPaths = this.questionRenderer.getInputPaths();
         return questionAreaInputPaths;

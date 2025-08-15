@@ -184,12 +184,6 @@ class Matrix extends React.Component<Props, State> implements Widget {
         inputComponent.blur();
     };
 
-    getDOMNodeForPath(path: FocusPath) {
-        const inputID = getRefForPath(path);
-        const inputRef = this.answerRefs[inputID];
-        return inputRef;
-    }
-
     handleKeyDown: (arg1: any, arg2: any, arg3: any) => void = (
         row,
         col,

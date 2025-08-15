@@ -147,15 +147,6 @@ class Table extends React.Component<Props> implements Widget {
         inputComponent.blur();
     }
 
-    getDOMNodeForPath(
-        path: FocusPath,
-    ): ReturnType<typeof ReactDOM.findDOMNode> {
-        const inputID = getRefForPath(path as Path);
-        const inputRef = this.answerRefs[inputID];
-
-        return inputRef;
-    }
-
     getInputPaths(): string[][] {
         const rows = this._getRows();
         const columns = this._getColumns();

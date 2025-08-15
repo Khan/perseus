@@ -1490,22 +1490,6 @@ class Renderer
         }
     };
 
-    getDOMNodeForPath: (path: FocusPath) => Element | Text | null | undefined =
-        (path: FocusPath) => {
-            // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-            const widgetId = _.first(path);
-            // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-            const interWidgetPath = _.rest(path);
-
-            // Widget handles parsing of the interWidgetPath. If the path is empty
-            // beyond the widgetID, as a special case we just return the widget's
-            // DOM node.
-            const widget = this.getWidgetInstance(widgetId);
-            if (widget?.getDOMNodeForPath) {
-                return widget.getDOMNodeForPath(interWidgetPath);
-            }
-        };
-
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {
         const inputPaths: Array<FocusPath> = [];
         this.widgetIds.forEach((widgetId: string) => {

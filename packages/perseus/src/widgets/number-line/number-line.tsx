@@ -374,16 +374,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         return [];
     };
 
-    // This consumes the input path returned by getInputPaths,
-    // and returns the DOM node for the tick control input.
-    getDOMNodeForPath(inputPath: FocusPath) {
-        // If we have a tick control, return the DOM node for the tick control input.
-        if (inputPath?.length === 1) {
-            return this.tickControlRef;
-        }
-        return null;
-    }
-
     _renderGraphie: () => React.ReactElement = () => {
         // Position variables
         const range = this.props.range;
