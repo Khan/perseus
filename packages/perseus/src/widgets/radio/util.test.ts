@@ -6,10 +6,15 @@ import {
     enforceOrdering,
     getChoiceLetter,
     maybeRandomize,
+    shuffleUserInput,
+    unshuffleUserInput,
 } from "./util";
 
 import type {RadioChoiceWithMetadata} from "./radio-component";
-import type {PerseusRadioChoice} from "@khanacademy/perseus-core";
+import type {
+    PerseusRadioChoice,
+    PerseusRadioUserInput,
+} from "@khanacademy/perseus-core";
 
 describe("getChoiceLetter (in English)", () => {
     it("returns the first 5 letters for most questions", () => {
@@ -424,5 +429,83 @@ describe("choiceTransform", () => {
         expect(choices).not.toEqual(rv1);
         expect(choices).not.toEqual(rv2);
         expect(rv1).toEqual(rv2);
+    });
+});
+
+describe("shuffleUserInput", () => {
+    it("shuffles user input", () => {
+        const choices: RadioChoiceWithMetadata[] = [
+            {
+                id: "3-3-3-3-3",
+                content: "Incorrect Choice 3",
+                correct: false,
+                originalIndex: 3,
+            },
+            {
+                id: "1-1-1-1-1",
+                content: "Incorrect Choice 2",
+                correct: false,
+                originalIndex: 1,
+            },
+            {
+                id: "0-0-0-0-0",
+                content: "Incorrect Choice 1",
+                correct: false,
+                originalIndex: 0,
+            },
+            {
+                id: "2-2-2-2-2",
+                content: "Correct Choice",
+                correct: true,
+                originalIndex: 2,
+            },
+        ];
+
+        const unshuffledUserInput: PerseusRadioUserInput = {
+            choicesSelected: [true, false, false, false],
+        };
+
+        expect(shuffleUserInput(choices, unshuffledUserInput)).toEqual({
+            choicesSelected: [false, false, true, false],
+        });
+    });
+});
+
+describe("unshuffleUserInput", () => {
+    it("unshuffles user input", () => {
+        const choices: RadioChoiceWithMetadata[] = [
+            {
+                id: "3-3-3-3-3",
+                content: "Incorrect Choice 3",
+                correct: false,
+                originalIndex: 3,
+            },
+            {
+                id: "1-1-1-1-1",
+                content: "Incorrect Choice 2",
+                correct: false,
+                originalIndex: 1,
+            },
+            {
+                id: "0-0-0-0-0",
+                content: "Incorrect Choice 1",
+                correct: false,
+                originalIndex: 0,
+            },
+            {
+                id: "2-2-2-2-2",
+                content: "Correct Choice",
+                correct: true,
+                originalIndex: 2,
+            },
+        ];
+
+        const unshuffledUserInput: PerseusRadioUserInput = {
+            choicesSelected: [false, false, true, false],
+        };
+
+        expect(unshuffleUserInput(choices, unshuffledUserInput)).toEqual({
+            choicesSelected: [true, false, false, false],
+        });
     });
 });

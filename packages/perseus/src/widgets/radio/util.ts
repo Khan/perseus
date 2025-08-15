@@ -2,6 +2,7 @@ import {
     shuffle,
     type PerseusRadioUserInput,
     type PerseusRadioWidgetOptions,
+    type RecursiveReadonly,
 } from "@khanacademy/perseus-core";
 import _ from "underscore";
 
@@ -139,4 +140,40 @@ export function choiceTransform(
             strings,
         ),
     );
+}
+
+/**
+ * converts an unshuffled user input to a shuffled user input
+ * based on the original index of the choices
+ *
+ * not used for shuffling, used for syncing shuffled/unshuffled
+ */
+export function shuffleUserInput(
+    choices: ReadonlyArray<RadioChoiceWithMetadata>,
+    userInput: RecursiveReadonly<PerseusRadioUserInput>,
+): PerseusRadioUserInput {
+    const choicesSelected = userInput.choicesSelected;
+    return {
+        choicesSelected: choices.map(
+            (choice) => choicesSelected[choice.originalIndex],
+        ),
+    };
+}
+
+/**
+ * converts a shuffled user input to an unshuffled user input
+ * based on the original index of the choices
+ *
+ * not used for shuffling, used for syncing shuffled/unshuffled
+ */
+export function unshuffleUserInput(
+    choices: RadioChoiceWithMetadata[],
+    userInput: PerseusRadioUserInput,
+): PerseusRadioUserInput {
+    const rv: boolean[] = [];
+    const choicesSelected = userInput.choicesSelected;
+    choices.forEach((choice, currentIndex) => {
+        rv[choice.originalIndex] = choicesSelected[currentIndex];
+    });
+    return {choicesSelected: rv};
 }

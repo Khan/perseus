@@ -104,6 +104,7 @@ describe("Radio AI utils", () => {
         };
 
         const userInput: PerseusRadioUserInput = {
+            // unshuffled
             choicesSelected: [true, false, false, false],
         };
 
@@ -119,7 +120,8 @@ describe("Radio AI utils", () => {
                 {value: "Content 3"},
             ],
             userInput: {
-                selectedOptions: [true, false, false, false],
+                // shuffled
+                selectedOptions: [false, false, true, false],
             },
         });
     });

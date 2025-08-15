@@ -8,7 +8,7 @@ import _ from "underscore";
 
 import RadioNew from "./multiple-choice-widget.new";
 import RadioOld from "./radio-component";
-import {getUserInputFromSerializedState} from "./util";
+import {unshuffleUserInput} from "./util";
 
 import type {RenderProps} from "./radio-component";
 import type {ChoiceState, WidgetProps} from "../../types";
@@ -130,8 +130,15 @@ class Radio extends RadioOld {
                     };
                     // Use getUserInputFromSerializedState to get
                     // unshuffled user input so that we can score with it
-                    const unshuffledUserInput =
-                        getUserInputFromSerializedState(mergedProps);
+                    const shuffledUserInput: PerseusRadioUserInput = {
+                        choicesSelected: mergedProps.choiceStates.map(
+                            (e) => e.selected,
+                        ),
+                    };
+                    const unshuffledUserInput = unshuffleUserInput(
+                        mergedProps.choices,
+                        shuffledUserInput,
+                    );
                     this.props.handleUserInput(unshuffledUserInput);
                 },
             );
