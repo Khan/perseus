@@ -45,6 +45,21 @@ function ScrollableView({
     const [canScrollStart, setCanScrollStart] = useState(false);
     const [canScrollEnd, setCanScrollEnd] = useState(false);
     const [isRtl, setIsRtl] = useState(false);
+    
+    // Calculate scrollable threshold once to avoid performance issues during scroll events
+    const scrollableThreshold = React.useMemo(() => {
+        const isMobile = window.innerWidth <= 768;
+        if (!isMobile) {
+            return 5; // Default for desktop
+        }
+        
+        // For mobile, calculate threshold based on typical content margins
+        // This matches the spacing used in multiple-choice component
+        // Using typical font size (16px) to avoid expensive getComputedStyle calls during scroll
+        const typicalFontSize = 16;
+        const estimatedContentMargin = 16 + (3.2 * typicalFontSize);
+        return Math.max(20, estimatedContentMargin * 0.5);
+    }, []); // Empty dependency array - calculate only once
 
     /**
      * Updates scroll state variables based on current scroll position.
@@ -78,21 +93,7 @@ function ScrollableView({
         setIsRtl(getComputedStyle(containerRef.current).direction === "rtl");
 
         // Only consider content scrollable if there's a meaningful amount to scroll
-        // Using a responsive threshold that accounts for mobile viewports and larger spacing
-        // On mobile (smaller viewports), we need to account for the content margin used in multiple choice
-        // Calculate threshold based on actual CSS spacing to prevent over-scrolling
-        const isMobile = window.innerWidth <= 768;
-        let scrollableThreshold = 5; // Default for desktop
-
-        if (isMobile) {
-            // For mobile, calculate threshold based on actual content margins
-            // This matches the spacing used in multiple-choice component
-            const computedStyle = getComputedStyle(containerRef.current);
-            const fontSize = parseFloat(computedStyle.fontSize);
-            // Approximate --wb-sizing-size_160 (typically 16px) + indicator size (3.2rem)
-            const estimatedContentMargin = 16 + 3.2 * fontSize;
-            scrollableThreshold = Math.max(20, estimatedContentMargin * 0.5);
-        }
+        // Using the pre-calculated threshold to avoid performance issues during scroll events
         setIsScrollable(scrollWidth > clientWidth + scrollableThreshold);
 
         // In RTL mode, scrollLeft values work differently (can be negative)
@@ -111,7 +112,7 @@ function ScrollableView({
                 scrollLeft + clientWidth < scrollWidth - scrollableThreshold,
             );
         }
-    }, [isRtl]);
+    }, [isRtl, scrollableThreshold]);
 
     const scroll = (direction: "start" | "end") => {
         if (!containerRef.current) {
