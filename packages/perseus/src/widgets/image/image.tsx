@@ -1,5 +1,4 @@
 import {linterContextDefault} from "@khanacademy/perseus-linter";
-import classNames from "classnames";
 import * as React from "react";
 import _ from "underscore";
 
@@ -105,90 +104,6 @@ class ImageWidget extends React.Component<Props> implements Widget {
             );
         }
 
-        // For mobile we combine an image's title and caption.
-        if (apiOptions.isMobile) {
-            let titleAndCaption;
-
-            if (this.props.title || this.props.caption) {
-                let title = this.props.title;
-
-                // Bold the title, and make it the first sentence of the
-                // caption.
-                if (title) {
-                    // We add a period to separate the title from the caption
-                    // (if it exists), unless the title already ends with a
-                    // punctuation symbol (whitespace ignored). Copied from
-                    // webapp: https://github.com/Khan/webapp/blob/6e930637edb65696d0749ea0f7558214aee32b4e/javascript/tutorial-shared-package/components/content-description.jsx#L80
-                    // TODO(charlie): Internationalize this check, and the
-                    // delimiter that is being inserted.
-                    if (this.props.caption && !/[.?!"']\s*$/.test(title)) {
-                        title += ".";
-                    }
-
-                    title = `**${title}** `;
-                }
-
-                const className = classNames({
-                    "perseus-image-caption": true,
-                    "has-title": !!title,
-                });
-
-                // Caption is left-aligned within a container that's centered
-                // below the image, with these width constraints:
-                //
-                // 1. Size caption to width of the image on-screen.
-                // 2. ... but constrain its width to a range based on the
-                //    device to optimize readability - e.g. [320px, 450px] for
-                //    phones.
-                // 3. ... unless the image is floated, in which case we don't
-                //    want the caption to overflow the image size.
-                //
-                // TODO(david): If caption is only 1 line long, center-align
-                //     the text.
-                const alignment = this.props.alignment;
-                const isImageFullWidth =
-                    alignment === "block" || alignment === "full-width";
-
-                // This minWidth takes precedence over minWidth applied via
-                // Aphrodite.
-                const minWidth = isImageFullWidth ? null : "0 !important";
-
-                titleAndCaption = (
-                    <figcaption
-                        className={className}
-                        style={{
-                            maxWidth: backgroundImage.width,
-                        }}
-                    >
-                        <div
-                            style={{
-                                // @ts-expect-error - TS2322 - Type 'string | null' is not assignable to type 'MinWidth<string | number> | undefined'.
-                                minWidth: minWidth,
-                            }}
-                        >
-                            <Renderer
-                                content={title + this.props.caption}
-                                apiOptions={apiOptions}
-                                linterContext={this.props.linterContext}
-                                strings={this.context.strings}
-                            />
-                        </div>
-                    </figcaption>
-                );
-            }
-
-            return (
-                <figure
-                    className="perseus-image-widget"
-                    style={{
-                        maxWidth: backgroundImage.width,
-                    }}
-                >
-                    {image}
-                    {titleAndCaption}
-                </figure>
-            );
-        }
         let title;
         let caption;
 
