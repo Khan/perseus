@@ -45,6 +45,7 @@ function ScrollableView({
     const [canScrollStart, setCanScrollStart] = useState(false);
     const [canScrollEnd, setCanScrollEnd] = useState(false);
     const [isRtl, setIsRtl] = useState(false);
+    const [isScrolling, setIsScrolling] = useState(false);
 
     // Calculate scrollable threshold once to avoid performance issues during scroll events
     const scrollableThreshold = React.useMemo(() => {
@@ -115,41 +116,12 @@ function ScrollableView({
     }, [isRtl, scrollableThreshold]);
 
     const scroll = (direction: "start" | "end") => {
-        if (!containerRef.current) {
-            return;
+        if (!containerRef.current || isScrolling) {
+            return; // Prevent rapid clicks while scrolling
         }
 
-        const {scrollLeft, scrollWidth, clientWidth} = containerRef.current;
-        // Check scroll boundaries immediately to prevent rapid clicking from overshooting
-        // which causes extra visual spacing between the choice indicator and content.
-        // Only prevent scroll if we're very close to the boundary (within SCROLL_DISTANCE)
-        const preventOvershoot = SCROLL_DISTANCE / 2; // More lenient than threshold
-
-        if (isRtl) {
-            // RTL boundary checks
-            // In RTL: scrollLeft = 0 is at the start (right side), negative values go toward end (left side)
-            if (direction === "start" && scrollLeft >= -preventOvershoot) {
-                return; // Too close to start boundary, prevent overshoot
-            }
-            if (
-                direction === "end" &&
-                Math.abs(scrollLeft) >=
-                    scrollWidth - clientWidth - preventOvershoot
-            ) {
-                return; // Too close to end boundary, prevent overshoot
-            }
-        } else {
-            // LTR boundary checks
-            if (direction === "start" && scrollLeft <= preventOvershoot) {
-                return; // Too close to start boundary, prevent overshoot
-            }
-            if (
-                direction === "end" &&
-                scrollLeft + clientWidth >= scrollWidth - preventOvershoot
-            ) {
-                return; // Too close to end boundary, prevent overshoot
-            }
-        }
+        // Set scrolling state to prevent rapid clicks
+        setIsScrolling(true);
 
         const scrollNegative =
             (isRtl && direction !== "start") ||
@@ -170,6 +142,11 @@ function ScrollableView({
             left: scrollAmount,
             behavior: "smooth",
         });
+
+        // Clear scrolling state after a short delay to allow next scroll
+        setTimeout(() => {
+            setIsScrolling(false);
+        }, 150); // Short delay to prevent rapid clicking but allow normal usage
     };
 
     useEffect(() => {
