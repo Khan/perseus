@@ -45,19 +45,19 @@ function ScrollableView({
     const [canScrollStart, setCanScrollStart] = useState(false);
     const [canScrollEnd, setCanScrollEnd] = useState(false);
     const [isRtl, setIsRtl] = useState(false);
-    
+
     // Calculate scrollable threshold once to avoid performance issues during scroll events
     const scrollableThreshold = React.useMemo(() => {
         const isMobile = window.innerWidth <= 768;
         if (!isMobile) {
             return 5; // Default for desktop
         }
-        
+
         // For mobile, calculate threshold based on typical content margins
         // This matches the spacing used in multiple-choice component
         // Using typical font size (16px) to avoid expensive getComputedStyle calls during scroll
         const typicalFontSize = 16;
-        const estimatedContentMargin = 16 + (3.2 * typicalFontSize);
+        const estimatedContentMargin = 16 + 3.2 * typicalFontSize;
         return Math.max(20, estimatedContentMargin * 0.5);
     }, []); // Empty dependency array - calculate only once
 
@@ -117,6 +117,38 @@ function ScrollableView({
     const scroll = (direction: "start" | "end") => {
         if (!containerRef.current) {
             return;
+        }
+
+        const {scrollLeft, scrollWidth, clientWidth} = containerRef.current;
+        // Check scroll boundaries immediately to prevent rapid clicking from overshooting
+        // which causes extra visual spacing between the choice indicator and content.
+        // Only prevent scroll if we're very close to the boundary (within SCROLL_DISTANCE)
+        const preventOvershoot = SCROLL_DISTANCE / 2; // More lenient than threshold
+
+        if (isRtl) {
+            // RTL boundary checks
+            // In RTL: scrollLeft = 0 is at the start (right side), negative values go toward end (left side)
+            if (direction === "start" && scrollLeft >= -preventOvershoot) {
+                return; // Too close to start boundary, prevent overshoot
+            }
+            if (
+                direction === "end" &&
+                Math.abs(scrollLeft) >=
+                    scrollWidth - clientWidth - preventOvershoot
+            ) {
+                return; // Too close to end boundary, prevent overshoot
+            }
+        } else {
+            // LTR boundary checks
+            if (direction === "start" && scrollLeft <= preventOvershoot) {
+                return; // Too close to start boundary, prevent overshoot
+            }
+            if (
+                direction === "end" &&
+                scrollLeft + clientWidth >= scrollWidth - preventOvershoot
+            ) {
+                return; // Too close to end boundary, prevent overshoot
+            }
         }
 
         const scrollNegative =
