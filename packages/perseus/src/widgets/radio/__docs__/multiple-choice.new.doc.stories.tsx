@@ -43,15 +43,15 @@ function RadioDemo({
 
 const meta = {
     title: "Widgets/RadioNew",
+    tags: ["!dev"],
     component: RadioDemo,
     parameters: {
         docs: {
             description: {
                 component: `
-The Radio widget is the cornerstone of Khan Academy's assessment system. Created in April 2013, it's our second oldest widget and by far the most frequently used across our content library.
+The Radio widget is the cornerstone widget in Khan Academy's content library. Created in April 2013, it is Perseus' second oldest widget and by far the most frequently used widget across our content library.
 
-This versatile component handles all multiple-choice questions, supporting both single-select (radio buttons) and multiple-select (checkboxes) formats. What makes it powerful is its ability to render rich content within choices - including mathematical expressions via MathJax, Markdown formatting, images, and even references to reading passages.
-
+This versatile component handles all multiple-choice questions, supporting both single-select (radio buttons) and multiple-select (checkboxes) formats. It supports rich content within choices: mathematical expressions via MathJax, Markdown formatting, images, and passage references (PassageRef).
 ## Key Features
 
 - **Rich Content**: Seamlessly displays math equations, formatted text, images, and passage references
@@ -63,9 +63,9 @@ This versatile component handles all multiple-choice questions, supporting both 
             },
         },
     },
-    // Define argTypes to document the API (controls hidden but documentation visible)
+    // We just want to document the API for this initial doc, not control it. We have better methods of control
+    // using our ServerItemRendererWithDebugUi, but we want to have a simple introduction to the widget.
     argTypes: {
-        // Hide the question prop from controls since we're providing it directly
         question: {
             control: false,
             table: {
@@ -73,7 +73,7 @@ This versatile component handles all multiple-choice questions, supporting both 
             },
         },
 
-        // PerseusRadioWidgetOptions (from data-schema.ts)
+        // PerseusRadioWidgetOptions
         choices: {
             control: false,
             description: "The choices provided to the user",
@@ -133,7 +133,7 @@ This versatile component handles all multiple-choice questions, supporting both 
             },
         },
 
-        // PerseusRadioChoice properties as defined in data-schema.ts
+        // PerseusRadioChoice
         content: {
             control: false,
             description: "Translatable Markdown; The label for this choice",
@@ -181,7 +181,7 @@ This versatile component handles all multiple-choice questions, supporting both 
             },
         },
 
-        // Perseus Radio UserInput - representing the state of user interactions
+        // PerseusRadioUserInput
         choicesSelected: {
             control: false,
             description:
@@ -192,7 +192,7 @@ This versatile component handles all multiple-choice questions, supporting both 
                 defaultValue: {summary: "[]"},
             },
         },
-    } as const, // Use a const assertion to bypass type checking
+    } as const,
 } as Meta<typeof RadioDemo>;
 
 export default meta;
