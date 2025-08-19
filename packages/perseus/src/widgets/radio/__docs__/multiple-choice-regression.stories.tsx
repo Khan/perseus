@@ -79,7 +79,6 @@ export const SingleSelectStatic: Story = {
     },
 };
 
-// Review Mode
 export const SingleSelectShowSolutions: Story = {
     args: {
         item: generateTestPerseusItem({
@@ -94,7 +93,6 @@ export const SingleSelectShowSolutions: Story = {
     },
 };
 
-// Single Select with Passage Ref
 export const SingleSelectWithPassageRef: Story = {
     args: {
         // Can't use radioQuestionBuilder here because it also includes a passage widget.
@@ -104,7 +102,6 @@ export const SingleSelectWithPassageRef: Story = {
     },
 };
 
-// Single Select with Images
 export const SingleSelectWithImages = {
     args: {
         item: generateTestPerseusItem({
@@ -192,6 +189,7 @@ export const SingleSelectWithLongText = {
  */
 
 /* States */
+
 // Basic Multi Select
 export const MultiSelect = {
     args: {
@@ -254,6 +252,7 @@ export const MultiSelectShowSolutions = {
 };
 
 /* Edge Cases */
+
 export const MultiSelectWithLongMathjax = {
     args: {
         item: generateTestPerseusItem({

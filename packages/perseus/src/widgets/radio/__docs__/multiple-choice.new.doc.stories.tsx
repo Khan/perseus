@@ -8,37 +8,10 @@ import {radioQuestionBuilder} from "../radio-question-builder";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-// Define the type for the question structure
 interface RendererQuestion {
     content: string;
     widgets: Record<string, any>;
     images: Record<string, any>;
-}
-
-/**
- * Component to render any radio question
- */
-function RadioDemo({
-    question,
-}: {
-    question: RendererQuestion;
-}): React.ReactElement {
-    return (
-        <UserInputManager widgets={question.widgets} problemNum={0}>
-            {({userInput, handleUserInput, initializeUserInput}) => (
-                <Renderer
-                    userInput={userInput}
-                    handleUserInput={handleUserInput}
-                    initializeUserInput={initializeUserInput}
-                    strings={mockStrings}
-                    content={question.content}
-                    widgets={question.widgets}
-                    images={question.images}
-                    apiOptions={ApiOptions.defaults}
-                />
-            )}
-        </UserInputManager>
-    );
 }
 
 const meta = {
@@ -225,3 +198,29 @@ export const MultipleSelect: Story = {
         question: multipleSelectQuestion,
     },
 };
+
+/**
+ * Component to render our example radio questions.
+ */
+function RadioDemo({
+    question,
+}: {
+    question: RendererQuestion;
+}): React.ReactElement {
+    return (
+        <UserInputManager widgets={question.widgets} problemNum={0}>
+            {({userInput, handleUserInput, initializeUserInput}) => (
+                <Renderer
+                    userInput={userInput}
+                    handleUserInput={handleUserInput}
+                    initializeUserInput={initializeUserInput}
+                    strings={mockStrings}
+                    content={question.content}
+                    widgets={question.widgets}
+                    images={question.images}
+                    apiOptions={ApiOptions.defaults}
+                />
+            )}
+        </UserInputManager>
+    );
+}
