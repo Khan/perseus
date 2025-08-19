@@ -15,6 +15,8 @@ class RadioQuestionBuilder {
     private hasNoneOfTheAbove?: boolean;
     private multipleSelect?: boolean;
     private randomize?: boolean;
+    private static?: boolean;
+    private numCorrect?: number;
 
     build(): PerseusRenderer {
         return {
@@ -24,11 +26,13 @@ class RadioQuestionBuilder {
                 "radio 1": {
                     graded: true,
                     version: {major: 0, minor: 0},
-                    static: false,
+                    static: this.static,
                     type: "radio",
                     alignment: "default",
+
                     options: {
                         choices: this.choices,
+                        numCorrect: this.numCorrect,
                         hasNoneOfTheAbove: this.hasNoneOfTheAbove,
                         multipleSelect: this.multipleSelect,
                         countChoices: this.countChoices,
@@ -61,6 +65,16 @@ class RadioQuestionBuilder {
 
     withRandomize(randomize: boolean): RadioQuestionBuilder {
         this.randomize = randomize;
+        return this;
+    }
+
+    withStatic(isStatic: boolean): RadioQuestionBuilder {
+        this.static = isStatic;
+        return this;
+    }
+
+    withNumCorrect(numCorrect: number): RadioQuestionBuilder {
+        this.numCorrect = numCorrect;
         return this;
     }
 
