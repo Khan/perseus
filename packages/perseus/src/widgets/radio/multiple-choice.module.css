@@ -85,34 +85,11 @@
         width: auto;
         /* Adjust z-index to ensure proper layering on mobile - lower than indicator but higher than content */
         z-index: 1;
-        /* Ensure the same fade gradient is applied on mobile with proper spacing */
-        background: linear-gradient(
-            /* 90deg or 270deg */ var(--perseus-multiple-choice-fade-direction),
-            /* Accounts for theme color */
-                var(--wb-semanticColor-surface-primary)
-                calc(
-                    var(--perseus-multiple-choice-content-margin) +
-                        (var(--perseus-multiple-choice-spacing) / 2)
-                ),
-            transparent
-                calc(
-                    var(--perseus-multiple-choice-content-margin) +
-                        var(--perseus-multiple-choice-spacing)
-                )
-                calc(100% - (var(--perseus-multiple-choice-spacing) * 1.5)),
-            var(--wb-semanticColor-surface-primary)
-                calc(100% - var(--perseus-multiple-choice-spacing))
-        );
     }
 
     .content {
         /* Ensure content stays below the fade on mobile */
         z-index: 0;
-    }
-
-    /* Remove extra padding on mobile to prevent visual movement */
-    .container {
-        padding-inline-end: 0;
     }
 }
 

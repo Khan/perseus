@@ -88,16 +88,6 @@
     z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
 }
 
-/* Hide top border on all choices except the first to prevent double borders */
-.choice:not(:first-of-type):before {
-    display: none;
-}
-
-/* Hide bottom border on the last choice since there's no choice after it */
-.choice:last-of-type:after {
-    display: none;
-}
-
 /* The first choice option needs additional space for the border */
 .choice:first-of-type {
     margin-block-start: var(--perseus-multiple-choice-divider-space);
