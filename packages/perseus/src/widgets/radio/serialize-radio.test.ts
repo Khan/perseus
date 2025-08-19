@@ -174,7 +174,11 @@ describe("Radio serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicRadio());
+        const {renderer} = renderQuestion(
+            generateBasicRadio(),
+            {},
+            {startAnswerless: false},
+        );
 
         const preAnswerState = renderer.getSerializedState();
 

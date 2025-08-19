@@ -79,7 +79,11 @@ describe("FreeResponse serialization", () => {
 
     it("should serialize the current state", async () => {
         // Arrange
-        const {renderer} = renderQuestion(generateBasicFreeResponse());
+        const {renderer} = renderQuestion(
+            generateBasicFreeResponse(),
+            {},
+            {startAnswerless: false},
+        );
 
         await userEvent.type(
             screen.getByLabelText("test-question"),
