@@ -990,21 +990,12 @@ describe("Radio Widget", () => {
             expect(radios.length).toBe(2);
 
             // eslint-disable-next-line testing-library/no-node-access
-            const lis1 = radios[0].querySelectorAll("li");
+            const lis1 = Array.from(radios[0].querySelectorAll("li"));
             // eslint-disable-next-line testing-library/no-node-access
-            const lis2 = radios[1].querySelectorAll("li");
+            const lis2 = Array.from(radios[1].querySelectorAll("li"));
 
-            let sameOrder = true;
-            lis1.forEach((li1, idx) => {
-                const li2 = lis2[idx];
-                const li1Text = li1.textContent;
-                const li2Text = li2.textContent;
-                if (li1Text !== li2Text) {
-                    sameOrder = false;
-                }
-            });
-
-            expect(sameOrder).toBe(false);
+            const getText = (element) => element.textContent;
+            expect(lis1.map(getText)).not.toEqual(lis2.map(getText));
         });
     });
 });

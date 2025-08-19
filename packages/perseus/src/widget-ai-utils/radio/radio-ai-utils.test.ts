@@ -149,19 +149,12 @@ describe("Radio AI utils", () => {
 
             // Ensure the options are shown in the correct order
             const listItems = screen.getAllByRole("listitem");
-            listItems.forEach((listItem, i) => {
-                // get the text for the choice in the prompt JSON
-                const promptJSONItemText = widgetJSON.options[i].value;
-                // get the text for the choice in the UI
-                const nodeText = listItem.textContent;
-
-                if (!nodeText) {
-                    throw new Error("Not able to get text from UI element");
-                }
-
-                // make sure the text from the prompt is in
-                // the text for the UI at a given index
-                expect(nodeText.includes(promptJSONItemText)).toBe(true);
+            // make sure the text from the prompt is in
+            // the text for the UI at a given index
+            listItems.forEach((li, i) => {
+                const uiText = li.textContent as string;
+                const promptText = widgetJSON.options[i].value;
+                expect(uiText.includes(promptText)).toBe(true);
             });
 
             // find the index of the choice in the UI
