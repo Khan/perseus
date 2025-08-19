@@ -139,7 +139,8 @@ export function choiceTransform(
  * converts an unshuffled user input to a shuffled user input
  * based on the original index of the choices
  *
- * not used for shuffling, used for syncing shuffled/unshuffled
+ * not used for the actual choice shuffling,
+ * used for syncing user input with the shuffled choice order
  */
 export function shuffleUserInput(
     choices: ReadonlyArray<RadioChoiceWithMetadata>,
@@ -157,7 +158,8 @@ export function shuffleUserInput(
  * converts a shuffled user input to an unshuffled user input
  * based on the original index of the choices
  *
- * not used for shuffling, used for syncing shuffled/unshuffled
+ * not used for the actual choice shuffling,
+ * used for syncing user input with the shuffled choice order
  */
 export function unshuffleUserInput(
     choices: RadioChoiceWithMetadata[],
