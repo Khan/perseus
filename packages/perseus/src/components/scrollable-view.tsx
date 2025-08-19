@@ -49,7 +49,7 @@ function ScrollableView({
 
     // Calculate scrollable threshold once to avoid performance issues during scroll events
     const scrollableThreshold = React.useMemo(() => {
-        const isMobile = window.innerWidth <= 768;
+        const isMobile = window.innerWidth <= 767;
         if (!isMobile) {
             return 5; // Default for desktop
         }

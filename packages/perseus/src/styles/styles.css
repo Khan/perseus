@@ -550,7 +550,7 @@
         border-left: 4px solid #d8d8d8;
     }
 }
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (min-width: 767px) and (max-width: 1199px) {
     .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
         max-width: 512px;
     }
