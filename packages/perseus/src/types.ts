@@ -580,6 +580,7 @@ export type UniversalWidgetProps<
     trackInteraction: (extraData?: TrackingExtraArgs) => void;
     // provided by renderer.jsx#getWidgetProps()
     widgetId: string;
+    widgetIndex: number;
     alignment: string | null | undefined;
     static: boolean | null | undefined;
     problemNum: number | null | undefined;

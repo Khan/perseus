@@ -546,6 +546,24 @@ class Renderer
         );
     };
 
+    _getWidgetIndexById(id: string) {
+        const widgetIndex = Object.keys(this.props.widgets).indexOf(id);
+        if (widgetIndex < 0) {
+            Log.error(
+                "Unable to get widget index in _getWidgetIndexById",
+                Errors.Internal,
+                {
+                    loggedMetadata: {
+                        widgets: JSON.stringify(this.props.widgets),
+                        widgetId: JSON.stringify(id),
+                    },
+                },
+            );
+            return 0;
+        }
+        return widgetIndex;
+    }
+
     renderWidget: (
         impliedType: string,
         id: string,
@@ -630,6 +648,7 @@ class Renderer
             ...widgetProps,
             userInput: this.props.userInput?.[widgetId],
             widgetId: widgetId,
+            widgetIndex: this._getWidgetIndexById(widgetId),
             alignment: widgetInfo && widgetInfo.alignment,
             static: widgetInfo?.static,
             problemNum: this.props.problemNum,

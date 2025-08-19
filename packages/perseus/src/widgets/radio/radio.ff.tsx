@@ -166,12 +166,17 @@ class Radio extends RadioOld {
          * (WidgetProps, UserInput, and UI state) into a format our
          * legacy code will understand.
          */
+
+        // randomSeed is problemNum (which changes how we shuffle between exercises)
+        // and widgetIndex (which changes how we shuffle between widgets)
+        const randomSeed =
+            (this.props.problemNum ?? 0) + (this.props.widgetIndex ?? 0);
         const choices = [
             ...choiceTransform(
                 this.props.choices,
                 this.props.randomize,
                 this.context.strings,
-                this.props.problemNum ?? 0,
+                randomSeed,
             ),
         ];
 

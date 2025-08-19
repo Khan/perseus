@@ -106,24 +106,12 @@ export function maybeRandomize(
     return randomize ? shuffle(array, seed) : array;
 }
 
-/**
- * generate hash from string (for generating a seed)
- */
-function generateHash(string: string): number {
-    let hash = 0;
-    for (const char of string) {
-        hash = (hash << 5) - hash + char.charCodeAt(0);
-        hash |= 0; // Constrain to 32bit integer
-    }
-    return hash;
-}
-
 // Transforms the choices for display.
 export function choiceTransform(
     choices: PerseusRadioWidgetOptions["choices"],
     randomize: PerseusRadioWidgetOptions["randomize"],
     strings: PerseusStrings,
-    problemNum: number,
+    seed: number,
 ): ReadonlyArray<RadioChoiceWithMetadata> {
     if (choices.some((choice) => (choice as any).originalIndex != null)) {
         throw new Error("Calling choiceTransform on transformed choices!");
@@ -139,15 +127,6 @@ export function choiceTransform(
             };
         });
 
-    /**
-     * problemNum helps us to have a deterministic yet random order per-exercise
-     * but we still want to have a random order per widget in an exercise;
-     * so we use a combination of problemNum (random per learner) and
-     * a hash derived from IDs (random per widget)
-     */
-    const randomSeed =
-        generateHash(choices.map((c) => c.id).join()) + problemNum;
-
     // Apply all the transforms. Note that the order we call these is
     // important!
     // 3) finally add "None of the above" to the bottom
@@ -156,7 +135,7 @@ export function choiceTransform(
         //    True, False)
         enforceOrdering(
             // 1) we randomize the order first
-            maybeRandomize(choicesWithMetadata, randomSeed, randomize),
+            maybeRandomize(choicesWithMetadata, seed, randomize),
             strings,
         ),
     );
