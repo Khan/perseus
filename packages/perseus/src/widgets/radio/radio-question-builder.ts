@@ -15,7 +15,7 @@ class RadioQuestionBuilder {
     private hasNoneOfTheAbove?: boolean;
     private multipleSelect?: boolean;
     private randomize?: boolean;
-    private static?: boolean;
+    private static?: boolean = false;
     private numCorrect?: number;
 
     build(): PerseusRenderer {
