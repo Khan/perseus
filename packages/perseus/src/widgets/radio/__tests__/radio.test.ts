@@ -945,8 +945,7 @@ describe("Radio Widget", () => {
         // regression LEMS-297
         it("shuffles differently for multiple radios in the same exercise", () => {
             let counter: number = 0;
-            const generateId = () =>
-                `${counter++}-${counter++}-${counter++}-${counter++}-${counter++}`;
+            const generateId = () => `${counter++}`;
             function generateRadio(): RadioWidget {
                 return {
                     type: "radio",

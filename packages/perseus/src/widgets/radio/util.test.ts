@@ -1,11 +1,10 @@
 import {mockStrings} from "../../strings";
 
 import {
-    addNoneOfAbove,
+    moveNoneOfTheAboveToEnd,
     choiceTransform,
     enforceOrdering,
     getChoiceLetter,
-    maybeRandomize,
     shuffleUserInput,
     unshuffleUserInput,
 } from "./util";
@@ -33,7 +32,7 @@ describe("getChoiceLetter (in English)", () => {
     });
 });
 
-describe("addNoneOfAbove", () => {
+describe("moveNoneOfTheAboveToEnd", () => {
     function generateTestChoices(): RadioChoiceWithMetadata[] {
         return [
             {
@@ -61,7 +60,7 @@ describe("addNoneOfAbove", () => {
         // make sure we don't accidentally break the test
         expect(input[2].isNoneOfTheAbove).toBeUndefined();
 
-        const rv = addNoneOfAbove(input);
+        const rv = moveNoneOfTheAboveToEnd(input);
 
         expect(rv[2]).toEqual({
             content: "Option 2",
@@ -78,7 +77,7 @@ describe("addNoneOfAbove", () => {
         // make sure we don't accidentally break the test
         expect(input[2].isNoneOfTheAbove).not.toBeUndefined();
 
-        const rv = addNoneOfAbove(input);
+        const rv = moveNoneOfTheAboveToEnd(input);
 
         expect(rv[2]).toEqual({
             content: "Option 3",
@@ -96,7 +95,7 @@ describe("addNoneOfAbove", () => {
             expect(choice.isNoneOfTheAbove).toBeUndefined();
         });
 
-        const rv = addNoneOfAbove(input);
+        const rv = moveNoneOfTheAboveToEnd(input);
 
         expect(rv).toEqual(input);
     });
@@ -221,63 +220,6 @@ describe("enforceOrdering", () => {
 
         expect(rv[0].content).toBe("Hello");
         expect(rv[1].content).toBe("World");
-    });
-});
-
-describe("maybeRandomize", () => {
-    function generateChoices(): RadioChoiceWithMetadata[] {
-        return [
-            {
-                content: "Option 1",
-                id: "option-1",
-                originalIndex: 0,
-            },
-            {
-                content: "Option 2",
-                id: "option-2",
-                originalIndex: 1,
-            },
-            {
-                content: "Option 3",
-                id: "option-3",
-                originalIndex: 2,
-            },
-            {
-                content: "Option 4",
-                id: "option-4",
-                originalIndex: 3,
-            },
-        ];
-    }
-
-    it("doesn't randomize when randomize is false", () => {
-        const input = generateChoices();
-        const rv = maybeRandomize(input, 0, false);
-        expect(rv).toEqual(input);
-    });
-
-    it("does randomize when randomize is true", () => {
-        const input = generateChoices();
-        const rv = maybeRandomize(input, 0, true);
-        expect(rv).not.toEqual(input);
-    });
-
-    // todo, finish test
-    it("randomizes deterministically with the same seed", () => {
-        const input = generateChoices();
-        const rv1 = maybeRandomize(input, 0, true);
-        const rv2 = maybeRandomize(input, 0, true);
-        expect(rv1).not.toEqual(input);
-        expect(rv1).toEqual(rv2);
-    });
-
-    // todo, finish test
-    it("randomizes differently with different seeds", () => {
-        const input = generateChoices();
-        const rv1 = maybeRandomize(input, 0, true);
-        const rv2 = maybeRandomize(input, 1, true);
-        expect(rv1).not.toEqual(input);
-        expect(rv1).not.toEqual(rv2);
     });
 });
 
@@ -429,6 +371,35 @@ describe("choiceTransform", () => {
         expect(choices).not.toEqual(rv1);
         expect(choices).not.toEqual(rv2);
         expect(rv1).toEqual(rv2);
+    });
+
+    it("randomizes differently with different seeds", () => {
+        const choices: PerseusRadioChoice[] = [
+            {
+                content: "Choice 1",
+                id: "choice-1",
+                correct: true,
+            },
+            {
+                content: "Choice 2",
+                id: "choice-2",
+            },
+            {
+                content: "Choice 3",
+                id: "choice-3",
+            },
+            {
+                content: "Choice 4",
+                id: "choice-4",
+            },
+        ];
+
+        const rv1 = choiceTransform(choices, true, mockStrings, 0);
+        const rv2 = choiceTransform(choices, true, mockStrings, 1);
+
+        expect(rv1).not.toEqual(choices);
+        expect(rv2).not.toEqual(choices);
+        expect(rv1).not.toEqual(rv2);
     });
 });
 

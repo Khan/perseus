@@ -58,7 +58,7 @@ export function getUserInputFromSerializedState(
     };
 }
 
-export function addNoneOfAbove(
+export function moveNoneOfTheAboveToEnd(
     choices: ReadonlyArray<RadioChoiceWithMetadata>,
 ): ReadonlyArray<RadioChoiceWithMetadata> {
     let noneOfTheAbove: RadioChoiceWithMetadata | null = null;
@@ -98,14 +98,6 @@ export function enforceOrdering(
     return choices;
 }
 
-export function maybeRandomize(
-    array: ReadonlyArray<RadioChoiceWithMetadata>,
-    seed: number,
-    randomize?: boolean,
-): ReadonlyArray<RadioChoiceWithMetadata> {
-    return randomize ? shuffle(array, seed) : array;
-}
-
 // Transforms the choices for display.
 export function choiceTransform(
     choices: PerseusRadioWidgetOptions["choices"],
@@ -130,12 +122,14 @@ export function choiceTransform(
     // Apply all the transforms. Note that the order we call these is
     // important!
     // 3) finally add "None of the above" to the bottom
-    return addNoneOfAbove(
+    return moveNoneOfTheAboveToEnd(
         // 2) then (potentially) enforce ordering (eg. False, True becomes
         //    True, False)
         enforceOrdering(
             // 1) we randomize the order first
-            maybeRandomize(choicesWithMetadata, seed, randomize),
+            randomize
+                ? shuffle(choicesWithMetadata, seed)
+                : choicesWithMetadata,
             strings,
         ),
     );
