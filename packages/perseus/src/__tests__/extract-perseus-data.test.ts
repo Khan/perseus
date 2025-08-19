@@ -437,6 +437,7 @@ describe("ExtractPerseusData", () => {
                     snapDivisions: 2,
                     static: false,
                     tickStep: 0.5,
+                    isTickCtrl: false,
                 },
             };
 
@@ -983,6 +984,7 @@ describe("ExtractPerseusData", () => {
                         snapDivisions: 2,
                         static: false,
                         tickStep: 0.5,
+                        isTickCtrl: false,
                     },
                 },
             };
