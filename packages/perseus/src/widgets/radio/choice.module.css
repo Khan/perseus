@@ -53,6 +53,15 @@
     z-index: 1; /* Ensure the divider is above the scroll fade when it is showing */
 }
 
+/* Mobile adjustment for border alignment */
+@media (max-width: 767px) {
+    .choice:after,
+    .choice:before {
+        /* On mobile, align borders with instructions by not extending beyond container */
+        margin-inline-start: 0;
+    }
+}
+
 .choice:before {
     top: calc(
         (
