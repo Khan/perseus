@@ -1,6 +1,6 @@
-import {imageQuestionBuilder} from "./image-question-builder";
+import {imageQuestionGenerator} from "@khanacademy/perseus-core";
 
-export const question = imageQuestionBuilder()
+export const question = imageQuestionGenerator()
     .withContent(
         "[[☃ image 1]]\n\n=====\n\nA quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights $A:B$ and $B:C$ to each equal $1.62$. If the quilter makes the triangle height $A=8\\ \\text{in}$, approximately how tall should he make triangle height $C$?",
     )
@@ -15,7 +15,7 @@ export const question = imageQuestionBuilder()
     )
     .build();
 
-export const questionWithZoom = imageQuestionBuilder()
+export const questionWithZoom = imageQuestionGenerator()
     .withContent(
         "[[☃ image 1]]\n\n=====\n\nA quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights $A:B$ and $B:C$ to each equal $1.62$. If the quilter makes the triangle height $A=8\\ \\text{in}$, approximately how tall should he make triangle height $C$?",
     )

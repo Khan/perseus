@@ -2,9 +2,9 @@ import type {
     PerseusRenderer,
     ImageWidget,
     PerseusImageBackground,
-} from "@khanacademy/perseus-core";
+} from "../../data-schema";
 
-export function imageQuestionBuilder(): ImageQuestionBuilder {
+export function imageQuestionGenerator(): ImageQuestionBuilder {
     return new ImageQuestionBuilder();
 }
 

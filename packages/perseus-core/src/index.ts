@@ -207,6 +207,8 @@ export {
     getImageSizeModern,
 } from "./utils/util.graphie";
 
+export {imageQuestionGenerator} from "./utils/generators/image-question-generator";
+
 import {registerCoreWidgets} from "./widgets/core-widget-registry";
 
 registerCoreWidgets();

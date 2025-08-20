@@ -1,10 +1,10 @@
-import {imageQuestionBuilder} from "./image-question-builder";
+import {imageQuestionGenerator} from "./image-question-generator";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusRenderer} from "../../data-schema";
 
-describe("imageQuestionBuilder", () => {
+describe("imageQuestionGenerator", () => {
     test("builds a default image question", () => {
-        const question: PerseusRenderer = imageQuestionBuilder().build();
+        const question: PerseusRenderer = imageQuestionGenerator().build();
 
         expect(question.content).toBe("[[☃ image 1]]");
         expect(question.images).toEqual({});
@@ -24,7 +24,7 @@ describe("imageQuestionBuilder", () => {
     });
 
     test("sets the content", () => {
-        const question: PerseusRenderer = imageQuestionBuilder()
+        const question: PerseusRenderer = imageQuestionGenerator()
             .withContent("the content [[☃ image 1]]")
             .build();
 
@@ -32,7 +32,7 @@ describe("imageQuestionBuilder", () => {
     });
 
     test("sets the image", () => {
-        const question: PerseusRenderer = imageQuestionBuilder()
+        const question: PerseusRenderer = imageQuestionGenerator()
             .withImage("https://example.com/image.png")
             .build();
 
@@ -42,7 +42,7 @@ describe("imageQuestionBuilder", () => {
     });
 
     test("sets the title", () => {
-        const question: PerseusRenderer = imageQuestionBuilder()
+        const question: PerseusRenderer = imageQuestionGenerator()
             .withTitle("the title")
             .build();
 
@@ -50,7 +50,7 @@ describe("imageQuestionBuilder", () => {
     });
 
     test("sets the caption", () => {
-        const question: PerseusRenderer = imageQuestionBuilder()
+        const question: PerseusRenderer = imageQuestionGenerator()
             .withCaption("the caption")
             .build();
 
@@ -58,7 +58,7 @@ describe("imageQuestionBuilder", () => {
     });
 
     test("sets the alt", () => {
-        const question: PerseusRenderer = imageQuestionBuilder()
+        const question: PerseusRenderer = imageQuestionGenerator()
             .withAlt("the alt")
             .build();
 
@@ -66,7 +66,7 @@ describe("imageQuestionBuilder", () => {
     });
 
     test("builds a new image question with all props", () => {
-        const question: PerseusRenderer = imageQuestionBuilder()
+        const question: PerseusRenderer = imageQuestionGenerator()
             .withContent("the content [[☃ image 1]]")
             .withImage("https://example.com/image.png")
             .withTitle("the title")
