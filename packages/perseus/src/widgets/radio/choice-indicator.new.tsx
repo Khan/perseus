@@ -39,7 +39,6 @@ const Indicator = (props: IndicatorProps) => {
             aria-hidden={true}
             className={styles.icon}
             icon={iconImage}
-            role="img"
         />
     ) : undefined;
     const classes = [styles.base, styles[props.shape + "-shape"]];
@@ -53,6 +52,32 @@ const Indicator = (props: IndicatorProps) => {
               props.updateChecked(!checked);
           };
 
+    /* Notes on ARIA attributes: (screen reader <==> assistive technology <==> AT)
+          aria-pressed: Tells the AT that the button is a toggle button.
+          aria-disabled: Used when in review mode.
+              We don't disable the button because a learner may want to review
+                  the choices and their rationale.
+              However, we need to inform the user with AT that the button cannot
+                  be changed.
+          aria-label: The word "Choice" is prepended to the letter content.
+              This helps the learner using AT to distinguish the choice "name"
+                  better than if the letter is read alone.
+              The word "Correct" is appended when in review mode,
+                  and the choice is correct.
+          aria-labelledby: Used to build the full text of the choice and associate
+                  it with the button.
+              It references itself (to get the "Choice A" prefix) and the choice
+                  content (e.g. "Choice A: The capital of France is Paris").
+              So, while aria-labelledby takes precedence over aria-label,
+                  the aria-label provides the proper readout of the choice letter
+                  when combined with the choice content.
+          aria-describedby: When rationale is present, it is added to the content
+                  provided to the AT.
+              Since different ATs handle aria-describedby differently, it is
+                  understood that the experience may vary.
+              The rationale is not added to the aria-labelledby because it could
+                  be overwhelming, depending upon what the user is used to.
+     */
     return (
         <button
             aria-describedby={content.describedBy}
