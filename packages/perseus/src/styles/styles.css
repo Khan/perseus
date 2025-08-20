@@ -512,13 +512,6 @@
         line-height: 1.3;
         text-align: left;
     }
-    .framework-perseus.perseus-mobile
-        .perseus-image-caption.has-title
-        .paragraph
-        .paragraph
-        strong:first-child {
-        color: #3b3e40;
-    }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 21px;
         line-height: 1.2;
@@ -683,13 +676,6 @@
         line-height: 1.4;
         text-align: left;
     }
-    .framework-perseus.perseus-mobile
-        .perseus-image-caption.has-title
-        .paragraph
-        .paragraph
-        strong:first-child {
-        color: #3b3e40;
-    }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 23px;
         line-height: 1.3;
@@ -853,13 +839,6 @@
         font-size: 20px;
         line-height: 1.4;
         text-align: left;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-image-caption.has-title
-        .paragraph
-        .paragraph
-        strong:first-child {
-        color: #3b3e40;
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 25px;
