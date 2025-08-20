@@ -380,7 +380,7 @@ describe("UserInputManager", () => {
                         <>
                             <p>
                                 User input is:{" "}
-                                {userInput["radio 1"].choicesSelected.join(" ")}
+                                {userInput["radio 1"].selectedChoiceIds.join(" ")}
                             </p>
                         </>
                     );

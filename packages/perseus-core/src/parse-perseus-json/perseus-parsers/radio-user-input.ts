@@ -1,11 +1,5 @@
-import {array, boolean, object, string} from "../general-purpose-parsers";
-
-// create parser for UserSelectedChoices
-const userSelectedChoicesParser = object({
-    id: string,
-    selected: boolean,
-});
+import {array, object, string} from "../general-purpose-parsers";
 
 export const parseRadioUserInput = object({
-    choicesSelected: array(userSelectedChoicesParser),
+    selectedChoiceIds: array(string),
 });

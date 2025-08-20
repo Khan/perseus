@@ -199,11 +199,7 @@ describe("Widget API support", () => {
                     ],
                 },
                 expected: {
-                    choicesSelected: [
-                        {id: "0-0-0-0-0", selected: false},
-                        {id: "1-1-1-1-1", selected: true},
-                        {id: "2-2-2-2-2", selected: false},
-                    ],
+                    selectedChoiceIds: [ "1-1-1-1-1"],
                 },
             },
         ])(
@@ -221,7 +217,7 @@ describe("Widget API support", () => {
                     throw new Error(
                         "Widget does not have getUserInputFromSerializedState",
                     );
-                }
+                }  
             },
         );
     });

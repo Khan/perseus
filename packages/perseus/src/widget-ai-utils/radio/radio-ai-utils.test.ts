@@ -100,33 +100,32 @@ describe("Radio AI utils", () => {
             multipleSelect: false,
             choices: [
                 {
+                    id:"3-3-3-3-3",
                     content: "Content 4",
                     originalIndex: 3,
                 },
                 {
+                    id:"1-1-1-1-1",
                     content: "Content 2",
                     originalIndex: 1,
                 },
                 {
+                    id: "0-0-0-0-0",
                     content: "Content 1",
                     originalIndex: 0,
                 },
 
                 {
+                    id:"2-2-2-2-2",
                     content: "Content 3",
                     originalIndex: 2,
                 },
             ],
-            selectedChoices: [true, false, false, false],
+            selectedChoiceIds: ["3-3-3-3-3"],
         };
 
         const userInput: PerseusRadioUserInput = {
-            choicesSelected: [
-                {id: "0-0-0-0-0", selected: true},
-                {id: "1-1-1-1-1", selected: false},
-                {id: "2-2-2-2-2", selected: false},
-                {id: "3-3-3-3-3", selected: false},
-            ],
+            selectedChoiceIds: ["0-0-0-0-0"],
         };
 
         const resultJSON = getPromptJSON(renderProps, userInput);

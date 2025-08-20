@@ -155,17 +155,12 @@ class Radio extends RadioOld {
          * legacy code will understand.
          */
 
-        // Create a lookup map for choice selection by ID
-        const choiceSelectionById = new Map<string, boolean>();
-        this.props.userInput?.choicesSelected?.forEach((userChoice) => {
-            choiceSelectionById.set(userChoice.id, userChoice.selected);
-        });
 
         return {
             ...this.props,
             choiceStates: this.state.choiceStates?.map((choiceState, index) => {
                 const choice = this.props.choices[index];
-                const selected = choiceSelectionById.get(choice.id) ?? false;
+                const selected = this.props.userInput.selectedChoiceIds.includes(choice.id) ?? false;
                 return {
                     ...choiceState,
                     selected,

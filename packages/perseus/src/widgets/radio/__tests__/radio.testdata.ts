@@ -365,7 +365,9 @@ export const multiChoiceQuestionAndAnswer: [
     ],
 ];
 
-export const shuffledQuestion: PerseusRenderer = radioQuestionBuilder()
+// lazy load question building
+export const generateShuffledQuestion = (): PerseusRenderer =>
+ radioQuestionBuilder()
     .withContent("[[\u2603 radio 1]]")
     .addChoice("Incorrect Choice 1", {correct: false})
     .addChoice("Incorrect Choice 2", {correct: false})
@@ -374,7 +376,7 @@ export const shuffledQuestion: PerseusRenderer = radioQuestionBuilder()
     .withRandomize(true)
     .build();
 
-export const shuffledNoneQuestion: PerseusRenderer = radioQuestionBuilder()
+export const generateShuffledNoneQuestion= (): PerseusRenderer => radioQuestionBuilder()
     .withContent("[[\u2603 radio 1]]")
     .addChoice("Incorrect Choice 1", {correct: false})
     .addChoice("Incorrect Choice 2", {correct: false})
@@ -385,7 +387,7 @@ export const shuffledNoneQuestion: PerseusRenderer = radioQuestionBuilder()
     .withRandomize(true)
     .build();
 
-export const questionWithUndefinedCorrect: PerseusRenderer =
+export const generateQuestionWithUndefinedCorrect = (): PerseusRenderer =>
     radioQuestionBuilder()
         .withContent(
             "**Select the correct choice. This tests the LEMS-2909 bug fix.**\n\n[[\u2603 radio 1]]",

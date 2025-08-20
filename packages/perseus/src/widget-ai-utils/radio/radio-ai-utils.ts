@@ -15,7 +15,7 @@ export type RadioPromptJSON = {
     hasNoneOfTheAbove: boolean;
     options: BasicOption[];
     userInput: {
-        selectedOptions: ReadonlyArray<boolean>;
+        selectedOptions: ReadonlyArray<string>;
     };
 };
 
@@ -42,7 +42,7 @@ export const getPromptJSON = (
         options,
         userInput: {
             selectedOptions:
-                userInput?.choicesSelected?.map((choice) => choice.selected) ??
+                userInput?.selectedChoiceIds ??
                 [],
         },
     };

@@ -179,7 +179,7 @@ describe("group widget", () => {
         expect(userInput).toEqual([
             {
                 "radio 1": {
-                    choicesSelected: [false, false, false, false, false],
+                    selectedChoices: [],
                 },
             },
             {
@@ -453,7 +453,7 @@ describe("group widget", () => {
             [
                 {
                     "radio 1": {
-                        choicesSelected: [false, false, false, false, true],
+                        selectedChoiceIds: ["4-4-4-4-4"],
                     },
                 },
                 {

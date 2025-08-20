@@ -13,9 +13,9 @@ import PassageWidget from "../../passage";
 import {
     questionAndAnswer,
     multiChoiceQuestionAndAnswer,
-    shuffledQuestion,
-    shuffledNoneQuestion,
-    questionWithUndefinedCorrect,
+    generateShuffledQuestion,
+    generateShuffledNoneQuestion,
+    generateQuestionWithUndefinedCorrect,
 } from "./radio.testdata";
 
 import type {APIOptions} from "../../../types";
@@ -803,7 +803,7 @@ describe("Multiple Choice Widget", () => {
         it("can be scored correctly when shuffled", async () => {
             // Arrange
             const apiOptions = createApiOptions();
-            const {renderer} = renderQuestion(shuffledQuestion, apiOptions);
+            const {renderer} = renderQuestion(generateShuffledQuestion(), apiOptions);
 
             // Act
             await userEvent.click(
@@ -811,10 +811,10 @@ describe("Multiple Choice Widget", () => {
             );
 
             const userInput = renderer.getUserInputMap()["radio 1"];
-            const rubric = shuffledQuestion.widgets["radio 1"].options;
+            const rubric = generateShuffledQuestion().widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
-                shuffledQuestion,
+                generateShuffledQuestion(),
                 renderer.getUserInputMap(),
             );
 
@@ -831,7 +831,7 @@ describe("Multiple Choice Widget", () => {
         it("can be scored incorrectly when shuffled", async () => {
             // Arrange
             const apiOptions = createApiOptions();
-            const {renderer} = renderQuestion(shuffledQuestion, apiOptions);
+            const {renderer} = renderQuestion(generateShuffledQuestion(), apiOptions);
 
             // Act
             await userEvent.click(
@@ -839,10 +839,10 @@ describe("Multiple Choice Widget", () => {
             );
 
             const userInput = renderer.getUserInputMap()["radio 1"];
-            const rubric = shuffledQuestion.widgets["radio 1"].options;
+            const rubric = generateShuffledQuestion().widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
-                shuffledQuestion,
+                generateShuffledQuestion(),
                 renderer.getUserInputMap(),
             );
 
@@ -859,6 +859,7 @@ describe("Multiple Choice Widget", () => {
         it("can be scored correctly when shuffled with none of the above", async () => {
             // Arrange
             const apiOptions = createApiOptions();
+            const shuffledNoneQuestion = generateShuffledNoneQuestion();
             const {renderer} = renderQuestion(shuffledNoneQuestion, apiOptions);
 
             // Act
@@ -887,7 +888,9 @@ describe("Multiple Choice Widget", () => {
         it("can be scored incorrectly when shuffled with none of the above", async () => {
             // Arrange
             const apiOptions = createApiOptions();
+            const shuffledNoneQuestion = generateShuffledNoneQuestion();
             const {renderer} = renderQuestion(shuffledNoneQuestion, apiOptions);
+            const shuffledQuestion = generateShuffledQuestion();
 
             // Act
             await userEvent.click(
@@ -895,10 +898,9 @@ describe("Multiple Choice Widget", () => {
             );
 
             const userInput = renderer.getUserInputMap()["radio 1"];
-            const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
+            const rubric = generateShuffledNoneQuestion().widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
-            const rendererScore = scorePerseusItemTesting(
-                shuffledQuestion,
+            const rendererScore = scorePerseusItemTesting(shuffledQuestion,
                 renderer.getUserInputMap(),
             );
 
@@ -920,6 +922,7 @@ describe("Multiple Choice Widget", () => {
         it("handles undefined choice.correct properly when multipleSelect and randomize are enabled", async () => {
             // Arrange
             const apiOptions = createApiOptions();
+            const questionWithUndefinedCorrect =generateQuestionWithUndefinedCorrect();
             renderQuestion(questionWithUndefinedCorrect, apiOptions, {
                 reviewMode: true,
             });

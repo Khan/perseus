@@ -196,7 +196,6 @@ export type {
     VideoKind,
     WidgetExports,
     SharedRendererProps,
-    UserSelectedChoices,
 } from "./types";
 export type {ParsedValue} from "./util";
 export type {

@@ -13,9 +13,9 @@ import PassageWidget from "../../passage";
 import {
     questionAndAnswer,
     multiChoiceQuestionAndAnswer,
-    shuffledQuestion,
-    shuffledNoneQuestion,
-    questionWithUndefinedCorrect,
+    generateShuffledQuestion,
+    generateShuffledNoneQuestion,
+    generateQuestionWithUndefinedCorrect,
 } from "./radio.testdata";
 
 import type {APIOptions} from "../../../types";
@@ -38,6 +38,7 @@ const selectOption = async (
 };
 describe("Radio Widget", () => {
     let userEvent: UserEvent;
+    let i = 0;
     beforeEach(() => {
         userEvent = userEventLib.setup({
             advanceTimers: jest.advanceTimersByTime,
@@ -47,6 +48,11 @@ describe("Radio Widget", () => {
             testDependencies,
         );
 
+        jest.spyOn(globalThis.crypto, "randomUUID").mockImplementation(() => {
+            const n = i++;
+            return `${n}-${n}-${n}-${n}-${n}`;
+        })
+
         // Mocked for loading graphie in svg-image
         global.fetch = jest.fn(() =>
             Promise.resolve({
@@ -55,6 +61,8 @@ describe("Radio Widget", () => {
             }),
         ) as jest.Mock;
     });
+
+    afterEach(() => jest.restoreAllMocks());
 
     describe("single-choice question", () => {
         const [question, correct, incorrect] = questionAndAnswer;
@@ -799,6 +807,7 @@ describe("Radio Widget", () => {
          */
         it("can be scored correctly when shuffled", async () => {
             // Arrange
+            const shuffledQuestion = generateShuffledQuestion();
             const {renderer} = renderQuestion(shuffledQuestion);
 
             // Act
@@ -826,6 +835,7 @@ describe("Radio Widget", () => {
          */
         it("can be scored incorrectly when shuffled", async () => {
             // Arrange
+            const shuffledQuestion = generateShuffledQuestion();
             const {renderer} = renderQuestion(shuffledQuestion);
 
             // Act
@@ -853,6 +863,7 @@ describe("Radio Widget", () => {
          */
         it("can be scored correctly when shuffled with none of the above", async () => {
             // Arrange
+            const shuffledNoneQuestion = generateShuffledNoneQuestion();
             const {renderer} = renderQuestion(shuffledNoneQuestion);
 
             // Act
@@ -862,6 +873,7 @@ describe("Radio Widget", () => {
 
             const userInput = renderer.getUserInputMap()["radio 1"];
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
+
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
                 shuffledNoneQuestion,
@@ -880,6 +892,7 @@ describe("Radio Widget", () => {
          */
         it("can be scored incorrectly when shuffled with none of the above", async () => {
             // Arrange
+            const shuffledNoneQuestion = generateShuffledNoneQuestion();
             const {renderer} = renderQuestion(shuffledNoneQuestion);
 
             // Act
@@ -891,7 +904,7 @@ describe("Radio Widget", () => {
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
-                shuffledQuestion,
+                shuffledNoneQuestion,
                 renderer.getUserInputMap(),
             );
 
@@ -912,6 +925,7 @@ describe("Radio Widget", () => {
          */
         it("handles undefined choice.correct properly when multipleSelect and randomize are enabled", async () => {
             // Arrange
+            const questionWithUndefinedCorrect = generateQuestionWithUndefinedCorrect();
             renderQuestion(
                 questionWithUndefinedCorrect,
                 {},

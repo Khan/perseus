@@ -629,8 +629,3 @@ export interface Focusable {
     focus: () => void;
     blur: () => void;
 }
-
-export type UserSelectedChoices = {
-    id: string;
-    selected: boolean;
-};

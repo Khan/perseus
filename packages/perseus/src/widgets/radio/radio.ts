@@ -114,14 +114,9 @@ const transform = (
     };
 };
 
-function getStartUserInput(
-    options: RadioPublicWidgetOptions,
-): PerseusRadioUserInput {
+function getStartUserInput(): PerseusRadioUserInput {
     return {
-        choicesSelected: options.choices.map((choice) => ({
-            id: choice.id,
-            selected: false,
-        })),
+        selectedChoiceIds: [],
     };
 }
 
@@ -129,10 +124,7 @@ function getCorrectUserInput(
     options: PerseusRadioWidgetOptions,
 ): PerseusRadioUserInput {
     return {
-        choicesSelected: options.choices.map((option) => ({
-            id: option.id,
-            selected: !!option.correct,
-        })),
+        selectedChoiceIds: options.choices.filter(option => option.correct).map(option => option.id)
     };
 }
 
