@@ -57,17 +57,17 @@
 @media (max-width: 767px) {
     .choice {
         /* Reduce bottom margin to prevent double borders */
-        margin-block-end: 2px; /* Fixed value instead of var to prevent double lines */
+        margin-block-end: 2px !important; /* Fixed value instead of var to prevent double lines */
     }
 
     .choice:after,
     .choice:before {
         /* On mobile, ensure borders extend to cover the full scrollable width */
-        margin-inline-start: calc(var(--perseus-multiple-choice-spacing) * -1);
+        margin-inline-start: calc(var(--perseus-multiple-choice-spacing) * -1) !important;
         /* Extend width beyond the choice to prevent visual gaps during scroll */
-        width: calc(100% + (var(--perseus-multiple-choice-spacing) * 2));
+        width: calc(100% + (var(--perseus-multiple-choice-spacing) * 2)) !important;
         /* Ensure full coverage with extra width */
-        max-width: none;
+        max-width: none !important;
     }
 }
 
