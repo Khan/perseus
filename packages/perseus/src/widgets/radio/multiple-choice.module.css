@@ -17,6 +17,10 @@
             var(--perseus-multiple-choice-indicator-size)
     );
     --perseus-multiple-choice-fade-direction: 90deg; /* Default is left to right */
+    --perseus-multiple-choice-fade-color: var(
+        --perseus-widget-background-color,
+        var(--wb-semanticColor-surface-primary)
+    ); /* Accounts for theme color, unless a background color is specified (i.e. from Graded Group Set) */
 
     min-width: auto; /* Needed for scrollable view to work */
     padding-inline-end: var(--perseus-multiple-choice-spacing);
@@ -51,7 +55,7 @@
 .choice-list:before {
     background: linear-gradient(
         /* 90deg or 270deg */ var(--perseus-multiple-choice-fade-direction),
-        /* Accounts for theme color */ var(--wb-semanticColor-surface-primary)
+        var(--perseus-multiple-choice-fade-color)
             calc(
                 var(--perseus-multiple-choice-content-margin) +
                     (var(--perseus-multiple-choice-spacing) / 2)
@@ -62,7 +66,7 @@
                     var(--perseus-multiple-choice-spacing)
             )
             calc(100% - (var(--perseus-multiple-choice-spacing) * 1.5)),
-        var(--wb-semanticColor-surface-primary)
+        var(--perseus-multiple-choice-fade-color)
             calc(100% - var(--perseus-multiple-choice-spacing))
     );
     content: "";
