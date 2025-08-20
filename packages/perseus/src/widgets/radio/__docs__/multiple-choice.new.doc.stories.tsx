@@ -127,7 +127,7 @@ This versatile component handles all multiple-choice questions, supporting both 
         rationale: {
             control: false,
             description:
-                "Translatable Markdown; Rationale to give the user when they get it wrong",
+                "Translatable Markdown; Rationale to give the user as to why an answer is correct or not",
             table: {
                 category: "Perseus Radio Choice",
                 type: {summary: "string | undefined"},

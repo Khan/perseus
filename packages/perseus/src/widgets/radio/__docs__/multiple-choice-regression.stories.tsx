@@ -31,13 +31,8 @@ export default {
     },
 };
 
-/**
- * Single Selection Mode
- */
+// Single Selection Mode
 
-/* States */
-
-// Basic Single Select
 export const SingleSelect: Story = {
     args: {
         item: generateTestPerseusItem({
@@ -90,6 +85,20 @@ export const SingleSelectShowSolutions: Story = {
                 .build(),
         }),
         showSolutions: "all",
+    },
+};
+
+export const SingleSelectRTL: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: radioQuestionBuilder()
+                .addChoice("Choice 1", {correct: true})
+                .addChoice("Choice 2")
+                .addChoice("Choice 3")
+                .addChoice("Choice 4")
+                .build(),
+        }),
+        rtl: true,
     },
 };
 
@@ -184,13 +193,8 @@ export const SingleSelectWithLongText = {
     },
 };
 
-/**
- * Multi Selection Mode
- */
+// Multi Selection Mode
 
-/* States */
-
-// Basic Multi Select
 export const MultiSelect = {
     args: {
         item: generateTestPerseusItem({
@@ -251,7 +255,20 @@ export const MultiSelectShowSolutions = {
     },
 };
 
-/* Edge Cases */
+export const MultiSelectRTL = {
+    args: {
+        item: generateTestPerseusItem({
+            question: radioQuestionBuilder()
+                .addChoice("Choice 1", {correct: true})
+                .addChoice("Choice 2", {correct: true})
+                .addChoice("Choice 3")
+                .addChoice("Choice 4")
+                .withMultipleSelect(true)
+                .build(),
+        }),
+        rtl: true,
+    },
+};
 
 export const MultiSelectWithLongMathjax = {
     args: {
@@ -349,16 +366,24 @@ export const MultiSelectWithLongText = {
 function RadioQuestionRenderer(props: {
     item: PerseusItem;
     showSolutions?: "all" | "none" | "selected";
+    rtl?: boolean;
 }) {
-    const {item, showSolutions} = props;
+    const {item, showSolutions, rtl} = props;
 
     return (
-        <ServerItemRenderer
-            item={item}
-            apiOptions={ApiOptions.defaults}
-            reviewMode={false}
-            showSolutions={showSolutions}
-            dependencies={testDependenciesV2}
-        />
+        <div dir={rtl ? "rtl" : "ltr"}>
+            <ServerItemRenderer
+                item={item}
+                apiOptions={{
+                    ...ApiOptions.defaults,
+                    flags: {
+                        "new-radio-widget": true,
+                    },
+                }}
+                reviewMode={showSolutions === "all"}
+                showSolutions={showSolutions}
+                dependencies={testDependenciesV2}
+            />
+        </div>
     );
 }
