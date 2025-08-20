@@ -53,24 +53,6 @@
     z-index: 1; /* Ensure the divider is above the scroll fade when it is showing */
 }
 
-/* Mobile adjustment for border alignment */
-@media (max-width: 767px) {
-    .choice {
-        /* Reduce bottom margin to prevent double borders */
-        margin-block-end: 2px !important; /* Fixed value instead of var to prevent double lines */
-    }
-
-    .choice:after,
-    .choice:before {
-        /* On mobile, ensure borders extend to cover the full scrollable width */
-        margin-inline-start: calc(var(--perseus-multiple-choice-spacing) * -1) !important;
-        /* Extend width beyond the choice to prevent visual gaps during scroll */
-        width: calc(100% + (var(--perseus-multiple-choice-spacing) * 2)) !important;
-        /* Ensure full coverage with extra width */
-        max-width: none !important;
-    }
-}
-
 .choice:before {
     top: calc(
         (
@@ -97,6 +79,28 @@
                     )
             ) * -1
     );
+}
+
+/* Mobile adjustment for border alignment */
+@media (max-width: 767px) {
+    :global(.framework-perseus) .choice {
+        /* Reduce bottom margin to prevent double borders */
+        margin-block-end: 2px !important; /* Fixed value instead of var to prevent double lines */
+    }
+
+    :global(.framework-perseus) .choice:after,
+    :global(.framework-perseus) .choice:before {
+        /* On mobile, ensure borders extend to cover the full scrollable width */
+        margin-inline-start: calc(
+            var(--perseus-multiple-choice-spacing) * -1
+        ) !important;
+        /* Extend width beyond the choice to prevent visual gaps during scroll */
+        width: calc(
+            100% + (var(--perseus-multiple-choice-spacing) * 2)
+        ) !important;
+        /* Ensure full coverage with extra width */
+        max-width: none !important;
+    }
 }
 
 .choice:hover:after,
