@@ -19,6 +19,7 @@ registerAllWidgetsAndEditorsForTesting();
 const meta: Meta = {
     title: "Widgets/RadioNew/Editor Demo",
     component: RadioEditor,
+    tags: ["!autodocs"],
 } satisfies Meta<typeof RadioEditor>;
 export default meta;
 
