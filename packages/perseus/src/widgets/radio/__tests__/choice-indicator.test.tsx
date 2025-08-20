@@ -93,7 +93,7 @@ describe("Multiple choice indicator", () => {
             const buttonIcon = screen
                 .getByRole("button")
                 // eslint-disable-next-line testing-library/no-node-access
-                .querySelector("[role='img']");
+                .querySelector(".icon");
             expect(buttonIcon).toBeInTheDocument();
         });
 
@@ -115,7 +115,7 @@ describe("Multiple choice indicator", () => {
             const buttonIcon = screen
                 .getByRole("button")
                 // eslint-disable-next-line testing-library/no-node-access
-                .querySelector("[role='img']");
+                .querySelector(".icon");
             expect(buttonIcon).toBeInTheDocument();
         });
 

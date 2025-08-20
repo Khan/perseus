@@ -206,6 +206,24 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                   style="max-width: 420px;"
                 >
                   <div
+                    class="perseus-image-title"
+                  >
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
+                      <div
+                        class="paragraph"
+                        data-perseus-paragraph-index="0"
+                      >
+                        <div
+                          class="paragraph"
+                        >
+                          Image Title
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
                     class="fixed-to-responsive svg-image"
                     style="max-width: 420px; max-height: 345px;"
                   >
@@ -234,25 +252,20 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                     </span>
                   </div>
                   <figcaption
-                    class="perseus-image-caption has-title"
+                    class="perseus-image-caption"
                     style="max-width: 420px;"
                   >
-                    <div>
+                    <div
+                      class="perseus-renderer perseus-renderer-responsive"
+                    >
                       <div
-                        class="perseus-renderer perseus-renderer-responsive"
+                        class="paragraph"
+                        data-perseus-paragraph-index="0"
                       >
                         <div
                           class="paragraph"
-                          data-perseus-paragraph-index="0"
                         >
-                          <div
-                            class="paragraph"
-                          >
-                            <strong>
-                              Image Title.
-                            </strong>
-                             Image Caption
-                          </div>
+                          Image Caption
                         </div>
                       </div>
                     </div>

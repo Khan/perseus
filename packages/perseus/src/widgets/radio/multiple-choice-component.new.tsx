@@ -35,6 +35,18 @@ export interface MultipleChoiceComponentProps {
  *
  * Supports both radio button (single select) and checkbox (multiple select) modes.
  *
+ * NOTE: This widget does not implement standard radio button or checkbox elements.
+ *       The key difference is that the single-select (aka radio button) should
+ *           allow the user to deselect a choice, whereas regular radio buttons
+ *           can only be deselected by selecting another choice.
+ *       Another difference is that keyboard navigation with single-select is
+ *           done with the tab key, whereas regular radio buttons use the arrow keys,
+ *           and the radio buttons are automatically selected when navigating to them.
+ *       Since interactions with the single-select version of this widget don't
+ *           follow the standard radio button behavior, we decided to use toggle
+ *           button semantics for both versions of the widget,
+ *           and implement additional ARIA attributes where needed.
+ *
  * Created as part of the Radio Revitalization Project (LEMS-2933).
  */
 const MultipleChoiceComponent = ({
@@ -46,6 +58,7 @@ const MultipleChoiceComponent = ({
     reviewMode,
 }: MultipleChoiceComponentProps): React.ReactElement => {
     const {strings} = usePerseusI18n();
+    const legendId = useId();
 
     const instructions = getInstructionsText({
         multipleSelect,
@@ -63,9 +76,15 @@ const MultipleChoiceComponent = ({
             className={styles.container}
             data-feature-flag="feature flag is ON"
         >
-            <legend className={styles.instructions}>{instructions}</legend>
+            <legend
+                id={legendId}
+                aria-hidden="true"
+                className={styles.instructions}
+            >
+                {instructions}
+            </legend>
             <ScrollableView overflowX="auto">
-                <ul className={choiceListClasses}>
+                <ul aria-labelledby={legendId} className={choiceListClasses}>
                     <ChoiceListItems
                         choices={choices}
                         i18nStrings={strings}
