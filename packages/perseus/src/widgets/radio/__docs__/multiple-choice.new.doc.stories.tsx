@@ -218,7 +218,12 @@ function RadioDemo({
                     content={question.content}
                     widgets={question.widgets}
                     images={question.images}
-                    apiOptions={ApiOptions.defaults}
+                    apiOptions={{
+                        ...ApiOptions.defaults,
+                        flags: {
+                            "new-radio-widget": true,
+                        },
+                    }}
                 />
             )}
         </UserInputManager>
