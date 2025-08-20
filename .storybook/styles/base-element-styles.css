@@ -1,0 +1,88 @@
+@layer shared {
+    /* This will mimic the production base element styles. */
+    article {
+        padding: 0 var(--wb-sizing-size_200);
+        position: relative;
+        border-top: var(--wb-border-width-thin) solid #c6d1ad;
+    }
+
+    /* Basic typography for the entire site */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: inherit;
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: var(--wb-sizing-size_240);
+        margin-bottom: var(--wb-sizing-size_220);
+    }
+
+    h2 {
+        font-size: var(--wb-sizing-size_200);
+        margin-bottom: var(--wb-sizing-size_220);
+    }
+
+    h3 {
+        font-size: var(--wb-sizing-size_180);
+        margin-bottom: var(--wb-sizing-size_220);
+    }
+
+    h4 {
+        font-size: 15px;
+        margin-bottom: var(--wb-sizing-size_220);
+    }
+
+    h5 {
+        font-size: 15px;
+        margin-bottom: -22px;
+    }
+
+    p {
+        font-size: var(--wb-sizing-size_140);
+        margin: var(--wb-sizing-size_220) 0;
+    }
+
+    /* Preserves vertical rhythm. Not always necessary */
+    b,
+    strong {
+        font-weight: bold;
+    }
+
+    em,
+    cite {
+        font-style: italic;
+    }
+
+    hr {
+        background: #ccc;
+        border: none;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.075);
+        clear: both;
+        color: #ccc;
+        display: block;
+        height: var(--wb-sizing-size_010);
+        margin: var(--wb-sizing-size_180) 0 var(--wb-sizing-size_360) 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    form {
+        display: inline;
+    }
+
+    nav {
+        display: block;
+        clear: both;
+        width: 100%;
+        margin: 0;
+    }
+
+    article,
+    section {
+        display: block;
+    }
+}

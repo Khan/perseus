@@ -16,10 +16,7 @@
         var(--perseus-multiple-choice-spacing) +
             var(--perseus-multiple-choice-indicator-size)
     );
-    --perseus-multiple-choice-scroll-fade-width: calc(
-        var(--perseus-multiple-choice-content-margin) +
-            var(--perseus-multiple-choice-spacing)
-    );
+    --perseus-multiple-choice-fade-direction: 90deg; /* Default is left to right */
 
     min-width: auto; /* Needed for scrollable view to work */
     padding-inline-end: var(--perseus-multiple-choice-spacing);
@@ -37,52 +34,43 @@
     scrollbar-width: thin;
 }
 
-/* Fade bars for scrolling (Start) */
-.choice-list:before,
-.choice-list:after {
+.choice-list:dir(rtl) {
+    --perseus-multiple-choice-fade-direction: 270deg; /* Flip to right to left when in RTL mode */
+}
+
+/* FADE BARS FOR SCROLLING
+   A white bar starts on the left side and stays solid until a small amount (spacing / 2) past the indicator (content margin).
+   It then fades to transparent over that same small amount.
+   It stays transparent until the opposite side of the container,
+        where it fades back to white in the reverse order as just described.
+   In review mode, the left side starts fading to transparent at a further distance to account for the checkmark icon.
+   This is why --perseus-multiple-choice-content-margin is used on the left side,
+        but the right side uses --perseus-multiple-choice-spacing.
+   Also, in order to account for text direction, the direction is flipped when in RTL mode.
+*/
+.choice-list:before {
+    background: linear-gradient(
+        /* 90deg or 270deg */ var(--perseus-multiple-choice-fade-direction),
+        /* Accounts for theme color */ var(--wb-semanticColor-surface-primary)
+            calc(
+                var(--perseus-multiple-choice-content-margin) +
+                    (var(--perseus-multiple-choice-spacing) / 2)
+            ),
+        transparent
+            calc(
+                var(--perseus-multiple-choice-content-margin) +
+                    var(--perseus-multiple-choice-spacing)
+            )
+            calc(100% - (var(--perseus-multiple-choice-spacing) * 1.5)),
+        var(--wb-semanticColor-surface-primary)
+            calc(100% - var(--perseus-multiple-choice-spacing))
+    );
     content: "";
     display: block;
     height: 100%;
     position: fixed;
-    width: var(--perseus-multiple-choice-scroll-fade-width);
-    top: 0;
+    width: 100%;
 }
-
-.choice-list:dir(ltr):after {
-    /* Accounting for the padding in the containing fieldset and the choice item */
-    right: calc(
-        (var(--perseus-multiple-choice-spacing) * 2) -
-            var(--perseus-multiple-choice-scroll-fade-width)
-    );
-}
-
-.choice-list:dir(rtl):after {
-    left: calc(
-        (var(--perseus-multiple-choice-spacing) * 2) -
-            var(--perseus-multiple-choice-scroll-fade-width)
-    );
-}
-
-.choice-list:dir(ltr):before,
-.choice-list:dir(rtl):after {
-    background: linear-gradient(
-        to left,
-        transparent,
-        var(--wb-semanticColor-surface-primary)
-            calc(var(--perseus-multiple-choice-spacing) / 2)
-    );
-}
-
-.choice-list:dir(rtl):before,
-.choice-list:dir(ltr):after {
-    background: linear-gradient(
-        to right,
-        transparent,
-        var(--wb-semanticColor-surface-primary)
-            calc(var(--perseus-multiple-choice-spacing) / 2)
-    );
-}
-/* Fade bars for scrolling (End) */
 
 .content {
     display: flex;

@@ -49,6 +49,23 @@ describe("video widget", () => {
         expect(container).toMatchSnapshot("first mobile render");
     });
 
+    it("video widget should allow autoplay", () => {
+        // Arrange
+        const apiOptions: APIOptions = {
+            isMobile: false,
+        };
+
+        // Act
+        renderQuestion(question1, apiOptions);
+
+        // Assert
+        // eslint-disable-next-line testing-library/no-node-access
+        expect(document.getElementsByTagName("iframe")[0]).toHaveAttribute(
+            "allow",
+            "autoplay",
+        );
+    });
+
     it("vimeo widget should contain dnt param", () => {
         // Arrange
         const apiOptions: APIOptions = {
