@@ -54,12 +54,10 @@ function ScrollableView({
             return 5; // Default for desktop
         }
 
-        // For mobile, calculate threshold based on typical content margins
-        // This matches the spacing used in multiple-choice component
-        // Using typical font size (16px) to avoid expensive getComputedStyle calls during scroll
-        const typicalFontSize = 16;
-        const estimatedContentMargin = 16 + 3.2 * typicalFontSize;
-        return Math.max(20, estimatedContentMargin * 0.5);
+        // For mobile, account for optimized spacing:
+        // Mobile spacing (1.2rem) + indicator (3.2rem) ≈ 4.4rem ≈ 70px at 16px base
+        // Use a smaller threshold that's proportional to the reduced mobile spacing
+        return 8; // Reduced threshold for optimized mobile spacing
     }, []); // Empty dependency array - calculate only once
 
     /**

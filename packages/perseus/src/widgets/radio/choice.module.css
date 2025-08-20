@@ -57,8 +57,10 @@
 @media (max-width: 767px) {
     .choice:after,
     .choice:before {
-        /* On mobile, align borders with instructions by not extending beyond container */
-        margin-inline-start: 0;
+        /* On mobile, maintain consistent spacing but account for container padding */
+        margin-inline-start: calc(var(--perseus-multiple-choice-spacing) * -1);
+        /* Adjust width to prevent overflow beyond visible area */
+        width: calc(100% + var(--perseus-multiple-choice-spacing));
     }
 }
 
