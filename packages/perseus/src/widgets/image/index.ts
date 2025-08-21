@@ -1,1 +1,1 @@
-export {default} from "./image";
+export {default} from "./image.class";
