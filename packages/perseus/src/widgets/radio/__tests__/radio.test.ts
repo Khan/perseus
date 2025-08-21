@@ -51,7 +51,7 @@ describe("Radio Widget", () => {
         jest.spyOn(globalThis.crypto, "randomUUID").mockImplementation(() => {
             const n = i++;
             return `${n}-${n}-${n}-${n}-${n}`;
-        })
+        });
 
         // Mocked for loading graphie in svg-image
         global.fetch = jest.fn(() =>
@@ -925,7 +925,8 @@ describe("Radio Widget", () => {
          */
         it("handles undefined choice.correct properly when multipleSelect and randomize are enabled", async () => {
             // Arrange
-            const questionWithUndefinedCorrect = generateQuestionWithUndefinedCorrect();
+            const questionWithUndefinedCorrect =
+                generateQuestionWithUndefinedCorrect();
             renderQuestion(
                 questionWithUndefinedCorrect,
                 {},

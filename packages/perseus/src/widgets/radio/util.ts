@@ -24,15 +24,15 @@ export function getUserInputFromSerializedState(
     props: Props,
     unshuffle: boolean = true,
 ): PerseusRadioUserInput {
-    let selectedChoiceIds: string[] = [];
+    const selectedChoiceIds: string[] = [];
 
     if (props.choiceStates) {
         const choiceStates = props.choiceStates;
 
         for (let i = 0; i < choiceStates.length; i++) {
-            if(choiceStates[i].selected){
-                selectedChoiceIds.push(props.choices[i].id)
-            };
+            if (choiceStates[i].selected) {
+                selectedChoiceIds.push(props.choices[i].id);
+            }
         }
         return {
             selectedChoiceIds,
@@ -45,7 +45,7 @@ export function getUserInputFromSerializedState(
 
         for (let i = 0; i < valuesLength && i < props.choices.length; i++) {
             if (values[i]) {
-                selectedChoiceIds.push(props.choices[i].id)
+                selectedChoiceIds.push(props.choices[i].id);
             }
         }
         return {

@@ -10,7 +10,6 @@ import type {WidgetExports} from "../../types";
 import type {
     PerseusRadioUserInput,
     PerseusRadioWidgetOptions,
-    RadioPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 // Transforms the choices for display.
@@ -124,7 +123,9 @@ function getCorrectUserInput(
     options: PerseusRadioWidgetOptions,
 ): PerseusRadioUserInput {
     return {
-        selectedChoiceIds: options.choices.filter(option => option.correct).map(option => option.id)
+        selectedChoiceIds: options.choices
+            .filter((option) => option.correct)
+            .map((option) => option.id),
     };
 }
 

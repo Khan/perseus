@@ -154,7 +154,7 @@ describe("scoreRadio", () => {
 
     it("can handle single correct answer", () => {
         const userInput: PerseusRadioUserInput = {
-            selectedChoiceIds: ["0-0-0-0-0",],
+            selectedChoiceIds: ["0-0-0-0-0"],
         };
 
         const rubric: PerseusRadioRubric = {
@@ -224,7 +224,7 @@ describe("scoreRadio", () => {
 
     it("can handle multiple correct answer", () => {
         const userInput: PerseusRadioUserInput = {
-            selectedChoiceIds: ["0-0-0-0-0","1-1-1-1-1"],
+            selectedChoiceIds: ["0-0-0-0-0", "1-1-1-1-1"],
         };
 
         const rubric: PerseusRadioRubric = {

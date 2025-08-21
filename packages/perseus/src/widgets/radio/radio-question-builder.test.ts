@@ -135,7 +135,7 @@ describe("RadioQuestionBuilder", () => {
                 rationale: "This one is correct",
             },
             {
-                id:"radio-choice-test-id-1",
+                id: "radio-choice-test-id-1",
                 content: "choice 2",
                 rationale: "This one is incorrect",
             },

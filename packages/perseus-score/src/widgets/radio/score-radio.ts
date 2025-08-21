@@ -48,10 +48,9 @@ function scoreRadio(
 
     const correct = rubric.choices.every((choice) => {
         const isSelected = userInput.selectedChoiceIds.includes(choice.id);
-        const isCorrect= !!choice.correct;
+        const isCorrect = !!choice.correct;
         return isCorrect === isSelected;
     });
-
 
     return {
         type: "points",

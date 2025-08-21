@@ -803,7 +803,10 @@ describe("Multiple Choice Widget", () => {
         it("can be scored correctly when shuffled", async () => {
             // Arrange
             const apiOptions = createApiOptions();
-            const {renderer} = renderQuestion(generateShuffledQuestion(), apiOptions);
+            const {renderer} = renderQuestion(
+                generateShuffledQuestion(),
+                apiOptions,
+            );
 
             // Act
             await userEvent.click(
@@ -811,7 +814,8 @@ describe("Multiple Choice Widget", () => {
             );
 
             const userInput = renderer.getUserInputMap()["radio 1"];
-            const rubric = generateShuffledQuestion().widgets["radio 1"].options;
+            const rubric =
+                generateShuffledQuestion().widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
                 generateShuffledQuestion(),
@@ -831,7 +835,10 @@ describe("Multiple Choice Widget", () => {
         it("can be scored incorrectly when shuffled", async () => {
             // Arrange
             const apiOptions = createApiOptions();
-            const {renderer} = renderQuestion(generateShuffledQuestion(), apiOptions);
+            const {renderer} = renderQuestion(
+                generateShuffledQuestion(),
+                apiOptions,
+            );
 
             // Act
             await userEvent.click(
@@ -839,7 +846,8 @@ describe("Multiple Choice Widget", () => {
             );
 
             const userInput = renderer.getUserInputMap()["radio 1"];
-            const rubric = generateShuffledQuestion().widgets["radio 1"].options;
+            const rubric =
+                generateShuffledQuestion().widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
                 generateShuffledQuestion(),
@@ -898,9 +906,11 @@ describe("Multiple Choice Widget", () => {
             );
 
             const userInput = renderer.getUserInputMap()["radio 1"];
-            const rubric = generateShuffledNoneQuestion().widgets["radio 1"].options;
+            const rubric =
+                generateShuffledNoneQuestion().widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
-            const rendererScore = scorePerseusItemTesting(shuffledQuestion,
+            const rendererScore = scorePerseusItemTesting(
+                shuffledQuestion,
                 renderer.getUserInputMap(),
             );
 
@@ -922,7 +932,8 @@ describe("Multiple Choice Widget", () => {
         it("handles undefined choice.correct properly when multipleSelect and randomize are enabled", async () => {
             // Arrange
             const apiOptions = createApiOptions();
-            const questionWithUndefinedCorrect =generateQuestionWithUndefinedCorrect();
+            const questionWithUndefinedCorrect =
+                generateQuestionWithUndefinedCorrect();
             renderQuestion(questionWithUndefinedCorrect, apiOptions, {
                 reviewMode: true,
             });

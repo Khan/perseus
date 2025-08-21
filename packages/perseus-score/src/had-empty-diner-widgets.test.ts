@@ -269,7 +269,7 @@ describe(`hasEmptyDINERWidgets`, () => {
 
         const userInput: UserInputMap = {
             "radio 1": {
-                selectedChoiceIds: [ "1-2-3-4-5"],
+                selectedChoiceIds: ["1-2-3-4-5"],
             },
         };
 

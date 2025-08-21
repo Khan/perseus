@@ -1258,7 +1258,10 @@ describe("ExtractPerseusData", () => {
             };
 
             // Act
-            const result = getAnswerFromUserInput("unsupported-widget", userInput);
+            const result = getAnswerFromUserInput(
+                "unsupported-widget",
+                userInput,
+            );
 
             // Assert
             expect(result).toEqual({
@@ -1284,9 +1287,9 @@ describe("ExtractPerseusData", () => {
 
             // Act & Assert
             // Currently the function throws an error for null userInput.
-            expect(() => getAnswerFromUserInput("categorizer", userInput)).toThrow(
-                "Cannot read properties of null"
-            );
+            expect(() =>
+                getAnswerFromUserInput("categorizer", userInput),
+            ).toThrow("Cannot read properties of null");
         });
 
         it("should handle undefined userInput", () => {
@@ -1295,9 +1298,9 @@ describe("ExtractPerseusData", () => {
 
             // Act & Assert
             // Currently the function throws an error for undefined userInput.
-            expect(() => getAnswerFromUserInput("input-number", userInput)).toThrow(
-                "Cannot read properties of undefined"
-            );
+            expect(() =>
+                getAnswerFromUserInput("input-number", userInput),
+            ).toThrow("Cannot read properties of undefined");
         });
 
         it("should handle userInput with missing expected properties", () => {

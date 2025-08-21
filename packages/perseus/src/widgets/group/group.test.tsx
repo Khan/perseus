@@ -179,7 +179,7 @@ describe("group widget", () => {
         expect(userInput).toEqual([
             {
                 "radio 1": {
-                    selectedChoices: [],
+                    selectedChoiceIds: [],
                 },
             },
             {
