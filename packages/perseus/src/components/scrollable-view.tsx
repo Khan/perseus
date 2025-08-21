@@ -55,7 +55,7 @@ function ScrollableView({
         }
 
         return 8; // Reduced threshold for optimized mobile spacing
-    }, []); // Empty dependency array - calculate only once
+    }, []);
 
     /**
      * Updates scroll state variables based on current scroll position.
