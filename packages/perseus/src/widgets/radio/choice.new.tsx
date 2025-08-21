@@ -3,10 +3,12 @@ import React, {useRef} from "react";
 import Indicator from "./choice-indicator.new";
 import styles from "./choice.module.css";
 
+import type {IndicatorContent} from "./choice-indicator.new";
+
 export interface IndicatorProps {
     checked: boolean;
     children: React.ReactNode | React.ReactNode[];
-    indicatorContent: string; // This is the letter that shows for the choice
+    indicatorContent: IndicatorContent;
     isMultiSelect: boolean;
     showCorrectness?: "correct" | "wrong";
     updateChecked: (isChecked: boolean) => void;

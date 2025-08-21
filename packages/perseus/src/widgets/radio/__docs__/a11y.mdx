@@ -10,25 +10,23 @@ The new Radio widget is designed to be accessible for all users, including those
 
 -   Users can navigate to each radio option using the `Tab` key.
 -   Once focused, options can be selected with `Space` or `Enter`.
--   Arrow keys (`Up`/`Down` or `Left`/`Right`) allow users to move between radio options within the group.
--   Only one option can be selected at a time in single-select mode; multiple in multi-select mode if enabled.
+-   Only one option can be selected at a time in single-select mode
+    -   Options are automatically deselected when another option is chosen.
+-   Multiple options can be selected when multi-select mode is enabled.
 
 ## Screen Reader Support
 
--   The radio group and options use appropriate ARIA roles (`radiogroup`, `radio`) and attributes to communicate their state to screen readers.
--   The `aria-label` is set based on the widget's `ariaLabel` or `visibleLabel` prop, or defaults to a localized string (e.g., "Select an answer").
--   The currently selected option is announced to screen readers.
-
-## Visible Labels and Instructions
-
--   If a `visibleLabel` is provided, it is rendered as a `<label>` and associated with the radio group for better accessibility.
--   Instructions or context can be provided via `ariaLabel` or visible text.
-
-## Best Practices
-
--   Always provide a meaningful `visibleLabel` or `ariaLabel` for context.
--   Avoid using only color to convey meaning in radio options.
--   Ensure the radio group is not set to `readOnly` unless necessary, as this disables interaction.
+-   Choices are rendered as a list, allowing screen readers to communicate the number of options to the user.
+-   Choice buttons are identified as toggle buttons, in order to convey their state (selected or unselected).
+    -   Buttons of type `radio` have specific expectations for interaction which do not apply to this widget.
+-   Choices are labelled in the following manner: "(Choice \<letter\>) \<choice-text\>".
+    -   For example, "(Choice A) Paris, France".
+-   When in review mode, choices are marked as disabled,
+    but learners can still navigate to them to have the screen reader review the choices and their rationales.
+    -   Only correct choices are labelled as such (i.e. "Choice A, Correct").
+    -   If rationale exists, it is included via `aria-describedby`,
+        letting learners access that additional information in a familiar manner for expanded content.
+        (content in `aria-describedby` is presented differently by different screen readers)
 
 ## Additional Notes
 

@@ -1,0 +1,4 @@
+/* The Plus Jakarta Sans font used in Classroom. */
+body[data-wb-theme="thunderblocks"] {
+    font-family: "Plus Jakarta Sans", sans-serif;
+}

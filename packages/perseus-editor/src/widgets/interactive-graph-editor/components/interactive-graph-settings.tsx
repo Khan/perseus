@@ -20,8 +20,11 @@ import _ from "underscore";
 import Heading from "../../../components/heading";
 import LabeledRow from "../locked-figures/labeled-row";
 
+import AxisArrowSwitches from "./axis-arrow-switches";
+
 import type {
     AxisLabelLocation,
+    ShowAxisArrows,
     MarkingsType,
     PerseusImageBackground,
 } from "@khanacademy/perseus-core";
@@ -62,6 +65,10 @@ type Props = {
      * The range of the graph.
      */
     range: [x: Range, y: Range];
+    /**
+     * Whether the graph is bounded (no axis arrows) on the x and y axes.
+     */
+    showAxisArrows: ShowAxisArrows;
     /**
      * How far apart the tick marks on the axes are in the x and y
      * directions.
@@ -113,6 +120,7 @@ type State = {
     snapStepTextbox: [x: number, y: number];
     stepTextbox: [x: number, y: number];
     rangeTextbox: [x: Range, y: Range];
+    showAxisArrowsSwitches: ShowAxisArrows;
     backgroundImage: PerseusImageBackground;
 };
 
@@ -131,7 +139,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
             snapStepTextbox: props.snapStep,
             stepTextbox: props.step,
             rangeTextbox: props.range,
-            // Shallow-copied clone
+            showAxisArrowsSwitches: props.showAxisArrows,
             backgroundImage: {...props.backgroundImage},
         };
     }
@@ -164,6 +172,12 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         markings: "graph",
         showProtractor: false,
         showTooltips: false,
+        showAxisArrows: {
+            xMin: true,
+            xMax: true,
+            yMin: true,
+            yMax: true,
+        },
     };
 
     componentDidMount() {
@@ -374,6 +388,17 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
         );
     };
 
+    changeShowAxisArrows = (axis: keyof ShowAxisArrows) => {
+        const newShowAxisArrows = {...this.state.showAxisArrowsSwitches};
+        // Toggle the value of the axis switch.
+        newShowAxisArrows[axis] = !newShowAxisArrows[axis];
+
+        this.setState(
+            {showAxisArrowsSwitches: newShowAxisArrows},
+            this.changeGraph,
+        );
+    };
+
     changeStepsBasedOnRange = () => {
         const ranges = this.state.rangeTextbox.slice();
 
@@ -441,10 +466,11 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
     changeGraph = () => {
         const labels = this.state.labelsTextbox;
         const labelLocation = this.state.labelLocation;
-        const range = _.map(this.state.rangeTextbox, function (range) {
-            return _.map(range, Number);
-        });
-        const step = _.map(this.state.stepTextbox, Number);
+        const range = this.state.rangeTextbox.map((range) =>
+            range.map((value) => Number(value)),
+        );
+        const showAxisArrows = this.state.showAxisArrowsSwitches;
+        const step = this.state.stepTextbox.map((value) => Number(value));
         const gridStep = this.state.gridStepTextbox;
         const snapStep = this.state.snapStepTextbox;
         const image = this.state.backgroundImage;
@@ -469,6 +495,7 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                 labels: labels,
                 labelLocation: labelLocation,
                 range: range,
+                showAxisArrows: showAxisArrows,
                 step: step,
                 gridStep: gridStep,
                 snapStep: snapStep,
@@ -574,6 +601,12 @@ class InteractiveGraphSettings extends React.Component<Props, State> {
                                     </LabeledRow>
                                 </div>
                             </div>
+                            <AxisArrowSwitches
+                                showAxisArrows={
+                                    this.state.showAxisArrowsSwitches
+                                }
+                                onChange={this.changeShowAxisArrows}
+                            />
                             <div className="perseus-widget-row">
                                 <div className="perseus-widget-left-col">
                                     <LabeledRow label="Tick Step">

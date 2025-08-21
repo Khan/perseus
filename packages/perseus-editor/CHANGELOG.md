@@ -1,5 +1,24 @@
 # @khanacademy/perseus-editor
 
+## 27.3.0
+
+### Minor Changes
+
+-   [#2786](https://github.com/Khan/perseus/pull/2786) [`52b2b3ae54`](https://github.com/Khan/perseus/commit/52b2b3ae54953ff6969e8962858d46d025661be8) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Add `showAxisArrows` field to Interactive Graph editor
+
+### Patch Changes
+
+-   [#2806](https://github.com/Khan/perseus/pull/2806) [`d9e489d705`](https://github.com/Khan/perseus/commit/d9e489d705e28c10a6de97f7b94e0890444f41c4) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] Use choice IDs for the choice keys in the editor
+
+-   Updated dependencies [[`99aafcf6db`](https://github.com/Khan/perseus/commit/99aafcf6db38d78bc56abe7ffae16d851ab41c54), [`afd017396a`](https://github.com/Khan/perseus/commit/afd017396a96ce39e88b23533d7feb04a8d0bc78), [`3f7a9e5185`](https://github.com/Khan/perseus/commit/3f7a9e5185a5a8fc93a32215379d7a434ecf0523), [`58e2534199`](https://github.com/Khan/perseus/commit/58e2534199d0c6243362f3ea557cfa362ab9906a), [`201519eb80`](https://github.com/Khan/perseus/commit/201519eb808b4c1b812f776d9cbbcd6402de0d88), [`52b2b3ae54`](https://github.com/Khan/perseus/commit/52b2b3ae54953ff6969e8962858d46d025661be8), [`62029ee700`](https://github.com/Khan/perseus/commit/62029ee700db45a646a0addf0e90ff4df73aef3a)]:
+    -   @khanacademy/perseus@66.5.0
+    -   @khanacademy/perseus-core@18.7.0
+    -   @khanacademy/keypad-context@3.1.4
+    -   @khanacademy/kmath@2.1.4
+    -   @khanacademy/math-input@26.1.5
+    -   @khanacademy/perseus-linter@4.2.4
+    -   @khanacademy/perseus-score@7.6.1
+
 ## 27.2.0
 
 ### Minor Changes

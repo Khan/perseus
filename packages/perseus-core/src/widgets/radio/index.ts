@@ -16,7 +16,12 @@ export type RadioDefaultWidgetOptions = Pick<
 >;
 
 export const defaultWidgetOptions: RadioDefaultWidgetOptions = {
-    choices: [{}, {}, {}, {}] as any,
+    choices: [
+        {content: "", id: "radio-choice-0"},
+        {content: "", id: "radio-choice-1"},
+        {content: "", id: "radio-choice-2"},
+        {content: "", id: "radio-choice-3"},
+    ],
     randomize: false,
     hasNoneOfTheAbove: false,
     multipleSelect: false,
