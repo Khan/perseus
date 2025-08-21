@@ -19,7 +19,7 @@ export default function removeRandomness(
         const widgetSerialized = serializedState[widgetId];
 
         if (
-            widgetSerialized &&
+            widgetSerialized?.choices?.length &&
             widgetData.type === "radio" &&
             widgetData.options.randomize
         ) {
