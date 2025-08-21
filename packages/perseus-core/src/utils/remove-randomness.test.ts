@@ -76,7 +76,6 @@ describe(`removeRandomness`, () => {
         const question = generateTestRadioRenderer();
         const output = removeRandomness(question, null);
         expect(output).toEqual(question);
-        expect(output).not.toBe(question);
     });
 
     it(`returns a copy`, () => {
