@@ -37,4 +37,26 @@ describe("generateQuestion", () => {
         expect(question.widgets["image 1"].options.alt).toBe("image 1");
         expect(question.widgets["image 2"].options.alt).toBe("image 2");
     });
+
+    test("builds a question with widgets and no specified content", () => {
+        const question: PerseusRenderer = generateQuestion({
+            widgets: {
+                "image 1": generateImageWidget({
+                    options: generateImageOptions({
+                        alt: "image 1",
+                    }),
+                }),
+                "image 2": generateImageWidget({
+                    options: generateImageOptions({
+                        alt: "image 2",
+                    }),
+                }),
+            },
+        });
+
+        expect(question.content).toBe("[[☃ image 1]]\n[[☃ image 2]]\n");
+        expect(Object.keys(question.widgets)).toHaveLength(2);
+        expect(question.widgets["image 1"].options.alt).toBe("image 1");
+        expect(question.widgets["image 2"].options.alt).toBe("image 2");
+    });
 });
