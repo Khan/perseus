@@ -7,7 +7,7 @@ import type {ImageWidget, PerseusImageWidgetOptions} from "../../data-schema";
 
 describe("generateImageOptions", () => {
     test("builds a default image options", () => {
-        const options: PerseusImageWidgetOptions = generateImageOptions({});
+        const options: PerseusImageWidgetOptions = generateImageOptions();
 
         expect(options.title).toBe(undefined);
         expect(options.caption).toBe(undefined);
@@ -40,7 +40,7 @@ describe("generateImageOptions", () => {
 
 describe("generateImageWidget", () => {
     test("builds a default image widget", () => {
-        const widget: ImageWidget = generateImageWidget({});
+        const widget: ImageWidget = generateImageWidget();
 
         expect(widget.type).toBe("image");
         expect(widget.graded).toBe(true);

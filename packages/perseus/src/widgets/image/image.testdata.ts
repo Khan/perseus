@@ -1,10 +1,10 @@
 import {
-    generateQuestion,
+    generateTestPerseusRenderer,
     generateImageOptions,
     generateImageWidget,
 } from "@khanacademy/perseus-core";
 
-export const question = generateQuestion({
+export const question = generateTestPerseusRenderer({
     content:
         "[[☃ image 1]]\n\n=====\n\nA quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights $A:B$ and $B:C$ to each equal $1.62$. If the quilter makes the triangle height $A=8\\ \\text{in}$, approximately how tall should he make triangle height $C$?",
     widgets: {
@@ -23,7 +23,7 @@ export const question = generateQuestion({
     },
 });
 
-export const questionWithZoom = generateQuestion({
+export const questionWithZoom = generateTestPerseusRenderer({
     content:
         "[[☃ image 1]]\n\n=====\n\nA quilter wants to make the design shown at left using the Golden Ratio. Specifically, he wants the ratio of the triangle heights $A:B$ and $B:C$ to each equal $1.62$. If the quilter makes the triangle height $A=8\\ \\text{in}$, approximately how tall should he make triangle height $C$?",
     widgets: {

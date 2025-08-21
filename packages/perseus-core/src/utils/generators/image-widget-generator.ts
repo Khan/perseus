@@ -1,7 +1,7 @@
 import type {PerseusImageWidgetOptions, ImageWidget} from "../../data-schema";
 
 export function generateImageOptions(
-    options: Partial<PerseusImageWidgetOptions>,
+    options?: Partial<PerseusImageWidgetOptions>,
 ): PerseusImageWidgetOptions {
     const defaultImageOptions: PerseusImageWidgetOptions = {
         backgroundImage: {},
@@ -14,7 +14,7 @@ export function generateImageOptions(
 }
 
 export function generateImageWidget(
-    imageWidgetProperties: Partial<Omit<ImageWidget, "type">>,
+    imageWidgetProperties?: Partial<Omit<ImageWidget, "type">>,
 ): ImageWidget {
     return {
         type: "image",
