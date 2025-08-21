@@ -10,6 +10,7 @@ import {
     multiChoiceQuestionSimpleOverflowContent,
     SingleSelectOverflowContent,
     SingleSelectOverflowImageContent,
+    overflowContentInGradedGroupSet,
 } from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
@@ -157,6 +158,14 @@ export const MultiSelectWithScroll = {
     args: {
         item: generateTestPerseusItem({
             question: multiChoiceQuestionSimpleOverflowContent,
+        }),
+    },
+};
+
+export const ScrollingInGradedGroupSet = {
+    args: {
+        item: generateTestPerseusItem({
+            question: overflowContentInGradedGroupSet,
         }),
     },
 };

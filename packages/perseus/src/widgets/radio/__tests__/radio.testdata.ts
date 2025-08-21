@@ -396,3 +396,40 @@ export const questionWithUndefinedCorrect: PerseusRenderer =
         .withMultipleSelect(true)
         .withRandomize(true)
         .build();
+
+export const overflowContentInGradedGroupSet: PerseusRenderer = {
+    content:
+        "#Testing scrollbar color when background color exists\n\n[[☃ graded-group-set 1]]\n\n\nFade color should match the background.",
+    images: {},
+    widgets: {
+        "graded-group-set 1": {
+            type: "graded-group-set",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                gradedGroups: [
+                    {
+                        ...SingleSelectOverflowContent,
+                        title: "Single Select - Math",
+                        widgetEnabled: true,
+                        immutableWidgets: false,
+                    },
+                    {
+                        ...SingleSelectOverflowImageContent,
+                        title: "Single Select - Image",
+                        widgetEnabled: true,
+                        immutableWidgets: false,
+                    },
+                    {
+                        ...multiChoiceQuestionSimpleOverflowContent,
+                        title: "Multi Choice - Math",
+                        widgetEnabled: true,
+                        immutableWidgets: false,
+                    },
+                ],
+            },
+            version: {major: 0, minor: 0},
+        },
+    },
+};
