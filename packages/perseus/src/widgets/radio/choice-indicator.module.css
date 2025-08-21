@@ -23,7 +23,7 @@
 @media (prefers-reduced-motion: no-preference) {
     .base {
         transition:
-            all 0.2s,
+            all 0.125s,
             outline-width 0s,
             outline-offset 0s;
     }
