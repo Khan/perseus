@@ -55,11 +55,6 @@ const defaultProps = {
     // an array of boolean values, specifying the new checked and
     // crossed-out value of each choice.
     onChange: action("changed"),
-
-    // Whether this widget was the most recently used widget in this
-    // Renderer. Determines whether we'll auto-scroll the page upon
-    // entering review mode.
-    isLastUsedWidget: false,
 } as const;
 
 export const Interactive = (args: StoryArgs): React.ReactElement => {
