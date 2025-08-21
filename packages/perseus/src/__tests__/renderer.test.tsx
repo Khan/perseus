@@ -198,7 +198,6 @@ describe("renderer", () => {
             // Assert
             expect(renderer.state.jiptContent).toBeNull();
             expect(renderer.state.translationLintErrors).toHaveLength(0);
-            expect(renderer.state.lastUsedWidgetId).toBeNull();
 
             expect(renderer.state.widgetInfo).toStrictEqual(question1.widgets);
         });

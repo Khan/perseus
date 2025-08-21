@@ -31,11 +31,6 @@ function renderBaseRadio(props) {
         // an array of boolean values, specifying the new checked and
         // crossed-out value of each choice.
         onChange: ({checked, crossedOut}) => {},
-
-        // Whether this widget was the most recently used widget in this
-        // Renderer. Determines whether we'll auto-scroll the page upon
-        // entering review mode.
-        isLastUsedWidget: false,
     } as const;
 
     const overwrittenProps = {...baseProps, ...props} as const;
