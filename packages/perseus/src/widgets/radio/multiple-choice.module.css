@@ -86,32 +86,32 @@
 /* Mobile and tablet responsive adjustments for fade effect
    Using 767px to match the framework-perseus.perseus-mobile styling in styles.css
 */
-@media (max-width: 767px) {
-    .choice-list {
-        /* Remove any default margins on mobile - using logical properties for RTL support */
-        margin-inline-start: 0 !important;
-        margin-inline-end: 0 !important;
-        /* Additional fallbacks for older browsers */
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-    }
+/*@media (max-width: 767px) {*/
+/*    .choice-list {*/
+/*        !* Remove any default margins on mobile - using logical properties for RTL support *!*/
+/*        margin-inline-start: 0 !important;*/
+/*        margin-inline-end: 0 !important;*/
+/*        !* Additional fallbacks for older browsers *!*/
+/*        margin-left: 0 !important;*/
+/*        margin-right: 0 !important;*/
+/*    }*/
 
-    .choice-list:before {
-        /* Use absolute positioning on smaller screens to ensure proper containment within the scrollable container */
-        position: absolute;
-        /* Ensure the fade covers the full width of the container - using logical properties for RTL */
-        inset-inline-start: 0;
-        inset-inline-end: 0;
-        width: auto;
-        /* Adjust z-index to ensure proper layering on mobile - lower than indicator but higher than content */
-        z-index: 1;
-    }
+/*    .choice-list:before {*/
+/*        !* Use absolute positioning on smaller screens to ensure proper containment within the scrollable container *!*/
+/*        position: absolute;*/
+/*        !* Ensure the fade covers the full width of the container - using logical properties for RTL *!*/
+/*        inset-inline-start: 0;*/
+/*        inset-inline-end: 0;*/
+/*        width: auto;*/
+/*        !* Adjust z-index to ensure proper layering on mobile - lower than indicator but higher than content *!*/
+/*        z-index: 1;*/
+/*    }*/
 
-    .content {
-        /* Ensure content stays below the fade on mobile */
-        z-index: 0;
-    }
-}
+/*    .content {*/
+/*        !* Ensure content stays below the fade on mobile *!*/
+/*        z-index: 0;*/
+/*    }*/
+/*}*/
 
 .content {
     display: flex;
