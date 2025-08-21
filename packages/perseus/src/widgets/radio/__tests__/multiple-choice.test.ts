@@ -804,10 +804,7 @@ describe("Multiple Choice Widget", () => {
             // Arrange
             const apiOptions = createApiOptions();
             const shuffledQuestion = generateShuffledQuestion();
-            const {renderer} = renderQuestion(
-                shuffledQuestion,
-                apiOptions,
-            );
+            const {renderer} = renderQuestion(shuffledQuestion, apiOptions);
 
             // Act
             await userEvent.click(
@@ -815,8 +812,7 @@ describe("Multiple Choice Widget", () => {
             );
 
             const userInput = renderer.getUserInputMap()["radio 1"];
-            const rubric =
-                shuffledQuestion.widgets["radio 1"].options;
+            const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
                 shuffledQuestion,
@@ -837,10 +833,7 @@ describe("Multiple Choice Widget", () => {
             // Arrange
             const apiOptions = createApiOptions();
             const shuffledQuestion = generateShuffledQuestion();
-            const {renderer} = renderQuestion(
-                shuffledQuestion,
-                apiOptions,
-            );
+            const {renderer} = renderQuestion(shuffledQuestion, apiOptions);
 
             // Act
             await userEvent.click(
@@ -848,8 +841,7 @@ describe("Multiple Choice Widget", () => {
             );
 
             const userInput = renderer.getUserInputMap()["radio 1"];
-            const rubric =
-                shuffledQuestion.widgets["radio 1"].options;
+            const rubric = shuffledQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
                 shuffledQuestion,
@@ -908,8 +900,7 @@ describe("Multiple Choice Widget", () => {
             );
 
             const userInput = renderer.getUserInputMap()["radio 1"];
-            const rubric =
-                shuffledNoneQuestion.widgets["radio 1"].options;
+            const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
                 shuffledQuestion,
