@@ -2,4 +2,4 @@
 "@khanacademy/perseus": major
 ---
 
-Remove deprecated onWidgetStartProps API
+Remove deprecated onWidgetStartProps API from APIOptions
