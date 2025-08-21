@@ -13,9 +13,9 @@ import PassageWidget from "../../passage";
 import {
     questionAndAnswer,
     multiChoiceQuestionAndAnswer,
-    generateShuffledQuestion,
-    generateShuffledNoneQuestion,
-    generateQuestionWithUndefinedCorrect,
+    shuffledQuestion,
+    shuffledNoneQuestion,
+    questionWithUndefinedCorrect,
 } from "./radio.testdata";
 
 import type {APIOptions} from "../../../types";
@@ -803,7 +803,6 @@ describe("Multiple Choice Widget", () => {
         it("can be scored correctly when shuffled", async () => {
             // Arrange
             const apiOptions = createApiOptions();
-            const shuffledQuestion = generateShuffledQuestion();
             const {renderer} = renderQuestion(shuffledQuestion, apiOptions);
 
             // Act
@@ -832,7 +831,6 @@ describe("Multiple Choice Widget", () => {
         it("can be scored incorrectly when shuffled", async () => {
             // Arrange
             const apiOptions = createApiOptions();
-            const shuffledQuestion = generateShuffledQuestion();
             const {renderer} = renderQuestion(shuffledQuestion, apiOptions);
 
             // Act
@@ -861,7 +859,6 @@ describe("Multiple Choice Widget", () => {
         it("can be scored correctly when shuffled with none of the above", async () => {
             // Arrange
             const apiOptions = createApiOptions();
-            const shuffledNoneQuestion = generateShuffledNoneQuestion();
             const {renderer} = renderQuestion(shuffledNoneQuestion, apiOptions);
 
             // Act
@@ -890,9 +887,7 @@ describe("Multiple Choice Widget", () => {
         it("can be scored incorrectly when shuffled with none of the above", async () => {
             // Arrange
             const apiOptions = createApiOptions();
-            const shuffledNoneQuestion = generateShuffledNoneQuestion();
             const {renderer} = renderQuestion(shuffledNoneQuestion, apiOptions);
-            const shuffledQuestion = generateShuffledQuestion();
 
             // Act
             await userEvent.click(
@@ -925,8 +920,6 @@ describe("Multiple Choice Widget", () => {
         it("handles undefined choice.correct properly when multipleSelect and randomize are enabled", async () => {
             // Arrange
             const apiOptions = createApiOptions();
-            const questionWithUndefinedCorrect =
-                generateQuestionWithUndefinedCorrect();
             renderQuestion(questionWithUndefinedCorrect, apiOptions, {
                 reviewMode: true,
             });

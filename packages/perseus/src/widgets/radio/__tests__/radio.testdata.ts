@@ -365,30 +365,27 @@ export const multiChoiceQuestionAndAnswer: [
     ],
 ];
 
-// lazy load question building
-export const generateShuffledQuestion = (): PerseusRenderer =>
-    radioQuestionBuilder()
-        .withContent("[[\u2603 radio 1]]")
-        .addChoice("Incorrect Choice 1", {correct: false})
-        .addChoice("Incorrect Choice 2", {correct: false})
-        .addChoice("Correct Choice", {correct: true})
-        .addChoice("Incorrect Choice 3", {correct: false})
-        .withRandomize(true)
-        .build();
+export const shuffledQuestion: PerseusRenderer = radioQuestionBuilder()
+    .withContent("[[\u2603 radio 1]]")
+    .addChoice("Incorrect Choice 1", {correct: false})
+    .addChoice("Incorrect Choice 2", {correct: false})
+    .addChoice("Correct Choice", {correct: true})
+    .addChoice("Incorrect Choice 3", {correct: false})
+    .withRandomize(true)
+    .build();
 
-export const generateShuffledNoneQuestion = (): PerseusRenderer =>
-    radioQuestionBuilder()
-        .withContent("[[\u2603 radio 1]]")
-        .addChoice("Incorrect Choice 1", {correct: false})
-        .addChoice("Incorrect Choice 2", {correct: false})
-        .addChoice("Incorrect Choice 3", {correct: false})
-        .addChoice("Incorrect Choice 4", {correct: false})
-        .addChoice("None of the above", {correct: true, isNoneOfTheAbove: true})
-        .withHasNoneOfTheAbove(true)
-        .withRandomize(true)
-        .build();
+export const shuffledNoneQuestion: PerseusRenderer = radioQuestionBuilder()
+    .withContent("[[\u2603 radio 1]]")
+    .addChoice("Incorrect Choice 1", {correct: false})
+    .addChoice("Incorrect Choice 2", {correct: false})
+    .addChoice("Incorrect Choice 3", {correct: false})
+    .addChoice("Incorrect Choice 4", {correct: false})
+    .addChoice("None of the above", {correct: true, isNoneOfTheAbove: true})
+    .withHasNoneOfTheAbove(true)
+    .withRandomize(true)
+    .build();
 
-export const generateQuestionWithUndefinedCorrect = (): PerseusRenderer =>
+export const questionWithUndefinedCorrect: PerseusRenderer =
     radioQuestionBuilder()
         .withContent(
             "**Select the correct choice. This tests the LEMS-2909 bug fix.**\n\n[[\u2603 radio 1]]",
