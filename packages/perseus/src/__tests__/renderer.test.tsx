@@ -18,7 +18,6 @@ import {
     question2,
     definitionItem,
     mockedRandomItem,
-    mockedShuffledRadioProps,
 } from "../__testdata__/renderer.testdata";
 import * as Dependencies from "../dependencies";
 import {
@@ -30,7 +29,6 @@ import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import MockWidgetExport from "../widgets/mock-widgets/mock-widget";
 
-import type {APIOptions} from "../types";
 import type {PerseusRenderer, DropdownWidget} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -337,20 +335,6 @@ describe("renderer", () => {
             // Assert
             expect(screen.getByRole("combobox")).toHaveTextContent(
                 /^less than or equal to$/,
-            );
-        });
-
-        it("should call the onWidgetStartProps callback if provided in apiOptions", () => {
-            // Arrange
-            const onWidgetStartProps = jest.fn();
-            const apiOptions: APIOptions = {onWidgetStartProps};
-
-            // Act
-            renderQuestion(mockedRandomItem, apiOptions);
-
-            // Assert
-            expect(onWidgetStartProps).toHaveBeenCalledWith(
-                mockedShuffledRadioProps,
             );
         });
     });

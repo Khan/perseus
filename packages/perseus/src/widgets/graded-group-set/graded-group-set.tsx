@@ -308,6 +308,10 @@ const styles = StyleSheet.create({
         borderTop: `1px solid ${gray76}`,
         borderBottom: `1px solid ${gray76}`,
         backgroundColor: tableBackgroundAccent,
+        // The following CSS variable is put into place to let child widgets know that there is a background color in effect.
+        // For example, this is helpful for the radio widget to properly color its horizontal scroll fade bars.
+        //  @ts-expect-error TS2353: Object literal may only specify known properties
+        "--perseus-widget-background-color": tableBackgroundAccent,
         marginLeft: negativePhoneMargin,
         marginRight: negativePhoneMargin,
         paddingBottom: phoneMargin,
