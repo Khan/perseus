@@ -183,7 +183,7 @@ describe("parseAndMigratePerseusArticle", () => {
 });
 
 describe("parseAndMigrateUserInputMap", () => {
-    it.skip("parses a UserInputMap from a JSON string", () => {
+    it("parses a UserInputMap from a JSON string", () => {
         const result = parseAndMigrateUserInputMap(
             `{"radio 1": {"selectedChoiceIds": [ "0-0-0-0-0"]}}`,
         );
