@@ -44,20 +44,30 @@ function generateTestRadioRenderer() {
 
 describe(`removeRandomness`, () => {
     it(`converts randomized radio to pre-shuffled radio`, () => {
+        // render the question
         const question = generateTestRadioRenderer();
+        const radioInputOptions = question.widgets["radio 1"].options;
         const {renderer} = renderQuestion(question);
 
+        // get the list of items post-shuffling
         const listItems = screen.getAllByRole("listitem");
-
         const serializedState = renderer.getSerializedState();
-        const output = removeRandomness(question, serializedState);
 
-        expect(output.widgets["radio 1"].options.randomize).toBe(false);
+        // run the PerseusItem / Serialized state through the util
+        const output = removeRandomness(question, serializedState);
+        const radioOutputOptions = output.widgets["radio 1"].options;
+
+        // make sure shuffling actually happened
+        expect(radioOutputOptions.choices.map((c) => c.id)).not.toEqual(
+            radioInputOptions.choices.map((c) => c.id),
+        );
+        // make sure randomization got switched off
+        expect(radioOutputOptions.randomize).toBe(false);
+        // make sure the output choices are in the same shuffled order
+        // as originally rendered
         listItems.forEach((li, i) => {
             expect(
-                li.textContent?.includes(
-                    output.widgets["radio 1"].options.choices[i].content,
-                ),
+                li.textContent?.includes(radioOutputOptions.choices[i].content),
             ).toBe(true);
         });
     });

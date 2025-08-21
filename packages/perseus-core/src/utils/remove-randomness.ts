@@ -2,6 +2,12 @@ import deepClone from "./deep-clone";
 
 import type {PerseusRenderer} from "../data-schema";
 
+/**
+ * removeRandomness is a stopgap measure to restore the
+ * shuffled state of widgets without injecting SerializedState
+ * directly back into Perseus. It takes a PerseusItem and SerializedState
+ * and returns a new PerseusItem with choices already reshuffled.
+ */
 export default function removeRandomness(
     renderer: PerseusRenderer,
     serializedState: any,
