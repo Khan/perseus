@@ -1,85 +1,95 @@
-import {imageQuestionGenerator} from "./image-question-generator";
+import {
+    generateImageOptions,
+    generateImageWidget,
+} from "./image-widget-generator";
 
-import type {PerseusRenderer} from "../../data-schema";
+import type {ImageWidget, PerseusImageWidgetOptions} from "../../data-schema";
 
-describe("imageQuestionGenerator", () => {
-    test("builds a default image question", () => {
-        const question: PerseusRenderer = imageQuestionGenerator().build();
+describe("generateImageOptions", () => {
+    test("builds a default image options", () => {
+        const options: PerseusImageWidgetOptions = generateImageOptions({});
 
-        expect(question.content).toBe("[[☃ image 1]]");
-        expect(question.images).toEqual({});
-        expect(question.widgets["image 1"].graded).toBe(true);
-        expect(question.widgets["image 1"].static).toBe(false);
-        expect(question.widgets["image 1"].version).toEqual({
-            major: 0,
-            minor: 0,
+        expect(options.title).toBe(undefined);
+        expect(options.caption).toBe(undefined);
+        expect(options.alt).toBe(undefined);
+        expect(options.backgroundImage).toEqual({});
+    });
+
+    test("builds an image options with all props", () => {
+        const options: PerseusImageWidgetOptions = generateImageOptions({
+            title: "the title",
+            caption: "the caption",
+            alt: "the alt",
+            backgroundImage: {
+                url: "image.png",
+                width: 400,
+                height: 400,
+            },
         });
-        expect(question.widgets["image 1"].type).toBe("image");
-        expect(question.widgets["image 1"].alignment).toBe("default");
 
-        expect(question.widgets["image 1"].options.title).toBe(undefined);
-        expect(question.widgets["image 1"].options.caption).toBe(undefined);
-        expect(question.widgets["image 1"].options.alt).toBe(undefined);
-        expect(question.widgets["image 1"].options.backgroundImage).toEqual({});
-    });
-
-    test("sets the content", () => {
-        const question: PerseusRenderer = imageQuestionGenerator()
-            .withContent("the content [[☃ image 1]]")
-            .build();
-
-        expect(question.content).toBe("the content [[☃ image 1]]");
-    });
-
-    test("sets the image", () => {
-        const question: PerseusRenderer = imageQuestionGenerator()
-            .withImage("https://example.com/image.png")
-            .build();
-
-        expect(question.widgets["image 1"].options.backgroundImage).toEqual({
-            url: "https://example.com/image.png",
+        expect(options.title).toBe("the title");
+        expect(options.caption).toBe("the caption");
+        expect(options.alt).toBe("the alt");
+        expect(options.backgroundImage).toEqual({
+            url: "image.png",
+            width: 400,
+            height: 400,
         });
     });
+});
 
-    test("sets the title", () => {
-        const question: PerseusRenderer = imageQuestionGenerator()
-            .withTitle("the title")
-            .build();
+describe("generateImageWidget", () => {
+    test("builds a default image widget", () => {
+        const widget: ImageWidget = generateImageWidget({});
 
-        expect(question.widgets["image 1"].options.title).toBe("the title");
+        expect(widget.type).toBe("image");
+        expect(widget.graded).toBe(true);
+        expect(widget.static).toBe(false);
+        expect(widget.version).toEqual({major: 0, minor: 0});
+        expect(widget.alignment).toBe("default");
+        expect(widget.options).toEqual({backgroundImage: {}});
     });
 
-    test("sets the caption", () => {
-        const question: PerseusRenderer = imageQuestionGenerator()
-            .withCaption("the caption")
-            .build();
-
-        expect(question.widgets["image 1"].options.caption).toBe("the caption");
-    });
-
-    test("sets the alt", () => {
-        const question: PerseusRenderer = imageQuestionGenerator()
-            .withAlt("the alt")
-            .build();
-
-        expect(question.widgets["image 1"].options.alt).toBe("the alt");
-    });
-
-    test("builds a new image question with all props", () => {
-        const question: PerseusRenderer = imageQuestionGenerator()
-            .withContent("the content [[☃ image 1]]")
-            .withImage("https://example.com/image.png")
-            .withTitle("the title")
-            .withCaption("the caption")
-            .withAlt("the alt")
-            .build();
-
-        expect(question.content).toBe("the content [[☃ image 1]]");
-        expect(question.widgets["image 1"].options.backgroundImage).toEqual({
-            url: "https://example.com/image.png",
+    test("builds an image widget with all props", () => {
+        const widget: ImageWidget = generateImageWidget({
+            graded: false,
+            version: {major: 1, minor: 0},
+            static: true,
+            alignment: "block",
+            options: {backgroundImage: {url: "image.png"}},
         });
-        expect(question.widgets["image 1"].options.title).toBe("the title");
-        expect(question.widgets["image 1"].options.caption).toBe("the caption");
-        expect(question.widgets["image 1"].options.alt).toBe("the alt");
+
+        expect(widget.static).toBe(true);
+        expect(widget.graded).toBe(false);
+        expect(widget.alignment).toBe("block");
+        expect(widget.options).toEqual({backgroundImage: {url: "image.png"}});
+    });
+
+    test("adds options when option builder is used", () => {
+        const widget: ImageWidget = generateImageWidget({
+            static: true,
+            alignment: "block",
+            options: generateImageOptions({
+                title: "the title",
+                caption: "the caption",
+                alt: "the alt",
+                backgroundImage: {
+                    url: "image.png",
+                    width: 400,
+                    height: 400,
+                },
+            }),
+        });
+
+        expect(widget.static).toBe(true);
+        expect(widget.alignment).toBe("block");
+        expect(widget.options.title).toBe("the title");
+        expect(widget.options.caption).toBe("the caption");
+        expect(widget.options.alt).toBe("the alt");
+        expect(widget.options.backgroundImage).toEqual({
+            url: "image.png",
+            width: 400,
+            height: 400,
+        });
     });
 });

@@ -207,7 +207,11 @@ export {
     getImageSizeModern,
 } from "./utils/util.graphie";
 
-export {imageQuestionGenerator} from "./utils/generators/image-question-generator";
+export {
+    generateImageOptions,
+    generateImageWidget,
+} from "./utils/generators/image-widget-generator";
+export {generateQuestion} from "./utils/generators/perseus-question-generator";
 
 import {registerCoreWidgets} from "./widgets/core-widget-registry";
 
