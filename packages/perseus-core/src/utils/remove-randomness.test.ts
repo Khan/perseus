@@ -54,8 +54,8 @@ describe(`removeRandomness`, () => {
         const serializedState = renderer.getSerializedState();
 
         // run the PerseusItem / Serialized state through the util
-        const output = removeRandomness(question, serializedState);
-        const radioOutputOptions = output.widgets["radio 1"].options;
+        const output = removeRandomness(question.widgets, serializedState);
+        const radioOutputOptions = output["radio 1"].options;
 
         // make sure shuffling actually happened
         expect(radioOutputOptions.choices.map((c) => c.id)).not.toEqual(

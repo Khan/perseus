@@ -1,6 +1,6 @@
 import deepClone from "./deep-clone";
 
-import type {PerseusRenderer} from "../data-schema";
+import type {PerseusWidgetsMap} from "../data-schema";
 
 /**
  * removeRandomness is a stopgap measure to restore the
@@ -9,17 +9,17 @@ import type {PerseusRenderer} from "../data-schema";
  * and returns a new PerseusItem with choices already reshuffled.
  */
 export default function removeRandomness(
-    renderer: PerseusRenderer,
+    widgets: PerseusWidgetsMap,
     serializedState: any,
-): PerseusRenderer {
-    const output = deepClone(renderer);
+): PerseusWidgetsMap {
+    const output = deepClone(widgets);
 
     if (!serializedState) {
         return output;
     }
 
-    Object.keys(output.widgets).forEach((widgetId) => {
-        const widgetData = output.widgets[widgetId];
+    Object.keys(output).forEach((widgetId) => {
+        const widgetData = output[widgetId];
         const widgetSerialized = serializedState?.[widgetId];
 
         if (
@@ -27,8 +27,8 @@ export default function removeRandomness(
             widgetData.type === "radio" &&
             widgetData.options.randomize
         ) {
-            output.widgets[widgetId].options = {
-                ...output.widgets[widgetId].options,
+            output[widgetId].options = {
+                ...output[widgetId].options,
                 randomize: false,
                 choices: widgetSerialized.choices.map((c) => {
                     return widgetData.options.choices[c.originalIndex];
