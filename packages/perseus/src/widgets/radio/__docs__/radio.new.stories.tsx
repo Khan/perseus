@@ -2,6 +2,7 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
 import {
     questionWithPassage,
     choicesWithImages,
@@ -162,13 +163,22 @@ export const MultiSelectWithScroll = {
     },
 };
 
-export const ScrollingInGradedGroupSet = {
+export const GradedGroupSetWithScroll = {
     args: {
         item: generateTestPerseusItem({
             question: overflowContentInGradedGroupSet,
         }),
     },
 };
+
+export const GradedGroup = {
+    args: {
+        item: generateTestPerseusItem({
+            question: groupedRadioRationaleQuestion,
+        }),
+    },
+};
+
 
 // NOTE(Tamara): For answerless stories, the user's selection disappears after
 // clicking the Check button the first time. This is because the widget
