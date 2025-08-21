@@ -35,6 +35,7 @@ export {
 } from "./utils/test-utils";
 export {itemHasRationales} from "./utils/item-has-rationales";
 export {itemHasHints} from "./utils/item-has-hints";
+export {default as removeRandomness} from "./utils/remove-randomness";
 
 export {
     parsePerseusItem,
