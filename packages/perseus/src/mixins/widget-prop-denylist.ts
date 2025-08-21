@@ -38,7 +38,6 @@ const denylist = [
     "trackInteraction",
     "keypadElement",
     "linterContext",
-    "isLastUsedWidget",
     "handleUserInput",
     "analytics",
     "showSolutions",
