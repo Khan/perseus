@@ -14,9 +14,13 @@ export default function removeRandomness(
 ): PerseusRenderer {
     const output = deepClone(renderer);
 
+    if (!serializedState) {
+        return output;
+    }
+
     Object.keys(output.widgets).forEach((widgetId) => {
         const widgetData = output.widgets[widgetId];
-        const widgetSerialized = serializedState[widgetId];
+        const widgetSerialized = serializedState?.[widgetId];
 
         if (
             widgetSerialized?.choices?.length &&

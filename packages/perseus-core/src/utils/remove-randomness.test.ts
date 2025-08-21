@@ -71,4 +71,17 @@ describe(`removeRandomness`, () => {
             ).toBe(true);
         });
     });
+
+    it(`handles bad serialized state`, () => {
+        const question = generateTestRadioRenderer();
+        const output = removeRandomness(question, null);
+        expect(output).toEqual(question);
+        expect(output).not.toBe(question);
+    });
+
+    it(`returns a copy`, () => {
+        const question = generateTestRadioRenderer();
+        const output = removeRandomness(question, null);
+        expect(output).not.toBe(question);
+    });
 });
