@@ -18,9 +18,11 @@ function scoreRadio(
     }
 
     // validate ids
-    const invalidIds = userInput.selectedChoiceIds.filter(id => !rubric.choices.some(choice => choice.id === id));
-    if(invalidIds.length>0){
-        return {type: "invalid", message: "Invalid choice selection"}
+    const invalidIds = userInput.selectedChoiceIds.filter(
+        (id) => !rubric.choices.some((choice) => choice.id === id),
+    );
+    if (invalidIds.length > 0) {
+        return {type: "invalid", message: "Invalid choice selection"};
     }
 
     const numSelected = userInput.selectedChoiceIds.length;
