@@ -162,7 +162,7 @@ class Radio extends RadioOld {
                 const selected =
                     this.props.userInput.selectedChoiceIds.includes(
                         choice.id,
-                    ) ?? false;
+                    );
                 return {
                     ...choiceState,
                     selected,
