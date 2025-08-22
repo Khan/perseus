@@ -131,7 +131,7 @@ export type PerseusGrapherUserInput = GrapherAnswerTypes;
 
 export type PerseusIFrameUserInput = {
     status: UserInputStatus;
-    message: string | null;
+    message?: string | null;
 };
 
 export type PerseusInputNumberRubric = {
