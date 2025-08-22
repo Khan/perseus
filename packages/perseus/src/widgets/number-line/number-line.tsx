@@ -1,6 +1,5 @@
 import {number as knumber, KhanMath} from "@khanacademy/kmath";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import Graphie from "../../components/graphie";
@@ -14,7 +13,6 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line
 
 import type {
     WidgetExports,
-    FocusPath,
     Widget,
     WidgetProps,
     UniversalWidgetProps,
@@ -247,6 +245,8 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     static contextType = PerseusI18nContext;
     declare context: React.ContextType<typeof PerseusI18nContext>;
 
+    tickControlRef: HTMLInputElement | null = null;
+
     static defaultProps: DefaultProps = {
         range: [0, 10],
         labelStyle: "decimal",
@@ -346,9 +346,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
 
     focus() {
         if (this.props.isTickCtrl) {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-            this.refs["tick-ctrl"].focus();
+            this.tickControlRef?.focus();
             return true;
         }
         return false;
@@ -356,34 +354,24 @@ class NumberLine extends React.Component<Props, State> implements Widget {
 
     focusInputPath: (arg1: any) => void = (path) => {
         if (path.length === 1) {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
-            this.refs[path[0]].focus();
+            this.tickControlRef?.focus();
         }
     };
 
     blurInputPath: (arg1: any) => void = (path) => {
         if (path.length === 1) {
-            // eslint-disable-next-line react/no-string-refs
-            // @ts-expect-error - TS2339 - Property 'blur' does not exist on type 'ReactInstance'.
-            this.refs[path[0]].blur();
+            this.tickControlRef?.blur();
         }
     };
 
+    // There's only one input path for the tick control, but the renderer
+    // expects this method to be implemented.
     getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
         if (this.props.isTickCtrl) {
             return [["tick-ctrl"]];
         }
         return [];
     };
-
-    getDOMNodeForPath(inputPath: FocusPath) {
-        if (inputPath?.length === 1) {
-            // eslint-disable-next-line react/no-string-refs
-            return ReactDOM.findDOMNode(this.refs[inputPath[0]]);
-        }
-        return null;
-    }
 
     _renderGraphie: () => React.ReactElement = () => {
         // Position variables
@@ -675,12 +663,16 @@ class NumberLine extends React.Component<Props, State> implements Widget {
             } else {
                 Input = NumberInput;
             }
+            // TODO: keypadElement is only needed for SimpleKeypadInput and causes a React warning
+            // when passed to NumberInput. This should be refactored to only pass the prop when needed,
+            // but requires addressing type incompatibilities in the onChange handlers.
             tickCtrl = (
                 <label>
                     {strings.numDivisions}{" "}
                     <Input
-                        // eslint-disable-next-line react/no-string-refs
-                        ref="tick-ctrl"
+                        ref={(ref) => {
+                            this.tickControlRef = ref;
+                        }}
                         value={
                             this.state.numDivisionsEmpty
                                 ? null
