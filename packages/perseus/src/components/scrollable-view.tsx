@@ -46,22 +46,24 @@ function ScrollableView({
     const [canScrollEnd, setCanScrollEnd] = useState(false);
     const [isRtl, setIsRtl] = useState(false);
     const [isScrolling, setIsScrolling] = useState(false);
-
-    // Calculate the scrollable threshold once to avoid performance issues during scroll events
     const scrollableThreshold = React.useMemo(() => {
-        const isMobile = window.innerWidth <= 767;
-        if (!isMobile) {
-            return 5; // Default for desktop
-        }
-
-        return 8; // Reduced threshold for optimized mobile spacing
+        /**
+         * Determines the scrollable threshold based on device width to prevent
+         * scroll buttons from appearing when content is only barely overflowing
+         * (by less than 5-8px), which would create a poor UX with unnecessary
+         * scroll controls for minimal overflow. A higher threshold on mobile is
+         * used for better touch interaction and spacing optimization.
+         * - Mobile devices (≤767px width): Uses 8px threshold
+         * - Desktop devices (>767px width): Uses 5px threshold
+         */
+        return window.innerWidth <= 767 ? 8 : 5;
     }, []);
 
     /**
      * Updates scroll state variables based on current scroll position.
      *
      * This function determines:
-     * 1. Whether the content is scrollable (content width > container width)
+     * 1. Whether the content is scrollable (content width > container width + threshold)
      * 2. Whether user can scroll towards the start of the content
      * 3. Whether user can scroll towards the end of the content
      *

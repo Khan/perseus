@@ -31,9 +31,12 @@
 }
 
 .choice-list {
+    /* TODO(LEMS-3301): When old radio widget is deleted, remove this !important.
+        This is required to override styles in perseus/src/styles/perseus-renderer-part-1.css that apply to ul elements.
+    */
     padding: 0 !important;
     list-style: none !important;
-    margin: 0 !important; /* TODO(LEMS-3301): When old radio widget is deleted, remove this !important. */
+    margin: 0 !important;
     min-width: fit-content;
     width: 100%;
     scrollbar-width: thin;

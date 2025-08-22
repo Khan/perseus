@@ -18,8 +18,6 @@
      */
     position: fixed;
     width: var(--perseus-multiple-choice-indicator-size);
-    /* Ensure indicator stays above fade effects and other elements */
-    z-index: 2;
 }
 
 @media (prefers-reduced-motion: no-preference) {
