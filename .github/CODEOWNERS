@@ -6,3 +6,6 @@ widget-ai-utils/* @Khan/tut
 
 # For new radio widget project
 **/widgets/radio/** @ivyolamit @mark-fitzgerald @SonicScrewdriver @anakaren-rojas
+
+# For image widget project
+**/widgets/image/** @nishasy @ivyolamit @catandthemachines
