@@ -41,7 +41,6 @@ function renderPassage(
         },
         containerSizeClass: "small",
         findWidgets: (callback) => [],
-        isLastUsedWidget: false,
         onBlur: () => {},
         onChange: () => {},
         handleUserInput: () => {},

@@ -65,10 +65,6 @@ type Props = {
     // specifying the new checked value of each choice.
     onChange: (newValues: {checked: ReadonlyArray<boolean>}) => void;
     registerFocusFunction?: (arg1: FocusFunction) => void;
-    // Whether this widget was the most recently used widget in this
-    // Renderer. Determines whether we'll auto-scroll the page upon
-    // entering review mode.
-    isLastUsedWidget?: boolean;
 };
 
 function getInstructionsText(
@@ -101,7 +97,6 @@ const BaseRadio = function ({
     labelWrap,
     countChoices,
     numCorrect,
-    isLastUsedWidget,
     onChange,
     registerFocusFunction,
 }: Props): React.ReactElement {
@@ -127,7 +122,6 @@ const BaseRadio = function ({
         // eye on this widget anymore).
         if (
             apiOptions.canScrollPage &&
-            isLastUsedWidget &&
             reviewModeRubric &&
             // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
             !prevReviewModeRubric.current
@@ -152,7 +146,7 @@ const BaseRadio = function ({
 
         // @ts-expect-error - TS2322 - Type 'PerseusRadioWidgetOptions | undefined' is not assignable to type 'undefined'.
         prevReviewModeRubric.current = reviewModeRubric;
-    }, [apiOptions, choices, isLastUsedWidget, reviewModeRubric]);
+    }, [apiOptions, choices, reviewModeRubric]);
 
     // When a particular choice's `onChange` handler is called, indicating a
     // change in a single choice's values, we need to call our `onChange`
