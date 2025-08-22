@@ -53,6 +53,14 @@ export const dropdownWithMath: PerseusRenderer = {
                         content: "$5x$",
                         correct: false,
                     },
+                    {
+                        content: "$\\frac{1}{2}$",
+                        correct: false,
+                    },
+                    {
+                        content: "$\\sqrt{\\frac{\\frac{1}{2}}{\\frac{1}{3}}}$",
+                        correct: false,
+                    },
                 ],
             },
             version: {
