@@ -693,12 +693,15 @@ export type PerseusImageWidgetOptions = {
     static?: boolean;
     // A list of labels to display on the image
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
+    /** @deprecated - labels were removed from the image widget in 2017 */
     labels?: Array<PerseusImageLabel>;
     // The range on the image render for labels
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
+    /** @deprecated - range for labels was removed from the image widget in 2017 */
     range?: [Interval, Interval];
     // The box on the image render for labels. The same as backgroundImage.width and backgroundImage.height
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
+    /** @deprecated - box for labels was removed from the image widget in 2017 */
     box?: Size;
 };
 

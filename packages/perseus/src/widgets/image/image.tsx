@@ -11,11 +11,11 @@ export const ImageComponent = ({
     apiOptions,
     alt,
     backgroundImage,
-    box, // automatically calculated by the editor
+    box,
     caption,
     linterContext,
-    labels, // deprecated
-    range, // deprecated
+    labels,
+    range,
     title,
     trackInteraction,
 }: ImageProps) => {
@@ -28,6 +28,7 @@ export const ImageComponent = ({
                 maxWidth: backgroundImage.width,
             }}
         >
+            {/* Title */}
             {title && (
                 <div className="perseus-image-title">
                     {/* The Renderer component is used here so that the title
@@ -40,11 +41,13 @@ export const ImageComponent = ({
                     />
                 </div>
             )}
+
+            {/* Image */}
             {backgroundImage.url && (
                 <AssetContext.Consumer>
                     {({setAssetStatus}) => (
                         <SvgImage
-                            src={backgroundImage.url ?? undefined}
+                            src={backgroundImage.url!}
                             alt={caption === alt ? "" : alt}
                             width={backgroundImage.width}
                             height={backgroundImage.height}
@@ -63,6 +66,8 @@ export const ImageComponent = ({
                     )}
                 </AssetContext.Consumer>
             )}
+
+            {/* Caption */}
             {caption && (
                 <figcaption
                     className="perseus-image-caption"

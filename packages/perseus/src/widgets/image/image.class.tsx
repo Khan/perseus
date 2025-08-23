@@ -19,21 +19,21 @@ const defaultBackgroundImage = {
     height: 0,
 } as const;
 
-type ExternalProps = WidgetProps<PerseusImageWidgetOptions>;
+type Props = WidgetProps<PerseusImageWidgetOptions>;
 
-export type ImageProps = ExternalProps & {
-    alignment: NonNullable<ExternalProps["alignment"]>;
-    title: NonNullable<ExternalProps["title"]>;
-    range: NonNullable<ExternalProps["range"]>;
-    box: NonNullable<ExternalProps["box"]>;
-    backgroundImage: NonNullable<ExternalProps["backgroundImage"]>;
-    labels: NonNullable<ExternalProps["labels"]>;
-    alt: NonNullable<ExternalProps["alt"]>;
-    caption: NonNullable<ExternalProps["caption"]>;
-    linterContext: NonNullable<ExternalProps["linterContext"]>;
-};
+export interface ImageProps extends Props {
+    alignment: NonNullable<Props["alignment"]>;
+    title: NonNullable<Props["title"]>;
+    range: NonNullable<Props["range"]>;
+    box: NonNullable<Props["box"]>;
+    backgroundImage: NonNullable<Props["backgroundImage"]>;
+    labels: NonNullable<Props["labels"]>;
+    alt: NonNullable<Props["alt"]>;
+    caption: NonNullable<Props["caption"]>;
+    linterContext: NonNullable<Props["linterContext"]>;
+}
 
-type DefaultProps = {
+interface DefaultProps extends Partial<ImageProps> {
     alignment: ImageProps["alignment"];
     title: ImageProps["title"];
     range: ImageProps["range"];
@@ -43,7 +43,7 @@ type DefaultProps = {
     alt: ImageProps["alt"];
     caption: ImageProps["caption"];
     linterContext: ImageProps["linterContext"];
-};
+}
 
 class ImageWidget extends React.Component<ImageProps> implements Widget {
     static contextType = PerseusI18nContext;
