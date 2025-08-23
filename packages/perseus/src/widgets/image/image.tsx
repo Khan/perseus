@@ -11,11 +11,11 @@ export const ImageComponent = ({
     apiOptions,
     alt,
     backgroundImage,
-    box, // automatically calculated by the editor
+    box,
     caption,
     linterContext,
-    labels, // deprecated
-    range, // deprecated
+    labels,
+    range,
     title,
     trackInteraction,
 }: ImageProps) => {

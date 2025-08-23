@@ -33,7 +33,7 @@ export interface ImageProps extends Props {
     linterContext: NonNullable<Props["linterContext"]>;
 }
 
-interface DefaultProps {
+interface DefaultProps extends Partial<ImageProps> {
     alignment: ImageProps["alignment"];
     title: ImageProps["title"];
     range: ImageProps["range"];
