@@ -21,7 +21,7 @@ const defaultBackgroundImage = {
 
 type Props = WidgetProps<PerseusImageWidgetOptions>;
 
-export type ImageProps = Props & {
+export interface ImageProps extends Props {
     alignment: NonNullable<Props["alignment"]>;
     title: NonNullable<Props["title"]>;
     range: NonNullable<Props["range"]>;
@@ -31,9 +31,9 @@ export type ImageProps = Props & {
     alt: NonNullable<Props["alt"]>;
     caption: NonNullable<Props["caption"]>;
     linterContext: NonNullable<Props["linterContext"]>;
-};
+}
 
-type DefaultProps = {
+interface DefaultProps {
     alignment: ImageProps["alignment"];
     title: ImageProps["title"];
     range: ImageProps["range"];
@@ -43,7 +43,7 @@ type DefaultProps = {
     alt: ImageProps["alt"];
     caption: ImageProps["caption"];
     linterContext: ImageProps["linterContext"];
-};
+}
 
 class ImageWidget extends React.Component<ImageProps> implements Widget {
     static contextType = PerseusI18nContext;
