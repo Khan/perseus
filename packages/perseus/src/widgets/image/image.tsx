@@ -44,7 +44,7 @@ export const ImageComponent = ({
                 <AssetContext.Consumer>
                     {({setAssetStatus}) => (
                         <SvgImage
-                            src={backgroundImage.url ?? undefined}
+                            src={backgroundImage.url!}
                             alt={caption === alt ? "" : alt}
                             width={backgroundImage.width}
                             height={backgroundImage.height}
