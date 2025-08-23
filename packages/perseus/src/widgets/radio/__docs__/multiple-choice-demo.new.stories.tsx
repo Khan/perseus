@@ -38,9 +38,9 @@ type StoryArgs = {
  */
 
 export default {
-    title: "Widgets/RadioNew",
+    title: "Widgets/RadioNew/Widget Demo",
     component: ServerItemRendererWithDebugUI,
-    tags: ["!dev"],
+    tags: ["!autodocs"],
     parameters: {
         docs: {
             description: {
@@ -178,7 +178,6 @@ export const GradedGroup = {
         }),
     },
 };
-
 
 // NOTE(Tamara): For answerless stories, the user's selection disappears after
 // clicking the Check button the first time. This is because the widget
