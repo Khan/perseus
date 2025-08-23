@@ -28,6 +28,7 @@ export const ImageComponent = ({
                 maxWidth: backgroundImage.width,
             }}
         >
+            {/* Title */}
             {title && (
                 <div className="perseus-image-title">
                     {/* The Renderer component is used here so that the title
@@ -40,6 +41,8 @@ export const ImageComponent = ({
                     />
                 </div>
             )}
+
+            {/* Image */}
             {backgroundImage.url && (
                 <AssetContext.Consumer>
                     {({setAssetStatus}) => (
@@ -63,6 +66,8 @@ export const ImageComponent = ({
                     )}
                 </AssetContext.Consumer>
             )}
+
+            {/* Caption */}
             {caption && (
                 <figcaption
                     className="perseus-image-caption"
