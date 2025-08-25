@@ -3,81 +3,155 @@ import {extractWidgetIds} from "./extract-widget-ids";
 
 // Integration test to compare our extracted function against the actual renderer behavior
 describe("extractWidgetIds integration", () => {
-    // Common widget configurations to avoid duplication
-    const commonWidgets = {
-        "radio 1": {
-            type: "radio" as const,
-            graded: true,
-            options: {
-                choices: [
-                    {content: "Option A", correct: true, id: "a"},
-                    {content: "Option B", correct: false},
-                ],
-                randomize: false,
-            },
-        },
-        "numeric-input 2": {
-            type: "numeric-input" as const,
-            graded: true,
-            options: {
-                answers: [{value: 42, status: "correct" as const, message: ""}],
-            },
-        },
-        "expression 3": {
-            type: "expression" as const,
-            graded: true,
-            options: {
-                answerForms: [
-                    {value: "x+1", status: "correct" as const, message: ""},
-                ],
-            },
-        },
-    };
+    it("matches renderer for single widget", () => {
+        const content = "Here's a widget: [[☃ radio 1]]";
 
-    // Helper function to test widget extraction and avoid repetition
-    const testWidgetExtraction = (
-        content: string,
-        expectedIds: string[],
-        widgets = {},
-    ) => {
         const utilityIds = extractWidgetIds(content);
         const {renderer} = renderQuestion({
             content,
-            widgets,
+            widgets: {
+                "radio 1": {
+                    type: "radio",
+                    graded: true,
+                    options: {
+                        choices: [
+                            {content: "Option A", correct: true, id: "a"},
+                            {content: "Option B", correct: false, id: "b"},
+                        ],
+                        randomize: false,
+                    },
+                },
+            },
+            images: {},
+        });
+        console.log(renderer);
+        const rendererIds = renderer.getWidgetIds();
+
+        expect(utilityIds).toEqual(rendererIds);
+        expect(utilityIds).toEqual(["radio 1"]);
+    });
+
+    it("matches renderer for multiple widgets", () => {
+        const content =
+            "[[☃ radio 1]]\n[[☃ numeric-input 2]]\n[[☃ expression 3]]";
+
+        const utilityIds = extractWidgetIds(content);
+        const {renderer} = renderQuestion({
+            content,
+            widgets: {
+                "radio 1": {
+                    type: "radio",
+                    graded: true,
+                    options: {
+                        choices: [
+                            {content: "Option A", correct: true, id: "a"},
+                            {content: "Option B", correct: false, id: "b"},
+                        ],
+                        randomize: false,
+                    },
+                },
+                "numeric-input 2": {
+                    type: "numeric-input",
+                    graded: true,
+                    options: {
+                        answers: [
+                            {
+                                value: 42,
+                                status: "correct",
+                                message: "",
+                                strict: false,
+                                simplify: "optional",
+                            },
+                        ],
+                        size: "normal",
+                        coefficient: false,
+                        static: false,
+                    },
+                },
+                "expression 3": {
+                    type: "expression",
+                    graded: true,
+                    options: {
+                        answerForms: [
+                            {value: "x+1", form: false, simplify: false, considered: "ungraded"},
+                        ],
+                        buttonSets: ["basic"],
+                        functions: ["sqrt", "pi", "abs", "factorial"],
+                        times: false,
+
+                    },
+                },
+            },
             images: {},
         });
         const rendererIds = renderer.getWidgetIds();
 
         expect(utilityIds).toEqual(rendererIds);
-        expect(utilityIds).toEqual(expectedIds);
-    };
-
-    it("matches renderer for single widget", () => {
-        testWidgetExtraction("Here's a widget: [[☃ radio 1]]", ["radio 1"], {
-            "radio 1": commonWidgets["radio 1"],
-        });
-    });
-
-    it("matches renderer for multiple widgets", () => {
-        testWidgetExtraction(
-            "[[☃ radio 1]]\n[[☃ numeric-input 2]]\n[[☃ expression 3]]",
-            ["radio 1", "numeric-input 2", "expression 3"],
-            commonWidgets,
-        );
+        expect(utilityIds).toEqual([
+            "radio 1",
+            "numeric-input 2",
+            "expression 3",
+        ]);
     });
 
     it("matches renderer with duplicate widget IDs (deduplication)", () => {
-        testWidgetExtraction(
-            "[[☃ radio 1]]\n[[☃ radio 1]]\n[[☃ numeric-input 2]]",
-            ["radio 1", "numeric-input 2"],
-            {
-                "radio 1": commonWidgets["radio 1"],
-                "numeric-input 2": commonWidgets["numeric-input 2"],
+        const content =
+            "[[☃ radio 1]]\n[[☃ radio 1]]\n[[☃ numeric-input 2]]";
+
+        const utilityIds = extractWidgetIds(content);
+        const {renderer} = renderQuestion({
+            content,
+            widgets: {
+                "radio 1": {
+                    type: "radio",
+                    graded: true,
+                    options: {
+                        choices: [
+                            {content: "Option A", correct: true, id: "a"},
+                            {content: "Option B", correct: false, id: "b"},
+                        ],
+                        randomize: false,
+                    },
+                },
+                "numeric-input 2": {
+                    type: "numeric-input",
+                    graded: true,
+                    options: {
+                        answers: [
+                            {
+                                value: 42,
+                                status: "correct",
+                                message: "",
+                                strict: false,
+                                simplify: "optional",
+                            },
+                        ],
+                        size: "normal",
+                        coefficient: false,
+                        static: false,
+                    },
+                },
             },
-        );
+            images: {},
+        });
+        const rendererIds = renderer.getWidgetIds();
+
+        expect(utilityIds).toEqual(rendererIds);
+        expect(utilityIds).toEqual(["radio 1", "numeric-input 2"]);
     });
 
     it("matches renderer for content with no widgets", () => {
-        testWidgetExtraction("Just some plain text with no widgets.", []);
+        const content = "Just some plain text with no widgets.";
+
+        const utilityIds = extractWidgetIds(content);
+        const {renderer} = renderQuestion({
+            content,
+            widgets: {},
+            images: {},
+        });
+        const rendererIds = renderer.getWidgetIds();
+
+        expect(utilityIds).toEqual(rendererIds);
+        expect(utilityIds).toEqual([]);
     });
 });
