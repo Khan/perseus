@@ -4,8 +4,8 @@ import * as React from "react";
 import {testDependenciesV2} from "../../../../../../testing/test-dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
-import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
 import {
+    choicesWithImages,
     overflowContentInGradedGroupSet,
     questionWithPassage,
 } from "../__tests__/radio.testdata";
@@ -118,21 +118,7 @@ export const SingleSelectWithPassageRef: Story = {
 export const SingleSelectWithImages: Story = {
     args: {
         item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice(
-                    "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
-                    {correct: true},
-                )
-                .addChoice(
-                    "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
-                )
-                .addChoice(
-                    "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
-                )
-                .addChoice(
-                    "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
-                )
-                .build(),
+            question: choicesWithImages,
         }),
     },
 };
@@ -293,30 +279,6 @@ export const MultiSelectWithLongMathjax: Story = {
     },
 };
 
-export const MultiSelectWithImages: Story = {
-    args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice(
-                    "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
-                    {correct: true},
-                )
-                .addChoice(
-                    "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
-                    {correct: true},
-                )
-                .addChoice(
-                    "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
-                )
-                .addChoice(
-                    "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
-                )
-                .withMultipleSelect(true)
-                .build(),
-        }),
-    },
-};
-
 export const MultiSelectWithImagesAndScroll: Story = {
     args: {
         item: generateTestPerseusItem({
@@ -368,14 +330,6 @@ export const MultiSelectWithLongText: Story = {
 };
 
 // Other rendering contexts
-
-export const GradedGroup = {
-    args: {
-        item: generateTestPerseusItem({
-            question: groupedRadioRationaleQuestion,
-        }),
-    },
-};
 
 export const GradedGroupSetWithScroll: Story = {
     args: {
