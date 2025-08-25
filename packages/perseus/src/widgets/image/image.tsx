@@ -5,7 +5,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import Renderer from "../../renderer";
 
-import type {ImageProps} from "./image.class";
+import type {Props} from "./image.class";
 
 export const ImageComponent = ({
     apiOptions,
@@ -18,7 +18,7 @@ export const ImageComponent = ({
     range,
     title,
     trackInteraction,
-}: ImageProps) => {
+}: Props) => {
     const context = React.useContext(PerseusI18nContext);
 
     return (
