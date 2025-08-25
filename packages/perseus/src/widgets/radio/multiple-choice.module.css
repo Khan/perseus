@@ -3,26 +3,19 @@
        Placed here for convenience so that we don't have to maintain common values in multiple places.
     */
     --perseus-multiple-choice-spacing: var(--wb-sizing-size_160);
-    --perseus-multiple-choice-indicator-font-size: var(
-        --wb-font-heading-size-small
-    );
+    --perseus-multiple-choice-indicator-font-size: var(--wb-font-heading-size-small);
     --perseus-multiple-choice-indicator-size: 3.2rem;
     /* 1.5 accounts for size of checkmark icon and its margin */
-    --perseus-multiple-choice-indicator-correct-size: calc(
-        calc(var(--perseus-multiple-choice-indicator-font-size) * 1.5) +
-            var(--perseus-multiple-choice-indicator-size)
-    );
-    --perseus-multiple-choice-content-margin: calc(
-        var(--perseus-multiple-choice-spacing) +
-            var(--perseus-multiple-choice-indicator-size)
-    );
-    --perseus-multiple-choice-fade-direction: 90deg; /* Default is left to right */
-    --perseus-multiple-choice-fade-color: var(
-        --perseus-widget-background-color,
-        var(--wb-semanticColor-surface-primary)
-    ); /* Accounts for theme color, unless a background color is specified (i.e. from Graded Group Set) */
+    --perseus-multiple-choice-indicator-correct-size: calc(calc(var(--perseus-multiple-choice-indicator-font-size) * 1.5) + var(--perseus-multiple-choice-indicator-size));
+    --perseus-multiple-choice-content-margin: calc(var(--perseus-multiple-choice-spacing) + var(--perseus-multiple-choice-indicator-size));
+    --perseus-multiple-choice-fade-direction: 90deg;
+    /* Default is left to right */
+    --perseus-multiple-choice-fade-color: var(--perseus-widget-background-color,
+            var(--wb-semanticColor-core-background-base-default));
+    /* Accounts for theme color, unless a background color is specified (i.e. from Graded Group Set) */
 
-    min-width: auto; /* Needed for scrollable view to work */
+    min-width: auto;
+    /* Needed for scrollable view to work */
     padding-inline-end: var(--perseus-multiple-choice-spacing);
     /* The following transform will cause a new reference layer for its descendants,
            which we use to position the indicator and the scroll fade in a fixed place while scrolling.
@@ -43,7 +36,8 @@
 }
 
 .choice-list:dir(rtl) {
-    --perseus-multiple-choice-fade-direction: 270deg; /* Flip to right to left when in RTL mode */
+    --perseus-multiple-choice-fade-direction: 270deg;
+    /* Flip to right to left when in RTL mode */
 }
 
 /* FADE BARS FOR SCROLLING
@@ -58,21 +52,11 @@
 */
 .choice-list:before {
     background: linear-gradient(
-        /* 90deg or 270deg */ var(--perseus-multiple-choice-fade-direction),
-        var(--perseus-multiple-choice-fade-color)
-            calc(
-                var(--perseus-multiple-choice-content-margin) +
-                    (var(--perseus-multiple-choice-spacing) / 2)
-            ),
-        transparent
-            calc(
-                var(--perseus-multiple-choice-content-margin) +
-                    var(--perseus-multiple-choice-spacing)
-            )
-            calc(100% - (var(--perseus-multiple-choice-spacing) * 1.5)),
-        var(--perseus-multiple-choice-fade-color)
-            calc(100% - var(--perseus-multiple-choice-spacing))
-    );
+            /* 90deg or 270deg */
+            var(--perseus-multiple-choice-fade-direction),
+            var(--perseus-multiple-choice-fade-color) calc(var(--perseus-multiple-choice-content-margin) + (var(--perseus-multiple-choice-spacing) / 2)),
+            transparent calc(var(--perseus-multiple-choice-content-margin) + var(--perseus-multiple-choice-spacing)) calc(100% - (var(--perseus-multiple-choice-spacing) * 1.5)),
+            var(--perseus-multiple-choice-fade-color) calc(100% - var(--perseus-multiple-choice-spacing)));
     content: "";
     display: block;
     height: 100%;
@@ -85,8 +69,10 @@
     flex-direction: column;
     gap: calc(var(--perseus-multiple-choice-indicator-font-size) / 4);
     margin-inline-start: var(--perseus-multiple-choice-content-margin);
-    position: relative; /* Needed to enable the z-index to work */
-    z-index: -1; /* Ensures that the content is below the indicator and scroll fade */
+    position: relative;
+    /* Needed to enable the z-index to work */
+    z-index: -1;
+    /* Ensures that the content is below the indicator and scroll fade */
 }
 
 .instructions {
@@ -101,7 +87,8 @@
 }
 
 .rationale {
-    display: block !important; /* Override the overly broad rule in radio.css causing all <div> and <p> tags to be inline. */
+    display: block !important;
+    /* Override the overly broad rule in radio.css causing all <div> and <p> tags to be inline. */
     font-size: var(--wb-font-size-medium);
     line-height: var(--wb-font-lineHeight-medium);
 }
@@ -111,8 +98,5 @@
 }
 
 .review-answers {
-    --perseus-multiple-choice-content-margin: calc(
-        var(--perseus-multiple-choice-spacing) +
-            var(--perseus-multiple-choice-indicator-correct-size)
-    );
+    --perseus-multiple-choice-content-margin: calc(var(--perseus-multiple-choice-spacing) + var(--perseus-multiple-choice-indicator-correct-size));
 }
