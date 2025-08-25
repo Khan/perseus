@@ -39,7 +39,7 @@ const INTERNALLY_HOSTED_URL_RE = new RegExp(
     "^(https?|web\\+graphie)://[^/]*" + INTERNALLY_HOSTED_DOMAINS,
 );
 
-type Props = Changeable.ChangeableProps & {
+interface Props extends Changeable.ChangeableProps {
     apiOptions: APIOptions;
 
     title: string;
@@ -49,7 +49,7 @@ type Props = Changeable.ChangeableProps & {
     labels: ReadonlyArray<string>;
     alt: string;
     caption: string;
-};
+}
 
 type State = {
     backgroundImageError?: string;
