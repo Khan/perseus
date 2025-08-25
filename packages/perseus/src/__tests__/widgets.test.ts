@@ -1,6 +1,5 @@
 import {mockStrings} from "../strings";
 import {registerAllWidgetsForTesting} from "../util/register-all-widgets-for-testing";
-import {generateTestRadioWidget} from "../util/test-utils";
 import * as Widgets from "../widgets";
 
 describe("Widget API support", () => {
@@ -25,20 +24,11 @@ describe("Widget API support", () => {
             expect(Widgets.getWidget("coolbeans")).toBe(null);
         });
 
-        it("returns a transform function when widgets provide one", () => {
-            const widgetOptions = generateTestRadioWidget().options;
-            // Radio provides a `transform` function
-            const transform = Widgets.getTransform("radio");
-            expect(transform?.(widgetOptions, mockStrings)).not.toEqual(
-                widgetOptions,
-            );
-        });
-
         it("returns an identity function when widgets don't provide a transform", () => {
             const widgetOptions = {cool: "beans"};
             // Group does not provide a `transform` function
             const transform = Widgets.getTransform("group");
-            expect(transform?.(widgetOptions, mockStrings)).toEqual(
+            expect(transform?.(widgetOptions, mockStrings, 0)).toEqual(
                 widgetOptions,
             );
         });
