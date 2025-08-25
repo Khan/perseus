@@ -3,16 +3,14 @@ import * as React from "react";
 
 import Editor from "../../editor";
 
-import type {APIOptions, Changeable} from "@khanacademy/perseus";
+import type {APIOptions} from "@khanacademy/perseus";
 import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
-
-type ChangeFn = typeof Changeable.change;
 
 const {InfoTip} = components;
 
 interface ImageSettingsProps extends PerseusImageWidgetOptions {
     apiOptions: APIOptions;
-    onChange: ChangeFn;
+    onChange: (newValues: Partial<PerseusImageWidgetOptions>) => void;
 }
 
 export default function ImageSettings({
@@ -69,7 +67,7 @@ export default function ImageSettings({
                         content={alt}
                         onChange={(props) => {
                             if (props.content != null) {
-                                onChange("alt", props.content);
+                                onChange({alt: props.content});
                             }
                         }}
                         widgetEnabled={false}
@@ -85,7 +83,7 @@ export default function ImageSettings({
                         content={caption}
                         onChange={(props) => {
                             if (props.content != null) {
-                                onChange("caption", props.content);
+                                onChange({caption: props.content});
                             }
                         }}
                         widgetEnabled={false}

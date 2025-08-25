@@ -1,15 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {
-    components,
-    Changeable,
-    EditorJsonify,
-    Util,
-} from "@khanacademy/perseus";
+import {components, EditorJsonify, Util} from "@khanacademy/perseus";
 import {
     imageLogic,
     type ImageDefaultWidgetOptions,
     type Range,
     type Size,
+    type PerseusImageWidgetOptions,
 } from "@khanacademy/perseus-core";
 import * as React from "react";
 import _ from "underscore";
@@ -19,8 +15,6 @@ import BlurInput from "../../components/blur-input";
 import ImageSettings from "./image-settings";
 
 import type {APIOptions} from "@khanacademy/perseus";
-
-type ChangeFn = typeof Changeable.change;
 
 const {InfoTip} = components;
 
@@ -39,7 +33,7 @@ const INTERNALLY_HOSTED_URL_RE = new RegExp(
     "^(https?|web\\+graphie)://[^/]*" + INTERNALLY_HOSTED_DOMAINS,
 );
 
-interface Props extends Changeable.ChangeableProps {
+interface Props {
     apiOptions: APIOptions;
 
     title: string;
@@ -49,6 +43,7 @@ interface Props extends Changeable.ChangeableProps {
     labels: ReadonlyArray<string>;
     alt: string;
     caption: string;
+    onChange: (newValues: Partial<PerseusImageWidgetOptions>) => void;
 }
 
 type State = {
@@ -81,10 +76,6 @@ class ImageEditor extends React.Component<Props> {
         this._isMounted = false;
     }
 
-    change: ChangeFn = (...args) => {
-        return Changeable.change.apply(this, args);
-    };
-
     setUrl(url, width, height, silent) {
         // Because this calls into WidgetEditor._handleWidgetChange, which
         // checks for this widget's ref to serialize it.
@@ -99,15 +90,11 @@ class ImageEditor extends React.Component<Props> {
         image.url = url;
         image.width = width;
         image.height = height;
-        const box = [image.width, image.height];
-        this.props.onChange(
-            {
-                backgroundImage: image,
-                box: box,
-            },
-            null,
-            silent,
-        );
+        const box = [image.width, image.height] satisfies [number, number];
+        this.props.onChange({
+            backgroundImage: image,
+            box: box,
+        });
     }
 
     // silently load the image when the component mounts
@@ -179,7 +166,7 @@ class ImageEditor extends React.Component<Props> {
                     <ImageSettings
                         apiOptions={this.props.apiOptions}
                         backgroundImage={backgroundImage}
-                        onChange={this.change}
+                        onChange={this.props.onChange}
                     />
                 )}
             </div>
