@@ -433,3 +433,35 @@ export const overflowContentInGradedGroupSet: PerseusRenderer = {
         },
     },
 };
+
+export const choicesWithGraphie: PerseusRenderer = {
+    ...radioQuestionBuilder()
+        .withContent(
+            "The double number line shows that it takes $4$ hours for Karin to fold $28$ paper cranes.\n\n" +
+                "![A double number line with 5 equally spaced tick marks. The line labeled Hours, reads from left to right: 0, three unlabeled tick marks, 4. " +
+                "The line labeled Cranes, reads from left to right: 0, three unlabeled tick marks, 28.]" +
+                "(web+graphie://ka-perseus-graphie.s3.amazonaws.com/669d6011774f3c0f6809553d210b4f51b7e3e4fe)\n\n" +
+                "**Select the double number line that shows the other values of hours and cranes.**\n\n[[☃ radio 1]]",
+        )
+        .addChoice(
+            "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 40, 80, 120, 160.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/e4bdfd23b56729130cbd113a03c5792bb8790247)",
+            {correct: true},
+        )
+        .addChoice(
+            "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 80, 100, 120, 140.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/ef0bd0163c21f51752bda0a4102dc29818c75463)",
+            {correct: false},
+        )
+        .build(),
+    images: {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/def25e9c056a6f782f5a8492ae55ee85670f0ab7":
+            {
+                width: 398,
+                height: 80,
+            },
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/2b86af8e76b455f59e53a25a1b577b35a5414216":
+            {
+                width: 398,
+                height: 80,
+            },
+    },
+};
