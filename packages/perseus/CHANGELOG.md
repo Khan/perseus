@@ -1,5 +1,17 @@
 # @khanacademy/perseus
 
+## 67.0.1
+
+### Patch Changes
+
+-   [#2826](https://github.com/Khan/perseus/pull/2826) [`9db2c5a4a1`](https://github.com/Khan/perseus/commit/9db2c5a4a1d2b83d18c9605cf87b7ebabb832ad0) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Fix how Graphie text is placed when inside a choice
+
+*   [#2822](https://github.com/Khan/perseus/pull/2822) [`4b5a15745e`](https://github.com/Khan/perseus/commit/4b5a15745e22a0a45a8d86d2a87b4eb138a2c47c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Fix missing styling when showing solution in graded group
+
+-   [#2821](https://github.com/Khan/perseus/pull/2821) [`3fb39e4a2f`](https://github.com/Khan/perseus/commit/3fb39e4a2fda3890c99d3551f403cfe31884547c) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix mobile new radio widget scroll styling removing extra spaces.
+
+*   [#2824](https://github.com/Khan/perseus/pull/2824) [`27304a4c22`](https://github.com/Khan/perseus/commit/27304a4c229967853d05b09bf8ff0849544fa8e3) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Modernize the Image widget code
+
 ## 67.0.0
 
 ### Major Changes
