@@ -19,7 +19,19 @@ const defaultBackgroundImage = {
     height: 0,
 } as const;
 
-type Props = WidgetProps<PerseusImageWidgetOptions>;
+type ExternalProps = WidgetProps<PerseusImageWidgetOptions>;
+
+export interface Props extends ExternalProps {
+    alignment: NonNullable<ExternalProps["alignment"]>;
+    title: NonNullable<ExternalProps["title"]>;
+    range: NonNullable<ExternalProps["range"]>;
+    box: NonNullable<ExternalProps["box"]>;
+    backgroundImage: NonNullable<ExternalProps["backgroundImage"]>;
+    labels: NonNullable<ExternalProps["labels"]>;
+    alt: NonNullable<ExternalProps["alt"]>;
+    caption: NonNullable<ExternalProps["caption"]>;
+    linterContext: NonNullable<ExternalProps["linterContext"]>;
+}
 
 interface DefaultProps extends Partial<Props> {
     alignment: Props["alignment"];
