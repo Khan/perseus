@@ -60,10 +60,8 @@ type Props = {
     // so it must be optional
     reviewModeRubric?: PerseusRadioWidgetOptions | null;
     reviewMode: boolean;
-    // A callback indicating that this choice has changed. Its argument is
-    // an object with a `checked` key. It contains an array of boolean values,
-    // specifying the new checked value of each choice.
-    onChange: (newValues: {checked: ReadonlyArray<boolean>}) => void;
+    // A callback indicating that this choice has changed. Its argument is an array of choice IDs for all currently selected choices
+    onChange: (checkedChoiceIds: ReadonlyArray<string>) => void;
     registerFocusFunction?: (arg1: FocusFunction) => void;
     // Whether this widget was the most recently used widget in this
     // Renderer. Determines whether we'll auto-scroll the page upon
@@ -164,29 +162,25 @@ const BaseRadio = function ({
     //
     // So, given the new values for a particular choice, compute the new values
     // for all choices, and pass them to `onChange`.
-    //
-    // `newValues` is an object with a `checked` key. It contains a boolean value
-    // specifying the new checked value of this choice.
-    function updateChoice(
-        choiceIndex: number,
-        newValues: Readonly<{checked: boolean}>,
-    ): void {
-        // Get the baseline `checked` values. If we're checking a new answer
-        // and multiple-select is not on, we should clear all choices to be
-        // unchecked. Otherwise, we should copy the old checked values.
-        let newCheckedList;
-        if (newValues.checked && !multipleSelect) {
-            newCheckedList = choices.map((_) => false);
+    function updateChoice(choiceId: string, checked: boolean): void {
+        const checkedChoiceIds: string[] = [];
+
+        if (checked && !multipleSelect) {
+            checkedChoiceIds.push(choiceId);
+        } else if (checked && multipleSelect) {
+            // Multi-select mode + checking: add to existing
+            const currentCheckedIds = choices
+                .filter((choice) => choice.checked)
+                .map((choice) => choice.id);
+            checkedChoiceIds.push(...currentCheckedIds, choiceId);
         } else {
-            newCheckedList = choices.map((c) => c.checked);
+            // Unchecking: remove this choice from checked list
+            const currentCheckedIds = choices
+                .filter((choice) => choice.checked && choice.id !== choiceId)
+                .map((choice) => choice.id);
+            checkedChoiceIds.push(...currentCheckedIds);
         }
-
-        // Update this choice's `checked` values.
-        newCheckedList[choiceIndex] = newValues.checked;
-
-        onChange({
-            checked: newCheckedList,
-        });
+        onChange(checkedChoiceIds);
     }
 
     // register a callback with the parent that allows
@@ -277,7 +271,7 @@ const BaseRadio = function ({
                                 return;
                             }
 
-                            updateChoice(i, newValues);
+                            updateChoice(choice.id, newValues.checked);
                         },
                     } as const;
 
@@ -354,9 +348,7 @@ const BaseRadio = function ({
                                 // radio icon, then we want to trigger the
                                 // check by flipping the choice of the icon.
                                 if (elem.getAttribute("data-is-radio-icon")) {
-                                    updateChoice(i, {
-                                        checked: !choice.checked,
-                                    });
+                                    updateChoice(choice.id, !choice.checked);
                                     return;
                                 }
                                 elem = elem.parentNode;
