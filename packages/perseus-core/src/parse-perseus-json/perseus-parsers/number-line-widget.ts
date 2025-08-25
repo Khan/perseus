@@ -29,7 +29,10 @@ export const parseNumberLineWidget = parseWidget(
         labelRange: array(nullable(union(number).or(emptyStringToNull).parser)),
         labelStyle: string,
         labelTicks: boolean,
-        isTickCtrl: optional(nullable(boolean)),
+        // NOTE(matthewcurtis): I copied the default isTickCtrl from
+        // number-line.tsx. See the parse-perseus-json/README.md for
+        // an explanation of why we want to duplicate the default here.
+        isTickCtrl: defaulted(boolean, () => false),
         isInequality: defaulted(boolean, () => false),
         divisionRange: array(number),
         numDivisions: optional(nullable(number)),

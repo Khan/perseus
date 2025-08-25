@@ -209,6 +209,7 @@ describe("number-line widget", () => {
                 showTooltips: false,
                 snapDivisions: 1,
                 tickStep: 1,
+                isTickCtrl: false,
             };
         }
 
@@ -273,6 +274,7 @@ describe("number-line widget", () => {
         numDivisions: null,
         divisionRange: [1, 10],
         correctX: -2.5,
+        isTickCtrl: false,
     };
 
     test("answerless data doesn't contain answers", () => {
