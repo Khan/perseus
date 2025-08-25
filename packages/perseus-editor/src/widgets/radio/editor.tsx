@@ -296,7 +296,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
                 {this.props.choices.map((choice, index) => (
                     <RadioOptionSettings
-                        key={`choice-${index}}`}
+                        key={`choice-${choice.id}}`}
                         index={index}
                         choice={choice}
                         multipleSelect={this.props.multipleSelect}

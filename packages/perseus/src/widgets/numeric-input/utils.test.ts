@@ -1,6 +1,11 @@
 import {mockStrings} from "../../strings";
 
-import {generateExamples, shouldShowExamples, unionAnswerForms} from "./utils";
+import {
+    generateExamples,
+    normalizeCorrectAnswerForms,
+    shouldShowExamples,
+    unionAnswerForms,
+} from "./utils";
 
 import type {PerseusNumericInputAnswerForm} from "@khanacademy/perseus-core";
 
@@ -189,5 +194,95 @@ describe("unionAnswerForms", () => {
 
         // Assert
         expect(result).toEqual(expected);
+    });
+});
+
+describe("normalizeCorrectAnswerForms", () => {
+    it("pairs answer forms with `simplify` values", () => {
+        const result = normalizeCorrectAnswerForms([
+            {
+                status: "correct",
+                maxError: null,
+                strict: true,
+                value: 0.5,
+                simplify: "required",
+                answerForms: ["proper"],
+                message: "",
+            },
+        ]);
+        expect(result).toEqual([
+            {
+                simplify: "required",
+                name: "proper",
+            },
+        ]);
+    });
+
+    it("handles multiple answerForms in one answer", () => {
+        const result = normalizeCorrectAnswerForms([
+            {
+                status: "correct",
+                maxError: null,
+                strict: true,
+                value: 0.5,
+                simplify: "required",
+                answerForms: ["proper", "decimal"],
+                message: "",
+            },
+        ]);
+        expect(result).toEqual([
+            {
+                simplify: "required",
+                name: "proper",
+            },
+            {
+                name: "decimal",
+                simplify: "required",
+            },
+        ]);
+    });
+
+    it("handles no answer forms in one answer", () => {
+        const result = normalizeCorrectAnswerForms([
+            {
+                status: "correct",
+                maxError: null,
+                strict: true,
+                value: 0.5,
+                simplify: "required",
+                answerForms: [],
+                message: "",
+            },
+        ]);
+        expect(result).toEqual([]);
+    });
+
+    it("only uses answer forms from correct answers", () => {
+        const result = normalizeCorrectAnswerForms([
+            {
+                status: "correct",
+                maxError: null,
+                strict: true,
+                value: 0.5,
+                simplify: "required",
+                answerForms: ["proper"],
+                message: "",
+            },
+            {
+                status: "wrong",
+                maxError: null,
+                strict: true,
+                value: 0.5,
+                simplify: "required",
+                answerForms: ["decimal"],
+                message: "",
+            },
+        ]);
+        expect(result).toEqual([
+            {
+                simplify: "required",
+                name: "proper",
+            },
+        ]);
     });
 });

@@ -291,16 +291,6 @@ export type APIOptions = Readonly<{
      * Define the feature flag name in packages/perseus-core/src/feature-flags.ts
      */
     flags?: Record<(typeof PerseusFeatureFlags)[number], boolean>;
-    /**
-     * This is a callback function that returns all of the Widget props
-     * after they have been transformed by the widget's transform function.
-     * This is useful for when we need to know how a widget has shuffled its
-     * the available choices.
-     *
-     * @deprecated [LEMS-3185] this is externalizing an internal implementation
-     * detail similar to serialized state
-     */
-    onWidgetStartProps?: (widgets: PerseusWidgetsMap) => void;
 }>;
 
 type TeXProps = {

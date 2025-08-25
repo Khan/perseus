@@ -497,7 +497,7 @@ class Renderer
         allWidgetInfo: PerseusWidgetsMap,
         props: Props,
     ) => PerseusWidgetsMap = (allWidgetInfo, props) => {
-        const {apiOptions, problemNum} = props;
+        const {problemNum} = props;
         const widgetsStartProps: PerseusWidgetsMap = {};
         const {strings} = this.props;
         entries(allWidgetInfo).forEach(([key, widgetInfo]) => {
@@ -507,9 +507,6 @@ class Renderer
                 problemNum,
             );
         });
-
-        // Call the onWidgetStartProps callback if it exists
-        apiOptions?.onWidgetStartProps?.(widgetsStartProps);
 
         return widgetsStartProps;
     };

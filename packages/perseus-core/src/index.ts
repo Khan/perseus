@@ -202,6 +202,11 @@ export {
     getImageSizeModern,
 } from "./utils/util.graphie";
 
+export {
+    generateImageOptions,
+    generateImageWidget,
+} from "./utils/generators/image-widget-generator";
+
 import {registerCoreWidgets} from "./widgets/core-widget-registry";
 
 registerCoreWidgets();

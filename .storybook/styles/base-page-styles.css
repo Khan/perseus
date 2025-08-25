@@ -1,0 +1,43 @@
+@layer shared {
+    /* This will mimic the production base page styles. */
+    html {
+        /* NOTE: We set the font size proportionally to 62.5% to make it easier to
+        calculate rem units. This is because the default font size is 14px, and
+        we want to let users to override the font size in their browser settings. */
+        font-size: 62.5%;
+        height: 100%;
+    }
+
+    body {
+        /* Setting to this rem value to work with the 62.5% font size set on the
+        html element. This allow us to use 10px as the base font size for scaling
+        rem units properly. */
+        font-size: var(--wb-sizing-size_140);
+        line-height: var(--wb-sizing-size_140);
+        height: 100%;
+        margin: var(--wb-sizing-size_0);
+        color: var(--wb-semanticColor-core-foreground-neutral-strong);
+    }
+
+    body,
+    footer {
+        /* Needs !important because we might load shared.css later */
+        min-width: 0 !important;
+    }
+
+    .box-sizing-border-box-reset {
+        box-sizing: border-box;
+    }
+
+    .box-sizing-border-box-reset * {
+        box-sizing: inherit;
+    }
+
+    .box-sizing-content-box-reset {
+        box-sizing: content-box;
+    }
+
+    .box-sizing-content-box-reset * {
+        box-sizing: inherit;
+    }
+}

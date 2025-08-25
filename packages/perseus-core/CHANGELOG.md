@@ -1,5 +1,25 @@
 # @khanacademy/perseus-core
 
+## 18.8.0
+
+### Minor Changes
+
+-   [#2813](https://github.com/Khan/perseus/pull/2813) [`9a5605b82c`](https://github.com/Khan/perseus/commit/9a5605b82ca6038f326bf70c6d0959bb2227b754) Thanks [@benchristel](https://github.com/benchristel)! - Allow the `message` property of `PerseusIFrameUserInput` to be `undefined`.
+
+### Patch Changes
+
+-   [#2809](https://github.com/Khan/perseus/pull/2809) [`aab0bf4b8b`](https://github.com/Khan/perseus/commit/aab0bf4b8bcb10347f24854403ee27581212df5c) Thanks [@nishasy](https://github.com/nishasy)! - [Image](DX) Add an image generator + use it in testdata
+
+## 18.7.0
+
+### Minor Changes
+
+-   [#2786](https://github.com/Khan/perseus/pull/2786) [`52b2b3ae54`](https://github.com/Khan/perseus/commit/52b2b3ae54953ff6969e8962858d46d025661be8) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Add `showAxisArrows` field to Interactive Graph editor
+
+### Patch Changes
+
+-   [#2807](https://github.com/Khan/perseus/pull/2807) [`62029ee700`](https://github.com/Khan/perseus/commit/62029ee700db45a646a0addf0e90ff4df73aef3a) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Updates radio's index.ts file to include default values for content and choice ids
+
 ## 18.6.0
 
 ### Minor Changes

@@ -101,6 +101,7 @@ class Video extends React.Component<Props> implements Widget {
                         height={DEFAULT_HEIGHT}
                         src={url}
                         allowFullScreen={true}
+                        allow="autoplay"
                     />
                 </FixedToResponsive>
                 <VideoTranscriptLink location={location} />

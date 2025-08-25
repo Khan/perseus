@@ -7,7 +7,7 @@ import {testDependencies} from "../../../../../../testing/test-dependencies";
 
 import InteractiveGraphSettings from "./interactive-graph-settings";
 
-import type {Range} from "@khanacademy/perseus-core";
+import type {Range, ShowAxisArrows} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 import "@testing-library/jest-dom"; // Imports custom matchers
@@ -636,4 +636,97 @@ describe("InteractiveGraphSettings", () => {
     );
 
     test("Auto-updates steps (y) when range is changed", async () => {});
+
+    describe("Axis arrow switches", () => {
+        const defaultShowAxisArrows: ShowAxisArrows = {
+            xMin: true,
+            yMin: true,
+            xMax: true,
+            yMax: true,
+        };
+
+        test("Renders axis arrow switches as all true by default", () => {
+            // Arrange
+
+            // Act
+            render(<InteractiveGraphSettings onChange={() => {}} />);
+
+            // Assert
+            expect(screen.getByRole("switch", {name: "x min"})).toBeChecked();
+            expect(screen.getByRole("switch", {name: "y min"})).toBeChecked();
+            expect(screen.getByRole("switch", {name: "x max"})).toBeChecked();
+            expect(screen.getByRole("switch", {name: "y max"})).toBeChecked();
+        });
+
+        test.each([
+            {axis: "xMin", axisLabel: "x min"},
+            {axis: "yMin", axisLabel: "y min"},
+            {axis: "xMax", axisLabel: "x max"},
+            {axis: "yMax", axisLabel: "y max"},
+        ])(
+            "Renders axis arrows switches as individually false (${axis})",
+            async ({axis, axisLabel}) => {
+                // Arrange
+
+                // Act
+                const onChange = jest.fn();
+                render(
+                    <InteractiveGraphSettings
+                        onChange={onChange}
+                        showAxisArrows={{
+                            ...defaultShowAxisArrows,
+                            // Set the axis arrow being tested to false.
+                            [axis]: false,
+                        }}
+                    />,
+                );
+
+                // Assert
+                const arrowSwitch = screen.getByRole("switch", {
+                    name: axisLabel,
+                });
+                // `not.toBeChecked` doesn't work here.
+                // We have to check if the attribute is null instead.
+                expect(arrowSwitch.getAttribute("checked")).toBeNull();
+            },
+        );
+
+        test.each([
+            {axis: "xMin", axisLabel: "x min"},
+            {axis: "yMin", axisLabel: "y min"},
+            {axis: "xMax", axisLabel: "x max"},
+            {axis: "yMax", axisLabel: "y max"},
+        ])(
+            "Calls onChange when show axis arrows is changed (${axis})",
+            async ({axis, axisLabel}) => {
+                // Arrange
+                const onChange = jest.fn();
+                render(
+                    <InteractiveGraphSettings
+                        onChange={onChange}
+                        showAxisArrows={defaultShowAxisArrows}
+                    />,
+                );
+
+                // Act
+                const arrowSwitch = screen.getByRole("switch", {
+                    name: axisLabel,
+                });
+                await userEvent.click(arrowSwitch);
+
+                // Assert
+                await waitFor(() =>
+                    expect(onChange).toHaveBeenCalledWith(
+                        expect.objectContaining({
+                            showAxisArrows: {
+                                ...defaultShowAxisArrows,
+                                [axis]: false,
+                            },
+                        }),
+                        undefined,
+                    ),
+                );
+            },
+        );
+    });
 });
