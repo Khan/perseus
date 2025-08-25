@@ -34,8 +34,6 @@ type Props = {
     answerArea?: PerseusAnswerArea | null; // related to the question,
     // TODO(CP-4838): Should this be a required prop?
     contentPaths?: ReadonlyArray<string>;
-    /** "Power user" mode. Shows the raw JSON of the question. */
-    developerMode: boolean;
     hints?: ReadonlyArray<Hint>; // related to the question,
     /** A function which takes a file object (guaranteed to be an image) and
      * a callback, then calls the callback with the url where the image
@@ -45,11 +43,22 @@ type Props = {
     imageUploader?: ImageUploader;
     /** The content ID of the AssessmentItem being edited. */
     itemId: string;
-    /** Whether the question is displaying as JSON or if it is
-     * showing the editor itself with the rendering
-     * Only used in the perseus demos. Consider removing.
+    /**
+     * If both jsonMode and developerMode are true, an editable text box with
+     * the item JSON is displayed. If either jsonMode or developerMode is
+     * false, the regular editor GUI is hidden.
+     *
+     * @see {@linkcode Props.developerMode}
      */
     jsonMode: boolean;
+    /**
+     * If both jsonMode and developerMode are true, an editable text box with
+     * the item JSON is displayed. If either jsonMode or developerMode is
+     * false, the regular editor GUI is hidden.
+     *
+     * @see {@linkcode Props.jsonMode}
+     */
+    developerMode: boolean;
     /** A function which is called with the new JSON blob of content. */
     onChange: ChangeHandler;
     /** A function which is called when the preview device changes. */
@@ -132,19 +141,6 @@ class EditorPage extends React.Component<Props, State> {
         this._isMounted = false;
     }
 
-    toggleJsonMode: () => void = () => {
-        this.setState(
-            {
-                json: this.serialize({keepDeletedWidgets: true}),
-            },
-            () => {
-                this.props.onChange({
-                    jsonMode: !this.props.jsonMode,
-                });
-            },
-        );
-    };
-
     updateRenderer() {
         // Some widgets (namely the image widget) like to call onChange before
         // anything has actually been mounted, which causes problems here. We
@@ -208,6 +204,7 @@ class EditorPage extends React.Component<Props, State> {
     handleChange: ChangeHandler = (toChange, cb, silent) => {
         const newProps = _(this.props).pick("question", "hints", "answerArea");
         _(newProps).extend(toChange);
+        this.setState({json: this.serialize()});
         this.props.onChange(newProps, cb, silent);
     };
 
@@ -237,20 +234,6 @@ class EditorPage extends React.Component<Props, State> {
         return (
             <div id="perseus" className={className}>
                 <div style={{marginBottom: 10}}>
-                    {this.props.developerMode && (
-                        <span>
-                            <label>
-                                {" "}
-                                Developer JSON Mode:{" "}
-                                <input
-                                    type="checkbox"
-                                    checked={this.props.jsonMode}
-                                    onChange={this.toggleJsonMode}
-                                />
-                            </label>{" "}
-                        </span>
-                    )}
-
                     {!this.props.jsonMode && (
                         <ViewportResizer
                             deviceType={this.props.previewDevice}
