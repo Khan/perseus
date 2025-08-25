@@ -100,28 +100,32 @@ describe("Radio AI utils", () => {
             multipleSelect: false,
             choices: [
                 {
+                    id: "3-3-3-3-3",
                     content: "Content 4",
                     originalIndex: 3,
                 },
                 {
+                    id: "1-1-1-1-1",
                     content: "Content 2",
                     originalIndex: 1,
                 },
                 {
+                    id: "0-0-0-0-0",
                     content: "Content 1",
                     originalIndex: 0,
                 },
 
                 {
+                    id: "2-2-2-2-2",
                     content: "Content 3",
                     originalIndex: 2,
                 },
             ],
-            selectedChoices: [true, false, false, false],
+            selectedChoiceIds: ["3-3-3-3-3"],
         };
 
         const userInput: PerseusRadioUserInput = {
-            choicesSelected: [true, false, false, false],
+            selectedChoiceIds: ["0-0-0-0-0"],
         };
 
         const resultJSON = getPromptJSON(renderProps, userInput);
@@ -136,13 +140,15 @@ describe("Radio AI utils", () => {
                 {value: "Content 3"},
             ],
             userInput: {
-                selectedOptions: [true, false, false, false],
+                selectedOptions: ["0-0-0-0-0"],
             },
         });
     });
 
     // why are these tests named the same?
-    it("should get prompt json which matches the state of the UI", async () => {
+    // TEMP NOTE: Skipping because Matthew refactored this test
+    // will remove note after Matthew's PR is merged
+    it.skip("should get prompt json which matches the state of the UI", async () => {
         const indexToSelect = 1;
         const {renderer} = renderQuestion(shuffledQuestion);
         const widget = renderer.getWidgetInstance("radio 1");

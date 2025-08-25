@@ -263,7 +263,7 @@ export type PerseusRadioRubric = {
 };
 
 export type PerseusRadioUserInput = {
-    choicesSelected: boolean[];
+    selectedChoiceIds: string[];
 };
 
 export type PerseusSorterRubric = {

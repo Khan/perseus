@@ -10,7 +10,7 @@ import type {ChoiceType} from "../multiple-choice-widget.new";
 
 type overrideProps = {
     choiceOverrides?: Partial<ChoiceType>;
-    onChoiceChange?: (choiceIndex: number, newCheckedState: boolean) => void;
+    onChoiceChange?: (choiceId: string, newCheckedState: boolean) => void;
     reviewMode?: boolean;
 };
 
@@ -249,7 +249,7 @@ describe("Multiple choice component", () => {
                 screen.getByRole("listitem").click();
             });
             expect(onChoiceChangeFn).toHaveBeenCalledTimes(1);
-            expect(onChoiceChangeFn.mock.calls[0][0]).toBe(0);
+            expect(onChoiceChangeFn.mock.calls[0][0]).toBe("choice-1");
             expect(typeof onChoiceChangeFn.mock.calls[0][1]).toBe("boolean");
         });
     });

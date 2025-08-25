@@ -57,7 +57,7 @@ function hasEmptyDINERWidgets(
             }
             case "radio": {
                 // see `validateRadio`
-                if (!input.choicesSelected.includes(true)) {
+                if (input.selectedChoiceIds.length === 0) {
                     return true;
                 }
                 break;

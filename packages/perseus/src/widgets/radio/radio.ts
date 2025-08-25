@@ -10,7 +10,6 @@ import type {WidgetExports} from "../../types";
 import type {
     PerseusRadioUserInput,
     PerseusRadioWidgetOptions,
-    RadioPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 // Transforms the choices for display.
@@ -114,11 +113,9 @@ const transform = (
     };
 };
 
-function getStartUserInput(
-    options: RadioPublicWidgetOptions,
-): PerseusRadioUserInput {
+function getStartUserInput(): PerseusRadioUserInput {
     return {
-        choicesSelected: options.choices.map(() => false),
+        selectedChoiceIds: [],
     };
 }
 
@@ -126,7 +123,9 @@ function getCorrectUserInput(
     options: PerseusRadioWidgetOptions,
 ): PerseusRadioUserInput {
     return {
-        choicesSelected: options.choices.map((option) => !!option.correct),
+        selectedChoiceIds: options.choices
+            .filter((option) => option.correct)
+            .map((option) => option.id),
     };
 }
 

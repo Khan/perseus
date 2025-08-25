@@ -698,7 +698,7 @@ export const getAnswerFromUserInput = (widgetType: string, userInput: any) => {
         case "numeric-input":
             return userInput.currentValue;
         case "radio":
-            return userInput.choicesSelected;
+            return userInput.selectedChoiceIds;
     }
     return userInput;
 };

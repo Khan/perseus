@@ -167,10 +167,7 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
      * @param choiceIndex - The index of the choice that changed
      * @param newCheckedState - Whether the choice is now selected
      */
-    handleChoiceChange = (
-        choiceIndex: number,
-        newCheckedState: boolean,
-    ): void => {
+    handleChoiceChange = (choiceId: string, newCheckedState: boolean): void => {
         const {
             choices,
             choiceStates,
@@ -179,21 +176,29 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
             trackInteraction,
         } = this.props;
 
-        // Get the baseline `checked` values from choiceStates
-        // If we're checking a new answer and multiple-select is not on,
-        // we should clear all choices to be unchecked.
-        // Otherwise, we should copy the old checked values.
-        let newCheckedList;
-        if (newCheckedState && !multipleSelect) {
-            newCheckedList = choices.map(() => false);
-        } else {
-            newCheckedList = choiceStates
-                ? choiceStates.map((state) => state.selected)
-                : choices.map(() => false);
-        }
+        const checkedChoiceIds: string[] = [];
 
-        // Update this choice's `checked` values.
-        newCheckedList[choiceIndex] = newCheckedState;
+        if (newCheckedState && !multipleSelect) {
+            checkedChoiceIds.push(choiceId);
+        } else if (newCheckedState && multipleSelect) {
+            // Multi-select mode + checking: add to existing
+            const currentSelectedIds = choiceStates
+                ? choiceStates
+                      .map((state, i) => ({
+                          selected: state.selected,
+                          id: choices[i].id,
+                      }))
+                      .filter((choice) => choice.selected)
+                      .map((choice) => choice.id)
+                : [];
+            checkedChoiceIds.push(...currentSelectedIds, choiceId);
+        } else {
+            // Unchecking: remove this choice from checked list
+            const currentCheckedIds = choices
+                .filter((choice) => choice.id !== choiceId)
+                .map((choice) => choice.id);
+            checkedChoiceIds.push(...currentCheckedIds);
+        }
 
         // Construct the baseline `choiceStates` objects. If this is the user's
         // first interaction with the widget, we'll need to initialize them to
@@ -212,9 +217,10 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
                   readOnly: false,
               }));
 
-        // Mutate the new `choiceState` objects, according to the new checked values
-        newChoiceStates.forEach((choiceState, i) => {
-            choiceState.selected = newCheckedList[i];
+        // Mutate the new `choiceState` objects, according to the checkedChoiceIds.
+        newChoiceStates.forEach((choiceState: ChoiceState, i) => {
+            const choiceId = choices[i].id;
+            choiceState.selected = checkedChoiceIds.includes(choiceId);
         });
 
         onChange({choiceStates: newChoiceStates});

@@ -43,7 +43,7 @@ describe("parseUserInputMap", () => {
     describe("invalid widget ID keys", () => {
         it("rejects an invalid widget ID", () => {
             const userInputMap = {
-                "radio -1": {choicesSelected: [false]},
+                "radio -1": {selectedChoiceIds: []},
             };
             const result = parseUserInputMap(userInputMap, ctx());
             expect(result).toEqual(
@@ -80,7 +80,7 @@ describe("parseUserInputMap", () => {
 
         it("rejects invalid radio user input", () => {
             const userInputMap = {
-                "radio 1": {choicesSelected: "not an array"},
+                "radio 1": {selectedChoiceIds: "not an array"},
             };
             const result = parseUserInputMap(userInputMap, ctx());
             expect(result).toEqual(anyFailure);
@@ -225,7 +225,7 @@ describe("parseUserInputMap", () => {
         it("stops at first invalid widget and provides appropriate error", () => {
             const userInputMap = {
                 "dropdown 1": {value: "invalid"},
-                "radio 2": {choicesSelected: [true]}, // this one is valid
+                "radio 2": {selectedChoiceIds: ["0-0-0-0-0"]}, // this one is valid
             };
             const result = parseUserInputMap(userInputMap, ctx());
 
@@ -265,7 +265,7 @@ describe("parseUserInputMap", () => {
                 "group 1": {
                     "dropdown 1": {value: 0},
                     "group 2": {
-                        "radio 1": {choicesSelected: [true, false]},
+                        "radio 1": {selectedChoiceIds: ["0-0-0-0-0"]},
                     },
                 },
             };
@@ -275,7 +275,7 @@ describe("parseUserInputMap", () => {
                     "group 1": {
                         "dropdown 1": {value: 0},
                         "group 2": {
-                            "radio 1": {choicesSelected: [true, false]},
+                            "radio 1": {selectedChoiceIds: ["0-0-0-0-0"]},
                         },
                     },
                 }),

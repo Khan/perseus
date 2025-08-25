@@ -187,7 +187,7 @@ describe("Radio serialization", () => {
 
         // Assert
         expect(
-            preAnswerState.question["radio 1"].choicesSelected,
+            preAnswerState.question["radio 1"].selectedChoiceIds,
         ).toBeUndefined();
         expect(postAnswerState.question["radio 1"]).toEqual(
             expectedSerializedRadio,
@@ -217,7 +217,7 @@ describe("Radio serialization", () => {
         // to show it's properly restored
         expect(preUserInput).toEqual({
             "radio 1": {
-                choicesSelected: [false, false, false, false],
+                selectedChoiceIds: [],
             },
         });
         expect(postUserInput).toEqual({
@@ -225,7 +225,7 @@ describe("Radio serialization", () => {
                 // note we unshuffle!
                 // in expectedSerializedRadio.choiceStates the first element
                 // is selected; here the last element is selected
-                choicesSelected: [false, false, false, true],
+                selectedChoiceIds: ["5-5-5-5-5"],
             },
         });
     });

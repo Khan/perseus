@@ -155,13 +155,13 @@ This versatile component handles all multiple-choice questions, supporting both 
         },
 
         // PerseusRadioUserInput
-        choicesSelected: {
+        selectedChoiceIds: {
             control: false,
             description:
-                "Array of booleans indicating which choices are selected by the user",
+                "Array of strings representing the IDs of choices that are selected by the user",
             table: {
                 category: "Perseus Radio User Input",
-                type: {summary: "boolean[]"},
+                type: {summary: "string[]"},
                 defaultValue: {summary: "[]"},
             },
         },

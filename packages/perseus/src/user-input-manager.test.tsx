@@ -380,7 +380,9 @@ describe("UserInputManager", () => {
                         <>
                             <p>
                                 User input is:{" "}
-                                {userInput["radio 1"].choicesSelected.join(" ")}
+                                {userInput["radio 1"].selectedChoiceIds.join(
+                                    " ",
+                                )}
                             </p>
                         </>
                     );
@@ -389,7 +391,7 @@ describe("UserInputManager", () => {
         );
 
         expect(
-            screen.getByText("User input is: true false"),
+            screen.getByText("User input is: 0-0-0-0-0"),
         ).toBeInTheDocument();
     });
 });

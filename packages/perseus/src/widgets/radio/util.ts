@@ -24,37 +24,36 @@ export function getUserInputFromSerializedState(
     props: Props,
     unshuffle: boolean = true,
 ): PerseusRadioUserInput {
+    const selectedChoiceIds: string[] = [];
+
     if (props.choiceStates) {
         const choiceStates = props.choiceStates;
-        const choicesSelected = choiceStates.map(() => false);
 
-        for (let i = 0; i < choicesSelected.length; i++) {
-            const index = unshuffle ? props.choices[i].originalIndex : i;
-
-            choicesSelected[index] = choiceStates[i].selected;
+        for (let i = 0; i < choiceStates.length; i++) {
+            if (choiceStates[i].selected) {
+                selectedChoiceIds.push(props.choices[i].id);
+            }
         }
-
         return {
-            choicesSelected,
+            selectedChoiceIds,
         };
-        // Support legacy choiceState implementation
     }
     /* c8 ignore if - props.values is deprecated */
     const {values} = props;
     if (values) {
-        const choicesSelected = [...values];
         const valuesLength = values.length;
 
-        for (let i = 0; i < valuesLength; i++) {
-            const index = unshuffle ? props.choices[i].originalIndex : i;
-            choicesSelected[index] = values[i];
+        for (let i = 0; i < valuesLength && i < props.choices.length; i++) {
+            if (values[i]) {
+                selectedChoiceIds.push(props.choices[i].id);
+            }
         }
         return {
-            choicesSelected,
+            selectedChoiceIds,
         };
     }
     // Nothing checked
     return {
-        choicesSelected: props.choices.map(() => false),
+        selectedChoiceIds,
     };
 }
