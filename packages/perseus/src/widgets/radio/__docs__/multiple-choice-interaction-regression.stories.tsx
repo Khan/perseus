@@ -22,7 +22,7 @@ type StoryArgs = {
 >;
 
 export default {
-    title: "Widgets/RadioNew/Widget Demo",
+    title: "Widgets/RadioNew/Visual Regression Tests/Interactive",
     component: ServerItemRendererWithDebugUI,
     tags: ["!autodocs"],
     parameters: {
