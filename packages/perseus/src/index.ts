@@ -156,7 +156,7 @@ export {
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
 export {
     default as UserInputManager,
-    sharedRestoreUserInputFromSerializedState,
+    deriveUserInputFromSerializedState,
 } from "./user-input-manager";
 
 export {makeSafeUrl} from "./widgets/phet-simulation";

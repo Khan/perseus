@@ -2,4 +2,4 @@
 "@khanacademy/perseus": minor
 ---
 
-Export sharedRestoreUserInputFromSerializedState from perseus
+Export deriveUserInputFromSerializedState from perseus
