@@ -13,7 +13,7 @@ import {action} from "storybook/actions";
 
 import EditorPageWithStorybookPreview from "../../__docs__/editor-page-with-storybook-preview";
 import {registerAllWidgetsAndEditorsForTesting} from "../../util/register-all-widgets-and-editors-for-testing";
-import ImageEditor from "../image-editor";
+import ImageEditor from "../image-editor/image-editor";
 
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
