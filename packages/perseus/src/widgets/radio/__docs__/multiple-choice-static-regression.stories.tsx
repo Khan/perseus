@@ -4,7 +4,11 @@ import * as React from "react";
 import {testDependenciesV2} from "../../../../../../testing/test-dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
-import {questionWithPassage} from "../__tests__/radio.testdata";
+import {
+    choicesWithImages,
+    overflowContentInGradedGroupSet,
+    questionWithPassage,
+} from "../__tests__/radio.testdata";
 import {radioQuestionBuilder} from "../radio-question-builder";
 
 import type {PerseusItem} from "@khanacademy/perseus-core";
@@ -17,14 +21,14 @@ type Story = StoryObj<typeof RadioQuestionRenderer>;
  */
 
 export default {
-    title: "Widgets/RadioNew/Visual Regression Tests",
+    title: "Widgets/RadioNew/Visual Regression Tests/Static",
     component: RadioQuestionRenderer,
     tags: ["!dev"],
     parameters: {
         docs: {
             description: {
                 component:
-                    "Regression tests for the radio widget, which will be used with Chromatic.",
+                    "Regression tests for the radio widget that do NOT need any interactions to test, which will be used with Chromatic. Stories are all displayed on one page.",
             },
         },
         chromatic: {disableSnapshot: false},
@@ -111,29 +115,15 @@ export const SingleSelectWithPassageRef: Story = {
     },
 };
 
-export const SingleSelectWithImages = {
+export const SingleSelectWithImages: Story = {
     args: {
         item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice(
-                    "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
-                    {correct: true},
-                )
-                .addChoice(
-                    "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
-                )
-                .addChoice(
-                    "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
-                )
-                .addChoice(
-                    "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
-                )
-                .build(),
+            question: choicesWithImages,
         }),
     },
 };
 
-export const SingleSelectWithImagesAndScroll = {
+export const SingleSelectWithImagesAndScroll: Story = {
     args: {
         item: generateTestPerseusItem({
             question: radioQuestionBuilder()
@@ -155,7 +145,7 @@ export const SingleSelectWithImagesAndScroll = {
     },
 };
 
-export const SingleSelectWithLongMathjax = {
+export const SingleSelectWithLongMathjax: Story = {
     args: {
         item: generateTestPerseusItem({
             question: radioQuestionBuilder()
@@ -171,7 +161,7 @@ export const SingleSelectWithLongMathjax = {
     },
 };
 
-export const SingleSelectWithLongText = {
+export const SingleSelectWithLongText: Story = {
     args: {
         item: generateTestPerseusItem({
             question: radioQuestionBuilder()
@@ -195,7 +185,7 @@ export const SingleSelectWithLongText = {
 
 // Multi Selection Mode
 
-export const MultiSelect = {
+export const MultiSelect: Story = {
     args: {
         item: generateTestPerseusItem({
             question: radioQuestionBuilder()
@@ -209,7 +199,7 @@ export const MultiSelect = {
     },
 };
 
-export const MultiSelectCountChoices = {
+export const MultiSelectCountChoices: Story = {
     args: {
         item: generateTestPerseusItem({
             question: radioQuestionBuilder()
@@ -225,7 +215,7 @@ export const MultiSelectCountChoices = {
     },
 };
 
-export const MultiSelectStatic = {
+export const MultiSelectStatic: Story = {
     args: {
         item: generateTestPerseusItem({
             question: radioQuestionBuilder()
@@ -240,7 +230,7 @@ export const MultiSelectStatic = {
     },
 };
 
-export const MultiSelectShowSolutions = {
+export const MultiSelectShowSolutions: Story = {
     args: {
         item: generateTestPerseusItem({
             question: radioQuestionBuilder()
@@ -255,7 +245,7 @@ export const MultiSelectShowSolutions = {
     },
 };
 
-export const MultiSelectRTL = {
+export const MultiSelectRTL: Story = {
     args: {
         item: generateTestPerseusItem({
             question: radioQuestionBuilder()
@@ -270,7 +260,7 @@ export const MultiSelectRTL = {
     },
 };
 
-export const MultiSelectWithLongMathjax = {
+export const MultiSelectWithLongMathjax: Story = {
     args: {
         item: generateTestPerseusItem({
             question: radioQuestionBuilder()
@@ -289,31 +279,7 @@ export const MultiSelectWithLongMathjax = {
     },
 };
 
-export const MultiSelectWithImages = {
-    args: {
-        item: generateTestPerseusItem({
-            question: radioQuestionBuilder()
-                .addChoice(
-                    "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
-                    {correct: true},
-                )
-                .addChoice(
-                    "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
-                    {correct: true},
-                )
-                .addChoice(
-                    "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
-                )
-                .addChoice(
-                    "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
-                )
-                .withMultipleSelect(true)
-                .build(),
-        }),
-    },
-};
-
-export const MultiSelectWithImagesAndScroll = {
+export const MultiSelectWithImagesAndScroll: Story = {
     args: {
         item: generateTestPerseusItem({
             question: radioQuestionBuilder()
@@ -339,7 +305,7 @@ export const MultiSelectWithImagesAndScroll = {
     },
 };
 
-export const MultiSelectWithLongText = {
+export const MultiSelectWithLongText: Story = {
     args: {
         item: generateTestPerseusItem({
             question: radioQuestionBuilder()
@@ -359,6 +325,16 @@ export const MultiSelectWithLongText = {
                 )
                 .withMultipleSelect(true)
                 .build(),
+        }),
+    },
+};
+
+// Other rendering contexts
+
+export const GradedGroupSetWithScroll: Story = {
+    args: {
+        item: generateTestPerseusItem({
+            question: overflowContentInGradedGroupSet,
         }),
     },
 };

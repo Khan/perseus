@@ -154,7 +154,10 @@ export {
     getQuadraticCoords,
     getAngleCoords,
 } from "./widgets/interactive-graphs/reducer/initialize-graph-state";
-export {default as UserInputManager} from "./user-input-manager";
+export {
+    default as UserInputManager,
+    deriveUserInputFromSerializedState,
+} from "./user-input-manager";
 
 export {makeSafeUrl} from "./widgets/phet-simulation";
 
