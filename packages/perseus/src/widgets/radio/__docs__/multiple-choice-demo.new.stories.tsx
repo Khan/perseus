@@ -5,6 +5,7 @@ import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-it
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
 import {
     questionWithPassage,
+    choicesWithGraphie,
     choicesWithImages,
     multiChoiceQuestionSimple,
     multiChoiceQuestion,
@@ -111,6 +112,14 @@ export const SingleSelect = {
     args: {
         item: generateTestPerseusItem({
             question: questionWithPassage,
+        }),
+    },
+};
+
+export const SelectWithGraphie = {
+    args: {
+        item: generateTestPerseusItem({
+            question: choicesWithGraphie,
         }),
     },
 };

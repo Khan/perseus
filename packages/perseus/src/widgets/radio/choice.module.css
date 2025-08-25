@@ -139,7 +139,13 @@
 
 /* Content has been created with this rule in place since the dawn of time, so we need to keep it */
 .choice :global(.paragraph),
-.choice :global(.paragraph) div,
+.choice
+    :global(.paragraph)
+    div:not(
+        :global(.graphie-container),
+        :global(.graphie),
+        :global(.unresponsive-svg-image)
+    ),
 .choice :global(.paragraph) p {
     display: inline;
 }
