@@ -1,5 +1,20 @@
 # @khanacademy/perseus-editor
 
+## 27.3.1
+
+### Patch Changes
+
+-   [#2823](https://github.com/Khan/perseus/pull/2823) [`a95e65d7e0`](https://github.com/Khan/perseus/commit/a95e65d7e06a3aa7b970f4b1586843df3f0c7f55) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Update the Storybook experience for Image Widget
+
+-   Updated dependencies [[`aab0bf4b8b`](https://github.com/Khan/perseus/commit/aab0bf4b8bcb10347f24854403ee27581212df5c), [`1970e9b660`](https://github.com/Khan/perseus/commit/1970e9b6606e4367718fafb86e98d86c2024c884), [`9a5605b82c`](https://github.com/Khan/perseus/commit/9a5605b82ca6038f326bf70c6d0959bb2227b754), [`38f92737fb`](https://github.com/Khan/perseus/commit/38f92737fbc63447a07e1308a65d97cfbc14fad3), [`8f3b0dce93`](https://github.com/Khan/perseus/commit/8f3b0dce93efd620be5d7c580fa1a3920ae689eb), [`527f20f156`](https://github.com/Khan/perseus/commit/527f20f1565aa8cd1a69db92ed4698043f96e9df), [`a95e65d7e0`](https://github.com/Khan/perseus/commit/a95e65d7e06a3aa7b970f4b1586843df3f0c7f55), [`e0471ecdfa`](https://github.com/Khan/perseus/commit/e0471ecdfabaecc2e154362eb99382f4974efc8b), [`1379e394f5`](https://github.com/Khan/perseus/commit/1379e394f5ea47dd12d7950854cf5f073359a256)]:
+    -   @khanacademy/perseus@67.0.0
+    -   @khanacademy/perseus-core@18.8.0
+    -   @khanacademy/keypad-context@3.1.5
+    -   @khanacademy/kmath@2.1.5
+    -   @khanacademy/math-input@26.1.6
+    -   @khanacademy/perseus-linter@4.2.5
+    -   @khanacademy/perseus-score@7.6.2
+
 ## 27.3.0
 
 ### Minor Changes
