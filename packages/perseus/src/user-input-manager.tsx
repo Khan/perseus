@@ -82,7 +82,7 @@ export function sharedInitializeUserInput(
  *
  * @deprecated - do not use in new code.
  */
-export function restoreUserInputFromSerializedState(
+export function sharedRestoreUserInputFromSerializedState(
     serializedState: unknown,
     widgetsMap: PerseusWidgetsMap,
 ): UserInputMap {
@@ -147,7 +147,10 @@ export default function UserInputManager(props: Props) {
         widgetOptions: PerseusWidgetsMap,
     ) {
         setUserInput(
-            restoreUserInputFromSerializedState(serializedState, widgetOptions),
+            sharedRestoreUserInputFromSerializedState(
+                serializedState,
+                widgetOptions,
+            ),
         );
     }
 

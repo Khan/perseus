@@ -17,7 +17,7 @@ import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import {
     sharedInitializeUserInput,
-    restoreUserInputFromSerializedState,
+    sharedRestoreUserInputFromSerializedState,
 } from "../../user-input-manager";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/group/group-ai-utils";
 
@@ -200,7 +200,7 @@ function getUserInputFromSerializedState(
     serializedState: unknown,
     widgetOptions: PerseusGroupWidgetOptions,
 ): PerseusGroupUserInput {
-    return restoreUserInputFromSerializedState(
+    return sharedRestoreUserInputFromSerializedState(
         serializedState,
         widgetOptions.widgets,
     );
