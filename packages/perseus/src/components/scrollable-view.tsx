@@ -45,12 +45,25 @@ function ScrollableView({
     const [canScrollStart, setCanScrollStart] = useState(false);
     const [canScrollEnd, setCanScrollEnd] = useState(false);
     const [isRtl, setIsRtl] = useState(false);
+    const [isScrolling, setIsScrolling] = useState(false);
+    const scrollableThreshold = React.useMemo(() => {
+        /**
+         * Determines the scrollable threshold based on device width to prevent
+         * scroll buttons from appearing when content is only barely overflowing
+         * (by less than 5-8px), which would create a poor UX with unnecessary
+         * scroll controls for minimal overflow. A higher threshold on mobile is
+         * used for better touch interaction and spacing optimization.
+         * - Mobile devices (≤767px width): Uses 8px threshold
+         * - Desktop devices (>767px width): Uses 5px threshold
+         */
+        return window.innerWidth <= 767 ? 8 : 5;
+    }, []);
 
     /**
      * Updates scroll state variables based on current scroll position.
      *
      * This function determines:
-     * 1. Whether the content is scrollable (content width > container width)
+     * 1. Whether the content is scrollable (content width > container width + threshold)
      * 2. Whether user can scroll towards the start of the content
      * 3. Whether user can scroll towards the end of the content
      *
@@ -79,7 +92,7 @@ function ScrollableView({
 
         // Only consider content scrollable if there's a meaningful amount to scroll
         // Using a slightly higher threshold to prevent micro-scrolling issues
-        const scrollableThreshold = 5; // 5px threshold
+        // Using the pre-calculated threshold to avoid performance issues during scroll events
         setIsScrollable(scrollWidth > clientWidth + scrollableThreshold);
 
         // In RTL mode, scrollLeft values work differently (can be negative)
@@ -98,12 +111,15 @@ function ScrollableView({
                 scrollLeft + clientWidth < scrollWidth - scrollableThreshold,
             );
         }
-    }, [isRtl]);
+    }, [isRtl, scrollableThreshold]);
 
     const scroll = (direction: "start" | "end") => {
-        if (!containerRef.current) {
-            return;
+        if (!containerRef.current || isScrolling) {
+            return; // Prevent rapid clicks while scrolling
         }
+
+        // Set scrolling state to prevent rapid clicks
+        setIsScrolling(true);
 
         const scrollNegative =
             (isRtl && direction !== "start") ||
@@ -124,6 +140,11 @@ function ScrollableView({
             left: scrollAmount,
             behavior: "smooth",
         });
+
+        // Clear scrolling state after a short delay to allow next scroll
+        setTimeout(() => {
+            setIsScrolling(false);
+        }, 150); // Short delay to prevent rapid clicking but allow normal usage
     };
 
     useEffect(() => {
