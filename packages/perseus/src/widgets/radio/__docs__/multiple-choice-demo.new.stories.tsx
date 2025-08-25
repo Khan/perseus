@@ -2,8 +2,10 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
+import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
 import {
     questionWithPassage,
+    choicesWithGraphie,
     choicesWithImages,
     multiChoiceQuestionSimple,
     multiChoiceQuestion,
@@ -114,6 +116,14 @@ export const SingleSelect = {
     },
 };
 
+export const SelectWithGraphie = {
+    args: {
+        item: generateTestPerseusItem({
+            question: choicesWithGraphie,
+        }),
+    },
+};
+
 export const SelectWithImages = {
     args: {
         item: generateTestPerseusItem({
@@ -162,10 +172,18 @@ export const MultiSelectWithScroll = {
     },
 };
 
-export const ScrollingInGradedGroupSet = {
+export const GradedGroupSetWithScroll = {
     args: {
         item: generateTestPerseusItem({
             question: overflowContentInGradedGroupSet,
+        }),
+    },
+};
+
+export const GradedGroup = {
+    args: {
+        item: generateTestPerseusItem({
+            question: groupedRadioRationaleQuestion,
         }),
     },
 };

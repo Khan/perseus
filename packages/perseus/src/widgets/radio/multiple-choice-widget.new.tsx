@@ -321,13 +321,10 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
         const choicesProps = this.prepareChoicesProps();
 
         // Extract props that need to be passed to the component
-        const {
-            apiOptions,
-            reviewMode,
-            multipleSelect,
-            countChoices,
-            numCorrect,
-        } = this.props;
+        const {apiOptions, multipleSelect, countChoices, numCorrect} =
+            this.props;
+        const reviewMode =
+            this.props.reviewMode || this.props.showSolutions === "all";
 
         const onChoiceChange =
             apiOptions.readOnly || reviewMode
