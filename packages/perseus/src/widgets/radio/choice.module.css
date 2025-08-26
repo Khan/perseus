@@ -38,7 +38,7 @@
 }
 
 .choice:not(.is-correct):has(> button[aria-pressed="true"]) {
-    color: var(--wb-semanticColor-core-foreground-instructive-default)
+    color: var(--wb-semanticColor-core-foreground-instructive-default);
 }
 
 /*****************
