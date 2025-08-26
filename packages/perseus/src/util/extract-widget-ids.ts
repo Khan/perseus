@@ -1,7 +1,7 @@
 import PerseusMarkdown from "../perseus-markdown";
-import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 import type Renderer from "../renderer";
+import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 /**
  * Extracts widget IDs from a Perseus Renderer in the order they appear in the content.
