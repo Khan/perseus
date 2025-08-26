@@ -1,4 +1,5 @@
 import PerseusMarkdown from "../perseus-markdown";
+import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 import type Renderer from "../renderer";
 
@@ -23,7 +24,7 @@ export function extractWidgetIds(renderer: Renderer): ReadonlyArray<string> {
           });
 
     // Walk the AST and collect widget IDs
-    function collectWidgetIds(ast: any): void {
+    function collectWidgetIds(ast: SingleASTNode | Array<SingleASTNode>): void {
         if (Array.isArray(ast)) {
             ast.forEach(collectWidgetIds);
         } else if (ast?.type === "widget") {
