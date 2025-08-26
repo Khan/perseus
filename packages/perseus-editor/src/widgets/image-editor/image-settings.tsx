@@ -1,95 +1,122 @@
 import {Util, components} from "@khanacademy/perseus";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {HeadingXSmall} from "@khanacademy/wonder-blocks-typography";
 import * as React from "react";
 
-import Editor from "../../editor";
+import {AutoResizingTextArea} from "../../components/auto-resizing-text-area";
 
-import type {APIOptions} from "@khanacademy/perseus";
-import type {PerseusImageWidgetOptions} from "@khanacademy/perseus-core";
+import styles from "./image-editor.module.css";
+
+import type {Props} from "./image-editor";
 
 const {InfoTip} = components;
 
-interface ImageSettingsProps extends PerseusImageWidgetOptions {
-    apiOptions: APIOptions;
-    onChange: (newValues: Partial<PerseusImageWidgetOptions>) => void;
-}
-
 export default function ImageSettings({
-    apiOptions,
     alt,
     backgroundImage,
     caption,
     onChange,
-}: ImageSettingsProps) {
+}: Props) {
+    const uniqueId = React.useId();
+    const altId = `${uniqueId}-alt`;
+    const captionId = `${uniqueId}-caption`;
+
     if (!backgroundImage.url) {
         return null;
     }
 
+    const dimensions = `${backgroundImage.width} x ${backgroundImage.height}`;
+    const dimensionString =
+        backgroundImage.width && backgroundImage.height
+            ? dimensions
+            : "unknown";
+
     return (
-        <div className="image-settings">
+        <>
             {!Util.isLabeledSVG(backgroundImage.url) && (
-                <div>
-                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
-                    <label>
-                        <div>Preview:</div>
-                        {/* eslint-disable-next-line jsx-a11y/img-redundant-alt -- TODO(LEMS-2871): Address a11y error */}
-                        <img
-                            alt="Editor preview of image"
-                            src={backgroundImage.url}
-                            style={{
-                                width: "100%",
-                            }}
-                        />
-                    </label>
-                </div>
+                <>
+                    <HeadingXSmall
+                        style={{
+                            // TODO: Use CSS modules after Wonder Blocks styles
+                            // are moved to a different layer.
+                            paddingBlockStart: 0, // reset default padding
+                            marginBlockStart: sizing.size_120,
+                            marginBlockEnd: sizing.size_040,
+                            color: "var(--wb-semanticColor-core-foreground-neutral-strong)",
+                        }}
+                    >
+                        Preview:
+                    </HeadingXSmall>
+                    <img
+                        alt={`Preview: ${alt ?? "No alt text"}`}
+                        src={backgroundImage.url}
+                        style={{
+                            width: "100%",
+                        }}
+                    />
+                </>
             )}
-            <div>
-                <label>
-                    <div>Dimensions:</div>
-                    <p>
-                        {backgroundImage.width}x{backgroundImage.height}
-                    </p>
-                </label>
+
+            {/* Dimensions */}
+            <div className={styles.dimensionsContainer}>
+                <HeadingXSmall
+                    style={{
+                        // TODO: Use CSS modules after Wonder Blocks styles
+                        // are moved to a different layer.
+                        padding: 0, // reset default padding
+                        marginInlineEnd: sizing.size_080,
+                        color: "var(--wb-semanticColor-core-foreground-neutral-strong)",
+                    }}
+                >
+                    Dimensions:
+                </HeadingXSmall>
+                {dimensionString}
             </div>
 
-            <div>
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
-                <label>
-                    <div>
-                        Alt text:
-                        <InfoTip>
-                            This is important for screenreaders. The content of
-                            this alt text will be formatted as markdown (tables,
-                            emphasis, etc. are supported).
-                        </InfoTip>
-                    </div>
-                    <Editor
-                        apiOptions={apiOptions}
-                        content={alt}
-                        onChange={(props) => {
-                            if (props.content != null) {
-                                onChange({alt: props.content});
-                            }
-                        }}
-                        widgetEnabled={false}
-                    />
-                </label>
+            {/* Alt text */}
+            <div className={styles.labelWithInfoTip}>
+                <HeadingXSmall tag="label" htmlFor={altId}>
+                    Alt text:
+                </HeadingXSmall>
+                <InfoTip>
+                    This is important for screenreaders. The content of this alt
+                    text will be formatted as markdown (tables, emphasis, etc.
+                    are supported).
+                </InfoTip>
             </div>
-            <div>
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control -- TODO(LEMS-2871): Address a11y error */}
-                <label>
-                    <div>Caption:</div>
-                    <Editor
-                        apiOptions={apiOptions}
-                        content={caption}
-                        onChange={(props) => {
-                            if (props.content != null) {
-                                onChange({caption: props.content});
-                            }
-                        }}
-                        widgetEnabled={false}
-                    />
-                </label>
-            </div>
-        </div>
+            <AutoResizingTextArea
+                id={altId}
+                value={alt ?? ""}
+                onChange={(value) =>
+                    // Avoid saving empty strings in the content data.
+                    onChange({alt: value === "" ? undefined : value})
+                }
+                style={{
+                    // TODO: Use CSS modules after Wonder Blocks styles
+                    // are moved to a different layer.
+                    marginBlockStart: sizing.size_040,
+                    marginBlockEnd: sizing.size_080,
+                }}
+            />
+
+            {/* Caption */}
+            <HeadingXSmall tag="label" htmlFor={captionId}>
+                Caption:
+            </HeadingXSmall>
+            <AutoResizingTextArea
+                id={captionId}
+                value={caption ?? ""}
+                onChange={(value) =>
+                    // Avoid saving empty strings in the content data.
+                    onChange({caption: value === "" ? undefined : value})
+                }
+                style={{
+                    // TODO: Use CSS modules after Wonder Blocks styles
+                    // are moved to a different layer.
+                    marginBlockStart: sizing.size_040,
+                    marginBlockEnd: sizing.size_080,
+                }}
+            />
+        </>
     );
 }
