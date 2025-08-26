@@ -1,45 +1,151 @@
+import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
+
 import {extractWidgetIds} from "./extract-widget-ids";
 
 describe("extractWidgetIds", () => {
     it("extracts single widget ID", () => {
         const content = "Here's a radio widget: [[☃ radio 1]]";
-        const result = extractWidgetIds(content);
+        const {renderer} = renderQuestion({
+            content,
+            widgets: {
+                "radio 1": {
+                    type: "radio",
+                    graded: true,
+                    options: {
+                        choices: [
+                            {content: "Option A", correct: true, id: "a"},
+                            {content: "Option B", correct: false, id: "b"},
+                        ],
+                        randomize: false,
+                    },
+                },
+            },
+            images: {},
+        });
+        const result = extractWidgetIds(renderer);
         expect(result).toEqual(["radio 1"]);
     });
 
     it("extracts multiple widget IDs in order", () => {
-        const content = `
-[[☃ radio 1]]
-[[☃ numeric-input 2]]
-[[☃ interactive-graph 3]]
-        `;
-        const result = extractWidgetIds(content);
-        expect(result).toEqual([
-            "radio 1",
-            "numeric-input 2",
-            "interactive-graph 3",
-        ]);
+        const content =
+            "[[☃ radio 1]]\n[[☃ numeric-input 2]]\n[[☃ expression 3]]";
+        const {renderer} = renderQuestion({
+            content,
+            widgets: {
+                "radio 1": {
+                    type: "radio",
+                    graded: true,
+                    options: {
+                        choices: [
+                            {content: "Option A", correct: true, id: "a"},
+                            {content: "Option B", correct: false, id: "b"},
+                        ],
+                        randomize: false,
+                    },
+                },
+                "numeric-input 2": {
+                    type: "numeric-input",
+                    graded: true,
+                    options: {
+                        answers: [
+                            {
+                                value: 42,
+                                status: "correct",
+                                message: "",
+                                strict: false,
+                                simplify: "optional",
+                            },
+                        ],
+                        size: "normal",
+                        coefficient: false,
+                        static: false,
+                    },
+                },
+                "expression 3": {
+                    type: "expression",
+                    graded: true,
+                    options: {
+                        answerForms: [
+                            {
+                                value: "x+1",
+                                form: false,
+                                simplify: false,
+                                considered: "correct",
+                            },
+                        ],
+                        buttonSets: ["basic"],
+                        functions: ["f", "g", "h"],
+                        times: false,
+                    },
+                },
+            },
+            images: {},
+        });
+        const result = extractWidgetIds(renderer);
+        expect(result).toEqual(["radio 1", "numeric-input 2", "expression 3"]);
     });
 
     it("handles duplicate widget IDs (deduplication)", () => {
-        const content = `
-[[☃ radio 1]]
-[[☃ radio 1]]
-[[☃ numeric-input 2]]
-        `;
-        const result = extractWidgetIds(content);
+        const content =
+            "[[☃ radio 1]]\n[[☃ radio 1]]\n[[☃ numeric-input 2]]";
+        const {renderer} = renderQuestion({
+            content,
+            widgets: {
+                "radio 1": {
+                    type: "radio",
+                    graded: true,
+                    options: {
+                        choices: [
+                            {content: "Option A", correct: true, id: "a"},
+                            {content: "Option B", correct: false, id: "b"},
+                        ],
+                        randomize: false,
+                    },
+                },
+                "numeric-input 2": {
+                    type: "numeric-input",
+                    graded: true,
+                    options: {
+                        answers: [
+                            {
+                                value: 42,
+                                status: "correct",
+                                message: "",
+                                strict: false,
+                                simplify: "optional",
+                            },
+                        ],
+                        size: "normal",
+                        coefficient: false,
+                        static: false,
+                    },
+                },
+            },
+            images: {},
+        });
+        const result = extractWidgetIds(renderer);
         expect(result).toEqual(["radio 1", "numeric-input 2"]);
     });
 
     it("handles content with no widgets", () => {
         const content = "This is just plain text with no widgets.";
-        const result = extractWidgetIds(content);
+        const {renderer} = renderQuestion({
+            content,
+            widgets: {},
+            images: {},
+        });
+        const result = extractWidgetIds(renderer);
         expect(result).toEqual([]);
     });
 
     it("handles empty content", () => {
         const content = "";
-        const result = extractWidgetIds(content);
+        const {renderer} = renderQuestion({
+            content,
+            widgets: {},
+            images: {},
+        });
+        const result = extractWidgetIds(renderer);
         expect(result).toEqual([]);
     });
 
@@ -59,38 +165,148 @@ More text and a list:
 
 Some math: $x + y = z$
 
-[[☃ interactive-graph 3]]
+[[☃ expression 3]]
         `;
-        const result = extractWidgetIds(content);
-        expect(result).toEqual([
-            "radio 1",
-            "numeric-input 2",
-            "interactive-graph 3",
-        ]);
+        const {renderer} = renderQuestion({
+            content,
+            widgets: {
+                "radio 1": {
+                    type: "radio",
+                    graded: true,
+                    options: {
+                        choices: [
+                            {content: "Option A", correct: true, id: "a"},
+                            {content: "Option B", correct: false, id: "b"},
+                        ],
+                        randomize: false,
+                    },
+                },
+                "numeric-input 2": {
+                    type: "numeric-input",
+                    graded: true,
+                    options: {
+                        answers: [
+                            {
+                                value: 42,
+                                status: "correct",
+                                message: "",
+                                strict: false,
+                                simplify: "optional",
+                            },
+                        ],
+                        size: "normal",
+                        coefficient: false,
+                        static: false,
+                    },
+                },
+                "expression 3": {
+                    type: "expression",
+                    graded: true,
+                    options: {
+                        answerForms: [
+                            {
+                                value: "x+1",
+                                form: false,
+                                simplify: false,
+                                considered: "correct",
+                            },
+                        ],
+                        buttonSets: ["basic"],
+                        functions: ["f", "g", "h"],
+                        times: false,
+                    },
+                },
+            },
+            images: {},
+        });
+        const result = extractWidgetIds(renderer);
+        expect(result).toEqual(["radio 1", "numeric-input 2", "expression 3"]);
     });
 
     it("handles inline parsing option", () => {
         const content = "Inline widget: [[☃ radio 1]]";
-        const result = extractWidgetIds(content, {inline: true});
-        expect(result).toEqual(["radio 1"]);
-    });
-
-    it("handles isJipt option", () => {
-        const content = "Widget with jipt: [[☃ radio 1]]";
-        const result = extractWidgetIds(content, {isJipt: true});
+        const {renderer} = renderQuestion(
+            {
+                content,
+                widgets: {
+                    "radio 1": {
+                        type: "radio",
+                        graded: true,
+                        options: {
+                            choices: [
+                                {content: "Option A", correct: true, id: "a"},
+                                {content: "Option B", correct: false, id: "b"},
+                            ],
+                            randomize: false,
+                        },
+                    },
+                },
+                images: {},
+            },
+            {},
+            {inline: true},
+        );
+        const result = extractWidgetIds(renderer);
         expect(result).toEqual(["radio 1"]);
     });
 
     it("preserves order even with duplicates", () => {
-        const content = `
-[[☃ widget-a 1]]
-[[☃ widget-b 2]]
-[[☃ widget-a 1]]
-[[☃ widget-c 3]]
-[[☃ widget-b 2]]
-        `;
-        const result = extractWidgetIds(content);
+        const content =
+            "[[☃ radio 1]]\n[[☃ numeric-input 2]]\n[[☃ radio 1]]\n[[☃ expression 3]]\n[[☃ numeric-input 2]]";
+        const {renderer} = renderQuestion({
+            content,
+            widgets: {
+                "radio 1": {
+                    type: "radio",
+                    graded: true,
+                    options: {
+                        choices: [
+                            {content: "Option A", correct: true, id: "a"},
+                            {content: "Option B", correct: false, id: "b"},
+                        ],
+                        randomize: false,
+                    },
+                },
+                "numeric-input 2": {
+                    type: "numeric-input",
+                    graded: true,
+                    options: {
+                        answers: [
+                            {
+                                value: 42,
+                                status: "correct",
+                                message: "",
+                                strict: false,
+                                simplify: "optional",
+                            },
+                        ],
+                        size: "normal",
+                        coefficient: false,
+                        static: false,
+                    },
+                },
+                "expression 3": {
+                    type: "expression",
+                    graded: true,
+                    options: {
+                        answerForms: [
+                            {
+                                value: "x+1",
+                                form: false,
+                                simplify: false,
+                                considered: "correct",
+                            },
+                        ],
+                        buttonSets: ["basic"],
+                        functions: ["f", "g", "h"],
+                        times: false,
+                    },
+                },
+            },
+            images: {},
+        });
+        const result = extractWidgetIds(renderer);
         // Should maintain order of first occurrence
-        expect(result).toEqual(["widget-a 1", "widget-b 2", "widget-c 3"]);
+        expect(result).toEqual(["radio 1", "numeric-input 2", "expression 3"]);
     });
 });

@@ -1,14 +1,12 @@
 import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
+
 import {extractWidgetIds} from "./extract-widget-ids";
 
 // Integration test to compare our extracted function against the actual renderer behavior
 describe("extractWidgetIds integration", () => {
     it("matches renderer for single widget", () => {
-        const content = "Here's a widget: [[☃ radio 1]]";
-
-        const utilityIds = extractWidgetIds(content);
         const {renderer} = renderQuestion({
-            content,
+            content: "Here's a widget: [[☃ radio 1]]",
             widgets: {
                 "radio 1": {
                     type: "radio",
@@ -24,7 +22,8 @@ describe("extractWidgetIds integration", () => {
             },
             images: {},
         });
-        console.log(renderer);
+
+        const utilityIds = extractWidgetIds(renderer);
         const rendererIds = renderer.getWidgetIds();
 
         expect(utilityIds).toEqual(rendererIds);
@@ -35,7 +34,6 @@ describe("extractWidgetIds integration", () => {
         const content =
             "[[☃ radio 1]]\n[[☃ numeric-input 2]]\n[[☃ expression 3]]";
 
-        const utilityIds = extractWidgetIds(content);
         const {renderer} = renderQuestion({
             content,
             widgets: {
@@ -73,17 +71,23 @@ describe("extractWidgetIds integration", () => {
                     graded: true,
                     options: {
                         answerForms: [
-                            {value: "x+1", form: false, simplify: false, considered: "ungraded"},
+                            {
+                                value: "x+1",
+                                form: false,
+                                simplify: false,
+                                considered: "ungraded",
+                            },
                         ],
                         buttonSets: ["basic"],
                         functions: ["sqrt", "pi", "abs", "factorial"],
                         times: false,
-
                     },
                 },
             },
             images: {},
         });
+
+        const utilityIds = extractWidgetIds(renderer);
         const rendererIds = renderer.getWidgetIds();
 
         expect(utilityIds).toEqual(rendererIds);
@@ -98,7 +102,6 @@ describe("extractWidgetIds integration", () => {
         const content =
             "[[☃ radio 1]]\n[[☃ radio 1]]\n[[☃ numeric-input 2]]";
 
-        const utilityIds = extractWidgetIds(content);
         const {renderer} = renderQuestion({
             content,
             widgets: {
@@ -134,6 +137,8 @@ describe("extractWidgetIds integration", () => {
             },
             images: {},
         });
+
+        const utilityIds = extractWidgetIds(renderer);
         const rendererIds = renderer.getWidgetIds();
 
         expect(utilityIds).toEqual(rendererIds);
@@ -143,12 +148,13 @@ describe("extractWidgetIds integration", () => {
     it("matches renderer for content with no widgets", () => {
         const content = "Just some plain text with no widgets.";
 
-        const utilityIds = extractWidgetIds(content);
         const {renderer} = renderQuestion({
             content,
             widgets: {},
             images: {},
         });
+
+        const utilityIds = extractWidgetIds(renderer);
         const rendererIds = renderer.getWidgetIds();
 
         expect(utilityIds).toEqual(rendererIds);

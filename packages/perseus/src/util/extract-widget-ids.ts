@@ -1,22 +1,25 @@
 import PerseusMarkdown from "../perseus-markdown";
 
+import type Renderer from "../renderer";
+
 /**
- * Extracts widget IDs from Perseus markdown content in the order they appear.
+ * Extracts widget IDs from a Perseus Renderer in the order they appear in the content.
  * Handles deduplication by only including the first occurrence of each widget ID.
  */
-export function extractWidgetIds(
-    content: string,
-    options?: { inline?: boolean; isJipt?: boolean }
-): ReadonlyArray<string> {
+export function extractWidgetIds(renderer: Renderer): ReadonlyArray<string> {
     const widgetIds: string[] = [];
 
-    // Parse the markdown content
-    const parsedMarkdown = options?.inline
+    // Get content from the renderer's props
+    const content = renderer.props.content;
+    const inline = renderer.props.inline;
+
+    // Parse the markdown content using the same logic as the renderer
+    const parsedMarkdown = inline
         ? PerseusMarkdown.parseInline(content, {
-              isJipt: options?.isJipt ?? false,
+              isJipt: renderer.translationIndex != null,
           })
         : PerseusMarkdown.parse(content, {
-              isJipt: options?.isJipt ?? false,
+              isJipt: renderer.translationIndex != null,
           });
 
     // Walk the AST and collect widget IDs
