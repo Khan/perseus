@@ -166,6 +166,8 @@ class ImageEditor extends React.Component<Props> {
                     <ImageSettings
                         apiOptions={this.props.apiOptions}
                         backgroundImage={backgroundImage}
+                        alt={this.props.alt}
+                        caption={this.props.caption}
                         onChange={this.props.onChange}
                     />
                 )}
