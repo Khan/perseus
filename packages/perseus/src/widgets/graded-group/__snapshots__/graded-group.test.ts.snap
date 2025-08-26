@@ -412,7 +412,7 @@ exports[`graded-group should snapshot: initial render (mobile: false) 1`] = `
               type="button"
             >
               <span
-                class="text_f1191h-o_O-LabelLarge_16mkhxv-o_O-text_1kowsup"
+                class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
               >
                 Check
               </span>
@@ -753,7 +753,7 @@ exports[`graded-group should snapshot: initial render (mobile: true) 1`] = `
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_16mkhxv-o_O-text_1kowsup"
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
                 >
                   Check
                 </span>
