@@ -128,6 +128,7 @@ export const ChoiceTextColorInSingleSelect = {
             name: /^\(Choice A\)/,
         });
         await userEvent.click(choiceToClick);
+        choiceToClick.blur();
     },
 };
 
@@ -148,6 +149,7 @@ export const ChoiceTextColorInMultipleSelect = {
             name: /^\(Choice D\)/,
         });
         await userEvent.click(choiceToClick);
+        choiceToClick.blur();
     },
 };
 
