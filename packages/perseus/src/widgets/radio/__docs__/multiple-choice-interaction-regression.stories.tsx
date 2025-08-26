@@ -3,11 +3,15 @@ import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
-import {questionWithPassage} from "../__tests__/radio.testdata";
+import {
+    choicesWithMathFont,
+    questionWithPassage,
+} from "../__tests__/radio.testdata";
 
 import type {APIOptions} from "../../../types";
 import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {Meta} from "@storybook/react-vite";
+import {radioQuestionBuilder} from "../radio-question-builder";
 
 type StoryArgs = {
     // Story Option
@@ -109,5 +113,81 @@ export const GradedGroupWrapper = {
         })[0];
         await userEvent.click(checkAnswerButton);
         await checkAnswerButton.blur();
+    },
+};
+
+export const ChoiceTextColorInSingleSelect = {
+    args: {
+        item: generateTestPerseusItem({
+            question: choicesWithMathFont(),
+        }),
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const choiceToClick = canvas.getByRole("button", {
+            name: /^\(Choice A\)/,
+        });
+        await userEvent.click(choiceToClick);
+    },
+};
+
+export const ChoiceTextColorInMultipleSelect = {
+    args: {
+        item: generateTestPerseusItem({
+            question: choicesWithMathFont({multipleSelect: true}),
+        }),
+    },
+    play: async ({canvas, userEvent}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        let choiceToClick = canvas.getByRole("button", {
+            name: /^\(Choice A\)/,
+        });
+        await userEvent.click(choiceToClick);
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        choiceToClick = canvas.getByRole("button", {
+            name: /^\(Choice D\)/,
+        });
+        await userEvent.click(choiceToClick);
+    },
+};
+
+export const FocusSingleSelect = {
+    args: {
+        item: generateTestPerseusItem({
+            question: radioQuestionBuilder()
+                .addChoice("Choice 1", {correct: true})
+                .addChoice("Choice 2")
+                .addChoice("Choice 3")
+                .addChoice("Choice 4")
+                .build(),
+        }),
+    },
+    play: async ({canvas}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const choiceToFocus = canvas.getByRole("button", {
+            name: /^\(Choice A\)/,
+        });
+        choiceToFocus.focus();
+    },
+};
+
+export const FocusMultiSelect = {
+    args: {
+        item: generateTestPerseusItem({
+            question: radioQuestionBuilder()
+                .addChoice("Choice 1", {correct: true})
+                .addChoice("Choice 2")
+                .addChoice("Choice 3")
+                .addChoice("Choice 4")
+                .withMultipleSelect(true)
+                .build(),
+        }),
+    },
+    play: async ({canvas}) => {
+        // eslint-disable-next-line testing-library/prefer-screen-queries
+        const choiceToFocus = canvas.getByRole("button", {
+            name: /^\(Choice B\)/,
+        });
+        choiceToFocus.focus();
     },
 };

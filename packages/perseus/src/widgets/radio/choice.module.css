@@ -37,6 +37,10 @@
     cursor: pointer;
 }
 
+.choice:not(.is-correct):has(> button[aria-pressed="true"]) {
+    color: var(--wb-semanticColor-core-foreground-instructive-default)
+}
+
 /*****************
  BORDER MANAGEMENT
  *****************/

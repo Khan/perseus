@@ -465,3 +465,26 @@ export const choicesWithGraphie: PerseusRenderer = {
             },
     },
 };
+
+export const choicesWithMathFont = (options?: {
+    multipleSelect: boolean;
+}): PerseusRenderer => {
+    return radioQuestionBuilder()
+        .withContent(
+            "Which of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
+        )
+        .addChoice("Both $-8$ and $8$ satisfy the equation $\\sqrt{64}=x$", {
+            correct: false,
+        })
+        .addChoice("Only $-8$ satisfies the equation $\\sqrt{64}=x$", {
+            correct: false,
+        })
+        .addChoice("Only $8$ satisfies the equation $\\sqrt{64}=x$", {
+            correct: false,
+        })
+        .addChoice("No value of $x$ satisfies the equation $\\sqrt{64}=x$", {
+            correct: false,
+        })
+        .withMultipleSelect(options?.multipleSelect ?? false)
+        .build();
+};
