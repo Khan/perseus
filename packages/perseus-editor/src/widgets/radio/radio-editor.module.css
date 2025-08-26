@@ -1,7 +1,9 @@
 .tile {
     display: flex;
     flex-direction: column;
-    background-color: var(--wb-semanticColor-core-background-instructive-subtle);
+    background-color: var(
+        --wb-semanticColor-core-background-instructive-subtle
+    );
     border: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
     border-radius: 12px;
     padding-inline: 12px;

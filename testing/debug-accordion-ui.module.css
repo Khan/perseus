@@ -18,11 +18,13 @@
 }
 
 .status-badge-success {
-    border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-success-default);
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-success-default);
 }
 
 .status-badge-error {
-    border: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-critical-default);
+    border: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-critical-default);
 }
 
 .status-label {

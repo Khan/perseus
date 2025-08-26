@@ -1,8 +1,8 @@
 .base {
-    appearance: none;
-    /* Remove user agent formatting in favor of our own */
+    appearance: none; /* Remove user agent formatting in favor of our own */
     background-color: var(--wb-semanticColor-core-transparent);
-    border: solid var(--wb-border-width-medium) var(--wb-semanticColor-core-border-neutral-strong);
+    border: solid var(--wb-border-width-medium)
+        var(--wb-semanticColor-core-border-neutral-strong);
     color: var(--wb-semanticColor-core-foreground-neutral-default);
     cursor: pointer;
     font-family: var(--wb-font-family-sans);
@@ -45,7 +45,9 @@
 
 /* button is checked */
 .base[aria-pressed="true"] {
-    background-color: var(--wb-semanticColor-core-background-instructive-default);
+    background-color: var(
+        --wb-semanticColor-core-background-instructive-default
+    );
     border-width: 0;
     color: var(--wb-semanticColor-core-foreground-knockout-default);
 }
