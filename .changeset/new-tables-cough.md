@@ -2,4 +2,4 @@
 "@khanacademy/perseus": minor
 ---
 
-Export a function that provides a list of widget IDs
+Export a function that provides a list of widget IDs extracted from renderer
