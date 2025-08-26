@@ -1,0 +1,32 @@
+import {Canvas, Controls, Meta} from "@storybook/addon-docs/blocks";
+import Banner from "@khanacademy/wonder-blocks-banner";
+import {View} from "@khanacademy/wonder-blocks-core";
+import {spacing} from "@khanacademy/wonder-blocks-tokens";
+import * as GraphieStories from "./graphie.stories";
+
+<Meta of={GraphieStories} />
+
+# Graphie
+
+<View style={{marginBlock: spacing.medium_16}}>
+    <Banner
+        kind="warning"
+        layout="full-width"
+        text="Graphie usage for graphing is deprecated at Khan Academy. For new graphs, please use the interactive-graph
+        widget instead (see Widgets/Interactive Graph docs). For translated illustrations with labels, use the Graphie 2000 editor."
+    />
+</View>
+
+### Pie Chart Graphie Labels
+
+<p>
+    A demonstration of a Graphie rendered using the Perseus `Renderer` complete
+    with overlaid labels and an image caption below.
+</p>
+
+<Canvas of={GraphieStories.PieChartGraphieLabels} />
+<Controls of={GraphieStories.PieChartGraphieLabels} />
+
+### Square Box Size and Otherwise Empty
+
+<Canvas of={GraphieStories.SquareBoxSizeAndOtherwiseEmpty} />

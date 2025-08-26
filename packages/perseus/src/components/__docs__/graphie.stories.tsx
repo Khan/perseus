@@ -4,6 +4,8 @@ import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-
 import {itemWithPieChart} from "../../__testdata__/graphie.testdata";
 import Graphie from "../graphie";
 
+import GraphieDocsPage from "./graphie.mdx";
+
 import type {StoryObj, Meta} from "@storybook/react-vite";
 
 type Story = StoryObj<typeof Graphie>;
@@ -13,20 +15,31 @@ const size = 200;
 const meta: Meta = {
     title: "Components/Graphie",
     component: Graphie,
-    args: {
-        box: [size, size],
-        setup: () => {},
-        setDrawingAreaAvailable: () => {},
+    parameters: {
+        docs: {
+            page: GraphieDocsPage,
+        },
     },
 };
 export default meta;
-
-export const SquareBoxSizeAndOtherwiseEmpty: Story = {};
 
 /**
  * A demonstration of a Graphie rendered using the Perseus `Renderer` complete
  * with overlaid labels and an image caption below.
  */
-export const PieChartGraphieLabels = () => {
-    return <ServerItemRendererWithDebugUI item={itemWithPieChart} />;
+export const PieChartGraphieLabels: Story = {
+    args: {
+        box: [size, size],
+        setup: () => {},
+        setDrawingAreaAvailable: () => {},
+    },
+    render: (args) => <ServerItemRendererWithDebugUI item={itemWithPieChart} />,
+};
+
+export const SquareBoxSizeAndOtherwiseEmpty: Story = {
+    args: {
+        box: [size, size],
+        setup: () => {},
+        setDrawingAreaAvailable: () => {},
+    },
 };
