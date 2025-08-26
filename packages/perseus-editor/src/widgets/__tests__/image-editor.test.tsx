@@ -26,7 +26,7 @@ describe("image editor", () => {
         );
     });
 
-    test("should render empty image editor", () => {
+    it("should render empty image editor", () => {
         // Arrange
 
         // Act
@@ -37,7 +37,7 @@ describe("image editor", () => {
         expect(urlField).toBeInTheDocument();
     });
 
-    test("should render populated image editor", () => {
+    it("should render populated image editor", () => {
         // Arrange
 
         // Act
@@ -65,7 +65,7 @@ describe("image editor", () => {
         expect(captionField).toHaveValue("Earth and moon");
     });
 
-    test("should render warning for non-Khan Academy image", async () => {
+    it("should render warning for non-Khan Academy image", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
@@ -90,7 +90,7 @@ describe("image editor", () => {
         ).toBeInTheDocument();
     });
 
-    test("should call onChange with the new image url", async () => {
+    it("should call onChange with the new image url", async () => {
         // Arrange
         jest.spyOn(Util, "getImageSizeModern").mockResolvedValue([200, 300]);
         const onChangeMock = jest.fn();
@@ -119,7 +119,7 @@ describe("image editor", () => {
         });
     });
 
-    test("should call onChange with new alt text", async () => {
+    it("should call onChange with new alt text", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
@@ -141,7 +141,7 @@ describe("image editor", () => {
         });
     });
 
-    test("should call onChange with new caption", async () => {
+    it("should call onChange with new caption", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
