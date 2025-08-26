@@ -324,7 +324,9 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
         const {apiOptions, multipleSelect, countChoices, numCorrect} =
             this.props;
         const reviewMode =
-            this.props.reviewMode || this.props.showSolutions === "all";
+            this.props.reviewMode ||
+            this.props.static ||
+            this.props.showSolutions === "all";
 
         const onChoiceChange =
             apiOptions.readOnly || reviewMode
