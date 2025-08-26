@@ -194,10 +194,18 @@ class MultipleChoiceWidget extends React.Component<Props> implements Widget {
             checkedChoiceIds.push(...currentSelectedIds, choiceId);
         } else {
             // Unchecking: remove this choice from checked list
-            const currentCheckedIds = choices
-                .filter((choice) => choice.id !== choiceId)
-                .map((choice) => choice.id);
-            checkedChoiceIds.push(...currentCheckedIds);
+            const currentSelectedIds = choiceStates
+                ? choiceStates
+                      .map((state, i) => ({
+                          selected: state.selected,
+                          id: choices[i].id,
+                      }))
+                      .filter(
+                          (choice) => choice.selected && choice.id !== choiceId,
+                      )
+                      .map((choice) => choice.id)
+                : [];
+            checkedChoiceIds.push(...currentSelectedIds);
         }
 
         // Construct the baseline `choiceStates` objects. If this is the user's
