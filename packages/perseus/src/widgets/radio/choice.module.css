@@ -23,7 +23,10 @@
     font-size: var(--wb-font-heading-size-medium);
     font-weight: var(--wb-font-weight-semi);
     line-height: var(--wb-font-heading-lineHeight-medium);
-    margin-block-end: var(--perseus-multiple-choice-divider-space);
+    /* Added !important below without this it will look double divider in mobile.
+     * TODO(LEMS-3301): When old radio widget is deleted, remove this !important.
+     */
+    margin-block-end: var(--perseus-multiple-choice-divider-space) !important;
     min-height: calc(var(--perseus-multiple-choice-spacing) * 4);
     padding: var(--perseus-multiple-choice-spacing);
     position: relative; /* Needed to enable the dividers (:before and :after pseudo-elements) to position correctly */
@@ -136,7 +139,13 @@
 
 /* Content has been created with this rule in place since the dawn of time, so we need to keep it */
 .choice :global(.paragraph),
-.choice :global(.paragraph) div,
+.choice
+    :global(.paragraph)
+    div:not(
+        :global(.graphie-container),
+        :global(.graphie),
+        :global(.unresponsive-svg-image)
+    ),
 .choice :global(.paragraph) p {
     display: inline;
 }

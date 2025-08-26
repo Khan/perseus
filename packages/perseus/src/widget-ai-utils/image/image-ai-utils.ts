@@ -1,4 +1,4 @@
-import type image from "../../widgets/image/image";
+import type image from "../../widgets/image/image.class";
 import type React from "react";
 
 export type ImagePromptJSON = {

@@ -1,5 +1,15 @@
 # @khanacademy/perseus-core
 
+## 18.8.0
+
+### Minor Changes
+
+-   [#2813](https://github.com/Khan/perseus/pull/2813) [`9a5605b82c`](https://github.com/Khan/perseus/commit/9a5605b82ca6038f326bf70c6d0959bb2227b754) Thanks [@benchristel](https://github.com/benchristel)! - Allow the `message` property of `PerseusIFrameUserInput` to be `undefined`.
+
+### Patch Changes
+
+-   [#2809](https://github.com/Khan/perseus/pull/2809) [`aab0bf4b8b`](https://github.com/Khan/perseus/commit/aab0bf4b8bcb10347f24854403ee27581212df5c) Thanks [@nishasy](https://github.com/nishasy)! - [Image](DX) Add an image generator + use it in testdata
+
 ## 18.7.0
 
 ### Minor Changes
