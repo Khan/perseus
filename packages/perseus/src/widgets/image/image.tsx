@@ -5,6 +5,8 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import Renderer from "../../renderer";
 
+import styles from "./image-widget.module.css";
+
 import type {Props} from "./image.class";
 
 export const ImageComponent = ({
@@ -30,7 +32,7 @@ export const ImageComponent = ({
         >
             {/* Title */}
             {title && (
-                <div className="perseus-image-title">
+                <div className={`perseus-image-title ${styles.titleContainer}`}>
                     {/* The Renderer component is used here so that the title
                         can support markdown and TeX. */}
                     <Renderer
@@ -70,7 +72,7 @@ export const ImageComponent = ({
             {/* Caption */}
             {caption && (
                 <figcaption
-                    className="perseus-image-caption"
+                    className={`perseus-image-caption ${styles.captionContainer}`}
                     style={{
                         maxWidth: backgroundImage.width,
                     }}

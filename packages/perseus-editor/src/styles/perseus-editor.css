@@ -237,9 +237,6 @@ code {
 #perseus #problemarea #workarea {
     margin: 0;
 }
-#perseus #problemarea #workarea .perseus-image-caption {
-    top: 0px !important;
-}
 #perseus .perseus-question-container > div,
 #perseus .perseus-answer-container > div {
     padding-bottom: 25px;

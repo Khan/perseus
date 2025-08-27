@@ -1,0 +1,9 @@
+.title-container {
+    font-size: 130px;
+    text-align: center;
+    border-top: 1px solid var(--wb-semanticColor-core-border-neutral-subtle)
+}
+
+.caption-container {
+    border-bottom: 1px solid var(--wb-semanticColor-core-border-neutral-subtle)
+}

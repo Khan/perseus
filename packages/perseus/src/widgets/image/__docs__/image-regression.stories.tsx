@@ -85,7 +85,8 @@ export const ImageWithCaption: Story = {
     decorators: [rendererDecorator],
     args: {
         backgroundImage: earthMoonImage,
-        caption: "Earth and Moon",
+        caption:
+            "Photo of the Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)",
     },
 };
 
