@@ -425,12 +425,7 @@ export class ServerItemRenderer
                     widgets={this.props.item.question.widgets}
                     problemNum={this.props.problemNum ?? 0}
                 >
-                    {({
-                        userInput,
-                        handleUserInput,
-                        initializeUserInput,
-                        restoreUserInputFromSerializedState,
-                    }) => {
+                    {({userInput, handleUserInput, initializeUserInput}) => {
                         this.userInput = userInput;
                         return (
                             <Renderer
@@ -474,9 +469,6 @@ export class ServerItemRenderer
                                     this.handleInteractWithWidget(id);
                                 }}
                                 initializeUserInput={initializeUserInput}
-                                restoreUserInputFromSerializedState={
-                                    restoreUserInputFromSerializedState
-                                }
                             />
                         );
                     }}

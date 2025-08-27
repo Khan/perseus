@@ -57,7 +57,6 @@ import type {
 import type {
     HandleUserInputCallback,
     InitializeUserInputCallback,
-    RestoreUserInputFromSerializedStateCallback,
 } from "./user-input-manager";
 import type {
     GetPromptJSONInterface,
@@ -122,7 +121,6 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     userInput?: UserInputMap;
     handleUserInput?: HandleUserInputCallback;
     initializeUserInput?: InitializeUserInputCallback;
-    restoreUserInputFromSerializedState?: RestoreUserInputFromSerializedStateCallback;
     apiOptions?: APIOptions;
     alwaysUpdate?: boolean;
     findExternalWidgets: any;
