@@ -366,7 +366,7 @@ describe("UserInputManager", () => {
         ).toBeInTheDocument();
     });
 
-    it("initial user input can be changed", async () => {
+    it("allows initial user input to be changed", async () => {
         const widgets: PerseusWidgetsMap = {
             "radio 1": {
                 type: "radio",
