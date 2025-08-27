@@ -19708,6 +19708,34 @@ exports[`parseAndMigratePerseusItem given transformer-widget.json returns the sa
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given categorizer.json returns the same result as before 1`] = `
+{
+  "categorizer 1": {
+    "values": [
+      1,
+      null,
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given cs-program.json returns the same result as before 1`] = `
+{
+  "cs-program 1": {
+    "message": null,
+    "status": "correct",
+  },
+  "cs-program 2": {
+    "message": "There's a test failure!",
+    "status": "incorrect",
+  },
+  "cs-program 3": {
+    "message": null,
+    "status": "incomplete",
+  },
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
