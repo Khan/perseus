@@ -19887,6 +19887,22 @@ exports[`parseAndMigrateUserInputMap given group.json returns the same result as
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given iframe.json returns the same result as before 1`] = `
+{
+  "iframe 1": {
+    "status": "correct",
+  },
+  "iframe 2": {
+    "message": null,
+    "status": "incomplete",
+  },
+  "iframe 3": {
+    "message": "something's not right",
+    "status": "incorrect",
+  },
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
