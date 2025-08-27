@@ -1,15 +1,15 @@
-import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
-
 import {extractWidgetIds} from "./extract-widget-ids";
+
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
 
 describe("extractWidgetIds", () => {
     it("extracts single widget ID", () => {
         const content = "Here's a radio widget: [[☃ radio 1]]";
-        const {renderer} = renderQuestion({
+        const question: PerseusRenderer = {
             content,
             widgets: {
                 "radio 1": {
-                    type: "radio",
+                    type: "radio" as const,
                     graded: true,
                     options: {
                         choices: [
@@ -21,19 +21,19 @@ describe("extractWidgetIds", () => {
                 },
             },
             images: {},
-        });
-        const result = extractWidgetIds(renderer);
+        };
+        const result = extractWidgetIds(question);
         expect(result).toEqual(["radio 1"]);
     });
 
     it("extracts multiple widget IDs in order", () => {
         const content =
             "[[☃ radio 1]]\n[[☃ numeric-input 2]]\n[[☃ expression 3]]";
-        const {renderer} = renderQuestion({
+        const question: PerseusRenderer = {
             content,
             widgets: {
                 "radio 1": {
-                    type: "radio",
+                    type: "radio" as const,
                     graded: true,
                     options: {
                         choices: [
@@ -44,7 +44,7 @@ describe("extractWidgetIds", () => {
                     },
                 },
                 "numeric-input 2": {
-                    type: "numeric-input",
+                    type: "numeric-input" as const,
                     graded: true,
                     options: {
                         answers: [
@@ -62,7 +62,7 @@ describe("extractWidgetIds", () => {
                     },
                 },
                 "expression 3": {
-                    type: "expression",
+                    type: "expression" as const,
                     graded: true,
                     options: {
                         answerForms: [
@@ -80,19 +80,19 @@ describe("extractWidgetIds", () => {
                 },
             },
             images: {},
-        });
-        const result = extractWidgetIds(renderer);
+        };
+        const result = extractWidgetIds(question);
         expect(result).toEqual(["radio 1", "numeric-input 2", "expression 3"]);
     });
 
     it("handles duplicate widget IDs (deduplication)", () => {
         const content =
             "[[☃ radio 1]]\n[[☃ radio 1]]\n[[☃ numeric-input 2]]";
-        const {renderer} = renderQuestion({
+        const question: PerseusRenderer = {
             content,
             widgets: {
                 "radio 1": {
-                    type: "radio",
+                    type: "radio" as const,
                     graded: true,
                     options: {
                         choices: [
@@ -103,7 +103,7 @@ describe("extractWidgetIds", () => {
                     },
                 },
                 "numeric-input 2": {
-                    type: "numeric-input",
+                    type: "numeric-input" as const,
                     graded: true,
                     options: {
                         answers: [
@@ -122,30 +122,30 @@ describe("extractWidgetIds", () => {
                 },
             },
             images: {},
-        });
-        const result = extractWidgetIds(renderer);
+        };
+        const result = extractWidgetIds(question);
         expect(result).toEqual(["radio 1", "numeric-input 2"]);
     });
 
     it("handles content with no widgets", () => {
         const content = "This is just plain text with no widgets.";
-        const {renderer} = renderQuestion({
+        const question = {
             content,
             widgets: {},
             images: {},
-        });
-        const result = extractWidgetIds(renderer);
+        };
+        const result = extractWidgetIds(question);
         expect(result).toEqual([]);
     });
 
     it("handles empty content", () => {
         const content = "";
-        const {renderer} = renderQuestion({
+        const question = {
             content,
             widgets: {},
             images: {},
-        });
-        const result = extractWidgetIds(renderer);
+        };
+        const result = extractWidgetIds(question);
         expect(result).toEqual([]);
     });
 
@@ -167,11 +167,11 @@ Some math: $x + y = z$
 
 [[☃ expression 3]]
         `;
-        const {renderer} = renderQuestion({
+        const question: PerseusRenderer = {
             content,
             widgets: {
                 "radio 1": {
-                    type: "radio",
+                    type: "radio" as const,
                     graded: true,
                     options: {
                         choices: [
@@ -182,7 +182,7 @@ Some math: $x + y = z$
                     },
                 },
                 "numeric-input 2": {
-                    type: "numeric-input",
+                    type: "numeric-input" as const,
                     graded: true,
                     options: {
                         answers: [
@@ -200,7 +200,7 @@ Some math: $x + y = z$
                     },
                 },
                 "expression 3": {
-                    type: "expression",
+                    type: "expression" as const,
                     graded: true,
                     options: {
                         answerForms: [
@@ -218,46 +218,42 @@ Some math: $x + y = z$
                 },
             },
             images: {},
-        });
-        const result = extractWidgetIds(renderer);
+        };
+        const result = extractWidgetIds(question);
         expect(result).toEqual(["radio 1", "numeric-input 2", "expression 3"]);
     });
 
     it("handles inline parsing option", () => {
         const content = "Inline widget: [[☃ radio 1]]";
-        const {renderer} = renderQuestion(
-            {
-                content,
-                widgets: {
-                    "radio 1": {
-                        type: "radio",
-                        graded: true,
-                        options: {
-                            choices: [
-                                {content: "Option A", correct: true, id: "a"},
-                                {content: "Option B", correct: false, id: "b"},
-                            ],
-                            randomize: false,
-                        },
+        const question: PerseusRenderer = {
+            content,
+            widgets: {
+                "radio 1": {
+                    type: "radio" as const,
+                    graded: true,
+                    options: {
+                        choices: [
+                            {content: "Option A", correct: true, id: "a"},
+                            {content: "Option B", correct: false, id: "b"},
+                        ],
+                        randomize: false,
                     },
                 },
-                images: {},
             },
-            {},
-            {inline: true},
-        );
-        const result = extractWidgetIds(renderer);
+            images: {},
+        };
+        const result = extractWidgetIds(question, {inline: true});
         expect(result).toEqual(["radio 1"]);
     });
 
     it("preserves order even with duplicates", () => {
         const content =
             "[[☃ radio 1]]\n[[☃ numeric-input 2]]\n[[☃ radio 1]]\n[[☃ expression 3]]\n[[☃ numeric-input 2]]";
-        const {renderer} = renderQuestion({
+        const question: PerseusRenderer = {
             content,
             widgets: {
                 "radio 1": {
-                    type: "radio",
+                    type: "radio" as const,
                     graded: true,
                     options: {
                         choices: [
@@ -268,7 +264,7 @@ Some math: $x + y = z$
                     },
                 },
                 "numeric-input 2": {
-                    type: "numeric-input",
+                    type: "numeric-input" as const,
                     graded: true,
                     options: {
                         answers: [
@@ -286,7 +282,7 @@ Some math: $x + y = z$
                     },
                 },
                 "expression 3": {
-                    type: "expression",
+                    type: "expression" as const,
                     graded: true,
                     options: {
                         answerForms: [
@@ -304,8 +300,8 @@ Some math: $x + y = z$
                 },
             },
             images: {},
-        });
-        const result = extractWidgetIds(renderer);
+        };
+        const result = extractWidgetIds(question);
         // Should maintain order of first occurrence
         expect(result).toEqual(["radio 1", "numeric-input 2", "expression 3"]);
     });

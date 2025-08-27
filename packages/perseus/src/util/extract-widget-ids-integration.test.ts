@@ -2,10 +2,12 @@ import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 
 import {extractWidgetIds} from "./extract-widget-ids";
 
+import type {PerseusRenderer} from "@khanacademy/perseus-core";
+
 // Integration test to compare our extracted function against the actual renderer behavior
 describe("extractWidgetIds integration", () => {
     it("matches renderer for single widget", () => {
-        const {renderer} = renderQuestion({
+        const question: PerseusRenderer = {
             content: "Here's a widget: [[☃ radio 1]]",
             widgets: {
                 "radio 1": {
@@ -21,9 +23,10 @@ describe("extractWidgetIds integration", () => {
                 },
             },
             images: {},
-        });
+        };
+        const {renderer} = renderQuestion(question);
 
-        const utilityIds = extractWidgetIds(renderer);
+        const utilityIds = extractWidgetIds(question);
         const rendererIds = renderer.getWidgetIds();
 
         expect(utilityIds).toEqual(rendererIds);
@@ -34,7 +37,7 @@ describe("extractWidgetIds integration", () => {
         const content =
             "[[☃ radio 1]]\n[[☃ numeric-input 2]]\n[[☃ expression 3]]";
 
-        const {renderer} = renderQuestion({
+        const question: PerseusRenderer = {
             content,
             widgets: {
                 "radio 1": {
@@ -85,9 +88,10 @@ describe("extractWidgetIds integration", () => {
                 },
             },
             images: {},
-        });
+        };
+        const {renderer} = renderQuestion(question);
 
-        const utilityIds = extractWidgetIds(renderer);
+        const utilityIds = extractWidgetIds(question);
         const rendererIds = renderer.getWidgetIds();
 
         expect(utilityIds).toEqual(rendererIds);
@@ -102,7 +106,7 @@ describe("extractWidgetIds integration", () => {
         const content =
             "[[☃ radio 1]]\n[[☃ radio 1]]\n[[☃ numeric-input 2]]";
 
-        const {renderer} = renderQuestion({
+        const question: PerseusRenderer = {
             content,
             widgets: {
                 "radio 1": {
@@ -136,9 +140,10 @@ describe("extractWidgetIds integration", () => {
                 },
             },
             images: {},
-        });
+        };
+        const {renderer} = renderQuestion(question);
 
-        const utilityIds = extractWidgetIds(renderer);
+        const utilityIds = extractWidgetIds(question);
         const rendererIds = renderer.getWidgetIds();
 
         expect(utilityIds).toEqual(rendererIds);
@@ -148,13 +153,14 @@ describe("extractWidgetIds integration", () => {
     it("matches renderer for content with no widgets", () => {
         const content = "Just some plain text with no widgets.";
 
-        const {renderer} = renderQuestion({
+        const question: PerseusRenderer = {
             content,
             widgets: {},
             images: {},
-        });
+        };
+        const {renderer} = renderQuestion(question);
 
-        const utilityIds = extractWidgetIds(renderer);
+        const utilityIds = extractWidgetIds(question);
         const rendererIds = renderer.getWidgetIds();
 
         expect(utilityIds).toEqual(rendererIds);
