@@ -115,8 +115,9 @@
     );
 }
 
-/* Mobile touch feedback - provides same visual feedback as hover on tap */
-@media (hover: none) {
+/* Mobile: Add active state feedback while keeping original hover behavior */
+@media (hover: none) and (pointer: coarse) {
+    /* Duplicate hover behavior with active state for touch feedback */
     .choice:not(.is-correct, .is-wrong):active {
         --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
         --perseus-multiple-choice-divider-color: var(
@@ -126,7 +127,13 @@
 
     .choice:active:after,
     .choice:active:before {
-        z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
+        z-index: 5; /* Lower z-index to not interfere with fade background */
+    }
+
+    /* Prevent hover state from sticking by resetting it after touch events */
+    .choice {
+        -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
     }
 }
 
