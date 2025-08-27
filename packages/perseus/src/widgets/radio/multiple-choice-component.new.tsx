@@ -71,30 +71,38 @@ const MultipleChoiceComponent = ({
         ? `${styles.choiceList} ${styles.reviewAnswers}`
         : styles.choiceList;
 
+    const scrollId = useId() + "-scroll";
+
     return (
-        <fieldset
-            className={styles.container}
-            data-feature-flag="feature flag is ON"
-        >
-            <legend
-                id={legendId}
-                aria-hidden="true"
-                className={styles.instructions}
+        <>
+            <fieldset
+                className={styles.container}
+                data-feature-flag="feature flag is ON"
             >
-                {instructions}
-            </legend>
-            <ScrollableView overflowX="auto">
-                <ul aria-labelledby={legendId} className={choiceListClasses}>
-                    <ChoiceListItems
-                        choices={choices}
-                        i18nStrings={strings}
-                        onChoiceChange={onChoiceChange}
-                        reviewMode={reviewMode}
-                        multipleSelect={multipleSelect}
-                    />
-                </ul>
-            </ScrollableView>
-        </fieldset>
+                <legend
+                    id={legendId}
+                    aria-hidden="true"
+                    className={styles.instructions}
+                >
+                    {instructions}
+                </legend>
+                <ScrollableView id={scrollId} overflowX="auto">
+                    <ul
+                        aria-labelledby={legendId}
+                        className={choiceListClasses}
+                    >
+                        <ChoiceListItems
+                            choices={choices}
+                            i18nStrings={strings}
+                            onChoiceChange={onChoiceChange}
+                            reviewMode={reviewMode}
+                            multipleSelect={multipleSelect}
+                        />
+                    </ul>
+                </ScrollableView>
+            </fieldset>
+            <ScrollableView.Controls target={scrollId} />
+        </>
     );
 };
 
