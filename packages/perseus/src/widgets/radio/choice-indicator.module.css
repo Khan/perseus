@@ -49,7 +49,7 @@
         --wb-semanticColor-core-background-instructive-default
     );
     border-width: 0;
-    color: var(--wb-semanticColor-core-foreground-inverse-strong);
+    color: var(--wb-semanticColor-core-foreground-knockout-default);
 }
 
 /* Icon inside the button when showing correctness */
@@ -82,7 +82,7 @@
 
 .is-correct[aria-pressed="true"] {
     background-color: var(--wb-semanticColor-core-background-success-strong);
-    color: var(--wb-semanticColor-core-foreground-inverse-strong);
+    color: var(--wb-semanticColor-core-foreground-knockout-default);
     width: var(--perseus-multiple-choice-indicator-correct-size);
 }
 
