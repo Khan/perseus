@@ -19750,6 +19750,14 @@ exports[`parseAndMigrateUserInputMap given expression.json returns the same resu
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given free-response.json returns the same result as before 1`] = `
+{
+  "free-response 1": {
+    "currentValue": "hello",
+  },
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
