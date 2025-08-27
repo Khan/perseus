@@ -19874,6 +19874,19 @@ exports[`parseAndMigrateUserInputMap given grapher.json returns the same result 
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given group.json returns the same result as before 1`] = `
+{
+  "group 1": {
+    "radio 1": {
+      "choicesSelected": [
+        true,
+        false,
+      ],
+    },
+  },
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
