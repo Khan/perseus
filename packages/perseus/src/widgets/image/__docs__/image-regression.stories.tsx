@@ -18,8 +18,11 @@ const ImageWidget = getWidget("image")!;
 
 type Story = StoryObj<typeof ImageWidget>;
 
-const earthMoonImageUrl =
-    "https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg";
+const earthMoonImage = {
+    url: "https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg",
+    width: 400,
+    height: 225,
+};
 const frescoImageUrl =
     "https://cdn.kastatic.org/ka-perseus-images/01f44d5b73290da6bec97c75a5316fb05ab61f12.jpg";
 
@@ -56,9 +59,7 @@ export default meta;
 export const Default: Story = {
     decorators: [rendererDecorator],
     args: {
-        backgroundImage: {
-            url: earthMoonImageUrl,
-        },
+        backgroundImage: earthMoonImage,
         alt: "Earth and Moon",
         title: "Earth and Moon",
         caption: "Earth and Moon",
@@ -68,18 +69,14 @@ export const Default: Story = {
 export const Image: Story = {
     decorators: [rendererDecorator],
     args: {
-        backgroundImage: {
-            url: earthMoonImageUrl,
-        },
+        backgroundImage: earthMoonImage,
     },
 };
 
 export const ImageWithAlt: Story = {
     decorators: [rendererDecorator],
     args: {
-        backgroundImage: {
-            url: earthMoonImageUrl,
-        },
+        backgroundImage: earthMoonImage,
         alt: "Earth and Moon",
     },
 };
@@ -87,9 +84,7 @@ export const ImageWithAlt: Story = {
 export const ImageWithCaption: Story = {
     decorators: [rendererDecorator],
     args: {
-        backgroundImage: {
-            url: earthMoonImageUrl,
-        },
+        backgroundImage: earthMoonImage,
         caption: "Earth and Moon",
     },
 };
@@ -97,9 +92,7 @@ export const ImageWithCaption: Story = {
 export const ImageWithTitle: Story = {
     decorators: [rendererDecorator],
     args: {
-        backgroundImage: {
-            url: earthMoonImageUrl,
-        },
+        backgroundImage: earthMoonImage,
         title: "Earth and Moon",
     },
 };
