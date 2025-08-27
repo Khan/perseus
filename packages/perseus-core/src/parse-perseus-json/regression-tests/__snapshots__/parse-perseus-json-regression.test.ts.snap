@@ -19758,6 +19758,122 @@ exports[`parseAndMigrateUserInputMap given free-response.json returns the same r
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given grapher.json returns the same result as before 1`] = `
+{
+  "grapher 1": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "absolute_value",
+  },
+  "grapher 2": {
+    "asymptote": [
+      [
+        -1,
+        0,
+      ],
+      [
+        -2,
+        0,
+      ],
+    ],
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "exponential",
+  },
+  "grapher 3": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "linear",
+  },
+  "grapher 4": {
+    "asymptote": [
+      [
+        -1,
+        0,
+      ],
+      [
+        -2,
+        0,
+      ],
+    ],
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "logarithm",
+  },
+  "grapher 5": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "quadratic",
+  },
+  "grapher 6": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "sinusoid",
+  },
+  "grapher 7": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "tangent",
+  },
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
