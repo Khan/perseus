@@ -19744,6 +19744,12 @@ exports[`parseAndMigrateUserInputMap given dropdown.json returns the same result
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given expression.json returns the same result as before 1`] = `
+{
+  "expression 1": "\\sqrt{x}",
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
