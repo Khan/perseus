@@ -19736,6 +19736,14 @@ exports[`parseAndMigrateUserInputMap given cs-program.json returns the same resu
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given dropdown.json returns the same result as before 1`] = `
+{
+  "dropdown 1": {
+    "value": 1,
+  },
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
