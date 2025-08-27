@@ -19903,6 +19903,14 @@ exports[`parseAndMigrateUserInputMap given iframe.json returns the same result a
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given input-number.json returns the same result as before 1`] = `
+{
+  "input-number 1": {
+    "currentValue": "42",
+  },
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
