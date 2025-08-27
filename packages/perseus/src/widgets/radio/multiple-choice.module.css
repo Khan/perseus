@@ -19,7 +19,7 @@
     --perseus-multiple-choice-fade-direction: 90deg; /* Default is left to right */
     --perseus-multiple-choice-fade-color: var(
         --perseus-widget-background-color,
-        var(--wb-semanticColor-surface-primary)
+        var(--wb-semanticColor-core-background-base-default)
     ); /* Accounts for theme color, unless a background color is specified (i.e. from Graded Group Set) */
 
     min-width: auto; /* Needed for scrollable view to work */

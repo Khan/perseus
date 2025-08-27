@@ -82,7 +82,7 @@ describe("RadioQuestionBuilder", () => {
             .build();
 
         expect(question.widgets["radio 1"].options.choices).toEqual([
-            {content: "choice 1"},
+            {id: "radio-choice-test-id-0", content: "choice 1"},
         ]);
     });
 
@@ -97,6 +97,7 @@ describe("RadioQuestionBuilder", () => {
 
         expect(question.widgets["radio 1"].options.choices).toEqual([
             {
+                id: "radio-choice-test-id-0",
                 content: "choice 1",
                 correct: true,
                 rationale: "rationale",
@@ -112,8 +113,8 @@ describe("RadioQuestionBuilder", () => {
             .build();
 
         expect(question.widgets["radio 1"].options.choices).toEqual([
-            {content: "choice 1"},
-            {content: "choice 2"},
+            {id: "radio-choice-test-id-0", content: "choice 1"},
+            {id: "radio-choice-test-id-1", content: "choice 2"},
         ]);
     });
 
@@ -128,11 +129,13 @@ describe("RadioQuestionBuilder", () => {
 
         expect(question.widgets["radio 1"].options.choices).toEqual([
             {
+                id: "radio-choice-test-id-0",
                 content: "choice 1",
                 correct: true,
                 rationale: "This one is correct",
             },
             {
+                id: "radio-choice-test-id-1",
                 content: "choice 2",
                 rationale: "This one is incorrect",
             },

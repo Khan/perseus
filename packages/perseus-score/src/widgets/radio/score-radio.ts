@@ -17,9 +17,15 @@ function scoreRadio(
         return {type: "invalid", message: null};
     }
 
-    const numSelected = userInput.choicesSelected.reduce((sum, selected) => {
-        return sum + (selected ? 1 : 0);
-    }, 0);
+    // validate ids
+    const invalidIds = userInput.selectedChoiceIds.filter(
+        (id) => !rubric.choices.some((choice) => choice.id === id),
+    );
+    if (invalidIds.length > 0) {
+        return {type: "invalid", message: "Invalid choice selection"};
+    }
+
+    const numSelected = userInput.selectedChoiceIds.length;
 
     const numCorrect: number = rubric.choices.reduce((sum, currentChoice) => {
         return currentChoice.correct ? sum + 1 : sum;
@@ -36,8 +42,9 @@ function scoreRadio(
     }
 
     const noneOfTheAboveSelected = rubric.choices.some(
-        (choice, index) =>
-            choice.isNoneOfTheAbove && userInput.choicesSelected[index],
+        (choice) =>
+            choice.isNoneOfTheAbove &&
+            userInput.selectedChoiceIds.includes(choice.id),
     );
 
     if (noneOfTheAboveSelected && numSelected > 1) {
@@ -47,16 +54,10 @@ function scoreRadio(
         };
     }
 
-    const correct = userInput.choicesSelected.every((selected, i) => {
-        let isCorrect: boolean;
-        if (rubric.choices[i].isNoneOfTheAbove) {
-            isCorrect = rubric.choices.every((choice, j) => {
-                return i === j || !choice.correct;
-            });
-        } else {
-            isCorrect = !!rubric.choices[i].correct;
-        }
-        return isCorrect === selected;
+    const correct = rubric.choices.every((choice) => {
+        const isSelected = userInput.selectedChoiceIds.includes(choice.id);
+        const isCorrect = !!choice.correct;
+        return isCorrect === isSelected;
     });
 
     return {

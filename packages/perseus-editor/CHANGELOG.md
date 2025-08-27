@@ -1,5 +1,28 @@
 # @khanacademy/perseus-editor
 
+## 27.4.0
+
+### Minor Changes
+
+-   [#2799](https://github.com/Khan/perseus/pull/2799) [`8b18b38b31`](https://github.com/Khan/perseus/commit/8b18b38b31866582cb101d29ea3dbfd2dbe756bf) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Changes the output of radio score from boolean array to string array that represent the user's selected choice ids
+
+### Patch Changes
+
+-   [#2824](https://github.com/Khan/perseus/pull/2824) [`27304a4c22`](https://github.com/Khan/perseus/commit/27304a4c229967853d05b09bf8ff0849544fa8e3) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Modernize the Image widget code
+
+*   [#2825](https://github.com/Khan/perseus/pull/2825) [`ae8f7b2d0d`](https://github.com/Khan/perseus/commit/ae8f7b2d0d98d0bc11654fc086ace74c96384eff) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Modernize the Image widget edtior code
+
+-   [#2835](https://github.com/Khan/perseus/pull/2835) [`6901229b75`](https://github.com/Khan/perseus/commit/6901229b758c411356b77b3b044a1d178038460c) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update WB semantic color surface and foreground/border inverse token usage
+
+-   Updated dependencies [[`9db2c5a4a1`](https://github.com/Khan/perseus/commit/9db2c5a4a1d2b83d18c9605cf87b7ebabb832ad0), [`32553c5330`](https://github.com/Khan/perseus/commit/32553c5330fd353b08680415fdbd9842d5cca13a), [`4b5a15745e`](https://github.com/Khan/perseus/commit/4b5a15745e22a0a45a8d86d2a87b4eb138a2c47c), [`8b18b38b31`](https://github.com/Khan/perseus/commit/8b18b38b31866582cb101d29ea3dbfd2dbe756bf), [`3fb39e4a2f`](https://github.com/Khan/perseus/commit/3fb39e4a2fda3890c99d3551f403cfe31884547c), [`81951db1ba`](https://github.com/Khan/perseus/commit/81951db1ba9c474c108c5ff253b7d0168fd3f23a), [`27304a4c22`](https://github.com/Khan/perseus/commit/27304a4c229967853d05b09bf8ff0849544fa8e3), [`ae8f7b2d0d`](https://github.com/Khan/perseus/commit/ae8f7b2d0d98d0bc11654fc086ace74c96384eff), [`e8eb1b3843`](https://github.com/Khan/perseus/commit/e8eb1b384327afe6ed0f221e025175c54b53bdd5), [`1eba32de16`](https://github.com/Khan/perseus/commit/1eba32de16478ded4bbe751e32727e562e5f820e), [`6901229b75`](https://github.com/Khan/perseus/commit/6901229b758c411356b77b3b044a1d178038460c)]:
+    -   @khanacademy/perseus@67.1.0
+    -   @khanacademy/keypad-context@3.2.0
+    -   @khanacademy/kmath@2.2.0
+    -   @khanacademy/math-input@26.2.0
+    -   @khanacademy/perseus-core@18.9.0
+    -   @khanacademy/perseus-linter@4.3.0
+    -   @khanacademy/perseus-score@7.7.0
+
 ## 27.3.1
 
 ### Patch Changes
