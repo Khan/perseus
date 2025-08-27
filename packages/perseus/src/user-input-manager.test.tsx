@@ -8,7 +8,7 @@ import UserInputManager, {
 import {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 
 import type {InitializeUserInputCallback} from "./user-input-manager";
-import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
+import type {PerseusWidgetsMap, UserInputMap} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 function generateNumberLineMap(): PerseusWidgetsMap {
@@ -309,6 +309,132 @@ describe("UserInputManager", () => {
 
         expect(
             screen.getByText("User input is: 0-0-0-0-0"),
+        ).toBeInTheDocument();
+    });
+
+    it("accepts an initial user input", async () => {
+        const widgets: PerseusWidgetsMap = {
+            "radio 1": {
+                type: "radio",
+                static: false,
+                options: {
+                    choices: [
+                        {
+                            id: "0-0-0-0-0",
+                            content: "Correct",
+                            correct: true,
+                        },
+                        {
+                            id: "1-1-1-1-1",
+                            content: "Incorrect",
+                            correct: false,
+                        },
+                    ],
+                },
+            },
+        };
+
+        const initialUserInput: UserInputMap = {
+            "radio 1": {
+                selectedChoiceIds: ["0-0-0-0-0"],
+            },
+        };
+
+        render(
+            <UserInputManager
+                widgets={widgets}
+                problemNum={0}
+                initialUserInput={initialUserInput}
+            >
+                {({userInput}) => {
+                    return (
+                        <>
+                            <p>
+                                User input is:{" "}
+                                {userInput["radio 1"].selectedChoiceIds.join(
+                                    " ",
+                                )}
+                            </p>
+                        </>
+                    );
+                }}
+            </UserInputManager>,
+        );
+
+        expect(
+            screen.getByText("User input is: 0-0-0-0-0"),
+        ).toBeInTheDocument();
+    });
+
+    it("initial user input can be changed", async () => {
+        const widgets: PerseusWidgetsMap = {
+            "radio 1": {
+                type: "radio",
+                static: false,
+                options: {
+                    choices: [
+                        {
+                            id: "0-0-0-0-0",
+                            content: "Correct",
+                            correct: true,
+                        },
+                        {
+                            id: "1-1-1-1-1",
+                            content: "Incorrect",
+                            correct: false,
+                        },
+                    ],
+                },
+            },
+        };
+
+        const initialUserInput: UserInputMap = {
+            "radio 1": {
+                selectedChoiceIds: ["0-0-0-0-0"],
+            },
+        };
+
+        render(
+            <UserInputManager
+                widgets={widgets}
+                problemNum={0}
+                initialUserInput={initialUserInput}
+            >
+                {({userInput, handleUserInput}) => {
+                    return (
+                        <>
+                            <p>
+                                User input is:{" "}
+                                {userInput["radio 1"].selectedChoiceIds.join(
+                                    " ",
+                                )}
+                            </p>
+                            <button
+                                onClick={() =>
+                                    handleUserInput(
+                                        "radio 1",
+                                        {
+                                            selectedChoiceIds: ["1-1-1-1-1"],
+                                        },
+                                        false,
+                                    )
+                                }
+                            >
+                                Click me
+                            </button>
+                        </>
+                    );
+                }}
+            </UserInputManager>,
+        );
+
+        expect(
+            screen.getByText("User input is: 0-0-0-0-0"),
+        ).toBeInTheDocument();
+
+        await userEvent.click(screen.getByRole("button", {name: "Click me"}));
+        expect(
+            screen.getByText("User input is: 1-1-1-1-1"),
         ).toBeInTheDocument();
     });
 });
