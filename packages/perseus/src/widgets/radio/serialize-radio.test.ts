@@ -2,7 +2,7 @@ import {
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {screen, act} from "@testing-library/react";
+import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";

@@ -1,6 +1,6 @@
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 // eslint-disable-next-line testing-library/no-manual-cleanup
-import {act, cleanup, screen, waitFor} from "@testing-library/react";
+import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
