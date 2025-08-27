@@ -45,8 +45,8 @@ const setupScrollableMock = (isScrollable: boolean) => {
         options?: ScrollToOptions | undefined,
     ) {
         if (options !== undefined && options !== null) {
-            const currentScrollLeft = (this as any).scrollLeft || 0;
-            (this as any).scrollLeft = currentScrollLeft + (options.left || 0);
+            const currentScrollLeft = this.scrollLeft ?? 0;
+            this.scrollLeft = currentScrollLeft + (options.left || 0);
         }
     }) as any;
 };
