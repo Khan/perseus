@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perseus Release Notes Reviewer</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 300;
+        }
+        
+        .header p {
+            margin: 10px 0 0;
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .controls {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .control-group {
+            margin-bottom: 20px;
+        }
+        
+        .control-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        select, input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        button:hover {
+            background: #5a6fd8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .results {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            min-height: 200px;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .error {
+            background: #fee;
+            border: 1px solid #fcc;
+            color: #c33;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .release {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .release-header {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e1e5e9;
+        }
+        
+        .section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .change {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
+            border-left: 3px solid #ddd;
+        }
+        
+        .change.major {
+            border-left-color: #e74c3c;
+        }
+        
+        .change.minor {
+            border-left-color: #f39c12;
+        }
+        
+        .change.patch {
+            border-left-color: #27ae60;
+        }
+        
+        .change-description {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .change-meta {
+            font-size: 0.9em;
+            color: #666;
+        }
+        
+        .change-meta a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .change-meta a:hover {
+            text-decoration: underline;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .search-results {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        @media (max-width: 768px) {
+            .button-group {
+                flex-direction: column;
+            }
+            
+            button {
+                min-width: auto;
+            }
+            
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Perseus Release Notes Reviewer</h1>
+        <p>Review, search, and analyze release notes from the Perseus repository</p>
+    </div>
+
+    <div class="controls">
+        <div class="control-group">
+            <label for="action">Action:</label>
+            <select id="action">
+                <option value="recent">Recent Releases Summary</option>
+                <option value="package">Package Releases</option>
+                <option value="search">Search Releases</option>
+                <option value="list">List Packages</option>
+            </select>
+        </div>
+
+        <div class="control-group" id="limitGroup">
+            <label for="limit">Number of releases:</label>
+            <input type="number" id="limit" value="5" min="1" max="20">
+        </div>
+
+        <div class="control-group" id="packageGroup" style="display: none;">
+            <label for="package">Package:</label>
+            <select id="package">
+                <option value="">Loading packages...</option>
+            </select>
+        </div>
+
+        <div class="control-group" id="queryGroup" style="display: none;">
+            <label for="query">Search query:</label>
+            <input type="text" id="query" placeholder="Enter search terms...">
+        </div>
+
+        <div class="button-group">
+            <button id="executeBtn" onclick="executeAction()">Execute</button>
+            <button onclick="clearResults()">Clear Results</button>
+        </div>
+    </div>
+
+    <div id="results" class="results">
+        <div class="loading">Click "Execute" to run an action</div>
+    </div>
+
+    <script>
+        // Available packages (populated by the script)
+        const packages = [
+            'kas', 'keypad-context', 'kmath', 'math-input', 'perseus',
+            'perseus-core', 'perseus-editor', 'perseus-linter', 'perseus-score',
+            'perseus-utils', 'pure-markdown', 'simple-markdown'
+        ];
+
+        // Initialize the interface
+        document.addEventListener('DOMContentLoaded', function() {
+            populatePackages();
+            updateControlVisibility();
+        });
+
+        function populatePackages() {
+            const packageSelect = document.getElementById('package');
+            packageSelect.innerHTML = '<option value="">Select a package...</option>';
+            
+            packages.forEach(pkg => {
+                const option = document.createElement('option');
+                option.value = pkg;
+                option.textContent = pkg;
+                packageSelect.appendChild(option);
+            });
+        }
+
+        function updateControlVisibility() {
+            const action = document.getElementById('action').value;
+            const limitGroup = document.getElementById('limitGroup');
+            const packageGroup = document.getElementById('packageGroup');
+            const queryGroup = document.getElementById('queryGroup');
+
+            // Hide all optional groups
+            limitGroup.style.display = 'none';
+            packageGroup.style.display = 'none';
+            queryGroup.style.display = 'none';
+
+            // Show relevant groups based on action
+            switch(action) {
+                case 'recent':
+                    limitGroup.style.display = 'block';
+                    break;
+                case 'package':
+                    limitGroup.style.display = 'block';
+                    packageGroup.style.display = 'block';
+                    break;
+                case 'search':
+                    queryGroup.style.display = 'block';
+                    packageGroup.style.display = 'block';
+                    document.querySelector('#packageGroup label').textContent = 'Package (optional):';
+                    break;
+            }
+        }
+
+        // Update controls when action changes
+        document.getElementById('action').addEventListener('change', updateControlVisibility);
+
+        async function executeAction() {
+            const action = document.getElementById('action').value;
+            const limit = document.getElementById('limit').value;
+            const packageName = document.getElementById('package').value;
+            const query = document.getElementById('query').value;
+            const resultsDiv = document.getElementById('results');
+            const executeBtn = document.getElementById('executeBtn');
+
+            // Build command
+            let command = ['node', 'utils/release-notes-reviewer.js', action];
+
+            switch(action) {
+                case 'recent':
+                    if (limit) command.push(limit);
+                    break;
+                case 'package':
+                    if (!packageName) {
+                        showError('Please select a package.');
+                        return;
+                    }
+                    command.push(packageName);
+                    if (limit) command.push(limit);
+                    break;
+                case 'search':
+                    if (!query) {
+                        showError('Please enter a search query.');
+                        return;
+                    }
+                    command.push(query);
+                    if (packageName) command.push(packageName);
+                    break;
+            }
+
+            // Show loading
+            executeBtn.disabled = true;
+            executeBtn.textContent = 'Loading...';
+            resultsDiv.innerHTML = '<div class="loading">Executing command: ' + command.join(' ') + '</div>';
+
+            try {
+                // Since we can't execute shell commands directly from the browser,
+                // we'll show the command that should be run
+                const commandStr = command.join(' ');
+                resultsDiv.innerHTML = `
+                    <div class="error">
+                        <strong>Browser Limitation:</strong> This interface shows the commands to run.
+                        <br><br>
+                        <strong>Command to execute:</strong><br>
+                        <code>${commandStr}</code>
+                        <br><br>
+                        Please run this command in your terminal from the Perseus repository root.
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <h3>Example Output for Recent Releases:</h3>
+                        <div class="stats">
+                            <div class="stat-card">
+                                <div class="stat-number">5</div>
+                                <div class="stat-label">Total Releases</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">1</div>
+                                <div class="stat-label">Packages</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">1</div>
+                                <div class="stat-label">Major Changes</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">8</div>
+                                <div class="stat-label">Minor Changes</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">40</div>
+                                <div class="stat-label">Patch Changes</div>
+                            </div>
+                        </div>
+                        
+                        <h4>Sample Release:</h4>
+                        <div class="release">
+                            <div class="release-header">perseus@67.0.0</div>
+                            
+                            <div class="section">
+                                <div class="section-title">Major Changes</div>
+                                <div class="change major">
+                                    <div class="change-description">Remove deprecated onWidgetStartProps API from APIOptions</div>
+                                    <div class="change-meta">
+                                        <a href="#">@handeyeco</a> • <a href="#">#2805</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="section">
+                                <div class="section-title">Minor Changes</div>
+                                <div class="change minor">
+                                    <div class="change-description">Export deriveUserInputFromSerializedState from perseus</div>
+                                    <div class="change-meta">
+                                        <a href="#">@handeyeco</a> • <a href="#">#2829</a>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="section">
+                                <div class="section-title">Patch Changes</div>
+                                <div class="change patch">
+                                    <div class="change-description">[Image](DX) Add an image generator + use it in testdata</div>
+                                    <div class="change-meta">
+                                        <a href="#">@nishasy</a> • <a href="#">#2809</a>
+                                    </div>
+                                </div>
+                                <div class="change patch">
+                                    <div class="change-description">[Radio] Adjust the transition time of the indicator</div>
+                                    <div class="change-meta">
+                                        <a href="#">#2815</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } catch (error) {
+                showError('Error executing command: ' + error.message);
+            } finally {
+                executeBtn.disabled = false;
+                executeBtn.textContent = 'Execute';
+            }
+        }
+
+        function showError(message) {
+            document.getElementById('results').innerHTML = `
+                <div class="error">
+                    <strong>Error:</strong> ${message}
+                </div>
+            `;
+        }
+
+        function clearResults() {
+            document.getElementById('results').innerHTML = '<div class="loading">Click "Execute" to run an action</div>';
+        }
+
+        // Sample data for demonstration
+        function showSampleResults() {
+            // This would be replaced with actual data processing
+            // For now, it shows the interface structure
+        }
+    </script>
+</body>
+</html>
