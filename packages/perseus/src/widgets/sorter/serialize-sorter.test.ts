@@ -98,37 +98,4 @@ describe("Sorter serialization", () => {
             hints: [],
         });
     });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicSorter());
-
-        // Just making sure things start shuffled
-        expect(
-            generateBasicSorter().question.widgets["sorter 1"].options.correct,
-        ).not.toEqual(renderer.getUserInput()["sorter 1"].options);
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "sorter 1": {
-                        correct: ["First", "Second", "Third"],
-                        options: ["First", "Second", "Third"],
-                        changed: true,
-                        layout: "horizontal",
-                        padding: true,
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        expect(userInput).toEqual({
-            "sorter 1": {changed: true, options: ["First", "Second", "Third"]},
-        });
-    });
 });

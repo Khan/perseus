@@ -102,35 +102,4 @@ describe("Categorizer serialization", () => {
             hints: [],
         });
     });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicCategorizer());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "categorizer 1": {
-                        categories: ["one", "two", "three"],
-                        items: ["uno", "dos", "tres"],
-                        randomizeItems: true,
-                        /**
-                         * `values` is the user input
-                         * - index: represents which item the answer is for
-                         * - value: represents which category is selected for that item
-                         */
-                        values: [undefined, 0],
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        // `values` would be [] if we didn't properly restore serialized state
-        expect(userInput).toEqual({"categorizer 1": {values: [undefined, 0]}});
-    });
 });

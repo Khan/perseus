@@ -25,7 +25,7 @@ type FunctionChildParams = {
     userInput: UserInputMap;
     handleUserInput: HandleUserInputCallback;
     initializeUserInput: InitializeUserInputCallback;
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    // TODO(LEMS-3185): remove serializedState
     /**
      * @deprecated - do not use in new code.
      */
@@ -73,7 +73,7 @@ export function sharedInitializeUserInput(
     return startUserInput;
 }
 
-// TODO(LEMS-3185): remove serializedState/restoreSerializedState
+// TODO(LEMS-3185): remove serializedState
 /**
  * Restore user input from serialized state. It's tricky
  * because there is no definite type for serialized state,

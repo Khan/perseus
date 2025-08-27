@@ -373,58 +373,6 @@ describe("group widget", () => {
         });
     });
 
-    it("should be able to restore serialized state", async () => {
-        // This test checks the state restoration by serializing state with one
-        // renderer and then restore it to a different one.
-
-        // Arrange
-        const {renderer} = renderQuestion(question1);
-        await userEvent.click(screen.getAllByRole("radio")[4]);
-        // Note(jeremy): If we don't tab away from the radio button in this
-        // test, it seems like the userEvent typing doesn't land in the first
-        // text field.
-        await userEvent.tab();
-        await userEvent.type(
-            screen.getByRole("textbox", {
-                name: /value rounded to the nearest ten/,
-            }),
-            "1000",
-        );
-        await userEvent.type(
-            screen.getByRole("textbox", {
-                name: /value rounded to the nearest hundred/,
-            }),
-            "9999",
-        );
-
-        const state = renderer.getSerializedState();
-        cleanup(); // Resets the DOM
-
-        const {renderer: renderer1} = renderQuestion(question1);
-
-        // Act
-        act(() => renderer1.restoreSerializedState(state));
-
-        // Assert
-        await waitFor(() =>
-            expect(screen.getAllByRole("radio")[4]).toBeChecked(),
-        );
-        await waitFor(() =>
-            expect(
-                screen.getByRole("textbox", {
-                    name: /value rounded to the nearest ten/,
-                }),
-            ).toHaveValue("1000"),
-        );
-        await waitFor(() =>
-            expect(
-                screen.getByRole("textbox", {
-                    name: /value rounded to the nearest hundred/,
-                }),
-            ).toHaveValue("9999"),
-        );
-    });
-
     it("should return score from contained Renderer", async () => {
         // Arrange
         const {renderer} = renderQuestion(question1);

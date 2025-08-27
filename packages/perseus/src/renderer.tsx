@@ -51,8 +51,6 @@ import type {
     APIOptionsWithDefaults,
     FilterCriterion,
     FocusPath,
-    // eslint-disable-next-line import/no-deprecated
-    SerializedState,
     Widget,
     WidgetProps,
 } from "./types";
@@ -144,12 +142,6 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
     showSolutions?: ShowSolutions;
     content: PerseusRenderer["content"];
 
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
-    /**
-     * @deprecated - do not use in new code.
-     */
-    serializedState?: any;
-
     /**
      * If linterContext.highlightLint is true, then content will be passed to
      * the linter and any warnings will be highlighted in the rendered output.
@@ -196,7 +188,6 @@ type DefaultProps = Required<
         | "questionCompleted"
         | "showSolutions"
         | "reviewMode"
-        | "serializedState"
         | "widgets"
     >
 >;
@@ -283,7 +274,6 @@ class Renderer
         findExternalWidgets: () => [],
         alwaysUpdate: false,
         reviewMode: false,
-        serializedState: null,
         linterContext: PerseusLinter.linterContextDefault,
     };
 
@@ -320,13 +310,6 @@ class Renderer
             this.props.widgets,
             this.props.problemNum ?? 0,
         );
-
-        // TODO(emily): actually make the serializedState prop work like a
-        // controlled prop, instead of manually calling .restoreSerializedState
-        // at the right times.
-        if (this.props.serializedState) {
-            this.restoreSerializedState(this.props.serializedState);
-        }
 
         if (this.props.linterContext.highlightLint) {
             // Get i18n lint errors asynchronously. If there are lint errors,
@@ -434,13 +417,6 @@ class Renderer
             const container = this._widgetContainers.get(makeContainerId(id));
             container?.replaceWidgetProps(this.getWidgetProps(id));
         });
-
-        if (
-            this.props.serializedState &&
-            !_.isEqual(this.props.serializedState, prevProps.serializedState)
-        ) {
-            this.restoreSerializedState(this.props.serializedState);
-        }
 
         if (this.props.linterContext.highlightLint) {
             // Get i18n lint errors asynchronously. If lint errors have changed
@@ -670,13 +646,10 @@ class Renderer
     /**
      * Serializes the questions state so it can be recovered.
      *
-     * The return value of this function can be sent to the
-     * `restoreSerializedState` method to restore this state.
-     *
      * If an instance of widgetProps is passed in, it generates the serialized
      * state from that instead of the current widget props.
      */
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    // TODO(LEMS-3185): remove serializedState
     /**
      * @deprecated - do not use in new code.
      */
@@ -695,98 +668,6 @@ class Renderer
                     return excludeDenylistKeys(widget.getSerializedState());
                 }
                 return props;
-            },
-        );
-    };
-
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
-    /**
-     * @deprecated - do not use in new code.
-     */
-    restoreSerializedState: (
-        // eslint-disable-next-line import/no-deprecated
-        serializedState: SerializedState,
-        callback?: () => void,
-        // eslint-disable-next-line import/no-deprecated
-    ) => void = (serializedState: SerializedState, callback?: () => void) => {
-        // Do some basic validation on the serialized state (just make sure the
-        // widget IDs are what we expect).
-        const serializedWidgetIds = _.keys(serializedState);
-        const widgetPropIds = _.keys(this.state.widgetProps);
-
-        // If the two lists of IDs match (ignoring order)
-        if (
-            serializedWidgetIds.length !== widgetPropIds.length ||
-            _.intersection(serializedWidgetIds, widgetPropIds).length !==
-                serializedWidgetIds.length
-        ) {
-            Log.error(
-                "Refusing to restore bad serialized state:",
-                Errors.Internal,
-                {
-                    loggedMetadata: {
-                        serializedState: JSON.stringify(serializedState),
-                        currentProps: JSON.stringify(this.state.widgetProps),
-                    },
-                },
-            );
-            return;
-        }
-
-        // We want to wait until any children widgets who have a
-        // restoreSerializedState function also call their own callbacks before
-        // we declare that the operation is finished.
-        let numCallbacks = 1;
-        const fireCallback = () => {
-            --numCallbacks;
-            if (callback && numCallbacks === 0) {
-                callback();
-            }
-        };
-
-        const restoredWidgetProps = {};
-        Object.entries(serializedState).forEach(([widgetId, props]) => {
-            const widget = this.getWidgetInstance(widgetId);
-            if (widget?.restoreSerializedState) {
-                // Note that we probably can't call
-                // `this.change()/this.props.onChange()` in this
-                // function, so we take the return value and use
-                // that as props if necessary so that
-                // `restoreSerializedState` in a widget can
-                // change the props as well as state.
-                // If a widget has no props to change, it can
-                // safely return null.
-                ++numCallbacks;
-                const restoreResult = widget.restoreSerializedState(
-                    props,
-                    fireCallback,
-                );
-                restoredWidgetProps[widgetId] = {
-                    ...this.state.widgetProps[widgetId],
-                    ...restoreResult,
-                };
-            } else {
-                restoredWidgetProps[widgetId] = props;
-            }
-        });
-
-        this.props.restoreUserInputFromSerializedState?.(
-            serializedState,
-            this.props.widgets,
-        );
-
-        this.setState(
-            {
-                widgetProps: restoredWidgetProps,
-            },
-            () => {
-                // Wait until all components have rendered. In React 16 setState
-                // callback fires immediately after this componentDidUpdate, and
-                // there is no guarantee that parent/siblings components have
-                // finished rendering.
-                // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-                // eslint-disable-next-line no-restricted-syntax
-                setTimeout(fireCallback, 0);
             },
         );
     };
@@ -1606,7 +1487,7 @@ class Renderer
      * Serializes widget state. Seems to be used only by editors though.
      *
      * @deprecated and likely a very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     serialize: () => Record<any, any> = () => {
         const state: Record<string, any> = {};

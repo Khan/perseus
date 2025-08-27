@@ -89,7 +89,7 @@ type State = {
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 type SerializedState = {
     question: any;
@@ -382,7 +382,7 @@ export class ServerItemRenderer
     /**
      * Get a representation of the current state of the item.
      */
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    // TODO(LEMS-3185): remove serializedState
     /**
      * @deprecated - do not use in new code.
      */
@@ -391,28 +391,6 @@ export class ServerItemRenderer
             question: this.questionRenderer.getSerializedState(),
             hints: this.hintsRenderer.getSerializedState(),
         };
-    }
-
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
-    /**
-     * @deprecated - do not use in new code.
-     */
-    restoreSerializedState(state: SerializedState, callback?: () => void) {
-        // We need to wait for both the question renderer and the hints
-        // renderer to finish restoring their states.
-        let numCallbacks = 2;
-        const fireCallback = () => {
-            --numCallbacks;
-            if (callback && numCallbacks === 0) {
-                callback();
-            }
-        };
-
-        this.questionRenderer.restoreSerializedState(
-            state.question,
-            fireCallback,
-        );
-        this.hintsRenderer.restoreSerializedState(state.hints, fireCallback);
     }
 
     // This must be pre-bound otherwise SvgImage's shouldComponentUpdate

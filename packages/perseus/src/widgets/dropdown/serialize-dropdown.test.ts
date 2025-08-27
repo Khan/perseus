@@ -100,29 +100,4 @@ describe("Dropdown serialization", () => {
             hints: [],
         });
     });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicDropdown());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "dropdown 1": {
-                        choices: ["Correct", "Incorrect"],
-                        placeholder: "Choose",
-                        selected: 2,
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        // `value` would be 0 if we didn't properly restore serialized state
-        expect(userInput).toEqual({"dropdown 1": {value: 2}});
-    });
 });

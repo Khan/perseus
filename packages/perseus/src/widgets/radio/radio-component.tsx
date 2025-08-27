@@ -272,10 +272,7 @@ class Radio extends React.Component<Props> implements Widget {
                     // Current versions of the radio widget always pass in the
                     // "correct" value through the choices. Old serialized state
                     // for radio widgets doesn't have this though, so we have to
-                    // pull the correctness out of the review mode scoring data. This
-                    // only works because all of the places we use
-                    // `restoreSerializedState()` also turn on reviewMode, but is
-                    // fine for now.
+                    // pull the correctness out of the review mode scoring data.
                     // TODO(emily): Come up with a more comprehensive way to solve
                     // this sort of "serialized state breaks when internal
                     // structure changes" problem.

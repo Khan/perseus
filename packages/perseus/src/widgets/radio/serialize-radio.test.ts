@@ -193,40 +193,4 @@ describe("Radio serialization", () => {
             expectedSerializedRadio,
         );
     });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicRadio());
-
-        const preUserInput = renderer.getUserInput();
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "radio 1": expectedSerializedRadio,
-                },
-                hints: [],
-            }),
-        );
-
-        const postUserInput = renderer.getUserInput();
-
-        // Assert
-        // compare pre- and post-restore user input
-        // to show it's properly restored
-        expect(preUserInput).toEqual({
-            "radio 1": {
-                selectedChoiceIds: [],
-            },
-        });
-        expect(postUserInput).toEqual({
-            "radio 1": {
-                // note we unshuffle!
-                // in expectedSerializedRadio.choiceStates the first element
-                // is selected; here the last element is selected
-                selectedChoiceIds: ["5-5-5-5-5"],
-            },
-        });
-    });
 });

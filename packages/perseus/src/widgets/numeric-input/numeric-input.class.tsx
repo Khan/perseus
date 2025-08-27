@@ -114,7 +114,7 @@ export class NumericInput
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
         const {userInput, answers: _, ...rest} = this.props;
@@ -141,7 +141,7 @@ function getStartUserInput(): PerseusNumericInputUserInput {
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,

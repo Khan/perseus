@@ -37,15 +37,14 @@ export type Dimensions = {
 export type DeviceType = "phone" | "tablet" | "desktop";
 
 /**
- * This is the type returned by a widget's `getSerializedState` function (and
- * provided to the same widget's `restoreSerializedState` function). However,
+ * This is the type returned by a widget's `getSerializedState` function. However,
  * note that in most cases the widgets do _not_ implement these functions.
  * In that case, the `Renderer` just returns the widget's render props as the
  * serialized state.
  */
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 export type SerializedState = Record<string, any>;
 
@@ -74,24 +73,17 @@ export interface Widget {
     getDOMNodeForPath?: (path: FocusPath) => Element | Text | null;
 
     /**
-     * Returns widget state that can be passed back to `restoreSerializedState`
-     * to put the widget back into exactly the same state. If the widget does
-     * not implement this function, the renderer simply returns all of the
-     * widget's props.
+     * If the widget does not implement this function,
+     * the renderer simply returns all of the widget's props.
      */
     // TODO(jeremy): I think this return value is wrong. The widget
     // getSerializedState should just return _its_ serialized state, not a
     // key/value list of all widget states (i think!)
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    // TODO(LEMS-3185): remove serializedState
     /**
      * @deprecated - do not use in new code.
      */
     getSerializedState?: () => SerializedState; // SUSPECT,
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
-    /**
-     * @deprecated - do not use in new code.
-     */
-    restoreSerializedState?: (props: any, callback: () => void) => any;
 
     blurInputPath?: (path: FocusPath) => void;
     focusInputPath?: (path: FocusPath) => void;
@@ -508,7 +500,7 @@ export type WidgetExports<
         rubric: WidgetOptions,
     ) => string | null | undefined;
 
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    // TODO(LEMS-3185): remove serializedState
     /**
      * @deprecated - do not use in new code.
      */

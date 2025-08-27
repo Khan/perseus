@@ -7,10 +7,7 @@ import UserInputManager, {
 } from "./user-input-manager";
 import {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 
-import type {
-    InitializeUserInputCallback,
-    RestoreUserInputFromSerializedStateCallback,
-} from "./user-input-manager";
+import type {InitializeUserInputCallback} from "./user-input-manager";
 import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -68,36 +65,6 @@ function generateExpressionWidgetsMap(): PerseusWidgetsMap {
                 times: false,
             },
             version: {major: 1, minor: 0},
-        },
-    };
-}
-
-function generateExpressionSerializeState() {
-    return {
-        "expression 1": {
-            keypadConfiguration: {
-                keypadType: "EXPRESSION",
-                times: false,
-            },
-            times: false,
-            functions: [],
-            buttonSets: [],
-            analytics: {
-                onAnalyticsEvent: expect.any(Function),
-            },
-            alignment: "default",
-            static: false,
-            showSolutions: "none",
-            reviewModeRubric: null,
-            reviewMode: false,
-            isLastUsedWidget: false,
-            linterContext: {
-                contentType: "",
-                highlightLint: false,
-                paths: [],
-                stack: ["question", "widget"],
-            },
-            value: "Hello world",
         },
     };
 }
@@ -299,56 +266,6 @@ describe("UserInputManager", () => {
         // Return to nothing
         act(() => initializeCallback?.(generateGroupedNumberLineMap(), 0));
         expect(screen.getByText("User input is: -4")).toBeInTheDocument();
-    });
-
-    it("restores serialized State", async () => {
-        let restoreCallback:
-            | RestoreUserInputFromSerializedStateCallback
-            | undefined;
-
-        render(
-            <UserInputManager
-                widgets={generateExpressionWidgetsMap()}
-                problemNum={0}
-            >
-                {({
-                    userInput,
-                    handleUserInput,
-                    restoreUserInputFromSerializedState,
-                }) => {
-                    restoreCallback = restoreUserInputFromSerializedState;
-                    return (
-                        <>
-                            <button
-                                onClick={() =>
-                                    handleUserInput(
-                                        "expression 1",
-                                        "Hello world",
-                                        false,
-                                    )
-                                }
-                            >
-                                Click me
-                            </button>
-                            {/* this only works because Expression's UserInput is a string */}
-                            <p>User input is: {userInput["expression 1"]}</p>
-                        </>
-                    );
-                }}
-            </UserInputManager>,
-        );
-
-        // Start with nothing
-        expect(screen.queryByText(/Hello world/)).not.toBeInTheDocument();
-
-        // Restore serialized state
-        act(() =>
-            restoreCallback?.(
-                generateExpressionSerializeState(),
-                generateExpressionWidgetsMap(),
-            ),
-        );
-        expect(screen.getByText(/Hello world/)).toBeInTheDocument();
     });
 
     it("initializes static user input", async () => {
