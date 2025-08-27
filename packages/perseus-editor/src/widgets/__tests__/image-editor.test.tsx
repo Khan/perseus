@@ -54,16 +54,16 @@ describe("image editor", () => {
             <ImageEditor
                 apiOptions={apiOptions}
                 backgroundImage={{url: realKhanImageUrl}}
-                alt="Earth and moon"
-                caption="Earth and moon"
+                alt="Earth and moon alt"
+                caption="Earth and moon caption"
                 onChange={() => {}}
             />,
         );
 
         const dimensionsLabel = screen.getByText("Dimensions:");
         const urlField = screen.getByRole("textbox", {name: "Image url:"});
-        const altField = screen.getAllByRole("textbox")[1]; // Second textarea is alt
-        const captionField = screen.getAllByRole("textbox")[2]; // Third textarea is caption
+        const altField = screen.getByRole("textbox", {name: "Alt text:"});
+        const captionField = screen.getByRole("textbox", {name: "Caption:"});
 
         // Assert
         expect(dimensionsLabel).toBeInTheDocument();
@@ -73,8 +73,8 @@ describe("image editor", () => {
 
         expect(screen.getByText("unknown")).toBeInTheDocument();
         expect(urlField).toHaveValue(realKhanImageUrl);
-        expect(altField).toHaveValue("Earth and moon");
-        expect(captionField).toHaveValue("Earth and moon");
+        expect(altField).toHaveValue("Earth and moon alt");
+        expect(captionField).toHaveValue("Earth and moon caption");
     });
 
     it("should render warning for non-Khan Academy image", async () => {
