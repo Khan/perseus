@@ -9,7 +9,7 @@ describe("extractWidgetIds", () => {
             content,
             widgets: {
                 "radio 1": {
-                    type: "radio" as const,
+                    type: "radio",
                     graded: true,
                     options: {
                         choices: [
@@ -33,7 +33,7 @@ describe("extractWidgetIds", () => {
             content,
             widgets: {
                 "radio 1": {
-                    type: "radio" as const,
+                    type: "radio",
                     graded: true,
                     options: {
                         choices: [
@@ -44,7 +44,7 @@ describe("extractWidgetIds", () => {
                     },
                 },
                 "numeric-input 2": {
-                    type: "numeric-input" as const,
+                    type: "numeric-input",
                     graded: true,
                     options: {
                         answers: [
@@ -62,7 +62,7 @@ describe("extractWidgetIds", () => {
                     },
                 },
                 "expression 3": {
-                    type: "expression" as const,
+                    type: "expression",
                     graded: true,
                     options: {
                         answerForms: [
@@ -92,7 +92,7 @@ describe("extractWidgetIds", () => {
             content,
             widgets: {
                 "radio 1": {
-                    type: "radio" as const,
+                    type: "radio",
                     graded: true,
                     options: {
                         choices: [
@@ -103,7 +103,7 @@ describe("extractWidgetIds", () => {
                     },
                 },
                 "numeric-input 2": {
-                    type: "numeric-input" as const,
+                    type: "numeric-input",
                     graded: true,
                     options: {
                         answers: [
@@ -171,7 +171,7 @@ Some math: $x + y = z$
             content,
             widgets: {
                 "radio 1": {
-                    type: "radio" as const,
+                    type: "radio",
                     graded: true,
                     options: {
                         choices: [
@@ -182,7 +182,7 @@ Some math: $x + y = z$
                     },
                 },
                 "numeric-input 2": {
-                    type: "numeric-input" as const,
+                    type: "numeric-input",
                     graded: true,
                     options: {
                         answers: [
@@ -200,7 +200,7 @@ Some math: $x + y = z$
                     },
                 },
                 "expression 3": {
-                    type: "expression" as const,
+                    type: "expression",
                     graded: true,
                     options: {
                         answerForms: [
@@ -229,7 +229,7 @@ Some math: $x + y = z$
             content,
             widgets: {
                 "radio 1": {
-                    type: "radio" as const,
+                    type: "radio",
                     graded: true,
                     options: {
                         choices: [
@@ -253,7 +253,7 @@ Some math: $x + y = z$
             content,
             widgets: {
                 "radio 1": {
-                    type: "radio" as const,
+                    type: "radio",
                     graded: true,
                     options: {
                         choices: [
@@ -264,7 +264,7 @@ Some math: $x + y = z$
                     },
                 },
                 "numeric-input 2": {
-                    type: "numeric-input" as const,
+                    type: "numeric-input",
                     graded: true,
                     options: {
                         answers: [
@@ -282,7 +282,7 @@ Some math: $x + y = z$
                     },
                 },
                 "expression 3": {
-                    type: "expression" as const,
+                    type: "expression",
                     graded: true,
                     options: {
                         answerForms: [
