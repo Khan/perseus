@@ -36,11 +36,17 @@
    The exception to this is when the indicator is showing correctness
        (i.e. has the classes .is-correct or .is-wrong).
  */
-.base:hover,
-.base:focus,
-:has(> .base):hover .base:not(:where(.is-correct, .is-wrong)) {
+.base:focus {
     outline-offset: var(--wb-sizing-size_020);
     outline-width: var(--wb-sizing-size_020);
+}
+
+@media (hover: hover) {
+    .base:hover,
+    :has(> .base):hover .base:not(:where(.is-correct, .is-wrong)) {
+        outline-offset: var(--wb-sizing-size_020);
+        outline-width: var(--wb-sizing-size_020);
+    }
 }
 
 /* button is checked */
@@ -75,9 +81,11 @@
     cursor: default;
 }
 
-.is-correct:hover,
-.is-wrong:hover {
-    outline: none;
+@media (hover: hover) {
+    .is-correct:hover,
+    .is-wrong:hover {
+        outline: none;
+    }
 }
 
 .is-correct[aria-pressed="true"] {
