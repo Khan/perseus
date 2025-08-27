@@ -43,7 +43,7 @@ describe("Group AI utils", () => {
                         {value: "$15$"},
                     ],
                     userInput: {
-                        selectedOptions: [false, false, false, false, false],
+                        selectedOptions: [],
                     },
                 },
                 "matrix 1": {
@@ -83,7 +83,7 @@ describe("Group AI utils", () => {
                         {value: "$15$"},
                     ],
                     userInput: {
-                        selectedOptions: [false, false, false, false, false],
+                        selectedOptions: [],
                     },
                 },
                 "matrix 1": {
@@ -136,13 +136,7 @@ describe("Group AI utils", () => {
                                 {value: "$15$"},
                             ],
                             userInput: {
-                                selectedOptions: [
-                                    false,
-                                    false,
-                                    false,
-                                    false,
-                                    false,
-                                ],
+                                selectedOptions: [],
                             },
                         },
                     },

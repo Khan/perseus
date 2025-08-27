@@ -87,7 +87,7 @@ class RadioQuestionBuilder {
         },
     ): RadioQuestionBuilder {
         this.choices.push({
-            id: crypto.randomUUID(),
+            id: `radio-choice-test-id-${this.choices.length}`,
             content,
             correct: options?.correct,
             rationale: options?.rationale,
