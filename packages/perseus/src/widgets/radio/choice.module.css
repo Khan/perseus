@@ -127,7 +127,7 @@
 
     .choice:active:after,
     .choice:active:before {
-        z-index: 5; /* Lower z-index to not interfere with fade background */
+        z-index: 1; /* Same as default borders - above fade background */
     }
 
     /* Prevent hover state from sticking by resetting it after touch events */
