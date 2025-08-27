@@ -1266,7 +1266,7 @@ export type PerseusNumberLineWidgetOptions = {
     // Show label ticks
     labelTicks: boolean;
     // Show tick controller
-    isTickCtrl?: boolean | null;
+    isTickCtrl: boolean;
     isInequality: boolean;
     // The range of divisions within the line
     divisionRange: number[];

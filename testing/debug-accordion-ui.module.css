@@ -12,7 +12,7 @@
     flex-direction: row;
     align-items: center;
     gap: var(--wb-sizing-size_060);
-    background-color: var(--wb-semanticColor-core-foreground-inverse-default);
+    background-color: var(--wb-semanticColor-core-background-base-subtle);
     border-radius: var(--wb-border-radius-radius_040);
     padding: var(--wb-sizing-size_080) var(--wb-sizing-size_080);
 }
@@ -42,6 +42,7 @@
     height: 40rem;
     margin-bottom: var(--wb-sizing-size_160);
 }
+
 .button-container {
     display: flex;
     flex-direction: column;

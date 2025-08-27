@@ -1,5 +1,16 @@
 # @khanacademy/keypad-context
 
+## 3.2.0
+
+### Minor Changes
+
+-   [#2799](https://github.com/Khan/perseus/pull/2799) [`8b18b38b31`](https://github.com/Khan/perseus/commit/8b18b38b31866582cb101d29ea3dbfd2dbe756bf) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Changes the output of radio score from boolean array to string array that represent the user's selected choice ids
+
+### Patch Changes
+
+-   Updated dependencies [[`8b18b38b31`](https://github.com/Khan/perseus/commit/8b18b38b31866582cb101d29ea3dbfd2dbe756bf)]:
+    -   @khanacademy/perseus-core@18.9.0
+
 ## 3.1.5
 
 ### Patch Changes

@@ -160,17 +160,11 @@ class Radio extends React.Component<Props> implements Widget {
     // So, given the new values for each choice, construct the new
     // `choiceStates` objects, and pass them to `this.props.onChange`.
     //
-    // `newValueLists` is an object with two keys: `checked` and `crossedOut`.
-    // Each contains an array of boolean values, specifying the new checked and
-    // crossed-out value of each choice.
-    //
     // NOTE(mdr): This method expects to be auto-bound. If this component is
     //     converted to an ES6 class, take care to auto-bind this method!
-    updateChoices: (
-        newValueLists: Readonly<{
-            checked: ReadonlyArray<boolean>;
-        }>,
-    ) => void = (newValueLists) => {
+    updateChoices: (checkedChoiceIds: ReadonlyArray<string>) => void = (
+        checkedChoiceIds,
+    ) => {
         const {choiceStates, choices} = this.props;
 
         // Construct the baseline `choiceStates` objects. If this is the user's
@@ -189,10 +183,10 @@ class Radio extends React.Component<Props> implements Widget {
                   readOnly: false,
               }));
 
-        // Mutate the new `choiceState` objects, according to the new `checked`
-        // and `crossedOut` values provided in `newValueLists`.
+        // Mutate the new `choiceState` objects, according to the checkedChoiceIds.
         newChoiceStates.forEach((choiceState: ChoiceState, i) => {
-            choiceState.selected = newValueLists.checked[i];
+            const choiceId = choices[i].id;
+            choiceState.selected = checkedChoiceIds.includes(choiceId);
         });
 
         this.props.onChange({choiceStates: newChoiceStates});
