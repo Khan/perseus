@@ -172,12 +172,8 @@ describe("image editor", () => {
 
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({
-            backgroundImage: {
-                url: "",
-                width: 0,
-                height: 0,
-            },
-            box: [0, 0],
+            backgroundImage: {},
+            box: undefined,
         });
     });
 
@@ -232,6 +228,28 @@ describe("image editor", () => {
         });
     });
 
+    it("should call onChange with undefined alt", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ImageEditor
+                apiOptions={apiOptions}
+                backgroundImage={{url: realKhanImageUrl}}
+                alt="Earth and moon"
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Act
+        const altField = screen.getByRole("textbox", {name: "Alt text:"});
+        await userEvent.clear(altField);
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            alt: undefined,
+        });
+    });
+
     it("should call onChange with new caption", async () => {
         // Arrange
         const onChangeMock = jest.fn();
@@ -251,6 +269,28 @@ describe("image editor", () => {
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({
             caption: "Earth and moon",
+        });
+    });
+
+    it("should call onChange with undefined caption", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ImageEditor
+                apiOptions={apiOptions}
+                backgroundImage={{url: realKhanImageUrl}}
+                caption="Earth and moon"
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Act
+        const captionField = screen.getByRole("textbox", {name: "Caption:"});
+        await userEvent.clear(captionField);
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            caption: undefined,
         });
     });
 });
