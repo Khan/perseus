@@ -17,9 +17,7 @@ import {
 } from "@khanacademy/perseus-score";
 import {entries} from "@khanacademy/wonder-stuff-core";
 import classNames from "classnames";
-import $ from "jquery";
 import * as React from "react";
-import ReactDOM from "react-dom";
 import _ from "underscore";
 
 import AssetContext from "./asset-context";
@@ -311,9 +309,7 @@ class Renderer
     componentDidMount() {
         this._isMounted = true;
 
-        // figure out why we're passing an empty object
-        // @ts-expect-error - TS2345 - Argument of type '{}' is not assignable to parameter of type 'Props'.
-        this.handleRender({});
+        this.props.onRender();
         this._currentFocus = null;
 
         this.props.initializeUserInput?.(
@@ -423,7 +419,6 @@ class Renderer
     }
 
     componentDidUpdate(prevProps: Props, prevState: State) {
-        this.handleRender(prevProps);
         // We even do this if we did reuse the markdown because
         // we might need to update the widget props on this render,
         // even though we have the same widgets.
@@ -1418,29 +1413,6 @@ class Renderer
         );
     };
 
-    handleRender: (prevProps: Props) => void = (prevProps: Props) => {
-        const onRender = this.props.onRender;
-        const oldOnRender = prevProps.onRender;
-
-        // In the common case of no callback specified, avoid this work.
-        if (onRender !== noopOnRender || oldOnRender !== noopOnRender) {
-            // @ts-expect-error - TS2769 - No overload matches this call. | TS2339 - Property 'find' does not exist on type 'JQueryStatic'.
-            const $images = $(ReactDOM.findDOMNode(this)).find("img");
-
-            // Fire callback on image load...
-            if (oldOnRender !== noopOnRender) {
-                $images.off("load", oldOnRender);
-            }
-
-            if (onRender !== noopOnRender) {
-                $images.on("load", onRender);
-            }
-        }
-
-        // ...as well as right now (non-image, non-TeX or image from cache)
-        onRender();
-    };
-
     // Sets the current focus path
     // If the new focus path is not a prefix of the old focus path,
     // we send an onChangeFocus event back to our parent.
@@ -1515,26 +1487,6 @@ class Renderer
             return true;
         }
     };
-
-    getDOMNodeForPath: (path: FocusPath) => Element | Text | null | undefined =
-        (path: FocusPath) => {
-            // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-            const widgetId = _.first(path);
-            // @ts-expect-error - TS2345 - Argument of type 'FocusPath' is not assignable to parameter of type 'List<any>'.
-            const interWidgetPath = _.rest(path);
-
-            // Widget handles parsing of the interWidgetPath. If the path is empty
-            // beyond the widgetID, as a special case we just return the widget's
-            // DOM node.
-            const widget = this.getWidgetInstance(widgetId);
-            if (widget?.getDOMNodeForPath) {
-                return widget.getDOMNodeForPath(interWidgetPath);
-            }
-            if (interWidgetPath.length === 0) {
-                // @ts-expect-error - TS2345 - Argument of type 'Widget | null | undefined' is not assignable to parameter of type 'ReactInstance | null | undefined'.
-                return ReactDOM.findDOMNode(widget);
-            }
-        };
 
     getInputPaths: () => ReadonlyArray<FocusPath> = () => {
         const inputPaths: Array<FocusPath> = [];

@@ -87,7 +87,7 @@ export const NumericInputComponent = forwardRef<Focusable, NumericInputProps>(
             return (
                 <div className={alignmentClass}>
                     <SimpleKeypadInput
-                        ref={inputRef as React.RefObject<SimpleKeypadInput>}
+                        ref={inputRef}
                         value={props.userInput.currentValue}
                         keypadElement={props.keypadElement}
                         onChange={handleChange}

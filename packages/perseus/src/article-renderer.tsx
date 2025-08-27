@@ -94,7 +94,6 @@ class ArticleRenderer
         // paths, so as to check whether the focused path represents an
         // input.
         let didFocusInput = false;
-        let focusedInput;
 
         if (this._currentFocus) {
             const [sectionIndex, ...focusPath] = this._currentFocus;
@@ -105,10 +104,6 @@ class ArticleRenderer
             didFocusInput = inputPaths.some((inputPath) => {
                 return Util.inputPathsEqual(inputPath, focusPath);
             });
-            focusedInput =
-                this.sectionRenderers[sectionIndex].getDOMNodeForPath(
-                    focusPath,
-                );
         }
 
         const {onFocusChange} = this.props.apiOptions;
@@ -123,12 +118,7 @@ class ArticleRenderer
                         ? keypadDomNode.getBoundingClientRect().height
                         : 0;
 
-                onFocusChange(
-                    this._currentFocus,
-                    prevFocusPath,
-                    keypadHeight,
-                    didFocusInput ? focusedInput : null,
-                );
+                onFocusChange(this._currentFocus, prevFocusPath, keypadHeight);
             }, 0);
         }
 

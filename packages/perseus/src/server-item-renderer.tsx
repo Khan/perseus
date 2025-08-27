@@ -243,14 +243,7 @@ export class ServerItemRenderer
                         : 0;
 
                 // Then call the callback
-                onFocusChange(
-                    this._currentFocus,
-                    prevFocus,
-                    keypadHeight,
-                    // @ts-expect-error [FEI-5003] - TS2345 - Argument of type 'false | Element | Text | null | undefined' is not assignable to parameter of type 'HTMLElement | undefined'.
-                    didFocusInput &&
-                        this.questionRenderer.getDOMNodeForPath(newFocus),
-                );
+                onFocusChange(this._currentFocus, prevFocus, keypadHeight);
             }, 0);
         }
 
@@ -302,10 +295,6 @@ export class ServerItemRenderer
 
     blurPath(path: FocusPath): void {
         return this.questionRenderer.blurPath(path);
-    }
-
-    getDOMNodeForPath(path: FocusPath): Element | Text | null | undefined {
-        return this.questionRenderer.getDOMNodeForPath(path);
     }
 
     getInputPaths(): ReadonlyArray<FocusPath> {
