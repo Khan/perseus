@@ -32,6 +32,7 @@ function generateNumberLineMap(): PerseusWidgetsMap {
                 numDivisions: null,
                 divisionRange: [1, 10],
                 correctX: -2.5,
+                isTickCtrl: false,
             },
         },
     };

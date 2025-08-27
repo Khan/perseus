@@ -12766,6 +12766,7 @@ $=(31-31) -8$",
           ],
           "initialX": null,
           "isInequality": false,
+          "isTickCtrl": false,
           "labelRange": [
             null,
             null,
@@ -12847,6 +12848,7 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.json re
           ],
           "initialX": null,
           "isInequality": false,
+          "isTickCtrl": false,
           "labelRange": [
             null,
             null,
