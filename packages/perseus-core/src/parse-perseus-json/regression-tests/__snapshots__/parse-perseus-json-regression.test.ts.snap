@@ -20186,6 +20186,19 @@ exports[`parseAndMigrateUserInputMap given label-image.json returns the same res
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given matcher.json returns the same result as before 1`] = `
+{
+  "matcher 1": {
+    "left": [
+      "a",
+    ],
+    "right": [
+      "b",
+    ],
+  },
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
