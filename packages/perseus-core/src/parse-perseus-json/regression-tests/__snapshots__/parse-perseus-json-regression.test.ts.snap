@@ -19878,9 +19878,8 @@ exports[`parseAndMigrateUserInputMap given group.json returns the same result as
 {
   "group 1": {
     "radio 1": {
-      "choicesSelected": [
-        true,
-        false,
+      "selectedChoiceIds": [
+        "1234",
       ],
     },
   },
@@ -20172,12 +20171,9 @@ exports[`parseAndMigrateUserInputMap given interactive-graph.json returns the sa
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
-    "choicesSelected": [
-      true,
-      false,
-      false,
-      true,
-      false,
+    "selectedChoiceIds": [
+      "1234",
+      "5678",
     ],
   },
 }

@@ -1,1 +1,1 @@
-{"group 1": {"radio 1":  {"choicesSelected": [true, false]}}}
+{"group 1": {"radio 1":  {"selectedChoiceIds": ["1234"]}}}
