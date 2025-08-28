@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 67.1.1
+
+### Patch Changes
+
+-   [#2849](https://github.com/Khan/perseus/pull/2849) [`47ec59ae27`](https://github.com/Khan/perseus/commit/47ec59ae2783d770fecaa6d5b403b365dc37094e) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Updating packages to sync with wonderblocks
+
+*   [#2836](https://github.com/Khan/perseus/pull/2836) [`671c5e4a56`](https://github.com/Khan/perseus/commit/671c5e4a5615580348fff6776fe1e9d2e3a475a6) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add documentation warning for using Graphie component
+
+-   [#2798](https://github.com/Khan/perseus/pull/2798) [`245de4eba5`](https://github.com/Khan/perseus/commit/245de4eba5b1d8e055cf0d8793c3ad18d55aea8f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove NumberLine transforms
+
+-   Updated dependencies [[`47ec59ae27`](https://github.com/Khan/perseus/commit/47ec59ae2783d770fecaa6d5b403b365dc37094e), [`245de4eba5`](https://github.com/Khan/perseus/commit/245de4eba5b1d8e055cf0d8793c3ad18d55aea8f)]:
+    -   @khanacademy/math-input@26.2.1
+    -   @khanacademy/perseus-core@18.9.1
+    -   @khanacademy/keypad-context@3.2.1
+    -   @khanacademy/kmath@2.2.1
+    -   @khanacademy/perseus-linter@4.3.1
+    -   @khanacademy/perseus-score@7.7.1
+
 ## 67.1.0
 
 ### Minor Changes
