@@ -20199,6 +20199,23 @@ exports[`parseAndMigrateUserInputMap given matcher.json returns the same result 
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given matrix.json returns the same result as before 1`] = `
+{
+  "matrix 1": {
+    "answers": [
+      [
+        "1",
+        "2",
+      ],
+      [
+        "3",
+        "4",
+      ],
+    ],
+  },
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
