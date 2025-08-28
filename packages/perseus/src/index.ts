@@ -168,6 +168,7 @@ export type {
     GraphieLabel,
     GraphieRange,
 } from "./util/graphie-utils";
+export {extractWidgetIds} from "./util/extract-widget-ids";
 
 /**
  * Mixins
