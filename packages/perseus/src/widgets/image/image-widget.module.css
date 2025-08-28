@@ -1,9 +1,13 @@
 .title-container {
     font-size: 130px;
     text-align: center;
-    border-top: 1px solid var(--wb-semanticColor-core-border-neutral-subtle)
+    border-top: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
 }
 
-.caption-container {
-    border-bottom: 1px solid var(--wb-semanticColor-core-border-neutral-subtle)
+.description-and-caption-container {
+    display: flex;
+    flex-direction: row;
+    margin-block-start: 16px;
+    padding-block-end: 16px;
+    border-bottom: 1px solid var(--wb-semanticColor-core-border-neutral-subtle);
 }

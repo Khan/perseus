@@ -23,6 +23,8 @@ const earthMoonImage = {
     width: 400,
     height: 225,
 };
+const earthMoonImageCaption =
+    "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
 const frescoImageUrl =
     "https://cdn.kastatic.org/ka-perseus-images/01f44d5b73290da6bec97c75a5316fb05ab61f12.jpg";
 
@@ -61,8 +63,10 @@ export const Default: Story = {
     args: {
         backgroundImage: earthMoonImage,
         alt: "Earth and Moon",
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
         title: "Earth and Moon",
-        caption: "Earth and Moon",
+        caption: earthMoonImageCaption,
     },
 };
 
@@ -85,8 +89,26 @@ export const ImageWithCaption: Story = {
     decorators: [rendererDecorator],
     args: {
         backgroundImage: earthMoonImage,
-        caption:
-            "Photo of the Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)",
+        caption: earthMoonImageCaption,
+    },
+};
+
+export const ImageWithCaptionAndLongDescription: Story = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
+export const ImageWithLongDescription: Story = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
     },
 };
 
@@ -123,6 +145,7 @@ export const RightToLeftImage: Story = {
         title: "The Offer of the Casa Madre to Victory, 1932",
         caption:
             "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, The Offer of the Casa Madre to Victory, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
+        longDescription: "This is a *very* long description of the fresco.",
         backgroundImage: {
             url: frescoImageUrl,
             width: 1698,

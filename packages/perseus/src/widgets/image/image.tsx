@@ -5,6 +5,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import Renderer from "../../renderer";
 
+import {ImageDescriptionAndCaption} from "./image-description-and-caption";
 import styles from "./image-widget.module.css";
 
 import type {Props} from "./image.class";
@@ -15,6 +16,7 @@ export const ImageComponent = ({
     backgroundImage,
     box,
     caption,
+    longDescription,
     linterContext,
     labels,
     range,
@@ -69,23 +71,15 @@ export const ImageComponent = ({
                 </AssetContext.Consumer>
             )}
 
-            {/* Caption */}
-            {caption && (
-                <figcaption
-                    className={`perseus-image-caption ${styles.captionContainer}`}
-                    style={{
-                        maxWidth: backgroundImage.width,
-                    }}
-                >
-                    {/* The Renderer component is used here so that the caption
-                        can support markdown and TeX. */}
-                    <Renderer
-                        content={caption}
-                        apiOptions={apiOptions}
-                        linterContext={linterContext}
-                        strings={context.strings}
-                    />
-                </figcaption>
+            {/* Description & Caption */}
+            {(caption || longDescription) && (
+                <ImageDescriptionAndCaption
+                    caption={caption}
+                    longDescription={longDescription}
+                    backgroundImage={backgroundImage}
+                    apiOptions={apiOptions}
+                    linterContext={linterContext}
+                />
             )}
         </figure>
     );

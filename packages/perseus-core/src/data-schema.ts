@@ -686,6 +686,8 @@ export type PerseusImageWidgetOptions = {
     // Translatable Text; The alt text to be shown in the img.alt attribute
     // NOTE: perseus_data.go says this is required even though it isn't necessary.
     alt?: string;
+    // Translatable Markdown; Text to be shown in the long description section of an image
+    longDescription?: string;
     // The image details for the image to be displayed
     backgroundImage: PerseusImageBackground;
     // Always false.  Not used for this widget

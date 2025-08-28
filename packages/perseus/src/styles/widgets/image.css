@@ -13,8 +13,8 @@
 .perseus-image-widget .perseus-image-caption .paragraph {
     font-size: 14px;
     padding-right: 12px;
-    margin-block-start: 16px;
-    margin-block-end: 16px;
+    margin-block-start: 0px;
+    margin-block-end: 0px;
 }
 .perseus-image-editor .label-settings td {
     padding: 5px 4px;
