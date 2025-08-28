@@ -9,35 +9,28 @@ import type {SingleASTNode} from "@khanacademy/simple-markdown";
  */
 export function extractWidgetIds(
     perseusRenderer: PerseusRenderer,
-    options?: {inline?: boolean; isJipt?: boolean},
+    options?: {inline?: boolean},
 ): ReadonlyArray<string> {
     const widgetIds: string[] = [];
-    const seenIds = new Set<string>();
 
     // Get content from the perseus renderer
     const content = perseusRenderer.content;
     const inline = options?.inline ?? false;
 
     // Parse the markdown content using the same logic as the renderer
-    const parseOptions =
-        options?.isJipt !== undefined ? {isJipt: options.isJipt} : {};
     const parsedMarkdown = inline
-        ? PerseusMarkdown.parseInline(content, parseOptions)
-        : PerseusMarkdown.parse(content, parseOptions);
+        ? PerseusMarkdown.parseInline(content, options)
+        : PerseusMarkdown.parse(content, options);
 
-    // Walk the AST and collect widget IDs
+    // Traverse the AST and collect widget IDs
     function collectWidgetIds(ast: SingleASTNode | Array<SingleASTNode>): void {
-        if (Array.isArray(ast)) {
-            ast.forEach(collectWidgetIds);
-        } else if (ast?.type === "widget") {
-            // Only add if not already seen (deduplication with O(1) lookup)
-            if (!seenIds.has(ast.id)) {
-                seenIds.add(ast.id);
-                widgetIds.push(ast.id);
+        PerseusMarkdown.traverseContent(ast, (node) => {
+            if (node.type === "widget") {
+                if (!widgetIds.includes(node.id)) {
+                    widgetIds.push(node.id);
+                }
             }
-        } else if (ast?.content) {
-            collectWidgetIds(ast.content);
-        }
+        });
     }
 
     collectWidgetIds(parsedMarkdown);

@@ -1,6 +1,60 @@
 import {extractWidgetIds} from "./extract-widget-ids";
 
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {
+    PerseusRenderer,
+    RadioWidget,
+    NumericInputWidget,
+    ExpressionWidget,
+} from "@khanacademy/perseus-core";
+
+export const radio: RadioWidget = {
+    type: "radio",
+    graded: true,
+    options: {
+        choices: [
+            {content: "Option A", correct: true, id: "a"},
+            {content: "Option B", correct: false, id: "b"},
+        ],
+        randomize: false,
+    },
+};
+
+export const numericInput: NumericInputWidget = {
+    type: "numeric-input",
+    graded: true,
+    options: {
+        answers: [
+            {
+                value: 42,
+                status: "correct",
+                message: "",
+                strict: false,
+                simplify: "optional",
+            },
+        ],
+        size: "normal",
+        coefficient: false,
+        static: false,
+    },
+};
+
+export const expression: ExpressionWidget = {
+    type: "expression",
+    graded: true,
+    options: {
+        answerForms: [
+            {
+                value: "x+1",
+                form: false,
+                simplify: false,
+                considered: "ungraded",
+            },
+        ],
+        buttonSets: ["basic"],
+        functions: ["sqrt", "pi", "abs", "factorial"],
+        times: false,
+    },
+};
 
 describe("extractWidgetIds", () => {
     it("extracts single widget ID", () => {
@@ -8,17 +62,7 @@ describe("extractWidgetIds", () => {
         const question: PerseusRenderer = {
             content,
             widgets: {
-                "radio 1": {
-                    type: "radio",
-                    graded: true,
-                    options: {
-                        choices: [
-                            {content: "Option A", correct: true, id: "a"},
-                            {content: "Option B", correct: false, id: "b"},
-                        ],
-                        randomize: false,
-                    },
-                },
+                "radio 1": radio,
             },
             images: {},
         };
@@ -32,52 +76,9 @@ describe("extractWidgetIds", () => {
         const question: PerseusRenderer = {
             content,
             widgets: {
-                "radio 1": {
-                    type: "radio",
-                    graded: true,
-                    options: {
-                        choices: [
-                            {content: "Option A", correct: true, id: "a"},
-                            {content: "Option B", correct: false, id: "b"},
-                        ],
-                        randomize: false,
-                    },
-                },
-                "numeric-input 2": {
-                    type: "numeric-input",
-                    graded: true,
-                    options: {
-                        answers: [
-                            {
-                                value: 42,
-                                status: "correct",
-                                message: "",
-                                strict: false,
-                                simplify: "optional",
-                            },
-                        ],
-                        size: "normal",
-                        coefficient: false,
-                        static: false,
-                    },
-                },
-                "expression 3": {
-                    type: "expression",
-                    graded: true,
-                    options: {
-                        answerForms: [
-                            {
-                                value: "x+1",
-                                form: false,
-                                simplify: false,
-                                considered: "correct",
-                            },
-                        ],
-                        buttonSets: ["basic"],
-                        functions: ["f", "g", "h"],
-                        times: false,
-                    },
-                },
+                "radio 1": radio,
+                "numeric-input 2": numericInput,
+                "expression 3": expression,
             },
             images: {},
         };
@@ -91,35 +92,8 @@ describe("extractWidgetIds", () => {
         const question: PerseusRenderer = {
             content,
             widgets: {
-                "radio 1": {
-                    type: "radio",
-                    graded: true,
-                    options: {
-                        choices: [
-                            {content: "Option A", correct: true, id: "a"},
-                            {content: "Option B", correct: false, id: "b"},
-                        ],
-                        randomize: false,
-                    },
-                },
-                "numeric-input 2": {
-                    type: "numeric-input",
-                    graded: true,
-                    options: {
-                        answers: [
-                            {
-                                value: 42,
-                                status: "correct",
-                                message: "",
-                                strict: false,
-                                simplify: "optional",
-                            },
-                        ],
-                        size: "normal",
-                        coefficient: false,
-                        static: false,
-                    },
-                },
+                "radio 1": radio,
+                "numeric-input 2": numericInput,
             },
             images: {},
         };
@@ -170,52 +144,9 @@ Some math: $x + y = z$
         const question: PerseusRenderer = {
             content,
             widgets: {
-                "radio 1": {
-                    type: "radio",
-                    graded: true,
-                    options: {
-                        choices: [
-                            {content: "Option A", correct: true, id: "a"},
-                            {content: "Option B", correct: false, id: "b"},
-                        ],
-                        randomize: false,
-                    },
-                },
-                "numeric-input 2": {
-                    type: "numeric-input",
-                    graded: true,
-                    options: {
-                        answers: [
-                            {
-                                value: 42,
-                                status: "correct",
-                                message: "",
-                                strict: false,
-                                simplify: "optional",
-                            },
-                        ],
-                        size: "normal",
-                        coefficient: false,
-                        static: false,
-                    },
-                },
-                "expression 3": {
-                    type: "expression",
-                    graded: true,
-                    options: {
-                        answerForms: [
-                            {
-                                value: "x+1",
-                                form: false,
-                                simplify: false,
-                                considered: "correct",
-                            },
-                        ],
-                        buttonSets: ["basic"],
-                        functions: ["f", "g", "h"],
-                        times: false,
-                    },
-                },
+                "radio 1": radio,
+                "numeric-input 2": numericInput,
+                "expression 3": expression,
             },
             images: {},
         };
@@ -228,17 +159,7 @@ Some math: $x + y = z$
         const question: PerseusRenderer = {
             content,
             widgets: {
-                "radio 1": {
-                    type: "radio",
-                    graded: true,
-                    options: {
-                        choices: [
-                            {content: "Option A", correct: true, id: "a"},
-                            {content: "Option B", correct: false, id: "b"},
-                        ],
-                        randomize: false,
-                    },
-                },
+                "radio 1": radio,
             },
             images: {},
         };
@@ -252,52 +173,9 @@ Some math: $x + y = z$
         const question: PerseusRenderer = {
             content,
             widgets: {
-                "radio 1": {
-                    type: "radio",
-                    graded: true,
-                    options: {
-                        choices: [
-                            {content: "Option A", correct: true, id: "a"},
-                            {content: "Option B", correct: false, id: "b"},
-                        ],
-                        randomize: false,
-                    },
-                },
-                "numeric-input 2": {
-                    type: "numeric-input",
-                    graded: true,
-                    options: {
-                        answers: [
-                            {
-                                value: 42,
-                                status: "correct",
-                                message: "",
-                                strict: false,
-                                simplify: "optional",
-                            },
-                        ],
-                        size: "normal",
-                        coefficient: false,
-                        static: false,
-                    },
-                },
-                "expression 3": {
-                    type: "expression",
-                    graded: true,
-                    options: {
-                        answerForms: [
-                            {
-                                value: "x+1",
-                                form: false,
-                                simplify: false,
-                                considered: "correct",
-                            },
-                        ],
-                        buttonSets: ["basic"],
-                        functions: ["f", "g", "h"],
-                        times: false,
-                    },
-                },
+                "radio 1": radio,
+                "numeric-input 2": numericInput,
+                "expression 3": expression,
             },
             images: {},
         };
