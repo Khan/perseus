@@ -23,17 +23,21 @@ const earthMoonImage = {
     width: 400,
     height: 225,
 };
+const earthMoonImageCaption =
+    "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
 const frescoImageUrl =
     "https://cdn.kastatic.org/ka-perseus-images/01f44d5b73290da6bec97c75a5316fb05ab61f12.jpg";
+
+const articleContent = `But in other cases, an object may experience a centripetal force for an extended time and complete *repeated* revolutions. An example of this type of motion is an astronomical object in **orbit**.\n\n[[☃ image 1]]\n\nLet's explore some of the language and relationships involved in orbital motion.`;
 
 // Breaking this out instead of using it globally, so that the
 // right-to-left story can wrap the ImageQuestionRenderer with the
 // right-to-left wrapper.
-const rendererDecorator = (_, {args}) => {
+const rendererDecorator = (_, {args, parameters}) => {
     return (
         <ImageQuestionRenderer
             question={generateTestPerseusRenderer({
-                content: "[[☃ image 1]]",
+                content: parameters?.content ?? "[[☃ image 1]]",
                 widgets: {
                     "image 1": generateImageWidget({
                         options: generateImageOptions({
@@ -45,6 +49,12 @@ const rendererDecorator = (_, {args}) => {
         />
     );
 };
+
+const mobileDecorator = (Story) => (
+    <div className="framework-perseus perseus-mobile">
+        <Story />
+    </div>
+);
 
 const meta: Meta<typeof ImageWidget> = {
     title: "Widgets/Image/Visual Regression Tests",
@@ -62,7 +72,7 @@ export const Default: Story = {
         backgroundImage: earthMoonImage,
         alt: "Earth and Moon",
         title: "Earth and Moon",
-        caption: "Earth and Moon",
+        caption: earthMoonImageCaption,
     },
 };
 
@@ -85,7 +95,7 @@ export const ImageWithCaption: Story = {
     decorators: [rendererDecorator],
     args: {
         backgroundImage: earthMoonImage,
-        caption: "Earth and Moon",
+        caption: earthMoonImageCaption,
     },
 };
 
@@ -105,6 +115,64 @@ export const ImageWithZoom: Story = {
             width: 1698,
             height: 955,
         },
+    },
+};
+
+export const MobileImage: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        alt: "Earth and Moon",
+        title: "Earth and Moon",
+        caption: earthMoonImageCaption,
+    },
+};
+
+export const WithinArticleDesktop: Story = {
+    decorators: [rendererDecorator],
+    parameters: {
+        content: articleContent,
+    },
+    args: {
+        backgroundImage: earthMoonImage,
+        alt: "Earth and Moon",
+    },
+};
+
+export const WithinArticleDesktopCaptionAndTitle: Story = {
+    decorators: [rendererDecorator],
+    parameters: {
+        content: articleContent,
+    },
+    args: {
+        backgroundImage: earthMoonImage,
+        alt: "Earth and Moon",
+        caption: earthMoonImageCaption,
+        title: "Earth and Moon",
+    },
+};
+
+export const WithinArticleMobile: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    parameters: {
+        content: articleContent,
+    },
+    args: {
+        backgroundImage: earthMoonImage,
+        alt: "Earth and Moon",
+    },
+};
+
+export const WithinArticleMobileCaptionAndTitle: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    parameters: {
+        content: articleContent,
+    },
+    args: {
+        backgroundImage: earthMoonImage,
+        alt: "Earth and Moon",
+        caption: earthMoonImageCaption,
+        title: "Earth and Moon",
     },
 };
 
