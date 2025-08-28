@@ -20168,6 +20168,24 @@ exports[`parseAndMigrateUserInputMap given interactive-graph.json returns the sa
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given label-image.json returns the same result as before 1`] = `
+{
+  "label-image 1": {
+    "markers": [
+      {
+        "label": "a",
+      },
+      {
+        "label": "b",
+        "selected": [
+          "c",
+        ],
+      },
+    ],
+  },
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
