@@ -20264,3 +20264,15 @@ exports[`parseAndMigrateUserInputMap given radio.json returns the same result as
   },
 }
 `;
+
+exports[`parseAndMigrateUserInputMap given sorter.json returns the same result as before 1`] = `
+{
+  "sorter 1": {
+    "changed": true,
+    "options": [
+      "a",
+      "b",
+    ],
+  },
+}
+`;
