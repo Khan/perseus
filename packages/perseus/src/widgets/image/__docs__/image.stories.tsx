@@ -57,6 +57,8 @@ export const BasicQuestion: Story = {
     args: {
         backgroundImage: {
             url: "https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg",
+            width: 400,
+            height: 225,
         },
         alt: "",
         caption: "",
