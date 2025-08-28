@@ -1,7 +1,6 @@
 import PerseusMarkdown from "../perseus-markdown";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
-import type {SingleASTNode} from "@khanacademy/simple-markdown";
 
 /**
  * Extracts widget IDs from a PerseusRenderer in the order they appear in the content.
@@ -22,17 +21,13 @@ export function extractWidgetIds(
         ? PerseusMarkdown.parseInline(content, options)
         : PerseusMarkdown.parse(content, options);
 
-    // Traverse the AST and collect widget IDs
-    function collectWidgetIds(ast: SingleASTNode | Array<SingleASTNode>): void {
-        PerseusMarkdown.traverseContent(ast, (node) => {
-            if (node.type === "widget") {
-                if (!widgetIds.includes(node.id)) {
-                    widgetIds.push(node.id);
-                }
+    PerseusMarkdown.traverseContent(parsedMarkdown, (node) => {
+        if (node.type === "widget") {
+            if (!widgetIds.includes(node.id)) {
+                widgetIds.push(node.id);
             }
-        });
-    }
+        }
+    });
 
-    collectWidgetIds(parsedMarkdown);
     return widgetIds;
 }
