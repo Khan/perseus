@@ -1,5 +1,22 @@
 # @khanacademy/perseus-editor
 
+## 27.5.0
+
+### Minor Changes
+
+-   [#2847](https://github.com/Khan/perseus/pull/2847) [`38c3140201`](https://github.com/Khan/perseus/commit/38c3140201abf8243dd3faaec2a4976b11898ac3) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add the Title field back in the Image editor
+
+### Patch Changes
+
+-   [#2845](https://github.com/Khan/perseus/pull/2845) [`9a3f88df9a`](https://github.com/Khan/perseus/commit/9a3f88df9affeaca3c26d50208867c913ccae725) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Fix regression stories by adding width and height to images
+
+*   [#2852](https://github.com/Khan/perseus/pull/2852) [`3dcc37d389`](https://github.com/Khan/perseus/commit/3dcc37d3890f598a97210f0343443897ce83ed2a) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Revert to old way of saving empty string data for the sake of data consistency
+
+-   [#2844](https://github.com/Khan/perseus/pull/2844) [`5c7da8d1a2`](https://github.com/Khan/perseus/commit/5c7da8d1a2270bf73d60fcfc9823414db167af45) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update WB semantic color surface and foreground/border inverse JS token usage
+
+-   Updated dependencies [[`9a3f88df9a`](https://github.com/Khan/perseus/commit/9a3f88df9affeaca3c26d50208867c913ccae725)]:
+    -   @khanacademy/perseus@67.1.2
+
 ## 27.4.1
 
 ### Patch Changes
