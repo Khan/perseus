@@ -20245,6 +20245,15 @@ exports[`parseAndMigrateUserInputMap given orderer.json returns the same result 
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given plotter.json returns the same result as before 1`] = `
+{
+  "plotter 1": [
+    1,
+    2,
+  ],
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
