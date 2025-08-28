@@ -91,7 +91,9 @@
 }
 
 .choice:focus-within:after,
-.choice:focus-within:before {
+.choice:focus-within:before,
+.choice:active:after,
+.choice:active:before {
     z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
 }
 
@@ -114,7 +116,8 @@
          - the choice is incorrect AND
          - the choice indicator has focus
  */
-.choice:not(.is-correct):focus-within {
+.choice:not(.is-correct):focus-within,
+.choice:not(.is-correct, .is-wrong):active {
     --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
     --perseus-multiple-choice-divider-color: var(
         --wb-semanticColor-core-border-neutral-default
@@ -127,11 +130,6 @@
         --perseus-multiple-choice-divider-color: var(
             --wb-semanticColor-core-border-neutral-default
         );
-    }
-
-    .choice:active:after,
-    .choice:active:before {
-        z-index: 1; /* Same as default borders - above fade background */
     }
 }
 
