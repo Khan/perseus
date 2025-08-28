@@ -5,6 +5,9 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import Renderer from "../../renderer";
 
+import {ImageDescriptionAndCaption} from "./image-description-and-caption";
+import styles from "./image-widget.module.css";
+
 import type {Props} from "./image.class";
 
 export const ImageComponent = ({
@@ -30,7 +33,7 @@ export const ImageComponent = ({
         >
             {/* Title */}
             {title && (
-                <div className="perseus-image-title">
+                <div className={`perseus-image-title ${styles.titleContainer}`}>
                     {/* The Renderer component is used here so that the title
                         can support markdown and TeX. */}
                     <Renderer
@@ -67,23 +70,14 @@ export const ImageComponent = ({
                 </AssetContext.Consumer>
             )}
 
-            {/* Caption */}
+            {/* Description & Caption */}
             {caption && (
-                <figcaption
-                    className="perseus-image-caption"
-                    style={{
-                        maxWidth: backgroundImage.width,
-                    }}
-                >
-                    {/* The Renderer component is used here so that the caption
-                        can support markdown and TeX. */}
-                    <Renderer
-                        content={caption}
-                        apiOptions={apiOptions}
-                        linterContext={linterContext}
-                        strings={context.strings}
-                    />
-                </figcaption>
+                <ImageDescriptionAndCaption
+                    caption={caption}
+                    backgroundImage={backgroundImage}
+                    apiOptions={apiOptions}
+                    linterContext={linterContext}
+                />
             )}
         </figure>
     );

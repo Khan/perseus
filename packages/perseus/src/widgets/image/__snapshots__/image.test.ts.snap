@@ -29,7 +29,7 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                   style="max-width: 420px;"
                 >
                   <div
-                    class="perseus-image-title"
+                    class="perseus-image-title title-container"
                   >
                     <div
                       class="perseus-renderer perseus-renderer-responsive"
@@ -74,25 +74,29 @@ exports[`image widget - isMobile(false) should snapshot: first render 1`] = `
                       </div>
                     </span>
                   </div>
-                  <figcaption
-                    class="perseus-image-caption"
-                    style="max-width: 420px;"
+                  <div
+                    class="description-and-caption-container"
                   >
-                    <div
-                      class="perseus-renderer perseus-renderer-responsive"
+                    <figcaption
+                      class="perseus-image-caption"
+                      style="max-width: 420px;"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
                           class="paragraph"
+                          data-perseus-paragraph-index="0"
                         >
-                          Image Caption
+                          <div
+                            class="paragraph"
+                          >
+                            Image Caption
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </figcaption>
+                    </figcaption>
+                  </div>
                 </figure>
               </div>
             </div>
@@ -206,7 +210,7 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                   style="max-width: 420px;"
                 >
                   <div
-                    class="perseus-image-title"
+                    class="perseus-image-title title-container"
                   >
                     <div
                       class="perseus-renderer perseus-renderer-responsive"
@@ -251,25 +255,29 @@ exports[`image widget - isMobile(true) should snapshot: first render 1`] = `
                       </div>
                     </span>
                   </div>
-                  <figcaption
-                    class="perseus-image-caption"
-                    style="max-width: 420px;"
+                  <div
+                    class="description-and-caption-container"
                   >
-                    <div
-                      class="perseus-renderer perseus-renderer-responsive"
+                    <figcaption
+                      class="perseus-image-caption"
+                      style="max-width: 420px;"
                     >
                       <div
-                        class="paragraph"
-                        data-perseus-paragraph-index="0"
+                        class="perseus-renderer perseus-renderer-responsive"
                       >
                         <div
                           class="paragraph"
+                          data-perseus-paragraph-index="0"
                         >
-                          Image Caption
+                          <div
+                            class="paragraph"
+                          >
+                            Image Caption
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </figcaption>
+                    </figcaption>
+                  </div>
                 </figure>
               </div>
             </div>
