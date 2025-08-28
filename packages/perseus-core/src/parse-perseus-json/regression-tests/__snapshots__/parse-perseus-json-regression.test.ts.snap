@@ -20276,3 +20276,18 @@ exports[`parseAndMigrateUserInputMap given sorter.json returns the same result a
   },
 }
 `;
+
+exports[`parseAndMigrateUserInputMap given table.json returns the same result as before 1`] = `
+{
+  "table 1": [
+    [
+      "a",
+      "b",
+    ],
+    [
+      "c",
+      "d",
+    ],
+  ],
+}
+`;
