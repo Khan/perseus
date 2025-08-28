@@ -56,6 +56,7 @@ describe("image editor", () => {
                 backgroundImage={{url: realKhanImageUrl}}
                 alt="Earth and moon alt"
                 caption="Earth and moon caption"
+                title="Earth and moon title"
                 onChange={() => {}}
             />,
         );
@@ -64,17 +65,20 @@ describe("image editor", () => {
         const urlField = screen.getByRole("textbox", {name: "Image url:"});
         const altField = screen.getByRole("textbox", {name: "Alt text:"});
         const captionField = screen.getByRole("textbox", {name: "Caption:"});
+        const titleField = screen.getByRole("textbox", {name: "Title:"});
 
         // Assert
         expect(dimensionsLabel).toBeInTheDocument();
         expect(urlField).toBeInTheDocument();
         expect(altField).toBeInTheDocument();
         expect(captionField).toBeInTheDocument();
+        expect(titleField).toBeInTheDocument();
 
         expect(screen.getByText("unknown")).toBeInTheDocument();
         expect(urlField).toHaveValue(realKhanImageUrl);
         expect(altField).toHaveValue("Earth and moon alt");
         expect(captionField).toHaveValue("Earth and moon caption");
+        expect(titleField).toHaveValue("Earth and moon title");
     });
 
     it("should render warning for non-Khan Academy image", async () => {
@@ -291,6 +295,49 @@ describe("image editor", () => {
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({
             caption: undefined,
+        });
+    });
+    it("should call onChange with new title", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ImageEditor
+                apiOptions={apiOptions}
+                backgroundImage={{url: realKhanImageUrl}}
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Act
+        const titleField = screen.getByRole("textbox", {name: "Title:"});
+        titleField.focus();
+        await userEvent.paste("Earth and moon");
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            title: "Earth and moon",
+        });
+    });
+
+    it("should call onChange with undefined title", async () => {
+        // Arrange
+        const onChangeMock = jest.fn();
+        render(
+            <ImageEditor
+                apiOptions={apiOptions}
+                backgroundImage={{url: realKhanImageUrl}}
+                title="Earth and moon"
+                onChange={onChangeMock}
+            />,
+        );
+
+        // Act
+        const titleField = screen.getByRole("textbox", {name: "Title:"});
+        await userEvent.clear(titleField);
+
+        // Assert
+        expect(onChangeMock).toHaveBeenCalledWith({
+            title: undefined,
         });
     });
 });
