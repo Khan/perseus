@@ -116,36 +116,4 @@ describe("FreeResponse serialization", () => {
             hints: [],
         });
     });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicFreeResponse());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "free-response 1": {
-                        allowUnlimitedCharacters: false,
-                        characterLimit: 500,
-                        placeholder: "test-placeholder",
-                        question: "test-question",
-                        scoringCriteria: [
-                            {
-                                text: "test-criterion",
-                            },
-                        ],
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        // since FreeResponse doesn't serialize user input
-        // there's not a way to restore user input
-        expect(userInput).toEqual({"free-response 1": {currentValue: ""}});
-    });
 });

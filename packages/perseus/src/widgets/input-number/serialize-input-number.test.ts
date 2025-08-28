@@ -96,33 +96,4 @@ describe("InputNumber serialization", () => {
             hints: [],
         });
     });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicInputNumber());
-
-        const preUserInput = renderer.getUserInput();
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "input-number 1": {
-                        simplify: "optional",
-                        size: "normal",
-                        answerType: "number",
-                        rightAlign: false,
-                        currentValue: "42",
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const postUserInput = renderer.getUserInput();
-
-        // Assert
-        expect(preUserInput).toEqual({"input-number 1": {currentValue: ""}});
-        expect(postUserInput).toEqual({"input-number 1": {currentValue: "42"}});
-    });
 });

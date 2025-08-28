@@ -10,11 +10,6 @@ export type InitializeUserInputCallback = (
     problemNum: number,
 ) => void;
 
-export type RestoreUserInputFromSerializedStateCallback = (
-    serializedState: unknown,
-    widgetOptions: PerseusWidgetsMap,
-) => void;
-
 export type HandleUserInputCallback = (
     widgetId: string,
     userInput: UserInputMap[keyof UserInputMap],
@@ -25,16 +20,12 @@ type FunctionChildParams = {
     userInput: UserInputMap;
     handleUserInput: HandleUserInputCallback;
     initializeUserInput: InitializeUserInputCallback;
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
-    /**
-     * @deprecated - do not use in new code.
-     */
-    restoreUserInputFromSerializedState: RestoreUserInputFromSerializedStateCallback;
 };
 
 type Props = {
     widgets: PerseusWidgetsMap;
     problemNum: number;
+    initialUserInput?: UserInputMap;
     handleUserInput?: (userInput: UserInputMap, widgetsEmpty: boolean) => void;
     children: (payload: FunctionChildParams) => JSX.Element | null;
 };
@@ -73,7 +64,7 @@ export function sharedInitializeUserInput(
     return startUserInput;
 }
 
-// TODO(LEMS-3185): remove serializedState/restoreSerializedState
+// TODO(LEMS-3185): remove serializedState
 /**
  * Restore user input from serialized state. It's tricky
  * because there is no definite type for serialized state,
@@ -112,7 +103,8 @@ export function deriveUserInputFromSerializedState(
  */
 export default function UserInputManager(props: Props) {
     const [userInput, setUserInput] = useState<UserInputMap>(
-        sharedInitializeUserInput(props.widgets, props.problemNum ?? 0),
+        props.initialUserInput ||
+            sharedInitializeUserInput(props.widgets, props.problemNum ?? 0),
     );
 
     /**
@@ -136,18 +128,9 @@ export default function UserInputManager(props: Props) {
         widgetOptions: PerseusWidgetsMap,
         problemNum: number,
     ) {
-        setUserInput(sharedInitializeUserInput(widgetOptions, problemNum));
-    }
-
-    /**
-     * Restore UserInput from SerializedState (please do not add new uses of this)
-     */
-    function restoreUserInputFromSerializedState(
-        serializedState: unknown,
-        widgetOptions: PerseusWidgetsMap,
-    ) {
         setUserInput(
-            deriveUserInputFromSerializedState(serializedState, widgetOptions),
+            props.initialUserInput ||
+                sharedInitializeUserInput(widgetOptions, problemNum),
         );
     }
 
@@ -155,6 +138,5 @@ export default function UserInputManager(props: Props) {
         userInput,
         handleUserInput,
         initializeUserInput,
-        restoreUserInputFromSerializedState,
     });
 }

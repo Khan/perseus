@@ -94,30 +94,28 @@ const RendererWrapper = React.forwardRef<
     }
 >(function RendererWithDependencies(props, ref) {
     const dependencies = useDependencies();
+    const {userInput: initialUserInput, ...restExtraProps} =
+        props.extraProps || {};
     return (
-        <UserInputManager widgets={props.question.widgets} problemNum={0}>
-            {({
-                userInput,
-                handleUserInput,
-                initializeUserInput,
-                restoreUserInputFromSerializedState,
-            }) => {
+        <UserInputManager
+            widgets={props.question.widgets}
+            problemNum={0}
+            initialUserInput={initialUserInput}
+        >
+            {({userInput, handleUserInput, initializeUserInput}) => {
                 return (
                     <Perseus.Renderer
                         ref={ref}
                         userInput={userInput}
                         handleUserInput={handleUserInput}
                         initializeUserInput={initializeUserInput}
-                        restoreUserInputFromSerializedState={
-                            restoreUserInputFromSerializedState
-                        }
                         content={props.question.content}
                         images={props.question.images}
                         widgets={props.question.widgets}
                         problemNum={0}
                         apiOptions={props.apiOptions}
                         strings={mockStrings}
-                        {...props.extraProps}
+                        {...restExtraProps}
                         {...dependencies}
                     />
                 );

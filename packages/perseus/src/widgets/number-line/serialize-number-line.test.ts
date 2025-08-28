@@ -110,45 +110,4 @@ describe("NumberLine serialization", () => {
             hints: [],
         });
     });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicNumberLine());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "number-line 1": {
-                        range: [-4, 4],
-                        labelRange: [null, null],
-                        labelStyle: "decimal",
-                        labelTicks: true,
-                        divisionRange: [1, 10],
-                        snapDivisions: 2,
-                        isInequality: false,
-                        showTooltips: false,
-                        isTickCtrl: false,
-                        numLinePosition: -2.5,
-                        numDivisions: 8,
-                        rel: "ge",
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        // `values` would be [] if we didn't properly restore serialized state
-        expect(userInput).toEqual({
-            "number-line 1": {
-                numDivisions: 8,
-                numLinePosition: -2.5,
-                // pretty sure this is wrong, but it's the existing behavior
-                rel: "eq",
-            },
-        });
-    });
 });

@@ -90,39 +90,4 @@ describe("IFrame serialization", () => {
             hints: [],
         });
     });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicIFrame());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "iframe 1": {
-                        settings: [],
-                        url: "https://hotmail.com",
-                        height: "410",
-                        width: "410",
-                        allowFullScreen: true,
-                        status: "correct",
-                        message: "cool message",
-                        static: false,
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        // `value` would be 0 if we didn't properly restore serialized state
-        expect(userInput).toEqual({
-            "iframe 1": {
-                status: "correct",
-                message: "cool message",
-            },
-        });
-    });
 });

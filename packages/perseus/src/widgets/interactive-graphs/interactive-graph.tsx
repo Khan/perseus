@@ -295,7 +295,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
         const {userInput: _, ...rest} = this.props;
@@ -857,7 +857,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,

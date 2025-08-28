@@ -129,7 +129,7 @@ class HintsRenderer extends React.Component<Props, State> {
         };
     };
 
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    // TODO(LEMS-3185): remove serializedState
     /**
      * @deprecated - do not use in new code.
      */
@@ -139,46 +139,6 @@ class HintsRenderer extends React.Component<Props, State> {
             // @ts-expect-error - TS2339 - Property 'getSerializedState' does not exist on type 'ReactInstance'.
             return this.refs["hintRenderer" + i].getSerializedState();
         });
-    };
-
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
-    /**
-     * @deprecated - do not use in new code.
-     */
-    restoreSerializedState: (
-        arg1: any,
-        arg2: (...args: ReadonlyArray<any>) => unknown,
-    ) => void = (state, callback) => {
-        // We need to wait until all the renderers are finished restoring their
-        // state before we fire our callback.
-        let numCallbacks = 1;
-        const fireCallback = () => {
-            --numCallbacks;
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            if (callback && numCallbacks === 0) {
-                callback();
-            }
-        };
-
-        _.each(state, (hintState, i) => {
-            // eslint-disable-next-line react/no-string-refs
-            const hintRenderer = this.refs["hintRenderer" + i];
-            // This is not ideal in that it doesn't restore state
-            // if the hint isn't visible, but we can't exactly restore
-            // the state to an unmounted renderer, so...
-            // If you want to restore state to hints, make sure to
-            // have the appropriate number of hints visible already.
-            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-            if (hintRenderer) {
-                ++numCallbacks;
-                // @ts-expect-error - TS2339 - Property 'restoreSerializedState' does not exist on type 'ReactInstance'.
-                hintRenderer.restoreSerializedState(hintState, fireCallback);
-            }
-        });
-
-        // This makes sure that the callback is fired if there aren't any
-        // mounted renderers.
-        fireCallback();
     };
 
     render(): React.ReactNode {

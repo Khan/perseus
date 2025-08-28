@@ -11,7 +11,7 @@
  */
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 const denylist = [
     // standard props "added" by react
