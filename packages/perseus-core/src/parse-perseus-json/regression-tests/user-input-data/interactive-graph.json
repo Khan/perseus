@@ -1,0 +1,98 @@
+{
+    "interactive-graph 1": {
+        "type": "angle"
+    },
+    "interactive-graph 2": {
+        "type": "angle",
+        "showAngles": true,
+        "allowReflexAngles": true,
+        "angleOffsetDeg": 7,
+        "snapDegrees": 11,
+        "match": "congruent",
+        "coords": [[1, 2], [3, 4], [5, 6]],
+        "startCoords": [[1, 2], [3, 4], [5, 6]]
+    },
+    "interactive-graph 3": {
+        "type": "circle"
+    },
+    "interactive-graph 4": {
+        "type": "circle",
+        "center": [1, 2],
+        "radius": 3,
+        "startCoords": {
+            "center": [4, 5],
+            "radius": 6
+        }
+    },
+    "interactive-graph 5": {
+        "type": "linear"
+    },
+    "interactive-graph 6": {
+        "type": "linear",
+        "coords": [[1, 2], [3, 4]],
+        "startCoords": [[5, 6], [7, 8]]
+    },
+    "interactive-graph 7": {
+        "type": "point"
+    },
+    "interactive-graph 8": {
+        "type": "point",
+        "numPoints": "unlimited"
+    },
+    "interactive-graph 9": {
+        "type": "point",
+        "numPoints": 42,
+        "coords": [[1, 2]],
+        "startCoords": [[3, 4]],
+        "coord": [5, 6]
+    },
+    "interactive-graph 10": {
+        "type": "polygon"
+    },
+    "interactive-graph 11": {
+        "type": "polygon",
+        "numSides": 42,
+        "showAngles": false,
+        "showSides":  false,
+        "snapTo": "grid",
+        "match":  "similar",
+        "startCoords": [[0, 1]],
+        "coords":  [[2, 3]]
+    },
+    "interactive-graph 12": {
+        "type": "quadratic"
+    },
+    "interactive-graph 13": {
+        "type": "quadratic",
+        "coords": [[0, 1], [2, 3], [4, 5]],
+        "startCoords": [[6, 7], [8, 9], [10, 11]]
+    },
+    "interactive-graph 14": {
+        "type": "ray"
+    },
+    "interactive-graph 15": {
+        "type": "ray",
+        "coords": [[0, 1], [2, 3]],
+        "startCoords": [[6, 7], [8, 9]]
+    },
+    "interactive-graph 16": {
+        "type": "segment"
+    },
+    "interactive-graph 17": {
+        "type": "segment",
+        "numSegments": 42,
+        "coords": [[[1, 2], [3, 4]]],
+        "startCoords":  [[[5, 6], [7, 8]]]
+    },
+    "interactive-graph 18": {
+        "type": "sinusoid"
+    },
+    "interactive-graph 19": {
+        "type": "sinusoid",
+        "coords": [[1, 2], [3, 4]],
+        "startCoords":  [[5, 6], [7, 8]]
+    },
+    "interactive-graph 999": {
+        "type": "none"
+    }
+}

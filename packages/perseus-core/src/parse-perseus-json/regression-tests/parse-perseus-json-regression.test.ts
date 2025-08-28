@@ -7,10 +7,12 @@ import {anySuccess} from "../general-purpose-parsers/test-helpers";
 import {
     parseAndMigratePerseusArticle,
     parseAndMigratePerseusItem,
+    parseAndMigrateUserInputMap,
 } from "../index";
 import {parse} from "../parse";
 import {parsePerseusArticle} from "../perseus-parsers/perseus-article";
 import {parsePerseusItem} from "../perseus-parsers/perseus-item";
+import {parseUserInputMap} from "../perseus-parsers/user-input-map";
 import {assertSuccess, mapFailure} from "../result";
 
 const itemDataDir = join(__dirname, "item-data");
@@ -18,6 +20,9 @@ const itemDataFiles = fs.readdirSync(itemDataDir);
 
 const articleDataDir = join(__dirname, "article-data");
 const articleDataFiles = fs.readdirSync(articleDataDir);
+
+const userInputDataDir = join(__dirname, "user-input-data");
+const userInputDataFiles = fs.readdirSync(userInputDataDir);
 
 describe("parseAndMigratePerseusItem", () => {
     beforeAll(() => {
@@ -32,11 +37,9 @@ describe("parseAndMigratePerseusItem", () => {
             // If the parse fails, get just the error message. This makes the test
             // failure easier to read, since otherwise the entire `invalidObject`
             // from the ParseFailureDetail would be printed.
-            const result = mapFailure(getMessage)(
-                parseAndMigratePerseusItem(json),
-            );
+            const resultWithMessage = mapFailure(getMessage)(result);
 
-            expect(result).toEqual(anySuccess);
+            expect(resultWithMessage).toEqual(anySuccess);
         });
 
         it("returns the same result as before", () => {
@@ -113,11 +116,9 @@ describe("parseAndMigratePerseusArticle", () => {
             // If the parse fails, get just the error message. This makes the test
             // failure easier to read, since otherwise the entire `invalidObject`
             // from the ParseFailureDetail would be printed.
-            const result = mapFailure(getMessage)(
-                parseAndMigratePerseusArticle(json),
-            );
+            const resultWithMessage = mapFailure(getMessage)(result);
 
-            expect(result).toEqual(anySuccess);
+            expect(resultWithMessage).toEqual(anySuccess);
         });
 
         it("returns the same result as before", () => {
@@ -134,6 +135,47 @@ describe("parseAndMigratePerseusArticle", () => {
             assertSuccess(result);
 
             const result2 = parse(result.value, parsePerseusArticle);
+
+            expect(result2).toEqual(anySuccess);
+            // Narrow the type. This assertion should always pass due to the
+            // expectation above.
+            assertSuccess(result2);
+            expect(result2.value).toEqual(result.value);
+        });
+    });
+});
+
+describe("parseAndMigrateUserInputMap", () => {
+    beforeAll(() => {
+        registerCoreWidgets();
+    });
+
+    describe.each(userInputDataFiles)("given %s", (filename) => {
+        const json = fs.readFileSync(join(userInputDataDir, filename), "utf-8");
+        const result = parseAndMigrateUserInputMap(json);
+
+        it("parses successfully", () => {
+            // If the parse fails, get just the error message. This makes the test
+            // failure easier to read, since otherwise the entire `invalidObject`
+            // from the ParseFailureDetail would be printed.
+            const resultWithMessage = mapFailure(getMessage)(result);
+
+            expect(resultWithMessage).toEqual(anySuccess);
+        });
+
+        it("returns the same result as before", () => {
+            assertSuccess(result);
+            expect(result.value).toMatchSnapshot();
+        });
+
+        it("is not changed by a second pass through the parser", () => {
+            // This test ensures that the parser is idempotent, i.e. running
+            // it once is the same as running it many times. This is important
+            // because we might parse the input many times, e.g. every time
+            // it crosses a service boundary.
+            assertSuccess(result);
+
+            const result2 = parse(result.value, parseUserInputMap);
 
             expect(result2).toEqual(anySuccess);
             // Narrow the type. This assertion should always pass due to the

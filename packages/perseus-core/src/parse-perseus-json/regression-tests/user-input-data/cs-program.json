@@ -1,0 +1,14 @@
+{
+    "cs-program 1": {
+        "status": "correct",
+        "message": null
+    },
+    "cs-program 2": {
+        "status": "incorrect",
+        "message": "There's a test failure!"
+    },
+    "cs-program 3": {
+        "status": "incomplete",
+        "message": null
+    }
+}

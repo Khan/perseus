@@ -1,0 +1,13 @@
+{
+    "label-image 1": {
+        "markers": [
+            {
+                "label": "a"
+            },
+            {
+                "label": "b",
+                "selected": ["c"]
+            }
+        ]
+    }
+}

@@ -1,0 +1,5 @@
+{
+    "orderer 1": {
+        "current": ["a", "b"]
+    }
+}
