@@ -20234,6 +20234,17 @@ exports[`parseAndMigrateUserInputMap given numeric-input.json returns the same r
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given orderer.json returns the same result as before 1`] = `
+{
+  "orderer 1": {
+    "current": [
+      "a",
+      "b",
+    ],
+  },
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
