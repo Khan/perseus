@@ -1,9 +1,10 @@
 .perseus-image-widget .perseus-image-title {
     text-align: center;
 }
+/* Reset default paragarph margins. */
 .perseus-image-widget .perseus-image-title .paragraph {
-    margin-block-start: var(--wb-sizing-size_160);
-    margin-block-end: var(--wb-sizing-size_160);
+    margin-block-start: 0;
+    margin-block-end: 0;
 }
 .perseus-image-widget .perseus-image-caption {
     color: rgba(33, 36, 44, 0.7);

@@ -2,6 +2,8 @@
     text-align: center;
     border-top: var(--wb-border-width-thin) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
+    padding-block-start: var(--wb-sizing-size_160);
+    padding-block-end: var(--wb-sizing-size_160);
 }
 
 .description-and-caption-container {
