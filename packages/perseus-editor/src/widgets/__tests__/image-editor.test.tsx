@@ -176,8 +176,12 @@ describe("image editor", () => {
 
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({
-            backgroundImage: {},
-            box: undefined,
+            backgroundImage: {
+                url: "",
+                width: 0,
+                height: 0,
+            },
+            box: [0, 0],
         });
     });
 
@@ -232,7 +236,7 @@ describe("image editor", () => {
         });
     });
 
-    it("should call onChange with undefined alt", async () => {
+    it("should call onChange with empty alt", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
@@ -250,7 +254,7 @@ describe("image editor", () => {
 
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({
-            alt: undefined,
+            alt: "",
         });
     });
 
@@ -276,7 +280,7 @@ describe("image editor", () => {
         });
     });
 
-    it("should call onChange with undefined caption", async () => {
+    it("should call onChange with empty caption", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
@@ -294,7 +298,7 @@ describe("image editor", () => {
 
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({
-            caption: undefined,
+            caption: "",
         });
     });
     it("should call onChange with new title", async () => {
@@ -319,7 +323,7 @@ describe("image editor", () => {
         });
     });
 
-    it("should call onChange with undefined title", async () => {
+    it("should call onChange with empty title", async () => {
         // Arrange
         const onChangeMock = jest.fn();
         render(
@@ -337,7 +341,7 @@ describe("image editor", () => {
 
         // Assert
         expect(onChangeMock).toHaveBeenCalledWith({
-            title: undefined,
+            title: "",
         });
     });
 });
