@@ -1,6 +1,7 @@
 .title-container {
     text-align: center;
-    border-top: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border-top: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
 }
 
 .description-and-caption-container {
@@ -8,5 +9,6 @@
     flex-direction: row;
     margin-block-start: var(--wb-sizing-size_160);
     padding-block-end: var(--wb-sizing-size_160);
-    border-bottom: var(--wb-border-width-thin) solid var(--wb-semanticColor-core-border-neutral-subtle);
+    border-bottom: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
 }
