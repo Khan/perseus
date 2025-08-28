@@ -29,7 +29,6 @@ export interface Props extends ExternalProps {
     backgroundImage: NonNullable<ExternalProps["backgroundImage"]>;
     labels: NonNullable<ExternalProps["labels"]>;
     alt: NonNullable<ExternalProps["alt"]>;
-    longDescription: NonNullable<ExternalProps["longDescription"]>;
     caption: NonNullable<ExternalProps["caption"]>;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
 }
@@ -42,7 +41,6 @@ interface DefaultProps extends Partial<Props> {
     backgroundImage: Props["backgroundImage"];
     labels: Props["labels"];
     alt: Props["alt"];
-    longDescription: Props["longDescription"];
     caption: Props["caption"];
     linterContext: Props["linterContext"];
 }
@@ -59,7 +57,6 @@ class ImageWidget extends React.Component<Props> implements Widget {
         backgroundImage: defaultBackgroundImage,
         labels: [],
         alt: "",
-        longDescription: "",
         caption: "",
         linterContext: linterContextDefault,
     };
