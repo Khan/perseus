@@ -15,10 +15,12 @@ export default function ImageSettings({
     alt,
     backgroundImage,
     caption,
+    title,
     onChange,
 }: Props) {
     const uniqueId = React.useId();
     const altId = `${uniqueId}-alt`;
+    const titleId = `${uniqueId}-title`;
     const captionId = `${uniqueId}-caption`;
 
     if (!backgroundImage.url) {
@@ -91,12 +93,21 @@ export default function ImageSettings({
                     // Avoid saving empty strings in the content data.
                     onChange({alt: value === "" ? undefined : value})
                 }
-                style={{
-                    // TODO: Use CSS modules after Wonder Blocks styles
-                    // are moved to a different layer.
-                    marginBlockStart: sizing.size_040,
-                    marginBlockEnd: sizing.size_080,
-                }}
+                style={textAreaStyle}
+            />
+
+            {/* Title */}
+            <HeadingXSmall tag="label" htmlFor={titleId}>
+                Title:
+            </HeadingXSmall>
+            <AutoResizingTextArea
+                id={titleId}
+                value={title ?? ""}
+                onChange={(value) =>
+                    // Avoid saving empty strings in the content data.
+                    onChange({title: value === "" ? undefined : value})
+                }
+                style={textAreaStyle}
             />
 
             {/* Caption */}
@@ -110,13 +121,15 @@ export default function ImageSettings({
                     // Avoid saving empty strings in the content data.
                     onChange({caption: value === "" ? undefined : value})
                 }
-                style={{
-                    // TODO: Use CSS modules after Wonder Blocks styles
-                    // are moved to a different layer.
-                    marginBlockStart: sizing.size_040,
-                    marginBlockEnd: sizing.size_080,
-                }}
+                style={textAreaStyle}
             />
         </>
     );
 }
+
+// TODO: Use CSS modules after Wonder Blocks styles
+// are moved to a different layer.
+const textAreaStyle = {
+    marginBlockStart: sizing.size_040,
+    marginBlockEnd: sizing.size_120,
+};
