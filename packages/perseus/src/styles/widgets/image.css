@@ -2,8 +2,8 @@
     text-align: center;
 }
 .perseus-image-widget .perseus-image-title .paragraph {
-    margin-block-start: 16px;
-    margin-block-end: 16px;
+    margin-block-start: var(--wb-sizing-size_160);
+    margin-block-end: var(--wb-sizing-size_160);
 }
 .perseus-image-widget .perseus-image-caption {
     color: rgba(33, 36, 44, 0.7);
