@@ -20226,6 +20226,14 @@ exports[`parseAndMigrateUserInputMap given number-line.json returns the same res
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given numeric-input.json returns the same result as before 1`] = `
+{
+  "numeric-input 1": {
+    "currentValue": "42",
+  },
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
