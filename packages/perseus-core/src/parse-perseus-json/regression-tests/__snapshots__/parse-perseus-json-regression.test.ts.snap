@@ -20216,6 +20216,16 @@ exports[`parseAndMigrateUserInputMap given matrix.json returns the same result a
 }
 `;
 
+exports[`parseAndMigrateUserInputMap given number-line.json returns the same result as before 1`] = `
+{
+  "number-line 1": {
+    "numDivisions": 3,
+    "numLinePosition": 2,
+    "rel": "eq",
+  },
+}
+`;
+
 exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
 {
   "radio 1": {
