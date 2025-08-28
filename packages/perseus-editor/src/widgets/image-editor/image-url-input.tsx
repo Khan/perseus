@@ -39,7 +39,7 @@ export default function ImageUrlInput({backgroundImage, onChange}: Props) {
 
     function setUrl(url: string, width: number, height: number) {
         const image = {...backgroundImage};
-        // Don't save empty strings in the content data.
+
         image.url = url;
         image.width = width;
         image.height = height;
@@ -54,10 +54,7 @@ export default function ImageUrlInput({backgroundImage, onChange}: Props) {
         // Don't try to load the image if there is no URL.
         if (!url) {
             setBackgroundImageError(null);
-            onChange({
-                backgroundImage: {},
-                box: undefined,
-            });
+            setUrl(url, 0, 0);
             return;
         }
 
