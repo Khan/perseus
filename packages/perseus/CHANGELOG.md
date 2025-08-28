@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 67.1.2
+
+### Patch Changes
+
+-   [#2845](https://github.com/Khan/perseus/pull/2845) [`9a3f88df9a`](https://github.com/Khan/perseus/commit/9a3f88df9affeaca3c26d50208867c913ccae725) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Fix regression stories by adding width and height to images
+
 ## 67.1.1
 
 ### Patch Changes

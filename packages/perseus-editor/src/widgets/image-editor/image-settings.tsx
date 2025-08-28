@@ -89,10 +89,7 @@ export default function ImageSettings({
             <AutoResizingTextArea
                 id={altId}
                 value={alt ?? ""}
-                onChange={(value) =>
-                    // Avoid saving empty strings in the content data.
-                    onChange({alt: value === "" ? undefined : value})
-                }
+                onChange={(value) => onChange({alt: value})}
                 style={textAreaStyle}
             />
 
@@ -103,10 +100,7 @@ export default function ImageSettings({
             <AutoResizingTextArea
                 id={titleId}
                 value={title ?? ""}
-                onChange={(value) =>
-                    // Avoid saving empty strings in the content data.
-                    onChange({title: value === "" ? undefined : value})
-                }
+                onChange={(value) => onChange({title: value})}
                 style={textAreaStyle}
             />
 
@@ -117,10 +111,7 @@ export default function ImageSettings({
             <AutoResizingTextArea
                 id={captionId}
                 value={caption ?? ""}
-                onChange={(value) =>
-                    // Avoid saving empty strings in the content data.
-                    onChange({caption: value === "" ? undefined : value})
-                }
+                onChange={(value) => onChange({caption: value})}
                 style={textAreaStyle}
             />
         </>
