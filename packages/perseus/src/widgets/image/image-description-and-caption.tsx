@@ -10,31 +10,23 @@ import Renderer from "../../renderer";
 import {ImageExplorationModal} from "./image-exploration-modal";
 import styles from "./image-widget.module.css";
 
-import type {APIOptions} from "../../types";
-import type {PerseusImageBackground} from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {Props} from "./image.class";
 
-interface Props {
-    caption: string;
-    longDescription: string;
-    backgroundImage: PerseusImageBackground;
-    apiOptions: APIOptions;
-    linterContext: LinterContextProps;
-}
+export const ImageDescriptionAndCaption = (props: Props) => {
+    const {
+        caption,
+        longDescription,
+        backgroundImage,
+        apiOptions,
+        linterContext,
+    } = props;
 
-export const ImageDescriptionAndCaption = ({
-    caption,
-    longDescription,
-    backgroundImage,
-    apiOptions,
-    linterContext,
-}: Props) => {
     const context = React.useContext(PerseusI18nContext);
     return (
         <div className={styles.descriptionAndCaptionContainer}>
             {/* Description */}
             {longDescription && (
-                <ModalLauncher modal={ImageExplorationModal}>
+                <ModalLauncher modal={ImageExplorationModal(props)}>
                     {({openModal}) => (
                         <ExploreImageButton
                             hasCaption={!!caption}

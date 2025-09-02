@@ -42,3 +42,12 @@
 .perseus-hint-renderer .svg-image {
     margin-inline-start: 0;
 }
+
+.perseus-image-modal-title .paragraph .paragraph {
+    font-size: var(--wb-font-size-large);
+}
+
+.perseus-image-modal-description .perseus-renderer .paragraph {
+    /* Reset default Renderer margins for the description and caption. */
+    margin: 0px 0px;
+}

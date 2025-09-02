@@ -1,6 +1,122 @@
 import {FlexibleDialog} from "@khanacademy/wonder-blocks-modal";
+import {sizing} from "@khanacademy/wonder-blocks-tokens";
+import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import React from "react";
 
-export const ImageExplorationModal = () => {
-    return <FlexibleDialog title="something" content={<div>content</div>} />;
+import AssetContext from "../../asset-context";
+import {SvgImage} from "../../components";
+import {PerseusI18nContext} from "../../components/i18n-context";
+import Renderer from "../../renderer";
+
+import styles from "./image-widget.module.css";
+
+import type {Props as ImageProps} from "./image.class";
+
+interface Props extends ImageProps {
+    longDescription: string; // required
+}
+
+export const ImageExplorationModal = (props: Props) => {
+    const context = React.useContext(PerseusI18nContext);
+    return (
+        <FlexibleDialog
+            title={
+                <h1
+                    className={`perseus-image-modal-title ${styles.modalTitleContainer}`}
+                >
+                    {/* Use Renderer so that the title can support markdown and TeX. */}
+                    <Renderer
+                        content={props.title ?? "Explore image and description"}
+                        apiOptions={props.apiOptions}
+                        linterContext={props.linterContext}
+                        strings={context.strings}
+                    />
+                </h1>
+            }
+            content={<ImageExplorationModalContent {...props} />}
+            styles={{
+                root: wbStyles.root,
+            }}
+        />
+    );
+};
+
+const ImageExplorationModalContent = (props: Props) => {
+    const {
+        backgroundImage,
+        caption,
+        alt,
+        longDescription,
+        linterContext,
+        apiOptions,
+        box,
+        labels,
+        range,
+        trackInteraction,
+    } = props;
+    const context = React.useContext(PerseusI18nContext);
+
+    return (
+        <div className={styles.modalPanelContainer}>
+            <div className={styles.modalImageContainer}>
+                {/* Need to use SvgImage in order to load Graphie images */}
+                <AssetContext.Consumer>
+                    {({setAssetStatus}) => (
+                        <SvgImage
+                            src={backgroundImage.url!}
+                            alt={caption === alt ? "" : alt}
+                            width={backgroundImage.width}
+                            height={backgroundImage.height}
+                            preloader={apiOptions.imagePreloader}
+                            extraGraphie={{
+                                box: box,
+                                range: range,
+                                labels: labels ?? [],
+                            }}
+                            trackInteraction={trackInteraction}
+                            zoomToFullSizeOnMobile={apiOptions.isMobile}
+                            constrainHeight={apiOptions.isMobile}
+                            allowFullBleed={apiOptions.isMobile}
+                            setAssetStatus={setAssetStatus}
+                        />
+                    )}
+                </AssetContext.Consumer>
+            </div>
+            <div
+                className={`perseus-image-modal-description ${styles.modalDescriptionContainer}`}
+            >
+                {caption && (
+                    <div className={styles.modalCaptionContainer}>
+                        {/* Use Renderer so that the caption can support markdown and TeX. */}
+                        <Renderer
+                            content={caption}
+                            apiOptions={apiOptions}
+                            linterContext={linterContext}
+                            strings={context.strings}
+                        />
+                    </div>
+                )}
+                <HeadingMedium tag="h2" style={wbStyles.descriptionHeading}>
+                    Description
+                </HeadingMedium>
+                {/* Use Renderer so that the description can support markdown and TeX. */}
+                <Renderer
+                    content={longDescription}
+                    apiOptions={apiOptions}
+                    linterContext={linterContext}
+                    strings={context.strings}
+                />
+            </div>
+        </div>
+    );
+};
+
+const wbStyles = {
+    root: {
+        borderRadius: sizing.size_120,
+        maxWidth: "100%",
+    },
+    descriptionHeading: {
+        marginBlockEnd: sizing.size_160,
+    },
 };

@@ -1,3 +1,12 @@
+:root {
+    /* Undo the default padding for the top of the modal. We need to use
+       px to make sure it's the exact same value as the original padding. */
+    --modal-padding-offset: -32px;
+    /* Fixed px values from the design. */
+    --modal-panel-height: 568px;
+    --modal-description-container-width: 420px;
+}
+
 .title-container {
     text-align: center;
     border-top: var(--wb-border-width-thin) solid
@@ -13,4 +22,48 @@
     padding-block-end: var(--wb-sizing-size_160);
     border-bottom: var(--wb-border-width-thin) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+.modal-title-container {
+    display: flex;
+    align-items: center;
+    /* Undo the default padding for the top of the modal. */
+    margin-block-start: var(--modal-padding-offset);
+    /* Reset the default margin for h1. */
+    margin-block-end: 0px;
+}
+
+.modal-panel-container {
+    display: flex;
+    flex-direction: row;
+    height: var(--modal-panel-height);
+    border-block-start: var(--wb-border-width-thin) solid
+        var(--wb-semanticColor-core-border-neutral-subtle);
+    padding: var(--wb-sizing-size_080);
+    padding-inline-end: 0;
+    /* Undo the default padding for the modal panel. */
+    margin-inline: var(--modal-padding-offset);
+    margin-block-end: var(--modal-padding-offset);
+}
+
+.modal-image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    width: 100%;
+}
+
+.modal-description-container {
+    display: flex;
+    flex-direction: column;
+    width: var(--modal-description-container-width);
+    padding-inline: var(--wb-sizing-size_320);
+    overflow-y: auto;
+    padding-block: var(--wb-sizing-size_240);
+}
+
+.modal-caption-container {
+    padding-block-end: var(--wb-sizing-size_240);
 }
