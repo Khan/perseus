@@ -16,6 +16,7 @@ export const ImageComponent = ({
     backgroundImage,
     box,
     caption,
+    longDescription,
     linterContext,
     labels,
     range,
@@ -71,9 +72,10 @@ export const ImageComponent = ({
             )}
 
             {/* Description & Caption */}
-            {caption && (
+            {(caption || longDescription) && (
                 <ImageDescriptionAndCaption
                     caption={caption}
+                    longDescription={longDescription}
                     backgroundImage={backgroundImage}
                     apiOptions={apiOptions}
                     linterContext={linterContext}

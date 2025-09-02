@@ -66,20 +66,22 @@ const meta: Meta<typeof ImageWidget> = {
 };
 export default meta;
 
-export const Default: Story = {
-    decorators: [rendererDecorator],
-    args: {
-        backgroundImage: earthMoonImage,
-        alt: "Earth and Moon",
-        title: "Earth and Moon",
-        caption: earthMoonImageCaption,
-    },
-};
-
 export const Image: Story = {
     decorators: [rendererDecorator],
     args: {
         backgroundImage: earthMoonImage,
+    },
+};
+
+export const ImageWithAll: Story = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        alt: "Earth and Moon",
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+        title: "Earth and Moon",
+        caption: earthMoonImageCaption,
     },
 };
 
@@ -96,6 +98,25 @@ export const ImageWithCaption: Story = {
     args: {
         backgroundImage: earthMoonImage,
         caption: earthMoonImageCaption,
+    },
+};
+
+export const ImageWithCaptionAndLongDescription: Story = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
+export const ImageWithLongDescription: Story = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
     },
 };
 
@@ -118,13 +139,68 @@ export const ImageWithZoom: Story = {
     },
 };
 
-export const MobileImage: Story = {
+export const MobileImageAll: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+        title: "Earth and Moon",
+    },
+};
+
+export const MobileImageWithAlt: Story = {
     decorators: [rendererDecorator, mobileDecorator],
     args: {
         backgroundImage: earthMoonImage,
         alt: "Earth and Moon",
-        title: "Earth and Moon",
+    },
+};
+
+export const MobileImageWithCaption: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
         caption: earthMoonImageCaption,
+    },
+};
+
+export const MobileImageWithCaptionAndLongDescription: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
+export const MobileImageWithLongDescription: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
+export const MobileImageWithTitle: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        title: "Earth and Moon",
+    },
+};
+
+export const MobileImageWithZoom: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: {
+            url: frescoImageUrl,
+            width: 1698,
+            height: 955,
+        },
     },
 };
 
@@ -190,6 +266,31 @@ export const RightToLeftImage: Story = {
         title: "The Offer of the Casa Madre to Victory, 1932",
         caption:
             "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, The Offer of the Casa Madre to Victory, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
+        longDescription: "This is a *very* long description of the fresco.",
+        backgroundImage: {
+            url: frescoImageUrl,
+            width: 1698,
+            height: 955,
+        },
+    },
+};
+
+export const RightToLeftImageMobile: Story = {
+    decorators: [
+        rendererDecorator,
+        mobileDecorator,
+        (Story) => (
+            <div style={{direction: "rtl"}}>
+                <Story />
+            </div>
+        ),
+    ],
+    args: {
+        alt: "Fresco of some people",
+        title: "The Offer of the Casa Madre to Victory, 1932",
+        caption:
+            "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, The Offer of the Casa Madre to Victory, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
+        longDescription: "This is a *very* long description of the fresco.",
         backgroundImage: {
             url: frescoImageUrl,
             width: 1698,
