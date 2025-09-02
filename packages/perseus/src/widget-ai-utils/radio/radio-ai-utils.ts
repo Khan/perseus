@@ -7,6 +7,7 @@ import type React from "react";
 
 type BasicOption = {
     value: string;
+    id: string;
     rationale?: string;
 };
 
@@ -29,6 +30,7 @@ export const getPromptJSON = (
     const options = choices.map((choice) => {
         const option: BasicOption = {
             value: choice.content,
+            id: choice.id,
         };
         if (choice.rationale) {
             option.rationale = choice.rationale;
