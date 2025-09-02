@@ -10,18 +10,16 @@ interface GetChoiceStatesProps {
     isStatic?: boolean | null;
     showSolutions?: ShowSolutions;
     choiceStates?: ReadonlyArray<ChoiceState>;
-    values?: ReadonlyArray<boolean>;
 }
 
 /**
  * Determine the updated choice states for the Radio widget, based on the
- * widget's static / showSolutions states, choiceStates, and values.
+ * widget's static / showSolutions states, and choiceStates.
  *
  * @param choices - The choices for the Radio widget.
  * @param isStatic - Whether the widget is static.
  * @param showSolutions - Whether the widget is in showSolutions mode.
  * @param choiceStates - The choice states for the widget. (The user's current selection states.)
- * @param values - The values for the widget. (Deprecated: The user's current selection states for old content.)
  * @returns The updated choice states for the widget.
  */
 export const getChoiceStates = ({
@@ -29,7 +27,6 @@ export const getChoiceStates = ({
     isStatic,
     showSolutions,
     choiceStates,
-    values,
 }: GetChoiceStatesProps): ReadonlyArray<ChoiceState> => {
     // The default state for a choice state object.
     const defaultState: ChoiceState = {
@@ -61,19 +58,7 @@ export const getChoiceStates = ({
         return choiceStates;
     }
 
-    // Case 3: Legacy user selection without submission
-    // The widget uses the deprecated values property and has
-    // received user input that hasn't been submitted yet.
-    // — In this state, we convert legacy values to choice states.
-    if (values) {
-        /* c8 ignore next - props.values is deprecated */
-        return values.map((val) => ({
-            ...defaultState,
-            selected: val,
-        }));
-    }
-
-    // Case 4: Initial state
+    // Case 3: Initial state
     // The widget is in its pristine state with no user interaction yet
     // — In this state, we return the default, unselected choice states.
     return choices.map(() => ({...defaultState}));
