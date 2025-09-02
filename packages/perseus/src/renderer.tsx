@@ -1442,34 +1442,32 @@ class Renderer
     }
 
     handleStateUpdate(id: string, cb: () => boolean, silent?: boolean) {
-        this.setState({}, () => {
-            // Wait until all components have rendered. In React 16 setState
-            // callback fires immediately after this componentDidUpdate, and
-            // there is no guarantee that parent/siblings components have
-            // finished rendering.
-            // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
-            // eslint-disable-next-line no-restricted-syntax
-            setTimeout(() => {
-                // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-                const cbResult = cb && cb();
-                if (!silent) {
-                    this.props.onInteractWithWidget(id);
-                }
-                if (cbResult !== false) {
-                    // TODO(jack): For some reason, some widgets don't always
-                    // end up in refs here, which is repro-able if you make an
-                    // [[ orderer 1 ]] and copy-paste this, then change it to
-                    // be an [[ orderer 2 ]]. The resulting Renderer ends up
-                    // with an "orderer 2" ref but not an "orderer 1" ref.
-                    // @_@??
-                    // TODO(jack): Figure out why this is happening and fix it
-                    // As far as I can tell, this is only an issue in the
-                    // editor-page, so doing this shouldn't break clients
-                    // hopefully
-                    this._setCurrentFocus([id]);
-                }
-            }, 0);
-        });
+        // Wait until all components have rendered. In React 16 setState
+        // callback fires immediately after this componentDidUpdate, and
+        // there is no guarantee that parent/siblings components have
+        // finished rendering.
+        // TODO(jeff, CP-3128): Use Wonder Blocks Timing API
+        // eslint-disable-next-line no-restricted-syntax
+        setTimeout(() => {
+            // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+            const cbResult = cb && cb();
+            if (!silent) {
+                this.props.onInteractWithWidget(id);
+            }
+            if (cbResult !== false) {
+                // TODO(jack): For some reason, some widgets don't always
+                // end up in refs here, which is repro-able if you make an
+                // [[ orderer 1 ]] and copy-paste this, then change it to
+                // be an [[ orderer 2 ]]. The resulting Renderer ends up
+                // with an "orderer 2" ref but not an "orderer 1" ref.
+                // @_@??
+                // TODO(jack): Figure out why this is happening and fix it
+                // As far as I can tell, this is only an issue in the
+                // editor-page, so doing this shouldn't break clients
+                // hopefully
+                this._setCurrentFocus([id]);
+            }
+        }, 0);
     }
 
     /**
