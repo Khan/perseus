@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 67.2.0
+
+### Minor Changes
+
+-   [#2854](https://github.com/Khan/perseus/pull/2854) [`c601e1c410`](https://github.com/Khan/perseus/commit/c601e1c4109cb6d719c75795c4cbb9601bd11a2b) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Adds choice ids to radio ai options
+
 ## 67.1.2
 
 ### Patch Changes
