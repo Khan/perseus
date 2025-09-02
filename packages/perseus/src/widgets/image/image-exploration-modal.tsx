@@ -19,25 +19,36 @@ interface Props extends ImageProps {
 export const ImageExplorationModal = (props: Props) => {
     const context = React.useContext(PerseusI18nContext);
     return (
-        <FlexibleDialog
-            title={
-                <h1
-                    className={`perseus-image-modal-title ${styles.modalTitleContainer}`}
-                >
-                    {/* Use Renderer so that the title can support markdown and TeX. */}
-                    <Renderer
-                        content={props.title ?? "Explore image and description"}
-                        apiOptions={props.apiOptions}
-                        linterContext={props.linterContext}
-                        strings={context.strings}
-                    />
-                </h1>
-            }
-            content={<ImageExplorationModalContent {...props} />}
-            styles={{
-                root: wbStyles.root,
-            }}
-        />
+        <div
+            // We need to manually add the `framework-perseus` class so that
+            // the modal can have the correct styling, even when the portal
+            // makes it render outside the normal `framework-perseus` container.
+            className={`framework-perseus ${styles.modalContainer}`}
+        >
+            <FlexibleDialog
+                title={
+                    <h1
+                        className={`perseus-image-modal-title ${styles.modalTitleContainer}`}
+                    >
+                        {/* Use Renderer so that the title can support markdown and TeX. */}
+                        <Renderer
+                            content={
+                                props.title
+                                    ? props.title
+                                    : "Explore image and description"
+                            }
+                            apiOptions={props.apiOptions}
+                            linterContext={props.linterContext}
+                            strings={context.strings}
+                        />
+                    </h1>
+                }
+                content={<ImageExplorationModalContent {...props} />}
+                styles={{
+                    root: wbStyles.root,
+                }}
+            />
+        </div>
     );
 };
 
