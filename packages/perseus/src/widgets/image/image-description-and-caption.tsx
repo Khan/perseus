@@ -1,11 +1,13 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
+import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
 import infoIcon from "@phosphor-icons/core/regular/info.svg";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
+import {ImageExplorationModal} from "./image-exploration-modal";
 import styles from "./image-widget.module.css";
 
 import type {APIOptions} from "../../types";
@@ -31,28 +33,15 @@ export const ImageDescriptionAndCaption = ({
     return (
         <div className={styles.descriptionAndCaptionContainer}>
             {/* Description */}
-            {longDescription && !caption && (
-                <Button
-                    kind="secondary"
-                    startIcon={infoIcon}
-                    onClick={() => {}}
-                >
-                    Explore image
-                </Button>
-            )}
-
-            {longDescription && caption && (
-                <IconButton
-                    icon={infoIcon}
-                    kind="secondary"
-                    onClick={() => {}}
-                    style={{
-                        // Stop the button from getting squished by the caption text.
-                        // TODO: Use CSS modules after Wonder Blocks styles
-                        // are moved to a different layer.
-                        minWidth: "40px",
-                    }}
-                />
+            {longDescription && (
+                <ModalLauncher modal={ImageExplorationModal}>
+                    {({openModal}) => (
+                        <ExploreImageButton
+                            hasCaption={!!caption}
+                            onClick={openModal}
+                        />
+                    )}
+                </ModalLauncher>
             )}
 
             {/* Caption */}
@@ -76,3 +65,33 @@ export const ImageDescriptionAndCaption = ({
         </div>
     );
 };
+
+function ExploreImageButton({
+    hasCaption,
+    onClick,
+}: {
+    hasCaption: boolean;
+    onClick: () => void;
+}) {
+    if (hasCaption) {
+        return (
+            <IconButton
+                icon={infoIcon}
+                kind="secondary"
+                onClick={onClick}
+                style={{
+                    // Stop the button from getting squished by the caption text.
+                    // TODO: Use CSS modules after Wonder Blocks styles
+                    // are moved to a different layer.
+                    minWidth: "40px",
+                }}
+            />
+        );
+    }
+
+    return (
+        <Button kind="secondary" startIcon={infoIcon} onClick={onClick}>
+            Explore image
+        </Button>
+    );
+}
