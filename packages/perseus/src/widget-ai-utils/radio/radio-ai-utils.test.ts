@@ -134,10 +134,10 @@ describe("Radio AI utils", () => {
             type: "radio",
             hasNoneOfTheAbove: false,
             options: [
-                {value: "Content 4"},
-                {value: "Content 2"},
-                {value: "Content 1"},
-                {value: "Content 3"},
+                {value: "Content 4", id: "3-3-3-3-3"},
+                {value: "Content 2", id: "1-1-1-1-1"},
+                {value: "Content 1", id: "0-0-0-0-0"},
+                {value: "Content 3", id: "2-2-2-2-2"},
             ],
             userInput: {
                 selectedOptions: ["0-0-0-0-0"],
