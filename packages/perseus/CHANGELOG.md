@@ -1,5 +1,27 @@
 # @khanacademy/perseus
 
+## 68.0.0
+
+### Major Changes
+
+-   [#2841](https://github.com/Khan/perseus/pull/2841) [`b4aef654c1`](https://github.com/Khan/perseus/commit/b4aef654c1844f2d322a37229a209edeff545035) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove serializeState prop from Renderer and restoreSerializedState API (both already deprecated)
+
+*   [#2857](https://github.com/Khan/perseus/pull/2857) [`59cbb43106`](https://github.com/Khan/perseus/commit/59cbb431069caf66f63672f223da34cf063e7932) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Radio transform/staticTransform. Replace randomness with deterministic shuffling for Radio.
+
+### Minor Changes
+
+-   [#2832](https://github.com/Khan/perseus/pull/2832) [`ccb28990d2`](https://github.com/Khan/perseus/commit/ccb28990d267339cacbe2055c0ac60b01d1f8678) Thanks [@Myranae](https://github.com/Myranae)! - Export a function that provides a list of widget IDs extracted from renderer
+
+### Patch Changes
+
+-   Updated dependencies [[`b4aef654c1`](https://github.com/Khan/perseus/commit/b4aef654c1844f2d322a37229a209edeff545035), [`59cbb43106`](https://github.com/Khan/perseus/commit/59cbb431069caf66f63672f223da34cf063e7932)]:
+    -   @khanacademy/perseus-core@19.0.0
+    -   @khanacademy/keypad-context@3.2.2
+    -   @khanacademy/kmath@2.2.2
+    -   @khanacademy/math-input@26.2.2
+    -   @khanacademy/perseus-linter@4.3.2
+    -   @khanacademy/perseus-score@7.7.2
+
 ## 67.2.0
 
 ### Minor Changes
