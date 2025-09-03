@@ -25,6 +25,7 @@ export const useItemRenderer = (
     startAnswerless: boolean = false,
     reviewMode: boolean = false,
     showSolutions?: ShowSolutions,
+    initialLocale: string = "en",
 ) => {
     const ref = useRef<ServerItemRenderer>(null);
     const [state, dispatch] = useReducer(
@@ -36,6 +37,7 @@ export const useItemRenderer = (
             false, // isRtl defaults to false
             reviewMode,
             showSolutions,
+            initialLocale,
         ),
     );
 
@@ -96,7 +98,7 @@ export const useItemRenderer = (
         const score = scorePerseusItem(
             state.perseusItem.question,
             userInput,
-            "en",
+            state.locale,
         );
 
         // Continue to include an empty guess for the now defunct answer area.
@@ -114,7 +116,7 @@ export const useItemRenderer = (
         }
 
         return keScore;
-    }, [state.perseusItem]);
+    }, [state.perseusItem, state.locale]);
 
     const updateJson = React.useCallback((json: string): boolean => {
         try {
@@ -133,6 +135,10 @@ export const useItemRenderer = (
 
     const toggleRtl = React.useCallback((isRtl: boolean) => {
         dispatch({type: "TOGGLE_RTL", payload: isRtl});
+    }, []);
+
+    const setLocale = React.useCallback((locale: string) => {
+        dispatch({type: "SET_LOCALE", payload: locale});
     }, []);
 
     const handleReset = React.useCallback(() => {
@@ -162,6 +168,7 @@ export const useItemRenderer = (
         options,
         toggleMobile,
         toggleRtl,
+        setLocale,
         updateJson,
         handleReset,
         handleSkip,
