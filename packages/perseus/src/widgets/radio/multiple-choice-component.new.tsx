@@ -3,10 +3,12 @@ import React, {useId} from "react";
 import {usePerseusI18n} from "../../components/i18n-context";
 import ScrollableView from "../../components/scrollable-view";
 
+import choiceStyles from "./choice.module.css";
 import Choice from "./choice.new";
 import styles from "./multiple-choice.module.css";
 import {getChoiceLetter} from "./util";
 import {getInstructionsText} from "./utils/string-utils";
+import {useMobileScrollDetection} from "./utils/use-mobile-scroll-detection";
 
 import type {IndicatorContent} from "./choice-indicator.new";
 import type {ChoiceType} from "./multiple-choice-widget.new";
@@ -67,11 +69,21 @@ const MultipleChoiceComponent = ({
         strings,
     });
 
-    const choiceListClasses = reviewMode
-        ? `${styles.choiceList} ${styles.reviewAnswers}`
-        : styles.choiceList;
-
     const scrollId = useId() + "-scroll";
+
+    // Mobile-only scroll detection to provide visual feedback when
+    // the user is actively scrolling through the choices.
+    // See useMobileScrollDetection for more details
+    const isActivelyScrolling = useMobileScrollDetection(scrollId);
+
+    const choiceListClasses = [
+        reviewMode
+            ? `${styles.choiceList} ${styles.reviewAnswers}`
+            : styles.choiceList,
+        isActivelyScrolling ? choiceStyles.activelyScrolling : "",
+    ]
+        .filter(Boolean)
+        .join(" ");
 
     return (
         <>

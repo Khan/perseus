@@ -33,7 +33,7 @@
     width: 100%;
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
     .choice:hover {
         cursor: pointer;
     }
@@ -95,7 +95,7 @@
     z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
     .choice:hover:after,
     .choice:hover:before {
         z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
@@ -121,13 +121,35 @@
     );
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
     .choice:not(.is-correct, .is-wrong):hover {
         --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
         --perseus-multiple-choice-divider-color: var(
             --wb-semanticColor-core-border-neutral-default
         );
     }
+}
+
+/*********************
+ ACTIVELY SCROLLING
+ *********************/
+
+/* Hide dividers when actively scrolling on touch devices for cleaner scroll experience */
+.actively-scrolling .choice:not(.is-correct, .is-wrong) {
+    --perseus-multiple-choice-divider-width: 0; /* Hide dividers during scroll */
+}
+
+/* When NOT actively scrolling, show enhanced dividers on tap/focus for better selection feedback */
+.choice:not(.is-correct, .is-wrong):active {
+    --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
+    --perseus-multiple-choice-divider-color: var(
+        --wb-semanticColor-core-border-neutral-default
+    );
+}
+
+.choice:not(.is-correct, .is-wrong):active:after,
+.choice:not(.is-correct, .is-wrong):active:before {
+    z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
 }
 
 /***********
@@ -147,7 +169,7 @@
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
 }
 
-@media (hover: hover) {
+@media (hover: hover) and (pointer: fine) {
     .is-correct:hover,
     .is-wrong:hover {
         cursor: default;
