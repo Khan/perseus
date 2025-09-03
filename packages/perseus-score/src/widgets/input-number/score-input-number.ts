@@ -1,4 +1,4 @@
-import {getDecimalSeparator} from "@khanacademy/perseus-core";
+import {getDecimalSeparator, getDivideSymbol} from "@khanacademy/perseus-core";
 
 import KhanAnswerTypes from "../../util/answer-types";
 import {parseTex} from "../../util/tex-wrangler";
@@ -70,7 +70,10 @@ function scoreInputNumber(
         forms: inputNumberAnswerTypes[rubric.answerType].forms,
         // Pass locale-specific decimal separator to ensure that
         // we're properly parsing numbers according to the locale.
-        ...(locale && {decimal_separator: getDecimalSeparator(locale)}),
+        ...(locale && {
+            decimal_separator: getDecimalSeparator(locale),
+            divide_symbol: getDivideSymbol(locale),
+        }),
     });
 
     // We may have received TeX; try to parse it before grading.
