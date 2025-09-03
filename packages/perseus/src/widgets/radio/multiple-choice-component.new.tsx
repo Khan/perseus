@@ -67,11 +67,11 @@ const MultipleChoiceComponent = ({
         strings,
     });
 
-    const scrollId = useId() + "-scroll";
-
     const choiceListClasses = reviewMode
         ? `${styles.choiceList} ${styles.reviewAnswers}`
         : styles.choiceList;
+
+    const scrollId = useId() + "-scroll";
 
     return (
         <>
