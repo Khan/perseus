@@ -269,6 +269,7 @@ describe("UserInputManager", () => {
     });
 
     it("initializes static user input", async () => {
+        const renderSpy = jest.fn();
         const widgets: PerseusWidgetsMap = {
             "radio 1": {
                 type: "radio",
@@ -292,27 +293,20 @@ describe("UserInputManager", () => {
 
         render(
             <UserInputManager widgets={widgets} problemNum={0}>
-                {({userInput}) => {
-                    return (
-                        <>
-                            <p>
-                                User input is:{" "}
-                                {userInput["radio 1"].selectedChoiceIds.join(
-                                    " ",
-                                )}
-                            </p>
-                        </>
-                    );
-                }}
+                {({userInput}) => renderSpy(userInput)}
             </UserInputManager>,
         );
 
-        expect(
-            screen.getByText("User input is: 0-0-0-0-0"),
-        ).toBeInTheDocument();
+        expect(renderSpy).toHaveBeenCalledWith({
+            "radio 1": {
+                selectedChoiceIds: ["0-0-0-0-0"],
+            },
+        });
     });
 
     it("accepts an initial user input", async () => {
+        const renderSpy = jest.fn();
+
         const widgets: PerseusWidgetsMap = {
             "radio 1": {
                 type: "radio",
@@ -346,24 +340,15 @@ describe("UserInputManager", () => {
                 problemNum={0}
                 initialUserInput={initialUserInput}
             >
-                {({userInput}) => {
-                    return (
-                        <>
-                            <p>
-                                User input is:{" "}
-                                {userInput["radio 1"].selectedChoiceIds.join(
-                                    " ",
-                                )}
-                            </p>
-                        </>
-                    );
-                }}
+                {({userInput}) => renderSpy(userInput)}
             </UserInputManager>,
         );
 
-        expect(
-            screen.getByText("User input is: 0-0-0-0-0"),
-        ).toBeInTheDocument();
+        expect(renderSpy).toHaveBeenCalledWith({
+            "radio 1": {
+                selectedChoiceIds: ["0-0-0-0-0"],
+            },
+        });
     });
 
     it("allows initial user input to be changed", async () => {
