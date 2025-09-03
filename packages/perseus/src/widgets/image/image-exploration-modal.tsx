@@ -67,6 +67,14 @@ const ImageExplorationModalContent = (props: Props) => {
     } = props;
     const context = React.useContext(PerseusI18nContext);
 
+    // Contain the image to the modal dimensions.
+    const modalHeight = 568; // Modal's max height.
+    let width = 0;
+    if (backgroundImage.width && backgroundImage.height) {
+        // bgWidth / bgHeight = X / 568 => X = (bgWidth / bgHeight) * 568
+        width = (backgroundImage.width / backgroundImage.height) * modalHeight;
+    }
+
     return (
         <div className={styles.modalPanelContainer}>
             <div className={styles.modalImageContainer}>
@@ -76,8 +84,13 @@ const ImageExplorationModalContent = (props: Props) => {
                         <SvgImage
                             src={backgroundImage.url!}
                             alt={caption === alt ? "" : alt}
-                            width={backgroundImage.width}
-                            height={backgroundImage.height}
+                            width={width}
+                            height={
+                                backgroundImage.height &&
+                                backgroundImage.height < modalHeight
+                                    ? backgroundImage.height
+                                    : modalHeight
+                            }
                             preloader={apiOptions.imagePreloader}
                             extraGraphie={{
                                 box: box,

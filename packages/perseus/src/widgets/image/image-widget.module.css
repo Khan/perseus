@@ -5,6 +5,10 @@
     /* Fixed px values from the design. */
     --modal-panel-height: 568px;
     --modal-description-container-width: 420px;
+    /* It looks like this 767px is hardcoded in CSS files. It can be found
+        in packages/perseus/src/styles/constants.ts as a breakpoint constant
+        to be used in jsx/tsx files. */
+    --perseus-small-breakpoint: 767px;
 }
 
 .title-container {
@@ -22,6 +26,12 @@
     padding-block-end: var(--wb-sizing-size_160);
     border-bottom: var(--wb-border-width-thin) solid
         var(--wb-semanticColor-core-border-neutral-subtle);
+}
+
+.modal-container {
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }
 
 .modal-title-container {
@@ -53,6 +63,7 @@
     justify-content: center;
     background-color: black;
     width: 100%;
+    max-height: var(--modal-panel-height);
 }
 
 .modal-description-container {
@@ -71,7 +82,7 @@
 /* Temprarily hiding the explore button on mobile while we still need
     to implement the mobile version of this modal. */
 /* TODO(LEMS-3439): Display the explore button in mobile.  */
-@media (max-width: 767px) {
+@media (max-width: var(--perseus-small-breakpoint)) {
     .explore-button-container {
         display: none;
     }

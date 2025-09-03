@@ -59,7 +59,7 @@ const mobileDecorator = (Story) => (
 const meta: Meta<typeof ImageWidget> = {
     title: "Widgets/Image/Visual Regression Tests",
     component: ImageWidget,
-    // tags: ["!dev"],
+    tags: ["!dev"],
     parameters: {
         chromatic: {disableSnapshot: false},
     },
