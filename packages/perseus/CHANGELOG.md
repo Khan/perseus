@@ -1,5 +1,71 @@
 # @khanacademy/perseus
 
+## 67.2.0
+
+### Minor Changes
+
+-   [#2854](https://github.com/Khan/perseus/pull/2854) [`c601e1c410`](https://github.com/Khan/perseus/commit/c601e1c4109cb6d719c75795c4cbb9601bd11a2b) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Adds choice ids to radio ai options
+
+## 67.1.2
+
+### Patch Changes
+
+-   [#2845](https://github.com/Khan/perseus/pull/2845) [`9a3f88df9a`](https://github.com/Khan/perseus/commit/9a3f88df9affeaca3c26d50208867c913ccae725) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Fix regression stories by adding width and height to images
+
+## 67.1.1
+
+### Patch Changes
+
+-   [#2849](https://github.com/Khan/perseus/pull/2849) [`47ec59ae27`](https://github.com/Khan/perseus/commit/47ec59ae2783d770fecaa6d5b403b365dc37094e) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Updating packages to sync with wonderblocks
+
+*   [#2836](https://github.com/Khan/perseus/pull/2836) [`671c5e4a56`](https://github.com/Khan/perseus/commit/671c5e4a5615580348fff6776fe1e9d2e3a475a6) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add documentation warning for using Graphie component
+
+-   [#2798](https://github.com/Khan/perseus/pull/2798) [`245de4eba5`](https://github.com/Khan/perseus/commit/245de4eba5b1d8e055cf0d8793c3ad18d55aea8f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove NumberLine transforms
+
+-   Updated dependencies [[`47ec59ae27`](https://github.com/Khan/perseus/commit/47ec59ae2783d770fecaa6d5b403b365dc37094e), [`245de4eba5`](https://github.com/Khan/perseus/commit/245de4eba5b1d8e055cf0d8793c3ad18d55aea8f)]:
+    -   @khanacademy/math-input@26.2.1
+    -   @khanacademy/perseus-core@18.9.1
+    -   @khanacademy/keypad-context@3.2.1
+    -   @khanacademy/kmath@2.2.1
+    -   @khanacademy/perseus-linter@4.3.1
+    -   @khanacademy/perseus-score@7.7.1
+
+## 67.1.0
+
+### Minor Changes
+
+-   [#2799](https://github.com/Khan/perseus/pull/2799) [`8b18b38b31`](https://github.com/Khan/perseus/commit/8b18b38b31866582cb101d29ea3dbfd2dbe756bf) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Changes the output of radio score from boolean array to string array that represent the user's selected choice ids
+
+*   [#2834](https://github.com/Khan/perseus/pull/2834) [`81951db1ba`](https://github.com/Khan/perseus/commit/81951db1ba9c474c108c5ff253b7d0168fd3f23a) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Converted the Radio Widget (New) to be a fully functional component.
+
+### Patch Changes
+
+-   [#2826](https://github.com/Khan/perseus/pull/2826) [`9db2c5a4a1`](https://github.com/Khan/perseus/commit/9db2c5a4a1d2b83d18c9605cf87b7ebabb832ad0) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Fix how Graphie text is placed when inside a choice
+
+*   [#2838](https://github.com/Khan/perseus/pull/2838) [`32553c5330`](https://github.com/Khan/perseus/commit/32553c5330fd353b08680415fdbd9842d5cca13a) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Correctness indicator was missing in static widget
+
+-   [#2822](https://github.com/Khan/perseus/pull/2822) [`4b5a15745e`](https://github.com/Khan/perseus/commit/4b5a15745e22a0a45a8d86d2a87b4eb138a2c47c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Fix missing styling when showing solution in graded group
+
+*   [#2821](https://github.com/Khan/perseus/pull/2821) [`3fb39e4a2f`](https://github.com/Khan/perseus/commit/3fb39e4a2fda3890c99d3551f403cfe31884547c) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix mobile new radio widget scroll styling removing extra spaces.
+
+-   [#2824](https://github.com/Khan/perseus/pull/2824) [`27304a4c22`](https://github.com/Khan/perseus/commit/27304a4c229967853d05b09bf8ff0849544fa8e3) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Modernize the Image widget code
+
+*   [#2825](https://github.com/Khan/perseus/pull/2825) [`ae8f7b2d0d`](https://github.com/Khan/perseus/commit/ae8f7b2d0d98d0bc11654fc086ace74c96384eff) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Modernize the Image widget edtior code
+
+-   [#2831](https://github.com/Khan/perseus/pull/2831) [`e8eb1b3843`](https://github.com/Khan/perseus/commit/e8eb1b384327afe6ed0f221e025175c54b53bdd5) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix to allow users to still scroll the scrollable content when the fieldset is disabled and staticOverlayStyles is applied after the user checked the answer
+
+*   [#2837](https://github.com/Khan/perseus/pull/2837) [`1eba32de16`](https://github.com/Khan/perseus/commit/1eba32de16478ded4bbe751e32727e562e5f820e) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Choice text not changing color when selected
+
+-   [#2835](https://github.com/Khan/perseus/pull/2835) [`6901229b75`](https://github.com/Khan/perseus/commit/6901229b758c411356b77b3b044a1d178038460c) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update WB semantic color surface and foreground/border inverse token usage
+
+-   Updated dependencies [[`8b18b38b31`](https://github.com/Khan/perseus/commit/8b18b38b31866582cb101d29ea3dbfd2dbe756bf)]:
+    -   @khanacademy/keypad-context@3.2.0
+    -   @khanacademy/kmath@2.2.0
+    -   @khanacademy/math-input@26.2.0
+    -   @khanacademy/perseus-core@18.9.0
+    -   @khanacademy/perseus-linter@4.3.0
+    -   @khanacademy/perseus-score@7.7.0
+
 ## 67.0.0
 
 ### Major Changes

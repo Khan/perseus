@@ -544,6 +544,7 @@ describe("parseWidgetsMap", () => {
                     snapDivisions: 1,
                     correctX: 1,
                     static: false,
+                    isTickCtrl: false,
                 },
             },
         };

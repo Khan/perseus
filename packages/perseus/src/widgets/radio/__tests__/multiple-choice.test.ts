@@ -664,6 +664,79 @@ describe("Multiple Choice Widget", () => {
             expect(options[3]).not.toBeChecked();
         });
 
+        // LEMS-3445: Ensures that deselecting one choice doesn't select other choices
+        it("should not select other choices when deselecting current choice - single select", async () => {
+            // Arrange
+            const radio1Widget = question.widgets["radio 1"];
+            const radioOptions = radio1Widget.options;
+
+            // Create a radio question with deselect enabled (single select mode)
+            const deselectionTestQuestion: PerseusRenderer = {
+                ...question,
+                widgets: {
+                    ...question.widgets,
+                    "radio 1": {
+                        ...radio1Widget,
+                        options: {
+                            ...radioOptions,
+                            choices: [
+                                {
+                                    id: "choice-a",
+                                    content: "Choice A",
+                                    correct: false,
+                                },
+                                {
+                                    id: "choice-b",
+                                    content: "Choice B",
+                                    correct: false,
+                                },
+                                {
+                                    id: "choice-c",
+                                    content: "Choice C",
+                                    correct: false,
+                                },
+                                {
+                                    id: "choice-d",
+                                    content: "Choice D",
+                                    correct: false,
+                                },
+                            ],
+                            multipleSelect: false,
+                            deselectEnabled: true,
+                        },
+                    },
+                },
+            };
+
+            const {renderer} = renderQuestion(
+                deselectionTestQuestion,
+                apiOptions,
+            );
+
+            // Act
+            const options = screen.getAllByRole("radio");
+            expect(options).toHaveLength(4);
+
+            await userEvent.click(options[0]); // Select Choice A
+            expect(options[0]).toBeChecked();
+            expect(options[1]).not.toBeChecked();
+            expect(options[2]).not.toBeChecked();
+            expect(options[3]).not.toBeChecked();
+
+            await userEvent.click(options[0]); // Deselect Choice A
+
+            // Assert
+            expect(options[0]).not.toBeChecked();
+            expect(options[1]).not.toBeChecked();
+            expect(options[2]).not.toBeChecked();
+            expect(options[3]).not.toBeChecked();
+
+            // Also verify that the user input reflects no selections
+            const userInputMap = renderer.getUserInputMap();
+            const radioUserInput = userInputMap["radio 1"];
+            expect(radioUserInput.selectedChoiceIds).toEqual([]);
+        });
+
         it("should snapshot the same when invalid", async () => {
             // Arrange
             const {container} = renderQuestion(question, apiOptions);

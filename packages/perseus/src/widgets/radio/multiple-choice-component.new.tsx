@@ -20,7 +20,7 @@ export interface MultipleChoiceComponentProps {
     countChoices: boolean | null | undefined;
     multipleSelect?: boolean;
     numCorrect: number;
-    onChoiceChange: (choiceIndex: number, newCheckedState: boolean) => void;
+    onChoiceChange: (choiceId: string, newCheckedState: boolean) => void;
     // Review mode is used when the user has successfully answered the question
     // and is now reviewing their answer.
     reviewMode: boolean;
@@ -71,30 +71,38 @@ const MultipleChoiceComponent = ({
         ? `${styles.choiceList} ${styles.reviewAnswers}`
         : styles.choiceList;
 
+    const scrollId = useId() + "-scroll";
+
     return (
-        <fieldset
-            className={styles.container}
-            data-feature-flag="feature flag is ON"
-        >
-            <legend
-                id={legendId}
-                aria-hidden="true"
-                className={styles.instructions}
+        <>
+            <fieldset
+                className={styles.container}
+                data-feature-flag="feature flag is ON"
             >
-                {instructions}
-            </legend>
-            <ScrollableView overflowX="auto">
-                <ul aria-labelledby={legendId} className={choiceListClasses}>
-                    <ChoiceListItems
-                        choices={choices}
-                        i18nStrings={strings}
-                        onChoiceChange={onChoiceChange}
-                        reviewMode={reviewMode}
-                        multipleSelect={multipleSelect}
-                    />
-                </ul>
-            </ScrollableView>
-        </fieldset>
+                <legend
+                    id={legendId}
+                    aria-hidden="true"
+                    className={styles.instructions}
+                >
+                    {instructions}
+                </legend>
+                <ScrollableView id={scrollId} overflowX="auto">
+                    <ul
+                        aria-labelledby={legendId}
+                        className={choiceListClasses}
+                    >
+                        <ChoiceListItems
+                            choices={choices}
+                            i18nStrings={strings}
+                            onChoiceChange={onChoiceChange}
+                            reviewMode={reviewMode}
+                            multipleSelect={multipleSelect}
+                        />
+                    </ul>
+                </ScrollableView>
+            </fieldset>
+            <ScrollableView.Controls target={scrollId} />
+        </>
     );
 };
 
@@ -105,7 +113,7 @@ interface ChoiceListItemsProps {
     choices: ReadonlyArray<ChoiceType>;
     i18nStrings: PerseusStrings;
     multipleSelect: boolean;
-    onChoiceChange: (choiceIndex: number, newCheckedState: boolean) => void;
+    onChoiceChange: (choiceId: string, newCheckedState: boolean) => void;
     reviewMode: boolean;
 }
 
@@ -116,7 +124,7 @@ const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
 
     const items = choices.map((choice, i) => {
         const updateChecked = (isChecked: boolean) => {
-            onChoiceChange(i, isChecked);
+            onChoiceChange(choice.id, isChecked);
         };
         const contentId = `${listId}-choice-${i + 1}`;
         const choiceLetter = getChoiceLetter(i, i18nStrings);

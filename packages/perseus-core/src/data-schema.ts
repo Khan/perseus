@@ -250,8 +250,7 @@ export type PerseusRenderer = {
     /**
      * Formerly used in the PerseusGradedGroup widget.  A list of "tags" that
      * are keys that represent other content in the system.  Not rendered to
-     * the user. NOTE: perseus_data.go says this is required even though it
-     * isn't necessary.
+     * the user.
      * @deprecated
      */
     metadata?: any;
@@ -303,21 +302,17 @@ export type WidgetOptions<Type extends string, Options> = {
     // The "type" of widget which will define what the Options field looks like
     type: Type;
     // Whether this widget is displayed with the values and is immutable.  For display only
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     static?: boolean;
     // Whether a widget is scored.  Usually true except for IFrame widgets (deprecated)
     // Default: true
     graded?: boolean;
     // The HTML alignment of the widget.  "default" or "block"
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     alignment?: string;
     // Options specific to the type field of the widget.  See Perseus*WidgetOptions for more details
     options: Options;
     // Only used by interactive child widgets (line, point, etc) to identify the components
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     key?: number | null;
     // The version of the widget data spec.  Used to differentiate between newer and older content data.
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     version?: Version;
 };
 
@@ -403,20 +398,12 @@ export type PerseusImageBackground = {
     // The height of the image
     height?: number;
     // The top offset of the image
-    // NOTE: perseus_data.go says this is required, but nullable, even though
-    // it isn't necessary at all.
     top?: number;
     // The left offset of the image
-    // NOTE: perseus_data.go says this is required, but nullable, even though
-    // it isn't necessary at all.
     left?: number;
     // The scale of the image
-    // NOTE: perseus_data.go says this is required, but nullable, even though
-    // it isn't necessary at all.
     scale?: number;
     // The bottom offset of the image
-    // NOTE: perseus_data.go says this is required, but nullable, even though
-    // it isn't necessary at all.
     bottom?: number;
 };
 
@@ -678,29 +665,22 @@ export type PerseusGroupWidgetOptions = PerseusRenderer;
 
 export type PerseusImageWidgetOptions = {
     // Translatable Markdown; Text to be shown for the title of the image
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     title?: string;
     // Translatable Markdown; Text to be shown in the caption section of an image
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     caption?: string;
     // Translatable Text; The alt text to be shown in the img.alt attribute
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     alt?: string;
     // The image details for the image to be displayed
     backgroundImage: PerseusImageBackground;
     // Always false.  Not used for this widget
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     static?: boolean;
     // A list of labels to display on the image
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     /** @deprecated - labels were removed from the image widget in 2017 */
     labels?: Array<PerseusImageLabel>;
     // The range on the image render for labels
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     /** @deprecated - range for labels was removed from the image widget in 2017 */
     range?: [Interval, Interval];
     // The box on the image render for labels. The same as backgroundImage.width and backgroundImage.height
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     /** @deprecated - box for labels was removed from the image widget in 2017 */
     box?: Size;
 };
@@ -717,13 +697,10 @@ export type PerseusImageLabel = {
 export type PerseusInteractiveGraphWidgetOptions = {
     // Where the little black axis lines & labels (ticks) should render.
     // Also known as the tick step. default [1, 1]
-    // NOTE(kevinb): perseus_data.go defines this as Array<number>
     step: [number, number];
     // Where the grid lines on the graph will render. default [1, 1]
-    // NOTE(kevinb): perseus_data.go defines this as Array<number>
     gridStep?: [x: number, y: number];
     // Where the graph points will lock to when they are dragged. default [0.5, 0.5]
-    // NOTE(kevinb): perseus_data.go defines this as Array<number>
     snapStep?: [x: number, y: number];
     // An optional image to use in the background
     backgroundImage?: PerseusImageBackground;
@@ -770,7 +747,6 @@ export type PerseusInteractiveGraphWidgetOptions = {
      */
     rulerTicks?: number;
     // The X and Y coordinate ranges for the view of the graph.  default: [[-10, 10], [-10, 10]]
-    // NOTE(kevinb): perseus_data.go defines this as Array<Array<number>>
     // TODO(kevinb): Add a transform function to interactive-graph.jsx to
     // rename `range` to `ranges` so that things are less confusing.
     range: GraphRange;
@@ -1230,7 +1206,6 @@ export type PerseusNumericInputWidgetOptions = {
     // A coefficient style number allows the student to use - for -1 and an empty string to mean 1.
     coefficient: boolean;
     // Whether to right-align the text or not
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     rightAlign?: boolean;
     // Always false.  Not used for this widget
     static: boolean;
@@ -1244,13 +1219,11 @@ export type PerseusNumericInputAnswer = {
     // Whether this answer is "correct", "wrong", or "ungraded"
     status: string;
     // The forms available for this answer.  Options: "integer, ""decimal", "proper", "improper", "mixed", or "pi"
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     answerForms?: MathFormat[];
     // Whether we should check the answer strictly against the the configured answerForms (strict = true)
     // or include the set of default answerForms (strict = false).
     strict: boolean;
     // A range of error +/- the value
-    // NOTE: perseus_data.go says this is non-nullable even though we handle null values.
     maxError?: number | null;
     // Unsimplified answers are Ungraded, Accepted, or Wrong.
     simplify: PerseusNumericInputSimplify;
@@ -1266,7 +1239,7 @@ export type PerseusNumberLineWidgetOptions = {
     // Show label ticks
     labelTicks: boolean;
     // Show tick controller
-    isTickCtrl?: boolean | null;
+    isTickCtrl: boolean;
     isInequality: boolean;
     // The range of divisions within the line
     divisionRange: number[];
@@ -1367,22 +1340,17 @@ export type PerseusRadioWidgetOptions = {
     // The choices provided to the user.
     choices: PerseusRadioChoice[];
     // Does this have a "none of the above" option?
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     hasNoneOfTheAbove?: boolean;
     // If multipleSelect is enabled, Specify the number expected to be correct.
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     countChoices?: boolean;
     // How many of the choices are correct, which is conditionally used to tell
     // learners ahead of time how many options they'll need.
     numCorrect?: number;
     // Randomize the order of the options or keep them as defined
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     randomize?: boolean;
     // Does this set allow for multiple selections to be correct?
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     multipleSelect?: boolean;
     // deprecated
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     deselectEnabled?: boolean;
 };
 
@@ -1397,10 +1365,8 @@ export type PerseusRadioChoice = {
     // Translatable Markdown; Rationale to give the user when they get it wrong
     rationale?: string;
     // Whether this option is a correct answer or not
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     correct?: boolean;
     // If this is none of the above, override the content with "None of the above"
-    // NOTE: perseus_data.go says this is required even though it isn't necessary.
     isNoneOfTheAbove?: boolean;
 };
 

@@ -88,7 +88,7 @@ describe("Editor", () => {
         await userEvent.click(widgetDisclosure);
 
         // Assert
-        const previewImage = screen.getByAltText("Editor preview of image");
+        const previewImage = screen.getByAltText(/Preview:/);
         expect(previewImage).toHaveAttribute(
             "src",
             "http://placekitten.com/200/300",
@@ -109,7 +109,8 @@ describe("Editor", () => {
         const captionInput = screen.getByLabelText(/Caption:/);
 
         await userEvent.clear(captionInput);
-        await userEvent.type(captionInput, "A picture of kittens");
+        captionInput.focus();
+        await userEvent.paste("kittens");
         await userEvent.tab(); // blurring the input triggers onChange to be called
 
         // Assert
@@ -120,7 +121,7 @@ describe("Editor", () => {
                         type: "image",
                         graded: true,
                         options: expect.objectContaining({
-                            caption: "A picture of kittens",
+                            caption: "kittens",
                         }),
                     }),
                 },

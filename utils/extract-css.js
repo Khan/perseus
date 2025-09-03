@@ -32,7 +32,7 @@ const wbColorValues = {
     "#21242c": "--wb-semanticColor-core-foreground-neutral-strong",
     "#5f6167": "--wb-semanticColor-core-foreground-neutral-default",
     "#b8b9bb": "--wb-semanticColor-core-foreground-disabled-default",
-    "#ffffff": "--wb-semanticColor-core-foreground-inverse-strong",
+    "#ffffff": "--wb-semanticColor-core-foreground-knockout-default",
 };
 const mediaQueries = {
     // from packages/perseus/src/styles/media-queries.ts

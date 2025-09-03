@@ -65,11 +65,28 @@ describe("base-radio", () => {
         // Arrange / Act
         renderBaseRadio({
             choices: [
-                generateChoice({content: "Option 1", correct: false}),
-                generateChoice({content: "Option B", correct: false}),
-                generateChoice({content: "Option Gamma", correct: false}),
-                generateChoice({content: "Option Delta", correct: false}),
                 generateChoice({
+                    id: "choice-0",
+                    content: "Option 1",
+                    correct: false,
+                }),
+                generateChoice({
+                    id: "choice-1",
+                    content: "Option B",
+                    correct: false,
+                }),
+                generateChoice({
+                    id: "choice-2",
+                    content: "Option Gamma",
+                    correct: false,
+                }),
+                generateChoice({
+                    id: "choice-3",
+                    content: "Option Delta",
+                    correct: false,
+                }),
+                generateChoice({
+                    id: "choice-4",
                     isNoneOfTheAbove: true,
                     correct: true,
                 }),
@@ -104,11 +121,28 @@ describe("base-radio", () => {
 
         renderBaseRadio({
             choices: [
-                generateChoice({content: "Option 1", correct: false}),
-                generateChoice({content: "Option B", correct: false}),
-                generateChoice({content: "Option Gamma", correct: false}),
-                generateChoice({content: "Option Delta", correct: false}),
                 generateChoice({
+                    id: "choice-0",
+                    content: "Option 1",
+                    correct: false,
+                }),
+                generateChoice({
+                    id: "choice-1",
+                    content: "Option B",
+                    correct: false,
+                }),
+                generateChoice({
+                    id: "choice-2",
+                    content: "Option Gamma",
+                    correct: false,
+                }),
+                generateChoice({
+                    id: "choice-3",
+                    content: "Option Delta",
+                    correct: false,
+                }),
+                generateChoice({
+                    id: "choice-4",
                     isNoneOfTheAbove: true,
                     correct: true,
                 }),
@@ -124,9 +158,7 @@ describe("base-radio", () => {
         await userEvent.click(noneOption);
 
         // Assert
-        expect(updatedValues).toMatchObject({
-            checked: [false, false, false, false, true],
-        });
+        expect(updatedValues).toEqual(["choice-4"]);
     });
 
     describe("edit mode", () => {
@@ -135,10 +167,26 @@ describe("base-radio", () => {
             renderBaseRadio({
                 editMode: true,
                 choices: [
-                    generateChoice({content: "Option 1", correct: false}),
-                    generateChoice({content: "Option B", correct: false}),
-                    generateChoice({content: "Option Gamma", correct: true}),
-                    generateChoice({content: "Option Delta", correct: false}),
+                    generateChoice({
+                        id: "choice-0",
+                        content: "Option 1",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        id: "choice-1",
+                        content: "Option B",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        id: "choice-2",
+                        content: "Option Gamma",
+                        correct: true,
+                    }),
+                    generateChoice({
+                        id: "choice-3",
+                        content: "Option Delta",
+                        correct: false,
+                    }),
                 ],
             });
 
@@ -160,10 +208,26 @@ describe("base-radio", () => {
             renderBaseRadio({
                 editMode: true,
                 choices: [
-                    generateChoice({content: "Option 1", correct: false}),
-                    generateChoice({content: "Option B", correct: false}),
-                    generateChoice({content: "Option Gamma", correct: true}),
-                    generateChoice({content: "Option Delta", correct: false}),
+                    generateChoice({
+                        id: "choice-0",
+                        content: "Option 1",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        id: "choice-1",
+                        content: "Option B",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        id: "choice-2",
+                        content: "Option Gamma",
+                        correct: true,
+                    }),
+                    generateChoice({
+                        id: "choice-3",
+                        content: "Option Delta",
+                        correct: false,
+                    }),
                 ],
                 onChange: onChangeHandler,
             });
@@ -193,10 +257,26 @@ describe("base-radio", () => {
             renderBaseRadio({
                 editMode: true,
                 choices: [
-                    generateChoice({content: "Option 1", correct: false}),
-                    generateChoice({content: "Option B", correct: false}),
-                    generateChoice({content: "Option Gamma", correct: true}),
-                    generateChoice({content: "Option Delta", correct: false}),
+                    generateChoice({
+                        id: "choice-0",
+                        content: "Option 1",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        id: "choice-1",
+                        content: "Option B",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        id: "choice-2",
+                        content: "Option Gamma",
+                        correct: true,
+                    }),
+                    generateChoice({
+                        id: "choice-3",
+                        content: "Option Delta",
+                        correct: false,
+                    }),
                 ],
                 onChange: onChangeHandler,
             });
@@ -207,9 +287,7 @@ describe("base-radio", () => {
             );
 
             // Assert
-            expect(updatedValues).toMatchObject({
-                checked: [false, false, true, false],
-            });
+            expect(updatedValues).toEqual(["choice-2"]);
         });
     });
 
@@ -229,21 +307,25 @@ describe("base-radio", () => {
                 multipleSelect: true,
                 choices: [
                     generateChoice({
+                        id: "choice-0",
                         content: "Option 1",
                         correct: false,
                         checked: false,
                     }),
                     generateChoice({
+                        id: "choice-1",
                         content: "Option B",
                         correct: false,
                         checked: false,
                     }),
                     generateChoice({
+                        id: "choice-2",
                         content: "Option Gamma",
                         correct: true,
                         checked: true,
                     }),
                     generateChoice({
+                        id: "choice-3",
                         content: "Option Delta",
                         correct: false,
                         checked: false,
@@ -259,9 +341,7 @@ describe("base-radio", () => {
             await userEvent.click(radioButton);
 
             // Assert
-            expect(updatedValues).toMatchObject({
-                checked: [false, false, false, false],
-            });
+            expect(updatedValues).toEqual([]);
         });
 
         // Equivalent to "should toggle choice when inner element clicked" but with editMode set to false
@@ -280,21 +360,25 @@ describe("base-radio", () => {
                 multipleSelect: false,
                 choices: [
                     generateChoice({
+                        id: "choice-0",
                         content: "Option 1",
                         correct: false,
                         checked: false,
                     }),
                     generateChoice({
+                        id: "choice-1",
                         content: "Option B",
                         correct: false,
                         checked: false,
                     }),
                     generateChoice({
+                        id: "choice-2",
                         content: "Option Gamma",
                         correct: true,
                         checked: false,
                     }),
                     generateChoice({
+                        id: "choice-3",
                         content: "Option Delta",
                         correct: false,
                         checked: false,
@@ -311,9 +395,7 @@ describe("base-radio", () => {
             );
 
             // Assert
-            expect(updatedValues).toMatchObject({
-                checked: [false, false, true, false],
-            });
+            expect(updatedValues).toEqual(["choice-2"]);
         });
 
         it("deselects single select choice", async () => {
@@ -331,21 +413,25 @@ describe("base-radio", () => {
                 multipleSelect: false,
                 choices: [
                     generateChoice({
+                        id: "choice-0",
                         content: "Option 1",
                         correct: false,
                         checked: false,
                     }),
                     generateChoice({
+                        id: "choice-1",
                         content: "Option B",
                         correct: false,
                         checked: false,
                     }),
                     generateChoice({
+                        id: "choice-2",
                         content: "Option Gamma",
                         correct: true,
                         checked: true,
                     }),
                     generateChoice({
+                        id: "choice-3",
                         content: "Option Delta",
                         correct: false,
                         checked: false,
@@ -361,9 +447,7 @@ describe("base-radio", () => {
             await userEvent.click(radioButton);
 
             // Assert
-            expect(updatedValues).toMatchObject({
-                checked: [false, false, false, false],
-            });
+            expect(updatedValues).toEqual([]);
         });
 
         it("selects multi-select choice", async () => {
@@ -381,18 +465,22 @@ describe("base-radio", () => {
                 multipleSelect: true,
                 choices: [
                     generateChoice({
+                        id: "choice-0",
                         content: "Option 1",
                         correct: false,
                     }),
                     generateChoice({
+                        id: "choice-1",
                         content: "Option B",
                         correct: false,
                     }),
                     generateChoice({
+                        id: "choice-2",
                         content: "Option Gamma",
                         correct: true,
                     }),
                     generateChoice({
+                        id: "choice-3",
                         content: "Option Delta",
                         correct: false,
                     }),
@@ -408,9 +496,7 @@ describe("base-radio", () => {
             );
 
             // Assert
-            expect(updatedValues).toMatchObject({
-                checked: [false, false, true, false],
-            });
+            expect(updatedValues).toEqual(["choice-2"]);
         });
     });
 
@@ -420,10 +506,26 @@ describe("base-radio", () => {
             renderBaseRadio({
                 multipleSelect: false,
                 choices: [
-                    generateChoice({content: "Option 1", correct: false}),
-                    generateChoice({content: "Option B", correct: false}),
-                    generateChoice({content: "Option Gamma", correct: true}),
-                    generateChoice({content: "Option Delta", correct: false}),
+                    generateChoice({
+                        id: "choice-0",
+                        content: "Option 1",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        id: "choice-1",
+                        content: "Option B",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        id: "choice-2",
+                        content: "Option Gamma",
+                        correct: true,
+                    }),
+                    generateChoice({
+                        id: "choice-3",
+                        content: "Option Delta",
+                        correct: false,
+                    }),
                 ],
             });
 
@@ -443,10 +545,26 @@ describe("base-radio", () => {
                 multipleSelect: true,
                 countChoices: false,
                 choices: [
-                    generateChoice({content: "Option 1", correct: false}),
-                    generateChoice({content: "Option B", correct: false}),
-                    generateChoice({content: "Option Gamma", correct: true}),
-                    generateChoice({content: "Option Delta", correct: true}),
+                    generateChoice({
+                        id: "choice-0",
+                        content: "Option 1",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        id: "choice-1",
+                        content: "Option B",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        id: "choice-2",
+                        content: "Option Gamma",
+                        correct: true,
+                    }),
+                    generateChoice({
+                        id: "choice-3",
+                        content: "Option Delta",
+                        correct: true,
+                    }),
                 ],
             });
 
@@ -467,10 +585,26 @@ describe("base-radio", () => {
                 countChoices: true,
                 numCorrect: 2,
                 choices: [
-                    generateChoice({content: "Option 1", correct: false}),
-                    generateChoice({content: "Option B", correct: false}),
-                    generateChoice({content: "Option Gamma", correct: true}),
-                    generateChoice({content: "Option Delta", correct: true}),
+                    generateChoice({
+                        id: "choice-0",
+                        content: "Option 1",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        id: "choice-1",
+                        content: "Option B",
+                        correct: false,
+                    }),
+                    generateChoice({
+                        id: "choice-2",
+                        content: "Option Gamma",
+                        correct: true,
+                    }),
+                    generateChoice({
+                        id: "choice-3",
+                        content: "Option Delta",
+                        correct: true,
+                    }),
                 ],
             });
 

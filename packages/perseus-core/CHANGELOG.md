@@ -1,5 +1,17 @@
 # @khanacademy/perseus-core
 
+## 18.9.1
+
+### Patch Changes
+
+-   [#2798](https://github.com/Khan/perseus/pull/2798) [`245de4eba5`](https://github.com/Khan/perseus/commit/245de4eba5b1d8e055cf0d8793c3ad18d55aea8f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove NumberLine transforms
+
+## 18.9.0
+
+### Minor Changes
+
+-   [#2799](https://github.com/Khan/perseus/pull/2799) [`8b18b38b31`](https://github.com/Khan/perseus/commit/8b18b38b31866582cb101d29ea3dbfd2dbe756bf) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Changes the output of radio score from boolean array to string array that represent the user's selected choice ids
+
 ## 18.8.0
 
 ### Minor Changes

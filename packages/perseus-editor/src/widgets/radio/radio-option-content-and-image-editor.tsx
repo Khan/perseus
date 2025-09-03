@@ -189,7 +189,8 @@ export const RadioOptionContentAndImageEditor = (props: Props) => {
                     expanded={true}
                     containerStyle={{
                         // White to contrast with the blue choice tile.
-                        backgroundColor: semanticColor.surface.primary,
+                        backgroundColor:
+                            semanticColor.core.background.base.default,
                         marginBlockStart: sizing.size_040,
                         marginBlockEnd: sizing.size_040,
                     }}
