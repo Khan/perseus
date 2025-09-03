@@ -6,7 +6,6 @@ import {
     expressionItem2,
     expressionItem3,
     expressionItem4,
-    expressionItem5,
 } from "../expression.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -79,12 +78,6 @@ export const ExpressionItem3: Story = {
 export const ExpressionItem4: Story = {
     args: {
         item: expressionItem4,
-    },
-};
-
-export const ExpressionItem5: Story = {
-    args: {
-        item: expressionItem5,
     },
 };
 
