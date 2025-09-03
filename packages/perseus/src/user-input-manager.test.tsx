@@ -91,7 +91,6 @@ function generateExpressionSerializeState() {
             showSolutions: "none",
             reviewModeRubric: null,
             reviewMode: false,
-            isLastUsedWidget: false,
             linterContext: {
                 contentType: "",
                 highlightLint: false,
