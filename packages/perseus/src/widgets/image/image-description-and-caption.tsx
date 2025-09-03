@@ -24,17 +24,21 @@ export const ImageDescriptionAndCaption = (props: Props) => {
     const context = React.useContext(PerseusI18nContext);
     return (
         <div className={styles.descriptionAndCaptionContainer}>
-            {/* Description */}
-            {longDescription && (
-                <ModalLauncher modal={ImageExplorationModal(props)}>
-                    {({openModal}) => (
-                        <ExploreImageButton
-                            hasCaption={!!caption}
-                            onClick={openModal}
-                        />
-                    )}
-                </ModalLauncher>
-            )}
+            {/* TODO(LEMS-3439): Remove this `exploreButtonContainer` div
+                in order to show the explore button on mobile.  */}
+            <div className={styles.exploreButtonContainer}>
+                {/* Description */}
+                {longDescription && (
+                    <ModalLauncher modal={ImageExplorationModal(props)}>
+                        {({openModal}) => (
+                            <ExploreImageButton
+                                hasCaption={!!caption}
+                                onClick={openModal}
+                            />
+                        )}
+                    </ModalLauncher>
+                )}
+            </div>
 
             {/* Caption */}
             {caption && (

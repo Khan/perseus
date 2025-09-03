@@ -67,3 +67,12 @@
 .modal-caption-container {
     padding-block-end: var(--wb-sizing-size_240);
 }
+
+/* Temprarily hiding the explore button on mobile while we still need
+    to implement the mobile version of this modal. */
+/* TODO(LEMS-3439): Display the explore button in mobile.  */
+@media (max-width: 767px) {
+    .explore-button-container {
+        display: none;
+    }
+}
