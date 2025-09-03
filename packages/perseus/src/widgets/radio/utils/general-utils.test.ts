@@ -90,26 +90,7 @@ describe("getChoiceStates", () => {
         });
     });
 
-    describe("Case 3: Legacy user selection without submission", () => {
-        it("converts legacy values to choice states", () => {
-            // Arrange
-            const legacyValues = [false, true, false];
-
-            // Act
-            const result = getChoiceStates({
-                choices: mockChoices,
-                values: legacyValues,
-            });
-
-            // Assert
-            expect(result).toHaveLength(3);
-            expect(result[0].selected).toBe(false);
-            expect(result[1].selected).toBe(true);
-            expect(result[2].selected).toBe(false);
-        });
-    });
-
-    describe("Case 4: Initial state", () => {
+    describe("Case 3: Initial state", () => {
         it("returns default unselected choice states", () => {
             // Arrange & Act
             const result = getChoiceStates({

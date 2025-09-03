@@ -51,10 +51,12 @@ function renderPassage(
         static: true,
         trackInteraction: () => {},
         widgetId: "passage",
+        widgetIndex: 0,
         reviewMode: false,
     } as const;
 
     const extended = {...base, ...overwrite} as const;
+    // TODO: use a Renderer wrapper rather than rendering this directly
     return render(<PassageWidgetExport.widget {...extended} />);
 }
 

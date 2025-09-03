@@ -1,6 +1,12 @@
-import type {Props} from "./radio-component";
+import {
+    shuffle,
+    type PerseusRadioUserInput,
+    type PerseusRadioWidgetOptions,
+} from "@khanacademy/perseus-core";
+import _ from "underscore";
+
+import type {RadioChoiceWithMetadata} from "./multiple-choice-widget.new";
 import type {PerseusStrings} from "../../strings";
-import type {PerseusRadioUserInput} from "@khanacademy/perseus-core";
 
 /**
  * Given a choice's position in the radio widget, return the corresponding
@@ -21,39 +27,100 @@ export function getChoiceLetter(pos: number, strings: PerseusStrings): string {
 }
 
 export function getUserInputFromSerializedState(
-    props: Props,
-    unshuffle: boolean = true,
+    serializedState: any,
 ): PerseusRadioUserInput {
     const selectedChoiceIds: string[] = [];
 
-    if (props.choiceStates) {
-        const choiceStates = props.choiceStates;
+    if (serializedState.choiceStates) {
+        const choiceStates = serializedState.choiceStates;
 
         for (let i = 0; i < choiceStates.length; i++) {
             if (choiceStates[i].selected) {
-                selectedChoiceIds.push(props.choices[i].id);
+                selectedChoiceIds.push(serializedState.choices[i].id);
             }
         }
         return {
             selectedChoiceIds,
         };
     }
-    /* c8 ignore if - props.values is deprecated */
-    const {values} = props;
-    if (values) {
-        const valuesLength = values.length;
 
-        for (let i = 0; i < valuesLength && i < props.choices.length; i++) {
-            if (values[i]) {
-                selectedChoiceIds.push(props.choices[i].id);
-            }
-        }
-        return {
-            selectedChoiceIds,
-        };
-    }
     // Nothing checked
     return {
         selectedChoiceIds,
     };
+}
+
+export function moveNoneOfTheAboveToEnd(
+    choices: ReadonlyArray<RadioChoiceWithMetadata>,
+) {
+    let noneOfTheAbove = null;
+
+    const newChoices = choices.filter((choice, index) => {
+        if (choice.isNoneOfTheAbove) {
+            // @ts-expect-error - TS2322 - Type 'RadioChoiceWithMetadata' is not assignable to type 'null'.
+            noneOfTheAbove = choice;
+            return false;
+        }
+        return true;
+    });
+
+    // Place the "None of the above" options last
+    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+    if (noneOfTheAbove) {
+        newChoices.push(noneOfTheAbove);
+    }
+
+    return newChoices;
+}
+
+export function enforceOrdering(
+    choices: ReadonlyArray<RadioChoiceWithMetadata>,
+    strings: PerseusStrings,
+) {
+    // Represents choices that we automatically re-order if encountered.
+    // Note: these are in the reversed (incorrect) order that we will swap, if
+    // found.
+    // Note 2: these are internationalized when compared later on.
+    const ReversedChoices: ReadonlyArray<[string, string]> = [
+        [strings.false, strings.true],
+        [strings.no, strings.yes],
+    ];
+    const content = choices.map((c) => c.content);
+    if (ReversedChoices.some((reversed) => _.isEqual(content, reversed))) {
+        return [choices[1], choices[0]];
+    }
+    return choices;
+}
+
+// Transforms the choices for display.
+export function choiceTransform(
+    choices: PerseusRadioWidgetOptions["choices"],
+    randomize: PerseusRadioWidgetOptions["randomize"],
+    strings: PerseusStrings,
+    seed: number,
+) {
+    // Add meta-information to choices
+    const choicesWithMetadata: ReadonlyArray<RadioChoiceWithMetadata> =
+        choices.map((choice, i): RadioChoiceWithMetadata => {
+            return {
+                ...choice,
+                originalIndex: i,
+                correct: Boolean(choice.correct),
+            };
+        });
+
+    // Apply all the transforms. Note that the order we call these is
+    // important!
+    // 3) finally add "None of the above" to the bottom
+    return moveNoneOfTheAboveToEnd(
+        // 2) then (potentially) enforce ordering (eg. False, True becomes
+        //    True, False)
+        enforceOrdering(
+            // 1) we randomize the order first
+            randomize
+                ? shuffle(choicesWithMetadata, seed)
+                : choicesWithMetadata,
+            strings,
+        ),
+    );
 }

@@ -1,14 +1,13 @@
 import * as React from "react";
 import {forwardRef, useImperativeHandle} from "react";
 
+import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
-import {mockStrings} from "../../strings";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 import MultipleChoiceComponent from "./multiple-choice-component.new";
 import {getChoiceStates, parseNestedWidgets} from "./utils/general-utils";
 
-import type {PerseusStrings} from "../../strings";
 import type {WidgetProps, ChoiceState, Widget} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 import type {
@@ -45,14 +44,7 @@ export type RenderProps = {
     countChoices?: boolean;
     deselectEnabled?: boolean;
     choices: ReadonlyArray<RadioChoiceWithMetadata>;
-    // (LEMS-3278) - Remove all references to selectedChoices, as it's not used anywhere.
-    // We're handling selected in the choiceStates array.
-    selectedChoices: ReadonlyArray<PerseusRadioChoice["correct"]>;
     choiceStates?: ReadonlyArray<ChoiceState>;
-    // Deprecated; support for legacy way of handling changes
-    // Adds proptype for prop that is used but was lacking type
-    values?: ReadonlyArray<boolean>;
-    strings?: PerseusStrings;
     editMode?: boolean;
     labelWrap?: boolean;
 };
@@ -91,10 +83,8 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             countChoices = false,
             showSolutions = "none",
             choiceStates,
-            values,
             reviewModeRubric,
             questionCompleted,
-            strings = mockStrings,
             static: isStatic,
             apiOptions,
             onChange,
@@ -102,6 +92,8 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             findWidgets,
             reviewMode,
         } = props;
+
+        const {strings} = usePerseusI18n();
 
         // Perseus Widget API methods
         // TODO(LEMS-2994): When we remove the old Radio files, we may need to move some
@@ -311,7 +303,6 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                 isStatic,
                 showSolutions,
                 choiceStates,
-                values,
             });
 
             // Build the choice props from the updated choice states
