@@ -595,7 +595,7 @@ class Renderer
     };
 
     _getWidgetIndexById(id: string) {
-        const widgetIndex = Object.keys(this.props.widgets).indexOf(id);
+        const widgetIndex = this.widgetIds.indexOf(id);
         if (widgetIndex < 0) {
             Log.error(
                 "Unable to get widget index in _getWidgetIndexById",
