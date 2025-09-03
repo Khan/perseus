@@ -2,7 +2,11 @@ import * as React from "react";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import expressionExport from "../expression";
-import {expressionItem2, expressionItem3} from "../expression.testdata";
+import {
+    expressionItem2,
+    expressionItem3,
+    expressionItem4,
+} from "../expression.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -69,6 +73,12 @@ export const ExpressionItem2: Story = {
 export const ExpressionItem3: Story = {
     args: {
         item: expressionItem3,
+    },
+};
+
+export const ExpressionItem4: Story = {
+    args: {
+        item: expressionItem4,
     },
 };
 

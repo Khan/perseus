@@ -8,6 +8,7 @@ import type {
 export type ItemRendererState = {
     isMobile: boolean;
     isRtl: boolean;
+    locale: string;
     perseusItem: PerseusItem;
     originalItem: PerseusItem;
     answerless: boolean;
@@ -24,6 +25,7 @@ export type ItemRendererState = {
 export type ItemRendererAction =
     | {type: "TOGGLE_MOBILE"; payload: boolean}
     | {type: "TOGGLE_RTL"; payload: boolean}
+    | {type: "SET_LOCALE"; payload: string}
     | {type: "UPDATE_ITEM"; payload: PerseusItem}
     | {type: "SET_SCORE"; payload: KEScore | null | undefined}
     | {type: "TOGGLE_POPOVER"; payload: boolean}
@@ -41,9 +43,11 @@ export const createInitialState = (
     isRtl: boolean = false,
     reviewMode: boolean = false,
     showSolutions?: ShowSolutions,
+    locale?: string,
 ): ItemRendererState => ({
     isMobile,
     isRtl,
+    locale: locale || "en",
     perseusItem: item,
     originalItem: item,
     answerless: startAnswerless,
@@ -67,6 +71,9 @@ export const itemRendererReducer = (
 
         case "TOGGLE_RTL":
             return {...state, isRtl: action.payload};
+
+        case "SET_LOCALE":
+            return {...state, locale: action.payload};
 
         case "UPDATE_ITEM":
             return {...state, perseusItem: action.payload};
@@ -94,6 +101,8 @@ export const itemRendererReducer = (
                     state.isMobile,
                     state.isRtl,
                     state.reviewMode,
+                    state.showSolutions,
+                    state.locale,
                 ),
                 key: state.key + 1, // Force remount
             };

@@ -113,3 +113,19 @@ export const expressionItem3: PerseusItem = createItemJson({
     ariaLabel: "number of centimeters",
     extraKeys: ["z", "a"],
 });
+
+export const expressionItem4: PerseusItem = createItemJson({
+    answerForms: [
+        {
+            considered: "correct",
+            form: false,
+            simplify: false,
+            value: "5.5",
+        },
+    ],
+    times: true,
+    buttonSets: ["basic"],
+    functions: ["f", "g", "h"],
+    buttonsVisible: "always",
+    extraKeys: ["x"],
+});

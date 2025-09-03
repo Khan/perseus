@@ -160,7 +160,7 @@ const styles = {
         left: 0,
         right: 0,
         padding: `${sizing.size_120} ${sizing.size_160}`,
-        backgroundColor: semanticColor.core.background.base.default,
+        backgroundColor: "#FFFFFF",
         border: `${border.width.thin} solid ${semanticColor.core.border.neutral.subtle}`,
     },
     buttonContainer: {
