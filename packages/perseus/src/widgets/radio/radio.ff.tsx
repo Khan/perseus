@@ -12,6 +12,7 @@ import {choiceTransform, getUserInputFromSerializedState} from "./util";
 
 import type {RenderProps} from "./radio-component";
 import type {ChoiceState, WidgetProps} from "../../types";
+import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
 type Props = WidgetProps<
     RenderProps,
@@ -85,6 +86,10 @@ class Radio extends RadioOld {
         return {
             ...rest,
         };
+    }
+
+    getPromptJSON(): RadioPromptJSON {
+        return this.radioRef.current!.getPromptJSON();
     }
 
     _handleChange(arg: {choiceStates?: ChoiceState[]}) {
