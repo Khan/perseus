@@ -119,9 +119,12 @@ describe("Interactive Graph", function () {
                     } as any,
                 };
 
-                const {renderer} = renderQuestion(question, blankOptions, {
+                const {renderer} = renderQuestion(
+                    question,
+                    blankOptions,
+                    undefined,
                     userInput,
-                });
+                );
 
                 const score = scorePerseusItemTesting(
                     question,
@@ -145,9 +148,12 @@ describe("Interactive Graph", function () {
                         coords: [...correct],
                     } as any,
                 };
-                const {container} = renderQuestion(question, blankOptions, {
+                const {container} = renderQuestion(
+                    question,
+                    blankOptions,
+                    undefined,
                     userInput,
-                });
+                );
                 expect(container).toMatchSnapshot("with user input");
             });
 
@@ -175,9 +181,12 @@ describe("Interactive Graph", function () {
                     } as any,
                 };
 
-                const {renderer} = renderQuestion(question, blankOptions, {
+                const {renderer} = renderQuestion(
+                    question,
+                    blankOptions,
+                    undefined,
                     userInput,
-                });
+                );
 
                 const score = scorePerseusItemTesting(
                     question,
