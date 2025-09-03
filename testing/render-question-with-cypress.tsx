@@ -66,7 +66,6 @@ const renderQuestion = (
                                         userInput,
                                         handleUserInput,
                                         initializeUserInput,
-                                        restoreUserInputFromSerializedState,
                                     }) => (
                                         <Perseus.Renderer
                                             ref={(node) => (renderer = node)}
@@ -74,9 +73,6 @@ const renderQuestion = (
                                             handleUserInput={handleUserInput}
                                             initializeUserInput={
                                                 initializeUserInput
-                                            }
-                                            restoreUserInputFromSerializedState={
-                                                restoreUserInputFromSerializedState
                                             }
                                             content={question.content}
                                             images={question.images}

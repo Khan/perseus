@@ -35,7 +35,7 @@ export default {
     version: radioLogic.version,
     isLintable: true,
 
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    // TODO(LEMS-3185): remove serializedState
     /**
      * @deprecated - do not use in new code.
      */

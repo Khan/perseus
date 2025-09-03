@@ -1,6 +1,5 @@
 import {describe, beforeAll, beforeEach, afterEach, it} from "@jest/globals";
 import {
-    Errors,
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
@@ -295,32 +294,6 @@ describe("renderer", () => {
             // `dropdown 2` not found, however, because the Renderer doesn't
             // render widget's that don't have options defined.
             expect(widgets).toStrictEqual([null]);
-        });
-
-        // [LEMS-3185] deprecate serializedState / restoreSerializedState
-        it("should restore serialized state on mount if provided in prop", async () => {
-            // Arrange
-            renderQuestion(
-                question1,
-                {},
-                {
-                    serializedState: {
-                        "dropdown 1": {
-                            placeholder: "greater/less than or equal to",
-                            choices: [
-                                "greater than or equal to",
-                                "less than or equal to",
-                            ],
-                            selected: 2,
-                        },
-                    },
-                },
-            );
-
-            // Assert
-            expect(screen.getByRole("combobox")).toHaveTextContent(
-                /^less than or equal to$/,
-            );
         });
     });
 
@@ -1165,67 +1138,6 @@ describe("renderer", () => {
             expect(widget2.getSerializedState).toHaveBeenCalled();
         });
 
-        it("should skip restoration if state's widget ID list doesn't match renderer widgets", () => {
-            // Arrange
-            const errorSpy = jest.spyOn(testDependencies.Log, "error");
-
-            const {renderer} = renderQuestion(question1);
-
-            // Act
-            act(() =>
-                renderer.restoreSerializedState({
-                    "group 1": {},
-                    "interactive-chart 1": {},
-                }),
-            );
-
-            // Assert
-            expect(errorSpy).toHaveBeenCalledWith(
-                "Refusing to restore bad serialized state:",
-                Errors.Internal,
-                {
-                    loggedMetadata: {
-                        currentProps: expect.anything(),
-                        serializedState:
-                            '{"group 1":{},"interactive-chart 1":{}}',
-                    },
-                },
-            );
-        });
-
-        it("should fire restoration callback when all widgets have restored", () => {
-            // Arrange
-            const makeRestoreSerializedStateMock = jest
-                .fn()
-                .mockImplementation((props, callback) => callback());
-
-            const {renderer} = renderQuestion(definitionItem);
-            const [widget1, widget2, widget3] = renderer.findWidgets(
-                (_, info) => info.type === "definition",
-            );
-            widget1.restoreSerializedState = makeRestoreSerializedStateMock;
-            widget2.restoreSerializedState = makeRestoreSerializedStateMock;
-            widget3.restoreSerializedState = makeRestoreSerializedStateMock;
-
-            const restorationCallback = jest.fn();
-
-            // Act
-            act(() =>
-                renderer.restoreSerializedState(
-                    {
-                        "definition 1": {},
-                        "definition 2": {},
-                        "definition 3": {},
-                    },
-                    restorationCallback,
-                ),
-            );
-            act(() => jest.runOnlyPendingTimers());
-
-            // Assert
-            expect(restorationCallback).toHaveBeenCalledTimes(1);
-        });
-
         it("should return each widget's state from serialize()", () => {
             // Arrange
             const {renderer} = renderQuestion(definitionItem);
@@ -1293,46 +1205,6 @@ describe("renderer", () => {
     });
 
     describe("misc behaviors", () => {
-        // [LEMS-3185] deprecate serializedState / restoreSerializedState
-        it("should use new serializedState if getSerializedState is different", () => {
-            // Act
-            // Render with serialized state
-            const {rerender} = renderQuestion(
-                question1,
-                {},
-                {
-                    serializedState: {
-                        "dropdown 1": {
-                            placeholder: "greater/less than or equal to",
-                            choices: [
-                                "greater than or equal to",
-                                "less than or equal to",
-                            ],
-                            selected: 2, // <-- Important
-                        },
-                    },
-                },
-            );
-
-            // Act
-            rerender(question1, {
-                serializedState: {
-                    "dropdown 1": {
-                        placeholder: "greater/less than or equal to",
-                        choices: [
-                            "greater than or equal to",
-                            "less than or equal to",
-                        ],
-                        selected: 1, // <-- Important
-                    },
-                },
-            });
-
-            expect(screen.getByRole("combobox")).toHaveTextContent(
-                /greater than or equal to/,
-            );
-        });
-
         it("should render the widget in full width if alignment == 'fullWidth'", () => {
             // Arrange/Act
             renderQuestion({
