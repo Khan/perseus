@@ -109,16 +109,22 @@
 
 /* Enhance (thicker and darker) the divider between choices when:
       - the choice indicator has focus (not in review mode) OR
-      - the choice is hovered (not in review mode) OR
-      - the choice is in review mode AND
-         - the choice is incorrect AND
-         - the choice indicator has focus
+      - the choice is hovered in desktop with mouse (not in review mode) OR
+      - the choice is actively being selected (touch/click) OR
  */
-.choice:not(.is-correct):focus-within {
+.choice:not(.is-correct):focus-within,
+.choice:not(.is-correct, .is-wrong):active {
     --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
     --perseus-multiple-choice-divider-color: var(
         --wb-semanticColor-core-border-neutral-default
     );
+}
+
+.choice:focus-within:after,
+.choice:focus-within:before,
+.choice:not(.is-correct, .is-wrong):active:after,
+.choice:not(.is-correct, .is-wrong):active:before {
+    z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -128,28 +134,6 @@
             --wb-semanticColor-core-border-neutral-default
         );
     }
-}
-
-/*********************
- ACTIVELY SCROLLING
- *********************/
-
-/* Hide dividers when actively scrolling on touch devices for cleaner scroll experience */
-.actively-scrolling .choice:not(.is-correct, .is-wrong) {
-    --perseus-multiple-choice-divider-width: 0; /* Hide dividers during scroll */
-}
-
-/* When NOT actively scrolling, show enhanced dividers on tap/focus for better selection feedback */
-.choice:not(.is-correct, .is-wrong):active {
-    --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
-    --perseus-multiple-choice-divider-color: var(
-        --wb-semanticColor-core-border-neutral-default
-    );
-}
-
-.choice:not(.is-correct, .is-wrong):active:after,
-.choice:not(.is-correct, .is-wrong):active:before {
-    z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
 }
 
 /***********
