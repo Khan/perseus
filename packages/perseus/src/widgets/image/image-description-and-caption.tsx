@@ -69,9 +69,11 @@ function ExploreImageButton({
     hasCaption: boolean;
     onClick: () => void;
 }) {
+    const context = React.useContext(PerseusI18nContext);
     if (hasCaption) {
         return (
             <IconButton
+                aria-label={context.strings.imageExploreButton}
                 icon={infoIcon}
                 kind="secondary"
                 onClick={onClick}
@@ -87,7 +89,7 @@ function ExploreImageButton({
 
     return (
         <Button kind="secondary" startIcon={infoIcon} onClick={onClick}>
-            Explore image
+            {context.strings.imageExploreButton}
         </Button>
     );
 }
