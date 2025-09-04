@@ -538,13 +538,14 @@ export type FilterCriterion =
 // (which is what this seems to be for)
 // and Rubric is what we use to score the widgets (which not all widgets need validation)
 export type WidgetProps<
-    RenderProps,
+    TWidgetOptions,
     TUserInput = Empty,
     Rubric = Empty,
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
-> = RenderProps & UniversalWidgetProps<Rubric, TUserInput, TrackingExtraArgs>;
+> = TWidgetOptions &
+    UniversalWidgetProps<Rubric, TUserInput, TrackingExtraArgs>;
 
 /**
  * The props passed to every widget, regardless of its `type`.
