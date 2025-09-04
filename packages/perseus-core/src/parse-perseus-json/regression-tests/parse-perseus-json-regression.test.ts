@@ -150,11 +150,16 @@ describe("parseAndMigrateUserInputMap", () => {
         registerCoreWidgets();
     });
 
-    describe.each(userInputDataFiles)("given %s", (filename) => {
-        const json = fs.readFileSync(join(userInputDataDir, filename), "utf-8");
-        const result = parseAndMigrateUserInputMap(json);
+    describe.each(userInputDataFiles)("given the data from %s", (filename) => {
+        async function getParseResult() {
+            const {default: data} = await import(
+                join(userInputDataDir, filename)
+            );
+            return parseAndMigrateUserInputMap(data);
+        }
 
-        it("parses successfully", () => {
+        it("parses successfully", async () => {
+            const result = await getParseResult();
             // If the parse fails, get just the error message. This makes the test
             // failure easier to read, since otherwise the entire `invalidObject`
             // from the ParseFailureDetail would be printed.
@@ -163,16 +168,18 @@ describe("parseAndMigrateUserInputMap", () => {
             expect(resultWithMessage).toEqual(anySuccess);
         });
 
-        it("returns the same result as before", () => {
+        it("returns the same result as before", async () => {
+            const result = await getParseResult();
             assertSuccess(result);
             expect(result.value).toMatchSnapshot();
         });
 
-        it("is not changed by a second pass through the parser", () => {
+        it("is not changed by a second pass through the parser", async () => {
             // This test ensures that the parser is idempotent, i.e. running
             // it once is the same as running it many times. This is important
             // because we might parse the input many times, e.g. every time
             // it crosses a service boundary.
+            const result = await getParseResult();
             assertSuccess(result);
 
             const result2 = parse(result.value, parseUserInputMap);
