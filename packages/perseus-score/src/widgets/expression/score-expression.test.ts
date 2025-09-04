@@ -67,6 +67,16 @@ describe("scoreExpression", () => {
         expect(result).toHaveInvalidInput();
     });
 
+    it("should handle correct answers with colon divide symbol", function () {
+        const result = scoreExpression("z:3", expressionItem3Options, "uk");
+        expect(result).toHaveBeenAnsweredCorrectly();
+    });
+
+    it("should handle invalid answers with colon divide symbol", function () {
+        const result = scoreExpression("z:3", expressionItem3Options, "en");
+        expect(result).toHaveInvalidInput();
+    });
+
     it("should handle TeX", () => {
         const item: PerseusExpressionRubric = {
             answerForms: [
