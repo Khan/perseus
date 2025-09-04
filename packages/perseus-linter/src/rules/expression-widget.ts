@@ -24,7 +24,7 @@ export default Rule.makeRule({
     severity: Rule.Severity.WARNING,
     selector: "widget",
     lint: function (state, content, nodes, match, context) {
-        // This rule only looks at image widgets
+        // This rule only looks at expression widgets
         if (state.currentNode().widgetType !== "expression") {
             return;
         }

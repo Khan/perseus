@@ -105,35 +105,4 @@ describe("Matcher serialization", () => {
             hints: [],
         });
     });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicMatcher());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "matcher 1": {
-                        left: ["Uno", "Dos", "Tres"],
-                        right: ["One", "Two", "Three"],
-                        labels: ["English", "Spanish"],
-                        orderMatters: false,
-                        padding: true,
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        expect(userInput).toEqual({
-            "matcher 1": {
-                left: ["Uno", "Dos", "Tres"],
-                right: ["One", "Two", "Three"],
-            },
-        });
-    });
 });

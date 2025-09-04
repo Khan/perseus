@@ -36,23 +36,12 @@ class HintRenderer extends React.Component<Props> {
         linterContext: PerseusLinter.linterContextDefault,
     };
 
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    // TODO(LEMS-3185): remove serializedState
     /**
      * @deprecated - do not use in new code.
      */
     getSerializedState: () => void = () => {
         return this.rendererRef.current?.getSerializedState();
-    };
-
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
-    /**
-     * @deprecated - do not use in new code.
-     */
-    restoreSerializedState: (
-        arg1: any,
-        arg2: (...args: ReadonlyArray<any>) => unknown,
-    ) => void = (state, callback) => {
-        this.rendererRef.current?.restoreSerializedState(state, callback);
     };
 
     render(): React.ReactNode {

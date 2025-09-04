@@ -108,35 +108,4 @@ describe("NumericInput serialization", () => {
             hints: [],
         });
     });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicNumericInput());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "numeric-input 1": {
-                        answerForms: [],
-                        coefficient: false,
-                        labelText: "",
-                        rightAlign: false,
-                        size: "normal",
-                        static: false,
-                        // currentValue is added to NumericInput props and
-                        // represents user input
-                        currentValue: "42",
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        // `currentValue` would be "" if we didn't properly restore serialized state
-        expect(userInput).toEqual({"numeric-input 1": {currentValue: "42"}});
-    });
 });

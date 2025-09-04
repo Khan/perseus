@@ -26,6 +26,7 @@ type Story = StoryObj<typeof ServerItemRendererWithDebugUI>;
 
 /** This story shows how the expression widget looks when the keypad is
  * configured with _every_ option it supports.  */
+// TODO: use a Renderer wrapper rather than rendering this directly
 export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
     return (
         <div style={{padding: "2rem"}}>
@@ -43,6 +44,7 @@ export const DesktopKitchenSink = (args: Story["args"]): React.ReactElement => {
                 userInput=""
                 trackInteraction={() => {}}
                 widgetId="expression"
+                widgetIndex={0}
                 extraKeys={["x", "y", "z"]}
                 reviewMode={false}
                 answerForms={[

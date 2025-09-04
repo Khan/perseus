@@ -7,16 +7,12 @@ type State = any;
 // Interfact currently only implemented by
 // ServerItemRenderer
 export interface RendererInterface {
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
+    // TODO(LEMS-3185): remove serializedState
     /**
      * @deprecated - do not use in new code.
      */
     getSerializedState(): State;
-    // TODO(LEMS-3185): remove serializedState/restoreSerializedState
-    /**
-     * @deprecated - do not use in new code.
-     */
-    restoreSerializedState(state: State, callback?: () => void): void;
+    // TODO(LEMS-3185): remove serializedState
     blur(): void;
     focus(): boolean | null | undefined;
     props: any;

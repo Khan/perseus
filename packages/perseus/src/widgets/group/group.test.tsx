@@ -1,6 +1,6 @@
 import {scorePerseusItem} from "@khanacademy/perseus-score";
 // eslint-disable-next-line testing-library/no-manual-cleanup
-import {act, cleanup, screen, waitFor} from "@testing-library/react";
+import {act, screen, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
@@ -287,7 +287,6 @@ describe("group widget", () => {
                     hasNoneOfTheAbove: false,
                     multipleSelect: false,
                     numCorrect: 1,
-                    selectedChoices: [false, false, false, false, true],
                     static: false,
                 },
             },
@@ -330,99 +329,7 @@ describe("group widget", () => {
                     static: false,
                 },
             },
-            "radio 1": {
-                choices: [
-                    {
-                        id: "0-0-0-0-0",
-                        content: "",
-                        correct: false,
-                        originalIndex: 0,
-                    },
-                    {
-                        id: "1-1-1-1-1",
-                        content: "",
-                        correct: false,
-                        originalIndex: 1,
-                    },
-                    {
-                        id: "2-2-2-2-2",
-                        content: "",
-                        correct: false,
-                        originalIndex: 2,
-                    },
-                    {
-                        id: "3-3-3-3-3",
-                        content: "",
-                        correct: false,
-                        originalIndex: 3,
-                    },
-                    {
-                        id: "4-4-4-4-4",
-                        content: "",
-                        correct: true,
-                        originalIndex: 4,
-                    },
-                ],
-                countChoices: false,
-                deselectEnabled: false,
-                hasNoneOfTheAbove: false,
-                multipleSelect: false,
-                numCorrect: 1,
-                selectedChoices: [false, false, false, false, true],
-            },
         });
-    });
-
-    it("should be able to restore serialized state", async () => {
-        // This test checks the state restoration by serializing state with one
-        // renderer and then restore it to a different one.
-
-        // Arrange
-        const {renderer} = renderQuestion(question1);
-        await userEvent.click(screen.getAllByRole("radio")[4]);
-        // Note(jeremy): If we don't tab away from the radio button in this
-        // test, it seems like the userEvent typing doesn't land in the first
-        // text field.
-        await userEvent.tab();
-        await userEvent.type(
-            screen.getByRole("textbox", {
-                name: /value rounded to the nearest ten/,
-            }),
-            "1000",
-        );
-        await userEvent.type(
-            screen.getByRole("textbox", {
-                name: /value rounded to the nearest hundred/,
-            }),
-            "9999",
-        );
-
-        const state = renderer.getSerializedState();
-        cleanup(); // Resets the DOM
-
-        const {renderer: renderer1} = renderQuestion(question1);
-
-        // Act
-        act(() => renderer1.restoreSerializedState(state));
-
-        // Assert
-        await waitFor(() =>
-            expect(screen.getAllByRole("radio")[4]).toBeChecked(),
-        );
-        await waitFor(() =>
-            expect(
-                screen.getByRole("textbox", {
-                    name: /value rounded to the nearest ten/,
-                }),
-            ).toHaveValue("1000"),
-        );
-        await waitFor(() =>
-            expect(
-                screen.getByRole("textbox", {
-                    name: /value rounded to the nearest hundred/,
-                }),
-            ).toHaveValue("9999"),
-        );
     });
 
     it("should return score from contained Renderer", async () => {

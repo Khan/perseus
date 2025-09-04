@@ -17,23 +17,19 @@ import type {
     ShowSolutions,
     PerseusRadioRubric,
     PerseusRadioUserInput,
+    PerseusRadioWidgetOptions,
 } from "@khanacademy/perseus-core";
 
 // RenderProps is the return type for radio.jsx#transform
-export type RenderProps = {
+export type RenderProps = PerseusRadioWidgetOptions & {
     numCorrect: number;
     hasNoneOfTheAbove?: boolean;
     multipleSelect?: boolean;
     countChoices?: boolean;
     deselectEnabled?: boolean;
     choices: RadioChoiceWithMetadata[];
-    // doesn't seem used? choiceStates includes selected...
-    selectedChoices: PerseusRadioChoice["correct"][];
     showSolutions?: ShowSolutions;
     choiceStates?: ChoiceState[];
-    // Depreciated; support for legacy way of handling changes
-    // Adds proptype for prop that is used but was lacking type
-    values?: boolean[];
 };
 
 export type Props = WidgetProps<
@@ -223,18 +219,6 @@ class Radio extends React.Component<Props> implements Widget {
             }));
         } else if (this.props.choiceStates) {
             choiceStates = this.props.choiceStates;
-        } else if (this.props.values) {
-            // Support legacy choiceStates implementation
-            /* c8 ignore next - props.values is deprecated */
-            choiceStates = this.props.values.map((val) => ({
-                selected: val,
-                crossedOut: false,
-                readOnly: false,
-                highlighted: false,
-                rationaleShown: false,
-                correctnessShown: false,
-                previouslyAnswered: false,
-            }));
         } else {
             choiceStates = choices.map(() => ({
                 selected: false,
@@ -272,10 +256,7 @@ class Radio extends React.Component<Props> implements Widget {
                     // Current versions of the radio widget always pass in the
                     // "correct" value through the choices. Old serialized state
                     // for radio widgets doesn't have this though, so we have to
-                    // pull the correctness out of the review mode scoring data. This
-                    // only works because all of the places we use
-                    // `restoreSerializedState()` also turn on reviewMode, but is
-                    // fine for now.
+                    // pull the correctness out of the review mode scoring data.
                     // TODO(emily): Come up with a more comprehensive way to solve
                     // this sort of "serialized state breaks when internal
                     // structure changes" problem.

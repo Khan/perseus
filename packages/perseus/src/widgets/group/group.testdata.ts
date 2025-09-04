@@ -152,43 +152,6 @@ export const question1: PerseusRenderer = {
             type: "group",
             version: {major: 0, minor: 0},
         },
-        "radio 1": {
-            graded: true,
-            options: {
-                choices: [
-                    {
-                        id: "0-0-0-0-0",
-                        content: "",
-                        correct: false,
-                    },
-                    {
-                        id: "1-1-1-1-1",
-                        content: "",
-                        correct: false,
-                    },
-                    {
-                        id: "2-2-2-2-2",
-                        content: "",
-                        correct: false,
-                    },
-                    {
-                        id: "3-3-3-3-3",
-                        content: "",
-                        correct: false,
-                    },
-                    {
-                        id: "4-4-4-4-4",
-                        content: "",
-                        correct: true,
-                    },
-                ],
-                multipleSelect: false,
-                randomize: false,
-                numCorrect: 1,
-            },
-            type: "radio",
-            version: {major: 0, minor: 0},
-        },
     },
 };
 
