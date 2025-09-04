@@ -1,4 +1,4 @@
-import getDivideSymbol from "./get-divide-symbol";
+import {getDivideSymbol, getDivideSymbolForTex} from "./get-divide-symbol";
 
 describe("getDecimalSeparator", () => {
     it("gets the default decimal separator", () => {
@@ -11,5 +11,11 @@ describe("getDecimalSeparator", () => {
 
     it("gets the decimal separator for the pt-pt locale", () => {
         expect(getDivideSymbol("pt-pt")).toBe(":");
+    });
+});
+
+describe("getDivideSymbolForTex", () => {
+    it("gets the default divide symbol for TeX", () => {
+        expect(getDivideSymbolForTex("en")).toBe("\\div");
     });
 });
