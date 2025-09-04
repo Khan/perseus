@@ -527,11 +527,8 @@ export type FilterCriterion =
 
 /**
  * The full set of props provided to all widgets when they are rendered. The
- * `RenderProps` generic argument are the widget-specific props that originate
- * from the stored PerseusItem. Note that they may not match the serialized
- * widget options exactly as they are the result of running the options through
- * the parser as well as its `transform` or `staticTransform` functions
- * (depending on the options `static` flag).
+ * `TWidgetOptions` generic argument are the widget-specific props that originate
+ * from the PerseusItem.
  */
 // NOTE: Rubric should always be the corresponding widget options type for the component.
 // TODO: in fact, is it really the rubric? WidgetOptions is what we use to configure the widget

@@ -72,7 +72,9 @@ const makeInvalidTypeError = (
     );
 };
 
-type RenderProps = {
+// TODO: this should be PerseusInteractiveGraphWidgetOptions
+// but when I try to change it things break
+type InteractiveGraphProps = {
     /**
      * Where the little black axis lines & labels (ticks) should render.
      * Also known as the tick step. default [1, 1]
@@ -175,7 +177,10 @@ type RenderProps = {
      */
     fullGraphAriaDescription?: string;
 }; // There's no transform function in exports
-type Props = WidgetProps<RenderProps, PerseusInteractiveGraphUserInput>;
+type Props = WidgetProps<
+    InteractiveGraphProps,
+    PerseusInteractiveGraphUserInput
+>;
 type State = any;
 type DefaultProps = {
     labels: string[];
