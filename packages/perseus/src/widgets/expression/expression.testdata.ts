@@ -120,22 +120,6 @@ export const expressionItem4: PerseusItem = createItemJson({
             considered: "correct",
             form: false,
             simplify: false,
-            value: "5.5",
-        },
-    ],
-    times: true,
-    buttonSets: ["basic"],
-    functions: ["f", "g", "h"],
-    buttonsVisible: "always",
-    extraKeys: ["x"],
-});
-
-export const expressionItem5: PerseusItem = createItemJson({
-    answerForms: [
-        {
-            considered: "correct",
-            form: false,
-            simplify: false,
             value: "5/8",
         },
     ],
