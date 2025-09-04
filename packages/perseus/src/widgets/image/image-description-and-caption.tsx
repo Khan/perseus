@@ -84,12 +84,6 @@ function ExploreImageButton({
             icon={infoIconBold}
             kind="secondary"
             onClick={onClick}
-            style={{
-                // Stop the button from getting squished by the caption text.
-                // TODO: Use CSS modules after Wonder Blocks styles
-                // are moved to a different layer.
-                minWidth: "40px",
-            }}
         />
     );
 }
