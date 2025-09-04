@@ -10,15 +10,13 @@ import RadioNew from "./multiple-choice-widget.new";
 import RadioOld from "./radio-component";
 import {choiceTransform, getUserInputFromSerializedState} from "./util";
 
-import type {RenderProps} from "./radio-component";
+import type {RadioProps} from "./radio-component";
 import type {ChoiceState, WidgetProps} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
-type Props = WidgetProps<
-    RenderProps,
-    PerseusRadioUserInput,
-    PerseusRadioRubric
->;
+// TODO: this should be using PerseusRadioWidgetOptions instead of RadioProps
+// but the component inheritance makes this hard to change right now
+type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
 
 type ChoiceStateWithoutSelected = Omit<ChoiceState, "selected">;
 
