@@ -1,5 +1,13 @@
 # @khanacademy/perseus-core
 
+## 19.0.0
+
+### Major Changes
+
+-   [#2841](https://github.com/Khan/perseus/pull/2841) [`b4aef654c1`](https://github.com/Khan/perseus/commit/b4aef654c1844f2d322a37229a209edeff545035) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove serializeState prop from Renderer and restoreSerializedState API (both already deprecated)
+
+*   [#2857](https://github.com/Khan/perseus/pull/2857) [`59cbb43106`](https://github.com/Khan/perseus/commit/59cbb431069caf66f63672f223da34cf063e7932) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Radio transform/staticTransform. Replace randomness with deterministic shuffling for Radio.
+
 ## 18.9.1
 
 ### Patch Changes

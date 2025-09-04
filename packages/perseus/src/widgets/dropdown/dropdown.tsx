@@ -65,7 +65,7 @@ class Dropdown extends React.Component<Props> implements Widget {
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
         const {userInput, choices, ...rest} = this.props;
@@ -73,17 +73,6 @@ class Dropdown extends React.Component<Props> implements Widget {
             ...rest,
             choices: choices.map((choice) => choice.content),
             selected: userInput.value,
-        };
-    }
-
-    /**
-     * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
-     */
-    restoreSerializedState(state: any) {
-        return {
-            state,
-            choices: state.choices.map((content) => ({content})),
         };
     }
 
@@ -161,7 +150,7 @@ class Dropdown extends React.Component<Props> implements Widget {
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,

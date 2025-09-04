@@ -104,45 +104,4 @@ describe("Matrix serialization", () => {
             hints: [],
         });
     });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicMatrix());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "matrix 1": {
-                        matrixBoardSize: [2, 2],
-                        prefix: "",
-                        suffix: "",
-                        emptyMatrix: [
-                            ["", ""],
-                            ["", ""],
-                        ],
-                        cursorPosition: [1, 1],
-                        answers: [
-                            ["1", "2"],
-                            ["3", "4"],
-                        ],
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        // `answers` would be undefined if we didn't properly restore serialized state
-        expect(userInput).toEqual({
-            "matrix 1": {
-                answers: [
-                    ["1", "2"],
-                    ["3", "4"],
-                ],
-            },
-        });
-    });
 });

@@ -18,7 +18,7 @@ import UserInputManager from "../../user-input-manager";
 import {registerAllWidgetsForTesting} from "../../util/register-all-widgets-for-testing";
 
 import type {APIOptions} from "../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusRenderer, UserInputMap} from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 type RenderResult = ReturnType<typeof render>;
@@ -29,6 +29,7 @@ export const renderQuestion = (
     question: PerseusRenderer,
     apiOptions: APIOptions = Object.freeze({}),
     extraProps?: ExtraProps,
+    initialUserInput?: UserInputMap,
 ): {
     container: HTMLElement;
     renderer: Perseus.Renderer;
@@ -46,6 +47,7 @@ export const renderQuestion = (
                     ref={(node) => (renderer = node)}
                     question={question as any}
                     apiOptions={apiOptions}
+                    initialUserInput={initialUserInput}
                     extraProps={{
                         ...extraProps,
                         strings: mockStrings,
@@ -69,6 +71,7 @@ export const renderQuestion = (
                         ref={(node) => (renderer = node)}
                         question={question}
                         apiOptions={apiOptions}
+                        initialUserInput={initialUserInput}
                         extraProps={{
                             ...extraProps,
                             strings: mockStrings,
@@ -91,26 +94,26 @@ const RendererWrapper = React.forwardRef<
         question: PerseusRenderer;
         apiOptions: APIOptions;
         extraProps?: PropsFor<typeof Perseus.Renderer>;
+        initialUserInput?: UserInputMap;
     }
 >(function RendererWithDependencies(props, ref) {
     const dependencies = useDependencies();
+    if (props.extraProps?.userInput) {
+        throw new Error("HERE");
+    }
     return (
-        <UserInputManager widgets={props.question.widgets} problemNum={0}>
-            {({
-                userInput,
-                handleUserInput,
-                initializeUserInput,
-                restoreUserInputFromSerializedState,
-            }) => {
+        <UserInputManager
+            widgets={props.question.widgets}
+            problemNum={0}
+            initialUserInput={props.initialUserInput}
+        >
+            {({userInput, handleUserInput, initializeUserInput}) => {
                 return (
                     <Perseus.Renderer
                         ref={ref}
                         userInput={userInput}
                         handleUserInput={handleUserInput}
                         initializeUserInput={initializeUserInput}
-                        restoreUserInputFromSerializedState={
-                            restoreUserInputFromSerializedState
-                        }
                         content={props.question.content}
                         images={props.question.images}
                         widgets={props.question.widgets}

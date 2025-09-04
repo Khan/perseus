@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,

@@ -19707,3 +19707,587 @@ exports[`parseAndMigratePerseusItem given transformer-widget.json returns the sa
   },
 }
 `;
+
+exports[`parseAndMigrateUserInputMap given categorizer.json returns the same result as before 1`] = `
+{
+  "categorizer 1": {
+    "values": [
+      1,
+      null,
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given cs-program.json returns the same result as before 1`] = `
+{
+  "cs-program 1": {
+    "message": null,
+    "status": "correct",
+  },
+  "cs-program 2": {
+    "message": "There's a test failure!",
+    "status": "incorrect",
+  },
+  "cs-program 3": {
+    "message": null,
+    "status": "incomplete",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given dropdown.json returns the same result as before 1`] = `
+{
+  "dropdown 1": {
+    "value": 1,
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given expression.json returns the same result as before 1`] = `
+{
+  "expression 1": "\\sqrt{x}",
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given free-response.json returns the same result as before 1`] = `
+{
+  "free-response 1": {
+    "currentValue": "hello",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given grapher.json returns the same result as before 1`] = `
+{
+  "grapher 1": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "absolute_value",
+  },
+  "grapher 2": {
+    "asymptote": [
+      [
+        -1,
+        0,
+      ],
+      [
+        -2,
+        0,
+      ],
+    ],
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "exponential",
+  },
+  "grapher 3": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "linear",
+  },
+  "grapher 4": {
+    "asymptote": [
+      [
+        -1,
+        0,
+      ],
+      [
+        -2,
+        0,
+      ],
+    ],
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "logarithm",
+  },
+  "grapher 5": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "quadratic",
+  },
+  "grapher 6": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "sinusoid",
+  },
+  "grapher 7": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "tangent",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given group.json returns the same result as before 1`] = `
+{
+  "group 1": {
+    "radio 1": {
+      "selectedChoiceIds": [
+        "1234",
+      ],
+    },
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given iframe.json returns the same result as before 1`] = `
+{
+  "iframe 1": {
+    "status": "correct",
+  },
+  "iframe 2": {
+    "message": null,
+    "status": "incomplete",
+  },
+  "iframe 3": {
+    "message": "something's not right",
+    "status": "incorrect",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given input-number.json returns the same result as before 1`] = `
+{
+  "input-number 1": {
+    "currentValue": "42",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given interactive-graph.json returns the same result as before 1`] = `
+{
+  "interactive-graph 1": {
+    "type": "angle",
+  },
+  "interactive-graph 10": {
+    "type": "polygon",
+  },
+  "interactive-graph 11": {
+    "coords": [
+      [
+        2,
+        3,
+      ],
+    ],
+    "match": "similar",
+    "numSides": 42,
+    "showAngles": false,
+    "showSides": false,
+    "snapTo": "grid",
+    "startCoords": [
+      [
+        0,
+        1,
+      ],
+    ],
+    "type": "polygon",
+  },
+  "interactive-graph 12": {
+    "type": "quadratic",
+  },
+  "interactive-graph 13": {
+    "coords": [
+      [
+        0,
+        1,
+      ],
+      [
+        2,
+        3,
+      ],
+      [
+        4,
+        5,
+      ],
+    ],
+    "startCoords": [
+      [
+        6,
+        7,
+      ],
+      [
+        8,
+        9,
+      ],
+      [
+        10,
+        11,
+      ],
+    ],
+    "type": "quadratic",
+  },
+  "interactive-graph 14": {
+    "type": "ray",
+  },
+  "interactive-graph 15": {
+    "coords": [
+      [
+        0,
+        1,
+      ],
+      [
+        2,
+        3,
+      ],
+    ],
+    "startCoords": [
+      [
+        6,
+        7,
+      ],
+      [
+        8,
+        9,
+      ],
+    ],
+    "type": "ray",
+  },
+  "interactive-graph 16": {
+    "type": "segment",
+  },
+  "interactive-graph 17": {
+    "coords": [
+      [
+        [
+          1,
+          2,
+        ],
+        [
+          3,
+          4,
+        ],
+      ],
+    ],
+    "numSegments": 42,
+    "startCoords": [
+      [
+        [
+          5,
+          6,
+        ],
+        [
+          7,
+          8,
+        ],
+      ],
+    ],
+    "type": "segment",
+  },
+  "interactive-graph 18": {
+    "type": "sinusoid",
+  },
+  "interactive-graph 19": {
+    "coords": [
+      [
+        1,
+        2,
+      ],
+      [
+        3,
+        4,
+      ],
+    ],
+    "startCoords": [
+      [
+        5,
+        6,
+      ],
+      [
+        7,
+        8,
+      ],
+    ],
+    "type": "sinusoid",
+  },
+  "interactive-graph 2": {
+    "allowReflexAngles": true,
+    "angleOffsetDeg": 7,
+    "coords": [
+      [
+        1,
+        2,
+      ],
+      [
+        3,
+        4,
+      ],
+      [
+        5,
+        6,
+      ],
+    ],
+    "match": "congruent",
+    "showAngles": true,
+    "snapDegrees": 11,
+    "startCoords": [
+      [
+        1,
+        2,
+      ],
+      [
+        3,
+        4,
+      ],
+      [
+        5,
+        6,
+      ],
+    ],
+    "type": "angle",
+  },
+  "interactive-graph 3": {
+    "type": "circle",
+  },
+  "interactive-graph 4": {
+    "center": [
+      1,
+      2,
+    ],
+    "radius": 3,
+    "startCoords": {
+      "center": [
+        4,
+        5,
+      ],
+      "radius": 6,
+    },
+    "type": "circle",
+  },
+  "interactive-graph 5": {
+    "type": "linear",
+  },
+  "interactive-graph 6": {
+    "coords": [
+      [
+        1,
+        2,
+      ],
+      [
+        3,
+        4,
+      ],
+    ],
+    "startCoords": [
+      [
+        5,
+        6,
+      ],
+      [
+        7,
+        8,
+      ],
+    ],
+    "type": "linear",
+  },
+  "interactive-graph 7": {
+    "type": "point",
+  },
+  "interactive-graph 8": {
+    "numPoints": "unlimited",
+    "type": "point",
+  },
+  "interactive-graph 9": {
+    "coord": [
+      5,
+      6,
+    ],
+    "coords": [
+      [
+        1,
+        2,
+      ],
+    ],
+    "numPoints": 42,
+    "startCoords": [
+      [
+        3,
+        4,
+      ],
+    ],
+    "type": "point",
+  },
+  "interactive-graph 999": {
+    "type": "none",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given label-image.json returns the same result as before 1`] = `
+{
+  "label-image 1": {
+    "markers": [
+      {
+        "label": "a",
+      },
+      {
+        "label": "b",
+        "selected": [
+          "c",
+        ],
+      },
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given matcher.json returns the same result as before 1`] = `
+{
+  "matcher 1": {
+    "left": [
+      "a",
+    ],
+    "right": [
+      "b",
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given matrix.json returns the same result as before 1`] = `
+{
+  "matrix 1": {
+    "answers": [
+      [
+        "1",
+        "2",
+      ],
+      [
+        "3",
+        "4",
+      ],
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given number-line.json returns the same result as before 1`] = `
+{
+  "number-line 1": {
+    "numDivisions": 3,
+    "numLinePosition": 2,
+    "rel": "eq",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given numeric-input.json returns the same result as before 1`] = `
+{
+  "numeric-input 1": {
+    "currentValue": "42",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given orderer.json returns the same result as before 1`] = `
+{
+  "orderer 1": {
+    "current": [
+      "a",
+      "b",
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given plotter.json returns the same result as before 1`] = `
+{
+  "plotter 1": [
+    1,
+    2,
+  ],
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
+{
+  "radio 1": {
+    "selectedChoiceIds": [
+      "1234",
+      "5678",
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given sorter.json returns the same result as before 1`] = `
+{
+  "sorter 1": {
+    "changed": true,
+    "options": [
+      "a",
+      "b",
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given table.json returns the same result as before 1`] = `
+{
+  "table 1": [
+    [
+      "a",
+      "b",
+    ],
+    [
+      "c",
+      "d",
+    ],
+  ],
+}
+`;

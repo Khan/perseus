@@ -7,11 +7,8 @@ import UserInputManager, {
 } from "./user-input-manager";
 import {registerAllWidgetsForTesting} from "./util/register-all-widgets-for-testing";
 
-import type {
-    InitializeUserInputCallback,
-    RestoreUserInputFromSerializedStateCallback,
-} from "./user-input-manager";
-import type {PerseusWidgetsMap} from "@khanacademy/perseus-core";
+import type {InitializeUserInputCallback} from "./user-input-manager";
+import type {PerseusWidgetsMap, UserInputMap} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 function generateNumberLineMap(): PerseusWidgetsMap {
@@ -69,36 +66,6 @@ function generateExpressionWidgetsMap(): PerseusWidgetsMap {
                 times: false,
             },
             version: {major: 1, minor: 0},
-        },
-    };
-}
-
-function generateExpressionSerializeState() {
-    return {
-        "expression 1": {
-            keypadConfiguration: {
-                keypadType: "EXPRESSION",
-                times: false,
-            },
-            times: false,
-            functions: [],
-            buttonSets: [],
-            analytics: {
-                onAnalyticsEvent: expect.any(Function),
-            },
-            alignment: "default",
-            static: false,
-            showSolutions: "none",
-            reviewModeRubric: null,
-            reviewMode: false,
-            isLastUsedWidget: false,
-            linterContext: {
-                contentType: "",
-                highlightLint: false,
-                paths: [],
-                stack: ["question", "widget"],
-            },
-            value: "Hello world",
         },
     };
 }
@@ -302,57 +269,8 @@ describe("UserInputManager", () => {
         expect(screen.getByText("User input is: -4")).toBeInTheDocument();
     });
 
-    it("restores serialized State", async () => {
-        let restoreCallback:
-            | RestoreUserInputFromSerializedStateCallback
-            | undefined;
-
-        render(
-            <UserInputManager
-                widgets={generateExpressionWidgetsMap()}
-                problemNum={0}
-            >
-                {({
-                    userInput,
-                    handleUserInput,
-                    restoreUserInputFromSerializedState,
-                }) => {
-                    restoreCallback = restoreUserInputFromSerializedState;
-                    return (
-                        <>
-                            <button
-                                onClick={() =>
-                                    handleUserInput(
-                                        "expression 1",
-                                        "Hello world",
-                                        false,
-                                    )
-                                }
-                            >
-                                Click me
-                            </button>
-                            {/* this only works because Expression's UserInput is a string */}
-                            <p>User input is: {userInput["expression 1"]}</p>
-                        </>
-                    );
-                }}
-            </UserInputManager>,
-        );
-
-        // Start with nothing
-        expect(screen.queryByText(/Hello world/)).not.toBeInTheDocument();
-
-        // Restore serialized state
-        act(() =>
-            restoreCallback?.(
-                generateExpressionSerializeState(),
-                generateExpressionWidgetsMap(),
-            ),
-        );
-        expect(screen.getByText(/Hello world/)).toBeInTheDocument();
-    });
-
     it("initializes static user input", async () => {
+        const renderSpy = jest.fn();
         const widgets: PerseusWidgetsMap = {
             "radio 1": {
                 type: "radio",
@@ -376,7 +294,99 @@ describe("UserInputManager", () => {
 
         render(
             <UserInputManager widgets={widgets} problemNum={0}>
-                {({userInput}) => {
+                {({userInput}) => renderSpy(userInput)}
+            </UserInputManager>,
+        );
+
+        expect(renderSpy).toHaveBeenCalledWith({
+            "radio 1": {
+                selectedChoiceIds: ["0-0-0-0-0"],
+            },
+        });
+    });
+
+    it("accepts an initial user input", async () => {
+        const renderSpy = jest.fn();
+
+        const widgets: PerseusWidgetsMap = {
+            "radio 1": {
+                type: "radio",
+                static: false,
+                options: {
+                    choices: [
+                        {
+                            id: "0-0-0-0-0",
+                            content: "Correct",
+                            correct: true,
+                        },
+                        {
+                            id: "1-1-1-1-1",
+                            content: "Incorrect",
+                            correct: false,
+                        },
+                    ],
+                },
+            },
+        };
+
+        const initialUserInput: UserInputMap = {
+            "radio 1": {
+                selectedChoiceIds: ["0-0-0-0-0"],
+            },
+        };
+
+        render(
+            <UserInputManager
+                widgets={widgets}
+                problemNum={0}
+                initialUserInput={initialUserInput}
+            >
+                {({userInput}) => renderSpy(userInput)}
+            </UserInputManager>,
+        );
+
+        expect(renderSpy).toHaveBeenCalledWith({
+            "radio 1": {
+                selectedChoiceIds: ["0-0-0-0-0"],
+            },
+        });
+    });
+
+    it("allows initial user input to be changed", async () => {
+        const widgets: PerseusWidgetsMap = {
+            "radio 1": {
+                type: "radio",
+                static: false,
+                options: {
+                    choices: [
+                        {
+                            id: "0-0-0-0-0",
+                            content: "Correct",
+                            correct: true,
+                        },
+                        {
+                            id: "1-1-1-1-1",
+                            content: "Incorrect",
+                            correct: false,
+                        },
+                    ],
+                },
+            },
+        };
+
+        const initialUserInput: UserInputMap = {
+            "radio 1": {
+                selectedChoiceIds: ["0-0-0-0-0"],
+            },
+        };
+
+        render(
+            <UserInputManager
+                widgets={widgets}
+                problemNum={0}
+                initialUserInput={initialUserInput}
+            >
+                {({userInput, handleUserInput}) => {
                     return (
                         <>
                             <p>
@@ -385,6 +395,19 @@ describe("UserInputManager", () => {
                                     " ",
                                 )}
                             </p>
+                            <button
+                                onClick={() =>
+                                    handleUserInput(
+                                        "radio 1",
+                                        {
+                                            selectedChoiceIds: ["1-1-1-1-1"],
+                                        },
+                                        false,
+                                    )
+                                }
+                            >
+                                Click me
+                            </button>
                         </>
                     );
                 }}
@@ -393,6 +416,11 @@ describe("UserInputManager", () => {
 
         expect(
             screen.getByText("User input is: 0-0-0-0-0"),
+        ).toBeInTheDocument();
+
+        await userEvent.click(screen.getByRole("button", {name: "Click me"}));
+        expect(
+            screen.getByText("User input is: 1-1-1-1-1"),
         ).toBeInTheDocument();
     });
 });

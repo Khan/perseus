@@ -5,13 +5,12 @@ import {
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
 import {color as wbColor} from "@khanacademy/wonder-blocks-tokens";
-import {act, waitFor} from "@testing-library/react";
+import {waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import {Plot} from "mafs";
 import * as React from "react";
 import invariant from "tiny-invariant";
 
-import {clone} from "../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../testing/test-dependencies";
 import {getDefaultFigureForType} from "../../../../perseus-editor/src/widgets/interactive-graph-editor/locked-figures/util";
 import * as Dependencies from "../../dependencies";
@@ -67,21 +66,16 @@ import {
 } from "./interactive-graph.testdata";
 
 import type {Coord} from "../../interactive2/types";
-import type Renderer from "../../renderer";
 import type {APIOptions} from "../../types";
 import type {
     StrokeWeight,
     PerseusGraphType,
     PerseusRenderer,
     ShowAxisArrows,
+    UserInputMap,
 } from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
-const updateWidgetState = (renderer: Renderer, widgetId: string, update) => {
-    const state = clone(renderer.getSerializedState());
-    update(state[widgetId]);
-    renderer.restoreSerializedState(state);
-};
 const commonInstructions =
     "Use the Tab key to move through the interactive elements in the graph. When an interactive element has focus, use Control + Shift + Arrows to move it.";
 const unlimitedInstructions =
@@ -117,23 +111,21 @@ describe("Interactive Graph", function () {
         ) => {
             it("Should accept the right answer", async () => {
                 // Arrange
-                const {renderer} = renderQuestion(question, blankOptions);
+                const userInput: UserInputMap = {
+                    "interactive-graph 1": {
+                        type: question.widgets["interactive-graph 1"].options
+                            .graph.type,
+                        coords: [...correct],
+                    } as any,
+                };
 
-                // Act
-                // NOTE: This isn't acting on the UI as a user would, which is
-                // a weakness of these tests. Because this widget is designed for
-                // pointer-dragging, jsdom (which doesn't support getBoundingClientRect
-                // or other position-based node attributes) is insufficient to model
-                // drag & drop behavior.
-                // We'll want to use cypress tests or similar to ensure this widget
-                // works as expected.
-                act(() =>
-                    updateWidgetState(
-                        renderer,
-                        "interactive-graph 1",
-                        (state) => (state.graph.coords = correct),
-                    ),
+                const {renderer} = renderQuestion(
+                    question,
+                    blankOptions,
+                    undefined,
+                    userInput,
                 );
+
                 const score = scorePerseusItemTesting(
                     question,
                     renderer.getUserInputMap(),
@@ -143,25 +135,26 @@ describe("Interactive Graph", function () {
                 expect(score).toHaveBeenAnsweredCorrectly();
             });
 
-            it("Should render predictably", async () => {
-                // Arrange
-                const {renderer, container} = renderQuestion(
+            it("Should render blank predictably", async () => {
+                const {container} = renderQuestion(question, blankOptions);
+                expect(container).toMatchSnapshot("first render");
+            });
+
+            it("Should render user input predictably", async () => {
+                const userInput: UserInputMap = {
+                    "interactive-graph 1": {
+                        type: question.widgets["interactive-graph 1"].options
+                            .graph.type,
+                        coords: [...correct],
+                    } as any,
+                };
+                const {container} = renderQuestion(
                     question,
                     blankOptions,
+                    undefined,
+                    userInput,
                 );
-                expect(container).toMatchSnapshot("first render");
-
-                // Act
-                act(() =>
-                    updateWidgetState(
-                        renderer,
-                        "interactive-graph 1",
-                        (state) => (state.graph.coords = correct),
-                    ),
-                );
-
-                // Assert
-                expect(container).toMatchSnapshot("after interaction");
+                expect(container).toMatchSnapshot("with user input");
             });
 
             it("should reject no interaction", async () => {
@@ -180,15 +173,19 @@ describe("Interactive Graph", function () {
 
             it("should reject an incorrect answer", async () => {
                 // Arrange
-                const {renderer} = renderQuestion(question, blankOptions);
+                const userInput: UserInputMap = {
+                    "interactive-graph 1": {
+                        type: question.widgets["interactive-graph 1"].options
+                            .graph.type,
+                        coords: [...incorrect],
+                    } as any,
+                };
 
-                // Act
-                act(() =>
-                    updateWidgetState(
-                        renderer,
-                        "interactive-graph 1",
-                        (state) => (state.graph.coords = incorrect),
-                    ),
+                const {renderer} = renderQuestion(
+                    question,
+                    blankOptions,
+                    undefined,
+                    userInput,
                 );
 
                 const score = scorePerseusItemTesting(
