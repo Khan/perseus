@@ -22,9 +22,8 @@ type EditorProps = {
     Editor: any;
 };
 
-type RenderProps = Omit<PerseusTableWidgetOptions, "answers">;
-
-type Props = WidgetProps<RenderProps, PerseusTableUserInput> & EditorProps;
+type Props = WidgetProps<PerseusTableWidgetOptions, PerseusTableUserInput> &
+    EditorProps;
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];

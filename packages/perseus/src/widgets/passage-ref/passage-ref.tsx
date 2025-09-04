@@ -16,13 +16,7 @@ import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 const EN_DASH = "\u2013";
 
-type RenderProps = {
-    passageNumber: PerseusPassageRefWidgetOptions["passageNumber"];
-    referenceNumber: PerseusPassageRefWidgetOptions["referenceNumber"];
-    summaryText: string;
-};
-
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<PerseusPassageRefWidgetOptions>;
 
 type DefaultProps = {
     passageNumber: Props["passageNumber"];

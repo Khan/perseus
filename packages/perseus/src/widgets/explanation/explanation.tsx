@@ -15,9 +15,7 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 
-type RenderProps = PerseusExplanationWidgetOptions;
-
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<PerseusExplanationWidgetOptions>;
 
 type DefaultProps = {
     showPrompt: Props["showPrompt"];
