@@ -55,12 +55,12 @@ describe("Matrix AI utils", () => {
             ],
         };
 
-        const renderProps: any = {
+        const widgetData: any = {
             matrixBoardSize: [4, 3],
             userInput,
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "matrix",

@@ -39,7 +39,7 @@ describe("InteractiveGraph AI utils", () => {
     });
 
     it("should return JSON for an angle graph", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             userInput: {
                 type: "angle",
                 angleOffsetDeg: 45,
@@ -67,7 +67,7 @@ describe("InteractiveGraph AI utils", () => {
             angleOffsetDeg: 45,
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(widgetData, userInput);
 
         expect(resultJSON).toEqual({
             type: "interactive-graph",
@@ -100,7 +100,7 @@ describe("InteractiveGraph AI utils", () => {
     });
 
     it("should return JSON for a circle graph", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             userInput: {
                 type: "circle",
                 startCoords: {
@@ -122,7 +122,7 @@ describe("InteractiveGraph AI utils", () => {
             radius: 2,
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(widgetData, userInput);
 
         expect(resultJSON).toEqual({
             type: "interactive-graph",
@@ -149,7 +149,7 @@ describe("InteractiveGraph AI utils", () => {
     });
 
     it("should return JSON for a linear graph", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             userInput: {
                 type: "linear",
                 startCoords: [
@@ -173,7 +173,7 @@ describe("InteractiveGraph AI utils", () => {
             ],
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(widgetData, userInput);
 
         expect(resultJSON).toEqual({
             type: "interactive-graph",
@@ -202,7 +202,7 @@ describe("InteractiveGraph AI utils", () => {
     });
 
     it("should return JSON for a linear system graph", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             userInput: {
                 type: "linear-system",
                 startCoords: [
@@ -238,7 +238,7 @@ describe("InteractiveGraph AI utils", () => {
             ],
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(widgetData, userInput);
 
         expect(resultJSON).toEqual({
             type: "interactive-graph",
@@ -279,7 +279,7 @@ describe("InteractiveGraph AI utils", () => {
     });
 
     it("should return JSON for a point graph", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             userInput: {
                 type: "point",
                 numPoints: "unlimited",
@@ -301,7 +301,7 @@ describe("InteractiveGraph AI utils", () => {
             ],
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(widgetData, userInput);
 
         expect(resultJSON).toEqual({
             type: "interactive-graph",
@@ -328,7 +328,7 @@ describe("InteractiveGraph AI utils", () => {
     });
 
     it("should return JSON for a polygon graph", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             userInput: {
                 type: "polygon",
                 match: "match",
@@ -356,7 +356,7 @@ describe("InteractiveGraph AI utils", () => {
             ],
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(widgetData, userInput);
 
         expect(resultJSON).toEqual({
             type: "interactive-graph",
@@ -389,7 +389,7 @@ describe("InteractiveGraph AI utils", () => {
     });
 
     it("should return JSON for a quadratic graph", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             userInput: {
                 type: "quadratic",
                 startCoords: [
@@ -415,7 +415,7 @@ describe("InteractiveGraph AI utils", () => {
             ],
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(widgetData, userInput);
 
         expect(resultJSON).toEqual({
             type: "interactive-graph",
@@ -446,7 +446,7 @@ describe("InteractiveGraph AI utils", () => {
     });
 
     it("should return JSON for a ray graph", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             userInput: {
                 type: "ray",
                 startCoords: [
@@ -470,7 +470,7 @@ describe("InteractiveGraph AI utils", () => {
             ],
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(widgetData, userInput);
 
         expect(resultJSON).toEqual({
             type: "interactive-graph",
@@ -499,7 +499,7 @@ describe("InteractiveGraph AI utils", () => {
     });
 
     it("should return JSON for a segment graph", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             userInput: {
                 type: "segment",
                 numSegments: 1,
@@ -524,7 +524,7 @@ describe("InteractiveGraph AI utils", () => {
             ],
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(widgetData, userInput);
 
         expect(resultJSON).toEqual({
             type: "interactive-graph",
@@ -554,7 +554,7 @@ describe("InteractiveGraph AI utils", () => {
     });
 
     it("should return JSON for a sinusoid graph", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             userInput: {
                 type: "sinusoid",
                 startCoords: [
@@ -578,7 +578,7 @@ describe("InteractiveGraph AI utils", () => {
             ],
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(widgetData, userInput);
 
         expect(resultJSON).toEqual({
             type: "interactive-graph",
@@ -607,7 +607,7 @@ describe("InteractiveGraph AI utils", () => {
     });
 
     it("should throw an exception for an unsupported graph", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             userInput: {
                 type: "fake-graph-type",
             },
@@ -628,7 +628,7 @@ describe("InteractiveGraph AI utils", () => {
         };
 
         expect(() => {
-            getPromptJSON(renderProps, userInput);
+            getPromptJSON(widgetData, userInput);
         }).toThrow("Unhandled case for 'fake-graph-type'");
     });
 

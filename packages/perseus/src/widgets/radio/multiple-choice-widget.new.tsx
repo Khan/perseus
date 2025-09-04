@@ -36,8 +36,7 @@ export interface ChoiceType {
     disabled: boolean;
 }
 
-// RenderProps is the return type for radio.jsx#transform
-export type RenderProps = {
+export type RadioProps = {
     numCorrect: number;
     hasNoneOfTheAbove?: boolean;
     multipleSelect?: boolean;
@@ -57,11 +56,7 @@ export interface RadioChoiceWithMetadata extends PerseusRadioChoice {
     correct?: boolean;
 }
 
-type Props = WidgetProps<
-    RenderProps,
-    PerseusRadioUserInput,
-    PerseusRadioRubric
->;
+type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
 
 /**
  * MultipleChoiceWidget implements the Widget interface for multiple choice questions.

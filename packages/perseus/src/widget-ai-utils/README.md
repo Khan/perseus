@@ -10,7 +10,7 @@
 
 ## Motivation
 
-1. The team working on Khanmigo needed access to Perseus data for prompt engineering - including both external-facing things (like the ItemData and UserInput) and internal things (like RenderProps)
+1. The team working on Khanmigo needed access to Perseus data for prompt engineering - including both external-facing things (like the ItemData and UserInput) and internal things (like widget props/state)
 2. The Perseus team didn't want to write a blank check exposing all of our internal data because that would make it difficult for us to safely make internal changes
 3. The goal of the helpers in this folder is to have a set of functions that can take _all_ the information the Khanmigo team could possibly want and return only the pieces the Khanmigo team needs
 

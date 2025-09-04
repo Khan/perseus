@@ -51,13 +51,13 @@ describe("InputNumber AI utils", () => {
             currentValue: "123",
         };
 
-        const renderProps: any = {
+        const widgetData: any = {
             simplify: "optional",
             answerType: "integer",
             userInput,
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "input-number",

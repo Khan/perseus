@@ -113,10 +113,9 @@ The code strives to use the following conventions to shape the various concepts 
 | Type | Description |
 | ---- | ----------- |
 | \`WidgetProps\<T\>\` | All widgets receive a common set of props from the parent \`Renderer\` component This set of props is defined by the \`WidgetProps\<T\>\` type (\`T\` being the specific render props the widget uses). |
-| \`RenderProps\` | Defines the props that are returned by the widget's \`transform\` and \`staticTransform\` functions. If these functions are not defined on the widget's \`WidgetExport\<T\>\` object, then \`RenderProps\` is synonymous with the widgets options type (ie. the type \`T\` wrapped in \`WidgetOptions\<T\>\` from \`perseus-types.ts\`). |
-| External Props | In a few rare cases, this type is defined as the sum of RenderProps wrapped in \`WidgetOptions\`. |
+| External Props | In a few rare cases, this type is defined as the sum of specific WidgetOptions wrapped in the shared \`WidgetOptions\`. |
 | Scoring Data | This type defines the data that the scoring function needs in order to score the learner's guess (aka user input). |
-| \`Props\` | This form the entire set of props that widget's component supports. Typically, it is defined as \`type Props = WidgetProps<RenderProps, Rubric>\`. In cases where there are \`RenderProps\` that are optional that are provided via \`DefaultProps\`, this \`Props\` type "redefines" these props as \`myProp: NonNullable<ExternalProps["myProps"]>;\`. |
+| \`Props\` | This form the entire set of props that widget's component supports. Typically, it is defined as \`type Props = WidgetProps<WidgetOptions, Rubric>\`. In cases where there are \`WidgetOptions\` that are optional that are provided via \`DefaultProps\`, this \`Props\` type "redefines" these props as \`myProp: NonNullable<ExternalProps["myProps"]>;\`. |
     `}
 </Markdown>
 

@@ -11,12 +11,12 @@ export type ExpressionPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof expression.widget>,
+    widgetData: React.ComponentProps<typeof expression.widget>,
     userInput: PerseusExpressionUserInput,
 ): ExpressionPromptJSON => {
     return {
         type: "expression",
-        label: renderProps.visibleLabel,
+        label: widgetData.visibleLabel,
         userInput: {
             value: userInput,
         },

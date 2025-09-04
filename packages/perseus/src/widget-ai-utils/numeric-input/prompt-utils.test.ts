@@ -8,7 +8,7 @@ describe("NumericInput getPromptJSON", () => {
             currentValue: "42",
         };
 
-        const renderProps: any = {
+        const widgetData: any = {
             labelText: "Numeric input label",
             size: "Normal",
             coefficient: false,
@@ -16,7 +16,7 @@ describe("NumericInput getPromptJSON", () => {
             userInput,
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "numeric-input",

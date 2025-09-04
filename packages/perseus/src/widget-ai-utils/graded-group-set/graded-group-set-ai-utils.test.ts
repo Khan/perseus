@@ -70,11 +70,11 @@ describe("GradedGroupSet AI utils", () => {
             },
         };
 
-        const renderProps: any = {
+        const widgetData: any = {
             gradedGroups: [{title: "Problem 1a"}, {title: "Problem 1b"}],
         };
 
-        const result = getPromptJSON(renderProps, activeGroupJSON);
+        const result = getPromptJSON(widgetData, activeGroupJSON);
 
         expect(result).toEqual({
             type: "graded-group-set",

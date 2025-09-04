@@ -51,7 +51,7 @@ describe("Image AI utils", () => {
     });
 
     it("it returns JSON with the expected format and fields", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             alt: "An image of a textbook",
             title: "Textbook",
             caption: "A textbook",
@@ -60,7 +60,7 @@ describe("Image AI utils", () => {
             },
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "image",

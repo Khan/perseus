@@ -201,18 +201,6 @@ describe("renderer", () => {
             expect(renderer.state.lastUsedWidgetId).toBeNull();
 
             expect(renderer.state.widgetInfo).toStrictEqual(question1.widgets);
-            expect(renderer.state.widgetProps).toEqual({
-                "dropdown 1": {
-                    ariaLabel: "Test ARIA label",
-                    choices: [
-                        {content: "greater than or equal to", correct: false},
-                        {content: "less than or equal to", correct: true},
-                    ],
-                    placeholder: "greater/less than or equal to",
-                    visibleLabel: "Test visible label",
-                    static: false,
-                },
-            });
         });
 
         it("should derive type widget ID if type missing", () => {
@@ -741,7 +729,6 @@ describe("renderer", () => {
     // slightly different methods to change them for our rerender() function
     describe("resets widgetInfo and widgetProps when a prop in SHOULD_CLEAR_WIDGETS_PROP_LIST changes", () => {
         let originalWidgetInfo;
-        let originalWidgetProps;
         let rerender;
         let renderer;
 
@@ -753,7 +740,6 @@ describe("renderer", () => {
             renderer = result.renderer;
 
             originalWidgetInfo = clone(renderer.state.widgetInfo);
-            originalWidgetProps = clone(renderer.state.widgetProps);
 
             // Poke the renderer so it's not in it's initial-render state
             await userEvent.click(screen.getByRole("combobox"));
@@ -770,9 +756,6 @@ describe("renderer", () => {
 
             // Assert
             expect(renderer.state.widgetInfo).toStrictEqual(originalWidgetInfo);
-            expect(renderer.state.widgetProps).toStrictEqual(
-                originalWidgetProps,
-            );
         });
 
         it("'problemNum' prop", () => {
@@ -781,9 +764,6 @@ describe("renderer", () => {
 
             // Assert
             expect(renderer.state.widgetInfo).toStrictEqual(originalWidgetInfo);
-            expect(renderer.state.widgetProps).toStrictEqual(
-                originalWidgetProps,
-            );
         });
 
         it("'widgets' prop", () => {
@@ -808,12 +788,6 @@ describe("renderer", () => {
             for (const widgetId of allWidgetIds) {
                 expect(renderer.state.widgetInfo[widgetId]).toStrictEqual(
                     originalWidgetInfo[widgetId],
-                );
-            }
-
-            for (const widgetId of allWidgetIds) {
-                expect(renderer.state.widgetProps[widgetId]).toStrictEqual(
-                    originalWidgetProps[widgetId],
                 );
             }
         });

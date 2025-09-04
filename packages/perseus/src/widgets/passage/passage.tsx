@@ -17,8 +17,6 @@ import {isPassageWidget} from "./utils";
 
 import type {ParseState} from "./passage-markdown";
 import type {SerializedHighlightSet} from "../../components/highlighting/types";
-// eslint-disable-next-line import/no-deprecated
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {WidgetExports, WidgetProps, Widget} from "../../types";
 import type {PassagePromptJSON} from "../../widget-ai-utils/passage/passage-ai-utils";
 import type {
@@ -64,19 +62,15 @@ const styles = StyleSheet.create({
 
 type FindWidgetsCallback = (id: string, widgetInfo: PerseusWidget) => boolean;
 
-// eslint-disable-next-line import/no-deprecated
-type PassageProps = ChangeableProps &
-    WidgetProps<PerseusPassageWidgetOptions> & {
-        findWidgets: (arg1: FindWidgetsCallback) => ReadonlyArray<Passage>;
-        highlights: SerializedHighlightSet;
-    };
+type PassageProps = WidgetProps<PerseusPassageWidgetOptions> & {
+    findWidgets: (arg1: FindWidgetsCallback) => ReadonlyArray<Passage>;
+};
 
 type DefaultPassageProps = {
     passageTitle: PassageProps["passageTitle"];
     passageText: PassageProps["passageText"];
     footnotes: PassageProps["footnotes"];
     showLineNumbers: PassageProps["showLineNumbers"];
-    highlights: PassageProps["highlights"];
     linterContext: PassageProps["linterContext"];
 };
 
@@ -84,6 +78,7 @@ type PassageState = {
     nLines: number | null | undefined;
     startLineNumbersAfter: number;
     stylesAreApplied: boolean;
+    highlights: SerializedHighlightSet;
 };
 
 // Information about a passage reference, used in inter-widgets.
@@ -112,7 +107,6 @@ export class Passage
         passageText: "",
         footnotes: "",
         showLineNumbers: true,
-        highlights: {},
         linterContext: linterContextDefault,
     };
 
@@ -124,6 +118,7 @@ export class Passage
         nLines: null,
         startLineNumbersAfter: 0,
         stylesAreApplied: false,
+        highlights: {},
     };
 
     componentDidMount() {
@@ -190,7 +185,7 @@ export class Passage
     _handleSerializedHighlightsUpdate: (
         serializedHighlights: SerializedHighlightSet,
     ) => void = (serializedHighlights: SerializedHighlightSet) => {
-        this.props.onChange({highlights: serializedHighlights});
+        this.setState({highlights: serializedHighlights});
     };
 
     /**
@@ -424,7 +419,7 @@ export class Passage
                 onSerializedHighlightsUpdate={
                     this._handleSerializedHighlightsUpdate
                 }
-                serializedHighlights={this.props.highlights}
+                serializedHighlights={this.state.highlights}
             >
                 <div ref={(ref) => (this._contentRef = ref)}>
                     <LineHeightMeasurer

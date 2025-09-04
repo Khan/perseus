@@ -7,7 +7,7 @@ import {renderQuestion} from "../../widgets/__testutils__/renderQuestion";
 
 import {getPromptJSON} from "./matcher-ai-utils";
 
-import type {RenderPropsPartial} from "./matcher-ai-utils";
+import type {widgetDataPartial} from "./matcher-ai-utils";
 import type {
     PerseusRenderer,
     PerseusMatcherUserInput,
@@ -70,7 +70,7 @@ describe("Matcher AI utils", () => {
             right: ["a", "b", "c"],
         };
 
-        const renderProps: RenderPropsPartial = {
+        const widgetData: widgetDataPartial = {
             labels: ["Number", "Letter"],
             left: ["1", "2", "3"],
             right: ["a", "b", "c"],
@@ -78,7 +78,7 @@ describe("Matcher AI utils", () => {
             userInput,
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "matcher",

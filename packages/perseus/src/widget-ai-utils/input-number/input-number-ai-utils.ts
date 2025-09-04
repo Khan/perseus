@@ -13,16 +13,16 @@ export type InputNumberPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof inputNumber.widget>,
+    widgetData: React.ComponentProps<typeof inputNumber.widget>,
 ): InputNumberPromptJSON => {
     return {
         type: "input-number",
         options: {
-            simplify: renderProps.simplify,
-            answerType: renderProps.answerType,
+            simplify: widgetData.simplify,
+            answerType: widgetData.answerType,
         },
         userInput: {
-            value: renderProps.userInput.currentValue,
+            value: widgetData.userInput.currentValue,
         },
     };
 };

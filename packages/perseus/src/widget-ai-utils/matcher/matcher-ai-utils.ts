@@ -15,22 +15,22 @@ export type MatcherPromptJSON = {
     };
 };
 
-export type RenderPropsPartial = Pick<
+export type widgetDataPartial = Pick<
     React.ComponentProps<typeof matcher.widget>,
     "userInput" | "labels" | "left" | "right" | "orderMatters"
 >;
 
 export const getPromptJSON = (
-    renderProps: RenderPropsPartial,
+    widgetData: widgetDataPartial,
 ): MatcherPromptJSON => {
-    const {userInput} = renderProps;
+    const {userInput} = widgetData;
     return {
         type: "matcher",
         options: {
-            labels: renderProps.labels,
-            left: renderProps.left,
-            right: renderProps.right,
-            orderMatters: renderProps.orderMatters,
+            labels: widgetData.labels,
+            left: widgetData.left,
+            right: widgetData.right,
+            orderMatters: widgetData.orderMatters,
         },
         userInput: {
             left: userInput.left,

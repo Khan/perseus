@@ -11,14 +11,14 @@ export type PassageRefPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof passageRef.widget>,
+    widgetData: React.ComponentProps<typeof passageRef.widget>,
 ): PassageRefPromptJSON => {
     return {
         type: "passage-ref",
         options: {
-            passageNumber: renderProps.passageNumber,
-            referenceNumber: renderProps.referenceNumber,
-            summaryText: renderProps.summaryText,
+            passageNumber: widgetData.passageNumber,
+            referenceNumber: widgetData.referenceNumber,
+            summaryText: widgetData.summaryText ?? "",
         },
     };
 };

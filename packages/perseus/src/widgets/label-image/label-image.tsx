@@ -367,19 +367,7 @@ export class LabelImage
         index: number,
         marker: PerseusLabelImageUserInput["markers"][number],
     ) {
-        const {markers, onChange, userInput, handleUserInput} = this.props;
-
-        // Update the RenderProps version of the marker (display)
-        const updatedRenderProps = [
-            ...markers.slice(0, index),
-            {
-                ...markers[index],
-                // Do not show correctness state if user changes answer
-                // selection for marker.
-                showCorrectness: undefined,
-            },
-            ...markers.slice(index + 1),
-        ];
+        const {userInput, handleUserInput} = this.props;
 
         // Update UserInput version of the marker
         const updatedUserInput = [
@@ -391,7 +379,6 @@ export class LabelImage
             ...userInput.markers.slice(index + 1),
         ];
 
-        onChange({markers: updatedRenderProps});
         handleUserInput({markers: updatedUserInput});
     }
 

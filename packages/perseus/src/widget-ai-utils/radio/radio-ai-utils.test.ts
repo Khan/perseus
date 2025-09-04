@@ -76,7 +76,7 @@ describe("Radio AI utils", () => {
     });
 
     it("should get prompt json which matches the state of the UI", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             numCorrect: 1,
             countChoices: false,
             deselectEnabled: false,
@@ -112,7 +112,7 @@ describe("Radio AI utils", () => {
             selectedChoiceIds: ["0-0-0-0-0"],
         };
 
-        const resultJSON = getPromptJSON(renderProps, userInput);
+        const resultJSON = getPromptJSON(widgetData, userInput);
 
         expect(resultJSON).toEqual({
             type: "radio",
@@ -169,7 +169,7 @@ describe("Radio AI utils", () => {
     // (user input should be initialized already)
     // but there's a bug somewhere and an urgency to get this patched
     it("should handle undefined/null user input", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             numCorrect: 1,
             countChoices: false,
             deselectEnabled: false,
@@ -196,7 +196,7 @@ describe("Radio AI utils", () => {
             ],
         };
 
-        const resultJSON = getPromptJSON(renderProps, undefined as any);
+        const resultJSON = getPromptJSON(widgetData, undefined as any);
 
         expect(resultJSON).toEqual({
             type: "radio",

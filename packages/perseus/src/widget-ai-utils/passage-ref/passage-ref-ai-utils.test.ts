@@ -28,13 +28,13 @@ const question1: PerseusRenderer = {
 
 describe("PassageRef AI utils", () => {
     it("it returns JSON with the expected format and fields", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             passageNumber: 1,
             referenceNumber: 1,
             summaryText: "This is text summarizing the passage.",
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "passage-ref",

@@ -10,13 +10,13 @@ export type NumericInputPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof numericInput.widget>,
+    widgetData: React.ComponentProps<typeof numericInput.widget>,
 ): NumericInputPromptJSON => {
     return {
         type: "numeric-input",
-        label: renderProps.labelText,
+        label: widgetData.labelText,
         userInput: {
-            value: renderProps.userInput.currentValue,
+            value: widgetData.userInput.currentValue,
         },
     };
 };

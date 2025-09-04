@@ -57,14 +57,14 @@ describe("Categorizer AI utils", () => {
             values: [1, 0, 0, 1],
         };
 
-        const renderProps: any = {
+        const widgetData: any = {
             items: ["Luke Skywalker", "Darth Vader", "Yoda", "Han Solo"],
             categories: ["Galactic Empire", "Rebel Alliance"],
             values: [1, 0, 1, 1],
             userInput,
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "categorizer",

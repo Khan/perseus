@@ -287,15 +287,6 @@ export class ServerItemRenderer
         }, 0);
     }
 
-    /**
-     * Accepts a question area widgetId, or an answer area widgetId of
-     * the form "answer-input-number 1", or the string "answer-area"
-     * for the whole answer area (if the answer area is a single widget).
-     */
-    _setWidgetProps(widgetId: string, newProps: Props, callback: any) {
-        this.questionRenderer._setWidgetProps(widgetId, newProps, callback);
-    }
-
     focusPath(path: FocusPath): void {
         return this.questionRenderer.focusPath(path);
     }
