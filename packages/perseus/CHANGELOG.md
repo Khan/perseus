@@ -1,5 +1,23 @@
 # @khanacademy/perseus
 
+## 68.0.1
+
+### Patch Changes
+
+-   [#2865](https://github.com/Khan/perseus/pull/2865) [`57fcddf928`](https://github.com/Khan/perseus/commit/57fcddf928d5d3fe9d00c3833eb58d3eb6b2c556) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fix for getPromptJSON in new Radio
+
+*   [#2848](https://github.com/Khan/perseus/pull/2848) [`1de909808d`](https://github.com/Khan/perseus/commit/1de909808dfcd08717c6246a6225081fae50e3a1) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Update Image widget to match new designs
+
+-   [#2833](https://github.com/Khan/perseus/pull/2833) [`f096f77bd6`](https://github.com/Khan/perseus/commit/f096f77bd63be867df16e3065025b5f35ebb6a6b) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Fixes orderer css so that it no longer wraps and allows learners to place cards at the end of the row
+
+-   Updated dependencies [[`655f8994b8`](https://github.com/Khan/perseus/commit/655f8994b869a9eb34c4f9436cfc32bd59916d37)]:
+    -   @khanacademy/perseus-core@19.0.1
+    -   @khanacademy/keypad-context@3.2.3
+    -   @khanacademy/kmath@2.2.3
+    -   @khanacademy/math-input@26.2.3
+    -   @khanacademy/perseus-linter@4.3.3
+    -   @khanacademy/perseus-score@7.7.3
+
 ## 68.0.0
 
 ### Major Changes
