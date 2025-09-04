@@ -1,22 +1,24 @@
 .orderer {
     position: relative;
-    /* Fix for wrapping issue caused by CSS reset removal */
+    /* Start fix for wrapping issue caused by CSS reset removal */
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     width: 100%;
+    /* End Fix */
 }
 .orderer.layout-horizontal .draggable-box {
     margin-left: 0;
     margin-top: 30px;
     padding: 13px;
-    /* Fix for wrapping issue caused by CSS reset removal */
+    /* Start fix for wrapping issue caused by CSS reset removal */
     box-sizing: border-box;
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
     white-space: nowrap;
+    /* End Fix */
 }
 .orderer .card {
     padding: 0 10px;
@@ -45,23 +47,25 @@
 .orderer.layout-horizontal .bank {
     padding: 0;
     margin: 0px 13px;
-    /* Fix for wrapping issue caused by CSS reset removal */
+    /* Start fix for wrapping issue caused by CSS reset removal */
     box-sizing: border-box;
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
     white-space: nowrap;
+    /* End Fix */
 }
 .orderer div.paragraph {
     margin: 0;
 }
 .orderer .card-wrap {
     width: auto;
-    /* Fix for wrapping issue caused by CSS reset removal */
+    /* Start fix for wrapping issue caused by CSS reset removal */
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    /* End Fix */
 }
 .orderer.layout-horizontal .card-wrap {
     flex-shrink: 0;
