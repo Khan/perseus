@@ -18,7 +18,7 @@ import type {UserEvent} from "@testing-library/user-event";
  *
  * This API is not built in a way that supports migrating data
  * between versions of Perseus JSON. In fact serialization
- * doesn't use WidgetOptions, but RenderProps; it's leveraging
+ * doesn't use WidgetOptions, but manipulated widget props; it's leveraging
  * what is considered an internal implementation detail to support
  * rehydrating previous state.
  *

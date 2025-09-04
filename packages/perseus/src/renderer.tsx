@@ -627,9 +627,7 @@ class Renderer
             findWidgets: this.findWidgets,
             reviewModeRubric: reviewModeRubric,
             reviewMode: this.props.reviewMode,
-            onChange: (arg) => {
-                console.log(arg);
-            },
+            onChange: () => {},
             handleUserInput: (newUserInput: UserInput) => {
                 // Calculate widgetsEmpty using the updated user input
                 const updatedUserInput = {
