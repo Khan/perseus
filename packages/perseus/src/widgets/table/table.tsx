@@ -9,8 +9,6 @@ import {ApiOptions} from "../../perseus-api";
 import Renderer from "../../renderer";
 import Util from "../../util";
 
-// eslint-disable-next-line import/no-deprecated
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {FocusPath, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {
     PerseusTableWidgetOptions,
@@ -26,10 +24,7 @@ type EditorProps = {
 
 type RenderProps = Omit<PerseusTableWidgetOptions, "answers">;
 
-type Props = WidgetProps<RenderProps, PerseusTableUserInput> &
-    // eslint-disable-next-line import/no-deprecated
-    ChangeableProps &
-    EditorProps;
+type Props = WidgetProps<RenderProps, PerseusTableUserInput> & EditorProps;
 
 type DefaultProps = {
     apiOptions: Props["apiOptions"];
@@ -114,12 +109,13 @@ class Table extends React.Component<Props> implements Widget {
         this.props.trackInteraction();
     }
 
+    // this is for the editing experience
     onHeaderChange(index: number, e: any): void {
         const headers = this.props.headers.slice();
         headers[index] = e.content;
         this.props.onChange({
             headers: headers,
-        });
+        } as any);
     }
 
     _handleFocus(inputPath: any): void {
