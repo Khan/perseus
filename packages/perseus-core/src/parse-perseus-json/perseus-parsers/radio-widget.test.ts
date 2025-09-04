@@ -108,6 +108,152 @@ describe("parseRadioWidget", () => {
 
         expect(parse(widget, parseRadioWidget)).toEqual(anySuccess);
     });
+
+    describe("choice ID validation", () => {
+        it("generates default ID when choice ID is an empty string", () => {
+            const widget = {
+                type: "radio",
+                version: {major: 3, minor: 0},
+                graded: true,
+                options: {
+                    choices: [
+                        {
+                            content: "Choice with empty ID",
+                            id: "", // Empty string should trigger fallback
+                        },
+                    ],
+                },
+            };
+
+            const result = parse(widget, parseRadioWidget);
+
+            expect(result).toEqual(success({
+                ...widget,
+                options: {
+                    ...widget.options,
+                    choices: [
+                        {
+                            content: "Choice with empty ID",
+                            id: "radio-choice-0", // Should be generated
+                        },
+                    ],
+                },
+            }));
+        });
+
+        it("generates default ID when choice ID is whitespace-only", () => {
+            const widget = {
+                type: "radio",
+                version: {major: 3, minor: 0},
+                graded: true,
+                options: {
+                    choices: [
+                        {
+                            content: "Choice with whitespace ID",
+                            id: "   ", // Whitespace should trigger fallback
+                        },
+                    ],
+                },
+            };
+
+            const result = parse(widget, parseRadioWidget);
+
+            expect(result).toEqual(success({
+                ...widget,
+                options: {
+                    ...widget.options,
+                    choices: [
+                        {
+                            content: "Choice with whitespace ID",
+                            id: "radio-choice-0", // Should be generated
+                        },
+                    ],
+                },
+            }));
+        });
+
+        it("preserves valid non-empty choice ID", () => {
+            const widget = {
+                type: "radio",
+                version: {major: 3, minor: 0},
+                graded: true,
+                options: {
+                    choices: [
+                        {
+                            content: "Choice with custom ID",
+                            id: "my-custom-choice-id",
+                        },
+                    ],
+                },
+            };
+
+            const result = parse(widget, parseRadioWidget);
+
+            expect(result).toEqual(success(widget)); // Should be unchanged
+        });
+
+        it("generates default ID when choice ID is missing", () => {
+            const widget = {
+                type: "radio",
+                version: {major: 3, minor: 0},
+                graded: true,
+                options: {
+                    choices: [
+                        {
+                            content: "Choice without ID",
+                            // id property is missing
+                        },
+                    ],
+                },
+            };
+
+            const result = parse(widget, parseRadioWidget);
+
+            expect(result).toEqual(success({
+                ...widget,
+                options: {
+                    ...widget.options,
+                    choices: [
+                        {
+                            content: "Choice without ID",
+                            id: "radio-choice-0", // Should be generated
+                        },
+                    ],
+                },
+            }));
+        });
+
+        it("generates correct IDs for multiple choices", () => {
+            const widget = {
+                type: "radio",
+                version: {major: 3, minor: 0},
+                graded: true,
+                options: {
+                    choices: [
+                        {content: "First choice", id: ""},
+                        {content: "Second choice", id: "custom-id"},
+                        {content: "Third choice", id: "  "},
+                        {content: "Fourth choice"}, // missing ID
+                    ],
+                },
+            };
+
+            const result = parse(widget, parseRadioWidget);
+
+            expect(result).toEqual(success({
+                ...widget,
+                options: {
+                    ...widget.options,
+                    choices: [
+                        {content: "First choice", id: "radio-choice-0"},
+                        {content: "Second choice", id: "custom-id"}, // preserved
+                        {content: "Third choice", id: "radio-choice-2"},
+                        {content: "Fourth choice", id: "radio-choice-3"},
+                    ],
+                },
+            }));
+        });
+    });
 });
 
 describe("migration functions", () => {
