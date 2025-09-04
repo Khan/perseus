@@ -245,9 +245,6 @@ class Renderer
 
     _widgetContainers: Map<string, WidgetContainer> = new Map();
 
-    lastRenderedMarkdown: React.ReactNode;
-    // @ts-expect-error - TS2564 - Property 'reuseMarkdown' has no initializer and is not definitely assigned in the constructor.
-    reuseMarkdown: boolean;
     // @ts-expect-error - TS2564 - Property 'translationIndex' has no initializer and is not definitely assigned in the constructor.
     translationIndex: number;
     // @ts-expect-error - TS2564 - Property 'widgetIds' has no initializer and is not definitely assigned in the constructor.
@@ -356,49 +353,6 @@ class Renderer
         return propsChanged || stateChanged;
     }
 
-    UNSAFE_componentWillUpdate(nextProps: Props, nextState: State) {
-        const oldJipt = this.shouldRenderJiptPlaceholder(
-            this.props,
-            this.state,
-        );
-        const newJipt = this.shouldRenderJiptPlaceholder(nextProps, nextState);
-        const oldContent = this.getContent(this.props, this.state);
-        const newContent = this.getContent(nextProps, nextState);
-        const oldHighlightedWidgets = this.props.highlightedWidgets;
-        const newHighlightedWidgets = nextProps.highlightedWidgets;
-
-        // TODO(jared): This seems to be a perfect overlap with
-        // "shouldComponentUpdate" -- can we just remove this
-        // componentWillUpdate and the reuseMarkdown attr?
-        this.reuseMarkdown =
-            !oldJipt &&
-            !newJipt &&
-            oldContent === newContent &&
-            _.isEqual(
-                this.state.translationLintErrors,
-                nextState.translationLintErrors,
-            ) &&
-            // If we are running the linter then we need to know when
-            // widgets have changed because we need for force the linter to
-            // run when that happens. Note: don't do identity comparison here:
-            // it can cause frequent re-renders that break MathJax somehow
-            (!this.props.linterContext.highlightLint ||
-                _.isEqual(this.props.widgets, nextProps.widgets)) &&
-            // If the linter is turned on or off, we have to rerender
-            this.props.linterContext.highlightLint ===
-                nextProps.linterContext.highlightLint &&
-            // yes, this is identity array comparison, but these are passed
-            // in from state in the item-renderer, so they should be
-            // identity equal unless something changed, and it's expensive
-            // to loop through them to look for differences.
-            // Technically, we could reuse the markdown when this changes,
-            // but to do that we'd have to do more expensive checking of
-            // whether a widget should be highlighted in the common case
-            // where this array hasn't changed, so we just redo the whole
-            // render if this changed
-            oldHighlightedWidgets === newHighlightedWidgets;
-    }
-
     componentDidUpdate(prevProps: Props, prevState: State) {
         this.handleRender(prevProps);
         // We even do this if we did reuse the markdown because
@@ -407,10 +361,10 @@ class Renderer
         // WidgetContainers don't update their widgets' props when
         // they are re-rendered, so even if they've been
         // re-rendered we need to call these methods on them.
-        this.widgetIds.forEach((id) => {
-            const container = this._widgetContainers.get(makeContainerId(id));
-            container?.replaceWidgetProps(this.getWidgetProps(id));
-        });
+        // this.widgetIds.forEach((id) => {
+        //     const container = this._widgetContainers.get(makeContainerId(id));
+        //     container?.replaceWidgetProps(this.getWidgetProps(id));
+        // });
 
         if (this.props.linterContext.highlightLint) {
             // Get i18n lint errors asynchronously. If lint errors have changed
@@ -532,7 +486,7 @@ class Renderer
                         }
                     }}
                     type={type}
-                    initialProps={this.getWidgetProps(id)}
+                    widgetProps={this.getWidgetProps(id)}
                     shouldHighlight={shouldHighlight}
                     linterContext={PerseusLinter.pushContextStack(
                         this.props.linterContext,
@@ -1652,10 +1606,6 @@ class Renderer
     render(): React.ReactNode {
         const apiOptions = this.getApiOptions();
 
-        if (this.reuseMarkdown) {
-            return this.lastRenderedMarkdown;
-        }
-
         const content = this.getContent(this.props, this.state);
         // `this.widgetIds` is appended to in `this.outputMarkdown`:
         this.widgetIds = [];
@@ -1765,12 +1715,11 @@ class Renderer
             [ApiClassNames.TWO_COLUMN_RENDERER]: this._isTwoColumn,
         });
 
-        this.lastRenderedMarkdown = (
+        return (
             <DefinitionProvider>
                 <div className={className}>{markdownContents}</div>
             </DefinitionProvider>
         );
-        return this.lastRenderedMarkdown;
     }
 }
 
