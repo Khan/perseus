@@ -1,7 +1,7 @@
 import Button from "@khanacademy/wonder-blocks-button";
 import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
-import infoIcon from "@phosphor-icons/core/regular/info.svg";
+import infoIconBold from "@phosphor-icons/core/bold/info-bold.svg";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
@@ -74,7 +74,7 @@ function ExploreImageButton({
         return (
             <IconButton
                 aria-label={context.strings.imageExploreButton}
-                icon={infoIcon}
+                icon={infoIconBold}
                 kind="secondary"
                 onClick={onClick}
                 style={{
@@ -88,7 +88,7 @@ function ExploreImageButton({
     }
 
     return (
-        <Button kind="secondary" startIcon={infoIcon} onClick={onClick}>
+        <Button kind="secondary" startIcon={infoIconBold} onClick={onClick}>
             {context.strings.imageExploreButton}
         </Button>
     );
