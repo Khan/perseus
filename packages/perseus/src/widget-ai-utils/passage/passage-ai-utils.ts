@@ -11,14 +11,14 @@ export type PassagePromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof passage.widget>,
+    widgetData: React.ComponentProps<typeof passage.widget>,
 ): PassagePromptJSON => {
     return {
         type: "passage",
         options: {
-            passageTitle: renderProps.passageTitle,
-            passageText: renderProps.passageText,
-            footnotes: renderProps.footnotes,
+            passageTitle: widgetData.passageTitle,
+            passageText: widgetData.passageText,
+            footnotes: widgetData.footnotes,
         },
     };
 };

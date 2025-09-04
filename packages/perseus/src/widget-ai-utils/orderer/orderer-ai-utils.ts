@@ -12,15 +12,15 @@ export type OrdererPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof orderer.widget>,
+    widgetData: React.ComponentProps<typeof orderer.widget>,
 ): OrdererPromptJSON => {
     return {
         type: "orderer",
         options: {
-            options: renderProps.options.map((option) => option.content),
+            options: widgetData.options.map((option) => option.content),
         },
         userInput: {
-            values: renderProps.userInput.current,
+            values: widgetData.userInput.current,
         },
     };
 };
