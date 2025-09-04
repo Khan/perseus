@@ -176,12 +176,13 @@ type InteractiveGraphProps = {
      * Aria description that applies to the entire graph.
      */
     fullGraphAriaDescription?: string;
-}; // There's no transform function in exports
+};
+
 type Props = WidgetProps<
     InteractiveGraphProps,
     PerseusInteractiveGraphUserInput
 >;
-type State = any;
+
 type DefaultProps = {
     labels: string[];
     labelLocation: Props["labelLocation"];
@@ -194,6 +195,8 @@ type DefaultProps = {
     showProtractor: Props["showProtractor"];
     userInput: Props["userInput"];
 };
+
+type State = any;
 
 // Assert that the PerseusInteractiveGraphWidgetOptions parsed from JSON can be
 // passed as props to this component. This ensures that the

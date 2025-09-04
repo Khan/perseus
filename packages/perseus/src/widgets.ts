@@ -171,7 +171,7 @@ export const getAllWidgetTypes = (): ReadonlyArray<string> => {
 /**
  * Returns true iff the widget supports static mode.
  * A widget implicitly supports static mode if it exports a
- * staticTransform function.
+ * getCorrectUserInput function.
  */
 export const supportsStaticMode = (type: string): boolean | undefined => {
     const widgetInfo = widgets.get(type);

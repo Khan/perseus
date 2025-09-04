@@ -55,7 +55,6 @@ import type {MyType} from "./types";            // types last
 ## Widgets
 - ✅ Implement `WidgetExports<T>` interface
 - ✅ WidgetOptions in `data-schema.ts` (perseus-core)
-- ✅ Use `transform`/`staticTransform` for data processing
 
 ## Files
 ```
