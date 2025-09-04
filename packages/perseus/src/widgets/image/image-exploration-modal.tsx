@@ -71,7 +71,8 @@ const ImageExplorationModalContent = (props: Props) => {
     const modalHeight = 568; // Modal's max height.
     let width = 0;
     if (backgroundImage.width && backgroundImage.height) {
-        // bgWidth / bgHeight = X / 568 => X = (bgWidth / bgHeight) * 568
+        // bgWidth / bgHeight = X / modalHeight
+        // => X = (bgWidth / bgHeight) * modalHeight
         width = (backgroundImage.width / backgroundImage.height) * modalHeight;
     }
 
@@ -85,12 +86,7 @@ const ImageExplorationModalContent = (props: Props) => {
                             src={backgroundImage.url!}
                             alt={caption === alt ? "" : alt}
                             width={width}
-                            height={
-                                backgroundImage.height &&
-                                backgroundImage.height < modalHeight
-                                    ? backgroundImage.height
-                                    : modalHeight
-                            }
+                            height={modalHeight}
                             preloader={apiOptions.imagePreloader}
                             extraGraphie={{
                                 box: box,

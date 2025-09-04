@@ -27,6 +27,11 @@ const earthMoonImageCaption =
     "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
 const frescoImageUrl =
     "https://cdn.kastatic.org/ka-perseus-images/01f44d5b73290da6bec97c75a5316fb05ab61f12.jpg";
+const monasteryImage = {
+    url: "https://cdn.kastatic.org/ka-perseus-images/b2213be6c39a28d7e8ff40836a8a5fb068678fa4.jpg",
+    width: 448,
+    height: 500,
+};
 
 const articleContent = `But in other cases, an object may experience a centripetal force for an extended time and complete *repeated* revolutions. An example of this type of motion is an astronomical object in **orbit**.\n\n[[☃ image 1]]\n\nLet's explore some of the language and relationships involved in orbital motion.`;
 
@@ -201,6 +206,18 @@ export const MobileImageWithZoom: Story = {
             width: 1698,
             height: 955,
         },
+    },
+};
+
+export const PortraitImage: Story = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: monasteryImage,
+        caption:
+            "Kalenić Monastery, after 1407, Serbia (photo: [Ванилица](https://commons.wikimedia.org/wiki/File:Wiki_%C5%A0umadija_XI_Kaleni%C4%87_Monastery_874.jpg), CC BY-SA 4.0)",
+        title: "Kalenić Monastery",
+        longDescription:
+            "Later architecture in Serbia, notably that of the so-called Morava School, is smaller and more decorative, often utilizing the so-called Athonite plan (with choroi and subsidiary chapels), as at Ravanica (1370s), with five domes, or the smaller and simpler Kalenić (after 1407).",
     },
 };
 
