@@ -95,6 +95,18 @@ class CSProgram extends React.Component<Props> implements Widget {
         return _getPromptJSON();
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState
+     */
+    getSerializedState(): any {
+        const {userInput: _, alignment: __, ...rest} = this.props;
+        return {
+            ...rest,
+            programType: rest.programType || null,
+        };
+    }
+
     render(): React.ReactNode {
         if (!this.props.programID) {
             return <div />;

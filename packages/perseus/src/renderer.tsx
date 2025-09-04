@@ -157,9 +157,6 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
 type State = {
     translationLintErrors: ReadonlyArray<string>;
     widgetInfo: Readonly<PerseusWidgetsMap>;
-    widgetProps: Readonly<{
-        [id: string]: any | null | undefined;
-    }>;
     jiptContent: any;
     lastUsedWidgetId: string | null | undefined;
 };
@@ -458,12 +455,10 @@ class Renderer
 
     _getInitialWidgetState: (props: Props) => {
         widgetInfo: State["widgetInfo"];
-        widgetProps: State["widgetProps"];
     } = (props: Props) => {
         const allWidgetInfo = applyDefaultsToWidgets(props.widgets);
         return {
             widgetInfo: allWidgetInfo,
-            widgetProps: this._getAllWidgetsStartProps(allWidgetInfo, props),
         };
     };
 
@@ -590,7 +585,7 @@ class Renderer
         widgetId: string,
     ): WidgetProps<any, any, PerseusWidgetOptions> {
         const apiOptions = this.getApiOptions();
-        const widgetProps = this.state.widgetProps[widgetId] || {};
+        const widgetProps = this.props.widgets[widgetId].options;
 
         // The widget needs access to its "scoring data" at all times when in review
         // mode (which is really just part of its widget info).
@@ -668,24 +663,15 @@ class Renderer
     /**
      * @deprecated - do not use in new code.
      */
-    getSerializedState: (widgetProps?: any) => {
-        [id: string]: any;
-    } = (
-        widgetProps: any,
-    ): {
-        [id: string]: any;
-    } => {
-        return mapObject(
-            widgetProps || this.state.widgetProps,
-            (props, widgetId) => {
-                const widget = this.getWidgetInstance(widgetId);
-                if (widget && widget.getSerializedState) {
-                    return excludeDenylistKeys(widget.getSerializedState());
-                }
-                return props;
-            },
-        );
-    };
+    getSerializedState(): Record<string, any> {
+        return mapObject(this.props.widgets, (widgetData, widgetId) => {
+            const widget = this.getWidgetInstance(widgetId);
+            if (widget && widget.getSerializedState) {
+                return excludeDenylistKeys(widget.getSerializedState());
+            }
+            return widgetData.options;
+        });
+    }
 
     /**
      * Allows inter-widget communication.
@@ -1395,9 +1381,6 @@ class Renderer
                     {
                         loggedMetadata: {
                             focusResult: JSON.stringify(focusResult),
-                            currentProps: JSON.stringify(
-                                this.state.widgetProps,
-                            ),
                         },
                     },
                 );
@@ -1586,34 +1569,6 @@ class Renderer
                         this._setCurrentFocus([id]);
                     }
                 }, 0);
-            },
-        );
-    }
-
-    _setWidgetProps(
-        id: string,
-        nextWidgetProps: any,
-        cb: () => boolean,
-        silent?: boolean,
-    ) {
-        this.setState(
-            (prevState) => {
-                const widgetProps = nextWidgetProps
-                    ? {
-                          ...prevState.widgetProps,
-                          [id]: {
-                              ...prevState.widgetProps[id],
-                              ...nextWidgetProps,
-                          },
-                      }
-                    : prevState.widgetProps;
-
-                return {
-                    widgetProps,
-                };
-            },
-            () => {
-                this.handleStateUpdate(id, cb, silent);
             },
         );
     }

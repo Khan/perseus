@@ -85,6 +85,7 @@ class Radio extends RadioOld {
         } = this._mergePropsAndState();
         return {
             ...rest,
+            hasNoneOfTheAbove: rest.hasNoneOfTheAbove ?? false,
         };
     }
 

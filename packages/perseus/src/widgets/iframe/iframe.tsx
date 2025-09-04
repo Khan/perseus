@@ -60,6 +60,15 @@ class Iframe extends React.Component<Props> implements Widget {
         return _getPromptJSON();
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState
+     */
+    getSerializedState(): any {
+        const {userInput: _, alignment: __, ...rest} = this.props;
+        return rest;
+    }
+
     handleMessageEvent: (arg1: any) => void = (e) => {
         // We receive data from the iframe that contains {passed: true/false}
         //  and use that to set the status
