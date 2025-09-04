@@ -12,6 +12,7 @@ import {
     string,
 } from "../general-purpose-parsers";
 import {defaulted} from "../general-purpose-parsers/defaulted";
+
 import {versionedWidgetOptions} from "./versioned-widget-options";
 import {parseWidgetWithVersion} from "./widget";
 import {parseWidgetsMap} from "./widgets-map";
