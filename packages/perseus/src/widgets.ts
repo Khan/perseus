@@ -2,9 +2,8 @@ import {Errors, PerseusError, Registry} from "@khanacademy/perseus-core";
 
 import {Log} from "./logging/log";
 
-import type {PerseusStrings} from "./strings";
-import type {Tracking, WidgetExports, WidgetTransform} from "./types";
-import type {PerseusWidget, Version} from "@khanacademy/perseus-core";
+import type {Tracking, WidgetExports} from "./types";
+import type {Version} from "@khanacademy/perseus-core";
 import type * as React from "react";
 
 const DEFAULT_TRACKING = "";
@@ -14,8 +13,6 @@ type Editor = any;
 
 const widgets = new Registry<WidgetExports>("Perseus widget registry");
 const editors = new Registry<any>("Perseus widget editor registry");
-
-const identity = <T>(val: T) => val;
 
 // Widgets must be registered to avoid circular dependencies with the
 // core Editor and Renderer components.
@@ -130,17 +127,6 @@ export const getEditor = (type: string): Editor | null => {
     return editors.get(type) ?? null;
 };
 
-export const getTransform = (
-    type: string,
-): WidgetTransform | null | undefined => {
-    const widget = widgets.get(type);
-    if (widget == null) {
-        return null;
-    }
-
-    return widget.transform || identity;
-};
-
 export const getVersion = (type: string): Version | undefined => {
     const widget = widgets.get(type);
     if (widget != null) {
@@ -178,34 +164,6 @@ export const getAllWidgetTypes = (): ReadonlyArray<string> => {
     return widgets.keys();
 };
 
-export const getRendererPropsForWidgetInfo = (
-    widgetInfo: PerseusWidget,
-    strings: PerseusStrings,
-    problemNum?: number,
-): PerseusWidget => {
-    const type = widgetInfo.type;
-    const widgetExports = widgets.get(type);
-    if (widgetExports == null) {
-        // The widget is not a registered widget
-        // It shouldn't matter what we return here, but for consistency
-        // we return the untransformed options, as if the widget did
-        // not have a transform defined.
-        return widgetInfo;
-    }
-    let transform;
-    if (widgetInfo.static) {
-        // There aren't a lot of real places where we'll have to default to
-        // _.identity, but it's theoretically possible if someone changes
-        // the JSON manually / we have to back out static support for a
-        // widget.
-        transform = getStaticTransform(type) || identity;
-    } else {
-        transform = widgetExports.transform || identity;
-    }
-    // widgetInfo.options are the widgetEditor's props:
-    return transform(widgetInfo.options, strings, problemNum);
-};
-
 /**
  * Handling for static mode for widgets that support it.
  */
@@ -218,17 +176,6 @@ export const getRendererPropsForWidgetInfo = (
 export const supportsStaticMode = (type: string): boolean | undefined => {
     const widgetInfo = widgets.get(type);
     return widgetInfo && widgetInfo.getCorrectUserInput != null;
-};
-
-/**
- * Return the staticTransform function used to convert the editorProps to
- * the rendered widget state.
- */
-export const getStaticTransform = (
-    type: string,
-): WidgetTransform | null | undefined => {
-    const widgetInfo = widgets.get(type);
-    return widgetInfo?.staticTransform;
 };
 
 /**

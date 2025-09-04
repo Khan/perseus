@@ -1,5 +1,4 @@
 import type {ILogger} from "./logging/log";
-import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
@@ -442,19 +441,6 @@ type TrackingSequenceExtraArguments = {
 
 type WidgetOptions = any;
 
-/**
- * A transform that maps the WidgetOptions (sometimes referred to as
- * EditorProps) to the props used to render the widget. Often this is an
- * identity transform.
- */
-// TODO(jeremy): Make this generic so that the WidgetOptions and output type
-// become strongly typed.
-export type WidgetTransform = (
-    widgetOptions: WidgetOptions,
-    strings: PerseusStrings,
-    problemNumber?: number,
-) => any;
-
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
     TUserInput = Empty,
@@ -481,20 +467,6 @@ export type WidgetExports<
     version?: Version;
     isLintable?: boolean;
     tracking?: Tracking;
-
-    /**
-     * Transforms the widget options to the props used to render the widget.
-     *
-     * @deprecated see LEMS-3199
-     */
-    transform?: WidgetTransform;
-    /**
-     * Transforms the widget options to the props used to render the widget for
-     * static renders.
-     *
-     * @deprecated see LEMS-3199
-     */
-    staticTransform?: WidgetTransform; // this is a function of some sort,
 
     getOneCorrectAnswerFromRubric?: (
         rubric: WidgetOptions,

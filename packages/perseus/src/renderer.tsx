@@ -15,7 +15,6 @@ import {
     flattenScores,
     scoreWidgetsFunctional,
 } from "@khanacademy/perseus-score";
-import {entries} from "@khanacademy/wonder-stuff-core";
 import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
@@ -460,24 +459,6 @@ class Renderer
         return {
             widgetInfo: allWidgetInfo,
         };
-    };
-
-    _getAllWidgetsStartProps: (
-        allWidgetInfo: PerseusWidgetsMap,
-        props: Props,
-    ) => PerseusWidgetsMap = (allWidgetInfo, props) => {
-        const {problemNum} = props;
-        const widgetsStartProps: PerseusWidgetsMap = {};
-        const {strings} = this.props;
-        entries(allWidgetInfo).forEach(([key, widgetInfo]) => {
-            widgetsStartProps[key] = Widgets.getRendererPropsForWidgetInfo(
-                widgetInfo,
-                strings,
-                problemNum,
-            );
-        });
-
-        return widgetsStartProps;
     };
 
     // This is only used in _getWidgetInfo as a fallback if widgetId
