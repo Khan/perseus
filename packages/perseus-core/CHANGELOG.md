@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 19.0.1
+
+### Patch Changes
+
+-   [#2846](https://github.com/Khan/perseus/pull/2846) [`655f8994b8`](https://github.com/Khan/perseus/commit/655f8994b869a9eb34c4f9436cfc32bd59916d37) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add data-driven regression tests for user input parsers
+
 ## 19.0.0
 
 ### Major Changes
