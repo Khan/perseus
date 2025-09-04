@@ -26,7 +26,7 @@ const localesThatUseColon = [
 /**
  *  Get the character used for dividing numbers.
  */
-const getDivideSymbol = (locale: string): string => {
+export const getDivideSymbol = (locale: string): string => {
     // If the locale uses a colon for division, return a colon
     if (localesThatUseColon.includes(locale)) {
         return ":";
@@ -36,4 +36,9 @@ const getDivideSymbol = (locale: string): string => {
     return "/";
 };
 
-export default getDivideSymbol;
+export const getDivideSymbolForTex = (locale: string): string => {
+    const divideSymbol = getDivideSymbol(locale);
+
+    // If the locale uses the forward slash, return the appropriate TeX command
+    return divideSymbol === "/" ? "\\div" : divideSymbol;
+};
