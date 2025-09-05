@@ -80,6 +80,14 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         });
     };
 
+    // Ensure all choices have valid non-empty IDs
+    ensureValidIds = (choiceId: string): string => {
+        if (!choiceId || choiceId.trim() === "") {
+            return crypto.randomUUID();
+        }
+        return choiceId;
+    };
+
     // Updates the `correct` values for each choice, as well as the new
     // `numCorrect` value as a result. Updates the props with the new values.
     onChange: (arg1: any) => void = ({checked}) => {
@@ -91,6 +99,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                     choice.isNoneOfTheAbove && !checked[i]
                         ? ""
                         : choice.content,
+                id: this.ensureValidIds(choice.id),
             };
         });
 
