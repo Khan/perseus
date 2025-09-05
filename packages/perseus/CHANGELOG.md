@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 68.0.2
+
+### Patch Changes
+
+-   [#2869](https://github.com/Khan/perseus/pull/2869) [`2cede5b4f8`](https://github.com/Khan/perseus/commit/2cede5b4f883f1be0a160e46476fbdea826b6166) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Fix extra spacing that got released with image redesign
+
 ## 68.0.1
 
 ### Patch Changes
