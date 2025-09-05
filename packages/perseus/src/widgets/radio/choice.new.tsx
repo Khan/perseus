@@ -12,6 +12,7 @@ export interface IndicatorProps {
     isMultiSelect: boolean;
     showCorrectness?: "correct" | "wrong";
     updateChecked: (isChecked: boolean) => void;
+    "data-testid"?: string;
 }
 
 const Choice = (props: IndicatorProps) => {
@@ -35,7 +36,7 @@ const Choice = (props: IndicatorProps) => {
                 aligned with the input method.
          */
         // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
-        <li className={classes} onClick={clickHandler}>
+        <li className={classes} onClick={clickHandler} data-testid={props["data-testid"]}>
             <Indicator
                 buttonRef={buttonRef}
                 checked={props.checked}

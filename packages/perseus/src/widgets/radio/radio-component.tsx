@@ -238,6 +238,16 @@ class Radio extends React.Component<Props> implements Widget {
                         ? strings.noneOfTheAbove
                         : choice.content;
 
+                // Safety check: ensure choiceState exists, use defaults if not
+                const choiceState = choiceStates[i] || {
+                    selected: false,
+                    rationaleShown: false,
+                    correctnessShown: false,
+                    readOnly: false,
+                    highlighted: false,
+                    previouslyAnswered: false,
+                };
+
                 const {
                     selected,
                     rationaleShown,
@@ -245,10 +255,11 @@ class Radio extends React.Component<Props> implements Widget {
                     readOnly,
                     highlighted,
                     previouslyAnswered,
-                } = choiceStates[i];
+                } = choiceState;
 
                 const reviewChoice = this.props.reviewModeRubric?.choices[i];
 
+                console.log("🔍 Radio component choice.id:", choice.id, "for choice:", i);
                 return {
                     id: choice.id,
                     content: this._renderRenderer(content),
