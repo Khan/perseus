@@ -1253,4 +1253,90 @@ describe("radio-editor", () => {
             );
         });
     });
+
+    describe("ensureValidIds", () => {
+        it("should generate new ID for empty string", () => {
+            // Reset mock and set specific return value
+            mockedRandomUuid.mockReset();
+            mockedRandomUuid.mockReturnValue("2-3-4-5-6");
+
+            const editorRef = React.createRef<RadioEditor>();
+
+            render(
+                <RadioEditor
+                    ref={editorRef}
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                    static={false}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Test the method directly
+            const result = editorRef.current?.ensureValidIds("");
+            expect(result).toBe("2-3-4-5-6");
+        });
+
+        it("should preserve valid ID", () => {
+            const editorRef = React.createRef<RadioEditor>();
+            const validId = "1-2-3-4-5";
+            render(
+                <RadioEditor
+                    ref={editorRef}
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                    static={false}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const result = editorRef.current?.ensureValidIds(validId);
+            expect(result).toBe("1-2-3-4-5");
+        });
+
+        it("should generate new ID for whitespace-only string", () => {
+            // Reset mock and set specific return value
+            mockedRandomUuid.mockReset();
+            mockedRandomUuid.mockReturnValue("4-5-6-7-8");
+
+            const whitespaceOnlyString = "   \t  ";
+
+            const editorRef = React.createRef<RadioEditor>();
+
+            render(
+                <RadioEditor
+                    ref={editorRef}
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                    static={false}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const result =
+                editorRef.current?.ensureValidIds(whitespaceOnlyString);
+            expect(result).toBe("4-5-6-7-8");
+        });
+
+        it("should generate new ID for null/undefined ID", () => {
+            // Reset mock and set specific return value
+            mockedRandomUuid.mockReset();
+            mockedRandomUuid.mockReturnValue("5-6-7-8-9");
+
+            const editorRef = React.createRef<RadioEditor>();
+
+            render(
+                <RadioEditor
+                    ref={editorRef}
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                    static={false}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const result = editorRef.current?.ensureValidIds(null as any);
+            expect(result).toBe("5-6-7-8-9");
+        });
+    });
 });
