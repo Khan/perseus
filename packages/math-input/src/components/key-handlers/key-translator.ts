@@ -1,4 +1,7 @@
-import {getDecimalSeparator} from "@khanacademy/perseus-core";
+import {
+    getDecimalSeparator,
+    getDivideSymbolForTex,
+} from "@khanacademy/perseus-core";
 
 import {MathFieldActionType} from "../../types";
 import {mathQuillInstance} from "../input/mathquill-instance";
@@ -99,7 +102,7 @@ export const getKeyTranslator = (
 
     CDOT: buildGenericCallback("\\cdot"),
     DECIMAL: buildGenericCallback(getDecimalSeparator(locale)),
-    DIVIDE: buildGenericCallback("\\div"),
+    DIVIDE: buildGenericCallback(getDivideSymbolForTex(locale)),
     EQUAL: buildGenericCallback("="),
     GEQ: buildGenericCallback("\\geq"),
     GT: buildGenericCallback(">"),

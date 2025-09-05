@@ -20,6 +20,8 @@ export type * from "./validation.types";
 
 export {default as getMatrixSize} from "./utils/get-matrix-size";
 export {default as getDecimalSeparator} from "./utils/get-decimal-separator";
+export {getDivideSymbol} from "./utils/get-divide-symbol";
+export {getDivideSymbolForTex} from "./utils/get-divide-symbol";
 export {approximateEqual, approximateDeepEqual} from "./utils/equality";
 export {
     addWidget,
