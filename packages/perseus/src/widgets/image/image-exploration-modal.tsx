@@ -12,6 +12,8 @@ import styles from "./image-widget.module.css";
 
 import type {Props as ImageProps} from "./image.class";
 
+const MODAL_HEIGHT = 568;
+
 interface Props extends ImageProps {
     longDescription: string; // required
 }
@@ -67,14 +69,19 @@ const ImageExplorationModalContent = (props: Props) => {
     } = props;
     const context = React.useContext(PerseusI18nContext);
 
-    // Contain the image to the modal dimensions.
-    const modalHeight = 568; // Modal's max height.
-    let width = 0;
-    if (backgroundImage.width && backgroundImage.height) {
-        // bgWidth / bgHeight = X / modalHeight
-        // => X = (bgWidth / bgHeight) * modalHeight
-        width = (backgroundImage.width / backgroundImage.height) * modalHeight;
+    if (!backgroundImage.height || !backgroundImage.width) {
+        return null;
     }
+
+    // Contain the image to the modal dimensions:
+    // - Shrink image to the modal height if it's taller than the modal.
+    // - Keep image its original size if it's shorter than the modal.
+    // - Maintain the image's aspect ratio.
+    const modalImageHeight = Math.min(MODAL_HEIGHT, backgroundImage.height);
+    // bgWidth / bgHeight = X / modalImageHeight
+    // => X = (bgWidth / bgHeight) * modalImageHeight
+    const width =
+        (backgroundImage.width / backgroundImage.height) * modalImageHeight;
 
     return (
         <div className={styles.modalPanelContainer}>
@@ -86,7 +93,7 @@ const ImageExplorationModalContent = (props: Props) => {
                             src={backgroundImage.url!}
                             alt={caption === alt ? "" : alt}
                             width={width}
-                            height={modalHeight}
+                            height={modalImageHeight}
                             preloader={apiOptions.imagePreloader}
                             extraGraphie={{
                                 box: box,
