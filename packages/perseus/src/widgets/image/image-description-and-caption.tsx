@@ -1,31 +1,44 @@
+import Button from "@khanacademy/wonder-blocks-button";
+import IconButton from "@khanacademy/wonder-blocks-icon-button";
+import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
+import infoIconBold from "@phosphor-icons/core/bold/info-bold.svg";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 
+import {ImageExplorationModal} from "./image-exploration-modal";
 import styles from "./image-widget.module.css";
 
-import type {APIOptions} from "../../types";
-import type {PerseusImageBackground} from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {Props} from "./image.class";
 
-interface Props {
-    caption: string;
-    backgroundImage: PerseusImageBackground;
-    apiOptions: APIOptions;
-    linterContext: LinterContextProps;
-}
+export const ImageDescriptionAndCaption = (props: Props) => {
+    const {
+        caption,
+        longDescription,
+        backgroundImage,
+        apiOptions,
+        linterContext,
+    } = props;
 
-export const ImageDescriptionAndCaption = ({
-    caption,
-    backgroundImage,
-    apiOptions,
-    linterContext,
-}: Props) => {
     const context = React.useContext(PerseusI18nContext);
     return (
         <div className={styles.descriptionAndCaptionContainer}>
-            {/* Description code will go here */}
+            {/* TODO(LEMS-3439): Remove this `exploreButtonContainer` div
+                in order to show the explore button on mobile.  */}
+            <div className={styles.exploreButtonContainer}>
+                {/* Description */}
+                {longDescription && (
+                    <ModalLauncher modal={ImageExplorationModal(props)}>
+                        {({openModal}) => (
+                            <ExploreImageButton
+                                hasCaption={!!caption}
+                                onClick={openModal}
+                            />
+                        )}
+                    </ModalLauncher>
+                )}
+            </div>
 
             {/* Caption */}
             {caption && (
@@ -48,3 +61,29 @@ export const ImageDescriptionAndCaption = ({
         </div>
     );
 };
+
+function ExploreImageButton({
+    hasCaption,
+    onClick,
+}: {
+    hasCaption: boolean;
+    onClick: () => void;
+}) {
+    const context = React.useContext(PerseusI18nContext);
+    if (!hasCaption) {
+        return (
+            <Button kind="secondary" startIcon={infoIconBold} onClick={onClick}>
+                {context.strings.imageExploreButton}
+            </Button>
+        );
+    }
+
+    return (
+        <IconButton
+            aria-label={context.strings.imageExploreButton}
+            icon={infoIconBold}
+            kind="secondary"
+            onClick={onClick}
+        />
+    );
+}

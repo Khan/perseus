@@ -27,6 +27,11 @@ const earthMoonImageCaption =
     "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
 const frescoImageUrl =
     "https://cdn.kastatic.org/ka-perseus-images/01f44d5b73290da6bec97c75a5316fb05ab61f12.jpg";
+const monasteryImage = {
+    url: "https://cdn.kastatic.org/ka-perseus-images/b2213be6c39a28d7e8ff40836a8a5fb068678fa4.jpg",
+    width: 448,
+    height: 500,
+};
 
 const articleContent = `But in other cases, an object may experience a centripetal force for an extended time and complete *repeated* revolutions. An example of this type of motion is an astronomical object in **orbit**.\n\n[[☃ image 1]]\n\nLet's explore some of the language and relationships involved in orbital motion.`;
 
@@ -66,20 +71,22 @@ const meta: Meta<typeof ImageWidget> = {
 };
 export default meta;
 
-export const Default: Story = {
-    decorators: [rendererDecorator],
-    args: {
-        backgroundImage: earthMoonImage,
-        alt: "Earth and Moon",
-        title: "Earth and Moon",
-        caption: earthMoonImageCaption,
-    },
-};
-
 export const Image: Story = {
     decorators: [rendererDecorator],
     args: {
         backgroundImage: earthMoonImage,
+    },
+};
+
+export const ImageWithAll: Story = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        alt: "Earth and Moon",
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+        title: "Earth and Moon",
+        caption: earthMoonImageCaption,
     },
 };
 
@@ -96,6 +103,25 @@ export const ImageWithCaption: Story = {
     args: {
         backgroundImage: earthMoonImage,
         caption: earthMoonImageCaption,
+    },
+};
+
+export const ImageWithCaptionAndLongDescription: Story = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
+export const ImageWithLongDescription: Story = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
     },
 };
 
@@ -118,13 +144,80 @@ export const ImageWithZoom: Story = {
     },
 };
 
-export const MobileImage: Story = {
+export const MobileImageAll: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+        title: "Earth and Moon",
+    },
+};
+
+export const MobileImageWithAlt: Story = {
     decorators: [rendererDecorator, mobileDecorator],
     args: {
         backgroundImage: earthMoonImage,
         alt: "Earth and Moon",
-        title: "Earth and Moon",
+    },
+};
+
+export const MobileImageWithCaption: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
         caption: earthMoonImageCaption,
+    },
+};
+
+export const MobileImageWithCaptionAndLongDescription: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        caption: earthMoonImageCaption,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
+export const MobileImageWithLongDescription: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        longDescription:
+            "This is a *very* long description of the earth and moon.",
+    },
+};
+
+export const MobileImageWithTitle: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: earthMoonImage,
+        title: "Earth and Moon",
+    },
+};
+
+export const MobileImageWithZoom: Story = {
+    decorators: [rendererDecorator, mobileDecorator],
+    args: {
+        backgroundImage: {
+            url: frescoImageUrl,
+            width: 1698,
+            height: 955,
+        },
+    },
+};
+
+export const PortraitImage: Story = {
+    decorators: [rendererDecorator],
+    args: {
+        backgroundImage: monasteryImage,
+        caption:
+            "Kalenić Monastery, after 1407, Serbia (photo: [Ванилица](https://commons.wikimedia.org/wiki/File:Wiki_%C5%A0umadija_XI_Kaleni%C4%87_Monastery_874.jpg), CC BY-SA 4.0)",
+        title: "Kalenić Monastery",
+        longDescription:
+            "Later architecture in Serbia, notably that of the so-called Morava School, is smaller and more decorative, often utilizing the so-called Athonite plan (with choroi and subsidiary chapels), as at Ravanica (1370s), with five domes, or the smaller and simpler Kalenić (after 1407).",
     },
 };
 
@@ -190,6 +283,31 @@ export const RightToLeftImage: Story = {
         title: "The Offer of the Casa Madre to Victory, 1932",
         caption:
             "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, The Offer of the Casa Madre to Victory, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
+        longDescription: "This is a *very* long description of the fresco.",
+        backgroundImage: {
+            url: frescoImageUrl,
+            width: 1698,
+            height: 955,
+        },
+    },
+};
+
+export const RightToLeftImageMobile: Story = {
+    decorators: [
+        rendererDecorator,
+        mobileDecorator,
+        (Story) => (
+            <div style={{direction: "rtl"}}>
+                <Story />
+            </div>
+        ),
+    ],
+    args: {
+        alt: "Fresco of some people",
+        title: "The Offer of the Casa Madre to Victory, 1932",
+        caption:
+            "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, The Offer of the Casa Madre to Victory, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
+        longDescription: "This is a *very* long description of the fresco.",
         backgroundImage: {
             url: frescoImageUrl,
             width: 1698,

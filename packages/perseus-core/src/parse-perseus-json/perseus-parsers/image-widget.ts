@@ -20,6 +20,7 @@ export const parseImageWidget = parseWidget(
         title: optional(string),
         caption: optional(string),
         alt: optional(string),
+        longDescription: optional(string),
         backgroundImage: parsePerseusImageBackground,
         static: optional(boolean),
         labels: optional(

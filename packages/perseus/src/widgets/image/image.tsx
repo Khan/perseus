@@ -10,19 +10,25 @@ import styles from "./image-widget.module.css";
 
 import type {Props} from "./image.class";
 
-export const ImageComponent = ({
-    apiOptions,
-    alt,
-    backgroundImage,
-    box,
-    caption,
-    linterContext,
-    labels,
-    range,
-    title,
-    trackInteraction,
-}: Props) => {
+export const ImageComponent = (props: Props) => {
+    const {
+        apiOptions,
+        alt,
+        backgroundImage,
+        box,
+        caption,
+        longDescription,
+        linterContext,
+        labels,
+        range,
+        title,
+        trackInteraction,
+    } = props;
     const context = React.useContext(PerseusI18nContext);
+
+    if (!backgroundImage.url) {
+        return null;
+    }
 
     return (
         <figure
@@ -46,38 +52,32 @@ export const ImageComponent = ({
             )}
 
             {/* Image */}
-            {backgroundImage.url && (
-                <AssetContext.Consumer>
-                    {({setAssetStatus}) => (
-                        <SvgImage
-                            src={backgroundImage.url!}
-                            alt={caption === alt ? "" : alt}
-                            width={backgroundImage.width}
-                            height={backgroundImage.height}
-                            preloader={apiOptions.imagePreloader}
-                            extraGraphie={{
-                                box: box,
-                                range: range,
-                                labels: labels,
-                            }}
-                            trackInteraction={trackInteraction}
-                            zoomToFullSizeOnMobile={apiOptions.isMobile}
-                            constrainHeight={apiOptions.isMobile}
-                            allowFullBleed={apiOptions.isMobile}
-                            setAssetStatus={setAssetStatus}
-                        />
-                    )}
-                </AssetContext.Consumer>
-            )}
+
+            <AssetContext.Consumer>
+                {({setAssetStatus}) => (
+                    <SvgImage
+                        src={backgroundImage.url!}
+                        alt={caption === alt ? "" : alt}
+                        width={backgroundImage.width}
+                        height={backgroundImage.height}
+                        preloader={apiOptions.imagePreloader}
+                        extraGraphie={{
+                            box: box,
+                            range: range,
+                            labels: labels,
+                        }}
+                        trackInteraction={trackInteraction}
+                        zoomToFullSizeOnMobile={apiOptions.isMobile}
+                        constrainHeight={apiOptions.isMobile}
+                        allowFullBleed={apiOptions.isMobile}
+                        setAssetStatus={setAssetStatus}
+                    />
+                )}
+            </AssetContext.Consumer>
 
             {/* Description & Caption */}
-            {caption && (
-                <ImageDescriptionAndCaption
-                    caption={caption}
-                    backgroundImage={backgroundImage}
-                    apiOptions={apiOptions}
-                    linterContext={linterContext}
-                />
+            {(caption || longDescription) && (
+                <ImageDescriptionAndCaption {...props} />
             )}
         </figure>
     );
