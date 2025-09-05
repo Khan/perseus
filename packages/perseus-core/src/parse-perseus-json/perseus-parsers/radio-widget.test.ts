@@ -196,7 +196,7 @@ describe("parseRadioWidget", () => {
             expect(result).toEqual(success(widget)); // Should be unchanged
         });
 
-        it("generates default ID when choice ID is missing", () => {
+        it("generates default ID when choice ID is undefined", () => {
             const widget = {
                 type: "radio",
                 version: {major: 3, minor: 0},
@@ -205,7 +205,40 @@ describe("parseRadioWidget", () => {
                     choices: [
                         {
                             content: "Choice without ID",
-                            // id property is missing
+                            id: undefined,
+                        },
+                    ],
+                },
+            };
+
+            const result = parse(widget, parseRadioWidget);
+
+            expect(result).toEqual(
+                success({
+                    ...widget,
+                    options: {
+                        ...widget.options,
+                        choices: [
+                            {
+                                content: "Choice without ID",
+                                id: "radio-choice-0", // Should be generated
+                            },
+                        ],
+                    },
+                }),
+            );
+        });
+
+        it("generates default ID when choice ID is null", () => {
+            const widget = {
+                type: "radio",
+                version: {major: 3, minor: 0},
+                graded: true,
+                options: {
+                    choices: [
+                        {
+                            content: "Choice without ID",
+                            id: null,
                         },
                     ],
                 },
@@ -239,7 +272,7 @@ describe("parseRadioWidget", () => {
                         {content: "First choice", id: ""},
                         {content: "Second choice", id: "custom-id"},
                         {content: "Third choice", id: "  "},
-                        {content: "Fourth choice"}, // missing ID
+                        {content: "Fourth choice"}, // undefined ID
                     ],
                 },
             };
