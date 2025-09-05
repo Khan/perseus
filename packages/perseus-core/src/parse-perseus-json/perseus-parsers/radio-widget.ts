@@ -61,9 +61,14 @@ const parseRadioWidgetV3 = parseWidgetWithVersion(
                 correct: optional(boolean),
                 isNoneOfTheAbove: optional(boolean),
                 id: (rawValue, ctx) => {
-                    console.log(`🔧 Parsing choice ${index} ID:`, rawValue);
+                    console.log(`🔧 Parser processing choice ${index} ID:`, rawValue);
                     const result = defaulted(string, () => generateChoiceId(index))(rawValue, ctx);
-                    console.log(`✅ Choice ${index} ID result:`, result);
+                    // Log the final ID value without accessing result properties
+                    if (!rawValue || (typeof rawValue === 'string' && rawValue.trim() === '')) {
+                        console.log(`✨ Generated ID for choice ${index}:`, `radio-choice-${index}`);
+                    } else {
+                        console.log(`✅ Preserved ID for choice ${index}:`, rawValue);
+                    }
                     return result;
                 },
             }),

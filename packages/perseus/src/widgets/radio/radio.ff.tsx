@@ -212,12 +212,6 @@ class Radio extends RadioOld {
         return false;
     }
 
-    componentDidMount() {
-        console.log("🚩 Radio.ff mounted - Feature flag:", this.ffIsOn ? "ON (RadioNew)" : "OFF (RadioOld)");
-        console.log("🔍 Radio.ff props.choices:", this.props.choices?.map((c, i) => ({index: i, id: c.id, hasContent: !!c.content})));
-    }
-
-
     render(): React.ReactNode {
         const props = this._mergePropsAndState();
 
