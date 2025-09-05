@@ -60,7 +60,12 @@ const parseRadioWidgetV3 = parseWidgetWithVersion(
                 rationale: optional(string),
                 correct: optional(boolean),
                 isNoneOfTheAbove: optional(boolean),
-                id: defaulted(string, () => generateChoiceId(index)),
+                id: (rawValue, ctx) => {
+                    console.log(`🔧 Parsing choice ${index} ID:`, rawValue);
+                    const result = defaulted(string, () => generateChoiceId(index))(rawValue, ctx);
+                    console.log(`✅ Choice ${index} ID result:`, result);
+                    return result;
+                },
             }),
         ),
         hasNoneOfTheAbove: optional(boolean),

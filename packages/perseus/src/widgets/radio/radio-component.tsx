@@ -71,6 +71,15 @@ class Radio extends React.Component<Props> implements Widget {
         showSolutions: "none",
     };
 
+    componentDidMount() {
+        console.log("📻 RadioComponent mounted");
+        console.log("🔍 RadioComponent choices:", this.props.choices?.map((c, i) => ({
+            index: i,
+            id: c.id,
+            content: typeof c.content === 'string' ? c.content.substring(0, 30) : 'non-string'
+        })));
+    }
+
     _renderRenderer: (content?: string) => React.ReactElement = (
         content = "",
     ) => {
@@ -259,7 +268,6 @@ class Radio extends React.Component<Props> implements Widget {
 
                 const reviewChoice = this.props.reviewModeRubric?.choices[i];
 
-                console.log("🔍 Radio component choice.id:", choice.id, "for choice:", i);
                 return {
                     id: choice.id,
                     content: this._renderRenderer(content),

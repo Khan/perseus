@@ -98,6 +98,16 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
         // Perseus Widget API methods
         // TODO(LEMS-2994): When we remove the old Radio files, we may need to move some
         // of the methods from radio.ff.tsx into here, such as getSerializedState, etc.
+        // Debug logging for choices on mount
+        React.useEffect(() => {
+            console.log("🆕 NEW RadioWidget mounted");
+            console.log("🔍 NEW RadioWidget choices:", choices?.map((c, i) => ({
+                index: i,
+                id: c.id,
+                content: typeof c.content === 'string' ? c.content.substring(0, 30) : 'non-string'
+            })));
+        }, []); // Only run once on mount
+
         useImperativeHandle(
             ref,
             () => ({

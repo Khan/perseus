@@ -160,7 +160,6 @@ const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
             );
         }
 
-        console.log("🆕 NEW Radio component rendering choice with ID:", choice.id, "for choice:", i);
         return (
             <Choice
                 key={choice.id}

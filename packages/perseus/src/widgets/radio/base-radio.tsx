@@ -366,10 +366,7 @@ const BaseRadio = function ({
                         <li
                             key={choice.id}
                             data-testid={`radio-choice-${choice.id}`}
-                            ref={(e) => {
-                                listElem = e;
-                                console.log("🎯 BaseRadio rendering choice with ID:", choice.id, "data-testid:", `radio-choice-${choice.id}`);
-                            }}
+                            ref={(e) => (listElem = e)}
                             className={className}
                             onClick={clickHandler}
                             onTouchStart={
