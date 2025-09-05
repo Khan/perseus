@@ -88,7 +88,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             return newId;
         }
         console.log("🆔 RadioEditor preserving existing ID:", choiceId);
-
+        return choiceId;
     };
 
     // Updates the `correct` values for each choice, as well as the new
