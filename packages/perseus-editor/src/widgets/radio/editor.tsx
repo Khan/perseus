@@ -82,9 +82,13 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
     // Ensure all choices have valid non-empty IDs
     ensureValidIds = (choiceId: string): string => {
+        console.log("🔍 ensureValidIds called with:", { choiceId });
         if (!choiceId || choiceId.trim() === "") {
-            return crypto.randomUUID();
+            const newId = crypto.randomUUID();
+            console.log("Generated new ID:", newId);
+            return newId;
         }
+        console.log("Preserving existing ID:", choiceId);
         return choiceId;
     };
 
