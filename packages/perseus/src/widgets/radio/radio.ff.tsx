@@ -182,6 +182,14 @@ class Radio extends RadioOld {
             choices,
             choiceStates: this.state.choiceStates?.map((choiceState, index) => {
                 const choice = choices[index];
+                // Safety check: handle case where choiceStates and choices arrays are out of sync
+                // for example when a choice has been deleted but state hasn't been updated
+                if (!choice) {
+                    return {
+                        ...choiceState,
+                        selected: false,
+                    };
+                }
                 const selected =
                     this.props.userInput?.selectedChoiceIds.includes(
                         choice.id,
