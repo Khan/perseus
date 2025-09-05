@@ -163,6 +163,7 @@ const ChoiceListItems = (props: ChoiceListItemsProps): React.ReactElement => {
         return (
             <Choice
                 key={choice.id}
+                data-testid={`radio-choice-${choice.id}`}
                 checked={choice.checked}
                 indicatorContent={indicatorContent}
                 isMultiSelect={multipleSelect}

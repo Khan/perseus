@@ -60,7 +60,17 @@ const parseRadioWidgetV3 = parseWidgetWithVersion(
                 rationale: optional(string),
                 correct: optional(boolean),
                 isNoneOfTheAbove: optional(boolean),
-                id: defaulted(string, () => generateChoiceId(index)),
+                id: (rawValue, ctx) => {
+                    console.log(`🔧 Parser processing choice ${index} ID:`, rawValue);
+                    const result = defaulted(string, () => generateChoiceId(index))(rawValue, ctx);
+                    // Log the final ID value without accessing result properties
+                    if (!rawValue || (typeof rawValue === 'string' && rawValue.trim() === '')) {
+                        console.log(`✨ Generated ID for choice ${index}:`, `radio-choice-${index}`);
+                    } else {
+                        console.log(`✅ Preserved ID for choice ${index}:`, rawValue);
+                    }
+                    return result;
+                },
             }),
         ),
         hasNoneOfTheAbove: optional(boolean),

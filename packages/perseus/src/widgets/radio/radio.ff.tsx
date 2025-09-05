@@ -212,7 +212,6 @@ class Radio extends RadioOld {
         return false;
     }
 
-
     render(): React.ReactNode {
         const props = this._mergePropsAndState();
 
