@@ -33,7 +33,7 @@
     width: 100%;
 }
 
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) {
     .choice:hover {
         cursor: pointer;
     }
@@ -95,7 +95,7 @@
     z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
 }
 
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) {
     .choice:hover:after,
     .choice:hover:before {
         z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
@@ -109,25 +109,19 @@
 
 /* Enhance (thicker and darker) the divider between choices when:
       - the choice indicator has focus (not in review mode) OR
-      - the choice is hovered in desktop with mouse (not in review mode) OR
-      - the choice is actively being selected (touch/click) OR
+      - the choice is hovered (not in review mode) OR
+      - the choice is in review mode AND
+         - the choice is incorrect AND
+         - the choice indicator has focus
  */
-.choice:not(.is-correct):focus-within,
-.choice:not(.is-correct, .is-wrong):active {
+.choice:not(.is-correct):focus-within {
     --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
     --perseus-multiple-choice-divider-color: var(
         --wb-semanticColor-core-border-neutral-default
     );
 }
 
-.choice:focus-within:after,
-.choice:focus-within:before,
-.choice:not(.is-correct, .is-wrong):active:after,
-.choice:not(.is-correct, .is-wrong):active:before {
-    z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
-}
-
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) {
     .choice:not(.is-correct, .is-wrong):hover {
         --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
         --perseus-multiple-choice-divider-color: var(
@@ -153,7 +147,7 @@
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
 }
 
-@media (hover: hover) and (pointer: fine) {
+@media (hover: hover) {
     .is-correct:hover,
     .is-wrong:hover {
         cursor: default;
