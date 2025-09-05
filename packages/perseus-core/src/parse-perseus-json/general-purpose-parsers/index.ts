@@ -2,6 +2,7 @@ export * from "./any";
 export * from "./array";
 export * from "./boolean";
 export * from "./constant";
+export * from "./defaulted";
 export * from "./enumeration";
 export * from "./is-plain-object";
 export * from "./nullable";
