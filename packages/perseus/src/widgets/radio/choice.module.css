@@ -33,8 +33,10 @@
     width: 100%;
 }
 
-.choice:hover {
-    cursor: pointer;
+@media (hover: hover) {
+    .choice:hover {
+        cursor: pointer;
+    }
 }
 
 .choice:not(.is-correct):has(> button[aria-pressed="true"]) {
@@ -88,11 +90,16 @@
     );
 }
 
-.choice:hover:after,
 .choice:focus-within:after,
-.choice:hover:before,
 .choice:focus-within:before {
     z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
+}
+
+@media (hover: hover) {
+    .choice:hover:after,
+    .choice:hover:before {
+        z-index: 10; /* Ensure the divider is above the adjacent choice dividers */
+    }
 }
 
 /* The first choice option needs additional space for the border */
@@ -107,12 +114,20 @@
          - the choice is incorrect AND
          - the choice indicator has focus
  */
-.choice:not(.is-correct):focus-within,
-.choice:not(.is-correct, .is-wrong):hover {
+.choice:not(.is-correct):focus-within {
     --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
     --perseus-multiple-choice-divider-color: var(
         --wb-semanticColor-core-border-neutral-default
     );
+}
+
+@media (hover: hover) {
+    .choice:not(.is-correct, .is-wrong):hover {
+        --perseus-multiple-choice-divider-width: var(--wb-border-width-medium);
+        --perseus-multiple-choice-divider-color: var(
+            --wb-semanticColor-core-border-neutral-default
+        );
+    }
 }
 
 /***********
@@ -132,9 +147,11 @@
     color: var(--wb-semanticColor-core-foreground-neutral-subtle);
 }
 
-.is-correct:hover,
-.is-wrong:hover {
-    cursor: default;
+@media (hover: hover) {
+    .is-correct:hover,
+    .is-wrong:hover {
+        cursor: default;
+    }
 }
 
 /**************
