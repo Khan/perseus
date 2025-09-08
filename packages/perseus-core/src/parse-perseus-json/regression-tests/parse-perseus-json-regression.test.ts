@@ -193,6 +193,24 @@ describe("parseAndMigrateUserInputMap", () => {
     });
 });
 
+describe("the regression test data", () => {
+    describe.each(userInputDataFiles)("in %s", (filename) => {
+        it("contains a warning", () => {
+            const contents = fs.readFileSync(
+                join(userInputDataDir, filename),
+                "utf-8",
+            );
+            expect(contents).toContain(
+                [
+                    `// WARNING: Do not change or delete this file! If you do, Perseus might become`,
+                    `// unable to parse the current user input format, which will break clients.`,
+                    `// If you need to add more regression tests, add a new file to this directory.`,
+                ].join("\n"),
+            );
+        });
+    });
+});
+
 function getMessage(obj: {message: string}): string {
     return obj.message;
 }
