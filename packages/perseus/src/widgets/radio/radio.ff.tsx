@@ -210,7 +210,7 @@ class Radio extends RadioOld {
         // Otherwise, return the old radio widget and pass the ref to
         // it for handling legacy focus methods.
         return this.ffIsOn ? (
-            <RadioNew {...props} />
+            <RadioNew ref={this.radioRef} {...props} />
         ) : (
             <RadioOld ref={this.radioRef} {...props} />
         );

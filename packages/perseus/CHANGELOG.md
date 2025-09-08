@@ -1,5 +1,39 @@
 # @khanacademy/perseus
 
+## 68.0.2
+
+### Patch Changes
+
+-   [#2869](https://github.com/Khan/perseus/pull/2869) [`2cede5b4f8`](https://github.com/Khan/perseus/commit/2cede5b4f883f1be0a160e46476fbdea826b6166) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Fix extra spacing that got released with image redesign
+
+*   [#2859](https://github.com/Khan/perseus/pull/2859) [`73311983b6`](https://github.com/Khan/perseus/commit/73311983b6b6d343c73c5778992e53a49f4d6e43) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Radio] Fix iOS mobile hover issue when use is dragging the screen left or right
+
+*   Updated dependencies [[`876be8cde6`](https://github.com/Khan/perseus/commit/876be8cde6aa2936612b2e9a60bf20626440b16c)]:
+    -   @khanacademy/perseus-core@19.0.2
+    -   @khanacademy/keypad-context@3.2.4
+    -   @khanacademy/kmath@2.2.4
+    -   @khanacademy/math-input@26.2.4
+    -   @khanacademy/perseus-linter@4.3.4
+    -   @khanacademy/perseus-score@7.7.4
+
+## 68.0.1
+
+### Patch Changes
+
+-   [#2865](https://github.com/Khan/perseus/pull/2865) [`57fcddf928`](https://github.com/Khan/perseus/commit/57fcddf928d5d3fe9d00c3833eb58d3eb6b2c556) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fix for getPromptJSON in new Radio
+
+*   [#2848](https://github.com/Khan/perseus/pull/2848) [`1de909808d`](https://github.com/Khan/perseus/commit/1de909808dfcd08717c6246a6225081fae50e3a1) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Update Image widget to match new designs
+
+-   [#2833](https://github.com/Khan/perseus/pull/2833) [`f096f77bd6`](https://github.com/Khan/perseus/commit/f096f77bd63be867df16e3065025b5f35ebb6a6b) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Fixes orderer css so that it no longer wraps and allows learners to place cards at the end of the row
+
+-   Updated dependencies [[`655f8994b8`](https://github.com/Khan/perseus/commit/655f8994b869a9eb34c4f9436cfc32bd59916d37)]:
+    -   @khanacademy/perseus-core@19.0.1
+    -   @khanacademy/keypad-context@3.2.3
+    -   @khanacademy/kmath@2.2.3
+    -   @khanacademy/math-input@26.2.3
+    -   @khanacademy/perseus-linter@4.3.3
+    -   @khanacademy/perseus-score@7.7.3
+
 ## 68.0.0
 
 ### Major Changes

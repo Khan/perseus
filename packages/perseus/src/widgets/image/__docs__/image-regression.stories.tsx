@@ -56,6 +56,18 @@ const mobileDecorator = (Story) => (
     </div>
 );
 
+const articleDecorator = (Story) => (
+    <div className="framework-perseus perseus-article">
+        <Story />
+    </div>
+);
+
+const mobileArticleDecorator = (Story) => (
+    <div className="framework-perseus perseus-mobile perseus-article">
+        <Story />
+    </div>
+);
+
 const meta: Meta<typeof ImageWidget> = {
     title: "Widgets/Image/Visual Regression Tests",
     component: ImageWidget,
@@ -129,7 +141,7 @@ export const MobileImage: Story = {
 };
 
 export const WithinArticleDesktop: Story = {
-    decorators: [rendererDecorator],
+    decorators: [rendererDecorator, articleDecorator],
     parameters: {
         content: articleContent,
     },
@@ -140,7 +152,7 @@ export const WithinArticleDesktop: Story = {
 };
 
 export const WithinArticleDesktopCaptionAndTitle: Story = {
-    decorators: [rendererDecorator],
+    decorators: [rendererDecorator, articleDecorator],
     parameters: {
         content: articleContent,
     },
@@ -153,7 +165,7 @@ export const WithinArticleDesktopCaptionAndTitle: Story = {
 };
 
 export const WithinArticleMobile: Story = {
-    decorators: [rendererDecorator, mobileDecorator],
+    decorators: [rendererDecorator, mobileArticleDecorator],
     parameters: {
         content: articleContent,
     },
@@ -164,7 +176,7 @@ export const WithinArticleMobile: Story = {
 };
 
 export const WithinArticleMobileCaptionAndTitle: Story = {
-    decorators: [rendererDecorator, mobileDecorator],
+    decorators: [rendererDecorator, mobileArticleDecorator],
     parameters: {
         content: articleContent,
     },
