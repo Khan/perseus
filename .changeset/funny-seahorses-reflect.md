@@ -2,4 +2,4 @@
 "@khanacademy/perseus-core": patch
 ---
 
-Radio fix that disallows choice ids that are empty strings
+Radio fix that defaults choice ids that are empty strings
