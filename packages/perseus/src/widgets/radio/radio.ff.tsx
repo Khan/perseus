@@ -182,13 +182,6 @@ class Radio extends RadioOld {
             choices,
             choiceStates: this.state.choiceStates?.map((choiceState, index) => {
                 const choice = choices[index];
-
-                if (choice === undefined) {
-                    return {
-                        ...choiceState,
-                        selected: false,
-                    };
-                }
                 const selected =
                     this.props.userInput?.selectedChoiceIds.includes(
                         choice.id,
