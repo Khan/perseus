@@ -17603,6 +17603,154 @@ exports[`parseAndMigratePerseusItem given question-missing-content.json returns 
 }
 `;
 
+exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "
+**Why does the author discuss the clothes and food at Robben Island?**
+
+[[☃ radio 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "choices": [
+            {
+              "content": "to show that Mandela fought for equality even when he was in prison
+",
+              "correct": true,
+              "id": "radio-choice-0",
+              "rationale": "**This is the best choice.** The author describes how apartheid affected the lives of Black prisoners: "they were forced to wear shorts and sandals" and their food was "worse than the food for other prisoners." The author goes on to say that Mandela fought for equal rights in prison, and that his work helped to change these rules. This is an example of how he fought for equality in prison.
+",
+            },
+            {
+              "content": "to prove that everyone was treated poorly in South African prisons
+",
+              "correct": false,
+              "id": "radio-choice-1",
+              "rationale": "This isn’t why the author discusses the clothes and food at Robben Island. The author mentions these details to show that Black prisoners received poorer treatment than other prisoners: they weren't allowed to wear warm clothes and had worse food. The author doesn't suggest that *all* prisoners were treated poorly.
+",
+            },
+            {
+              "content": "to introduce the idea that Mandela didn’t win every battle he fought against apartheid
+",
+              "correct": false,
+              "id": "radio-choice-2",
+              "isNoneOfTheAbove": false,
+              "rationale": "This isn’t why the author discusses the clothes and food at Robben Island. In fact, the author says that Mandela did help Black prisoners receive better clothes and food. For example, the text says that Mandela's work "finally began to pay off when Black prisoners were granted the right to wear pants and shoes."
+",
+            },
+            {
+              "content": "to demonstrate that prisoners were treated better than South Africans who were not in prison
+",
+              "correct": false,
+              "id": "radio-choice-3",
+              "isNoneOfTheAbove": false,
+              "rationale": "This isn’t why the author discusses the clothes and food at Robben Island. The text never compares the treatment of prisoners to the treatment of people who weren't in prison. 
+",
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "numCorrect": 1,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 3,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.json returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "
+**Why does the author discuss the clothes and food at Robben Island?**
+
+[[☃ radio 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "choices": [
+            {
+              "content": "to show that Mandela fought for equality even when he was in prison
+",
+              "id": "radio-choice-0",
+              "isNoneOfTheAbove": undefined,
+            },
+            {
+              "content": "to prove that everyone was treated poorly in South African prisons
+",
+              "id": "radio-choice-1",
+              "isNoneOfTheAbove": undefined,
+            },
+            {
+              "content": "to introduce the idea that Mandela didn’t win every battle he fought against apartheid
+",
+              "id": "radio-choice-2",
+              "isNoneOfTheAbove": false,
+            },
+            {
+              "content": "to demonstrate that prisoners were treated better than South Africans who were not in prison
+",
+              "id": "radio-choice-3",
+              "isNoneOfTheAbove": false,
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "numCorrect": undefined,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 3,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json returns the same result as before 1`] = `
 {
   "answerArea": {

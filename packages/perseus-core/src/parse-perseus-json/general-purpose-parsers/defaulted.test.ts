@@ -1,6 +1,6 @@
 import {success} from "../result";
 
-import {defaulted} from "./defaulted";
+import {defaulted, defaultedNonEmptyString} from "./defaulted";
 import {nullable} from "./nullable";
 import {number} from "./number";
 import {ctx, parseFailureWith} from "./test-helpers";
@@ -38,6 +38,33 @@ describe("defaulted()", () => {
             parseFailureWith({
                 expected: ["number"],
                 badValue: "blah",
+            }),
+        );
+    });
+});
+
+describe("defaultedNonEmptyString()", () => {
+    const stringWithDefault = defaultedNonEmptyString(() => "default-id");
+
+    it.each`
+        input        | expected           | description
+        ${undefined} | ${"default-id"}    | ${"undefined"}
+        ${null}      | ${"default-id"}    | ${"null"}
+        ${""}        | ${"default-id"}    | ${"empty string"}
+        ${"   "}     | ${"default-id"}    | ${"whitespace-only string"}
+        ${"my-id"}   | ${"my-id"}         | ${"valid non-empty string"}
+    `(
+        "should return $expected when given $description",
+        ({input, expected}) => {
+            expect(stringWithDefault(input, ctx())).toEqual(success(expected));
+        },
+    );
+
+    it("fails given invalid type (number)", () => {
+        expect(stringWithDefault(123, ctx())).toEqual(
+            parseFailureWith({
+                expected: ["string"],
+                badValue: 123,
             }),
         );
     });
