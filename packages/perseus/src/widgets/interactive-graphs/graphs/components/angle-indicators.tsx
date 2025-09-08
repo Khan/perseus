@@ -17,6 +17,24 @@ import type {Interval} from "mafs";
 const {clockwise} = geometry;
 const {getAngleFromVertex} = angles;
 
+/**
+ * Calculate an appropriate radius for angle arcs based on the graph range.
+ * The radius scales with the range so it's visible at all zoom levels.
+ */
+function calculateScaledRadius(range: [Interval, Interval]): number {
+    const [[xMin, xMax], [yMin, yMax]] = range;
+    const xSpan = xMax - xMin;
+    const ySpan = yMax - yMin;
+
+    // Use the smaller span to ensure the arc fits well in both dimensions
+    const minSpan = Math.min(xSpan, ySpan);
+
+    // Scale the radius proportionally to the range, with a reasonable scaling factor
+    // This ensures the arc is always visible but not too large
+    // 8% of the graph size seems to work well for this.
+    return minSpan * 0.08; // 8% of the smaller dimension
+}
+
 interface PolygonAngleProps {
     centerPoint: vec.Vector2;
     endPoints: [vec.Vector2, vec.Vector2];
@@ -32,12 +50,13 @@ export const PolygonAngle = ({
     snapTo,
     areEndPointsClockwise,
 }: PolygonAngleProps) => {
+    const {range} = useGraphConfig();
     const [centerX, centerY] = centerPoint;
     const [[startX, startY], [endX, endY]] = areEndPointsClockwise
         ? endPoints
         : endPoints.reverse(); // Make endpoints always clockwise
 
-    const radius = 0.3;
+    const radius = calculateScaledRadius(range);
 
     const a = vec.dist(centerPoint, endPoints[0]);
     const b = vec.dist(centerPoint, endPoints[1]);
@@ -180,8 +199,8 @@ export const Angle = ({
     const a = vec.dist(vertex, point1);
     const b = vec.dist(vertex, point2);
 
-    // Set the radius of the arc
-    const radius = 2;
+    // Set the radius of the arc to scale with the graph range
+    const radius = calculateScaledRadius(range);
 
     // Calculate the end points of the arc
     const y1 = centerY + ((startY - centerY) / a) * radius;
@@ -287,7 +306,7 @@ const RightAngleSquare = ({
             // so this is okay.
             aria-hidden={true}
             d={`M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`}
-            strokeWidth={0.02}
+            strokeWidth={0.1}
             fill="none"
             className={className}
             data-testid="angle-indicators__right-angle"
@@ -307,7 +326,7 @@ const Arc = ({arc, className}: {arc: string; className?: string}) => {
                 // so this is okay.
                 aria-hidden={true}
                 d={arc}
-                strokeWidth={0.02}
+                strokeWidth={0.1}
                 fill="none"
                 className={className}
                 data-testid="angle-indicators__arc"
