@@ -279,10 +279,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     render(): React.ReactNode {
         const numCorrect = deriveNumCorrect(this.props.choices);
         return (
-            <div
-                data-testid="radio-editor"
-                data-choices-count={this.props.choices.length}
-            >
+            <div>
                 <Link
                     href="https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems"
                     target="_blank"
