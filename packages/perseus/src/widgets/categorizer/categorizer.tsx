@@ -49,7 +49,7 @@ export class Categorizer
     static defaultProps: DefaultProps = {
         items: [],
         categories: [],
-        linterContext: linterContextDefault as any,
+        linterContext: linterContextDefault,
         userInput: {values: []},
     };
 
