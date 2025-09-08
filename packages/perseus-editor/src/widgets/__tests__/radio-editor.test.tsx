@@ -82,7 +82,7 @@ describe("radio-editor", () => {
         expect(screen.getByText(/Multiple selections/)).toBeInTheDocument();
     });
 
-    describe("aggressive ID loading", () => {
+    describe("Id generation", () => {
         it("should generate IDs for choices with missing IDs on mount", () => {
             const onChangeMock = jest.fn();
             const choicesWithMissingIds = [
