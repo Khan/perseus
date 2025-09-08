@@ -43,6 +43,31 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     static defaultProps: RadioDefaultWidgetOptions =
         radioLogic.defaultWidgetOptions;
 
+    componentDidMount() {
+        // Check if any choices need IDs and generate them immediately
+        const needsIdUpdate = this.props.choices.some(
+            (choice) => !choice.id || choice.id.trim() === "",
+        );
+
+        if (needsIdUpdate) {
+            console.log(
+                "Original choices:",
+                this.props.choices.map((c) => ({content: c.content, id: c.id})),
+            );
+
+            const updatedChoices = this.props.choices.map((choice, index) => ({
+                ...choice,
+                id: this.ensureValidIds(choice.id, index),
+            }));
+
+            console.log(
+                "Updated choices:",
+                updatedChoices.map((c) => ({content: c.content, id: c.id})),
+            );
+            this.props.onChange({choices: updatedChoices});
+        }
+    }
+
     // Called when the "Multiple selections" checkbox is toggled,
     // allowing the content author to specifiy multiple correct answers.
     onMultipleSelectChange: (arg1: any) => any = (allowMultiple) => {
@@ -80,10 +105,15 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         });
     };
 
+    // Generate consistent choice IDs that match the parser format for existing content
+    generateChoiceId = (index: number): string => {
+        return `radio-choice-${index}`;
+    };
+
     // Ensure all choices have valid non-empty IDs
-    ensureValidIds = (choiceId: string): string => {
+    ensureValidIds = (choiceId: string, index: number): string => {
         if (!choiceId || choiceId.trim() === "") {
-            return crypto.randomUUID();
+            return this.generateChoiceId(index);
         }
         return choiceId;
     };
@@ -99,7 +129,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                     choice.isNoneOfTheAbove && !checked[i]
                         ? ""
                         : choice.content,
-                id: this.ensureValidIds(choice.id),
+                id: this.ensureValidIds(choice.id, i),
             };
         });
 
@@ -180,15 +210,18 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         e.preventDefault();
 
         const choices = this.props.choices.slice();
+        const newChoiceId = crypto.randomUUID();
         const newChoice: PerseusRadioChoice = {
             isNoneOfTheAbove: noneOfTheAbove,
             content: "",
-            id: crypto.randomUUID(),
+            id: newChoiceId,
         };
         const addIndex =
             choices.length - (this.props.hasNoneOfTheAbove ? 1 : 0);
 
         choices.splice(addIndex, 0, newChoice);
+
+        console.log("new choice with UUID:", newChoiceId);
 
         this.props.onChange(
             {
@@ -258,7 +291,10 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     render(): React.ReactNode {
         const numCorrect = deriveNumCorrect(this.props.choices);
         return (
-            <div>
+            <div
+                data-testid="radio-editor"
+                data-choices-count={this.props.choices.length}
+            >
                 <Link
                     href="https://www.khanacademy.org/internal-courses/content-creation-best-practices/xe46daa512cd9c644:question-writing/xe46daa512cd9c644:multiple-choice/a/stems"
                     target="_blank"

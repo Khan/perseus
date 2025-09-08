@@ -184,7 +184,7 @@ class Radio extends RadioOld {
                 const choice = choices[index];
                 // Safety check: handle case where choiceStates and choices arrays are out of sync
                 // for example when a choice has been deleted but state hasn't been updated
-                if (!choice) {
+                if (choice === undefined) {
                     return {
                         ...choiceState,
                         selected: false,
@@ -211,7 +211,6 @@ class Radio extends RadioOld {
         }
         return false;
     }
-
 
     render(): React.ReactNode {
         const props = this._mergePropsAndState();
