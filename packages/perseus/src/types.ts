@@ -15,6 +15,7 @@ import type {
     PerseusAnswerArea,
     PerseusFeatureFlags,
     PerseusWidget,
+    PerseusWidgetTypes,
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
     Version,
@@ -159,6 +160,11 @@ type TrackInteractionArgs = {
 } & Partial<TrackingGradedGroupExtraArguments> &
     Partial<TrackingSequenceExtraArguments>;
 
+type GenerateUrlArgs = {
+    url: string;
+    widget: keyof PerseusWidgetTypes;
+};
+
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
  *
@@ -282,6 +288,13 @@ export type APIOptions = Readonly<{
      * Define the feature flag name in packages/perseus-core/src/feature-flags.ts
      */
     flags?: Record<(typeof PerseusFeatureFlags)[number], boolean>;
+    /**
+     * A function that takes a URL or partial url and may modify it to return
+     * the full URL. This may be used to request a resource from a different
+     * app to where the widget is rendered, like when embedding a video from
+     * khanacademy.org inside KAC.
+     */
+    generateUrl?: (args: GenerateUrlArgs) => string;
 }>;
 
 type TeXProps = {
