@@ -33,6 +33,9 @@ const config: KnipConfig = {
         // this file causes side-effects by importing it
         // so it's not "used" in the conventional sense
         "packages/perseus/src/util/interactive.ts",
+        // type tests, code that's not run
+        // but can trigger helpful TS errors when things change
+        "**/*.typetest.ts",
     ],
 };
 
