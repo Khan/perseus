@@ -1,5 +1,11 @@
 # @khanacademy/perseus-core
 
+## 19.0.2
+
+### Patch Changes
+
+-   [#2867](https://github.com/Khan/perseus/pull/2867) [`876be8cde6`](https://github.com/Khan/perseus/commit/876be8cde6aa2936612b2e9a60bf20626440b16c) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Radio fix that defaults choice ids that are empty strings
+
 ## 19.0.1
 
 ### Patch Changes
