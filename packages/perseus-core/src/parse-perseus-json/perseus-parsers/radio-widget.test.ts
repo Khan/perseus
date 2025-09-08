@@ -141,7 +141,6 @@ describe("parseRadioWidget", () => {
 
         expect(parse(widget, parseRadioWidget)).toEqual(anySuccess);
     });
-
 });
 
 describe("migration functions", () => {

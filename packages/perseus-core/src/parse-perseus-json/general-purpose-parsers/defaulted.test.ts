@@ -47,12 +47,12 @@ describe("defaultedNonEmptyString()", () => {
     const stringWithDefault = defaultedNonEmptyString(() => "default-id");
 
     it.each`
-        input        | expected           | description
-        ${undefined} | ${"default-id"}    | ${"undefined"}
-        ${null}      | ${"default-id"}    | ${"null"}
-        ${""}        | ${"default-id"}    | ${"empty string"}
-        ${"   "}     | ${"default-id"}    | ${"whitespace-only string"}
-        ${"my-id"}   | ${"my-id"}         | ${"valid non-empty string"}
+        input        | expected        | description
+        ${undefined} | ${"default-id"} | ${"undefined"}
+        ${null}      | ${"default-id"} | ${"null"}
+        ${""}        | ${"default-id"} | ${"empty string"}
+        ${"   "}     | ${"default-id"} | ${"whitespace-only string"}
+        ${"my-id"}   | ${"my-id"}      | ${"valid non-empty string"}
     `(
         "should return $expected when given $description",
         ({input, expected}) => {
