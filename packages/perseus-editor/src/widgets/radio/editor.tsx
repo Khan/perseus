@@ -50,20 +50,10 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         );
 
         if (needsIdUpdate) {
-            console.log(
-                "Original choices:",
-                this.props.choices.map((c) => ({content: c.content, id: c.id})),
-            );
-
             const updatedChoices = this.props.choices.map((choice, index) => ({
                 ...choice,
                 id: this.ensureValidIds(choice.id, index),
             }));
-
-            console.log(
-                "Updated choices:",
-                updatedChoices.map((c) => ({content: c.content, id: c.id})),
-            );
             this.props.onChange({choices: updatedChoices});
         }
     }
@@ -220,8 +210,6 @@ class RadioEditor extends React.Component<RadioEditorProps> {
             choices.length - (this.props.hasNoneOfTheAbove ? 1 : 0);
 
         choices.splice(addIndex, 0, newChoice);
-
-        console.log("new choice with UUID:", newChoiceId);
 
         this.props.onChange(
             {
