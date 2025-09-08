@@ -64,6 +64,15 @@
     margin-bottom: 32px;
     margin-top: 0;
 }
+/* Reset the Renderer margins for the image widget.
+    The image widget title and caption shouldn't have margins,
+    so we need to override the above styles. */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-image-widget
+    .perseus-renderer
+    .paragraph {
+    margin-bottom: 0;
+}
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
     > .paragraph
@@ -134,7 +143,6 @@
     color: rgba(33, 36, 44, 0.64);
     font-size: 14px;
     line-height: 19px;
-    margin: 16px auto 42px;
     text-align: left;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
