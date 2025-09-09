@@ -43,7 +43,7 @@ export function RadioOptionSettings({
     const rationaleTextAreaId = `${uniqueId}-rationale-textarea`;
 
     return (
-        <div className={styles.tile} data-choice-id={choice.id}>
+        <div className={styles.tile}>
             {/* Correct / Incorrect status selection */}
             <fieldset className="perseus-widget-row">
                 <RadioStatusPill
