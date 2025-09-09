@@ -361,33 +361,21 @@ export function getPolygonSideString(
 
 /**
  * Calculate an appropriate radius for angle arcs based on the graph range.
- * The radius scales with the range so it's visible at all zoom levels.
+ * The radius scales with the range so it's visible at all graph sizes.
  */
 export function calculateScaledRadius(range: [Interval, Interval]): number {
     const [[xMin, xMax], [yMin, yMax]] = range;
     const xSpan = xMax - xMin;
     const ySpan = yMax - yMin;
 
-    // Use the smaller span to ensure the arc fits well in both dimensions
+    // Use the smaller span to make sure the arc fits in both dimensions,
+    // although ideally they'd be the same for geometry anyway.
     const minSpan = Math.min(xSpan, ySpan);
 
-    // Scale the radius proportionally to the range, with a reasonable scaling factor
-    // This ensures the arc is always visible but not too large
-    // 8% of the graph size seems to work well for this.
-    return minSpan * 0.08; // 8% of the smaller dimension
-}
-
-/**
- * Calculate an appropriate stroke width for angle arcs based on the graph range.
- * The stroke width scales with the range so it's visible at all zoom levels.
- */
-export function calculateScaledStrokeWidth(
-    range: [Interval, Interval],
-): number {
-    const [[xMin, xMax], [yMin, yMax]] = range;
-    const xSpan = xMax - xMin;
-    const ySpan = yMax - yMin;
-
-    const minSpan = Math.min(xSpan, ySpan);
-    return minSpan * 0.005;
+    // Scale the radius proportionally to the range.
+    // Ended up using 0.06 because:
+    // - Setting this higher would bring the angle labels closer to the
+    //   center, and may risk them overlapping in the default state.
+    // - Setting this lower would make the arc too small to be visible.
+    return minSpan * 0.06;
 }

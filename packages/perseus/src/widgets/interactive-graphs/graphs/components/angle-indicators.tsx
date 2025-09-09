@@ -8,7 +8,6 @@ import useGraphConfig from "../../reducer/use-graph-config";
 import {
     getIntersectionOfRayWithBox as getRangeIntersectionVertex,
     calculateScaledRadius,
-    calculateScaledStrokeWidth,
 } from "../utils";
 
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
@@ -87,7 +86,7 @@ export const PolygonAngle = ({
 
     const largeArcFlag = isConcave ? 1 : 0;
 
-    const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${1} ${x2} ${y2}`;
+    const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2}`;
 
     let angleInDegrees = angle * (180 / Math.PI);
     // If we have triggered "largArcFlag", the angle should be greater than 180
@@ -184,8 +183,8 @@ export const Angle = ({
     const a = vec.dist(vertex, point1);
     const b = vec.dist(vertex, point2);
 
-    // Set the radius of the arc to scale with the graph range
-    const radius = calculateScaledRadius(range);
+    // Set the radius of the arc
+    const radius = 2;
 
     // Calculate the end points of the arc
     const y1 = centerY + ((startY - centerY) / a) * radius;
@@ -282,32 +281,29 @@ const RightAngleSquare = ({
     vertex: vec.Vector2;
     end: vec.Vector2;
     className?: string;
-}) => {
-    const {range} = useGraphConfig();
-    const strokeWidth = calculateScaledStrokeWidth(range);
-    return (
-        <MafsCssTransformWrapper>
-            <path
-                // Use aria-hidden to hide the line from screen readers
-                // so it doesn't read as "image" with no context.
-                // The elements using this should have their own aria-labels,
-                // so this is okay.
-                aria-hidden={true}
-                d={`M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`}
-                strokeWidth={strokeWidth}
-                fill="none"
-                className={className}
-                data-testid="angle-indicators__right-angle"
-            />
-        </MafsCssTransformWrapper>
-    );
-};
+}) => (
+    <MafsCssTransformWrapper>
+        <path
+            // Use aria-hidden to hide the line from screen readers
+            // so it doesn't read as "image" with no context.
+            // The elements using this should have their own aria-labels,
+            // so this is okay.
+            aria-hidden={true}
+            d={`M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`}
+            strokeWidth={1}
+            fill="none"
+            className={className}
+            data-testid="angle-indicators__right-angle"
+            // Stop the stroke from being invisible with different ranges or
+            // stretching awkwardly when the x range and y range are different.
+            vectorEffect="non-scaling-stroke"
+        />
+    </MafsCssTransformWrapper>
+);
 
 // We're conditionally adding the class name here so that we can style the arc differently
 // based on whether it's an angle or a polygon angle
 const Arc = ({arc, className}: {arc: string; className?: string}) => {
-    const {range} = useGraphConfig();
-    const strokeWidth = calculateScaledStrokeWidth(range);
     return (
         <MafsCssTransformWrapper>
             <path
@@ -317,10 +313,13 @@ const Arc = ({arc, className}: {arc: string; className?: string}) => {
                 // so this is okay.
                 aria-hidden={true}
                 d={arc}
-                strokeWidth={strokeWidth}
+                strokeWidth={1}
                 fill="none"
                 className={className}
                 data-testid="angle-indicators__arc"
+                // Stop the stroke from being invisible with different ranges or
+                // stretching awkwardly when the x range and y range are different.
+                vectorEffect="non-scaling-stroke"
             />
         </MafsCssTransformWrapper>
     );
