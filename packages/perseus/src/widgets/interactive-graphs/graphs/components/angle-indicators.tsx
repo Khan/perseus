@@ -77,6 +77,7 @@ export const PolygonAngle = ({
                 start={[x1, y1]}
                 vertex={[x2, y2]}
                 end={[x3, y3]}
+                nonScalingStroke={true}
             />
         ) : null;
     }
@@ -122,9 +123,10 @@ export const PolygonAngle = ({
                     start={[x1, y1]}
                     vertex={[x2, y2]}
                     end={[x3, y3]}
+                    nonScalingStroke={true}
                 />
             ) : (
-                <Arc arc={arc} />
+                <Arc arc={arc} nonScalingStroke={true} />
             )}
 
             <TextLabel
@@ -276,11 +278,13 @@ const RightAngleSquare = ({
     vertex: [x2, y2],
     end: [x3, y3],
     className,
+    nonScalingStroke,
 }: {
     start: vec.Vector2;
     vertex: vec.Vector2;
     end: vec.Vector2;
     className?: string;
+    nonScalingStroke?: boolean;
 }) => (
     <MafsCssTransformWrapper>
         <path
@@ -294,16 +298,23 @@ const RightAngleSquare = ({
             fill="none"
             className={className}
             data-testid="angle-indicators__right-angle"
-            // Stop the stroke from being invisible with different ranges or
-            // stretching awkwardly when the x range and y range are different.
-            vectorEffect="non-scaling-stroke"
+            // "non-scaling-stroke" stops the stroke from scaling with different ranges
+            vectorEffect={nonScalingStroke ? "non-scaling-stroke" : "none"}
         />
     </MafsCssTransformWrapper>
 );
 
 // We're conditionally adding the class name here so that we can style the arc differently
 // based on whether it's an angle or a polygon angle
-const Arc = ({arc, className}: {arc: string; className?: string}) => {
+const Arc = ({
+    arc,
+    className,
+    nonScalingStroke,
+}: {
+    arc: string;
+    className?: string;
+    nonScalingStroke?: boolean;
+}) => {
     return (
         <MafsCssTransformWrapper>
             <path
@@ -317,9 +328,8 @@ const Arc = ({arc, className}: {arc: string; className?: string}) => {
                 fill="none"
                 className={className}
                 data-testid="angle-indicators__arc"
-                // Stop the stroke from being invisible with different ranges or
-                // stretching awkwardly when the x range and y range are different.
-                vectorEffect="non-scaling-stroke"
+                // "non-scaling-stroke" stops the stroke from scaling with different ranges
+                vectorEffect={nonScalingStroke ? "non-scaling-stroke" : "none"}
             />
         </MafsCssTransformWrapper>
     );
