@@ -19856,7 +19856,7 @@ exports[`parseAndMigratePerseusItem given transformer-widget.json returns the sa
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given categorizer.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from categorizer.ts returns the same result as before 1`] = `
 {
   "categorizer 1": {
     "values": [
@@ -19867,7 +19867,7 @@ exports[`parseAndMigrateUserInputMap given categorizer.json returns the same res
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given cs-program.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from cs-program.ts returns the same result as before 1`] = `
 {
   "cs-program 1": {
     "message": null,
@@ -19884,7 +19884,7 @@ exports[`parseAndMigrateUserInputMap given cs-program.json returns the same resu
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given dropdown.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from dropdown.ts returns the same result as before 1`] = `
 {
   "dropdown 1": {
     "value": 1,
@@ -19892,13 +19892,13 @@ exports[`parseAndMigrateUserInputMap given dropdown.json returns the same result
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given expression.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from expression.ts returns the same result as before 1`] = `
 {
   "expression 1": "\\sqrt{x}",
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given free-response.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from free-response.ts returns the same result as before 1`] = `
 {
   "free-response 1": {
     "currentValue": "hello",
@@ -19906,7 +19906,7 @@ exports[`parseAndMigrateUserInputMap given free-response.json returns the same r
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given grapher.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from grapher.ts returns the same result as before 1`] = `
 {
   "grapher 1": {
     "coords": [
@@ -20022,7 +20022,7 @@ exports[`parseAndMigrateUserInputMap given grapher.json returns the same result 
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given group.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from group.ts returns the same result as before 1`] = `
 {
   "group 1": {
     "radio 1": {
@@ -20034,7 +20034,7 @@ exports[`parseAndMigrateUserInputMap given group.json returns the same result as
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given iframe.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from iframe.ts returns the same result as before 1`] = `
 {
   "iframe 1": {
     "status": "correct",
@@ -20050,7 +20050,7 @@ exports[`parseAndMigrateUserInputMap given iframe.json returns the same result a
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given input-number.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from input-number.ts returns the same result as before 1`] = `
 {
   "input-number 1": {
     "currentValue": "42",
@@ -20058,7 +20058,7 @@ exports[`parseAndMigrateUserInputMap given input-number.json returns the same re
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given interactive-graph.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from interactive-graph.ts returns the same result as before 1`] = `
 {
   "interactive-graph 1": {
     "type": "angle",
@@ -20316,7 +20316,7 @@ exports[`parseAndMigrateUserInputMap given interactive-graph.json returns the sa
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given label-image.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from label-image.ts returns the same result as before 1`] = `
 {
   "label-image 1": {
     "markers": [
@@ -20334,7 +20334,7 @@ exports[`parseAndMigrateUserInputMap given label-image.json returns the same res
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given matcher.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from matcher.ts returns the same result as before 1`] = `
 {
   "matcher 1": {
     "left": [
@@ -20347,7 +20347,7 @@ exports[`parseAndMigrateUserInputMap given matcher.json returns the same result 
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given matrix.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from matrix.ts returns the same result as before 1`] = `
 {
   "matrix 1": {
     "answers": [
@@ -20364,7 +20364,7 @@ exports[`parseAndMigrateUserInputMap given matrix.json returns the same result a
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given number-line.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from number-line.ts returns the same result as before 1`] = `
 {
   "number-line 1": {
     "numDivisions": 3,
@@ -20374,7 +20374,7 @@ exports[`parseAndMigrateUserInputMap given number-line.json returns the same res
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given numeric-input.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from numeric-input.ts returns the same result as before 1`] = `
 {
   "numeric-input 1": {
     "currentValue": "42",
@@ -20382,7 +20382,7 @@ exports[`parseAndMigrateUserInputMap given numeric-input.json returns the same r
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given orderer.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from orderer.ts returns the same result as before 1`] = `
 {
   "orderer 1": {
     "current": [
@@ -20393,7 +20393,7 @@ exports[`parseAndMigrateUserInputMap given orderer.json returns the same result 
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given plotter.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from plotter.ts returns the same result as before 1`] = `
 {
   "plotter 1": [
     1,
@@ -20402,7 +20402,7 @@ exports[`parseAndMigrateUserInputMap given plotter.json returns the same result 
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given radio.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from radio.ts returns the same result as before 1`] = `
 {
   "radio 1": {
     "selectedChoiceIds": [
@@ -20413,7 +20413,7 @@ exports[`parseAndMigrateUserInputMap given radio.json returns the same result as
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given sorter.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from sorter.ts returns the same result as before 1`] = `
 {
   "sorter 1": {
     "changed": true,
@@ -20425,7 +20425,7 @@ exports[`parseAndMigrateUserInputMap given sorter.json returns the same result a
 }
 `;
 
-exports[`parseAndMigrateUserInputMap given table.json returns the same result as before 1`] = `
+exports[`parseAndMigrateUserInputMap given the data from table.ts returns the same result as before 1`] = `
 {
   "table 1": [
     [
