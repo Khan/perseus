@@ -2603,10 +2603,11 @@ exports[`Interactive Graph question Should render user input predictably: with u
                           >
                             <path
                               aria-hidden="true"
-                              d="M 1.8 2 L 1.8 2.3 M 1.8 2.3 L 1.5 2.3"
+                              d="M 1.92 2 L 1.92 2.42 M 1.92 2.42 L 1.5 2.42"
                               data-testid="angle-indicators__right-angle"
                               fill="none"
-                              stroke-width="0.02"
+                              stroke-width="1"
+                              vector-effect="non-scaling-stroke"
                             />
                           </g>
                           <polygon
