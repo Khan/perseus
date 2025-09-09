@@ -29,24 +29,21 @@
     }
 }
 
-/* Show outline on focus, and when the choice container is hovered on devices with hover capability.
+/* Show outline on hover, focus, and when the choice container is hovered.
    Since we don't have a reference to the container's class name,
        we grab the parent element with :has(> .base)
        and apply the ring when the parent is hovered.
    The exception to this is when the indicator is showing correctness
        (i.e. has the classes .is-correct or .is-wrong).
+   Mobile known inconsistent behavior on hover effect when scrolling left-to-right/up-and-down:
+       - Android doesn't show the outline during tap-dragging gestures, only when user taps the choice.
+       - iOS shows the outline during tap-dragging gestures.
  */
-.base:focus {
+.base:hover,
+.base:focus,
+:has(> .base):hover .base:not(:where(.is-correct, .is-wrong)) {
     outline-offset: var(--wb-sizing-size_020);
     outline-width: var(--wb-sizing-size_020);
-}
-
-@media (hover: hover) {
-    .base:hover,
-    :has(> .base):hover .base:not(:where(.is-correct, .is-wrong)) {
-        outline-offset: var(--wb-sizing-size_020);
-        outline-width: var(--wb-sizing-size_020);
-    }
 }
 
 /* button is checked */
@@ -81,11 +78,9 @@
     cursor: default;
 }
 
-@media (hover: hover) {
-    .is-correct:hover,
-    .is-wrong:hover {
-        outline: none;
-    }
+.is-correct:hover,
+.is-wrong:hover {
+    outline: none;
 }
 
 .is-correct[aria-pressed="true"] {
