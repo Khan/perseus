@@ -8,7 +8,7 @@ import * as React from "react";
 import {toAbsoluteUrl} from "../../util/url-utils";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/python-program/python-ai-utils";
 
-import type {Widget, WidgetExports} from "../../types";
+import type {APIOptions, Widget, WidgetExports} from "../../types";
 import type {UnsupportedWidgetPromptJSON} from "../../widget-ai-utils/unsupported-widget";
 
 function getUrlFromProgramID(programID: any) {
@@ -20,6 +20,7 @@ function getUrlFromProgramID(programID: any) {
 type Props = {
     programID: string;
     height: number;
+    apiOptions: APIOptions;
 };
 
 type DefaultProps = {
@@ -39,7 +40,13 @@ class PythonProgram extends React.Component<Props> implements Widget {
     }
 
     render(): React.ReactNode {
-        const url = getUrlFromProgramID(this.props.programID);
+        let url = getUrlFromProgramID(this.props.programID);
+        url =
+            this.props.apiOptions.generateUrl?.({
+                url,
+                widget: "python-program",
+            }) ?? url;
+
         const iframeStyle = {
             height: this.props.height,
             width: "100%",
