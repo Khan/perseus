@@ -35,6 +35,9 @@
        and apply the ring when the parent is hovered.
    The exception to this is when the indicator is showing correctness
        (i.e. has the classes .is-correct or .is-wrong).
+   Mobile known inconsistent behavior on hover effect when scrolling left-to-right/up-and-down:
+       - Android doesn't show the outline during tap-dragging gestures, only when user taps the choice.
+       - iOS shows the outline during tap-dragging gestures.
  */
 .base:hover,
 .base:focus,
