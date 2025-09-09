@@ -2,6 +2,7 @@
     /* Undo the default padding for the top of the modal. We need to use
        px to make sure it's the exact same value as the original padding. */
     --modal-padding-offset: -32px;
+    --modal-padding-offset-mobile: -16px;
     /* Fixed px values from the design. */
     --modal-panel-height: 568px;
     --modal-description-container-width: 420px;
@@ -81,5 +82,21 @@
 @media (max-width: 767px) {
     .modal-panel-container {
         flex-direction: column;
+        margin-inline: var(--modal-padding-offset-mobile);
+        /* Allow mobile photo to stretch to the edges of the modal. */
+        padding: 0;
+        overflow-y: auto;
+        height: auto;
+    }
+
+    .modal-image-container {
+        height: auto;
+    }
+
+    .modal-description-container {
+        margin-block: var(--wb-sizing-size_120);
+        padding: var(--wb-sizing-size_120);
+        width: auto;
+        overflow-y: visible;
     }
 }

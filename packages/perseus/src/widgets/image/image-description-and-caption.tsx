@@ -80,6 +80,7 @@ function ExploreImageButton({
             icon={infoIconBold}
             kind="secondary"
             onClick={onClick}
+            // Stop the icon button from getting squished.
             style={{flexShrink: 0}}
         />
     );

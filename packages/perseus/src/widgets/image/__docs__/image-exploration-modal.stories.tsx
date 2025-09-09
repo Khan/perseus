@@ -17,6 +17,11 @@ const frescoImage = {
     width: 1698,
     height: 955,
 };
+const monasteryImage = {
+    url: "https://cdn.kastatic.org/ka-perseus-images/b2213be6c39a28d7e8ff40836a8a5fb068678fa4.jpg",
+    width: 448,
+    height: 500,
+};
 
 const meta: Meta<typeof ImageExplorationModal> = {
     title: "Widgets/Image/Widget Internal Components/ImageExplorationModal",
@@ -61,6 +66,18 @@ export const SmallImage: Story = {
         backgroundImage: earthMoonImage,
         longDescription:
             "This is a *very* long description of the earth and moon.",
+        apiOptions: ApiOptions.defaults,
+    },
+};
+
+export const PortraitImage: Story = {
+    args: {
+        backgroundImage: monasteryImage,
+        caption:
+            "Kalenić Monastery, after 1407, Serbia (photo: [Ванилица](https://commons.wikimedia.org/wiki/File:Wiki_%C5%A0umadija_XI_Kaleni%C4%87_Monastery_874.jpg), CC BY-SA 4.0)",
+        title: "Kalenić Monastery",
+        longDescription:
+            "Later architecture in Serbia, notably that of the so-called Morava School, is smaller and more decorative, often utilizing the so-called Athonite plan (with choroi and subsidiary chapels), as at Ravanica (1370s), with five domes, or the smaller and simpler Kalenić (after 1407).",
         apiOptions: ApiOptions.defaults,
     },
 };
