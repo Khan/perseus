@@ -1,5 +1,11 @@
 # @khanacademy/perseus
 
+## 69.0.0
+
+### Major Changes
+
+-   [#2864](https://github.com/Khan/perseus/pull/2864) [`416d53ddc4`](https://github.com/Khan/perseus/commit/416d53ddc4bdcf771188b73347d271b66404a8f7) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove RenderProps, transform, and staticTransform
+
 ## 68.0.2
 
 ### Patch Changes
