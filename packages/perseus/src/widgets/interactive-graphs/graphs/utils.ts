@@ -358,3 +358,36 @@ export function getPolygonSideString(
               length: srFormatNumber(sideLength, locale, 1),
           });
 }
+
+/**
+ * Calculate an appropriate radius for angle arcs based on the graph range.
+ * The radius scales with the range so it's visible at all zoom levels.
+ */
+export function calculateScaledRadius(range: [Interval, Interval]): number {
+    const [[xMin, xMax], [yMin, yMax]] = range;
+    const xSpan = xMax - xMin;
+    const ySpan = yMax - yMin;
+
+    // Use the smaller span to ensure the arc fits well in both dimensions
+    const minSpan = Math.min(xSpan, ySpan);
+
+    // Scale the radius proportionally to the range, with a reasonable scaling factor
+    // This ensures the arc is always visible but not too large
+    // 8% of the graph size seems to work well for this.
+    return minSpan * 0.08; // 8% of the smaller dimension
+}
+
+/**
+ * Calculate an appropriate stroke width for angle arcs based on the graph range.
+ * The stroke width scales with the range so it's visible at all zoom levels.
+ */
+export function calculateScaledStrokeWidth(
+    range: [Interval, Interval],
+): number {
+    const [[xMin, xMax], [yMin, yMax]] = range;
+    const xSpan = xMax - xMin;
+    const ySpan = yMax - yMin;
+
+    const minSpan = Math.min(xSpan, ySpan);
+    return minSpan * 0.005;
+}
