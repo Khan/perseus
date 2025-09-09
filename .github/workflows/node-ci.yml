@@ -257,7 +257,7 @@ jobs:
                       pnpm prettier --write ${{ runner.temp }}/schema.d.ts
                   path-to-artifact: ${{ runner.temp }}/schema.d.ts
                   label-name: schema-change
-                  # TODO(benchristel): remove the "don't change" message after 2025-11-01.
+                  # TODO(LEMS-3516): remove the "don't change" message after 2025-11-01.
                   comment-title: 🗄️ Schema Change (DON'T CHANGE THE SCHEMA BEFORE NOV 1st, 2025 — AX)
 
     check_item_splitting:
