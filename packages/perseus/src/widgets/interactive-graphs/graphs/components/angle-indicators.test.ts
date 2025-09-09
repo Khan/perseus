@@ -2,7 +2,7 @@ import {angles} from "@khanacademy/kmath";
 
 import {
     shouldDrawArcOutside,
-    shouldDrawArcOutsidePolygon,
+    isConcavePolygonVertex,
 } from "./angle-indicators";
 
 import type {Coord, CollinearTuple} from "@khanacademy/perseus-core";
@@ -146,7 +146,7 @@ describe("shouldDrawArcOutsidePolygon", () => {
                 clockwiseConcaveCoords[nextIndex],
             ] satisfies [vec.Vector2, vec.Vector2];
 
-            expect(shouldDrawArcOutsidePolygon(vertex, endPoints)).toBe(
+            expect(isConcavePolygonVertex(vertex, endPoints)).toBe(
                 isOutside,
             );
         },

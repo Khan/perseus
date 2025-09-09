@@ -97,16 +97,15 @@ export const PolygonAngle = ({
     }
 
     // Note: Need to pass in endpoints in a clockwise order for the cross product.
-    const isOutside = shouldDrawArcOutsidePolygon(centerPoint, endPoints);
+    const isConcave = isConcavePolygonVertex(centerPoint, endPoints);
 
-    const largeArcFlag = isOutside ? 1 : 0;
-    const sweepFlag = isOutside ? 1 : 0;
+    const largeArcFlag = isConcave ? 1 : 0;
 
-    const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
+    const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${1} ${x2} ${y2}`;
 
     let angleInDegrees = angle * (180 / Math.PI);
     // If we have triggered "largArcFlag", the angle should be greater than 180
-    if (isOutside) {
+    if (isConcave) {
         angleInDegrees = 360 - angleInDegrees;
     }
 
@@ -133,7 +132,7 @@ export const PolygonAngle = ({
                 </filter>
             </defs>
 
-            {!isOutside && isRightPolygonAngle(angle) ? (
+            {!isConcave && isRightPolygonAngle(angle) ? (
                 <RightAngleSquare
                     start={[x1, y1]}
                     vertex={[x2, y2]}
@@ -383,7 +382,7 @@ const isEven = (n: number) => n % 2 === 0;
  * if the endpoints are clockwise itself - this has to be checked by the
  * caller. This is because of edge cases involving concave polygons.
  */
-export function shouldDrawArcOutsidePolygon(
+export function isConcavePolygonVertex(
     centerPoint: vec.Vector2,
     clockwiseEndpoints: [vec.Vector2, vec.Vector2],
 ) {
