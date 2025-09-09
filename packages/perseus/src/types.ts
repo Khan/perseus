@@ -1,5 +1,4 @@
 import type {ILogger} from "./logging/log";
-import type {PerseusStrings} from "./strings";
 import type {SizeClass} from "./util/sizing-utils";
 import type {WidgetPromptJSON} from "./widget-ai-utils/prompt-types";
 import type {KeypadAPI} from "@khanacademy/math-input";
@@ -442,19 +441,6 @@ type TrackingSequenceExtraArguments = {
 
 type WidgetOptions = any;
 
-/**
- * A transform that maps the WidgetOptions (sometimes referred to as
- * EditorProps) to the props used to render the widget. Often this is an
- * identity transform.
- */
-// TODO(jeremy): Make this generic so that the WidgetOptions and output type
-// become strongly typed.
-export type WidgetTransform = (
-    widgetOptions: WidgetOptions,
-    strings: PerseusStrings,
-    problemNumber?: number,
-) => any;
-
 export type WidgetExports<
     T extends React.ComponentType<any> & Widget = React.ComponentType<any>,
     TUserInput = Empty,
@@ -481,20 +467,6 @@ export type WidgetExports<
     version?: Version;
     isLintable?: boolean;
     tracking?: Tracking;
-
-    /**
-     * Transforms the widget options to the props used to render the widget.
-     *
-     * @deprecated see LEMS-3199
-     */
-    transform?: WidgetTransform;
-    /**
-     * Transforms the widget options to the props used to render the widget for
-     * static renders.
-     *
-     * @deprecated see LEMS-3199
-     */
-    staticTransform?: WidgetTransform; // this is a function of some sort,
 
     getOneCorrectAnswerFromRubric?: (
         rubric: WidgetOptions,
@@ -527,24 +499,22 @@ export type FilterCriterion =
 
 /**
  * The full set of props provided to all widgets when they are rendered. The
- * `RenderProps` generic argument are the widget-specific props that originate
- * from the stored PerseusItem. Note that they may not match the serialized
- * widget options exactly as they are the result of running the options through
- * the parser as well as its `transform` or `staticTransform` functions
- * (depending on the options `static` flag).
+ * `TWidgetOptions` generic argument are the widget-specific props that originate
+ * from the PerseusItem.
  */
 // NOTE: Rubric should always be the corresponding widget options type for the component.
 // TODO: in fact, is it really the rubric? WidgetOptions is what we use to configure the widget
 // (which is what this seems to be for)
 // and Rubric is what we use to score the widgets (which not all widgets need validation)
 export type WidgetProps<
-    RenderProps,
+    TWidgetOptions,
     TUserInput = Empty,
     Rubric = Empty,
     // Defines the arguments that can be passed to the `trackInteraction`
     // function from APIOptions for this widget.
     TrackingExtraArgs = Empty,
-> = RenderProps & UniversalWidgetProps<Rubric, TUserInput, TrackingExtraArgs>;
+> = TWidgetOptions &
+    UniversalWidgetProps<Rubric, TUserInput, TrackingExtraArgs>;
 
 /**
  * The props passed to every widget, regardless of its `type`.

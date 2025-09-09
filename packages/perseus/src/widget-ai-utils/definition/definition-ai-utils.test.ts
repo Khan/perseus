@@ -27,12 +27,12 @@ const question = {
 
 describe("Definition AI utils", () => {
     it("it returns JSON with the expected format and fields", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             definition: "to confuse or fluster",
             togglePrompt: "bumfuzzle",
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "definition",

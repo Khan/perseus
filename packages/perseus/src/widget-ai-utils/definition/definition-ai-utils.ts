@@ -8,11 +8,11 @@ export type DefinitionPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof definition.widget>,
+    widgetData: React.ComponentProps<typeof definition.widget>,
 ): DefinitionPromptJSON => {
     return {
         type: "definition",
-        definition: renderProps.definition,
-        togglePrompt: renderProps.togglePrompt,
+        definition: widgetData.definition,
+        togglePrompt: widgetData.togglePrompt,
     };
 };

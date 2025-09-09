@@ -20,8 +20,7 @@ import type {
     PerseusRadioWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-// RenderProps is the return type for radio.jsx#transform
-export type RenderProps = PerseusRadioWidgetOptions & {
+export type RadioProps = PerseusRadioWidgetOptions & {
     numCorrect: number;
     hasNoneOfTheAbove?: boolean;
     multipleSelect?: boolean;
@@ -33,7 +32,7 @@ export type RenderProps = PerseusRadioWidgetOptions & {
 };
 
 export type Props = WidgetProps<
-    RenderProps,
+    RadioProps,
     PerseusRadioUserInput,
     PerseusRadioRubric
 >;

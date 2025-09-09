@@ -8,11 +8,11 @@ export type ExplanationPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof explanation.widget>,
+    widgetData: React.ComponentProps<typeof explanation.widget>,
 ): ExplanationPromptJSON => {
     return {
         type: "explanation",
-        showPrompt: renderProps.showPrompt,
-        explanation: renderProps.explanation,
+        showPrompt: widgetData.showPrompt,
+        explanation: widgetData.explanation,
     };
 };

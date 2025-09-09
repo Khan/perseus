@@ -12,15 +12,15 @@ export type MockWidgetPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof mockWidget.widget>,
+    widgetData: React.ComponentProps<typeof mockWidget.widget>,
 ): MockWidgetPromptJSON => {
     return {
         type: "mock-widget",
         options: {
-            value: renderProps.value,
+            value: widgetData.value,
         },
         userInput: {
-            value: renderProps.userInput.currentValue,
+            value: widgetData.userInput.currentValue,
         },
     };
 };

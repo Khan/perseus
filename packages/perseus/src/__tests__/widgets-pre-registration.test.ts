@@ -9,10 +9,8 @@ describe("widgets pre-registration", () => {
         test.each([
             "getWidget",
             "getWidgetExport",
-            "getTransform",
             "getVersion",
             "supportsStaticMode",
-            "getStaticTransform",
             "getTracking",
             "isLintable",
         ])("%s throws when called before registerWidget", (funName) => {

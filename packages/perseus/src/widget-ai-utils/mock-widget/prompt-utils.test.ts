@@ -8,12 +8,12 @@ describe("InputNumber getPromptJSON", () => {
             currentValue: "123",
         };
 
-        const renderProps: any = {
+        const widgetData: any = {
             value: "42",
             userInput,
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "mock-widget",

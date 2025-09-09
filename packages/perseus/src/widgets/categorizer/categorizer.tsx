@@ -21,14 +21,19 @@ import type {
     PerseusCategorizerUserInput,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<RenderProps, PerseusCategorizerUserInput>;
+type ExternalProps = WidgetProps<
+    PerseusCategorizerWidgetOptions,
+    PerseusCategorizerUserInput
+>;
 
-type DefaultProps = {
-    items: Props["items"];
-    categories: Props["categories"];
-    linterContext: Props["linterContext"];
-    userInput: Props["userInput"];
+type Props = ExternalProps & {
+    linterContext: NonNullable<ExternalProps["linterContext"]>;
 };
+
+type DefaultProps = Pick<
+    Props,
+    "items" | "categories" | "linterContext" | "userInput"
+>;
 
 type State = {
     uniqueId: string;
@@ -283,12 +288,6 @@ const styles = StyleSheet.create({
         color: "#888",
     },
 });
-
-type RenderProps = {
-    items: PerseusCategorizerWidgetOptions["items"];
-    categories: PerseusCategorizerWidgetOptions["categories"];
-    randomizeItems: PerseusCategorizerWidgetOptions["randomizeItems"];
-};
 
 /**
  * @deprecated and likely a very broken API

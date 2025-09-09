@@ -20,7 +20,7 @@ type Props = {
     shouldHighlight: boolean;
     type: string; // widget type/name,
     id: string; // widget id
-    initialProps: WidgetProps<any, PerseusWidgetOptions>;
+    widgetProps: WidgetProps<any, PerseusWidgetOptions>;
     linterContext: LinterContextProps;
 };
 
@@ -30,7 +30,6 @@ type DefaultProps = {
 
 type State = {
     sizeClass: "small" | "medium" | "large" | "xlarge";
-    widgetProps: WidgetProps<any, PerseusWidgetOptions>;
 };
 
 class WidgetContainer extends React.Component<Props, State> {
@@ -46,13 +45,12 @@ class WidgetContainer extends React.Component<Props, State> {
         // future we can sniff with user-agents or something to get a
         // better approximation, to avoid flickers
         sizeClass: containerSizeClass.MEDIUM,
-        widgetProps: this.props.initialProps,
     };
 
     componentDidMount() {
         // Only relay size class changes for mobile right now.  We may want to
         // this for desktop as well at some point in the future.
-        if (this.state.widgetProps.apiOptions.isMobile) {
+        if (this.props.widgetProps.apiOptions.isMobile) {
             // @ts-expect-error - TS2531 - Object is possibly 'null'. | TS2339 - Property 'offsetWidth' does not exist on type 'Element | Text'.
             const containerWidth = ReactDOM.findDOMNode(this).offsetWidth;
 
@@ -78,23 +76,9 @@ class WidgetContainer extends React.Component<Props, State> {
         }
     }
 
-    shouldComponentUpdate(nextProps: Props, nextState: State): boolean {
-        return (
-            this.props.shouldHighlight !== nextProps.shouldHighlight ||
-            this.props.type !== nextProps.type ||
-            this.state.widgetProps !== nextState.widgetProps ||
-            this.state.sizeClass !== nextState.sizeClass
-        );
-    }
-
     getWidget: () => any = () => {
         return this.widgetRef.current;
     };
-
-    replaceWidgetProps: (arg1: WidgetProps<any, PerseusWidgetOptions>) => void =
-        (newWidgetProps) => {
-            this.setState({widgetProps: newWidgetProps});
-        };
 
     render(): React.ReactNode {
         let className = classNames({
@@ -121,25 +105,25 @@ class WidgetContainer extends React.Component<Props, State> {
 
         let subType = "null";
         if (type === "interactive-graph") {
-            const props = this.state.widgetProps;
+            const props = this.props.widgetProps;
 
             subType = props.graph?.type ?? "null";
         }
 
-        let alignment = this.state.widgetProps.alignment;
+        let alignment = this.props.widgetProps.alignment;
         if (alignment === "default") {
             alignment = CoreWidgetRegistry.getDefaultAlignment(type);
         }
 
         className += " widget-" + alignment;
 
-        const apiOptions = this.state.widgetProps.apiOptions;
+        const apiOptions = this.props.widgetProps.apiOptions;
 
         // Hack to prevent interaction with static widgets: we overlay a big
         // div on top of the widget and overflow: hidden the container.
         // Ideally widgets themselves should know how to prevent interaction.
         // UPDATE HTML5: `inert` on the underlying div would be better
-        const isStatic = this.state.widgetProps.static || apiOptions.readOnly;
+        const isStatic = this.props.widgetProps.static || apiOptions.readOnly;
         const staticContainerStyles = {
             position: "relative",
             overflow: "visible",
@@ -197,7 +181,7 @@ class WidgetContainer extends React.Component<Props, State> {
                             }}
                         >
                             <WidgetType
-                                {...this.state.widgetProps}
+                                {...this.props.widgetProps}
                                 linterContext={linterContext}
                                 containerSizeClass={this.state.sizeClass}
                                 ref={this.widgetRef}

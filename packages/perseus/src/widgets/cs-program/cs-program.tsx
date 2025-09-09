@@ -23,9 +23,10 @@ import type {
 
 const {updateQueryString} = Util;
 
-type RenderProps = PerseusCSProgramWidgetOptions;
-
-type Props = WidgetProps<RenderProps, PerseusCSProgramUserInput>;
+type Props = WidgetProps<
+    PerseusCSProgramWidgetOptions,
+    PerseusCSProgramUserInput
+>;
 
 type DefaultProps = {
     showEditor: Props["showEditor"];
@@ -93,6 +94,18 @@ class CSProgram extends React.Component<Props> implements Widget {
 
     getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState
+     */
+    getSerializedState(): any {
+        const {userInput: _, alignment: __, ...rest} = this.props;
+        return {
+            ...rest,
+            programType: rest.programType || null,
+        };
     }
 
     render(): React.ReactNode {
