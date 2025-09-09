@@ -1,3 +1,8 @@
+/******************* Image widget styles *******************/
+
+.perseus-image-widget {
+    margin-inline: auto;
+}
 .perseus-image-widget .perseus-image-title {
     text-align: center;
 }
@@ -15,6 +20,9 @@
     padding-right: 12px;
     margin-block: 0;
 }
+
+/******************* Image widget editor styles *******************/
+
 .perseus-image-editor .label-settings td {
     padding: 5px 4px;
     text-align: center;
@@ -30,9 +38,9 @@
 .perseus-image-editor .graph-settings {
     margin-top: 5px;
 }
-.perseus-image-widget {
-    margin-inline: auto;
-}
+
+/******************* Perseus hint renderer styles *******************/
+
 .perseus-hint-renderer .perseus-image-widget {
     margin-inline-start: 0;
 }

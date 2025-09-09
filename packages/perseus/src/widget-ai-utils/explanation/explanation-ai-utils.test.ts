@@ -34,12 +34,12 @@ const question1: PerseusRenderer = {
 
 describe("Explanation getPromptJSON", () => {
     it("it returns JSON with the expected format and fields", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             showPrompt: "Show explanation",
             explanation: "This is the explanation",
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "explanation",

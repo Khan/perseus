@@ -103,7 +103,7 @@ describe("LabelImage AI utils", () => {
             ],
         };
 
-        const renderProps: any = {
+        const widgetData: any = {
             markers: [
                 {
                     answers: ["SUVs"],
@@ -138,7 +138,7 @@ describe("LabelImage AI utils", () => {
             userInput,
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "label-image",

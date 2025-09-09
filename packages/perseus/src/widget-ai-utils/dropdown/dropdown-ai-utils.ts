@@ -12,16 +12,16 @@ export type DropdownPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof dropdown.widget>,
+    widgetData: React.ComponentProps<typeof dropdown.widget>,
 ): DropdownPromptJSON => {
     return {
         type: "dropdown",
         options: {
-            items: renderProps.choices.map((choice) => choice.content),
+            items: widgetData.choices.map((choice) => choice.content),
         },
         userInput: {
             // Offset to account for placeholder
-            selectedIndex: renderProps.userInput.value - 1,
+            selectedIndex: widgetData.userInput.value - 1,
         },
     };
 };

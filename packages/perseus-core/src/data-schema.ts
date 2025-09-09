@@ -430,14 +430,6 @@ export type PerseusCategorizerWidgetOptions = {
     values: number[];
     // Whether we should highlight i18n linter errors found on this widget
     highlightLint?: boolean;
-    // Internal editor configuration. Can be ignored by consumers.
-    linterContext?: PerseusLinterContext;
-};
-
-export type PerseusLinterContext = {
-    contentType: string;
-    paths: string[];
-    stack: string[];
 };
 
 export type PerseusDefinitionWidgetOptions = {

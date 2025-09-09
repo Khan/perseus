@@ -10,15 +10,13 @@ import RadioNew from "./multiple-choice-widget.new";
 import RadioOld from "./radio-component";
 import {choiceTransform, getUserInputFromSerializedState} from "./util";
 
-import type {RenderProps} from "./radio-component";
+import type {RadioProps} from "./radio-component";
 import type {ChoiceState, WidgetProps} from "../../types";
 import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
-type Props = WidgetProps<
-    RenderProps,
-    PerseusRadioUserInput,
-    PerseusRadioRubric
->;
+// TODO: this should be using PerseusRadioWidgetOptions instead of RadioProps
+// but the component inheritance makes this hard to change right now
+type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
 
 type ChoiceStateWithoutSelected = Omit<ChoiceState, "selected">;
 
@@ -85,6 +83,7 @@ class Radio extends RadioOld {
         } = this._mergePropsAndState();
         return {
             ...rest,
+            hasNoneOfTheAbove: rest.hasNoneOfTheAbove ?? false,
         };
     }
 
@@ -211,7 +210,7 @@ class Radio extends RadioOld {
         // Otherwise, return the old radio widget and pass the ref to
         // it for handling legacy focus methods.
         return this.ffIsOn ? (
-            <RadioNew {...props} />
+            <RadioNew ref={this.radioRef} {...props} />
         ) : (
             <RadioOld ref={this.radioRef} {...props} />
         );

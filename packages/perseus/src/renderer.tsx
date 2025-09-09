@@ -15,7 +15,6 @@ import {
     flattenScores,
     scoreWidgetsFunctional,
 } from "@khanacademy/perseus-score";
-import {entries} from "@khanacademy/wonder-stuff-core";
 import classNames from "classnames";
 import $ from "jquery";
 import * as React from "react";
@@ -157,9 +156,6 @@ type Props = Partial<React.ContextType<typeof DependenciesContext>> & {
 type State = {
     translationLintErrors: ReadonlyArray<string>;
     widgetInfo: Readonly<PerseusWidgetsMap>;
-    widgetProps: Readonly<{
-        [id: string]: any | null | undefined;
-    }>;
     jiptContent: any;
     lastUsedWidgetId: string | null | undefined;
 };
@@ -249,9 +245,6 @@ class Renderer
 
     _widgetContainers: Map<string, WidgetContainer> = new Map();
 
-    lastRenderedMarkdown: React.ReactNode;
-    // @ts-expect-error - TS2564 - Property 'reuseMarkdown' has no initializer and is not definitely assigned in the constructor.
-    reuseMarkdown: boolean;
     // @ts-expect-error - TS2564 - Property 'translationIndex' has no initializer and is not definitely assigned in the constructor.
     translationIndex: number;
     // @ts-expect-error - TS2564 - Property 'widgetIds' has no initializer and is not definitely assigned in the constructor.
@@ -360,61 +353,8 @@ class Renderer
         return propsChanged || stateChanged;
     }
 
-    UNSAFE_componentWillUpdate(nextProps: Props, nextState: State) {
-        const oldJipt = this.shouldRenderJiptPlaceholder(
-            this.props,
-            this.state,
-        );
-        const newJipt = this.shouldRenderJiptPlaceholder(nextProps, nextState);
-        const oldContent = this.getContent(this.props, this.state);
-        const newContent = this.getContent(nextProps, nextState);
-        const oldHighlightedWidgets = this.props.highlightedWidgets;
-        const newHighlightedWidgets = nextProps.highlightedWidgets;
-
-        // TODO(jared): This seems to be a perfect overlap with
-        // "shouldComponentUpdate" -- can we just remove this
-        // componentWillUpdate and the reuseMarkdown attr?
-        this.reuseMarkdown =
-            !oldJipt &&
-            !newJipt &&
-            oldContent === newContent &&
-            _.isEqual(
-                this.state.translationLintErrors,
-                nextState.translationLintErrors,
-            ) &&
-            // If we are running the linter then we need to know when
-            // widgets have changed because we need for force the linter to
-            // run when that happens. Note: don't do identity comparison here:
-            // it can cause frequent re-renders that break MathJax somehow
-            (!this.props.linterContext.highlightLint ||
-                _.isEqual(this.props.widgets, nextProps.widgets)) &&
-            // If the linter is turned on or off, we have to rerender
-            this.props.linterContext.highlightLint ===
-                nextProps.linterContext.highlightLint &&
-            // yes, this is identity array comparison, but these are passed
-            // in from state in the item-renderer, so they should be
-            // identity equal unless something changed, and it's expensive
-            // to loop through them to look for differences.
-            // Technically, we could reuse the markdown when this changes,
-            // but to do that we'd have to do more expensive checking of
-            // whether a widget should be highlighted in the common case
-            // where this array hasn't changed, so we just redo the whole
-            // render if this changed
-            oldHighlightedWidgets === newHighlightedWidgets;
-    }
-
     componentDidUpdate(prevProps: Props, prevState: State) {
         this.handleRender(prevProps);
-        // We even do this if we did reuse the markdown because
-        // we might need to update the widget props on this render,
-        // even though we have the same widgets.
-        // WidgetContainers don't update their widgets' props when
-        // they are re-rendered, so even if they've been
-        // re-rendered we need to call these methods on them.
-        this.widgetIds.forEach((id) => {
-            const container = this._widgetContainers.get(makeContainerId(id));
-            container?.replaceWidgetProps(this.getWidgetProps(id));
-        });
 
         if (this.props.linterContext.highlightLint) {
             // Get i18n lint errors asynchronously. If lint errors have changed
@@ -458,31 +398,11 @@ class Renderer
 
     _getInitialWidgetState: (props: Props) => {
         widgetInfo: State["widgetInfo"];
-        widgetProps: State["widgetProps"];
     } = (props: Props) => {
         const allWidgetInfo = applyDefaultsToWidgets(props.widgets);
         return {
             widgetInfo: allWidgetInfo,
-            widgetProps: this._getAllWidgetsStartProps(allWidgetInfo, props),
         };
-    };
-
-    _getAllWidgetsStartProps: (
-        allWidgetInfo: PerseusWidgetsMap,
-        props: Props,
-    ) => PerseusWidgetsMap = (allWidgetInfo, props) => {
-        const {problemNum} = props;
-        const widgetsStartProps: PerseusWidgetsMap = {};
-        const {strings} = this.props;
-        entries(allWidgetInfo).forEach(([key, widgetInfo]) => {
-            widgetsStartProps[key] = Widgets.getRendererPropsForWidgetInfo(
-                widgetInfo,
-                strings,
-                problemNum,
-            );
-        });
-
-        return widgetsStartProps;
     };
 
     // This is only used in _getWidgetInfo as a fallback if widgetId
@@ -556,7 +476,7 @@ class Renderer
                         }
                     }}
                     type={type}
-                    initialProps={this.getWidgetProps(id)}
+                    widgetProps={this.getWidgetProps(id)}
                     shouldHighlight={shouldHighlight}
                     linterContext={PerseusLinter.pushContextStack(
                         this.props.linterContext,
@@ -590,7 +510,7 @@ class Renderer
         widgetId: string,
     ): WidgetProps<any, any, PerseusWidgetOptions> {
         const apiOptions = this.getApiOptions();
-        const widgetProps = this.state.widgetProps[widgetId] || {};
+        const widgetProps = this.props.widgets[widgetId].options;
 
         // The widget needs access to its "scoring data" at all times when in review
         // mode (which is really just part of its widget info).
@@ -632,9 +552,6 @@ class Renderer
             findWidgets: this.findWidgets,
             reviewModeRubric: reviewModeRubric,
             reviewMode: this.props.reviewMode,
-            onChange: (newProps, cb, silent = false) => {
-                this._setWidgetProps(widgetId, newProps, cb, silent);
-            },
             handleUserInput: (newUserInput: UserInput) => {
                 // Calculate widgetsEmpty using the updated user input
                 const updatedUserInput = {
@@ -670,24 +587,15 @@ class Renderer
     /**
      * @deprecated - do not use in new code.
      */
-    getSerializedState: (widgetProps?: any) => {
-        [id: string]: any;
-    } = (
-        widgetProps: any,
-    ): {
-        [id: string]: any;
-    } => {
-        return mapObject(
-            widgetProps || this.state.widgetProps,
-            (props, widgetId) => {
-                const widget = this.getWidgetInstance(widgetId);
-                if (widget && widget.getSerializedState) {
-                    return excludeDenylistKeys(widget.getSerializedState());
-                }
-                return props;
-            },
-        );
-    };
+    getSerializedState(): Record<string, any> {
+        return mapObject(this.props.widgets, (widgetData, widgetId) => {
+            const widget = this.getWidgetInstance(widgetId);
+            if (widget && widget.getSerializedState) {
+                return excludeDenylistKeys(widget.getSerializedState());
+            }
+            return widgetData.options;
+        });
+    }
 
     /**
      * Allows inter-widget communication.
@@ -1397,9 +1305,6 @@ class Renderer
                     {
                         loggedMetadata: {
                             focusResult: JSON.stringify(focusResult),
-                            currentProps: JSON.stringify(
-                                this.state.widgetProps,
-                            ),
                         },
                     },
                 );
@@ -1592,34 +1497,6 @@ class Renderer
         );
     }
 
-    _setWidgetProps(
-        id: string,
-        nextWidgetProps: any,
-        cb: () => boolean,
-        silent?: boolean,
-    ) {
-        this.setState(
-            (prevState) => {
-                const widgetProps = nextWidgetProps
-                    ? {
-                          ...prevState.widgetProps,
-                          [id]: {
-                              ...prevState.widgetProps[id],
-                              ...nextWidgetProps,
-                          },
-                      }
-                    : prevState.widgetProps;
-
-                return {
-                    widgetProps,
-                };
-            },
-            () => {
-                this.handleStateUpdate(id, cb, silent);
-            },
-        );
-    }
-
     /**
      * Returns an array of the widget `.getUserInput()` results
      *
@@ -1717,10 +1594,6 @@ class Renderer
 
     render(): React.ReactNode {
         const apiOptions = this.getApiOptions();
-
-        if (this.reuseMarkdown) {
-            return this.lastRenderedMarkdown;
-        }
 
         const content = this.getContent(this.props, this.state);
         // `this.widgetIds` is appended to in `this.outputMarkdown`:
@@ -1831,12 +1704,11 @@ class Renderer
             [ApiClassNames.TWO_COLUMN_RENDERER]: this._isTwoColumn,
         });
 
-        this.lastRenderedMarkdown = (
+        return (
             <DefinitionProvider>
                 <div className={className}>{markdownContents}</div>
             </DefinitionProvider>
         );
-        return this.lastRenderedMarkdown;
     }
 }
 

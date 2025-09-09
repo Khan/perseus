@@ -28,11 +28,10 @@ import type {
     PerseusFreeResponseWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type RenderProps = Pick<
+type Props = WidgetProps<
     PerseusFreeResponseWidgetOptions,
-    "allowUnlimitedCharacters" | "characterLimit" | "placeholder" | "question"
+    PerseusFreeResponseUserInput
 >;
-type Props = WidgetProps<RenderProps, PerseusFreeResponseUserInput>;
 
 type DefaultProps = Pick<Props, "userInput">;
 

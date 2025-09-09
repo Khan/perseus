@@ -15,14 +15,14 @@ export type NumberLinePromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof numberLine.widget>,
+    widgetData: React.ComponentProps<typeof numberLine.widget>,
 ): NumberLinePromptJSON => {
-    const {userInput} = renderProps;
+    const {userInput} = widgetData;
     return {
         type: "number-line",
         options: {
-            range: renderProps.range,
-            snapDivisions: renderProps.snapDivisions,
+            range: widgetData.range,
+            snapDivisions: widgetData.snapDivisions,
         },
         userInput: {
             numLinePosition: userInput.numLinePosition,

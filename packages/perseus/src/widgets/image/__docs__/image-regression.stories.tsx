@@ -10,6 +10,12 @@ import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
 import UserInputManager from "../../../user-input-manager";
 import {getWidget} from "../../../widgets";
+import {
+    mobileDecorator,
+    articleDecorator,
+    mobileArticleDecorator,
+    rtlDecorator,
+} from "../../__testutils__/story-decorators";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -54,12 +60,6 @@ const rendererDecorator = (_, {args, parameters}) => {
         />
     );
 };
-
-const mobileDecorator = (Story) => (
-    <div className="framework-perseus perseus-mobile">
-        <Story />
-    </div>
-);
 
 const meta: Meta<typeof ImageWidget> = {
     title: "Widgets/Image/Visual Regression Tests",
@@ -222,7 +222,7 @@ export const PortraitImage: Story = {
 };
 
 export const WithinArticleDesktop: Story = {
-    decorators: [rendererDecorator],
+    decorators: [rendererDecorator, articleDecorator],
     parameters: {
         content: articleContent,
     },
@@ -233,7 +233,7 @@ export const WithinArticleDesktop: Story = {
 };
 
 export const WithinArticleDesktopCaptionAndTitle: Story = {
-    decorators: [rendererDecorator],
+    decorators: [rendererDecorator, articleDecorator],
     parameters: {
         content: articleContent,
     },
@@ -246,7 +246,7 @@ export const WithinArticleDesktopCaptionAndTitle: Story = {
 };
 
 export const WithinArticleMobile: Story = {
-    decorators: [rendererDecorator, mobileDecorator],
+    decorators: [rendererDecorator, mobileArticleDecorator],
     parameters: {
         content: articleContent,
     },
@@ -257,7 +257,7 @@ export const WithinArticleMobile: Story = {
 };
 
 export const WithinArticleMobileCaptionAndTitle: Story = {
-    decorators: [rendererDecorator, mobileDecorator],
+    decorators: [rendererDecorator, mobileArticleDecorator],
     parameters: {
         content: articleContent,
     },
@@ -270,14 +270,7 @@ export const WithinArticleMobileCaptionAndTitle: Story = {
 };
 
 export const RightToLeftImage: Story = {
-    decorators: [
-        rendererDecorator,
-        (Story) => (
-            <div style={{direction: "rtl"}}>
-                <Story />
-            </div>
-        ),
-    ],
+    decorators: [rendererDecorator, rtlDecorator],
     args: {
         alt: "Fresco of some people",
         title: "The Offer of the Casa Madre to Victory, 1932",

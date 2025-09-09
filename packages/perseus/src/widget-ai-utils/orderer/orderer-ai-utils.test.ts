@@ -38,7 +38,7 @@ describe("Orderer AI utils", () => {
             current: ["First item", "Second item", "Third item"],
         };
 
-        const renderProps: any = {
+        const widgetData: any = {
             options: [
                 {
                     content: "Third item",
@@ -59,7 +59,7 @@ describe("Orderer AI utils", () => {
             userInput,
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "orderer",

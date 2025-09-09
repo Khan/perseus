@@ -17,9 +17,9 @@ export type GrapherPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof grapher.widget>,
+    widgetData: React.ComponentProps<typeof grapher.widget>,
 ): GrapherPromptJSON => {
-    const {userInput} = renderProps;
+    const {userInput} = widgetData;
     const {type, coords} = userInput;
     const input = {type, coords} as GrapherAnswerTypes;
 
@@ -30,13 +30,13 @@ export const getPromptJSON = (
     return {
         type: "grapher",
         options: {
-            availableTypes: renderProps.availableTypes,
-            range: renderProps.graph.range,
-            labels: renderProps.graph.labels,
-            tickStep: renderProps.graph.step,
-            gridStep: renderProps.graph.gridStep,
-            snapStep: renderProps.graph.snapStep,
-            backgroundImageUrl: renderProps.graph.backgroundImage.url,
+            availableTypes: widgetData.availableTypes,
+            range: widgetData.graph.range,
+            labels: widgetData.graph.labels,
+            tickStep: widgetData.graph.step,
+            gridStep: widgetData.graph.gridStep,
+            snapStep: widgetData.graph.snapStep,
+            backgroundImageUrl: widgetData.graph.backgroundImage.url,
         },
         userInput: input,
     };

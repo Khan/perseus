@@ -34,11 +34,11 @@ const expression = {
 
 describe("Expression AI utils", () => {
     it("it returns JSON with the expected format and fields", () => {
-        const renderProps: any = {
+        const widgetData: any = {
             visibleLabel: "Enter an expression",
         };
 
-        const resultJSON = getPromptJSON(renderProps, "2 + 2");
+        const resultJSON = getPromptJSON(widgetData, "2 + 2");
 
         expect(resultJSON).toEqual({
             type: "expression",
