@@ -16,7 +16,6 @@ import type {
     PerseusAnswerArea,
     PerseusFeatureFlags,
     PerseusWidget,
-    PerseusWidgetTypes,
     PerseusWidgetsMap,
     AnalyticsEventHandlerFn,
     Version,
@@ -161,10 +160,17 @@ type TrackInteractionArgs = {
 } & Partial<TrackingGradedGroupExtraArguments> &
     Partial<TrackingSequenceExtraArguments>;
 
-type GenerateUrlArgs = {
+export type GenerateUrlContext =
+    | "image_loader"
+    | "python_program:program_url"
+    | "video";
+
+export type GenerateUrlArgs = {
     url: string;
-    widget: keyof PerseusWidgetTypes;
+    context: GenerateUrlContext;
 };
+
+export type GenerateUrlFn = (args: GenerateUrlArgs) => string;
 
 /**
  * APIOptions provides different ways to customize the behaviour of Perseus.
@@ -295,7 +301,7 @@ export type APIOptions = Readonly<{
      * app to where the widget is rendered, like when embedding a video from
      * khanacademy.org inside KAC.
      */
-    generateUrl?: (args: GenerateUrlArgs) => string;
+    generateUrl?: GenerateUrlFn;
 }>;
 
 type TeXProps = {

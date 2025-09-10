@@ -4,9 +4,9 @@
 
 import * as React from "react";
 
-import {getDependencies} from "../dependencies";
+import {withGenerateUrl} from "./with-generate-url";
 
-import type {Dimensions} from "../types";
+import type {Dimensions, GenerateUrlFn} from "../types";
 
 const Status = {
     PENDING: "pending",
@@ -34,6 +34,7 @@ type Props = {
     onUpdate: (status: (typeof Status)[keyof typeof Status]) => void;
     preloader: (() => React.ReactNode) | null | undefined;
     src: string;
+    generateUrl: GenerateUrlFn;
 };
 
 type State = {
@@ -140,7 +141,6 @@ class ImageLoader extends React.Component<Props, State> {
                 }
             };
         }
-        const staticUrl = getDependencies().staticUrl;
 
         // If the image is interactive, it should have a role of "button"
         // to indicate that it is interactive.
@@ -154,7 +154,10 @@ class ImageLoader extends React.Component<Props, State> {
                 // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- TODO(LEMS-2871): Address a11y error
                 tabIndex={0}
                 role={imageRole}
-                src={staticUrl(src)}
+                src={this.props.generateUrl({
+                    url: src,
+                    context: "image_loader",
+                })}
                 onKeyUp={onKeyUp}
                 onKeyDown={onKeyDown}
                 {...imgProps}
@@ -182,4 +185,4 @@ class ImageLoader extends React.Component<Props, State> {
     }
 }
 
-export default ImageLoader;
+export default withGenerateUrl(ImageLoader);
