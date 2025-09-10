@@ -62,7 +62,6 @@ function ScrollableArea({
     const {strings} = usePerseusI18n();
     const containerRef = useRef<HTMLDivElement>(null);
     const [isScrollable, setIsScrollable] = useState(false);
-    const [isRtl, setIsRtl] = useState(false);
     const [isScrolling, setIsScrolling] = useState(false);
 
     // Generate unique ID if not provided
@@ -91,9 +90,13 @@ function ScrollableArea({
             // Set scrolling state to prevent rapid clicks
             setIsScrolling(true);
 
+            // Get current RTL state dynamically to ensure it's up to date
+            const contentIsRtl =
+                getComputedStyle(containerRef.current).direction === "rtl";
+
             const scrollNegative =
-                (isRtl && direction !== "start") ||
-                (!isRtl && direction === "start");
+                (contentIsRtl && direction === "end") ||
+                (!contentIsRtl && direction === "start");
             const scrollAmount = scrollNegative
                 ? -SCROLL_DISTANCE
                 : SCROLL_DISTANCE;
@@ -116,7 +119,7 @@ function ScrollableArea({
                 setIsScrolling(false);
             }, 150); // Short delay to prevent rapid clicking but allow normal usage
         },
-        [isRtl, isScrolling],
+        [isScrolling],
     );
 
     /**
@@ -150,7 +153,6 @@ function ScrollableArea({
         const {scrollLeft, scrollWidth, clientWidth} = containerRef.current;
         const newIsRtl =
             getComputedStyle(containerRef.current).direction === "rtl";
-        setIsRtl(newIsRtl);
 
         // Only consider content scrollable if there's a meaningful amount to scroll
         const newIsScrollable = scrollWidth > clientWidth + scrollableThreshold;
@@ -164,10 +166,10 @@ function ScrollableArea({
         if (newIsRtl) {
             // For RTL, scrollLeft is negative when scrolling to the end (right side in visual terms)
             // Math.abs to get a positive value for comparison
-            newCanScrollStart =
+            newCanScrollStart = scrollLeft < -scrollableThreshold;
+            newCanScrollEnd =
                 Math.abs(scrollLeft) <
                 scrollWidth - clientWidth - scrollableThreshold;
-            newCanScrollEnd = scrollLeft < -scrollableThreshold;
         } else {
             newCanScrollStart = scrollLeft > scrollableThreshold;
             newCanScrollEnd =
@@ -237,6 +239,16 @@ function ScrollableArea({
 }
 
 // ScrollControls component - renders independently and connects to ScrollableArea by ID
+// How IconButton works
+// 1. The icons still swap correctly based on RTL:
+//   - In RTL: Right icon (>) for start, Left icon (<) for end
+//   - In LTR: Left icon (<) for start, Right icon (>) for end
+// 2. The scroll logic handles RTL internally in the scroll function above:
+//   - When scroll("start") is called, it detects RTL dynamically and scrolls appropriately
+//   - When scroll("end") is called, it detects RTL dynamically and scrolls appropriately
+// 3. The disabled states are calculated correctly in updateScrollState:
+//   - canScrollStart and canScrollEnd are already computed with RTL awareness
+//   - So the buttons get disabled/enabled correctly
 function ScrollControls({
     target,
     scrollDescription: overrideDescription,
@@ -286,34 +298,18 @@ function ScrollControls({
                 actionType="neutral"
                 kind="secondary"
                 size="small"
-                onClick={() =>
-                    scrollState.isRTL
-                        ? scrollState.scroll("end")
-                        : scrollState.scroll("start")
-                }
+                onClick={() => scrollState.scroll("start")}
                 aria-label={strings.scrollStart}
-                disabled={
-                    scrollState.isRTL
-                        ? !scrollState.canScrollEnd
-                        : !scrollState.canScrollStart
-                }
+                disabled={!scrollState.canScrollStart}
             />
             <IconButton
                 icon={scrollState.isRTL ? caretLeftIcon : caretRightIcon}
                 actionType="neutral"
                 kind="secondary"
                 size="small"
-                onClick={() =>
-                    scrollState.isRTL
-                        ? scrollState.scroll("start")
-                        : scrollState.scroll("end")
-                }
+                onClick={() => scrollState.scroll("end")}
                 aria-label={strings.scrollEnd}
-                disabled={
-                    scrollState.isRTL
-                        ? !scrollState.canScrollStart
-                        : !scrollState.canScrollEnd
-                }
+                disabled={!scrollState.canScrollEnd}
             />
             <LabelSmall>{description}</LabelSmall>
         </div>
