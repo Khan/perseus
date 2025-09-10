@@ -239,6 +239,16 @@ function ScrollableArea({
 }
 
 // ScrollControls component - renders independently and connects to ScrollableArea by ID
+// How IconButton works
+// 1. The icons still swap correctly based on RTL:
+//   - In RTL: Right icon (>) for start, Left icon (<) for end
+//   - In LTR: Left icon (<) for start, Right icon (>) for end
+// 2. The scroll logic handles RTL internally in the scroll function above:
+//   - When scroll("start") is called, it detects RTL dynamically and scrolls appropriately
+//   - When scroll("end") is called, it detects RTL dynamically and scrolls appropriately
+// 3. The disabled states are calculated correctly in updateScrollState:
+//   - canScrollStart and canScrollEnd are already computed with RTL awareness
+//   - So the buttons get disabled/enabled correctly
 function ScrollControls({
     target,
     scrollDescription: overrideDescription,
