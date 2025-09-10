@@ -506,6 +506,7 @@ export type PerseusStrings = {
         point2Y: string;
     }) => string;
     imageExploreButton: string;
+    imageAlternativeTitle: string;
 };
 
 /**
@@ -1108,6 +1109,7 @@ export const strings = {
             "Sinusoid graph with midline intersection point at %(point1X)s comma %(point1Y)s and extremum point at %(point2X)s comma %(point2Y)s.",
     },
     imageExploreButton: "Explore image",
+    imageAlternativeTitle: "Explore image and description",
 } satisfies {
     [key in keyof PerseusStrings]:
         | string
@@ -1444,6 +1446,7 @@ export const mockStrings: PerseusStrings = {
     srSinusoidInteractiveElements: ({point1X, point1Y, point2X, point2Y}) =>
         `Sinusoid graph with midline intersection point at ${point1X} comma ${point1Y} and extremum point at ${point2X} comma ${point2Y}.`,
     imageExploreButton: "Explore image",
+    imageAlternativeTitle: "Explore image and description",
 };
 
 // This type helps us make sure all error codes are mapped to strings

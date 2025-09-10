@@ -37,7 +37,7 @@ export const ImageExplorationModal = (props: Props) => {
                             content={
                                 props.title
                                     ? props.title
-                                    : "Explore image and description"
+                                    : context.strings.imageAlternativeTitle
                             }
                             apiOptions={props.apiOptions}
                             linterContext={props.linterContext}
