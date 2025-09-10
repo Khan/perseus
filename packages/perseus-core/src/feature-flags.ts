@@ -7,6 +7,7 @@
  * 2. Do cleanup unused feature flags
  * 3. When no active feature flag is available value will be:
  *    export const PerseusFeatureFlags = [];
+ * 4. Also update the testing/feature-flags-util.ts for testing purpose
  */
 const PerseusFeatureFlags = [
     "new-radio-widget", // TODO(LEMS-2994): cleanup feature flag
