@@ -189,7 +189,7 @@ export {
 } from "./widgets/matcher/matcher-util";
 export type {MatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
 export {shuffle, seededRNG, random} from "./utils/random-util";
-export {default as PerseusFeatureFlags} from "./feature-flags";
+export {default as PerseusFeatureFlags, isFeatureOn} from "./feature-flags";
 
 export {traverse} from "./traversal";
 export {isItemAccessible, violatingWidgets} from "./accessibility";
