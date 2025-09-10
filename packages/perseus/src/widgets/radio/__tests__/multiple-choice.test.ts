@@ -3,6 +3,7 @@ import {scoreRadio} from "@khanacademy/perseus-score";
 import {screen, fireEvent, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
 import {clone} from "../../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
@@ -25,10 +26,7 @@ import type {UserEvent} from "@testing-library/user-event";
 // Create API options with the new-radio-widget flag enabled
 const createApiOptions = (options: Partial<APIOptions> = {}): APIOptions => ({
     ...options,
-    flags: {
-        "new-radio-widget": false,
-        ...(options.flags || {}),
-    },
+    flags: getFeatureFlags({"new-radio-widget": false}),
 });
 
 const selectOption = async (
