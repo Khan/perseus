@@ -91,12 +91,12 @@ function ScrollableArea({
             setIsScrolling(true);
 
             // Get current RTL state dynamically to ensure it's up to date
-            const currentIsRtl =
+            const contentIsRtl =
                 getComputedStyle(containerRef.current).direction === "rtl";
 
             const scrollNegative =
-                (currentIsRtl && direction === "end") ||
-                (!currentIsRtl && direction === "start");
+                (contentIsRtl && direction === "end") ||
+                (!contentIsRtl && direction === "start");
             const scrollAmount = scrollNegative
                 ? -SCROLL_DISTANCE
                 : SCROLL_DISTANCE;
