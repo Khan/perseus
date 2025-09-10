@@ -1,9 +1,6 @@
 import {angles} from "@khanacademy/kmath";
 
-import {
-    shouldDrawArcOutside,
-    shouldDrawArcOutsidePolygon,
-} from "./angle-indicators";
+import {shouldDrawArcOutside, isConcavePolygonVertex} from "./angle-indicators";
 
 import type {Coord, CollinearTuple} from "@khanacademy/perseus-core";
 import type {vec, Interval} from "mafs";
@@ -146,9 +143,7 @@ describe("shouldDrawArcOutsidePolygon", () => {
                 clockwiseConcaveCoords[nextIndex],
             ] satisfies [vec.Vector2, vec.Vector2];
 
-            expect(shouldDrawArcOutsidePolygon(vertex, endPoints)).toBe(
-                isOutside,
-            );
+            expect(isConcavePolygonVertex(vertex, endPoints)).toBe(isOutside);
         },
     );
 });

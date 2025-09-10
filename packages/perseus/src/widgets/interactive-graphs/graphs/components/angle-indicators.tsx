@@ -5,7 +5,10 @@ import * as React from "react";
 
 import {segmentsIntersect} from "../../math";
 import useGraphConfig from "../../reducer/use-graph-config";
-import {getIntersectionOfRayWithBox as getRangeIntersectionVertex} from "../utils";
+import {
+    getIntersectionOfRayWithBox as getRangeIntersectionVertex,
+    calculateScaledRadius,
+} from "../utils";
 
 import {MafsCssTransformWrapper} from "./css-transform-wrapper";
 import {TextLabel} from "./text-label";
@@ -32,12 +35,13 @@ export const PolygonAngle = ({
     snapTo,
     areEndPointsClockwise,
 }: PolygonAngleProps) => {
+    const {range} = useGraphConfig();
     const [centerX, centerY] = centerPoint;
     const [[startX, startY], [endX, endY]] = areEndPointsClockwise
         ? endPoints
         : endPoints.reverse(); // Make endpoints always clockwise
 
-    const radius = 0.3;
+    const radius = calculateScaledRadius(range);
 
     const a = vec.dist(centerPoint, endPoints[0]);
     const b = vec.dist(centerPoint, endPoints[1]);
@@ -73,21 +77,21 @@ export const PolygonAngle = ({
                 start={[x1, y1]}
                 vertex={[x2, y2]}
                 end={[x3, y3]}
+                nonScalingStroke={true}
             />
         ) : null;
     }
 
     // Note: Need to pass in endpoints in a clockwise order for the cross product.
-    const isOutside = shouldDrawArcOutsidePolygon(centerPoint, endPoints);
+    const isConcave = isConcavePolygonVertex(centerPoint, endPoints);
 
-    const largeArcFlag = isOutside ? 1 : 0;
-    const sweepFlag = isOutside ? 1 : 0;
+    const largeArcFlag = isConcave ? 1 : 0;
 
-    const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} ${sweepFlag} ${x2} ${y2}`;
+    const arc = `M ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2}`;
 
     let angleInDegrees = angle * (180 / Math.PI);
     // If we have triggered "largArcFlag", the angle should be greater than 180
-    if (isOutside) {
+    if (isConcave) {
         angleInDegrees = 360 - angleInDegrees;
     }
 
@@ -114,14 +118,15 @@ export const PolygonAngle = ({
                 </filter>
             </defs>
 
-            {!isOutside && isRightPolygonAngle(angle) ? (
+            {!isConcave && isRightPolygonAngle(angle) ? (
                 <RightAngleSquare
                     start={[x1, y1]}
                     vertex={[x2, y2]}
                     end={[x3, y3]}
+                    nonScalingStroke={true}
                 />
             ) : (
-                <Arc arc={arc} />
+                <Arc arc={arc} nonScalingStroke={true} />
             )}
 
             <TextLabel
@@ -273,11 +278,13 @@ const RightAngleSquare = ({
     vertex: [x2, y2],
     end: [x3, y3],
     className,
+    nonScalingStroke,
 }: {
     start: vec.Vector2;
     vertex: vec.Vector2;
     end: vec.Vector2;
     className?: string;
+    nonScalingStroke?: boolean;
 }) => (
     <MafsCssTransformWrapper>
         <path
@@ -287,17 +294,27 @@ const RightAngleSquare = ({
             // so this is okay.
             aria-hidden={true}
             d={`M ${x1} ${y1} L ${x3} ${y3} M ${x3} ${y3} L ${x2} ${y2}`}
-            strokeWidth={0.02}
+            strokeWidth={1}
             fill="none"
             className={className}
             data-testid="angle-indicators__right-angle"
+            // "non-scaling-stroke" stops the stroke from scaling with different ranges
+            vectorEffect={nonScalingStroke ? "non-scaling-stroke" : "none"}
         />
     </MafsCssTransformWrapper>
 );
 
 // We're conditionally adding the class name here so that we can style the arc differently
 // based on whether it's an angle or a polygon angle
-const Arc = ({arc, className}: {arc: string; className?: string}) => {
+const Arc = ({
+    arc,
+    className,
+    nonScalingStroke,
+}: {
+    arc: string;
+    className?: string;
+    nonScalingStroke?: boolean;
+}) => {
     return (
         <MafsCssTransformWrapper>
             <path
@@ -307,10 +324,12 @@ const Arc = ({arc, className}: {arc: string; className?: string}) => {
                 // so this is okay.
                 aria-hidden={true}
                 d={arc}
-                strokeWidth={0.02}
+                strokeWidth={1}
                 fill="none"
                 className={className}
                 data-testid="angle-indicators__arc"
+                // "non-scaling-stroke" stops the stroke from scaling with different ranges
+                vectorEffect={nonScalingStroke ? "non-scaling-stroke" : "none"}
             />
         </MafsCssTransformWrapper>
     );
@@ -364,7 +383,7 @@ const isEven = (n: number) => n % 2 === 0;
  * if the endpoints are clockwise itself - this has to be checked by the
  * caller. This is because of edge cases involving concave polygons.
  */
-export function shouldDrawArcOutsidePolygon(
+export function isConcavePolygonVertex(
     centerPoint: vec.Vector2,
     clockwiseEndpoints: [vec.Vector2, vec.Vector2],
 ) {
