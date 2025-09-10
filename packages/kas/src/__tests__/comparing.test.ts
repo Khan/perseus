@@ -258,6 +258,14 @@ describe("comparing", () => {
         // This is incorrect, but accurately captures the current behavior
         // See comment in `Expr.compare()` for more details
         expect("(-2)^(n+0.1)").toEqualExpr("(-2)^(n+1.1)");
+
+        // Regression test for a bug where fraction expressions with a
+        // variable in the denominator would sometimes, randomly, compare
+        // different when they should be equal.
+        // See: https://khanacademy.atlassian.net/browse/LEMS-3413
+        for (let i = 0; i < 50; i++) {
+            expect("\\frac{1}{x - 2}").toEqualExpr("\\frac{-1}{2 - x}");
+        }
     });
 
     test("simplify can't yet handle these", () => {
