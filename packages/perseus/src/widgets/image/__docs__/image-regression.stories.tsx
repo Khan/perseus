@@ -16,6 +16,7 @@ import {
     mobileArticleDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
+import {earthMoonImage, frescoImage, monasteryImage} from "../utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -24,20 +25,8 @@ const ImageWidget = getWidget("image")!;
 
 type Story = StoryObj<typeof ImageWidget>;
 
-const earthMoonImage = {
-    url: "https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg",
-    width: 400,
-    height: 225,
-};
 const earthMoonImageCaption =
     "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
-const frescoImageUrl =
-    "https://cdn.kastatic.org/ka-perseus-images/01f44d5b73290da6bec97c75a5316fb05ab61f12.jpg";
-const monasteryImage = {
-    url: "https://cdn.kastatic.org/ka-perseus-images/b2213be6c39a28d7e8ff40836a8a5fb068678fa4.jpg",
-    width: 448,
-    height: 500,
-};
 
 const articleContent = `But in other cases, an object may experience a centripetal force for an extended time and complete *repeated* revolutions. An example of this type of motion is an astronomical object in **orbit**.\n\n[[☃ image 1]]\n\nLet's explore some of the language and relationships involved in orbital motion.`;
 
@@ -136,11 +125,7 @@ export const ImageWithTitle: Story = {
 export const ImageWithZoom: Story = {
     decorators: [rendererDecorator],
     args: {
-        backgroundImage: {
-            url: frescoImageUrl,
-            width: 1698,
-            height: 955,
-        },
+        backgroundImage: frescoImage,
     },
 };
 
@@ -201,11 +186,7 @@ export const MobileImageWithTitle: Story = {
 export const MobileImageWithZoom: Story = {
     decorators: [rendererDecorator, mobileDecorator],
     args: {
-        backgroundImage: {
-            url: frescoImageUrl,
-            width: 1698,
-            height: 955,
-        },
+        backgroundImage: frescoImage,
     },
 };
 
@@ -277,11 +258,7 @@ export const RightToLeftImage: Story = {
         caption:
             "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, The Offer of the Casa Madre to Victory, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
         longDescription: "This is a *very* long description of the fresco.",
-        backgroundImage: {
-            url: frescoImageUrl,
-            width: 1698,
-            height: 955,
-        },
+        backgroundImage: frescoImage,
     },
 };
 
@@ -301,11 +278,7 @@ export const RightToLeftImageMobile: Story = {
         caption:
             "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, The Offer of the Casa Madre to Victory, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
         longDescription: "This is a *very* long description of the fresco.",
-        backgroundImage: {
-            url: frescoImageUrl,
-            width: 1698,
-            height: 955,
-        },
+        backgroundImage: frescoImage,
     },
 };
 

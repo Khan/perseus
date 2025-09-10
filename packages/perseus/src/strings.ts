@@ -507,6 +507,7 @@ export type PerseusStrings = {
     }) => string;
     imageExploreButton: string;
     imageAlternativeTitle: string;
+    imageDescriptionLabel: string;
 };
 
 /**
@@ -1110,6 +1111,7 @@ export const strings = {
     },
     imageExploreButton: "Explore image",
     imageAlternativeTitle: "Explore image and description",
+    imageDescriptionLabel: "Description",
 } satisfies {
     [key in keyof PerseusStrings]:
         | string
@@ -1447,6 +1449,7 @@ export const mockStrings: PerseusStrings = {
         `Sinusoid graph with midline intersection point at ${point1X} comma ${point1Y} and extremum point at ${point2X} comma ${point2Y}.`,
     imageExploreButton: "Explore image",
     imageAlternativeTitle: "Explore image and description",
+    imageDescriptionLabel: "Description",
 };
 
 // This type helps us make sure all error codes are mapped to strings

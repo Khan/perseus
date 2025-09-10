@@ -2,21 +2,11 @@ import * as React from "react";
 
 import {ApiOptions} from "../../../perseus-api";
 import {ImageExplorationModal} from "../image-exploration-modal";
+import {earthMoonImage, frescoImage} from "../utils";
 
 import styles from "./image-stories.module.css";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
-
-const earthMoonImage = {
-    url: "https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg",
-    width: 400,
-    height: 225,
-};
-const frescoImage = {
-    url: "https://cdn.kastatic.org/ka-perseus-images/01f44d5b73290da6bec97c75a5316fb05ab61f12.jpg",
-    width: 1698,
-    height: 955,
-};
 
 const meta: Meta<typeof ImageExplorationModal> = {
     title: "Widgets/Image/Widget Internal Components/ImageExplorationModal",

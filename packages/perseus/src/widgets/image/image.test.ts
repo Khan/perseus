@@ -12,15 +12,10 @@ import {scorePerseusItemTesting} from "../../util/test-utils";
 import {renderQuestion} from "../__testutils__/renderQuestion";
 
 import {question} from "./image.testdata";
+import {earthMoonImage} from "./utils";
 
 import type {APIOptions} from "../../types";
 import type {UserEvent} from "@testing-library/user-event";
-
-const earthMoonImage = {
-    url: "https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg",
-    width: 400,
-    height: 225,
-};
 
 describe.each([[true], [false]])("image widget - isMobile(%j)", (isMobile) => {
     let userEvent: UserEvent;
