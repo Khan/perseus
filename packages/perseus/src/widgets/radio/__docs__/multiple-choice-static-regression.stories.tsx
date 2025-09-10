@@ -1,6 +1,7 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
 import {testDependenciesV2} from "../../../../../../testing/test-dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {ServerItemRenderer} from "../../../server-item-renderer";
@@ -361,9 +362,7 @@ function RadioQuestionRenderer(props: {
                 item={item}
                 apiOptions={{
                     ...ApiOptions.defaults,
-                    flags: {
-                        "new-radio-widget": true,
-                    },
+                    flags: getFeatureFlags({"new-radio-widget": true}),
                 }}
                 reviewMode={showSolutions === "all"}
                 showSolutions={showSolutions}
