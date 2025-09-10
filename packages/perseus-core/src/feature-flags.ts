@@ -15,3 +15,13 @@ const PerseusFeatureFlags = [
 ] as const;
 
 export default PerseusFeatureFlags;
+
+/**
+ * Checks if a feature flag is enabled in the given props.
+ */
+export function isFeatureOn(
+    props: {apiOptions?: {flags?: Record<string, boolean>}},
+    flag: string,
+): boolean {
+    return props.apiOptions?.flags?.[flag] ?? false;
+}
