@@ -10,12 +10,28 @@ import Renderer from "../../renderer";
 
 import styles from "./image-widget.module.css";
 
-import type {Props as ImageProps} from "./image.class";
+import type {APIOptions} from "../../types";
+import type {
+    Interval,
+    PerseusImageBackground,
+    PerseusImageLabel,
+    Size,
+} from "@khanacademy/perseus-core";
+import type {LinterContextProps} from "@khanacademy/perseus-linter";
 
 const MODAL_HEIGHT = 568;
 
-interface Props extends ImageProps {
-    longDescription: string; // required
+interface Props {
+    backgroundImage: PerseusImageBackground;
+    title: string;
+    caption: string;
+    alt: string;
+    longDescription: string;
+    box: Size;
+    labels: Array<PerseusImageLabel>;
+    range: [Interval, Interval];
+    linterContext: LinterContextProps;
+    apiOptions: APIOptions;
 }
 
 export const ImageExplorationModal = (props: Props) => {
@@ -54,22 +70,24 @@ export const ImageExplorationModal = (props: Props) => {
     );
 };
 
-const ImageExplorationModalContent = (props: Props) => {
-    const {
-        backgroundImage,
-        caption,
-        alt,
-        longDescription,
-        linterContext,
-        apiOptions,
-        box,
-        labels,
-        range,
-        trackInteraction,
-    } = props;
+const ImageExplorationModalContent = ({
+    backgroundImage,
+    caption,
+    alt,
+    longDescription,
+    linterContext,
+    apiOptions,
+    box,
+    labels,
+    range,
+}: Props) => {
     const context = React.useContext(PerseusI18nContext);
 
-    if (!backgroundImage.height || !backgroundImage.width) {
+    if (
+        !backgroundImage.height ||
+        !backgroundImage.width ||
+        !backgroundImage.url
+    ) {
         return null;
     }
 
@@ -100,7 +118,6 @@ const ImageExplorationModalContent = (props: Props) => {
                                 range: range,
                                 labels: labels ?? [],
                             }}
-                            trackInteraction={trackInteraction}
                             zoomToFullSizeOnMobile={apiOptions.isMobile}
                             constrainHeight={apiOptions.isMobile}
                             allowFullBleed={apiOptions.isMobile}
@@ -124,7 +141,7 @@ const ImageExplorationModalContent = (props: Props) => {
                     </div>
                 )}
                 <HeadingMedium tag="h2" style={wbStyles.descriptionHeading}>
-                    Description
+                    {context.strings.imageDescriptionLabel}
                 </HeadingMedium>
                 {/* Use Renderer so that the description can support markdown and TeX. */}
                 <Renderer

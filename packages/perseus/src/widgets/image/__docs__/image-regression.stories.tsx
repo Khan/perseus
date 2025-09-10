@@ -16,6 +16,7 @@ import {
     mobileArticleDecorator,
     rtlDecorator,
 } from "../../__testutils__/story-decorators";
+import {earthMoonImage, frescoImage, monasteryImage} from "../utils";
 
 import type {PerseusRenderer} from "@khanacademy/perseus-core";
 import type {Meta, StoryObj} from "@storybook/react-vite";
@@ -24,22 +25,10 @@ const ImageWidget = getWidget("image")!;
 
 type Story = StoryObj<typeof ImageWidget>;
 
-const earthMoonImage = {
-    url: "https://cdn.kastatic.org/ka-content-images/61831c1329dbc32036d7dd0d03e06e7e2c622718.jpg",
-    width: 400,
-    height: 225,
-};
 const earthMoonImageCaption =
     "The Moon above Earth's horizon, captured by the International Space Station, [NASA](https://images.nasa.gov/details/iss071e515452)";
-const frescoImageUrl =
-    "https://cdn.kastatic.org/ka-perseus-images/01f44d5b73290da6bec97c75a5316fb05ab61f12.jpg";
 const frescsoLongDescription =
     "In the apse, or semicircular recess, The Offer of the Casa Madre to Victory (L’Offerta della Casa Madre alla Vittoria) fresco recalls medieval apse decorative schemes with Christ surrounded by saints to whom the Church is dedicated. Santagata replaced Mary with a triumphant and wingless figure representing Victory, and he replaced saints with sentries. The charismatic wounded veteran Carlo Delcroix, who became the AMNIG president, is depicted presenting a model of the Casa Madre to Victory (not unlike the medieval patron Enrico Scrovegni, who offered the Arena chapel he commissioned to the Virgin Mary).\n\nThis image has some stuff in it. *Here is some italic text.* **Here is some bold text.**";
-const monasteryImage = {
-    url: "https://cdn.kastatic.org/ka-perseus-images/b2213be6c39a28d7e8ff40836a8a5fb068678fa4.jpg",
-    width: 448,
-    height: 500,
-};
 
 const articleContent = `But in other cases, an object may experience a centripetal force for an extended time and complete *repeated* revolutions. An example of this type of motion is an astronomical object in **orbit**.\n\n[[☃ image 1]]\n\nLet's explore some of the language and relationships involved in orbital motion.`;
 
@@ -66,7 +55,6 @@ const rendererDecorator = (_, {args, parameters}) => {
 const meta: Meta<typeof ImageWidget> = {
     title: "Widgets/Image/Visual Regression Tests",
     component: ImageWidget,
-    // tags: ["!dev"],
     parameters: {
         chromatic: {disableSnapshot: false},
     },
@@ -257,11 +245,7 @@ export const RightToLeftImage: Story = {
         caption:
             "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, The Offer of the Casa Madre to Victory, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
         longDescription: frescsoLongDescription,
-        backgroundImage: {
-            url: frescoImageUrl,
-            width: 1698,
-            height: 955,
-        },
+        backgroundImage: frescoImage,
     },
 };
 
@@ -281,11 +265,7 @@ export const RightToLeftImageMobile: Story = {
         caption:
             "Carlo Delcroix presenting the Casa Madre (highlighted) to Victory. Antonio Giuseppe Santagata, The Offer of the Casa Madre to Victory, 1932, fresco (apse, assembly hall, Home for Wounded War Veterans, Rome, photo ©ANMIG)",
         longDescription: frescsoLongDescription,
-        backgroundImage: {
-            url: frescoImageUrl,
-            width: 1698,
-            height: 955,
-        },
+        backgroundImage: frescoImage,
     },
 };
 
