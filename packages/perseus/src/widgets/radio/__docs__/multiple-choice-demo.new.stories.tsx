@@ -1,6 +1,7 @@
 import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 import * as React from "react";
 
+import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
 import {ServerItemRendererWithDebugUI} from "../../../../../../testing/server-item-renderer-with-debug-ui";
 import {groupedRadioRationaleQuestion} from "../../graded-group/graded-group.testdata";
 import {
@@ -88,9 +89,7 @@ const applyStoryArgs = (args: StoryArgs): PerseusItem => {
             widgets: {},
         },
         apiOptions: {
-            flags: {
-                "new-radio-widget": true,
-            },
+            flags: getFeatureFlags({"new-radio-widget": true}),
         },
     };
     for (const [widgetId, widget] of Object.entries(
@@ -103,9 +102,7 @@ const applyStoryArgs = (args: StoryArgs): PerseusItem => {
 };
 
 const buildApiOptions = (args: StoryArgs): APIOptions => ({
-    flags: {
-        "new-radio-widget": true,
-    },
+    flags: getFeatureFlags({"new-radio-widget": true}),
 });
 
 export const SingleSelect = {

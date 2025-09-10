@@ -82,6 +82,65 @@ describe("radio-editor", () => {
         expect(screen.getByText(/Multiple selections/)).toBeInTheDocument();
     });
 
+    describe("Id generation", () => {
+        it("should generate IDs for choices with missing IDs on mount", () => {
+            const onChangeMock = jest.fn();
+            const choicesWithMissingIds = [
+                {id: "", content: "Choice 1"}, // empty string ID
+                {id: "valid-id", content: "Choice 2"}, // valid ID
+                {content: "Choice 3"}, // missing ID property
+            ];
+
+            renderRadioEditor(onChangeMock, {
+                choices: choicesWithMissingIds as any,
+            });
+
+            // Should call onChange with corrected choices
+            expect(onChangeMock).toHaveBeenCalledWith({
+                choices: [
+                    {id: "radio-choice-0", content: "Choice 1"},
+                    {id: "valid-id", content: "Choice 2"},
+                    {id: "radio-choice-2", content: "Choice 3"},
+                ],
+            });
+        });
+
+        it("should not call onChange if all choices already have valid IDs", () => {
+            const onChangeMock = jest.fn();
+            const choicesWithValidIds = [
+                {id: "valid-id-1", content: "Choice 1"},
+                {id: "valid-id-2", content: "Choice 2"},
+            ];
+
+            renderRadioEditor(onChangeMock, {
+                choices: choicesWithValidIds as any,
+            });
+
+            // Should not call onChange since no IDs need fixing
+            expect(onChangeMock).not.toHaveBeenCalled();
+        });
+
+        it("should generate IDs for choices with whitespace-only IDs", () => {
+            const onChangeMock = jest.fn();
+            const choicesWithWhitespaceIds = [
+                {id: "   ", content: "Choice 1"}, // whitespace-only ID
+                {id: "\t\n", content: "Choice 2"}, // tabs and newlines
+            ];
+
+            renderRadioEditor(onChangeMock, {
+                choices: choicesWithWhitespaceIds as any,
+            });
+
+            // Should call onChange with corrected choices
+            expect(onChangeMock).toHaveBeenCalledWith({
+                choices: [
+                    {id: "radio-choice-0", content: "Choice 1"},
+                    {id: "radio-choice-1", content: "Choice 2"},
+                ],
+            });
+        });
+    });
+
     it("should toggle multiple select checkbox", async () => {
         const onChangeMock = jest.fn();
 
@@ -1251,6 +1310,94 @@ describe("radio-editor", () => {
                     ],
                 }),
             );
+        });
+    });
+
+    describe("ensureValidIds", () => {
+        it("should generate new ID for empty string", () => {
+            // Reset mock and set specific return value
+            mockedRandomUuid.mockReset();
+            mockedRandomUuid.mockReturnValue("2-3-4-5-6");
+
+            const editorRef = React.createRef<RadioEditor>();
+
+            render(
+                <RadioEditor
+                    ref={editorRef}
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                    static={false}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            // Test the method directly
+            const result = editorRef.current?.ensureValidIds("", 0);
+            expect(result).toBe("radio-choice-0");
+        });
+
+        it("should preserve valid ID", () => {
+            const editorRef = React.createRef<RadioEditor>();
+            const validId = "1-2-3-4-5";
+            render(
+                <RadioEditor
+                    ref={editorRef}
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                    static={false}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const result = editorRef.current?.ensureValidIds(validId, 1);
+            expect(result).toBe("1-2-3-4-5");
+        });
+
+        it("should generate new ID for whitespace-only string", () => {
+            // Reset mock and set specific return value
+            mockedRandomUuid.mockReset();
+            mockedRandomUuid.mockReturnValue("4-5-6-7-8");
+
+            const whitespaceOnlyString = "   \t  ";
+
+            const editorRef = React.createRef<RadioEditor>();
+
+            render(
+                <RadioEditor
+                    ref={editorRef}
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                    static={false}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const result = editorRef.current?.ensureValidIds(
+                whitespaceOnlyString,
+                2,
+            );
+            expect(result).toBe("radio-choice-2");
+        });
+
+        it("should generate new ID for null/undefined ID", () => {
+            // Reset mock and set specific return value
+            mockedRandomUuid.mockReset();
+            mockedRandomUuid.mockReturnValue("5-6-7-8-9");
+
+            const editorRef = React.createRef<RadioEditor>();
+
+            render(
+                <RadioEditor
+                    ref={editorRef}
+                    onChange={() => {}}
+                    apiOptions={ApiOptions.defaults}
+                    static={false}
+                />,
+                {wrapper: RenderStateRoot},
+            );
+
+            const result = editorRef.current?.ensureValidIds(null as any, 3);
+            expect(result).toBe("radio-choice-3");
         });
     });
 });

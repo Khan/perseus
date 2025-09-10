@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
 import {ApiOptions} from "../../../perseus-api";
 import Renderer from "../../../renderer";
 import {mockStrings} from "../../../strings";
@@ -220,9 +221,7 @@ function RadioDemo({
                     images={question.images}
                     apiOptions={{
                         ...ApiOptions.defaults,
-                        flags: {
-                            "new-radio-widget": true,
-                        },
+                        flags: getFeatureFlags({"new-radio-widget": true}),
                     }}
                 />
             )}
