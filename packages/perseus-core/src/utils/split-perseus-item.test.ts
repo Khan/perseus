@@ -17,10 +17,12 @@ describe("splitPerseusItem", () => {
             options: {
                 choices: [
                     {
+                        id: "3-3-3-3-3",
                         content: "Correct",
                         correct: true,
                     },
                     {
+                        id: "4-4-4-4-4",
                         content: "Incorrect",
                         correct: false,
                     },
@@ -168,10 +170,12 @@ describe("splitPerseusItem", () => {
                     options: {
                         choices: [
                             {
+                                id: "3-3-3-3-3",
                                 content: "Correct",
                                 correct: true,
                             },
                             {
+                                id: "4-4-4-4-4",
                                 content: "Incorrect",
                                 correct: false,
                             },
@@ -396,6 +400,12 @@ describe("splitPerseusItem", () => {
                             [0, 1],
                             [0, 1],
                         ],
+                        showAxisArrows: {
+                            xMin: true,
+                            xMax: true,
+                            yMin: true,
+                            yMax: true,
+                        },
                         graph: {type: "none"},
                         correct: {type: "none"},
                         lockedFigures: [],
@@ -423,6 +433,12 @@ describe("splitPerseusItem", () => {
                             [0, 1],
                             [0, 1],
                         ],
+                        showAxisArrows: {
+                            xMin: true,
+                            xMax: true,
+                            yMin: true,
+                            yMax: true,
+                        },
                         graph: {type: "none"},
                         showTooltips: false,
                         backgroundImage: {

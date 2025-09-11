@@ -28,11 +28,10 @@ import type {
     PerseusFreeResponseWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type RenderProps = Pick<
+type Props = WidgetProps<
     PerseusFreeResponseWidgetOptions,
-    "allowUnlimitedCharacters" | "characterLimit" | "placeholder" | "question"
+    PerseusFreeResponseUserInput
 >;
-type Props = WidgetProps<RenderProps, PerseusFreeResponseUserInput>;
 
 type DefaultProps = Pick<Props, "userInput">;
 
@@ -124,9 +123,6 @@ export class FreeResponse extends React.Component<Props> implements Widget {
                             value={this.props.userInput.currentValue}
                         />
                     }
-                    styles={{
-                        label: styles.questionLabel,
-                    }}
                 />
                 {this.renderCharacterCount()}
             </View>
@@ -163,9 +159,6 @@ const styles = StyleSheet.create({
     },
     overCharacterLimit: {
         color: color.red,
-    },
-    questionLabel: {
-        fontWeight: font.weight.bold,
     },
     textarea: {
         padding: spacing.medium_16,

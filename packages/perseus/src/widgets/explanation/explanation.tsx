@@ -8,7 +8,6 @@ import * as React from "react";
 import _ from "underscore";
 
 import {PerseusI18nContext} from "../../components/i18n-context";
-import * as Changeable from "../../mixins/changeable";
 import Renderer from "../../renderer";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 
@@ -16,9 +15,7 @@ import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {ExplanationPromptJSON} from "../../widget-ai-utils/explanation/explanation-ai-utils";
 import type {PerseusExplanationWidgetOptions} from "@khanacademy/perseus-core";
 
-type RenderProps = PerseusExplanationWidgetOptions;
-
-type Props = WidgetProps<RenderProps>;
+type Props = WidgetProps<PerseusExplanationWidgetOptions>;
 
 type DefaultProps = {
     showPrompt: Props["showPrompt"];
@@ -67,11 +64,6 @@ class Explanation extends React.Component<Props, State> implements Widget {
     componentWillUnmount() {
         this._mounted = false;
     }
-
-    change: (arg1: any, arg2: any, arg3: any) => any = (...args) => {
-        // eslint-disable-next-line import/no-deprecated
-        return Changeable.change.apply(this, args);
-    };
 
     _onClick: () => void = () => {
         this.setState({

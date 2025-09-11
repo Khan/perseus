@@ -58,12 +58,17 @@ describe("Dropdown AI utils", () => {
             value: 3,
         };
 
-        const renderProps: any = {
-            choices: ["Pickles", "Tomato", "Onion", "Lettuce"],
+        const widgetData: any = {
+            choices: [
+                {content: "Pickles"},
+                {content: "Tomato"},
+                {content: "Onion"},
+                {content: "Lettuce"},
+            ],
             userInput,
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "dropdown",

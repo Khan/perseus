@@ -17,19 +17,38 @@ type ScrollAxisY = {
     overflowX?: React.CSSProperties["overflowX"];
 };
 
-interface ScrollableViewPropsBase extends React.HTMLAttributes<HTMLDivElement> {
+interface ScrollableAreaPropsBase extends React.HTMLAttributes<HTMLDivElement> {
     children?: React.ReactNode;
     role?: string;
     scrollDescription?: string;
+    id?: string;
 }
-type ScrollableViewProps = (ScrollAxisX | ScrollAxisY) &
-    ScrollableViewPropsBase;
+type ScrollableAreaProps = (ScrollAxisX | ScrollAxisY) &
+    ScrollableAreaPropsBase;
+
+interface ScrollControlsProps {
+    target?: string;
+    scrollDescription?: string;
+}
+
+interface ScrollState {
+    isScrollable: boolean;
+    canScrollStart: boolean;
+    canScrollEnd: boolean;
+    isRTL: boolean;
+    scroll: (direction: "start" | "end") => void;
+    scrollDescription: string;
+}
 
 // This is the number of pixels to scroll when the left or right scroll buttons
 // are clicked. Adjust this value to change the scroll amount as needed.
 const SCROLL_DISTANCE = 100;
 
-function ScrollableView({
+// Global registry for scroll instances
+const scrollInstances = new Map<string, ScrollState>();
+
+// This renders the scrollable area and will be used with the ScrollControls component
+function ScrollableArea({
     overflowX,
     overflowY,
     children,
@@ -37,20 +56,77 @@ function ScrollableView({
     scrollDescription,
     style,
     role = "group",
+    id: providedId,
     ...additionalProps
-}: ScrollableViewProps) {
+}: ScrollableAreaProps) {
     const {strings} = usePerseusI18n();
     const containerRef = useRef<HTMLDivElement>(null);
     const [isScrollable, setIsScrollable] = useState(false);
-    const [canScrollStart, setCanScrollStart] = useState(false);
-    const [canScrollEnd, setCanScrollEnd] = useState(false);
-    const [isRtl, setIsRtl] = useState(false);
+    const [isScrolling, setIsScrolling] = useState(false);
+
+    // Generate unique ID if not provided
+    const generatedId = React.useId();
+    const id = providedId || generatedId;
+
+    const scrollableThreshold = React.useMemo(() => {
+        /**
+         * Determines the scrollable threshold based on device width to prevent
+         * scroll buttons from appearing when content is only barely overflowing
+         * (by less than 5-8px), which would create a poor UX with unnecessary
+         * scroll controls for minimal overflow. A higher threshold on mobile is
+         * used for better touch interaction and spacing optimization.
+         * - Mobile devices (≤767px width): Uses 8px threshold
+         * - Desktop devices (>767px width): Uses 5px threshold
+         */
+        return window.innerWidth <= 767 ? 8 : 5;
+    }, []);
+
+    const scroll = React.useCallback(
+        (direction: "start" | "end") => {
+            if (!containerRef.current || isScrolling) {
+                return; // Prevent rapid clicks while scrolling
+            }
+
+            // Set scrolling state to prevent rapid clicks
+            setIsScrolling(true);
+
+            // Get current RTL state dynamically to ensure it's up to date
+            const contentIsRtl =
+                getComputedStyle(containerRef.current).direction === "rtl";
+
+            const scrollNegative =
+                (contentIsRtl && direction === "end") ||
+                (!contentIsRtl && direction === "start");
+            const scrollAmount = scrollNegative
+                ? -SCROLL_DISTANCE
+                : SCROLL_DISTANCE;
+
+            /**
+             * Note on Chrome browser scroll behavior:
+             * Chrome handles smooth scrolling differently than other browsers.
+             * The scrollbar may briefly disappear when scrolling from extreme
+             * positions (beginning or end of scroll area).
+             * This occurs both when starting the initial scroll from position 0 and
+             * when scrolling back to the start from the end position.
+             */
+            containerRef.current.scrollBy({
+                left: scrollAmount,
+                behavior: "smooth",
+            });
+
+            // Clear scrolling state after a short delay to allow next scroll
+            setTimeout(() => {
+                setIsScrolling(false);
+            }, 150); // Short delay to prevent rapid clicking but allow normal usage
+        },
+        [isScrolling],
+    );
 
     /**
      * Updates scroll state variables based on current scroll position.
      *
      * This function determines:
-     * 1. Whether the content is scrollable (content width > container width)
+     * 1. Whether the content is scrollable (content width > container width + threshold)
      * 2. Whether user can scroll towards the start of the content
      * 3. Whether user can scroll towards the end of the content
      *
@@ -75,56 +151,49 @@ function ScrollableView({
         }
 
         const {scrollLeft, scrollWidth, clientWidth} = containerRef.current;
-        setIsRtl(getComputedStyle(containerRef.current).direction === "rtl");
+        const newIsRtl =
+            getComputedStyle(containerRef.current).direction === "rtl";
 
         // Only consider content scrollable if there's a meaningful amount to scroll
-        // Using a slightly higher threshold to prevent micro-scrolling issues
-        const scrollableThreshold = 5; // 5px threshold
-        setIsScrollable(scrollWidth > clientWidth + scrollableThreshold);
+        const newIsScrollable = scrollWidth > clientWidth + scrollableThreshold;
+        setIsScrollable(newIsScrollable);
 
         // In RTL mode, scrollLeft values work differently (can be negative)
         // We need to handle this to ensure the correct buttons are enabled
-        if (isRtl) {
+        let newCanScrollStart: boolean;
+        let newCanScrollEnd: boolean;
+
+        if (newIsRtl) {
             // For RTL, scrollLeft is negative when scrolling to the end (right side in visual terms)
             // Math.abs to get a positive value for comparison
-            setCanScrollStart(
+            newCanScrollStart = scrollLeft < -scrollableThreshold;
+            newCanScrollEnd =
                 Math.abs(scrollLeft) <
-                    scrollWidth - clientWidth - scrollableThreshold,
-            );
-            setCanScrollEnd(scrollLeft < -scrollableThreshold);
+                scrollWidth - clientWidth - scrollableThreshold;
         } else {
-            setCanScrollStart(scrollLeft > scrollableThreshold);
-            setCanScrollEnd(
-                scrollLeft + clientWidth < scrollWidth - scrollableThreshold,
-            );
-        }
-    }, [isRtl]);
-
-    const scroll = (direction: "start" | "end") => {
-        if (!containerRef.current) {
-            return;
+            newCanScrollStart = scrollLeft > scrollableThreshold;
+            newCanScrollEnd =
+                scrollLeft + clientWidth < scrollWidth - scrollableThreshold;
         }
 
-        const scrollNegative =
-            (isRtl && direction !== "start") ||
-            (!isRtl && direction === "start");
-        const scrollAmount = scrollNegative
-            ? -SCROLL_DISTANCE
-            : SCROLL_DISTANCE;
+        // Update global registry
+        const scrollState: ScrollState = {
+            isScrollable: newIsScrollable,
+            canScrollStart: newCanScrollStart,
+            canScrollEnd: newCanScrollEnd,
+            isRTL: newIsRtl,
+            scroll,
+            scrollDescription: scrollDescription || strings.scrollAnswers,
+        };
 
-        /**
-         * Note on Chrome browser scroll behavior:
-         * Chrome handles smooth scrolling differently than other browsers.
-         * The scrollbar may briefly disappear when scrolling from extreme
-         * positions (beginning or end of scroll area).
-         * This occurs both when starting the initial scroll from position 0 and
-         * when scrolling back to the start from the end position.
-         */
-        containerRef.current.scrollBy({
-            left: scrollAmount,
-            behavior: "smooth",
-        });
-    };
+        scrollInstances.set(id, scrollState);
+    }, [
+        id,
+        scrollableThreshold,
+        scrollDescription,
+        strings.scrollAnswers,
+        scroll,
+    ]);
 
     useEffect(() => {
         const container = containerRef.current;
@@ -139,8 +208,10 @@ function ScrollableView({
         return () => {
             container.removeEventListener("scroll", updateScrollState);
             window.removeEventListener("resize", updateScrollState);
+            // Clean up from global registry
+            scrollInstances.delete(id);
         };
-    }, [children, updateScrollState]);
+    }, [children, updateScrollState, id]);
 
     const mergeStyle: React.CSSProperties = {
         // For Chrome, we need to explicitly set overflow to 'scroll' when scrollable
@@ -152,91 +223,104 @@ function ScrollableView({
         ...style,
     };
 
+    // Render scrollable area and the controls are handled separately via ScrollableView.Controls
     return (
-        <>
-            {canScrollEnd && (
-                <div
-                    className={`${styles.scrollFade} ${isRtl ? styles.scrollFadeRight : styles.scrollFadeLeft}`}
-                />
-            )}
-            {canScrollStart && (
-                <div
-                    className={`${styles.scrollFade} ${isRtl ? styles.scrollFadeLeft : styles.scrollFadeRight}`}
-                />
-            )}
-            <div
-                {...additionalProps}
-                role={role}
-                className={className}
-                style={mergeStyle}
-                ref={containerRef}
-            >
-                {children}
-            </div>
-            {isScrollable && (
-                <ScrollButtons
-                    onScrollStart={() =>
-                        isRtl ? scroll("end") : scroll("start")
-                    }
-                    onScrollEnd={() =>
-                        isRtl ? scroll("start") : scroll("end")
-                    }
-                    canScrollStart={canScrollStart}
-                    canScrollEnd={canScrollEnd}
-                    scrollDescription={
-                        scrollDescription
-                            ? scrollDescription
-                            : strings.scrollAnswers
-                    }
-                    isRTL={isRtl}
-                />
-            )}
-        </>
-    );
-}
-
-interface ScrollButtonsProps {
-    onScrollStart: () => void;
-    onScrollEnd: () => void;
-    canScrollStart: boolean;
-    canScrollEnd: boolean;
-    scrollDescription: string;
-    isRTL: boolean;
-}
-
-function ScrollButtons({
-    onScrollStart,
-    onScrollEnd,
-    canScrollStart,
-    canScrollEnd,
-    scrollDescription,
-    isRTL,
-}: ScrollButtonsProps) {
-    const {strings} = usePerseusI18n();
-
-    return (
-        <div className={styles.scrollButtonsContainer}>
-            <IconButton
-                icon={isRTL ? caretRightIcon : caretLeftIcon}
-                actionType="neutral"
-                kind="secondary"
-                size="small"
-                onClick={isRTL ? onScrollEnd : onScrollStart}
-                aria-label={strings.scrollStart}
-                disabled={isRTL ? !canScrollEnd : !canScrollStart}
-            />
-            <IconButton
-                icon={isRTL ? caretLeftIcon : caretRightIcon}
-                actionType="neutral"
-                kind="secondary"
-                size="small"
-                onClick={isRTL ? onScrollStart : onScrollEnd}
-                aria-label={strings.scrollEnd}
-                disabled={isRTL ? !canScrollStart : !canScrollEnd}
-            />
-            <LabelSmall>{scrollDescription}</LabelSmall>
+        <div
+            {...additionalProps}
+            id={id}
+            role={role}
+            className={className}
+            style={mergeStyle}
+            ref={containerRef}
+        >
+            {children}
         </div>
     );
 }
+
+// ScrollControls component - renders independently and connects to ScrollableArea by ID
+// How IconButton works
+// 1. The icons still swap correctly based on RTL:
+//   - In RTL: Right icon (>) for start, Left icon (<) for end
+//   - In LTR: Left icon (<) for start, Right icon (>) for end
+// 2. The scroll logic handles RTL internally in the scroll function above:
+//   - When scroll("start") is called, it detects RTL dynamically and scrolls appropriately
+//   - When scroll("end") is called, it detects RTL dynamically and scrolls appropriately
+// 3. The disabled states are calculated correctly in updateScrollState:
+//   - canScrollStart and canScrollEnd are already computed with RTL awareness
+//   - So the buttons get disabled/enabled correctly
+function ScrollControls({
+    target,
+    scrollDescription: overrideDescription,
+}: ScrollControlsProps) {
+    const {strings} = usePerseusI18n();
+    const [scrollState, setScrollState] = useState<ScrollState | null>(null);
+
+    // Monitor the target scroll instance
+    useEffect(() => {
+        if (!target) {
+            return;
+        }
+
+        const checkForScrollState = () => {
+            const state = scrollInstances.get(target);
+            if (state) {
+                setScrollState(state);
+            }
+        };
+
+        // Check immediately
+        checkForScrollState();
+
+        // Set up polling to detect changes (better would be event-based, but this works)
+        const interval = setInterval(checkForScrollState, 100);
+
+        return () => {
+            clearInterval(interval);
+        };
+    }, [target]);
+
+    if (!scrollState || !scrollState.isScrollable) {
+        return null;
+    }
+
+    const description = overrideDescription || scrollState.scrollDescription;
+
+    return (
+        <div
+            className={styles.scrollButtonsContainer}
+            aria-live="polite"
+            role="group"
+            aria-label={description}
+        >
+            <IconButton
+                icon={scrollState.isRTL ? caretRightIcon : caretLeftIcon}
+                actionType="neutral"
+                kind="secondary"
+                size="small"
+                onClick={() => scrollState.scroll("start")}
+                aria-label={strings.scrollStart}
+                disabled={!scrollState.canScrollStart}
+            />
+            <IconButton
+                icon={scrollState.isRTL ? caretLeftIcon : caretRightIcon}
+                actionType="neutral"
+                kind="secondary"
+                size="small"
+                onClick={() => scrollState.scroll("end")}
+                aria-label={strings.scrollEnd}
+                disabled={!scrollState.canScrollEnd}
+            />
+            <LabelSmall>{description}</LabelSmall>
+        </div>
+    );
+}
+
+// Create compound component that includes both ScrollableArea and ScrollControls
+const ScrollableView = ScrollableArea as typeof ScrollableArea & {
+    Controls: typeof ScrollControls;
+};
+
+ScrollableView.Controls = ScrollControls;
 
 export default ScrollableView;

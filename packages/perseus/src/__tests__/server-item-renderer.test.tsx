@@ -488,32 +488,6 @@ describe("server item renderer", () => {
 }
 `);
         });
-
-        it("should restore serialized state", () => {
-            // Arrange
-            const callback = jest.fn();
-            const {renderer} = renderQuestion(itemWithMockWidget);
-
-            // Act
-            act(() =>
-                renderer.restoreSerializedState(
-                    {
-                        hints: [{}, {}, {}],
-                        question: {
-                            "mock-widget 1": {
-                                currentValue: "-42",
-                            },
-                        },
-                    },
-                    callback,
-                ),
-            );
-            act(() => jest.runOnlyPendingTimers());
-
-            // Assert
-            expect(callback).toHaveBeenCalled();
-            expect(screen.getByRole("textbox")).toHaveValue("-42");
-        });
     });
 
     describe("content editing", () => {

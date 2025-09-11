@@ -10,13 +10,14 @@ import type {ChoiceType} from "../multiple-choice-widget.new";
 
 type overrideProps = {
     choiceOverrides?: Partial<ChoiceType>;
-    onChoiceChange?: (choiceIndex: number, newCheckedState: boolean) => void;
+    onChoiceChange?: (choiceId: string, newCheckedState: boolean) => void;
     reviewMode?: boolean;
 };
 
 const baseChoiceValues = {
     checked: false,
     content: "",
+    id: "choice-1",
     rationale: "",
     hasRationale: false,
     showRationale: false,
@@ -210,6 +211,31 @@ describe("Multiple choice component", () => {
                 screen.queryByText(rationaleContent),
             ).not.toBeInTheDocument();
         });
+
+        it.each`
+            reviewMode | isCorrect | expectedLabel            | shows              | when
+            ${true}    | ${true}   | ${"(Choice A, Correct)"} | ${"shows"}         | ${"when in review mode and choice is correct"}
+            ${true}    | ${false}  | ${"(Choice A)"}          | ${"does NOT show"} | ${"when in review mode and choice is NOT correct"}
+            ${false}   | ${true}   | ${"(Choice A)"}          | ${"does NOT show"} | ${"when NOT in review mode and choice is correct"}
+            ${false}   | ${false}  | ${"(Choice A)"}          | ${"does NOT show"} | ${"when NOT in review mode and choice is NOT correct"}
+        `("$shows correctness in the accessible name $when", (args) => {
+            type testArgs = {
+                reviewMode: boolean;
+                isCorrect: boolean;
+                expectedLabel: string;
+            };
+            const {reviewMode, isCorrect, expectedLabel} = args as testArgs;
+            const choiceOverrides = {correct: isCorrect};
+            const props = getComponentProps({
+                choiceOverrides,
+                reviewMode,
+            });
+            render(<MultipleChoiceComponent {...props} />);
+            expect(screen.getByRole("button")).toHaveAttribute(
+                "aria-label",
+                expectedLabel,
+            );
+        });
     });
 
     describe("functionality", () => {
@@ -223,7 +249,7 @@ describe("Multiple choice component", () => {
                 screen.getByRole("listitem").click();
             });
             expect(onChoiceChangeFn).toHaveBeenCalledTimes(1);
-            expect(onChoiceChangeFn.mock.calls[0][0]).toBe(0);
+            expect(onChoiceChangeFn.mock.calls[0][0]).toBe("choice-1");
             expect(typeof onChoiceChangeFn.mock.calls[0][1]).toBe("boolean");
         });
     });

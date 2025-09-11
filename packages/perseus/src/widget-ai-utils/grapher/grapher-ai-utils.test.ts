@@ -65,7 +65,7 @@ describe("Grapher AI utils", () => {
             ],
         };
 
-        const renderProps: any = {
+        const widgetData: any = {
             availableTypes: ["linear"],
             graph: {
                 range: [0, 10, 0, 10],
@@ -78,7 +78,7 @@ describe("Grapher AI utils", () => {
             userInput,
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "grapher",
@@ -111,7 +111,7 @@ describe("Grapher AI utils", () => {
             asymptote: [-1, 4],
         };
 
-        const renderProps: any = {
+        const widgetData: any = {
             availableTypes: ["lograithm"],
             graph: {
                 range: [0, 10, 0, 10],
@@ -124,7 +124,7 @@ describe("Grapher AI utils", () => {
             userInput,
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "grapher",

@@ -13,16 +13,16 @@ export type CategorizerPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof categorizer.widget>,
+    widgetData: React.ComponentProps<typeof categorizer.widget>,
 ): CategorizerPromptJSON => {
     return {
         type: "categorizer",
         options: {
-            items: renderProps.items,
-            categories: renderProps.categories,
+            items: widgetData.items,
+            categories: widgetData.categories,
         },
         userInput: {
-            itemToCategoryMapping: renderProps.userInput.values,
+            itemToCategoryMapping: widgetData.userInput.values,
         },
     };
 };

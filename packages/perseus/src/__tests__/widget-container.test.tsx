@@ -43,7 +43,7 @@ describe("widget-container", () => {
                 type="invalid-widget"
                 id="invalid-widget 1"
                 shouldHighlight={false}
-                initialProps={{apiOptions: {isMobile: false}}}
+                widgetProps={{apiOptions: {isMobile: false}}}
             />,
         );
 
@@ -67,7 +67,7 @@ describe("widget-container", () => {
                 type="passage"
                 id="passage 1"
                 shouldHighlight={false}
-                initialProps={{
+                widgetProps={{
                     passageTitle: "Greeting",
                     passageText: "Hello world!",
                     footnotes: null,
@@ -110,7 +110,7 @@ describe("widget-container", () => {
                     type="mock-widget"
                     id="mock-widget 1"
                     shouldHighlight={false}
-                    initialProps={{
+                    widgetProps={{
                         text: "Hello world!",
                         fail: true,
 

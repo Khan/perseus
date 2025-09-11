@@ -24,7 +24,7 @@ exports[`graded group set widget should snapshot 1`] = `
           class="perseus-widget-container widget-nohighlight widget-block"
         >
           <div
-            class="container_14sgdtb"
+            class="container_1wok0xs"
           >
             <div
               class="top_cjo0m2"
@@ -157,7 +157,7 @@ exports[`graded group set widget should snapshot 1`] = `
                 type="button"
               >
                 <span
-                  class="text_f1191h-o_O-LabelLarge_16mkhxv-o_O-text_1kowsup"
+                  class="text_f1191h-o_O-BodyText_1xtvlx3-o_O-BodyTextMediumMediumWeight_ijclyr-o_O-text_1kowsup"
                 >
                   Check
                 </span>

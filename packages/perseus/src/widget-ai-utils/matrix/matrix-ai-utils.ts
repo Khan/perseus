@@ -8,21 +8,21 @@ export type MatrixPromptJSON = {
         width: number;
     };
     userInput: {
-        answerRows: ReadonlyArray<ReadonlyArray<number>>;
+        answerRows: ReadonlyArray<ReadonlyArray<string>>;
     };
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof matrix.widget>,
+    widgetData: React.ComponentProps<typeof matrix.widget>,
 ): MatrixPromptJSON => {
     return {
         type: "matrix",
         options: {
-            height: renderProps.matrixBoardSize[0],
-            width: renderProps.matrixBoardSize[1],
+            height: widgetData.matrixBoardSize[0],
+            width: widgetData.matrixBoardSize[1],
         },
         userInput: {
-            answerRows: renderProps.userInput.answers,
+            answerRows: widgetData.userInput.answers,
         },
     };
 };

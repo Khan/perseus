@@ -49,13 +49,12 @@ import type {MyType} from "./types";            // types last
 
 ## React
 - ✅ Functional components, hooks, `Props` interface
-- ✅ `WidgetProps<RenderProps>` pattern for widgets
+- ✅ `WidgetProps<WidgetOptions>` pattern for widgets
 - ✅ Error boundaries, React.memo() for performance
 
 ## Widgets
 - ✅ Implement `WidgetExports<T>` interface
 - ✅ WidgetOptions in `data-schema.ts` (perseus-core)
-- ✅ Use `transform`/`staticTransform` for data processing
 
 ## Files
 ```

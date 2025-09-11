@@ -36,6 +36,12 @@ describe("isItemAccessible", () => {
                                     [-10, 10],
                                     [-10, 10],
                                 ],
+                                showAxisArrows: {
+                                    xMin: true,
+                                    xMax: true,
+                                    yMin: true,
+                                    yMax: true,
+                                },
                                 step: [1, 1],
                                 markings: "graph",
                                 showProtractor: false,
@@ -86,8 +92,16 @@ describe("isItemAccessible", () => {
                             type: "radio",
                             options: {
                                 choices: [
-                                    {content: "Option 1", correct: true},
-                                    {content: "Option 2", correct: false},
+                                    {
+                                        id: "0-0-0-0-0",
+                                        content: "Option 1",
+                                        correct: true,
+                                    },
+                                    {
+                                        id: "1-1-1-1-1",
+                                        content: "Option 2",
+                                        correct: false,
+                                    },
                                 ],
                             },
                         },
@@ -210,6 +224,12 @@ describe("isItemAccessible", () => {
                                     [-10, 10],
                                     [-10, 10],
                                 ],
+                                showAxisArrows: {
+                                    xMin: true,
+                                    xMax: true,
+                                    yMin: true,
+                                    yMax: true,
+                                },
                                 step: [1, 1],
                                 markings: "graph",
                                 showProtractor: false,

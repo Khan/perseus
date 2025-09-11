@@ -4,32 +4,7 @@
     flex-direction: row;
     gap: 0.8rem;
     padding: 1.2rem;
-}
-
-.scroll-fade {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    width: max-content;
-    pointer-events: none;
-    z-index: 1;
-    transition: opacity 0.3s ease;
-}
-
-.scroll-fade-left {
-    left: 0;
-    background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 1),
-        rgba(255, 255, 255, 0)
-    );
-}
-
-.scroll-fade-right {
-    right: 0;
-    background: linear-gradient(
-        to left,
-        rgba(255, 255, 255, 1),
-        rgba(255, 255, 255, 0)
-    );
+    /* Ensure scroll buttons stay above fade effects and remain clickable even the multiple choice widget is no longer interactive/checked state */
+    position: relative;
+    z-index: 10;
 }

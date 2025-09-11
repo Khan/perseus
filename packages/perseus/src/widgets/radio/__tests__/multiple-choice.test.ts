@@ -3,6 +3,7 @@ import {scoreRadio} from "@khanacademy/perseus-score";
 import {screen, fireEvent, waitFor} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
+import {getFeatureFlags} from "../../../../../../testing/feature-flags-util";
 import {clone} from "../../../../../../testing/object-utils";
 import {testDependencies} from "../../../../../../testing/test-dependencies";
 import * as Dependencies from "../../../dependencies";
@@ -25,10 +26,7 @@ import type {UserEvent} from "@testing-library/user-event";
 // Create API options with the new-radio-widget flag enabled
 const createApiOptions = (options: Partial<APIOptions> = {}): APIOptions => ({
     ...options,
-    flags: {
-        "new-radio-widget": false,
-        ...(options.flags || {}),
-    },
+    flags: getFeatureFlags({"new-radio-widget": false}),
 });
 
 const selectOption = async (
@@ -293,6 +291,7 @@ describe("Multiple Choice Widget", () => {
                 const q = clone(question);
                 q.widgets["radio 1"].options.choices = answers.map(
                     (answer, idx) => ({
+                        id: `mock-id-${idx}`,
                         content: answer,
                         correct: idx === 1, // Correct answer is the "truthy" item
                     }),
@@ -323,6 +322,7 @@ describe("Multiple Choice Widget", () => {
             const q = clone(question);
             q.widgets["radio 1"].options.choices = answers.map(
                 (answer, idx) => ({
+                    id: `mock-id-${idx}`,
                     content: answer,
                     correct: idx === 1,
                 }),
@@ -357,6 +357,7 @@ describe("Multiple Choice Widget", () => {
                         options: {
                             choices: [
                                 {
+                                    id: "0-0-0-0-0",
                                     correct: true,
                                     // Passage refs reference a passage widget in
                                     // the main content. The first value is the
@@ -366,8 +367,14 @@ describe("Multiple Choice Widget", () => {
                                     // 1-based!
                                     content: `{{passage-ref 1 1 "the 1st ref in the 1st passage"}}`,
                                 },
-                                {content: `Answer 2`},
-                                {content: `Answer 3`},
+                                {
+                                    id: "1-1-1-1-1",
+                                    content: `Answer 2`,
+                                },
+                                {
+                                    id: "2-2-2-2-2",
+                                    content: `Answer 3`,
+                                },
                             ],
                         },
                     },
@@ -561,10 +568,23 @@ describe("Multiple Choice Widget", () => {
                         options: {
                             ...radioOptions,
                             choices: [
-                                {content: "$x=-6$", correct: true},
-                                {content: "$x=4$", correct: true},
-                                {content: "$x=7$", correct: false},
                                 {
+                                    id: "0-0-0-0-0",
+                                    content: "$x=-6$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "1-1-1-1-1",
+                                    content: "$x=4$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "2-2-2-2-2",
+                                    content: "$x=7$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "3-3-3-3-3",
                                     content: "There is no such input value.",
                                     isNoneOfTheAbove: true,
                                     correct: false,
@@ -601,10 +621,23 @@ describe("Multiple Choice Widget", () => {
                         options: {
                             ...radioOptions,
                             choices: [
-                                {content: "$x=-6$", correct: true},
-                                {content: "$x=4$", correct: true},
-                                {content: "$x=7$", correct: false},
                                 {
+                                    id: "0-0-0-0-0",
+                                    content: "$x=-6$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "1-1-1-1-1",
+                                    content: "$x=4$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "2-2-2-2-2",
+                                    content: "$x=7$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "3-3-3-3-3",
                                     content: "There is no such input value.",
                                     isNoneOfTheAbove: true,
                                     correct: false,
@@ -627,6 +660,79 @@ describe("Multiple Choice Widget", () => {
             // Assert
             expect(options[2]).not.toBeChecked();
             expect(options[3]).not.toBeChecked();
+        });
+
+        // LEMS-3445: Ensures that deselecting one choice doesn't select other choices
+        it("should not select other choices when deselecting current choice - single select", async () => {
+            // Arrange
+            const radio1Widget = question.widgets["radio 1"];
+            const radioOptions = radio1Widget.options;
+
+            // Create a radio question with deselect enabled (single select mode)
+            const deselectionTestQuestion: PerseusRenderer = {
+                ...question,
+                widgets: {
+                    ...question.widgets,
+                    "radio 1": {
+                        ...radio1Widget,
+                        options: {
+                            ...radioOptions,
+                            choices: [
+                                {
+                                    id: "choice-a",
+                                    content: "Choice A",
+                                    correct: false,
+                                },
+                                {
+                                    id: "choice-b",
+                                    content: "Choice B",
+                                    correct: false,
+                                },
+                                {
+                                    id: "choice-c",
+                                    content: "Choice C",
+                                    correct: false,
+                                },
+                                {
+                                    id: "choice-d",
+                                    content: "Choice D",
+                                    correct: false,
+                                },
+                            ],
+                            multipleSelect: false,
+                            deselectEnabled: true,
+                        },
+                    },
+                },
+            };
+
+            const {renderer} = renderQuestion(
+                deselectionTestQuestion,
+                apiOptions,
+            );
+
+            // Act
+            const options = screen.getAllByRole("radio");
+            expect(options).toHaveLength(4);
+
+            await userEvent.click(options[0]); // Select Choice A
+            expect(options[0]).toBeChecked();
+            expect(options[1]).not.toBeChecked();
+            expect(options[2]).not.toBeChecked();
+            expect(options[3]).not.toBeChecked();
+
+            await userEvent.click(options[0]); // Deselect Choice A
+
+            // Assert
+            expect(options[0]).not.toBeChecked();
+            expect(options[1]).not.toBeChecked();
+            expect(options[2]).not.toBeChecked();
+            expect(options[3]).not.toBeChecked();
+
+            // Also verify that the user input reflects no selections
+            const userInputMap = renderer.getUserInputMap();
+            const radioUserInput = userInputMap["radio 1"];
+            expect(radioUserInput.selectedChoiceIds).toEqual([]);
         });
 
         it("should snapshot the same when invalid", async () => {
@@ -669,10 +775,23 @@ describe("Multiple Choice Widget", () => {
                         options: {
                             ...radioOptions,
                             choices: [
-                                {content: "$x=-6$", correct: true},
-                                {content: "$x=4$", correct: true},
-                                {content: "$x=7$", correct: false},
                                 {
+                                    id: "0-0-0-0-0",
+                                    content: "$x=-6$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "1-1-1-1-1",
+                                    content: "$x=4$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "2-2-2-2-2",
+                                    content: "$x=7$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "3-3-3-3-3",
                                     content: "There is no such input value.",
                                     isNoneOfTheAbove: true,
                                     correct: false,

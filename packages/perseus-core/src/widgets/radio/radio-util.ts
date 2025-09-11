@@ -5,7 +5,7 @@ import type {
 
 /**
  * For details on the individual options, see the
- * PerseusRadioWidgetOptions type
+ * PerseusRadioWidgetOptions type.
  */
 export type RadioPublicWidgetOptions = {
     choices: ReadonlyArray<RadioChoicePublicData>;
@@ -22,7 +22,7 @@ export type RadioPublicWidgetOptions = {
  */
 type RadioChoicePublicData = Pick<
     PerseusRadioChoice,
-    "content" | "isNoneOfTheAbove"
+    "id" | "content" | "isNoneOfTheAbove"
 >;
 
 /**
@@ -32,8 +32,9 @@ type RadioChoicePublicData = Pick<
 function getRadioChoicePublicData(
     choice: PerseusRadioChoice,
 ): RadioChoicePublicData {
-    const {content, isNoneOfTheAbove} = choice;
+    const {id, content, isNoneOfTheAbove} = choice;
     return {
+        id,
         content,
         isNoneOfTheAbove,
     };

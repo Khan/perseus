@@ -11,13 +11,13 @@ export type GradedGroupSetPromptJSON = {
 };
 
 export const getPromptJSON = (
-    renderProps: React.ComponentProps<typeof gradedGroupSet.widget>,
+    widgetData: React.ComponentProps<typeof gradedGroupSet.widget>,
     activeGroupJSON: GradedGroupPromptJSON,
 ): GradedGroupSetPromptJSON => {
     return {
         type: "graded-group-set",
         options: {
-            groupCount: renderProps.gradedGroups.length,
+            groupCount: widgetData.gradedGroups.length,
             currentGroup: activeGroupJSON,
         },
     };

@@ -30,6 +30,7 @@ export const question: PerseusRenderer = {
                 numDivisions: 6,
                 divisionRange: [1, 10],
                 correctX: -2.5,
+                isTickCtrl: false,
             },
             alignment: "default",
         },
@@ -43,14 +44,14 @@ describe("NumberLine AI utils", () => {
             numDivisions: 10,
         };
 
-        const renderProps: any = {
+        const widgetData: any = {
             range: [0, 10],
             numDivisions: 10,
             snapDivisions: 2,
             userInput,
         };
 
-        const resultJSON = getPromptJSON(renderProps);
+        const resultJSON = getPromptJSON(widgetData);
 
         expect(resultJSON).toEqual({
             type: "number-line",

@@ -1,5 +1,72 @@
 # @khanacademy/perseus-linter
 
+## 4.3.4
+
+### Patch Changes
+
+-   Updated dependencies [[`876be8cde6`](https://github.com/Khan/perseus/commit/876be8cde6aa2936612b2e9a60bf20626440b16c)]:
+    -   @khanacademy/perseus-core@19.0.2
+
+## 4.3.3
+
+### Patch Changes
+
+-   Updated dependencies [[`655f8994b8`](https://github.com/Khan/perseus/commit/655f8994b869a9eb34c4f9436cfc32bd59916d37)]:
+    -   @khanacademy/perseus-core@19.0.1
+
+## 4.3.2
+
+### Patch Changes
+
+-   Updated dependencies [[`b4aef654c1`](https://github.com/Khan/perseus/commit/b4aef654c1844f2d322a37229a209edeff545035), [`59cbb43106`](https://github.com/Khan/perseus/commit/59cbb431069caf66f63672f223da34cf063e7932)]:
+    -   @khanacademy/perseus-core@19.0.0
+
+## 4.3.1
+
+### Patch Changes
+
+-   Updated dependencies [[`245de4eba5`](https://github.com/Khan/perseus/commit/245de4eba5b1d8e055cf0d8793c3ad18d55aea8f)]:
+    -   @khanacademy/perseus-core@18.9.1
+
+## 4.3.0
+
+### Minor Changes
+
+-   [#2799](https://github.com/Khan/perseus/pull/2799) [`8b18b38b31`](https://github.com/Khan/perseus/commit/8b18b38b31866582cb101d29ea3dbfd2dbe756bf) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Changes the output of radio score from boolean array to string array that represent the user's selected choice ids
+
+### Patch Changes
+
+-   Updated dependencies [[`8b18b38b31`](https://github.com/Khan/perseus/commit/8b18b38b31866582cb101d29ea3dbfd2dbe756bf)]:
+    -   @khanacademy/perseus-core@18.9.0
+
+## 4.2.5
+
+### Patch Changes
+
+-   Updated dependencies [[`aab0bf4b8b`](https://github.com/Khan/perseus/commit/aab0bf4b8bcb10347f24854403ee27581212df5c), [`9a5605b82c`](https://github.com/Khan/perseus/commit/9a5605b82ca6038f326bf70c6d0959bb2227b754)]:
+    -   @khanacademy/perseus-core@18.8.0
+
+## 4.2.4
+
+### Patch Changes
+
+-   Updated dependencies [[`52b2b3ae54`](https://github.com/Khan/perseus/commit/52b2b3ae54953ff6969e8962858d46d025661be8), [`62029ee700`](https://github.com/Khan/perseus/commit/62029ee700db45a646a0addf0e90ff4df73aef3a)]:
+    -   @khanacademy/perseus-core@18.7.0
+
+## 4.2.3
+
+### Patch Changes
+
+-   Updated dependencies [[`78f7c512a4`](https://github.com/Khan/perseus/commit/78f7c512a4cd35e2416952fccb480e1821fcef8a), [`a9ff068196`](https://github.com/Khan/perseus/commit/a9ff0681963836fbc70c606eb880e3464e60c03e)]:
+    -   @khanacademy/perseus-core@18.6.0
+
+## 4.2.2
+
+### Patch Changes
+
+-   Updated dependencies [[`dde65d357c`](https://github.com/Khan/perseus/commit/dde65d357c5553d3e384079f9b9459302aab8216), [`1bc1464852`](https://github.com/Khan/perseus/commit/1bc14648527864d17640e0818ef6ec38a13f90ab), [`962f89a95f`](https://github.com/Khan/perseus/commit/962f89a95f238b48586da2b566c7b0ad6f40e3de)]:
+    -   @khanacademy/perseus-core@18.5.0
+
 ## 4.2.1
 
 ### Patch Changes

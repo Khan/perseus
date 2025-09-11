@@ -64,6 +64,15 @@
     margin-bottom: 32px;
     margin-top: 0;
 }
+/* Reset the Renderer margins for the image widget.
+    The image widget title and caption shouldn't have margins,
+    so we need to override the above styles. */
+.framework-perseus.perseus-article:not(.perseus-mobile)
+    .perseus-image-widget
+    .perseus-renderer
+    .paragraph {
+    margin-bottom: 0;
+}
 .framework-perseus.perseus-article:not(.perseus-mobile)
     .perseus-renderer
     > .paragraph
@@ -134,7 +143,6 @@
     color: rgba(33, 36, 44, 0.64);
     font-size: 14px;
     line-height: 19px;
-    margin: 16px auto 42px;
     text-align: left;
 }
 .framework-perseus.perseus-article:not(.perseus-mobile)
@@ -512,13 +520,6 @@
         line-height: 1.3;
         text-align: left;
     }
-    .framework-perseus.perseus-mobile
-        .perseus-image-caption.has-title
-        .paragraph
-        .paragraph
-        strong:first-child {
-        color: #3b3e40;
-    }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 21px;
         line-height: 1.2;
@@ -550,7 +551,7 @@
         border-left: 4px solid #d8d8d8;
     }
 }
-@media (min-width: 768px) and (max-width: 1199px) {
+@media (min-width: 767px) and (max-width: 1199px) {
     .framework-perseus.perseus-mobile .perseus-renderer > .paragraph {
         max-width: 512px;
     }
@@ -682,13 +683,6 @@
         font-size: 17px;
         line-height: 1.4;
         text-align: left;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-image-caption.has-title
-        .paragraph
-        .paragraph
-        strong:first-child {
-        color: #3b3e40;
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 23px;
@@ -853,13 +847,6 @@
         font-size: 20px;
         line-height: 1.4;
         text-align: left;
-    }
-    .framework-perseus.perseus-mobile
-        .perseus-image-caption.has-title
-        .paragraph
-        .paragraph
-        strong:first-child {
-        color: #3b3e40;
     }
     .framework-perseus.perseus-mobile mjx-container:not(.mafs-graph *) {
         font-size: 25px;

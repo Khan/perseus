@@ -16,7 +16,7 @@ import type {PerseusItem} from "@khanacademy/perseus-core";
  *
  * This API is not built in a way that supports migrating data
  * between versions of Perseus JSON. In fact serialization
- * doesn't use WidgetOptions, but RenderProps; it's leveraging
+ * doesn't use WidgetOptions, but manipulated widget props; it's leveraging
  * what is considered an internal implementation detail to support
  * rehydrating previous state.
  *
@@ -149,91 +149,6 @@ describe("Orderer serialization", () => {
                 },
             },
             hints: [],
-        });
-    });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicOrderer());
-
-        const preUserInput = renderer.getUserInput();
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "orderer 1": {
-                        // ???
-                        otherOptions: [],
-                        // The correct order
-                        correctOptions: [
-                            {
-                                content: "1",
-                                images: {},
-                                widgets: {},
-                            },
-                            {
-                                content: "2",
-                                images: {},
-                                widgets: {},
-                            },
-                            {
-                                content: "3",
-                                images: {},
-                                widgets: {},
-                            },
-                        ],
-                        // The shuffled order
-                        options: [
-                            {
-                                content: "1",
-                                images: {},
-                                widgets: {},
-                            },
-                            {
-                                content: "3",
-                                images: {},
-                                widgets: {},
-                            },
-                            {
-                                content: "2",
-                                images: {},
-                                widgets: {},
-                            },
-                        ],
-                        // the user input
-                        current: [
-                            {
-                                content: "2",
-                            },
-                            {
-                                content: "1",
-                            },
-                            {
-                                content: "3",
-                            },
-                        ],
-                        height: "normal",
-                        layout: "horizontal",
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const postUserInput = renderer.getUserInput();
-
-        // Assert
-        // `value` would be 0 if we didn't properly restore serialized state
-        expect(preUserInput).toEqual({
-            "orderer 1": {
-                current: [],
-            },
-        });
-        expect(postUserInput).toEqual({
-            "orderer 1": {
-                current: ["2", "1", "3"],
-            },
         });
     });
 });

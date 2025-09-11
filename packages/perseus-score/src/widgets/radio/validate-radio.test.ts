@@ -13,7 +13,7 @@ describe("validateRadio", () => {
 
     it("is invalid when no options are selected", () => {
         const userInput: PerseusRadioUserInput = {
-            choicesSelected: [false, false, false, false],
+            selectedChoiceIds: [],
         };
 
         const validationError = validateRadio(userInput);
@@ -23,7 +23,7 @@ describe("validateRadio", () => {
 
     it("returns null when validation passes", () => {
         const userInput: PerseusRadioUserInput = {
-            choicesSelected: [true, false, false, false],
+            selectedChoiceIds: ["0-0-0-0-0"],
         };
 
         const validationError = validateRadio(userInput);

@@ -44,11 +44,9 @@ const setupScrollableMock = (isScrollable: boolean) => {
         this: HTMLElement,
         options?: ScrollToOptions | undefined,
     ) {
-        const element = screen.getByRole("group");
         if (options !== undefined && options !== null) {
-            const currentScrollLeft = (element as any).scrollLeft || 0;
-            (element as any).scrollLeft =
-                currentScrollLeft + (options.left || 0);
+            const currentScrollLeft = this.scrollLeft ?? 0;
+            this.scrollLeft = currentScrollLeft + (options.left || 0);
         }
     }) as any;
 };
@@ -61,25 +59,44 @@ const setupScrollableTest = (isRtl = false) => {
     // Set up RTL mode if requested
     if (isRtl) {
         const originalGetComputedStyle = window.getComputedStyle;
-        window.getComputedStyle = jest.fn().mockImplementation((element) => ({
-            ...originalGetComputedStyle(element),
-            direction: "rtl",
-        }));
+        window.getComputedStyle = jest.fn().mockImplementation((element) => {
+            const originalStyle = originalGetComputedStyle(element);
+            return {
+                ...originalStyle,
+                direction: "rtl",
+                getPropertyValue: (prop: string) =>
+                    prop === "direction"
+                        ? "rtl"
+                        : originalStyle.getPropertyValue(prop),
+            };
+        });
+
+        // In RTL mode, set initial scrollLeft to 0 (start of content)
+        Object.defineProperty(HTMLElement.prototype, "scrollLeft", {
+            configurable: true,
+            value: 0,
+            writable: true,
+        });
     }
 
-    // Render the component
+    const scrollId = "test-scroll";
+
+    // Render the compound component
     render(
-        <ScrollableView overflowX="auto">
-            <div>
-                {isRtl
-                    ? "Content that overflows in RTL"
-                    : "Content that overflows"}
-            </div>
-        </ScrollableView>,
+        <>
+            <ScrollableView id={scrollId} overflowX="auto">
+                <div>
+                    {isRtl
+                        ? "Content that overflows in RTL"
+                        : "Content that overflows"}
+                </div>
+            </ScrollableView>
+            <ScrollableView.Controls target={scrollId} />
+        </>,
     );
 
-    // Get commonly used elements
-    const container = screen.getByRole("group");
+    // Get commonly used elements - get the first group role (the scrollable container, not the controls)
+    const container = screen.getAllByRole("group")[0];
     // In RTL, the button positions are reversed
     const leftButton = screen.getByLabelText(
         isRtl ? mockStrings.scrollEnd : mockStrings.scrollStart,
@@ -92,6 +109,11 @@ const setupScrollableTest = (isRtl = false) => {
 };
 
 describe("ScrollableView", () => {
+    // Mock timers for the polling mechanism in ScrollControls
+    beforeEach(() => {
+        jest.useFakeTimers();
+    });
+
     // Global afterEach to ensure cleanup of render between tests
     afterEach(() => {
         // Reset JSDOM by clearing all document content
@@ -100,6 +122,8 @@ describe("ScrollableView", () => {
         delete (HTMLElement.prototype as any).scrollWidth;
         delete (HTMLElement.prototype as any).scrollLeft;
         delete (HTMLElement.prototype as any).scrollBy;
+        jest.runOnlyPendingTimers();
+        jest.useRealTimers();
     });
 
     it("renders children", () => {
@@ -115,10 +139,14 @@ describe("ScrollableView", () => {
     it("does not show scroll controls when content is not scrollable", () => {
         setupScrollableMock(false);
 
+        const scrollId = "test-scroll";
         render(
-            <ScrollableView overflowX="auto">
-                <div>Content that fits</div>
-            </ScrollableView>,
+            <>
+                <ScrollableView id={scrollId} overflowX="auto">
+                    <div>Content that fits</div>
+                </ScrollableView>
+                <ScrollableView.Controls target={scrollId} />
+            </>,
         );
 
         expect(
@@ -133,14 +161,19 @@ describe("ScrollableView", () => {
         it("uses custom scroll description when provided", () => {
             setupScrollableMock(true);
 
+            const scrollId = "test-scroll";
             const customDescription = "Scroll to view more options";
             render(
-                <ScrollableView
-                    overflowX="auto"
-                    scrollDescription={customDescription}
-                >
-                    <div>Content that overflows</div>
-                </ScrollableView>,
+                <>
+                    <ScrollableView
+                        id={scrollId}
+                        overflowX="auto"
+                        scrollDescription={customDescription}
+                    >
+                        <div>Content that overflows</div>
+                    </ScrollableView>
+                    <ScrollableView.Controls target={scrollId} />
+                </>,
             );
 
             expect(screen.getByText(customDescription)).toBeInTheDocument();
@@ -178,6 +211,11 @@ describe("ScrollableView", () => {
                 container.dispatchEvent(new Event("scroll"));
             });
 
+            // Wait for the ScrollControls polling to update
+            act(() => {
+                jest.advanceTimersByTime(100);
+            });
+
             // Now both buttons should be enabled
             expect(isAriaDisabled(leftButton)).toBe(false);
             expect(isAriaDisabled(rightButton)).toBe(false);
@@ -204,6 +242,11 @@ describe("ScrollableView", () => {
                 container.dispatchEvent(new Event("scroll"));
             });
 
+            // Wait for the ScrollControls polling to update
+            act(() => {
+                jest.advanceTimersByTime(100);
+            });
+
             // At end, right button should be disabled
             expect(isAriaDisabled(rightButton)).toBe(true);
 
@@ -221,20 +264,24 @@ describe("ScrollableView", () => {
         it("shows scroll controls with correct RTL button orientation", () => {
             const {rightButton, leftButton} = setupScrollableTest(true);
 
-            // In RTL, the button behaviors are flipped:
-            // - scrollStart is on the right side visually
-            // - scrollEnd is on the left side visually
+            // In RTL, the button behaviors match the expected user behavior:
+            // - Left button (visually <) should scroll to end
+            // - Right button (visually >) should scroll to start
 
-            // Initially, right button (scrollStart in RTL) should be disabled
+            // Initially, at the start of content in RTL mode:
+            // Right button (scrollStart in RTL) should be disabled (we're at start)
             expect(isAriaDisabled(rightButton)).toBe(true);
 
-            // Left button (scrollEnd in RTL) should be enabled
+            // Left button (scrollEnd in RTL) should be enabled (can scroll to end)
             expect(isAriaDisabled(leftButton)).toBe(false);
         });
 
         it("scrolls in the correct direction when buttons are clicked in RTL", () => {
             const {container, leftButton, rightButton} =
                 setupScrollableTest(true);
+
+            // Clear any previous calls to scrollBy
+            jest.clearAllMocks();
 
             // Click left button (End button in RTL)
             act(() => {
@@ -254,6 +301,11 @@ describe("ScrollableView", () => {
                 container.dispatchEvent(new Event("scroll"));
             });
 
+            // Wait for the ScrollControls polling to update
+            act(() => {
+                jest.advanceTimersByTime(100);
+            });
+
             // Now both buttons should be enabled
             expect(isAriaDisabled(rightButton)).toBe(false);
             expect(isAriaDisabled(leftButton)).toBe(false);
@@ -267,6 +319,11 @@ describe("ScrollableView", () => {
             act(() => {
                 (container as any).scrollLeft = -200; // Maximum negative value (scrollWidth - clientWidth)
                 container.dispatchEvent(new Event("scroll"));
+            });
+
+            // Wait for the ScrollControls polling to update
+            act(() => {
+                jest.advanceTimersByTime(100);
             });
 
             // Based on the actual component behavior in RTL mode:

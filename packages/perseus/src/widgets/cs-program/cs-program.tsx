@@ -23,9 +23,10 @@ import type {
 
 const {updateQueryString} = Util;
 
-type RenderProps = PerseusCSProgramWidgetOptions;
-
-type Props = WidgetProps<RenderProps, PerseusCSProgramUserInput>;
+type Props = WidgetProps<
+    PerseusCSProgramWidgetOptions,
+    PerseusCSProgramUserInput
+>;
 
 type DefaultProps = {
     showEditor: Props["showEditor"];
@@ -95,6 +96,18 @@ class CSProgram extends React.Component<Props> implements Widget {
         return _getPromptJSON();
     }
 
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState
+     */
+    getSerializedState(): any {
+        const {userInput: _, alignment: __, ...rest} = this.props;
+        return {
+            ...rest,
+            programType: rest.programType || null,
+        };
+    }
+
     render(): React.ReactNode {
         if (!this.props.programID) {
             return <div />;
@@ -154,12 +167,7 @@ class CSProgram extends React.Component<Props> implements Widget {
         //  creator "went wild".
         // http://www.html5rocks.com/en/tutorials/security/sandboxed-iframes/
         return (
-            <div
-                className={css(
-                    styles.widthOverride,
-                    styleContainer && styles.container,
-                )}
-            >
+            <div className={css(styleContainer && styles.container)}>
                 {/* eslint-disable-next-line jsx-a11y/iframe-has-title -- TODO(LEMS-2871): Address a11y error */}
                 <iframe
                     sandbox={sandboxOptions}
@@ -174,11 +182,10 @@ class CSProgram extends React.Component<Props> implements Widget {
 }
 
 const styles = StyleSheet.create({
-    // Override the inherited width from the perseus paragraph class
-    // 820 is minimum width for 420px editor and 400px canvas
-    widthOverride: {
-        width: 820,
-    },
+    // Note: we used to have a width override here to make sure the widget does
+    // not prematurely horizontally scroll in KA Classic when there is room to
+    // fully render. The override resulted in some poor rendering in articles
+    // in KA Classroom and was removed.
     container: {
         margin: "auto",
     },
@@ -186,7 +193,7 @@ const styles = StyleSheet.create({
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,

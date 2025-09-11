@@ -37,6 +37,7 @@ import type {
     MarkingsType,
     PerseusInteractiveGraphUserInput,
     AxisLabelLocation,
+    ShowAxisArrows,
 } from "@khanacademy/perseus-core";
 import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
@@ -71,7 +72,9 @@ const makeInvalidTypeError = (
     );
 };
 
-type RenderProps = {
+// TODO: this should be PerseusInteractiveGraphWidgetOptions
+// but when I try to change it things break
+type InteractiveGraphProps = {
     /**
      * Where the little black axis lines & labels (ticks) should render.
      * Also known as the tick step. default [1, 1]
@@ -147,9 +150,11 @@ type RenderProps = {
      *
      * NOTE(kevinb): perseus_data.go defines this as Array<Array<number>>
      */
-    // TODO(kevinb): Add a transform function to interactive-graph.jsx to
-    // rename `range` to `ranges` so that things are less confusing.
     range: GraphRange;
+    /**
+     * Whether to show the arrows on the axis.
+     */
+    showAxisArrows: ShowAxisArrows;
     /**
      * The type of graph
      */
@@ -171,13 +176,18 @@ type RenderProps = {
      * Aria description that applies to the entire graph.
      */
     fullGraphAriaDescription?: string;
-}; // There's no transform function in exports
-type Props = WidgetProps<RenderProps, PerseusInteractiveGraphUserInput>;
-type State = any;
+};
+
+type Props = WidgetProps<
+    InteractiveGraphProps,
+    PerseusInteractiveGraphUserInput
+>;
+
 type DefaultProps = {
     labels: string[];
     labelLocation: Props["labelLocation"];
     range: Props["range"];
+    showAxisArrows: Props["showAxisArrows"];
     step: Props["step"];
     backgroundImage: Props["backgroundImage"];
     markings: Props["markings"];
@@ -185,6 +195,8 @@ type DefaultProps = {
     showProtractor: Props["showProtractor"];
     userInput: Props["userInput"];
 };
+
+type State = any;
 
 // Assert that the PerseusInteractiveGraphWidgetOptions parsed from JSON can be
 // passed as props to this component. This ensures that the
@@ -259,6 +271,12 @@ class InteractiveGraph extends React.Component<Props, State> {
             [-10, 10],
             [-10, 10],
         ],
+        showAxisArrows: {
+            xMin: true,
+            xMax: true,
+            yMin: true,
+            yMax: true,
+        },
         step: [1, 1],
         backgroundImage: defaultBackgroundImage,
         markings: "graph",
@@ -285,7 +303,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
         const {userInput: _, ...rest} = this.props;
@@ -847,7 +865,7 @@ class InteractiveGraph extends React.Component<Props, State> {
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,
@@ -869,7 +887,6 @@ export default {
     name: "interactive-graph",
     displayName: "Interactive graph",
     widget: InteractiveGraph,
-    staticTransform: _.identity,
     getStartUserInput,
     getCorrectUserInput,
     getUserInputFromSerializedState,

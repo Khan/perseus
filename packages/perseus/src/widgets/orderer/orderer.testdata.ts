@@ -121,3 +121,45 @@ export const questionWithImages: PerseusRenderer = {
         },
     },
 };
+
+export const questionWithManyCards: PerseusRenderer = {
+    content:
+        "**Arrange these numbers in order from 1 to 10.**  \n\nThis tests horizontal layout with many cards to ensure no wrapping occurs.\n\n[[\u2603 orderer 1]]",
+    images: {},
+    widgets: {
+        "orderer 1": {
+            version: {major: 0, minor: 0},
+            type: "orderer",
+            graded: true,
+            options: {
+                otherOptions: [],
+                layout: "horizontal",
+                options: [
+                    {content: "1", images: {}, widgets: {}},
+                    {content: "2", images: {}, widgets: {}},
+                    {content: "3", images: {}, widgets: {}},
+                    {content: "4", images: {}, widgets: {}},
+                    {content: "5", images: {}, widgets: {}},
+                    {content: "6", images: {}, widgets: {}},
+                    {content: "7", images: {}, widgets: {}},
+                    {content: "8", images: {}, widgets: {}},
+                    {content: "9", images: {}, widgets: {}},
+                    {content: "10", images: {}, widgets: {}},
+                ],
+                correctOptions: [
+                    {content: "1", images: {}, widgets: {}},
+                    {content: "2", images: {}, widgets: {}},
+                    {content: "3", images: {}, widgets: {}},
+                    {content: "4", images: {}, widgets: {}},
+                    {content: "5", images: {}, widgets: {}},
+                    {content: "6", images: {}, widgets: {}},
+                    {content: "7", images: {}, widgets: {}},
+                    {content: "8", images: {}, widgets: {}},
+                    {content: "9", images: {}, widgets: {}},
+                    {content: "10", images: {}, widgets: {}},
+                ],
+                height: "normal",
+            },
+        },
+    },
+};

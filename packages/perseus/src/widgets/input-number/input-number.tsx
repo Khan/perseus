@@ -50,12 +50,10 @@ const formExamples: Record<string, FormExampleFunction> = {
     },
 } as const;
 
-type RenderProps = Pick<
+type ExternalProps = WidgetProps<
     PerseusInputNumberWidgetOptions,
-    "simplify" | "size" | "answerType" | "rightAlign"
+    PerseusInputNumberUserInput
 >;
-
-type ExternalProps = WidgetProps<RenderProps, PerseusInputNumberUserInput>;
 type Props = ExternalProps & {
     apiOptions: NonNullable<ExternalProps["apiOptions"]>;
     linterContext: NonNullable<ExternalProps["linterContext"]>;
@@ -159,13 +157,17 @@ class InputNumber extends React.Component<Props> implements Widget {
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput, ...rest} = this.props;
         return {
-            ...rest,
-            currentValue: userInput.currentValue,
+            alignment: this.props.alignment,
+            static: this.props.static,
+            simplify: this.props.simplify,
+            size: this.props.size,
+            answerType: this.props.answerType,
+            rightAlign: this.props.rightAlign,
+            currentValue: this.props.userInput.currentValue,
         };
     }
 
@@ -249,18 +251,6 @@ const styles = StyleSheet.create({
     },
 });
 
-function transform(
-    widgetOptions: PerseusInputNumberWidgetOptions,
-): RenderProps {
-    const {simplify, size, answerType, rightAlign} = widgetOptions;
-    return {
-        simplify,
-        size,
-        answerType,
-        rightAlign,
-    };
-}
-
 function getOneCorrectAnswerFromRubric(rubric: any): string | undefined {
     if (rubric.value == null) {
         return;
@@ -274,7 +264,7 @@ function getOneCorrectAnswerFromRubric(rubric: any): string | undefined {
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,
@@ -294,7 +284,6 @@ export default {
     hidden: true,
     widget: InputNumber,
     isLintable: true,
-    transform,
     getOneCorrectAnswerFromRubric,
     getStartUserInput,
     getUserInputFromSerializedState,

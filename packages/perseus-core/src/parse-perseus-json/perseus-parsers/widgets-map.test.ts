@@ -231,6 +231,12 @@ describe("parseWidgetsMap", () => {
                     graph: {type: "none"},
                     correct: {type: "none"},
                     lockedFigures: [],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
                 },
             },
         };
@@ -538,6 +544,7 @@ describe("parseWidgetsMap", () => {
                     snapDivisions: 1,
                     correctX: 1,
                     static: false,
+                    isTickCtrl: false,
                 },
             },
         };

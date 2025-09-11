@@ -2763,18 +2763,21 @@ The other entries of $\\text{H}$ can be found similarly.
                     {
                       "content": "$1 \\cdot 4 + 3\\cdot 0 = 4$",
                       "correct": true,
+                      "id": "radio-choice-0",
                       "isNoneOfTheAbove": undefined,
                       "rationale": undefined,
                     },
                     {
                       "content": "$4 \\cdot 4 + 3\\cdot 3= 25$",
                       "correct": false,
+                      "id": "radio-choice-1",
                       "isNoneOfTheAbove": undefined,
                       "rationale": undefined,
                     },
                     {
                       "content": "$1 \\cdot 3 + 4\\cdot -1 = -1$",
                       "correct": undefined,
+                      "id": "radio-choice-2",
                       "isNoneOfTheAbove": false,
                       "rationale": undefined,
                     },
@@ -3786,12 +3789,14 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.json returns th
             {
               "content": "crwdns2693864:0crwdne2693864:0",
               "correct": false,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": false,
               "rationale": "",
             },
             {
               "content": "crwdns2693863:0crwdne2693863:0",
               "correct": true,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": false,
               "rationale": "",
             },
@@ -3847,10 +3852,12 @@ exports[`parseAndMigratePerseusItem given hint-with-null-replace.json returns th
           "choices": [
             {
               "content": "crwdns2693864:0crwdne2693864:0",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "crwdns2693863:0crwdne2693863:0",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": false,
             },
           ],
@@ -4424,24 +4431,28 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.json return
             {
               "content": "crwdns7184273:0crwdne7184273:0",
               "correct": false,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": false,
               "rationale": "",
             },
             {
               "content": "crwdns3077510:0crwdne3077510:0",
               "correct": true,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": false,
               "rationale": "",
             },
             {
               "content": "crwdns4204212:0crwdne4204212:0",
               "correct": false,
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": false,
               "rationale": "",
             },
             {
               "content": "crwdns4204218:0crwdne4204218:0",
               "correct": false,
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": false,
               "rationale": "",
             },
@@ -4536,18 +4547,22 @@ exports[`parseAndMigratePerseusItem given image-with-null-dimensions.json return
           "choices": [
             {
               "content": "crwdns7184273:0crwdne7184273:0",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "crwdns3077510:0crwdne3077510:0",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "crwdns4204212:0crwdne4204212:0",
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "crwdns4204218:0crwdne4204218:0",
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": false,
             },
           ],
@@ -4663,24 +4678,28 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.json r
             {
               "content": "$-5$",
               "correct": false,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
               "rationale": "Absolute values cannot be negative.",
             },
             {
               "content": " $5$",
               "correct": false,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
               "rationale": "Check your signs.",
             },
             {
               "content": " $15$",
               "correct": false,
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": undefined,
               "rationale": "You might have made a sign error.",
             },
             {
               "content": "There are no solutions.",
               "correct": true,
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
@@ -4771,18 +4790,22 @@ exports[`parseAndMigratePerseusItem given input-number-with-boolean-value.json r
           "choices": [
             {
               "content": "$-5$",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": " $5$",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": " $15$",
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "There are no solutions.",
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -6346,6 +6369,12 @@ $3$ | $8$
           ],
           "rulerLabel": "",
           "rulerTicks": 10,
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showRuler": false,
           "snapStep": [
@@ -6446,6 +6475,12 @@ $3$ | $8$
           ],
           "rulerLabel": "",
           "rulerTicks": 10,
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showRuler": false,
           "showTooltips": false,
@@ -6717,6 +6752,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -6984,6 +7025,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-figures-missi
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -7069,6 +7116,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -7154,6 +7207,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-locked-function-with
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -7309,6 +7368,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7372,6 +7437,12 @@ Locked figures:
               100,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7425,6 +7496,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7476,6 +7553,12 @@ Locked figures:
               3,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7527,6 +7610,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7578,6 +7667,12 @@ Locked figures:
               5,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7629,6 +7724,12 @@ Locked figures:
               5,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -7943,6 +8044,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8039,6 +8146,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8091,6 +8204,12 @@ Locked figures:
               100,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8145,6 +8264,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8197,6 +8322,12 @@ Locked figures:
               3,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8249,6 +8380,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8301,6 +8438,12 @@ Locked figures:
               5,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8353,6 +8496,12 @@ Locked figures:
               5,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8640,6 +8789,12 @@ Locked figures:
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "snapStep": [
@@ -8829,6 +8984,12 @@ $\\begin{align}
                   ],
                   "rulerLabel": "",
                   "rulerTicks": 10,
+                  "showAxisArrows": {
+                    "xMax": true,
+                    "xMin": true,
+                    "yMax": true,
+                    "yMin": true,
+                  },
                   "showProtractor": false,
                   "showRuler": false,
                   "showTooltips": false,
@@ -8891,36 +9052,42 @@ $B_E\\ \\sin{45\\degree}\\downarrow$
             {
               "content": "$B_E\\ \\cos{45\\degree} \\uparrow$",
               "correct": false,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "$B_E\\ \\cos{45\\degree} \\downarrow$",
               "correct": false,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "$B_E\\ \\sin{45\\degree} \\downarrow$",
               "correct": true,
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": false,
               "rationale": undefined,
             },
             {
               "content": "$B_E\\ \\sin{45\\degree}\\uparrow$",
               "correct": false,
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": false,
               "rationale": undefined,
             },
             {
               "content": "$B_E\\ \\tan {45\\degree} \\uparrow$",
               "correct": false,
+              "id": "radio-choice-4",
               "isNoneOfTheAbove": false,
               "rationale": undefined,
             },
             {
               "content": "$B_E\\ \\tan {45\\degree} \\downarrow$",
               "correct": false,
+              "id": "radio-choice-5",
               "isNoneOfTheAbove": false,
               "rationale": undefined,
             },
@@ -8980,26 +9147,32 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-graph.json r
           "choices": [
             {
               "content": "$B_E\\ \\cos{45\\degree} \\uparrow$",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "$B_E\\ \\cos{45\\degree} \\downarrow$",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "$B_E\\ \\sin{45\\degree} \\downarrow$",
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "$B_E\\ \\sin{45\\degree}\\uparrow$",
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "$B_E\\ \\tan {45\\degree} \\uparrow$",
+              "id": "radio-choice-4",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "$B_E\\ \\tan {45\\degree} \\downarrow$",
+              "id": "radio-choice-5",
               "isNoneOfTheAbove": false,
             },
           ],
@@ -9072,6 +9245,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
                 10,
               ],
             ],
+            "showAxisArrows": {
+              "xMax": true,
+              "xMin": true,
+              "yMax": true,
+              "yMin": true,
+            },
             "showProtractor": false,
             "showTooltips": false,
             "step": [
@@ -9155,6 +9334,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -9223,6 +9408,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -9295,6 +9486,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -9364,6 +9561,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-gridStep.jso
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -9471,6 +9674,12 @@ $A$ $(1,0)$ is transformed into $A'$ $(4,7)$.  ",
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "step": [
             1,
@@ -9537,6 +9746,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-missing-labels.json 
               10,
             ],
           ],
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showTooltips": false,
           "step": [
@@ -9683,6 +9898,12 @@ Draw the rhombus in the first quadrant.
           ],
           "rulerLabel": "",
           "rulerTicks": 10,
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showRuler": false,
           "snapStep": [
@@ -9772,6 +9993,12 @@ Draw the rhombus in the first quadrant.
           ],
           "rulerLabel": "",
           "rulerTicks": 10,
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showRuler": false,
           "showTooltips": false,
@@ -9878,6 +10105,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
           ],
           "rulerLabel": "",
           "rulerTicks": 10,
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showRuler": false,
           "showTooltips": false,
@@ -9905,18 +10138,21 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
             {
               "content": "Less than halfway through the race",
               "correct": false,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "Halfway through the race",
               "correct": true,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "More than halfway through the race",
               "correct": undefined,
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
@@ -10008,6 +10244,12 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
           ],
           "rulerLabel": "",
           "rulerTicks": 10,
+          "showAxisArrows": {
+            "xMax": true,
+            "xMin": true,
+            "yMax": true,
+            "yMin": true,
+          },
           "showProtractor": false,
           "showRuler": false,
           "showTooltips": false,
@@ -10034,14 +10276,17 @@ exports[`parseAndMigratePerseusItem given interactive-graph-with-string-backgrou
           "choices": [
             {
               "content": "Less than halfway through the race",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "Halfway through the race",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "More than halfway through the race",
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -12336,18 +12581,21 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
             {
               "content": " $\\,-1\\,\\,\\,<\\,-10$",
               "correct": false,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": " $-10\\,\\,\\,<\\,\\,\\,1$",
               "correct": true,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "  $\\,\\,\\,\\,\\,10\\,\\,\\,< \\,-1$",
               "correct": false,
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
@@ -12436,14 +12684,17 @@ exports[`parseAndMigratePerseusItem given number-line-with-empty-strings-in-labe
           "choices": [
             {
               "content": " $\\,-1\\,\\,\\,<\\,-10$",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": " $-10\\,\\,\\,<\\,\\,\\,1$",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "  $\\,\\,\\,\\,\\,10\\,\\,\\,< \\,-1$",
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -12515,6 +12766,7 @@ $=(31-31) -8$",
           ],
           "initialX": null,
           "isInequality": false,
+          "isTickCtrl": false,
           "labelRange": [
             null,
             null,
@@ -12596,6 +12848,7 @@ exports[`parseAndMigratePerseusItem given number-line-with-null-correctX.json re
           ],
           "initialX": null,
           "isInequality": false,
+          "isTickCtrl": false,
           "labelRange": [
             null,
             null,
@@ -13936,12 +14189,14 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.js
             {
               "content": "crwdns6520529:0$x$crwdnd6520529:0$2$crwdnd6520529:0$2$crwdnd6520529:0$y$crwdne6520529:0",
               "correct": false,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": false,
               "rationale": "",
             },
             {
               "content": "crwdns6520777:0$x$crwdnd6520777:0$2$crwdnd6520777:0$10$crwdnd6520777:0$y$crwdne6520777:0",
               "correct": true,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": false,
               "rationale": "",
             },
@@ -14123,10 +14378,12 @@ exports[`parseAndMigratePerseusItem given numeric-input-with-null-answerForms.js
           "choices": [
             {
               "content": "crwdns6520529:0$x$crwdnd6520529:0$2$crwdnd6520529:0$2$crwdnd6520529:0$y$crwdne6520529:0",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "crwdns6520777:0$x$crwdnd6520777:0$2$crwdnd6520777:0$10$crwdnd6520777:0$y$crwdne6520777:0",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": false,
             },
           ],
@@ -15356,18 +15613,21 @@ $\\dfrac23$ | $\\dfrac13+\\dfrac13$",
                     {
                       "content": "$\\dfrac19+\\dfrac19$",
                       "correct": true,
+                      "id": "radio-choice-0",
                       "isNoneOfTheAbove": undefined,
                       "rationale": undefined,
                     },
                     {
                       "content": "$\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12+\\dfrac12$",
                       "correct": false,
+                      "id": "radio-choice-1",
                       "isNoneOfTheAbove": undefined,
                       "rationale": undefined,
                     },
                     {
                       "content": "$\\dfrac19+\\dfrac29$",
                       "correct": false,
+                      "id": "radio-choice-2",
                       "isNoneOfTheAbove": false,
                       "rationale": undefined,
                     },
@@ -15682,24 +15942,28 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
             {
               "content": "a.	the rate of extinction that balances the rate of speciation",
               "correct": false,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "b.	the average rate at which extinctions have occurred naturally in the geologic past, without human involvement",
               "correct": true,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "c.	the rate of extinction that is currently occurring in protected areas like national parks and marine sanctuaries",
               "correct": false,
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "d.	the rate of extinction that can be determined by using Geiger counters and detecting radiation",
               "correct": false,
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
@@ -15757,18 +16021,22 @@ exports[`parseAndMigratePerseusItem given orderer-option-missing-widgets.json re
           "choices": [
             {
               "content": "a.	the rate of extinction that balances the rate of speciation",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "b.	the average rate at which extinctions have occurred naturally in the geologic past, without human involvement",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "c.	the rate of extinction that is currently occurring in protected areas like national parks and marine sanctuaries",
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "d.	the rate of extinction that can be determined by using Geiger counters and detecting radiation",
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -16068,24 +16336,28 @@ A free body diagram of the **box** is shown below.
             {
               "content": "normal force $(F_\\text{N})$",
               "correct": true,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
               "rationale": "$F_\\text{N}$ results from the box interacting with the shelf.",
             },
             {
               "content": "gravitational force $(F_\\text{g})$",
               "correct": true,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
               "rationale": "$F_\\text{g}$ results from the box interacting with Earth.",
             },
             {
               "content": "applied force $(F_\\text{a})$",
               "correct": true,
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": false,
               "rationale": "$F_\\text{a}$ results from the box interacting with the woman's hand.",
             },
             {
               "content": "frictional force $(F_\\text{f})$",
               "correct": true,
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": false,
               "rationale": "$F_\\text{f}$ results from the box interacting with the shelf.",
             },
@@ -16258,18 +16530,22 @@ A free body diagram of the **box** is shown below.
           "choices": [
             {
               "content": "normal force $(F_\\text{N})$",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "gravitational force $(F_\\text{g})$",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "applied force $(F_\\text{a})$",
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "frictional force $(F_\\text{f})$",
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": false,
             },
           ],
@@ -16567,24 +16843,28 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
             {
               "content": "Members of the high nobility and the wealthiest of the knightly class",
               "correct": false,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "Soldiers, members of the civilian militia, and mercenaries",
               "correct": false,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "Horses and dogs",
               "correct": false,
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "All of the above",
               "correct": true,
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": undefined,
               "rationale": "Armor (of different styles and quality) was worn by almost all levels of society: high nobility (emperors, dukes, and counts), knights, mercenaries, citizens, peasants, and even young boys. Horses and dogs could also be protected with armor. Price varied considerably based on materials, quality, and decoration.",
             },
@@ -16609,12 +16889,14 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
             {
               "content": "",
               "correct": undefined,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "",
               "correct": undefined,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
@@ -16802,18 +17084,22 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
           "choices": [
             {
               "content": "Members of the high nobility and the wealthiest of the knightly class",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "Soldiers, members of the civilian militia, and mercenaries",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "Horses and dogs",
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "All of the above",
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -16835,10 +17121,12 @@ Anton Peffenhauser, *Foot-Combat Armor of Prince-Elector Christian I of Saxony (
           "choices": [
             {
               "content": "",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -17167,24 +17455,28 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
             {
               "content": "15 N",
               "correct": true,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "30 N",
               "correct": false,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "60 N",
               "correct": undefined,
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "180 N",
               "correct": undefined,
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
@@ -17237,18 +17529,22 @@ exports[`parseAndMigratePerseusItem given plotter-with-undefined-plotDimensions.
           "choices": [
             {
               "content": "15 N",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "30 N",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "60 N",
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "180 N",
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -17307,6 +17603,154 @@ exports[`parseAndMigratePerseusItem given question-missing-content.json returns 
 }
 `;
 
+exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.json returns the same result as before 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "
+**Why does the author discuss the clothes and food at Robben Island?**
+
+[[☃ radio 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "choices": [
+            {
+              "content": "to show that Mandela fought for equality even when he was in prison
+",
+              "correct": true,
+              "id": "radio-choice-0",
+              "rationale": "**This is the best choice.** The author describes how apartheid affected the lives of Black prisoners: "they were forced to wear shorts and sandals" and their food was "worse than the food for other prisoners." The author goes on to say that Mandela fought for equal rights in prison, and that his work helped to change these rules. This is an example of how he fought for equality in prison.
+",
+            },
+            {
+              "content": "to prove that everyone was treated poorly in South African prisons
+",
+              "correct": false,
+              "id": "radio-choice-1",
+              "rationale": "This isn’t why the author discusses the clothes and food at Robben Island. The author mentions these details to show that Black prisoners received poorer treatment than other prisoners: they weren't allowed to wear warm clothes and had worse food. The author doesn't suggest that *all* prisoners were treated poorly.
+",
+            },
+            {
+              "content": "to introduce the idea that Mandela didn’t win every battle he fought against apartheid
+",
+              "correct": false,
+              "id": "radio-choice-2",
+              "isNoneOfTheAbove": false,
+              "rationale": "This isn’t why the author discusses the clothes and food at Robben Island. In fact, the author says that Mandela did help Black prisoners receive better clothes and food. For example, the text says that Mandela's work "finally began to pay off when Black prisoners were granted the right to wear pants and shoes."
+",
+            },
+            {
+              "content": "to demonstrate that prisoners were treated better than South Africans who were not in prison
+",
+              "correct": false,
+              "id": "radio-choice-3",
+              "isNoneOfTheAbove": false,
+              "rationale": "This isn’t why the author discusses the clothes and food at Robben Island. The text never compares the treatment of prisoners to the treatment of people who weren't in prison. 
+",
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "numCorrect": 1,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 3,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
+exports[`parseAndMigratePerseusItem given radio-choice-ids-set-to-empty-string.json returns the same result as before with answer information removed 1`] = `
+{
+  "answerArea": {
+    "calculator": false,
+    "financialCalculatorMonthlyPayment": false,
+    "financialCalculatorTimeToPayOff": false,
+    "financialCalculatorTotalAmount": false,
+    "periodicTable": false,
+    "periodicTableWithKey": false,
+  },
+  "hints": [],
+  "question": {
+    "content": "
+**Why does the author discuss the clothes and food at Robben Island?**
+
+[[☃ radio 1]]
+
+",
+    "images": {},
+    "widgets": {
+      "radio 1": {
+        "alignment": "default",
+        "graded": true,
+        "options": {
+          "choices": [
+            {
+              "content": "to show that Mandela fought for equality even when he was in prison
+",
+              "id": "radio-choice-0",
+              "isNoneOfTheAbove": undefined,
+            },
+            {
+              "content": "to prove that everyone was treated poorly in South African prisons
+",
+              "id": "radio-choice-1",
+              "isNoneOfTheAbove": undefined,
+            },
+            {
+              "content": "to introduce the idea that Mandela didn’t win every battle he fought against apartheid
+",
+              "id": "radio-choice-2",
+              "isNoneOfTheAbove": false,
+            },
+            {
+              "content": "to demonstrate that prisoners were treated better than South Africans who were not in prison
+",
+              "id": "radio-choice-3",
+              "isNoneOfTheAbove": false,
+            },
+          ],
+          "countChoices": false,
+          "deselectEnabled": false,
+          "hasNoneOfTheAbove": false,
+          "multipleSelect": false,
+          "numCorrect": undefined,
+          "randomize": false,
+        },
+        "static": false,
+        "type": "radio",
+        "version": {
+          "major": 3,
+          "minor": 0,
+        },
+      },
+    },
+  },
+}
+`;
+
 exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json returns the same result as before 1`] = `
 {
   "answerArea": {
@@ -17349,24 +17793,28 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-0",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-1",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-2",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-3",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
@@ -17407,24 +17855,28 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-0",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-1",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-2",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-3",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
@@ -17465,24 +17917,28 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-0",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-1",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-2",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-3",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
@@ -17523,24 +17979,28 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-0",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-1",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-2",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
                   {
                     "content": "",
                     "correct": undefined,
+                    "id": "radio-choice-3",
                     "isNoneOfTheAbove": undefined,
                     "rationale": undefined,
                   },
@@ -17614,18 +18074,22 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                 "choices": [
                   {
                     "content": "",
+                    "id": "radio-choice-0",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "radio-choice-1",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "radio-choice-2",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "radio-choice-3",
                     "isNoneOfTheAbove": undefined,
                   },
                 ],
@@ -17666,18 +18130,22 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                 "choices": [
                   {
                     "content": "",
+                    "id": "radio-choice-0",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "radio-choice-1",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "radio-choice-2",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "radio-choice-3",
                     "isNoneOfTheAbove": undefined,
                   },
                 ],
@@ -17718,18 +18186,22 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                 "choices": [
                   {
                     "content": "",
+                    "id": "radio-choice-0",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "radio-choice-1",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "radio-choice-2",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "radio-choice-3",
                     "isNoneOfTheAbove": undefined,
                   },
                 ],
@@ -17770,18 +18242,22 @@ exports[`parseAndMigratePerseusItem given radio-choice-missing-content.json retu
                 "choices": [
                   {
                     "content": "",
+                    "id": "radio-choice-0",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "radio-choice-1",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "radio-choice-2",
                     "isNoneOfTheAbove": undefined,
                   },
                   {
                     "content": "",
+                    "id": "radio-choice-3",
                     "isNoneOfTheAbove": undefined,
                   },
                 ],
@@ -17846,12 +18322,14 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
             {
               "content": "Yes",
               "correct": false,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "No",
               "correct": true,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
@@ -17909,10 +18387,12 @@ B &= \\{x: x \\text{ is a square in the plane P} \\}
           "choices": [
             {
               "content": "Yes",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "No",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -18114,6 +18594,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
               "content": "“Research shows that exercise makes people healthier and happier.” 
 ",
               "correct": false,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": false,
               "rationale": "This choice doesn’t support Eliana’s inference. It mentions that exercise can make people healthier and happier but doesn’t suggest that  students would keep exercising later in life.
 ",
@@ -18121,6 +18602,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
             {
               "content": "“So, by giving students enough time to move their bodies, schools would make their bodies stronger and improve their mental wellbeing.”",
               "correct": false,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": false,
               "rationale": "This choice doesn’t support Eliana’s inference. It mentions that exercise can make people healthier in their bodies and minds but doesn’t suggest that students would keep exercising later in life.
 ",
@@ -18129,6 +18611,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
               "content": "“The Center for Disease Control recommends that kids get 60 minutes of active play a day, yet, for many of us, schools give us 20 minutes or less of recess!” 
 ",
               "correct": false,
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": false,
               "rationale": "This choice doesn’t support Eliana’s inference. It mentions how much exercise the Center for Disease Control recommends but doesn’t suggest this would lead to lifelong healthy habits.
 ",
@@ -18137,6 +18620,7 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
               "content": "“And the practices we develop now affect us far into the future– research has found that the most active kids remain active as adults.”
 ",
               "correct": true,
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": false,
               "rationale": "**This is the best choice.** It mentions that “research has found that the most active kids remain active as adults,” which shows that kids who exercise are likely to keep up this healthy habit later in their lives.
 ",
@@ -18336,20 +18820,24 @@ exports[`parseAndMigratePerseusItem given radio-with-extra-fields-from-go-schema
             {
               "content": "“Research shows that exercise makes people healthier and happier.” 
 ",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "“So, by giving students enough time to move their bodies, schools would make their bodies stronger and improve their mental wellbeing.”",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "“The Center for Disease Control recommends that kids get 60 minutes of active play a day, yet, for many of us, schools give us 20 minutes or less of recess!” 
 ",
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "“And the practices we develop now affect us far into the future– research has found that the most active kids remain active as adults.”
 ",
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": false,
             },
           ],
@@ -18450,24 +18938,28 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
             {
               "content": "",
               "correct": undefined,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "",
               "correct": undefined,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "",
               "correct": undefined,
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
             {
               "content": "",
               "correct": undefined,
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": undefined,
               "rationale": undefined,
             },
@@ -18519,18 +19011,22 @@ exports[`parseAndMigratePerseusItem given radio-with-null-options.json returns t
           "choices": [
             {
               "content": "",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "",
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": undefined,
             },
             {
               "content": "",
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": undefined,
             },
           ],
@@ -18682,6 +19178,7 @@ ___
               "content": "The Prussian Model of Education continues to influence how many American public schools are run today.
 ",
               "correct": true,
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": false,
               "rationale": "**This statement **is** likely true, making it the best choice.** The text first explains how the idea of conformity in schools came from Prussia. Then, the text points out how “today, many American public schools still expect students to learn the same skills, at the same time, in the same ways.” From this, you can infer that the Prussian model continues to influence American public schools today. ",
             },
@@ -18689,6 +19186,7 @@ ___
               "content": "The Prussian Model of Education has little influence on the way that American public schools are run today.
 ",
               "correct": false,
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": false,
               "rationale": "This statement isn’t likely true. After explaining how the idea of conformity in schools came from Prussia, the text points out how “today, many American public schools still expect students to learn the same skills, at the same time, in the same ways.” So, you can infer that the Prussian focus on conformity still influences American public schools.
 ",
@@ -18697,6 +19195,7 @@ ___
               "content": "There have been many people fighting to eliminate the focus on conformity in American public schools.
 ",
               "correct": false,
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": false,
               "rationale": "This statement isn’t likely true. The text discusses how American schools focus on conformity, and points out how “studies show that this focus on conformity can cause particular problems for certain students.” But the text doesn’t mention many people fighting to eliminate schools’ focus on conformity.
 ",
@@ -18704,6 +19203,7 @@ ___
             {
               "content": "There have been many people fighting to impose new rules within the American public school system.",
               "correct": false,
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": false,
               "rationale": "This statement isn’t likely true. The text doesn’t mention people fighting to impose new rules. 
 ",
@@ -18858,20 +19358,24 @@ ___
             {
               "content": "The Prussian Model of Education continues to influence how many American public schools are run today.
 ",
+              "id": "radio-choice-0",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "The Prussian Model of Education has little influence on the way that American public schools are run today.
 ",
+              "id": "radio-choice-1",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "There have been many people fighting to eliminate the focus on conformity in American public schools.
 ",
+              "id": "radio-choice-2",
               "isNoneOfTheAbove": false,
             },
             {
               "content": "There have been many people fighting to impose new rules within the American public school system.",
+              "id": "radio-choice-3",
               "isNoneOfTheAbove": false,
             },
           ],
@@ -19349,5 +19853,589 @@ exports[`parseAndMigratePerseusItem given transformer-widget.json returns the sa
       },
     },
   },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from categorizer.ts returns the same result as before 1`] = `
+{
+  "categorizer 1": {
+    "values": [
+      1,
+      null,
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from cs-program.ts returns the same result as before 1`] = `
+{
+  "cs-program 1": {
+    "message": null,
+    "status": "correct",
+  },
+  "cs-program 2": {
+    "message": "There's a test failure!",
+    "status": "incorrect",
+  },
+  "cs-program 3": {
+    "message": null,
+    "status": "incomplete",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from dropdown.ts returns the same result as before 1`] = `
+{
+  "dropdown 1": {
+    "value": 1,
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from expression.ts returns the same result as before 1`] = `
+{
+  "expression 1": "\\sqrt{x}",
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from free-response.ts returns the same result as before 1`] = `
+{
+  "free-response 1": {
+    "currentValue": "hello",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from grapher.ts returns the same result as before 1`] = `
+{
+  "grapher 1": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "absolute_value",
+  },
+  "grapher 2": {
+    "asymptote": [
+      [
+        -1,
+        0,
+      ],
+      [
+        -2,
+        0,
+      ],
+    ],
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "exponential",
+  },
+  "grapher 3": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "linear",
+  },
+  "grapher 4": {
+    "asymptote": [
+      [
+        -1,
+        0,
+      ],
+      [
+        -2,
+        0,
+      ],
+    ],
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "logarithm",
+  },
+  "grapher 5": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "quadratic",
+  },
+  "grapher 6": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "sinusoid",
+  },
+  "grapher 7": {
+    "coords": [
+      [
+        0,
+        0,
+      ],
+      [
+        1,
+        1,
+      ],
+    ],
+    "type": "tangent",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from group.ts returns the same result as before 1`] = `
+{
+  "group 1": {
+    "radio 1": {
+      "selectedChoiceIds": [
+        "1234",
+      ],
+    },
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from iframe.ts returns the same result as before 1`] = `
+{
+  "iframe 1": {
+    "status": "correct",
+  },
+  "iframe 2": {
+    "message": null,
+    "status": "incomplete",
+  },
+  "iframe 3": {
+    "message": "something's not right",
+    "status": "incorrect",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from input-number.ts returns the same result as before 1`] = `
+{
+  "input-number 1": {
+    "currentValue": "42",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from interactive-graph.ts returns the same result as before 1`] = `
+{
+  "interactive-graph 1": {
+    "type": "angle",
+  },
+  "interactive-graph 10": {
+    "type": "polygon",
+  },
+  "interactive-graph 11": {
+    "coords": [
+      [
+        2,
+        3,
+      ],
+    ],
+    "match": "similar",
+    "numSides": 42,
+    "showAngles": false,
+    "showSides": false,
+    "snapTo": "grid",
+    "startCoords": [
+      [
+        0,
+        1,
+      ],
+    ],
+    "type": "polygon",
+  },
+  "interactive-graph 12": {
+    "type": "quadratic",
+  },
+  "interactive-graph 13": {
+    "coords": [
+      [
+        0,
+        1,
+      ],
+      [
+        2,
+        3,
+      ],
+      [
+        4,
+        5,
+      ],
+    ],
+    "startCoords": [
+      [
+        6,
+        7,
+      ],
+      [
+        8,
+        9,
+      ],
+      [
+        10,
+        11,
+      ],
+    ],
+    "type": "quadratic",
+  },
+  "interactive-graph 14": {
+    "type": "ray",
+  },
+  "interactive-graph 15": {
+    "coords": [
+      [
+        0,
+        1,
+      ],
+      [
+        2,
+        3,
+      ],
+    ],
+    "startCoords": [
+      [
+        6,
+        7,
+      ],
+      [
+        8,
+        9,
+      ],
+    ],
+    "type": "ray",
+  },
+  "interactive-graph 16": {
+    "type": "segment",
+  },
+  "interactive-graph 17": {
+    "coords": [
+      [
+        [
+          1,
+          2,
+        ],
+        [
+          3,
+          4,
+        ],
+      ],
+    ],
+    "numSegments": 42,
+    "startCoords": [
+      [
+        [
+          5,
+          6,
+        ],
+        [
+          7,
+          8,
+        ],
+      ],
+    ],
+    "type": "segment",
+  },
+  "interactive-graph 18": {
+    "type": "sinusoid",
+  },
+  "interactive-graph 19": {
+    "coords": [
+      [
+        1,
+        2,
+      ],
+      [
+        3,
+        4,
+      ],
+    ],
+    "startCoords": [
+      [
+        5,
+        6,
+      ],
+      [
+        7,
+        8,
+      ],
+    ],
+    "type": "sinusoid",
+  },
+  "interactive-graph 2": {
+    "allowReflexAngles": true,
+    "angleOffsetDeg": 7,
+    "coords": [
+      [
+        1,
+        2,
+      ],
+      [
+        3,
+        4,
+      ],
+      [
+        5,
+        6,
+      ],
+    ],
+    "match": "congruent",
+    "showAngles": true,
+    "snapDegrees": 11,
+    "startCoords": [
+      [
+        1,
+        2,
+      ],
+      [
+        3,
+        4,
+      ],
+      [
+        5,
+        6,
+      ],
+    ],
+    "type": "angle",
+  },
+  "interactive-graph 3": {
+    "type": "circle",
+  },
+  "interactive-graph 4": {
+    "center": [
+      1,
+      2,
+    ],
+    "radius": 3,
+    "startCoords": {
+      "center": [
+        4,
+        5,
+      ],
+      "radius": 6,
+    },
+    "type": "circle",
+  },
+  "interactive-graph 5": {
+    "type": "linear",
+  },
+  "interactive-graph 6": {
+    "coords": [
+      [
+        1,
+        2,
+      ],
+      [
+        3,
+        4,
+      ],
+    ],
+    "startCoords": [
+      [
+        5,
+        6,
+      ],
+      [
+        7,
+        8,
+      ],
+    ],
+    "type": "linear",
+  },
+  "interactive-graph 7": {
+    "type": "point",
+  },
+  "interactive-graph 8": {
+    "numPoints": "unlimited",
+    "type": "point",
+  },
+  "interactive-graph 9": {
+    "coord": [
+      5,
+      6,
+    ],
+    "coords": [
+      [
+        1,
+        2,
+      ],
+    ],
+    "numPoints": 42,
+    "startCoords": [
+      [
+        3,
+        4,
+      ],
+    ],
+    "type": "point",
+  },
+  "interactive-graph 999": {
+    "type": "none",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from label-image.ts returns the same result as before 1`] = `
+{
+  "label-image 1": {
+    "markers": [
+      {
+        "label": "a",
+      },
+      {
+        "label": "b",
+        "selected": [
+          "c",
+        ],
+      },
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from matcher.ts returns the same result as before 1`] = `
+{
+  "matcher 1": {
+    "left": [
+      "a",
+    ],
+    "right": [
+      "b",
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from matrix.ts returns the same result as before 1`] = `
+{
+  "matrix 1": {
+    "answers": [
+      [
+        "1",
+        "2",
+      ],
+      [
+        "3",
+        "4",
+      ],
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from number-line.ts returns the same result as before 1`] = `
+{
+  "number-line 1": {
+    "numDivisions": 3,
+    "numLinePosition": 2,
+    "rel": "eq",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from numeric-input.ts returns the same result as before 1`] = `
+{
+  "numeric-input 1": {
+    "currentValue": "42",
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from orderer.ts returns the same result as before 1`] = `
+{
+  "orderer 1": {
+    "current": [
+      "a",
+      "b",
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from plotter.ts returns the same result as before 1`] = `
+{
+  "plotter 1": [
+    1,
+    2,
+  ],
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from radio.ts returns the same result as before 1`] = `
+{
+  "radio 1": {
+    "selectedChoiceIds": [
+      "1234",
+      "5678",
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from sorter.ts returns the same result as before 1`] = `
+{
+  "sorter 1": {
+    "changed": true,
+    "options": [
+      "a",
+      "b",
+    ],
+  },
+}
+`;
+
+exports[`parseAndMigrateUserInputMap given the data from table.ts returns the same result as before 1`] = `
+{
+  "table 1": [
+    [
+      "a",
+      "b",
+    ],
+    [
+      "c",
+      "d",
+    ],
+  ],
 }
 `;

@@ -18,7 +18,7 @@ import type {UserEvent} from "@testing-library/user-event";
  *
  * This API is not built in a way that supports migrating data
  * between versions of Perseus JSON. In fact serialization
- * doesn't use WidgetOptions, but RenderProps; it's leveraging
+ * doesn't use WidgetOptions, but manipulated widget props; it's leveraging
  * what is considered an internal implementation detail to support
  * rehydrating previous state.
  *
@@ -119,37 +119,5 @@ describe("FreeResponse serialization", () => {
             },
             hints: [],
         });
-    });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicFreeResponse());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "free-response 1": {
-                        allowUnlimitedCharacters: false,
-                        characterLimit: 500,
-                        placeholder: "test-placeholder",
-                        question: "test-question",
-                        scoringCriteria: [
-                            {
-                                text: "test-criterion",
-                            },
-                        ],
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        // since FreeResponse doesn't serialize user input
-        // there's not a way to restore user input
-        expect(userInput).toEqual({"free-response 1": {currentValue: ""}});
     });
 });

@@ -2,7 +2,7 @@ import {
     generateTestPerseusItem,
     generateTestPerseusRenderer,
 } from "@khanacademy/perseus-core";
-import {screen, act} from "@testing-library/react";
+import {screen} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 
 import {testDependencies} from "../../../../../testing/test-dependencies";
@@ -18,7 +18,7 @@ import type {UserEvent} from "@testing-library/user-event";
  *
  * This API is not built in a way that supports migrating data
  * between versions of Perseus JSON. In fact serialization
- * doesn't use WidgetOptions, but RenderProps; it's leveraging
+ * doesn't use WidgetOptions, but manipulated widget props; it's leveraging
  * what is considered an internal implementation detail to support
  * rehydrating previous state.
  *
@@ -103,30 +103,5 @@ describe("Dropdown serialization", () => {
             },
             hints: [],
         });
-    });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicDropdown());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "dropdown 1": {
-                        choices: ["Correct", "Incorrect"],
-                        placeholder: "Choose",
-                        selected: 2,
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        // `value` would be 0 if we didn't properly restore serialized state
-        expect(userInput).toEqual({"dropdown 1": {value: 2}});
     });
 });

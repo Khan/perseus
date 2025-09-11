@@ -1,5 +1,77 @@
 # @khanacademy/perseus-core
 
+## 19.0.2
+
+### Patch Changes
+
+-   [#2867](https://github.com/Khan/perseus/pull/2867) [`876be8cde6`](https://github.com/Khan/perseus/commit/876be8cde6aa2936612b2e9a60bf20626440b16c) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Radio fix that defaults choice ids that are empty strings
+
+## 19.0.1
+
+### Patch Changes
+
+-   [#2846](https://github.com/Khan/perseus/pull/2846) [`655f8994b8`](https://github.com/Khan/perseus/commit/655f8994b869a9eb34c4f9436cfc32bd59916d37) Thanks [@benchristel](https://github.com/benchristel)! - Internal: add data-driven regression tests for user input parsers
+
+## 19.0.0
+
+### Major Changes
+
+-   [#2841](https://github.com/Khan/perseus/pull/2841) [`b4aef654c1`](https://github.com/Khan/perseus/commit/b4aef654c1844f2d322a37229a209edeff545035) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove serializeState prop from Renderer and restoreSerializedState API (both already deprecated)
+
+*   [#2857](https://github.com/Khan/perseus/pull/2857) [`59cbb43106`](https://github.com/Khan/perseus/commit/59cbb431069caf66f63672f223da34cf063e7932) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Radio transform/staticTransform. Replace randomness with deterministic shuffling for Radio.
+
+## 18.9.1
+
+### Patch Changes
+
+-   [#2798](https://github.com/Khan/perseus/pull/2798) [`245de4eba5`](https://github.com/Khan/perseus/commit/245de4eba5b1d8e055cf0d8793c3ad18d55aea8f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove NumberLine transforms
+
+## 18.9.0
+
+### Minor Changes
+
+-   [#2799](https://github.com/Khan/perseus/pull/2799) [`8b18b38b31`](https://github.com/Khan/perseus/commit/8b18b38b31866582cb101d29ea3dbfd2dbe756bf) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Changes the output of radio score from boolean array to string array that represent the user's selected choice ids
+
+## 18.8.0
+
+### Minor Changes
+
+-   [#2813](https://github.com/Khan/perseus/pull/2813) [`9a5605b82c`](https://github.com/Khan/perseus/commit/9a5605b82ca6038f326bf70c6d0959bb2227b754) Thanks [@benchristel](https://github.com/benchristel)! - Allow the `message` property of `PerseusIFrameUserInput` to be `undefined`.
+
+### Patch Changes
+
+-   [#2809](https://github.com/Khan/perseus/pull/2809) [`aab0bf4b8b`](https://github.com/Khan/perseus/commit/aab0bf4b8bcb10347f24854403ee27581212df5c) Thanks [@nishasy](https://github.com/nishasy)! - [Image](DX) Add an image generator + use it in testdata
+
+## 18.7.0
+
+### Minor Changes
+
+-   [#2786](https://github.com/Khan/perseus/pull/2786) [`52b2b3ae54`](https://github.com/Khan/perseus/commit/52b2b3ae54953ff6969e8962858d46d025661be8) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Add `showAxisArrows` field to Interactive Graph editor
+
+### Patch Changes
+
+-   [#2807](https://github.com/Khan/perseus/pull/2807) [`62029ee700`](https://github.com/Khan/perseus/commit/62029ee700db45a646a0addf0e90ff4df73aef3a) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Updates radio's index.ts file to include default values for content and choice ids
+
+## 18.6.0
+
+### Minor Changes
+
+-   [#2777](https://github.com/Khan/perseus/pull/2777) [`78f7c512a4`](https://github.com/Khan/perseus/commit/78f7c512a4cd35e2416952fccb480e1821fcef8a) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Add `showAxisArrows` field to Interactive Graph widget
+
+*   [#2775](https://github.com/Khan/perseus/pull/2775) [`a9ff068196`](https://github.com/Khan/perseus/commit/a9ff0681963836fbc70c606eb880e3464e60c03e) Thanks [@Myranae](https://github.com/Myranae)! - Fix parsing error by updating matrix user input to an array of string arrays instead of number
+
+## 18.5.0
+
+### Minor Changes
+
+-   [#2762](https://github.com/Khan/perseus/pull/2762) [`1bc1464852`](https://github.com/Khan/perseus/commit/1bc14648527864d17640e0818ef6ec38a13f90ab) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - adds choice id as a required field to Radio Widget
+
+### Patch Changes
+
+-   [#2785](https://github.com/Khan/perseus/pull/2785) [`dde65d357c`](https://github.com/Khan/perseus/commit/dde65d357c5553d3e384079f9b9459302aab8216) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - small change to trigger version packages workflow
+
+*   [#2758](https://github.com/Khan/perseus/pull/2758) [`962f89a95f`](https://github.com/Khan/perseus/commit/962f89a95f238b48586da2b566c7b0ad6f40e3de) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: Categorizer user input parser needs to handle undefined and null, not just numbers
+
 ## 18.4.0
 
 ### Minor Changes

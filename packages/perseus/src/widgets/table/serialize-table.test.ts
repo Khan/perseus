@@ -18,7 +18,7 @@ import type {UserEvent} from "@testing-library/user-event";
  *
  * This API is not built in a way that supports migrating data
  * between versions of Perseus JSON. In fact serialization
- * doesn't use WidgetOptions, but RenderProps; it's leveraging
+ * doesn't use WidgetOptions, but manipulated widget props; it's leveraging
  * what is considered an internal implementation detail to support
  * rehydrating previous state.
  *
@@ -115,49 +115,6 @@ describe("Table serialization", () => {
                 },
             },
             hints: [],
-        });
-    });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicTable());
-
-        const preUserInput = renderer.getUserInput();
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "table 1": {
-                        headers: ["Column 1", "Column 2"],
-                        rows: 2,
-                        columns: 2,
-                        answers: [
-                            ["8", "8"],
-                            ["8", "8"],
-                        ],
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const postUserInput = renderer.getUserInput();
-
-        // Assert
-        // compare pre- and post-restore user input
-        // to show it's properly restored
-        expect(preUserInput).toEqual({
-            "table 1": [
-                ["", ""],
-                ["", ""],
-            ],
-        });
-        expect(postUserInput).toEqual({
-            "table 1": [
-                ["8", "8"],
-                ["8", "8"],
-            ],
         });
     });
 });

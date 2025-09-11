@@ -1,6 +1,5 @@
 import {describe, beforeAll, beforeEach, afterEach, it} from "@jest/globals";
 import {
-    Errors,
     generateTestPerseusItem,
     splitPerseusItem,
 } from "@khanacademy/perseus-core";
@@ -8,6 +7,7 @@ import {act, screen, waitFor, within} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
 import * as React from "react";
 
+import {testWidgetIdExtraction} from "../../../../testing/extract-widget-ids-contract-tests";
 import {clone} from "../../../../testing/object-utils";
 import {testDependencies} from "../../../../testing/test-dependencies";
 import {
@@ -18,7 +18,6 @@ import {
     question2,
     definitionItem,
     mockedRandomItem,
-    mockedShuffledRadioProps,
 } from "../__testdata__/renderer.testdata";
 import * as Dependencies from "../dependencies";
 import {
@@ -30,7 +29,6 @@ import {renderQuestion} from "../widgets/__testutils__/renderQuestion";
 import {simpleGroupQuestion} from "../widgets/group/group.testdata";
 import MockWidgetExport from "../widgets/mock-widgets/mock-widget";
 
-import type {APIOptions} from "../types";
 import type {PerseusRenderer, DropdownWidget} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
@@ -57,7 +55,6 @@ describe("renderer", () => {
     });
 
     let userEvent: UserEvent;
-    let mathRandomSpy: jest.SpyInstance;
 
     beforeEach(() => {
         userEvent = userEventLib.setup({
@@ -75,21 +72,6 @@ describe("renderer", () => {
                 ok: true,
             }),
         ) as jest.Mock;
-
-        // Mock Math.random to return a deterministic sequence for consistent test results
-        mathRandomSpy = jest.spyOn(Math, "random");
-        let callCount = 0;
-        mathRandomSpy.mockImplementation(() => {
-            // This ensures consistent shuffling behavior in radio widgets
-            // Values calculated to produce specific shuffle: [3, 1, 0, 2] from [0, 1, 2, 3]
-            const values = [0.3, 0.2, 0.4, 0.1, 0.8, 0.7, 0.9, 0.6, 0.5];
-            return values[callCount++ % values.length];
-        });
-    });
-
-    afterEach(() => {
-        // Restore Math.random to its original implementation
-        mathRandomSpy.mockRestore();
     });
 
     describe("snapshots", () => {
@@ -219,19 +201,6 @@ describe("renderer", () => {
             expect(renderer.state.lastUsedWidgetId).toBeNull();
 
             expect(renderer.state.widgetInfo).toStrictEqual(question1.widgets);
-            expect(renderer.state.widgetProps).toMatchInlineSnapshot(`
-                {
-                  "dropdown 1": {
-                    "ariaLabel": "Test ARIA label",
-                    "choices": [
-                      "greater than or equal to",
-                      "less than or equal to",
-                    ],
-                    "placeholder": "greater/less than or equal to",
-                    "visibleLabel": "Test visible label",
-                  },
-                }
-            `);
         });
 
         it("should derive type widget ID if type missing", () => {
@@ -313,46 +282,6 @@ describe("renderer", () => {
             // `dropdown 2` not found, however, because the Renderer doesn't
             // render widget's that don't have options defined.
             expect(widgets).toStrictEqual([null]);
-        });
-
-        // [LEMS-3185] deprecate serializedState / restoreSerializedState
-        it("should restore serialized state on mount if provided in prop", async () => {
-            // Arrange
-            renderQuestion(
-                question1,
-                {},
-                {
-                    serializedState: {
-                        "dropdown 1": {
-                            placeholder: "greater/less than or equal to",
-                            choices: [
-                                "greater than or equal to",
-                                "less than or equal to",
-                            ],
-                            selected: 2,
-                        },
-                    },
-                },
-            );
-
-            // Assert
-            expect(screen.getByRole("combobox")).toHaveTextContent(
-                /^less than or equal to$/,
-            );
-        });
-
-        it("should call the onWidgetStartProps callback if provided in apiOptions", () => {
-            // Arrange
-            const onWidgetStartProps = jest.fn();
-            const apiOptions: APIOptions = {onWidgetStartProps};
-
-            // Act
-            renderQuestion(mockedRandomItem, apiOptions);
-
-            // Assert
-            expect(onWidgetStartProps).toHaveBeenCalledWith(
-                mockedShuffledRadioProps,
-            );
         });
     });
 
@@ -800,7 +729,6 @@ describe("renderer", () => {
     // slightly different methods to change them for our rerender() function
     describe("resets widgetInfo and widgetProps when a prop in SHOULD_CLEAR_WIDGETS_PROP_LIST changes", () => {
         let originalWidgetInfo;
-        let originalWidgetProps;
         let rerender;
         let renderer;
 
@@ -812,7 +740,6 @@ describe("renderer", () => {
             renderer = result.renderer;
 
             originalWidgetInfo = clone(renderer.state.widgetInfo);
-            originalWidgetProps = clone(renderer.state.widgetProps);
 
             // Poke the renderer so it's not in it's initial-render state
             await userEvent.click(screen.getByRole("combobox"));
@@ -829,9 +756,6 @@ describe("renderer", () => {
 
             // Assert
             expect(renderer.state.widgetInfo).toStrictEqual(originalWidgetInfo);
-            expect(renderer.state.widgetProps).toStrictEqual(
-                originalWidgetProps,
-            );
         });
 
         it("'problemNum' prop", () => {
@@ -840,9 +764,6 @@ describe("renderer", () => {
 
             // Assert
             expect(renderer.state.widgetInfo).toStrictEqual(originalWidgetInfo);
-            expect(renderer.state.widgetProps).toStrictEqual(
-                originalWidgetProps,
-            );
         });
 
         it("'widgets' prop", () => {
@@ -867,12 +788,6 @@ describe("renderer", () => {
             for (const widgetId of allWidgetIds) {
                 expect(renderer.state.widgetInfo[widgetId]).toStrictEqual(
                     originalWidgetInfo[widgetId],
-                );
-            }
-
-            for (const widgetId of allWidgetIds) {
-                expect(renderer.state.widgetProps[widgetId]).toStrictEqual(
-                    originalWidgetProps[widgetId],
                 );
             }
         });
@@ -1197,67 +1112,6 @@ describe("renderer", () => {
             expect(widget2.getSerializedState).toHaveBeenCalled();
         });
 
-        it("should skip restoration if state's widget ID list doesn't match renderer widgets", () => {
-            // Arrange
-            const errorSpy = jest.spyOn(testDependencies.Log, "error");
-
-            const {renderer} = renderQuestion(question1);
-
-            // Act
-            act(() =>
-                renderer.restoreSerializedState({
-                    "group 1": {},
-                    "interactive-chart 1": {},
-                }),
-            );
-
-            // Assert
-            expect(errorSpy).toHaveBeenCalledWith(
-                "Refusing to restore bad serialized state:",
-                Errors.Internal,
-                {
-                    loggedMetadata: {
-                        currentProps: expect.anything(),
-                        serializedState:
-                            '{"group 1":{},"interactive-chart 1":{}}',
-                    },
-                },
-            );
-        });
-
-        it("should fire restoration callback when all widgets have restored", () => {
-            // Arrange
-            const makeRestoreSerializedStateMock = jest
-                .fn()
-                .mockImplementation((props, callback) => callback());
-
-            const {renderer} = renderQuestion(definitionItem);
-            const [widget1, widget2, widget3] = renderer.findWidgets(
-                (_, info) => info.type === "definition",
-            );
-            widget1.restoreSerializedState = makeRestoreSerializedStateMock;
-            widget2.restoreSerializedState = makeRestoreSerializedStateMock;
-            widget3.restoreSerializedState = makeRestoreSerializedStateMock;
-
-            const restorationCallback = jest.fn();
-
-            // Act
-            act(() =>
-                renderer.restoreSerializedState(
-                    {
-                        "definition 1": {},
-                        "definition 2": {},
-                        "definition 3": {},
-                    },
-                    restorationCallback,
-                ),
-            );
-            act(() => jest.runOnlyPendingTimers());
-
-            // Assert
-            expect(restorationCallback).toHaveBeenCalledTimes(1);
-        });
-
         it("should return each widget's state from serialize()", () => {
             // Arrange
             const {renderer} = renderQuestion(definitionItem);
@@ -1325,46 +1179,6 @@ describe("renderer", () => {
     });
 
     describe("misc behaviors", () => {
-        // [LEMS-3185] deprecate serializedState / restoreSerializedState
-        it("should use new serializedState if getSerializedState is different", () => {
-            // Act
-            // Render with serialized state
-            const {rerender} = renderQuestion(
-                question1,
-                {},
-                {
-                    serializedState: {
-                        "dropdown 1": {
-                            placeholder: "greater/less than or equal to",
-                            choices: [
-                                "greater than or equal to",
-                                "less than or equal to",
-                            ],
-                            selected: 2, // <-- Important
-                        },
-                    },
-                },
-            );
-
-            // Act
-            rerender(question1, {
-                serializedState: {
-                    "dropdown 1": {
-                        placeholder: "greater/less than or equal to",
-                        choices: [
-                            "greater than or equal to",
-                            "less than or equal to",
-                        ],
-                        selected: 1, // <-- Important
-                    },
-                },
-            });
-
-            expect(screen.getByRole("combobox")).toHaveTextContent(
-                /greater than or equal to/,
-            );
-        });
-
         it("should render the widget in full width if alignment == 'fullWidth'", () => {
             // Arrange/Act
             renderQuestion({
@@ -1841,3 +1655,11 @@ describe("isDifferentQuestion", () => {
         expect(isDifferentQuestion(propsA, propsB)).toBe(true);
     });
 });
+
+testWidgetIdExtraction(
+    "the Renderer component",
+    (question: PerseusRenderer) => {
+        const {renderer} = renderQuestion(question);
+        return renderer.getWidgetIds();
+    },
+);

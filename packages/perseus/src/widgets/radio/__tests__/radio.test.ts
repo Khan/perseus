@@ -19,7 +19,7 @@ import {
 } from "./radio.testdata";
 
 import type {APIOptions} from "../../../types";
-import type {PerseusRenderer} from "@khanacademy/perseus-core";
+import type {PerseusRenderer, RadioWidget} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 const selectOption = async (
@@ -284,6 +284,7 @@ describe("Radio Widget", () => {
                 const q = clone(question);
                 q.widgets["radio 1"].options.choices = answers.map(
                     (answer, idx) => ({
+                        id: `radio-choice-${idx}`,
                         content: answer,
                         correct: idx === 1, // Correct answer is the "truthy" item
                     }),
@@ -314,6 +315,7 @@ describe("Radio Widget", () => {
             const q = clone(question);
             q.widgets["radio 1"].options.choices = answers.map(
                 (answer, idx) => ({
+                    id: `radio-choice-${idx}`,
                     content: answer,
                     correct: idx === 1,
                 }),
@@ -348,6 +350,7 @@ describe("Radio Widget", () => {
                         options: {
                             choices: [
                                 {
+                                    id: "0-0-0-0-0",
                                     correct: true,
                                     // Passage refs reference a passage widget in
                                     // the main content. The first value is the
@@ -357,8 +360,14 @@ describe("Radio Widget", () => {
                                     // 1-based!
                                     content: `{{passage-ref 1 1 "the 1st ref in the 1st passage"}}`,
                                 },
-                                {content: `Answer 2`},
-                                {content: `Answer 3`},
+                                {
+                                    id: "1-1-1-1-1",
+                                    content: `Answer 2`,
+                                },
+                                {
+                                    id: "2-2-2-2-2",
+                                    content: `Answer 3`,
+                                },
                             ],
                         },
                     },
@@ -553,10 +562,23 @@ describe("Radio Widget", () => {
                         options: {
                             ...radioOptions,
                             choices: [
-                                {content: "$x=-6$", correct: true},
-                                {content: "$x=4$", correct: true},
-                                {content: "$x=7$", correct: false},
                                 {
+                                    id: "0-0-0-0-0",
+                                    content: "$x=-6$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "1-1-1-1-1",
+                                    content: "$x=4$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "2-2-2-2-2",
+                                    content: "$x=7$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "3-3-3-3-3",
                                     content: "There is no such input value.",
                                     isNoneOfTheAbove: true,
                                     correct: false,
@@ -594,10 +616,23 @@ describe("Radio Widget", () => {
                         options: {
                             ...radioOptions,
                             choices: [
-                                {content: "$x=-6$", correct: true},
-                                {content: "$x=4$", correct: true},
-                                {content: "$x=7$", correct: false},
                                 {
+                                    id: "0-0-0-0-0",
+                                    content: "$x=-6$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "1-1-1-1-1",
+                                    content: "$x=4$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "2-2-2-2-2",
+                                    content: "$x=7$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "3-3-3-3-3",
                                     content: "There is no such input value.",
                                     isNoneOfTheAbove: true,
                                     correct: false,
@@ -666,10 +701,23 @@ describe("Radio Widget", () => {
                         options: {
                             ...radioOptions,
                             choices: [
-                                {content: "$x=-6$", correct: true},
-                                {content: "$x=4$", correct: true},
-                                {content: "$x=7$", correct: false},
                                 {
+                                    id: "0-0-0-0-0",
+                                    content: "$x=-6$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "1-1-1-1-1",
+                                    content: "$x=4$",
+                                    correct: true,
+                                },
+                                {
+                                    id: "2-2-2-2-2",
+                                    content: "$x=7$",
+                                    correct: false,
+                                },
+                                {
+                                    id: "3-3-3-3-3",
                                     content: "There is no such input value.",
                                     isNoneOfTheAbove: true,
                                     correct: false,
@@ -843,7 +891,7 @@ describe("Radio Widget", () => {
             const rubric = shuffledNoneQuestion.widgets["radio 1"].options;
             const widgetScore = scoreRadio(userInput, rubric);
             const rendererScore = scorePerseusItemTesting(
-                shuffledQuestion,
+                shuffledNoneQuestion,
                 renderer.getUserInputMap(),
             );
 
@@ -890,6 +938,64 @@ describe("Radio Widget", () => {
             // and that correct choice should be Choice B
             expect(correctCount).toBe(1);
             expect(correctChoiceContent).toContain("Choice B");
+        });
+    });
+
+    describe("shuffling", () => {
+        // regression LEMS-297
+        it("shuffles differently for multiple radios in the same exercise", () => {
+            let counter: number = 0;
+            const generateId = () => `${counter++}`;
+            function generateRadio(): RadioWidget {
+                return {
+                    type: "radio",
+                    version: {major: 3, minor: 0},
+                    options: {
+                        choices: [
+                            {
+                                content: "Choice 1",
+                                id: generateId(),
+                            },
+                            {
+                                content: "Choice 2",
+                                id: generateId(),
+                            },
+                            {
+                                content: "Choice 3",
+                                id: generateId(),
+                            },
+                            {
+                                content: "Choice 4",
+                                id: generateId(),
+                            },
+                        ],
+                        randomize: true,
+                    },
+                };
+            }
+            const multipleShuffledRadioQuestion: PerseusRenderer = {
+                content: "[[☃ radio 1]]\n[[☃ radio 2]]",
+                widgets: {
+                    "radio 1": generateRadio(),
+                    "radio 2": generateRadio(),
+                },
+                images: {},
+            };
+
+            const {container} = renderQuestion(multipleShuffledRadioQuestion);
+
+            // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+            const radios = container.querySelectorAll(".perseus-widget-radio");
+
+            expect(radios.length).toBe(2);
+
+            // eslint-disable-next-line testing-library/no-node-access
+            const lis1 = Array.from(radios[0].querySelectorAll("li"));
+            // eslint-disable-next-line testing-library/no-node-access
+            const lis2 = Array.from(radios[1].querySelectorAll("li"));
+
+            const getText = (element) => element.textContent;
+            expect(lis1.map(getText)).not.toEqual(lis2.map(getText));
         });
     });
 });

@@ -131,7 +131,7 @@ export type PerseusGrapherUserInput = GrapherAnswerTypes;
 
 export type PerseusIFrameUserInput = {
     status: UserInputStatus;
-    message: string | null;
+    message?: string | null;
 };
 
 export type PerseusInputNumberRubric = {
@@ -198,7 +198,7 @@ export type PerseusMatrixRubric = {
 export type PerseusMatrixValidationData = Empty;
 
 export type PerseusMatrixUserInput = {
-    answers: PerseusMatrixRubric["answers"];
+    answers: string[][];
 };
 
 export type PerseusNumberLineRubric = {
@@ -263,7 +263,7 @@ export type PerseusRadioRubric = {
 };
 
 export type PerseusRadioUserInput = {
-    choicesSelected: boolean[];
+    selectedChoiceIds: string[];
 };
 
 export type PerseusSorterRubric = {

@@ -8,16 +8,15 @@ import _ from "underscore";
 
 import RadioNew from "./multiple-choice-widget.new";
 import RadioOld from "./radio-component";
-import {getUserInputFromSerializedState} from "./util";
+import {choiceTransform, getUserInputFromSerializedState} from "./util";
 
-import type {RenderProps} from "./radio-component";
+import type {RadioProps} from "./radio-component";
 import type {ChoiceState, WidgetProps} from "../../types";
+import type {RadioPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
 
-type Props = WidgetProps<
-    RenderProps,
-    PerseusRadioUserInput,
-    PerseusRadioRubric
->;
+// TODO: this should be using PerseusRadioWidgetOptions instead of RadioProps
+// but the component inheritance makes this hard to change right now
+type Props = WidgetProps<RadioProps, PerseusRadioUserInput, PerseusRadioRubric>;
 
 type ChoiceStateWithoutSelected = Omit<ChoiceState, "selected">;
 
@@ -74,13 +73,22 @@ class Radio extends RadioOld {
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput: _, ...rest} = this._mergePropsAndState();
+        const {
+            userInput: _,
+            randomize: __,
+            ...rest
+        } = this._mergePropsAndState();
         return {
             ...rest,
+            hasNoneOfTheAbove: rest.hasNoneOfTheAbove ?? false,
         };
+    }
+
+    getPromptJSON(): RadioPromptJSON {
+        return this.radioRef.current!.getPromptJSON();
     }
 
     _handleChange(arg: {choiceStates?: ChoiceState[]}) {
@@ -154,12 +162,29 @@ class Radio extends RadioOld {
          * (WidgetProps, UserInput, and UI state) into a format our
          * legacy code will understand.
          */
+
+        // randomSeed is problemNum (which changes how we shuffle between exercises)
+        // and widgetIndex (which changes how we shuffle between widgets)
+        const randomSeed =
+            (this.props.problemNum ?? 0) + (this.props.widgetIndex ?? 0);
+        const choices = [
+            ...choiceTransform(
+                this.props.choices,
+                this.props.randomize,
+                this.context.strings,
+                randomSeed,
+            ),
+        ];
+
         return {
             ...this.props,
+            choices,
             choiceStates: this.state.choiceStates?.map((choiceState, index) => {
-                const choice = this.props.choices[index];
+                const choice = choices[index];
                 const selected =
-                    this.props.userInput?.choicesSelected[choice.originalIndex];
+                    this.props.userInput?.selectedChoiceIds.includes(
+                        choice.id,
+                    ) ?? false;
                 return {
                     ...choiceState,
                     selected,
@@ -185,7 +210,7 @@ class Radio extends RadioOld {
         // Otherwise, return the old radio widget and pass the ref to
         // it for handling legacy focus methods.
         return this.ffIsOn ? (
-            <RadioNew {...props} />
+            <RadioNew ref={this.radioRef} {...props} />
         ) : (
             <RadioOld ref={this.radioRef} {...props} />
         );

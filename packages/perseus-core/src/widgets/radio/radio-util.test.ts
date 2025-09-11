@@ -8,18 +8,21 @@ describe("getRadioPublicWidgetOptions", () => {
         const options: PerseusRadioWidgetOptions = {
             choices: [
                 {
+                    id: "0-0-0-0-0",
                     content: "$-8$ and $8$",
                     correct: false,
                     rationale:
                         "The square root operation ($\\sqrt{\\phantom{x}}$)...",
                 },
                 {
+                    id: "1-1-1-1-1",
                     content: "$-8$",
                     correct: false,
                     rationale:
                         "While $(-8)^2=64$, the square root operation...",
                 },
                 {
+                    id: "2-2-2-2-2",
                     content: "There is no such input value.",
                     isNoneOfTheAbove: true,
                     correct: true,
@@ -44,12 +47,15 @@ describe("getRadioPublicWidgetOptions", () => {
         expect(publicWidgetOptions).toEqual({
             choices: [
                 {
+                    id: "0-0-0-0-0",
                     content: "$-8$ and $8$",
                 },
                 {
+                    id: "1-1-1-1-1",
                     content: "$-8$",
                 },
                 {
+                    id: "2-2-2-2-2",
                     content: "There is no such input value.",
                     isNoneOfTheAbove: true,
                 },
@@ -67,14 +73,17 @@ describe("getRadioPublicWidgetOptions", () => {
         const options: PerseusRadioWidgetOptions = {
             choices: [
                 {
+                    id: "0-0-0-0-0",
                     content: "1 Incorrect",
                     correct: false,
                 },
                 {
+                    id: "1-1-1-1-1",
                     content: "2 Incorrect",
                     correct: true,
                 },
                 {
+                    id: "2-2-2-2-2",
                     content: "3 Correct",
                     correct: true,
                 },
@@ -91,12 +100,15 @@ describe("getRadioPublicWidgetOptions", () => {
         expect(publicWidgetOptions).toEqual({
             choices: [
                 {
+                    id: "0-0-0-0-0",
                     content: "1 Incorrect",
                 },
                 {
+                    id: "1-1-1-1-1",
                     content: "2 Incorrect",
                 },
                 {
+                    id: "2-2-2-2-2",
                     content: "3 Correct",
                 },
             ],
@@ -111,14 +123,17 @@ describe("getRadioPublicWidgetOptions", () => {
         const options: PerseusRadioWidgetOptions = {
             choices: [
                 {
+                    id: "0-0-0-0-0",
                     content: "1 Incorrect",
                     correct: false,
                 },
                 {
+                    id: "1-1-1-1-1",
                     content: "2 Incorrect",
                     correct: true,
                 },
                 {
+                    id: "2-2-2-2-2",
                     content: "3 Correct",
                     correct: true,
                 },
@@ -135,12 +150,15 @@ describe("getRadioPublicWidgetOptions", () => {
         expect(publicWidgetOptions).toEqual({
             choices: [
                 {
+                    id: "0-0-0-0-0",
                     content: "1 Incorrect",
                 },
                 {
+                    id: "1-1-1-1-1",
                     content: "2 Incorrect",
                 },
                 {
+                    id: "2-2-2-2-2",
                     content: "3 Correct",
                 },
             ],

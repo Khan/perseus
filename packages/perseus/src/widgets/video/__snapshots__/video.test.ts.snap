@@ -41,6 +41,7 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
                 Khan Academy video wrapper
               </div>
               <iframe
+                allow="autoplay"
                 allowfullscreen=""
                 class="perseus-video-widget"
                 height="720"
@@ -60,7 +61,7 @@ exports[`video widget should snapshot on mobile: first mobile render 1`] = `
                 class="default_xu2jcg-o_O-inlineStyles_sc01dy"
               />
               <a
-                class="shared_17fj7pd-o_O-rest_1tt6owc visited-no-recolor"
+                class="shared_1y1t15t-o_O-rest_19jgcvc visited-no-recolor"
                 href="/transcript/videoNotFound"
                 rel="noopener noreferrer"
                 target="_blank"
@@ -117,6 +118,7 @@ exports[`video widget should snapshot: first render 1`] = `
                 Khan Academy video wrapper
               </div>
               <iframe
+                allow="autoplay"
                 allowfullscreen=""
                 class="perseus-video-widget"
                 height="720"
@@ -136,7 +138,7 @@ exports[`video widget should snapshot: first render 1`] = `
                 class="default_xu2jcg-o_O-inlineStyles_sc01dy"
               />
               <a
-                class="shared_17fj7pd-o_O-rest_1tt6owc visited-no-recolor"
+                class="shared_1y1t15t-o_O-rest_19jgcvc visited-no-recolor"
                 href="/transcript/videoNotFound"
                 rel="noopener noreferrer"
                 target="_blank"

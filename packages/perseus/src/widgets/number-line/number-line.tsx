@@ -12,13 +12,7 @@ import {ApiOptions} from "../../perseus-api";
 import KhanColors from "../../util/colors";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 
-import type {
-    WidgetExports,
-    FocusPath,
-    Widget,
-    WidgetProps,
-    UniversalWidgetProps,
-} from "../../types";
+import type {WidgetExports, FocusPath, Widget, WidgetProps} from "../../types";
 import type {NumberLinePromptJSON} from "../../widget-ai-utils/number-line/number-line-ai-utils";
 import type {
     Relationship,
@@ -26,7 +20,6 @@ import type {
     PerseusNumberLineWidgetOptions,
     NumberLinePublicWidgetOptions,
 } from "@khanacademy/perseus-core";
-import type {PropsFor} from "@khanacademy/wonder-blocks-core";
 
 // @ts-expect-error - TS2339 - Property 'MovablePoint' does not exist on type 'typeof Graphie'.
 const MovablePoint = Graphie.MovablePoint;
@@ -232,14 +225,6 @@ type DefaultProps = {
     apiOptions: Props["apiOptions"];
 };
 
-/**
- * The props returned by the `transform` and `staticTransform` functions.
- */
-type RenderProps = Omit<
-    PropsFor<typeof NumberLine>,
-    keyof UniversalWidgetProps
->;
-
 type State = {
     numDivisionsEmpty: boolean;
 };
@@ -264,6 +249,26 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         numDivisionsEmpty: false,
     };
 
+    /**
+     * isTickCtrl seems like it can be null
+     * but default props only work with undefined,
+     * so this handles both null/undefined
+     */
+    getIsTickCtrl() {
+        return this.props.isTickCtrl ?? NumberLine.defaultProps.isTickCtrl;
+    }
+
+    /**
+     * snapDivisions seems like it can be null
+     * but default props only work with undefined,
+     * so this handles both null/undefined
+     */
+    getSnapDivisions() {
+        return (
+            this.props.snapDivisions ?? NumberLine.defaultProps.snapDivisions
+        );
+    }
+
     isValid: () => boolean = () => {
         const range = this.props.range;
         let initialX = this.props.userInput.numLinePosition;
@@ -277,7 +282,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
             knumber.sign(initialX - range[1]) <= 0 &&
             divisionRange[0] < divisionRange[1] &&
             0 < this.props.userInput.numDivisions &&
-            0 < this.props.snapDivisions
+            0 < this.getSnapDivisions()
         );
     };
 
@@ -345,7 +350,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     };
 
     focus() {
-        if (this.props.isTickCtrl) {
+        if (this.getIsTickCtrl()) {
             // eslint-disable-next-line react/no-string-refs
             // @ts-expect-error - TS2339 - Property 'focus' does not exist on type 'ReactInstance'.
             this.refs["tick-ctrl"].focus();
@@ -371,7 +376,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     };
 
     getInputPaths: () => ReadonlyArray<ReadonlyArray<string>> = () => {
-        if (this.props.isTickCtrl) {
+        if (this.getIsTickCtrl()) {
             return [["tick-ctrl"]];
         }
         return [];
@@ -392,7 +397,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
 
         const options = {
             range: this.props.range,
-            isTickCtrl: this.props.isTickCtrl,
+            isTickCtrl: this.getIsTickCtrl(),
         };
 
         const props: CalculatedProps = {
@@ -443,7 +448,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     ) => {
         const left = props.range[0];
         const right = props.range[1];
-        const snapX = props.tickStep / props.snapDivisions;
+        const snapX = props.tickStep / this.getSnapDivisions();
 
         let x = bound(numLinePosition, left, right);
         x = left + knumber.roundTo(x - left, snapX);
@@ -622,14 +627,24 @@ class NumberLine extends React.Component<Props, State> implements Widget {
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput, ...rest} = this.props;
+        const props = this.props;
         return {
-            ...rest,
-            numDivisions: userInput.numDivisions,
-            numLinePosition: userInput.numLinePosition,
+            alignment: props.alignment,
+            static: props.static,
+            range: props.range,
+            labelRange: props.labelRange,
+            labelStyle: props.labelStyle,
+            labelTicks: props.labelTicks,
+            divisionRange: props.divisionRange,
+            snapDivisions: props.snapDivisions,
+            isInequality: props.isInequality,
+            showTooltips: props.showTooltips,
+            isTickCtrl: props.isTickCtrl,
+            numDivisions: props.userInput.numDivisions,
+            numLinePosition: props.userInput.numLinePosition,
             // this seems like a bug, but I'm maintaining the
             // existing behavior on a deprecated API. Probably
             // should be:
@@ -668,7 +683,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         );
 
         let tickCtrl;
-        if (this.props.isTickCtrl) {
+        if (this.getIsTickCtrl()) {
             let Input;
             if (this.props.apiOptions.customKeypad) {
                 Input = SimpleKeypadInput;
@@ -712,7 +727,7 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                     <div className="perseus-error">
                         Invalid number line configuration.
                     </div>
-                ) : this.props.isTickCtrl && invalidNumDivisions ? (
+                ) : this.getIsTickCtrl() && invalidNumDivisions ? (
                     <div className="perseus-error">
                         {strings.divisions({divRangeString: divRangeString})}
                     </div>
@@ -727,60 +742,9 @@ class NumberLine extends React.Component<Props, State> implements Widget {
     }
 }
 
-function transform(editorProps: NumberLinePublicWidgetOptions): RenderProps {
-    const props = _.pick(editorProps, [
-        "range",
-
-        "labelRange",
-        "labelStyle",
-        "labelTicks",
-
-        "divisionRange",
-        "snapDivisions",
-
-        "isTickCtrl",
-        "isInequality",
-
-        "showTooltips",
-    ]);
-
-    return {
-        ...props,
-        isTickCtrl: editorProps.isTickCtrl ?? undefined,
-        // Use getDefaultProps value if null
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        snapDivisions: props.snapDivisions || undefined,
-    };
-}
-
-function staticTransform(
-    editorProps: PerseusNumberLineWidgetOptions,
-): RenderProps {
-    const props = _.pick(editorProps, [
-        "range",
-
-        "labelRange",
-        "labelStyle",
-        "labelTicks",
-
-        "divisionRange",
-        "snapDivisions",
-
-        // isTickCtrl is ignored since users can't interact with it anyway
-        "isInequality",
-    ]);
-
-    return {
-        ...props,
-        // Use getDefaultProps value if null
-        // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-        snapDivisions: props.snapDivisions || undefined,
-    };
-}
-
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,
@@ -842,8 +806,6 @@ export default {
     name: "number-line",
     displayName: "Number line",
     widget: NumberLine,
-    transform,
-    staticTransform: staticTransform,
     getCorrectUserInput,
     getStartUserInput,
     getUserInputFromSerializedState,

@@ -12,19 +12,14 @@ import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/dropdown/dr
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {DropdownPromptJSON} from "../../widget-ai-utils/dropdown/dropdown-ai-utils";
 import type {
-    DropdownPublicWidgetOptions,
     PerseusDropdownWidgetOptions,
     PerseusDropdownUserInput,
 } from "@khanacademy/perseus-core";
 
-type RenderProps = {
-    placeholder: PerseusDropdownWidgetOptions["placeholder"];
-    visibleLabel: PerseusDropdownWidgetOptions["visibleLabel"];
-    ariaLabel: PerseusDropdownWidgetOptions["ariaLabel"];
-    choices: ReadonlyArray<string>;
-};
-
-type Props = WidgetProps<RenderProps, PerseusDropdownUserInput>;
+type Props = WidgetProps<
+    PerseusDropdownWidgetOptions,
+    PerseusDropdownUserInput
+>;
 
 type DefaultProps = {
     choices: Props["choices"];
@@ -70,12 +65,13 @@ class Dropdown extends React.Component<Props> implements Widget {
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
-        const {userInput, ...rest} = this.props;
+        const {userInput, choices, ...rest} = this.props;
         return {
             ...rest,
+            choices: choices.map((choice) => choice.content),
             selected: userInput.value,
         };
     }
@@ -100,11 +96,11 @@ class Dropdown extends React.Component<Props> implements Widget {
                     value={String(i + 1)}
                     label={
                         <Renderer
-                            content={choice}
+                            content={choice.content}
                             strings={this.context.strings}
                         />
                     }
-                    labelAsText={choice}
+                    labelAsText={choice.content}
                 />
             )),
         ];
@@ -152,18 +148,9 @@ class Dropdown extends React.Component<Props> implements Widget {
     }
 }
 
-function transform(widgetOptions: DropdownPublicWidgetOptions): RenderProps {
-    return {
-        placeholder: widgetOptions.placeholder,
-        visibleLabel: widgetOptions.visibleLabel,
-        ariaLabel: widgetOptions.ariaLabel,
-        choices: widgetOptions.choices.map((choice) => choice.content),
-    };
-}
-
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,
@@ -181,7 +168,6 @@ export default {
     name: "dropdown",
     displayName: "Drop down",
     widget: Dropdown,
-    transform,
     getStartUserInput,
     getUserInputFromSerializedState,
 } satisfies WidgetExports<typeof Dropdown>;

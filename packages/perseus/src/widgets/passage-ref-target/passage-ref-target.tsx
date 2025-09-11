@@ -56,8 +56,5 @@ export default {
     displayName: "PassageRefTarget",
     widget: PassageRefTarget,
     hidden: true,
-    transform: (editorProps: any): any => {
-        return _.pick(editorProps, "content");
-    },
     isLintable: true,
 } satisfies WidgetExports<typeof PassageRefTarget>;

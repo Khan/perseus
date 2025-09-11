@@ -18,7 +18,7 @@ import type {UserEvent} from "@testing-library/user-event";
  *
  * This API is not built in a way that supports migrating data
  * between versions of Perseus JSON. In fact serialization
- * doesn't use WidgetOptions, but RenderProps; it's leveraging
+ * doesn't use WidgetOptions, but manipulated widget props; it's leveraging
  * what is considered an internal implementation detail to support
  * rehydrating previous state.
  *
@@ -106,47 +106,6 @@ describe("Matrix serialization", () => {
                 },
             },
             hints: [],
-        });
-    });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicMatrix());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "matrix 1": {
-                        matrixBoardSize: [2, 2],
-                        prefix: "",
-                        suffix: "",
-                        emptyMatrix: [
-                            ["", ""],
-                            ["", ""],
-                        ],
-                        cursorPosition: [1, 1],
-                        answers: [
-                            ["1", "2"],
-                            ["3", "4"],
-                        ],
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        // `answers` would be undefined if we didn't properly restore serialized state
-        expect(userInput).toEqual({
-            "matrix 1": {
-                answers: [
-                    ["1", "2"],
-                    ["3", "4"],
-                ],
-            },
         });
     });
 });

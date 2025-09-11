@@ -6,6 +6,7 @@ import {
     PerseusItemWithRadioWidget,
 } from "../__testdata__/extract-perseus-data.testdata";
 import {
+    getAnswerFromUserInput,
     getAnswersFromWidgets,
     getCorrectAnswerForWidgetId,
     getValidWidgetIds,
@@ -54,10 +55,12 @@ describe("ExtractPerseusData", () => {
                 options: {
                     choices: [
                         {
+                            id: "0-0-0-0-0",
                             content: "choice 1",
                             correct: true,
                         },
                         {
+                            id: "1-1-1-1-1",
                             content: "choice 2",
                             correct: false,
                         },
@@ -74,14 +77,17 @@ describe("ExtractPerseusData", () => {
                 options: {
                     choices: [
                         {
+                            id: "0-0-0-0-0",
                             content: "choice 1",
                             correct: true,
                         },
                         {
+                            id: "1-1-1-1-1",
                             content: "choice 2",
                             correct: true,
                         },
                         {
+                            id: "1-1-1-1-1",
                             content: "choice 3",
                             correct: false,
                         },
@@ -199,10 +205,12 @@ describe("ExtractPerseusData", () => {
                             options: {
                                 choices: [
                                     {
+                                        id: "0-0-0-0-0",
                                         content: "choice 1",
                                         correct: true,
                                     },
                                     {
+                                        id: "1-1-1-1-1",
                                         content: "choice 2",
                                         correct: false,
                                     },
@@ -430,6 +438,7 @@ describe("ExtractPerseusData", () => {
                     snapDivisions: 2,
                     static: false,
                     tickStep: 0.5,
+                    isTickCtrl: false,
                 },
             };
 
@@ -544,10 +553,12 @@ describe("ExtractPerseusData", () => {
                     options: {
                         choices: [
                             {
+                                id: "0-0-0-0-0",
                                 content: "choice 1",
                                 correct: true,
                             },
                             {
+                                id: "1-1-1-1-1",
                                 content: "choice 2",
                                 correct: false,
                             },
@@ -569,10 +580,12 @@ describe("ExtractPerseusData", () => {
                     options: {
                         choices: [
                             {
+                                id: "0-0-0-0-0",
                                 content: "choice 1",
                                 correct: true,
                             },
                             {
+                                id: "1-1-1-1-1",
                                 content: "choice 2",
                                 correct: false,
                             },
@@ -707,10 +720,12 @@ describe("ExtractPerseusData", () => {
                                 options: {
                                     choices: [
                                         {
+                                            id: "0-0-0-0-0",
                                             content: "choice 1",
                                             correct: true,
                                         },
                                         {
+                                            id: "1-1-1-1-1",
                                             content: "choice 2",
                                             correct: false,
                                         },
@@ -933,6 +948,12 @@ describe("ExtractPerseusData", () => {
                         snapStep: [0.5, 0.5],
                         step: [1, 1],
                         lockedFigures: [],
+                        showAxisArrows: {
+                            xMin: true,
+                            xMax: true,
+                            yMin: true,
+                            yMax: true,
+                        },
                     },
                 },
             };
@@ -964,6 +985,7 @@ describe("ExtractPerseusData", () => {
                         snapDivisions: 2,
                         static: false,
                         tickStep: 0.5,
+                        isTickCtrl: false,
                     },
                 },
             };
@@ -1174,6 +1196,126 @@ describe("ExtractPerseusData", () => {
             expect(getValidWidgetIds(PerseusItemWithRadioWidget)).toEqual([
                 "radio 1",
             ]);
+        });
+    });
+
+    describe("getAnswerFromUserInput", () => {
+        it("should extract values from categorizer user input", () => {
+            // Arrange
+            const userInput = {
+                values: [0, 1, 0, 1],
+            };
+
+            // Act
+            const result = getAnswerFromUserInput("categorizer", userInput);
+
+            // Assert
+            expect(result).toEqual([0, 1, 0, 1]);
+        });
+
+        it("should extract currentValue from input-number user input", () => {
+            // Arrange
+            const userInput = {
+                currentValue: "42",
+            };
+
+            // Act
+            const result = getAnswerFromUserInput("input-number", userInput);
+
+            // Assert
+            expect(result).toEqual("42");
+        });
+
+        it("should extract currentValue from numeric-input user input", () => {
+            // Arrange
+            const userInput = {
+                currentValue: "3.14159",
+            };
+
+            // Act
+            const result = getAnswerFromUserInput("numeric-input", userInput);
+
+            // Assert
+            expect(result).toEqual("3.14159");
+        });
+
+        it("should extract selectedChoiceIds from radio user input", () => {
+            // Arrange
+            const userInput = {
+                selectedChoiceIds: ["choice-1", "choice-3"],
+            };
+
+            // Act
+            const result = getAnswerFromUserInput("radio", userInput);
+
+            // Assert
+            expect(result).toEqual(["choice-1", "choice-3"]);
+        });
+
+        it("should return the entire userInput object for unsupported widget types", () => {
+            // Arrange
+            const userInput = {
+                someProperty: "someValue",
+                anotherProperty: 42,
+            };
+
+            // Act
+            const result = getAnswerFromUserInput(
+                "unsupported-widget",
+                userInput,
+            );
+
+            // Assert
+            expect(result).toEqual({
+                someProperty: "someValue",
+                anotherProperty: 42,
+            });
+        });
+
+        it("should handle empty userInput objects", () => {
+            // Arrange
+            const userInput = {};
+
+            // Act
+            const result = getAnswerFromUserInput("categorizer", userInput);
+
+            // Assert
+            expect(result).toBeUndefined();
+        });
+
+        it("should handle null userInput", () => {
+            // Arrange
+            const userInput = null;
+
+            // Act & Assert
+            // Currently the function throws an error for null userInput.
+            expect(() =>
+                getAnswerFromUserInput("categorizer", userInput),
+            ).toThrow("Cannot read properties of null");
+        });
+
+        it("should handle undefined userInput", () => {
+            // Arrange
+            const userInput = undefined;
+
+            // Act & Assert
+            // Currently the function throws an error for undefined userInput.
+            expect(() =>
+                getAnswerFromUserInput("input-number", userInput),
+            ).toThrow("Cannot read properties of undefined");
+        });
+
+        it("should handle userInput with missing expected properties", () => {
+            // Arrange
+            const userInput = {
+                unexpectedProperty: "value",
+            };
+
+            // Act
+            const result = getAnswerFromUserInput("input-number", userInput);
+
+            // Assert
+            expect(result).toBeUndefined();
         });
     });
 });

@@ -19,17 +19,21 @@ import type {CategorizerPromptJSON} from "../../widget-ai-utils/categorizer/cate
 import type {
     PerseusCategorizerWidgetOptions,
     PerseusCategorizerUserInput,
-    CategorizerPublicWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-type Props = WidgetProps<RenderProps, PerseusCategorizerUserInput>;
+type ExternalProps = WidgetProps<
+    PerseusCategorizerWidgetOptions,
+    PerseusCategorizerUserInput
+>;
 
-type DefaultProps = {
-    items: Props["items"];
-    categories: Props["categories"];
-    linterContext: Props["linterContext"];
-    userInput: Props["userInput"];
+type Props = ExternalProps & {
+    linterContext: NonNullable<ExternalProps["linterContext"]>;
 };
+
+type DefaultProps = Pick<
+    Props,
+    "items" | "categories" | "linterContext" | "userInput"
+>;
 
 type State = {
     uniqueId: string;
@@ -55,7 +59,7 @@ export class Categorizer
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
         const {userInput, ...rest} = this.props;
@@ -285,15 +289,9 @@ const styles = StyleSheet.create({
     },
 });
 
-type RenderProps = {
-    items: PerseusCategorizerWidgetOptions["items"];
-    categories: PerseusCategorizerWidgetOptions["categories"];
-    randomizeItems: PerseusCategorizerWidgetOptions["randomizeItems"];
-};
-
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,
@@ -303,8 +301,7 @@ function getUserInputFromSerializedState(
 
 /**
  * you need this along with _getAllWidgetsStartProps
- * to generate userInput for static widgets since staticTransform
- * used to populate correct input and now can't
+ * to generate userInput for static widgets
  */
 function getCorrectUserInput(
     options: PerseusCategorizerWidgetOptions,
@@ -318,21 +315,11 @@ function getStartUserInput(): PerseusCategorizerUserInput {
     };
 }
 
-function transform(widgetOptions: CategorizerPublicWidgetOptions): RenderProps {
-    return {
-        items: widgetOptions.items,
-        categories: widgetOptions.categories,
-        randomizeItems: widgetOptions.randomizeItems,
-    };
-}
-
 export default {
     name: "categorizer",
     displayName: "Categorizer",
     hidden: true,
     widget: Categorizer,
-    transform,
-    staticTransform: transform,
     getUserInputFromSerializedState,
     getCorrectUserInput,
     getStartUserInput,

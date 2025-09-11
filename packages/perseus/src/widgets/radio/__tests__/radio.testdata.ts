@@ -53,24 +53,28 @@ export const questionWithPassage: PerseusRenderer = {
             options: {
                 choices: [
                     {
+                        id: "0-0-0-0-0",
                         content: "$-8$ and $8$",
                         correct: false,
                         rationale:
                             "The square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number, so $x$ is equal to *only* $8$.",
                     },
                     {
+                        id: "1-1-1-1-1",
                         content: "$-8$",
                         correct: false,
                         rationale:
                             "While $(-8)^2=64$, the square root operation ($\\sqrt{\\phantom{x}}$) calculates *only* the positive square root when performed on a number.",
                     },
                     {
+                        id: "2-2-2-2-2",
                         content: "$8$ {{passage-ref 1 1}}\n\n",
                         correct: true,
                         isNoneOfTheAbove: false,
                         rationale: "$8$ is the positive square root of $64$.",
                     },
                     {
+                        id: "3-3-3-3-3",
                         content: "No value of $x$ satisfies the equation.",
                         correct: false,
                         isNoneOfTheAbove: false,
@@ -120,6 +124,7 @@ export const choicesWithImages: PerseusRenderer = {
             options: {
                 choices: [
                     {
+                        id: "4-4-4-4-4",
                         content:
                             "Same \nLine\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\nSame\nLine",
                         correct: false,
@@ -127,6 +132,7 @@ export const choicesWithImages: PerseusRenderer = {
                             "The markdown only has single lines between each item, so they should be treated as one complete line.",
                     },
                     {
+                        id: "5-5-5-5-5",
                         content:
                             "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
@@ -134,6 +140,7 @@ export const choicesWithImages: PerseusRenderer = {
                             "There are two 'new line' characters between the preceding text and the image. Therefore, the image should be on its own line.",
                     },
                     {
+                        id: "6-6-6-6-6",
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
                         correct: false,
@@ -141,6 +148,7 @@ export const choicesWithImages: PerseusRenderer = {
                             "There are two 'new line' characters between the image and the text that follows. Therefore, the image should be on its own line.",
                     },
                     {
+                        id: "7-7-7-7-7",
                         content:
                             "Text \n\nBefore\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\nText \n\nAfter",
                         correct: false,
@@ -148,6 +156,7 @@ export const choicesWithImages: PerseusRenderer = {
                             "There are two 'new line' characters between the image and the text that surrounds it. Therefore, the image should be on its own line.",
                     },
                     {
+                        id: "8-8-8-8-8",
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
@@ -155,6 +164,7 @@ export const choicesWithImages: PerseusRenderer = {
                             "The markdown only has an image (no text), so nothing should be adjusted.",
                     },
                     {
+                        id: "9-9-9-9-9",
                         content:
                             "![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)\n\n![2 micron diameter cell](https://ka-perseus-images.s3.amazonaws.com/b17cfb6a3270c6f41f66099462e495c841cf6ca9.png)",
                         correct: false,
@@ -221,23 +231,27 @@ export const SingleSelectOverflowContent: PerseusRenderer = {
             options: {
                 choices: [
                     {
+                        id: "10-10-10-10-10",
                         content:
                             "$1+1+1+1+1+5+5+1+1+1+1+1+7+2+1+1+9+5+3+1+1+6+4+10+3+2$",
                         correct: true,
                         rationale: "Add the following numbers to get 75.",
                     },
                     {
+                        id: "11-11-11-11-11",
                         content: "$100-50$",
                         correct: false,
                         rationale: "Subtract the following numbers.",
                     },
                     {
+                        id: "12-12-12-12-12",
                         content: "$200-125+10$",
                         correct: false,
                         isNoneOfTheAbove: false,
                         rationale: "Calculate the following numbers.",
                     },
                     {
+                        id: "13-13-13-13-13",
                         content: "$10+10+10+10$",
                         correct: false,
                         isNoneOfTheAbove: false,
@@ -402,20 +416,24 @@ export const rationalesQuestion: PerseusRenderer = {
                     {
                         rationale: "It's just not correct.",
                         content: "Wrong",
+                        id: "10-10-10-10-10",
                     },
                     {
                         rationale: "It says it right in the answer! ",
                         content: "Right",
                         correct: true,
+                        id: "11-11-11-11-11",
                     },
                     {
                         rationale: "Nope.",
                         content: "Wrong",
+                        id: "12-12-12-12-12",
                     },
                     {
                         rationale: "That's it! ",
                         content: "Right",
                         correct: true,
+                        id: "13-13-13-13-13",
                     },
                 ],
                 countChoices: true,
@@ -427,4 +445,96 @@ export const rationalesQuestion: PerseusRenderer = {
             },
         },
     },
+};
+
+export const overflowContentInGradedGroupSet: PerseusRenderer = {
+    content:
+        "#Testing scrollbar color when background color exists\n\n[[☃ graded-group-set 1]]\n\n\nFade color should match the background.",
+    images: {},
+    widgets: {
+        "graded-group-set 1": {
+            type: "graded-group-set",
+            alignment: "default",
+            static: false,
+            graded: true,
+            options: {
+                gradedGroups: [
+                    {
+                        ...SingleSelectOverflowContent,
+                        title: "Single Select - Math",
+                        widgetEnabled: true,
+                        immutableWidgets: false,
+                    },
+                    {
+                        ...SingleSelectOverflowImageContent,
+                        title: "Single Select - Image",
+                        widgetEnabled: true,
+                        immutableWidgets: false,
+                    },
+                    {
+                        ...multiChoiceQuestionSimpleOverflowContent,
+                        title: "Multi Choice - Math",
+                        widgetEnabled: true,
+                        immutableWidgets: false,
+                    },
+                ],
+            },
+            version: {major: 0, minor: 0},
+        },
+    },
+};
+
+export const choicesWithGraphie: PerseusRenderer = {
+    ...radioQuestionBuilder()
+        .withContent(
+            "The double number line shows that it takes $4$ hours for Karin to fold $28$ paper cranes.\n\n" +
+                "![A double number line with 5 equally spaced tick marks. The line labeled Hours, reads from left to right: 0, three unlabeled tick marks, 4. " +
+                "The line labeled Cranes, reads from left to right: 0, three unlabeled tick marks, 28.]" +
+                "(web+graphie://ka-perseus-graphie.s3.amazonaws.com/669d6011774f3c0f6809553d210b4f51b7e3e4fe)\n\n" +
+                "**Select the double number line that shows the other values of hours and cranes.**\n\n[[☃ radio 1]]",
+        )
+        .addChoice(
+            "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 40, 80, 120, 160.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/e4bdfd23b56729130cbd113a03c5792bb8790247)",
+            {correct: true},
+        )
+        .addChoice(
+            "![A double number line with 5 equally spaced tick marks. The line labeled Distance, kilometers, reads from left to right: 0, 1, 2, 3, 4.  The line labeled Elevation, meters, reads from left to right: 0, 80, 100, 120, 140.](web+graphie://ka-perseus-graphie.s3.amazonaws.com/ef0bd0163c21f51752bda0a4102dc29818c75463)",
+            {correct: false},
+        )
+        .build(),
+    images: {
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/def25e9c056a6f782f5a8492ae55ee85670f0ab7":
+            {
+                width: 398,
+                height: 80,
+            },
+        "web+graphie://ka-perseus-graphie.s3.amazonaws.com/2b86af8e76b455f59e53a25a1b577b35a5414216":
+            {
+                width: 398,
+                height: 80,
+            },
+    },
+};
+
+export const choicesWithMathFont = (options?: {
+    multipleSelect: boolean;
+}): PerseusRenderer => {
+    return radioQuestionBuilder()
+        .withContent(
+            "Which of the following values of $x$ satisfies the equation $\\sqrt{64}=x$ ?\n\n[[\u2603 radio 1]]\n\n",
+        )
+        .addChoice("Both $-8$ and $8$ satisfy the equation $\\sqrt{64}=x$", {
+            correct: false,
+        })
+        .addChoice("Only $-8$ satisfies the equation $\\sqrt{64}=x$", {
+            correct: false,
+        })
+        .addChoice("Only $8$ satisfies the equation $\\sqrt{64}=x$", {
+            correct: false,
+        })
+        .addChoice("No value of $x$ satisfies the equation $\\sqrt{64}=x$", {
+            correct: false,
+        })
+        .withMultipleSelect(options?.multipleSelect ?? false)
+        .build();
 };

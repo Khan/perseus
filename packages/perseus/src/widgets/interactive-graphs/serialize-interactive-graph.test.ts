@@ -18,7 +18,7 @@ import type {UserEvent} from "@testing-library/user-event";
  *
  * This API is not built in a way that supports migrating data
  * between versions of Perseus JSON. In fact serialization
- * doesn't use WidgetOptions, but RenderProps; it's leveraging
+ * doesn't use WidgetOptions, but manipulated widget props; it's leveraging
  * what is considered an internal implementation detail to support
  * rehydrating previous state.
  *
@@ -60,6 +60,12 @@ describe("InteractiveGraph serialization", () => {
                         snapStep: [1, 1],
                         step: [1, 1],
                         lockedFigures: [],
+                        showAxisArrows: {
+                            xMin: true,
+                            xMax: true,
+                            yMin: true,
+                            yMax: true,
+                        },
                     },
                 },
             },
@@ -121,6 +127,12 @@ describe("InteractiveGraph serialization", () => {
                         [-10, 10],
                         [-10, 10],
                     ],
+                    showAxisArrows: {
+                        xMin: true,
+                        xMax: true,
+                        yMin: true,
+                        yMax: true,
+                    },
                     step: [1, 1],
                     backgroundImage: {
                         url: null,
@@ -152,86 +164,6 @@ describe("InteractiveGraph serialization", () => {
                 },
             },
             hints: [],
-        });
-    });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicInteractiveGraph());
-
-        const preUserInput = renderer.getUserInput();
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "interactive-graph 1": {
-                        labels: ["x", "y"],
-                        labelLocation: "onAxis",
-                        range: [
-                            [-10, 10],
-                            [-10, 10],
-                        ],
-                        step: [1, 1],
-                        backgroundImage: {
-                            url: null,
-                        },
-                        markings: "graph",
-                        showTooltips: false,
-                        showProtractor: false,
-                        correct: {
-                            type: "linear",
-                            coords: [
-                                [0, 0],
-                                [1, 1],
-                            ],
-                        },
-                        snapStep: [1, 1],
-                        lockedFigures: [],
-                        // this is user input
-                        graph: {
-                            type: "linear",
-                            startCoords: [
-                                [3, 0],
-                                [3, 3],
-                            ],
-                            coords: [
-                                [4, 1], // <= important, it's different
-                                [3, 3],
-                            ],
-                        },
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const postUserInput = renderer.getUserInput();
-
-        // Assert
-        // `value` would be 0 if we didn't properly restore serialized state
-        expect(preUserInput).not.toEqual(postUserInput);
-        expect(preUserInput).toEqual({
-            "interactive-graph 1": {
-                type: "linear",
-                startCoords: [
-                    [3, 0],
-                    [3, 3],
-                ],
-            },
-        });
-        expect(postUserInput).toEqual({
-            "interactive-graph 1": {
-                type: "linear",
-                startCoords: [
-                    [3, 0],
-                    [3, 3],
-                ],
-                coords: [
-                    [4, 1], // <= important, it's different
-                    [3, 3],
-                ],
-            },
         });
     });
 });

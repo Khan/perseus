@@ -63,10 +63,12 @@ describe("splitPerseusRenderer", () => {
                     options: {
                         choices: [
                             {
+                                id: "0-0-0-0-0",
                                 content: "Correct",
                                 correct: true,
                             },
                             {
+                                id: "1-1-1-1-1",
                                 content: "Incorrect",
                                 correct: false,
                             },
@@ -291,6 +293,12 @@ describe("splitPerseusRenderer", () => {
                             [0, 1],
                             [0, 1],
                         ],
+                        showAxisArrows: {
+                            xMin: true,
+                            xMax: true,
+                            yMin: true,
+                            yMax: true,
+                        },
                         graph: {type: "none"},
                         correct: {type: "none"},
                         lockedFigures: [],
@@ -318,6 +326,12 @@ describe("splitPerseusRenderer", () => {
                             [0, 1],
                             [0, 1],
                         ],
+                        showAxisArrows: {
+                            xMin: true,
+                            xMax: true,
+                            yMin: true,
+                            yMax: true,
+                        },
                         graph: {type: "none"},
                         showTooltips: false,
                         backgroundImage: {
@@ -346,10 +360,12 @@ describe("splitPerseusRenderer", () => {
                 options: {
                     choices: [
                         {
+                            id: "0-0-0-0-0",
                             content: "Correct",
                             correct: true,
                         },
                         {
+                            id: "1-1-1-1-1",
                             content: "Incorrect",
                             correct: false,
                         },

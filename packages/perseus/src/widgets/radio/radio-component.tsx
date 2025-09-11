@@ -17,27 +17,22 @@ import type {
     ShowSolutions,
     PerseusRadioRubric,
     PerseusRadioUserInput,
+    PerseusRadioWidgetOptions,
 } from "@khanacademy/perseus-core";
 
-// RenderProps is the return type for radio.jsx#transform
-export type RenderProps = {
+export type RadioProps = PerseusRadioWidgetOptions & {
     numCorrect: number;
     hasNoneOfTheAbove?: boolean;
     multipleSelect?: boolean;
     countChoices?: boolean;
     deselectEnabled?: boolean;
     choices: RadioChoiceWithMetadata[];
-    // doesn't seem used? choiceStates includes selected...
-    selectedChoices: PerseusRadioChoice["correct"][];
     showSolutions?: ShowSolutions;
     choiceStates?: ChoiceState[];
-    // Depreciated; support for legacy way of handling changes
-    // Adds proptype for prop that is used but was lacking type
-    values?: boolean[];
 };
 
 export type Props = WidgetProps<
-    RenderProps,
+    RadioProps,
     PerseusRadioUserInput,
     PerseusRadioRubric
 >;
@@ -160,17 +155,11 @@ class Radio extends React.Component<Props> implements Widget {
     // So, given the new values for each choice, construct the new
     // `choiceStates` objects, and pass them to `this.props.onChange`.
     //
-    // `newValueLists` is an object with two keys: `checked` and `crossedOut`.
-    // Each contains an array of boolean values, specifying the new checked and
-    // crossed-out value of each choice.
-    //
     // NOTE(mdr): This method expects to be auto-bound. If this component is
     //     converted to an ES6 class, take care to auto-bind this method!
-    updateChoices: (
-        newValueLists: Readonly<{
-            checked: ReadonlyArray<boolean>;
-        }>,
-    ) => void = (newValueLists) => {
+    updateChoices: (checkedChoiceIds: ReadonlyArray<string>) => void = (
+        checkedChoiceIds,
+    ) => {
         const {choiceStates, choices} = this.props;
 
         // Construct the baseline `choiceStates` objects. If this is the user's
@@ -189,10 +178,10 @@ class Radio extends React.Component<Props> implements Widget {
                   readOnly: false,
               }));
 
-        // Mutate the new `choiceState` objects, according to the new `checked`
-        // and `crossedOut` values provided in `newValueLists`.
+        // Mutate the new `choiceState` objects, according to the checkedChoiceIds.
         newChoiceStates.forEach((choiceState: ChoiceState, i) => {
-            choiceState.selected = newValueLists.checked[i];
+            const choiceId = choices[i].id;
+            choiceState.selected = checkedChoiceIds.includes(choiceId);
         });
 
         this.props.onChange({choiceStates: newChoiceStates});
@@ -229,18 +218,6 @@ class Radio extends React.Component<Props> implements Widget {
             }));
         } else if (this.props.choiceStates) {
             choiceStates = this.props.choiceStates;
-        } else if (this.props.values) {
-            // Support legacy choiceStates implementation
-            /* c8 ignore next - props.values is deprecated */
-            choiceStates = this.props.values.map((val) => ({
-                selected: val,
-                crossedOut: false,
-                readOnly: false,
-                highlighted: false,
-                rationaleShown: false,
-                correctnessShown: false,
-                previouslyAnswered: false,
-            }));
         } else {
             choiceStates = choices.map(() => ({
                 selected: false,
@@ -272,15 +249,13 @@ class Radio extends React.Component<Props> implements Widget {
                 const reviewChoice = this.props.reviewModeRubric?.choices[i];
 
                 return {
+                    id: choice.id,
                     content: this._renderRenderer(content),
                     checked: selected,
                     // Current versions of the radio widget always pass in the
                     // "correct" value through the choices. Old serialized state
                     // for radio widgets doesn't have this though, so we have to
-                    // pull the correctness out of the review mode scoring data. This
-                    // only works because all of the places we use
-                    // `restoreSerializedState()` also turn on reviewMode, but is
-                    // fine for now.
+                    // pull the correctness out of the review mode scoring data.
                     // TODO(emily): Come up with a more comprehensive way to solve
                     // this sort of "serialized state breaks when internal
                     // structure changes" problem.

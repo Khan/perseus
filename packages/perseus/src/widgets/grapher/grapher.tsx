@@ -30,8 +30,6 @@ import {
 } from "./util";
 
 import type {Coord, Line} from "../../interactive2/types";
-// eslint-disable-next-line import/no-deprecated
-import type {ChangeableProps} from "../../mixins/changeable";
 import type {Widget, WidgetExports, WidgetProps} from "../../types";
 import type {GridDimensions} from "../../util";
 import type {GrapherPromptJSON} from "../../widget-ai-utils/grapher/grapher-ai-utils";
@@ -62,8 +60,7 @@ const typeSelectorStyle = {
     padding: "5px 5px",
 } as const;
 
-// eslint-disable-next-line import/no-deprecated
-type FunctionGrapherProps = ChangeableProps & {
+type FunctionGrapherProps = {
     graph: any;
     coords: any;
     asymptote: any;
@@ -74,6 +71,7 @@ type FunctionGrapherProps = ChangeableProps & {
     showHairlines: () => void;
     showTooltips: boolean;
     static: boolean;
+    onChange: (arg: any) => void;
 };
 
 type DefaultFunctionGrapherProps = any;
@@ -340,9 +338,7 @@ class FunctionGrapher extends React.Component<FunctionGrapherProps> {
     }
 }
 
-type RenderProps = Pick<GrapherPublicWidgetOptions, "availableTypes" | "graph">;
-
-type Props = WidgetProps<RenderProps, PerseusGrapherUserInput>;
+type Props = WidgetProps<PerseusGrapherWidgetOptions, PerseusGrapherUserInput>;
 
 /* Widget and editor. */
 class Grapher extends React.Component<Props> implements Widget {
@@ -512,10 +508,10 @@ class Grapher extends React.Component<Props> implements Widget {
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput: _, ...rest} = this.props;
+        const {userInput: _, correct: __, ...rest} = this.props;
         return {
             ...rest,
             plot: this.props.userInput,
@@ -523,6 +519,10 @@ class Grapher extends React.Component<Props> implements Widget {
     }
 
     render(): React.ReactNode {
+        const availableTypes = this.props.static
+            ? [this.props.correct.type]
+            : this.props.availableTypes;
+
         const type = this.props.userInput.type;
         const coords = this.props.userInput.coords;
         const asymptote =
@@ -535,7 +535,7 @@ class Grapher extends React.Component<Props> implements Widget {
                 <ButtonGroup
                     value={type}
                     allowEmpty={true}
-                    buttons={this.props.availableTypes.map(typeToButton)}
+                    buttons={availableTypes.map(typeToButton)}
                     onChange={this.handleActiveTypeChange}
                 />
             </div>
@@ -588,36 +588,15 @@ class Grapher extends React.Component<Props> implements Widget {
             <div>
                 {/* @ts-expect-error - TS2769 - No overload matches this call. */}
                 <FunctionGrapher {...grapherProps} />
-                {this.props.availableTypes.length > 1 && typeSelector}
+                {availableTypes.length > 1 && typeSelector}
             </div>
         );
     }
 }
 
-function transform(options: GrapherPublicWidgetOptions): RenderProps {
-    const {availableTypes, graph} = options;
-
-    return {
-        availableTypes,
-        graph,
-    };
-}
-
-// Note that in addition to the standard staticTransform, in static
-// mode we set static=true for the graph's handles in FunctionGrapher.
-function staticTransform(options: PerseusGrapherWidgetOptions) {
-    return {
-        ...transform(options),
-        // Don't display graph type choices if we're in static mode
-        availableTypes: [options.correct.type],
-        // Display the same graph marked as correct in the widget editor.
-        plot: options.correct,
-    };
-}
-
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,
@@ -651,18 +630,11 @@ function getCorrectUserInput(
     PerseusGrapherUserInput
 > satisfies PropsFor<typeof Grapher>;
 
-0 as any as WidgetProps<
-    GrapherPublicWidgetOptions,
-    PerseusGrapherUserInput
-> satisfies PropsFor<typeof Grapher>;
-
 export default {
     name: "grapher",
     displayName: "Grapher",
     hidden: true,
     widget: Grapher,
-    transform,
-    staticTransform,
     getUserInputFromSerializedState,
     getStartUserInput,
     getCorrectUserInput,

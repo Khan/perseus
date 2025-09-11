@@ -18,7 +18,7 @@ import type {UserEvent} from "@testing-library/user-event";
  *
  * This API is not built in a way that supports migrating data
  * between versions of Perseus JSON. In fact serialization
- * doesn't use WidgetOptions, but RenderProps; it's leveraging
+ * doesn't use WidgetOptions, but manipulated widget props; it's leveraging
  * what is considered an internal implementation detail to support
  * rehydrating previous state.
  *
@@ -114,53 +114,5 @@ describe("Expression serialization", () => {
             },
             hints: [],
         });
-    });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicExpression());
-
-        let userInput = renderer.getUserInput();
-        expect(userInput).toEqual({"expression 1": ""});
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "expression 1": {
-                        keypadConfiguration: {
-                            keypadType: "EXPRESSION",
-                            times: false,
-                        },
-                        times: false,
-                        functions: [],
-                        buttonSets: [],
-                        analytics: {
-                            onAnalyticsEvent: expect.any(Function),
-                        },
-                        alignment: "default",
-                        static: false,
-                        showSolutions: "none",
-                        reviewModeRubric: null,
-                        reviewMode: false,
-                        isLastUsedWidget: false,
-                        linterContext: {
-                            contentType: "",
-                            highlightLint: false,
-                            paths: [],
-                            stack: ["question", "widget"],
-                        },
-                        value: "42",
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        userInput = renderer.getUserInput();
-
-        // Assert
-        // user input would be "" if we didn't properly restore serialized state
-        expect(userInput).toEqual({"expression 1": "42"});
     });
 });

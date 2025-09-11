@@ -26,7 +26,6 @@ import {
 
 import type {
     PerseusItem,
-    PerseusExpressionWidgetOptions,
     PerseusRenderer,
     PerseusExpressionRubric,
 } from "@khanacademy/perseus-core";
@@ -502,96 +501,6 @@ describe("Expression Widget", function () {
             // In this case we know that it'll be valid so we can assert directly
             // @ts-expect-error - TS2339 - Property 'total' does not exist on type 'PerseusScore'.
             expect(score.total).toBe(1);
-        });
-    });
-
-    describe("transform", () => {
-        it("can transform widget options into render props", () => {
-            const widgetOptions: PerseusExpressionWidgetOptions = {
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: true,
-                        simplify: false,
-                        value: "16+88i",
-                    },
-                ],
-                buttonSets: [],
-                times: false,
-                functions: [],
-                buttonsVisible: "never",
-                visibleLabel: "Test visible label",
-                ariaLabel: "Test aria label",
-                extraKeys: ["i"],
-            };
-
-            const expected = {
-                keypadConfiguration: {
-                    keypadType: "EXPRESSION",
-                    extraKeys: ["i"],
-                    times: false,
-                },
-                times: false,
-                functions: [],
-                buttonSets: [],
-                buttonsVisible: "never",
-                visibleLabel: "Test visible label",
-                ariaLabel: "Test aria label",
-            };
-
-            const result = ExpressionWidgetExport.transform(widgetOptions);
-
-            expect(result).toEqual(expected);
-        });
-
-        it("should return expression keypad configuration by default", async () => {
-            // Arrange
-            // Act
-            const result = ExpressionWidgetExport.transform({
-                answerForms: [],
-                buttonSets: [],
-                times: false,
-                functions: [],
-            });
-
-            // Assert
-            expect(result.keypadConfiguration.keypadType).toEqual("EXPRESSION");
-        });
-
-        it("should forward extraKeys if present", async () => {
-            // Arrange
-            // Act
-            const result = ExpressionWidgetExport.transform({
-                buttonSets: [],
-                times: false,
-                functions: [],
-                extraKeys: ["i"],
-            });
-
-            // Assert
-            expect(result.keypadConfiguration.extraKeys).toEqual(["i"]);
-        });
-
-        it("should prioritize extraKeys over answerForms", async () => {
-            // Arrange
-            // Act
-            const result = ExpressionWidgetExport.transform({
-                answerForms: [
-                    {
-                        considered: "correct",
-                        form: true,
-                        simplify: false,
-                        value: "16+88i",
-                    },
-                ],
-                buttonSets: [],
-                times: false,
-                functions: [],
-                extraKeys: ["x"],
-            });
-
-            // Assert
-            expect(result.keypadConfiguration.extraKeys).toEqual(["x"]);
         });
     });
 

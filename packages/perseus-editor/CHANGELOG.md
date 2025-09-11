@@ -1,5 +1,195 @@
 # @khanacademy/perseus-editor
 
+## 27.5.5
+
+### Patch Changes
+
+-   Updated dependencies [[`416d53ddc4`](https://github.com/Khan/perseus/commit/416d53ddc4bdcf771188b73347d271b66404a8f7)]:
+    -   @khanacademy/perseus@69.0.0
+
+## 27.5.4
+
+### Patch Changes
+
+-   Updated dependencies [[`876be8cde6`](https://github.com/Khan/perseus/commit/876be8cde6aa2936612b2e9a60bf20626440b16c), [`2cede5b4f8`](https://github.com/Khan/perseus/commit/2cede5b4f883f1be0a160e46476fbdea826b6166), [`73311983b6`](https://github.com/Khan/perseus/commit/73311983b6b6d343c73c5778992e53a49f4d6e43)]:
+    -   @khanacademy/perseus-core@19.0.2
+    -   @khanacademy/perseus@68.0.2
+    -   @khanacademy/keypad-context@3.2.4
+    -   @khanacademy/kmath@2.2.4
+    -   @khanacademy/math-input@26.2.4
+    -   @khanacademy/perseus-linter@4.3.4
+    -   @khanacademy/perseus-score@7.7.4
+
+## 27.5.3
+
+### Patch Changes
+
+-   [#2848](https://github.com/Khan/perseus/pull/2848) [`1de909808d`](https://github.com/Khan/perseus/commit/1de909808dfcd08717c6246a6225081fae50e3a1) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Update Image widget to match new designs
+
+-   Updated dependencies [[`57fcddf928`](https://github.com/Khan/perseus/commit/57fcddf928d5d3fe9d00c3833eb58d3eb6b2c556), [`1de909808d`](https://github.com/Khan/perseus/commit/1de909808dfcd08717c6246a6225081fae50e3a1), [`f096f77bd6`](https://github.com/Khan/perseus/commit/f096f77bd63be867df16e3065025b5f35ebb6a6b), [`655f8994b8`](https://github.com/Khan/perseus/commit/655f8994b869a9eb34c4f9436cfc32bd59916d37)]:
+    -   @khanacademy/perseus@68.0.1
+    -   @khanacademy/perseus-core@19.0.1
+    -   @khanacademy/keypad-context@3.2.3
+    -   @khanacademy/kmath@2.2.3
+    -   @khanacademy/math-input@26.2.3
+    -   @khanacademy/perseus-linter@4.3.3
+    -   @khanacademy/perseus-score@7.7.3
+
+## 27.5.2
+
+### Patch Changes
+
+-   Updated dependencies [[`b4aef654c1`](https://github.com/Khan/perseus/commit/b4aef654c1844f2d322a37229a209edeff545035), [`ccb28990d2`](https://github.com/Khan/perseus/commit/ccb28990d267339cacbe2055c0ac60b01d1f8678), [`59cbb43106`](https://github.com/Khan/perseus/commit/59cbb431069caf66f63672f223da34cf063e7932)]:
+    -   @khanacademy/perseus@68.0.0
+    -   @khanacademy/perseus-core@19.0.0
+    -   @khanacademy/keypad-context@3.2.2
+    -   @khanacademy/kmath@2.2.2
+    -   @khanacademy/math-input@26.2.2
+    -   @khanacademy/perseus-linter@4.3.2
+    -   @khanacademy/perseus-score@7.7.2
+
+## 27.5.1
+
+### Patch Changes
+
+-   Updated dependencies [[`c601e1c410`](https://github.com/Khan/perseus/commit/c601e1c4109cb6d719c75795c4cbb9601bd11a2b)]:
+    -   @khanacademy/perseus@67.2.0
+
+## 27.5.0
+
+### Minor Changes
+
+-   [#2847](https://github.com/Khan/perseus/pull/2847) [`38c3140201`](https://github.com/Khan/perseus/commit/38c3140201abf8243dd3faaec2a4976b11898ac3) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Add the Title field back in the Image editor
+
+### Patch Changes
+
+-   [#2845](https://github.com/Khan/perseus/pull/2845) [`9a3f88df9a`](https://github.com/Khan/perseus/commit/9a3f88df9affeaca3c26d50208867c913ccae725) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Fix regression stories by adding width and height to images
+
+*   [#2852](https://github.com/Khan/perseus/pull/2852) [`3dcc37d389`](https://github.com/Khan/perseus/commit/3dcc37d3890f598a97210f0343443897ce83ed2a) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Revert to old way of saving empty string data for the sake of data consistency
+
+-   [#2844](https://github.com/Khan/perseus/pull/2844) [`5c7da8d1a2`](https://github.com/Khan/perseus/commit/5c7da8d1a2270bf73d60fcfc9823414db167af45) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update WB semantic color surface and foreground/border inverse JS token usage
+
+-   Updated dependencies [[`9a3f88df9a`](https://github.com/Khan/perseus/commit/9a3f88df9affeaca3c26d50208867c913ccae725)]:
+    -   @khanacademy/perseus@67.1.2
+
+## 27.4.1
+
+### Patch Changes
+
+-   [#2849](https://github.com/Khan/perseus/pull/2849) [`47ec59ae27`](https://github.com/Khan/perseus/commit/47ec59ae2783d770fecaa6d5b403b365dc37094e) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Updating packages to sync with wonderblocks
+
+*   [#2842](https://github.com/Khan/perseus/pull/2842) [`8943735ea4`](https://github.com/Khan/perseus/commit/8943735ea40002ef06f3c56cf90b8eee5125eeaf) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (CX) | Modernize the Image widget editor UI
+
+*   Updated dependencies [[`47ec59ae27`](https://github.com/Khan/perseus/commit/47ec59ae2783d770fecaa6d5b403b365dc37094e), [`671c5e4a56`](https://github.com/Khan/perseus/commit/671c5e4a5615580348fff6776fe1e9d2e3a475a6), [`245de4eba5`](https://github.com/Khan/perseus/commit/245de4eba5b1d8e055cf0d8793c3ad18d55aea8f)]:
+    -   @khanacademy/math-input@26.2.1
+    -   @khanacademy/perseus@67.1.1
+    -   @khanacademy/perseus-core@18.9.1
+    -   @khanacademy/keypad-context@3.2.1
+    -   @khanacademy/kmath@2.2.1
+    -   @khanacademy/perseus-linter@4.3.1
+    -   @khanacademy/perseus-score@7.7.1
+
+## 27.4.0
+
+### Minor Changes
+
+-   [#2799](https://github.com/Khan/perseus/pull/2799) [`8b18b38b31`](https://github.com/Khan/perseus/commit/8b18b38b31866582cb101d29ea3dbfd2dbe756bf) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Changes the output of radio score from boolean array to string array that represent the user's selected choice ids
+
+### Patch Changes
+
+-   [#2824](https://github.com/Khan/perseus/pull/2824) [`27304a4c22`](https://github.com/Khan/perseus/commit/27304a4c229967853d05b09bf8ff0849544fa8e3) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Modernize the Image widget code
+
+*   [#2825](https://github.com/Khan/perseus/pull/2825) [`ae8f7b2d0d`](https://github.com/Khan/perseus/commit/ae8f7b2d0d98d0bc11654fc086ace74c96384eff) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Modernize the Image widget edtior code
+
+-   [#2835](https://github.com/Khan/perseus/pull/2835) [`6901229b75`](https://github.com/Khan/perseus/commit/6901229b758c411356b77b3b044a1d178038460c) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update WB semantic color surface and foreground/border inverse token usage
+
+-   Updated dependencies [[`9db2c5a4a1`](https://github.com/Khan/perseus/commit/9db2c5a4a1d2b83d18c9605cf87b7ebabb832ad0), [`32553c5330`](https://github.com/Khan/perseus/commit/32553c5330fd353b08680415fdbd9842d5cca13a), [`4b5a15745e`](https://github.com/Khan/perseus/commit/4b5a15745e22a0a45a8d86d2a87b4eb138a2c47c), [`8b18b38b31`](https://github.com/Khan/perseus/commit/8b18b38b31866582cb101d29ea3dbfd2dbe756bf), [`3fb39e4a2f`](https://github.com/Khan/perseus/commit/3fb39e4a2fda3890c99d3551f403cfe31884547c), [`81951db1ba`](https://github.com/Khan/perseus/commit/81951db1ba9c474c108c5ff253b7d0168fd3f23a), [`27304a4c22`](https://github.com/Khan/perseus/commit/27304a4c229967853d05b09bf8ff0849544fa8e3), [`ae8f7b2d0d`](https://github.com/Khan/perseus/commit/ae8f7b2d0d98d0bc11654fc086ace74c96384eff), [`e8eb1b3843`](https://github.com/Khan/perseus/commit/e8eb1b384327afe6ed0f221e025175c54b53bdd5), [`1eba32de16`](https://github.com/Khan/perseus/commit/1eba32de16478ded4bbe751e32727e562e5f820e), [`6901229b75`](https://github.com/Khan/perseus/commit/6901229b758c411356b77b3b044a1d178038460c)]:
+    -   @khanacademy/perseus@67.1.0
+    -   @khanacademy/keypad-context@3.2.0
+    -   @khanacademy/kmath@2.2.0
+    -   @khanacademy/math-input@26.2.0
+    -   @khanacademy/perseus-core@18.9.0
+    -   @khanacademy/perseus-linter@4.3.0
+    -   @khanacademy/perseus-score@7.7.0
+
+## 27.3.1
+
+### Patch Changes
+
+-   [#2823](https://github.com/Khan/perseus/pull/2823) [`a95e65d7e0`](https://github.com/Khan/perseus/commit/a95e65d7e06a3aa7b970f4b1586843df3f0c7f55) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Update the Storybook experience for Image Widget
+
+-   Updated dependencies [[`aab0bf4b8b`](https://github.com/Khan/perseus/commit/aab0bf4b8bcb10347f24854403ee27581212df5c), [`1970e9b660`](https://github.com/Khan/perseus/commit/1970e9b6606e4367718fafb86e98d86c2024c884), [`9a5605b82c`](https://github.com/Khan/perseus/commit/9a5605b82ca6038f326bf70c6d0959bb2227b754), [`38f92737fb`](https://github.com/Khan/perseus/commit/38f92737fbc63447a07e1308a65d97cfbc14fad3), [`8f3b0dce93`](https://github.com/Khan/perseus/commit/8f3b0dce93efd620be5d7c580fa1a3920ae689eb), [`527f20f156`](https://github.com/Khan/perseus/commit/527f20f1565aa8cd1a69db92ed4698043f96e9df), [`a95e65d7e0`](https://github.com/Khan/perseus/commit/a95e65d7e06a3aa7b970f4b1586843df3f0c7f55), [`e0471ecdfa`](https://github.com/Khan/perseus/commit/e0471ecdfabaecc2e154362eb99382f4974efc8b), [`1379e394f5`](https://github.com/Khan/perseus/commit/1379e394f5ea47dd12d7950854cf5f073359a256)]:
+    -   @khanacademy/perseus@67.0.0
+    -   @khanacademy/perseus-core@18.8.0
+    -   @khanacademy/keypad-context@3.1.5
+    -   @khanacademy/kmath@2.1.5
+    -   @khanacademy/math-input@26.1.6
+    -   @khanacademy/perseus-linter@4.2.5
+    -   @khanacademy/perseus-score@7.6.2
+
+## 27.3.0
+
+### Minor Changes
+
+-   [#2786](https://github.com/Khan/perseus/pull/2786) [`52b2b3ae54`](https://github.com/Khan/perseus/commit/52b2b3ae54953ff6969e8962858d46d025661be8) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Add `showAxisArrows` field to Interactive Graph editor
+
+### Patch Changes
+
+-   [#2806](https://github.com/Khan/perseus/pull/2806) [`d9e489d705`](https://github.com/Khan/perseus/commit/d9e489d705e28c10a6de97f7b94e0890444f41c4) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] Use choice IDs for the choice keys in the editor
+
+-   Updated dependencies [[`99aafcf6db`](https://github.com/Khan/perseus/commit/99aafcf6db38d78bc56abe7ffae16d851ab41c54), [`afd017396a`](https://github.com/Khan/perseus/commit/afd017396a96ce39e88b23533d7feb04a8d0bc78), [`3f7a9e5185`](https://github.com/Khan/perseus/commit/3f7a9e5185a5a8fc93a32215379d7a434ecf0523), [`58e2534199`](https://github.com/Khan/perseus/commit/58e2534199d0c6243362f3ea557cfa362ab9906a), [`201519eb80`](https://github.com/Khan/perseus/commit/201519eb808b4c1b812f776d9cbbcd6402de0d88), [`52b2b3ae54`](https://github.com/Khan/perseus/commit/52b2b3ae54953ff6969e8962858d46d025661be8), [`62029ee700`](https://github.com/Khan/perseus/commit/62029ee700db45a646a0addf0e90ff4df73aef3a)]:
+    -   @khanacademy/perseus@66.5.0
+    -   @khanacademy/perseus-core@18.7.0
+    -   @khanacademy/keypad-context@3.1.4
+    -   @khanacademy/kmath@2.1.4
+    -   @khanacademy/math-input@26.1.5
+    -   @khanacademy/perseus-linter@4.2.4
+    -   @khanacademy/perseus-score@7.6.1
+
+## 27.2.0
+
+### Minor Changes
+
+-   [#2777](https://github.com/Khan/perseus/pull/2777) [`78f7c512a4`](https://github.com/Khan/perseus/commit/78f7c512a4cd35e2416952fccb480e1821fcef8a) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Add `showAxisArrows` field to Interactive Graph widget
+
+### Patch Changes
+
+-   Updated dependencies [[`17eb0d1b07`](https://github.com/Khan/perseus/commit/17eb0d1b075d9edf368d4a7da085f1176362d4fc), [`78f7c512a4`](https://github.com/Khan/perseus/commit/78f7c512a4cd35e2416952fccb480e1821fcef8a), [`3b9c412e2f`](https://github.com/Khan/perseus/commit/3b9c412e2f29be13a4276b9737b7a42f4371e570), [`28d3082eda`](https://github.com/Khan/perseus/commit/28d3082eda0eefc3791fd9e87e3a23adc5c9d140), [`daf70ab1e1`](https://github.com/Khan/perseus/commit/daf70ab1e14715ebe96319d3ba2872aa6d7b1318), [`665613fa2c`](https://github.com/Khan/perseus/commit/665613fa2c58dbf880ccfc2f846fe83620db31d9), [`a9ff068196`](https://github.com/Khan/perseus/commit/a9ff0681963836fbc70c606eb880e3464e60c03e), [`0830c46d33`](https://github.com/Khan/perseus/commit/0830c46d33f5db4b07cff456c4e57b4b2d1eb60d), [`8da2dfaf2d`](https://github.com/Khan/perseus/commit/8da2dfaf2dbba78d275f9f425e79fe90358355d0), [`3767a24628`](https://github.com/Khan/perseus/commit/3767a24628f278042c43a5bad8c085d87c8fc494)]:
+    -   @khanacademy/perseus@66.4.0
+    -   @khanacademy/perseus-core@18.6.0
+    -   @khanacademy/perseus-score@7.6.0
+    -   @khanacademy/keypad-context@3.1.3
+    -   @khanacademy/kmath@2.1.3
+    -   @khanacademy/math-input@26.1.4
+    -   @khanacademy/perseus-linter@4.2.3
+
+## 27.1.0
+
+### Minor Changes
+
+-   [#2647](https://github.com/Khan/perseus/pull/2647) [`32ba4b3dc6`](https://github.com/Khan/perseus/commit/32ba4b3dc6bcff2f029c8534b3c72d5eef2623d9) Thanks [@nishasy](https://github.com/nishasy)! - [Radio] | (CX) | Implment UI for adding images in Radio editor
+
+*   [#2762](https://github.com/Khan/perseus/pull/2762) [`1bc1464852`](https://github.com/Khan/perseus/commit/1bc14648527864d17640e0818ef6ec38a13f90ab) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - adds choice id as a required field to Radio Widget
+
+### Patch Changes
+
+-   [#2771](https://github.com/Khan/perseus/pull/2771) [`72aeef2fe5`](https://github.com/Khan/perseus/commit/72aeef2fe55864e055902cf3fdf36cdee59ac0e9) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] | (CX) | Use dynamically resizing textarea for Description field
+
+*   [#2774](https://github.com/Khan/perseus/pull/2774) [`3c58a9b963`](https://github.com/Khan/perseus/commit/3c58a9b963679701c5814d3e8f5a3bec1279ed77) Thanks [@nishasy](https://github.com/nishasy)! - Fix file imports
+
+-   [#2768](https://github.com/Khan/perseus/pull/2768) [`f48e917fe5`](https://github.com/Khan/perseus/commit/f48e917fe5ee7267aae8a0563a2379131da785ce) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] | (DX) | Shorten interactive-graph-editor.tsx to avoid 1000+ line lint error
+
+*   [#2763](https://github.com/Khan/perseus/pull/2763) [`3c16fc2a18`](https://github.com/Khan/perseus/commit/3c16fc2a1853edb193fa456cc43eafef528705dc) Thanks [@handeyeco](https://github.com/handeyeco)! - Export UserInputManager from Perseus and use it in PerseusEditor for Storybook preview.
+
+*   Updated dependencies [[`178c7181e8`](https://github.com/Khan/perseus/commit/178c7181e807497b5767614853c52b716d715355), [`dde65d357c`](https://github.com/Khan/perseus/commit/dde65d357c5553d3e384079f9b9459302aab8216), [`3a53e7357d`](https://github.com/Khan/perseus/commit/3a53e7357d090b3c70cef2a5cb4f9312af3ca45b), [`e269c7a060`](https://github.com/Khan/perseus/commit/e269c7a060648a07b1ed58247d66b23b30f16c6e), [`294ac6cf5d`](https://github.com/Khan/perseus/commit/294ac6cf5d30331f3b54b34476d645101d0254d9), [`c1f5dabafe`](https://github.com/Khan/perseus/commit/c1f5dabafecaac3bb26c349728d9a022fd3836ea), [`a27cf15161`](https://github.com/Khan/perseus/commit/a27cf15161ced0a0ad37c01fd724e0e793d18aaf), [`3c16fc2a18`](https://github.com/Khan/perseus/commit/3c16fc2a1853edb193fa456cc43eafef528705dc), [`1bc1464852`](https://github.com/Khan/perseus/commit/1bc14648527864d17640e0818ef6ec38a13f90ab), [`97a586aa3a`](https://github.com/Khan/perseus/commit/97a586aa3ad131da4fcba4fbd9036f0e9bf663b0), [`48b26d97d2`](https://github.com/Khan/perseus/commit/48b26d97d2ca023fa5bea29049dbe7a8eefa96d5), [`962f89a95f`](https://github.com/Khan/perseus/commit/962f89a95f238b48586da2b566c7b0ad6f40e3de), [`4ab552d631`](https://github.com/Khan/perseus/commit/4ab552d631147015e78e05b88baae3540815f246), [`78419c1f8a`](https://github.com/Khan/perseus/commit/78419c1f8a4e62c3423ca4c348213cf1e84d1c00)]:
+    -   @khanacademy/perseus@66.3.0
+    -   @khanacademy/perseus-core@18.5.0
+    -   @khanacademy/perseus-score@7.5.0
+    -   @khanacademy/keypad-context@3.1.2
+    -   @khanacademy/kmath@2.1.2
+    -   @khanacademy/math-input@26.1.3
+    -   @khanacademy/perseus-linter@4.2.2
+
 ## 27.0.2
 
 ### Patch Changes

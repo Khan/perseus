@@ -36,14 +36,14 @@ describe("Group AI utils", () => {
                     type: "radio",
                     hasNoneOfTheAbove: false,
                     options: [
-                        {value: "$45$"},
-                        {value: "$42$"},
-                        {value: "$30$"},
-                        {value: "$18$"},
-                        {value: "$15$"},
+                        {value: "$45$", id: "0-0-0-0-0"},
+                        {value: "$42$", id: "1-1-1-1-1"},
+                        {value: "$30$", id: "2-2-2-2-2"},
+                        {value: "$18$", id: "3-3-3-3-3"},
+                        {value: "$15$", id: "4-4-4-4-4"},
                     ],
                     userInput: {
-                        selectedOptions: [false, false, false, false, false],
+                        selectedOptions: [],
                     },
                 },
                 "matrix 1": {
@@ -54,9 +54,9 @@ describe("Group AI utils", () => {
                     },
                     userInput: {
                         answerRows: [
-                            [1, 2, 3],
-                            [4, 5, 6],
-                            [7, 8, 9],
+                            ["1", "2", "3"],
+                            ["4", "5", "6"],
+                            ["7", "8", "9"],
                         ],
                     },
                 },
@@ -76,14 +76,14 @@ describe("Group AI utils", () => {
                     type: "radio",
                     hasNoneOfTheAbove: false,
                     options: [
-                        {value: "$45$"},
-                        {value: "$42$"},
-                        {value: "$30$"},
-                        {value: "$18$"},
-                        {value: "$15$"},
+                        {value: "$45$", id: "0-0-0-0-0"},
+                        {value: "$42$", id: "1-1-1-1-1"},
+                        {value: "$30$", id: "2-2-2-2-2"},
+                        {value: "$18$", id: "3-3-3-3-3"},
+                        {value: "$15$", id: "4-4-4-4-4"},
                     ],
                     userInput: {
-                        selectedOptions: [false, false, false, false, false],
+                        selectedOptions: [],
                     },
                 },
                 "matrix 1": {
@@ -94,9 +94,9 @@ describe("Group AI utils", () => {
                     },
                     userInput: {
                         answerRows: [
-                            [1, 2, 3],
-                            [4, 5, 6],
-                            [7, 8, 9],
+                            ["1", "2", "3"],
+                            ["4", "5", "6"],
+                            ["7", "8", "9"],
                         ],
                     },
                 },
@@ -125,24 +125,19 @@ describe("Group AI utils", () => {
                             type: "radio",
                             hasNoneOfTheAbove: false,
                             options: [
-                                {value: "$45$"},
-                                {value: "$42$"},
+                                {value: "$45$", id: "0-0-0-0-0"},
+                                {value: "$42$", id: "1-1-1-1-1"},
                                 {
+                                    id: "2-2-2-2-2",
                                     value: "$30$",
                                     rationale:
                                         "Here's some rationale, this isn't the correct answer!",
                                 },
-                                {value: "$18$"},
-                                {value: "$15$"},
+                                {value: "$18$", id: "3-3-3-3-3"},
+                                {value: "$15$", id: "4-4-4-4-4"},
                             ],
                             userInput: {
-                                selectedOptions: [
-                                    false,
-                                    false,
-                                    false,
-                                    false,
-                                    false,
-                                ],
+                                selectedOptions: [],
                             },
                         },
                     },

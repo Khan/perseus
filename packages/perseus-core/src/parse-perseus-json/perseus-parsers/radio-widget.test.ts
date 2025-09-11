@@ -61,6 +61,39 @@ describe("parseRadioWidget", () => {
         expect(parse(widget, parseRadioWidget)).toEqual(success(widget));
     });
 
+    it("generates default ID for empty choice ID", () => {
+        const widget = {
+            type: "radio",
+            version: LATEST_VERSION,
+            graded: true,
+            options: {
+                choices: [
+                    {
+                        content: "Choice with empty ID",
+                        id: "", // Empty string should trigger fallback
+                    },
+                ],
+            },
+        };
+
+        const result = parse(widget, parseRadioWidget);
+
+        expect(result).toEqual(
+            success({
+                ...widget,
+                options: {
+                    ...widget.options,
+                    choices: [
+                        {
+                            content: "Choice with empty ID",
+                            id: "radio-choice-0", // Should be generated
+                        },
+                    ],
+                },
+            }),
+        );
+    });
+
     it("accepts `null` for a choice's widgets map in version 0", () => {
         const widget = {
             type: "radio",

@@ -26,7 +26,6 @@ import {
 
 import type {
     PerseusItem,
-    PerseusNumericInputWidgetOptions,
     PerseusRenderer,
     PerseusNumericInputRubric,
 } from "@khanacademy/perseus-core";
@@ -443,81 +442,6 @@ describe("Numeric input widget", () => {
         expect(document.activeElement).not.toBe(
             screen.getByRole("textbox", {hidden: true}),
         );
-    });
-});
-
-describe("transform", () => {
-    it("removes the answers and extracts the answer forms", () => {
-        const transform = NumericInputWidgetExport.transform;
-        const widgetOptions: PerseusNumericInputWidgetOptions = {
-            coefficient: false,
-            static: false,
-            size: "normal",
-            answers: [
-                {
-                    status: "correct",
-                    maxError: null,
-                    strict: true,
-                    value: 0.5,
-                    simplify: "required",
-                    answerForms: ["proper"],
-                    message: "",
-                },
-            ],
-        };
-        const renderProps = transform(widgetOptions);
-        expect(renderProps).toEqual({
-            coefficient: false,
-            static: false,
-            size: "normal",
-            answerForms: [
-                {
-                    simplify: "required",
-                    name: "proper",
-                },
-            ],
-        });
-    });
-
-    it("only uses answer forms from correct answers", () => {
-        const transform = NumericInputWidgetExport.transform;
-        const widgetOptions: PerseusNumericInputWidgetOptions = {
-            coefficient: false,
-            static: false,
-            size: "normal",
-            answers: [
-                {
-                    status: "correct",
-                    maxError: null,
-                    strict: true,
-                    value: 0.5,
-                    simplify: "required",
-                    answerForms: ["proper"],
-                    message: "",
-                },
-                {
-                    status: "wrong",
-                    maxError: null,
-                    strict: true,
-                    value: 0.5,
-                    simplify: "required",
-                    answerForms: ["decimal"],
-                    message: "",
-                },
-            ],
-        };
-        const renderProps = transform(widgetOptions);
-        expect(renderProps).toEqual({
-            coefficient: false,
-            static: false,
-            size: "normal",
-            answerForms: [
-                {
-                    simplify: "required",
-                    name: "proper",
-                },
-            ],
-        });
     });
 });
 

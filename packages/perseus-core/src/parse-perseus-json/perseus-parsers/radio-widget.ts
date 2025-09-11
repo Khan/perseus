@@ -2,8 +2,10 @@ import {deriveNumCorrect} from "../../widgets/radio/derive-num-correct";
 import {
     any,
     array,
+    arrayWithIndex,
     boolean,
     constant,
+    defaultedNonEmptyString,
     number,
     object,
     optional,
@@ -28,7 +30,12 @@ const parseWidgetsMapOrUndefined = defaulted(
 function getDefaultOptions() {
     // See parse-perseus-json/README.md for why we want these defaults here.
     return {
-        choices: [{content: ""}, {content: ""}, {content: ""}, {content: ""}],
+        choices: [
+            {content: "", id: generateChoiceId(0)},
+            {content: "", id: generateChoiceId(1)},
+            {content: "", id: generateChoiceId(2)},
+            {content: "", id: generateChoiceId(3)},
+        ],
     };
 }
 
@@ -38,18 +45,23 @@ const parseNoneOfTheAbove = defaulted(
     () => undefined,
 );
 
+function generateChoiceId(index: number): string {
+    return `radio-choice-${index}`;
+}
+
 const version3 = optional(object({major: constant(3), minor: number}));
 const parseRadioWidgetV3 = parseWidgetWithVersion(
     version3,
     constant("radio"),
     object({
         numCorrect: optional(number),
-        choices: array(
+        choices: arrayWithIndex((index) =>
             object({
                 content: defaulted(string, () => ""),
                 rationale: optional(string),
                 correct: optional(boolean),
                 isNoneOfTheAbove: optional(boolean),
+                id: defaultedNonEmptyString(() => generateChoiceId(index)),
             }),
         ),
         hasNoneOfTheAbove: optional(boolean),
@@ -175,11 +187,12 @@ export function migrateV2toV3(
             randomize: options.randomize,
             multipleSelect: options.multipleSelect,
             deselectEnabled: options.deselectEnabled,
-            choices: options.choices.map((choice) => ({
+            choices: options.choices.map((choice, index) => ({
                 content: choice.content,
                 rationale: choice.clue,
                 correct: choice.correct,
                 isNoneOfTheAbove: choice.isNoneOfTheAbove,
+                id: generateChoiceId(index),
             })),
         },
     };

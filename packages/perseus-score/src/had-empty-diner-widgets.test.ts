@@ -93,10 +93,12 @@ function generateBasicRadioQuestion(): PerseusRenderer {
                 options: {
                     choices: [
                         {
+                            id: "0-0-0-0-0",
                             content: "Correct",
                             correct: true,
                         },
                         {
+                            id: "1-1-1-1-1",
                             content: "Incorrect",
                             correct: false,
                         },
@@ -267,7 +269,7 @@ describe(`hasEmptyDINERWidgets`, () => {
 
         const userInput: UserInputMap = {
             "radio 1": {
-                choicesSelected: [true, false],
+                selectedChoiceIds: ["1-2-3-4-5"],
             },
         };
 
@@ -284,7 +286,7 @@ describe(`hasEmptyDINERWidgets`, () => {
 
         const userInput: UserInputMap = {
             "radio 1": {
-                choicesSelected: [false, false],
+                selectedChoiceIds: [],
             },
         };
 

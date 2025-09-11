@@ -188,13 +188,8 @@ export {
     shuffleMatcher,
 } from "./widgets/matcher/matcher-util";
 export type {MatcherPublicWidgetOptions} from "./widgets/matcher/matcher-util";
-export {
-    shuffle,
-    randomizeArrayElements,
-    seededRNG,
-    random,
-} from "./utils/random-util";
-export {default as PerseusFeatureFlags} from "./feature-flags";
+export {shuffle, seededRNG, random} from "./utils/random-util";
+export {default as PerseusFeatureFlags, isFeatureOn} from "./feature-flags";
 
 export {traverse} from "./traversal";
 export {isItemAccessible, violatingWidgets} from "./accessibility";
@@ -206,6 +201,11 @@ export {
     getDataUrl,
     getImageSizeModern,
 } from "./utils/util.graphie";
+
+export {
+    generateImageOptions,
+    generateImageWidget,
+} from "./utils/generators/image-widget-generator";
 
 import {registerCoreWidgets} from "./widgets/core-widget-registry";
 

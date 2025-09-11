@@ -294,9 +294,10 @@ class Card extends React.Component<CardProps, CardState> {
     }
 }
 
-type RenderProps = OrdererPublicWidgetOptions;
-
-type OrdererProps = WidgetProps<RenderProps, PerseusOrdererUserInput>;
+type OrdererProps = WidgetProps<
+    OrdererPublicWidgetOptions,
+    PerseusOrdererUserInput
+>;
 
 type OrdererDefaultProps = Pick<
     OrdererProps,
@@ -604,7 +605,7 @@ class Orderer
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState(): any {
         const {userInput, ...rest} = this.props;
@@ -745,7 +746,7 @@ class Orderer
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,

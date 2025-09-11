@@ -16,7 +16,7 @@ import type {PerseusItem} from "@khanacademy/perseus-core";
  *
  * This API is not built in a way that supports migrating data
  * between versions of Perseus JSON. In fact serialization
- * doesn't use WidgetOptions, but RenderProps; it's leveraging
+ * doesn't use WidgetOptions, but manipulated widget props; it's leveraging
  * what is considered an internal implementation detail to support
  * rehydrating previous state.
  *
@@ -115,42 +115,5 @@ describe("Plotter serialization", () => {
             },
             hints: [],
         });
-    });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicPlotter());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "plotter 1": {
-                        scaleY: 1,
-                        maxY: 2,
-                        snapsPerLine: 1,
-                        correct: [0, 1, 2],
-                        starting: [0, 0, 0],
-                        type: "bar",
-                        labels: ["Horizontal", "Vertical"],
-                        categories: ["0", "1", "2"],
-                        picSize: 30,
-                        picBoxHeight: 36,
-                        plotDimensions: [300, 300],
-                        labelInterval: 1,
-                        picUrl: null,
-                        // the stashed user input
-                        values: [3, 3, 3],
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        // `value` would be 0 if we didn't properly restore serialized state
-        expect(userInput).toEqual({"plotter 1": [3, 3, 3]});
     });
 });

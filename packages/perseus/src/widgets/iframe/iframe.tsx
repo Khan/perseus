@@ -23,12 +23,7 @@ import type {
 
 const {updateQueryString} = Util;
 
-type RenderProps = PerseusIFrameWidgetOptions & {
-    width: string;
-    height: string;
-};
-
-type Props = WidgetProps<RenderProps, PerseusIFrameUserInput>;
+type Props = WidgetProps<PerseusIFrameWidgetOptions, PerseusIFrameUserInput>;
 
 type DefaultProps = {
     allowFullScreen: Props["allowFullScreen"];
@@ -58,6 +53,15 @@ class Iframe extends React.Component<Props> implements Widget {
 
     getPromptJSON(): UnsupportedWidgetPromptJSON {
         return _getPromptJSON();
+    }
+
+    /**
+     * @deprecated and likely very broken API
+     * [LEMS-3185] do not trust serializedState
+     */
+    getSerializedState(): any {
+        const {userInput: _, alignment: __, ...rest} = this.props;
+        return rest;
     }
 
     handleMessageEvent: (arg1: any) => void = (e) => {
@@ -106,8 +110,8 @@ class Iframe extends React.Component<Props> implements Widget {
                 "https://www.khanacademy.org/computer-programming/program/" +
                 url +
                 "/embedded?buttons=no&embed=yes&editor=no&author=no";
-            url = updateQueryString(url, "width", this.props.width);
-            url = updateQueryString(url, "height", this.props.height);
+            url = updateQueryString(url, "width", `${this.props.width}`);
+            url = updateQueryString(url, "height", `${this.props.height}`);
             // Origin is used by output.js in deciding to send messages
             url = updateQueryString(url, "origin", InitialRequestUrl.origin);
         }
@@ -154,7 +158,7 @@ class Iframe extends React.Component<Props> implements Widget {
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,

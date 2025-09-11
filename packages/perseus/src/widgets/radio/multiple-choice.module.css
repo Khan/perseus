@@ -16,10 +16,11 @@
         var(--perseus-multiple-choice-spacing) +
             var(--perseus-multiple-choice-indicator-size)
     );
-    --perseus-multiple-choice-scroll-fade-width: calc(
-        var(--perseus-multiple-choice-content-margin) +
-            var(--perseus-multiple-choice-spacing)
-    );
+    --perseus-multiple-choice-fade-direction: 90deg; /* Default is left to right */
+    --perseus-multiple-choice-fade-color: var(
+        --perseus-widget-background-color,
+        var(--wb-semanticColor-core-background-base-default)
+    ); /* Accounts for theme color, unless a background color is specified (i.e. from Graded Group Set) */
 
     min-width: auto; /* Needed for scrollable view to work */
     padding-inline-end: var(--perseus-multiple-choice-spacing);
@@ -30,58 +31,54 @@
 }
 
 .choice-list {
+    /* TODO(LEMS-3301): When old radio widget is deleted, remove this !important.
+        This is required to override styles in perseus/src/styles/perseus-renderer-part-1.css that apply to ul elements.
+    */
     padding: 0 !important;
     list-style: none !important;
+    margin: 0 !important;
     min-width: fit-content;
     width: 100%;
     scrollbar-width: thin;
 }
 
-/* Fade bars for scrolling (Start) */
-.choice-list:before,
-.choice-list:after {
+.choice-list:dir(rtl) {
+    --perseus-multiple-choice-fade-direction: 270deg; /* Flip to right to left when in RTL mode */
+}
+
+/* FADE BARS FOR SCROLLING
+   A white bar starts on the left side and stays solid until a small amount (spacing / 2) past the indicator (content margin).
+   It then fades to transparent over that same small amount.
+   It stays transparent until the opposite side of the container,
+        where it fades back to white in the reverse order as just described.
+   In review mode, the left side starts fading to transparent at a further distance to account for the checkmark icon.
+   This is why --perseus-multiple-choice-content-margin is used on the left side,
+        but the right side uses --perseus-multiple-choice-spacing.
+   Also, in order to account for text direction, the direction is flipped when in RTL mode.
+*/
+.choice-list:before {
+    background: linear-gradient(
+        /* 90deg or 270deg */ var(--perseus-multiple-choice-fade-direction),
+        var(--perseus-multiple-choice-fade-color)
+            calc(
+                var(--perseus-multiple-choice-content-margin) +
+                    (var(--perseus-multiple-choice-spacing) / 2)
+            ),
+        transparent
+            calc(
+                var(--perseus-multiple-choice-content-margin) +
+                    var(--perseus-multiple-choice-spacing)
+            )
+            calc(100% - (var(--perseus-multiple-choice-spacing) * 1.5)),
+        var(--perseus-multiple-choice-fade-color)
+            calc(100% - var(--perseus-multiple-choice-spacing))
+    );
     content: "";
     display: block;
     height: 100%;
     position: fixed;
-    width: var(--perseus-multiple-choice-scroll-fade-width);
-    top: 0;
+    width: 100%;
 }
-
-.choice-list:dir(ltr):after {
-    /* Accounting for the padding in the containing fieldset and the choice item */
-    right: calc(
-        (var(--perseus-multiple-choice-spacing) * 2) -
-            var(--perseus-multiple-choice-scroll-fade-width)
-    );
-}
-
-.choice-list:dir(rtl):after {
-    left: calc(
-        (var(--perseus-multiple-choice-spacing) * 2) -
-            var(--perseus-multiple-choice-scroll-fade-width)
-    );
-}
-
-.choice-list:dir(ltr):before,
-.choice-list:dir(rtl):after {
-    /* TODO: The following gradient should be updated to use appropriate background color to automatically handle when user has chosen dark mode. */
-    background: linear-gradient(
-        to left,
-        transparent,
-        white calc(var(--perseus-multiple-choice-spacing) / 2)
-    );
-}
-
-.choice-list:dir(rtl):before,
-.choice-list:dir(ltr):after {
-    background: linear-gradient(
-        to right,
-        transparent,
-        white calc(var(--perseus-multiple-choice-spacing) / 2)
-    );
-}
-/* Fade bars for scrolling (End) */
 
 .content {
     display: flex;

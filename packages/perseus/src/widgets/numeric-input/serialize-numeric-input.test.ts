@@ -18,7 +18,7 @@ import type {UserEvent} from "@testing-library/user-event";
  *
  * This API is not built in a way that supports migrating data
  * between versions of Perseus JSON. In fact serialization
- * doesn't use WidgetOptions, but RenderProps; it's leveraging
+ * doesn't use WidgetOptions, but manipulated widget props; it's leveraging
  * what is considered an internal implementation detail to support
  * rehydrating previous state.
  *
@@ -111,36 +111,5 @@ describe("NumericInput serialization", () => {
             },
             hints: [],
         });
-    });
-
-    it("should restore serialized state", () => {
-        // Arrange
-        const {renderer} = renderQuestion(generateBasicNumericInput());
-
-        // Act
-        act(() =>
-            renderer.restoreSerializedState({
-                question: {
-                    "numeric-input 1": {
-                        answerForms: [],
-                        coefficient: false,
-                        labelText: "",
-                        rightAlign: false,
-                        size: "normal",
-                        static: false,
-                        // currentValue is added to NumericInput props and
-                        // represents user input
-                        currentValue: "42",
-                    },
-                },
-                hints: [],
-            }),
-        );
-
-        const userInput = renderer.getUserInput();
-
-        // Assert
-        // `currentValue` would be "" if we didn't properly restore serialized state
-        expect(userInput).toEqual({"numeric-input 1": {currentValue: "42"}});
     });
 });

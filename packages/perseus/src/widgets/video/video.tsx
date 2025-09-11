@@ -27,8 +27,7 @@ const IS_URL = /^https?:\/\//;
 const IS_KA_SITE = /(khanacademy\.org|localhost)/;
 const IS_VIMEO = /(vimeo\.com)/;
 
-type RenderProps = PerseusVideoWidgetOptions; // exports has no 'transform'
-type Props = WidgetProps<RenderProps> & {
+type Props = WidgetProps<PerseusVideoWidgetOptions> & {
     alignment: string; // Where does this get set?
 };
 
@@ -102,6 +101,7 @@ class Video extends React.Component<Props> implements Widget {
                         height={DEFAULT_HEIGHT}
                         src={url}
                         allowFullScreen={true}
+                        allow="autoplay"
                     />
                 </FixedToResponsive>
                 <VideoTranscriptLink location={location} />

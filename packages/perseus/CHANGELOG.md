@@ -1,5 +1,265 @@
 # @khanacademy/perseus
 
+## 69.0.0
+
+### Major Changes
+
+-   [#2864](https://github.com/Khan/perseus/pull/2864) [`416d53ddc4`](https://github.com/Khan/perseus/commit/416d53ddc4bdcf771188b73347d271b66404a8f7) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove RenderProps, transform, and staticTransform
+
+## 68.0.2
+
+### Patch Changes
+
+-   [#2869](https://github.com/Khan/perseus/pull/2869) [`2cede5b4f8`](https://github.com/Khan/perseus/commit/2cede5b4f883f1be0a160e46476fbdea826b6166) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Fix extra spacing that got released with image redesign
+
+*   [#2859](https://github.com/Khan/perseus/pull/2859) [`73311983b6`](https://github.com/Khan/perseus/commit/73311983b6b6d343c73c5778992e53a49f4d6e43) Thanks [@ivyolamit](https://github.com/ivyolamit)! - [Radio] Fix iOS mobile hover issue when use is dragging the screen left or right
+
+*   Updated dependencies [[`876be8cde6`](https://github.com/Khan/perseus/commit/876be8cde6aa2936612b2e9a60bf20626440b16c)]:
+    -   @khanacademy/perseus-core@19.0.2
+    -   @khanacademy/keypad-context@3.2.4
+    -   @khanacademy/kmath@2.2.4
+    -   @khanacademy/math-input@26.2.4
+    -   @khanacademy/perseus-linter@4.3.4
+    -   @khanacademy/perseus-score@7.7.4
+
+## 68.0.1
+
+### Patch Changes
+
+-   [#2865](https://github.com/Khan/perseus/pull/2865) [`57fcddf928`](https://github.com/Khan/perseus/commit/57fcddf928d5d3fe9d00c3833eb58d3eb6b2c556) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Fix for getPromptJSON in new Radio
+
+*   [#2848](https://github.com/Khan/perseus/pull/2848) [`1de909808d`](https://github.com/Khan/perseus/commit/1de909808dfcd08717c6246a6225081fae50e3a1) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (UX) | Update Image widget to match new designs
+
+-   [#2833](https://github.com/Khan/perseus/pull/2833) [`f096f77bd6`](https://github.com/Khan/perseus/commit/f096f77bd63be867df16e3065025b5f35ebb6a6b) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Fixes orderer css so that it no longer wraps and allows learners to place cards at the end of the row
+
+-   Updated dependencies [[`655f8994b8`](https://github.com/Khan/perseus/commit/655f8994b869a9eb34c4f9436cfc32bd59916d37)]:
+    -   @khanacademy/perseus-core@19.0.1
+    -   @khanacademy/keypad-context@3.2.3
+    -   @khanacademy/kmath@2.2.3
+    -   @khanacademy/math-input@26.2.3
+    -   @khanacademy/perseus-linter@4.3.3
+    -   @khanacademy/perseus-score@7.7.3
+
+## 68.0.0
+
+### Major Changes
+
+-   [#2841](https://github.com/Khan/perseus/pull/2841) [`b4aef654c1`](https://github.com/Khan/perseus/commit/b4aef654c1844f2d322a37229a209edeff545035) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove serializeState prop from Renderer and restoreSerializedState API (both already deprecated)
+
+*   [#2857](https://github.com/Khan/perseus/pull/2857) [`59cbb43106`](https://github.com/Khan/perseus/commit/59cbb431069caf66f63672f223da34cf063e7932) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Radio transform/staticTransform. Replace randomness with deterministic shuffling for Radio.
+
+### Minor Changes
+
+-   [#2832](https://github.com/Khan/perseus/pull/2832) [`ccb28990d2`](https://github.com/Khan/perseus/commit/ccb28990d267339cacbe2055c0ac60b01d1f8678) Thanks [@Myranae](https://github.com/Myranae)! - Export a function that provides a list of widget IDs extracted from renderer
+
+### Patch Changes
+
+-   Updated dependencies [[`b4aef654c1`](https://github.com/Khan/perseus/commit/b4aef654c1844f2d322a37229a209edeff545035), [`59cbb43106`](https://github.com/Khan/perseus/commit/59cbb431069caf66f63672f223da34cf063e7932)]:
+    -   @khanacademy/perseus-core@19.0.0
+    -   @khanacademy/keypad-context@3.2.2
+    -   @khanacademy/kmath@2.2.2
+    -   @khanacademy/math-input@26.2.2
+    -   @khanacademy/perseus-linter@4.3.2
+    -   @khanacademy/perseus-score@7.7.2
+
+## 67.2.0
+
+### Minor Changes
+
+-   [#2854](https://github.com/Khan/perseus/pull/2854) [`c601e1c410`](https://github.com/Khan/perseus/commit/c601e1c4109cb6d719c75795c4cbb9601bd11a2b) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Adds choice ids to radio ai options
+
+## 67.1.2
+
+### Patch Changes
+
+-   [#2845](https://github.com/Khan/perseus/pull/2845) [`9a3f88df9a`](https://github.com/Khan/perseus/commit/9a3f88df9affeaca3c26d50208867c913ccae725) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Fix regression stories by adding width and height to images
+
+## 67.1.1
+
+### Patch Changes
+
+-   [#2849](https://github.com/Khan/perseus/pull/2849) [`47ec59ae27`](https://github.com/Khan/perseus/commit/47ec59ae2783d770fecaa6d5b403b365dc37094e) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Updating packages to sync with wonderblocks
+
+*   [#2836](https://github.com/Khan/perseus/pull/2836) [`671c5e4a56`](https://github.com/Khan/perseus/commit/671c5e4a5615580348fff6776fe1e9d2e3a475a6) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add documentation warning for using Graphie component
+
+-   [#2798](https://github.com/Khan/perseus/pull/2798) [`245de4eba5`](https://github.com/Khan/perseus/commit/245de4eba5b1d8e055cf0d8793c3ad18d55aea8f) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove NumberLine transforms
+
+-   Updated dependencies [[`47ec59ae27`](https://github.com/Khan/perseus/commit/47ec59ae2783d770fecaa6d5b403b365dc37094e), [`245de4eba5`](https://github.com/Khan/perseus/commit/245de4eba5b1d8e055cf0d8793c3ad18d55aea8f)]:
+    -   @khanacademy/math-input@26.2.1
+    -   @khanacademy/perseus-core@18.9.1
+    -   @khanacademy/keypad-context@3.2.1
+    -   @khanacademy/kmath@2.2.1
+    -   @khanacademy/perseus-linter@4.3.1
+    -   @khanacademy/perseus-score@7.7.1
+
+## 67.1.0
+
+### Minor Changes
+
+-   [#2799](https://github.com/Khan/perseus/pull/2799) [`8b18b38b31`](https://github.com/Khan/perseus/commit/8b18b38b31866582cb101d29ea3dbfd2dbe756bf) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Changes the output of radio score from boolean array to string array that represent the user's selected choice ids
+
+*   [#2834](https://github.com/Khan/perseus/pull/2834) [`81951db1ba`](https://github.com/Khan/perseus/commit/81951db1ba9c474c108c5ff253b7d0168fd3f23a) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - Converted the Radio Widget (New) to be a fully functional component.
+
+### Patch Changes
+
+-   [#2826](https://github.com/Khan/perseus/pull/2826) [`9db2c5a4a1`](https://github.com/Khan/perseus/commit/9db2c5a4a1d2b83d18c9605cf87b7ebabb832ad0) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Fix how Graphie text is placed when inside a choice
+
+*   [#2838](https://github.com/Khan/perseus/pull/2838) [`32553c5330`](https://github.com/Khan/perseus/commit/32553c5330fd353b08680415fdbd9842d5cca13a) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Correctness indicator was missing in static widget
+
+-   [#2822](https://github.com/Khan/perseus/pull/2822) [`4b5a15745e`](https://github.com/Khan/perseus/commit/4b5a15745e22a0a45a8d86d2a87b4eb138a2c47c) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Fix missing styling when showing solution in graded group
+
+*   [#2821](https://github.com/Khan/perseus/pull/2821) [`3fb39e4a2f`](https://github.com/Khan/perseus/commit/3fb39e4a2fda3890c99d3551f403cfe31884547c) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix mobile new radio widget scroll styling removing extra spaces.
+
+-   [#2824](https://github.com/Khan/perseus/pull/2824) [`27304a4c22`](https://github.com/Khan/perseus/commit/27304a4c229967853d05b09bf8ff0849544fa8e3) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Modernize the Image widget code
+
+*   [#2825](https://github.com/Khan/perseus/pull/2825) [`ae8f7b2d0d`](https://github.com/Khan/perseus/commit/ae8f7b2d0d98d0bc11654fc086ace74c96384eff) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Modernize the Image widget edtior code
+
+-   [#2831](https://github.com/Khan/perseus/pull/2831) [`e8eb1b3843`](https://github.com/Khan/perseus/commit/e8eb1b384327afe6ed0f221e025175c54b53bdd5) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix to allow users to still scroll the scrollable content when the fieldset is disabled and staticOverlayStyles is applied after the user checked the answer
+
+*   [#2837](https://github.com/Khan/perseus/pull/2837) [`1eba32de16`](https://github.com/Khan/perseus/commit/1eba32de16478ded4bbe751e32727e562e5f820e) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Bugfix - Choice text not changing color when selected
+
+-   [#2835](https://github.com/Khan/perseus/pull/2835) [`6901229b75`](https://github.com/Khan/perseus/commit/6901229b758c411356b77b3b044a1d178038460c) Thanks [@beaesguerra](https://github.com/beaesguerra)! - Update WB semantic color surface and foreground/border inverse token usage
+
+-   Updated dependencies [[`8b18b38b31`](https://github.com/Khan/perseus/commit/8b18b38b31866582cb101d29ea3dbfd2dbe756bf)]:
+    -   @khanacademy/keypad-context@3.2.0
+    -   @khanacademy/kmath@2.2.0
+    -   @khanacademy/math-input@26.2.0
+    -   @khanacademy/perseus-core@18.9.0
+    -   @khanacademy/perseus-linter@4.3.0
+    -   @khanacademy/perseus-score@7.7.0
+
+## 67.0.0
+
+### Major Changes
+
+-   [#2805](https://github.com/Khan/perseus/pull/2805) [`527f20f156`](https://github.com/Khan/perseus/commit/527f20f1565aa8cd1a69db92ed4698043f96e9df) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove deprecated onWidgetStartProps API from APIOptions
+
+### Minor Changes
+
+-   [#2829](https://github.com/Khan/perseus/pull/2829) [`1970e9b660`](https://github.com/Khan/perseus/commit/1970e9b6606e4367718fafb86e98d86c2024c884) Thanks [@handeyeco](https://github.com/handeyeco)! - Export deriveUserInputFromSerializedState from perseus
+
+### Patch Changes
+
+-   [#2809](https://github.com/Khan/perseus/pull/2809) [`aab0bf4b8b`](https://github.com/Khan/perseus/commit/aab0bf4b8bcb10347f24854403ee27581212df5c) Thanks [@nishasy](https://github.com/nishasy)! - [Image](DX) Add an image generator + use it in testdata
+
+*   [#2819](https://github.com/Khan/perseus/pull/2819) [`38f92737fb`](https://github.com/Khan/perseus/commit/38f92737fbc63447a07e1308a65d97cfbc14fad3) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Add regression stories for Image widget
+
+-   [#2815](https://github.com/Khan/perseus/pull/2815) [`8f3b0dce93`](https://github.com/Khan/perseus/commit/8f3b0dce93efd620be5d7c580fa1a3920ae689eb) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Adjust the transition time of the indicator so that it doesn't appear out of sync with the "Check" button
+
+*   [#2823](https://github.com/Khan/perseus/pull/2823) [`a95e65d7e0`](https://github.com/Khan/perseus/commit/a95e65d7e06a3aa7b970f4b1586843df3f0c7f55) Thanks [@nishasy](https://github.com/nishasy)! - [Image] | (DX) | Update the Storybook experience for Image Widget
+
+-   [#2816](https://github.com/Khan/perseus/pull/2816) [`e0471ecdfa`](https://github.com/Khan/perseus/commit/e0471ecdfabaecc2e154362eb99382f4974efc8b) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Adjust horizontal scroll fade bar color to use background color of container
+
+*   [#2812](https://github.com/Khan/perseus/pull/2812) [`1379e394f5`](https://github.com/Khan/perseus/commit/1379e394f5ea47dd12d7950854cf5f073359a256) Thanks [@SonicScrewdriver](https://github.com/SonicScrewdriver)! - New Storybook Docs for Radio Widget (New)
+
+*   Updated dependencies [[`aab0bf4b8b`](https://github.com/Khan/perseus/commit/aab0bf4b8bcb10347f24854403ee27581212df5c), [`9a5605b82c`](https://github.com/Khan/perseus/commit/9a5605b82ca6038f326bf70c6d0959bb2227b754)]:
+    -   @khanacademy/perseus-core@18.8.0
+    -   @khanacademy/keypad-context@3.1.5
+    -   @khanacademy/kmath@2.1.5
+    -   @khanacademy/math-input@26.1.6
+    -   @khanacademy/perseus-linter@4.2.5
+    -   @khanacademy/perseus-score@7.6.2
+
+## 66.5.0
+
+### Minor Changes
+
+-   [#2786](https://github.com/Khan/perseus/pull/2786) [`52b2b3ae54`](https://github.com/Khan/perseus/commit/52b2b3ae54953ff6969e8962858d46d025661be8) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Add `showAxisArrows` field to Interactive Graph editor
+
+### Patch Changes
+
+-   [#2803](https://github.com/Khan/perseus/pull/2803) [`99aafcf6db`](https://github.com/Khan/perseus/commit/99aafcf6db38d78bc56abe7ffae16d851ab41c54) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Enhance content for screen reader access
+
+*   [#2810](https://github.com/Khan/perseus/pull/2810) [`afd017396a`](https://github.com/Khan/perseus/commit/afd017396a96ce39e88b23533d7feb04a8d0bc78) Thanks [@nishasy](https://github.com/nishasy)! - [Image](UX) Remove the custom mobile styling for title and caption
+
+-   [#2797](https://github.com/Khan/perseus/pull/2797) [`3f7a9e5185`](https://github.com/Khan/perseus/commit/3f7a9e5185a5a8fc93a32215379d7a434ecf0523) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove transform from NumericInput
+
+*   [#2801](https://github.com/Khan/perseus/pull/2801) [`58e2534199`](https://github.com/Khan/perseus/commit/58e2534199d0c6243362f3ea557cfa362ab9906a) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Adds the allow="autoplay" property to the video widget iframe
+
+-   [#2811](https://github.com/Khan/perseus/pull/2811) [`201519eb80`](https://github.com/Khan/perseus/commit/201519eb808b4c1b812f776d9cbbcd6402de0d88) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Add comments explaining accessibility coding, add attributes to aid in accessibility
+
+*   [#2807](https://github.com/Khan/perseus/pull/2807) [`62029ee700`](https://github.com/Khan/perseus/commit/62029ee700db45a646a0addf0e90ff4df73aef3a) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Updates radio's index.ts file to include default values for content and choice ids
+
+*   Updated dependencies [[`52b2b3ae54`](https://github.com/Khan/perseus/commit/52b2b3ae54953ff6969e8962858d46d025661be8), [`62029ee700`](https://github.com/Khan/perseus/commit/62029ee700db45a646a0addf0e90ff4df73aef3a)]:
+    -   @khanacademy/perseus-core@18.7.0
+    -   @khanacademy/keypad-context@3.1.4
+    -   @khanacademy/kmath@2.1.4
+    -   @khanacademy/math-input@26.1.5
+    -   @khanacademy/perseus-linter@4.2.4
+    -   @khanacademy/perseus-score@7.6.1
+
+## 66.4.0
+
+### Minor Changes
+
+-   [#2777](https://github.com/Khan/perseus/pull/2777) [`78f7c512a4`](https://github.com/Khan/perseus/commit/78f7c512a4cd35e2416952fccb480e1821fcef8a) Thanks [@nishasy](https://github.com/nishasy)! - [Interactive Graph] Add `showAxisArrows` field to Interactive Graph widget
+
+*   [#2775](https://github.com/Khan/perseus/pull/2775) [`a9ff068196`](https://github.com/Khan/perseus/commit/a9ff0681963836fbc70c606eb880e3464e60c03e) Thanks [@Myranae](https://github.com/Myranae)! - Fix parsing error by updating matrix user input to an array of string arrays instead of number
+
+### Patch Changes
+
+-   [#2789](https://github.com/Khan/perseus/pull/2789) [`17eb0d1b07`](https://github.com/Khan/perseus/commit/17eb0d1b075d9edf368d4a7da085f1176362d4fc) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove simple transforms (default to identity) for specific widgets
+
+*   [#2792](https://github.com/Khan/perseus/pull/2792) [`3b9c412e2f`](https://github.com/Khan/perseus/commit/3b9c412e2f29be13a4276b9737b7a42f4371e570) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove transform from Expression
+
+-   [#2794](https://github.com/Khan/perseus/pull/2794) [`28d3082eda`](https://github.com/Khan/perseus/commit/28d3082eda0eefc3791fd9e87e3a23adc5c9d140) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove transform from Matrix
+
+*   [#2787](https://github.com/Khan/perseus/pull/2787) [`daf70ab1e1`](https://github.com/Khan/perseus/commit/daf70ab1e14715ebe96319d3ba2872aa6d7b1318) Thanks [@aag](https://github.com/aag)! - Remove forced bolding from Free Response Widget question text
+
+-   [#2791](https://github.com/Khan/perseus/pull/2791) [`665613fa2c`](https://github.com/Khan/perseus/commit/665613fa2c58dbf880ccfc2f846fe83620db31d9) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove transform from Dropdown
+
+*   [#2793](https://github.com/Khan/perseus/pull/2793) [`0830c46d33`](https://github.com/Khan/perseus/commit/0830c46d33f5db4b07cff456c4e57b4b2d1eb60d) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove transform from InputNumber
+
+-   [#2795](https://github.com/Khan/perseus/pull/2795) [`8da2dfaf2d`](https://github.com/Khan/perseus/commit/8da2dfaf2dbba78d275f9f425e79fe90358355d0) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Plotter and InteractiveGraph identity transforms
+
+*   [#2796](https://github.com/Khan/perseus/pull/2796) [`3767a24628`](https://github.com/Khan/perseus/commit/3767a24628f278042c43a5bad8c085d87c8fc494) Thanks [@handeyeco](https://github.com/handeyeco)! - Remove Grapher transforms
+
+*   Updated dependencies [[`78f7c512a4`](https://github.com/Khan/perseus/commit/78f7c512a4cd35e2416952fccb480e1821fcef8a), [`a9ff068196`](https://github.com/Khan/perseus/commit/a9ff0681963836fbc70c606eb880e3464e60c03e)]:
+    -   @khanacademy/perseus-core@18.6.0
+    -   @khanacademy/perseus-score@7.6.0
+    -   @khanacademy/keypad-context@3.1.3
+    -   @khanacademy/kmath@2.1.3
+    -   @khanacademy/math-input@26.1.4
+    -   @khanacademy/perseus-linter@4.2.3
+
+## 66.3.0
+
+### Minor Changes
+
+-   [#2763](https://github.com/Khan/perseus/pull/2763) [`3c16fc2a18`](https://github.com/Khan/perseus/commit/3c16fc2a1853edb193fa456cc43eafef528705dc) Thanks [@handeyeco](https://github.com/handeyeco)! - Export UserInputManager from Perseus and use it in PerseusEditor for Storybook preview.
+
+*   [#2762](https://github.com/Khan/perseus/pull/2762) [`1bc1464852`](https://github.com/Khan/perseus/commit/1bc14648527864d17640e0818ef6ec38a13f90ab) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - adds choice id as a required field to Radio Widget
+
+-   [#2745](https://github.com/Khan/perseus/pull/2745) [`97a586aa3a`](https://github.com/Khan/perseus/commit/97a586aa3ad131da4fcba4fbd9036f0e9bf663b0) Thanks [@mark-fitzgerald](https://github.com/mark-fitzgerald)! - [Radio] Refactor multiple choice component (logic and UI updates)
+
+*   [#2780](https://github.com/Khan/perseus/pull/2780) [`78419c1f8a`](https://github.com/Khan/perseus/commit/78419c1f8a4e62c3423ca4c348213cf1e84d1c00) Thanks [@anakaren-rojas](https://github.com/anakaren-rojas)! - Consumes choice Ids in radio widget
+
+### Patch Changes
+
+-   [#2767](https://github.com/Khan/perseus/pull/2767) [`178c7181e8`](https://github.com/Khan/perseus/commit/178c7181e807497b5767614853c52b716d715355) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add Perseus logo in Storybook
+
+*   [#2753](https://github.com/Khan/perseus/pull/2753) [`3a53e7357d`](https://github.com/Khan/perseus/commit/3a53e7357d090b3c70cef2a5cb4f9312af3ca45b) Thanks [@MikeKlemarewski](https://github.com/MikeKlemarewski)! - Removes the width override for the cs-program widget
+
+-   [#2760](https://github.com/Khan/perseus/pull/2760) [`294ac6cf5d`](https://github.com/Khan/perseus/commit/294ac6cf5d30331f3b54b34476d645101d0254d9) Thanks [@benchristel](https://github.com/benchristel)! - Fix a bug in Orderer that allowed learners to add cards with null content.
+
+*   [#2770](https://github.com/Khan/perseus/pull/2770) [`c1f5dabafe`](https://github.com/Khan/perseus/commit/c1f5dabafecaac3bb26c349728d9a022fd3836ea) Thanks [@handeyeco](https://github.com/handeyeco)! - Fix some test data with malformed PerseusItems
+
+-   [#2779](https://github.com/Khan/perseus/pull/2779) [`a27cf15161`](https://github.com/Khan/perseus/commit/a27cf15161ced0a0ad37c01fd724e0e793d18aaf) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Remove ScrollableView left and right fade
+
+*   [#2761](https://github.com/Khan/perseus/pull/2761) [`48b26d97d2`](https://github.com/Khan/perseus/commit/48b26d97d2ca023fa5bea29049dbe7a8eefa96d5) Thanks [@handeyeco](https://github.com/handeyeco)! - Sync dependencies
+
+-   [#2758](https://github.com/Khan/perseus/pull/2758) [`962f89a95f`](https://github.com/Khan/perseus/commit/962f89a95f238b48586da2b566c7b0ad6f40e3de) Thanks [@handeyeco](https://github.com/handeyeco)! - Bugfix: Categorizer user input parser needs to handle undefined and null, not just numbers
+
+*   [#2772](https://github.com/Khan/perseus/pull/2772) [`4ab552d631`](https://github.com/Khan/perseus/commit/4ab552d631147015e78e05b88baae3540815f246) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Fix storybook theme, change use of WB colors
+
+*   Updated dependencies [[`dde65d357c`](https://github.com/Khan/perseus/commit/dde65d357c5553d3e384079f9b9459302aab8216), [`e269c7a060`](https://github.com/Khan/perseus/commit/e269c7a060648a07b1ed58247d66b23b30f16c6e), [`1bc1464852`](https://github.com/Khan/perseus/commit/1bc14648527864d17640e0818ef6ec38a13f90ab), [`962f89a95f`](https://github.com/Khan/perseus/commit/962f89a95f238b48586da2b566c7b0ad6f40e3de)]:
+    -   @khanacademy/perseus-core@18.5.0
+    -   @khanacademy/perseus-score@7.5.0
+    -   @khanacademy/keypad-context@3.1.2
+    -   @khanacademy/kmath@2.1.2
+    -   @khanacademy/math-input@26.1.3
+    -   @khanacademy/perseus-linter@4.2.2
+
 ## 66.2.2
 
 ### Patch Changes

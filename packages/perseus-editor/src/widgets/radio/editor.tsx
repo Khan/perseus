@@ -43,6 +43,21 @@ class RadioEditor extends React.Component<RadioEditorProps> {
     static defaultProps: RadioDefaultWidgetOptions =
         radioLogic.defaultWidgetOptions;
 
+    componentDidMount() {
+        // Check if any choices need IDs and generate them immediately
+        const needsIdUpdate = this.props.choices.some(
+            (choice) => !choice.id || choice.id.trim() === "",
+        );
+
+        if (needsIdUpdate) {
+            const updatedChoices = this.props.choices.map((choice, index) => ({
+                ...choice,
+                id: this.ensureValidIds(choice.id, index),
+            }));
+            this.props.onChange({choices: updatedChoices});
+        }
+    }
+
     // Called when the "Multiple selections" checkbox is toggled,
     // allowing the content author to specifiy multiple correct answers.
     onMultipleSelectChange: (arg1: any) => any = (allowMultiple) => {
@@ -80,6 +95,19 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         });
     };
 
+    // Generate consistent choice IDs that match the parser format for existing content
+    generateChoiceId = (index: number): string => {
+        return `radio-choice-${index}`;
+    };
+
+    // Ensure all choices have valid non-empty IDs
+    ensureValidIds = (choiceId: string, index: number): string => {
+        if (!choiceId || choiceId.trim() === "") {
+            return this.generateChoiceId(index);
+        }
+        return choiceId;
+    };
+
     // Updates the `correct` values for each choice, as well as the new
     // `numCorrect` value as a result. Updates the props with the new values.
     onChange: (arg1: any) => void = ({checked}) => {
@@ -91,6 +119,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
                     choice.isNoneOfTheAbove && !checked[i]
                         ? ""
                         : choice.content,
+                id: this.ensureValidIds(choice.id, i),
             };
         });
 
@@ -174,6 +203,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
         const newChoice: PerseusRadioChoice = {
             isNoneOfTheAbove: noneOfTheAbove,
             content: "",
+            id: crypto.randomUUID(),
         };
         const addIndex =
             choices.length - (this.props.hasNoneOfTheAbove ? 1 : 0);
@@ -295,7 +325,7 @@ class RadioEditor extends React.Component<RadioEditorProps> {
 
                 {this.props.choices.map((choice, index) => (
                     <RadioOptionSettings
-                        key={`choice-${index}}`}
+                        key={`choice-${choice.id}}`}
                         index={index}
                         choice={choice}
                         multipleSelect={this.props.multipleSelect}

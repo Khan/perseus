@@ -6,7 +6,7 @@ import {ApiOptions} from "../../perseus-api";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
 
 import {NumericInputComponent} from "./numeric-input";
-import {unionAnswerForms} from "./utils";
+import {normalizeCorrectAnswerForms} from "./utils";
 
 import type {Focusable, Widget, WidgetExports, WidgetProps} from "../../types";
 import type {NumericInputPromptJSON} from "../../widget-ai-utils/numeric-input/prompt-utils";
@@ -45,15 +45,6 @@ type DefaultProps = Pick<
     | "linterContext"
     | "userInput"
 >;
-
-type RenderProps = {
-    answerForms: ReadonlyArray<PerseusNumericInputAnswerForm>;
-    labelText?: string;
-    size: string;
-    coefficient: boolean;
-    rightAlign?: boolean;
-    static: boolean;
-};
 
 // Assert that the PerseusNumericInputWidgetOptions parsed from JSON can be passed
 // as props to this component. This ensures that the PerseusNumericInputWidgetOptions
@@ -123,10 +114,10 @@ export class NumericInput
 
     /**
      * @deprecated and likely very broken API
-     * [LEMS-3185] do not trust serializedState/restoreSerializedState
+     * [LEMS-3185] do not trust serializedState
      */
     getSerializedState() {
-        const {userInput, ...rest} = this.props;
+        const {userInput, answers: _, ...rest} = this.props;
         return {
             ...rest,
             currentValue: userInput.currentValue,
@@ -134,35 +125,15 @@ export class NumericInput
     }
 
     render(): React.ReactNode {
-        return <NumericInputComponent {...this.props} ref={this.inputRef} />;
+        return (
+            <NumericInputComponent
+                {...this.props}
+                answerForms={normalizeCorrectAnswerForms(this.props.answers)}
+                ref={this.inputRef}
+            />
+        );
     }
 }
-// Transforms the widget options to the props used to render the widget.
-const propsTransform = function (
-    widgetOptions: PerseusNumericInputWidgetOptions,
-): RenderProps {
-    // Omit the answers from the widget options since they are
-    // not needed for rendering the widget.
-    const {answers: _, ...rendererProps} = {
-        ...widgetOptions,
-        answerForms: unionAnswerForms(
-            // Filter out the correct answers and map them to the answer forms
-            // so that we can generate the examples for the widget.
-            widgetOptions.answers
-                .filter((answer) => answer.status === "correct")
-                .map((answer) => {
-                    return (answer.answerForms || []).map((form) => {
-                        return {
-                            simplify: answer.simplify,
-                            name: form,
-                        };
-                    });
-                }),
-        ),
-    };
-
-    return rendererProps;
-};
 
 function getStartUserInput(): PerseusNumericInputUserInput {
     return {currentValue: ""};
@@ -170,7 +141,7 @@ function getStartUserInput(): PerseusNumericInputUserInput {
 
 /**
  * @deprecated and likely a very broken API
- * [LEMS-3185] do not trust serializedState/restoreSerializedState
+ * [LEMS-3185] do not trust serializedState
  */
 function getUserInputFromSerializedState(
     serializedState: any,
@@ -184,7 +155,6 @@ export default {
     name: "numeric-input",
     displayName: "Numeric input",
     widget: NumericInput,
-    transform: propsTransform,
     isLintable: true,
     getOneCorrectAnswerFromRubric(
         rubric: PerseusNumericInputRubric,
