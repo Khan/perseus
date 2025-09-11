@@ -1,5 +1,13 @@
 # @khanacademy/perseus-core
 
+## 19.0.3
+
+### Patch Changes
+
+-   [#2885](https://github.com/Khan/perseus/pull/2885) [`e1ab9b541d`](https://github.com/Khan/perseus/commit/e1ab9b541d2558e1c7e95650a06d50035aadc1b7) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add missing export in perseus-core
+
+*   [#2884](https://github.com/Khan/perseus/pull/2884) [`a31ee79a46`](https://github.com/Khan/perseus/commit/a31ee79a46a82ee487d88c145b65f7de60af1059) Thanks [@ivyolamit](https://github.com/ivyolamit)! - Add image-widget-upgrade feature flag
+
 ## 19.0.2
 
 ### Patch Changes
