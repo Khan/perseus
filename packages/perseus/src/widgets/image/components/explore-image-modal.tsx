@@ -48,6 +48,8 @@ export const ExploreImageModal = (props: Props) => {
     );
 };
 
+// TODO: Use CSS modules after Wonder Blocks styles
+// are moved to a different layer.
 const wbStyles = {
     root: {
         borderRadius: sizing.size_120,

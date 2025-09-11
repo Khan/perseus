@@ -98,6 +98,8 @@ export default function ExploreImageModalContent({
     );
 }
 
+// TODO: Use CSS modules after Wonder Blocks styles
+// are moved to a different layer.
 const wbStyles = {
     descriptionHeading: {
         marginBlockEnd: sizing.size_160,

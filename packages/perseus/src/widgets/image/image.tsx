@@ -52,7 +52,6 @@ export const ImageComponent = (props: Props) => {
             )}
 
             {/* Image */}
-
             <AssetContext.Consumer>
                 {({setAssetStatus}) => (
                     <SvgImage
