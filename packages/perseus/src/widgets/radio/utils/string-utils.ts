@@ -120,7 +120,6 @@ interface GetA11yTextProps {
  * @param letter - The letter for the choice.
  * @param checked - Whether the choice is checked.
  * @param correct - Whether the choice is correct.
- * @param crossedOut - Whether the choice is crossed out.
  * @param showCorrectness - Whether the correctness is shown.
  * @param strings - The strings for the Radio widget.
  * @returns The a11y string for the Radio option.
@@ -133,7 +132,7 @@ export const getA11yText = ({
     strings,
 }: GetA11yTextProps): string => {
     // There are two pieces of metadata we want to add to each a11yText:
-    // whether the answer was checked/crossed-out/neither, and whether the
+    // whether the answer was checked, and whether the
     // answer is correct/incorrect/not-yet-revealed.
     //
     // Translation is tricky for cross-product situations like this, so
