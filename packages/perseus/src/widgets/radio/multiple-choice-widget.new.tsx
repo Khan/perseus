@@ -1,6 +1,7 @@
 import * as React from "react";
-import {forwardRef, useImperativeHandle} from "react";
+import {forwardRef, useImperativeHandle, useState} from "react";
 
+import {usePerseusI18n} from "../../components/i18n-context";
 import Renderer from "../../renderer";
 import {mockStrings} from "../../strings";
 import {getPromptJSON as _getPromptJSON} from "../../widget-ai-utils/radio/radio-ai-utils";
@@ -123,6 +124,8 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             }),
             [props],
         );
+        const [announcement, setAnnouncement] = useState<React.ReactNode[]>([]);
+        const i18nStrings = usePerseusI18n().strings;
 
         /**
          * Renders content that may contain nested widgets (currently only passage-refs).
@@ -216,7 +219,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             // new objects with all fields set to the default values. Otherwise, we
             // should clone the old `choiceStates` objects, in preparation to
             // mutate them.
-            const newChoiceStates = choiceStates
+            const newChoiceStates: ChoiceState[] = choiceStates
                 ? choiceStates.map((state) => ({...state}))
                 : choices.map(() => ({
                       selected: false,
@@ -236,6 +239,43 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
 
             onChange({choiceStates: newChoiceStates});
             trackInteraction();
+            announceChoiceChange(choiceStates || [], newChoiceStates);
+        };
+
+        const announceChoiceChange = (
+            originalState: ReadonlyArray<ChoiceState>,
+            newCheckedState: ReadonlyArray<ChoiceState>,
+        ) => {
+            let screenReaderMessage = "";
+
+            const originalCheckedCount = originalState.reduce(
+                (count, choice) => count + (choice.selected ? 1 : 0),
+                0,
+            );
+
+            const newCheckedCount = newCheckedState.reduce(
+                (count, choice) => count + (choice.selected ? 1 : 0),
+                0,
+            );
+
+            if (newCheckedCount === 0) {
+                screenReaderMessage =
+                    "There are no choices currently selected.";
+            } else if (newCheckedCount === 1 && originalCheckedCount === 0) {
+                screenReaderMessage = "There is 1 choice currently selected.";
+            } else if (newCheckedCount === 1 && originalCheckedCount === 1) {
+                screenReaderMessage =
+                    "Selection changed. The prior choice is no longer selected. The current choice is the only choice selected.";
+            }
+            let newMessages;
+            if (newCheckedCount === 1 && originalCheckedCount === 1) {
+                newMessages = announcement.concat([
+                    <p key={announcement.length}>{screenReaderMessage}</p>,
+                ]);
+            } else {
+                newMessages = [<p key={0}>{screenReaderMessage}</p>];
+            }
+            setAnnouncement(newMessages);
         };
 
         /**
@@ -331,14 +371,19 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
             apiOptions.readOnly || isReviewMode ? () => {} : handleChoiceChange;
 
         return (
-            <MultipleChoiceComponent
-                reviewMode={isReviewMode}
-                multipleSelect={multipleSelect}
-                countChoices={countChoices}
-                numCorrect={numCorrect}
-                choices={choicesProps}
-                onChoiceChange={onChoiceChange}
-            />
+            <>
+                <MultipleChoiceComponent
+                    reviewMode={isReviewMode}
+                    multipleSelect={multipleSelect}
+                    countChoices={countChoices}
+                    numCorrect={numCorrect}
+                    choices={choicesProps}
+                    onChoiceChange={onChoiceChange}
+                />
+                <div aria-live="polite">
+                    {announcement}
+                </div>
+            </>
         );
     },
 );
