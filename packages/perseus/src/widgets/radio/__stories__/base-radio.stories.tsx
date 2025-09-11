@@ -51,8 +51,9 @@ const defaultProps = {
     multipleSelect: false,
 
     // A callback indicating that this choice has changed. Its argument is
-    // an object with a `checked` key. It contains
-    // an array of boolean values, specifying the new checked value of each choice.
+    // an object with two keys: `checked` and `crossedOut`. Each contains
+    // an array of boolean values, specifying the new checked and
+    // crossed-out value of each choice.
     onChange: action("changed"),
 
     // Whether this widget was the most recently used widget in this

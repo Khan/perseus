@@ -199,6 +199,7 @@ class Radio extends React.Component<Props> implements Widget {
         if (this.props.static) {
             choiceStates = choices.map((choice) => ({
                 selected: !!choice.correct,
+                crossedOut: false,
                 readOnly: true,
                 highlighted: false,
                 rationaleShown: true,
@@ -208,6 +209,7 @@ class Radio extends React.Component<Props> implements Widget {
         } else if (this.props.showSolutions === "all") {
             choiceStates = choices.map(({correct}) => ({
                 selected: !!correct, // to draw the eye to the correct answer
+                crossedOut: false,
                 readOnly: true,
                 highlighted: false, // has no effect in this mode
                 rationaleShown: true,
@@ -219,6 +221,7 @@ class Radio extends React.Component<Props> implements Widget {
         } else {
             choiceStates = choices.map(() => ({
                 selected: false,
+                crossedOut: false,
                 readOnly: false,
                 highlighted: false,
                 rationaleShown: false,

@@ -27,9 +27,10 @@ function renderBaseRadio(props) {
         multipleSelect: false,
 
         // A callback indicating that this choice has changed. Its argument is
-        // an object with a `checked` key. It contains
-        // an array of boolean values, specifying the new checked value of each choice.
-        onChange: ({checked}) => {},
+        // an object with two keys: `checked` and `crossedOut`. Each contains
+        // an array of boolean values, specifying the new checked and
+        // crossed-out value of each choice.
+        onChange: ({checked, crossedOut}) => {},
 
         // Whether this widget was the most recently used widget in this
         // Renderer. Determines whether we'll auto-scroll the page upon
@@ -112,8 +113,9 @@ describe("base-radio", () => {
         let updatedValues = null;
         const onChangeHandler = (newValues: {
             checked: ReadonlyArray<boolean>;
+            crossedOut: ReadonlyArray<boolean>;
         }) => {
-            // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; }' is not assignable to type 'null'.
+            // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
             updatedValues = newValues;
         };
 
@@ -197,8 +199,9 @@ describe("base-radio", () => {
             let updatedValues = null;
             const onChangeHandler = (newValues: {
                 checked: ReadonlyArray<boolean>;
+                crossedOut: ReadonlyArray<boolean>;
             }) => {
-                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[];}' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
                 updatedValues = newValues;
             };
 
@@ -245,8 +248,9 @@ describe("base-radio", () => {
             let updatedValues = null;
             const onChangeHandler = (newValues: {
                 checked: ReadonlyArray<boolean>;
+                crossedOut: ReadonlyArray<boolean>;
             }) => {
-                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[];}' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
                 updatedValues = newValues;
             };
 
@@ -293,8 +297,9 @@ describe("base-radio", () => {
             let updatedValues = null;
             const onChangeHandler = (newValues: {
                 checked: ReadonlyArray<boolean>;
+                crossedOut: ReadonlyArray<boolean>;
             }) => {
-                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; }' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
                 updatedValues = newValues;
             };
 
@@ -345,8 +350,9 @@ describe("base-radio", () => {
             let updatedValues = null;
             const onChangeHandler = (newValues: {
                 checked: ReadonlyArray<boolean>;
+                crossedOut: ReadonlyArray<boolean>;
             }) => {
-                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; }' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
                 updatedValues = newValues;
             };
 
@@ -397,8 +403,9 @@ describe("base-radio", () => {
             let updatedValues = null;
             const onChangeHandler = (newValues: {
                 checked: ReadonlyArray<boolean>;
+                crossedOut: ReadonlyArray<boolean>;
             }) => {
-                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; }' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
                 updatedValues = newValues;
             };
 
@@ -448,8 +455,9 @@ describe("base-radio", () => {
             let updatedValues = null;
             const onChangeHandler = (newValues: {
                 checked: ReadonlyArray<boolean>;
+                crossedOut: ReadonlyArray<boolean>;
             }) => {
-                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; }' is not assignable to type 'null'.
+                // @ts-expect-error - TS2322 - Type '{ checked: readonly boolean[]; crossedOut: readonly boolean[]; }' is not assignable to type 'null'.
                 updatedValues = newValues;
             };
 

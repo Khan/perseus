@@ -4,6 +4,7 @@ export function generateChoice(options: Partial<ChoiceType>): ChoiceType {
     const base = {
         id: "",
         checked: false,
+        crossedOut: false,
         content: "",
         rationale: "",
         hasRationale: false,
