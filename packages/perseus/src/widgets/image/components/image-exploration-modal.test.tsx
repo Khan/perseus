@@ -6,7 +6,7 @@ import * as Dependencies from "../../../dependencies";
 import {ApiOptions} from "../../../perseus-api";
 import {earthMoonImage} from "../utils";
 
-import {ImageExplorationModal} from "./image-exploration-modal";
+import {ExploreImageModal} from "./explore-image-modal";
 
 import type {
     Interval,
@@ -46,7 +46,7 @@ describe("ImageExplorationModal", () => {
         // Arrange
 
         // act
-        render(<ImageExplorationModal {...defaultProps} />);
+        render(<ExploreImageModal {...defaultProps} />);
 
         // Assert
         expect(screen.getByRole("dialog")).toBeInTheDocument();
@@ -90,7 +90,7 @@ describe("ImageExplorationModal", () => {
             };
 
             // Act
-            render(<ImageExplorationModal {...props} />);
+            render(<ExploreImageModal {...props} />);
             const title = screen.getByRole("heading", {level: 1});
 
             // Assert
@@ -105,7 +105,7 @@ describe("ImageExplorationModal", () => {
         // Arrange
 
         // Act
-        render(<ImageExplorationModal {...defaultProps} />);
+        render(<ExploreImageModal {...defaultProps} />);
 
         // Assert
         const title = screen.getByRole("heading", {level: 1});
@@ -117,9 +117,7 @@ describe("ImageExplorationModal", () => {
         // Arrange
 
         // Act
-        render(
-            <ImageExplorationModal {...defaultProps} title="widget title" />,
-        );
+        render(<ExploreImageModal {...defaultProps} title="widget title" />);
 
         // Assert
         const title = screen.getByRole("heading", {level: 1});
@@ -132,7 +130,7 @@ describe("ImageExplorationModal", () => {
 
         // Act
         render(
-            <ImageExplorationModal
+            <ExploreImageModal
                 {...defaultProps}
                 backgroundImage={earthMoonImage}
                 caption="widget caption"
@@ -148,7 +146,7 @@ describe("ImageExplorationModal", () => {
 
         // Act
         render(
-            <ImageExplorationModal
+            <ExploreImageModal
                 {...defaultProps}
                 backgroundImage={earthMoonImage}
                 longDescription="widget long description"

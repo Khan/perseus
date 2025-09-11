@@ -7,7 +7,7 @@ import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
 
 import ExploreImageButton from "./explore-image-button";
-import {ImageExplorationModal} from "./image-exploration-modal";
+import {ExploreImageModal} from "./explore-image-modal";
 
 import type {APIOptions} from "../../../types";
 import type {
@@ -50,7 +50,7 @@ export const ImageDescriptionAndCaption = (props: Props) => {
                 // TODO(LEMS-3439): Remove this `exploreButtonContainer` div
                 // in order to show the explore button on mobile.
                 <div className={styles.exploreButtonContainer}>
-                    <ModalLauncher modal={ImageExplorationModal(props)}>
+                    <ModalLauncher modal={ExploreImageModal(props)}>
                         {({openModal}) => (
                             <ExploreImageButton
                                 hasCaption={!!caption}

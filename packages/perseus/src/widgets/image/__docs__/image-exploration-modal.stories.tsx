@@ -1,16 +1,16 @@
 import * as React from "react";
 
 import {ApiOptions} from "../../../perseus-api";
-import {ImageExplorationModal} from "../components/image-exploration-modal";
+import {ExploreImageModal} from "../components/explore-image-modal";
 import {earthMoonImage, frescoImage} from "../utils";
 
 import styles from "./image-stories.module.css";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
-const meta: Meta<typeof ImageExplorationModal> = {
+const meta: Meta<typeof ExploreImageModal> = {
     title: "Widgets/Image/Widget Internal Components/ImageExplorationModal",
-    component: ImageExplorationModal,
+    component: ExploreImageModal,
     decorators: [
         (Story) => (
             <div className={styles.container}>
@@ -21,7 +21,7 @@ const meta: Meta<typeof ImageExplorationModal> = {
 };
 export default meta;
 
-type Story = StoryObj<typeof ImageExplorationModal>;
+type Story = StoryObj<typeof ExploreImageModal>;
 
 export const LargeImage: Story = {
     args: {

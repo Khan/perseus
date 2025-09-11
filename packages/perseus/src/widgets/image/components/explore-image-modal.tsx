@@ -15,7 +15,7 @@ type Props = ImageDescriptionProps;
 
 const MODAL_HEIGHT = 568;
 
-export const ImageExplorationModal = (props: Props) => {
+export const ExploreImageModal = (props: Props) => {
     const context = React.useContext(PerseusI18nContext);
     return (
         <div
