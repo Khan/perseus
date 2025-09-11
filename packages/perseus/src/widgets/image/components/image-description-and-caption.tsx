@@ -48,7 +48,7 @@ export const ImageDescriptionAndCaption = (props: Props) => {
     return (
         <div className={styles.descriptionAndCaptionContainer}>
             {/* Description */}
-            {longDescription && imageUpgradeFF && (
+            {imageUpgradeFF && longDescription && (
                 // TODO(LEMS-3439): Remove this `exploreButtonContainer` div
                 // in order to show the explore button on mobile.
                 <div className={styles.exploreButtonContainer}>
