@@ -17,6 +17,22 @@ const MODAL_HEIGHT = 568;
 
 export const ExploreImageModal = (props: Props) => {
     const context = React.useContext(PerseusI18nContext);
+
+    const titleText = props.title || context.strings.imageAlternativeTitle;
+    const title = (
+        <h1
+            className={`perseus-image-modal-title ${styles.modalTitleContainer}`}
+        >
+            {/* Use Renderer so that the title can support markdown and TeX. */}
+            <Renderer
+                content={titleText}
+                apiOptions={props.apiOptions}
+                linterContext={props.linterContext}
+                strings={context.strings}
+            />
+        </h1>
+    );
+
     return (
         <div
             // We need to manually add the `framework-perseus` class so that
@@ -25,23 +41,7 @@ export const ExploreImageModal = (props: Props) => {
             className={`framework-perseus ${styles.modalContainer}`}
         >
             <FlexibleDialog
-                title={
-                    <h1
-                        className={`perseus-image-modal-title ${styles.modalTitleContainer}`}
-                    >
-                        {/* Use Renderer so that the title can support markdown and TeX. */}
-                        <Renderer
-                            content={
-                                props.title
-                                    ? props.title
-                                    : context.strings.imageAlternativeTitle
-                            }
-                            apiOptions={props.apiOptions}
-                            linterContext={props.linterContext}
-                            strings={context.strings}
-                        />
-                    </h1>
-                }
+                title={title}
                 content={<ImageExplorationModalContent {...props} />}
                 styles={{
                     root: wbStyles.root,
