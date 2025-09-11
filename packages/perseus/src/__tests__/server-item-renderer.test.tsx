@@ -1,3 +1,10 @@
+import {
+    generateTestPerseusItem,
+    generateTestPerseusRenderer,
+    splitPerseusItem,
+    type PerseusItem,
+} from "@khanacademy/perseus-core";
+import {scorePerseusItem} from "@khanacademy/perseus-score";
 import {RenderStateRoot} from "@khanacademy/wonder-blocks-core";
 import {within, render, screen, act} from "@testing-library/react";
 import {userEvent as userEventLib} from "@testing-library/user-event";
@@ -26,7 +33,6 @@ import {renderQuestion} from "./test-utils";
 
 import type {MockAssetLoadingWidget} from "../widgets/mock-widgets/mock-asset-loading-widget";
 import type {KeypadAPI} from "@khanacademy/math-input";
-import type {PerseusItem} from "@khanacademy/perseus-core";
 import type {UserEvent} from "@testing-library/user-event";
 
 describe("server item renderer", () => {
@@ -516,6 +522,135 @@ describe("server item renderer", () => {
             expect(
                 screen.getByText("Don't use level-1 headings", {exact: false}),
             ).toBeInTheDocument();
+        });
+    });
+
+    describe("answerless to answerful", () => {
+        function getItemWithMultipleChoice(): PerseusItem {
+            const question = generateTestPerseusRenderer({
+                content: "[[☃ radio 1]]",
+                widgets: {
+                    "radio 1": {
+                        type: "radio",
+                        version: {
+                            major: 3,
+                            minor: 0,
+                        },
+                        options: {
+                            multipleSelect: true,
+                            numCorrect: 2,
+                            choices: [
+                                {
+                                    rationale: "Rationale 1",
+                                    content: "Wrong 1",
+                                    correct: false,
+                                    id: "10-10-10-10-10",
+                                },
+                                {
+                                    rationale: "Rationale 2",
+                                    content: "Right 1",
+                                    correct: true,
+                                    id: "11-11-11-11-11",
+                                },
+                                {
+                                    rationale: "Rationale 3",
+                                    content: "Wrong 2",
+                                    correct: false,
+                                    id: "12-12-12-12-12",
+                                },
+                                {
+                                    rationale: "Rationale 4",
+                                    content: "Right 2",
+                                    correct: true,
+                                    id: "13-13-13-13-13",
+                                },
+                            ],
+                        },
+                    },
+                },
+            });
+
+            return generateTestPerseusItem({question});
+        }
+
+        it("can transition between answerless and answerful data correctly", async () => {
+            const answerful = getItemWithMultipleChoice();
+            const answerless = splitPerseusItem(answerful);
+
+            // render starting with answerless data
+            const {renderer, rerender} = renderQuestion(answerless);
+
+            // select the right answer
+            await userEvent.click(
+                screen.getByRole("checkbox", {name: "(Choice B) Right 1"}),
+            );
+            await userEvent.click(
+                screen.getByRole("checkbox", {name: "(Choice D) Right 2"}),
+            );
+
+            // assert choices are in the correct state
+            expect(
+                screen.getByRole("checkbox", {
+                    name: "(Choice A) Wrong 1",
+                }),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("checkbox", {
+                    name: "(Choice B, Checked) Right 1",
+                }),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("checkbox", {
+                    name: "(Choice C) Wrong 2",
+                }),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("checkbox", {
+                    name: "(Choice D, Checked) Right 2",
+                }),
+            ).toBeInTheDocument();
+
+            // score user input
+            const userInput = renderer.getUserInput();
+            const score = scorePerseusItem(answerful.question, userInput, "en");
+            expect(score).toEqual({
+                type: "points",
+                total: 1,
+                earned: 1,
+                message: null,
+            });
+
+            // rerender with answerful data post-attempt
+            rerender(answerful, undefined, {score, showSolutions: "all"});
+
+            // make sure we're showing the answers as expected
+            expect(
+                screen.getByRole("checkbox", {
+                    name: "(Choice A, Incorrect) Wrong 1",
+                }),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("checkbox", {
+                    name: "(Choice B, Checked, Correct) Right 1",
+                }),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("checkbox", {
+                    name: "(Choice C, Incorrect) Wrong 2",
+                }),
+            ).toBeInTheDocument();
+            expect(
+                screen.getByRole("checkbox", {
+                    name: "(Choice D, Checked, Correct) Right 2",
+                }),
+            ).toBeInTheDocument();
+
+            // make sure we're showing rationales
+            for (let i = 0; i < 4; i++) {
+                expect(
+                    screen.getByText(`Rationale ${i + 1}`),
+                ).toBeInTheDocument();
+            }
         });
     });
 });
