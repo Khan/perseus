@@ -364,6 +364,7 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                     choices={choicesProps}
                     onChoiceChange={onChoiceChange}
                 />
+                {/* TODO: Determine how to hide this element - use WB Announcer, or implement own solution */}
                 <div aria-live="polite">
                     {announcement}
                 </div>
