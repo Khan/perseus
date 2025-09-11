@@ -29,7 +29,6 @@ const ChoiceDefaults = {
     showRationale: false,
     showCorrectness: false,
     multipleSelect: false,
-    crossedOut: false,
     previouslyAnswered: false,
     apiOptions: {},
     onChange: action("changed"),

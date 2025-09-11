@@ -8,7 +8,6 @@ function renderChoiceIcon(options) {
     const defaultOptions = {
         pos: 0,
         checked: false,
-        crossedOut: false,
         focused: false,
         hovered: false,
         pressed: false,

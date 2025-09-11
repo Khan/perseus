@@ -15,13 +15,11 @@ function renderOptionStatus(
           }
         | {
               correct: boolean;
-              crossedOut: boolean;
           },
 ) {
     const defaultOptions = {
         correct: false,
         checked: false,
-        crossedOut: false,
         previouslyAnswered: false,
         reviewMode: true,
     } as const;
