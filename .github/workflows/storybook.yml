@@ -38,7 +38,7 @@ jobs:
                   node-version: ${{ matrix.node-version }}
 
             - name: Publish to Chromatic for visual testing
-              uses: chromaui/action@v11
+              uses: chromaui/action@v13
               with:
                   token: ${{ secrets.GITHUB_TOKEN }}
                   projectToken: ${{ secrets.CHROMATIC_APP_CODE }}
