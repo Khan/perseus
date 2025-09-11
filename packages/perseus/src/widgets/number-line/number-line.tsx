@@ -194,17 +194,7 @@ const TickMarks: any = (Graphie as any).createSimpleClass((graphie, props) => {
  * The type of `this.props` inside the NumberLine widget.
  */
 type Props = WidgetProps<
-    {
-        range: number[];
-        labelRange: Array<number | null>;
-        labelStyle: string;
-        labelTicks: boolean;
-        divisionRange: number[];
-        snapDivisions: number;
-        isTickCtrl: boolean;
-        isInequality: boolean;
-        showTooltips?: boolean;
-    },
+    PerseusNumberLineWidgetOptions,
     PerseusNumberLineUserInput
 >;
 
