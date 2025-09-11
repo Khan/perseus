@@ -59,6 +59,7 @@ const MultipleChoiceComponent = ({
 }: MultipleChoiceComponentProps): React.ReactElement => {
     const {strings} = usePerseusI18n();
     const legendId = useId();
+    const listId = useId();
 
     const instructions = getInstructionsText({
         multipleSelect,
@@ -70,6 +71,10 @@ const MultipleChoiceComponent = ({
     const choiceListClasses = reviewMode
         ? `${styles.choiceList} ${styles.reviewAnswers}`
         : styles.choiceList;
+
+    const additionalInstructions = !multipleSelect
+        ? "If more than one choice is selected, the last one will be used,"
+        : undefined;
 
     const scrollId = useId() + "-scroll";
 
@@ -88,7 +93,9 @@ const MultipleChoiceComponent = ({
                 </legend>
                 <ScrollableView id={scrollId} overflowX="auto">
                     <ul
-                        aria-labelledby={legendId}
+                        id={listId}
+                        aria-label={additionalInstructions}
+                        aria-labelledby={`${legendId} ${listId}`}
                         className={choiceListClasses}
                     >
                         <ChoiceListItems

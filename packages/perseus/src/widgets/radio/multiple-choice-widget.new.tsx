@@ -258,17 +258,16 @@ const MultipleChoiceWidget = forwardRef<Widget, Props>(
                 0,
             );
 
+            // TODO: Localize strings
             if (newCheckedCount === 0) {
-                screenReaderMessage =
-                    "There are no choices currently selected.";
-            } else if (newCheckedCount === 1 && originalCheckedCount === 0) {
-                screenReaderMessage = "There is 1 choice currently selected.";
-            } else if (newCheckedCount === 1 && originalCheckedCount === 1) {
-                screenReaderMessage =
-                    "Selection changed. The prior choice is no longer selected. The current choice is the only choice selected.";
+                screenReaderMessage = "There are no choices selected.";
+            } else if (newCheckedCount === 1) {
+                screenReaderMessage = "There is 1 choice selected.";
+            } else if (newCheckedCount > 1) {
+                screenReaderMessage = `There are ${newCheckedCount} choices selected.`;
             }
             let newMessages;
-            if (newCheckedCount === 1 && originalCheckedCount === 1) {
+            if (newCheckedCount === originalCheckedCount) {
                 newMessages = announcement.concat([
                     <p key={announcement.length}>{screenReaderMessage}</p>,
                 ]);
