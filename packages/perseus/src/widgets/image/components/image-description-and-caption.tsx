@@ -1,14 +1,12 @@
 import {isFeatureOn} from "@khanacademy/perseus-core";
-import Button from "@khanacademy/wonder-blocks-button";
-import IconButton from "@khanacademy/wonder-blocks-icon-button";
 import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
-import infoIconBold from "@phosphor-icons/core/bold/info-bold.svg";
 import * as React from "react";
 
 import {PerseusI18nContext} from "../../../components/i18n-context";
 import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
 
+import ExploreImageButton from "./explore-image-button";
 import {ImageExplorationModal} from "./image-exploration-modal";
 
 import type {APIOptions} from "../../../types";
@@ -84,29 +82,3 @@ export const ImageDescriptionAndCaption = (props: Props) => {
         </div>
     );
 };
-
-function ExploreImageButton({
-    hasCaption,
-    onClick,
-}: {
-    hasCaption: boolean;
-    onClick: () => void;
-}) {
-    const context = React.useContext(PerseusI18nContext);
-    if (!hasCaption) {
-        return (
-            <Button kind="secondary" startIcon={infoIconBold} onClick={onClick}>
-                {context.strings.imageExploreButton}
-            </Button>
-        );
-    }
-
-    return (
-        <IconButton
-            aria-label={context.strings.imageExploreButton}
-            icon={infoIconBold}
-            kind="secondary"
-            onClick={onClick}
-        />
-    );
-}
