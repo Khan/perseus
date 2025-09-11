@@ -10,29 +10,11 @@ import Renderer from "../../renderer";
 
 import styles from "./image-widget.module.css";
 
-import type {APIOptions} from "../../types";
-import type {
-    Interval,
-    PerseusImageBackground,
-    PerseusImageLabel,
-    Size,
-} from "@khanacademy/perseus-core";
-import type {LinterContextProps} from "@khanacademy/perseus-linter";
+import type {Props as ImageDescriptionProps} from "./image-description-and-caption";
+
+type Props = ImageDescriptionProps;
 
 const MODAL_HEIGHT = 568;
-
-interface Props {
-    backgroundImage: PerseusImageBackground;
-    title: string;
-    caption: string;
-    alt: string;
-    longDescription: string;
-    box: Size;
-    labels: Array<PerseusImageLabel>;
-    range: [Interval, Interval];
-    linterContext: LinterContextProps;
-    apiOptions: APIOptions;
-}
 
 export const ImageExplorationModal = (props: Props) => {
     const context = React.useContext(PerseusI18nContext);
