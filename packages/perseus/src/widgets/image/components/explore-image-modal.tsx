@@ -1,19 +1,16 @@
 import {FlexibleDialog} from "@khanacademy/wonder-blocks-modal";
 import {sizing} from "@khanacademy/wonder-blocks-tokens";
-import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import React from "react";
 
-import AssetContext from "../../../asset-context";
-import {SvgImage} from "../../../components";
 import {PerseusI18nContext} from "../../../components/i18n-context";
 import Renderer from "../../../renderer";
 import styles from "../image-widget.module.css";
 
+import ExploreImageModalContent from "./explore-image-modal-content";
+
 import type {Props as ImageDescriptionProps} from "./image-description-and-caption";
 
 type Props = ImageDescriptionProps;
-
-const MODAL_HEIGHT = 568;
 
 export const ExploreImageModal = (props: Props) => {
     const context = React.useContext(PerseusI18nContext);
@@ -42,7 +39,7 @@ export const ExploreImageModal = (props: Props) => {
         >
             <FlexibleDialog
                 title={title}
-                content={<ImageExplorationModalContent {...props} />}
+                content={<ExploreImageModalContent {...props} />}
                 styles={{
                     root: wbStyles.root,
                 }}
@@ -51,97 +48,9 @@ export const ExploreImageModal = (props: Props) => {
     );
 };
 
-const ImageExplorationModalContent = ({
-    backgroundImage,
-    caption,
-    alt,
-    longDescription,
-    linterContext,
-    apiOptions,
-    box,
-    labels,
-    range,
-}: Props) => {
-    const context = React.useContext(PerseusI18nContext);
-
-    if (
-        !backgroundImage.height ||
-        !backgroundImage.width ||
-        !backgroundImage.url
-    ) {
-        return null;
-    }
-
-    // Contain the image to the modal dimensions:
-    // - Shrink image to the modal height if it's taller than the modal.
-    // - Keep image its original size if it's shorter than the modal.
-    // - Maintain the image's aspect ratio.
-    const modalImageHeight = Math.min(MODAL_HEIGHT, backgroundImage.height);
-    // bgWidth / bgHeight = X / modalImageHeight
-    // => X = (bgWidth / bgHeight) * modalImageHeight
-    const width =
-        (backgroundImage.width / backgroundImage.height) * modalImageHeight;
-
-    return (
-        <div className={styles.modalPanelContainer}>
-            <div className={styles.modalImageContainer}>
-                {/* Need to use SvgImage in order to load Graphie images */}
-                <AssetContext.Consumer>
-                    {({setAssetStatus}) => (
-                        <SvgImage
-                            src={backgroundImage.url!}
-                            alt={caption === alt ? "" : alt}
-                            width={width}
-                            height={modalImageHeight}
-                            preloader={apiOptions.imagePreloader}
-                            extraGraphie={{
-                                box: box,
-                                range: range,
-                                labels: labels ?? [],
-                            }}
-                            zoomToFullSizeOnMobile={apiOptions.isMobile}
-                            constrainHeight={apiOptions.isMobile}
-                            allowFullBleed={apiOptions.isMobile}
-                            setAssetStatus={setAssetStatus}
-                        />
-                    )}
-                </AssetContext.Consumer>
-            </div>
-            <div
-                className={`perseus-image-modal-description ${styles.modalDescriptionContainer}`}
-            >
-                {caption && (
-                    <div className={styles.modalCaptionContainer}>
-                        {/* Use Renderer so that the caption can support markdown and TeX. */}
-                        <Renderer
-                            content={caption}
-                            apiOptions={apiOptions}
-                            linterContext={linterContext}
-                            strings={context.strings}
-                        />
-                    </div>
-                )}
-                <HeadingMedium tag="h2" style={wbStyles.descriptionHeading}>
-                    {context.strings.imageDescriptionLabel}
-                </HeadingMedium>
-                {/* Use Renderer so that the description can support markdown and TeX. */}
-                <Renderer
-                    content={longDescription}
-                    apiOptions={apiOptions}
-                    linterContext={linterContext}
-                    strings={context.strings}
-                />
-            </div>
-        </div>
-    );
-};
-
 const wbStyles = {
     root: {
         borderRadius: sizing.size_120,
         maxWidth: "100%",
-    },
-    descriptionHeading: {
-        marginBlockEnd: sizing.size_160,
     },
 };
