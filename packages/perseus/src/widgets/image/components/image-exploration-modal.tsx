@@ -3,12 +3,11 @@ import {sizing} from "@khanacademy/wonder-blocks-tokens";
 import {HeadingMedium} from "@khanacademy/wonder-blocks-typography";
 import React from "react";
 
-import AssetContext from "../../asset-context";
-import {SvgImage} from "../../components";
-import {PerseusI18nContext} from "../../components/i18n-context";
-import Renderer from "../../renderer";
-
-import styles from "./image-widget.module.css";
+import AssetContext from "../../../asset-context";
+import {SvgImage} from "../../../components";
+import {PerseusI18nContext} from "../../../components/i18n-context";
+import Renderer from "../../../renderer";
+import styles from "../image-widget.module.css";
 
 import type {Props as ImageDescriptionProps} from "./image-description-and-caption";
 

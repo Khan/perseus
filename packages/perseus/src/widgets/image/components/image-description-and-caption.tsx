@@ -5,13 +5,13 @@ import {ModalLauncher} from "@khanacademy/wonder-blocks-modal";
 import infoIconBold from "@phosphor-icons/core/bold/info-bold.svg";
 import * as React from "react";
 
-import {PerseusI18nContext} from "../../components/i18n-context";
-import Renderer from "../../renderer";
+import {PerseusI18nContext} from "../../../components/i18n-context";
+import Renderer from "../../../renderer";
+import styles from "../image-widget.module.css";
 
 import {ImageExplorationModal} from "./image-exploration-modal";
-import styles from "./image-widget.module.css";
 
-import type {APIOptions} from "../../types";
+import type {APIOptions} from "../../../types";
 import type {
     Interval,
     PerseusImageBackground,

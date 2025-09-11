@@ -1,7 +1,7 @@
 import * as React from "react";
 
 import {ApiOptions} from "../../../perseus-api";
-import {ImageExplorationModal} from "../image-exploration-modal";
+import {ImageExplorationModal} from "../components/image-exploration-modal";
 import {earthMoonImage, frescoImage} from "../utils";
 
 import styles from "./image-stories.module.css";

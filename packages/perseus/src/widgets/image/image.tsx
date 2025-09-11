@@ -5,7 +5,7 @@ import {PerseusI18nContext} from "../../components/i18n-context";
 import SvgImage from "../../components/svg-image";
 import Renderer from "../../renderer";
 
-import {ImageDescriptionAndCaption} from "./image-description-and-caption";
+import {ImageDescriptionAndCaption} from "./components/image-description-and-caption";
 import styles from "./image-widget.module.css";
 
 import type {Props} from "./image.class";
