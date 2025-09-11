@@ -31,7 +31,7 @@ export const question1: PerseusRenderer = {
     },
 };
 
-export const question2: PerseusRenderer = {
+export const tickCtrl: PerseusRenderer = {
     content:
         "$E=2.5$\n\n**Move the dot to $-E$ on the number line.**\n\n\n[[\u2603 number-line 1]]",
     images: {},
@@ -56,7 +56,7 @@ export const question2: PerseusRenderer = {
                 correctX: 0.5,
                 initialX: null,
                 showTooltips: false,
-                isTickCtrl: true,
+                isTickCtrl: true, // <- important
             },
         },
     },

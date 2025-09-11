@@ -290,7 +290,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
         numDivisions,
         cb,
     ) => {
-        const divRange = this.props.divisionRange.slice();
         const width = this.props.range[1] - this.props.range[0];
 
         // Don't allow a fraction for the number of divisions
@@ -314,13 +313,6 @@ class NumberLine extends React.Component<Props, State> implements Widget {
                     numDivisionsEmpty: false,
                 },
                 () => {
-                    // Not sure this is still needed
-                    this.props.onChange(
-                        {
-                            divisionRange: divRange,
-                        },
-                        cb,
-                    );
                     this.props.handleUserInput(
                         {
                             ...this.props.userInput,

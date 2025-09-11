@@ -2,7 +2,7 @@ import {generateTestPerseusItem} from "@khanacademy/perseus-core";
 
 import {ServerItemRendererWithDebugUI} from "../../../../../testing/server-item-renderer-with-debug-ui";
 
-import {inequality, question1, question2} from "./number-line.testdata";
+import {inequality, question1, tickCtrl} from "./number-line.testdata";
 
 import type {Meta, StoryObj} from "@storybook/react-vite";
 
@@ -32,7 +32,7 @@ export const BasicQuestion: Story = {
 
 export const ShowTickController: Story = {
     args: {
-        item: generateTestPerseusItem({question: question2}),
+        item: generateTestPerseusItem({question: tickCtrl}),
     },
 };
 
