@@ -31,9 +31,8 @@ export const question1: PerseusRenderer = {
     },
 };
 
-export const question2: PerseusRenderer = {
-    content:
-        "$E=2.5$\n\n**Move the dot to $-E$ on the number line.**\n\n\n[[\u2603 number-line 1]]",
+export const tickCtrl: PerseusRenderer = {
+    content: "Move the number to 2\n\n\n[[\u2603 number-line 1]]",
     images: {},
     widgets: {
         "number-line 1": {
@@ -43,20 +42,20 @@ export const question2: PerseusRenderer = {
             graded: true,
             options: {
                 static: false,
-                range: [0, 1],
+                range: [0, 10],
                 labelRange: [null, null],
                 labelStyle: "improper",
                 labelTicks: false,
                 isInequality: false,
-                divisionRange: [1, 12],
+                divisionRange: [1, 10],
                 numDivisions: 1,
                 snapDivisions: 1,
                 tickStep: null,
                 correctRel: "eq",
-                correctX: 0.5,
+                correctX: 2,
                 initialX: null,
                 showTooltips: false,
-                isTickCtrl: true,
+                isTickCtrl: true, // <- important
             },
         },
     },
